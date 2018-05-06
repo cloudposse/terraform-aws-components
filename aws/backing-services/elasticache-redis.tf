@@ -1,0 +1,45 @@
+variable "REDIS_INSTANCE_TYPE" {
+  type        = "string"
+  default     = "cache.t2.medium"
+  description = "EC2 instance type for Redis cluster"
+}
+
+variable "REDIS_CLUSTER_SIZE" {
+  type        = "string"
+  default     = "2"
+  description = "Redis cluster size"
+}
+
+module "elasticache_redis" {
+  source                       = "git::https://github.com/cloudposse/terraform-aws-elasticache-redis.git?ref=tags/0.4.3"
+  namespace                    = "${module.identity.namespace}"
+  stage                        = "${module.identity.stage}"
+  name                         = "redis"
+  zone_id                      = "${module.identity.zone_id}"
+  security_groups              = ["${module.kops_metadata.nodes_security_group_id}"]
+  vpc_id                       = "${module.vpc.vpc_id}"
+  subnets                      = ["${module.subnets.private_subnet_ids}"]
+  maintenance_window           = "sun:03:00-sun:04:00"
+  cluster_size                 = "${var.REDIS_CLUSTER_SIZE}"
+  instance_type                = "${var.REDIS_INSTANCE_TYPE}"
+  engine_version               = "3.2.4"
+  family                       = "redis3.2"
+  port                         = "6379"
+  alarm_cpu_threshold_percent  = "75"
+  alarm_memory_threshold_bytes = "10000000"
+  apply_immediately            = "true"
+  availability_zones           = ["${module.identity.availability_zones}"]
+  automatic_failover           = "false"
+}
+
+output "elasticache_redis_id" {
+  value = "${module.elasticache_redis.id}"
+}
+
+output "elasticache_redis_security_group_id" {
+  value = "${module.elasticache_redis.security_group_id}"
+}
+
+output "elasticache_redis_host" {
+  value = "${module.elasticache_redis.host}"
+}
