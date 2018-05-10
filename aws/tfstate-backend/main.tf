@@ -35,7 +35,7 @@ variable "delimiter" {
 
 variable "attributes" {
   type        = "list"
-  default     = []
+  default     = ["state"]
   description = "Additional attributes (e.g. `1`)"
 }
 
@@ -58,6 +58,5 @@ module "tfstate_backend" {
   stage      = "${var.stage}"
   attributes = "${var.attributes}"
   tags       = "${var.tags}"
-
-  region = "${var.region}"
+  region     = "${var.region}"
 }
