@@ -24,7 +24,7 @@ variable "stage" {
 variable "name" {
   type        = "string"
   description = "Application or solution name (e.g. `app`)"
-  value       = "terraform"
+  default     = "terraform"
 }
 
 variable "delimiter" {
