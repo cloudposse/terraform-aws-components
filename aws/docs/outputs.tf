@@ -60,5 +60,5 @@ output "docs_cloudfront_hosted_zone_id" {
 }
 
 output "docs_cloudfront_origin_access_identity_path" {
-  value = "${module.cdn.cf_cloudfront_access_identity_path}"
+  value = "${module.cdn.cf_origin_access_identity}"
 }
