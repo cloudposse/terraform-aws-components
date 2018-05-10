@@ -36,7 +36,7 @@ module "docs_user" {
 }
 
 module "origin" {
-  source               = "git::https://github.com/cloudposse/terraform-aws-s3-website.git?ref=tags/0.5.1"
+  source               = "git::https://github.com/cloudposse/terraform-aws-s3-website.git?ref=tags/0.5.2"
   namespace            = "${module.identity.namespace}"
   stage                = "${module.identity.stage}"
   name                 = "${local.name}"
@@ -71,7 +71,7 @@ module "cdn" {
   stage                  = "${module.identity.stage}"
   name                   = "${local.name}"
   aliases                = ["${local.cdn_domain}"]
-  origin_domain_name     = "${module.origin.s3_bucket_domain_name}"
+  origin_domain_name     = "${module.origin.s3_bucket_website_endpoint}"
   origin_protocol_policy = "http-only"
   viewer_protocol_policy = "allow-all"
   parent_zone_name       = "${var.domain_name}"

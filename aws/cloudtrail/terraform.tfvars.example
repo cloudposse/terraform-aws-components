@@ -1,2 +1,2 @@
-namespace=cp
-stage=staging
+namespace="cp"
+stage="staging"
