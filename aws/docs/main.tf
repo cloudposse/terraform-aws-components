@@ -19,8 +19,9 @@ provider "aws" {
 }
 
 locals {
-  name       = "docs"
-  cdn_domain = "docs.${var.domain_name}"
+  name          = "docs"
+  cdn_domain    = "docs.${var.domain_name}"
+  docs_user_arn = "arn:aws:iam::${module.identity.account_id}:user/${module.identity.namespace}-${module.identity.stage}-${local.name}"
 }
 
 module "identity" {
@@ -51,7 +52,7 @@ module "origin" {
   error_document       = "404.html"
 
   deployment_arns = {
-    "${module.docs_user.user_arn}" = [""]
+    "${local.docs_user_arn}" = [""]
   }
 
   deployment_actions = [
