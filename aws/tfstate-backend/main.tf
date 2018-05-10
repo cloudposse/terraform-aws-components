@@ -48,7 +48,7 @@ variable "tags" {
 variable "region" {
   type        = "string"
   description = "AWS Region the S3 bucket should reside in"
-  default     = "us-east-1"
+  default     = "us-west-2"
 }
 
 module "tfstate_backend" {
