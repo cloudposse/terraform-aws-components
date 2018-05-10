@@ -76,7 +76,7 @@ module "cdn" {
   viewer_protocol_policy = "allow-all"
   parent_zone_name       = "${var.domain_name}"
   forward_cookies        = "none"
-  forward_headers        = ["Host", "Origin", "Access-Control-Request-Headers", "Access-Control-Request-Method"]
+  forward_headers        = ["Origin", "Access-Control-Request-Headers", "Access-Control-Request-Method"]
   default_ttl            = 60
   min_ttl                = 0
   max_ttl                = 86400
