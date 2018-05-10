@@ -13,7 +13,7 @@ provider "aws" {
 }
 
 module "identity" {
-  source = "git::git@github.com:cloudposse/terraform-aws-account-metadata.git?ref=tags/0.1.0"
+  source = "git::git@github.com:cloudposse/terraform-aws-account-metadata.git?ref=init"
 }
 
 module "kops_metadata" {
