@@ -31,6 +31,22 @@ output "docs_s3_bucket_domain_name" {
   value = "${module.origin.s3_bucket_domain_name}"
 }
 
+output "docs_s3_bucket_arn" {
+  value = "${module.origin.s3_bucket_arn}"
+}
+
+output "docs_s3_bucket_website_endpoint" {
+  value = "${module.origin.s3_bucket_website_endpoint}"
+}
+
+output "docs_s3_bucket_website_domain" {
+  value = "${module.origin.s3_bucket_website_domain}"
+}
+
+output "docs_s3_bucket_hosted_zone_id" {
+  value = "${module.origin.s3_bucket_hosted_zone_id}"
+}
+
 output "docs_cloudfront_id" {
   value = "${module.cdn.cf_id}"
 }
