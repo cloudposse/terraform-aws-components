@@ -7,6 +7,13 @@ terraform {
 variable "aws_assume_role_arn" {}
 
 provider "aws" {
+  #  CloudFront certs must be created in the `aws-east-1` region, even if your origin is in a different one
+  # This is a CloudFront limitation
+  # https://christian.legnitto.com/blog/2017/10/11/terraform-and-cloudfront-gotchas/
+  # https://medium.com/modern-stack/5-minute-static-ssl-website-in-aws-with-terraform-76819a12d412
+  # https://medium.com/runatlantis/hosting-our-static-site-over-ssl-with-s3-acm-cloudfront-and-terraform-513b799aec0f
+  region = "us-east-1"
+
   assume_role {
     role_arn = "${var.aws_assume_role_arn}"
   }

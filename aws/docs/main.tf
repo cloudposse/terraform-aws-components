@@ -18,6 +18,23 @@ provider "aws" {
   }
 }
 
+provider "aws" {
+  alias  = "virginia"
+  region = "us-east-1"
+
+  assume_role {
+    role_arn = "${var.aws_assume_role_arn}"
+  }
+}
+
+# https://www.terraform.io/docs/providers/aws/d/acm_certificate.html
+data "aws_acm_certificate" "acm_cloudfront_certificate" {
+  provider = "aws.virginia"
+  domain   = "${var.domain_name}"
+  statuses = ["ISSUED"]
+  types    = ["AMAZON_ISSUED"]
+}
+
 locals {
   name          = "docs"
   cdn_domain    = "docs.${var.domain_name}"
@@ -85,4 +102,5 @@ module "cdn" {
   allowed_methods        = ["GET", "HEAD", "OPTIONS"]
   price_class            = "PriceClass_All"
   default_root_object    = "index.html"
+  acm_certificate_arn    = "${data.aws_acm_certificate.acm_cloudfront_certificate.arn}"
 }
