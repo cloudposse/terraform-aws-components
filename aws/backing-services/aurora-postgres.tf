@@ -17,6 +17,8 @@ variable "POSTGRES_DB_NAME" {
   description = "Postgres database name"
 }
 
+# db.r4.large is the smallest instance type supported by Aurora Postgres
+# https://aws.amazon.com/rds/aurora/pricing
 variable "POSTGRES_INSTANCE_TYPE" {
   type        = "string"
   default     = "db.r4.large"
@@ -29,10 +31,14 @@ variable "POSTGRES_CLUSTER_SIZE" {
   description = "Postgres cluster size"
 }
 
-# db.r4.large is the smallest instance type supported by Aurora Postgres
-# https://aws.amazon.com/rds/aurora/pricing
+variable "POSTGRES_CLUSTER_ENABLED" {
+  type        = "string"
+  default     = "true"
+  description = "Set to false to prevent the module from creating any resources"
+}
+
 module "aurora_postgres" {
-  source             = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=tags/0.3.4"
+  source             = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=tags/0.3.5"
   namespace          = "${module.identity.namespace}"
   stage              = "${module.identity.stage}"
   name               = "postgres"
@@ -49,6 +55,7 @@ module "aurora_postgres" {
   subnets            = ["${module.subnets.private_subnet_ids}"]
   zone_id            = "${module.identity.zone_id}"
   security_groups    = ["${module.kops_metadata.nodes_security_group_id}"]
+  enabled            = "${var.POSTGRES_CLUSTER_ENABLED}"
 }
 
 output "aurora_postgres_database_name" {

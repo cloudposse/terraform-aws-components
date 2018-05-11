@@ -10,6 +10,12 @@ variable "REDIS_CLUSTER_SIZE" {
   description = "Redis cluster size"
 }
 
+variable "REDIS_CLUSTER_ENABLED" {
+  type        = "string"
+  default     = "true"
+  description = "Set to false to prevent the module from creating any resources"
+}
+
 module "elasticache_redis" {
   source                       = "git::https://github.com/cloudposse/terraform-aws-elasticache-redis.git?ref=tags/0.4.3"
   namespace                    = "${module.identity.namespace}"
@@ -30,6 +36,7 @@ module "elasticache_redis" {
   apply_immediately            = "true"
   availability_zones           = ["${module.identity.availability_zones}"]
   automatic_failover           = "false"
+  enabled                      = "${var.REDIS_CLUSTER_ENABLED}"
 }
 
 output "elasticache_redis_id" {
