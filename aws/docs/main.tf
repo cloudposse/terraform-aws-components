@@ -87,10 +87,10 @@ module "cdn" {
   namespace              = "${module.identity.namespace}"
   stage                  = "${module.identity.stage}"
   name                   = "${local.name}"
-  aliases                = ["${local.cdn_domain}"]
+  aliases                = ["${local.cdn_domain}", "docs.cloudposse.com"]
   origin_domain_name     = "${module.origin.s3_bucket_website_endpoint}"
   origin_protocol_policy = "http-only"
-  viewer_protocol_policy = "allow-all"
+  viewer_protocol_policy = "redirect-to-https"
   parent_zone_name       = "${var.domain_name}"
   forward_cookies        = "none"
   forward_headers        = ["Origin", "Access-Control-Request-Headers", "Access-Control-Request-Method"]
