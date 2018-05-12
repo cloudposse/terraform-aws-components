@@ -1,0 +1,47 @@
+module "kops_chart_repo" {
+  source       = "git::https://github.com/cloudposse/terraform-aws-kops-chart-repo.git?ref=tags/0.1.1"
+  namespace    = "${module.identity.namespace}"
+  stage        = "${module.identity.stage}"
+  name         = "chart-repo"
+  cluster_name = "${module.identity.aws_region}.${module.identity.zone_name}"
+
+  tags = {
+    Cluster = "${module.identity.aws_region}.${module.identity.zone_name}"
+  }
+}
+
+output "kops_chart_repo_bucket_domain_name" {
+  value = "${module.kops_chart_repo.bucket_domain_name}"
+}
+
+output "kops_chart_repo_bucket_id" {
+  value = "${module.kops_chart_repo.bucket_id}"
+}
+
+output "kops_chart_repo_bucket_arn" {
+  value = "${module.kops_chart_repo.bucket_arn}"
+}
+
+output "kops_chart_repo_role_name" {
+  value = "${module.kops_chart_repo.role_name}"
+}
+
+output "kops_chart_repo_role_unique_id" {
+  value = "${module.kops_chart_repo.role_unique_id}"
+}
+
+output "kops_chart_repo_role_arn" {
+  value = "${module.kops_chart_repo.role_arn}"
+}
+
+output "kops_chart_repo_policy_name" {
+  value = "${module.kops_chart_repo.policy_name}"
+}
+
+output "kops_chart_repo_policy_id" {
+  value = "${module.kops_chart_repo.policy_id}"
+}
+
+output "kops_chart_repo_policy_arn" {
+  value = "${module.kops_chart_repo.policy_arn}"
+}

@@ -1,2 +1,3 @@
 # terraform-root-modules
-Collection of root modules for provisioning reference architectures
+
+This is a collection of reusable root modules for CloudPosse AWS accounts.

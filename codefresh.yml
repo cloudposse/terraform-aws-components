@@ -1,0 +1,64 @@
+# Build a service with environment variables
+version: '1.0'
+
+steps:
+  init_variables:
+    title: Init variables
+    image: alpine
+    commands:
+      - cf_export BUILD_HARNESS_VERSION=0.5.4
+      - cf_export GIT_BRANCH=${{CF_BRANCH}}
+
+  build_image:
+    title: Build image
+    type: build
+    description: Build terraform-root-modules
+    image_name: terraform-root-modules
+    dockerfile: Dockerfile
+
+  semver:
+    title: Export semantic version
+    image: cloudposse/build-harness:${{BUILD_HARNESS_VERSION}}
+    working_directory: ${{build_image}}
+    commands:
+      - make git/show
+      - make semver/show
+      - make semver/export >> ${{CF_VOLUME_PATH}}/env_vars_to_export
+
+  push_image_commit:
+    title: Push image with commit based semver tags
+    type: push
+    candidate: ${{build_image}}
+    tags:
+      - "${{SEMVERSION_COMMIT_SHORT}}"
+
+  push_image_branch:
+    title: Push image with branch based semver tags
+    type: push
+    candidate: ${{build_image}}
+    tags:
+      - "${{SEMVERSION_BRANCH_COMMIT_SHORT}}"
+    when:
+      condition:
+        all:
+          executeForBranch: "'${{SEMVERSION_BRANCH}}' != ''"
+
+  push_image_tag:
+    title: Push image with tag based semver tags
+    type: push
+    candidate: ${{build_image}}
+    tag: "${{SEMVERSION_TAG}}"
+    when:
+      condition:
+        all:
+          executeForTag: "'${{SEMVERSION_TAG}}' != ''"
+
+  push_image_latest:
+    title: Push image with latest tag
+    type: push
+    candidate: ${{build_image}}
+    tag: latest
+    when:
+      condition:
+        all:
+          executeForMasterBranch: "'${{CF_BRANCH}}' == 'master'"
