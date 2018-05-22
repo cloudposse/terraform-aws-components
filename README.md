@@ -1,4 +1,7 @@
-# terraform-root-modules
+![Cloud Posse](https://cloudposse.com/logo-300x69.png)
+
+# terraform-root-modules ![Build Status](https://g.codefresh.io/api/badges/build?repoOwner=cloudposse&repoName=terraform-root-modules&branch=master&pipelineName=terraform-root-modules&accountName=cloudposse)
+
 
 This is a collection of reusable root modules for CloudPosse AWS accounts.
 
