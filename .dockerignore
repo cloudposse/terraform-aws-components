@@ -6,3 +6,5 @@
 *.tfstate.*
 .idea
 *.iml
+.build-harness
+build-harness
