@@ -43,9 +43,10 @@ steps:
         all:
           executeForBranch: "'${{SEMVERSION_BRANCH}}' != ''"
 
-  push_image_tag:
+  push_image_tag_to_cfcr:
     title: Push image with tag based semver tags
     type: push
+    registry: cfcr
     candidate: ${{build_image}}
     tag: "${{SEMVERSION_TAG}}"
     when:
@@ -53,9 +54,33 @@ steps:
         all:
           executeForTag: "'${{SEMVERSION_TAG}}' != ''"
 
-  push_image_latest:
+  push_image_tag_to_dockerhub:
+    title: Push image with tag based semver tags
+    type: push
+    registry: dockerhub
+    candidate: ${{build_image}}
+    tag: "${{SEMVERSION_TAG}}"
+    when:
+      condition:
+        all:
+          executeForTag: "'${{SEMVERSION_TAG}}' != ''"
+
+
+  push_image_latest_to_cfcf:
     title: Push image with latest tag
     type: push
+    registry: cfcr
+    candidate: ${{build_image}}
+    tag: latest
+    when:
+      condition:
+        all:
+          executeForMasterBranch: "'${{CF_BRANCH}}' == 'master'"
+
+  push_image_latest_to_dockerhub:
+    title: Push image with latest tag
+    type: push
+    registry: dockerhub
     candidate: ${{build_image}}
     tag: latest
     when:
