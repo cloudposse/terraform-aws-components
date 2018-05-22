@@ -5,7 +5,7 @@ This is a collection of reusable root modules for CloudPosse AWS accounts.
 
 ## Usage
 
-```docker
+```dockerfile
 FROM r.cfcr.io/cloudposse/terraform-root-modules:0.1.0 as terraform-root-modules
 
 FROM cloudposse/geodesic:0.9.16
