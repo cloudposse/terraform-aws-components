@@ -1,5 +1,5 @@
 module "kops_external_dns" {
-  source       = "git::https://github.com/cloudposse/terraform-aws-kops-external-dns.git?ref=tags/0.1.1"
+  source       = "git::https://github.com/cloudposse/terraform-aws-kops-external-dns.git?ref=tags/0.1.2"
   namespace    = "${module.identity.namespace}"
   stage        = "${module.identity.stage}"
   name         = "external-dns"
