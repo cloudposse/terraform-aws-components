@@ -20,7 +20,7 @@ provider "aws" {
 }
 
 variable "domain_name" {
-  description = "Domain name (E.g. staging.cloudposse.org)"
+  description = "Domain name (E.g. staging.cloudposse.co)"
 }
 
 module "certificate" {

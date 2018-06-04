@@ -1,0 +1,4 @@
+namespace="cp"
+stage="staging"
+region="us-west-2"
+account_id="XXXXXXXXXXXX"

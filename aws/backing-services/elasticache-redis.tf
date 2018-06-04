@@ -18,10 +18,10 @@ variable "REDIS_CLUSTER_ENABLED" {
 
 module "elasticache_redis" {
   source                       = "git::https://github.com/cloudposse/terraform-aws-elasticache-redis.git?ref=tags/0.4.3"
-  namespace                    = "${module.identity.namespace}"
-  stage                        = "${module.identity.stage}"
+  namespace                    = "${var.namespace}"
+  stage                        = "${var.stage}"
   name                         = "redis"
-  zone_id                      = "${module.identity.zone_id}"
+  zone_id                      = "${var.zone_id}"
   security_groups              = ["${module.kops_metadata.nodes_security_group_id}"]
   vpc_id                       = "${module.vpc.vpc_id}"
   subnets                      = ["${module.subnets.private_subnet_ids}"]
@@ -34,7 +34,7 @@ module "elasticache_redis" {
   alarm_cpu_threshold_percent  = "75"
   alarm_memory_threshold_bytes = "10000000"
   apply_immediately            = "true"
-  availability_zones           = ["${module.identity.availability_zones}"]
+  availability_zones           = ["${data.aws_availability_zones.available}"]
   automatic_failover           = "false"
   enabled                      = "${var.REDIS_CLUSTER_ENABLED}"
 }

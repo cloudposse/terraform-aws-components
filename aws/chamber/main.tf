@@ -4,14 +4,32 @@ terraform {
   backend "s3" {}
 }
 
-variable "aws_assume_role_arn" {}
+variable "aws_assume_role_arn" {
+  type = "string"
+}
+
+variable "namespace" {
+  type        = "string"
+  description = "Namespace (e.g. `cp` or `cloudposse`)"
+}
+
+variable "stage" {
+  type        = "string"
+  description = "Stage (e.g. `prod`, `dev`, `staging`)"
+}
+
+variable "region" {
+  type        = "string"
+  description = "AWS region"
+}
+
+variable "account_id" {
+  type        = "string"
+  description = "AWS account ID"
+}
 
 provider "aws" {
   assume_role {
     role_arn = "${var.aws_assume_role_arn}"
   }
-}
-
-module "identity" {
-  source = "git::git@github.com:cloudposse/terraform-aws-account-metadata.git?ref=init"
 }

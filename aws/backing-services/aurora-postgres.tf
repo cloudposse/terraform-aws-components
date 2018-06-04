@@ -39,8 +39,8 @@ variable "POSTGRES_CLUSTER_ENABLED" {
 
 module "aurora_postgres" {
   source             = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=tags/0.3.5"
-  namespace          = "${module.identity.namespace}"
-  stage              = "${module.identity.stage}"
+  namespace          = "${var.namespace}"
+  stage              = "${var.stage}"
   name               = "postgres"
   engine             = "aurora-postgresql"
   cluster_family     = "aurora-postgresql9.6"
@@ -51,9 +51,9 @@ module "aurora_postgres" {
   db_name            = "${var.POSTGRES_DB_NAME}"
   db_port            = "5432"
   vpc_id             = "${module.vpc.vpc_id}"
-  availability_zones = ["${module.identity.availability_zones}"]
+  availability_zones = ["${data.aws_availability_zones.available}"]
   subnets            = ["${module.subnets.private_subnet_ids}"]
-  zone_id            = "${module.identity.zone_id}"
+  zone_id            = "${var.zone_id}"
   security_groups    = ["${module.kops_metadata.nodes_security_group_id}"]
   enabled            = "${var.POSTGRES_CLUSTER_ENABLED}"
 }

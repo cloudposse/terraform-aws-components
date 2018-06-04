@@ -1,12 +1,12 @@
 module "kops_external_dns" {
   source       = "git::https://github.com/cloudposse/terraform-aws-kops-external-dns.git?ref=tags/0.1.2"
-  namespace    = "${module.identity.namespace}"
-  stage        = "${module.identity.stage}"
+  namespace    = "${var.namespace}"
+  stage        = "${var.stage}"
   name         = "external-dns"
-  cluster_name = "${module.identity.aws_region}.${module.identity.zone_name}"
+  cluster_name = "${var.region}.${var.zone_name}"
 
   tags = {
-    Cluster = "${module.identity.aws_region}.${module.identity.zone_name}"
+    Cluster = "${var.region}.${var.zone_name}"
   }
 }
 
