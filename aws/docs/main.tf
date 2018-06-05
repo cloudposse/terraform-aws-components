@@ -12,6 +12,26 @@ variable "domain_name" {
   type = "string"
 }
 
+variable "namespace" {
+  type        = "string"
+  description = "Namespace (e.g. `cp` or `cloudposse`)"
+}
+
+variable "stage" {
+  type        = "string"
+  description = "Stage (e.g. `prod`, `dev`, `staging`)"
+}
+
+variable "region" {
+  type        = "string"
+  description = "AWS region"
+}
+
+variable "account_id" {
+  type        = "string"
+  description = "AWS account ID"
+}
+
 provider "aws" {
   assume_role {
     role_arn = "${var.aws_assume_role_arn}"
@@ -38,28 +58,24 @@ data "aws_acm_certificate" "acm_cloudfront_certificate" {
 locals {
   name          = "docs"
   cdn_domain    = "docs.${var.domain_name}"
-  docs_user_arn = "arn:aws:iam::${module.identity.account_id}:user/${module.identity.namespace}-${module.identity.stage}-${local.name}"
-}
-
-module "identity" {
-  source = "git::git@github.com:cloudposse/terraform-aws-account-metadata.git?ref=init"
+  docs_user_arn = "arn:aws:iam::${var.account_id}:user/${var.namespace}-${var.stage}-${local.name}"
 }
 
 module "docs_user" {
   source    = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=tags/0.2.2"
-  namespace = "${module.identity.namespace}"
-  stage     = "${module.identity.stage}"
+  namespace = "${var.namespace}"
+  stage     = "${var.stage}"
   name      = "${local.name}"
 }
 
 module "origin" {
   source               = "git::https://github.com/cloudposse/terraform-aws-s3-website.git?ref=tags/0.5.2"
-  namespace            = "${module.identity.namespace}"
-  stage                = "${module.identity.stage}"
+  namespace            = "${var.namespace}"
+  stage                = "${var.stage}"
   name                 = "${local.name}"
   hostname             = "${local.cdn_domain}"
   parent_zone_name     = "${var.domain_name}"
-  region               = "${module.identity.aws_region}"
+  region               = "${var.region}"
   cors_allowed_headers = ["*"]
   cors_allowed_methods = ["GET"]
   cors_allowed_origins = ["*"]
@@ -84,8 +100,8 @@ module "origin" {
 # CloudFront CDN fronting origin
 module "cdn" {
   source                 = "git::https://github.com/cloudposse/terraform-aws-cloudfront-cdn.git?ref=tags/0.4.0"
-  namespace              = "${module.identity.namespace}"
-  stage                  = "${module.identity.stage}"
+  namespace              = "${var.namespace}"
+  stage                  = "${var.stage}"
   name                   = "${local.name}"
   aliases                = ["${local.cdn_domain}", "docs.cloudposse.com"]
   origin_domain_name     = "${module.origin.s3_bucket_website_endpoint}"

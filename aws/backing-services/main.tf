@@ -4,7 +4,36 @@ terraform {
   backend "s3" {}
 }
 
-variable "aws_assume_role_arn" {}
+variable "aws_assume_role_arn" {
+  type = "string"
+}
+
+variable "namespace" {
+  type        = "string"
+  description = "Namespace (e.g. `cp` or `cloudposse`)"
+}
+
+variable "stage" {
+  type        = "string"
+  description = "Stage (e.g. `prod`, `dev`, `staging`)"
+}
+
+variable "region" {
+  type        = "string"
+  description = "AWS region"
+}
+
+variable "zone_name" {
+  type        = "string"
+  description = "DNS zone name"
+}
+
+variable "zone_id" {
+  type        = "string"
+  description = "DNS zone ID"
+}
+
+data "aws_availability_zones" "available" {}
 
 provider "aws" {
   assume_role {
@@ -12,11 +41,7 @@ provider "aws" {
   }
 }
 
-module "identity" {
-  source = "git::git@github.com:cloudposse/terraform-aws-account-metadata.git?ref=init"
-}
-
 module "kops_metadata" {
   source   = "git::https://github.com/cloudposse/terraform-aws-kops-metadata.git?ref=tags/0.1.1"
-  dns_zone = "${module.identity.aws_region}.${module.identity.zone_name}"
+  dns_zone = "${var.region}.${var.zone_name}"
 }

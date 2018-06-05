@@ -2,12 +2,12 @@
 # https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-access.html
 module "chamber_user" {
   source        = "git::https://github.com/cloudposse/terraform-aws-iam-chamber-user.git?ref=tags/0.1.4"
-  namespace     = "${module.identity.namespace}"
-  stage         = "${module.identity.stage}"
+  namespace     = "${var.namespace}"
+  stage         = "${var.stage}"
   name          = "chamber"
   attributes    = ["codefresh"]
   kms_key_arn   = "${module.chamber_kms_key.key_arn}"
-  ssm_resources = ["${format("arn:aws:ssm:%s:%s:parameter/kops/*", module.identity.aws_region, module.identity.account_id)}"]
+  ssm_resources = ["${format("arn:aws:ssm:%s:%s:parameter/kops/*", var.region, var.account_id)}"]
 }
 
 output "chamber_user_name" {

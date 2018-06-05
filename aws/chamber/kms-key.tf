@@ -1,7 +1,7 @@
 module "chamber_kms_key" {
   source      = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=tags/0.1.0"
-  namespace   = "${module.identity.namespace}"
-  stage       = "${module.identity.stage}"
+  namespace   = "${var.namespace}"
+  stage       = "${var.stage}"
   name        = "chamber"
   description = "KMS key for chamber"
 }
