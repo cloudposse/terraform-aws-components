@@ -1,0 +1,11 @@
+prod_account_name="prod"
+prod_account_email="info+prod@cloudposse.co"
+
+staging_account_name="staging"
+staging_account_email="info+staging@cloudposse.co"
+
+dev_account_name="dev"
+dev_account_email="info+dev@cloudposse.co"
+
+audit_account_name="audit"
+audit_account_email="info+audit@cloudposse.co"

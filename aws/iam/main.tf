@@ -8,9 +8,9 @@ variable "aws_assume_role_arn" {
   type = "string"
 }
 
-variable "domain_name" {
+variable "namespace" {
   type        = "string"
-  description = "Domain name for the stage"
+  description = "Namespace (e.g. `cp` or `cloudposse`)"
 }
 
 provider "aws" {

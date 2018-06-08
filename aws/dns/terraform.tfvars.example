@@ -1,1 +1,6 @@
-domain_name="staging.cloudposse.co"
+domain_name="cloudposse.co"
+prod_name_servers = ["", "", "", ""]
+staging_name_servers = ["", "", "", ""]
+audit_name_servers = ["", "", "", ""]
+dev_name_servers = ["", "", "", ""]
+local_name_servers = ["", "", "", ""]

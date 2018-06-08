@@ -14,7 +14,7 @@ variable "aws_assume_role_arn" {
 variable "organization_feature_set" {
   type        = "string"
   default     = "ALL"
-  description = "Specify `ALL` (default) or `CONSOLIDATED_BILLING`"
+  description = "`ALL` (default) or `CONSOLIDATED_BILLING`"
 }
 
 provider "aws" {
