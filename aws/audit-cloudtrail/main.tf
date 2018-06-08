@@ -21,13 +21,19 @@ variable "namespace" {
 
 variable "stage" {
   type        = "string"
-  description = "Stage (e.g. `prod`, `dev`, `staging`)"
+  description = "Stage (e.g. `audit`)"
+  default     = "audit"
 }
 
 variable "name" {
   type        = "string"
   description = "Name (e.g. `account`)"
   default     = "account"
+}
+
+variable "region" {
+  type        = "string"
+  description = "AWS region"
 }
 
 module "cloudtrail" {
@@ -39,5 +45,24 @@ module "cloudtrail" {
   enable_log_file_validation    = "true"
   include_global_service_events = "true"
   is_multi_region_trail         = "true"
-  s3_bucket_name                = "${var.namespace}-audit-account"
+  s3_bucket_name                = "${module.cloudtrail_s3_bucket.bucket_id}"
+}
+
+module "cloudtrail_s3_bucket" {
+  namespace = "${var.namespace}"
+  stage     = "${var.stage}"
+  name      = "${var.name}"
+  region    = "${var.region}"
+}
+
+output "cloudtrail_bucket_domain_name" {
+  value = "${module.cloudtrail_s3_bucket.bucket_domain_name}"
+}
+
+output "cloudtrail_bucket_id" {
+  value = "${module.cloudtrail_s3_bucket.bucket_id}"
+}
+
+output "cloudtrail_bucket_arn" {
+  value = "${module.cloudtrail_s3_bucket.bucket_arn}"
 }
