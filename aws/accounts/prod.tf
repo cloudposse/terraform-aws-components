@@ -1,12 +1,12 @@
 variable "prod_account_name" {
   type        = "string"
-  description = "Prod account name"
+  description = "Production account name"
   default     = "prod"
 }
 
 variable "prod_account_email" {
   type        = "string"
-  description = "Prod account email"
+  description = "Production account email"
 }
 
 resource "aws_organizations_account" "prod" {

@@ -1,4 +1,5 @@
-domain_name="cloudposse.co"
+parent_domain_name="cloudposse.co"
+domain_name="root.cloudposse.co"
 prod_name_servers = ["", "", "", ""]
 staging_name_servers = ["", "", "", ""]
 audit_name_servers = ["", "", "", ""]

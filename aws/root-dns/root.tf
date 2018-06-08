@@ -1,5 +1,10 @@
+variable "root_domain_name" {
+  type        = "string"
+  description = "Root domain name"
+}
+
 resource "aws_route53_zone" "root_dns_zone" {
-  name    = "${var.domain_name}"
+  name    = "${var.root_domain_name}"
   comment = "DNS Zone for Root Account"
 }
 

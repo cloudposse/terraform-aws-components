@@ -1,6 +1,6 @@
 variable "prod_account_id" {
   type        = "string"
-  description = "Prod account ID"
+  description = "Production account ID"
 }
 
 # Provision group access to production account
