@@ -4,7 +4,9 @@ terraform {
   backend "s3" {}
 }
 
-variable "aws_assume_role_arn" {}
+variable "aws_assume_role_arn" {
+  type = "string"
+}
 
 provider "aws" {
   #  CloudFront certs must be created in the `aws-east-1` region, even if your origin is in a different one
