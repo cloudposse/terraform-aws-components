@@ -11,7 +11,7 @@ This is a collection of reusable root modules for CloudPosse AWS accounts.
 Use the `terraform-root-modules` Docker image as the base image in the application `Dockerfile`, and copy the modules from `/aws` folder into `/conf` folder
 
 ```dockerfile
-FROM cloudposse/terraform-root-modules:0.2.2 as terraform-root-modules
+FROM cloudposse/terraform-root-modules:0.3.1 as terraform-root-modules
 
 FROM cloudposse/geodesic:0.9.18
 

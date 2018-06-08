@@ -1,0 +1,4 @@
+namespace="cp"
+stage="audit"
+name="account"
+region="us-west-2"
