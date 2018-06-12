@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-sed -i "s/backend(\s+)\"s3\"/#backend\ 1 \"s3\"/" main.tf
+## Spaces before and after `backend` required to select right word, because `backend` appears 3 times in main.tf
+sed -i "s/ backend / #backend /" main.tf
 
 init-terraform
 terraform plan
@@ -8,7 +9,8 @@ terraform plan
 export TF_BUCKET=$(echo "yes" | terraform apply | grep -o -e "tfstate_backend_s3_bucket_id\s=\s.*" | cut -d ' ' -f 3)
 export TF_BUCKET_REGION=${TF_VAR_region}
 
-sed -i "s/#backend(\s+)\"s3\"/backend\ 1 \"s3\"/" main.tf
+## Spaces before and after `backend` required to select right word, because `backend` appears 3 times in main.tf
+sed -i "s/ #backend / backend /" main.tf
 
 s3 fstab "${TF_BUCKET}" '/' '/secrets/tf'
 
