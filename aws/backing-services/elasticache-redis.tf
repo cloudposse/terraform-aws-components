@@ -34,7 +34,7 @@ module "elasticache_redis" {
   alarm_cpu_threshold_percent  = "75"
   alarm_memory_threshold_bytes = "10000000"
   apply_immediately            = "true"
-  availability_zones           = ["${data.aws_availability_zones.available}"]
+  availability_zones           = ["${data.aws_availability_zones.available.names}"]
   automatic_failover           = "false"
   enabled                      = "${var.REDIS_CLUSTER_ENABLED}"
 }
