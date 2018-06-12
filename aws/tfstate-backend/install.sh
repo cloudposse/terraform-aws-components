@@ -13,12 +13,10 @@ export TF_BUCKET_REGION=${TF_VAR_region}
 
 ## Spaces before and after `backend` required to select right word, because `backend` appears 3 times in main.tf
 sed -i "s/ #backend / backend /" main.tf
-sed -i "s/ #role_arn / role_arn /" main.tf
-
-s3 fstab "${TF_BUCKET}" '/' '/secrets/tf'
 
 echo "yes" | init-terraform
 
+sed -i "s/ #role_arn / role_arn /" main.tf
 
 echo "Add to the Geodesic Module Dockerfile following"
 echo "#----------------------------------------------"
