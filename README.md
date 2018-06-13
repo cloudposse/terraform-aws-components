@@ -171,7 +171,13 @@ You should see the `Docker` image built, `geodesic` shell started, and after you
 ```
 # Starting new root.cloudposse.co session from cloudposse/root.cloudposse.co:latest
 # Exposing port 36682
-# Started EC2 metadata service at http://169.254.169.254/latest
+* Started EC2 metadata service at http://169.254.169.254/latest
+                     _         _                 _
+     _ __ ___   ___ | |_   ___| | ___  _   _  __| |_ __   ___  ___ ___  ___   ___ ___
+    | '__/ _ \ / _ \| __| / __| |/ _ \| | | |/ _` | '_ \ / _ \/ __/ __|/ _ \ / __/ _ \
+    | | | (_) | (_) | |_ | (__| | (_) | |_| | (_| | |_) | (_) \__ \__ \  __/| (_| (_) |
+    |_|  \___/ \___/ \__(_)___|_|\___/ \__,_|\__,_| .__/ \___/|___/___/\___(_)___\___/
+                                                  |_|
 
 IMPORTANT:
 * Your $HOME directory has been mounted to `/localhost`
@@ -182,9 +188,14 @@ Add your local private SSH key to the key chain. Hit ^C to skip.
 Enter passphrase for /localhost/.ssh/id_rsa:
 Identity added: /localhost/.ssh/id_rsa (/localhost/.ssh/id_rsa)
 -> Run 'assume-role' to login to AWS
-assume-role
+ ⧉  root.cloudposse.co
+❌   (none) ~ ➤  assume-role
 Enter passphrase to unlock /conf/.awsvault/keys/:
+Enter token for arn:aws:iam::323330167063:mfa/admin@cloudposse.co: 172432
 * Assumed role arn:aws:iam::323330167063:user/admin@cloudposse.co
+* Found SSH agent config
+ ⧉  root.cloudposse.co
+✅   (cpco-root-admin) ~ ➤
 ```
 
 ### Provision `tfstate-backend` project for `root`
@@ -283,8 +294,6 @@ Identity added: /localhost/.ssh/id_rsa (/localhost/.ssh/id_rsa)
 ❌   (none) ~ ➤  assume-role
 Enter passphrase to unlock /conf/.awsvault/keys/:
 * Assumed role arn:aws:iam::323330167063:role/cpco-root-admin
-* Found SSH agent config
- ⧉  root.cloudposse.co
 ```
 
 ### Provision `organization` project for `root`
@@ -430,8 +439,6 @@ Identity added: /localhost/.ssh/id_rsa (/localhost/.ssh/id_rsa)
 ❌   (none) ~ ➤  assume-role
 Enter passphrase to unlock /conf/.awsvault/keys/:
 * Assumed role arn:aws:iam::126450723953:role/OrganizationAccountAccessRole
-* Found SSH agent config
- ⧉  testing.cloudposse.co
 ```
 
 
