@@ -21,7 +21,7 @@ COPY --from=terraform-root-modules /aws/ /conf/
 WORKDIR /conf/
 ```
 
-Then provision the Terraform modules required for the project.
+Then provision the rest of the Terraform modules required for the project.
 
 
 ## Cold Start
@@ -581,6 +581,68 @@ To provision more resources from the Reference Architecture (e.g. `kops`, `kops-
 * [audit](https://github.com/cloudposse/audit.cloudposse.co)
 * [dev](https://github.com/cloudposse/dev.cloudposse.co)
 * [testing](https://github.com/cloudposse/testing.cloudposse.co)
+
+
+### Notes on using multiple AWS accounts
+
+As we described before, we prefer and strongly recommend using multiple AWS accounts and provision a stage per account.
+
+However, in some cases it might be not possible for operational, organizational or other reasons. 
+
+We could have three cases here:
+
+1. We are in control of the master account and can create Organization on top of it and member accounts in it
+2. We are given one account (not the master) and we can’t create an Organization. But we can create (or request) more accounts under the same Organization
+3. We have only one account in total
+
+All three cases are covered by our Reference Architectures and the Cold Start process described above.
+
+1. This is completely covered by the process description above
+
+2. One of the member accounts will be named `root` and will behave as a root from the DevOps point of view, but not the root of the accounts hierarchy in an Organization.
+The other accounts will be named by the stage names (`prod`, `staging`. etc.).
+We just don’t provision an Organization.
+
+3. In case of only one account, the `root` will be a virtual root, not the root of the Organization hierarchy.
+We still work in a `geodesic` shell per virtual account.
+Since we use the `label` pattern, resource naming should not be a problem and will not create any conflicts.
+We don’t provision an Organization and member accounts.
+In `~/.aws/config` we use profiles with the same names (e.g. `cpco-testing-admin`, `cpco-root-admin`).
+The only difference is that in these profiles we use the same account name and don’t use `OrganizationAccountAccessRole`.
+
+For example, instead of this:
+
+```
+[profile cpco-testing-admin]
+region=us-west-2
+role_arn=arn:aws:iam::126450723953:role/OrganizationAccountAccessRole
+mfa_serial=arn:aws:iam::323330167063:mfa/admin@cloudposse.co
+source_profile=cpco
+
+[profile cpco-root-admin]
+region=us-west-2
+role_arn=arn:aws:iam::323330167063:role/cpco-root-admin
+mfa_serial=arn:aws:iam::323330167063:mfa/admin@cloudposse.co
+source_profile=cpco
+```
+
+we use this:
+
+```
+[profile cpco-testing-admin]
+region=us-west-2
+role_arn=arn:aws:iam::323330167063:role/cpco-testing-admin
+mfa_serial=arn:aws:iam::323330167063:mfa/admin@cloudposse.co
+source_profile=cpco
+
+[profile cpco-root-admin]
+region=us-west-2
+role_arn=arn:aws:iam::323330167063:role/cpco-root-admin
+mfa_serial=arn:aws:iam::323330167063:mfa/admin@cloudposse.co
+source_profile=cpco
+```
+
+From different `geodesic` shells (`root` and `testing`) we will login to the same account under different IAM roles.
 
 
 ## Help
