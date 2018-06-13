@@ -38,6 +38,7 @@ steps:
     candidate: ${{build_image}}
     tags:
       - "${{SEMVERSION_BRANCH_COMMIT_SHORT}}"
+      - "${{SEMVERSION_BRANCH}}"
     when:
       condition:
         all:
