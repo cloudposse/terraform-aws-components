@@ -2,8 +2,6 @@
 
 Run this process the very first time you setup the tfstate bucket. 
 
-**IMPORTANT:** This has already been performed for this account, so this is documented here just for reference.
-
 Ensure the following environment variables have been set in the `Dockerfile`:
 ```
 ENV TF_BUCKET="cp-staging-terraform-state"
