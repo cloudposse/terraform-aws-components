@@ -9,4 +9,4 @@ echo "yes" | terraform apply
 
 sed -i "s/ #role_arn / role_arn /" main.tf
 
-echo "Accounts provisioned"
+echo "Root IAM Role provisioned"
