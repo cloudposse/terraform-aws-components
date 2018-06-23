@@ -51,7 +51,7 @@ module "aurora_postgres" {
   db_name            = "${var.POSTGRES_DB_NAME}"
   db_port            = "5432"
   vpc_id             = "${module.vpc.vpc_id}"
-  availability_zones = ["${data.aws_availability_zones.available}"]
+  availability_zones = ["${data.aws_availability_zones.available.names}"]
   subnets            = ["${module.subnets.private_subnet_ids}"]
   zone_id            = "${var.zone_id}"
   security_groups    = ["${module.kops_metadata.nodes_security_group_id}"]
