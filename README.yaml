@@ -1,0 +1,66 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: terraform-root-modules
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Canonical GitHub repo
+github_repo: cloudposse/terraform-root-modules
+
+# Badges to display
+badges:
+  - name: "Build Status"
+    image: "https://travis-ci.org/cloudposse/terraform-root-modules.svg?branch=master"
+    url: "https://travis-ci.org/cloudposse/terraform-root-modules"
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-root-modules.svg"
+    url: "https://travis-ci.org/cloudposse/terraform-root-modules/releases"
+  - name: "Slack Community"
+    image: "https://slack.cloudposse.com/badge.svg"
+    url: "https://slack.cloudposse.com"
+
+# Short description of this project
+description: |-
+  This is a collection of reusable root modules for CloudPosse AWS accounts.
+# How to use this project
+usage: |-
+  Use the `terraform-root-modules` Docker image as the base image in the application `Dockerfile`, and copy the modules from `/aws` folder into `/conf` folder
+
+  ```dockerfile
+  FROM cloudposse/terraform-root-modules:0.3.2 as terraform-root-modules
+
+  FROM cloudposse/geodesic:0.9.18
+
+  # Copy root modules into /conf folder
+  COPY --from=terraform-root-modules /aws/ /conf/
+
+  WORKDIR /conf/
+  ```
+
+# Contributors to this project
+contributors:
+  - name: "Erik Osterman"
+    homepage: "https://github.com/osterman"
+    avatar: "http://s.gravatar.com/avatar/88c480d4f73b813904e00a5695a454cb?s=144"
+    github: "osterman"
+  - name: "Igor Rodionov"
+    homepage: "https://github.com/goruha"
+    avatar: "http://s.gravatar.com/avatar/bc70834d32ed4517568a1feb0b9be7e2?s=144"
+    github: "goruha"
+  - name: "Andriy Knysh"
+    homepage: "https://github.com/aknysh"
+    avatar: "https://avatars0.githubusercontent.com/u/7356997?v=4&u=ed9ce1c9151d552d985bdf5546772e14ef7ab617&s=144"
+    github: "aknysh"
+  - name: "Marc Tamsky"
+    homepage: "https://github.com/tamsky"
+    avatar: "https://avatars1.githubusercontent.com/u/96978?s=460&v=4"
+    github: "tamsky"
