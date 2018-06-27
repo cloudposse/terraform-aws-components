@@ -61,6 +61,10 @@ usage: |-
   WORKDIR /conf/
   ```
 
+include:
+  - "docs/targets.md"
+  - "docs/terraform.md"
+
 # Contributors to this project
 contributors:
   - name: "Erik Osterman"
