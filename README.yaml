@@ -28,6 +28,20 @@ badges:
     image: "https://slack.cloudposse.com/badge.svg"
     url: "https://slack.cloudposse.com"
 
+related:
+  - name: "audit.cloudposse.co"
+    description: "Example Terraform Reference Architecture of a Geodesic Module for an Audit Logs Organization in AWS."
+    url: "https://github.com/cloudposse/audit.cloudposse.co"
+  - name: "prod.cloudposse.co"
+    description: "Example Terraform Reference Architecture of a Geodesic Module for a Production Organization in AWS."
+    url: "https://github.com/cloudposse/prod.cloudposse.co"
+  - name: "staging.cloudposse.co"
+    description: "Example Terraform Reference Architecture of a Geodesic Module for a Staging Organization in AWS."
+    url: "https://github.com/cloudposse/staging.cloudposse.co"
+  - name: "dev.cloudposse.co"
+    description: "Example Terraform Reference Architecture of a Geodesic Module for a Development Sandbox Organization in AWS."
+    url: "https://github.com/cloudposse/dev.cloudposse.co"
+
 # Short description of this project
 description: |-
   This is a collection of reusable root modules for CloudPosse AWS accounts.
