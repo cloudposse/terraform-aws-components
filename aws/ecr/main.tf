@@ -28,6 +28,12 @@ variable "zone_name" {
   description = "DNS zone name"
 }
 
+variable "repositories_names" {
+  type        = "list"
+  default     = []
+  description = "Repositories names"
+}
+
 provider "aws" {
   assume_role {
     role_arn = "${var.aws_assume_role_arn}"
