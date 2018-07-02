@@ -28,10 +28,8 @@ variable "zone_name" {
   description = "DNS zone name"
 }
 
-variable "repositories_names" {
-  type        = "list"
-  default     = []
-  description = "Repositories names"
+variable "repository_name" {
+  description = "Repository name"
 }
 
 provider "aws" {

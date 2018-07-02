@@ -2,7 +2,7 @@ module "kops_ecr_app" {
   source       = "git::https://github.com/cloudposse/terraform-aws-kops-ecr.git?ref=tags/0.1.0"
   namespace    = "${var.namespace}"
   stage        = "${var.stage}"
-  name         = "${element(var.repositories_names,0)}"
+  name         = "${var.repository_name}"
   cluster_name = "${var.region}.${var.zone_name}"
 
   users = [
