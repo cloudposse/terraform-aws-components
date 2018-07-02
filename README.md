@@ -166,12 +166,12 @@ Check out [our other projects][github], [apply for a job][jobs], or [hire us][hi
 |---|---|---|---|
 
   [osterman_homepage]: https://github.com/osterman
-  [osterman_avatar]: http://s.gravatar.com/avatar/88c480d4f73b813904e00a5695a454cb?s=144
+  [osterman_avatar]: http://s.gravatar.com/avatar/88c480d4f73b813904e00a5695a454cb?s=150
   [goruha_homepage]: https://github.com/goruha
-  [goruha_avatar]: http://s.gravatar.com/avatar/bc70834d32ed4517568a1feb0b9be7e2?s=144
+  [goruha_avatar]: http://s.gravatar.com/avatar/bc70834d32ed4517568a1feb0b9be7e2?s=150
   [aknysh_homepage]: https://github.com/aknysh
-  [aknysh_avatar]: https://avatars0.githubusercontent.com/u/7356997?v=4&u=ed9ce1c9151d552d985bdf5546772e14ef7ab617&s=144
+  [aknysh_avatar]: https://avatars0.githubusercontent.com/u/7356997?v=4&u=ed9ce1c9151d552d985bdf5546772e14ef7ab617&s=150
   [tamsky_homepage]: https://github.com/tamsky
-  [tamsky_avatar]: https://avatars1.githubusercontent.com/u/96978?s=460&v=4
+  [tamsky_avatar]: https://avatars1.githubusercontent.com/u/96978?s=150&v=4
 
 
