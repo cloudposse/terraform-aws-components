@@ -68,18 +68,10 @@ include:
 # Contributors to this project
 contributors:
   - name: "Erik Osterman"
-    homepage: "https://github.com/osterman"
-    avatar: "https://github.com/osterman.png?size=150"
     github: "osterman"
   - name: "Igor Rodionov"
-    homepage: "https://github.com/goruha"
-    avatar: "https://github.com/goruha.png?size=150"
     github: "goruha"
   - name: "Andriy Knysh"
-    homepage: "https://github.com/aknysh"
-    avatar: "https://github.com/aknysh.png?size=150"
     github: "aknysh"
   - name: "Marc Tamsky"
-    homepage: "https://github.com/tamsky"
-    avatar: "https://github.com/tamsky.png?size=150"
     github: "tamsky"
