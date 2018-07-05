@@ -1,6 +1,8 @@
-variable "gateway_email" {}
+variable "relay_email" {
+  description = "Email that used to relay from"
+}
 
-variable "emails" {
+variable "forward_emails" {
   type = "map"
 
   default = {
