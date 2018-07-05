@@ -6,7 +6,7 @@ variable "forward_emails" {
   type = "map"
 
   default = {
-    "source" = ["destination"]
+    "ops@example.com" = ["example@gmail.com"]
   }
 
   description = "Emails forward map"
