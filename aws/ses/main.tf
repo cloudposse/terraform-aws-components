@@ -44,7 +44,7 @@ variable "parent_domain_name" {
 }
 
 module "ses" {
-  source = "git::https://github.com/cloudposse/terraform-aws-ses-forwarder.git?ref=tags/0.1.0"
+  source = "git::https://github.com/cloudposse/terraform-aws-ses-lambda-forwarder .git?ref=tags/0.1.0"
 
   namespace = "${var.namespace}"
   name      = "${var.ses_name}"
@@ -52,8 +52,8 @@ module "ses" {
 
   region = "${var.ses_region}"
 
-  gateway_email = "${var.gateway_email}"
-  domain        = "${var.parent_domain_name}"
+  relay_email = "${var.relay_email}"
+  domain      = "${var.parent_domain_name}"
 
-  emails = "${var.emails}"
+  forward_emails = "${var.forward_emails}"
 }
