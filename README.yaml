@@ -1,0 +1,77 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: terraform-root-modules
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Canonical GitHub repo
+github_repo: cloudposse/terraform-root-modules
+
+# Badges to display
+badges:
+  - name: "Build Status"
+    image: "https://travis-ci.org/cloudposse/terraform-root-modules.svg?branch=master"
+    url: "https://travis-ci.org/cloudposse/terraform-root-modules"
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-root-modules.svg"
+    url: "https://travis-ci.org/cloudposse/terraform-root-modules/releases"
+  - name: "Slack Community"
+    image: "https://slack.cloudposse.com/badge.svg"
+    url: "https://slack.cloudposse.com"
+
+related:
+  - name: "audit.cloudposse.co"
+    description: "Example Terraform Reference Architecture of a Geodesic Module for an Audit Logs Organization in AWS."
+    url: "https://github.com/cloudposse/audit.cloudposse.co"
+  - name: "prod.cloudposse.co"
+    description: "Example Terraform Reference Architecture of a Geodesic Module for a Production Organization in AWS."
+    url: "https://github.com/cloudposse/prod.cloudposse.co"
+  - name: "staging.cloudposse.co"
+    description: "Example Terraform Reference Architecture of a Geodesic Module for a Staging Organization in AWS."
+    url: "https://github.com/cloudposse/staging.cloudposse.co"
+  - name: "dev.cloudposse.co"
+    description: "Example Terraform Reference Architecture of a Geodesic Module for a Development Sandbox Organization in AWS."
+    url: "https://github.com/cloudposse/dev.cloudposse.co"
+
+# Short description of this project
+description: |-
+  This is a collection of reusable root modules for CloudPosse AWS accounts.
+
+# How to use this project
+usage: |-
+  Use the `terraform-root-modules` Docker image as the base image in the application `Dockerfile`, and copy the modules from `/aws` folder into `/conf` folder
+
+  ```dockerfile
+  FROM cloudposse/terraform-root-modules:0.3.2 as terraform-root-modules
+
+  FROM cloudposse/geodesic:0.9.18
+
+  # Copy root modules into /conf folder
+  COPY --from=terraform-root-modules /aws/ /conf/
+
+  WORKDIR /conf/
+  ```
+
+include:
+  - "docs/targets.md"
+  - "docs/terraform.md"
+
+# Contributors to this project
+contributors:
+  - name: "Erik Osterman"
+    github: "osterman"
+  - name: "Igor Rodionov"
+    github: "goruha"
+  - name: "Andriy Knysh"
+    github: "aknysh"
+  - name: "Marc Tamsky"
+    github: "tamsky"
