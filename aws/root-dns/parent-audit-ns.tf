@@ -3,6 +3,7 @@ variable "audit_name_servers" {
 }
 
 resource "aws_route53_record" "audit_dns_zone_ns" {
+  count   = "${signum(length(var.audit_name_servers))}"
   zone_id = "${aws_route53_zone.parent_dns_zone.zone_id}"
   name    = "audit"
   type    = "NS"
