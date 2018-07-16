@@ -2,10 +2,12 @@
 
 [![Cloud Posse](https://cloudposse.com/logo-300x69.svg)](https://cloudposse.com)
 
-# terraform-root-modules [![Build Status](https://travis-ci.org/cloudposse/terraform-root-modules.svg?branch=master)](https://travis-ci.org/cloudposse/terraform-root-modules) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-root-modules.svg)](https://github.com/cloudposse/terraform-root-modules/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# terraform-root-modules [![Build Status](https://travis-ci.org/cloudposse/terraform-root-modules.svg?branch=master)](https://travis-ci.org/cloudposse/terraform-root-modules) [![Codefresh Build Status](https://g.codefresh.io/api/badges/build?repoOwner=cloudposse&repoName=terraform-root-modules&branch=master&pipelineName=terraform-root-modules&accountName=cloudposse&type=cf-1)](https://g.codefresh.io/repositories/cloudposse/terraform-root-modules/builds?filter=trigger:build;branch:master;service:5b234974667ab79287990636~terraform-root-modules) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-root-modules.svg)](https://github.com/cloudposse/terraform-root-modules/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 
-This is a collection of reusable root modules for CloudPosse AWS accounts.
+This is a collection of reusable [Terraform root modules invocations](https://docs.cloudposse.com/terraform-modules/root/) for CloudPosse AWS accounts.
+
+Terraform defines a "root module" as the current working directory holding the Terraform configuration files where the terraform apply or terraform get is run.
 
 
 ---
@@ -19,9 +21,13 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 
 
+
+
+
+
 ## Usage
 
-Use the `terraform-root-modules` Docker image as the base image in the application `Dockerfile`, and copy the modules from `/aws` folder into `/conf` folder
+Use the `terraform-root-modules` Docker image as the base image in the application `Dockerfile`, and copy the modules from `/aws` folder into `/conf` folder.
 
 ```dockerfile
 FROM cloudposse/terraform-root-modules:0.3.2 as terraform-root-modules
@@ -36,6 +42,10 @@ WORKDIR /conf/
 
 
 
+
+## Examples
+
+For example usage, refer to the "Related Projects" section. This is were we use `terraform-root-modules` to provision essential account-level infrastructure, among other services.
 
 
 
@@ -60,6 +70,14 @@ Check out these related projects.
 - [staging.cloudposse.co](https://github.com/cloudposse/staging.cloudposse.co) - Example Terraform Reference Architecture of a Geodesic Module for a Staging Organization in AWS.
 - [dev.cloudposse.co](https://github.com/cloudposse/dev.cloudposse.co) - Example Terraform Reference Architecture of a Geodesic Module for a Development Sandbox Organization in AWS.
 
+
+
+
+## References
+
+For additional context, refer to some of these links. 
+
+- [Cloud Posse Documentation](https://docs.cloudposse.com) - Complete documentation for the Cloud Posse solution
 
 
 ## Help
@@ -140,6 +158,13 @@ See [LICENSE](LICENSE) for full details.
     under the License.
 
 
+
+
+
+
+
+
+
 ## Trademarks
 
 All other trademarks referenced herein are the property of their respective owners.
@@ -169,8 +194,8 @@ Check out [our other projects][github], [apply for a job][jobs], or [hire us][hi
 
 ### Contributors
 
-|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] | [![Marc Tamsky][tamsky_avatar]][tamsky_homepage]<br/>[Marc Tamsky][tamsky_homepage] |
-|---|---|---|---|
+|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] |
+|---|---|---|
 
   [osterman_homepage]: https://github.com/osterman
   [osterman_avatar]: https://github.com/osterman.png?size=150
@@ -178,7 +203,5 @@ Check out [our other projects][github], [apply for a job][jobs], or [hire us][hi
   [goruha_avatar]: https://github.com/goruha.png?size=150
   [aknysh_homepage]: https://github.com/aknysh
   [aknysh_avatar]: https://github.com/aknysh.png?size=150
-  [tamsky_homepage]: https://github.com/tamsky
-  [tamsky_avatar]: https://github.com/tamsky.png?size=150
 
 
