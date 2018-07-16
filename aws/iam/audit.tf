@@ -16,4 +16,5 @@ module "organization_access_group_audit" {
   name              = "admin"
   user_names        = ["${var.audit_account_user_names}"]
   member_account_id = "${var.audit_account_id}"
+  require_mfa       = "true"
 }
