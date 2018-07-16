@@ -16,4 +16,5 @@ module "organization_access_group_prod" {
   name              = "admin"
   user_names        = ["${var.prod_account_user_names}"]
   member_account_id = "${var.prod_account_id}"
+  require_mfa       = "true"
 }
