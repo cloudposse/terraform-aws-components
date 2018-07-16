@@ -2,7 +2,7 @@
 
 [![Cloud Posse](https://cloudposse.com/logo-300x69.svg)](https://cloudposse.com)
 
-# terraform-root-modules [![Build Status](https://travis-ci.org/cloudposse/terraform-root-modules.svg?branch=master)](https://travis-ci.org/cloudposse/terraform-root-modules) [![Codefresh Build Status](https://g.codefresh.io/api/badges/build?repoOwner=cloudposse&repoName=terraform-root-modules&branch=master&pipelineName=terraform-root-modules&accountName=cloudposse&type=cf-1)](https://g.codefresh.io/repositories/cloudposse/terraform-root-modules/builds?filter=trigger:build;branch:master;service:5b234974667ab79287990636~terraform-root-modules) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-root-modules.svg)](https://github.com/cloudposse/terraform-root-modules/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# terraform-root-modules [![Build Status](https://travis-ci.org/cloudposse/terraform-root-modules.svg?branch=master)](https://travis-ci.org/cloudposse/terraform-root-modules) [![Codefresh Build Status](https://g.codefresh.io/api/badges/build?repoOwner=cloudposse&repoName=terraform-root-modules&branch=master&pipelineName=terraform-root-modules&accountName=cloudposse&type=cf-1)](https://g.codefresh.io/pipelines/terraform-root-modules/builds) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-root-modules.svg)](https://github.com/cloudposse/terraform-root-modules/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 
 This is a collection of reusable [Terraform root modules invocations](https://docs.cloudposse.com/terraform-modules/root/) for CloudPosse AWS accounts.

@@ -23,7 +23,7 @@ badges:
     url: "https://travis-ci.org/cloudposse/terraform-root-modules"
   - name: "Codefresh Build Status"
     image: "https://g.codefresh.io/api/badges/build?repoOwner=cloudposse&repoName=terraform-root-modules&branch=master&pipelineName=terraform-root-modules&accountName=cloudposse&type=cf-1"
-    url: "https://g.codefresh.io/repositories/cloudposse/terraform-root-modules/builds?filter=trigger:build;branch:master;service:5b234974667ab79287990636~terraform-root-modules"
+    url: "https://g.codefresh.io/pipelines/terraform-root-modules/builds"
   - name: "Latest Release"
     image: "https://img.shields.io/github/release/cloudposse/terraform-root-modules.svg"
     url: "https://github.com/cloudposse/terraform-root-modules/releases/latest"
