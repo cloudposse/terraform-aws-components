@@ -5,7 +5,7 @@
 #
 
 # Name of this project
-name: terraform-root-modules
+name: "terraform-root-modules"
 
 # Logo for this project
 #logo: docs/logo.png
@@ -14,19 +14,27 @@ name: terraform-root-modules
 license: "APACHE2"
 
 # Canonical GitHub repo
-github_repo: cloudposse/terraform-root-modules
+github_repo: "cloudposse/terraform-root-modules"
 
 # Badges to display
 badges:
   - name: "Build Status"
     image: "https://travis-ci.org/cloudposse/terraform-root-modules.svg?branch=master"
     url: "https://travis-ci.org/cloudposse/terraform-root-modules"
+  - name: "Codefresh Build Status"
+    image: "https://g.codefresh.io/api/badges/build?repoOwner=cloudposse&repoName=terraform-root-modules&branch=master&pipelineName=terraform-root-modules&accountName=cloudposse&type=cf-1"
+    url: "https://g.codefresh.io/pipelines/terraform-root-modules/builds"
   - name: "Latest Release"
     image: "https://img.shields.io/github/release/cloudposse/terraform-root-modules.svg"
     url: "https://github.com/cloudposse/terraform-root-modules/releases/latest"
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/badge.svg"
     url: "https://slack.cloudposse.com"
+
+references:
+  - name: "Cloud Posse Documentation"
+    description: "Complete documentation for the Cloud Posse solution"
+    url: "https://docs.cloudposse.com"
 
 related:
   - name: "audit.cloudposse.co"
@@ -44,11 +52,13 @@ related:
 
 # Short description of this project
 description: |-
-  This is a collection of reusable root modules for CloudPosse AWS accounts.
+  This is a collection of reusable [Terraform root modules invocations](https://docs.cloudposse.com/terraform-modules/root/) for CloudPosse AWS accounts.
+
+  Terraform defines a "root module" as the current working directory holding the Terraform configuration files where the terraform apply or terraform get is run.
 
 # How to use this project
 usage: |-
-  Use the `terraform-root-modules` Docker image as the base image in the application `Dockerfile`, and copy the modules from `/aws` folder into `/conf` folder
+  Use the `terraform-root-modules` Docker image as the base image in the application `Dockerfile`, and copy the modules from `/aws` folder into `/conf` folder.
 
   ```dockerfile
   FROM cloudposse/terraform-root-modules:0.3.2 as terraform-root-modules
@@ -60,6 +70,9 @@ usage: |-
 
   WORKDIR /conf/
   ```
+
+examples: |-
+  For example usage, refer to the "Related Projects" section. This is were we use `terraform-root-modules` to provision essential account-level infrastructure, among other services.
 
 include:
   - "docs/targets.md"
@@ -73,5 +86,3 @@ contributors:
     github: "goruha"
   - name: "Andriy Knysh"
     github: "aknysh"
-  - name: "Marc Tamsky"
-    github: "tamsky"
