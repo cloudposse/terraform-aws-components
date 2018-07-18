@@ -10,7 +10,7 @@ variable "testing_account_user_names" {
 
 # Provision group access to testing account
 module "organization_access_group_testing" {
-  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.1.2"
+  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.1.3"
   namespace         = "${var.namespace}"
   stage             = "testing"
   name              = "admin"
