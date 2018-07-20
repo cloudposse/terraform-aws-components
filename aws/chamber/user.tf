@@ -7,7 +7,10 @@ module "chamber_user" {
   name          = "chamber"
   attributes    = ["codefresh"]
   kms_key_arn   = "${module.chamber_kms_key.key_arn}"
-  ssm_resources = ["${format("arn:aws:ssm:%s:%s:parameter/kops/*", var.region, var.account_id)}"]
+  ssm_resources = [
+    "${format("arn:aws:ssm:%s:%s:parameter/kops/*", var.region, var.account_id)}",
+    "${format("arn:aws:ssm:%s:%s:parameter/app/*", var.region, var.account_id)}"
+  ]
 }
 
 output "chamber_user_name" {
