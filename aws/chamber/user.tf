@@ -1,15 +1,15 @@
 # Chamber user for CI/CD systems that cannot leverage IAM instance profiles
 # https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-access.html
 module "chamber_user" {
-  source        = "git::https://github.com/cloudposse/terraform-aws-iam-chamber-user.git?ref=tags/0.1.4"
-  namespace     = "${var.namespace}"
-  stage         = "${var.stage}"
-  name          = "chamber"
-  attributes    = ["codefresh"]
-  kms_key_arn   = "${module.chamber_kms_key.key_arn}"
+  source      = "git::https://github.com/cloudposse/terraform-aws-iam-chamber-user.git?ref=tags/0.1.4"
+  namespace   = "${var.namespace}"
+  stage       = "${var.stage}"
+  name        = "chamber"
+  attributes  = ["codefresh"]
+  kms_key_arn = "${module.chamber_kms_key.key_arn}"
+
   ssm_resources = [
-    "${format("arn:aws:ssm:%s:%s:parameter/kops/*", var.region, var.account_id)}",
-    "${format("arn:aws:ssm:%s:%s:parameter/app/*", var.region, var.account_id)}"
+    "${formatlist("arn:aws:ssm:%s:%s:parameter/%s/*", var.region, var.account_id, split(",", replace(var.parameter_groups, " ", "")))}",
   ]
 }
 
