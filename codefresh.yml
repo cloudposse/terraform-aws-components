@@ -50,7 +50,7 @@ steps:
     image_name: cloudposse/terraform-root-modules
     candidate: ${{build_image}}
     tags:
-      - "${{SEMVERSION_BRANCH_COMMIT_SHORT}}"
+      - "${{SEMVERSION_BRANCH}}"
     when:
       condition:
         all:
