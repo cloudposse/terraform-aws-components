@@ -15,9 +15,10 @@ variable "ELASTICSEARCH_INSTANCE_COUNT" {
   default     = 4
 }
 
+# https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-ac.html
 variable "ELASTICSEARCH_IAM_ACTIONS" {
   type        = "list"
-  default     = ["es:ESHttpGet", "es:ESHttpPut", "es:ESHttpPost", "es:ESHttpDelete", "es:ESHttpHead"]
+  default     = ["es:ESHttpGet", "es:ESHttpPut", "es:ESHttpPost", "es:ESHttpHead", "es:Describe*", "es:List*"]
   description = "List of actions to allow for the IAM roles, _e.g._ `es:ESHttpGet`, `es:ESHttpPut`, `es:ESHttpPost`"
 }
 
@@ -35,8 +36,8 @@ module "elasticsearch" {
   dns_zone_id            = "${var.zone_id}"
   security_groups        = ["${module.kops_metadata.nodes_security_group_id}"]
   vpc_id                 = "${module.vpc.vpc_id}"
-  subnet_ids             = ["${slice(module.subnets.private_subnet_ids, 0, max(2, length(module.subnets.private_subnet_ids)))}"]
-  zone_awareness_enabled = "${length(module.subnets.private_subnet_ids) > 1 ? "true" : "false"}"
+  subnet_ids             = ["${slice(module.subnets.public_subnet_ids, 0, max(2, length(module.subnets.public_subnet_ids)))}"]
+  zone_awareness_enabled = "${length(module.subnets.public_subnet_ids) > 1 ? "true" : "false"}"
   elasticsearch_version  = "${var.ELASTICSEARCH_VERSION}"
   instance_type          = "${var.ELASTICSEARCH_INSTANCE_TYPE}"
   instance_count         = "${var.ELASTICSEARCH_INSTANCE_COUNT}"
