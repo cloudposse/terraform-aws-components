@@ -11,6 +11,12 @@ variable "ELASTICSEARCH_ENCRYPT_AT_REST_ENABLED" {
   description = "Whether to enable encryption at rest"
 }
 
+# EBS storage must be selected for t2.small.elasticsearch
+variable "ELASTICSEARCH_EBS_VOLUME_SIZE" {
+  default     = 20
+  description = "Optionally use EBS volumes for data storage by specifying volume size in GB"
+}
+
 variable "ELASTICSEARCH_INSTANCE_TYPE" {
   type        = "string"
   default     = "t2.small.elasticsearch"
@@ -51,6 +57,7 @@ module "elasticsearch" {
   iam_role_arns           = ["${module.kops_metadata.nodes_role_arn}"]
   iam_actions             = ["${var.ELASTICSEARCH_IAM_ACTIONS}"]
   kibana_subdomain_name   = "kibana-elasticsearch"
+  ebs_volume_size         = "${var.ELASTICSEARCH_EBS_VOLUME_SIZE}"
   encrypt_at_rest_enabled = "${var.ELASTICSEARCH_ENCRYPT_AT_REST_ENABLED}"
   enabled                 = "${var.ELASTICSEARCH_ENABLED}"
 
