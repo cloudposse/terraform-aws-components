@@ -29,7 +29,7 @@ variable "ELASTICSEARCH_ENABLED" {
 }
 
 module "elasticsearch" {
-  source                 = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.1.0"
+  source                 = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=fix-aws-security-group-rule"
   namespace              = "${var.namespace}"
   stage                  = "${var.stage}"
   name                   = "elasticsearch"
