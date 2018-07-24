@@ -4,6 +4,13 @@ variable "ELASTICSEARCH_VERSION" {
   description = "Version of Elasticsearch to deploy"
 }
 
+# Encryption at rest is not supported with t2.small.elasticsearch instances
+variable "ELASTICSEARCH_ENCRYPT_AT_REST_ENABLED" {
+  type        = "string"
+  default     = "false"
+  description = "Whether to enable encryption at rest"
+}
+
 variable "ELASTICSEARCH_INSTANCE_TYPE" {
   type        = "string"
   default     = "t2.small.elasticsearch"
@@ -29,22 +36,23 @@ variable "ELASTICSEARCH_ENABLED" {
 }
 
 module "elasticsearch" {
-  source                 = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=fix-aws-security-group-rule"
-  namespace              = "${var.namespace}"
-  stage                  = "${var.stage}"
-  name                   = "elasticsearch"
-  dns_zone_id            = "${var.zone_id}"
-  security_groups        = ["${module.kops_metadata.nodes_security_group_id}"]
-  vpc_id                 = "${module.vpc.vpc_id}"
-  subnet_ids             = ["${slice(module.subnets.public_subnet_ids, 0, max(2, length(module.subnets.public_subnet_ids)))}"]
-  zone_awareness_enabled = "${length(module.subnets.public_subnet_ids) > 1 ? "true" : "false"}"
-  elasticsearch_version  = "${var.ELASTICSEARCH_VERSION}"
-  instance_type          = "${var.ELASTICSEARCH_INSTANCE_TYPE}"
-  instance_count         = "${var.ELASTICSEARCH_INSTANCE_COUNT}"
-  iam_role_arns          = ["${module.kops_metadata.nodes_role_arn}"]
-  iam_actions            = ["${var.ELASTICSEARCH_IAM_ACTIONS}"]
-  kibana_subdomain_name  = "kibana-elasticsearch"
-  enabled                = "${var.ELASTICSEARCH_ENABLED}"
+  source                  = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=fix-aws-security-group-rule"
+  namespace               = "${var.namespace}"
+  stage                   = "${var.stage}"
+  name                    = "elasticsearch"
+  dns_zone_id             = "${var.zone_id}"
+  security_groups         = ["${module.kops_metadata.nodes_security_group_id}"]
+  vpc_id                  = "${module.vpc.vpc_id}"
+  subnet_ids              = ["${slice(module.subnets.public_subnet_ids, 0, max(2, length(module.subnets.public_subnet_ids)))}"]
+  zone_awareness_enabled  = "${length(module.subnets.public_subnet_ids) > 1 ? "true" : "false"}"
+  elasticsearch_version   = "${var.ELASTICSEARCH_VERSION}"
+  instance_type           = "${var.ELASTICSEARCH_INSTANCE_TYPE}"
+  instance_count          = "${var.ELASTICSEARCH_INSTANCE_COUNT}"
+  iam_role_arns           = ["${module.kops_metadata.nodes_role_arn}"]
+  iam_actions             = ["${var.ELASTICSEARCH_IAM_ACTIONS}"]
+  kibana_subdomain_name   = "kibana-elasticsearch"
+  encrypt_at_rest_enabled = "${var.ELASTICSEARCH_ENCRYPT_AT_REST_ENABLED}"
+  enabled                 = "${var.ELASTICSEARCH_ENABLED}"
 
   advanced_options {
     "rest.action.multi.allow_explicit_index" = "true"
