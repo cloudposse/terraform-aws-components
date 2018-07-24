@@ -43,6 +43,19 @@ steps:
         all:
           executeForBranch: "'${{SEMVERSION_BRANCH}}' != ''"
 
+  push_image_branch_to_dockerhub:
+    title: Push image with branch based semver tags
+    type: push
+    registry: dockerhub
+    image_name: cloudposse/terraform-root-modules
+    candidate: ${{build_image}}
+    tags:
+      - "${{SEMVERSION_BRANCH_COMMIT_SHORT}}"
+    when:
+      condition:
+        all:
+          executeForBranch: "'${{SEMVERSION_BRANCH}}' != ''"
+
   push_image_tag_to_cfcr:
     title: Push image with tag based semver tags
     type: push
