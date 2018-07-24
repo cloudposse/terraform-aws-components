@@ -9,7 +9,7 @@ module "chamber_user" {
   kms_key_arn = "${module.chamber_kms_key.key_arn}"
 
   ssm_resources = [
-    "${formatlist("arn:aws:ssm:%s:%s:parameter/%s/*", var.region, var.account_id, split(",", replace(var.parameter_groups, " ", "")))}",
+    "${formatlist("arn:aws:ssm:%s:%s:parameter/%s/*", var.region, var.account_id, var.parameter_groups)}",
   ]
 }
 

@@ -29,9 +29,9 @@ variable "account_id" {
 }
 
 variable "parameter_groups" {
-  type        = "string"
-  description = "Comma separated name of paramter groups"
-  default     = "kops, app"
+  type        = "list"
+  description = "Paramter groups names"
+  default     = ["kops", "app"]
 }
 
 provider "aws" {
