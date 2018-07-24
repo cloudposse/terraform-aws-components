@@ -28,6 +28,12 @@ variable "zone_name" {
   description = "DNS zone name"
 }
 
+variable "permitted_nodes" {
+  type        = "string"
+  description = "Kops kubernetes nodes that are permitted to assume the role (e.g. 'nodes', 'masters', or 'both')"
+  default     = "both"
+}
+
 provider "aws" {
   assume_role {
     role_arn = "${var.aws_assume_role_arn}"
