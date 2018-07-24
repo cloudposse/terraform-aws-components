@@ -49,7 +49,7 @@ module "elasticsearch" {
   dns_zone_id             = "${var.zone_id}"
   security_groups         = ["${module.kops_metadata.nodes_security_group_id}"]
   vpc_id                  = "${module.vpc.vpc_id}"
-  subnet_ids              = ["${slice(module.subnets.public_subnet_ids, 0, max(2, length(module.subnets.public_subnet_ids)))}"]
+  subnet_ids              = ["${slice(module.subnets.public_subnet_ids, 0, min(2, length(module.subnets.public_subnet_ids)))}"]
   zone_awareness_enabled  = "${length(module.subnets.public_subnet_ids) > 1 ? "true" : "false"}"
   elasticsearch_version   = "${var.ELASTICSEARCH_VERSION}"
   instance_type           = "${var.ELASTICSEARCH_INSTANCE_TYPE}"
