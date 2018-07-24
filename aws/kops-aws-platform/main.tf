@@ -31,7 +31,7 @@ variable "zone_name" {
 variable "permitted_nodes" {
   type        = "string"
   description = "Kops kubernetes nodes that are permitted to assume the role (e.g. 'nodes', 'masters', or 'both')"
-  default     = "masters"
+  default     = "both"
 }
 
 provider "aws" {
