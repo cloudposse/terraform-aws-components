@@ -30,7 +30,7 @@ variable "account_id" {
 
 variable "parameter_groups" {
   type        = "list"
-  description = "Paramter groups names"
+  description = "Parameter group names"
   default     = ["kops", "app"]
 }
 
