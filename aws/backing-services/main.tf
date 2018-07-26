@@ -10,7 +10,7 @@ variable "aws_assume_role_arn" {
 
 variable "namespace" {
   type        = "string"
-  description = "Namespace (e.g. `cp` or `cloudposse`)"
+  description = "Namespace (e.g. `eg` or `cp`)"
 }
 
 variable "stage" {
@@ -39,9 +39,4 @@ provider "aws" {
   assume_role {
     role_arn = "${var.aws_assume_role_arn}"
   }
-}
-
-module "kops_metadata" {
-  source   = "git::https://github.com/cloudposse/terraform-aws-kops-metadata.git?ref=tags/0.1.1"
-  dns_zone = "${var.region}.${var.zone_name}"
 }
