@@ -42,15 +42,15 @@ variable "ELASTICSEARCH_ENABLED" {
 }
 
 module "elasticsearch" {
-  source                  = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=fix-aws-security-group-rule"
+  source                  = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.1.1"
   namespace               = "${var.namespace}"
   stage                   = "${var.stage}"
   name                    = "elasticsearch"
   dns_zone_id             = "${var.zone_id}"
   security_groups         = ["${module.kops_metadata.nodes_security_group_id}"]
   vpc_id                  = "${module.vpc.vpc_id}"
-  subnet_ids              = ["${slice(module.subnets.public_subnet_ids, 0, min(2, length(module.subnets.public_subnet_ids)))}"]
-  zone_awareness_enabled  = "${length(module.subnets.public_subnet_ids) > 1 ? "true" : "false"}"
+  subnet_ids              = ["${slice(module.subnets.private_subnet_ids, 0, min(2, length(module.subnets.private_subnet_ids)))}"]
+  zone_awareness_enabled  = "${length(module.subnets.private_subnet_ids) > 1 ? "true" : "false"}"
   elasticsearch_version   = "${var.ELASTICSEARCH_VERSION}"
   instance_type           = "${var.ELASTICSEARCH_INSTANCE_TYPE}"
   instance_count          = "${var.ELASTICSEARCH_INSTANCE_COUNT}"
