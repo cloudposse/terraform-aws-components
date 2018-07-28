@@ -28,6 +28,12 @@ variable "account_id" {
   description = "AWS account ID"
 }
 
+variable "parameter_groups" {
+  type        = "list"
+  description = "Parameter group names"
+  default     = ["kops", "app"]
+}
+
 provider "aws" {
   assume_role {
     role_arn = "${var.aws_assume_role_arn}"
