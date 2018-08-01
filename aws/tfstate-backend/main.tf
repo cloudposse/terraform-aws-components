@@ -65,5 +65,5 @@ module "tfstate_backend" {
   attributes    = "${var.attributes}"
   tags          = "${var.tags}"
   region        = "${var.region}"
-  force_destroy = "true"
+  force_destroy = "${var.force_destroy}"
 }
