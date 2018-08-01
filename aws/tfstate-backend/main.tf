@@ -58,12 +58,12 @@ variable "force_destroy" {
 }
 
 module "tfstate_backend" {
-  source     = "git::https://github.com/cloudposse/terraform-aws-tfstate-backend.git?ref=tags/0.1.1"
-  namespace  = "${var.namespace}"
-  name       = "${var.name}"
-  stage      = "${var.stage}"
-  attributes = "${var.attributes}"
-  tags       = "${var.tags}"
-  region     = "${var.region}"
+  source        = "git::https://github.com/cloudposse/terraform-aws-tfstate-backend.git?ref=tags/0.1.1"
+  namespace     = "${var.namespace}"
+  name          = "${var.name}"
+  stage         = "${var.stage}"
+  attributes    = "${var.attributes}"
+  tags          = "${var.tags}"
+  region        = "${var.region}"
   force_destroy = "true"
 }
