@@ -51,12 +51,19 @@ variable "region" {
   default     = "us-west-2"
 }
 
+variable "force_destroy" {
+  type        = "string"
+  description = "A boolean that indicates the S3 bucket can be destroyed even if it contains objects. These objects are not recoverable."
+  default     = "false"
+}
+
 module "tfstate_backend" {
-  source     = "git::https://github.com/cloudposse/terraform-aws-tfstate-backend.git?ref=tags/0.1.1"
-  namespace  = "${var.namespace}"
-  name       = "${var.name}"
-  stage      = "${var.stage}"
-  attributes = "${var.attributes}"
-  tags       = "${var.tags}"
-  region     = "${var.region}"
+  source        = "git::https://github.com/cloudposse/terraform-aws-tfstate-backend.git?ref=tags/0.1.1"
+  namespace     = "${var.namespace}"
+  name          = "${var.name}"
+  stage         = "${var.stage}"
+  attributes    = "${var.attributes}"
+  tags          = "${var.tags}"
+  region        = "${var.region}"
+  force_destroy = "${var.force_destroy}"
 }
