@@ -51,7 +51,7 @@ module "kops_state_backend" {
   namespace        = "${var.namespace}"
   stage            = "${var.stage}"
   name             = "${var.name}"
-  attributes       = "state"
+  attributes       = ["state"]
   cluster_name     = "${var.region}"
   parent_zone_name = "${var.zone_name}"
   zone_name        = "$${name}.$${parent_zone_name}"
@@ -63,7 +63,7 @@ module "ssh_key_pair" {
   namespace           = "${var.namespace}"
   stage               = "${var.stage}"
   name                = "${var.name}"
-  attributes          = "${var.region}"
+  attributes          = ["${var.region}"]
   ssh_public_key_path = "${var.ssh_public_key_path}"
   generate_ssh_key    = "true"
 }
