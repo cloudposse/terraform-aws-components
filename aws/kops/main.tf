@@ -18,7 +18,7 @@ variable "stage" {
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
-variable "stage" {
+variable "name" {
   type        = "string"
   description = "Name  (e.g. `kops`)"
   default     = "kops"
