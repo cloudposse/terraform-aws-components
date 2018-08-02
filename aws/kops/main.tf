@@ -37,7 +37,7 @@ variable "zone_name" {
 variable "ssh_public_key_path" {
   type        = "string"
   description = "SSH public key path to write master public/private key pair for cluster"
-  default     = ""
+  default     = "/secrets/tf/ssh"
 }
 
 provider "aws" {
