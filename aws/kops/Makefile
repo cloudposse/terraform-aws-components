@@ -3,13 +3,13 @@ init:
 	init-terraform
 
 ## Show terraform plan for this project
-plan:
+plan: init
 	terraform plan
 
 ## Apply terraform plan for this project
-apply:
-	terraform apply
+apply: init
+	terraform apply -auto-approve
 
 ## Destroy terraform project
-destroy:
+destroy: init
 	terraform destroy

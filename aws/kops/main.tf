@@ -37,7 +37,7 @@ variable "zone_name" {
 variable "domain_enabled" {
   type           = "string"
   description    = "Enable DNS Zone creation for kops"
-  domain_enabled = "true"
+  default        = "true"
 }
 
 variable "ssh_public_key_path" {
@@ -53,7 +53,7 @@ provider "aws" {
 }
 
 module "kops_state_backend" {
-  source           = "git::https://github.com/cloudposse/terraform-aws-kops-state-backend.git?ref=tags/0.1.3"
+  source           = "git::https://github.com/cloudposse/terraform-aws-kops-state-backend.git?ref=tags/0.1.5"
   namespace        = "${var.namespace}"
   stage            = "${var.stage}"
   name             = "${var.name}"
