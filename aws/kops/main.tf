@@ -40,6 +40,12 @@ variable "domain_enabled" {
   default     = "true"
 }
 
+variable "force_destroy" {
+  type        = "string"
+  description = "A boolean that indicates all objects should be deleted from the bucket so that the bucket can be destroyed without errors. These objects are not recoverable."
+  default     = "false"
+}
+
 variable "ssh_public_key_path" {
   type        = "string"
   description = "SSH public key path to write master public/private key pair for cluster"
@@ -62,6 +68,7 @@ module "kops_state_backend" {
   parent_zone_name = "${var.zone_name}"
   zone_name        = "$${name}.$${parent_zone_name}"
   domain_enabled   = "${var.domain_enabled}"
+  force_destroy    = "${var.force_destroy}"
   region           = "${var.region}"
 }
 
