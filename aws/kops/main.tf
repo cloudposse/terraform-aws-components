@@ -34,6 +34,12 @@ variable "zone_name" {
   description = "DNS zone name"
 }
 
+variable "domain_enabled" {
+  type           = "string"
+  description    = "Enable DNS Zone creation for kops"
+  domain_enabled = "true"
+}
+
 variable "ssh_public_key_path" {
   type        = "string"
   description = "SSH public key path to write master public/private key pair for cluster"
@@ -55,6 +61,7 @@ module "kops_state_backend" {
   cluster_name     = "${var.region}"
   parent_zone_name = "${var.zone_name}"
   zone_name        = "$${name}.$${parent_zone_name}"
+  domain_enabled   = "${var.domain_enabled}"
   region           = "${var.region}"
 }
 
