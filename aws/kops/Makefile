@@ -8,8 +8,8 @@ plan: init
 
 ## Apply terraform plan for this project
 apply: init
-	terraform apply -auto-approve
+	terraform apply $(TERRAFORM_ARGS)
 
 ## Destroy terraform project
 destroy: init
-	terraform destroy -auto-approve
+	terraform destroy $(TERRAFORM_ARGS)
