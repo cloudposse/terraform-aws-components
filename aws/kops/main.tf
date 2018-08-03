@@ -35,9 +35,9 @@ variable "zone_name" {
 }
 
 variable "domain_enabled" {
-  type           = "string"
-  description    = "Enable DNS Zone creation for kops"
-  default        = "true"
+  type        = "string"
+  description = "Enable DNS Zone creation for kops"
+  default     = "true"
 }
 
 variable "ssh_public_key_path" {
