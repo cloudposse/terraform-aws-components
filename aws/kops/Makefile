@@ -12,4 +12,4 @@ apply: init
 
 ## Destroy terraform project
 destroy: init
-	terraform destroy
+	terraform destroy -auto-approve
