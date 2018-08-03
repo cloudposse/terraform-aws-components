@@ -5,3 +5,5 @@ build-harness
 *.tfstate.*
 .idea
 *.iml
+.viminfo
+.terraform.d
