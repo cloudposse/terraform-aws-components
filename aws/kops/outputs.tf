@@ -38,6 +38,6 @@ output "ssh_key_name" {
   value = "${module.ssh_key_pair.key_name}"
 }
 
-output "shh_public_key" {
+output "ssh_public_key" {
   value = "${module.ssh_key_pair.public_key}"
 }
