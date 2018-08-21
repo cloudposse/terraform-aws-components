@@ -24,12 +24,12 @@ output "kops_ecr_app_registry_id" {
 }
 
 output "kops_ecr_app_registry_url" {
-  value       = "${module.kops_ecr_app.repository_url}"
+  value       = "${module.kops_ecr_app.registry_url}"
   description = "Registry app URL"
 }
 
 output "kops_ecr_app_repository_name" {
-  value       = "${module.kops_ecr_app.name}"
+  value       = "${module.kops_ecr_app.repository_name}"
   description = "Registry app name"
 }
 
