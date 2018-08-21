@@ -1,5 +1,0 @@
-namespace="cp"
-stage="staging"
-region="us-west-2"
-zone_name="us-west-2.cloudposse.co"
-zone_id="XXXXXXXXXXXX"
