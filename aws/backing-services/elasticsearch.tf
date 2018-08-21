@@ -1,3 +1,9 @@
+variable "ELASTICSEARCH_NAME" {
+  type        = "string"
+  default     = "elasticsearch"
+  description = "Elasticsearch cluster name"
+}
+
 variable "ELASTICSEARCH_VERSION" {
   type        = "string"
   default     = "6.2"
@@ -45,7 +51,7 @@ module "elasticsearch" {
   source                  = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.1.1"
   namespace               = "${var.namespace}"
   stage                   = "${var.stage}"
-  name                    = "elasticsearch"
+  name                    = "${var.ELASTICSEARCH_NAME}"
   dns_zone_id             = "${var.zone_id}"
   security_groups         = ["${module.kops_metadata.nodes_security_group_id}"]
   vpc_id                  = "${module.vpc.vpc_id}"
