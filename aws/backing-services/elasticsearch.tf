@@ -47,6 +47,21 @@ variable "ELASTICSEARCH_ENABLED" {
   description = "Set to false to prevent the module from creating any resources"
 }
 
+variable "ELASTICSEARCH_PERMITTED_NODES" {
+  type        = "string"
+  description = "Kops kubernetes nodes that are permitted to access elastic search (e.g. 'nodes', 'masters', 'both' or 'any')"
+  default     = "nodes"
+}
+
+locals {
+  arns = {
+    masters = ["${module.kops_metadata.masters_role_arn}"]
+    nodes   = ["${module.kops_metadata.nodes_role_arn}"]
+    both    = ["${module.kops_metadata.masters_role_arn}", "${module.kops_metadata.nodes_role_arn}"]
+    any     = ["*"]
+  }
+}
+
 module "elasticsearch" {
   source                  = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.1.1"
   namespace               = "${var.namespace}"
@@ -60,7 +75,7 @@ module "elasticsearch" {
   elasticsearch_version   = "${var.ELASTICSEARCH_VERSION}"
   instance_type           = "${var.ELASTICSEARCH_INSTANCE_TYPE}"
   instance_count          = "${var.ELASTICSEARCH_INSTANCE_COUNT}"
-  iam_role_arns           = ["${module.kops_metadata.nodes_role_arn}"]
+  iam_role_arns           = ["${local.arns[var.ELASTICSEARCH_PERMITTED_NODES]}"]
   iam_actions             = ["${var.ELASTICSEARCH_IAM_ACTIONS}"]
   kibana_subdomain_name   = "kibana-elasticsearch"
   ebs_volume_size         = "${var.ELASTICSEARCH_EBS_VOLUME_SIZE}"
