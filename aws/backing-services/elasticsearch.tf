@@ -58,7 +58,7 @@ locals {
     masters = ["${module.kops_metadata.masters_role_arn}"]
     nodes   = ["${module.kops_metadata.nodes_role_arn}"]
     both    = ["${module.kops_metadata.masters_role_arn}", "${module.kops_metadata.nodes_role_arn}"]
-    any    = ["*"]
+    any     = ["*"]
   }
 }
 
