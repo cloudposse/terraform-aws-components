@@ -1,8 +1,12 @@
+variable "kops_ecr_app_repository_name" {
+  description = "App repository name"
+}
+
 module "kops_ecr_app" {
-  source       = "git::https://github.com/cloudposse/terraform-aws-kops-ecr.git?ref=tags/0.1.0"
+  source       = "git::https://github.com/cloudposse/terraform-aws-kops-ecr.git?ref=tags/0.1.3"
   namespace    = "${var.namespace}"
   stage        = "${var.stage}"
-  name         = "${var.repository_name}"
+  name         = "${var.kops_ecr_app_repository_name}"
   cluster_name = "${var.region}.${var.zone_name}"
 
   users = [
@@ -20,12 +24,12 @@ output "kops_ecr_app_registry_id" {
 }
 
 output "kops_ecr_app_registry_url" {
-  value       = "${module.kops_ecr_app.repository_url}"
+  value       = "${module.kops_ecr_app.registry_url}"
   description = "Registry app URL"
 }
 
 output "kops_ecr_app_repository_name" {
-  value       = "${module.kops_ecr_app.name}"
+  value       = "${module.kops_ecr_app.repository_name}"
   description = "Registry app name"
 }
 
