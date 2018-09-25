@@ -117,13 +117,3 @@ output "workers_config_map_aws_auth" {
   description = "Kubernetes ConfigMap configuration to allow the worker nodes to join the EKS cluster. https://www.terraform.io/docs/providers/aws/guides/eks-getting-started.html#required-kubernetes-configuration-to-join-worker-nodes"
   value       = "${module.eks_workers.config_map_aws_auth}"
 }
-
-output "vpc_peering_connection_id" {
-  value       = "${module.vpc_peering.connection_id}"
-  description = "VPC peering connection ID"
-}
-
-output "vpc_peering_accept_status" {
-  value       = "${module.vpc_peering.accept_status}"
-  description = "The status of the VPC peering connection request"
-}

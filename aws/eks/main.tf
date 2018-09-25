@@ -1,8 +1,18 @@
+module "label" {
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.3.3"
+  namespace  = "${var.namespace}"
+  name       = "${var.name}"
+  stage      = "${var.stage}"
+  delimiter  = "${var.delimiter}"
+  attributes = "${var.attributes}"
+  tags       = "${var.tags}"
+}
+
 locals {
   # The usage of the specific kubernetes.io/cluster/* resource tags below are required
   # for EKS and Kubernetes to discover and manage networking resources
   # https://www.terraform.io/docs/providers/aws/guides/eks-getting-started.html#base-vpc-networking
-  tags = "${merge(var.tags, map("kubernetes.io/cluster/${module.eks_cluster.eks_cluster_id}", "shared"))}"
+  tags = "${merge(var.tags, map("kubernetes.io/cluster/${module.label.id}", "shared"))}"
 }
 
 data "aws_availability_zones" "available" {}
@@ -71,21 +81,4 @@ module "eks_workers" {
   autoscaling_policies_enabled           = "${var.autoscaling_policies_enabled}"
   cpu_utilization_high_threshold_percent = "${var.cpu_utilization_high_threshold_percent}"
   cpu_utilization_low_threshold_percent  = "${var.cpu_utilization_low_threshold_percent}"
-}
-
-# Lookup the backing services VPC
-data "aws_vpc" "backing_services_vpc" {
-  filter {
-    name   = "tag:Name"
-    values = ["${var.namespace}-${var.stage}-backing-services"]
-  }
-}
-
-module "vpc_peering" {
-  source           = "git::https://github.com/cloudposse/terraform-aws-vpc-peering.git?ref=tags/0.1.2"
-  namespace        = "${var.namespace}"
-  stage            = "${var.stage}"
-  name             = "peering"
-  requestor_vpc_id = "${module.vpc.vpc_id}"
-  acceptor_vpc_id  = "${data.aws_vpc.backing_services_vpc.id}"
 }
