@@ -16,7 +16,7 @@ variable "environment" {
 
 variable "name" {
   type        = "string"
-  default     = "cluster"
+  default     = "eks"
   description = "Solution name, e.g. 'app' or 'cluster'"
 }
 
