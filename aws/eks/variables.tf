@@ -8,12 +8,6 @@ variable "stage" {
   description = "Stage, e.g. 'prod', 'staging', 'dev' or 'testing'"
 }
 
-variable "environment" {
-  type        = "string"
-  default     = ""
-  description = "Environment, e.g. 'testing', 'UAT'"
-}
-
 variable "name" {
   type        = "string"
   default     = "eks"
@@ -44,16 +38,28 @@ variable "enabled" {
   default     = "true"
 }
 
-variable "allowed_security_groups" {
+variable "allowed_security_groups_cluster" {
   type        = "list"
   default     = []
   description = "List of Security Group IDs to be allowed to connect to the EKS cluster"
 }
 
-variable "allowed_cidr_blocks" {
+variable "allowed_security_groups_workers" {
+  type        = "list"
+  default     = []
+  description = "List of Security Group IDs to be allowed to connect to the worker nodes"
+}
+
+variable "allowed_cidr_blocks_cluster" {
   type        = "list"
   default     = []
   description = "List of CIDR blocks to be allowed to connect to the EKS cluster"
+}
+
+variable "allowed_cidr_blocks_workers" {
+  type        = "list"
+  default     = []
+  description = "List of CIDR blocks to be allowed to connect to the worker nodes"
 }
 
 variable "region" {
@@ -103,7 +109,7 @@ variable "min_size" {
 
 variable "wait_for_capacity_timeout" {
   type        = "string"
-  description = "A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. (See also Waiting for Capacity below.) Setting this to '0' causes Terraform to skip all Capacity Waiting behavior"
+  description = "A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. Setting this to '0' causes Terraform to skip all Capacity Waiting behavior"
   default     = "10m"
 }
 
@@ -128,4 +134,10 @@ variable "cpu_utilization_low_threshold_percent" {
   type        = "string"
   default     = "20"
   description = "Worker nodes AutoScaling Group CPU utilization low threshold percent"
+}
+
+variable "apply_config_map_aws_auth" {
+  type        = "string"
+  default     = "true"
+  description = "Whether to generate local files from `kubeconfig` and `config_map_aws_auth` and perform `kubectl apply` to apply the ConfigMap to allow the worker nodes to join the EKS cluster"
 }
