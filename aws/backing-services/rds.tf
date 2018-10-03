@@ -17,18 +17,12 @@ variable "RDS_DB_NAME" {
   description = "RDS DB database name"
 }
 
-# db.r4.large is the smallest instance type supported by Aurora Postgres
-# https://aws.amazon.com/rds/aurora/pricing
+# db.t2.micro is free tier
+# https://aws.amazon.com/rds/free
 variable "RDS_INSTANCE_TYPE" {
   type        = "string"
-  default     = "db.r4.large"
+  default     = "db.t2.micro"
   description = "EC2 instance type for RDS DB"
-}
-
-variable "RDS_CLUSTER_SIZE" {
-  type        = "string"
-  default     = "2"
-  description = "RDS DB cluster size"
 }
 
 variable "RDS_CLUSTER_ENABLED" {
@@ -61,7 +55,7 @@ module "rds" {
   storage_encrypted           = "true"
   engine                      = "mariadb"
   engine_version              = "10.1.19"
-  instance_class              = "${var.RDS_CLUSTER_SIZE}"
+  instance_class              = "${var.RDS_INSTANCE_TYPE}"
   db_parameter_group          = "mariadb10.1"
   parameter_group_name        = "mariadb-10-1"
   publicly_accessible         = "false"
