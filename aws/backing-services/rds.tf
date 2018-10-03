@@ -37,6 +37,12 @@ variable "RDS_SNAPSHOT" {
   description = "Restore snapshots"
 }
 
+variable "RDS_PARAMETER_GROUP_NAME" {
+  type        = "string"
+  default     = ""
+  description = "Existed paramater group name to use"
+}
+
 module "rds" {
   source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.0"
   namespace                   = "${var.namespace}"
@@ -57,7 +63,7 @@ module "rds" {
   engine_version              = "10.1.19"
   instance_class              = "${var.RDS_INSTANCE_TYPE}"
   db_parameter_group          = "mariadb10.1"
-  parameter_group_name        = "mariadb-10-1"
+  parameter_group_name        = "${var.RDS_PARAMETER_GROUP_NAME}"
   publicly_accessible         = "false"
   subnet_ids                  = ["${module.subnets.private_subnet_ids}"]
   vpc_id                      = "${module.vpc.vpc_id}"
