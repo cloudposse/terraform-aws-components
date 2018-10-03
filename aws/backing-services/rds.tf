@@ -60,13 +60,13 @@ variable "RDS_CLUSTER_ENABLED" {
 variable "RDS_SNAPSHOT" {
   type        = "string"
   default     = ""
-  description = "Restore snapshots"
+  description = "Set to a snapshot ID to restore from snapshot"
 }
 
 variable "RDS_PARAMETER_GROUP_NAME" {
   type        = "string"
   default     = ""
-  description = "Existed paramater group name to use"
+  description = "Existing parameter group name to use"
 }
 
 variable "RDS_MULTI_AZ" {
