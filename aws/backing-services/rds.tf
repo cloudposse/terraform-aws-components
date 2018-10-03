@@ -1,8 +1,15 @@
+variable "RDS_NAME" {
+  type        = "string"
+  default     = "rds"
+  description = "RDS instance name"
+}
+
 variable "RDS_ENABLED" {
   type        = "string"
   default     = "false"
   description = "Set to true to create rds instance"
 }
+
 
 # Don't use `root`
 # ("MasterUsername root cannot be used as it is a reserved word used by the engine")
@@ -140,9 +147,9 @@ module "rds" {
   enabled                     = "${var.RDS_ENABLED}"
   namespace                   = "${var.namespace}"
   stage                       = "${var.stage}"
-  name                        = "rds"
+  name                        = "${var.RDS_NAME}"
   dns_zone_id                 = "${var.zone_id}"
-  host_name                   = "rds"
+  host_name                   = "${var.RDS_NAME}"
   security_group_ids          = ["${module.kops_metadata.nodes_security_group_id}"]
   database_name               = "${var.RDS_DB_NAME}"
   database_user               = "${var.RDS_ADMIN_NAME}"
