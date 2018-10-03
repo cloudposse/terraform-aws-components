@@ -94,7 +94,8 @@ variable "RDS_STORAGE_ENCRYPTED" {
 }
 
 module "rds" {
-  source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.1"
+  #source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.1"
+  source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=feature/cp-11/disable-rds"
   enabled                     = "${var.RDS_ENABLED}"
   namespace                   = "${var.namespace}"
   stage                       = "${var.stage}"
