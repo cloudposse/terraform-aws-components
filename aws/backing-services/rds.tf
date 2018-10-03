@@ -93,6 +93,42 @@ variable "RDS_STORAGE_ENCRYPTED" {
   description = "Set true to encrypt storage"
 }
 
+variable "RDS_AUTO_MINOR_VERSION_UPGRADE" {
+  type        = "string"
+  default     = "false"
+  description = "Allow automated minor version upgrade (e.g. from Postgres 9.5.3 to Postgres 9.5.4)"
+}
+
+variable "RDS_ALLOW_MAJOR_VERSION_UPGRADE" {
+  type        = "string"
+  default     = "false"
+  description = "Allow major version upgrade"
+}
+
+variable "RDS_APPLY_IMMEDIATELY" {
+  type        = "string"
+  default     = "true"
+  description = "Specifies whether any database modifications are applied immediately, or during the next maintenance window"
+}
+
+variable "RDS_SKIP_FINAL_SNAPSHOT" {
+  type        = "string"
+  default     = "false"
+  description = "If true (default), no snapshot will be made before deleting DB"
+}
+
+variable "RDS_BACKUP_RETENTION_PERIOD" {
+  type        = "string"
+  default     = "7"
+  description = "Backup retention period in days. Must be > 0 to enable backups"
+}
+
+variable "RDS_BACKUP_WINDOW" {
+  type        = "string"
+  default     = "22:00-03:00"
+  description = "When AWS can perform DB snapshots, can't overlap with maintenance window"
+}
+
 module "rds" {
   source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.1"
   enabled                     = "${var.RDS_ENABLED}"
@@ -119,13 +155,13 @@ module "rds" {
   subnet_ids                  = ["${module.subnets.private_subnet_ids}"]
   vpc_id                      = "${module.vpc.vpc_id}"
   snapshot_identifier         = "${var.RDS_SNAPSHOT}"
-  auto_minor_version_upgrade  = "false"
-  allow_major_version_upgrade = "false"
-  apply_immediately           = "true"
-  skip_final_snapshot         = "false"
+  auto_minor_version_upgrade  = "${var.RDS_AUTO_MINOR_VERSION_UPGRADE}"
+  allow_major_version_upgrade = "${var.RDS_ALLOW_MAJOR_VERSION_UPGRADE}"
+  apply_immediately           = "${var.RDS_APPLY_IMMEDIATELY}"
+  skip_final_snapshot         = "${var.RDS_SKIP_FINAL_SNAPSHOT}"
   copy_tags_to_snapshot       = "true"
-  backup_retention_period     = 7
-  backup_window               = "22:00-03:00"
+  backup_retention_period     = "${var.RDS_BACKUP_RETENTION_PERIOD}"
+  backup_window               = "${var.RDS_BACKUP_WINDOW}"
 }
 
 output "rds_instance_id" {
@@ -150,7 +186,7 @@ output "rds_db_name" {
 
 output "rds_root_user" {
   value       = "${var.RDS_ADMIN_NAME}"
-  description = "RDS root name"
+  description = "RDS root user name"
 }
 
 output "rds_root_password" {
