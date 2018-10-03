@@ -45,6 +45,12 @@ variable "RDS_ENGINE_VERSION" {
   description = "RDS DB engine version"
 }
 
+variable "RDS_PORT" {
+  type        = "string"
+  default     = "3306"
+  description = "RDS DB port"
+}
+
 variable "RDS_DB_PARAMETER_GROUP" {
   type        = "string"
   default     = "mysql5.6"
@@ -141,7 +147,7 @@ module "rds" {
   database_name               = "${var.RDS_DB_NAME}"
   database_user               = "${var.RDS_ADMIN_NAME}"
   database_password           = "${var.RDS_ADMIN_PASSWORD}"
-  database_port               = 3306
+  database_port               = "${var.RDS_PORT}"
   multi_az                    = "${var.RDS_MULTI_AZ}"
   storage_type                = "${var.RDS_STORAGE_TYPE}"
   allocated_storage           = "${var.RDS_STORAGE_SIZE}"
@@ -177,6 +183,11 @@ output "rds_instance_address" {
 output "rds_instance_endpoint" {
   value       = "${module.rds.instance_endpoint}"
   description = "RDS DNS Endpoint of the instance"
+}
+
+output "rds_port" {
+  value       = "${var.RDS_PORT}"
+  description = "RDS port"
 }
 
 output "rds_db_name" {
