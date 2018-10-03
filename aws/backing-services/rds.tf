@@ -61,7 +61,7 @@ module "rds" {
   publicly_accessible         = "false"
   subnet_ids                  = ["${module.subnets.private_subnet_ids}"]
   vpc_id                      = "${module.vpc.vpc_id}"
-  snapshot_identifier         = "${var.RDS_SNAPSHOT}}"
+  snapshot_identifier         = "${var.RDS_SNAPSHOT}"
   auto_minor_version_upgrade  = "false"
   allow_major_version_upgrade = "false"
   apply_immediately           = "true"
