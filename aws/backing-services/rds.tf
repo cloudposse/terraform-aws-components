@@ -99,7 +99,7 @@ module "rds" {
   database_port               = 3306
   multi_az                    = "${var.RDS_MULTI_AZ}"
   storage_type                = "${var.RDS_STORAGE_TYPE}"
-  allocated_storage           = "${var.RDS_STORAGE_SIZE}}"
+  allocated_storage           = "${var.RDS_STORAGE_SIZE}"
   storage_encrypted           = "${var.RDS_STORAGE_ENCRYPTED}"
   engine                      = "${var.RDS_ENGINE}"
   engine_version              = "${var.RDS_ENGINE_VERSION}"
