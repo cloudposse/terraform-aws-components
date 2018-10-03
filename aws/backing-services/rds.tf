@@ -52,7 +52,7 @@ module "rds" {
   multi_az                    = "false"
   storage_type                = "gp2"
   allocated_storage           = "20"
-  storage_encrypted           = "true"
+  storage_encrypted           = "false"
   engine                      = "mariadb"
   engine_version              = "10.1.19"
   instance_class              = "${var.RDS_INSTANCE_TYPE}"
