@@ -44,7 +44,7 @@ variable "RDS_SNAPSHOT" {
 }
 
 module "rds" {
-  source = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.0"
+  source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.0"
   namespace                   = "${var.namespace}"
   stage                       = "${var.stage}"
   name                        = "rds"
@@ -76,4 +76,3 @@ module "rds" {
   backup_retention_period     = 7
   backup_window               = "22:00-03:00"
 }
-
