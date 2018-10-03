@@ -10,7 +10,6 @@ variable "RDS_ENABLED" {
   description = "Set to true to create rds instance"
 }
 
-
 # Don't use `root`
 # ("MasterUsername root cannot be used as it is a reserved word used by the engine")
 variable "RDS_ADMIN_NAME" {
