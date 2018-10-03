@@ -1,5 +1,11 @@
-# Don't use `admin`
-# ("MasterUsername admin cannot be used as it is a reserved word used by the engine")
+variable "RDS_ENABLED" {
+  type        = "string"
+  default     = "false"
+  description = "Set to true to create rds instance"
+}
+
+# Don't use `root`
+# ("MasterUsername root cannot be used as it is a reserved word used by the engine")
 variable "RDS_ADMIN_NAME" {
   type        = "string"
   description = "RDS DB admin user name"
@@ -12,6 +18,8 @@ variable "RDS_ADMIN_PASSWORD" {
   description = "RDS DB password for the admin user"
 }
 
+# Don't use `default`
+# ("DatabaseName default cannot be used as it is a reserved word used by the engine")
 variable "RDS_DB_NAME" {
   type        = "string"
   description = "RDS DB database name"
@@ -86,7 +94,8 @@ variable "RDS_STORAGE_ENCRYPTED" {
 }
 
 module "rds" {
-  source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.0"
+  source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.1"
+  enabled                     = "${var.RDS_ENABLED}"
   namespace                   = "${var.namespace}"
   stage                       = "${var.stage}"
   name                        = "rds"
