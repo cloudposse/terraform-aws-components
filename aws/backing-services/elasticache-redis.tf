@@ -30,7 +30,7 @@ variable "REDIS_AUTH_TOKEN" {
 
 variable "REDIS_TRANSIT_ENCRYPTION_ENABLED" {
   type        = "string"
-  default     = "false"
+  default     = "true"
   description = "Enable TLS"
 }
 
@@ -47,7 +47,7 @@ module "elasticache_redis" {
   cluster_size                 = "${var.REDIS_CLUSTER_SIZE}"
   instance_type                = "${var.REDIS_INSTANCE_TYPE}"
   transit_encryption_enabled   = "${var.REDIS_TRANSIT_ENCRYPTION_ENABLED}"
-  engine_version               = "3.2.4"
+  engine_version               = "3.2.6"
   family                       = "redis3.2"
   port                         = "6379"
   alarm_cpu_threshold_percent  = "75"
