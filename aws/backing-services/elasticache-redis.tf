@@ -28,6 +28,12 @@ variable "REDIS_AUTH_TOKEN" {
   description = "Auth token for password protecting redis, transit_encryption_enabled must be set to 'true'! Password must be longer than 16 chars"
 }
 
+variable "REDIS_TRANSIT_ENCRYPTION_ENABLED" {
+  type        = "string"
+  default     = "false"
+  description = "Enable TLS"
+}
+
 module "elasticache_redis" {
   source                       = "git::https://github.com/cloudposse/terraform-aws-elasticache-redis.git?ref=tags/0.7.0"
   namespace                    = "${var.namespace}"
@@ -40,6 +46,7 @@ module "elasticache_redis" {
   maintenance_window           = "sun:03:00-sun:04:00"
   cluster_size                 = "${var.REDIS_CLUSTER_SIZE}"
   instance_type                = "${var.REDIS_INSTANCE_TYPE}"
+  transit_encryption_enabled   = "${var.REDIS_TRANSIT_ENCRYPTION_ENABLED}"
   engine_version               = "3.2.4"
   family                       = "redis3.2"
   port                         = "6379"
