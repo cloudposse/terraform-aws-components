@@ -1,3 +1,9 @@
+variable "REDIS_NAME" {
+  type        = "string"
+  default     = "redis"
+  description = "Redis name"
+}
+
 variable "REDIS_INSTANCE_TYPE" {
   type        = "string"
   default     = "cache.t2.medium"
@@ -26,7 +32,7 @@ module "elasticache_redis" {
   source                       = "git::https://github.com/cloudposse/terraform-aws-elasticache-redis.git?ref=tags/0.7.0"
   namespace                    = "${var.namespace}"
   stage                        = "${var.stage}"
-  name                         = "redis"
+  name                         = "${var.REDIS_NAME}"
   zone_id                      = "${var.zone_id}"
   security_groups              = ["${module.kops_metadata.nodes_security_group_id}"]
   vpc_id                       = "${module.vpc.vpc_id}"
