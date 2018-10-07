@@ -17,7 +17,7 @@ variable "REDIS_CLUSTER_ENABLED" {
 }
 
 module "elasticache_redis" {
-  source                       = "git::https://github.com/cloudposse/terraform-aws-elasticache-redis.git?ref=tags/0.4.3"
+  source                       = "git::https://github.com/cloudposse/terraform-aws-elasticache-redis.git?ref=tags/0.7.0"
   namespace                    = "${var.namespace}"
   stage                        = "${var.stage}"
   name                         = "redis"
