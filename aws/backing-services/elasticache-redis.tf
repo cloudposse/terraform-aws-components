@@ -16,6 +16,12 @@ variable "REDIS_CLUSTER_ENABLED" {
   description = "Set to false to prevent the module from creating any resources"
 }
 
+variable "REDIS_AUTH_TOKEN" {
+  type        = "string"
+  default     = ""
+  description = "Auth token for password protecting redis, transit_encryption_enabled must be set to 'true'! Password must be longer than 16 chars"
+}
+
 module "elasticache_redis" {
   source                       = "git::https://github.com/cloudposse/terraform-aws-elasticache-redis.git?ref=tags/0.7.0"
   namespace                    = "${var.namespace}"
@@ -37,6 +43,7 @@ module "elasticache_redis" {
   availability_zones           = ["${data.aws_availability_zones.available.names}"]
   automatic_failover           = "false"
   enabled                      = "${var.REDIS_CLUSTER_ENABLED}"
+  auth_token                   = "${var.REDIS_AUTH_TOKEN}"
 }
 
 output "elasticache_redis_id" {
