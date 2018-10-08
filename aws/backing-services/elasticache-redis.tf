@@ -41,7 +41,7 @@ variable "REDIS_PARAMS" {
 }
 
 module "elasticache_redis" {
-  source                       = "git::https://github.com/cloudposse/terraform-aws-elasticache-redis.git?ref=feature/cp-16/parametrise-redis"
+  source                       = "git::https://github.com/cloudposse/terraform-aws-elasticache-redis.git?ref=tags/0.7.1"
   namespace                    = "${var.namespace}"
   stage                        = "${var.stage}"
   name                         = "${var.REDIS_NAME}"
