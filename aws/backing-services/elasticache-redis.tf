@@ -34,6 +34,12 @@ variable "REDIS_TRANSIT_ENCRYPTION_ENABLED" {
   description = "Enable TLS"
 }
 
+variable "REDIS_PARAMS" {
+  type        = "list"
+  default     = []
+  description = "A list of Redis parameters to apply. Note that parameters may differ from a Redis family to another"
+}
+
 module "elasticache_redis" {
   source                       = "git::https://github.com/cloudposse/terraform-aws-elasticache-redis.git?ref=feature/cp-16/parametrise-redis"
   namespace                    = "${var.namespace}"
@@ -59,13 +65,7 @@ module "elasticache_redis" {
   auth_token                   = "${var.REDIS_AUTH_TOKEN}"
 
 
-  parameter = [
-    {
-      name = "notify-keyspace-events"
-
-      value = "lK"
-    },
-  ]
+  parameter = "${var.REDIS_PARAMS}"
 }
 
 output "elasticache_redis_id" {
