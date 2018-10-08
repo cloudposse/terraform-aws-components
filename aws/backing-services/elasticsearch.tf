@@ -63,8 +63,7 @@ locals {
 }
 
 module "elasticsearch" {
-  #source                  = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.1.4"
-  source                  = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=feature/cp-17/fix-security-groups"
+  source                  = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.1.5"
   namespace               = "${var.namespace}"
   stage                   = "${var.stage}"
   name                    = "${var.ELASTICSEARCH_NAME}"
