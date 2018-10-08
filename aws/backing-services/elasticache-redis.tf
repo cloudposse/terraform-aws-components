@@ -35,7 +35,7 @@ variable "REDIS_TRANSIT_ENCRYPTION_ENABLED" {
 }
 
 module "elasticache_redis" {
-  source                       = "git::https://github.com/cloudposse/terraform-aws-elasticache-redis.git?ref=tags/0.7.0"
+  source                       = "git::https://github.com/cloudposse/terraform-aws-elasticache-redis.git?ref=feature/cp-16/parametrise-redis"
   namespace                    = "${var.namespace}"
   stage                        = "${var.stage}"
   name                         = "${var.REDIS_NAME}"
@@ -57,6 +57,15 @@ module "elasticache_redis" {
   automatic_failover           = "false"
   enabled                      = "${var.REDIS_CLUSTER_ENABLED}"
   auth_token                   = "${var.REDIS_AUTH_TOKEN}"
+
+
+  parameter = [
+    {
+      name = "notify-keyspace-events"
+
+      value = "lK"
+    },
+  ]
 }
 
 output "elasticache_redis_id" {
