@@ -64,7 +64,6 @@ module "elasticache_redis" {
   enabled                      = "${var.REDIS_CLUSTER_ENABLED}"
   auth_token                   = "${var.REDIS_AUTH_TOKEN}"
 
-
   parameter = "${var.REDIS_PARAMS}"
 }
 
