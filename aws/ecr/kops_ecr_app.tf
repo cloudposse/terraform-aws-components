@@ -3,7 +3,7 @@ variable "kops_ecr_app_repository_name" {
 }
 
 module "kops_ecr_app" {
-  source       = "git::https://github.com/cloudposse/terraform-aws-kops-ecr.git?ref=tags/0.1.3"
+  source       = "git::https://github.com/cloudposse/terraform-aws-kops-ecr.git?ref=tags/0.1.4"
   namespace    = "${var.namespace}"
   stage        = "${var.stage}"
   name         = "${var.kops_ecr_app_repository_name}"
