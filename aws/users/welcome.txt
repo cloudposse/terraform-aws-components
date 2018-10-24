@@ -1,0 +1,11 @@
+Welcome! Here are your AWS login credentials. They've been encrypted using your Keybase public key for safety.
+
+Sign-in URL: ${signin_url}
+
+Username: ${username}
+
+To retrieve your password, run the following command:
+
+```
+${password_decrypt_command}
+```

@@ -16,3 +16,24 @@ variable "name" {
   default     = "terraform"
 }
 
+variable "smtp_username" {
+  description = "Username to authenticate with the SMTP server"
+  type        = "string"
+}
+
+variable "smtp_password" {
+  description = "Password to authenticate with the SMTP server"
+  type        = "string"
+}
+
+variable "smtp_host" {
+  description = "SMTP Host"
+  default     = "smtp.mailgun.org"
+}
+
+variable "smtp_port" {
+  description = "SMTP Port"
+  default     = "587"
+}
+
+
