@@ -19,3 +19,11 @@ module "organization_access_group_root" {
   admin_user_names    = ["${var.root_account_admin_user_names}"]
   readonly_user_names = ["${var.root_account_readonly_user_names}"]
 }
+
+output "admin_group" {
+  value = "${module.organization_access_group_root.group_admin_name}"
+}
+
+output "readonly_group" {
+  value = "${module.organization_access_group_root.group_readonly_name}"
+}
