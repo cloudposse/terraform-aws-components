@@ -17,5 +17,3 @@ module "account_settings" {
   name      = "${var.name}"
   enabled   = "${var.enabled}"
 }
-
-

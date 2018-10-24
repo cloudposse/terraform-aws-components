@@ -35,5 +35,3 @@ variable "smtp_port" {
   description = "SMTP Port"
   default     = "587"
 }
-
-

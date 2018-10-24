@@ -19,7 +19,6 @@ data "terraform_remote_state" "account_settings" {
   }
 }
 
-
 data "terraform_remote_state" "root_iam" {
   backend = "s3"
 
@@ -36,7 +35,7 @@ output "account_alias" {
 }
 
 locals {
-  signin_url = "${data.terraform_remote_state.account_settings.signin_url}"
-  admin_group = ["${data.terraform_remote_state.root_iam.admin_group}", "${data.terraform_remote_state.root_iam.readonly_group}"]
+  signin_url     = "${data.terraform_remote_state.account_settings.signin_url}"
+  admin_group    = ["${data.terraform_remote_state.root_iam.admin_group}", "${data.terraform_remote_state.root_iam.readonly_group}"]
   readonly_group = ["${data.terraform_remote_state.root_iam.readonly_group}"]
 }

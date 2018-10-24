@@ -22,5 +22,3 @@ variable "enabled" {
   description = "Whether or not to create the IAM account alias"
   default     = "true"
 }
-
-
