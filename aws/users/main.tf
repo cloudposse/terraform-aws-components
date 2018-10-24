@@ -10,6 +10,16 @@ provider "aws" {
   }
 }
 
+data "terraform_remote_state" "account_settings" {
+  backend = "s3"
+
+  config {
+    bucket = "${var.namespace}-${var.stage}-terraform-state"
+    key    = "account-settings/terraform.tfstate"
+  }
+}
+
+
 data "terraform_remote_state" "root_iam" {
   backend = "s3"
 
@@ -26,6 +36,7 @@ output "account_alias" {
 }
 
 locals {
+  signin_url = "${data.terraform_remote_state.account_settings.signin_url}"
   admin_group = ["${data.terraform_remote_state.root_iam.admin_group}", "${data.terraform_remote_state.root_iam.readonly_group}"]
   readonly_group = ["${data.terraform_remote_state.root_iam.readonly_group}"]
 }
