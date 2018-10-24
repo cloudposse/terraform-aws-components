@@ -28,14 +28,13 @@ data "terraform_remote_state" "root_iam" {
   }
 }
 
-data "aws_iam_account_alias" "default" {}
-
-output "account_alias" {
-  value = "${data.aws_iam_account_alias.default.account_alias}"
-}
-
 locals {
+  account_alias  = "${data.terraform_remote_state.account_settings.account_alias}"
   signin_url     = "${data.terraform_remote_state.account_settings.signin_url}"
   admin_group    = ["${data.terraform_remote_state.root_iam.admin_group}", "${data.terraform_remote_state.root_iam.readonly_group}"]
   readonly_group = ["${data.terraform_remote_state.root_iam.readonly_group}"]
+}
+
+output "account_alias" {
+  value = "${local.account_alias}"
 }
