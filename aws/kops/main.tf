@@ -52,6 +52,12 @@ variable "ssh_public_key_path" {
   default     = "/secrets/tf/ssh"
 }
 
+variable "kops_attribute" {
+  type        = "string"
+  description = "Additional attribute to kops state bucket"
+  default     = "state"
+}
+
 provider "aws" {
   assume_role {
     role_arn = "${var.aws_assume_role_arn}"
@@ -63,7 +69,7 @@ module "kops_state_backend" {
   namespace        = "${var.namespace}"
   stage            = "${var.stage}"
   name             = "${var.name}"
-  attributes       = ["state"]
+  attributes       = ["${var.kops_attribute}"]
   cluster_name     = "${var.region}"
   parent_zone_name = "${var.zone_name}"
   zone_name        = "$${name}.$${parent_zone_name}"
