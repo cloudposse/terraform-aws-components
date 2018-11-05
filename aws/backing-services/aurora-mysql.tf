@@ -61,7 +61,6 @@ module "aurora_mysql" {
   vpc_id              = "${module.vpc.vpc_id}"
   subnets             = ["${module.subnets.public_subnet_ids}"]                                           # Use module.subnets.private_subnet_ids if the cluster does not need to be publicly accessible
   zone_id             = "${var.zone_id}"
-  security_groups     = ["${module.kops_metadata.nodes_security_group_id}"]
   enabled             = "${var.MYSQL_CLUSTER_ENABLED}"
   publicly_accessible = "${var.MYSQL_CLUSTER_PUBLICLY_ACCESSIBLE}"
 }
