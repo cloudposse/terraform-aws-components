@@ -45,6 +45,12 @@ variable "MYSQL_CLUSTER_PUBLICLY_ACCESSIBLE" {
   description = "Specifies the accessibility options for the DB instance. A value of true specifies an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP address. A value of false specifies an internal instance with a DNS name that resolves to a private IP address"
 }
 
+variable "MYSQL_CLUSTER_ALLOWED_CIDR_BLOCKS" {
+  type        = "list"
+  default     = ["0.0.0.0/0"]
+  description = "List of CIDR blocks allowed to access the cluster"
+}
+
 module "aurora_mysql" {
   source              = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=tags/0.7.0"
   namespace           = "${var.namespace}"
@@ -63,6 +69,7 @@ module "aurora_mysql" {
   zone_id             = "${var.zone_id}"
   enabled             = "${var.MYSQL_CLUSTER_ENABLED}"
   publicly_accessible = "${var.MYSQL_CLUSTER_PUBLICLY_ACCESSIBLE}"
+  allowed_cidr_blocks = "${var.MYSQL_CLUSTER_ALLOWED_CIDR_BLOCKS}"
 }
 
 output "aurora_mysql_database_name" {
