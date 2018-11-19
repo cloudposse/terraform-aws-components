@@ -1,5 +1,5 @@
 module "kops_ecr_user" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=tags/0.3.0"
+  source    = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=proxy-role-for-user"
   namespace = "${var.namespace}"
   stage     = "${var.stage}"
   name      = "cicd"
