@@ -7,6 +7,20 @@
 # Name of this project
 name: "terraform-root-modules"
 
+# Tags of this project
+tags:
+  - terraform
+  - terraform-modules
+  - aws
+  - root
+  - geodesic
+  - reference-implementation
+  - reference-architecture
+
+# Categories of this project
+categories:
+  - terraform-modules/root
+
 # Logo for this project
 #logo: docs/logo.png
 
