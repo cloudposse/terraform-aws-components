@@ -4,7 +4,7 @@ variable "aws_assume_role_arn" {
 
 variable "namespace" {
   type        = "string"
-  description = "Namespace (e.g. `cp` or `cloudposse`)"
+  description = "Namespace (e.g. `eg` or `cp`)"
 }
 
 variable "stage" {
