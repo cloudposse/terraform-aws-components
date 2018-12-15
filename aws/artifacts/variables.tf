@@ -1,11 +1,15 @@
 variable "aws_assume_role_arn" {
-  type        = "string"
+  type = "string"
   description = "The ARN of the role to assume"
+}
+
+variable "domain_name" {
+  type = "string"
 }
 
 variable "namespace" {
   type        = "string"
-  description = "Namespace (e.g. `eg` or `cp`)"
+  description = "Namespace (e.g. `cp` or `cloudposse`)"
 }
 
 variable "stage" {
@@ -13,13 +17,12 @@ variable "stage" {
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
-variable "name" {
-  description = "Name  (e.g. `app` or `db`)"
+variable "region" {
   type        = "string"
-  default     = "artifacts"
+  description = "AWS region"
 }
 
-variable "enabled" {
-  description = "Set to `false` to prevent the module from creating any resources"
-  default     = "true"
+variable "aws_account_id" {
+  type        = "string"
+  description = "AWS account ID"
 }
