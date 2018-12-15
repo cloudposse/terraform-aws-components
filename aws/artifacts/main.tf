@@ -22,8 +22,8 @@ data "aws_acm_certificate" "acm_cloudfront_certificate" {
 }
 
 locals {
-  name          = "artifacts"
-  cdn_domain    = "artifacts.${var.domain_name}"
+  name               = "artifacts"
+  cdn_domain         = "artifacts.${var.domain_name}"
   artifacts_user_arn = "arn:aws:iam::${var.aws_account_id}:user/${var.namespace}-${var.stage}-${local.name}"
 }
 
