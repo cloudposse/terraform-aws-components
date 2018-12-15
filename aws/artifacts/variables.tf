@@ -1,5 +1,6 @@
 variable "aws_assume_role_arn" {
-  type = "string"
+  type        = "string"
+  description = "The ARN of the role to assume"
 }
 
 variable "namespace" {

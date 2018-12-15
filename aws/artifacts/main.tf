@@ -16,12 +16,12 @@ locals {
 }
 
 module "bucket" {
-  source                   = "git::https://github.com/cloudposse/terraform-aws-s3-log-storage.git?ref=tags/0.3.1"
-  enabled                  = "${var.enabled}"
-  name                     = "${var.name}"
-  stage                    = "${var.stage}"
-  namespace                = "${var.namespace}"
-  lifecycle_rule_enabled   = "false"
+  source                 = "git::https://github.com/cloudposse/terraform-aws-s3-log-storage.git?ref=tags/0.3.1"
+  enabled                = "${var.enabled}"
+  name                   = "${var.name}"
+  stage                  = "${var.stage}"
+  namespace              = "${var.namespace}"
+  lifecycle_rule_enabled = "false"
 }
 
 module "user" {
