@@ -44,7 +44,7 @@ variable "parent_domain_name" {
 }
 
 module "ses" {
-  source = "git::https://github.com/cloudposse/terraform-aws-ses-lambda-forwarder.git?ref=use-artifacts"
+  source = "git::https://github.com/cloudposse/terraform-aws-ses-lambda-forwarder.git?ref=tags/0.2.0"
 
   namespace = "${var.namespace}"
   name      = "${var.ses_name}"
