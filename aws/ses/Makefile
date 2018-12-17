@@ -1,2 +1,1 @@
--include .terraform/modules/**/Makefile.helpers
 -include .terraform/modules/**/Makefile.ses
