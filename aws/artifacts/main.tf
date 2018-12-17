@@ -65,7 +65,7 @@ module "origin" {
 
 # CloudFront CDN fronting origin
 module "cdn" {
-  source                 = "git::https://github.com/cloudposse/terraform-aws-cloudfront-cdn.git?ref=tags/0.4.0"
+  source                 = "git::https://github.com/cloudposse/terraform-aws-cloudfront-cdn.git?ref=tags/0.5.7"
   namespace              = "${var.namespace}"
   stage                  = "${var.stage}"
   name                   = "${local.name}"
