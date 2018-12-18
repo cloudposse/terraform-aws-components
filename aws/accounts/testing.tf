@@ -19,3 +19,11 @@ resource "aws_organizations_account" "testing" {
 output "testing_account_arn" {
   value = "${aws_organizations_account.testing.arn}"
 }
+
+output "testing_account_id" {
+  value = "${aws_organizations_account.testing.id}"
+}
+
+output "testing_organization_account_access_role" {
+  value = "arn:aws:iam::${aws_organizations_account.testing.id}:role/OrganizationAccountAccessRole"
+}

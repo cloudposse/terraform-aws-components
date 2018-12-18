@@ -19,3 +19,11 @@ resource "aws_organizations_account" "staging" {
 output "staging_account_arn" {
   value = "${aws_organizations_account.staging.arn}"
 }
+
+output "staging_account_id" {
+  value = "${aws_organizations_account.staging.id}"
+}
+
+output "staging_organization_account_access_role" {
+  value = "arn:aws:iam::${aws_organizations_account.staging.id}:role/OrganizationAccountAccessRole"
+}

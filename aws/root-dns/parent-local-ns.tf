@@ -1,12 +1,15 @@
-variable "local_name_servers" {
-  type = "list"
-}
-
-resource "aws_route53_record" "local_dns_zone_ns" {
-  count   = "${signum(length(var.local_name_servers))}"
+resource "aws_route53_record" "local_dns_name" {
   zone_id = "${aws_route53_zone.parent_dns_zone.zone_id}"
   name    = "local"
-  type    = "NS"
+  type    = "A"
   ttl     = "30"
-  records = ["${var.local_name_servers}"]
+  records = ["127.0.0.1"]
+}
+
+resource "aws_route53_record" "local_dns_wildcard" {
+  zone_id = "${aws_route53_zone.parent_dns_zone.zone_id}"
+  name    = "*.local"
+  type    = "A"
+  ttl     = "30"
+  records = ["127.0.0.1"]
 }
