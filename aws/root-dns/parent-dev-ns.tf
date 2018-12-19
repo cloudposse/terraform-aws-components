@@ -1,12 +1,11 @@
-variable "dev_name_servers" {
-  type = "list"
+module "dev" {
+  source    = "ns"
+  role_arn  = "${data.terraform_remote_state.root.dev_organization_account_access_role}"
+  namespace = "${var.namespace}"
+  stage     = "dev"
+  zone_id   = "${aws_route53_zone.parent_dns_zone.zone_id}"
 }
 
-resource "aws_route53_record" "dev_dns_zone_ns" {
-  count   = "${signum(length(var.dev_name_servers))}"
-  zone_id = "${aws_route53_zone.parent_dns_zone.zone_id}"
-  name    = "dev"
-  type    = "NS"
-  ttl     = "30"
-  records = ["${var.dev_name_servers}"]
+output "dev_name_servers" {
+  value = "${module.dev.name_servers}"
 }

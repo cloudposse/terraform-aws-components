@@ -1,12 +1,11 @@
-variable "testing_name_servers" {
-  type = "list"
+module "testing" {
+  source    = "ns"
+  role_arn  = "${data.terraform_remote_state.root.testing_organization_account_access_role}"
+  namespace = "${var.namespace}"
+  stage     = "testing"
+  zone_id   = "${aws_route53_zone.parent_dns_zone.zone_id}"
 }
 
-resource "aws_route53_record" "testing_dns_zone_ns" {
-  count   = "${signum(length(var.testing_name_servers))}"
-  zone_id = "${aws_route53_zone.parent_dns_zone.zone_id}"
-  name    = "testing"
-  type    = "NS"
-  ttl     = "30"
-  records = ["${var.testing_name_servers}"]
+output "testing_name_servers" {
+  value = "${module.testing.name_servers}"
 }

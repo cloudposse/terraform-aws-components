@@ -1,12 +1,11 @@
-variable "prod_name_servers" {
-  type = "list"
+module "prod" {
+  source    = "ns"
+  role_arn  = "${data.terraform_remote_state.root.prod_organization_account_access_role}"
+  namespace = "${var.namespace}"
+  stage     = "prod"
+  zone_id   = "${aws_route53_zone.parent_dns_zone.zone_id}"
 }
 
-resource "aws_route53_record" "prod_dns_zone_ns" {
-  count   = "${signum(length(var.prod_name_servers))}"
-  zone_id = "${aws_route53_zone.parent_dns_zone.zone_id}"
-  name    = "prod"
-  type    = "NS"
-  ttl     = "30"
-  records = ["${var.prod_name_servers}"]
+output "prod_name_servers" {
+  value = "${module.prod.name_servers}"
 }
