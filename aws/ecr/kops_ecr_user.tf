@@ -1,8 +1,8 @@
 module "label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.3.7"
-  namespace  = "${var.namespace}"
-  stage      = "${var.stage}"
-  name       = "ecr"
+  source    = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.3.7"
+  namespace = "${var.namespace}"
+  stage     = "${var.stage}"
+  name      = "ecr"
 }
 
 module "kops_ecr_user" {
@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "default" {
     actions = ["ecr:GetAuthorizationToken"]
 
     resources = ["*"]
-  },
+  }
 
   statement {
     sid    = "ECRGetAuthorizationToken"
@@ -36,7 +36,6 @@ data "aws_iam_policy_document" "default" {
       "ecr:UploadLayerPart",
       "ecr:CompleteLayerUpload",
       "ecr:PutImage",
-
       "ecr:BatchCheckLayerAvailability",
       "ecr:GetDownloadUrlForLayer",
       "ecr:GetRepositoryPolicy",
@@ -48,7 +47,6 @@ data "aws_iam_policy_document" "default" {
 
     resources = ["arn:aws:ecr::${data.aws_caller_identity.current.account_id}:repository/*"]
   }
-
 }
 
 resource "aws_iam_policy" "default" {
@@ -62,7 +60,6 @@ resource "aws_iam_policy_attachment" "default" {
   users      = ["${module.kops_ecr_user.user_name}"]
   policy_arn = "${aws_iam_policy.default.arn}"
 }
-
 
 output "kops_ecr_user_name" {
   value       = "${module.kops_ecr_user.user_name}"
