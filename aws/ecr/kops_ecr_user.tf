@@ -20,7 +20,6 @@ data "aws_caller_identity" "current" {}
 
 data "aws_iam_policy_document" "default" {
   statement {
-    sid     = "ECRGetAuthorizationToken"
     effect  = "Allow"
     actions = ["ecr:GetAuthorizationToken"]
 
@@ -28,7 +27,6 @@ data "aws_iam_policy_document" "default" {
   }
 
   statement {
-    sid    = "ECRGetAuthorizationToken"
     effect = "Allow"
 
     actions = [
