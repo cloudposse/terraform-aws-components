@@ -46,5 +46,6 @@ variable "ttl" {
 }
 
 variable "key" {
-  default = "account-dns/terraform.tfstate"
+  description = "Object in the remote state backend containing the state of `account-dns`"
+  default     = "account-dns/terraform.tfstate"
 }
