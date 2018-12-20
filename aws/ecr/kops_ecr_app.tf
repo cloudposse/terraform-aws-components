@@ -3,14 +3,14 @@ variable "kops_ecr_app_repository_name" {
 }
 
 module "kops_ecr_app" {
-  source       = "git::https://github.com/cloudposse/terraform-aws-kops-ecr.git?ref=use-roles-instead-of-users"
+  source       = "git::https://github.com/cloudposse/terraform-aws-kops-ecr.git?ref=tags/0.1.4"
   namespace    = "${var.namespace}"
   stage        = "${var.stage}"
   name         = "${var.kops_ecr_app_repository_name}"
   cluster_name = "${var.region}.${var.zone_name}"
 
-  roles = [
-    "${module.kops_ecr_user.role_name}",
+  users = [
+    "${module.kops_ecr_user.user_name}",
   ]
 
   tags = {
