@@ -1,6 +1,6 @@
 variable "testing_account_user_names" {
   type        = "list"
-  description = "IAM user names to grant access to Testing account"
+  description = "IAM user names to grant access to the `testing` account"
   default     = []
 }
 

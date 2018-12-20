@@ -1,6 +1,6 @@
 variable "security_account_user_names" {
   type        = "list"
-  description = "IAM user names to grant access to Dev account"
+  description = "IAM user names to grant access to the `security` account"
   default     = []
 }
 

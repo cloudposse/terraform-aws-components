@@ -1,6 +1,6 @@
 variable "prod_account_user_names" {
   type        = "list"
-  description = "IAM user names to grant access to Production account"
+  description = "IAM user names to grant access to the `prod` account"
   default     = []
 }
 
