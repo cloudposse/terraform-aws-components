@@ -1,7 +1,7 @@
 variable "dev_account_user_names" {
   type        = "list"
   description = "IAM user names to grant access to Dev account"
-  defaulti    = []
+  default     = []
 }
 
 # Provision group access to dev account
