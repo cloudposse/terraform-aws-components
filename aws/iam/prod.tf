@@ -15,6 +15,6 @@ module "organization_access_group_prod" {
   stage             = "prod"
   name              = "admin"
   user_names        = ["${var.prod_account_user_names}"]
-  member_account_id = "${var.prod_account_id}"
+  member_account_id = "${local.prod_account_id}"
   require_mfa       = "true"
 }

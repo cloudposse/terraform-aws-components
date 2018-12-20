@@ -15,6 +15,6 @@ module "organization_access_group_dev" {
   stage             = "dev"
   name              = "admin"
   user_names        = ["${var.dev_account_user_names}"]
-  member_account_id = "${var.dev_account_id}"
+  member_account_id = "${local.dev_account_id}"
   require_mfa       = "true"
 }

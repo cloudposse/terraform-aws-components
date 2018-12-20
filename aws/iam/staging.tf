@@ -15,6 +15,6 @@ module "organization_access_group_staging" {
   stage             = "staging"
   name              = "admin"
   user_names        = ["${var.staging_account_user_names}"]
-  member_account_id = "${var.staging_account_id}"
+  member_account_id = "${local.staging_account_id}"
   require_mfa       = "true"
 }
