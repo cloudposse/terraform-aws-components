@@ -4,6 +4,7 @@
 sed -Ei 's/^(\s+role_arn\s+)/#\1/' main.tf
 
 init-terraform
+
 terraform apply -input=false -auto-approve
 
 sed -Ei 's/^#(\s+role_arn\s+)/\1/' main.tf
