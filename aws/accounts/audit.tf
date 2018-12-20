@@ -1,29 +1,19 @@
-variable "audit_account_name" {
-  type        = "string"
-  description = "Audit account name"
-  default     = "audit"
-}
-
-variable "audit_account_email" {
-  type        = "string"
-  description = "Audit account email"
-}
-
 resource "aws_organizations_account" "audit" {
-  name                       = "${var.audit_account_name}"
-  email                      = "${var.audit_account_email}"
+  count                      = "${contains(var.accounts_enabled, "audit") == true ? 1 : 0}"
+  name                       = "audit"
+  email                      = "${format(var.account_email, "audit")}"
   iam_user_access_to_billing = "${var.account_iam_user_access_to_billing}"
   role_name                  = "${var.account_role_name}"
 }
 
 output "audit_account_arn" {
-  value = "${aws_organizations_account.audit.arn}"
+  value = "${join("", aws_organizations_account.audit.*.arn)}"
 }
 
 output "audit_account_id" {
-  value = "${aws_organizations_account.audit.id}"
+  value = "${join("", aws_organizations_account.audit.*.id)}"
 }
 
 output "audit_organization_account_access_role" {
-  value = "arn:aws:iam::${aws_organizations_account.audit.id}:role/OrganizationAccountAccessRole"
+  value = "arn:aws:iam::${join("", aws_organizations_account.audit.id)}:role/OrganizationAccountAccessRole"
 }
