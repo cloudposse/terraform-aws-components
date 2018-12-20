@@ -33,10 +33,4 @@ data "terraform_remote_state" "accounts" {
   }
 }
 
-locals {
-  audit_account_id   = "${data.terraform_remote_state.accounts.audit_account_id}"
-  dev_account_id     = "${data.terraform_remote_state.accounts.dev_account_id}"
-  prod_account_id    = "${data.terraform_remote_state.accounts.prod_account_id}"
-  staging_account_id = "${data.terraform_remote_state.accounts.staging_account_id}"
-  testing_account_id = "${data.terraform_remote_state.accounts.testing_account_id}"
-}
+locals {}
