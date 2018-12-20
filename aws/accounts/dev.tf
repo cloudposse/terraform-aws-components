@@ -15,5 +15,5 @@ output "dev_account_id" {
 }
 
 output "dev_organization_account_access_role" {
-  value = "arn:aws:iam::${join("", aws_organizations_account.dev.id)}:role/OrganizationAccountAccessRole"
+  value = "arn:aws:iam::${join("", aws_organizations_account.dev.*.id)}:role/OrganizationAccountAccessRole"
 }

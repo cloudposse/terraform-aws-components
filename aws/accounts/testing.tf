@@ -15,5 +15,5 @@ output "testing_account_id" {
 }
 
 output "testing_organization_account_access_role" {
-  value = "arn:aws:iam::${join("", aws_organizations_account.testing.id)}:role/OrganizationAccountAccessRole"
+  value = "arn:aws:iam::${join("", aws_organizations_account.testing.*.id)}:role/OrganizationAccountAccessRole"
 }
