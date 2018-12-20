@@ -7,6 +7,7 @@ variable "testing_account_user_names" {
 # Provision group access to testing account
 module "organization_access_group_testing" {
   source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.2.1"
+  enabled           = "${contains(var.accounts_enabled, "testing") == true ? "true" : "false"}"
   namespace         = "${var.namespace}"
   stage             = "testing"
   name              = "admin"
