@@ -11,23 +11,16 @@ module "kops_ecr_user" {
 
 data "aws_iam_policy_document" "login" {
   statement {
-    sid = "ECRGetAuthorizationToken"
-    effect = "Allow"
-    actions = ["ecr:GetAuthorizationToken"]
+    sid       = "ECRGetAuthorizationToken"
+    effect    = "Allow"
+    actions   = ["ecr:GetAuthorizationToken"]
     resources = ["*"]
   }
 }
 
-module "label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.3.7"
-  namespace  = "${var.namespace}"
-  stage      = "${var.stage}"
-  name       = "ecr"
-}
-
 resource "aws_iam_policy" "login" {
-  name        = "${module.label.id}"
-  policy      = "${data.aws_iam_policy_document.login.json}"
+  name   = "${module.label.id}"
+  policy = "${data.aws_iam_policy_document.login.json}"
 }
 
 resource "aws_iam_user_policy_attachment" "user_login" {

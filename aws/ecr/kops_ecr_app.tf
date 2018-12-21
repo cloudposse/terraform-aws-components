@@ -3,14 +3,18 @@ variable "kops_ecr_app_repository_name" {
 }
 
 module "kops_ecr_app" {
-  source       = "git::https://github.com/cloudposse/terraform-aws-kops-ecr.git?ref=tags/0.1.4"
-  namespace    = "${var.namespace}"
-  stage        = "${var.stage}"
-  name         = "${var.kops_ecr_app_repository_name}"
-  cluster_name = "${var.region}.${var.zone_name}"
+  source    = "git::https://github.com/cloudposse/terraform-aws-ecr.git?ref=fix-iam-limit-solution-2"
+  namespace = "${var.namespace}"
+  stage     = "${var.stage}"
+  name      = "${var.kops_ecr_app_repository_name}"
 
   principal = [
     "${module.kops_ecr_user.user_arn}",
+  ]
+
+  principal_readonly = [
+    "${module.kops_metadata.masters_role_arn}",
+    "${module.kops_metadata.nodes_role_arn}",
   ]
 
   tags = {
