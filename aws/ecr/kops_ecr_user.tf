@@ -18,8 +18,15 @@ data "aws_iam_policy_document" "login" {
   }
 }
 
+module "label" {
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.3.7"
+  namespace  = "${var.namespace}"
+  stage      = "${var.stage}"
+  name       = "ecr"
+}
+
 resource "aws_iam_policy" "login" {
-  name        = ""
+  name        = "${module.label.id}"
   policy      = "${data.aws_iam_policy_document.login.json}"
 }
 
