@@ -25,7 +25,6 @@ terraform apply -auto-approve -input=false
 
 export TF_BUCKET=$(terraform output tfstate_backend_s3_bucket_id)
 export TF_DYNAMODB_TABLE=$(terraform output tfstate_backend_dynamodb_table_id)
-export TF_BUCKET_REGION=${TF_VAR_region}
 
 # Re-enable S3 backend
 sed -Ei 's/^#(\s+backend\s+)/\1/' main.tf
