@@ -9,6 +9,25 @@ module "kops_ecr_user" {
   }
 }
 
+data "aws_iam_policy_document" "login" {
+  statement {
+    sid = "ECRGetAuthorizationToken"
+    effect = "Allow"
+    actions = ["ecr:GetAuthorizationToken"]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_policy" "login" {
+  name        = ""
+  policy      = "${data.aws_iam_policy_document.login.json}"
+}
+
+resource "aws_iam_user_policy_attachment" "user_login" {
+  user       = "${module.kops_ecr_user.user_name}"
+  policy_arn = "${aws_iam_policy.login.arn}"
+}
+
 output "kops_ecr_user_name" {
   value       = "${module.kops_ecr_user.user_name}"
   description = "Normalized IAM user name"
