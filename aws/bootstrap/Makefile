@@ -18,4 +18,5 @@ delete/iam-role:
 	@aws iam delete-role --role-name "$(IAM_ROLE)" > /dev/null
 	@echo "The '$(IAM_ROLE)' role has been deleted"
 
-
+list/iam-role:
+	@aws iam list-roles | jq -r '.Roles | .[] | .RoleName + " " + .Arn' | xargs -n 2 printf '%-40s %s\n'
