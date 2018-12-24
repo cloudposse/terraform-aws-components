@@ -1,6 +1,6 @@
 ## Initialize the terraform state backend
 init:
-	@aws s3 ls s3://${TF_BUCKET}/tfstate-backend/terraform.tfstates > /dev/null || \
+	@aws s3 ls s3://${TF_BUCKET}/tfstate-backend/terraform.tfstate > /dev/null || \
 		scripts/$@.sh
 	@[ -d .terraform ] || init-terraform
 
