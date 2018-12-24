@@ -8,6 +8,11 @@ variable "aws_assume_role_arn" {
   type = "string"
 }
 
+variable "namespace" {
+  type        = "string"
+  description = "Namespace (e.g. `cp` or `cloudposse`)"
+}
+
 variable "account_role_name" {
   type        = "string"
   description = "IAM role that Organization automatically preconfigures in the new member account"

@@ -6,14 +6,49 @@ resource "aws_organizations_account" "audit" {
   role_name                  = "${var.account_role_name}"
 }
 
+locals {
+  audit_account_arn                      = "${join("", aws_organizations_account.audit.*.arn)}"
+  audit_account_id                       = "${join("", aws_organizations_account.audit.*.id)}"
+  audit_organization_account_access_role = "arn:aws:iam::${join("", aws_organizations_account.audit.*.id)}:role/OrganizationAccountAccessRole"
+}
+
+module "audit_parameters" {
+  source  = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-store?ref=tags/0.1.5"
+  enabled = "${contains(var.accounts_enabled, "audit") == true ? "true" : "false"}"
+
+  parameter_write = [
+    {
+      name        = "/${var.namespace}/audit/account_id"
+      value       = "${local.audit_account_id}"
+      type        = "String"
+      overwrite   = "true"
+      description = "AWS Account ID"
+    },
+    {
+      name        = "/${var.namespace}/audit/account_arn"
+      value       = "${local.audit_account_arn}"
+      type        = "String"
+      overwrite   = "true"
+      description = "AWS Account ARN"
+    },
+    {
+      name        = "/${var.namespace}/audit/organization_account_access_role"
+      value       = "${local.audit_organization_account_access_role}"
+      type        = "String"
+      overwrite   = "true"
+      description = "AWS Organization Account Access Role"
+    },
+  ]
+}
+
 output "audit_account_arn" {
-  value = "${join("", aws_organizations_account.audit.*.arn)}"
+  value = "${local.audit_account_arn}"
 }
 
 output "audit_account_id" {
-  value = "${join("", aws_organizations_account.audit.*.id)}"
+  value = "${local.audit_account_id}"
 }
 
 output "audit_organization_account_access_role" {
-  value = "arn:aws:iam::${join("", aws_organizations_account.audit.*.id)}:role/OrganizationAccountAccessRole"
+  value = "${local.audit_organization_account_access_role}"
 }
