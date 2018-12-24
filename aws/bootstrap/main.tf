@@ -69,7 +69,7 @@ resource "aws_iam_policy" "organization_account_access_role" {
   policy = "${data.aws_iam_policy_document.organization_account_access_role.json}"
 }
 
-# Assign the policy to the role
+# Assign the policy to the user
 resource "aws_iam_user_policy_attachment" "organization_account_access_role" {
   user       = "${aws_iam_role.bootstrap.name}"
   policy_arn = "${aws_iam_policy.organization_account_access_role.arn}"
@@ -112,7 +112,7 @@ resource "local_file" "credentials_file" {
   filename = "${var.output_path}/${var.credentials_file}"
 }
 
-# Render the credentials file with IAM credentials
+# Render the config file with IAM credentials
 data "template_file" "config_root" {
   template = "${file("${path.module}/config.tpl")}"
 
@@ -124,7 +124,7 @@ data "template_file" "config_root" {
   }
 }
 
-# Render the credentials file with IAM credentials
+# Render the config file with IAM credentials
 data "template_file" "config" {
   count    = "${length(module.organization_account_access_role_arns.values)}"
   template = "${file("${path.module}/config.tpl")}"
