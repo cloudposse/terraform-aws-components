@@ -36,7 +36,7 @@ module "audit_parameters" {
       value       = "${local.audit_organization_account_access_role}"
       type        = "String"
       overwrite   = "true"
-      description = "AWS Organizational Account Access Role"
+      description = "AWS Organization Account Access Role"
     },
   ]
 }

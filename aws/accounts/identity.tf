@@ -36,7 +36,7 @@ module "identity_parameters" {
       value       = "${local.identity_organization_account_access_role}"
       type        = "String"
       overwrite   = "true"
-      description = "AWS Organizational Account Access Role"
+      description = "AWS Organization Account Access Role"
     },
   ]
 }
