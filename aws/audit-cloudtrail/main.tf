@@ -34,6 +34,7 @@ variable "name" {
 variable "region" {
   type        = "string"
   description = "AWS region"
+  default     = ""
 }
 
 data "aws_region" "default" {}
