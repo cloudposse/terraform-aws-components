@@ -1,4 +1,5 @@
 data "aws_caller_identity" "default" {}
+data "aws_region" "default" {}
 
 # Chamber user for CI/CD systems that cannot leverage IAM instance profiles
 # https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-access.html
@@ -11,7 +12,7 @@ module "chamber_user" {
   kms_key_arn = "${module.chamber_kms_key.key_arn}"
 
   ssm_resources = [
-    "${formatlist("arn:aws:ssm:%s:%s:parameter/%s/*", var.region, data.aws_caller_identity.default.account_id, var.parameter_groups)}",
+    "${formatlist("arn:aws:ssm:%s:%s:parameter/%s/*", data.aws_region.name, data.aws_caller_identity.default.account_id, var.parameter_groups)}",
   ]
 }
 
