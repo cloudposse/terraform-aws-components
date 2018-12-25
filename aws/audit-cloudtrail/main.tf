@@ -36,6 +36,12 @@ variable "region" {
   description = "AWS region"
 }
 
+data "aws_region" "default" {}
+
+locals {
+  region = "${length(var.aws_region) > 0 ? var.aws_region : data.aws_region.default.name}"
+}
+
 module "cloudtrail" {
   source                        = "git::https://github.com/cloudposse/terraform-aws-cloudtrail.git?ref=tags/0.3.0"
   namespace                     = "${var.namespace}"
@@ -53,7 +59,7 @@ module "cloudtrail_s3_bucket" {
   namespace = "${var.namespace}"
   stage     = "${var.stage}"
   name      = "${var.name}"
-  region    = "${var.region}"
+  region    = "${local.region}"
 }
 
 output "cloudtrail_bucket_domain_name" {
