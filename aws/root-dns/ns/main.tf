@@ -21,7 +21,7 @@ module "organization_account_access_role_arn" {
 }
 
 locals {
-  role_arn = "${module.organization_account_access_role_arn.values}"
+  role_arn_values = "${module.organization_account_access_role_arn.values}"
 }
 
 data "terraform_remote_state" "stage" {
