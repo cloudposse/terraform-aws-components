@@ -3,7 +3,7 @@ locals {
 }
 
 module "label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.3.3"
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.5.4"
   enabled    = "${local.enabled ? "true" : "false"}"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
@@ -17,7 +17,11 @@ module "label" {
 module "organization_account_access_role_arn" {
   enabled        = "${local.enabled ? "true" : "false"}"
   source         = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-store?ref=tags/0.1.5"
-  parameter_read = ["${format("/${var.namespace}/%s/organization_account_access_role", var.stage)}"]
+  parameter_read = ["/${var.namespace}/${var.stage}/organization_account_access_role"]
+}
+
+locals {
+  role_arn = "${module.organization_account_access_role_arn.values}"
 }
 
 data "terraform_remote_state" "stage" {
@@ -27,18 +31,18 @@ data "terraform_remote_state" "stage" {
   # This assumes stage is using a `terraform-aws-tfstate-backend`
   #   https://github.com/cloudposse/terraform-aws-tfstate-backend
   config {
-    role_arn = "${module.organization_account_access_role_arn.values[0]}"
+    role_arn = "${local.role_arn[0]}"
     bucket   = "${module.label.id}"
     key      = "${var.key}"
   }
 }
 
 locals {
-  name_servers = "${local.enabled ? flatten(data.terraform_remote_state.stage.*.name_servers): []}"
+  name_servers = "${flatten(data.terraform_remote_state.stage.*.name_servers)}"
 }
 
 resource "aws_route53_record" "dns_zone_ns" {
-  count   = "${signum(length(local.name_servers))}"
+  count   = "${local.enabled ? 1 : 0}"
   zone_id = "${var.zone_id}"
   name    = "${var.stage}"
   type    = "NS"
