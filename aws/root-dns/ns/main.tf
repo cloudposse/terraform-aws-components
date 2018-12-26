@@ -31,7 +31,7 @@ data "terraform_remote_state" "stage" {
   # This assumes stage is using a `terraform-aws-tfstate-backend`
   #   https://github.com/cloudposse/terraform-aws-tfstate-backend
   config {
-    role_arn = "${local.role_arn[0]}"
+    role_arn = "${local.role_arn_values[0]}"
     bucket   = "${module.label.id}"
     key      = "${var.key}"
   }
