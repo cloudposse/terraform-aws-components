@@ -1,6 +1,7 @@
 variable "root_account_admin_user_names" {
   type        = "list"
   description = "IAM user names to grant admin access to Root account"
+  default     = []
 }
 
 variable "root_account_readonly_user_names" {
