@@ -40,7 +40,7 @@ variable "region" {
 data "aws_region" "default" {}
 
 locals {
-  region = "${length(var.aws_region) > 0 ? var.aws_region : data.aws_region.default.name}"
+  region = "${length(var.region) > 0 ? var.region : data.aws_region.default.name}"
 }
 
 module "cloudtrail" {
