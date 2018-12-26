@@ -34,7 +34,7 @@ data "terraform_remote_state" "stage" {
 }
 
 locals {
-  name_servers = "${flatten(data.terraform_remote_state.stage.*.name_servers)}"
+  name_servers = "${local.enabled ? flatten(data.terraform_remote_state.stage.*.name_servers): []}"
 }
 
 resource "aws_route53_record" "dns_zone_ns" {
