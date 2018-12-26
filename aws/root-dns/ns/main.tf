@@ -25,7 +25,7 @@ locals {
 }
 
 data "terraform_remote_state" "stage" {
-  count = "${local.enabled ? 1 : 0}"
+  count   = "${local.enabled ? 1 : 0}"
   backend = "s3"
 
   # This assumes stage is using a `terraform-aws-tfstate-backend`
