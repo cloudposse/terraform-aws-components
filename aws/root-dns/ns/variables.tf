@@ -1,3 +1,9 @@
+variable "accounts_enabled" {
+  type        = "list"
+  description = "Accounts to enable"
+  default     = ["dev", "staging", "prod", "testing", "audit"]
+}
+
 variable "namespace" {
   type        = "string"
   description = "Namespace (e.g. `eg` or `example`)"
@@ -30,10 +36,6 @@ variable "tags" {
   type        = "map"
   default     = {}
   description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)"
-}
-
-variable "role_arn" {
-  description = "The role to be assumed in the subaccount"
 }
 
 variable "zone_id" {
