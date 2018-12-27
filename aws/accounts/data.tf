@@ -1,5 +1,5 @@
 resource "aws_organizations_account" "data" {
-  count                      = "${contains(var.accounts_enabled, "data") == true ? 1 : 0}"
+  count                      = "${local.data_count}"
   name                       = "data"
   email                      = "${format(var.account_email, "data")}"
   iam_user_access_to_billing = "${var.account_iam_user_access_to_billing}"
@@ -7,38 +7,37 @@ resource "aws_organizations_account" "data" {
 }
 
 locals {
+  data_count                            = "${contains(var.accounts_enabled, "data") == true ? 1 : 0}"
   data_account_arn                      = "${join("", aws_organizations_account.data.*.arn)}"
   data_account_id                       = "${join("", aws_organizations_account.data.*.id)}"
   data_organization_account_access_role = "arn:aws:iam::${join("", aws_organizations_account.data.*.id)}:role/OrganizationAccountAccessRole"
 }
 
-module "data_parameters" {
-  source  = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-store?ref=tags/0.1.5"
-  enabled = "${contains(var.accounts_enabled, "data") == true ? "true" : "false"}"
+resource "aws_ssm_parameter" "data_account_id" {
+  count       = "${local.data_count}"
+  name        = "/${var.namespace}/data/account_id"
+  description = "AWS Account ID"
+  type        = "String"
+  value       = "${local.data_account_id}"
+  overwrite   = "true"
+}
 
-  parameter_write = [
-    {
-      name        = "/${var.namespace}/data/account_id"
-      value       = "${local.data_account_id}"
-      type        = "String"
-      overwrite   = "true"
-      description = "AWS Account ID"
-    },
-    {
-      name        = "/${var.namespace}/data/account_arn"
-      value       = "${local.data_account_arn}"
-      type        = "String"
-      overwrite   = "true"
-      description = "AWS Account ARN"
-    },
-    {
-      name        = "/${var.namespace}/data/organization_account_access_role"
-      value       = "${local.data_organization_account_access_role}"
-      type        = "String"
-      overwrite   = "true"
-      description = "AWS Organization Account Access Role"
-    },
-  ]
+resource "aws_ssm_parameter" "data_account_arn" {
+  count       = "${local.data_count}"
+  name        = "/${var.namespace}/data/account_arn"
+  description = "AWS Account ARN"
+  type        = "String"
+  value       = "${local.data_account_arn}"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "data_organization_account_access_role" {
+  count       = "${local.data_count}"
+  name        = "/${var.namespace}/data/organization_account_access_role"
+  description = "AWS Organization Account Access Role"
+  type        = "String"
+  value       = "${local.data_account_id}"
+  overwrite   = "true"
 }
 
 output "data_account_arn" {
