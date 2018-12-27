@@ -1,5 +1,5 @@
 variable "relay_email" {
-  description = "Email that used to relay from"
+  description = "Sender email address"
 }
 
 variable "forward_emails" {
@@ -9,5 +9,5 @@ variable "forward_emails" {
     "ops@example.com" = ["example@gmail.com"]
   }
 
-  description = "Emails forward map"
+  description = "Map of lists containing forwarding emails"
 }

@@ -18,16 +18,6 @@ variable "stage" {
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
-variable "region" {
-  type        = "string"
-  description = "AWS region"
-}
-
-variable "account_id" {
-  type        = "string"
-  description = "AWS account ID"
-}
-
 variable "parameter_groups" {
   type        = "list"
   description = "Parameter group names"

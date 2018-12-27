@@ -1,12 +1,11 @@
-variable "audit_name_servers" {
-  type = "list"
+module "audit" {
+  source           = "ns"
+  accounts_enabled = "${var.accounts_enabled}"
+  namespace        = "${var.namespace}"
+  stage            = "audit"
+  zone_id          = "${aws_route53_zone.parent_dns_zone.zone_id}"
 }
 
-resource "aws_route53_record" "audit_dns_zone_ns" {
-  count   = "${signum(length(var.audit_name_servers))}"
-  zone_id = "${aws_route53_zone.parent_dns_zone.zone_id}"
-  name    = "audit"
-  type    = "NS"
-  ttl     = "30"
-  records = ["${var.audit_name_servers}"]
+output "audit_name_servers" {
+  value = "${module.audit.name_servers}"
 }
