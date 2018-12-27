@@ -6,7 +6,6 @@ variable "namespace" {
 variable "stage" {
   type        = "string"
   description = "Stage (e.g. `audit`)"
-  default     = "audit"
 }
 
 variable "account_role_name" {
