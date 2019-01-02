@@ -66,7 +66,7 @@ module "utility_subnets" {
 
 locals {
   private_subnets = "${join(",", slice(module.private_subnets.cidrs, 1, local.availability_zone_count+1))}"
-  utility_subnets = "${join(",", module.utility_subnets.cidrs)}}"
+  utility_subnets = "${join(",", module.utility_subnets.cidrs)}"
 }
 
 variable "chamber_parameter_name" {
