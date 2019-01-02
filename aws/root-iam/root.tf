@@ -11,9 +11,9 @@ variable "root_account_readonly_user_names" {
 }
 
 variable "switchrole_url" {
-  type = "string"
+  type        = "string"
   description = "URL to the IAM console to switch to a role"
-  default = "https://signin.aws.amazon.com/switchrole?account=%s&roleName=%s&displayName=%s"
+  default     = "https://signin.aws.amazon.com/switchrole?account=%s&roleName=%s&displayName=%s"
 }
 
 # Provision group access to root account with MFA
@@ -54,7 +54,7 @@ output "admin_group" {
 
 output "admin_switchrole_url" {
   description = "URL to the IAM console to switch to the admin role"
-  value = "${module.organization_access_group_root.switchrole_admin_url)}"  
+  value       = "${module.organization_access_group_root.switchrole_admin_url)}"
 }
 
 output "readonly_group" {
@@ -63,5 +63,5 @@ output "readonly_group" {
 
 output "readonly_switchrole_url" {
   description = "URL to the IAM console to switch to the readonly role"
-  value = "${module.organization_access_group_root.switchrole_readonly_url)}  
+  value       = "${module.organization_access_group_root.switchrole_readonly_url)}"
 }
