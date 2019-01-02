@@ -30,3 +30,8 @@ module "organization_access_group_ssm_corp" {
     },
   ]
 }
+
+output "corp_switchrole_url" {
+  description = "URL to the IAM console to switch to the corp account organization access role"
+  value = "${module.organization_access_group_corp.switchrole_url}"
+}

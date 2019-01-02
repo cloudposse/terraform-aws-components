@@ -30,3 +30,8 @@ module "organization_access_group_ssm_data" {
     },
   ]
 }
+
+output "data_switchrole_url" {
+  description = "URL to the IAM console to switch to the data account organization access role"
+  value = "${module.organization_access_group_data.switchrole_url}"
+}
