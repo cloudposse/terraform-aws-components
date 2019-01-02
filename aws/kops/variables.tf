@@ -85,7 +85,7 @@ variable "private_subnets_netnum" {
 }
 
 variable "utility_subnets_newbits" {
-  description = "This is the new mask for the subnet within the virtual network."
+  description = "This is the new mask for the utility subnet within the virtual network"
   default     = "-1"
 }
 
