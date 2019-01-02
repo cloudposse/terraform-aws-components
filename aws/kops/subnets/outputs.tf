@@ -3,5 +3,5 @@ output "iprange" {
 }
 
 output "cidrs" {
-  value = "${join(",", data.null_data_source.subnets.*.outputs.cidr)}"
+  value = "${data.null_data_source.subnets.*.outputs.cidr}"
 }

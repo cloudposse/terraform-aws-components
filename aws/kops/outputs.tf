@@ -47,11 +47,11 @@ output "availability_zones" {
 }
 
 output "private_subnets" {
-  value = "${module.private_subnets.cidrs}"
+  value = "${local.private_subnets}"
 }
 
 output "utility_subnets" {
-  value = "${module.utility_subnets.cidrs}"
+  value = "${local.utility_subnets}"
 }
 
 output "private_key_filename" {

@@ -4,105 +4,6 @@ terraform {
   backend "s3" {}
 }
 
-variable "aws_assume_role_arn" {
-  type = "string"
-}
-
-variable "namespace" {
-  type        = "string"
-  description = "Namespace (e.g. `cp` or `cloudposse`)"
-}
-
-variable "stage" {
-  type        = "string"
-  description = "Stage (e.g. `prod`, `dev`, `staging`)"
-}
-
-variable "name" {
-  type        = "string"
-  description = "Name  (e.g. `kops`)"
-  default     = "kops"
-}
-
-variable "region" {
-  type        = "string"
-  description = "AWS region"
-}
-
-variable "availability_zones" {
-  type        = "list"
-  description = "List of availability zones in which to provision the cluster (should be an odd number to avoid split-brain)."
-  default     = []
-}
-
-variable "availability_zone_count" {
-  description = "Number of availability zones."
-  default     = "3"
-}
-
-variable "zone_name" {
-  type        = "string"
-  description = "DNS zone name"
-}
-
-variable "domain_enabled" {
-  type        = "string"
-  description = "Enable DNS Zone creation for kops"
-  default     = "true"
-}
-
-variable "force_destroy" {
-  type        = "string"
-  description = "A boolean that indicates all objects should be deleted from the bucket so that the bucket can be destroyed without errors. These objects are not recoverable."
-  default     = "false"
-}
-
-variable "ssh_public_key_path" {
-  type        = "string"
-  description = "SSH public key path to write master public/private key pair for cluster"
-  default     = "/secrets/tf/ssh"
-}
-
-variable "kops_attribute" {
-  type        = "string"
-  description = "Additional attribute to kops state bucket"
-  default     = "state"
-}
-
-variable "complete_zone_name" {
-  type        = "string"
-  description = "Region or any classifier prefixed to zone name"
-  default     = "$${name}.$${parent_zone_name}"
-}
-
-variable "private_subnets_cidr" {
-  default = "172.20.32.0/16"
-}
-
-variable "private_subnets_newbits" {
-  default = "3"
-}
-
-variable "private_subnets_netnum" {
-  default = "0"
-}
-
-variable "utility_subnets_cidr" {
-  default = "172.20.0.0/16"
-}
-
-variable "utility_subnets_newbits" {
-  default = "6"
-}
-
-variable "utility_subnets_netnum" {
-  default = "0"
-}
-
-variable "chamber_service" {
-  default = ""
-}
-
 provider "aws" {
   assume_role {
     role_arn = "${var.aws_assume_role_arn}"
@@ -117,7 +18,8 @@ locals {
   distinct_availability_zones = "${distinct(compact(concat(var.availability_zones, local.computed_availability_zones)))}"
 
   # Concatenate the predefined AZs with the computed AZs and select the first N distinct AZs. 
-  availability_zones = "${slice(local.distinct_availability_zones, 0, var.availability_zone_count)}"
+  availability_zones      = "${slice(local.distinct_availability_zones, 0, var.availability_zone_count)}"
+  availability_zone_count = "${length(local.availability_zones)}"
 }
 
 module "kops_state_backend" {
@@ -144,20 +46,27 @@ module "ssh_key_pair" {
   generate_ssh_key    = "true"
 }
 
+# Allocate one large subnet for each AZ, plus one additional one for the utility subnets.
 module "private_subnets" {
   source       = "subnets"
-  iprange      = "${var.private_subnets_cidr}"
-  newbits      = "${var.private_subnets_newbits}"
+  iprange      = "${var.network_cidr}"
+  newbits      = "${var.private_subnets_newbits > 0 ? var.private_subnets_newbits : local.availability_zone_count}"
   netnum       = "${var.private_subnets_netnum}"
-  subnet_count = "${length(local.availability_zones)}"
+  subnet_count = "${local.availability_zone_count+1}"
 }
 
+# Divide up the first private subnet and use it for the utility subnet
 module "utility_subnets" {
   source       = "subnets"
-  iprange      = "${var.utility_subnets_cidr}"
-  newbits      = "${var.utility_subnets_newbits}"
+  iprange      = "${module.private_subnets.cidrs[0]}"
+  newbits      = "${var.utility_subnets_newbits > 0 ? var.utility_subnets_newbits : local.availability_zone_count}"
   netnum       = "${var.utility_subnets_netnum}"
-  subnet_count = "${length(local.availability_zones)}"
+  subnet_count = "${local.availability_zone_count}"
+}
+
+locals {
+  private_subnets = "${join(",", slice(module.private_subnets.cidrs, 1, local.availability_zone_count+1))}"
+  utility_subnets = "${join(",", module.utility_subnets.cidrs)}}"
 }
 
 variable "chamber_parameter_name" {
@@ -166,6 +75,9 @@ variable "chamber_parameter_name" {
 
 module "chamber_parameters" {
   source = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-store?ref=tags/0.1.5"
+
+  # These parameters correspond to the kops manifest template:
+  # Read more: <https://github.com/cloudposse/geodesic/blob/master/rootfs/templates/kops/default.yaml>
 
   parameter_write = [
     {
@@ -211,15 +123,22 @@ module "chamber_parameters" {
       description = "Kops cluster name"
     },
     {
+      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_network_cidr")}"
+      value       = "${var.network_cidr}"
+      type        = "String"
+      overwrite   = "true"
+      description = "Kops private subnet CIDRs"
+    },
+    {
       name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_private_subnets")}"
-      value       = "${module.private_subnets.cidrs}"
+      value       = "${local.private_subnets}"
       type        = "String"
       overwrite   = "true"
       description = "Kops private subnet CIDRs"
     },
     {
       name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_utility_subnets")}"
-      value       = "${module.utility_subnets.cidrs}"
+      value       = "${local.utility_subnets}"
       type        = "String"
       overwrite   = "true"
       description = "Kops utility subnet CIDRs"
