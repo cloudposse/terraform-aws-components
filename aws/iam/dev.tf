@@ -6,7 +6,7 @@ variable "dev_account_user_names" {
 
 # Provision group access to dev account
 module "organization_access_group_dev" {
-  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=add-switchrole-url"
+  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.3.0"
   enabled           = "${contains(var.accounts_enabled, "dev") == true ? "true" : "false"}"
   namespace         = "${var.namespace}"
   stage             = "dev"
