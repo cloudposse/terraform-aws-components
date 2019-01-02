@@ -28,10 +28,14 @@ data "terraform_remote_state" "root_iam" {
   }
 }
 
+locals {
+  accounts_enabled = "${concat(list("root"), var.accounts_enabled)}"
+}
+
 # Fetch the OrganizationAccountAccessRole ARNs from SSM
 module "admin_groups" {
   source         = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-store?ref=tags/0.1.5"
-  parameter_read = "${formatlist("/${var.namespace}/%s/admin_group", var.accounts_enabled)}"
+  parameter_read = "${formatlist("/${var.namespace}/%s/admin_group", local.accounts_enabled)}"
 }
 
 locals {
