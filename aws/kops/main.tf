@@ -64,34 +64,6 @@ variable "complete_zone_name" {
   default     = "$${name}.$${parent_zone_name}"
 }
 
-variable "private_subnets_cidr" {
-  default = "172.20.32.0/16"
-}
-
-variable "private_subnets_newbits" {
-  default = "3"
-}
-
-variable "private_subnets_netnum" {
-  default = "0"
-}
-
-variable "utility_subnets_cidr" {
-  default = "172.20.0.0/16"
-}
-
-variable "utility_subnets_newbits" {
-  default = "6"
-}
-
-variable "utility_subnets_netnum" {
-  default = "0"
-}
-
-variable "chamber_service" {
-  default = ""
-}
-
 provider "aws" {
   assume_role {
     role_arn = "${var.aws_assume_role_arn}"
@@ -113,96 +85,11 @@ module "kops_state_backend" {
 }
 
 module "ssh_key_pair" {
-  source              = "git::https://github.com/cloudposse/terraform-aws-key-pair.git?ref=tags/0.3.0"
+  source              = "git::https://github.com/cloudposse/terraform-aws-key-pair.git?ref=tags/0.2.3"
   namespace           = "${var.namespace}"
   stage               = "${var.stage}"
   name                = "${var.name}"
   attributes          = ["${var.region}"]
   ssh_public_key_path = "${var.ssh_public_key_path}"
   generate_ssh_key    = "true"
-}
-
-module "private_subnets" {
-  source  = "subnets"
-  iprange = "${var.private_subnets_cidr}"
-  newbits = "${var.private_subnets_newbits}"
-  netnum  = "${var.private_subnets_netnum}"
-}
-
-module "utility_subnets" {
-  source  = "subnets"
-  iprange = "${var.utility_subnets_cidr}"
-  newbits = "${var.utility_subnets_newbits}"
-  netnum  = "${var.utility_subnets_netnum}"
-}
-
-variable "chamber_parameter_name" {
-  default = "/%s/%s"
-}
-
-locals {
-  chamber_service = "${var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service}"
-}
-
-module "chamber_parameters" {
-  source = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-store?ref=tags/0.1.5"
-
-  parameter_write = [
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_cluster_name")}"
-      value       = "${module.kops_state_backend.zone_name}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops cluster name"
-    },
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_state_store")}"
-      value       = "s3://${module.kops_state_backend.bucket_name}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops state store (S3 bucket) URL"
-    },
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_state_store_region")}"
-      value       = "s3://${module.kops_state_backend.bucket_region}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops state store (S3 bucket) region"
-    },
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_ssh_public_key_path")}"
-      value       = "${module.ssh_key_pair.public_key_filename}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops SSH public key filename path"
-    },
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_ssh_private_key_path")}"
-      value       = "${module.ssh_key_pair.private_key_filename}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops SSH private key filename path"
-    },
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_dns_zone")}"
-      value       = "${module.kops_state_backend.zone_name}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops cluster name"
-    },
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_private_subnets")}"
-      value       = "${module.private_subnets.cidrs}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops private subnet CIDRs"
-    },
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_utility_subnets")}"
-      value       = "${module.utility_subnets.cidrs}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops utility subnet CIDRs"
-    },
-  ]
 }
