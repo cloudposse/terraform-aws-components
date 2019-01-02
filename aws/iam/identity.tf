@@ -6,7 +6,7 @@ variable "identity_account_user_names" {
 
 # Provision group access to identity account
 module "organization_access_group_identity" {
-  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.2.1"
+  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.3.0"
   enabled           = "${contains(var.accounts_enabled, "identity") == true ? "true" : "false"}"
   namespace         = "${var.namespace}"
   stage             = "identity"
@@ -29,4 +29,9 @@ module "organization_access_group_ssm_identity" {
       description = "IAM admin group name for the 'identity' account"
     },
   ]
+}
+
+output "identity_switchrole_url" {
+  description = "URL to the IAM console to switch to the identity account organization access role"
+  value       = "${module.organization_access_group_identity.switchrole_url}"
 }

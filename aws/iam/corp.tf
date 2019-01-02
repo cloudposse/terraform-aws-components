@@ -6,7 +6,7 @@ variable "corp_account_user_names" {
 
 # Provision group access to corp account
 module "organization_access_group_corp" {
-  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.2.1"
+  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.3.0"
   enabled           = "${contains(var.accounts_enabled, "corp") == true ? "true" : "false"}"
   namespace         = "${var.namespace}"
   stage             = "corp"
@@ -29,4 +29,9 @@ module "organization_access_group_ssm_corp" {
       description = "IAM admin group name for the 'corp' account"
     },
   ]
+}
+
+output "corp_switchrole_url" {
+  description = "URL to the IAM console to switch to the corp account organization access role"
+  value       = "${module.organization_access_group_corp.switchrole_url}"
 }

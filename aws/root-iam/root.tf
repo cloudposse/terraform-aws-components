@@ -12,7 +12,7 @@ variable "root_account_readonly_user_names" {
 
 # Provision group access to root account with MFA
 module "organization_access_group_root" {
-  source              = "git::https://github.com/cloudposse/terraform-aws-iam-assumed-roles.git?ref=tags/0.5.0"
+  source              = "git::https://github.com/cloudposse/terraform-aws-iam-assumed-roles.git?ref=tags/0.6.0"
   namespace           = "${var.namespace}"
   stage               = "root"
   admin_name          = "admin"
@@ -46,6 +46,16 @@ output "admin_group" {
   value = "${module.organization_access_group_root.group_admin_name}"
 }
 
+output "admin_switchrole_url" {
+  description = "URL to the IAM console to switch to the admin role"
+  value       = "${module.organization_access_group_root.switchrole_admin_url}"
+}
+
 output "readonly_group" {
   value = "${module.organization_access_group_root.group_readonly_name}"
+}
+
+output "readonly_switchrole_url" {
+  description = "URL to the IAM console to switch to the readonly role"
+  value       = "${module.organization_access_group_root.switchrole_readonly_url}"
 }

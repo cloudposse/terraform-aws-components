@@ -6,7 +6,7 @@ variable "staging_account_user_names" {
 
 # Provision group access to staging account
 module "organization_access_group_staging" {
-  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.2.1"
+  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.3.0"
   enabled           = "${contains(var.accounts_enabled, "staging") == true ? "true" : "false"}"
   namespace         = "${var.namespace}"
   stage             = "staging"
@@ -29,4 +29,9 @@ module "organization_access_group_ssm_staging" {
       description = "IAM admin group name for the 'staging' account"
     },
   ]
+}
+
+output "staging_switchrole_url" {
+  description = "URL to the IAM console to switch to the staging account organization access role"
+  value       = "${module.organization_access_group_staging.switchrole_url}"
 }

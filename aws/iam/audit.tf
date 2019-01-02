@@ -6,7 +6,7 @@ variable "audit_account_user_names" {
 
 # Provision group access to audit account. Careful! Very few people, if any should have access to this account.
 module "organization_access_group_audit" {
-  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.2.1"
+  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.3.0"
   enabled           = "${contains(var.accounts_enabled, "audit") == true ? "true" : "false"}"
   namespace         = "${var.namespace}"
   stage             = "audit"
@@ -29,4 +29,9 @@ module "organization_access_group_ssm_audit" {
       description = "IAM admin group name for the 'audit' account"
     },
   ]
+}
+
+output "audit_switchrole_url" {
+  description = "URL to the IAM console to switch to the audit account organization access role"
+  value       = "${module.organization_access_group_audit.switchrole_url}"
 }
