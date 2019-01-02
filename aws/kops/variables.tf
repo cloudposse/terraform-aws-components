@@ -90,7 +90,7 @@ variable "utility_subnets_newbits" {
 }
 
 variable "utility_subnets_netnum" {
-  description = "This is the zero-based index of the subnet when the network is masked with the newbit"
+  description = "This is the zero-based index of the utility subnet when the network is masked with the `newbit`"
   default     = "0"
 }
 
