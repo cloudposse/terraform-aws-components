@@ -127,7 +127,7 @@ module "chamber_parameters" {
       value       = "${var.network_cidr}"
       type        = "String"
       overwrite   = "true"
-      description = "Kops private subnet CIDRs"
+      description = "CIDR block of the kops virtual network"
     },
     {
       name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_private_subnets")}"
