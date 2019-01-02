@@ -33,5 +33,5 @@ module "organization_access_group_ssm_dev" {
 
 output "dev_switchrole_url" {
   description = "URL to the IAM console to switch to the dev account organization access role"
-  value = "${module.organization_access_group_dev.switchrole_url}"
+  value       = "${module.organization_access_group_dev.switchrole_url}"
 }

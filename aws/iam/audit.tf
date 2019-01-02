@@ -33,5 +33,5 @@ module "organization_access_group_ssm_audit" {
 
 output "audit_switchrole_url" {
   description = "URL to the IAM console to switch to the audit account organization access role"
-  value = "${module.organization_access_group_audit.switchrole_url}"
+  value       = "${module.organization_access_group_audit.switchrole_url}"
 }
