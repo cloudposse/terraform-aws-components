@@ -36,5 +36,11 @@ locals {
 }
 
 output "account_alias" {
-  value = "${local.account_alias}"
+  description = "AWS IAM Account Alias"
+  value       = "${local.account_alias}"
+}
+
+output "signin_url" {
+  description = "AWS Signin URL"
+  value       = "${local.signin_url}"
 }
