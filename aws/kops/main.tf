@@ -29,6 +29,17 @@ variable "region" {
   description = "AWS region"
 }
 
+variable "availability_zones" {
+  type        = "list"
+  description = "List of availability zones in which to provision the cluster (should be an odd number to avoid split-brain)."
+  default     = []
+}
+
+variable "availability_zone_count" {
+  description = "Number of availability zones."
+  default     = "3"
+}
+
 variable "zone_name" {
   type        = "string"
   description = "DNS zone name"
@@ -98,6 +109,17 @@ provider "aws" {
   }
 }
 
+data "aws_availability_zones" "default" {}
+
+locals {
+  chamber_service             = "${var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service}"
+  computed_availability_zones = "${data.aws_availability_zones.default.names}"
+  distinct_availability_zones = "${distinct(compact(concat(var.availability_zones, local.computed_availability_zones)))}"
+
+  # Concatenate the predefined AZs with the computed AZs and select the first N distinct AZs. 
+  availability_zones = "${slice(local.distinct_availability_zones, 0, var.availability_zone_count)}"
+}
+
 module "kops_state_backend" {
   source           = "git::https://github.com/cloudposse/terraform-aws-kops-state-backend.git?ref=tags/0.1.5"
   namespace        = "${var.namespace}"
@@ -123,25 +145,23 @@ module "ssh_key_pair" {
 }
 
 module "private_subnets" {
-  source  = "subnets"
-  iprange = "${var.private_subnets_cidr}"
-  newbits = "${var.private_subnets_newbits}"
-  netnum  = "${var.private_subnets_netnum}"
+  source       = "subnets"
+  iprange      = "${var.private_subnets_cidr}"
+  newbits      = "${var.private_subnets_newbits}"
+  netnum       = "${var.private_subnets_netnum}"
+  subnet_count = "${length(local.availability_zones)}"
 }
 
 module "utility_subnets" {
-  source  = "subnets"
-  iprange = "${var.utility_subnets_cidr}"
-  newbits = "${var.utility_subnets_newbits}"
-  netnum  = "${var.utility_subnets_netnum}"
+  source       = "subnets"
+  iprange      = "${var.utility_subnets_cidr}"
+  newbits      = "${var.utility_subnets_newbits}"
+  netnum       = "${var.utility_subnets_netnum}"
+  subnet_count = "${length(local.availability_zones)}"
 }
 
 variable "chamber_parameter_name" {
   default = "/%s/%s"
-}
-
-locals {
-  chamber_service = "${var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service}"
 }
 
 module "chamber_parameters" {
@@ -164,7 +184,7 @@ module "chamber_parameters" {
     },
     {
       name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_state_store_region")}"
-      value       = "s3://${module.kops_state_backend.bucket_region}"
+      value       = "${module.kops_state_backend.bucket_region}"
       type        = "String"
       overwrite   = "true"
       description = "Kops state store (S3 bucket) region"
@@ -203,6 +223,13 @@ module "chamber_parameters" {
       type        = "String"
       overwrite   = "true"
       description = "Kops utility subnet CIDRs"
+    },
+    {
+      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_availability_zones")}"
+      value       = "${join(",", local.availability_zones)}"
+      type        = "String"
+      overwrite   = "true"
+      description = "Kops availability zones in which cluster will be provisioned"
     },
   ]
 }
