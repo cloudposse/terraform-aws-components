@@ -75,7 +75,7 @@ variable "network_cidr" {
 }
 
 variable "private_subnets_newbits" {
-  description = "This is the new mask for the subnet within the virtual network"
+  description = "This is the new mask for the private subnet within the virtual network"
   default     = "-1"
 }
 
