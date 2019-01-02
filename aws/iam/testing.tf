@@ -6,7 +6,7 @@ variable "testing_account_user_names" {
 
 # Provision group access to testing account
 module "organization_access_group_testing" {
-  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.2.1"
+  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.3.0"
   enabled           = "${contains(var.accounts_enabled, "testing") == true ? "true" : "false"}"
   namespace         = "${var.namespace}"
   stage             = "testing"
@@ -29,4 +29,9 @@ module "organization_access_group_ssm_testing" {
       description = "IAM admin group name for the 'testing' account"
     },
   ]
+}
+
+output "testing_switchrole_url" {
+  description = "URL to the IAM console to switch to the testing account organization access role"
+  value       = "${module.organization_access_group_testing.switchrole_url}"
 }
