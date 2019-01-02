@@ -15,3 +15,18 @@ module "organization_access_group_security" {
   member_account_id = "${data.terraform_remote_state.accounts.security_account_id}"
   require_mfa       = "true"
 }
+
+module "organization_access_group_ssm_security" {
+  source  = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-store?ref=tags/0.1.5"
+  enabled = "${contains(var.accounts_enabled, "security") == true ? "true" : "false"}"
+
+  parameter_write = [
+    {
+      name        = "/${var.namespace}/security/admin_group"
+      value       = "${module.organization_access_group_security.group_name}"
+      type        = "String"
+      overwrite   = "true"
+      description = "IAM admin group name for the 'security' account"
+    },
+  ]
+}
