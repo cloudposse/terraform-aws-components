@@ -6,7 +6,7 @@ variable "data_account_user_names" {
 
 # Provision group access to data account
 module "organization_access_group_data" {
-  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.2.1"
+  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=add-switchrole-url"
   enabled           = "${contains(var.accounts_enabled, "data") == true ? "true" : "false"}"
   namespace         = "${var.namespace}"
   stage             = "data"

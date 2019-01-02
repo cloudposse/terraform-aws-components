@@ -18,7 +18,7 @@ variable "switchrole_url" {
 
 # Provision group access to root account with MFA
 module "organization_access_group_root" {
-  source              = "git::https://github.com/cloudposse/terraform-aws-iam-assumed-roles.git?ref=tags/0.5.0"
+  source              = "git::https://github.com/cloudposse/terraform-aws-iam-assumed-roles.git?ref=add-switchrole-url"
   namespace           = "${var.namespace}"
   stage               = "root"
   admin_name          = "admin"

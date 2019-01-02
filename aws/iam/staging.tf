@@ -6,7 +6,7 @@ variable "staging_account_user_names" {
 
 # Provision group access to staging account
 module "organization_access_group_staging" {
-  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.2.1"
+  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=add-switchrole-url"
   enabled           = "${contains(var.accounts_enabled, "staging") == true ? "true" : "false"}"
   namespace         = "${var.namespace}"
   stage             = "staging"
