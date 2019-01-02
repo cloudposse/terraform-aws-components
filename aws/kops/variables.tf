@@ -80,7 +80,7 @@ variable "private_subnets_newbits" {
 }
 
 variable "private_subnets_netnum" {
-  description = "This is the zero-based index of the subnet when the network is masked with the newbit"
+  description = "This is the zero-based index of the private subnet when the network is masked with the `newbit`"
   default     = "0"
 }
 
