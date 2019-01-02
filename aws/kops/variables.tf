@@ -30,7 +30,7 @@ variable "availability_zones" {
 }
 
 variable "availability_zone_count" {
-  description = "Number of availability zones."
+  description = "Number of availability zones to use (to provision the kops cluster in)"
   default     = "3"
 }
 
