@@ -38,3 +38,9 @@ variable "smtp_port" {
   description = "SMTP Port"
   default     = "587"
 }
+
+variable "accounts_enabled" {
+  type        = "list"
+  description = "Accounts to enable"
+  default     = ["dev", "staging", "prod", "testing", "audit"]
+}

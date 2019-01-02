@@ -15,3 +15,18 @@ module "organization_access_group_staging" {
   member_account_id = "${data.terraform_remote_state.accounts.staging_account_id}"
   require_mfa       = "true"
 }
+
+module "organization_access_group_ssm_staging" {
+  source  = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-store?ref=tags/0.1.5"
+  enabled = "${contains(var.accounts_enabled, "staging") == true ? "true" : "false"}"
+
+  parameter_write = [
+    {
+      name        = "/${var.namespace}/staging/admin_group"
+      value       = "${module.organization_access_group_staging.group_name}"
+      type        = "String"
+      overwrite   = "true"
+      description = "IAM admin group name for the 'staging' account"
+    },
+  ]
+}
