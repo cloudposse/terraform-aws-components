@@ -10,12 +10,6 @@ variable "root_account_readonly_user_names" {
   default     = []
 }
 
-variable "switchrole_url" {
-  type        = "string"
-  description = "URL to the IAM console to switch to a role"
-  default     = "https://signin.aws.amazon.com/switchrole?account=%s&roleName=%s&displayName=%s"
-}
-
 # Provision group access to root account with MFA
 module "organization_access_group_root" {
   source              = "git::https://github.com/cloudposse/terraform-aws-iam-assumed-roles.git?ref=tags/0.6.0"
