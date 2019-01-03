@@ -12,6 +12,10 @@ destroy:
 force-destroy:
 	@scripts/$@.sh
 
-## Pass target through to terraform
-%:
+## Clean up the project
+clean:
+	rm -rf .terraform *.tfstate*
+
+## Pass argument through to terraform
+%: init
 	terraform $@
