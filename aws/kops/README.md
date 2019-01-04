@@ -34,7 +34,7 @@ This is roughly the process to get up and running. These instructions assume you
 
 Once the cluster is online, you can interact with it using `kubectl`. 
 
-To start, first run this to get the credentials:
+To start, first run this to export `kubecfg` from the `kops` state store (required to access the cluster):
 ```
 make kops/export
 ```
