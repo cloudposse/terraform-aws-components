@@ -6,9 +6,10 @@ init:
 clean:
 	rm -rf .terraform *.tfstate*
 
-## Pass argument through to terraform
-plan apply output destroy show providers graph console: init
+## Pass arguments through to terraform which require remote state
+apply console destroy graph plan output providers show: init
 	terraform $@
 
-fmt validate version get:
+## Pass arguments through to terraform which do not require remote state
+get fmt validate version:
 	terraform $@
