@@ -20,7 +20,7 @@ region = "us-west-2"
 
 ## Quick Start
 
-This is roughly the process to get up and running. These instructions assume you're running inside of a Geodesic shell..
+This is roughly the process to get up and running. These instructions assume you're running inside of a [Geodesic shell](https://github.com/cloudposse/geodesic).
 
 1. Update the `terraform.tfvars` with [desired settings](#configuration-settings).
 2. Run `make apply` to provision kops dependencies (not the cluster itself)
