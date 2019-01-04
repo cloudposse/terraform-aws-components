@@ -34,6 +34,13 @@ variable "name" {
 variable "region" {
   type        = "string"
   description = "AWS region"
+  default     = ""
+}
+
+data "aws_region" "default" {}
+
+locals {
+  region = "${length(var.region) > 0 ? var.region : data.aws_region.default.name}"
 }
 
 module "cloudtrail" {
@@ -53,7 +60,7 @@ module "cloudtrail_s3_bucket" {
   namespace = "${var.namespace}"
   stage     = "${var.stage}"
   name      = "${var.name}"
-  region    = "${var.region}"
+  region    = "${local.region}"
 }
 
 output "cloudtrail_bucket_domain_name" {

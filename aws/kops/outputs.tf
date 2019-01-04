@@ -41,3 +41,23 @@ output "ssh_key_name" {
 output "ssh_public_key" {
   value = "${module.ssh_key_pair.public_key}"
 }
+
+output "availability_zones" {
+  value = "${join(",", local.availability_zones)}"
+}
+
+output "private_subnets" {
+  value = "${local.private_subnets}"
+}
+
+output "utility_subnets" {
+  value = "${local.utility_subnets}"
+}
+
+output "private_key_filename" {
+  value = "${module.ssh_key_pair.private_key_filename}"
+}
+
+output "public_key_filename" {
+  value = "${module.ssh_key_pair.public_key_filename}"
+}

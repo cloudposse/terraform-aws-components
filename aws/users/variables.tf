@@ -19,19 +19,28 @@ variable "name" {
 variable "smtp_username" {
   description = "Username to authenticate with the SMTP server"
   type        = "string"
+  default     = ""
 }
 
 variable "smtp_password" {
   description = "Password to authenticate with the SMTP server"
   type        = "string"
+  default     = ""
 }
 
 variable "smtp_host" {
   description = "SMTP Host"
   default     = "smtp.mailgun.org"
+  default     = ""
 }
 
 variable "smtp_port" {
   description = "SMTP Port"
   default     = "587"
+}
+
+variable "accounts_enabled" {
+  type        = "list"
+  description = "Accounts to enable"
+  default     = ["dev", "staging", "prod", "testing", "audit"]
 }

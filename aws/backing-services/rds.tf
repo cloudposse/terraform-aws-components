@@ -1,10 +1,10 @@
-variable "RDS_NAME" {
+variable "rds_name" {
   type        = "string"
   default     = "rds"
   description = "RDS instance name"
 }
 
-variable "RDS_ENABLED" {
+variable "rds_enabled" {
   type        = "string"
   default     = "false"
   description = "Set to true to create rds instance"
@@ -12,130 +12,130 @@ variable "RDS_ENABLED" {
 
 # Don't use `root`
 # ("MasterUsername root cannot be used as it is a reserved word used by the engine")
-variable "RDS_ADMIN_NAME" {
+variable "rds_admin_name" {
   type        = "string"
   description = "RDS DB admin user name"
 }
 
 # Must be longer than 8 chars
 # ("The parameter MasterUserPassword is not a valid password because it is shorter than 8 characters")
-variable "RDS_ADMIN_PASSWORD" {
+variable "rds_admin_password" {
   type        = "string"
   description = "RDS DB password for the admin user"
 }
 
 # Don't use `default`
 # ("DatabaseName default cannot be used as it is a reserved word used by the engine")
-variable "RDS_DB_NAME" {
+variable "rds_db_name" {
   type        = "string"
   description = "RDS DB database name"
 }
 
 # db.t2.micro is free tier
 # https://aws.amazon.com/rds/free
-variable "RDS_INSTANCE_TYPE" {
+variable "rds_instance_type" {
   type        = "string"
   default     = "db.t2.micro"
   description = "EC2 instance type for RDS DB"
 }
 
-variable "RDS_ENGINE" {
+variable "rds_engine" {
   type        = "string"
   default     = "mysql"
   description = "RDS DB engine"
 }
 
-variable "RDS_ENGINE_VERSION" {
+variable "rds_engine_version" {
   type        = "string"
   default     = "5.6"
   description = "RDS DB engine version"
 }
 
-variable "RDS_PORT" {
+variable "rds_port" {
   type        = "string"
   default     = "3306"
   description = "RDS DB port"
 }
 
-variable "RDS_DB_PARAMETER_GROUP" {
+variable "rds_db_parameter_group" {
   type        = "string"
   default     = "mysql5.6"
   description = "RDS DB engine version"
 }
 
-variable "RDS_CLUSTER_ENABLED" {
+variable "rds_cluster_enabled" {
   type        = "string"
   default     = "true"
   description = "Set to false to prevent the module from creating any resources"
 }
 
-variable "RDS_SNAPSHOT" {
+variable "rds_snapshot" {
   type        = "string"
   default     = ""
   description = "Set to a snapshot ID to restore from snapshot"
 }
 
-variable "RDS_PARAMETER_GROUP_NAME" {
+variable "rds_parameter_group_name" {
   type        = "string"
   default     = ""
   description = "Existing parameter group name to use"
 }
 
-variable "RDS_MULTI_AZ" {
+variable "rds_multi_az" {
   type        = "string"
   default     = "false"
   description = "Run instaces in multiple az"
 }
 
-variable "RDS_STORAGE_TYPE" {
+variable "rds_storage_type" {
   type        = "string"
   default     = "gp2"
   description = "Storage type"
 }
 
-variable "RDS_STORAGE_SIZE" {
+variable "rds_storage_size" {
   type        = "string"
   default     = "20"
   description = "Storage size"
 }
 
-variable "RDS_STORAGE_ENCRYPTED" {
+variable "rds_storage_encrypted" {
   type        = "string"
   default     = "false"
   description = "Set true to encrypt storage"
 }
 
-variable "RDS_AUTO_MINOR_VERSION_UPGRADE" {
+variable "rds_auto_minor_version_upgrade" {
   type        = "string"
   default     = "false"
   description = "Allow automated minor version upgrade (e.g. from Postgres 9.5.3 to Postgres 9.5.4)"
 }
 
-variable "RDS_ALLOW_MAJOR_VERSION_UPGRADE" {
+variable "rds_allow_major_version_upgrade" {
   type        = "string"
   default     = "false"
   description = "Allow major version upgrade"
 }
 
-variable "RDS_APPLY_IMMEDIATELY" {
+variable "rds_apply_immediately" {
   type        = "string"
   default     = "true"
   description = "Specifies whether any database modifications are applied immediately, or during the next maintenance window"
 }
 
-variable "RDS_SKIP_FINAL_SNAPSHOT" {
+variable "rds_skip_final_snapshot" {
   type        = "string"
   default     = "false"
   description = "If true (default), no snapshot will be made before deleting DB"
 }
 
-variable "RDS_BACKUP_RETENTION_PERIOD" {
+variable "rds_backup_retention_period" {
   type        = "string"
   default     = "7"
   description = "Backup retention period in days. Must be > 0 to enable backups"
 }
 
-variable "RDS_BACKUP_WINDOW" {
+variable "rds_backup_window" {
   type        = "string"
   default     = "22:00-03:00"
   description = "When AWS can perform DB snapshots, can't overlap with maintenance window"
@@ -143,37 +143,37 @@ variable "RDS_BACKUP_WINDOW" {
 
 module "rds" {
   source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.1"
-  enabled                     = "${var.RDS_ENABLED}"
+  enabled                     = "${var.rds_enabled}"
   namespace                   = "${var.namespace}"
   stage                       = "${var.stage}"
-  name                        = "${var.RDS_NAME}"
+  name                        = "${var.rds_name}"
   dns_zone_id                 = "${var.zone_id}"
-  host_name                   = "${var.RDS_NAME}"
+  host_name                   = "${var.rds_name}"
   security_group_ids          = ["${module.kops_metadata.nodes_security_group_id}"]
-  database_name               = "${var.RDS_DB_NAME}"
-  database_user               = "${var.RDS_ADMIN_NAME}"
-  database_password           = "${var.RDS_ADMIN_PASSWORD}"
-  database_port               = "${var.RDS_PORT}"
-  multi_az                    = "${var.RDS_MULTI_AZ}"
-  storage_type                = "${var.RDS_STORAGE_TYPE}"
-  allocated_storage           = "${var.RDS_STORAGE_SIZE}"
-  storage_encrypted           = "${var.RDS_STORAGE_ENCRYPTED}"
-  engine                      = "${var.RDS_ENGINE}"
-  engine_version              = "${var.RDS_ENGINE_VERSION}"
-  instance_class              = "${var.RDS_INSTANCE_TYPE}"
-  db_parameter_group          = "${var.RDS_DB_PARAMETER_GROUP}"
-  parameter_group_name        = "${var.RDS_PARAMETER_GROUP_NAME}"
+  database_name               = "${var.rds_db_name}"
+  database_user               = "${var.rds_admin_name}"
+  database_password           = "${var.rds_admin_password}"
+  database_port               = "${var.rds_port}"
+  multi_az                    = "${var.rds_multi_az}"
+  storage_type                = "${var.rds_storage_type}"
+  allocated_storage           = "${var.rds_storage_size}"
+  storage_encrypted           = "${var.rds_storage_encrypted}"
+  engine                      = "${var.rds_engine}"
+  engine_version              = "${var.rds_engine_version}"
+  instance_class              = "${var.rds_instance_type}"
+  db_parameter_group          = "${var.rds_db_parameter_group}"
+  parameter_group_name        = "${var.rds_parameter_group_name}"
   publicly_accessible         = "false"
   subnet_ids                  = ["${module.subnets.private_subnet_ids}"]
   vpc_id                      = "${module.vpc.vpc_id}"
-  snapshot_identifier         = "${var.RDS_SNAPSHOT}"
-  auto_minor_version_upgrade  = "${var.RDS_AUTO_MINOR_VERSION_UPGRADE}"
-  allow_major_version_upgrade = "${var.RDS_ALLOW_MAJOR_VERSION_UPGRADE}"
-  apply_immediately           = "${var.RDS_APPLY_IMMEDIATELY}"
-  skip_final_snapshot         = "${var.RDS_SKIP_FINAL_SNAPSHOT}"
+  snapshot_identifier         = "${var.rds_snapshot}"
+  auto_minor_version_upgrade  = "${var.rds_auto_minor_version_upgrade}"
+  allow_major_version_upgrade = "${var.rds_allow_major_version_upgrade}"
+  apply_immediately           = "${var.rds_apply_immediately}"
+  skip_final_snapshot         = "${var.rds_skip_final_snapshot}"
   copy_tags_to_snapshot       = "true"
-  backup_retention_period     = "${var.RDS_BACKUP_RETENTION_PERIOD}"
-  backup_window               = "${var.RDS_BACKUP_WINDOW}"
+  backup_retention_period     = "${var.rds_backup_retention_period}"
+  backup_window               = "${var.rds_backup_window}"
 }
 
 output "rds_instance_id" {
@@ -192,22 +192,22 @@ output "rds_instance_endpoint" {
 }
 
 output "rds_port" {
-  value       = "${var.RDS_PORT}"
+  value       = "${var.rds_port}"
   description = "RDS port"
 }
 
 output "rds_db_name" {
-  value       = "${var.RDS_DB_NAME}"
+  value       = "${var.rds_db_name}"
   description = "RDS db name"
 }
 
 output "rds_root_user" {
-  value       = "${var.RDS_ADMIN_NAME}"
+  value       = "${var.rds_admin_name}"
   description = "RDS root user name"
 }
 
 output "rds_root_password" {
-  value       = "${var.RDS_ADMIN_PASSWORD}"
+  value       = "${var.rds_admin_password}"
   description = "RDS root password"
 }
 
