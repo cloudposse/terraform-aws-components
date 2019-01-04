@@ -26,7 +26,7 @@ This is roughly the process to get up and running. These instructions assume you
 3. Run `make apply` to provision kops dependencies with terraform (not the cluster itself)
 4. Run `make kops/shell` to drop into a shell with configured environment for `kops`. Do this any time you want to interact with the cluster.
 5. Run `make kops/build-manifest` to compile the configuration template with current environment settings
-6. Run `make kops/create` to submit the cluster state manifest. Note, no resources will be provisioned.
+6. Run `make kops/create` to submit the cluster state manifest to the cluster state store. Note, no resources will be provisioned.
 7. Run `make kops/create-secret-sshpublickey` to provision the SSH public key. Note, the public key was created in the `make apply` step and requires `/secrets/tf` to be mounted. Mount this directory by running `mount -a`.
 8. Run `make kops/plan` to view the proposed cluster
 9. Run `make kops/apply` to build the cluster
