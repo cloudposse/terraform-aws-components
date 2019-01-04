@@ -1,4 +1,4 @@
-variables "kops_metadata_enabled" {
+variable "kops_metadata_enabled" {
   description = "Set to false to prevent the module from creating any resources"
   type        = "string"
   default     = "false"

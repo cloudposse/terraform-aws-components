@@ -9,6 +9,7 @@ variable "postgres_name" {
 variable "postgres_admin_name" {
   type        = "string"
   description = "Postgres admin user name"
+  default     = "admin"
 }
 
 # Must be longer than 8 chars
@@ -16,11 +17,13 @@ variable "postgres_admin_name" {
 variable "postgres_admin_password" {
   type        = "string"
   description = "Postgres password for the admin user"
+  default     = ""
 }
 
 variable "postgres_db_name" {
   type        = "string"
   description = "Postgres database name"
+  default     = "default"
 }
 
 # db.r4.large is the smallest instance type supported by Aurora Postgres
@@ -58,7 +61,7 @@ module "aurora_postgres" {
   db_port         = "5432"
   vpc_id          = "${module.vpc.vpc_id}"
   subnets         = ["${module.subnets.private_subnet_ids}"]
-  zone_id         = "${var.zone_id}"
+  zone_id         = "${local.zone_id}"
   security_groups = ["${module.kops_metadata.nodes_security_group_id}"]
   enabled         = "${var.postgres_cluster_enabled}"
 }

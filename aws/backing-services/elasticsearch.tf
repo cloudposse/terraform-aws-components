@@ -67,7 +67,7 @@ module "elasticsearch" {
   namespace               = "${var.namespace}"
   stage                   = "${var.stage}"
   name                    = "${var.elasticsearch_name}"
-  dns_zone_id             = "${var.zone_id}"
+  dns_zone_id             = "${local.zone_id}"
   security_groups         = ["${module.kops_metadata.nodes_security_group_id}"]
   vpc_id                  = "${module.vpc.vpc_id}"
   subnet_ids              = ["${slice(module.subnets.private_subnet_ids, 0, min(2, length(module.subnets.private_subnet_ids)))}"]

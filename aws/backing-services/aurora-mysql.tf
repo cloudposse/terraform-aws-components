@@ -9,16 +9,19 @@ variable "mysql_name" {
 variable "mysql_admin_name" {
   type        = "string"
   description = "MySQL admin user name"
+  default     = "admin"
 }
 
 variable "mysql_admin_password" {
   type        = "string"
   description = "MySQL password for the admin user"
+  default     = ""
 }
 
 variable "mysql_db_name" {
   type        = "string"
   description = "MySQL database name"
+  default     = "default"
 }
 
 # https://aws.amazon.com/rds/aurora/pricing
@@ -66,7 +69,7 @@ module "aurora_mysql" {
   db_port             = "3306"
   vpc_id              = "${module.vpc.vpc_id}"
   subnets             = ["${module.subnets.public_subnet_ids}"]                                           # Use module.subnets.private_subnet_ids if the cluster does not need to be publicly accessible
-  zone_id             = "${var.zone_id}"
+  zone_id             = "${local.zone_id}"
   enabled             = "${var.mysql_cluster_enabled}"
   publicly_accessible = "${var.mysql_cluster_publicly_accessible}"
   allowed_cidr_blocks = "${var.mysql_cluster_allowed_cidr_blocks}"

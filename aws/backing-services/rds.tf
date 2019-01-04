@@ -15,6 +15,7 @@ variable "rds_enabled" {
 variable "rds_admin_name" {
   type        = "string"
   description = "RDS DB admin user name"
+  default     = "admin"
 }
 
 # Must be longer than 8 chars
@@ -22,6 +23,7 @@ variable "rds_admin_name" {
 variable "rds_admin_password" {
   type        = "string"
   description = "RDS DB password for the admin user"
+  default     = ""
 }
 
 # Don't use `default`
@@ -29,6 +31,7 @@ variable "rds_admin_password" {
 variable "rds_db_name" {
   type        = "string"
   description = "RDS DB database name"
+  default     = "default"
 }
 
 # db.t2.micro is free tier
@@ -142,12 +145,13 @@ variable "rds_backup_window" {
 }
 
 module "rds" {
-  source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.1"
+  #source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.1"
+  source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=fix-disabled"
   enabled                     = "${var.rds_enabled}"
   namespace                   = "${var.namespace}"
   stage                       = "${var.stage}"
   name                        = "${var.rds_name}"
-  dns_zone_id                 = "${var.zone_id}"
+  dns_zone_id                 = "${local.zone_id}"
   host_name                   = "${var.rds_name}"
   security_group_ids          = ["${module.kops_metadata.nodes_security_group_id}"]
   database_name               = "${var.rds_db_name}"

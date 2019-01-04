@@ -28,12 +28,15 @@ variable "zone_name" {
   description = "DNS zone name"
 }
 
-variable "zone_id" {
-  type        = "string"
-  description = "DNS zone ID"
+data "aws_availability_zones" "available" {}
+
+data "aws_route53_zone" "default" {
+  name = "${var.zone_name}"
 }
 
-data "aws_availability_zones" "available" {}
+locals {
+  zone_id = "${data.aws_route53_zone.default.zone_id}"
+}
 
 provider "aws" {
   assume_role {
