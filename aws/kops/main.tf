@@ -115,7 +115,7 @@ resource "aws_ssm_parameter" "kops_ssh_private_key_path" {
 resource "aws_ssm_parameter" "kops_dns_zone" {
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_dns_zone")}"
   value       = "${module.kops_state_backend.zone_name}"
-  description = "Kops cluster name"
+  description = "Kops DNS zone name"
   type        = "String"
   overwrite   = "true"
 }
