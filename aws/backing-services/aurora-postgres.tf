@@ -39,7 +39,7 @@ variable "postgres_cluster_size" {
 
 variable "postgres_cluster_enabled" {
   type        = "string"
-  default     = "true"
+  default     = "false"
   description = "Set to false to prevent the module from creating any resources"
 }
 
