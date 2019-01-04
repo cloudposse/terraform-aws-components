@@ -1,8 +1,11 @@
+## Initialize terraform remote state
 init:
-	init-terraform
+	[ -d .terraform ] || init-terraform
 
+## Clean up the project
 clean:
-	rm -rf .terraform
+	rm -rf .terraform *.tfstate*
 
-%:
+## Pass argument through to terraform
+%: init
 	terraform $@
