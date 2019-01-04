@@ -38,11 +38,14 @@ kops/plan:
 kops/apply:
 	kops update cluster --yes
 
+## Verify that the cluster is healthy
 kops/validate:
 	kops validate cluster
 
+## Export kubecfg (required to access cluster)
 kops/export:
 	kops export kubecfg
 
+## Delete kubecfg
 kops/clean:
 	rm -f $(KUBECONFIG)
