@@ -43,7 +43,7 @@ variable "elasticsearch_iam_actions" {
 
 variable "elasticsearch_enabled" {
   type        = "string"
-  default     = "true"
+  default     = "false"
   description = "Set to false to prevent the module from creating any resources"
 }
 
