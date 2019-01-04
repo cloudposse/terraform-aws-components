@@ -1,12 +1,17 @@
 -include .terraform/modules/**/Makefile.ses
 ## Initialize terraform remote state
 init:
-	[ -d .terraform ] || init-terraform
+	[ -f .terraform/terraform.tfstate ] || init-terraform
 
 ## Clean up the project
 clean:
 	rm -rf .terraform *.tfstate*
 
-## Pass argument through to terraform
-%: init
+## Pass arguments through to terraform which require remote state
+apply console destroy graph plan output providers show: init
 	terraform $@
+
+## Pass arguments through to terraform which do not require remote state
+get fmt validate version:
+	terraform $@
+
