@@ -83,7 +83,7 @@ resource "aws_ssm_parameter" "kops_cluster_name" {
 resource "aws_ssm_parameter" "kops_state_store" {
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_state_store")}"
   value       = "s3://${module.kops_state_backend.bucket_name}"
-  description = "Kops state store (S3 bucket) URL"
+  description = "Kops state store S3 bucket name"
   type        = "String"
   overwrite   = "true"
 }
