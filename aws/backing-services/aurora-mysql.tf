@@ -139,7 +139,7 @@ resource "aws_ssm_parameter" "aurora_mysql_replicas_hostname" {
   count       = "${local.mysql_cluster_enabled ? 1 : 0}"
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "aurora_mysql_replicas_hostname")}"
   value       = "${module.aurora_mysql.replicas_host}"
-  description = "Aurora Postgres DB Replicas hostname"
+  description = "Aurora MySQL DB Replicas hostname"
   type        = "String"
   overwrite   = "true"
 }
