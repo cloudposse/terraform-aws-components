@@ -64,9 +64,8 @@ resource "random_string" "mysql_admin_user" {
 }
 
 resource "random_string" "mysql_admin_password" {
-  length           = 16
-  special          = true
-  override_special = "/@\" "
+  length  = 16
+  special = true
 }
 
 locals {

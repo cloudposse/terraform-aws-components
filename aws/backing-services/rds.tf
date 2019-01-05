@@ -154,9 +154,8 @@ resource "random_string" "rds_admin_user" {
 }
 
 resource "random_string" "rds_admin_password" {
-  length           = 16
-  special          = true
-  override_special = "/@\" "
+  length  = 16
+  special = true
 }
 
 locals {
