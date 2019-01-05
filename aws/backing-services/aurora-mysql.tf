@@ -121,7 +121,7 @@ resource "aws_ssm_parameter" "aurora_mysql_master_password" {
   count       = "${local.mysql_cluster_enabled ? 1 : 0}"
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "aurora_mysql_master_password")}"
   value       = "${module.aurora_mysql.password}"
-  description = "Aurora Postgres Password for the master DB user"
+  description = "Aurora MySQL Password for the master DB user"
   type        = "String"
   overwrite   = "true"
 }
