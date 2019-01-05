@@ -112,7 +112,7 @@ resource "aws_ssm_parameter" "aurora_mysql_master_username" {
   count       = "${local.mysql_cluster_enabled ? 1 : 0}"
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "aurora_mysql_master_username")}"
   value       = "${module.aurora_mysql.user}"
-  description = "Aurora Postgres Username for the master DB user"
+  description = "Aurora MySQL Username for the master DB user"
   type        = "String"
   overwrite   = "true"
 }
