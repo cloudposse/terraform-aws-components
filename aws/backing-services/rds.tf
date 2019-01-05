@@ -219,7 +219,7 @@ resource "aws_ssm_parameter" "rds_admin_username" {
   overwrite   = "true"
 }
 
-resource "aws_ssm_parameter" "rds_master_password" {
+resource "aws_ssm_parameter" "rds_admin_password" {
   count       = "${local.rds_enabled ? 1 : 0}"
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "rds_admin_password")}"
   value       = "${local.rds_admin_password}"
