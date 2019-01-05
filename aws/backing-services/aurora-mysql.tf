@@ -103,7 +103,7 @@ resource "aws_ssm_parameter" "aurora_mysql_database_name" {
   count       = "${local.mysql_cluster_enabled ? 1 : 0}"
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "aurora_mysql_database_name")}"
   value       = "${module.aurora_mysql.name}"
-  description = "Aurora Postgres Database Name"
+  description = "Aurora MySQL Database Name"
   type        = "String"
   overwrite   = "true"
 }
