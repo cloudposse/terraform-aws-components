@@ -4,7 +4,8 @@ variable "postgres_name" {
   default     = "postgres"
 }
 
-# Don't use `admin`
+# Don't use `admin` 
+# Read more: <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Limits.html>
 # ("MasterUsername admin cannot be used as it is a reserved word used by the engine")
 variable "postgres_admin_user" {
   type        = "string"
@@ -13,6 +14,7 @@ variable "postgres_admin_user" {
 }
 
 # Must be longer than 8 chars
+# Read more: <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Limits.html>
 # ("The parameter MasterUserPassword is not a valid password because it is shorter than 8 characters")
 variable "postgres_admin_password" {
   type        = "string"
@@ -47,24 +49,27 @@ variable "postgres_cluster_enabled" {
 }
 
 resource "random_pet" "postgres_db_name" {
+  count     = "${local.postgres_cluster_enabled ? 1 : 0}"
   separator = "_"
 }
 
 resource "random_string" "postgres_admin_user" {
+  count   = "${local.postgres_cluster_enabled ? 1 : 0}"
   length  = 8
   special = false
 }
 
 resource "random_string" "postgres_admin_password" {
+  count   = "${local.postgres_cluster_enabled ? 1 : 0}"
   length  = 16
   special = true
 }
 
 locals {
   postgres_cluster_enabled = "${var.postgres_cluster_enabled == "true"}"
-  postgres_admin_user      = "${length(var.postgres_admin_user) > 0 ? var.postgres_admin_user : random_string.postgres_admin_user.result}"
-  postgres_admin_password  = "${length(var.postgres_admin_password) > 0 ? var.postgres_admin_password : random_string.postgres_admin_password.result}"
-  postgres_db_name         = "${random_pet.postgres_db_name.id}"
+  postgres_admin_user      = "${length(var.postgres_admin_user) > 0 ? var.postgres_admin_user : replace("/^[0-9]+/", join("", random_string.postgres_admin_user.*.result), "")}"
+  postgres_admin_password  = "${length(var.postgres_admin_password) > 0 ? var.postgres_admin_password : join("", random_string.postgres_admin_password.*.result)}"
+  postgres_db_name         = "${join("", random_pet.postgres_db_name.*.id)}"
 }
 
 module "aurora_postgres" {

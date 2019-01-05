@@ -145,24 +145,27 @@ variable "rds_backup_window" {
 }
 
 resource "random_pet" "rds_db_name" {
+  count     = "${local.rds_enabled ? 1 : 0}"
   separator = "_"
 }
 
 resource "random_string" "rds_admin_user" {
+  count   = "${local.rds_enabled ? 1 : 0}"
   length  = 8
   special = false
 }
 
 resource "random_string" "rds_admin_password" {
+  count   = "${local.rds_enabled ? 1 : 0}"
   length  = 16
   special = true
 }
 
 locals {
   rds_enabled        = "${var.rds_enabled == "true"}"
-  rds_admin_user     = "${length(var.rds_admin_user) > 0 ? var.rds_admin_user : random_string.rds_admin_user.result}"
-  rds_admin_password = "${length(var.rds_admin_password) > 0 ? var.rds_admin_password : random_string.rds_admin_password.result}"
-  rds_db_name        = "${random_pet.rds_db_name.id}"
+  rds_admin_user     = "${length(var.rds_admin_user) > 0 ? var.rds_admin_user : replace("/^[0-9]+/", join("", random_string.rds_admin_user.*.result), "")}"
+  rds_admin_password = "${length(var.rds_admin_password) > 0 ? var.rds_admin_password : join("", random_string.rds_admin_password.*.result)}"
+  rds_db_name        = "${join("", random_pet.rds_db_name.*.id)}"
 }
 
 module "rds" {
