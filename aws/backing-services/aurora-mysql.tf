@@ -77,7 +77,7 @@ locals {
 }
 
 module "aurora_mysql" {
-  source         = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=tags/0.7.0"
+  source         = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=tags/0.7.1"
   namespace      = "${var.namespace}"
   stage          = "${var.stage}"
   name           = "${var.mysql_name}"
