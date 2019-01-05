@@ -130,7 +130,7 @@ resource "aws_ssm_parameter" "aurora_mysql_master_hostname" {
   count       = "${local.mysql_cluster_enabled ? 1 : 0}"
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "aurora_mysql_master_hostname")}"
   value       = "${module.aurora_mysql.master_host}"
-  description = "Aurora Postgres DB Master hostname"
+  description = "Aurora MySQL DB Master hostname"
   type        = "String"
   overwrite   = "true"
 }
