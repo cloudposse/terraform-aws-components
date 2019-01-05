@@ -35,7 +35,9 @@ data "aws_route53_zone" "default" {
 }
 
 locals {
+  null = ""
   zone_id = "${data.aws_route53_zone.default.zone_id}"
+  chamber_service             = "${var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service}"
 }
 
 provider "aws" {

@@ -160,14 +160,14 @@ resource "random_string" "rds_admin_password" {
 }
 
 locals {
+  rds_enabled        = "${var.rds_enabled == "true"}"
   rds_admin_user     = "${length(var.rds_admin_user) > 0 ? var.rds_admin_user : random_string.rds_admin_user.result}"
   rds_admin_password = "${length(var.rds_admin_password) > 0 ? var.rds_admin_password : random_string.rds_admin_password.result}"
   rds_db_name        = "${random_pet.rds_db_name.id}"
 }
 
 module "rds" {
-  #source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.1"
-  source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=fix-disabled"
+  source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.3"
   enabled                     = "${var.rds_enabled}"
   namespace                   = "${var.namespace}"
   stage                       = "${var.stage}"
@@ -201,6 +201,51 @@ module "rds" {
   backup_window               = "${var.rds_backup_window}"
 }
 
+resource "aws_ssm_parameter" "rds_db_name" {
+  count       = "${local.rds_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "rds_db_name")}"
+  value       = "${local.rds_db_name}"
+  description = "RDS Database Name"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "rds_admin_username" {
+  count       = "${local.rds_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "rds_admin_username")}"
+  value       = "${local.rds_admin_user}"
+  description = "RDS Username for the admin DB user"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "rds_master_password" {
+  count       = "${local.rds_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "rds_admin_password")}"
+  value       = "${local.rds_admin_password}"
+  description = "RDS Password for the admin DB user"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "rds_hostname" {
+  count       = "${local.rds_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "rds_hostname")}"
+  value       = "${module.rds.hostname}"
+  description = "RDS hostname"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "rds_port" {
+  count       = "${local.rds_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "rds_port")}"
+  value       = "${var.rds_port}"
+  description = "RDS port"
+  type        = "String"
+  overwrite   = "true"
+}
+
 output "rds_instance_id" {
   value       = "${module.rds.instance_id}"
   description = "RDS ID of the instance"
@@ -217,23 +262,23 @@ output "rds_instance_endpoint" {
 }
 
 output "rds_port" {
-  value       = "${var.rds_port}"
+  value       = "${local.rds_enabled ? var.rds_port : local.null}"
   description = "RDS port"
 }
 
 output "rds_db_name" {
-  value       = "${local.rds_db_name}"
+  value       = "${local.rds_enabled ? local.rds_db_name : local.null}"
   description = "RDS db name"
 }
 
-output "rds_root_user" {
-  value       = "${local.rds_admin_user}"
-  description = "RDS root user name"
+output "rds_admin_user" {
+  value       = "${local.rds_enabled ? local.rds_admin_user : local.null}"
+  description = "RDS admin user name"
 }
 
-output "rds_root_password" {
-  value       = "${local.rds_admin_password}"
-  description = "RDS root password"
+output "rds_admin_password" {
+  value       = "${local.rds_enabled ? local.rds_admin_password : local.null}"
+  description = "RDS admin password"
 }
 
 output "rds_hostname" {

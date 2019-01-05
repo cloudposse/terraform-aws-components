@@ -62,13 +62,14 @@ resource "random_string" "postgres_admin_password" {
 }
 
 locals {
+  postgres_cluster_enabled = "${var.postgres_cluster_enabled == "true"}"
   postgres_admin_user     = "${length(var.postgres_admin_user) > 0 ? var.postgres_admin_user : random_string.postgres_admin_user.result}"
   postgres_admin_password = "${length(var.postgres_admin_password) > 0 ? var.postgres_admin_password : random_string.postgres_admin_password.result}"
   postgres_db_name        = "${random_pet.postgres_db_name.id}"
 }
 
 module "aurora_postgres" {
-  source          = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=fix-outputs"
+  source          = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=tags/0.7.1"
   namespace       = "${var.namespace}"
   stage           = "${var.stage}"
   name            = "${var.postgres_name}"
@@ -87,27 +88,82 @@ module "aurora_postgres" {
   enabled         = "${var.postgres_cluster_enabled}"
 }
 
+resource "aws_ssm_parameter" "aurora_postgres_database_name" {
+  count       = "${local.postgres_cluster_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "aurora_postgres_database_name")}"
+  value       = "${module.aurora_postgres.name}"
+  description = "Aurora Postgres Database Name"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "aurora_postgres_master_username" {
+  count       = "${local.postgres_cluster_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "aurora_postgres_master_username")}"
+  value       = "${module.aurora_postgres.user}"
+  description = "Aurora Postgres Username for the master DB user"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "aurora_postgres_master_password" {
+  count       = "${local.postgres_cluster_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "aurora_postgres_master_password")}"
+  value       = "${module.aurora_postgres.password}"
+  description = "Aurora Postgres Password for the master DB user"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "aurora_postgres_master_hostname" {
+  count       = "${local.postgres_cluster_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "aurora_postgres_master_hostname")}"
+  value       = "${module.aurora_postgres.master_host}"
+  description = "Aurora Postgres DB Master hostname"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "aurora_postgres_replicas_hostname" {
+  count       = "${local.postgres_cluster_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "aurora_postgres_replicas_hostname")}"
+  value       = "${module.aurora_postgres.replicas_host}"
+  description = "Aurora Postgres DB Replicas hostname"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "aurora_postgres_cluster_name" {
+  count       = "${local.postgres_cluster_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "aurora_postgres_cluster_name")}"
+  value       = "${module.aurora_postgres.cluster_name}"
+  description = "Aurora Postgres DB Cluster Identifier"
+  type        = "String"
+  overwrite   = "true"
+}
+
+
 output "aurora_postgres_database_name" {
   value       = "${module.aurora_postgres.name}"
-  description = "Database name"
+  description = "Aurora Postgres Database name"
 }
 
 output "aurora_postgres_master_username" {
   value       = "${module.aurora_postgres.user}"
-  description = "Username for the master DB user"
+  description = "Aurora Postgres Username for the master DB user"
 }
 
 output "aurora_postgres_master_hostname" {
   value       = "${module.aurora_postgres.master_host}"
-  description = "DB Master hostname"
+  description = "Aurora Postgres DB Master hostname"
 }
 
 output "aurora_postgres_replicas_hostname" {
   value       = "${module.aurora_postgres.replicas_host}"
-  description = "Replicas hostname"
+  description = "Aurora Postgres Replicas hostname"
 }
 
 output "aurora_postgres_cluster_name" {
   value       = "${module.aurora_postgres.cluster_name}"
-  description = "Cluster Identifier"
+  description = "Aurora Postgres Cluster Identifier"
 }
