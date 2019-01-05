@@ -71,9 +71,9 @@ resource "random_string" "mysql_admin_password" {
 
 locals {
   mysql_cluster_enabled = "${var.mysql_cluster_enabled == "true"}"
-  mysql_admin_user     = "${length(var.mysql_admin_user) > 0 ? var.mysql_admin_user : random_string.mysql_admin_user.result}"
-  mysql_admin_password = "${length(var.mysql_admin_password) > 0 ? var.mysql_admin_password : random_string.mysql_admin_password.result}"
-  mysql_db_name        = "${random_pet.mysql_db_name.id}"
+  mysql_admin_user      = "${length(var.mysql_admin_user) > 0 ? var.mysql_admin_user : random_string.mysql_admin_user.result}"
+  mysql_admin_password  = "${length(var.mysql_admin_password) > 0 ? var.mysql_admin_password : random_string.mysql_admin_password.result}"
+  mysql_db_name         = "${random_pet.mysql_db_name.id}"
 }
 
 module "aurora_mysql" {

@@ -63,9 +63,9 @@ resource "random_string" "postgres_admin_password" {
 
 locals {
   postgres_cluster_enabled = "${var.postgres_cluster_enabled == "true"}"
-  postgres_admin_user     = "${length(var.postgres_admin_user) > 0 ? var.postgres_admin_user : random_string.postgres_admin_user.result}"
-  postgres_admin_password = "${length(var.postgres_admin_password) > 0 ? var.postgres_admin_password : random_string.postgres_admin_password.result}"
-  postgres_db_name        = "${random_pet.postgres_db_name.id}"
+  postgres_admin_user      = "${length(var.postgres_admin_user) > 0 ? var.postgres_admin_user : random_string.postgres_admin_user.result}"
+  postgres_admin_password  = "${length(var.postgres_admin_password) > 0 ? var.postgres_admin_password : random_string.postgres_admin_password.result}"
+  postgres_db_name         = "${random_pet.postgres_db_name.id}"
 }
 
 module "aurora_postgres" {
@@ -141,7 +141,6 @@ resource "aws_ssm_parameter" "aurora_postgres_cluster_name" {
   type        = "String"
   overwrite   = "true"
 }
-
 
 output "aurora_postgres_database_name" {
   value       = "${module.aurora_postgres.name}"
