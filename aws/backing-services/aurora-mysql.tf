@@ -6,10 +6,10 @@ variable "mysql_name" {
   default     = "mysql"
 }
 
-variable "mysql_admin_name" {
+variable "mysql_admin_user" {
   type        = "string"
   description = "MySQL admin user name"
-  default     = "admin"
+  default     = ""
 }
 
 variable "mysql_admin_password" {
@@ -21,7 +21,7 @@ variable "mysql_admin_password" {
 variable "mysql_db_name" {
   type        = "string"
   description = "MySQL database name"
-  default     = "default"
+  default     = ""
 }
 
 # https://aws.amazon.com/rds/aurora/pricing
@@ -54,6 +54,27 @@ variable "mysql_cluster_allowed_cidr_blocks" {
   description = "List of CIDR blocks allowed to access the cluster"
 }
 
+resource "random_pet" "mysql_db_name" {
+  separator = "_"
+}
+
+resource "random_string" "mysql_admin_user" {
+  length  = 8
+  special = false
+}
+
+resource "random_string" "mysql_admin_password" {
+  length           = 16
+  special          = true
+  override_special = "/@\" "
+}
+
+locals {
+  mysql_admin_user     = "${length(var.mysql_admin_user) > 0 ? var.mysql_admin_user : random_string.mysql_admin_user.result}"
+  mysql_admin_password = "${length(var.mysql_admin_password) > 0 ? var.mysql_admin_password : random_string.mysql_admin_password.result}"
+  mysql_db_name        = "${random_pet.mysql_db_name.id}"
+}
+
 module "aurora_mysql" {
   source              = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=tags/0.7.0"
   namespace           = "${var.namespace}"
@@ -63,9 +84,9 @@ module "aurora_mysql" {
   cluster_family      = "aurora-mysql5.7"
   instance_type       = "${var.mysql_instance_type}"
   cluster_size        = "${var.mysql_cluster_size}"
-  admin_user          = "${var.mysql_admin_name}"
-  admin_password      = "${var.mysql_admin_password}"
-  db_name             = "${var.mysql_db_name}"
+  admin_user          = "${local.mysql_admin_user}"
+  admin_password      = "${local.mysql_admin_password}"
+  db_name             = "${local.mysql_db_name}"
   db_port             = "3306"
   vpc_id              = "${module.vpc.vpc_id}"
   subnets             = ["${module.subnets.public_subnet_ids}"]                                           # Use module.subnets.private_subnet_ids if the cluster does not need to be publicly accessible

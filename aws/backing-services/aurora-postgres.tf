@@ -6,10 +6,10 @@ variable "postgres_name" {
 
 # Don't use `admin`
 # ("MasterUsername admin cannot be used as it is a reserved word used by the engine")
-variable "postgres_admin_name" {
+variable "postgres_admin_user" {
   type        = "string"
   description = "Postgres admin user name"
-  default     = "admin"
+  default     = ""
 }
 
 # Must be longer than 8 chars
@@ -23,7 +23,7 @@ variable "postgres_admin_password" {
 variable "postgres_db_name" {
   type        = "string"
   description = "Postgres database name"
-  default     = "default"
+  default     = ""
 }
 
 # db.r4.large is the smallest instance type supported by Aurora Postgres
@@ -46,8 +46,29 @@ variable "postgres_cluster_enabled" {
   description = "Set to false to prevent the module from creating any resources"
 }
 
+resource "random_pet" "postgres_db_name" {
+  separator = "_"
+}
+
+resource "random_string" "postgres_admin_user" {
+  length  = 8
+  special = false
+}
+
+resource "random_string" "postgres_admin_password" {
+  length           = 16
+  special          = true
+  override_special = "/@\" "
+}
+
+locals {
+  postgres_admin_user     = "${length(var.postgres_admin_user) > 0 ? var.postgres_admin_user : random_string.postgres_admin_user.result}"
+  postgres_admin_password = "${length(var.postgres_admin_password) > 0 ? var.postgres_admin_password : random_string.postgres_admin_password.result}"
+  postgres_db_name        = "${random_pet.postgres_db_name.id}"
+}
+
 module "aurora_postgres" {
-  source          = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=tags/0.7.0"
+  source          = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=fix-outputs"
   namespace       = "${var.namespace}"
   stage           = "${var.stage}"
   name            = "${var.postgres_name}"
@@ -55,9 +76,9 @@ module "aurora_postgres" {
   cluster_family  = "aurora-postgresql9.6"
   instance_type   = "${var.postgres_instance_type}"
   cluster_size    = "${var.postgres_cluster_size}"
-  admin_user      = "${var.postgres_admin_name}"
-  admin_password  = "${var.postgres_admin_password}"
-  db_name         = "${var.postgres_db_name}"
+  admin_user      = "${local.postgres_admin_user}"
+  admin_password  = "${local.postgres_admin_password}"
+  db_name         = "${local.postgres_db_name}"
   db_port         = "5432"
   vpc_id          = "${module.vpc.vpc_id}"
   subnets         = ["${module.subnets.private_subnet_ids}"]

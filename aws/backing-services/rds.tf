@@ -12,10 +12,10 @@ variable "rds_enabled" {
 
 # Don't use `root`
 # ("MasterUsername root cannot be used as it is a reserved word used by the engine")
-variable "rds_admin_name" {
+variable "rds_admin_user" {
   type        = "string"
   description = "RDS DB admin user name"
-  default     = "admin"
+  default     = ""
 }
 
 # Must be longer than 8 chars
@@ -31,7 +31,7 @@ variable "rds_admin_password" {
 variable "rds_db_name" {
   type        = "string"
   description = "RDS DB database name"
-  default     = "default"
+  default     = ""
 }
 
 # db.t2.micro is free tier
@@ -144,6 +144,27 @@ variable "rds_backup_window" {
   description = "When AWS can perform DB snapshots, can't overlap with maintenance window"
 }
 
+resource "random_pet" "rds_db_name" {
+  separator = "_"
+}
+
+resource "random_string" "rds_admin_user" {
+  length  = 8
+  special = false
+}
+
+resource "random_string" "rds_admin_password" {
+  length           = 16
+  special          = true
+  override_special = "/@\" "
+}
+
+locals {
+  rds_admin_user     = "${length(var.rds_admin_user) > 0 ? var.rds_admin_user : random_string.rds_admin_user.result}"
+  rds_admin_password = "${length(var.rds_admin_password) > 0 ? var.rds_admin_password : random_string.rds_admin_password.result}"
+  rds_db_name        = "${random_pet.rds_db_name.id}"
+}
+
 module "rds" {
   #source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.1"
   source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=fix-disabled"
@@ -154,9 +175,9 @@ module "rds" {
   dns_zone_id                 = "${local.zone_id}"
   host_name                   = "${var.rds_name}"
   security_group_ids          = ["${module.kops_metadata.nodes_security_group_id}"]
-  database_name               = "${var.rds_db_name}"
-  database_user               = "${var.rds_admin_name}"
-  database_password           = "${var.rds_admin_password}"
+  database_name               = "${local.rds_db_name}"
+  database_user               = "${local.rds_admin_user}"
+  database_password           = "${local.rds_admin_password}"
   database_port               = "${var.rds_port}"
   multi_az                    = "${var.rds_multi_az}"
   storage_type                = "${var.rds_storage_type}"
@@ -201,17 +222,17 @@ output "rds_port" {
 }
 
 output "rds_db_name" {
-  value       = "${var.rds_db_name}"
+  value       = "${local.rds_db_name}"
   description = "RDS db name"
 }
 
 output "rds_root_user" {
-  value       = "${var.rds_admin_name}"
+  value       = "${local.rds_admin_user}"
   description = "RDS root user name"
 }
 
 output "rds_root_password" {
-  value       = "${var.rds_admin_password}"
+  value       = "${local.rds_admin_password}"
   description = "RDS root password"
 }
 
