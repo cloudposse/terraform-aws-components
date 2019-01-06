@@ -62,6 +62,7 @@ resource "random_pet" "mysql_db_name" {
 resource "random_string" "mysql_admin_user" {
   count   = "${local.mysql_cluster_enabled ? 1 : 0}"
   length  = 8
+  number  = false
   special = false
 }
 
@@ -73,7 +74,7 @@ resource "random_string" "mysql_admin_password" {
 
 locals {
   mysql_cluster_enabled = "${var.mysql_cluster_enabled == "true"}"
-  mysql_admin_user      = "${length(var.mysql_admin_user) > 0 ? var.mysql_admin_user : replace("/^[0-9]+/", join("", random_string.mysql_admin_user.*.result), "")}"
+  mysql_admin_user      = "${length(var.mysql_admin_user) > 0 ? var.mysql_admin_user : join("", random_string.mysql_admin_user.*.result)}"
   mysql_admin_password  = "${length(var.mysql_admin_password) > 0 ? var.mysql_admin_password : join("", random_string.mysql_admin_password.*.result)}"
   mysql_db_name         = "${join("", random_pet.mysql_db_name.*.id)}"
 }

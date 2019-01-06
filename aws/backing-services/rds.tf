@@ -153,6 +153,7 @@ resource "random_string" "rds_admin_user" {
   count   = "${local.rds_enabled ? 1 : 0}"
   length  = 8
   special = false
+  number  = false
 }
 
 resource "random_string" "rds_admin_password" {
@@ -163,7 +164,7 @@ resource "random_string" "rds_admin_password" {
 
 locals {
   rds_enabled        = "${var.rds_enabled == "true"}"
-  rds_admin_user     = "${length(var.rds_admin_user) > 0 ? var.rds_admin_user : replace("/^[0-9]+/", join("", random_string.rds_admin_user.*.result), "")}"
+  rds_admin_user     = "${length(var.rds_admin_user) > 0 ? var.rds_admin_user : join("", random_string.rds_admin_user.*.result)}"
   rds_admin_password = "${length(var.rds_admin_password) > 0 ? var.rds_admin_password : join("", random_string.rds_admin_password.*.result)}"
   rds_db_name        = "${join("", random_pet.rds_db_name.*.id)}"
 }
