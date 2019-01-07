@@ -14,11 +14,10 @@ variable "requester_region" {
   default = "us-west-2"
 }
 
-variable "requester_account" {
-}
+variable "requester_account" {}
 
 variable "requester_vpc_tags" {
-  type = "map"
+  type    = "map"
   default = {}
 }
 
@@ -26,11 +25,10 @@ variable "accepter_region" {
   default = "data"
 }
 
-variable "accepter_account" {
-}
+variable "accepter_account" {}
 
 variable "accepter_vpc_tags" {
-  type = "map"
+  type    = "map"
   default = {}
 }
 
@@ -65,9 +63,9 @@ module "vpc_peering" {
 
   enabled = "${var.enabled}"
 
-  namespace = "${var.namespace}"
-  stage     = "${var.stage}"
-  name      = "${var.name}"
+  namespace  = "${var.namespace}"
+  stage      = "${var.stage}"
+  name       = "${var.name}"
   attributes = ["${var.requester_account}", "${var.accepter_account}"]
 
   auto_accept = true
