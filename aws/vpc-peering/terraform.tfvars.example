@@ -1,0 +1,13 @@
+requester_account = "prod"
+requester_region = "us-west-2"
+
+requester_vpc_tags = {
+  Name = "eg-prod-backing-services"
+}
+
+accepter_account = "data"
+accepter_region = "us-west-2"
+
+accepter_vpc_tags = {
+  Name = "us-west-2.data.example.co"
+}

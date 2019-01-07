@@ -61,8 +61,7 @@ locals {
 }
 
 module "vpc_peering" {
-  #source = "git::https://github.com/cloudposse/terraform-aws-vpc-peering-multi-account.git?ref=init"
-  source = "/localhost/Dev/cloudposse/terraform/terraform-aws-vpc-peering-multi-account"
+  source = "git::https://github.com/cloudposse/terraform-aws-vpc-peering-multi-account.git?ref=tags/0.1.0"
 
   enabled = "${var.enabled}"
 
