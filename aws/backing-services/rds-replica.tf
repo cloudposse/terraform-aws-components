@@ -63,7 +63,7 @@ variable "rds_replica_storage_size" {
 variable "rds_replica_storage_encrypted" {
   type        = "string"
   default     = "true"
-  description = "Set true to encrypt storage"
+  description = "Set to true to encrypt storage"
 }
 
 variable "rds_replica_auto_minor_version_upgrade" {
