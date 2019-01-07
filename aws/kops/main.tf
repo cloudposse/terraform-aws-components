@@ -144,6 +144,14 @@ resource "aws_ssm_parameter" "kops_utility_subnets" {
   overwrite   = "true"
 }
 
+resource "aws_ssm_parameter" "kops_non_masquerade_cidr" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_non_masquerade_cidr")}"
+  value       = "${var.kops_non_masquerade_cidr}"
+  description = "The CIDR range for Pod IPs"
+  type        = "String"
+  overwrite   = "true"
+}
+
 resource "aws_ssm_parameter" "kops_availability_zones" {
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_availability_zones")}"
   value       = "${join(",", local.availability_zones)}"
