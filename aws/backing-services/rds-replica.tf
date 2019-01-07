@@ -57,7 +57,7 @@ variable "rds_replica_storage_type" {
 variable "rds_replica_storage_size" {
   type        = "string"
   default     = "20"
-  description = "Storage size"
+  description = "Storage size in Gb"
 }
 
 variable "rds_replica_storage_encrypted" {
