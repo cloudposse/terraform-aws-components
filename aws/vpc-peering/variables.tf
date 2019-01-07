@@ -21,3 +21,31 @@ variable "name" {
   description = "Application or solution name (e.g. `app`)"
   default     = "vpc-peering"
 }
+
+variable "requester_account" {
+  description = "Account name of the requester (e.g. `prod` or `staging`). USed to look up the role ARN from SSM."
+}
+
+variable "requester_region" {
+  decription = "Region of the requester's VPC"
+}
+
+variable "requester_vpc_tags" {
+  type        = "map"
+  description = "Tags to filter for the requester's VPC"
+  default     = {}
+}
+
+variable "accepter_region" {
+  decription = "Region of the accepter's VPC"
+}
+
+variable "accepter_account" {
+  description = "Account name of the accepter (e.g. `prod` or `staging`). Used to look up the role ARN from SSM."
+}
+
+variable "accepter_vpc_tags" {
+  type        = "map"
+  description = "Tags to filter for the accepter's VPC"
+  default     = {}
+}

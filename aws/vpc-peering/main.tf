@@ -10,28 +10,6 @@ provider "aws" {
   }
 }
 
-variable "requester_region" {
-  default = "us-west-2"
-}
-
-variable "requester_account" {}
-
-variable "requester_vpc_tags" {
-  type    = "map"
-  default = {}
-}
-
-variable "accepter_region" {
-  default = "data"
-}
-
-variable "accepter_account" {}
-
-variable "accepter_vpc_tags" {
-  type    = "map"
-  default = {}
-}
-
 # Fetch the OrganizationAccountAccessRole ARNs from SSM
 module "requester_role_arns" {
   enabled        = "${var.enabled}"
