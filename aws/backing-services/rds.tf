@@ -7,7 +7,7 @@ variable "rds_name" {
 variable "rds_enabled" {
   type        = "string"
   default     = "false"
-  description = "Set to true to create rds instance"
+  description = "Set to false to prevent the module from creating any resources"
 }
 
 # Don't use `root`
@@ -66,12 +66,6 @@ variable "rds_db_parameter_group" {
   description = "RDS DB engine version"
 }
 
-variable "rds_cluster_enabled" {
-  type        = "string"
-  default     = "true"
-  description = "Set to false to prevent the module from creating any resources"
-}
-
 variable "rds_snapshot" {
   type        = "string"
   default     = ""
@@ -104,7 +98,7 @@ variable "rds_storage_size" {
 
 variable "rds_storage_encrypted" {
   type        = "string"
-  default     = "false"
+  default     = "true"
   description = "Set true to encrypt storage"
 }
 
