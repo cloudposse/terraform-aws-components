@@ -35,7 +35,7 @@ locals {
 }
 
 module "rds_cluster_replica" {
-  source             = "git::https://github.com/cloudposse/terraform-aws-rds-cluster-instance-group.git?ref=init"
+  source             = "git::https://github.com/cloudposse/terraform-aws-rds-cluster-instance-group.git?ref=tags/0.1.0"
   enabled            = "${var.rds_cluster_replica_enabled}"
   namespace          = "${var.namespace}"
   stage              = "${var.stage}"
