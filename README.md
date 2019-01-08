@@ -6,7 +6,7 @@
 # terraform-root-modules [![Build Status](https://travis-ci.org/cloudposse/terraform-root-modules.svg?branch=master)](https://travis-ci.org/cloudposse/terraform-root-modules) [![Codefresh Build Status](https://g.codefresh.io/api/badges/build?repoOwner=cloudposse&repoName=terraform-root-modules&branch=master&pipelineName=terraform-root-modules&accountName=cloudposse&type=cf-1)](https://g.codefresh.io/pipelines/terraform-root-modules/builds) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-root-modules.svg)](https://github.com/cloudposse/terraform-root-modules/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 
-This is a collection of reusable [Terraform root modules invocations](https://docs.cloudposse.com/terraform-modules/root/) for CloudPosse AWS accounts.
+This is a collection of reusable [Terraform "root modules" invocations](https://docs.cloudposse.com/terraform-modules/root/) for CloudPosse AWS accounts.
 
 Terraform defines a "root module" as the current working directory holding the Terraform configuration files where the terraform apply or terraform get is run.
 
@@ -37,6 +37,52 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 
 
+## Introduction
+
+In this repo you'll find real-world examples of how we've implemented various common patterns using our [terraform modules](https://cpco.io/terraform-modules) for our customers. 
+
+The "root modules" form the module catalog of your organization. It's from this catalog that other developers in your organization will pick and choose from anytime they need to deploy some new capability.
+
+Normally, a company should build up their own a service catalog of terraform modules like this one, which is just a collection of terraform modules that capture the business logic, opinions, "best practices" and non-functional requirements of that organization.
+No two companies will ever have the same assembly of `terraform-root-modules`.
+
+The root modules are the most opinionated incarnations of modules that seldom translate verbatim across organizations. This is your secret sauce. We could never implement this in a sufficiently generic way without creating crazy bloat and complexity. Therefore treat the terraform-root-modules in this repository as your “starting off point” where you hardfork/diverge. 
+These modules are very specific to how we do things in our environment, so they might not "drop in" smoothly in other environments as they make a lot of assumptions on how things are organized.
+
+A company writes their own root modules. It’s their flavor of how to leverage the [generic building blocks](https://cpco.io/terraform-modules) to achieve the specific customizations that are required without needing to write everything from the ground up because they are leveraging our general purpose modules.
+The idea is to write all of the [`terraform-aws-*`](https://cpco.io/terraform-modules) type modules very generically so they are easily composible inside of other modules.
+
+These `terraform-root-modules` are make a lot of assumptions about how we've configured our environments. That said, they can still serve as an excellent reference for others.
+
+We recommend that you start with your clean `terraform-root-module` repo. Then start by creating a new project in there to describe the infrastructure that you want.
+
+## Best Practices
+
+* Every "root module" should include a `Makefile` that defines `init`, `plan`, and `apply` targets. 
+  This establishes a common interface for interacting with terraform without the need of a wrapper like `terragrunt`.
+* Never compose "root modules" inside of other root modules. If or when this is desired, then the module should be split off into a new repository and versioned independently as a standalone module.
+
+## Example Makefile
+
+Here's a good example `Makefile` for a terrform project.
+
+```
+## Initialize terraform remote state
+init:
+	[ -f .terraform/terraform.tfstate ] || init-terraform
+
+## Clean up the project
+clean:
+	rm -rf .terraform *.tfstate*
+
+## Pass arguments through to terraform which require remote state
+apply console destroy graph plan output providers show: init
+	terraform $@
+
+## Pass arguments through to terraform which do not require remote state
+get fmt validate version:
+	terraform $@
+```
 
 ## Usage
 
@@ -86,6 +132,7 @@ Are you using this project or any of our other projects? Consider [leaving a tes
 
 Check out these related projects.
 
+- [reference-architectures](https://github.com/cloudposse/reference-architectures) - Get up and running quickly with one of our reference architecture using our fully automated cold-start process.
 - [audit.cloudposse.co](https://github.com/cloudposse/audit.cloudposse.co) - Example Terraform Reference Architecture of a Geodesic Module for an Audit Logs Organization in AWS.
 - [prod.cloudposse.co](https://github.com/cloudposse/prod.cloudposse.co) - Example Terraform Reference Architecture of a Geodesic Module for a Production Organization in AWS.
 - [staging.cloudposse.co](https://github.com/cloudposse/staging.cloudposse.co) - Example Terraform Reference Architecture of a Geodesic Module for a Staging Organization in AWS.
@@ -159,7 +206,7 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 ## Copyright
 
-Copyright © 2017-2018 [Cloud Posse, LLC](https://cpco.io/copyright)
+Copyright © 2017-2019 [Cloud Posse, LLC](https://cpco.io/copyright)
 
 
 
