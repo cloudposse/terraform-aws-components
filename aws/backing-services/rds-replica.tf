@@ -68,7 +68,7 @@ variable "rds_replica_storage_encrypted" {
 
 variable "rds_replica_auto_minor_version_upgrade" {
   type        = "string"
-  default     = "false"
+  default     = "true"
   description = "Allow automated minor version upgrade (e.g. from Postgres 9.5.3 to Postgres 9.5.4)"
 }
 
