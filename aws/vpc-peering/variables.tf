@@ -41,7 +41,7 @@ variable "accepter_region" {
 }
 
 variable "accepter_account" {
-  description = "Account name of the accepter (e.g. `prod` or `staging`). Used to look up the role ARN from SSM."
+  description = "Account name of the accepter (e.g. `prod` or `staging`). Used to look up the role ARN from SSM"
 }
 
 variable "accepter_vpc_tags" {
