@@ -1,6 +1,6 @@
 variable "postgres_replica_name" {
   type        = "string"
-  description = "Name of the replica, e.g. `postgres ` or `reporting`"
+  description = "Name of the replica, e.g. `postgres` or `reporting`"
   default     = "postgres"
 }
 
