@@ -23,7 +23,7 @@ variable "name" {
 }
 
 variable "requester_account" {
-  description = "Account name of the requester (e.g. `prod` or `staging`). USed to look up the role ARN from SSM."
+  description = "Account name of the requester (e.g. `prod` or `staging`). Used to look up the role ARN from SSM"
 }
 
 variable "requester_region" {
