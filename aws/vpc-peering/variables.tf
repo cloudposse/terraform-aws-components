@@ -27,7 +27,7 @@ variable "requester_account" {
 }
 
 variable "requester_region" {
-  decription = "Region of the requester's VPC"
+  description = "Region of the requester's VPC"
 }
 
 variable "requester_vpc_tags" {
@@ -37,7 +37,7 @@ variable "requester_vpc_tags" {
 }
 
 variable "accepter_region" {
-  decription = "Region of the accepter's VPC"
+  description = "Region of the accepter's VPC"
 }
 
 variable "accepter_account" {
