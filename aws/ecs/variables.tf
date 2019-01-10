@@ -31,7 +31,7 @@ variable "delimiter" {
 
 variable "attributes" {
   type        = "list"
-  default     = ["state"]
+  default     = []
   description = "Additional attributes (e.g. `1`)"
 }
 
