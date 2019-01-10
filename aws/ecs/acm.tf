@@ -8,9 +8,8 @@ variable "subject_alternative_names" {
 }
 
 module "acm_request_certificate" {
-  source                            = "git::https://github.com/cloudposse/terraform-aws-acm-request-certificate.git?ref=tags/0.2.2"
+  source                            = "git::https://github.com/cloudposse/terraform-aws-acm-request-certificate.git?ref=tags/0.1.1"
   domain_name                       = "${var.domain_name}"
-  process_domain_validation_options = "true"
   ttl                               = "300"
   subject_alternative_names         = "${var.subject_alternative_names}"
   tags                              = "${var.tags}"
