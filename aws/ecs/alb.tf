@@ -3,13 +3,13 @@ variable "default_cert_arn" {
   description = "ARN of the default cert to add to HTTPS ingress on ALB"
 }
 
-variable "ingress_cidr_blocks_http" {
+variable "alb_ingress_cidr_blocks_http" {
   type        = "list"
   default     = ["0.0.0.0/0"]
   description = "List of CIDR blocks allowed to access environment over HTTP"
 }
 
-variable "ingress_cidr_blocks_https" {
+variable "alb_ingress_cidr_blocks_https" {
   type        = "list"
   default     = ["0.0.0.0/0"]
   description = "List of CIDR blocks allowed to access environment over HTTPS"
@@ -28,8 +28,8 @@ module "alb" {
   access_logs_region = "${var.region}"
 
   https_enabled             = "true"
-  http_ingress_cidr_blocks  = "${var.ingress_cidr_blocks_http}"
-  https_ingress_cidr_blocks = "${var.ingress_cidr_blocks_https}"
   certificate_arn           = "${var.default_cert_arn}"
+  http_ingress_cidr_blocks  = "${var.alb_ingress_cidr_blocks_http}"
+  https_ingress_cidr_blocks = "${var.alb_ingress_cidr_blocks_https}"
   health_check_interval     = "60"
 }
