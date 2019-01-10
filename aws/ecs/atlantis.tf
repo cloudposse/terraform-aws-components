@@ -272,7 +272,7 @@ resource "aws_iam_role_policy_attachment" "codebuild_chamber_attach" {
 }
 
 resource "aws_iam_role" "atlantis" {
-  name        = "${module.label.id}"
+  name        = "${format("XXXXXX-%s-atlantis", var.stage)}"
   description = "Role that can be assumed by atlantis"
 
   lifecycle {
