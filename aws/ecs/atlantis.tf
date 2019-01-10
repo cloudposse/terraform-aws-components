@@ -59,6 +59,12 @@ variable "atlantis_memory" {
   default     = "512"
 }
 
+variable "atlantis_policy_arn" {
+  type        = "string"
+  default     = "arn:aws:iam::aws:policy/AdministratorAccess"
+  description = "Permission to grant to atlantis server"
+}
+
 # web app
 module "atlantis_web_app" {
   source     = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=tags/0.9.0"
@@ -301,7 +307,7 @@ data "aws_iam_policy_document" "atlantis" {
 
 resource "aws_iam_role_policy_attachment" "atlantis" {
   role       = "${aws_iam_role.atlantis.name}"
-  policy_arn = "${var.policy_arn}"
+  policy_arn = "${var.atlantis_policy_arn}"
 
   lifecycle {
     create_before_destroy = true
