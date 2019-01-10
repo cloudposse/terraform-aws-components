@@ -11,7 +11,8 @@ variable "atlantis_branch" {
 }
 
 variable "atlantis_repo_name" {
-  type = "string"
+  type        = "string"
+  description = "GitHub repository name of the atlantis to be built and deployed to ECS."
 }
 
 variable "atlantis_healthcheck_path" {
