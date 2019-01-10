@@ -16,7 +16,9 @@ variable "atlantis_repo_name" {
 }
 
 variable "atlantis_healthcheck_path" {
-  description = ""
+  type        = "string"
+  description = "Atlantis healthcheck path"
+  default     = "/healthz"
 }
 
 variable "atlantis_chamber_service" {
