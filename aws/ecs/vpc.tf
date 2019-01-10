@@ -13,7 +13,7 @@ module "vpc" {
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   name       = "${local.name}"
-  cidr_block = "172.16.0.0/12"
+  cidr_block = "172.16.0.0/16"
 }
 
 locals {
