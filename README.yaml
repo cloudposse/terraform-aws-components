@@ -78,7 +78,7 @@ introduction: |-
 
   The "root modules" form the module catalog of your organization. It's from this catalog that other developers in your organization will pick and choose from anytime they need to deploy some new capability.
 
-  Normally, a company should build up their own a service catalog of terraform modules like this one, which is just a collection of terraform modules that capture the business logic, opinions, "best practices" and non-functional requirements of that organization.
+  Normally, a company should build up their own service catalog of terraform modules like this one, which is just a collection of terraform modules that capture the business logic, opinions, "best practices" and non-functional requirements of the organization.
   No two companies will ever have the same assembly of `terraform-root-modules`.
   
   The root modules are the most opinionated incarnations of modules that seldom translate verbatim across organizations. This is your secret sauce. We could never implement this in a sufficiently generic way without creating crazy bloat and complexity. Therefore treat the terraform-root-modules in this repository as your “starting off point” where you hardfork/diverge. 
