@@ -1,3 +1,9 @@
+variable "limit_availability_zones" {
+  type        = "string"
+  description = "Whether we should limit the number of AZs in use to 2"
+  default     = "true"
+}
+
 locals {
   name = "${var.region}"
 }
@@ -11,7 +17,7 @@ module "vpc" {
 }
 
 locals {
-  max_availability_zones = "${length(var.limit_availability_zones) == 0 ? 2 : length(data.aws_availability_zones.available.names)}"
+  max_availability_zones = "${var.limit_availability_zones == "true" ? 2 : length(data.aws_availability_zones.available.names)}"
   availability_zones     = "${slice(data.aws_availability_zones.available.names, 0, local.max_availability_zones)}"
 }
 
