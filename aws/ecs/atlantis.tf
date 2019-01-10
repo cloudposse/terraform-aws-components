@@ -158,12 +158,137 @@ locals {
 ##
 # SSM
 ##
+
+variable "atlantis_hostname" {
+  type        = "string"
+  description = "Atlantis URL"
+  default     = ""
+}
+
+variable "atlantis_allow_repo_config" {
+  type        = "string"
+  description = "Allow Atlantis to use atlantis.yaml"
+  default     = "true"
+}
+
+variable "atlantis_gh_user" {
+  type        = "string"
+  description = "Atlantis Github user"
+}
+
+variable "atlantis_gh_webhook_secret" {
+  type        = "string"
+  description = "Atlantis Github webhook secret"
+  default     = ""
+}
+
+variable "atlantis_log_level" {
+  type        = "string"
+  description = "Atlantis log level"
+  default     = "info"
+}
+
+variable "atlantis_repo_config" {
+  type        = "string"
+  description = "Path to atlantis config file"
+  default     = "atlantis.yaml"
+}
+
+variable "atlantis_repo_whitelist" {
+  type        = "list"
+  description = "Whitelist of repositories Atlantis will accept webhooks from"
+  default     = []
+}
+
+variable "atlantis_wake_word" {
+  type        = "string"
+  description = "Wake world for Atlantis"
+  default     = "atlantis"
+}
+
+locals {
+  default_atlantis_hostname  = "atlantis.${var.region}.${var.domain_name}"
+  atlantis_hostname          = "${length(var.atlantis_hostname) > 0 ? var.atlantis_hostname : local.default_atlantis_hostname}"
+  atlantis_url               = "${format("https://%s/events", local.atlantis_hostname)}"
+  atlantis_gh_webhook_secret = "${length(var.atlantis_gh_webhook_secret) > 0 ? var.atlantis_gh_webhook_secret : join("", random_string.atlantis_gh_webhook_secret.*.result)}"
+}
+
+resource "random_string" "atlantis_gh_webhook_secret" {
+  count   = "${length(var.atlantis_gh_webhook_secret) > 0 ? 0 : 1}"
+  length  = 32
+  special = true
+}
+
 resource "aws_ssm_parameter" "atlantis_atlantis_url" {
   name        = "${format("/%s/%s", var.atlantis_chamber_service, "atlantis_atlantis_url")}"
-  description = "Insurance 3 User AWS key"
+  description = "URL to reach Atlantis e.g. For webhooks"
+  type        = "String"
+  value       = "${local.atlantis_url}"
+  overwrite   = true
+}
+
+resource "aws_ssm_parameter" "atlantis_allow_repo_config" {
+  name        = "${format("/%s/%s", var.atlantis_chamber_service, "atlantis_allow_repo_config")}"
+  description = "allow Atlantis to use atlantis.yaml"
+  type        = "String"
+  value       = "${var.atlantis_allow_repo_config}"
+  overwrite   = true
+}
+
+resource "aws_ssm_parameter" "atlantis_gh_user" {
+  name        = "${format("/%s/%s", var.atlantis_chamber_service, "atlantis_gh_user")}"
+  description = "Atlantis Github user"
+  type        = "String"
+  value       = "${var.atlantis_gh_user}"
+  overwrite   = true
+}
+
+resource "aws_ssm_parameter" "atlantis_gh_webhook_secret" {
+  name        = "${format("/%s/%s", var.atlantis_chamber_service, "atlantis_gh_webhook_secret")}"
+  description = "Atlantis Github webhook secret"
   type        = "SecureString"
-  key_id      = "${data.aws_kms_key.chamber_kms_key.arn}"
-  value       = "${format("https://%s/", "use some computed value here")}"
+  key_id      = "${data.aws_kms_key.chamber_kms_key.id}"
+  value       = "${local.atlantis_gh_webhook_secret}"
+  overwrite   = true
+}
+
+resource "aws_ssm_parameter" "atlantis_iam_role" {
+  name        = "${format("/%s/%s", var.atlantis_chamber_service, "atlantis_iam_role")}"
+  description = "Atlantis IAM role"
+  type        = "String"
+  value       = "${aws_iam_role.atlantis.arn}"
+  overwrite   = true
+}
+
+resource "aws_ssm_parameter" "atlantis_log_level" {
+  name        = "${format("/%s/%s", var.atlantis_chamber_service, "atlantis_log_level")}"
+  description = "Atlantis log level"
+  type        = "String"
+  value       = "${var.atlantis_log_level}"
+  overwrite   = true
+}
+
+resource "aws_ssm_parameter" "atlantis_repo_config" {
+  name        = "${format("/%s/%s", var.atlantis_chamber_service, "atlantis_repo_config")}"
+  description = "Path to atlantis config file"
+  type        = "String"
+  value       = "${var.atlantis_repo_config}"
+  overwrite   = true
+}
+
+resource "aws_ssm_parameter" "atlantis_repo_whitelist" {
+  name        = "${format("/%s/%s", var.atlantis_chamber_service, "atlantis_repo_whitelist")}"
+  description = "Whitelist of repositories Atlantis will accept webhooks from"
+  type        = "String"
+  value       = "${join(",", var.atlantis_repo_whitelist)}"
+  overwrite   = true
+}
+
+resource "aws_ssm_parameter" "atlantis_wake_word" {
+  name        = "${format("/%s/%s", var.atlantis_chamber_service, "atlantis_wake_word")}"
+  description = "Wake world for Atlantis"
+  type        = "String"
+  value       = "${var.atlantis_wake_word}"
   overwrite   = true
 }
 
@@ -307,16 +432,15 @@ resource "aws_iam_role_policy_attachment" "atlantis" {
 }
 
 # dns
-# resource "aws_route53_record" "atlantis" {
-#   zone_id = "zone-id-for-staging"
-#   name    = "atlantis.staging.example.co"
-#   type    = "A"
+resource "aws_route53_record" "atlantis" {
+  zone_id = "zone-id-for-staging"
+  name    = "atlantis.${var.domain_name}"
+  type    = "A"
 
 
-#   alias {
-#     name                   = "${module.alb.alb_dns_name}"
-#     zone_id                = "${module.alb.alb_zone_id}"
-#     evaluate_target_health = true
-#   }
-# }
-
+  alias {
+    name                   = "${module.alb.alb_dns_name}"
+    zone_id                = "${module.alb.alb_zone_id}"
+    evaluate_target_health = true
+  }
+}
