@@ -99,7 +99,7 @@ introduction: |-
 
   ## Example Makefile
 
-  Here's a good example `Makefile` for a terrform project.
+  Here's a good example of a `Makefile` for a terraform project:
 
   ```
   ## Initialize terraform remote state
