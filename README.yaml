@@ -87,7 +87,7 @@ introduction: |-
   A company writes their own root modules. It’s their flavor of how to leverage the [generic building blocks](https://cpco.io/terraform-modules) to achieve the specific customizations that are required without needing to write everything from the ground up because they are leveraging our general purpose modules.
   The idea is to write all of the [`terraform-aws-*`](https://cpco.io/terraform-modules) type modules very generically so they are easily composible inside of other modules.
   
-  These `terraform-root-modules` are make a lot of assumptions about how we've configured our environments. That said, they can still serve as an excellent reference for others.
+  These `terraform-root-modules` make a lot of assumptions about how we've configured our environments. That said, they can still serve as an excellent reference for others.
 
   We recommend that you start with your clean `terraform-root-module` repo. Then start by creating a new project in there to describe the infrastructure that you want.
 
