@@ -2,13 +2,17 @@ variable "default_backend_image" {
   default = "cloudposse/default-backend:0.1.2"
 }
 
+variable "default_backend_name" {
+  default = "404"
+}
+
 # default backend app
 module "default_backend_web_app" {
-  source     = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=tags/0.8.0"
+  source     = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=pass-attributes"
   name       = "${var.name}"
-  attributes = ["default"]
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
+  attributes = ["${concat(var.attributes, list(var.default_backend_name))}"]
   vpc_id     = "${module.vpc.vpc_id}"
 
   container_image  = "${var.default_backend_image}"
