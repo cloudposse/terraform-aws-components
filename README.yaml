@@ -85,7 +85,7 @@ introduction: |-
   These modules are very specific to how we do things in our environment, so they might not "drop in" smoothly in other environments as they make a lot of assumptions on how things are organized.
 
   A company writes their own root modules. It’s their flavor of how to leverage the [generic building blocks](https://cpco.io/terraform-modules) to achieve the specific customizations that are required without needing to write everything from the ground up because they are leveraging our general purpose modules.
-  The idea is to write all of the [`terraform-aws-*`](https://cpco.io/terraform-modules) type modules very generically so they are easily composible inside of other modules.
+  The idea is to write all of the [`terraform-aws-*`](https://cpco.io/terraform-modules) type modules very generically so they are easily composable inside of other modules.
   
   These `terraform-root-modules` make a lot of assumptions about how we've configured our environments. That said, they can still serve as an excellent reference for others.
 
