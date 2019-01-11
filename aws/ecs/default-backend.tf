@@ -4,11 +4,12 @@ variable "default_backend_image" {
 
 # default backend app
 module "default_backend_web_app" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=tags/0.8.0"
-  name      = "backend"
-  namespace = "${var.namespace}"
-  stage     = "${var.stage}"
-  vpc_id    = "${module.vpc.vpc_id}"
+  source     = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=tags/0.8.0"
+  name       = "${var.name}"
+  attributes = ["default"]
+  namespace  = "${var.namespace}"
+  stage      = "${var.stage}"
+  vpc_id     = "${module.vpc.vpc_id}"
 
   container_image  = "${var.default_backend_image}"
   container_cpu    = "256"
