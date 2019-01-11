@@ -32,3 +32,28 @@ phases:
 artifacts:
   files: imagedefinitions.json
 ```
+
+## Trouble Shooting
+
+```
+aws_ecs_service.default: error tagging ECS Cluster (arn:aws:ecs:us-west-2:223452713953:service/eg-example-fargate-atlantis): InvalidParameterException: Long arn format must be used for tagging operations
+```
+
+See: <https://stackoverflow.com/questions/53605033/adding-tags-to-ecs-service-invalidparameterexception/53625568#53625568>
+
+After enabling the Long ARNs, the cluster needs to be rebuilt from scratch.
+
+```
+InvalidParameterException: The target group with targetGroupArn arn:aws:elasticloadbalancing:us-west-2:223452713953:targetgroup/eg-example-backend/5f7241cb041d9356 does not have an associated load balancer.
+```
+
+This is a race condition. Rerun `terraform apply`.
+
+```
+Error putting scaling policy: ObjectNotFoundException: No scalable target registered for service namespace: ecs, resource ID: service/cpco-testing-fargate/eg-exapmle-fargate-atlantis, scalable dimension: ecs:service:DesiredCount
+````
+
+This is a race condition. Rerun `terraform apply`.
+
+
+
