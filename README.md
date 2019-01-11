@@ -43,16 +43,16 @@ In this repo you'll find real-world examples of how we've implemented various co
 
 The "root modules" form the module catalog of your organization. It's from this catalog that other developers in your organization will pick and choose from anytime they need to deploy some new capability.
 
-Normally, a company should build up their own a service catalog of terraform modules like this one, which is just a collection of terraform modules that capture the business logic, opinions, "best practices" and non-functional requirements of that organization.
+Normally, a company should build up their own service catalog of terraform modules like this one, which is just a collection of terraform modules that capture the business logic, opinions, "best practices" and non-functional requirements of the organization.
 No two companies will ever have the same assembly of `terraform-root-modules`.
 
 The root modules are the most opinionated incarnations of modules that seldom translate verbatim across organizations. This is your secret sauce. We could never implement this in a sufficiently generic way without creating crazy bloat and complexity. Therefore treat the terraform-root-modules in this repository as your “starting off point” where you hardfork/diverge. 
 These modules are very specific to how we do things in our environment, so they might not "drop in" smoothly in other environments as they make a lot of assumptions on how things are organized.
 
 A company writes their own root modules. It’s their flavor of how to leverage the [generic building blocks](https://cpco.io/terraform-modules) to achieve the specific customizations that are required without needing to write everything from the ground up because they are leveraging our general purpose modules.
-The idea is to write all of the [`terraform-aws-*`](https://cpco.io/terraform-modules) type modules very generically so they are easily composible inside of other modules.
+The idea is to write all of the [`terraform-aws-*`](https://cpco.io/terraform-modules) type modules very generically so they are easily composable inside of other modules.
 
-These `terraform-root-modules` are make a lot of assumptions about how we've configured our environments. That said, they can still serve as an excellent reference for others.
+These `terraform-root-modules` make a lot of assumptions about how we've configured our environments. That said, they can still serve as an excellent reference for others.
 
 We recommend that you start with your clean `terraform-root-module` repo. Then start by creating a new project in there to describe the infrastructure that you want.
 
@@ -64,7 +64,7 @@ We recommend that you start with your clean `terraform-root-module` repo. Then s
 
 ## Example Makefile
 
-Here's a good example `Makefile` for a terrform project.
+Here's a good example of a `Makefile` for a terraform project:
 
 ```
 ## Initialize terraform remote state
