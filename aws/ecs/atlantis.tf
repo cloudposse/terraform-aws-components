@@ -407,10 +407,25 @@ resource "aws_iam_role_policy_attachment" "atlantis" {
 }
 
 module "atlantis_hostname" {
-  source           = "git::https://github.com/cloudposse/terraform-aws-route53-alias.git?ref=master"
+  source           = "git::https://github.com/cloudposse/terraform-aws-route53-alias.git?ref=tags/0.2.7"
   enabled          = "${var.atlantis_enabled}"
   aliases          = ["${local.atlantis_hostname}"]
   parent_zone_name = "${var.domain_name}"
   target_dns_name  = "${module.alb.alb_dns_name}"
   target_zone_id   = "${module.alb.alb_zone_id}"
+}
+
+module "atlantis_webhooks" {
+  source         = "git::https://github.com/cloudposse/terraform-github-repository-webhooks.git?ref=tags/0.1.1"
+  github_token   = "${var.github_oauth_token}"
+  webhook_secret = "${local.atlantis_gh_webhook_secret}"
+  webhook_url    = "${local.atlantis_url}"
+
+  active              = "${local.atlantis_enabled}"
+  github_organization = "${var.atlantis_repo_owner}"
+  github_repositories = ["${var.atlantis_repo_name}"]
+  events              = ["pull_request_review_comment", "pull_request", "pull_request_review", "issue_comment", "push"]
+
+  # This value must be "web"; it is a GitHub webhook type
+  name = "web"
 }
