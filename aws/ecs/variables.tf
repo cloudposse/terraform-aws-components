@@ -20,7 +20,7 @@ variable "stage" {
 variable "name" {
   type        = "string"
   description = "Application or solution name (e.g. `app`)"
-  default     = "fargate"
+  default     = "ecs"
 }
 
 variable "delimiter" {
