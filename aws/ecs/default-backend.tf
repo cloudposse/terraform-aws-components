@@ -8,7 +8,7 @@ variable "default_backend_name" {
 
 # default backend app
 module "default_backend_web_app" {
-  source     = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=pass-attributes"
+  source     = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=tags/0.10.0"
   name       = "${var.name}"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"

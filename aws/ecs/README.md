@@ -1,10 +1,22 @@
+## CodePipeline Setup
+
+For GitHub, your personal access token must have the following scopes.
+
+* `repo`: Grants full control of private repositories.
+* `repo:status`: Grants access to commit statuses.
+* `admin:repo_hook`: Grants full control of repository hooks. This scope is not required if your token has the repo scope.
+
+We recommend creating the tokens from a "bot" account that has limited access to the repos you are using.
+
+Read more: <https://docs.aws.amazon.com/codebuild/latest/userguide/sample-access-tokens.html#sample-access-tokens>
 
 
 ## Example Build Manifest
 
-Add the following `buildspec.yaml` to the root of the GitHub repo's project.
+Add the following `buildspec.yml` to the root of the GitHub repo's project.
 
 ```
+version: 0.2
 phases:
   pre_build:
     commands:
@@ -18,7 +30,7 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - REPO_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME
-      - docker pull $REPO_URI:latest || 
+      - docker pull $REPO_URI:latest || true
       - docker build --cache-from $REPO_URI:latest --tag $REPO_URI:latest --tag $REPO_URI:$IMAGE_TAG .
   post_build:
     commands:

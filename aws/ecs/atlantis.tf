@@ -90,6 +90,12 @@ variable "atlantis_log_level" {
   default     = "info"
 }
 
+variable "atlantis_port" {
+  type        = "string"
+  description = "Atlantis container port"
+  default     = "4141"
+}
+
 variable "atlantis_wake_word" {
   type        = "string"
   description = "Wake world for Atlantis"
@@ -133,13 +139,20 @@ variable "atlantis_policy_arn" {
 
 # web app
 module "atlantis_web_app" {
-  source     = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=pass-attributes"
+  source     = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=tags/0.10.0"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   name       = "${var.name}"
   attributes = "${concat(var.attributes, list(var.atlantis_short_name))}"
 
   vpc_id = "${module.vpc.vpc_id}"
+
+  environment = [
+      {
+        name = "ATLANTIS_ENABLED"
+        value = "${var.atlantis_enabled}"
+      } 
+  ]
 
   container_image  = "${var.default_backend_image}"
   container_cpu    = "${var.atlantis_cpu}"
@@ -148,7 +161,13 @@ module "atlantis_web_app" {
   codepipeline_enabled = "${var.atlantis_enabled}"
 
   #container_memory_reservation = ""
-  container_port = "80"
+  container_port = "${var.atlantis_port}"
+  port_mappings = [{
+    "containerPort" = "${var.atlantis_port}"
+    "hostPort"      = "${var.atlantis_port}"
+    "protocol"      = "tcp"
+  }]
+
   desired_count  = "${var.atlantis_desired_count}"
 
   autoscaling_enabled               = "${var.atlantis_enabled}"
@@ -237,6 +256,14 @@ locals {
   atlantis_hostname          = "${length(var.atlantis_hostname) > 0 ? var.atlantis_hostname : local.default_atlantis_hostname}"
   atlantis_url               = "${format(var.atlantis_webhook_format, local.atlantis_hostname)}"
   atlantis_gh_webhook_secret = "${length(var.atlantis_gh_webhook_secret) > 0 ? var.atlantis_gh_webhook_secret : join("", random_string.atlantis_gh_webhook_secret.*.result)}"
+}
+
+resource "aws_ssm_parameter" "atlantis_port" {
+  name        = "${format(var.atlantis_chamber_format, var.atlantis_chamber_service, "atlantis_port")}"
+  description = "Atlantis server port"
+  type        = "String"
+  value       = "${var.atlantis_port}"
+  overwrite   = true
 }
 
 resource "aws_ssm_parameter" "atlantis_atlantis_url" {
