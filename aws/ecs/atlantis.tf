@@ -148,10 +148,10 @@ module "atlantis_web_app" {
   vpc_id = "${module.vpc.vpc_id}"
 
   environment = [
-      {
-        name = "ATLANTIS_ENABLED"
-        value = "${var.atlantis_enabled}"
-      } 
+    {
+      name  = "ATLANTIS_ENABLED"
+      value = "${var.atlantis_enabled}"
+    },
   ]
 
   container_image  = "${var.default_backend_image}"
@@ -162,13 +162,14 @@ module "atlantis_web_app" {
 
   #container_memory_reservation = ""
   container_port = "${var.atlantis_port}"
+
   port_mappings = [{
     "containerPort" = "${var.atlantis_port}"
     "hostPort"      = "${var.atlantis_port}"
     "protocol"      = "tcp"
   }]
 
-  desired_count  = "${var.atlantis_desired_count}"
+  desired_count = "${var.atlantis_desired_count}"
 
   autoscaling_enabled               = "${var.atlantis_enabled}"
   autoscaling_dimension             = "cpu"
