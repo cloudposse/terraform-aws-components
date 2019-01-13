@@ -4,7 +4,7 @@
 init:
 	@aws s3 ls s3://${TF_BUCKET}/tfstate-backend/terraform.tfstate > /dev/null || \
 		scripts/$@.sh
-	[ -f .terraform/terraform.tfstate ] || init-terraform
+	[ -f .terraform/terraform.tfstate ] || terraform $@
 
 ## Destroy the configuration (only works if `force_destroy=true`)
 destroy:
