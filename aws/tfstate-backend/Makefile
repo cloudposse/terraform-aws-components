@@ -1,3 +1,5 @@
+-include Makefile.*
+
 ## Initialize the terraform state backend
 init:
 	@aws s3 ls s3://${TF_BUCKET}/tfstate-backend/terraform.tfstate > /dev/null || \
@@ -17,7 +19,7 @@ clean:
 	rm -rf .terraform *.tfstate*
 
 ## Pass arguments through to terraform which require remote state
-apply console destroy graph plan output providers show: init
+apply console graph plan output providers show: init
 	terraform $@
 
 ## Pass arguments through to terraform which do not require remote state
