@@ -75,12 +75,18 @@ variable "atlantis_allow_repo_config" {
 
 variable "atlantis_gh_user" {
   type        = "string"
-  description = "Atlantis Github user"
+  description = "Atlantis GitHub user"
+}
+
+variable "atlantis_gh_team_whitelist" {
+  type        = "string"
+  description = "Atlantis GitHub team whitelist"
+  default     = ""
 }
 
 variable "atlantis_gh_webhook_secret" {
   type        = "string"
-  description = "Atlantis Github webhook secret"
+  description = "Atlantis GitHub webhook secret"
   default     = ""
 }
 
@@ -137,13 +143,17 @@ variable "atlantis_policy_arn" {
   description = "Permission to grant to atlantis server"
 }
 
+locals {
+  atlantis_attributes = "${concat(list(var.atlantis_short_name), var.attributes)}"
+}
+
 # web app
 module "atlantis_web_app" {
-  source     = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=tags/0.10.0"
+  source     = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=add-params"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   name       = "${var.name}"
-  attributes = "${concat(var.attributes, list(var.atlantis_short_name))}"
+  attributes = "${local.atlantis_attributes}"
 
   vpc_id = "${module.vpc.vpc_id}"
 
@@ -151,7 +161,7 @@ module "atlantis_web_app" {
     {
       name  = "ATLANTIS_ENABLED"
       value = "${var.atlantis_enabled}"
-    },
+    }
   ]
 
   container_image  = "${var.default_backend_image}"
@@ -198,6 +208,8 @@ module "atlantis_web_app" {
   repo_owner         = "${var.atlantis_repo_owner}"
   repo_name          = "${var.atlantis_repo_name}"
   branch             = "${var.atlantis_branch}"
+  build_timeout      = 5
+  badge_enabled      = "false"
 
   # ecs_alarms_cpu_utilization_low_threshold              = "20"
   # ecs_alarms_cpu_utilization_low_evaluation_periods     = "1"
@@ -245,6 +257,31 @@ locals {
 ##
 # SSM
 ##
+
+module "atlantis_ssh_key_pair" {
+  source               = "git::https://github.com/cloudposse/terraform-aws-ssm-tls-ssh-key-pair.git?ref=tags/0.2.0"
+  enabled              = "${var.atlantis_enabled}"
+  namespace            = "${var.namespace}"
+  stage                = "${var.stage}"
+  name                 = "${var.name}"
+  attributes           = "${local.atlantis_attributes}"
+  ssh_private_key_name = "atlantis_ssh_private_key"
+  ssh_public_key_name  = "atlantis_ssh_public_key"
+  ssm_path_prefix      = "${var.atlantis_chamber_service}"
+  ssh_key_algorithm    = "ECDSA"
+  ecdsa_curve          = "P521"
+}
+
+output "atlantis_ssh_public_key" {
+  description = "Atlantis SSH Public Key"
+  value       = "${module.atlantis_ssh_key_pair.public_key}"
+}
+
+output "badge_url" {
+  description = "the url of the build badge when badge_enabled is enabled"
+  value       = "${module.atlantis_web_app.badge_url}"
+}
+
 resource "random_string" "atlantis_gh_webhook_secret" {
   count   = "${length(var.atlantis_gh_webhook_secret) > 0 ? 0 : 1}"
   length  = 32
@@ -285,24 +322,32 @@ resource "aws_ssm_parameter" "atlantis_allow_repo_config" {
 
 resource "aws_ssm_parameter" "atlantis_gh_user" {
   name        = "${format(var.atlantis_chamber_format, var.atlantis_chamber_service, "atlantis_gh_user")}"
-  description = "Atlantis Github user"
+  description = "Atlantis GitHub user"
   type        = "String"
   value       = "${var.atlantis_gh_user}"
   overwrite   = true
 }
 
+resource "aws_ssm_parameter" "atlantis_gh_team_whitelist" {
+  name        = "${format(var.atlantis_chamber_format, var.atlantis_chamber_service, "atlantis_gh_team_whitelist")}"
+  description = "Atlantis GitHub team whitelist"
+  type        = "String"
+  value       = "${var.atlantis_gh_team_whitelist}"
+  overwrite   = true
+}
+
 resource "aws_ssm_parameter" "atlantis_gh_webhook_secret" {
   name        = "${format(var.atlantis_chamber_format, var.atlantis_chamber_service, "atlantis_gh_webhook_secret")}"
-  description = "Atlantis Github webhook secret"
+  description = "Atlantis GitHub webhook secret"
   type        = "SecureString"
   key_id      = "${data.aws_kms_key.chamber_kms_key.id}"
   value       = "${local.atlantis_gh_webhook_secret}"
   overwrite   = true
 }
 
-resource "aws_ssm_parameter" "atlantis_iam_role" {
-  name        = "${format(var.atlantis_chamber_format, var.atlantis_chamber_service, "atlantis_iam_role")}"
-  description = "Atlantis IAM role"
+resource "aws_ssm_parameter" "atlantis_iam_role_arn" {
+  name        = "${format(var.atlantis_chamber_format, var.atlantis_chamber_service, "atlantis_iam_role_arn")}"
+  description = "Atlantis IAM role ARN"
   type        = "String"
   value       = "${module.atlantis_web_app.task_role_arn}"
   overwrite   = true
