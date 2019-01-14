@@ -8,3 +8,4 @@ build-harness
 *.iml
 .viminfo
 .terraform.d
+.envrc

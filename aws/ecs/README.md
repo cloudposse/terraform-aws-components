@@ -15,6 +15,9 @@ Read more: <https://docs.aws.amazon.com/codebuild/latest/userguide/sample-access
 
 Add the following `buildspec.yml` to the root of the GitHub repo's project.
 
+<details>
+<summary>View Example `buildspec.yml`</summary>
+
 ```
 version: 0.2
 phases:
@@ -45,9 +48,14 @@ artifacts:
   files: imagedefinitions.json
 ```
 
+</details>
+
 ## Trouble Shooting
 
-```
+
+### InvalidParameterException: Long arn format must be used for tagging operations
+
+```sh
 aws_ecs_service.default: error tagging ECS Cluster (arn:aws:ecs:us-west-2:223452713953:service/eg-example-fargate-atlantis): InvalidParameterException: Long arn format must be used for tagging operations
 ```
 
@@ -55,17 +63,26 @@ See: <https://stackoverflow.com/questions/53605033/adding-tags-to-ecs-service-in
 
 After enabling the Long ARNs, the cluster needs to be rebuilt from scratch.
 
-```
+### InvalidParameterException: The target group with targetGroupArn ... does not have an associated load balancer.
+
+```sh
 InvalidParameterException: The target group with targetGroupArn arn:aws:elasticloadbalancing:us-west-2:223452713953:targetgroup/eg-example-backend/5f7241cb041d9356 does not have an associated load balancer.
 ```
 
 This is a race condition. Rerun `terraform apply`.
 
-```
+### ObjectNotFoundException: No scalable target registered for service namespace
+
+```sh
 Error putting scaling policy: ObjectNotFoundException: No scalable target registered for service namespace: ecs, resource ID: service/cpco-testing-fargate/eg-exapmle-fargate-atlantis, scalable dimension: ecs:service:DesiredCount
 ````
 
 This is a race condition. Rerun `terraform apply`.
 
+### Webhooks Do Not Trigger Builds
 
+This could happen if the secrets between CodePipeline and GitHub do not match. Unfortunately, terraform cannot detect when the secrets change, so your best bet is to `taint` and reapply.
 
+```sh
+make taint/webhook
+```
