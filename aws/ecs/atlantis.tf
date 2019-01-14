@@ -185,11 +185,11 @@ module "atlantis_web_app" {
     {
       name  = "ATLANTIS_ENABLED"
       value = "${var.atlantis_enabled}"
-    }
+    },
   ]
 
-  github_webhook_events = ["release"]
-  webhook_filter_json_path = "$.action"
+  github_webhook_events       = ["release"]
+  webhook_filter_json_path    = "$.action"
   webhook_filter_match_equals = "published"
 
   container_image  = "${var.default_backend_image}"
