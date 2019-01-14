@@ -31,6 +31,8 @@ resource "aws_sns_topic_policy" "default" {
   policy = "${data.aws_iam_policy_document.sns_topic.json}"
 }
 
+data "aws_caller_identity" "default" {}
+
 data "aws_iam_policy_document" "sns_topic" {
   statement {
     actions = [
