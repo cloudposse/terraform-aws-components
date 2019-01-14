@@ -164,6 +164,10 @@ module "atlantis_web_app" {
     }
   ]
 
+  github_webhook_events = ["release"]
+  webhook_filter_json_path = "$.action"
+  webhook_filter_match_equals = "published"
+
   container_image  = "${var.default_backend_image}"
   container_cpu    = "${var.atlantis_cpu}"
   container_memory = "${var.atlantis_memory}"
