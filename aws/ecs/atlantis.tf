@@ -2,7 +2,14 @@
 
 variable "github_oauth_token" {
   type        = "string"
-  description = "GitHub Oauth token"
+  description = "GitHub Oauth token. If not provided the token is looked up from SSM."
+  default     = ""
+}
+
+variable "github_oauth_token_ssm_name" {
+  type        = "string"
+  description = "SSM param name to lookup GitHub OAuth token if not provided"
+  default     = ""
 }
 
 variable "atlantis_enabled" {
@@ -144,7 +151,24 @@ variable "atlantis_policy_arn" {
 }
 
 locals {
-  atlantis_attributes = "${concat(list(var.atlantis_short_name), var.attributes)}"
+  atlantis_attributes         = "${concat(list(var.atlantis_short_name), var.attributes)}"
+  github_oauth_token          = "${length(join("", data.aws_ssm_parameter.atlantis_gh_token.*.value)) > 0 ? join("", data.aws_ssm_parameter.atlantis_gh_token.*.value) : var.github_oauth_token}"
+  github_oauth_token_ssm_name = "${length(var.github_oauth_token_ssm_name) > 0 ? var.github_oauth_token_ssm_name : format(var.atlantis_chamber_format, var.atlantis_chamber_service, "atlantis_gh_token")}"
+}
+
+data "aws_ssm_parameter" "atlantis_gh_token" {
+  count = "${length(var.github_oauth_token) > 0 ? 0 : 1}"
+  name  = "${local.github_oauth_token_ssm_name}"
+}
+
+resource "aws_ssm_parameter" "atlantis_gh_token" {
+  count       = "${length(var.github_oauth_token) > 0 ? 1 : 0}"
+  name        = "${local.github_oauth_token_ssm_name}"
+  description = "Atlantis GitHub OAuth token"
+  type        = "SecureString"
+  key_id      = "${data.aws_kms_key.chamber_kms_key.id}"
+  value       = "${local.github_oauth_token}"
+  overwrite   = true
 }
 
 # web app
@@ -208,7 +232,7 @@ module "atlantis_web_app" {
   alb_ingress_paths             = ["/*"]
   alb_ingress_listener_priority = "100"
 
-  github_oauth_token = "${var.github_oauth_token}"
+  github_oauth_token = "${local.github_oauth_token}"
   repo_owner         = "${var.atlantis_repo_owner}"
   repo_name          = "${var.atlantis_repo_name}"
   branch             = "${var.atlantis_branch}"
@@ -466,7 +490,7 @@ module "atlantis_hostname" {
 
 module "atlantis_webhooks" {
   source         = "git::https://github.com/cloudposse/terraform-github-repository-webhooks.git?ref=tags/0.1.1"
-  github_token   = "${var.github_oauth_token}"
+  github_token   = "${local.github_oauth_token}"
   webhook_secret = "${local.atlantis_gh_webhook_secret}"
   webhook_url    = "${local.atlantis_url}"
 
