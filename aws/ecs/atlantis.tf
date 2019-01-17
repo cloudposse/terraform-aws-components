@@ -38,7 +38,7 @@ variable "repo_owner" {
 }
 
 module "atlantis" {
-  source = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.1.0"
+  source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.1.0"
   enabled   = "${var.enabled}"
   name      = "${var.name}"
   namespace = "${var.namespace}"
