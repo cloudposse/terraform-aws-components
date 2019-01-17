@@ -13,7 +13,7 @@ rm -rf .terraform terraform.tfstate
 [ "${DISABLE_ROLE_ARN}" == "true" ] || sed -Ei 's/^(\s+role_arn\s+)/#\1/' main.tf
 
 # Init terraform with S3 state enabled. Assumes state was previously initialized.
-init-terraform
+terraform init
 
 # Unmount remote bucket (if mounted)
 s3 unmount

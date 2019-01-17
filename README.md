@@ -67,8 +67,6 @@ We recommend that you start with your clean `terraform-root-module` repo. Then s
 Here's a good example of a `Makefile` for a terraform project:
 
 ```
--include Makefile.*
-
 ## Initialize terraform remote state
 init:
 	[ -f .terraform/terraform.tfstate ] || terraform $@

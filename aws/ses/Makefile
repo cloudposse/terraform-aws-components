@@ -1,4 +1,3 @@
--include Makefile.*
 -include .terraform/modules/**/Makefile.ses
 
 ## Initialize terraform remote state
