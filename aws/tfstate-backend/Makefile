@@ -1,5 +1,3 @@
--include Makefile.*
-
 ## Initialize the terraform state backend
 init:
 	@aws s3 ls s3://${TF_BUCKET}/tfstate-backend/terraform.tfstate > /dev/null || \

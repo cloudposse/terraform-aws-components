@@ -1,5 +1,3 @@
--include Makefile.*
-
 ## Initialize terraform remote state
 init:
 	[ -f .terraform/terraform.tfstate ] || terraform $@
