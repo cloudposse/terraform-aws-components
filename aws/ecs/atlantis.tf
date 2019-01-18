@@ -1,4 +1,4 @@
-variable "enabled" {
+variable "atlantis_enabled" {
   type    = "string"
   default = "true"
 }
@@ -12,6 +12,7 @@ variable "atlantis_gh_team_whitelist" {
 variable "atlantis_gh_user" {
   type        = "string"
   description = "Atlantis GitHub user"
+  default     = "undefined"
 }
 
 variable "atlantis_repo_whitelist" {
@@ -20,21 +21,21 @@ variable "atlantis_repo_whitelist" {
   default     = []
 }
 
-variable "branch" {
+variable "atlantis_branch" {
   type        = "string"
   default     = "master"
   description = "Atlantis branch Branch of the GitHub repository, _e.g._ `master`"
 }
 
-variable "repo_name" {
+variable "atlantis_repo_name" {
   type        = "string"
   description = "GitHub repository name of the atlantis to be built and deployed to ECS."
 }
 
-variable "repo_owner" {
+variable "atlantis_repo_owner" {
   type        = "string"
   description = "GitHub organization containing the Atlantis repository"
-  default     = "cloudposse"
+  default     = "undefined"
 }
 
 module "atlantis" {
@@ -55,12 +56,12 @@ module "atlantis" {
   alb_name          = "${module.alb.alb_name}"
   alb_zone_id       = "${module.alb.alb_zone_id}"
 
-  branch             = "${var.branch}"
+  branch             = "${var.atlantis_branch}"
   domain_name        = "${var.domain_name}"
   ecs_cluster_arn    = "${aws_ecs_cluster.default.arn}"
   ecs_cluster_name   = "${aws_ecs_cluster.default.name}"
-  repo_name          = "${var.repo_name}"
-  repo_owner         = "${var.repo_owner}"
+  repo_name          = "${var.atlantis_repo_name}"
+  repo_owner         = "${var.atlantis_repo_owner}"
   private_subnet_ids = ["${module.subnets.private_subnet_ids}"]
   security_group_ids = ["${module.vpc.vpc_default_security_group_id}"]
   vpc_id             = "${module.vpc.vpc_id}"
