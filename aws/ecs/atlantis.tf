@@ -73,7 +73,7 @@ module "atlantis" {
   ecs_cluster_arn  = "${aws_ecs_cluster.default.arn}"
   ecs_cluster_name = "${aws_ecs_cluster.default.name}"
 
-  alb_listener_arns = "${module.alb.listener_arns}
+  alb_listener_arns = "${module.alb.listener_arns}"
 
   security_group_ids = ["${module.vpc.vpc_default_security_group_id}"]
   vpc_id             = "${module.vpc.vpc_id}"
