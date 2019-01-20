@@ -1,15 +1,15 @@
-variable "zone_parent_name" {}
+variable "dns_parent_zone_name" {}
 
-variable "zone_enabled" {
+variable "dns_enabled" {
   default = "false"
 }
 
-module "zone" {
+module "dns" {
   source           = "git::https://github.com/cloudposse/terraform-aws-route53-cluster-zone.git?ref=tags/0.2.6"
-  enabled          = "${var.zone_enabled}"
+  enabled          = "${var.dns_enabled}"
   namespace        = "${var.namespace}"
   stage            = "${var.stage}"
   name             = "${var.aws_region}"
-  parent_zone_name = "${var.zone_parent_name}"
+  parent_zone_name = "${var.dns_parent_zone_name}"
   zone_name        = "$${name}.$${parent_zone_name}"
 }
