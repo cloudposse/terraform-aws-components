@@ -1,0 +1,2 @@
+domain_name = "us-west-2.testing.example.co"
+subject_alternative_names = [ "*.us-west-2.testing.example.co" ]
