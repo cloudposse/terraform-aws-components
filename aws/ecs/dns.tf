@@ -9,7 +9,7 @@ module "dns" {
   enabled          = "${var.dns_enabled}"
   namespace        = "${var.namespace}"
   stage            = "${var.stage}"
-  name             = "${var.aws_region}"
+  name             = "${var.region}"
   parent_zone_name = "${var.dns_parent_zone_name}"
   zone_name        = "$${name}.$${parent_zone_name}"
 }

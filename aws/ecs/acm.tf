@@ -9,8 +9,8 @@ variable "subject_alternative_names" {
 }
 
 locals {
-  domain_name = "${length(var.domain_name) > 0 ? var.domain_name : module.dns.zone_name}"
-  domain_name = "${length(var.subject_alternative_names) > 0 ? var.subject_alternative_names : formatlist("*.%s", list(module.dns.zone_name))}"
+  domain_name               = "${length(var.domain_name) > 0 ? var.domain_name : module.dns.zone_name}"
+  subject_alternative_names = "${length(var.subject_alternative_names) > 0 ? var.subject_alternative_names : formatlist("*.%s", list(module.dns.zone_name))}"
 }
 
 module "acm_request_certificate" {
