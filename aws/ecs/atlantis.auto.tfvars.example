@@ -2,8 +2,7 @@
 # chamber write atlantis github_oauth_token "supersecret"
 
 atlantis_enabled = "true"
-#atlantis_branch = "master"
-atlantis_branch = "ecs-atlantis"
+atlantis_branch = "master"
 atlantis_repo_name = "testing.example.co"
 atlantis_repo_owner = "example"
 atlantis_repo_whitelist = ["github.com/example/*"]
@@ -11,6 +10,6 @@ atlantis_repo_whitelist = ["github.com/example/*"]
 atlantis_allow_repo_config = "true"
 
 atlantis_gh_user = "examplebot"
-atlantis_gh_team_whitelist = "terraform:plan,engineering:*"
+atlantis_gh_team_whitelist = "engineering:plan,devops:*"
 
 atlantis_wake_word = "atlantis" 
