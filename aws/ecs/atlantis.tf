@@ -38,6 +38,18 @@ variable "atlantis_repo_owner" {
   default     = "undefined"
 }
 
+variable "atlantis_container_cpu" {
+  type        = "string"
+  description = "The vCPU setting to control cpu limits of container. (If FARGATE launch type is used below, this must be a supported vCPU size from the table here: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-cpu-memory-error.html)"
+  default     = "256"
+}
+
+variable "atlantis_container_memory" {
+  type        = "string"
+  description = "The amount of RAM to allow container to use in MB. (If FARGATE launch type is used below, this must be a supported Memory size from the table here: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-cpu-memory-error.html)"
+  default     = "512"
+}
+
 module "atlantis" {
   source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.3.0"
   enabled   = "${var.atlantis_enabled}"
@@ -55,6 +67,9 @@ module "atlantis" {
   alb_listener_arns = ["${module.alb.listener_arns}"]
   alb_name          = "${module.alb.alb_name}"
   alb_zone_id       = "${module.alb.alb_zone_id}"
+
+  container_cpu    = "${var.atlantis_container_cpu}"
+  container_memory = "${var.atlantis_container_memory}"
 
   branch             = "${var.atlantis_branch}"
   parent_zone_id     = "${module.dns.zone_id}"
