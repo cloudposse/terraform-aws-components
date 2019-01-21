@@ -1,7 +1,8 @@
 -include .terraform/modules/**/Makefile.ses
+
 ## Initialize terraform remote state
 init:
-	[ -f .terraform/terraform.tfstate ] || init-terraform
+	[ -f .terraform/terraform.tfstate ] || terraform $@
 
 ## Clean up the project
 clean:

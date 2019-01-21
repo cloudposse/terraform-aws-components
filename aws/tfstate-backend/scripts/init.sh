@@ -18,7 +18,7 @@ sed -Ei 's/^(\s+backend\s+)/#\1/' main.tf
 [ "${DISABLE_ROLE_ARN}" == "true" ] || sed -Ei 's/^(\s+role_arn\s+)/#\1/' main.tf
 
 # Initialize terraform modules and providers
-init-terraform
+terraform init
 
 # Provision S3 bucket and dynamodb tables
 terraform apply -auto-approve -input=false
@@ -26,11 +26,14 @@ terraform apply -auto-approve -input=false
 export TF_BUCKET=$(terraform output tfstate_backend_s3_bucket_id)
 export TF_DYNAMODB_TABLE=$(terraform output tfstate_backend_dynamodb_table_id)
 
+# Cast to terraform envs
+eval "$(tfenv)"
+
 # Re-enable S3 backend
 sed -Ei 's/^#(\s+backend\s+)/\1/' main.tf
 
 # Reinitialize terraform to import state to remote backend
-echo "yes" | init-terraform
+terraform init -force-copy
 
 # Re-enable Role ARN
 [ "${DISABLE_ROLE_ARN}" == "true" ] || sed -Ei 's/^#(\s+role_arn\s+)/\1/' main.tf

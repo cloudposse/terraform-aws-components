@@ -74,7 +74,7 @@ locals {
 }
 
 module "aurora_postgres" {
-  source          = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=tags/0.7.1"
+  source          = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=tags/0.8.0"
   namespace       = "${var.namespace}"
   stage           = "${var.stage}"
   name            = "${var.postgres_name}"
