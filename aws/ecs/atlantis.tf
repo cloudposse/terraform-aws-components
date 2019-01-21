@@ -39,7 +39,7 @@ variable "atlantis_repo_owner" {
 }
 
 module "atlantis" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.1.0"
+  source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.3.0"
   enabled   = "${var.atlantis_enabled}"
   name      = "${var.name}"
   namespace = "${var.namespace}"
@@ -57,7 +57,7 @@ module "atlantis" {
   alb_zone_id       = "${module.alb.alb_zone_id}"
 
   branch             = "${var.atlantis_branch}"
-  domain_name        = "${var.domain_name}"
+  parent_zone_id     = "${module.dns.zone_id}"
   ecs_cluster_arn    = "${aws_ecs_cluster.default.arn}"
   ecs_cluster_name   = "${aws_ecs_cluster.default.name}"
   repo_name          = "${var.atlantis_repo_name}"
@@ -65,4 +65,8 @@ module "atlantis" {
   private_subnet_ids = ["${module.subnets.private_subnet_ids}"]
   security_group_ids = ["${module.vpc.vpc_default_security_group_id}"]
   vpc_id             = "${module.vpc.vpc_id}"
+}
+
+output "atlantis_url" {
+  value = "${module.atlantis.atlantis_url}"
 }
