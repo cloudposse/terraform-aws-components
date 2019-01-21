@@ -1,7 +1,14 @@
-variable "dns_parent_zone_name" {}
+variable "dns_parent_zone_name" {
+  description = "DNS zone of parent domain that will delegate NS records to this cluster zone (e.g. `prod.example.co`)"
+}
 
 variable "dns_enabled" {
   default = "true"
+}
+
+variable "dns_zone_name" {
+  description = "Zone name template"
+  default     = "$${region}-$${name}.$${parent_zone_name}"
 }
 
 module "dns" {
@@ -11,7 +18,7 @@ module "dns" {
   stage            = "${var.stage}"
   name             = "${var.name}"
   parent_zone_name = "${var.dns_parent_zone_name}"
-  zone_name        = "$${region}-$${name}.$${parent_zone_name}"
+  zone_name        = "${var.dns_zone_name}"
 }
 
 output "dns_zone_name" {
