@@ -15,5 +15,5 @@ module "dns" {
 }
 
 output "dns_zone_name" {
-  value = "${module.dns.zone_zone}"
+  value = "${module.dns.zone_name}"
 }
