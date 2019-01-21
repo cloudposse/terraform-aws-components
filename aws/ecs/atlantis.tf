@@ -66,3 +66,7 @@ module "atlantis" {
   security_group_ids = ["${module.vpc.vpc_default_security_group_id}"]
   vpc_id             = "${module.vpc.vpc_id}"
 }
+
+output "atlantis_url" {
+  value = "${module.atlantis.atlantis_url}"
+}

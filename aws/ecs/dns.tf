@@ -13,3 +13,7 @@ module "dns" {
   parent_zone_name = "${var.dns_parent_zone_name}"
   zone_name        = "$${region}-$${name}.$${parent_zone_name}"
 }
+
+output "dns_zone_name" {
+  value = "${module.dns.zone_zone}"
+}
