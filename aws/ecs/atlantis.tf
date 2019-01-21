@@ -57,7 +57,6 @@ module "atlantis" {
   alb_zone_id       = "${module.alb.alb_zone_id}"
 
   branch             = "${var.atlantis_branch}"
-  domain_name        = "${local.domain_name}"
   parent_zone_id     = "${module.dns.zone_id}"
   ecs_cluster_arn    = "${aws_ecs_cluster.default.arn}"
   ecs_cluster_name   = "${aws_ecs_cluster.default.name}"
