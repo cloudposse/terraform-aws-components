@@ -45,7 +45,7 @@ module "elasticache_redis" {
   namespace                    = "${var.namespace}"
   stage                        = "${var.stage}"
   name                         = "${var.redis_name}"
-  zone_id                      = "${var.zone_id}"
+  zone_id                      = "${local.zone_id}"
   security_groups              = ["${module.kops_metadata.nodes_security_group_id}"]
   vpc_id                       = "${module.vpc.vpc_id}"
   subnets                      = ["${module.subnets.private_subnet_ids}"]

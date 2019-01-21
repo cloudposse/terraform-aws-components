@@ -69,86 +69,93 @@ locals {
   utility_subnets = "${join(",", module.utility_subnets.cidrs)}"
 }
 
-variable "chamber_parameter_name" {
-  default = "/%s/%s"
+# These parameters correspond to the kops manifest template:
+# Read more: <https://github.com/cloudposse/geodesic/blob/master/rootfs/templates/kops/default.yaml>
+
+resource "aws_ssm_parameter" "kops_cluster_name" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_cluster_name")}"
+  value       = "${module.kops_state_backend.zone_name}"
+  description = "Kops cluster name"
+  type        = "String"
+  overwrite   = "true"
 }
 
-module "chamber_parameters" {
-  source = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-store?ref=tags/0.1.5"
+resource "aws_ssm_parameter" "kops_state_store" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_state_store")}"
+  value       = "s3://${module.kops_state_backend.bucket_name}"
+  description = "Kops state store S3 bucket name"
+  type        = "String"
+  overwrite   = "true"
+}
 
-  # These parameters correspond to the kops manifest template:
-  # Read more: <https://github.com/cloudposse/geodesic/blob/master/rootfs/templates/kops/default.yaml>
+resource "aws_ssm_parameter" "kops_state_store_region" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_state_store_region")}"
+  value       = "${module.kops_state_backend.bucket_region}"
+  description = "Kops state store (S3 bucket) region"
+  type        = "String"
+  overwrite   = "true"
+}
 
-  parameter_write = [
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_cluster_name")}"
-      value       = "${module.kops_state_backend.zone_name}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops cluster name"
-    },
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_state_store")}"
-      value       = "s3://${module.kops_state_backend.bucket_name}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops state store (S3 bucket) URL"
-    },
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_state_store_region")}"
-      value       = "${module.kops_state_backend.bucket_region}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops state store (S3 bucket) region"
-    },
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_ssh_public_key_path")}"
-      value       = "${module.ssh_key_pair.public_key_filename}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops SSH public key filename path"
-    },
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_ssh_private_key_path")}"
-      value       = "${module.ssh_key_pair.private_key_filename}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops SSH private key filename path"
-    },
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_dns_zone")}"
-      value       = "${module.kops_state_backend.zone_name}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops cluster name"
-    },
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_network_cidr")}"
-      value       = "${var.network_cidr}"
-      type        = "String"
-      overwrite   = "true"
-      description = "CIDR block of the kops virtual network"
-    },
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_private_subnets")}"
-      value       = "${local.private_subnets}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops private subnet CIDRs"
-    },
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_utility_subnets")}"
-      value       = "${local.utility_subnets}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops utility subnet CIDRs"
-    },
-    {
-      name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_availability_zones")}"
-      value       = "${join(",", local.availability_zones)}"
-      type        = "String"
-      overwrite   = "true"
-      description = "Kops availability zones in which cluster will be provisioned"
-    },
-  ]
+resource "aws_ssm_parameter" "kops_ssh_public_key_path" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_ssh_public_key_path")}"
+  value       = "${module.ssh_key_pair.public_key_filename}"
+  description = "Kops SSH public key filename path"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "kops_ssh_private_key_path" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_ssh_private_key_path")}"
+  value       = "${module.ssh_key_pair.private_key_filename}"
+  description = "Kops SSH private key filename path"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "kops_dns_zone" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_dns_zone")}"
+  value       = "${module.kops_state_backend.zone_name}"
+  description = "Kops DNS zone name"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "kops_network_cidr" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_network_cidr")}"
+  value       = "${var.network_cidr}"
+  description = "CIDR block of the kops virtual network"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "kops_private_subnets" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_private_subnets")}"
+  value       = "${local.private_subnets}"
+  description = "Kops private subnet CIDRs"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "kops_utility_subnets" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_utility_subnets")}"
+  value       = "${local.utility_subnets}"
+  description = "Kops utility subnet CIDRs"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "kops_non_masquerade_cidr" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_non_masquerade_cidr")}"
+  value       = "${var.kops_non_masquerade_cidr}"
+  description = "The CIDR range for Pod IPs"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "kops_availability_zones" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_availability_zones")}"
+  value       = "${join(",", local.availability_zones)}"
+  description = "Kops availability zones in which cluster will be provisioned"
+  type        = "String"
+  overwrite   = "true"
 }

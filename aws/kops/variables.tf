@@ -74,6 +74,12 @@ variable "network_cidr" {
   default     = "172.20.0.0/16"
 }
 
+# Read more: <https://kubernetes.io/docs/tasks/administer-cluster/ip-masq-agent/#key-terms>
+variable "kops_non_masquerade_cidr" {
+  description = "The CIDR range for Pod IPs."
+  default     = "100.64.0.0/10"
+}
+
 variable "private_subnets_newbits" {
   description = "This is the new mask for the private subnet within the virtual network"
   default     = "-1"
@@ -97,4 +103,8 @@ variable "utility_subnets_netnum" {
 variable "chamber_service" {
   default     = ""
   description = "`chamber` service name. See [chamber usage](https://github.com/segmentio/chamber#usage) for more details"
+}
+
+variable "chamber_parameter_name" {
+  default = "/%s/%s"
 }

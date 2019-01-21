@@ -7,14 +7,15 @@ variable "rds_name" {
 variable "rds_enabled" {
   type        = "string"
   default     = "false"
-  description = "Set to true to create rds instance"
+  description = "Set to false to prevent the module from creating any resources"
 }
 
 # Don't use `root`
 # ("MasterUsername root cannot be used as it is a reserved word used by the engine")
-variable "rds_admin_name" {
+variable "rds_admin_user" {
   type        = "string"
   description = "RDS DB admin user name"
+  default     = ""
 }
 
 # Must be longer than 8 chars
@@ -22,6 +23,7 @@ variable "rds_admin_name" {
 variable "rds_admin_password" {
   type        = "string"
   description = "RDS DB password for the admin user"
+  default     = ""
 }
 
 # Don't use `default`
@@ -29,6 +31,7 @@ variable "rds_admin_password" {
 variable "rds_db_name" {
   type        = "string"
   description = "RDS DB database name"
+  default     = ""
 }
 
 # db.t2.micro is free tier
@@ -63,12 +66,6 @@ variable "rds_db_parameter_group" {
   description = "RDS DB engine version"
 }
 
-variable "rds_cluster_enabled" {
-  type        = "string"
-  default     = "true"
-  description = "Set to false to prevent the module from creating any resources"
-}
-
 variable "rds_snapshot" {
   type        = "string"
   default     = ""
@@ -101,7 +98,7 @@ variable "rds_storage_size" {
 
 variable "rds_storage_encrypted" {
   type        = "string"
-  default     = "false"
+  default     = "true"
   description = "Set true to encrypt storage"
 }
 
@@ -141,18 +138,43 @@ variable "rds_backup_window" {
   description = "When AWS can perform DB snapshots, can't overlap with maintenance window"
 }
 
+resource "random_pet" "rds_db_name" {
+  count     = "${local.rds_enabled ? 1 : 0}"
+  separator = "_"
+}
+
+resource "random_string" "rds_admin_user" {
+  count   = "${local.rds_enabled ? 1 : 0}"
+  length  = 8
+  special = false
+  number  = false
+}
+
+resource "random_string" "rds_admin_password" {
+  count   = "${local.rds_enabled ? 1 : 0}"
+  length  = 16
+  special = true
+}
+
+locals {
+  rds_enabled        = "${var.rds_enabled == "true"}"
+  rds_admin_user     = "${length(var.rds_admin_user) > 0 ? var.rds_admin_user : join("", random_string.rds_admin_user.*.result)}"
+  rds_admin_password = "${length(var.rds_admin_password) > 0 ? var.rds_admin_password : join("", random_string.rds_admin_password.*.result)}"
+  rds_db_name        = "${join("", random_pet.rds_db_name.*.id)}"
+}
+
 module "rds" {
-  source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.1"
+  source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.3"
   enabled                     = "${var.rds_enabled}"
   namespace                   = "${var.namespace}"
   stage                       = "${var.stage}"
   name                        = "${var.rds_name}"
-  dns_zone_id                 = "${var.zone_id}"
+  dns_zone_id                 = "${local.zone_id}"
   host_name                   = "${var.rds_name}"
   security_group_ids          = ["${module.kops_metadata.nodes_security_group_id}"]
-  database_name               = "${var.rds_db_name}"
-  database_user               = "${var.rds_admin_name}"
-  database_password           = "${var.rds_admin_password}"
+  database_name               = "${local.rds_db_name}"
+  database_user               = "${local.rds_admin_user}"
+  database_password           = "${local.rds_admin_password}"
   database_port               = "${var.rds_port}"
   multi_az                    = "${var.rds_multi_az}"
   storage_type                = "${var.rds_storage_type}"
@@ -176,6 +198,51 @@ module "rds" {
   backup_window               = "${var.rds_backup_window}"
 }
 
+resource "aws_ssm_parameter" "rds_db_name" {
+  count       = "${local.rds_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "rds_db_name")}"
+  value       = "${local.rds_db_name}"
+  description = "RDS Database Name"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "rds_admin_username" {
+  count       = "${local.rds_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "rds_admin_username")}"
+  value       = "${local.rds_admin_user}"
+  description = "RDS Username for the admin DB user"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "rds_admin_password" {
+  count       = "${local.rds_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "rds_admin_password")}"
+  value       = "${local.rds_admin_password}"
+  description = "RDS Password for the admin DB user"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "rds_hostname" {
+  count       = "${local.rds_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "rds_hostname")}"
+  value       = "${module.rds.hostname}"
+  description = "RDS hostname"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "rds_port" {
+  count       = "${local.rds_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "rds_port")}"
+  value       = "${var.rds_port}"
+  description = "RDS port"
+  type        = "String"
+  overwrite   = "true"
+}
+
 output "rds_instance_id" {
   value       = "${module.rds.instance_id}"
   description = "RDS ID of the instance"
@@ -192,23 +259,23 @@ output "rds_instance_endpoint" {
 }
 
 output "rds_port" {
-  value       = "${var.rds_port}"
+  value       = "${local.rds_enabled ? var.rds_port : local.null}"
   description = "RDS port"
 }
 
 output "rds_db_name" {
-  value       = "${var.rds_db_name}"
+  value       = "${local.rds_enabled ? local.rds_db_name : local.null}"
   description = "RDS db name"
 }
 
-output "rds_root_user" {
-  value       = "${var.rds_admin_name}"
-  description = "RDS root user name"
+output "rds_admin_user" {
+  value       = "${local.rds_enabled ? local.rds_admin_user : local.null}"
+  description = "RDS admin user name"
 }
 
-output "rds_root_password" {
-  value       = "${var.rds_admin_password}"
-  description = "RDS root password"
+output "rds_admin_password" {
+  value       = "${local.rds_enabled ? local.rds_admin_password : local.null}"
+  description = "RDS admin password"
 }
 
 output "rds_hostname" {
