@@ -51,10 +51,22 @@ variable "force_destroy" {
   default     = "false"
 }
 
-variable "ssh_public_key_path" {
+variable "ssh_key_algorithm" {
   type        = "string"
-  description = "SSH public key path to write master public/private key pair for cluster"
-  default     = "/secrets/tf/ssh"
+  default     = "RSA"
+  description = "SSH key algorithm to use. Currently-supported values are 'RSA' and 'ECDSA'"
+}
+
+variable "ssh_key_rsa_bits" {
+  type        = "string"
+  description = "When ssh_key_algorithm is 'RSA', the size of the generated RSA key in bits"
+  default     = "4096"
+}
+
+variable "ssh_key_ecdsa_curve" {
+  type        = "string"
+  description = "When ssh_key_algorithm is 'ECDSA', the name of the elliptic curve to use. May be any one of 'P256', 'P384' or P521'"
+  default     = "P521"
 }
 
 variable "kops_attribute" {
