@@ -37,12 +37,16 @@ module "kops_state_backend" {
 }
 
 module "ssh_key_pair" {
-  source              = "git::https://github.com/cloudposse/terraform-aws-key-pair.git?ref=tags/0.3.0"
+  source              = "git::https://github.com/cloudposse/terraform-aws-ssm-tls-ssh-key-pair.git?ref=tags/0.2.0"
   namespace           = "${var.namespace}"
   stage               = "${var.stage}"
   name                = "${var.name}"
   attributes          = ["${var.region}"]
-  ssh_public_key_path = "${var.ssh_public_key_path}"
+  ssm_path_prefix     = "${local.chamber_service}"
+  rsa_bits            = 8096
+  ssh_key_algorithm   = "RSA"
+  ssh_public_key_name = "kops_ssh_public_key"
+  ssh_private_key_name = "kops_ssh_private_key"
   generate_ssh_key    = "true"
 }
 
@@ -92,22 +96,6 @@ resource "aws_ssm_parameter" "kops_state_store_region" {
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_state_store_region")}"
   value       = "${module.kops_state_backend.bucket_region}"
   description = "Kops state store (S3 bucket) region"
-  type        = "String"
-  overwrite   = "true"
-}
-
-resource "aws_ssm_parameter" "kops_ssh_public_key_path" {
-  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_ssh_public_key_path")}"
-  value       = "${module.ssh_key_pair.public_key_filename}"
-  description = "Kops SSH public key filename path"
-  type        = "String"
-  overwrite   = "true"
-}
-
-resource "aws_ssm_parameter" "kops_ssh_private_key_path" {
-  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_ssh_private_key_path")}"
-  value       = "${module.ssh_key_pair.private_key_filename}"
-  description = "Kops SSH private key filename path"
   type        = "String"
   overwrite   = "true"
 }
