@@ -43,8 +43,9 @@ module "ssh_key_pair" {
   name                 = "${var.name}"
   attributes           = ["${var.region}"]
   ssm_path_prefix      = "${local.chamber_service}"
-  rsa_bits             = 8096
-  ssh_key_algorithm    = "RSA"
+  rsa_bits             = "${var.ssh_key_rsa_bits}"
+  ssh_key_algorithm    = "${var.ssh_key_algorithm}"
+  ecdsa_curve          = "${var.ssh_key_ecdsa_curve}"
   ssh_public_key_name  = "kops_ssh_public_key"
   ssh_private_key_name = "kops_ssh_private_key"
 }
