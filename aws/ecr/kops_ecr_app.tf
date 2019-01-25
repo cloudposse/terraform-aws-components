@@ -9,8 +9,8 @@ module "kops_ecr_app" {
   name         = "${var.kops_ecr_app_repository_name}"
   cluster_name = "${var.region}.${var.zone_name}"
 
-  users = [
-    "${module.kops_ecr_user.user_name}",
+  roles = [
+    "${module.kops_ecr_user.role_name}",
   ]
 
   tags = {
