@@ -37,17 +37,17 @@ module "kops_state_backend" {
 }
 
 module "ssh_key_pair" {
-  source              = "git::https://github.com/cloudposse/terraform-aws-ssm-tls-ssh-key-pair.git?ref=tags/0.2.0"
-  namespace           = "${var.namespace}"
-  stage               = "${var.stage}"
-  name                = "${var.name}"
-  attributes          = ["${var.region}"]
-  ssm_path_prefix     = "${local.chamber_service}"
-  rsa_bits            = 8096
-  ssh_key_algorithm   = "RSA"
-  ssh_public_key_name = "kops_ssh_public_key"
+  source               = "git::https://github.com/cloudposse/terraform-aws-ssm-tls-ssh-key-pair.git?ref=tags/0.2.0"
+  namespace            = "${var.namespace}"
+  stage                = "${var.stage}"
+  name                 = "${var.name}"
+  attributes           = ["${var.region}"]
+  ssm_path_prefix      = "${local.chamber_service}"
+  rsa_bits             = 8096
+  ssh_key_algorithm    = "RSA"
+  ssh_public_key_name  = "kops_ssh_public_key"
   ssh_private_key_name = "kops_ssh_private_key"
-  generate_ssh_key    = "true"
+  generate_ssh_key     = "true"
 }
 
 # Allocate one large subnet for each AZ, plus one additional one for the utility subnets.
