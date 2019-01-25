@@ -47,7 +47,6 @@ module "ssh_key_pair" {
   ssh_key_algorithm    = "RSA"
   ssh_public_key_name  = "kops_ssh_public_key"
   ssh_private_key_name = "kops_ssh_private_key"
-  generate_ssh_key     = "true"
 }
 
 # Allocate one large subnet for each AZ, plus one additional one for the utility subnets.
