@@ -51,4 +51,5 @@ module "codefresh_enterprise_backing_services" {
   subnet_ids      = ["${data.terraform_remote_state.backing_services.private_subnet_ids}"]
   security_groups = ["${module.kops_metadata.nodes_security_group_id}"]
   zone_name       = "${var.zone_name}"
+  chamber_service = "codefresh"
 }
