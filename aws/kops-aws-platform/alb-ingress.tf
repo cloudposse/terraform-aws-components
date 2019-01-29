@@ -1,35 +1,42 @@
-module "kops_external_dns" {
-  source       = "git::https://github.com/cloudposse/terraform-aws-kops-external-dns.git?ref=tags/0.1.2"
+variable "kops_alb_ingress_enabled" {
+  description = "Set to false to prevent the alb ingress from creating IAM resources"
+  default     = "false"
+}
+
+module "kops_alb_ingress" {
+  #source       = "git::https://github.com/cloudposse/terraform-aws-kops-alb-ingress.git?ref=tags/0.1.0"
+  source       = "../../../aws/kops/alb-ingress"
   namespace    = "${var.namespace}"
   stage        = "${var.stage}"
-  name         = "external-dns"
+  name         = "alb-ingress"
   cluster_name = "${var.region}.${var.zone_name}"
+  enabled      = "${var.kops_alb_ingress_enabled}"
 
   tags = {
     Cluster = "${var.region}.${var.zone_name}"
   }
 }
 
-output "kops_external_dns_role_name" {
-  value = "${module.kops_external_dns.role_name}"
+output "kops_alb_ingress_role_name" {
+  value = "${module.kops_alb_ingress.role_name}"
 }
 
-output "kops_external_dns_role_unique_id" {
-  value = "${module.kops_external_dns.role_unique_id}"
+output "kops_alb_ingress_role_unique_id" {
+  value = "${module.kops_alb_ingress.role_unique_id}"
 }
 
-output "kops_external_dns_role_arn" {
-  value = "${module.kops_external_dns.role_arn}"
+output "kops_alb_ingress_role_arn" {
+  value = "${module.kops_alb_ingress.role_arn}"
 }
 
-output "kops_external_dns_policy_name" {
-  value = "${module.kops_external_dns.policy_name}"
+output "kops_alb_ingress_policy_name" {
+  value = "${module.kops_alb_ingress.policy_name}"
 }
 
-output "kops_external_dns_policy_id" {
-  value = "${module.kops_external_dns.policy_id}"
+output "kops_alb_ingress_policy_id" {
+  value = "${module.kops_alb_ingress.policy_id}"
 }
 
-output "kops_external_dns_policy_arn" {
-  value = "${module.kops_external_dns.policy_arn}"
+output "kops_alb_ingress_policy_arn" {
+  value = "${module.kops_alb_ingress.policy_arn}"
 }
