@@ -82,7 +82,7 @@ module "elasticsearch" {
   elasticsearch_version   = "${var.elasticsearch_version}"
   instance_type           = "${var.elasticsearch_instance_type}"
   instance_count          = "${var.elasticsearch_instance_count}"
-  iam_role_arns           = ["${local.arns[var.elasticsearch_permitted_nodes]}"]
+  iam_role_arns           = ["${local.role_arns[var.elasticsearch_permitted_nodes]}"]
   iam_actions             = ["${var.elasticsearch_iam_actions}"]
   kibana_subdomain_name   = "kibana-elasticsearch"
   ebs_volume_size         = "${var.elasticsearch_ebs_volume_size}"
