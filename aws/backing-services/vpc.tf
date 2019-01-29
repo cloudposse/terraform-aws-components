@@ -38,6 +38,16 @@ output "vpc_id" {
   value       = "${module.vpc.vpc_id}"
 }
 
+output "public_subnet_ids" {
+  description = "Public subnet IDs of backing services"
+  value       = ["${module.subnets.public_subnet_ids}"]
+}
+
+output "private_subnet_ids" {
+  description = "Private subnet IDs of backing services"
+  value       = ["${module.subnets.private_subnet_ids}"]
+}
+
 output "region" {
   description = "AWS region of backing services"
   value       = "${data.aws_region.current.name}"

@@ -1,6 +1,6 @@
 ## Initialize terraform remote state
 init:
-	[ -f .terraform/terraform.tfstate ] || init-terraform
+	[ -f .terraform/terraform.tfstate ] || terraform $@
 
 ## Clean up the project
 clean: kops/clean
@@ -28,7 +28,8 @@ kops/create:
 
 ## Create the SSH Public Key secret
 kops/create-secret-sshpublickey:
-	kops create secret sshpublickey admin -i $(KOPS_SSH_PUBLIC_KEY_PATH)
+	echo "$(KOPS_SSH_PUBLIC_KEY)" > /dev/shm/$(KOPS_CLUSTER_NAME).pub
+	kops create secret sshpublickey admin -i /dev/shm/$(KOPS_CLUSTER_NAME).pub
 
 ## Show update plan for the kops cluster
 kops/plan:
