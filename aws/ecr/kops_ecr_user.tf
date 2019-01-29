@@ -4,9 +4,7 @@ module "kops_ecr_user" {
   stage     = "${var.stage}"
   name      = "cicd"
 
-  tags = {
-    Cluster = "${var.region}.${var.zone_name}"
-  }
+  tags = "${module.label.tags}"
 }
 
 data "aws_iam_policy_document" "login" {
@@ -44,11 +42,13 @@ output "kops_ecr_user_unique_id" {
 }
 
 output "kops_ecr_user_access_key_id" {
+  sensitive   = true
   value       = "${module.kops_ecr_user.access_key_id}"
   description = "The access key ID"
 }
 
 output "kops_ecr_user_secret_access_key" {
+  sensitive   = true
   value       = "${module.kops_ecr_user.secret_access_key}"
   description = "The secret access key. This will be written to the state file in plain-text"
 }
