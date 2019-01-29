@@ -68,12 +68,8 @@ locals {
     "${module.kops_ecr_user.user_arn}",
   ]
 
-  principal_readonly_access = [
+  principals_readonly_access = [
     "${module.kops_metadata.masters_role_arn}",
     "${module.kops_metadata.nodes_role_arn}",
   ]
-
-  tags = {
-    Cluster = "${var.region}.${var.zone_name}"
-  }
 }

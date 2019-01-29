@@ -9,7 +9,7 @@ module "kops_ecr_app" {
   name      = "${var.kops_ecr_app_repository_name}"
 
   principals_full_access    = ["${local.principals_full_access}"]
-  principal_readonly_access = ["${local.principal_readonly_access}"]
+  principals_readonly_access = ["${local.principals_readonly_access}"]
 
   tags = "${module.label.tags}"
 }
