@@ -56,8 +56,8 @@ data "aws_acm_certificate" "acm_cloudfront_certificate" {
 }
 
 locals {
-  name          = "slack_archive"
-  cdn_domain    = "archive.slack.${var.domain_name}"
+  name                   = "slack_archive"
+  cdn_domain             = "archive.slack.${var.domain_name}"
   slack_archive_user_arn = "arn:aws:iam::${var.account_id}:user/${var.namespace}-${var.stage}-${local.name}"
 }
 
