@@ -46,6 +46,10 @@ provider "aws" {
   }
 }
 
+locals {
+  dns_zone = "${var.region}.${var.zone_name}"
+}
+
 module "label" {
   source    = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.5.4"
   namespace = "${var.namespace}"
