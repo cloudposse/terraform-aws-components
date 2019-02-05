@@ -1,5 +1,6 @@
 variable "kops_ecr_app_repository_name" {
   description = "App repository name"
+  default     = "app"
 }
 
 variable "kops_ecr_app_enabled" {
