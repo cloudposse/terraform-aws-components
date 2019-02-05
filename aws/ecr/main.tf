@@ -60,16 +60,3 @@ module "kops_metadata" {
   masters_name = "${var.masters_name}"
   nodes_name   = "${var.nodes_name}"
 }
-
-locals {
-  dns_zone = "${var.region}.${var.zone_name}"
-
-  principals_full_access = [
-    "${module.kops_ecr_user.user_arn}",
-  ]
-
-  principals_readonly_access = [
-    "${module.kops_metadata.masters_role_arn}",
-    "${module.kops_metadata.nodes_role_arn}",
-  ]
-}
