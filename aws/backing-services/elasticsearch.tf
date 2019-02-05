@@ -54,11 +54,18 @@ variable "elasticsearch_permitted_nodes" {
 }
 
 locals {
-  arns = {
+  role_arns = {
     masters = ["${module.kops_metadata.masters_role_arn}"]
     nodes   = ["${module.kops_metadata.nodes_role_arn}"]
     both    = ["${module.kops_metadata.masters_role_arn}", "${module.kops_metadata.nodes_role_arn}"]
     any     = ["*"]
+  }
+
+  security_groups = {
+    masters = ["${module.kops_metadata.masters_security_group_id}"]
+    nodes   = ["${module.kops_metadata.nodes_security_group_id}"]
+    both    = ["${module.kops_metadata.masters_security_group_id}", "${module.kops_metadata.nodes_security_group_id}"]
+    any     = ["${module.kops_metadata.masters_security_group_id}", "${module.kops_metadata.nodes_security_group_id}"]
   }
 }
 
@@ -68,14 +75,14 @@ module "elasticsearch" {
   stage                   = "${var.stage}"
   name                    = "${var.elasticsearch_name}"
   dns_zone_id             = "${local.zone_id}"
-  security_groups         = ["${module.kops_metadata.nodes_security_group_id}"]
+  security_groups         = ["${local.security_groups[var.elasticsearch_permitted_nodes]}"]
   vpc_id                  = "${module.vpc.vpc_id}"
   subnet_ids              = ["${slice(module.subnets.private_subnet_ids, 0, min(2, length(module.subnets.private_subnet_ids)))}"]
   zone_awareness_enabled  = "${length(module.subnets.private_subnet_ids) > 1 ? "true" : "false"}"
   elasticsearch_version   = "${var.elasticsearch_version}"
   instance_type           = "${var.elasticsearch_instance_type}"
   instance_count          = "${var.elasticsearch_instance_count}"
-  iam_role_arns           = ["${local.arns[var.elasticsearch_permitted_nodes]}"]
+  iam_role_arns           = ["${local.role_arns[var.elasticsearch_permitted_nodes]}"]
   iam_actions             = ["${var.elasticsearch_iam_actions}"]
   kibana_subdomain_name   = "kibana-elasticsearch"
   ebs_volume_size         = "${var.elasticsearch_ebs_volume_size}"
