@@ -15,14 +15,14 @@ module "kops_ecr_app" {
   name      = "${var.kops_ecr_app_repository_name}"
 
   enabled = "${var.kops_ecr_app_enabled}"
-  
+
   principals_full_access = [
-    "${module.kops_ecr_user.user_arn}"
+    "${module.kops_ecr_user.user_arn}",
   ]
 
   principals_readonly_access = [
     "${module.kops_metadata.masters_role_arn}",
-    "${module.kops_metadata.nodes_role_arn}"
+    "${module.kops_metadata.nodes_role_arn}",
   ]
 
   tags = "${module.label.tags}"
