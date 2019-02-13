@@ -2,3 +2,5 @@ namespace="cp"
 stage="staging"
 region="us-west-2"
 zone_name="us-west-2.staging.cloudposse.co"
+external_principals_full_access=[]
+external_principals_readonly_access=[]
