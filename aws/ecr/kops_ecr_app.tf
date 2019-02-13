@@ -17,11 +17,11 @@ module "kops_ecr_app" {
   enabled = "${var.kops_ecr_app_enabled}"
 
   principals_full_access = [
-    "${concat(list(module.kops_ecr_user.user_arn), var.external_principals_full_access)}",
+    "${concat(list(module.kops_ecr_user.user_arn), var.external_principals_full_access)}"
   ]
 
   principals_readonly_access = [
-    "${concat(list(module.kops_metadata.masters_role_arn, module.kops_metadata.nodes_role_arn), var.external_principals_readonly_access)}",
+    "${concat(list(module.kops_metadata.masters_role_arn, module.kops_metadata.nodes_role_arn), var.external_principals_readonly_access)}"
   ]
 
   tags = "${module.label.tags}"
