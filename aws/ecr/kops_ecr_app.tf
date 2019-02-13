@@ -16,14 +16,8 @@ module "kops_ecr_app" {
 
   enabled = "${var.kops_ecr_app_enabled}"
 
-  principals_full_access = [
-    "${module.kops_ecr_user.user_arn}",
-  ]
-
-  principals_readonly_access = [
-    "${module.kops_metadata.masters_role_arn}",
-    "${module.kops_metadata.nodes_role_arn}",
-  ]
+  principals_full_access     = ["${local.principals_full_access}"]
+  principals_readonly_access = ["${local.principals_readonly_access}"]
 
   tags = "${module.label.tags}"
 }
