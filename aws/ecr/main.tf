@@ -40,6 +40,18 @@ variable "nodes_name" {
   description = "Kops nodes subdomain name in the cluster DNS zone"
 }
 
+variable "external_principals_full_access" {
+  type        = "list"
+  description = "Principal ARN to provide with full access to the ECR"
+  default     = []
+}
+
+variable "external_principals_readonly_access" {
+  type        = "list"
+  description = "Principal ARN to provide with readonly access to the ECR"
+  default     = []
+}
+
 provider "aws" {
   assume_role {
     role_arn = "${var.aws_assume_role_arn}"
