@@ -1,5 +1,5 @@
 module "kops_admin_access_group_prod" {
-  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.3.0"
+  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.4.0"
   enabled           = "${contains(var.kops_iam_accounts_enabled, "prod") == true ? "true" : "false"}"
   namespace         = "${var.namespace}"
   stage             = "prod"
@@ -12,7 +12,7 @@ module "kops_admin_access_group_prod" {
 }
 
 module "kops_readonly_access_group_prod" {
-  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.3.0"
+  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.4.0"
   enabled           = "${contains(var.kops_iam_accounts_enabled, "prod") == true ? "true" : "false"}"
   namespace         = "${var.namespace}"
   stage             = "prod"
