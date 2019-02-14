@@ -10,6 +10,7 @@ module "chamber_user" {
   name        = "chamber"
   attributes  = ["codefresh"]
   kms_key_arn = "${module.chamber_kms_key.key_arn}"
+  enabled     = "${var.enabled}"
 
   ssm_resources = [
     "${formatlist("arn:aws:ssm:%s:%s:parameter/%s/*", data.aws_region.default.name, data.aws_caller_identity.default.account_id, var.parameter_groups)}",
