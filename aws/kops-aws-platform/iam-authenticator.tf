@@ -38,16 +38,26 @@ variable "aws_root_account_id" {
   description = "AWS root account ID"
 }
 
-variable "kops_readonly_role_name" {
-  type        = "string"
-  default     = "KopsReadOnly"
-  description = "IAM role name for the Kubernetes readonly user, used by aws-iam-authenticator"
+module "kops_admin_label" {
+  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.2.1"
+  namespace  = "${var.namespace}"
+  name       = "kops"
+  stage      = "${var.stage}"
+  attributes = ["admin"]
+  delimiter  = "${var.delimiter}"
+  tags       = "${var.tags}"
+  enabled    = "true"
 }
 
-variable "kops_admin_role_name" {
-  type        = "string"
-  default     = "KopsAdmin"
-  description = "IAM role name for the Kubernetes admin user, used by aws-iam-authenticator"
+module "kops_readonly_label" {
+  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.2.1"
+  namespace  = "${var.namespace}"
+  name       = "kops"
+  stage      = "${var.stage}"
+  attributes = ["readonly"]
+  delimiter  = "${var.delimiter}"
+  tags       = "${var.tags}"
+  enabled    = "true"
 }
 
 data "aws_iam_policy_document" "readonly" {
@@ -66,7 +76,7 @@ data "aws_iam_policy_document" "readonly" {
 }
 
 resource "aws_iam_role" "readonly" {
-  name               = "${var.kops_readonly_role_name}"
+  name               = "${module.kops_readonly_label.id}"
   assume_role_policy = "${data.aws_iam_policy_document.readonly.json}"
   description        = "The Kops readonly role for aws-iam-authenticator"
 }
@@ -87,7 +97,7 @@ data "aws_iam_policy_document" "admin" {
 }
 
 resource "aws_iam_role" "admin" {
-  name               = "${var.kops_admin_role_name}"
+  name               = "${module.kops_admin_label.id}"
   assume_role_policy = "${data.aws_iam_policy_document.admin.json}"
   description        = "The Kops admin role for aws-iam-authenticator"
 }

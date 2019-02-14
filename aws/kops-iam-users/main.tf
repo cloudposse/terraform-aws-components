@@ -18,3 +18,25 @@ data "terraform_remote_state" "accounts" {
     key    = "accounts/terraform.tfstate"
   }
 }
+
+module "kops_admin_label" {
+  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.2.1"
+  namespace  = "${var.namespace}"
+  name       = "kops"
+  stage      = "${var.stage}"
+  attributes = ["admin"]
+  delimiter  = "${var.delimiter}"
+  tags       = "${var.tags}"
+  enabled    = "true"
+}
+
+module "kops_readonly_label" {
+  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.2.1"
+  namespace  = "${var.namespace}"
+  name       = "kops"
+  stage      = "${var.stage}"
+  attributes = ["readonly"]
+  delimiter  = "${var.delimiter}"
+  tags       = "${var.tags}"
+  enabled    = "true"
+}

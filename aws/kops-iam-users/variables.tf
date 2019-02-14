@@ -18,14 +18,14 @@ variable "stage" {
   description = "Stage, e.g. 'prod', 'staging', 'dev', or 'test'"
 }
 
-variable "kops_readonly_role_name" {
+variable "delimiter" {
   type        = "string"
-  default     = "KopsReadOnly"
-  description = "IAM role name for the Kubernetes readonly user, used by aws-iam-authenticator"
+  default     = "-"
+  description = "Delimiter to be used between `namespace`, `stage`, `name` and `attributes`"
 }
 
-variable "kops_admin_role_name" {
-  type        = "string"
-  default     = "KopsAdmin"
-  description = "IAM role name for the Kubernetes admin user, used by aws-iam-authenticator"
+variable "tags" {
+  type        = "map"
+  default     = {}
+  description = "Additional tags (e.g. `map('BusinessUnit','XYZ')`"
 }
