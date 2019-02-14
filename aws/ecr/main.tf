@@ -40,6 +40,18 @@ variable "nodes_name" {
   description = "Kops nodes subdomain name in the cluster DNS zone"
 }
 
+variable "external_principals_full_access" {
+  type        = "list"
+  description = "Principal ARN to provide with full access to the ECR"
+  default     = []
+}
+
+variable "external_principals_readonly_access" {
+  type        = "list"
+  description = "Principal ARN to provide with readonly access to the ECR"
+  default     = []
+}
+
 provider "aws" {
   assume_role {
     role_arn = "${var.aws_assume_role_arn}"
@@ -47,7 +59,9 @@ provider "aws" {
 }
 
 locals {
-  dns_zone = "${var.region}.${var.zone_name}"
+  dns_zone                   = "${var.region}.${var.zone_name}"
+  principals_full_access     = ["${concat(list(module.kops_ecr_user.user_arn), var.external_principals_full_access)}"]
+  principals_readonly_access = ["${concat(list(module.kops_metadata.masters_role_arn, module.kops_metadata.nodes_role_arn), var.external_principals_readonly_access)}"]
 }
 
 module "label" {
