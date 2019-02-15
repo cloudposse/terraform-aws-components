@@ -1,6 +1,11 @@
 data "aws_caller_identity" "default" {}
 data "aws_region" "default" {}
 
+variable "chamber_user_enabled" {
+  default     = "true"
+  description = "Set to false to prevent the module from creating chamber user"
+}
+
 # Chamber user for CI/CD systems that cannot leverage IAM instance profiles
 # https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-access.html
 module "chamber_user" {
@@ -8,6 +13,7 @@ module "chamber_user" {
   namespace   = "${var.namespace}"
   stage       = "${var.stage}"
   name        = "chamber"
+  enabled     = "${var.chamber_user_enabled}"
   attributes  = ["codefresh"]
   kms_key_arn = "${module.chamber_kms_key.key_arn}"
 
