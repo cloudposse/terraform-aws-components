@@ -9,7 +9,7 @@ variable "chamber_user_enabled" {
 # Chamber user for CI/CD systems that cannot leverage IAM instance profiles
 # https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-access.html
 module "chamber_user" {
-  source      = "git::https://github.com/cloudposse/terraform-aws-iam-chamber-user.git?ref=fix-disable-user"
+  source      = "git::https://github.com/cloudposse/terraform-aws-iam-chamber-user.git?ref=tags/0.1.7"
   namespace   = "${var.namespace}"
   stage       = "${var.stage}"
   name        = "chamber"
