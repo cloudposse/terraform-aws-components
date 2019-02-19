@@ -16,11 +16,13 @@ output "slack_archive_user_unique_id" {
 output "slack_archive_user_access_key_id" {
   value       = "${module.slack_archive_user.access_key_id}"
   description = "The access key ID"
+  sensitive   = true
 }
 
 output "slack_archive_user_secret_access_key" {
   value       = "${module.slack_archive_user.secret_access_key}"
   description = "The secret access key. This will be written to the state file in plain-text"
+  sensitive   = true
 }
 
 output "slack_archive_s3_bucket_name" {
