@@ -1,21 +1,25 @@
 variable "kops_ecr_app_repository_name" {
   description = "App repository name"
+  default     = "app"
+}
+
+variable "kops_ecr_app_enabled" {
+  description = "Set to false to prevent the module kops_ecr_app from creating any resources"
+  default     = "true"
 }
 
 module "kops_ecr_app" {
-  source       = "git::https://github.com/cloudposse/terraform-aws-kops-ecr.git?ref=tags/0.1.4"
-  namespace    = "${var.namespace}"
-  stage        = "${var.stage}"
-  name         = "${var.kops_ecr_app_repository_name}"
-  cluster_name = "${var.region}.${var.zone_name}"
+  source    = "git::https://github.com/cloudposse/terraform-aws-ecr.git?ref=tags/0.4.0"
+  namespace = "${var.namespace}"
+  stage     = "${var.stage}"
+  name      = "${var.kops_ecr_app_repository_name}"
 
-  roles = [
-    "${module.kops_ecr_user.role_name}",
-  ]
+  enabled = "${var.kops_ecr_app_enabled}"
 
-  tags = {
-    Cluster = "${var.region}.${var.zone_name}"
-  }
+  principals_full_access     = ["${local.principals_full_access}"]
+  principals_readonly_access = ["${local.principals_readonly_access}"]
+
+  tags = "${module.label.tags}"
 }
 
 output "kops_ecr_app_registry_id" {
@@ -31,14 +35,4 @@ output "kops_ecr_app_registry_url" {
 output "kops_ecr_app_repository_name" {
   value       = "${module.kops_ecr_app.repository_name}"
   description = "Registry app name"
-}
-
-output "kops_ecr_app_role_name" {
-  value       = "${module.kops_ecr_app.role_name}"
-  description = "Assume Role name to get access app registry"
-}
-
-output "kops_ecr_app_role_arn" {
-  value       = "${module.kops_ecr_app.role_arn}"
-  description = "Assume Role ARN to get access app registry"
 }
