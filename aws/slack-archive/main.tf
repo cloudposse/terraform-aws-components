@@ -5,12 +5,12 @@ terraform {
 }
 
 variable "aws_assume_role_arn" {
-  type = "string"
+  type        = "string"
   description = "The Amazon Resource Name (ARN) of the role to assume."
 }
 
 variable "domain_name" {
-  type = "string"
+  type        = "string"
   description = "Domain name for Slack Archive"
 }
 
