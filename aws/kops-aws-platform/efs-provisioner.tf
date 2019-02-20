@@ -35,41 +35,41 @@ output "kops_efs_provisioner_role_arn" {
 }
 
 output "efs_arn" {
-  value       = "${module.kops_efs_provisioner.arn}"
+  value       = "${module.kops_efs_provisioner.efs_arn}"
   description = "EFS ARN"
 }
 
 output "efs_id" {
-  value       = "${module.kops_efs_provisioner.id}"
+  value       = "${module.kops_efs_provisioner.efs_id}"
   description = "EFS ID"
 }
 
 output "efs_host" {
-  value       = "${module.kops_efs_provisioner.host}"
+  value       = "${module.kops_efs_provisioner.efs_host}"
   description = "EFS host"
 }
 
 output "efs_dns_name" {
-  value       = "${module.kops_efs_provisioner.dns_name}"
+  value       = "${module.kops_efs_provisioner.efs_dns_name}"
   description = "EFS DNS name"
 }
 
 output "efs_mount_target_dns_names" {
-  value       = "${module.kops_efs_provisioner.mount_target_dns_names}"
+  value       = "${module.kops_efs_provisioner.efs_mount_target_dns_names}"
   description = "EFS mount target DNS name"
 }
 
 output "efs_mount_target_ids" {
-  value       = "${module.kops_efs_provisioner.mount_target_ids}"
+  value       = "${module.kops_efs_provisioner.efs_mount_target_ids}"
   description = "EFS mount target IDs"
 }
 
 output "efs_mount_target_ips" {
-  value       = "${module.kops_efs_provisioner.mount_target_ips}"
+  value       = "${module.kops_efs_provisioner.efs_mount_target_ips}"
   description = "EFS mount target IPs"
 }
 
 output "efs_network_interface_ids" {
-  value       = "${module.kops_efs_provisioner.network_interface_ids}"
+  value       = "${module.kops_efs_provisioner.efs_network_interface_ids}"
   description = "EFS network interface IDs"
 }
