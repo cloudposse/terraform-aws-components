@@ -13,7 +13,7 @@ module "kops_efs_provisioner" {
   stage              = "${var.stage}"
   name               = "efs-provisioner"
   region             = "${var.region}"
-  availability_zones = ["${data.terraform_remote_state.kops.availability_zones}"]
+  availability_zones = ["${split(",", data.terraform_remote_state.kops.availability_zones)}"]
   zone_id            = "${data.terraform_remote_state.kops.zone_id}"
   cluster_name       = "${var.region}.${var.zone_name}"
 
