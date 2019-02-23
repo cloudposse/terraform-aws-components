@@ -6,7 +6,7 @@ variable "audit_account_user_names" {
 
 # Provision group access to audit account. Careful! Very few people, if any should have access to this account.
 module "organization_access_group_audit" {
-  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.3.0"
+  source            = "git::https://github.com/cloudposse/terraform-aws-organization-access-group.git?ref=tags/0.4.0"
   enabled           = "${contains(var.accounts_enabled, "audit") == true ? "true" : "false"}"
   namespace         = "${var.namespace}"
   stage             = "audit"
