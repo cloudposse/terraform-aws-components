@@ -1,0 +1,40 @@
+variable "chamber_read_only" {
+  default     = "false"
+  description = "Set to `true` to deny write actions for bucket"
+}
+
+variable "service_enabled" {
+  default     = "false"
+  description = "Set to `true` to deny write actions for bucket"
+}
+
+module "service" {
+  source           = "git::https://github.com/cloudposse/terraform-aws-chamber-s3-iam-role.git?ref=tags/0.1.0"
+  enabled          = "${var.service_enabled}"
+  namespace        = "${var.namespace}"
+  stage            = "${var.stage}"
+  name             = "s3"
+  attributes       = ["builds"]
+  region           = "${data.aws_region.default.name}"
+  account_id       = "${data.aws_caller_identity.default.account_id}"
+  assume_role_arns = "${local.kops_roles}"
+  kms_key_arn      = "${module.chamber_kms_key.key_arn}"
+  s3_bucket_arn    = "${module.s3_bucket.bucket_arn}"
+  services         = ["app", "builds", "staging", "default"]
+  read_only        = "${var.chamber_read_only}"
+}
+
+output "role_name" {
+  value       = "${module.service.role_name}"
+  description = "The name of the created role"
+}
+
+output "role_id" {
+  value       = "${module.service.role_id}"
+  description = "The stable and unique string identifying the role"
+}
+
+output "role_arn" {
+  value       = "${module.service.role_arn}"
+  description = "The Amazon Resource Name (ARN) specifying the role"
+}
