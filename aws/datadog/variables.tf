@@ -1,4 +1,3 @@
-
 variable "namespace" {
   description = "Namespace (e.g. `cp` or `cloudposse`)"
 }

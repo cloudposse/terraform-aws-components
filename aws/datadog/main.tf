@@ -4,11 +4,10 @@ module "datadog_ids" {
 }
 
 module "datadog_aws_integration" {
-  source                     = "git::https://github.com/cloudposse/terraform-datadog-aws-integration.git?ref=tags/0.1.5"
-  namespace                  = "${var.namespace}"
-  stage                      = "${var.stage}"
-  name                       = "datadog"
-  datadog_external_id        = "${lookup(module.datadog_ids.map, "/datadog/datadog_external_id")}"
-  integrations               = "${var.integrations}"
+  source              = "git::https://github.com/cloudposse/terraform-datadog-aws-integration.git?ref=tags/0.1.5"
+  namespace           = "${var.namespace}"
+  stage               = "${var.stage}"
+  name                = "datadog"
+  datadog_external_id = "${lookup(module.datadog_ids.map, "/datadog/datadog_external_id")}"
+  integrations        = "${var.integrations}"
 }
-
