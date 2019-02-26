@@ -8,5 +8,5 @@ variable "stage" {
 
 variable "integrations" {
   type        = "list"
-  description = "List of AWS integration permissions sets to apply (all, core, rds)"
+  description = "List of integration names with permissions to apply (`all`, `core`, `rds`)"
 }
