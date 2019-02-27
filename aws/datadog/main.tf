@@ -27,5 +27,3 @@ module "datadog_aws_integration" {
   datadog_external_id = "${lookup(module.datadog_ids.map, "/datadog/datadog_external_id")}"
   integrations        = "${var.integrations}"
 }
-
-
