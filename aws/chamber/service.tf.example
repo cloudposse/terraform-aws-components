@@ -15,11 +15,8 @@ module "service" {
   stage            = "${var.stage}"
   name             = "s3"
   attributes       = ["builds"]
-  region           = "${data.aws_region.default.name}"
-  account_id       = "${data.aws_caller_identity.default.account_id}"
-  assume_role_arns = "${local.kops_roles}"
-  kms_key_arn      = "${module.chamber_kms_key.key_arn}"
-  s3_bucket_arn    = "${module.s3_bucket.bucket_arn}"
+  principals_arns  = ["${local.kops_roles}"]
+  bucket_arn       = "${module.s3_bucket.bucket_arn}"
   services         = ["app", "builds", "staging", "default"]
   read_only        = "${var.chamber_read_only}"
 }
