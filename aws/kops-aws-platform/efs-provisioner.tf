@@ -1,3 +1,9 @@
+variable "efs_enabled" {
+  type        = "string"
+  description = "Set to false to prevent the module from creating any EFS resources"
+  default     = "true"
+}
+
 data "terraform_remote_state" "kops" {
   backend = "s3"
 
@@ -8,7 +14,8 @@ data "terraform_remote_state" "kops" {
 }
 
 module "kops_efs_provisioner" {
-  source             = "git::https://github.com/cloudposse/terraform-aws-kops-efs.git?ref=tags/0.2.0"
+  source             = "git::https://github.com/cloudposse/terraform-aws-kops-efs.git?ref=tags/0.3.0"
+  enabled            = "${var.efs_enabled}"
   namespace          = "${var.namespace}"
   stage              = "${var.stage}"
   name               = "efs-provisioner"
