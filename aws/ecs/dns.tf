@@ -12,8 +12,7 @@ variable "dns_zone_name" {
 }
 
 module "dns" {
-  #source           = "git::https://github.com/cloudposse/terraform-aws-route53-cluster-zone.git?ref=tags/0.3.0"
-  source           = "git::https://github.com/cloudposse/terraform-aws-route53-cluster-zone.git?ref=fix-allow-overwrite"
+  source           = "git::https://github.com/cloudposse/terraform-aws-route53-cluster-zone.git?ref=tags/0.3.1"
   enabled          = "${var.dns_enabled}"
   namespace        = "${var.namespace}"
   stage            = "${var.stage}"
