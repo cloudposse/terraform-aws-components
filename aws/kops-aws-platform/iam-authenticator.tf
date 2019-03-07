@@ -34,19 +34,21 @@ variable "readonly_k8s_groups" {
 }
 
 resource "kubernetes_cluster_role_binding" "view" {
-    metadata {
-        name = "view-binding"
-    }
-    role_ref {
-        api_group = "rbac.authorization.k8s.io"
-        kind = "ClusterRole"
-        name = "view"
-    }
-    subject {
-        kind = "Group"
-        name = "view"
-        api_group = "rbac.authorization.k8s.io"
-    }
+  metadata {
+    name = "view-binding"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "view"
+  }
+
+  subject {
+    kind      = "Group"
+    name      = "view"
+    api_group = "rbac.authorization.k8s.io"
+  }
 }
 
 variable "aws_root_account_id" {
