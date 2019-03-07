@@ -1,7 +1,7 @@
 variable "efs_enabled" {
   type        = "string"
-  description = "Set to false to prevent the module from creating any EFS resources"
-  default     = "true"
+  description = "Set to true to allow the module to create EFS resources"
+  default     = "false"
 }
 
 data "terraform_remote_state" "kops" {
