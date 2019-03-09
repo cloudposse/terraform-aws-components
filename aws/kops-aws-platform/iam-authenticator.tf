@@ -30,7 +30,25 @@ variable "readonly_k8s_username" {
 variable "readonly_k8s_groups" {
   type        = "list"
   description = "List of Kops groups to be mapped to `readonly_iam_role_arn`"
-  default     = ["system:authenticated"]
+  default     = ["view"]
+}
+
+resource "kubernetes_cluster_role_binding" "view" {
+  metadata {
+    name = "view-binding"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "view"
+  }
+
+  subject {
+    kind      = "Group"
+    name      = "view"
+    api_group = "rbac.authorization.k8s.io"
+  }
 }
 
 variable "aws_root_account_id" {
