@@ -4,7 +4,7 @@ variable "kops_alb_ingress_enabled" {
 }
 
 module "kops_alb_ingress" {
-  source       = "git::https://github.com/cloudposse/terraform-aws-kops-alb-ingress.git?ref=tags/0.1.0"
+  source       = "git::https://github.com/cloudposse/terraform-aws-kops-aws-alb-ingress.git?ref=tags/0.1.0"
   namespace    = "${var.namespace}"
   stage        = "${var.stage}"
   name         = "alb-ingress"
