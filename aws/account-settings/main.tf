@@ -16,4 +16,6 @@ module "account_settings" {
   stage     = "${var.stage}"
   name      = "${var.name}"
   enabled   = "${var.enabled}"
+
+  minimum_password_length = "${var.minimum_password_length}"
 }
