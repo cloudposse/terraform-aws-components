@@ -58,6 +58,13 @@ variable "acm_san_domains" {
   description = "A list of domains that should be SANs in the issued certificate"
 }
 
+variable "acm_zone_name" {
+  type        = "string"
+  default     = ""
+  description = "The name of the desired Route53 Hosted Zone"
+}
+
+
 module "codefresh_enterprise_backing_services" {
   source          = "git::https://github.com/cloudposse/terraform-aws-codefresh-backing-services.git?ref=added-acm"
   namespace       = "${var.namespace}"
@@ -71,6 +78,7 @@ module "codefresh_enterprise_backing_services" {
   acm_enabled        = "${var.acm_enabled}"
   acm_primary_domain = "${var.acm_primary_domain}"
   acm_san_domains    = ["${var.acm_san_domains}"]
+  acm_zone_name      = "${var.acm_zone_name}"
 }
 
 output "elasticache_redis_id" {
