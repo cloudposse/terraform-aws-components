@@ -1,0 +1,4 @@
+region="us-west-2"
+cluster_name="us-west-2.cloudposse.co"  # Used by kops-metadata to derive IAM role names for Master and Node instances
+permitted_nodes="masters" # Which nodes are allowed to assume Teleport role. With kiam, it is only master nodes.
+chamber_service="kops"    # Service under which parameters are stored in chamber
