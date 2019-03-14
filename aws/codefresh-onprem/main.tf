@@ -168,6 +168,6 @@ output "acm_domain_validation_options" {
 }
 
 output "acm_email_validation_options" {
-  value       = ["${module.codefresh_enterprise_backing_services.acm_validation_emails}"]
+  value       = ["${module.codefresh_enterprise_backing_services.acm_email_validation_options}"]
   description = " A list of addresses that received a validation E-Mail"
 }
