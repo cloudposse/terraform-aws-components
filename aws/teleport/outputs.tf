@@ -10,7 +10,7 @@ output "teleport_auth_iam_role" {
   value = "${aws_iam_role.teleport.name}"
 }
 
-output "teleport_cluster_state_dynamo_table" {
+output "teleport_cluster_state_dynamodb_table" {
   value = "${module.teleport_backend.dynamodb_state_table_id}"
 }
 

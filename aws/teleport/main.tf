@@ -145,10 +145,10 @@ resource "aws_ssm_parameter" "teleport_audit_events_uri" {
   overwrite   = "true"
 }
 
-resource "aws_ssm_parameter" "teleport_cluster_state_dynamo_table" {
-  name        = "${format(var.chamber_parameter_name, local.chamber_service, "teleport_cluster_state_dynamo_table")}"
+resource "aws_ssm_parameter" "teleport_cluster_state_dynamodb_table" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "teleport_cluster_state_dynamodb_table")}"
   value       = "${module.teleport_backend.dynamodb_state_table_id}"
-  description = "Teleport cluster state storage dynamo table"
+  description = "Teleport cluster state storage dynamodb table"
   type        = "String"
   overwrite   = "true"
 }
