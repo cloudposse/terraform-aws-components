@@ -77,7 +77,6 @@ module "codefresh_enterprise_backing_services" {
   acm_enabled        = "${var.acm_enabled}"
   acm_primary_domain = "${var.acm_primary_domain}"
   acm_san_domains    = ["${var.acm_san_domains}"]
-  acm_zone_name      = "${var.acm_zone_name}"
 }
 
 output "elasticache_redis_id" {
