@@ -1,6 +1,6 @@
 variable "kops_iam_enabled" {
   type        = "string"
-  description = "Set to true to allow the module to create EFS resources"
+  description = "Set to true to allow the module to create Kubernetes and IAM resources"
   default     = "false"
 }
 
