@@ -11,7 +11,7 @@ provider "aws" {
 }
 
 module "teleport_backend" {
-  source                   = "git::git@github.com:cloudposse/terraform-aws-teleport-storage?ref=tags/0.2.0"
+  source                   = "git::https://github.com/cloudposse/terraform-aws-teleport-storage?ref=tags/0.2.0"
   namespace                = "${var.namespace}"
   stage                    = "${var.stage}"
   name                     = "${var.name}"
