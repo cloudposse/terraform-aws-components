@@ -177,6 +177,10 @@ resource "random_string" "tokens" {
   count   = 3
   length  = 32
   special = false
+
+  keepers {
+    cluster_name = "${var.cluster_name}"
+  }
 }
 
 resource "aws_ssm_parameter" "teleport_tokens" {
