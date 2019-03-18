@@ -1,6 +1,13 @@
+variable "kops_iam_enabled" {
+  type        = "string"
+  description = "Set to true to allow the module to create EFS resources"
+  default     = "false"
+}
+
 variable "cluster_id" {
   type        = "string"
   description = "A unique-per-cluster identifier to prevent replay attacks. Good choices are a random token or a domain name that will be unique to your cluster"
+  default     = "random"
 }
 
 variable "kube_config_path" {
@@ -34,6 +41,8 @@ variable "readonly_k8s_groups" {
 }
 
 resource "kubernetes_cluster_role_binding" "view" {
+  count = "${var.kops_iam_enabled == "true" ? 1 : 0}"
+
   metadata {
     name = "view-binding"
   }
@@ -64,7 +73,7 @@ module "kops_admin_label" {
   attributes = ["admin"]
   delimiter  = "${var.delimiter}"
   tags       = "${var.tags}"
-  enabled    = "true"
+  enabled    = "${var.kops_iam_enabled}"
 }
 
 module "kops_readonly_label" {
@@ -75,10 +84,12 @@ module "kops_readonly_label" {
   attributes = ["readonly"]
   delimiter  = "${var.delimiter}"
   tags       = "${var.tags}"
-  enabled    = "true"
+  enabled    = "${var.kops_iam_enabled}"
 }
 
 data "aws_iam_policy_document" "readonly" {
+  count = "${var.kops_iam_enabled == "true" ? 1 : 0}"
+
   statement {
     actions = [
       "sts:AssumeRole",
@@ -94,12 +105,15 @@ data "aws_iam_policy_document" "readonly" {
 }
 
 resource "aws_iam_role" "readonly" {
+  count              = "${var.kops_iam_enabled == "true" ? 1 : 0}"
   name               = "${module.kops_readonly_label.id}"
   assume_role_policy = "${data.aws_iam_policy_document.readonly.json}"
   description        = "The Kops readonly role for aws-iam-authenticator"
 }
 
 data "aws_iam_policy_document" "admin" {
+  count = "${var.kops_iam_enabled == "true" ? 1 : 0}"
+
   statement {
     actions = [
       "sts:AssumeRole",
@@ -115,19 +129,21 @@ data "aws_iam_policy_document" "admin" {
 }
 
 resource "aws_iam_role" "admin" {
+  count              = "${var.kops_iam_enabled == "true" ? 1 : 0}"
   name               = "${module.kops_admin_label.id}"
   assume_role_policy = "${data.aws_iam_policy_document.admin.json}"
   description        = "The Kops admin role for aws-iam-authenticator"
 }
 
 module "iam_authenticator_config" {
-  source                = "git::https://github.com/cloudposse/terraform-aws-kops-iam-authenticator-config.git?ref=tags/0.1.1"
+  enabled               = "${var.kops_iam_enabled}"
+  source                = "git::https://github.com/cloudposse/terraform-aws-kops-iam-authenticator-config.git?ref=tags/0.2.0"
   cluster_id            = "${var.cluster_id}"
   kube_config_path      = "${var.kube_config_path}"
-  admin_iam_role_arn    = "${aws_iam_role.admin.arn}"
+  admin_iam_role_arn    = "${element(concat(aws_iam_role.admin.*.arn, list("")), 0)}"
   admin_k8s_username    = "${var.admin_k8s_username}"
   admin_k8s_groups      = "${var.admin_k8s_groups}"
-  readonly_iam_role_arn = "${aws_iam_role.readonly.arn}"
+  readonly_iam_role_arn = "${element(concat(aws_iam_role.readonly.*.arn, list("")), 0)}"
   readonly_k8s_username = "${var.readonly_k8s_username}"
   readonly_k8s_groups   = "${var.readonly_k8s_groups}"
 }
