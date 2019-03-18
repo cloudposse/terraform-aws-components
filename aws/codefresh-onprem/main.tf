@@ -65,7 +65,7 @@ variable "acm_zone_name" {
 }
 
 module "codefresh_enterprise_backing_services" {
-  source          = "git::https://github.com/cloudposse/terraform-aws-codefresh-backing-services.git?ref=added-acm"
+  source          = "git::https://github.com/cloudposse/terraform-aws-codefresh-backing-services.git?ref=tags/0.3.0"
   namespace       = "${var.namespace}"
   stage           = "${var.stage}"
   vpc_id          = "${data.terraform_remote_state.backing_services.vpc_id}"
@@ -149,11 +149,6 @@ output "s3_secret_access_key" {
 output "s3_bucket_arn" {
   value       = "${module.codefresh_enterprise_backing_services.s3_bucket_arn}"
   description = "The s3 bucket ARN"
-}
-
-output "acm_id" {
-  value       = "${module.codefresh_enterprise_backing_services.acm_id}"
-  description = "The ARN of the certificate"
 }
 
 output "acm_arn" {
