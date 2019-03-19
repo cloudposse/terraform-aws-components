@@ -26,6 +26,10 @@ kops/build-manifest:
 kops/create:
 	kops create -f $(KOPS_MANIFEST)
 
+## Apply the kops manifest
+kops/replace:
+	kops replace -f $(KOPS_MANIFEST)
+
 ## Create the SSH Public Key secret
 kops/create-secret-sshpublickey:
 	echo "$(KOPS_SSH_PUBLIC_KEY)" > /dev/shm/$(KOPS_CLUSTER_NAME).pub
