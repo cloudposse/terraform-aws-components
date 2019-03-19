@@ -4,8 +4,8 @@ variable "acm_enabled" {
 }
 
 variable "acm_san_domains" {
-  type = "list"
-  default =  []
+  type        = "list"
+  default     = []
   description = "A list of domains (except *.{cluster_name}) that should be SANs in the issued certificate"
 }
 
