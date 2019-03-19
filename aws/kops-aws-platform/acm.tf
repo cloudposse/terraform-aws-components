@@ -28,5 +28,5 @@ output "kops_acm_arn" {
 
 output "kops_acm_domain_validation_options" {
   value       = "${flatten(aws_acm_certificate.default.*.domain_validation_options)}"
-  description = "CNAME records that are added to the DNS zone to complete certificate validation"
+  description = "CNAME records that need to be added to the DNS zone to complete certificate validation"
 }
