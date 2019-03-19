@@ -6,12 +6,12 @@ variable "acm_enabled" {
 variable "acm_san_domains" {
   type = "list"
   default =  []
-  description = "A list of domains that should be SANs in the issued certificate"
+  description = "A list of domains (except *.{cluster_name}) that should be SANs in the issued certificate"
 }
 
 resource "aws_acm_certificate" "default" {
   count                     = "${var.acm_enabled ? 1 : 0}"
-  domain_name               = "${var.region}.${var.zone_name}"
+  domain_name               = "*.${var.region}.${var.zone_name}"
   validation_method         = "DNS"
   subject_alternative_names = ["${var.acm_san_domains}"]
   tags                      = "${var.tags}"
