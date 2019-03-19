@@ -137,7 +137,7 @@ resource "aws_iam_role" "admin" {
 
 module "iam_authenticator_config" {
   enabled               = "${var.kops_iam_enabled}"
-  source                = "git::https://github.com/cloudposse/terraform-aws-kops-iam-authenticator-config.git?ref=tags/0.2.0"
+  source                = "git::https://github.com/cloudposse/terraform-aws-kops-iam-authenticator-config.git?ref=tags/0.2.1"
   cluster_id            = "${var.cluster_id}"
   kube_config_path      = "${var.kube_config_path}"
   admin_iam_role_arn    = "${element(concat(aws_iam_role.admin.*.arn, list("")), 0)}"
