@@ -39,7 +39,7 @@ resource "random_string" "tokens" {
   number  = false
   special = false
 
-  keepers  = "${module.datadog_ids.map}"
+  keepers = "${module.datadog_ids.map}"
 }
 
 resource "aws_ssm_parameter" "datadog_cluster_agent_token" {
