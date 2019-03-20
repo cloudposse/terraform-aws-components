@@ -43,8 +43,29 @@ data "terraform_remote_state" "backing_services" {
   }
 }
 
+variable "acm_enabled" {
+  description = "Set to false to prevent the acm module from creating any resources"
+  default     = "true"
+}
+
+variable "acm_primary_domain" {
+  description = "A domain name for which the certificate should be issued"
+}
+
+variable "acm_san_domains" {
+  type        = "list"
+  default     = []
+  description = "A list of domains that should be SANs in the issued certificate"
+}
+
+variable "acm_zone_name" {
+  type        = "string"
+  default     = ""
+  description = "The name of the desired Route53 Hosted Zone"
+}
+
 module "codefresh_enterprise_backing_services" {
-  source          = "git::https://github.com/cloudposse/terraform-aws-codefresh-backing-services.git?ref=tags/0.2.0"
+  source          = "git::https://github.com/cloudposse/terraform-aws-codefresh-backing-services.git?ref=tags/0.3.0"
   namespace       = "${var.namespace}"
   stage           = "${var.stage}"
   vpc_id          = "${data.terraform_remote_state.backing_services.vpc_id}"
@@ -52,6 +73,10 @@ module "codefresh_enterprise_backing_services" {
   security_groups = ["${module.kops_metadata.nodes_security_group_id}"]
   zone_name       = "${var.zone_name}"
   chamber_service = "codefresh"
+
+  acm_enabled        = "${var.acm_enabled}"
+  acm_primary_domain = "${var.acm_primary_domain}"
+  acm_san_domains    = ["${var.acm_san_domains}"]
 }
 
 output "elasticache_redis_id" {
@@ -124,4 +149,14 @@ output "s3_secret_access_key" {
 output "s3_bucket_arn" {
   value       = "${module.codefresh_enterprise_backing_services.s3_bucket_arn}"
   description = "The s3 bucket ARN"
+}
+
+output "acm_arn" {
+  value       = "${module.codefresh_enterprise_backing_services.acm_arn}"
+  description = "The ARN of the certificate"
+}
+
+output "acm_domain_validation_options" {
+  value       = "${module.codefresh_enterprise_backing_services.acm_domain_validation_options}"
+  description = "CNAME records that are added to the DNS zone to complete certificate validation"
 }
