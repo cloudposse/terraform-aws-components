@@ -27,3 +27,25 @@ module "datadog_aws_integration" {
   datadog_external_id = "${lookup(module.datadog_ids.map, "/datadog/datadog_external_id")}"
   integrations        = "${var.integrations}"
 }
+
+locals {
+  chamber_service = "${var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service}"
+}
+
+resource "random_string" "tokens" {
+  length  = 38
+  upper   = true
+  lower   = true
+  number  = false
+  special = false
+
+  keepers = "${module.datadog_ids.map}"
+}
+
+resource "aws_ssm_parameter" "datadog_cluster_agent_token" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "datadog_cluster_agent_token")}"
+  value       = "${random_string.tokens.result}"
+  description = "A cluster-internal secret for agent-to-agent communication. Must be 32+ characters a-zA-Z"
+  type        = "String"
+  overwrite   = "true"
+}
