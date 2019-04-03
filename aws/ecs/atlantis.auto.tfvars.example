@@ -14,7 +14,6 @@ atlantis_gh_team_whitelist = "engineering:plan,devops:*"
 
 atlantis_wake_word = "atlantis"
 
-atlantis_authentication_enabled = "true"
 
 # https://www.terraform.io/docs/providers/aws/r/lb_listener_rule.html
 atlantis_authentication_action = {

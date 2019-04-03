@@ -8,7 +8,7 @@ variable "default_backend_name" {
 
 # default backend app
 module "default_backend_web_app" {
-  source     = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=tags/0.14.0"
+  source     = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=tags/0.15.0"
   name       = "${var.name}"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
@@ -44,4 +44,7 @@ module "default_backend_web_app" {
   alb_target_group_alarms_response_time_threshold = "0.5"
   alb_target_group_alarms_period                  = "300"
   alb_target_group_alarms_evaluation_periods      = "1"
+
+  alb_ingress_unauthenticated_paths = ["/*"]
+  alb_ingress_authenticated_paths   = []
 }
