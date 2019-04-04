@@ -144,30 +144,30 @@ locals {
     }
   }
 
-  authentication_action = "${lookup(supported_authentication_actions, var.atlantis_authentication_action_type)}"
+  authentication_action = "${local.supported_authentication_actions[var.atlantis_authentication_action_type]}"
 
   # NOTE: Cognito and OIDC authentication only supported on HTTPS endpoints
   # If authentication enabled, we provide only HTTPS listener ARNs from ALB
   supported_alb_listener_arns = {
     "true"  = ["${module.alb.https_listener_arn}"]
-    "false" = ["${module.alb.listener_arn}"]
+    "false" = ["${module.alb.listener_arns}"]
   }
 
-  alb_listener_arns = "${lookup(supported_alb_listener_arns, local.authentication_enabled)}"
+  alb_listener_arns = "${local.supported_alb_listener_arns[local.authentication_enabled]}"
 
   supported_alb_ingress_unauthenticated_paths = {
     "true"  = ["${var.atlantis_alb_ingress_unauthenticated_paths}"]
     "false" = ["${var.atlantis_alb_ingress_authenticated_paths}"]
   }
 
-  alb_ingress_unauthenticated_paths = "${lookup(supported_alb_ingress_unauthenticated_paths, local.authentication_enabled)}"
+  alb_ingress_unauthenticated_paths = "${local.supported_alb_ingress_unauthenticated_paths[local.authentication_enabled]}"
 
   supported_alb_ingress_authenticated_paths = {
     "true"  = ["${var.atlantis_alb_ingress_authenticated_paths}"]
     "false" = []
   }
 
-  alb_ingress_authenticated_paths = "${lookup(supported_alb_ingress_authenticated_paths, local.authentication_enabled)}"
+  alb_ingress_authenticated_paths = "${local.supported_alb_ingress_authenticated_paths[local.authentication_enabled]}"
 }
 
 module "atlantis" {
