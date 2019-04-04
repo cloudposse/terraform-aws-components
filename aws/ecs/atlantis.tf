@@ -50,8 +50,14 @@ variable "atlantis_container_memory" {
   default     = "512"
 }
 
+variable "atlantis_authentication_action" {
+  type        = "map"
+  default     = {}
+  description = "Authentication action to be placed in front of all other ALB listener actions to authenticate users with Cognito or OIDC"
+}
+
 module "atlantis" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.3.0"
+  source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.4.0"
   enabled   = "${var.atlantis_enabled}"
   name      = "${var.name}"
   namespace = "${var.namespace}"
@@ -80,6 +86,8 @@ module "atlantis" {
   private_subnet_ids = ["${module.subnets.private_subnet_ids}"]
   security_group_ids = ["${module.vpc.vpc_default_security_group_id}"]
   vpc_id             = "${module.vpc.vpc_id}"
+
+  authentication_action = "${var.atlantis_authentication_action}"
 }
 
 output "atlantis_url" {
