@@ -29,7 +29,6 @@ module "default_backend_web_app" {
   ecs_security_group_ids       = ["${module.vpc.vpc_default_security_group_id}"]
   ecs_private_subnet_ids       = ["${module.subnets.private_subnet_ids}"]
   alb_ingress_healthcheck_path = "/healthz"
-  alb_ingress_paths            = ["/*"]
 
   codepipeline_enabled = "false"
   ecs_alarms_enabled   = "true"
