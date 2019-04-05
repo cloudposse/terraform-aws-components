@@ -1,6 +1,7 @@
 terraform {
   required_version = ">= 0.11.2"
-  backend          "s3"             {}
+
+  backend "s3" {}
 }
 
 variable "aws_assume_role_arn" {}
@@ -58,7 +59,7 @@ variable "force_destroy" {
 }
 
 module "tfstate_backend" {
-  source        = "git::https://github.com/cloudposse/terraform-aws-tfstate-backend.git?ref=tags/0.1.1"
+  source        = "git::https://github.com/cloudposse/terraform-aws-tfstate-backend.git?ref=tags/0.7.0"
   namespace     = "${var.namespace}"
   name          = "${var.name}"
   stage         = "${var.stage}"
