@@ -1,5 +1,14 @@
-# Write the github_oauth_token to SSM parameter store.
+# Write the github_oauth_token to SSM parameter store:
 # chamber write atlantis github_oauth_token "supersecret"
+
+# When using Cognito authentication (atlantis_authentication_action_type = COGNITO), write the following values to SSM parameter store:
+# chamber write atlantis atlantis_cognito_user_pool_arn "....."
+# chamber write atlantis atlantis_cognito_user_pool_client_id "....."
+# chamber write atlantis atlantis_cognito_user_pool_domain "....."
+
+# When using Google OIDC authentication (atlantis_authentication_action_type = GOOGLE_OIDC), write the following values to SSM parameter store:
+# chamber write atlantis atlantis_google_oidc_client_id "....."
+# chamber write atlantis atlantis_google_oidc_client_secret "....."
 
 atlantis_enabled = "true"
 atlantis_branch = "master"
@@ -14,20 +23,4 @@ atlantis_gh_team_whitelist = "engineering:plan,devops:*"
 
 atlantis_wake_word = "atlantis"
 
-
-# https://www.terraform.io/docs/providers/aws/r/lb_listener_rule.html
-atlantis_authentication_action = {
-  type = "authenticate-oidc"
-
-  authenticate_oidc = [{
-    # Use this URL to create a Google OAuth 2.0 Client and obtain the Client ID and Client Secret: https://console.developers.google.com/apis/credentials
-    client_id     = "XXXXXXXXXXXXXXXXXXXX"
-    client_secret = "XXXXXXXXXXXX_XXXXXX"
-
-    # Use this URL to get Google Auth endpoints: https://accounts.google.com/.well-known/openid-configuration
-    issuer                 = "https://accounts.google.com"
-    authorization_endpoint = "https://accounts.google.com/o/oauth2/v2/auth"
-    token_endpoint         = "https://oauth2.googleapis.com/token"
-    user_info_endpoint     = "https://openidconnect.googleapis.com/v1/userinfo"
-  }]
-}
+atlantis_authentication_action_type = "GOOGLE_OIDC"
