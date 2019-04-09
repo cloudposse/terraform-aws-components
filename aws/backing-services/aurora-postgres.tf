@@ -48,6 +48,12 @@ variable "postgres_cluster_enabled" {
   description = "Set to false to prevent the module from creating any resources"
 }
 
+variable "postgres_iam_database_authentication_enabled" {
+  type        = "string"
+  default     = "false"
+  description = "Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled."
+}
+
 resource "random_pet" "postgres_db_name" {
   count     = "${local.postgres_cluster_enabled ? 1 : 0}"
   separator = "_"
@@ -91,6 +97,8 @@ module "aurora_postgres" {
   zone_id         = "${local.zone_id}"
   security_groups = ["${module.kops_metadata.nodes_security_group_id}"]
   enabled         = "${var.postgres_cluster_enabled}"
+  
+  iam_database_authentication_enabled = "${var.postgres_iam_database_authentication_enabled}"
 }
 
 resource "aws_ssm_parameter" "aurora_postgres_database_name" {
