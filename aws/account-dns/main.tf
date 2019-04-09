@@ -24,7 +24,6 @@ resource "aws_route53_zone" "dns_zone" {
 }
 
 resource "aws_route53_record" "dns_zone_soa" {
-  allow_overwrite = true
   zone_id         = "${aws_route53_zone.dns_zone.id}"
   name            = "${aws_route53_zone.dns_zone.name}"
   type            = "SOA"
