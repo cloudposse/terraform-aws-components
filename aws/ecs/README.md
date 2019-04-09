@@ -50,7 +50,7 @@ artifacts:
 
 </details>
 
-## Trouble Shooting
+## Troubleshooting
 
 
 ### InvalidParameterException: Long arn format must be used for tagging operations

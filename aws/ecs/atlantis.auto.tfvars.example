@@ -1,5 +1,14 @@
-# Write the github_oauth_token to SSM parameter store.
+# Write the github_oauth_token to SSM parameter store:
 # chamber write atlantis github_oauth_token "supersecret"
+
+# When using Cognito authentication (atlantis_authentication_action_type = COGNITO), write the following values to SSM parameter store:
+# chamber write atlantis atlantis_cognito_user_pool_arn "....."
+# chamber write atlantis atlantis_cognito_user_pool_client_id "....."
+# chamber write atlantis atlantis_cognito_user_pool_domain "....."
+
+# When using Google OIDC authentication (atlantis_authentication_action_type = GOOGLE_OIDC), write the following values to SSM parameter store:
+# chamber write atlantis atlantis_google_oidc_client_id "....."
+# chamber write atlantis atlantis_google_oidc_client_secret "....."
 
 atlantis_enabled = "true"
 atlantis_branch = "master"
@@ -12,4 +21,6 @@ atlantis_allow_repo_config = "true"
 atlantis_gh_user = "examplebot"
 atlantis_gh_team_whitelist = "engineering:plan,devops:*"
 
-atlantis_wake_word = "atlantis" 
+atlantis_wake_word = "atlantis"
+
+atlantis_authentication_action_type = "GOOGLE_OIDC"

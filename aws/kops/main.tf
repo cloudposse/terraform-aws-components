@@ -23,7 +23,7 @@ locals {
 }
 
 module "kops_state_backend" {
-  source           = "git::https://github.com/cloudposse/terraform-aws-kops-state-backend.git?ref=tags/0.1.5"
+  source           = "git::https://github.com/cloudposse/terraform-aws-kops-state-backend.git?ref=tags/0.1.7"
   namespace        = "${var.namespace}"
   stage            = "${var.stage}"
   name             = "${var.name}"
