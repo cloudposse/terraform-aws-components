@@ -39,10 +39,11 @@ module "admin_groups" {
 }
 
 locals {
-  account_alias   = "${data.terraform_remote_state.account_settings.account_alias}"
-  signin_url      = "${data.terraform_remote_state.account_settings.signin_url}"
-  admin_groups    = ["${module.admin_groups.values}"]
-  readonly_groups = ["${data.terraform_remote_state.root_iam.readonly_group}"]
+  account_alias           = "${data.terraform_remote_state.account_settings.account_alias}"
+  signin_url              = "${data.terraform_remote_state.account_settings.signin_url}"
+  admin_groups            = ["${module.admin_groups.values}"]
+  readonly_groups         = ["${data.terraform_remote_state.root_iam.readonly_group}"]
+  minimum_password_length = "${data.terraform_remote_state.account_settings.minimum_password_length}"
 }
 
 output "account_alias" {
