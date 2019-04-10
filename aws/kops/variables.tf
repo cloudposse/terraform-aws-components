@@ -120,3 +120,22 @@ variable "chamber_service" {
 variable "chamber_parameter_name" {
   default = "/%s/%s"
 }
+
+variable "create_vpc" {
+  default     = "true"
+  description = "Set to false to use VPC specified in Chamber VPC parameters, true to create a new VPC"
+}
+
+variable "vpc_chamber_service" {
+  default     = "vpc"
+  description = "`chamber` service name where shared vpc parameters are stored"
+}
+
+variable "vpc_chamber_parameter_name" {
+  default = "/%s/%s_%s"
+}
+
+variable "vpc_paramter_prefix" {
+  default     = "vpc_common"
+  description = "parameter name prefix to use when looking up VPC parameters in chamber"
+}
