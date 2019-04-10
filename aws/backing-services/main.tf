@@ -29,7 +29,6 @@ variable "availability_zones" {
   default     = []
 }
 
-
 variable "zone_name" {
   type        = "string"
   description = "DNS zone name"
