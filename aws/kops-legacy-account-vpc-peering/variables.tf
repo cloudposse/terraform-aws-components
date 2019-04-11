@@ -32,6 +32,18 @@ variable "zone_name" {
   description = "DNS zone name"
 }
 
+variable "vpc_tag" {
+  type        = "string"
+  default     = "Name"
+  description = "Tag used to lookup the Kops VPC"
+}
+
+variable "vpc_tag_values" {
+  type        = "list"
+  default     = []
+  description = "Tag values list to lookup the Kops VPC"
+}
+
 variable "legacy_account_assume_role_arn" {
   type        = "string"
   description = "Legacy account assume role ARN"
