@@ -8,6 +8,7 @@ data "aws_vpc" "backing_services_vpc" {
 
 module "kops_vpc_peering" {
   source                  = "git::https://github.com/cloudposse/terraform-aws-kops-vpc-peering.git?ref=tags/0.1.2"
+  enabled                 = "${var.vpc_peering_enabled}"
   namespace               = "${var.namespace}"
   stage                   = "${var.stage}"
   name                    = "kops-peering"

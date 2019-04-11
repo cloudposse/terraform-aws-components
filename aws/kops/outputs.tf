@@ -42,10 +42,26 @@ output "availability_zones" {
   value = "${join(",", local.availability_zones)}"
 }
 
+output "kops_configured_vpc_id" {
+  value = "${join("", aws_ssm_parameter.kops_configured_vpc_id.*.value)}"
+}
+
+output "kops_configured_nat_gateways" {
+  value = "${join("", aws_ssm_parameter.kops_configured_nat_gateways.*.value)}"
+}
+
+output "kops_configured_utility_subnet_ids" {
+  value = "${join("", aws_ssm_parameter.kops_configured_utility_subnet_ids.*.value)}"
+}
+
+output "kops_configured_private_subnet_ids" {
+  value = "${join("", aws_ssm_parameter.kops_configured_private_subnet_ids.*.value)}"
+}
+
 output "private_subnets" {
-  value = "${local.private_subnets}"
+  value = "${local.private_subnet_cidrs}"
 }
 
 output "utility_subnets" {
-  value = "${local.utility_subnets}"
+  value = "${local.utility_subnet_cidrs}"
 }
