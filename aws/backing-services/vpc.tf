@@ -10,6 +10,11 @@ variable "vpc_nat_gateway_enabled" {
   default = "true"
 }
 
+variable "vpc_cidr_chunks_count" {
+  default = 0
+  description = "Sets the amount of chunks of CIDR block (subnets to deploy). 0 will split CIDR into count of available AZs in the region"
+}
+
 data "aws_region" "current" {}
 
 module "vpc" {
@@ -31,6 +36,7 @@ module "subnets" {
   igw_id              = "${module.vpc.igw_id}"
   cidr_block          = "${module.vpc.vpc_cidr_block}"
   nat_gateway_enabled = "${var.vpc_nat_gateway_enabled}"
+  max_subnet_count    = "${var.vpc_cidr_chunks_count}"
 }
 
 output "vpc_id" {
