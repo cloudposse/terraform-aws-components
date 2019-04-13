@@ -175,9 +175,9 @@ resource "aws_ssm_parameter" "kops_network_cidr" {
 }
 
 # If we are using a shared VPC, we save its AWS ID here. If kops is creating the VPC, we do not export the ID
-resource "aws_ssm_parameter" "kops_configured_vpc_id" {
+resource "aws_ssm_parameter" "kops_shared_vpc_id" {
   count       = "${var.create_vpc == "true" ? 0 : 1}"
-  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_configured_vpc_id")}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_shared_vpc_id")}"
   value       = "${join("", data.aws_ssm_parameter.vpc_id.*.value)}"
   description = "Kops (shared) VPC AWS ID"
   type        = "String"
@@ -185,9 +185,9 @@ resource "aws_ssm_parameter" "kops_configured_vpc_id" {
 }
 
 # If we are using a shared VPC, we save the list of NAT gateway IDs here. If kops is creating the VPC, we do not export the IDs
-resource "aws_ssm_parameter" "kops_configured_nat_gateways" {
+resource "aws_ssm_parameter" "kops_shared_nat_gateways" {
   count       = "${var.create_vpc == "true" ? 0 : 1}"
-  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_configured_nat_gateways")}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_shared_nat_gateways")}"
   value       = "${join("", data.aws_ssm_parameter.nat_gateways.*.value)}"
   description = "Kops (shared) private subnet NAT gateway AWS IDs"
   type        = "String"
@@ -195,9 +195,9 @@ resource "aws_ssm_parameter" "kops_configured_nat_gateways" {
 }
 
 # If we are using a shared VPC, we save the list of private subnet IDs here. If kops is creating the VPC, we do not export the IDs
-resource "aws_ssm_parameter" "kops_configured_private_subnet_ids" {
+resource "aws_ssm_parameter" "kops_shared_private_subnet_ids" {
   count       = "${var.create_vpc == "true" ? 0 : 1}"
-  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_configured_private_subnet_ids")}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_shared_private_subnet_ids")}"
   value       = "${join("", data.aws_ssm_parameter.private_subnet_ids.*.value)}"
   description = "Kops private subnet AWS IDs"
   type        = "String"
@@ -205,9 +205,9 @@ resource "aws_ssm_parameter" "kops_configured_private_subnet_ids" {
 }
 
 # If we are using a shared VPC, we save the list of utility (public) subnet IDs here. If kops is creating the VPC, we do not export the IDs
-resource "aws_ssm_parameter" "kops_configured_utility_subnet_ids" {
+resource "aws_ssm_parameter" "kops_shared_utility_subnet_ids" {
   count       = "${var.create_vpc == "true" ? 0 : 1}"
-  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_configured_utility_subnet_ids")}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_shared_utility_subnet_ids")}"
   value       = "${join("", data.aws_ssm_parameter.public_subnet_ids.*.value)}"
   description = "Kops utility subnet AWS IDs"
   type        = "String"
