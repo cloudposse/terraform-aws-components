@@ -45,8 +45,3 @@ variable "tags" {
   default     = {}
   description = "Additional tags (e.g. `map('BusinessUnit','XYZ')`"
 }
-
-variable "vpc_peering_enabled" {
-  default     = "true"
-  description = "Set to false to prevent the vpc-peering module from creating or accessing any resources"
-}
