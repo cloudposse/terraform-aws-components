@@ -200,7 +200,7 @@ output "elasticache_redis_security_group_id" {
 }
 
 output "elasticache_redis_host" {
-  value       = "${module.codefresh_enterprise_backing_services.elasticache_redis_security_group_id}"
+  value       = "${module.codefresh_enterprise_backing_services.elasticache_redis_host}"
   description = "Elasticache Redis host"
 }
 
