@@ -86,6 +86,8 @@ get fmt validate version:
 
 ## Usage
 
+
+
 Use the `terraform-root-modules` Docker image as the base image in the application `Dockerfile`, and copy the modules from `/aws` folder into `/conf` folder.
 
 ```dockerfile
