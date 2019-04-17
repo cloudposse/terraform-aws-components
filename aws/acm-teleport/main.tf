@@ -13,10 +13,7 @@ provider "aws" {
 }
 
 module "certificate" {
-  #  source                           = "git::https://github.com/cloudposse/terraform-aws-acm-request-certificate.git?ref=tags/0.3.0"
-  source = "git::https://github.com/cloudposse/terraform-aws-acm-request-certificate.git?ref=tags/0.1.1"
-
-  #  source                           = "/Users/jgro/CP_dev/terraform-aws-acm-request-certificate"
+  source                           = "git::https://github.com/cloudposse/terraform-aws-acm-request-certificate.git?ref=tags/0.1.1"
   domain_name                      = "${var.domain_name}"
   proces_domain_validation_options = "true"
   ttl                              = "300"
