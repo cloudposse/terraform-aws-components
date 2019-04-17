@@ -155,10 +155,12 @@ variable "documentdb_enabled_cloudwatch_logs_exports" {
 }
 
 variable "documentdb_chamber_parameters_mapping" {
-  type        = "map"
-  default     = {
+  type = "map"
+
+  default = {
     documentdb_connection_uri = "MONGODB_URI"
   }
+
   description = "Allow to specify keys names for chamber to store values"
 }
 
@@ -170,8 +172,6 @@ data "terraform_remote_state" "backing_services" {
     key    = "backing-services/terraform.tfstate"
   }
 }
-
-
 
 module "codefresh_enterprise_backing_services" {
   source          = "git::https://github.com/cloudposse/terraform-aws-codefresh-backing-services.git?ref=codefresh-integrate-with-helm"
