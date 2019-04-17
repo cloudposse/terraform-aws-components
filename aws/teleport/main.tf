@@ -44,10 +44,8 @@ module "teleport_role_name" {
 }
 
 module "kops_metadata" {
-  source       = "git::https://github.com/cloudposse/terraform-aws-kops-metadata.git?ref=tags/0.1.1"
-  dns_zone     = "${var.cluster_name}"
-  masters_name = "${var.masters_name}"
-  nodes_name   = "${var.nodes_name}"
+  source       = "git::https://github.com/cloudposse/terraform-aws-kops-data-iam.git?ref=tags/0.1.0"
+  cluster_name     = "${var.cluster_name}"
 }
 
 locals {
@@ -174,7 +172,7 @@ locals {
 }
 
 resource "random_string" "tokens" {
-  count   = 3
+  count   = "${length(local.token_names)}"
   length  = 32
   special = false
 
@@ -184,7 +182,7 @@ resource "random_string" "tokens" {
 }
 
 resource "aws_ssm_parameter" "teleport_tokens" {
-  count       = 3
+  count       = "${length(local.token_names)}"
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "${element(local.token_names, count.index)}")}"
   value       = "${element(random_string.tokens.*.result, count.index)}"
   description = "Teleport join token: ${element(local.token_names, count.index)}"
