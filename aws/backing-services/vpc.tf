@@ -15,7 +15,6 @@ variable "vpc_max_subnet_count" {
   description = "Sets the maximum amount of subnets to deploy.  0 will deploy a subnet for every availablility zone within the region"
 }
 
-
 data "aws_region" "current" {}
 
 module "vpc" {
