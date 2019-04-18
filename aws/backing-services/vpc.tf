@@ -12,7 +12,7 @@ variable "vpc_nat_gateway_enabled" {
 
 variable "vpc_max_subnet_count" {
   default     = 0
-  description = "Sets the maximum amount of subnets to deploy.  0 will deploy a subnet for every availablility zone within the region"
+  description = "The maximum count of subnets to provision. 0 will provision a subnet for each availability zone within the region"
 }
 
 data "aws_region" "current" {}
