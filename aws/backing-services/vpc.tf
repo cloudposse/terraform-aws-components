@@ -10,6 +10,12 @@ variable "vpc_nat_gateway_enabled" {
   default = "true"
 }
 
+variable "vpc_max_subnet_count" {
+  default     = 0
+  description = "Sets the maximum amount of subnets to deploy.  0 will deploy a subnet for every availablility zone within the region"
+}
+
+
 data "aws_region" "current" {}
 
 module "vpc" {
@@ -31,6 +37,7 @@ module "subnets" {
   igw_id              = "${module.vpc.igw_id}"
   cidr_block          = "${module.vpc.vpc_cidr_block}"
   nat_gateway_enabled = "${var.vpc_nat_gateway_enabled}"
+  max_subnet_count    = "${var.vpc_max_subnet_count}"
 }
 
 output "vpc_id" {
