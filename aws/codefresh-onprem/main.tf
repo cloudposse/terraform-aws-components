@@ -174,7 +174,7 @@ data "terraform_remote_state" "backing_services" {
 }
 
 module "codefresh_enterprise_backing_services" {
-  source          = "git::https://github.com/cloudposse/terraform-aws-codefresh-backing-services.git?ref=codefresh-integrate-with-helm"
+  source          = "git::https://github.com/cloudposse/terraform-aws-codefresh-backing-services.git?ref=tags/0.7.0"
   namespace       = "${var.namespace}"
   stage           = "${var.stage}"
   vpc_id          = "${data.terraform_remote_state.backing_services.vpc_id}"
