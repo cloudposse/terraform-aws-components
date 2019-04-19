@@ -97,7 +97,7 @@ module "aurora_postgres" {
   zone_id         = "${local.zone_id}"
   security_groups = ["${module.kops_metadata.nodes_security_group_id}"]
   enabled         = "${var.postgres_cluster_enabled}"
-  
+
   iam_database_authentication_enabled = "${var.postgres_iam_database_authentication_enabled}"
 }
 
