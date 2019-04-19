@@ -32,7 +32,7 @@ kops/replace:
 
 ## Create the SSH Public Key secret
 kops/create-secret-sshpublickey:
-	echo "$(KOPS_SSH_PUBLIC_KEY)" > /dev/shm/$(KOPS_CLUSTER_NAME).pub
+	echo "$${KOPS_SSH_PUBLIC_KEY}" > /dev/shm/$(KOPS_CLUSTER_NAME).pub
 	kops create secret sshpublickey admin -i /dev/shm/$(KOPS_CLUSTER_NAME).pub
 
 ## Show update plan for the kops cluster

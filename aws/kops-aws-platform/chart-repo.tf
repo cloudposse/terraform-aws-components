@@ -1,5 +1,5 @@
 module "kops_chart_repo" {
-  source          = "git::https://github.com/cloudposse/terraform-aws-kops-chart-repo.git?ref=tags/0.2.2"
+  source          = "git::https://github.com/cloudposse/terraform-aws-kops-chart-repo.git?ref=tags/0.2.5"
   namespace       = "${var.namespace}"
   stage           = "${var.stage}"
   name            = "chart-repo"

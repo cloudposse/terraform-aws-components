@@ -10,6 +10,11 @@ variable "vpc_nat_gateway_enabled" {
   default = "true"
 }
 
+variable "vpc_max_subnet_count" {
+  default     = 0
+  description = "The maximum count of subnets to provision. 0 will provision a subnet for each availability zone within the region"
+}
+
 data "aws_region" "current" {}
 
 module "vpc" {
@@ -21,8 +26,8 @@ module "vpc" {
 }
 
 module "subnets" {
-  source              = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.3.4"
-  availability_zones  = ["${data.aws_availability_zones.available.names}"]
+  source              = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.8.0"
+  availability_zones  = ["${local.availability_zones}"]
   namespace           = "${var.namespace}"
   stage               = "${var.stage}"
   name                = "${local.name}"
@@ -31,6 +36,7 @@ module "subnets" {
   igw_id              = "${module.vpc.igw_id}"
   cidr_block          = "${module.vpc.vpc_cidr_block}"
   nat_gateway_enabled = "${var.vpc_nat_gateway_enabled}"
+  max_subnet_count    = "${var.vpc_max_subnet_count}"
 }
 
 output "vpc_id" {
