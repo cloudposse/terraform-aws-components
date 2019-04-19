@@ -154,6 +154,16 @@ variable "documentdb_enabled_cloudwatch_logs_exports" {
   default     = []
 }
 
+variable "documentdb_chamber_parameters_mapping" {
+  type = "map"
+
+  default = {
+    documentdb_connection_uri = "MONGODB_URI"
+  }
+
+  description = "Allow to specify keys names for chamber to store values"
+}
+
 data "terraform_remote_state" "backing_services" {
   backend = "s3"
 
@@ -164,7 +174,7 @@ data "terraform_remote_state" "backing_services" {
 }
 
 module "codefresh_enterprise_backing_services" {
-  source          = "git::https://github.com/cloudposse/terraform-aws-codefresh-backing-services.git?ref=tags/0.6.0"
+  source          = "git::https://github.com/cloudposse/terraform-aws-codefresh-backing-services.git?ref=tags/0.7.0"
   namespace       = "${var.namespace}"
   stage           = "${var.stage}"
   vpc_id          = "${data.terraform_remote_state.backing_services.vpc_id}"
@@ -194,6 +204,7 @@ module "codefresh_enterprise_backing_services" {
   documentdb_skip_final_snapshot             = "${var.documentdb_skip_final_snapshot}"
   documentdb_apply_immediately               = "${var.documentdb_apply_immediately}"
   documentdb_enabled_cloudwatch_logs_exports = ["${var.documentdb_enabled_cloudwatch_logs_exports}"]
+  documentdb_chamber_parameters_mapping      = "${var.documentdb_chamber_parameters_mapping}"
 }
 
 output "elasticache_redis_id" {
