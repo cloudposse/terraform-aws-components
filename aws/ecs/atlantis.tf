@@ -52,8 +52,8 @@ variable "atlantis_container_memory" {
 
 variable "atlantis_authentication_type" {
   type        = "string"
-  default     = "NONE"
-  description = "Authentication action type. Supported values are `COGNITO`, `OIDC`, `NONE`"
+  default     = ""
+  description = "Authentication action type. Supported values are `COGNITO` and `OIDC`"
 }
 
 variable "atlantis_cognito_user_pool_arn" {
@@ -189,31 +189,33 @@ variable "overwrite_ssm_parameter" {
 }
 
 data "aws_ssm_parameter" "atlantis_cognito_user_pool_arn" {
-  count = "${var.atlantis_authentication_type == "COGNITO" && length(var.atlantis_cognito_user_pool_arn) == 0 ? 1 : 0}"
+  count = "${local.atlantis_enabled && var.atlantis_authentication_type == "COGNITO" && length(var.atlantis_cognito_user_pool_arn) == 0 ? 1 : 0}"
   name  = "${local.atlantis_cognito_user_pool_arn_ssm_name}"
 }
 
 data "aws_ssm_parameter" "atlantis_cognito_user_pool_client_id" {
-  count = "${var.atlantis_authentication_type == "COGNITO" && length(var.atlantis_cognito_user_pool_client_id) == 0 ? 1 : 0}"
+  count = "${local.atlantis_enabled && var.atlantis_authentication_type == "COGNITO" && length(var.atlantis_cognito_user_pool_client_id) == 0 ? 1 : 0}"
   name  = "${local.atlantis_cognito_user_pool_client_id_ssm_name}"
 }
 
 data "aws_ssm_parameter" "atlantis_cognito_user_pool_domain" {
-  count = "${var.atlantis_authentication_type == "COGNITO" && length(var.atlantis_cognito_user_pool_domain) == 0 ? 1 : 0}"
+  count = "${local.atlantis_enabled && var.atlantis_authentication_type == "COGNITO" && length(var.atlantis_cognito_user_pool_domain) == 0 ? 1 : 0}"
   name  = "${local.atlantis_cognito_user_pool_domain_ssm_name}"
 }
 
 data "aws_ssm_parameter" "atlantis_oidc_client_id" {
-  count = "${var.atlantis_authentication_type == "OIDC" && length(var.atlantis_oidc_client_id) == 0 ? 1 : 0}"
+  count = "${local.atlantis_enabled && var.atlantis_authentication_type == "OIDC" && length(var.atlantis_oidc_client_id) == 0 ? 1 : 0}"
   name  = "${local.atlantis_oidc_client_id_ssm_name}"
 }
 
 data "aws_ssm_parameter" "atlantis_oidc_client_secret" {
-  count = "${var.atlantis_authentication_type == "OIDC" && length(var.atlantis_oidc_client_secret) == 0 ? 1 : 0}"
+  count = "${local.atlantis_enabled && var.atlantis_authentication_type == "OIDC" && length(var.atlantis_oidc_client_secret) == 0 ? 1 : 0}"
   name  = "${local.atlantis_oidc_client_secret_ssm_name}"
 }
 
 locals {
+  atlantis_enabled = "${var.atlantis_enabled == "true" ? true : false}"
+
   kms_key_id = "${length(var.kms_key_id) > 0 ? var.kms_key_id : format("alias/%s-%s-chamber", var.namespace, var.stage)}"
 
   atlantis_cognito_user_pool_arn          = "${length(join("", data.aws_ssm_parameter.atlantis_cognito_user_pool_arn.*.value)) > 0 ? join("", data.aws_ssm_parameter.atlantis_cognito_user_pool_arn.*.value) : var.atlantis_cognito_user_pool_arn}"
@@ -233,7 +235,7 @@ locals {
 }
 
 module "atlantis" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.5.0"
+  source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.6.0"
   enabled   = "${var.atlantis_enabled}"
   name      = "${var.name}"
   namespace = "${var.namespace}"
@@ -286,7 +288,7 @@ module "atlantis" {
 }
 
 resource "aws_ssm_parameter" "atlantis_cognito_user_pool_arn" {
-  count       = "${var.atlantis_authentication_type == "COGNITO" ? 1 : 0}"
+  count       = "${local.atlantis_enabled && var.atlantis_authentication_type == "COGNITO" ? 1 : 0}"
   overwrite   = "${var.overwrite_ssm_parameter}"
   type        = "SecureString"
   description = "Atlantis Cognito User Pool ARN"
@@ -296,7 +298,7 @@ resource "aws_ssm_parameter" "atlantis_cognito_user_pool_arn" {
 }
 
 resource "aws_ssm_parameter" "atlantis_cognito_user_pool_client_id" {
-  count       = "${var.atlantis_authentication_type == "COGNITO" ? 1 : 0}"
+  count       = "${local.atlantis_enabled && var.atlantis_authentication_type == "COGNITO" ? 1 : 0}"
   overwrite   = "${var.overwrite_ssm_parameter}"
   type        = "SecureString"
   description = "Atlantis Cognito User Pool Client ID"
@@ -306,7 +308,7 @@ resource "aws_ssm_parameter" "atlantis_cognito_user_pool_client_id" {
 }
 
 resource "aws_ssm_parameter" "atlantis_cognito_user_pool_domain" {
-  count       = "${var.atlantis_authentication_type == "COGNITO" ? 1 : 0}"
+  count       = "${local.atlantis_enabled && var.atlantis_authentication_type == "COGNITO" ? 1 : 0}"
   overwrite   = "${var.overwrite_ssm_parameter}"
   type        = "SecureString"
   description = "Atlantis Cognito User Pool Domain"
@@ -316,7 +318,7 @@ resource "aws_ssm_parameter" "atlantis_cognito_user_pool_domain" {
 }
 
 resource "aws_ssm_parameter" "atlantis_oidc_client_id" {
-  count       = "${var.atlantis_authentication_type == "OIDC" ? 1 : 0}"
+  count       = "${local.atlantis_enabled && var.atlantis_authentication_type == "OIDC" ? 1 : 0}"
   overwrite   = "${var.overwrite_ssm_parameter}"
   type        = "SecureString"
   description = "Atlantis OIDC Client ID"
@@ -326,7 +328,7 @@ resource "aws_ssm_parameter" "atlantis_oidc_client_id" {
 }
 
 resource "aws_ssm_parameter" "atlantis_oidc_client_secret" {
-  count       = "${var.atlantis_authentication_type == "OIDC" ? 1 : 0}"
+  count       = "${local.atlantis_enabled && var.atlantis_authentication_type == "OIDC" ? 1 : 0}"
   overwrite   = "${var.overwrite_ssm_parameter}"
   type        = "SecureString"
   description = "Atlantis OIDC Client Secret"
