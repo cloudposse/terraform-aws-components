@@ -1,4 +1,5 @@
 variable "subject_alternative_names" {
+  type        = "list"
   description = "A list of domains that should be SANs in the issued certificate"
   default     = []
 }
