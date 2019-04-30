@@ -29,7 +29,6 @@ variable "region" {
   description = "AWS region"
 }
 
-
 variable "dns_zone_name" {
   type        = "string"
   description = "The DNS domain under which to put entries for the database. Usually the same as the cluster name, e.g. us-west-2.prod.cpco.io"
@@ -41,7 +40,7 @@ variable "chamber_service" {
 }
 
 variable "chamber_parameter_name_pattern" {
-  default = "/%s/%s"
+  default     = "/%s/%s"
   description = "Format string for creating SSM parameter name used to store chamber parameters. The default is usually best."
 }
 
@@ -49,11 +48,10 @@ data "aws_route53_zone" "default" {
   name = "${var.dns_zone_name}"
 }
 
-
 locals {
-//  availability_zones = ["${split(",", length(var.availability_zones) == 0 ? join(",", data.aws_availability_zones.available.names) : join(",", var.availability_zones))}"]
-  chamber_service    = "${var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service}"
-  dns_zone_id            = "${data.aws_route53_zone.default.zone_id}"
+  //  availability_zones = ["${split(",", length(var.availability_zones) == 0 ? join(",", data.aws_availability_zones.available.names) : join(",", var.availability_zones))}"]
+  chamber_service = "${var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service}"
+  dns_zone_id     = "${data.aws_route53_zone.default.zone_id}"
 }
 
 resource "aws_ssm_parameter" "keycloak_dbvendor" {

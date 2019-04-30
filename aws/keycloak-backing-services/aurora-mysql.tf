@@ -58,6 +58,7 @@ variable "vpc_id" {
   type        = "string"
   description = "The AWS ID of the VPC to create the cluster in, or SSM parameter key for it"
 }
+
 variable "vpc_subnet_ids" {
   type        = "string"
   description = "Comma separated string list of AWS Subnet IDs in which to place the database, or SSM parameter key for it"
@@ -74,6 +75,7 @@ resource "random_string" "mysql_admin_user" {
   number  = false
   special = false
 }
+
 resource "random_string" "mysql_admin_password" {
   count   = "${local.mysql_cluster_enabled ? 1 : 0}"
   length  = 24
@@ -83,6 +85,7 @@ resource "random_string" "mysql_admin_password" {
 #  "Read SSM parameter to get allowed CIDR blocks"
 data "aws_ssm_parameter" "allowed_cidr_blocks" {
   count = "${local.allowed_cidr_blocks_use_ssm ? 1 : 0}"
+
   # The data source will throw an error if it cannot find the parameter,
   # name = "${substr(mysql_cluster_allowed_cidr_blocks, 0, 1) == "/" ? mysql_cluster_allowed_cidr_blocks : "/aws/service/global-infrastructure/version"}"
   name = "${var.mysql_cluster_allowed_cidr_blocks}"
@@ -91,6 +94,7 @@ data "aws_ssm_parameter" "allowed_cidr_blocks" {
 #  "Read SSM parameter to get allowed VPC ID"
 data "aws_ssm_parameter" "vpc_id" {
   count = "${local.vpc_id_use_ssm ? 1 : 0}"
+
   # The data source will throw an error if it cannot find the parameter,
   # name = "${substr(mysql_cluster_allowed_cidr_blocks, 0, 1) == "/" ? mysql_cluster_allowed_cidr_blocks : "/aws/service/global-infrastructure/version"}"
   name = "${var.vpc_id}"
@@ -99,6 +103,7 @@ data "aws_ssm_parameter" "vpc_id" {
 #  "Read SSM parameter to get allowed VPC subnet IDs"
 data "aws_ssm_parameter" "vpc_subnet_ids" {
   count = "${local.vpc_subnet_ids_use_ssm ? 1 : 0}"
+
   # The data source will throw an error if it cannot find the parameter,
   # name = "${substr(mysql_cluster_allowed_cidr_blocks, 0, 1) == "/" ? mysql_cluster_allowed_cidr_blocks : "/aws/service/global-infrastructure/version"}"
   name = "${var.vpc_subnet_ids}"
@@ -110,18 +115,23 @@ locals {
   mysql_admin_password  = "${length(var.mysql_admin_password) > 0 ? var.mysql_admin_password : join("", random_string.mysql_admin_password.*.result)}"
   mysql_db_name         = "${length(var.mysql_db_name) > 0 ? var.mysql_db_name : join("", random_pet.mysql_db_name.*.id)}"
 
-  allowed_cidr_blocks_use_ssm    = "${substr(var.mysql_cluster_allowed_cidr_blocks, 0, 1) == "/" && local.mysql_cluster_enabled}"
-  vpc_id_use_ssm    = "${substr(var.vpc_id, 0, 1) == "/" && local.mysql_cluster_enabled}"
-  vpc_subnet_ids_use_ssm    = "${substr(var.vpc_subnet_ids, 0, 1) == "/" && local.mysql_cluster_enabled}"
+  allowed_cidr_blocks_use_ssm = "${substr(var.mysql_cluster_allowed_cidr_blocks, 0, 1) == "/" && local.mysql_cluster_enabled}"
+  vpc_id_use_ssm              = "${substr(var.vpc_id, 0, 1) == "/" && local.mysql_cluster_enabled}"
+  vpc_subnet_ids_use_ssm      = "${substr(var.vpc_subnet_ids, 0, 1) == "/" && local.mysql_cluster_enabled}"
 
   allowed_cidr_blocks_string = "${local.allowed_cidr_blocks_use_ssm ? join("",data.aws_ssm_parameter.allowed_cidr_blocks.*.value) : var.mysql_cluster_allowed_cidr_blocks}"
-  vpc_subnet_ids_string = "${local.vpc_subnet_ids_use_ssm ? join("",data.aws_ssm_parameter.vpc_subnet_ids.*.value) : var.vpc_subnet_ids}"
+  vpc_subnet_ids_string      = "${local.vpc_subnet_ids_use_ssm ? join("",data.aws_ssm_parameter.vpc_subnet_ids.*.value) : var.vpc_subnet_ids}"
 
-  allowed_cidr_blocks = ["${split(",", local.allowed_cidr_blocks_string)}"]
+  allowed_cidr_blocks = [
+    "${split(",", local.allowed_cidr_blocks_string)}",
+  ]
+
   vpc_id = "${local.vpc_id_use_ssm ? join("",data.aws_ssm_parameter.vpc_id.*.value) : var.vpc_id}"
-  vpc_subnet_ids = ["${split(",", local.vpc_subnet_ids_string)}"]
-}
 
+  vpc_subnet_ids = [
+    "${split(",", local.vpc_subnet_ids_string)}",
+  ]
+}
 
 module "aurora_mysql" {
   source         = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=tags/0.8.0"
