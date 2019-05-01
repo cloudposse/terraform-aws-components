@@ -157,7 +157,7 @@ module "aurora_mysql" {
 
 resource "aws_ssm_parameter" "aurora_mysql_database_name" {
   count       = "${local.mysql_cluster_enabled ? 1 : 0}"
-  name        = "${format(var.chamber_parameter_name_pattern, local.chamber_service, "keycloak_dbname")}"
+  name        = "${format(var.chamber_parameter_name_pattern, local.chamber_service, "keycloak_db_name")}"
   value       = "${module.aurora_mysql.name}"
   description = "Aurora MySQL Database Name"
   type        = "String"
@@ -166,7 +166,7 @@ resource "aws_ssm_parameter" "aurora_mysql_database_name" {
 
 resource "aws_ssm_parameter" "aurora_mysql_master_username" {
   count       = "${local.mysql_cluster_enabled ? 1 : 0}"
-  name        = "${format(var.chamber_parameter_name_pattern, local.chamber_service, "keycloak_dbuser")}"
+  name        = "${format(var.chamber_parameter_name_pattern, local.chamber_service, "keycloak_db_user")}"
   value       = "${module.aurora_mysql.user}"
   description = "Aurora MySQL Username for the master DB user"
   type        = "String"
@@ -175,7 +175,7 @@ resource "aws_ssm_parameter" "aurora_mysql_master_username" {
 
 resource "aws_ssm_parameter" "aurora_mysql_master_password" {
   count       = "${local.mysql_cluster_enabled ? 1 : 0}"
-  name        = "${format(var.chamber_parameter_name_pattern, local.chamber_service, "keycloak_dbpassword")}"
+  name        = "${format(var.chamber_parameter_name_pattern, local.chamber_service, "keycloak_db_password")}"
   value       = "${module.aurora_mysql.password}"
   description = "Aurora MySQL Password for the master DB user"
   type        = "String"
@@ -184,7 +184,7 @@ resource "aws_ssm_parameter" "aurora_mysql_master_password" {
 
 resource "aws_ssm_parameter" "aurora_mysql_master_hostname" {
   count       = "${local.mysql_cluster_enabled ? 1 : 0}"
-  name        = "${format(var.chamber_parameter_name_pattern, local.chamber_service, "keycloak_dbhost")}"
+  name        = "${format(var.chamber_parameter_name_pattern, local.chamber_service, "keycloak_db_host")}"
   value       = "${module.aurora_mysql.master_host}"
   description = "Aurora MySQL DB Master hostname"
   type        = "String"
@@ -193,7 +193,7 @@ resource "aws_ssm_parameter" "aurora_mysql_master_hostname" {
 
 resource "aws_ssm_parameter" "aurora_mysql_port" {
   count       = "${local.mysql_cluster_enabled ? 1 : 0}"
-  name        = "${format(var.chamber_parameter_name_pattern, local.chamber_service, "keycloak_dbport")}"
+  name        = "${format(var.chamber_parameter_name_pattern, local.chamber_service, "keycloak_db_port")}"
   value       = "3306"
   description = "Aurora MySQL DB Master hostname"
   type        = "String"

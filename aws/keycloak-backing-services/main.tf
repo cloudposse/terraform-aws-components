@@ -54,9 +54,9 @@ locals {
   dns_zone_id     = "${data.aws_route53_zone.default.zone_id}"
 }
 
-resource "aws_ssm_parameter" "keycloak_dbvendor" {
+resource "aws_ssm_parameter" "keycloak_db_vendor" {
   count       = "${local.mysql_cluster_enabled ? 1 : 0}"
-  name        = "${format(var.chamber_parameter_name_pattern, local.chamber_service, "keycloak_dbvendor")}"
+  name        = "${format(var.chamber_parameter_name_pattern, local.chamber_service, "keycloak_db_vendor")}"
   value       = "mysql"
   description = "Database Vendor, e.g. mysql, postgres"
   type        = "String"
