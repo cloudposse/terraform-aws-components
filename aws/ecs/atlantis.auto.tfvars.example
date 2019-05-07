@@ -20,7 +20,7 @@ atlantis_repo_owner = "example"
 
 atlantis_repo_whitelist = ["github.com/example/*"]
 
-atlantis_repo_config = "atlantis-repo-config.yaml"
+atlantis_repo_config = "/conf/ecs/atlantis-repo-config.yaml"
 
 atlantis_gh_user = "examplebot"
 
