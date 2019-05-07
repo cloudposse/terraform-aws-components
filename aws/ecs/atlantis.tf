@@ -15,6 +15,12 @@ variable "atlantis_gh_user" {
   default     = "undefined"
 }
 
+variable "atlantis_repo_config" {
+  type        = "string"
+  description = "Path to atlantis server-side repo config file (https://www.runatlantis.io/docs/server-side-repo-config.html)"
+  default     = "atlantis-repo-config.yaml"
+}
+
 variable "atlantis_repo_whitelist" {
   type        = "list"
   description = "Whitelist of repositories Atlantis will accept webhooks from"
@@ -165,7 +171,7 @@ variable "atlantis_alb_ingress_authenticated_paths" {
 }
 
 module "atlantis" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.7.0"
+  source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.8.0"
   enabled   = "${var.atlantis_enabled}"
   name      = "${var.name}"
   namespace = "${var.namespace}"
@@ -175,6 +181,7 @@ module "atlantis" {
   atlantis_gh_team_whitelist = "${var.atlantis_gh_team_whitelist}"
   atlantis_gh_user           = "${var.atlantis_gh_user}"
   atlantis_repo_whitelist    = ["${var.atlantis_repo_whitelist}"]
+  atlantis_repo_config       = "${var.atlantis_repo_config}"
 
   alb_arn_suffix = "${module.alb.alb_arn_suffix}"
   alb_dns_name   = "${module.alb.alb_dns_name}"
