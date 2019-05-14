@@ -15,8 +15,7 @@ module "kops_metadata" {
 }
 
 module "vpc" {
-  // source       = "git::https://github.com/cloudposse/terraform-aws-kops-data-network.git?ref=tags/0.1.0"
-  source       = "/Users/jgro/CP_dev/terraform-aws-kops-data-network"
+  source       = "git::https://github.com/cloudposse/terraform-aws-kops-data-network.git?ref=tags/0.1.1"
   cluster_name = "${var.cluster_name}"
   vpc_id       = "${var.vpc_id}"
 }
