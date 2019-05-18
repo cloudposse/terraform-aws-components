@@ -14,7 +14,7 @@ module "kops_metadata" {
   cluster_name = "${var.cluster_name}"
 }
 
-module "vpc" {
+module "kops_vpc" {
   source       = "git::https://github.com/cloudposse/terraform-aws-kops-data-network.git?ref=tags/0.1.1"
   cluster_name = "${var.cluster_name}"
   vpc_id       = "${var.vpc_id}"
@@ -25,7 +25,8 @@ data "aws_route53_zone" "default" {
 }
 
 locals {
-  zone_id = "${data.aws_route53_zone.default.zone_id}"
+  zone_id    = "${data.aws_route53_zone.default.zone_id}"
+  subnet_ids = ["${slice(module.kops_vpc.private_subnet_ids, 0, min(2, length(module.kops_vpc.private_subnet_ids)))}"]
 }
 
 locals {
@@ -38,10 +39,10 @@ locals {
   }
 
   security_groups = {
-    masters = ["${module.vpc.masters_security_group_id}"]
-    nodes   = ["${module.vpc.nodes_security_group_id}"]
-    both    = ["${module.vpc.masters_security_group_id}", "${module.vpc.nodes_security_group_id}"]
-    any     = ["${module.vpc.masters_security_group_id}", "${module.vpc.nodes_security_group_id}"]
+    masters = ["${module.kops_vpc.masters_security_group_id}"]
+    nodes   = ["${module.kops_vpc.nodes_security_group_id}"]
+    both    = ["${module.kops_vpc.masters_security_group_id}", "${module.kops_vpc.nodes_security_group_id}"]
+    any     = ["${module.kops_vpc.masters_security_group_id}", "${module.kops_vpc.nodes_security_group_id}"]
     none    = []
   }
 
@@ -54,19 +55,15 @@ locals {
 }
 
 module "elasticsearch" {
-  source          = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.3.0"
-  namespace       = "${var.namespace}"
-  stage           = "${var.stage}"
-  name            = "${var.elasticsearch_name}"
-  dns_zone_id     = "${local.zone_id}"
-  security_groups = ["${local.security_groups[var.elasticsearch_network_permitted_nodes]}"]
-
-  //  security_group_count    = "${length(local.security_groups[var.elasticsearch_permitted_nodes])}"
-  //  security_group_count    = "${local.security_group_count[var.elasticsearch_permitted_nodes]}"
-  vpc_id = "${module.vpc.vpc_id}"
-
-  subnet_ids                      = ["${slice(module.vpc.private_subnet_ids, 0, min(2, length(module.vpc.private_subnet_ids)))}"]
-  zone_awareness_enabled          = "${length(module.vpc.private_subnet_ids) > 1 ? "true" : "false"}"
+  source                          = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.3.0"
+  namespace                       = "${var.namespace}"
+  stage                           = "${var.stage}"
+  name                            = "${var.elasticsearch_name}"
+  dns_zone_id                     = "${local.zone_id}"
+  security_groups                 = ["${local.security_groups[var.elasticsearch_network_permitted_nodes]}"]
+  vpc_id                          = "${module.kops_vpc.vpc_id}"
+  subnet_ids                      = "${local.subnet_ids}"
+  zone_awareness_enabled          = "${length(module.kops_vpc.private_subnet_ids) > 1 ? "true" : "false"}"
   elasticsearch_version           = "${var.elasticsearch_version}"
   instance_type                   = "${var.elasticsearch_instance_type}"
   instance_count                  = "${var.elasticsearch_instance_count}"
@@ -127,4 +124,21 @@ output "elasticsearch_user_iam_role_name" {
 output "elasticsearch_user_iam_role_arn" {
   value       = "${module.elasticsearch.elasticsearch_user_iam_role_arn}"
   description = "IAM ARN of role for Elasticsearch users"
+}
+
+module "elasticsearch_log_cleanup" {
+  source    = "git::https://github.com/cloudposse/terraform-aws-lambda-elasticsearch-cleanup.git?ref=tags/0.2.0"
+  enabled   = "${var.elasticsearch_enabled == "true" ? var.elasticsearch_log_cleanup_enabled : "false"}"
+  namespace = "${var.namespace}"
+  stage     = "${var.stage}"
+  name      = "${var.elasticsearch_name}"
+
+  es_endpoint          = "${module.elasticsearch.domain_endpoint}"
+  es_domain_arn        = "${module.elasticsearch.domain_arn}"
+  es_security_group_id = "${module.elasticsearch.security_group_id}"
+  vpc_id               = "${module.kops_vpc.vpc_id}"
+  subnet_ids           = "${local.subnet_ids}"
+
+  index        = "${var.elasticsearch_log_index_name}"
+  delete_after = "${var.elasticsearch_log_retention_days}"
 }

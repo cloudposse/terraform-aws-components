@@ -106,3 +106,20 @@ variable "elasticsearch_iam_authorizing_role_arn" {
   description = "IAM role allowed to assume the elasticsearch user role. Typically the role that `kiam` runs as. Full ARN, or 'nodes' or 'masters')"
   default     = "masters"
 }
+
+variable "elasticsearch_log_cleanup_enabled" {
+  type        = "string"
+  description = "Set to \"true\" to enable automatic deletion of old logs"
+  default     = "true"
+}
+
+variable "elasticsearch_log_retention_days" {
+  default     = 15
+  description = "Number of days of logs to retain; logs older than this many days will be deleted."
+}
+
+variable "elasticsearch_log_index_name" {
+  type        = "string"
+  default     = "all"
+  description = "Index/indices to process. Use a comma-separated list. Specify `all` to match every index except for `.kibana`"
+}
