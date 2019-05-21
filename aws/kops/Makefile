@@ -37,7 +37,7 @@ kops/create-secret-sshpublickey:
 
 ## Show update plan for the kops cluster
 kops/plan:
-	kops update cluster
+	kops update cluster | sed -E 's/^ +([+|-])/\1/'
 
 ## Apply changes to the kops cluster
 kops/apply:
