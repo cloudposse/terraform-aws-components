@@ -11,7 +11,7 @@ variable "alb_ingress_cidr_blocks_https" {
 }
 
 module "alb" {
-  source             = "git::https://github.com/cloudposse/terraform-aws-alb.git?ref=tags/0.2.6"
+  source             = "git::https://github.com/cloudposse/terraform-aws-alb.git?ref=tags/0.3.0"
   name               = "${var.name}"
   namespace          = "${var.namespace}"
   stage              = "${var.stage}"
@@ -27,4 +27,6 @@ module "alb" {
   https_ingress_cidr_blocks = "${var.alb_ingress_cidr_blocks_https}"
   certificate_arn           = "${module.acm_request_certificate.arn}"
   health_check_interval     = "60"
+
+  alb_access_logs_s3_bucket_force_destroy = true
 }
