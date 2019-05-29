@@ -171,7 +171,7 @@ variable "atlantis_alb_ingress_authenticated_paths" {
 }
 
 module "atlantis" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=update-web-app"
+  source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.12.0"
   enabled   = "${var.atlantis_enabled}"
   name      = "${var.name}"
   namespace = "${var.namespace}"
