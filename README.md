@@ -86,20 +86,28 @@ get fmt validate version:
 
 ## Usage
 
+With the CloudPosse [reference architecture](https://github.com/cloudposse/reference-architectures), each environment (e.g. staging and prod) has its own, customized
+version of [Geodesic](https://github.com/cloudposse/geodesic). The process for using one of these Terraform root modules
+is one of further customizing the environment's Geodesic as follows:
+1. Create a directory under `/conf` to contain the files related to the root module. Normally the directory has the same name
+as the root module.
+1. Copy the `.envrc`, `Makefile.tasks`, and `terraform.envrc` files
+from [`cloudposse/reference-architectures/templates/conf/kops`](https://github.com/cloudposse/reference-architectures/tree/0.13.0/templates/conf/kops)
+into the new directory. The `.envrc` and `Makefile.tasks` files are boilerplate and do not need to be changed.
+1. Edit the `terraform.envrc` file so that the `TF_CLI_INIT_FROM_MODULE` points to the desired Terraform root module.
+Be sure to pin it to a specific version. Add additional environment variable settings if desired.
+1. Add a `terraform.tfvars` file that sets the vaules
+of all the inputs to your Terraform root module that need to be set (i.e. that do not
+have acceptable defaults).
 
+Then build, install, and run your Geodesic shell.
 
-Use the `terraform-root-modules` Docker image as the base image in the application `Dockerfile`, and copy the modules from `/aws` folder into `/conf` folder.
+Then, from within the Geodesic shell, after going through the authorization steps such as `assume-role`, `cd` to the
+new folder. The built-in `envrc` hook will configure the shell for Terraform automatically as a result of the `cd`.
 
-```dockerfile
-FROM cloudposse/terraform-root-modules:0.3.2 as terraform-root-modules
+Then, `make deps` will download the Terraform modules and initialze the Terraform state.
 
-FROM cloudposse/geodesic:0.9.18
-
-# Copy root modules into /conf folder
-COPY --from=terraform-root-modules /aws/ /conf/
-
-WORKDIR /conf/
-```
+Then you can use `terraform plan` and `terraform apply` to preview and apply the changes dictated by the module.
 
 
 
