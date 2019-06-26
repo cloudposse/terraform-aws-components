@@ -10,7 +10,7 @@ module "label" {
   tags       = "${var.tags}"
 }
 
-module "execution_role_name" {
+module "executor_role_name" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.5.3"
   enabled    = "${var.enabled}"
   context    = "${module.label.context}"
@@ -35,7 +35,7 @@ module "admin" {
 
 resource "aws_cloudformation_stack_set" "default" {
   administration_role_arn = "${module.admin.arn}"
-  execution_role_name     = "${module.execution_role_name.id}"
+  execution_role_name     = "${module.executor_role_name.name}"
   name                    = "${module.label.id}"
   tags                    = "${module.label.tags}"
 
