@@ -43,3 +43,9 @@ resource "aws_cloudformation_stack_set" "default" {
 
   template_url = "https://aws-quickstart.s3.amazonaws.com/quickstart-compliance-cis-benchmark/templates/main.template"
 }
+
+resource "aws_cloudformation_stack_set_instance" "example" {
+  account_id     = "123456789012"
+  region         = "us-east-1"
+  stack_set_name = "${aws_cloudformation_stack_set.default.name}"
+}
