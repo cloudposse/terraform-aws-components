@@ -17,7 +17,7 @@ module "default" {
   namespace          = "${var.namespace}"
   stage              = "${var.stage}"
   name               = "${var.executor_role_name}"
-  use_fullname       = "true"
+  use_fullname       = "false"
   attributes         = ["${var.attributes}"]
   role_description   = "IAM Role in all target accounts for Stack Set operations"
   policy_description = "IAM Policy in all target accounts for Stack Set operations"
