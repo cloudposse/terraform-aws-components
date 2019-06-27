@@ -17,6 +17,15 @@ module "executor_role_name" {
   attributes = ["${concat(var.attributes, list("execution"))}"]
 }
 
+data "aws_iam_policy_document" "admin" {
+  statement {
+    actions   = ["sts:AssumeRole"]
+    effect    = "Allow"
+    resources = ["arn:aws:iam::*:role/${module.executor_role_name.id}"]
+  }
+}
+
+
 module "admin" {
   source = "git::https://github.com/cloudposse/terraform-aws-iam-role.git?ref=generalize-principals"
 
@@ -31,6 +40,9 @@ module "admin" {
   principals = {
     Service = ["cloudformation.amazonaws.com"]
   }
+
+  policy_documents = ["${data.aws_iam_policy_document.admin.json}"]
+
 }
 
 resource "aws_cloudformation_stack_set" "default" {
