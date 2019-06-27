@@ -49,7 +49,7 @@ resource "null_resource" "instances" {
   count = "${length(keys(var.cis_instances))}"
 
   triggers {
-    account = "${join("|", formatlist("%s:%s", keys(var.cis_instances, count.index), var.cis_instances[element(keys(var.cis_instances, count.index))]))}"
+    account = "${join("|", formatlist("%s:%s", element(keys(var.cis_instances), count.index), var.cis_instances[element(keys(var.cis_instances), count.index)]))}"
   }
 }
 
