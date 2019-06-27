@@ -59,7 +59,7 @@ locals {
 }
 
 resource "aws_cloudformation_stack_set_instance" "default" {
-  count = "${length(var.enabled) == "true" ? length(local.instances) : 0}"
+  count = "${var.enabled == "true" ? length(local.instances) : 0}"
   account_id     = "${element(split(":", element(local.instances, count.index)), 0)}"
   region         = "${element(split(":", element(local.instances, count.index)), 1)}"
   stack_set_name = "${element(aws_cloudformation_stack_set.default.*.name, 0)}"
