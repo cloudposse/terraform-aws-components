@@ -64,5 +64,5 @@ resource "aws_cloudformation_stack_set_instance" "default" {
   region         = "${element(split(":", element(local.instances, count.index)), 1)}"
   stack_set_name = "${element(aws_cloudformation_stack_set.default.*.name, 0)}"
 
-  depends_on = ["aws_cloudformation_stack_set.default.0"]
+  depends_on = ["aws_cloudformation_stack_set.default"]
 }
