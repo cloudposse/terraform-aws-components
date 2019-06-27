@@ -34,6 +34,7 @@ module "admin" {
 }
 
 resource "aws_cloudformation_stack_set" "default" {
+  count = "${length(var.enabled) == "true" ? 1 : 0}"
   administration_role_arn = "${module.admin.arn}"
   execution_role_name     = "${module.executor_role_name.name}"
   name                    = "${module.label.id}"
@@ -46,7 +47,7 @@ resource "aws_cloudformation_stack_set" "default" {
 
 
 resource "null_resource" "instances" {
-  count = "${length(keys(var.cis_instances))}"
+  count = "${length(var.enabled) == "true" ? length(keys(var.cis_instances)) : 0}"
 
   triggers {
     account = "${join("|", formatlist("%s:%s", element(keys(var.cis_instances), count.index), var.cis_instances[element(keys(var.cis_instances), count.index)]))}"
@@ -58,10 +59,10 @@ locals {
 }
 
 resource "aws_cloudformation_stack_set_instance" "default" {
-  count = "${length(local.instances)}"
+  count = "${length(var.enabled) == "true" ? length(local.instances) : 0}"
   account_id     = "${element(split(":", element(local.instances, count.index)), 0)}"
   region         = "${element(split(":", element(local.instances, count.index)), 1)}"
-  stack_set_name = "${aws_cloudformation_stack_set.default.name}"
+  stack_set_name = "${element(aws_cloudformation_stack_set.default.*.name, 0)}"
 
-  depends_on = ["aws_cloudformation_stack_set.default"]
+  depends_on = ["aws_cloudformation_stack_set.default.0"]
 }
