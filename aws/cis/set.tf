@@ -44,8 +44,22 @@ resource "aws_cloudformation_stack_set" "default" {
   template_url = "https://aws-quickstart.s3.amazonaws.com/quickstart-compliance-cis-benchmark/templates/main.template"
 }
 
-resource "aws_cloudformation_stack_set_instance" "example" {
-  account_id     = "123456789012"
-  region         = "us-east-1"
+
+resource "null_resource" "instances" {
+  count = "${length(keys(var.cis_instances))}"
+
+  triggers {
+    account = "${join("|", formatlist("%s:%s", keys(var.cis_instances, count.index), var.cis_instances[element(keys(var.cis_instances, count.index))]))}"
+  }
+}
+
+locals {
+  instances = ["${split("|", join("|", null_resource.instances.*.triggers.account))}"]
+}
+
+resource "aws_cloudformation_stack_set_instance" "default" {
+  count = "${length(values(flatten(var.cis_instances)))}"
+  account_id     = "${element(split(":", element(local.instances, count.index)), 0)}"
+  region         = "${element(split(":", element(local.instances, count.index)), 1)}"
   stack_set_name = "${aws_cloudformation_stack_set.default.name}"
 }

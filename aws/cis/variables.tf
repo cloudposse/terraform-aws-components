@@ -45,3 +45,11 @@ variable "parameters" {
   description = "Key-value map of input parameters for the Stack Set template. (_e.g._ map(\"BusinessUnit\",\"ABC\")"
   default     = {}
 }
+
+
+variable "cis_instances" {
+  type        = "map"
+  default = {
+    "638153943796" = ["us-west-2"]
+  }
+}
