@@ -36,7 +36,7 @@ module "admin" {
 resource "aws_cloudformation_stack_set" "default" {
   count = "${var.enabled == "true" ? 1 : 0}"
   administration_role_arn = "${module.admin.arn}"
-  execution_role_name     = "${module.executor_role_name.name}"
+  execution_role_name     = "${module.executor_role_name.id}"
   name                    = "${module.label.id}"
   tags                    = "${module.label.tags}"
 
