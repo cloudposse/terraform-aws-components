@@ -166,6 +166,14 @@ resource "aws_ssm_parameter" "kops_dns_zone" {
   overwrite   = "true"
 }
 
+resource "aws_ssm_parameter" "kops_dns_zone_id" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_dns_zone_id")}"
+  value       = "${module.kops_state_backend.zone_id}"
+  description = "Kops DNS zone ID"
+  type        = "String"
+  overwrite   = "true"
+}
+
 resource "aws_ssm_parameter" "kops_network_cidr" {
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_network_cidr")}"
   value       = "${local.vpc_network_cidr}"
