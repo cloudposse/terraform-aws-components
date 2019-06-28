@@ -33,15 +33,16 @@ module "default" {
   policy_documents = ["${data.aws_iam_policy_document.executor.json}"]
 }
 
-
 data "aws_iam_policy_document" "executor" {
   statement {
-    effect    = "Allow"
+    effect = "Allow"
+
     resources = [
       "arn:aws:s3:::*",
-      "arn:aws:s3:::*/*"
+      "arn:aws:s3:::*/*",
     ]
-    actions   = [
+
+    actions = [
       "s3:CreateBucket",
       "s3:DeleteBucket",
       "s3:DeleteBucketPolicy",
@@ -119,17 +120,19 @@ data "aws_iam_policy_document" "executor" {
       "s3:ReplicateDelete",
       "s3:ReplicateObject",
       "s3:ReplicateTags",
-      "s3:RestoreObject"
+      "s3:RestoreObject",
     ]
   }
 
   statement {
-    effect    = "Allow"
+    effect = "Allow"
+
     resources = [
       "arn:aws:iam::*:policy/*",
-      "arn:aws:iam::*:role/*"
+      "arn:aws:iam::*:role/*",
     ]
-    actions   = [
+
+    actions = [
       "iam:AttachRolePolicy",
       "iam:CreatePolicy",
       "iam:CreatePolicyVersion",
@@ -159,16 +162,18 @@ data "aws_iam_policy_document" "executor" {
       "iam:TagRole",
       "iam:UntagRole",
       "iam:UpdateRole",
-      "iam:UpdateRoleDescription"
+      "iam:UpdateRoleDescription",
     ]
   }
 
   statement {
-    effect    = "Allow"
+    effect = "Allow"
+
     resources = [
-      "arn:aws:config:*:*:config-rule/*"
+      "arn:aws:config:*:*:config-rule/*",
     ]
-    actions   = [
+
+    actions = [
       "config:BatchGetResourceConfig",
       "config:DeleteConfigRule",
       "config:DeleteConfigurationRecorder",
@@ -210,18 +215,20 @@ data "aws_iam_policy_document" "executor" {
       "config:StartRemediationExecution",
       "config:StopConfigurationRecorder",
       "config:TagResource",
-      "config:UntagResource"
+      "config:UntagResource",
     ]
   }
 
   statement {
-    effect    = "Allow"
+    effect = "Allow"
+
     resources = [
       "arn:aws:lambda:*:*:event-source-mapping:*",
       "arn:aws:lambda:*:*:function:*",
-      "arn:aws:lambda:*:*:layer:*:*"
+      "arn:aws:lambda:*:*:layer:*:*",
     ]
-    actions   = [
+
+    actions = [
       "lambda:AddLayerVersionPermission",
       "lambda:AddPermission",
       "lambda:CreateAlias",
@@ -260,12 +267,13 @@ data "aws_iam_policy_document" "executor" {
       "lambda:UpdateAlias",
       "lambda:UpdateEventSourceMapping",
       "lambda:UpdateFunctionCode",
-      "lambda:UpdateFunctionConfiguration"
+      "lambda:UpdateFunctionConfiguration",
     ]
   }
 
   statement {
-    effect    = "Allow"
+    effect = "Allow"
+
     resources = [
       "arn:aws:logs:*:*:log-group:*:*:*",
       "arn:aws:cloudwatch::*:dashboard/*",
@@ -276,18 +284,16 @@ data "aws_iam_policy_document" "executor" {
       "arn:aws:kms:*:*:alias/*",
       "arn:aws:kms:*:*:key/*",
       "arn:aws:cloudtrail:*:*:trail/*",
-      "arn:aws:logs:*:*:log-group:*"
+      "arn:aws:logs:*:*:log-group:*",
     ]
-    actions   = [
+
+    actions = [
       "cloudformation:*",
       "cloudtrail:*",
       "cloudwatch:*",
       "events:*",
       "kms:*",
-      "logs:*"
+      "logs:*",
     ]
   }
-
 }
-
-
