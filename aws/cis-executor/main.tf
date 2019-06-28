@@ -285,7 +285,7 @@ data "aws_iam_policy_document" "executor" {
       "arn:aws:kms:*:*:key/*",
       "arn:aws:cloudtrail:*:*:trail/*",
       "arn:aws:logs:*:*:log-group:*",
-      "arn:aws:sns:*:*:*"
+      "arn:aws:sns:*:*:*",
     ]
 
     actions = [
@@ -295,7 +295,7 @@ data "aws_iam_policy_document" "executor" {
       "events:*",
       "kms:*",
       "logs:*",
-      "sns:*"
+      "sns:*",
     ]
   }
 }

@@ -36,6 +36,7 @@ module "default" {
   parameters         = "${var.parameters}"
   template_url       = "${local.template_url}"
   executor_role_name = "${local.executor_role_name}"
+  capabilities       = "${var.capabilities}"
 }
 
 resource "aws_cloudformation_stack_set_instance" "default" {
