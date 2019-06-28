@@ -32,6 +32,7 @@ module "default" {
   stage              = "${var.stage}"
   name               = "${var.name}"
   attributes         = ["${var.attributes}"]
+  parameters         = "${var.parameters}"
   template_url = "${local.template_url}"
   executor_role_name = "${local.executor_role_name}"
 }
