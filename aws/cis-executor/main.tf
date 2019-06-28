@@ -10,13 +10,17 @@ provider "aws" {
   }
 }
 
+locals {
+  executor_role_name = "cis-executor"
+}
+
 module "default" {
-  source = "git::https://github.com/cloudposse/terraform-aws-iam-role.git?ref=generalize-principals"
+  source = "git::https://github.com/cloudposse/terraform-aws-iam-role.git?ref=tags/0.3.0"
 
   enabled            = "${var.enabled}"
   namespace          = "${var.namespace}"
   stage              = "${var.stage}"
-  name               = "${var.executor_role_name}"
+  name               = "${local.executor_role_name}"
   use_fullname       = "false"
   attributes         = ["${var.attributes}"]
   role_description   = "IAM Role in all target accounts for Stack Set operations"

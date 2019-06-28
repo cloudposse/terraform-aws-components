@@ -47,15 +47,12 @@ variable "parameters" {
 }
 
 variable "capabilities" {
-  type = "list"
+  type        = "list"
   description = "A list of capabilities. Valid values: CAPABILITY_IAM, CAPABILITY_NAMED_IAM, CAPABILITY_AUTO_EXPAND"
-  default = []
+  default     = []
 }
 
-
 variable "cis_instances" {
-  type        = "map"
-  default = {
-    "638153943796" = ["us-west-2"]
-  }
+  type    = "map"
+  default = {}
 }

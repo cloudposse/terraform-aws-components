@@ -1,7 +1,7 @@
 output "administrator_role_arn" {
-  value = "${module.admin.arn}"
+  value = "${module.default.administrator_role_arn}"
 }
 
 output "executor_role_name" {
-  value = "${module.executor_role_name.id}"
+  value = "${module.default.executor_role_name}"
 }

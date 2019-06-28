@@ -38,7 +38,3 @@ variable "tags" {
 variable "administrator_role_arn" {
   description = "IAM Role for the CloudFormation administrator account"
 }
-
-variable "executor_role_name" {
-  description = "Name of the IAM Role in all target accounts for Stack Set operations"
-}
