@@ -20,8 +20,8 @@ resource "null_resource" "instances" {
 
 locals {
   executor_role_name = "cis-executor"
-  template_url = "https://aws-quickstart.s3.amazonaws.com/quickstart-compliance-cis-benchmark/templates/main.template"
-  instances = ["${split("|", join("|", null_resource.instances.*.triggers.account))}"]
+  template_url       = "https://aws-quickstart.s3.amazonaws.com/quickstart-compliance-cis-benchmark/templates/main.template"
+  instances          = ["${split("|", join("|", null_resource.instances.*.triggers.account))}"]
 }
 
 module "default" {
@@ -33,7 +33,7 @@ module "default" {
   name               = "${var.name}"
   attributes         = ["${var.attributes}"]
   parameters         = "${var.parameters}"
-  template_url = "${local.template_url}"
+  template_url       = "${local.template_url}"
   executor_role_name = "${local.executor_role_name}"
 }
 
@@ -42,5 +42,4 @@ resource "aws_cloudformation_stack_set_instance" "default" {
   stack_set_name = "${module.default.name}"
   account_id     = "${element(split(":", element(local.instances, count.index)), 0)}"
   region         = "${element(split(":", element(local.instances, count.index)), 1)}"
-
 }
