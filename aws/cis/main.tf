@@ -38,7 +38,7 @@ module "default" {
 }
 
 resource "aws_cloudformation_stack_set_instance" "default" {
-  count          = "${var.enabled == "true" ? length(local.instances) : 0}"
+  count          = "${var.enabled == "true" && length(local.instances) > 0 ? length(local.instances) : 0}"
   stack_set_name = "${module.default.name}"
   account_id     = "${element(split(":", element(local.instances, count.index)), 0)}"
   region         = "${element(split(":", element(local.instances, count.index)), 1)}"
