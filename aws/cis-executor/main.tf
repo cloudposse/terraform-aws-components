@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "executor" {
     effect    = "Allow"
     resources = [
       "arn:aws:s3:::*",
-      "arn:aws:s3:::*/*",
+      "arn:aws:s3:::*/*"
     ]
     actions   = [
       "s3:CreateBucket",
@@ -119,7 +119,7 @@ data "aws_iam_policy_document" "executor" {
       "s3:ReplicateDelete",
       "s3:ReplicateObject",
       "s3:ReplicateTags",
-      "s3:RestoreObject",
+      "s3:RestoreObject"
     ]
   }
 
@@ -159,14 +159,14 @@ data "aws_iam_policy_document" "executor" {
       "iam:TagRole",
       "iam:UntagRole",
       "iam:UpdateRole",
-      "iam:UpdateRoleDescription",
+      "iam:UpdateRoleDescription"
     ]
   }
 
   statement {
     effect    = "Allow"
     resources = [
-      "arn:aws:config:*:*:config-rule/*",
+      "arn:aws:config:*:*:config-rule/*"
     ]
     actions   = [
       "config:BatchGetResourceConfig",
@@ -178,7 +178,7 @@ data "aws_iam_policy_document" "executor" {
       "config:DeleteRetentionConfiguration",
       "config:DeliverConfigSnapshot",
       "config:DescribeComplianceByConfigRule",
-      "config:DescribeComplianceByResource"
+      "config:DescribeComplianceByResource",
       "config:DescribeConfigRuleEvaluationStatus",
       "config:DescribeConfigRules",
       "config:DescribeConfigurationRecorders",
@@ -210,7 +210,7 @@ data "aws_iam_policy_document" "executor" {
       "config:StartRemediationExecution",
       "config:StopConfigurationRecorder",
       "config:TagResource",
-      "config:UntagResource",
+      "config:UntagResource"
     ]
   }
 
@@ -219,7 +219,7 @@ data "aws_iam_policy_document" "executor" {
     resources = [
       "arn:aws:lambda:*:*:event-source-mapping:*",
       "arn:aws:lambda:*:*:function:*",
-      "arn:aws:lambda:*:*:layer:*:*",
+      "arn:aws:lambda:*:*:layer:*:*"
     ]
     actions   = [
       "lambda:AddLayerVersionPermission",
@@ -260,7 +260,7 @@ data "aws_iam_policy_document" "executor" {
       "lambda:UpdateAlias",
       "lambda:UpdateEventSourceMapping",
       "lambda:UpdateFunctionCode",
-      "lambda:UpdateFunctionConfiguration",
+      "lambda:UpdateFunctionConfiguration"
     ]
   }
 
@@ -284,7 +284,7 @@ data "aws_iam_policy_document" "executor" {
       "cloudwatch:*",
       "events:*",
       "kms:*",
-      "logs:*",
+      "logs:*"
     ]
   }
 
