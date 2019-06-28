@@ -29,4 +29,19 @@ module "default" {
   principals = {
     AWS = ["${var.administrator_role_arn}"]
   }
+
+  policy_documents = ["${data.aws_iam_policy_document.executor.json}"]
 }
+
+
+data "aws_iam_policy_document" "executor" {
+  statement {
+    effect    = "Allow"
+    resources = ["*"]
+    actions   = [
+      "cloudformation:CreateStack",
+    ]
+  }
+}
+
+
