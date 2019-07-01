@@ -174,7 +174,7 @@ data "terraform_remote_state" "backing_services" {
 }
 
 module "codefresh_enterprise_backing_services" {
-  source          = "git::https://github.com/cloudposse/terraform-aws-codefresh-backing-services.git?ref=tags/0.7.0"
+  source          = "git::https://github.com/cloudposse/terraform-aws-codefresh-backing-services.git?ref=codefresh-backup"
   namespace       = "${var.namespace}"
   stage           = "${var.stage}"
   vpc_id          = "${data.terraform_remote_state.backing_services.vpc_id}"
@@ -277,6 +277,38 @@ output "s3_secret_access_key" {
 output "s3_bucket_arn" {
   value       = "${module.codefresh_enterprise_backing_services.s3_bucket_arn}"
   description = "The s3 bucket ARN"
+}
+
+output "backup_s3_user_name" {
+  value       = "${module.codefresh_enterprise_backing_services.backup_s3_user_name}"
+  description = "Normalized IAM user name"
+}
+
+output "backup_s3_user_arn" {
+  value       = "${module.codefresh_enterprise_backing_services.backup_s3_user_arn}"
+  description = "The ARN assigned by AWS for the user"
+}
+
+output "backup_s3_user_unique_id" {
+  value       = "${module.codefresh_enterprise_backing_services.backup_s3_user_unique_id}"
+  description = "The user unique ID assigned by AWS"
+}
+
+output "backup_s3_access_key_id" {
+  sensitive   = true
+  value       = "${module.codefresh_enterprise_backing_services.backup_s3_access_key_id}"
+  description = "The access key ID"
+}
+
+output "backup_s3_secret_access_key" {
+  sensitive   = true
+  value       = "${module.codefresh_enterprise_backing_services.backup_s3_secret_access_key}"
+  description = "The secret access key. This will be written to the state file in plain-text"
+}
+
+output "backup_s3_bucket_arn" {
+  value       = "${module.codefresh_enterprise_backing_services.backup_s3_bucket_arn}"
+  description = "The backup_s3 bucket ARN"
 }
 
 output "acm_arn" {
