@@ -25,17 +25,18 @@ locals {
 }
 
 module "kops_state_backend" {
-  source           = "git::https://github.com/cloudposse/terraform-aws-kops-state-backend.git?ref=tags/0.1.7"
+  source           = "git::https://github.com/cloudposse/terraform-aws-kops-state-backend.git?ref=tags/0.3.0"
   namespace        = "${var.namespace}"
   stage            = "${var.stage}"
   name             = "${var.name}"
   attributes       = ["${var.kops_attribute}"]
-  cluster_name     = "${var.region}"
+  cluster_name     = "${coalesce(var.cluster_name_prefix, var.resource_region, var.region)}"
   parent_zone_name = "${var.zone_name}"
   zone_name        = "${var.complete_zone_name}"
   domain_enabled   = "${var.domain_enabled}"
   force_destroy    = "${var.force_destroy}"
-  region           = "${var.region}"
+  region           = "${coalesce(var.state_store_region, var.region)}"
+  create_bucket    = "${var.create_state_store_bucket}"
 }
 
 module "ssh_key_pair" {
@@ -43,7 +44,7 @@ module "ssh_key_pair" {
   namespace            = "${var.namespace}"
   stage                = "${var.stage}"
   name                 = "${var.name}"
-  attributes           = ["${var.region}"]
+  attributes           = ["${coalesce(var.resource_region, var.region)}"]
   ssm_path_prefix      = "${local.chamber_service}"
   rsa_bits             = "${var.ssh_key_rsa_bits}"
   ssh_key_algorithm    = "${var.ssh_key_algorithm}"

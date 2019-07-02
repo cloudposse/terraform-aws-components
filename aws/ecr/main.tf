@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 0.11.2"
+  required_version = "~> 0.11.2"
 
   backend "s3" {}
 }
@@ -18,26 +18,9 @@ variable "stage" {
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
-variable "region" {
+variable "cluster_name" {
   type        = "string"
-  description = "AWS region"
-}
-
-variable "zone_name" {
-  type        = "string"
-  description = "DNS zone name"
-}
-
-variable "masters_name" {
-  type        = "string"
-  default     = "masters"
-  description = "Kops masters subdomain name in the cluster DNS zone"
-}
-
-variable "nodes_name" {
-  type        = "string"
-  default     = "nodes"
-  description = "Kops nodes subdomain name in the cluster DNS zone"
+  description = "kops cluster name"
 }
 
 variable "external_principals_full_access" {
@@ -59,7 +42,6 @@ provider "aws" {
 }
 
 locals {
-  dns_zone                   = "${var.region}.${var.zone_name}"
   principals_full_access     = ["${concat(list(module.kops_ecr_user.user_arn), var.external_principals_full_access)}"]
   principals_readonly_access = ["${concat(list(module.kops_metadata.masters_role_arn, module.kops_metadata.nodes_role_arn), var.external_principals_readonly_access)}"]
 }
@@ -69,12 +51,10 @@ module "label" {
   namespace = "${var.namespace}"
   stage     = "${var.stage}"
   name      = "ecr"
-  tags      = "${map("Cluster", local.dns_zone)}"
+  tags      = "${map("Cluster", var.cluster_name)}"
 }
 
 module "kops_metadata" {
-  source       = "git::https://github.com/cloudposse/terraform-aws-kops-metadata.git?ref=tags/0.2.1"
-  dns_zone     = "${local.dns_zone}"
-  masters_name = "${var.masters_name}"
-  nodes_name   = "${var.nodes_name}"
+  source       = "git::https://github.com/cloudposse/terraform-aws-kops-data-iam.git?ref=tags/0.1.0"
+  cluster_name = "${var.cluster_name}"
 }
