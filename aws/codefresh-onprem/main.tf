@@ -55,6 +55,12 @@ variable "acm_zone_name" {
   description = "The name of the desired Route53 Hosted Zone"
 }
 
+variable "redis_cluster_enabled" {
+  type        = "string"
+  default     = "true"
+  description = "Set to false to prevent the module from creating any resources"
+}
+
 variable "documentdb_cluster_enabled" {
   description = "Set to false to prevent the module from creating DocumentDB cluster"
   default     = "true"
@@ -186,6 +192,8 @@ module "codefresh_enterprise_backing_services" {
   acm_enabled        = "${var.acm_enabled}"
   acm_primary_domain = "${var.acm_primary_domain}"
   acm_san_domains    = ["${var.acm_san_domains}"]
+
+  redis_cluster_enabled = "${var.redis_cluster_enabled}"
 
   # DocumentDB
   documentdb_cluster_enabled                 = "${var.documentdb_cluster_enabled}"
