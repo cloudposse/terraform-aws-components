@@ -57,13 +57,13 @@ variable "acm_zone_name" {
 
 variable "redis_cluster_enabled" {
   type        = "string"
-  default     = "true"
+  default     = "false"
   description = "Set to false to prevent the module from creating any resources"
 }
 
 variable "postgres_cluster_enabled" {
   type        = "string"
-  default     = "true"
+  default     = "false"
   description = "Set to false to prevent the module from creating any resources"
 }
 
