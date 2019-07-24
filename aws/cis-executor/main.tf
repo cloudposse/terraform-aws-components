@@ -281,7 +281,6 @@ data "aws_iam_policy_document" "executor" {
       "arn:aws:events:*:*:rule/*",
       "arn:aws:cloudformation:*:*:stack/*/*",
       "arn:aws:cloudformation:*:*:stackset/*:*",
-      "arn:aws:kms:*",
       "arn:aws:cloudtrail:*:*:trail/*",
       "arn:aws:logs:*:*:log-group:*",
       "arn:aws:sns:*:*:*",
@@ -292,9 +291,20 @@ data "aws_iam_policy_document" "executor" {
       "cloudtrail:*",
       "cloudwatch:*",
       "events:*",
-      "kms:*",
       "logs:*",
       "sns:*",
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+
+    resources = [
+      "*",
+    ]
+
+    actions = [
+      "kms:*",
     ]
   }
 }
