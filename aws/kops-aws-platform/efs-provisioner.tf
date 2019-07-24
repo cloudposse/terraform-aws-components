@@ -4,13 +4,23 @@ variable "efs_enabled" {
   default     = "false"
 }
 
-data "terraform_remote_state" "kops" {
-  backend = "s3"
+variable "kops_dns_zone_id" {
+  type        = "string"
+  default     = ""
+  description = "DNS Zone ID for kops. EFS DNS entries will be added to this zone. If empyty, zone ID will be retrieved from SSM Parameter store"
+}
 
-  config {
-    bucket = "${var.namespace}-${var.stage}-terraform-state"
-    key    = "kops/terraform.tfstate"
-  }
+data "aws_ssm_parameter" "kops_availability_zones" {
+  name = "/kops/kops_availability_zones"
+}
+
+data "aws_ssm_parameter" "kops_zone_id" {
+  count = "${var.efs_enabled == "true" && var.kops_dns_zone_id == "" ? 1 : 0}"
+  name  = "/kops/kops_dns_zone_id"
+}
+
+locals {
+  kops_zone_id = "${coalesce(var.kops_dns_zone_id, join("",data.aws_ssm_parameter.kops_zone_id.*.value))}"
 }
 
 module "kops_efs_provisioner" {
@@ -20,8 +30,8 @@ module "kops_efs_provisioner" {
   stage              = "${var.stage}"
   name               = "efs-provisioner"
   region             = "${var.region}"
-  availability_zones = ["${split(",", data.terraform_remote_state.kops.availability_zones)}"]
-  zone_id            = "${data.terraform_remote_state.kops.zone_id}"
+  availability_zones = ["${split(",", data.aws_ssm_parameter.kops_availability_zones.value)}"]
+  zone_id            = "${local.kops_zone_id}"
   cluster_name       = "${var.region}.${var.zone_name}"
 
   tags = {
