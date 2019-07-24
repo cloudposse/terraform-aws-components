@@ -44,4 +44,6 @@ resource "aws_cloudformation_stack_set_instance" "default" {
   stack_set_name = "${module.default.name}"
   account_id     = "${element(split(":", element(local.instances, count.index)), 0)}"
   region         = "${element(split(":", element(local.instances, count.index)), 1)}"
+
+  depends_on = ["module.default"]
 }
