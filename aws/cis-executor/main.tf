@@ -170,7 +170,7 @@ data "aws_iam_policy_document" "executor" {
     effect = "Allow"
 
     resources = [
-      "arn:aws:config:*:*:config-rule/*",
+      "arn:aws:config:*",
     ]
 
     actions = [
