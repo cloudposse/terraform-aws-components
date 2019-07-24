@@ -223,51 +223,11 @@ data "aws_iam_policy_document" "executor" {
     effect = "Allow"
 
     resources = [
-      "arn:aws:lambda:*:*:event-source-mapping:*",
-      "arn:aws:lambda:*:*:function:*",
-      "arn:aws:lambda:*:*:layer:*:*",
+      "arn:aws:lambda:*",
     ]
 
     actions = [
-      "lambda:AddLayerVersionPermission",
-      "lambda:AddPermission",
-      "lambda:CreateAlias",
-      "lambda:CreateEventSourceMapping",
-      "lambda:CreateFunction",
-      "lambda:DeleteAlias",
-      "lambda:DeleteEventSourceMapping",
-      "lambda:DeleteFunction",
-      "lambda:DeleteFunctionConcurrency",
-      "lambda:DeleteLayerVersion",
-      "lambda:EnableReplication",
-      "lambda:GetAccountSettings",
-      "lambda:GetAlias",
-      "lambda:GetEventSourceMapping",
-      "lambda:GetFunction",
-      "lambda:GetFunctionConfiguration",
-      "lambda:GetLayerVersion",
-      "lambda:GetLayerVersionPolicy",
-      "lambda:GetPolicy",
-      "lambda:InvokeAsync",
-      "lambda:InvokeFunction",
-      "lambda:ListAliases",
-      "lambda:ListEventSourceMappings",
-      "lambda:ListFunctions",
-      "lambda:ListLayers",
-      "lambda:ListLayerVersions",
-      "lambda:ListTags",
-      "lambda:ListVersionsByFunction",
-      "lambda:PublishLayerVersion",
-      "lambda:PublishVersion",
-      "lambda:PutFunctionConcurrency",
-      "lambda:RemoveLayerVersionPermission",
-      "lambda:RemovePermission",
-      "lambda:TagResource",
-      "lambda:UntagResource",
-      "lambda:UpdateAlias",
-      "lambda:UpdateEventSourceMapping",
-      "lambda:UpdateFunctionCode",
-      "lambda:UpdateFunctionConfiguration",
+      "lambda:*",
     ]
   }
 
