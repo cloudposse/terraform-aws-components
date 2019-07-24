@@ -305,6 +305,7 @@ data "aws_iam_policy_document" "executor" {
 
     actions = [
       "kms:*",
+      "iam:PassRole"
     ]
   }
 }
