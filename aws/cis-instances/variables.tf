@@ -51,3 +51,8 @@ variable "capabilities" {
   description = "A list of capabilities. Valid values: CAPABILITY_IAM, CAPABILITY_NAMED_IAM, CAPABILITY_AUTO_EXPAND"
   default     = []
 }
+
+variable "cis_instances" {
+  type    = "map"
+  default = {}
+}

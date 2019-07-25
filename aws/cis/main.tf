@@ -10,19 +10,9 @@ provider "aws" {
   }
 }
 
-resource "null_resource" "instances" {
-  count = "${var.enabled == "true" ? length(keys(var.cis_instances)) : 0}"
-
-  triggers {
-    account = "${join("|", formatlist("%s:%s", element(keys(var.cis_instances), count.index), var.cis_instances[element(keys(var.cis_instances), count.index)]))}"
-  }
-}
-
 locals {
   executor_role_name = "cis-executor"
   template_url       = "https://aws-quickstart.s3.amazonaws.com/quickstart-compliance-cis-benchmark/templates/main.template"
-  raw_instances      = ["${split("|", join("|", null_resource.instances.*.triggers.account))}"]
-  instances          = "${compact(local.raw_instances)}"
 }
 
 module "default" {
@@ -37,13 +27,4 @@ module "default" {
   template_url       = "${local.template_url}"
   executor_role_name = "${local.executor_role_name}"
   capabilities       = "${var.capabilities}"
-}
-
-resource "aws_cloudformation_stack_set_instance" "default" {
-  count          = "${var.enabled == "true" && length(local.instances) > 0 ? length(local.instances) : 0}"
-  stack_set_name = "${module.default.name}"
-  account_id     = "${element(split(":", element(local.instances, count.index)), 0)}"
-  region         = "${element(split(":", element(local.instances, count.index)), 1)}"
-
-  depends_on = ["module.default"]
 }
