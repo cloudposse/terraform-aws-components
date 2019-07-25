@@ -23,12 +23,7 @@ module "label" {
 }
 
 
-resource "aws_config_configuration_aggregator" "default" {
-  count = "${var.enabled == "true" ? 1 : 0}"
-  name  = "${module.label.id}"
-
-  account_aggregation_source {
-    account_ids = ["${var.accounts}"]
-    regions     = ["${var.regions}"]
-  }
+resource "aws_config_aggregate_authorization" "example" {
+  account_id = "${var.aggregator_account}"
+  region     = "${var.aggregator_region}"
 }

@@ -17,6 +17,11 @@ variable "stage" {
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
+variable "name" {
+  default     = "cis"
+  description = "Name"
+}
+
 variable "delimiter" {
   type        = "string"
   default     = "-"
@@ -26,7 +31,7 @@ variable "delimiter" {
 variable "attributes" {
   type        = "list"
   description = "Additional attributes (_e.g._ \"1\")"
-  default     = ["executor"]
+  default     = []
 }
 
 variable "tags" {
@@ -35,6 +40,18 @@ variable "tags" {
   default     = {}
 }
 
-variable "administrator_role_arn" {
-  description = "IAM Role for the CloudFormation administrator account"
+variable "parameters" {
+  type        = "map"
+  description = "Key-value map of input parameters for the Stack Set template. (_e.g._ map(\"BusinessUnit\",\"ABC\")"
+  default     = {}
+}
+
+variable "accounts" {
+  type    = "list"
+  default = []
+}
+
+variable "regions" {
+  type    = "list"
+  default = []
 }
