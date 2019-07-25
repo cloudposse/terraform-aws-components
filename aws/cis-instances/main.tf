@@ -36,9 +36,7 @@ locals {
 
 resource "aws_cloudformation_stack_set_instance" "default" {
   count          = "${var.enabled == "true" && length(local.instances) > 0 ? length(local.instances) : 0}"
-  stack_set_name = "${data.terraform_remote_state.cis}"
+  stack_set_name = "${data.terraform_remote_state.cis.name}"
   account_id     = "${element(split(":", element(local.instances, count.index)), 0)}"
   region         = "${element(split(":", element(local.instances, count.index)), 1)}"
-
-  depends_on = ["module.default"]
 }
