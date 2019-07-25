@@ -10,6 +10,15 @@ provider "aws" {
   }
 }
 
+data "terraform_remote_state" "cis" {
+  backend = "s3"
+
+  config {
+    bucket = "${var.namespace}-${var.stage}-terraform-state"
+    key    = "cis/terraform.tfstate"
+  }
+}
+
 resource "null_resource" "instances" {
   count = "${var.enabled == "true" ? length(keys(var.cis_instances)) : 0}"
 
@@ -25,23 +34,9 @@ locals {
   instances          = "${compact(local.raw_instances)}"
 }
 
-module "default" {
-  source = "git::https://github.com/cloudposse/terraform-aws-cloudformation-stack-set.git?ref=init"
-
-  enabled            = "${var.enabled}"
-  namespace          = "${var.namespace}"
-  stage              = "${var.stage}"
-  name               = "${var.name}"
-  attributes         = ["${var.attributes}"]
-  parameters         = "${var.parameters}"
-  template_url       = "${local.template_url}"
-  executor_role_name = "${local.executor_role_name}"
-  capabilities       = "${var.capabilities}"
-}
-
 resource "aws_cloudformation_stack_set_instance" "default" {
   count          = "${var.enabled == "true" && length(local.instances) > 0 ? length(local.instances) : 0}"
-  stack_set_name = "${module.default.name}"
+  stack_set_name = "${data.terraform_remote_state.cis}"
   account_id     = "${element(split(":", element(local.instances, count.index)), 0)}"
   region         = "${element(split(":", element(local.instances, count.index)), 1)}"
 
