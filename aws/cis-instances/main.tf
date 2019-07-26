@@ -28,8 +28,8 @@ resource "null_resource" "instances" {
 }
 
 locals {
-  raw_instances      = ["${split("|", join("|", null_resource.instances.*.triggers.account))}"]
-  instances          = "${compact(local.raw_instances)}"
+  raw_instances = ["${split("|", join("|", null_resource.instances.*.triggers.account))}"]
+  instances     = "${compact(local.raw_instances)}"
 }
 
 resource "aws_cloudformation_stack_set_instance" "default" {

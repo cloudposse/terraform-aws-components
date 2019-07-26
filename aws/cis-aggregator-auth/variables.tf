@@ -46,8 +46,6 @@ variable "parameters" {
   default     = {}
 }
 
-variable "aggregator_account" {
-}
+variable "aggregator_account" {}
 
-variable "aggregator_region" {
-}
+variable "aggregator_region" {}

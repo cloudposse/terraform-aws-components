@@ -22,7 +22,6 @@ module "label" {
   tags       = "${var.tags}"
 }
 
-
 resource "aws_config_configuration_aggregator" "default" {
   count = "${var.enabled == "true" ? 1 : 0}"
   name  = "${module.label.id}"
