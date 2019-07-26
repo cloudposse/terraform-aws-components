@@ -28,8 +28,6 @@ resource "null_resource" "instances" {
 }
 
 locals {
-  executor_role_name = "cis-executor"
-  template_url       = "https://aws-quickstart.s3.amazonaws.com/quickstart-compliance-cis-benchmark/templates/main.template"
   raw_instances      = ["${split("|", join("|", null_resource.instances.*.triggers.account))}"]
   instances          = "${compact(local.raw_instances)}"
 }

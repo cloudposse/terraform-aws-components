@@ -16,7 +16,7 @@ locals {
 }
 
 module "default" {
-  source = "git::https://github.com/cloudposse/terraform-aws-cloudformation-stack-set.git?ref=init"
+  source = "git::https://github.com/cloudposse/terraform-aws-cloudformation-stack-set.git?ref=tags/0.1.0"
 
   enabled            = "${var.enabled}"
   namespace          = "${var.namespace}"

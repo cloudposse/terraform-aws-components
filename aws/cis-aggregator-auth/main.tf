@@ -23,7 +23,7 @@ module "label" {
 }
 
 
-resource "aws_config_aggregate_authorization" "example" {
+resource "aws_config_aggregate_authorization" "default" {
   account_id = "${var.aggregator_account}"
   region     = "${var.aggregator_region}"
 }
