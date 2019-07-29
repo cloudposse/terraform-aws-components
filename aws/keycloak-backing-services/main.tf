@@ -1,10 +1,12 @@
 terraform {
-  required_version = ">= 0.11.2"
+  required_version = "~> 0.11.2"
 
   backend "s3" {}
 }
 
 provider "aws" {
+  version = "~> 2.17"
+
   assume_role {
     role_arn = "${var.aws_assume_role_arn}"
   }
