@@ -60,6 +60,12 @@ variable "mysql_storage_encrypted" {
   description = "Set to true to keep the database contents encrypted"
 }
 
+variable "mysql_kms_key_id" {
+  type        = "string"
+  default     = "alias/aws/rds"
+  description = "KMS key ID, ARN, or alias to use for encrypting MySQL database"
+}
+
 variable "mysql_deletion_protection" {
   type        = "string"
   default     = "true"
@@ -151,6 +157,10 @@ locals {
   ]
 }
 
+data "aws_kms_key" "mysql" {
+  key_id = "${var.mysql_kms_key_id}"
+}
+
 module "aurora_mysql" {
   source         = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=tags/0.15.0"
   namespace      = "${var.namespace}"
@@ -171,6 +181,7 @@ module "aurora_mysql" {
   enabled        = "${var.mysql_cluster_enabled}"
 
   storage_encrypted   = "${var.mysql_storage_encrypted}"
+  kms_key_arn         = "${var.mysql_storage_encrypted ? data.aws_kms_key.mysql.arn : ""}"
   deletion_protection = "${var.mysql_deletion_protection}"
   skip_final_snapshot = "${var.mysql_skip_final_snapshot}"
   publicly_accessible = "${var.mysql_cluster_publicly_accessible}"
@@ -202,6 +213,7 @@ resource "aws_ssm_parameter" "aurora_mysql_master_password" {
   description = "Aurora MySQL Password for the master DB user"
   type        = "SecureString"
   overwrite   = "true"
+  key_id      = "${var.chamber_kms_key_id}"
 }
 
 resource "aws_ssm_parameter" "aurora_mysql_master_hostname" {

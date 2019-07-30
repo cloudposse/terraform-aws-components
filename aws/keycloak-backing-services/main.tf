@@ -46,6 +46,12 @@ variable "chamber_parameter_name_pattern" {
   description = "Format string for creating SSM parameter name used to store chamber parameters. The default is usually best."
 }
 
+variable "chamber_kms_key_id" {
+  type        = "string"
+  default     = "alias/aws/ssm"
+  description = "KMS key ID, ARN, or alias to use for encrypting SSM secrets"
+}
+
 data "aws_route53_zone" "default" {
   name = "${var.dns_zone_name}"
 }

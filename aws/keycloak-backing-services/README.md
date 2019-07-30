@@ -2,7 +2,7 @@
 
 This module provisions the backend resources needed by [Keycloak](https://www.keycloak.org/documentation.html).
 
-As of this writing, this only provisions an Aurura MySQL 5.7 database.
+As of this writing, this only provisions an Aurora MySQL 5.7 database.
 
 ## Security Vulnerabilities
 
@@ -36,7 +36,7 @@ who could become a man-in-the-middle would likely to be able to gain
 access to all the resources protected by Keycloak by appearing to be
 an authorized local service.
 
-## Secuirty To Do
+## Security To Do
 
 ### Database encryption
 
@@ -47,7 +47,7 @@ limiting access to it, and the default key will likey have relatively
 wide access.
 1. Create an IAM role for Keycloak that has access to the key. Nodes running
 `kiam-server` will need to be able to assume this role.
-1. Enable encryption for the database using this key.
+2. Enable encryption for the database using this key.
 
 Then the Keycloak deployment (actually `StatefulSet`) will need to be 
 annotated so that `kiam` grants Keycloak access to this role. 
@@ -57,14 +57,14 @@ annotated so that `kiam` grants Keycloak access to this role.
 To get the RDS MySQL SSL connection to validate: 
 1. Get the RDS CA from  https://s3.amazonaws.com/rds-downloads/rds-ca-2015-root.pem expires (Mar  5 09:11:31 2020 GMT)
 or successor (consult current RDS documentation)
-1. Import it into a Java KeyStore (JKS) 
+2. Import it into a Java KeyStore (JKS) 
     *  Run`keytool -importcert -alias MySQLCACert -file ca.pem  -keystore truststore -storepass mypassword` in a Keycloak
     container in order to be sure to get a compatible version of the Java SDK `keytool`
-1. Copy the KeyStore into a secret
-1. Mount the Secret
-1. Set [`JDBC_PARAMS` environment variable](https://github.com/jboss-dockerfiles/keycloak/blob/119fb1f61a477ec217ba71c18c3a71a10e8d5575/server/tools/cli/databases/mysql/change-database.cli#L2 )
-    * to `?clientCertificateKeyStoreUrl=file:///path-to-keystore&clientCertificateKeyStorePassword=mypassword`
-1. Note that it would seem to be more appropriate to set to 
+3. Copy the KeyStore into a secret
+4. Mount the Secret
+5. Set [`JDBC_PARAMS` environment variable](https://github.com/jboss-dockerfiles/keycloak/blob/119fb1f61a477ec217ba71c18c3a71a10e8d5575/server/tools/cli/databases/mysql/change-database.cli#L2 )
+   to `?clientCertificateKeyStoreUrl=file:///path-to-keystore&clientCertificateKeyStorePassword=mypassword`
+6. Note that it would seem to be more appropriate to set to 
 `?trustCertificateKeyStoreUrl=file:///path-to-keystore&trustCertificateKeyStorePassword=mypassword`
  but the [documentation](https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-using-ssl.html) 
  [consistently](https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-configuration-properties.html)
