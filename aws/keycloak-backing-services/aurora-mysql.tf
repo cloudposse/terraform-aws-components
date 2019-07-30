@@ -54,6 +54,30 @@ variable "mysql_cluster_allowed_cidr_blocks" {
   description = "Comma separated string list of CIDR blocks allowed to access the cluster, or SSM parameter key for it"
 }
 
+variable "mysql_storage_encrypted" {
+  type        = "string"
+  default     = "false"
+  description = "Set to true to keep the database contents encrypted"
+}
+
+variable "mysql_kms_key_id" {
+  type        = "string"
+  default     = "alias/aws/rds"
+  description = "KMS key ID, ARN, or alias to use for encrypting MySQL database"
+}
+
+variable "mysql_deletion_protection" {
+  type        = "string"
+  default     = "true"
+  description = "Set to true to protect the database from deletion"
+}
+
+variable "mysql_skip_final_snapshot" {
+  type        = "string"
+  default     = "false"
+  description = "Determines whether a final DB snapshot is created before the DB cluster is deleted"
+}
+
 variable "vpc_id" {
   type        = "string"
   description = "The AWS ID of the VPC to create the cluster in, or SSM parameter key for it"
@@ -65,21 +89,21 @@ variable "vpc_subnet_ids" {
 }
 
 resource "random_pet" "mysql_db_name" {
-  count     = "${local.mysql_cluster_enabled ? 1 : 0}"
+  count     = "${local.mysql_cluster_enabled && length(var.mysql_db_name) == 0 ? 1 : 0}"
   separator = "_"
 }
 
 resource "random_string" "mysql_admin_user" {
-  count   = "${local.mysql_cluster_enabled ? 1 : 0}"
+  count   = "${local.mysql_cluster_enabled && length(var.mysql_admin_user) == 0 ? 1 : 0}"
   length  = 8
   number  = false
   special = false
 }
 
 resource "random_string" "mysql_admin_password" {
-  count   = "${local.mysql_cluster_enabled ? 1 : 0}"
-  length  = 24
-  special = true
+  count   = "${local.mysql_cluster_enabled && length(var.mysql_admin_password) == 0 ? 1 : 0}"
+  length  = 33
+  special = false
 }
 
 #  "Read SSM parameter to get allowed CIDR blocks"
@@ -133,11 +157,16 @@ locals {
   ]
 }
 
+data "aws_kms_key" "mysql" {
+  key_id = "${var.mysql_kms_key_id}"
+}
+
 module "aurora_mysql" {
-  source         = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=tags/0.8.0"
+  source         = "git::https://github.com/cloudposse/terraform-aws-rds-cluster.git?ref=tags/0.15.0"
   namespace      = "${var.namespace}"
   stage          = "${var.stage}"
   name           = "${var.mysql_name}"
+  attributes     = ["keycloak"]
   engine         = "aurora-mysql"
   cluster_family = "aurora-mysql5.7"
   instance_type  = "${var.mysql_instance_type}"
@@ -147,10 +176,14 @@ module "aurora_mysql" {
   db_name        = "${local.mysql_db_name}"
   db_port        = "3306"
   vpc_id         = "${local.vpc_id}"
+  subnets        = "${local.vpc_subnet_ids}"
+  zone_id        = "${local.dns_zone_id}"
+  enabled        = "${var.mysql_cluster_enabled}"
 
-  subnets             = "${local.vpc_subnet_ids}"
-  zone_id             = "${local.dns_zone_id}"
-  enabled             = "${var.mysql_cluster_enabled}"
+  storage_encrypted   = "${var.mysql_storage_encrypted}"
+  kms_key_arn         = "${var.mysql_storage_encrypted ? data.aws_kms_key.mysql.arn : ""}"
+  deletion_protection = "${var.mysql_deletion_protection}"
+  skip_final_snapshot = "${var.mysql_skip_final_snapshot}"
   publicly_accessible = "${var.mysql_cluster_publicly_accessible}"
   allowed_cidr_blocks = "${local.allowed_cidr_blocks}"
 }
@@ -176,10 +209,11 @@ resource "aws_ssm_parameter" "aurora_mysql_master_username" {
 resource "aws_ssm_parameter" "aurora_mysql_master_password" {
   count       = "${local.mysql_cluster_enabled ? 1 : 0}"
   name        = "${format(var.chamber_parameter_name_pattern, local.chamber_service, "keycloak_db_password")}"
-  value       = "${module.aurora_mysql.password}"
+  value       = "${local.mysql_admin_password}"
   description = "Aurora MySQL Password for the master DB user"
-  type        = "String"
+  type        = "SecureString"
   overwrite   = "true"
+  key_id      = "${var.chamber_kms_key_id}"
 }
 
 resource "aws_ssm_parameter" "aurora_mysql_master_hostname" {
