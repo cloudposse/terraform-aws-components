@@ -47,4 +47,6 @@ module "default_backend_web_app" {
 
   alb_ingress_unauthenticated_paths = ["/*"]
   alb_ingress_authenticated_paths   = []
+
+  repo_owner = "${var.atlantis_repo_owner}"
 }
