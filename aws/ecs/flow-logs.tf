@@ -10,7 +10,7 @@ module "flow_logs" {
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   tags       = "${var.tags}"
-  attributes = "${var.attributes}"
+  attributes = "${concat(var.attributes, list("flow-logs"))}"
   delimiter  = "${var.delimiter}"
 
   region = "${var.region}"
