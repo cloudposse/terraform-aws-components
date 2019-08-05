@@ -42,5 +42,5 @@ variable "region" {
 
 variable "flow_logs_enabled" {
   description = "Set to false to prevent the module from creating any resources"
-  default = "true"
+  default     = "true"
 }

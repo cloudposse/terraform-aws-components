@@ -42,4 +42,3 @@ output "flow_logs_id" {
   value       = "${module.flow_logs.id}"
   description = "Flow logs ID"
 }
-
