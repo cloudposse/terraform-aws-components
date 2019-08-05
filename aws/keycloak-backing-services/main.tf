@@ -1,10 +1,12 @@
 terraform {
-  required_version = ">= 0.11.2"
+  required_version = "~> 0.11.2"
 
   backend "s3" {}
 }
 
 provider "aws" {
+  version = "~> 2.17"
+
   assume_role {
     role_arn = "${var.aws_assume_role_arn}"
   }
@@ -42,6 +44,12 @@ variable "chamber_service" {
 variable "chamber_parameter_name_pattern" {
   default     = "/%s/%s"
   description = "Format string for creating SSM parameter name used to store chamber parameters. The default is usually best."
+}
+
+variable "chamber_kms_key_id" {
+  type        = "string"
+  default     = "alias/aws/ssm"
+  description = "KMS key ID, ARN, or alias to use for encrypting SSM secrets"
 }
 
 data "aws_route53_zone" "default" {
