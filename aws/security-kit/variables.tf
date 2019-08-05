@@ -35,10 +35,6 @@ variable "tags" {
   default     = {}
 }
 
-variable "administrator_role_arn" {
-  description = "IAM Role for the CloudFormation administrator account"
-}
-
 variable "region" {
   description = "If specified, the AWS region this bucket should reside in. Otherwise, the region used by the callee."
   default     = ""
