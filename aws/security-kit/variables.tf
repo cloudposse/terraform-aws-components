@@ -26,7 +26,7 @@ variable "delimiter" {
 variable "attributes" {
   type        = "list"
   description = "Additional attributes (_e.g._ \"1\")"
-  default     = ["executor"]
+  default     = []
 }
 
 variable "tags" {
