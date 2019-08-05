@@ -19,7 +19,7 @@ data "aws_vpc" "default" {
 }
 
 module "flow_logs" {
-  source = "git::https://github.com/cloudposse/terraform-aws-vpc-flow-logs-s3-bucket.git?ref=init"
+  source = "git::https://github.com/cloudposse/terraform-aws-vpc-flow-logs-s3-bucket.git?ref=tags/0.1.0"
 
   name       = "vpc"
   namespace  = "${var.namespace}"
