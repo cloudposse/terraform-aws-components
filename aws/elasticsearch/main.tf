@@ -86,7 +86,7 @@ locals {
 }
 
 resource "aws_ssm_parameter" "elasticsearch_domain_endpoint" {
-  count = "${var.chamber_parameters_enabled ? 1 : 0}"
+  count       = "${var.chamber_parameters_enabled ? 1 : 0}"
   name        = "${format(var.chamber_parameter_name, local.elasticsearch_chamber_service, "elasticsearch_domain_endpoint")}"
   value       = "${module.elasticsearch.domain_endpoint}"
   description = "Domain-specific endpoint used to submit index, search, and data upload requests"
@@ -95,7 +95,7 @@ resource "aws_ssm_parameter" "elasticsearch_domain_endpoint" {
 }
 
 resource "aws_ssm_parameter" "elasticsearch_kibana_endpoint" {
-  count = "${var.chamber_parameters_enabled ? 1 : 0}"
+  count       = "${var.chamber_parameters_enabled ? 1 : 0}"
   name        = "${format(var.chamber_parameter_name, local.elasticsearch_chamber_service, "elasticsearch_kibana_endpoint")}"
   value       = "${module.elasticsearch.kibana_endpoint}"
   description = "Domain-specific endpoint for Kibana without https scheme"

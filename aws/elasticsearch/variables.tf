@@ -24,7 +24,7 @@ variable "zone_name" {
 }
 
 variable "chamber_parameters_enabled" {
-  default = "false"
+  default     = "false"
   description = "Set true to store endpoints in Chamber/SSM parameter store"
 }
 
@@ -39,10 +39,9 @@ variable "elasticsearch_chamber_service" {
 }
 
 variable "chamber_parameter_name" {
-  default = "/%s/%s"
+  default     = "/%s/%s"
   description = "Format string for converting `chamber` service and parameter names to SSM parameter name"
 }
-
 
 variable "cluster_name" {
   type        = "string"
