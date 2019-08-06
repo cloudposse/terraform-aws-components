@@ -23,6 +23,27 @@ variable "zone_name" {
   description = "Domain name of DNS zone in which to add elasticsearch, optional, defaults to cluster_name"
 }
 
+variable "chamber_parameters_enabled" {
+  default = "false"
+  description = "Set true to store endpoints in Chamber/SSM parameter store"
+}
+
+variable "chamber_service" {
+  default     = ""
+  description = "`chamber` service name shared by all services. See [chamber usage](https://github.com/segmentio/chamber#usage) for more details"
+}
+
+variable "elasticsearch_chamber_service" {
+  default     = ""
+  description = "`chamber` service name specific to elasticsearch"
+}
+
+variable "chamber_parameter_name" {
+  default = "/%s/%s"
+  description = "Format string for converting `chamber` service and parameter names to SSM parameter name"
+}
+
+
 variable "cluster_name" {
   type        = "string"
   description = "Kops cluster name (e.g. `us-east-1.prod.cloudposse.co` or `cluster-1.cloudposse.co`)"
