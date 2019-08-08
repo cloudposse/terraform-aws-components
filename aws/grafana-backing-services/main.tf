@@ -33,6 +33,7 @@ variable "region" {
 
 variable "dns_zone_name" {
   type        = string
+  default     = ""
   description = "The DNS domain under which to put entries for the database. Usually the same as the cluster name, e.g. us-west-2.prod.cpco.io"
 }
 
