@@ -68,7 +68,7 @@ variable "mysql_skip_final_snapshot" {
 
 data "aws_route53_zone" "default" {
   count = length(var.dns_zone_name) > 0 ? 1 : 0
-  name = var.dns_zone_name
+  name  = var.dns_zone_name
 }
 
 resource "random_string" "mysql_admin_user" {
@@ -99,7 +99,7 @@ data "aws_ssm_parameter" "vpc_id" {
   # The data source will throw an error if it cannot find the parameter,
   # so do not reference it unless it is neeeded.
   count = local.vpc_id_use_ssm ? 1 : 0
-  name = var.vpc_id
+  name  = var.vpc_id
 }
 
 #  "Read SSM parameter to get allowed VPC subnet IDs"
@@ -107,12 +107,12 @@ data "aws_ssm_parameter" "vpc_subnet_ids" {
   # The data source will throw an error if it cannot find the parameter,
   # so do not reference it unless it is neeeded.
   count = local.vpc_subnet_ids_use_ssm ? 1 : 0
-  name = var.vpc_subnet_ids
+  name  = var.vpc_subnet_ids
 }
 
 locals {
   chamber_service = var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service
-  dns_zone_id     = length(var.dns_zone_name) > 0 ? join("",data.aws_route53_zone.default.*.zone_id) : ""
+  dns_zone_id     = length(var.dns_zone_name) > 0 ? join("", data.aws_route53_zone.default.*.zone_id) : ""
 
   mysql_admin_user     = length(var.mysql_admin_user) > 0 ? var.mysql_admin_user : join("", random_string.mysql_admin_user.*.result)
   mysql_admin_password = length(var.mysql_admin_password) > 0 ? var.mysql_admin_password : join("", random_string.mysql_admin_password.*.result)
