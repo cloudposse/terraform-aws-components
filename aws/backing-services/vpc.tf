@@ -18,7 +18,7 @@ variable "vpc_max_subnet_count" {
 data "aws_region" "current" {}
 
 module "vpc" {
-  source     = "git::https://github.com/cloudposse/terraform-aws-vpc.git?ref=tags/0.3.3"
+  source     = "git::https://github.com/cloudposse/terraform-aws-vpc.git?ref=tags/0.4.2"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   name       = "${local.name}"
