@@ -90,7 +90,7 @@ module "kms_key" {
 }
 
 module "cloudtrail_s3_bucket" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-cloudtrail-s3-bucket.git?ref=tags/0.1.1"
+  source    = "git::https://github.com/cloudposse/terraform-aws-cloudtrail-s3-bucket.git?ref=tags/0.3.1"
   namespace = "${var.namespace}"
   stage     = "${var.stage}"
   name      = "${var.name}"
