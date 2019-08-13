@@ -99,6 +99,10 @@ module "cloudtrail_s3_bucket" {
   kms_master_key_arn = "${module.kms_key.alias_arn}"
 }
 
+output "logging" {
+  value = "${module.cloudtrail_s3_bucket.logging}"
+}
+
 module "cloudtrail" {
   source                        = "git::https://github.com/cloudposse/terraform-aws-cloudtrail.git?ref=tags/0.7.0"
   namespace                     = "${var.namespace}"
