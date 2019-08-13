@@ -1,4 +1,4 @@
-terraform {
+  terraform {
   required_version = ">= 0.11.2"
 
   backend "s3" {}
@@ -30,8 +30,13 @@ variable "name" {
   default     = "account"
 }
 
+variable "kms_key_arn" {
+  type        = "string"
+  description = ""
+}
+
 module "cloudtrail" {
-  source                        = "git::https://github.com/cloudposse/terraform-aws-cloudtrail.git?ref=tags/0.3.0"
+  source                        = "git::https://github.com/cloudposse/terraform-aws-cloudtrail.git?ref=tags/0.7.0"
   namespace                     = "${var.namespace}"
   stage                         = "${var.stage}"
   name                          = "${var.name}"
@@ -40,4 +45,5 @@ module "cloudtrail" {
   include_global_service_events = "true"
   is_multi_region_trail         = "true"
   s3_bucket_name                = "${var.namespace}-audit-account"
+  kms_key_id                    = "${var.kms_key_arn}"
 }

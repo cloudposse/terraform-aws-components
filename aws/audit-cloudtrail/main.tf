@@ -43,16 +43,50 @@ locals {
   region = "${length(var.region) > 0 ? var.region : data.aws_region.default.name}"
 }
 
-module "cloudtrail" {
-  source                        = "git::https://github.com/cloudposse/terraform-aws-cloudtrail.git?ref=tags/0.3.0"
-  namespace                     = "${var.namespace}"
-  stage                         = "${var.stage}"
-  name                          = "${var.name}"
-  enable_logging                = "true"
-  enable_log_file_validation    = "true"
-  include_global_service_events = "true"
-  is_multi_region_trail         = "true"
-  s3_bucket_name                = "${module.cloudtrail_s3_bucket.bucket_id}"
+
+data "aws_iam_policy_document" "kms" {
+  statement {
+    sid    = "Allow CloudTrail to Encrypt with the key"
+    effect = "Allow"
+
+    actions = [
+      "kms:GenerateDataKey*",
+    ]
+
+    resources = [
+      "*",
+    ]
+
+    principals {
+      type = "Service"
+
+      identifiers = [
+        "cloudtrail.amazonaws.com",
+      ]
+    }
+
+    condition {
+      test     = "StringLike"
+      variable = "kms:EncryptionContext:aws:cloudtrail:arn"
+
+      values = [
+        "arn:aws:cloudtrail:*:*:trail/*"
+      ]
+    }
+  }
+}
+
+module "kms_key" {
+  source     = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=0.1.3"
+  namespace  = "${var.namespace}"
+  name       = "${var.name}"
+  stage      = "${var.stage}"
+
+  description             = "KMS key for CloudTrail"
+  deletion_window_in_days = 10
+  enable_key_rotation     = "true"
+
+  policy = "${data.aws_iam_policy_document.kms.json}"
 }
 
 module "cloudtrail_s3_bucket" {
@@ -61,6 +95,25 @@ module "cloudtrail_s3_bucket" {
   stage     = "${var.stage}"
   name      = "${var.name}"
   region    = "${local.region}"
+  sse_algorithm = "aws:kms"
+  kms_master_key_arn = "${module.kms_key.alias_arn}"
+}
+
+module "cloudtrail" {
+  source                        = "git::https://github.com/cloudposse/terraform-aws-cloudtrail.git?ref=tags/0.7.0"
+  namespace                     = "${var.namespace}"
+  stage                         = "${var.stage}"
+  name                          = "${var.name}"
+  enable_logging                = "true"
+  enable_log_file_validation    = "true"
+  include_global_service_events = "true"
+  is_multi_region_trail         = "true"
+  s3_bucket_name                = "${module.cloudtrail_s3_bucket.bucket_id}"
+  kms_key_id                    = "${module.kms_key.alias_arn}"
+}
+
+output "cloudtrail_kms_key_arn" {
+  value = "${module.kms_key.alias_arn}"
 }
 
 output "cloudtrail_bucket_domain_name" {
