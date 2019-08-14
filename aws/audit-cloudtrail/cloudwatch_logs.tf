@@ -25,13 +25,13 @@ data "aws_iam_policy_document" "cloudwatch_logs" {
 }
 
 module "cloudwatch_logs_role" {
-  source = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.3.3"
+  source = "git::https://github.com/cloudposse/terraform-aws-iam-role.git?ref=tags/0.3.3"
 
   enabled   = "true"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   name       = "${var.name}"
-  attibutes  = ["cloudwatch", "logs"]
+  attributes  = ["cloudwatch", "logs"]
 
   principals = {
     Service = ["cloudtrail.amazonaws.com"]
