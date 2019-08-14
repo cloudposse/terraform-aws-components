@@ -33,6 +33,9 @@ module "cloudwatch_logs_role" {
   name       = "${var.name}"
   attributes  = ["cloudwatch", "logs"]
 
+  role_description   = "Cloudwatch logs role"
+  policy_description = "Cloudwatch logs policy"
+
   principals = {
     Service = ["cloudtrail.amazonaws.com"]
   }
