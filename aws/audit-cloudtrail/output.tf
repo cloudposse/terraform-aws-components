@@ -1,5 +1,5 @@
 output "cloudtrail_kms_key_arn" {
-  value = "${module.kms_key_s3_bucket.alias_arn}"
+  value = "${module.kms_key_cloudtrail.alias_arn}"
 }
 
 output "cloudtrail_bucket_domain_name" {

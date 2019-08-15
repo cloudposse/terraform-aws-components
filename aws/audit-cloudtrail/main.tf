@@ -19,7 +19,7 @@ locals {
 }
 
 module "cloudtrail" {
-  source                        = "git::https://github.com/cloudposse/terraform-aws-cloudtrail.git?ref=tags/0.7.0"
+  source                        = "git::https://github.com/cloudposse/terraform-aws-cloudtrail.git?ref=0.11/kms-arn"
   namespace                     = "${var.namespace}"
   stage                         = "${var.stage}"
   name                          = "${var.name}"
@@ -28,7 +28,52 @@ module "cloudtrail" {
   include_global_service_events = "true"
   is_multi_region_trail         = "true"
   s3_bucket_name                = "${module.cloudtrail_s3_bucket.bucket_id}"
-  kms_key_id                    = "${module.kms_key_s3_bucket.alias_arn}"
-  cloud_watch_logs_group_arn    = "${aws_cloudwatch_log_group.default.arn}"
-  cloud_watch_logs_role_arn     = "${module.cloudwatch_logs_role.arn}"
+  kms_key_arn                   = "${module.kms_key_cloudtrail.alias_arn}"
+  cloud_watch_logs_group_arn    = "${module.logs.log_group_arn}"
+  cloud_watch_logs_role_arn     = "${module.logs.role_arn}"
+}
+
+module "kms_key_cloudtrail" {
+  source    = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=0.1.3"
+  namespace = "${var.namespace}"
+  name      = "${var.name}"
+  stage     = "${var.stage}"
+
+  description             = "KMS key for CloudTrail"
+  deletion_window_in_days = 10
+  enable_key_rotation     = "true"
+
+  policy = "${data.aws_iam_policy_document.kms_key_cloudtrail.json}"
+}
+
+data "aws_iam_policy_document" "kms_key_cloudtrail" {
+  statement {
+    sid    = "Allow CloudTrail to Encrypt with the key"
+    effect = "Allow"
+
+    actions = [
+      "kms:GenerateDataKey*",
+    ]
+
+    resources = [
+      "*",
+    ]
+
+    principals {
+      type = "Service"
+
+      identifiers = [
+        "cloudtrail.amazonaws.com",
+      ]
+    }
+
+    condition {
+      test     = "StringLike"
+      variable = "kms:EncryptionContext:aws:cloudtrail:arn"
+
+      values = [
+        "arn:aws:cloudtrail:*:*:trail/*",
+      ]
+    }
+  }
 }
