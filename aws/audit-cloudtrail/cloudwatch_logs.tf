@@ -1,5 +1,5 @@
 module "logs" {
-  source     = "git::https://github.com/cloudposse/terraform-aws-cloudwatch-logs.git?ref=use-role"
+  source     = "git::https://github.com/cloudposse/terraform-aws-cloudwatch-logs.git?ref=tags/0.3.0"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   name       = "${var.name}"

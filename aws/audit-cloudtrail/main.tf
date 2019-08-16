@@ -19,7 +19,7 @@ locals {
 }
 
 module "cloudtrail" {
-  source                        = "git::https://github.com/cloudposse/terraform-aws-cloudtrail.git?ref=0.11/kms-arn"
+  source                        = "git::https://github.com/cloudposse/terraform-aws-cloudtrail.git?ref=tags/0.7.1"
   namespace                     = "${var.namespace}"
   stage                         = "${var.stage}"
   name                          = "${var.name}"
