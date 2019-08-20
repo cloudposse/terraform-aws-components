@@ -12,7 +12,7 @@ module "cloudtrail_s3_bucket" {
 }
 
 module "kms_key_s3_bucket" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=0.1.3"
+  source    = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=tags/0.1.3"
   namespace = "${var.namespace}"
   name      = "${var.name}"
   stage     = "${var.stage}"
@@ -25,7 +25,7 @@ module "kms_key_s3_bucket" {
 }
 
 module "kms_key_s3_bucket_logs" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=0.1.3"
+  source    = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=tags/0.1.3"
   namespace = "${var.namespace}"
   name      = "${var.name}"
   stage     = "${var.stage}"
