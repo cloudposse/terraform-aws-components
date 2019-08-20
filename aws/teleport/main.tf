@@ -11,7 +11,7 @@ provider "aws" {
 }
 
 module "teleport_backend" {
-  source                   = "git::https://github.com/cloudposse/terraform-aws-teleport-storage?ref=tags/0.2.0"
+  source                   = "git::https://github.com/cloudposse/terraform-aws-teleport-storage.git?ref=tags/0.3.0"
   namespace                = "${var.namespace}"
   stage                    = "${var.stage}"
   name                     = "${var.name}"
@@ -112,6 +112,7 @@ data "aws_iam_policy_document" "teleport" {
       "${module.teleport_backend.dynamodb_audit_table_arn}/index/*",
       "${module.teleport_backend.dynamodb_state_table_arn}",
       "${module.teleport_backend.dynamodb_state_table_arn}/index/*",
+      "${module.teleport_backend.dynamodb_state_table_arn}/stream/*",
     ]
   }
 }

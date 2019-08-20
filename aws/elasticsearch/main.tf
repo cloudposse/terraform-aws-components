@@ -81,6 +81,28 @@ module "elasticsearch" {
   }
 }
 
+locals {
+  elasticsearch_chamber_service = "${coalesce(var.elasticsearch_chamber_service, var.chamber_service, basename(pathexpand(path.module)))}"
+}
+
+resource "aws_ssm_parameter" "elasticsearch_domain_endpoint" {
+  count       = "${var.chamber_parameters_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.elasticsearch_chamber_service, "elasticsearch_domain_endpoint")}"
+  value       = "${module.elasticsearch.domain_endpoint}"
+  description = "Domain-specific endpoint used to submit index, search, and data upload requests"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "elasticsearch_kibana_endpoint" {
+  count       = "${var.chamber_parameters_enabled ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.elasticsearch_chamber_service, "elasticsearch_kibana_endpoint")}"
+  value       = "${module.elasticsearch.kibana_endpoint}"
+  description = "Domain-specific endpoint for Kibana without https scheme"
+  type        = "String"
+  overwrite   = "true"
+}
+
 output "elasticsearch_security_group_id" {
   value       = "${module.elasticsearch.security_group_id}"
   description = "Security Group ID to control access to the Elasticsearch domain"

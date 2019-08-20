@@ -8,7 +8,7 @@ variable "default_backend_name" {
 
 # default backend app
 module "default_backend_web_app" {
-  source     = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=tags/0.19.0"
+  source     = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=tags/0.22.0"
   name       = "${var.name}"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
@@ -47,4 +47,6 @@ module "default_backend_web_app" {
 
   alb_ingress_unauthenticated_paths = ["/*"]
   alb_ingress_authenticated_paths   = []
+
+  repo_owner = "${var.atlantis_repo_owner}"
 }

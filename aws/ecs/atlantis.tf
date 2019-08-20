@@ -171,7 +171,7 @@ variable "atlantis_alb_ingress_authenticated_paths" {
 }
 
 module "atlantis" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.10.1"
+  source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.12.0"
   enabled   = "${var.atlantis_enabled}"
   name      = "${var.name}"
   namespace = "${var.namespace}"
@@ -228,6 +228,8 @@ module "atlantis" {
   authentication_cognito_user_pool_domain_ssm_name    = "${var.atlantis_cognito_user_pool_domain_ssm_name}"
   authentication_oidc_client_id_ssm_name              = "${var.atlantis_oidc_client_id_ssm_name}"
   authentication_oidc_client_secret_ssm_name          = "${var.atlantis_oidc_client_secret_ssm_name}"
+
+  codepipeline_s3_bucket_force_destroy = true
 }
 
 output "atlantis_url" {

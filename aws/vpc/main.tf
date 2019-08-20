@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 0.11.2"
+  required_version = "~> 0.11.2"
 
   backend "s3" {}
 }
@@ -10,8 +10,15 @@ provider "aws" {
   }
 }
 
+provider "null" {
+  version = "~> 2.1"
+}
+
 locals {
   chamber_service = "${var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service}"
+
+  # Work around limitation that conditional operator cannot be used with lists. https://github.com/hashicorp/terraform/issues/18259
+  availability_zones = "${split("|", length(var.availability_zones) == 0 ? join("|",data.aws_availability_zones.available.names) : join("|",var.availability_zones))}"
 }
 
 module "parameter_prefix" {
@@ -36,18 +43,21 @@ module "vpc" {
 }
 
 module "subnets" {
-  source              = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.7.1"
-  availability_zones  = ["${data.aws_availability_zones.available.names}"]
-  namespace           = "${var.namespace}"
-  stage               = "${var.stage}"
-  name                = "${var.name}"
-  region              = "${var.region}"
-  vpc_id              = "${module.vpc.vpc_id}"
-  igw_id              = "${module.vpc.igw_id}"
-  cidr_block          = "${module.vpc.vpc_cidr_block}"
-  nat_gateway_enabled = "${var.vpc_nat_gateway_enabled}"
-  attributes          = "${var.attributes}"
-  tags                = "${var.tags}"
+  source               = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.9.0"
+  availability_zones   = "${local.availability_zones}"
+  max_subnet_count     = "${var.max_subnet_count}"
+  namespace            = "${var.namespace}"
+  stage                = "${var.stage}"
+  name                 = "${var.name}"
+  region               = "${var.region}"
+  vpc_id               = "${module.vpc.vpc_id}"
+  igw_id               = "${module.vpc.igw_id}"
+  cidr_block           = "${module.vpc.vpc_cidr_block}"
+  nat_gateway_enabled  = "${var.vpc_nat_gateway_enabled}"
+  nat_instance_enabled = "${var.vpc_nat_instance_enabled}"
+  nat_instance_type    = "${var.vpc_nat_instance_type}"
+  attributes           = "${var.attributes}"
+  tags                 = "${var.tags}"
 }
 
 resource "aws_ssm_parameter" "vpc_id" {
@@ -76,7 +86,7 @@ resource "aws_ssm_parameter" "cidr_block" {
 
 resource "aws_ssm_parameter" "availability_zones" {
   name        = "${format(var.chamber_parameter_name, local.chamber_service, module.parameter_prefix.id, "availability_zones")}"
-  value       = "${join(",", data.aws_availability_zones.available.names)}"
+  value       = "${join(",", local.availability_zones)}"
   description = "VPC subnet availability zones"
   type        = "String"
   overwrite   = "true"
@@ -87,6 +97,15 @@ resource "aws_ssm_parameter" "nat_gateways" {
   name        = "${format(var.chamber_parameter_name, local.chamber_service, module.parameter_prefix.id, "nat_gateways")}"
   value       = "${join(",", module.subnets.nat_gateway_ids)}"
   description = "VPC private NAT gateways"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "nat_instances" {
+  count       = "${var.vpc_nat_instance_enabled == "true" ? 1 : 0}"
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, module.parameter_prefix.id, "nat_instances")}"
+  value       = "${join(",", module.subnets.nat_instance_ids)}"
+  description = "VPC private NAT instances"
   type        = "String"
   overwrite   = "true"
 }
