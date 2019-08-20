@@ -11,7 +11,7 @@ variable "alb_ingress_cidr_blocks_https" {
 }
 
 module "alb" {
-  source             = "git::https://github.com/cloudposse/terraform-aws-alb.git?ref=tags/0.3.0"
+  source             = "git::https://github.com/cloudposse/terraform-aws-alb.git?ref=tags/0.5.0"
   name               = "${var.name}"
   namespace          = "${var.namespace}"
   stage              = "${var.stage}"
