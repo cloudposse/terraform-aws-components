@@ -198,7 +198,7 @@ module "atlantis" {
   repo_name          = "${var.atlantis_repo_name}"
   repo_owner         = "${var.atlantis_repo_owner}"
   private_subnet_ids = ["${module.subnets.private_subnet_ids}"]
-  security_group_ids = ["${module.vpc.vpc_default_security_group_id}"]
+  security_group_ids = ["${module.alb.security_group_id}"]
   vpc_id             = "${module.vpc.vpc_id}"
 
   alb_ingress_authenticated_listener_arns       = ["${module.alb.https_listener_arn}"]

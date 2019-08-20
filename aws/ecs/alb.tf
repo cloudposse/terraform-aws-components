@@ -19,7 +19,7 @@ module "alb" {
   vpc_id             = "${module.vpc.vpc_id}"
   ip_address_type    = "ipv4"
   subnet_ids         = ["${module.subnets.public_subnet_ids}"]
-  security_group_ids = ["${module.vpc.vpc_default_security_group_id}"]
+  security_group_ids = []
   access_logs_region = "${var.region}"
 
   https_enabled             = "true"

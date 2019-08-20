@@ -24,7 +24,7 @@ module "default_backend_web_app" {
   aws_logs_region              = "${var.region}"
   ecs_cluster_arn              = "${aws_ecs_cluster.default.arn}"
   ecs_cluster_name             = "${aws_ecs_cluster.default.name}"
-  ecs_security_group_ids       = ["${module.vpc.vpc_default_security_group_id}"]
+  ecs_security_group_ids       = ["${module.alb.security_group_id}"]
   ecs_private_subnet_ids       = ["${module.subnets.private_subnet_ids}"]
   alb_ingress_healthcheck_path = "/healthz"
 
