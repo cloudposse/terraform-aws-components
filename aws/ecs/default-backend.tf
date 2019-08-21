@@ -8,7 +8,7 @@ variable "default_backend_name" {
 
 # default backend app
 module "default_backend_web_app" {
-  source     = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=tags/0.22.0"
+  source     = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=tags/0.23.0"
   name       = "${var.name}"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
@@ -24,7 +24,6 @@ module "default_backend_web_app" {
   aws_logs_region              = "${var.region}"
   ecs_cluster_arn              = "${aws_ecs_cluster.default.arn}"
   ecs_cluster_name             = "${aws_ecs_cluster.default.name}"
-  ecs_security_group_ids       = ["${module.vpc.vpc_default_security_group_id}"]
   ecs_private_subnet_ids       = ["${module.subnets.private_subnet_ids}"]
   alb_ingress_healthcheck_path = "/healthz"
 
@@ -34,6 +33,7 @@ module "default_backend_web_app" {
 
   alb_name                                        = "${module.alb.alb_name}"
   alb_arn_suffix                                  = "${module.alb.alb_arn_suffix}"
+  alb_security_group                              = "${module.alb.security_group_id}"
   alb_target_group_alarms_enabled                 = "true"
   alb_target_group_alarms_3xx_threshold           = "25"
   alb_target_group_alarms_4xx_threshold           = "25"

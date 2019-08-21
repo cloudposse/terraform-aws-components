@@ -18,6 +18,14 @@ data "aws_vpc" "default" {
   default = "true"
 }
 
+resource "aws_default_security_group" "default" {
+  vpc_id = "${data.aws_vpc.default.id}"
+
+  tags = {
+    Name = "Default Security Group"
+  }
+}
+
 module "flow_logs" {
   source = "git::https://github.com/cloudposse/terraform-aws-vpc-flow-logs-s3-bucket.git?ref=tags/0.1.0"
 
