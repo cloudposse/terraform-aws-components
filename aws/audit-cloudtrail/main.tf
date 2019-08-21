@@ -34,7 +34,7 @@ module "cloudtrail" {
 }
 
 module "kms_key_cloudtrail" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=0.1.3"
+  source    = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=tags/0.1.3"
   namespace = "${var.namespace}"
   name      = "${var.name}"
   stage     = "${var.stage}"
