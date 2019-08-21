@@ -42,7 +42,7 @@ variable "tags" {
 
 variable "parameters" {
   type        = "map"
-  description = "Key-value map of input parameters for the Stack Set template. (_e.g._ map(\"BusinessUnit\",\"ABC\")"
+  description = "Key-value map of input parameters override for the Stack Set template. (_e.g._ map(\"BusinessUnit\",\"ABC\")"
   default     = {}
 }
 

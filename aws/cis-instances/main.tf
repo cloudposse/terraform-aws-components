@@ -37,5 +37,5 @@ resource "aws_cloudformation_stack_set_instance" "default" {
   stack_set_name      = "${data.terraform_remote_state.cis.name}"
   account_id          = "${element(split(":", element(local.instances, count.index)), 0)}"
   region              = "${element(split(":", element(local.instances, count.index)), 1)}"
-  parameter_overrides = "${var.parameters[split(":", element(local.instances, count.index), 0)]}"
+  parameter_overrides = "${var.parameters}"
 }
