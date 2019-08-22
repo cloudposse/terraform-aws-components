@@ -149,7 +149,7 @@ output "elasticsearch_user_iam_role_arn" {
 }
 
 module "elasticsearch_log_cleanup" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-lambda-elasticsearch-cleanup.git?ref=tags/0.2.0"
+  source    = "git::https://github.com/cloudposse/terraform-aws-lambda-elasticsearch-cleanup.git?ref=tags/0.3.0"
   enabled   = "${var.elasticsearch_enabled == "true" ? var.elasticsearch_log_cleanup_enabled : "false"}"
   namespace = "${var.namespace}"
   stage     = "${var.stage}"
