@@ -20,7 +20,7 @@ data "aws_ssm_parameter" "kops_zone_id" {
 }
 
 locals {
-  kops_zone_id = "${coalesce(var.kops_dns_zone_id, join("",data.aws_ssm_parameter.kops_zone_id.*.value))}"
+  kops_zone_id = "${coalesce(var.kops_dns_zone_id, join("", data.aws_ssm_parameter.kops_zone_id.*.value))}"
 }
 
 module "kops_efs_provisioner" {
