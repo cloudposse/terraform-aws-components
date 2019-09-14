@@ -9,3 +9,9 @@ provider "aws" {
     role_arn = "${var.aws_assume_role_arn}"
   }
 }
+
+# Change in 2.2.1 breaks
+# module.default_backend_web_app.module.ecs_codepipeline.module.github_webhooks.provider.github
+provider "github" {
+  version = "2.2.0"
+}

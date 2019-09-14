@@ -46,3 +46,8 @@ variable "region" {
   description = "AWS Region the S3 bucket should reside in"
   default     = "us-west-2"
 }
+
+variable "atlantis_build_timeout" {
+  description = "Time (in minutes) to allow for Atlantis build to complete before declaring it a failure"
+  default     = "20"
+}

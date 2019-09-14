@@ -196,6 +196,7 @@ module "atlantis" {
   parent_zone_id     = "${module.dns.zone_id}"
   ecs_cluster_arn    = "${aws_ecs_cluster.default.arn}"
   ecs_cluster_name   = "${aws_ecs_cluster.default.name}"
+  build_timeout      = "${var.atlantis_build_timeout}"
   repo_name          = "${var.atlantis_repo_name}"
   repo_owner         = "${var.atlantis_repo_owner}"
   private_subnet_ids = ["${module.subnets.private_subnet_ids}"]
