@@ -33,7 +33,7 @@ module "autoscaler_role" {
 }
 
 resource "aws_ssm_parameter" "kops_autoscaler_iam_role_name" {
-  name        = "/kops/kubernetes_autoscaler_iam_role_name"
+  name        = "${format(local.chamber_parameter_format, var.chamber_service, "kubernetes_autoscaler_iam_role_name")}"
   value       = "${module.autoscaler_role.name}"
   description = "IAM role name for cluster autoscaler"
   type        = "String"

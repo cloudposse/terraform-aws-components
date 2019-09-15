@@ -33,3 +33,7 @@ resource "aws_default_security_group" "default" {
     Name = "Default Security Group"
   }
 }
+
+locals {
+  chamber_parameter_format = "/%s/%s"
+}
