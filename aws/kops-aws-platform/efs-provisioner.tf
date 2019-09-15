@@ -11,12 +11,12 @@ variable "kops_dns_zone_id" {
 }
 
 data "aws_ssm_parameter" "kops_availability_zones" {
-  name = "/kops/kops_availability_zones"
+  name  = "${format(local.chamber_parameter_format, var.chamber_service_kops, "kops_availability_zones")}"
 }
 
 data "aws_ssm_parameter" "kops_zone_id" {
   count = "${var.efs_enabled == "true" && var.kops_dns_zone_id == "" ? 1 : 0}"
-  name  = "/kops/kops_dns_zone_id"
+  name  = "${format(local.chamber_parameter_format, var.chamber_service_kops, "kops_dns_zone_id")}"
 }
 
 locals {
@@ -41,7 +41,7 @@ module "kops_efs_provisioner" {
 
 resource "aws_ssm_parameter" "kops_efs_provisioner_role_name" {
   count       = "${var.efs_enabled == "true" ? 1 : 0}"
-  name        = "/kops/kops_efs_provisioner_role_name"
+  name        = "${format(local.chamber_parameter_format, var.chamber_service, "kops_efs_provisioner_role_name")}"
   value       = "${module.kops_efs_provisioner.role_name}"
   description = "IAM role name for EFS provisioner"
   type        = "String"
@@ -50,7 +50,7 @@ resource "aws_ssm_parameter" "kops_efs_provisioner_role_name" {
 
 resource "aws_ssm_parameter" "kops_efs_file_system_id" {
   count       = "${var.efs_enabled == "true" ? 1 : 0}"
-  name        = "/kops/kops_efs_file_system_id"
+  name        = "${format(local.chamber_parameter_format, var.chamber_service, "kops_efs_file_system_id")}"
   value       = "${module.kops_efs_provisioner.efs_id}"
   description = "ID for shared EFS file system"
   type        = "String"
