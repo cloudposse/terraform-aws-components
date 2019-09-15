@@ -24,7 +24,7 @@ locals {
 }
 
 module "kops_efs_provisioner" {
-  source             = "git::https://github.com/cloudposse/terraform-aws-kops-efs.git?ref=tags/0.3.0"
+  source             = "git::https://github.com/cloudposse/terraform-aws-kops-efs.git?ref=tags/0.4.0"
   enabled            = "${var.efs_enabled}"
   namespace          = "${var.namespace}"
   stage              = "${var.stage}"
@@ -37,6 +37,24 @@ module "kops_efs_provisioner" {
   tags = {
     Cluster = "${var.region}.${var.zone_name}"
   }
+}
+
+resource "aws_ssm_parameter" "kops_efs_provisioner_role_name" {
+  count       = "${var.efs_enabled == "true" ? 1 : 0}"
+  name        = "/kops/kops_efs_provisioner_role_name"
+  value       = "${module.kops_efs_provisioner.role_name}"
+  description = "IAM role name for EFS provisioner"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "kops_efs_file_system_id" {
+  count       = "${var.efs_enabled == "true" ? 1 : 0}"
+  name        = "/kops/kops_efs_file_system_id"
+  value       = "${module.kops_efs_provisioner.efs_id}"
+  description = "ID for shared EFS file system"
+  type        = "String"
+  overwrite   = "true"
 }
 
 output "kops_efs_provisioner_role_name" {
