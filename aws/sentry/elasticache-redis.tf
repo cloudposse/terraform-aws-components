@@ -51,7 +51,7 @@ module "elasticache_redis" {
   family                       = "redis4.0"
   port                         = 6379
   alarm_cpu_threshold_percent  = 75
-  alarm_memory_threshold_bytes = "10000000"
+  alarm_memory_threshold_bytes = 10000000
   apply_immediately            = true
   availability_zones           = local.availability_zones
   automatic_failover           = true
