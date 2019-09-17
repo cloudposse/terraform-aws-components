@@ -52,7 +52,7 @@ variable "postgres_instance_type" {
 
 variable "postgres_cluster_size" {
   type        = number
-  default     = "2"
+  default     = 2
   description = "Postgres cluster size"
 }
 variable "postgres_autoscaling_enabled" {
@@ -73,13 +73,13 @@ variable "postgres_autoscaling_max_capacity" {
 
 variable "postgres_cluster_enabled" {
   type        = bool
-  default     = "true"
+  default     = true
   description = "Set to false to prevent the module from creating any resources"
 }
 
 variable "postgres_iam_database_authentication_enabled" {
-  type        = string
-  default     = "false"
+  type        = bool
+  default     = false
   description = "Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled."
 }
 
@@ -130,7 +130,7 @@ resource "aws_ssm_parameter" "aurora_postgres_database_name" {
   value       = module.aurora_postgres.database_name
   description = "Aurora Postgres Database Name for Sentry"
   type        = "String"
-  overwrite   = "true"
+  overwrite   = true
 }
 
 resource "aws_ssm_parameter" "aurora_postgres_master_username" {
@@ -139,7 +139,7 @@ resource "aws_ssm_parameter" "aurora_postgres_master_username" {
   value       = module.aurora_postgres.master_username
   description = "Aurora Postgres Username for Sentry's master DB user"
   type        = "String"
-  overwrite   = "true"
+  overwrite   = true
 }
 
 resource "aws_ssm_parameter" "aurora_postgres_master_password" {
@@ -148,7 +148,7 @@ resource "aws_ssm_parameter" "aurora_postgres_master_password" {
   value       = local.postgres_admin_password
   description = "Aurora Postgres Password for Sentry's master DB user"
   type        = "String"
-  overwrite   = "true"
+  overwrite   = true
 }
 
 resource "aws_ssm_parameter" "aurora_postgres_master_hostname" {
@@ -157,7 +157,7 @@ resource "aws_ssm_parameter" "aurora_postgres_master_hostname" {
   value       = module.aurora_postgres.master_host
   description = "Aurora Postgres DB Master hostname"
   type        = "String"
-  overwrite   = "true"
+  overwrite   = true
 }
 
 resource "aws_ssm_parameter" "aurora_postgres_replicas_hostname" {
@@ -166,7 +166,7 @@ resource "aws_ssm_parameter" "aurora_postgres_replicas_hostname" {
   value       = module.aurora_postgres.replicas_host
   description = "Aurora Postgres DB Replicas hostname"
   type        = "String"
-  overwrite   = "true"
+  overwrite   = true
 }
 
 resource "aws_ssm_parameter" "aurora_postgres_cluster_name" {
@@ -175,7 +175,7 @@ resource "aws_ssm_parameter" "aurora_postgres_cluster_name" {
   value       = module.aurora_postgres.cluster_identifier
   description = "Aurora Postgres DB Cluster Identifier"
   type        = "String"
-  overwrite   = "true"
+  overwrite   = true
 }
 
 output "aurora_postgres_database_name" {

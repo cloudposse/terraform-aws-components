@@ -46,7 +46,7 @@ resource "aws_ssm_parameter" "sentry_secret" {
   value       = random_string.sentry_secret_key.result
   description = "Secret Key for Sentry to encrypt sessions"
   type        = "String"
-  overwrite   = "true"
+  overwrite   = true
 }
 
 resource "aws_ssm_parameter" "sentry_admin_user_password" {
@@ -54,6 +54,6 @@ resource "aws_ssm_parameter" "sentry_admin_user_password" {
   value       = random_string.sentry_admin_user_password.result
   description = "Password for Sentry admin user"
   type        = "String"
-  overwrite   = "true"
+  overwrite   = true
 }
 

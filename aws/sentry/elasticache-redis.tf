@@ -11,14 +11,14 @@ variable "redis_instance_type" {
 }
 
 variable "redis_cluster_size" {
-  type        = string
-  default     = "2"
+  type        = number
+  default     = 2
   description = "Redis cluster size"
 }
 
 variable "redis_cluster_enabled" {
-  type        = string
-  default     = "true"
+  type        = bool
+  default     = true
   description = "Set to false to prevent the module from creating any resources"
 }
 
@@ -49,8 +49,8 @@ module "elasticache_redis" {
   instance_type                = var.redis_instance_type
   engine_version               = "4.0.10"
   family                       = "redis4.0"
-  port                         = "6379"
-  alarm_cpu_threshold_percent  = "75"
+  port                         = 6379
+  alarm_cpu_threshold_percent  = 75
   alarm_memory_threshold_bytes = "10000000"
   apply_immediately            = true
   availability_zones           = local.availability_zones
@@ -69,7 +69,7 @@ resource "aws_ssm_parameter" "elasticache_redis_host" {
   value       = module.elasticache_redis.host
   description = "Elasticache host for Sentry"
   type        = "String"
-  overwrite   = "true"
+  overwrite   = true
 }
 
 output "elasticache_redis_id" {
