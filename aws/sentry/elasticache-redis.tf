@@ -31,15 +31,11 @@ variable "redis_params" {
   description = "A list of Redis parameters to apply. Note that parameters may differ from a Redis family to another"
 }
 
-resource "random_string" "elasticache_auth_token" {
-  count   = var.redis_cluster_enabled ? 1 : 0
-  length  = 31
-  special = false
-}
 
 
 module "elasticache_redis" {
   source                       = "git::https://github.com/cloudposse/terraform-aws-elasticache-redis.git?ref=tags/0.13.0"
+  enabled                      = var.redis_cluster_enabled
   namespace                    = var.namespace
   stage                        = var.stage
   name                         = var.redis_name
@@ -51,17 +47,17 @@ module "elasticache_redis" {
   maintenance_window           = "sun:03:00-sun:04:00"
   cluster_size                 = var.redis_cluster_size
   instance_type                = var.redis_instance_type
-  transit_encryption_enabled   = true # required for auth_token
   engine_version               = "4.0.10"
   family                       = "redis4.0"
   port                         = "6379"
   alarm_cpu_threshold_percent  = "75"
   alarm_memory_threshold_bytes = "10000000"
-  apply_immediately            = "true"
+  apply_immediately            = true
   availability_zones           = local.availability_zones
-  automatic_failover           = "true"
-  enabled                      = var.redis_cluster_enabled
-  auth_token                   = join("", random_string.elasticache_auth_token.*.result)
+  automatic_failover           = true
+
+  transit_encryption_enabled   = false # not supported by Sentry https://github.com/getsentry/sentry/issues/11309
+  auth_token                   = null # must set transit_encryption_enabled true first
 
   parameter = var.redis_params
 }
@@ -75,15 +71,6 @@ resource "aws_ssm_parameter" "elasticache_redis_host" {
   type        = "String"
   overwrite   = "true"
 }
-resource "aws_ssm_parameter" "elasticache_redis_password" {
-  count       = local.postgres_cluster_enabled ? 1 : 0
-  name        = format(local.chamber_parameter_format, local.chamber_service, "sentry_redis_password")
-  value       = join("", random_string.elasticache_auth_token.*.result)
-  description = "Elasticache host for Sentry"
-  type        = "String"
-  overwrite   = "true"
-}
-
 
 output "elasticache_redis_id" {
   value = module.elasticache_redis.id
