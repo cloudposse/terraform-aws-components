@@ -50,6 +50,16 @@ variable "tags" {
   description = "Additional tags (e.g. map('BusinessUnit`,`XYZ`)"
 }
 
+variable "teleport_version" {
+  type        = "string"
+  description = "Version number of Teleport to install (e.g. \"4.0.9\")"
+}
+
+variable "teleport_proxy_domain_name" {
+  type        = "string"
+  description = "Domain name to use for Teleport Proxy"
+}
+
 variable "masters_name" {
   type        = "string"
   default     = "masters"
