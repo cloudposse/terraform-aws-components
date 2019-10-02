@@ -3,15 +3,8 @@ variable "flow_logs_enabled" {
   default = "true"
 }
 
-module "kops_metadata" {
-  source       = "git::https://github.com/cloudposse/terraform-aws-kops-data-network.git?ref=tags/0.1.1"
-  enabled      = "${var.flow_logs_enabled}"
-  cluster_name = "${var.region}.${var.zone_name}"
-}
-
 module "flow_logs" {
-  source = "git::https://github.com/cloudposse/terraform-aws-vpc-flow-logs-s3-bucket.git?ref=tags/0.1.0"
-
+  source     = "git::https://github.com/cloudposse/terraform-aws-vpc-flow-logs-s3-bucket.git?ref=tags/0.1.1"
   name       = "kops"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"

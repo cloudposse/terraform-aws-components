@@ -171,7 +171,7 @@ variable "atlantis_alb_ingress_authenticated_paths" {
 }
 
 module "atlantis" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.12.0"
+  source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.13.0"
   enabled   = "${var.atlantis_enabled}"
   name      = "${var.name}"
   namespace = "${var.namespace}"
@@ -183,10 +183,11 @@ module "atlantis" {
   atlantis_repo_whitelist    = ["${var.atlantis_repo_whitelist}"]
   atlantis_repo_config       = "${var.atlantis_repo_config}"
 
-  alb_arn_suffix = "${module.alb.alb_arn_suffix}"
-  alb_dns_name   = "${module.alb.alb_dns_name}"
-  alb_name       = "${module.alb.alb_name}"
-  alb_zone_id    = "${module.alb.alb_zone_id}"
+  alb_arn_suffix     = "${module.alb.alb_arn_suffix}"
+  alb_dns_name       = "${module.alb.alb_dns_name}"
+  alb_name           = "${module.alb.alb_name}"
+  alb_zone_id        = "${module.alb.alb_zone_id}"
+  alb_security_group = "${module.alb.security_group_id}"
 
   container_cpu    = "${var.atlantis_container_cpu}"
   container_memory = "${var.atlantis_container_memory}"
@@ -198,7 +199,6 @@ module "atlantis" {
   repo_name          = "${var.atlantis_repo_name}"
   repo_owner         = "${var.atlantis_repo_owner}"
   private_subnet_ids = ["${module.subnets.private_subnet_ids}"]
-  security_group_ids = ["${module.vpc.vpc_default_security_group_id}"]
   vpc_id             = "${module.vpc.vpc_id}"
 
   alb_ingress_authenticated_listener_arns       = ["${module.alb.https_listener_arn}"]

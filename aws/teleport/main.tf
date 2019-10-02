@@ -86,24 +86,34 @@ resource "aws_iam_role" "teleport" {
 }
 
 data "aws_iam_policy_document" "teleport" {
+  // Teleport can use LetsEncrypt to get TLS certificates. For this  // it needs additional permissions which are not included here.
+
+  // Teleport can use SSM to publish "join tokens" and retreive the enterprise  // license, but that is not fully documented, so permissions to access SSM  // are not included at this time.
+
+  // S3 permissions are needed to save and replay SSH sessions
   statement {
+    sid       = "ListTeleportSessionData"
     effect    = "Allow"
-    actions   = ["s3:ListBucket"]
+    actions   = ["s3:ListBucket", "s3:ListBucketVersions"]
     resources = ["arn:aws:s3:::${module.teleport_backend.s3_bucket_id}"]
   }
 
   statement {
+    sid    = "GetTeleportSessionData"
     effect = "Allow"
 
     actions = [
       "s3:PutObject",
+      "s3:GetObjectVersion",
       "s3:GetObject",
     ]
 
     resources = ["arn:aws:s3:::${module.teleport_backend.s3_bucket_id}/*"]
   }
 
+  // DynamoDB permissions are needed to save configuration and event data
   statement {
+    sid     = "ReadWriteTeleportEventAndConfigData"
     effect  = "Allow"
     actions = ["dynamodb:*"]
 
@@ -187,6 +197,22 @@ resource "aws_ssm_parameter" "teleport_tokens" {
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "${element(local.token_names, count.index)}")}"
   value       = "${element(random_string.tokens.*.result, count.index)}"
   description = "Teleport join token: ${element(local.token_names, count.index)}"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "teleport_proxy_domain_name" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "teleport_proxy_domain_name")}"
+  value       = "${var.teleport_proxy_domain_name}"
+  description = "Teleport Proxy domain name"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "teleport_version" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "teleport_version")}"
+  value       = "${var.teleport_version}"
+  description = "Teleport version to install"
   type        = "String"
   overwrite   = "true"
 }

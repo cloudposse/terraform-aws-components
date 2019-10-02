@@ -1,8 +1,9 @@
 module "label" {
-  source    = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.14.1"
-  namespace = var.namespace
-  stage     = var.stage
-  name      = var.name
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.14.1"
+  namespace  = var.namespace
+  stage      = var.stage
+  name       = var.name
+  attributes = ["role"]
 }
 
 module "kops_metadata" {
@@ -10,9 +11,20 @@ module "kops_metadata" {
   cluster_name = var.kops_cluster_name
 }
 
+locals {
+  # TODO search for kiam-specific role
+  kiam_role = module.kops_metadata.masters_role_arn
+  role_arns = {
+    kiam    = [local.kiam_role]
+    masters = [module.kops_metadata.masters_role_arn]
+    nodes   = [module.kops_metadata.nodes_role_arn]
+    both    = [module.kops_metadata.masters_role_arn, module.kops_metadata.nodes_role_arn]
+  }
+}
+
 resource "aws_iam_role" "default" {
   name        = module.label.id
-  description = "Role that can be assumed by prometheus-cloudwatch-exporter"
+  description = "Role that has access to AWS metrics"
 
   lifecycle {
     create_before_destroy = true
@@ -59,11 +71,17 @@ resource "aws_iam_policy" "default" {
 
 data "aws_iam_policy_document" "default" {
   statement {
-    sid = "ReadMetricStatistics"
+    sid = "ReadMetricsAndTags"
 
     actions = [
+      "cloudwatch:DescribeAlarmsForMetric",
       "cloudwatch:ListMetrics",
       "cloudwatch:GetMetricStatistics",
+      "cloudwatch:GetMetricData",
+      "ec2:DescribeTags",
+      "ec2:DescribeInstances",
+      "ec2:DescribeRegions",
+      "tag:GetResources",
     ]
 
     effect = "Allow"
@@ -79,6 +97,8 @@ locals {
 
 
 resource "kubernetes_namespace" "default" {
+  count = length(var.cloudwatch_namespace) > 0 ? 1 : 0
+
   metadata {
     annotations = {
       "iam.amazonaws.com/permitted" = aws_iam_role.default.name
@@ -92,34 +112,35 @@ resource "kubernetes_namespace" "default" {
   }
 }
 
-resource "aws_ssm_parameter" "prometheus_cloudwatch_exporter_iam_role" {
-  name        = format(var.chamber_parameter_name_pattern, local.chamber_service, "prometheus_cloudwatch_exporter_iam_role")
+resource "aws_ssm_parameter" "aws_metrics_iam_role" {
+  name        = format(var.chamber_parameter_name_pattern, local.chamber_service, "aws_metrics_iam_role")
   value       = aws_iam_role.default.name
-  description = "IAM role name for prometheus-cloudwatch-exporter role"
+  description = "IAM role name for AWS metrics access"
   type        = "String"
   overwrite   = "true"
 }
 
-resource "aws_ssm_parameter" "prometheus_cloudwatch_exporter_iam_namespace" {
-  name        = format(var.chamber_parameter_name_pattern, local.chamber_service, "prometheus_cloudwatch_exporter_iam_namespace")
+resource "aws_ssm_parameter" "aws_metrics_iam_namespace" {
+  count       = length(var.cloudwatch_namespace) > 0 ? 1 : 0
+  name        = format(var.chamber_parameter_name_pattern, local.chamber_service, "aws_metrics_iam_namespace")
   value       = var.cloudwatch_namespace
-  description = "Kubernetes namespace for prometheus-cloudwatch-exporter"
+  description = "Kubernetes namespace for AWS metrics accessors"
   type        = "String"
   overwrite   = "true"
 }
 
-output "prometheus_cloudwatch_exporter_namespace" {
-  value = var.cloudwatch_namespace
+output "aws_metrics_namespace" {
+  value = length(var.cloudwatch_namespace) > 0 ? var.cloudwatch_namespace : "<not managed>"
 }
 
-output "prometheus_cloudwatch_exporter_iam_role_name" {
+output "aws_metrics_iam_role_name" {
   value = aws_iam_role.default.name
 }
 
-output "prometheus_cloudwatch_exporter_iam_role_unique_id" {
+output "aws_metrics_iam_role_unique_id" {
   value = aws_iam_role.default.unique_id
 }
 
-output "prometheus_cloudwatch_exporter_iam_role_arn" {
+output "aws_metrics_iam_role_arn" {
   value = aws_iam_role.default.arn
 }

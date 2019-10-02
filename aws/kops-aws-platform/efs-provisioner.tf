@@ -11,20 +11,20 @@ variable "kops_dns_zone_id" {
 }
 
 data "aws_ssm_parameter" "kops_availability_zones" {
-  name = "/kops/kops_availability_zones"
+  name  = "${format(local.chamber_parameter_format, var.chamber_service_kops, "kops_availability_zones")}"
 }
 
 data "aws_ssm_parameter" "kops_zone_id" {
   count = "${var.efs_enabled == "true" && var.kops_dns_zone_id == "" ? 1 : 0}"
-  name  = "/kops/kops_dns_zone_id"
+  name  = "${format(local.chamber_parameter_format, var.chamber_service_kops, "kops_dns_zone_id")}"
 }
 
 locals {
-  kops_zone_id = "${coalesce(var.kops_dns_zone_id, join("",data.aws_ssm_parameter.kops_zone_id.*.value))}"
+  kops_zone_id = "${coalesce(var.kops_dns_zone_id, join("", data.aws_ssm_parameter.kops_zone_id.*.value))}"
 }
 
 module "kops_efs_provisioner" {
-  source             = "git::https://github.com/cloudposse/terraform-aws-kops-efs.git?ref=tags/0.3.0"
+  source             = "git::https://github.com/cloudposse/terraform-aws-kops-efs.git?ref=tags/0.4.0"
   enabled            = "${var.efs_enabled}"
   namespace          = "${var.namespace}"
   stage              = "${var.stage}"
@@ -37,6 +37,24 @@ module "kops_efs_provisioner" {
   tags = {
     Cluster = "${var.region}.${var.zone_name}"
   }
+}
+
+resource "aws_ssm_parameter" "kops_efs_provisioner_role_name" {
+  count       = "${var.efs_enabled == "true" ? 1 : 0}"
+  name        = "${format(local.chamber_parameter_format, var.chamber_service, "kops_efs_provisioner_role_name")}"
+  value       = "${module.kops_efs_provisioner.role_name}"
+  description = "IAM role name for EFS provisioner"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "kops_efs_file_system_id" {
+  count       = "${var.efs_enabled == "true" ? 1 : 0}"
+  name        = "${format(local.chamber_parameter_format, var.chamber_service, "kops_efs_file_system_id")}"
+  value       = "${module.kops_efs_provisioner.efs_id}"
+  description = "ID for shared EFS file system"
+  type        = "String"
+  overwrite   = "true"
 }
 
 output "kops_efs_provisioner_role_name" {
