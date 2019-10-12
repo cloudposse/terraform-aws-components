@@ -141,5 +141,11 @@ variable "elasticsearch_log_retention_days" {
 variable "elasticsearch_log_index_name" {
   type        = "string"
   default     = "all"
-  description = "Index/indices to process. Use a comma-separated list. Specify `all` to match every index except for `.kibana`"
+  description = "Index/indices to process. Use a comma-separated list. Specify `all` to match every index except for `.kibana` and `.kibana_1`"
+}
+
+variable "sns_arn" {
+  type        = "string"
+  default     = ""
+  description = "SNS ARN to publish alerts"
 }
