@@ -201,6 +201,22 @@ resource "aws_ssm_parameter" "teleport_tokens" {
   overwrite   = "true"
 }
 
+resource "aws_ssm_parameter" "teleport_proxy_domain_name" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "teleport_proxy_domain_name")}"
+  value       = "${var.teleport_proxy_domain_name}"
+  description = "Teleport Proxy domain name"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "teleport_version" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "teleport_version")}"
+  value       = "${var.teleport_version}"
+  description = "Teleport version to install"
+  type        = "String"
+  overwrite   = "true"
+}
+
 resource "kubernetes_namespace" "default" {
   metadata {
     annotations {

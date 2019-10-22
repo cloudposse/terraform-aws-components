@@ -45,3 +45,16 @@ variable "tags" {
   default     = {}
   description = "Additional tags (e.g. `map('BusinessUnit','XYZ')`"
 }
+
+variable "chamber_service" {
+  type        = "string"
+  default     = "kops"
+  description = "Service under which to store SSM parameters"
+}
+
+variable "chamber_service_kops" {
+  type        = "string"
+  default     = "kops"
+  description = "Service where kops stores its configuration information"
+}
+
