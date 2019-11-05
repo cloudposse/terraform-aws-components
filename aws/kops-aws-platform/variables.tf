@@ -57,4 +57,3 @@ variable "chamber_service_kops" {
   default     = "kops"
   description = "Service where kops stores its configuration information"
 }
-

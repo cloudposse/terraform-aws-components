@@ -10,8 +10,31 @@ variable "kops_dns_zone_id" {
   description = "DNS Zone ID for kops. EFS DNS entries will be added to this zone. If empyty, zone ID will be retrieved from SSM Parameter store"
 }
 
+variable "efs_encrypted" {
+  type        = "string"
+  description = "If true, the disk will be encrypted"
+  default     = "false"
+}
+
+variable "efs_performance_mode" {
+  type        = "string"
+  description = "The file system performance mode. Can be either `generalPurpose` or `maxIO`"
+  default     = "generalPurpose"
+}
+
+variable "efs_provisioned_throughput_in_mibps" {
+  default     = 0
+  description = "The throughput, measured in MiB/s, that you want to provision for the file system. Only applicable with throughput_mode set to provisioned"
+}
+
+variable "efs_throughput_mode" {
+  type        = "string"
+  description = "Throughput mode for the file system. Defaults to bursting. Valid values: bursting, provisioned. When using provisioned, also set provisioned_throughput_in_mibps"
+  default     = "bursting"
+}
+
 data "aws_ssm_parameter" "kops_availability_zones" {
-  name  = "${format(local.chamber_parameter_format, var.chamber_service_kops, "kops_availability_zones")}"
+  name = "${format(local.chamber_parameter_format, var.chamber_service_kops, "kops_availability_zones")}"
 }
 
 data "aws_ssm_parameter" "kops_zone_id" {
@@ -24,7 +47,7 @@ locals {
 }
 
 module "kops_efs_provisioner" {
-  source             = "git::https://github.com/cloudposse/terraform-aws-kops-efs.git?ref=tags/0.4.0"
+  source             = "git::https://github.com/cloudposse/terraform-aws-kops-efs.git?ref=tags/0.5.0"
   enabled            = "${var.efs_enabled}"
   namespace          = "${var.namespace}"
   stage              = "${var.stage}"
@@ -33,6 +56,12 @@ module "kops_efs_provisioner" {
   availability_zones = ["${split(",", data.aws_ssm_parameter.kops_availability_zones.value)}"]
   zone_id            = "${local.kops_zone_id}"
   cluster_name       = "${var.region}.${var.zone_name}"
+
+  encrypted        = "${var.efs_encrypted}"
+  performance_mode = "${var.efs_performance_mode}"
+
+  throughput_mode                 = "${var.efs_throughput_mode}"
+  provisioned_throughput_in_mibps = "${var.efs_provisioned_throughput_in_mibps}"
 
   tags = {
     Cluster = "${var.region}.${var.zone_name}"
