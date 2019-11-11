@@ -18,7 +18,7 @@ variable "stage" {
 }
 
 variable "name" {
-  default     = "cis"
+  default     = "spotinst"
   description = "Name"
 }
 
