@@ -10,6 +10,12 @@ provider "aws" {
   }
 }
 
+variable "github_webhooks_token" {
+  type        = "string"
+  description = "GitHub Webhook Token with permissions to access private repositories"
+}
+
 provider "github" {
+  token        = "${var.github_webhooks_token}"
   organization = "${var.atlantis_repo_owner}"
 }
