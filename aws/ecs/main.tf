@@ -9,3 +9,7 @@ provider "aws" {
     role_arn = "${var.aws_assume_role_arn}"
   }
 }
+
+provider "github" {
+  organization = "${var.atlantis_repo_owner}"
+}
