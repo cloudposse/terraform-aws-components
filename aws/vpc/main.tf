@@ -43,7 +43,7 @@ module "vpc" {
 }
 
 module "subnets" {
-  source               = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=0.11/eip-nat-instances"
+  source               = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.12.1"
   availability_zones   = "${local.availability_zones}"
   max_subnet_count     = "${var.max_subnet_count}"
   namespace            = "${var.namespace}"
