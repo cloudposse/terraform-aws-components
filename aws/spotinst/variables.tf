@@ -43,7 +43,7 @@ variable "tags" {
 variable "capabilities" {
   type        = "list"
   description = "A list of capabilities. Valid values: CAPABILITY_IAM, CAPABILITY_NAMED_IAM, CAPABILITY_AUTO_EXPAND"
-  default     = ['CAPABILITY_IAM']
+  default     = ["CAPABILITY_IAM"]
 }
 
 variable "chamber_format" {
