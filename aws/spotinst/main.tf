@@ -5,6 +5,13 @@ terraform {
 }
 
 provider "aws" {
+  assume_role {
+    role_arn = "${var.aws_assume_role_arn}"
+  }
+}
+
+provider "aws" {
+  alias  = "spotinst"
   region = "us-east-1"
 
   assume_role {
@@ -59,6 +66,10 @@ module "token" {
 
 module "default" {
   source = "git::https://github.com/cloudposse/terraform-aws-cloudformation-stack.git?ref=init"
+
+  providers = {
+    aws = "aws.spotinst"
+  }
 
   enabled      = "${var.enabled}"
   namespace    = "${var.namespace}"
