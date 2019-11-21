@@ -197,7 +197,7 @@ resource "aws_ssm_parameter" "kops_shared_vpc_id" {
 resource "aws_ssm_parameter" "kops_shared_nat_gateways" {
   count       = "${var.create_vpc == "true" ? 0 : 1}"
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_shared_nat_gateways")}"
-  value       = "${var.use_shared_nat_gateways == "true" ? join("", data.aws_ssm_parameter.nat_gateways.*.value) : replace(local.private_subnet_cidrs, "[^,]+", "External")}"
+  value       = "${var.use_shared_nat_gateways == "true" ? join("", data.aws_ssm_parameter.nat_gateways.*.value) : replace(local.private_subnet_cidrs, "/[^,]+/", "External")}"
   description = "Kops (shared) private subnet NAT gateway AWS IDs"
   type        = "String"
   overwrite   = "true"
