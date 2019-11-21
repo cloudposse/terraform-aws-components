@@ -170,6 +170,11 @@ variable "atlantis_alb_ingress_authenticated_paths" {
   description = "Authenticated path pattern to match (a maximum of 1 can be defined)"
 }
 
+variable "atlantis_build_timeout" {
+  description = "Time (in minutes) to allow for Atlantis build to complete before declaring it a failure"
+  default     = 20
+}
+
 module "atlantis" {
   source    = "git::https://github.com/cloudposse/terraform-aws-ecs-atlantis.git?ref=tags/0.14.0"
   enabled   = var.atlantis_enabled
@@ -230,6 +235,8 @@ module "atlantis" {
   authentication_oidc_client_secret_ssm_name          = var.atlantis_oidc_client_secret_ssm_name
 
   codepipeline_s3_bucket_force_destroy = true
+
+  build_timeout = var.atlantis_build_timeout
 }
 
 output "atlantis_url" {
