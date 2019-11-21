@@ -28,7 +28,6 @@ module "default_backend_web_app" {
   alb_ingress_healthcheck_path = "/healthz"
 
   codepipeline_enabled = "false"
-  webhook_enabled      = "false"
   ecs_alarms_enabled   = "true"
   autoscaling_enabled  = "false"
 
@@ -50,4 +49,9 @@ module "default_backend_web_app" {
   alb_ingress_authenticated_paths   = []
 
   repo_owner = "${var.atlantis_repo_owner}"
+
+  webhook_enabled       = "false"
+  github_oauth_token    = "NO_TOKEN"
+  github_webhooks_token = "NO_TOKEN"
 }
+
