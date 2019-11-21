@@ -94,7 +94,7 @@ data "aws_ssm_parameter" "availability_zones" {
 
 # List of NAT gateways from private subnet to public, one per subnet, which is one per availability zone
 data "aws_ssm_parameter" "nat_gateways" {
-  count = "${var.create_vpc == "true" && var.use_shared_nat_gateways == "true" ? 0 : 1}"
+  count = "${var.create_vpc == "false" && var.use_shared_nat_gateways == "true" ? 1 : 0}"
   name  = "${format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_paramter_prefix, "nat_gateways")}"
 }
 
