@@ -4,7 +4,7 @@ variable "flow_logs_enabled" {
 }
 
 module "flow_logs" {
-  source  = "git::https://github.com/cloudposse/terraform-aws-vpc-flow-logs-s3-bucket.git?ref=tags/0.1.0"
+  source  = "git::https://github.com/cloudposse/terraform-aws-vpc-flow-logs-s3-bucket.git?ref=tags/0.2.0"
   enabled = var.flow_logs_enabled
 
   name       = var.name

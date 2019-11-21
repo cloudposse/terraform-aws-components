@@ -79,7 +79,7 @@ data "aws_iam_policy_document" "sns_topic" {
 }
 
 module "notify_slack" {
-  source            = "git::https://github.com/cloudposse/terraform-aws-sns-lambda-notify-slack?ref=tags/0.2.3"
+  source            = "git::https://github.com/cloudposse/terraform-aws-sns-lambda-notify-slack?ref=tags/0.3.0"
   name              = "slack"
   namespace         = var.namespace
   stage             = var.stage
@@ -89,4 +89,3 @@ module "notify_slack" {
   slack_channel     = var.slack_channel
   slack_username    = var.slack_username
 }
-
