@@ -4,7 +4,8 @@ variable "flow_logs_enabled" {
 }
 
 module "flow_logs" {
-  source = "git::https://github.com/cloudposse/terraform-aws-vpc-flow-logs-s3-bucket.git?ref=tags/0.1.0"
+  source  = "git::https://github.com/cloudposse/terraform-aws-vpc-flow-logs-s3-bucket.git?ref=tags/0.1.0"
+  enabled = var.flow_logs_enabled
 
   name       = var.name
   namespace  = var.namespace
@@ -12,12 +13,8 @@ module "flow_logs" {
   tags       = var.tags
   attributes = concat(var.attributes, ["flow-logs"])
   delimiter  = var.delimiter
-
-  region = var.region
-
-  enabled = var.flow_logs_enabled
-
-  vpc_id = module.vpc.vpc_id
+  region     = var.region
+  vpc_id     = module.vpc.vpc_id
 }
 
 output "flow_logs_kms_key_arn" {
