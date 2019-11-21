@@ -28,6 +28,7 @@ module "default_backend_web_app" {
   alb_ingress_healthcheck_path = "/healthz"
 
   codepipeline_enabled = "false"
+  webhook_enabled      = "false"
   ecs_alarms_enabled   = "true"
   autoscaling_enabled  = "false"
 
