@@ -95,8 +95,8 @@ variable "override_principal" {
 
 variable "chamber_name_token" {
   type        = "string"
-  default     = "spotinst_token"
-  description = "Chamber parameter name store Spotinst token"
+  default     = "spotinst_account_token"
+  description = "Chamber parameter name store Spotinst account token"
 }
 
 variable "override_token" {
