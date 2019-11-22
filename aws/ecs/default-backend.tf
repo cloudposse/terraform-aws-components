@@ -49,4 +49,8 @@ module "default_backend_web_app" {
   alb_ingress_authenticated_paths   = []
 
   repo_owner = "${var.atlantis_repo_owner}"
+
+  webhook_enabled       = "false"
+  github_oauth_token    = "NO_TOKEN"
+  github_webhooks_token = "NO_TOKEN"
 }
