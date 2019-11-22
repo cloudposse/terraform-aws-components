@@ -4,7 +4,7 @@ init:
 
 ## Clean up the project
 clean:
-	rm -rf .terraform *.tfstate*
+	rm -rf .terraform *.tfstate* $$TF_MODULE_CACHE
 
 ## Pass arguments through to terraform which require remote state
 apply console destroy graph plan output providers show: init

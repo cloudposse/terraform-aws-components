@@ -1,37 +1,38 @@
 variable "slack_webhook_url" {
-  type        = "string"
+  type        = string
   description = "Slack webhook URL"
 }
 
 variable "slack_channel" {
-  type        = "string"
+  type        = string
   description = "Slack channel"
 }
 
 variable "slack_username" {
-  type        = "string"
+  type        = string
   description = "Slack username"
 }
 
 module "sns_topic_label" {
-  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.1.6"
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.16.0"
   name       = "sns"
-  namespace  = "${var.namespace}"
-  stage      = "${var.stage}"
-  attributes = "${compact(concat(var.attributes, list("alarms")))}"
+  namespace  = var.namespace
+  stage      = var.stage
+  attributes = compact(concat(var.attributes, ["alarms"]))
 }
 
 # Create an SNS topic
 resource "aws_sns_topic" "default" {
-  name_prefix = "${module.sns_topic_label.id}"
+  name_prefix = module.sns_topic_label.id
 }
 
 resource "aws_sns_topic_policy" "default" {
-  arn    = "${aws_sns_topic.default.arn}"
-  policy = "${data.aws_iam_policy_document.sns_topic.json}"
+  arn    = aws_sns_topic.default.arn
+  policy = data.aws_iam_policy_document.sns_topic.json
 }
 
-data "aws_caller_identity" "default" {}
+data "aws_caller_identity" "default" {
+}
 
 data "aws_iam_policy_document" "sns_topic" {
   statement {
@@ -44,11 +45,11 @@ data "aws_iam_policy_document" "sns_topic" {
       "SNS:ListSubscriptionsByTopic",
       "SNS:GetTopicAttributes",
       "SNS:DeleteTopic",
-      "SNS:AddPermission",
+      "SNS:AddPermission"
     ]
 
     effect    = "Allow"
-    resources = ["${aws_sns_topic.default.arn}"]
+    resources = [aws_sns_topic.default.arn]
 
     principals {
       type        = "AWS"
@@ -60,7 +61,7 @@ data "aws_iam_policy_document" "sns_topic" {
       variable = "AWS:SourceOwner"
 
       values = [
-        "${data.aws_caller_identity.default.account_id}",
+        data.aws_caller_identity.default.account_id
       ]
     }
   }
@@ -68,7 +69,7 @@ data "aws_iam_policy_document" "sns_topic" {
   statement {
     sid       = "Allow CloudwatchEvents"
     actions   = ["sns:Publish"]
-    resources = ["${aws_sns_topic.default.arn}"]
+    resources = [aws_sns_topic.default.arn]
 
     principals {
       type        = "Service"
@@ -78,13 +79,13 @@ data "aws_iam_policy_document" "sns_topic" {
 }
 
 module "notify_slack" {
-  source            = "git::https://github.com/cloudposse/terraform-aws-sns-lambda-notify-slack?ref=tags/0.2.3"
+  source            = "git::https://github.com/cloudposse/terraform-aws-sns-lambda-notify-slack?ref=tags/0.3.0"
   name              = "slack"
-  namespace         = "${var.namespace}"
-  stage             = "${var.stage}"
-  create_sns_topic  = "false"
-  sns_topic_name    = "${aws_sns_topic.default.name}"
-  slack_webhook_url = "${var.slack_webhook_url}"
-  slack_channel     = "${var.slack_channel}"
-  slack_username    = "${var.slack_username}"
+  namespace         = var.namespace
+  stage             = var.stage
+  create_sns_topic  = false
+  sns_topic_name    = aws_sns_topic.default.name
+  slack_webhook_url = var.slack_webhook_url
+  slack_channel     = var.slack_channel
+  slack_username    = var.slack_username
 }
