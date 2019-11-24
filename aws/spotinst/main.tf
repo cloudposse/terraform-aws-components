@@ -16,10 +16,10 @@ provider "aws" {
 locals {
   template_url = "https://s3.amazonaws.com/spotinst-public/assets/cloudformation/templates/spotinst_aws_cfn_account_credentials_iam_stack.template.json"
   parameters = {
-    "AccountId"  = module.account_id.value
-    "ExternalId" = module.external_id.value
-    "Principal"  = module.principal.value
-    "Token"      = module.token.value
+    AccountId  = module.account_id.value
+    ExternalId = module.external_id.value
+    Principal  = module.principal.value
+    Token      = module.token.value
   }
 }
 
