@@ -74,7 +74,7 @@ module "default" {
   namespace    = var.namespace
   stage        = var.stage
   name         = var.name
-  attributes   = [var.attributes]
+  attributes   = var.attributes
   parameters   = local.parameters
   template_url = local.template_url
   capabilities = var.capabilities
