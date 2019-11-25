@@ -45,6 +45,12 @@ module "kops_metadata_networking" {
   cluster_name = local.cluster_name
 }
 
+module "kops_metadata_launch_configurations" {
+  source       = "git::https://github.com/cloudposse/terraform-aws-kops-data-launch-configurations.git?ref=init"
+  enabled      = var.enabled
+  cluster_name = local.cluster_name
+}
+
 resource "spotinst_ocean_aws" "default" {
   region = data.aws_region.current.name
 
@@ -80,7 +86,7 @@ resource "spotinst_ocean_aws" "default" {
 
   tags {
     key   = "Cluster"
-    value = ""
+    value = keys(module.kops_metadata_launch_configurations.test)
   }
 }
 
