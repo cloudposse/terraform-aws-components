@@ -70,7 +70,7 @@ resource "spotinst_ocean_aws" "default" {
   # If the expression in the following list itself returns a list, remove the
   # brackets to avoid interpretation as a list of lists. If the expression
   # returns a single list item then leave it as-is and remove this TODO comment.
-  security_groups = module.kops_metadata_networking.nodes_security_group_id
+  security_groups = [module.kops_metadata_networking.nodes_security_group_id]
 
   whitelist = var.instance_types
 
