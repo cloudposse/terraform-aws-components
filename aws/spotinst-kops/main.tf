@@ -86,7 +86,7 @@ resource "spotinst_ocean_aws" "default" {
 
   tags {
     key   = "Cluster"
-    value = join("", module.kops_metadata_launch_configurations.test[*].launch_configuration)
+    value = join("", keys(values(module.kops_metadata_launch_configurations.test)))
   }
 }
 
