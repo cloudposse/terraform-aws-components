@@ -119,6 +119,14 @@ resource "spotinst_ocean_aws" "default" {
       value = tags.value["value"]
     }
   }
+
+  update_policy {
+    should_roll = var.should_roll
+
+    roll_config {
+      batch_size_percentage = var.roll_batch_size_percentage
+    }
+  }
 }
 
 resource "spotinst_ocean_aws_launch_spec" "default" {

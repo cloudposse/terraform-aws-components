@@ -192,3 +192,15 @@ variable "autoscale_headroom_num_of_units" {
   description = "The number of units to retain as headroom, where each unit has the defined headroom CPU and memory"
 }
 
+variable "should_roll" {
+  type        = bool
+  default     = true
+  description = "Enables the roll"
+}
+
+variable "roll_batch_size_percentage" {
+  type        = number
+  default     = 33
+  description = "Sets the percentage of the instances to deploy in each batch"
+}
+
