@@ -46,47 +46,86 @@ module "kops_metadata_networking" {
 }
 
 module "kops_metadata_launch_configurations" {
-  source       = "git::https://github.com/cloudposse/terraform-aws-kops-data-launch-configurations.git?ref=init"
+  #source      = "git::https://github.com/cloudposse/terraform-aws-kops-data-launch-configurations.git?ref=init"
+  source       = "file:///localhost/projects/cloudposse/terraform/aws/kops/data/launch-configurations"
   enabled      = var.enabled
   cluster_name = local.cluster_name
 }
 
+locals {
+  default_launch_configuration    = element(values(module.kops_metadata_launch_configurations.nodes), 0)
+  additional_launch_configuration = slice(values(module.kops_metadata_launch_configurations.nodes), 1)
+}
+
 resource "spotinst_ocean_aws" "default" {
-  region = data.aws_region.current.name
-
-  name = local.cluster_name
-
+  name          = local.cluster_name
   controller_id = local.cluster_name
+  region        = data.aws_region.current.name
 
-  # TF-UPGRADE-TODO: In Terraform v0.10 and earlier, it was sometimes necessary to
-  # force an interpolation expression to be interpreted as a list by wrapping it
-  # in an extra set of list brackets. That form was supported for compatibility in
-  # v0.11, but is no longer supported in Terraform v0.12.
-  #
-  # If the expression in the following list itself returns a list, remove the
-  # brackets to avoid interpretation as a list of lists. If the expression
-  # returns a single list item then leave it as-is and remove this TODO comment.
+  max_size = var.max_size
+  min_size = var.min_size
+
   subnet_ids = module.kops_metadata_networking.private_subnet_ids
+  whitelist  = var.instance_types
 
-  # TF-UPGRADE-TODO: In Terraform v0.10 and earlier, it was sometimes necessary to
-  # force an interpolation expression to be interpreted as a list by wrapping it
-  # in an extra set of list brackets. That form was supported for compatibility in
-  # v0.11, but is no longer supported in Terraform v0.12.
-  #
-  # If the expression in the following list itself returns a list, remove the
-  # brackets to avoid interpretation as a list of lists. If the expression
-  # returns a single list item then leave it as-is and remove this TODO comment.
+  user_data = local.default_launch_configuration.user_data
+  image_id  = local.default_launch_configuration.image_id
+
   security_groups = [module.kops_metadata_networking.nodes_security_group_id]
+  key_name        = local.default_launch_configuration.key_name
 
-  whitelist = var.instance_types
+  iam_instance_profile        = local.default_launch_configuration.iam_instance_profile
+  associate_public_ip_address = local.default_launch_configuration.associate_public_ip_address
+  root_volume_size            = local.default_launch_configuration.root_block_device[0].volume_size
+  monitoring                  = local.default_launch_configuration.enable_monitoring
 
-  image_id  = "ami-07a64e50756d630d8"
-  user_data = ""
-  key_name  = ""
+  ebs_optimized = local.default_launch_configuration.ebs_optimized
 
-  tags {
-    key   = "Cluster"
-    value = join("", keys(module.kops_metadata_launch_configurations.test["test"]))
+  spot_percentage            = var.spot_percentage
+  utilize_reserved_instances = var.utilize_reserved_instances
+  draining_timeout           = var.draining_timeout
+  fallback_to_ondemand       = var.fallback_to_ondemand
+
+  autoscaler {
+    autoscale_is_enabled     = var.autoscale_enabled
+    autoscale_is_auto_config = var.autoscale_is_auto_config
+    autoscale_cooldown       = var.autoscale_cooldown
+
+    dynamic "autoscale_headroom" {
+      for_each = toset(compact(list(var.autoscale_is_auto_config ? "" : "enabled")))
+      content {
+        cpu_per_unit    = var.autoscale_headroom_cpu_per_unit
+        gpu_per_unit    = var.autoscale_headroom_gpu_per_unit
+        memory_per_unit = var.autoscale_headroom_memory_per_unit
+        num_of_units    = var.autoscale_headroom_num_of_units
+      }
+    }
+
+    autoscale_down {
+      evaluation_periods = var.autoscale_down_num_of_units
+    }
+
+    resource_limits {
+      max_vcpu       = var.autoscale_resource_max_vpcu
+      max_memory_gib = var.autoscale_resource_memory_gib
+    }
+  }
+
+  dynamic "tags" {
+    for_each = toset(local.default_launch_configuration.tags)
+    content {
+      key   = tags.value["key"]
+      value = tags.value["value"]
+    }
   }
 }
 
+resource "spotinst_ocean_aws_launch_spec" "default" {
+  for_each = toset(local.additional_launch_configuration)
+
+  ocean_id = spotinst_ocean_aws.default.id
+
+  image_id             = each.value.image_id
+  user_data            = each.value.user_data
+  iam_instance_profile = each.value.iam_instance_profile
+}

@@ -92,9 +92,103 @@ variable "instance_types" {
   description = "Instance types allowed in the Ocean cluster."
 }
 
-variable "spotinst_account_id" {
+variable "spotinst_account_id" {}
+
+variable "spotinst_token" {}
+
+variable "max_size" {
+  type        = number
+  default     = 1000
+  description = "The upper limit of instances the cluster can scale up to"
 }
 
-variable "spotinst_token" {
+variable "min_size" {
+  type        = number
+  default     = 0
+  description = "The lower limit of instances the cluster can scale down to"
+}
+
+variable "fallback_to_ondemand" {
+  type        = bool
+  default     = true
+  description = "If not Spot instance markets are available, enable Ocean to launch On-Demand instances instead"
+}
+
+variable "spot_percentage" {
+  type        = number
+  default     = 100
+  description = "The percentage of Spot instances the cluster should maintain. Min 0, max 100"
+}
+
+variable "utilize_reserved_instances" {
+  type        = bool
+  default     = false
+  description = "If Reserved instances exist, OCean will utilize them before launching Spot instances"
+}
+
+variable "draining_timeout" {
+  type        = number
+  default     = 120
+  description = "The time in seconds, the instance is allowed to run while detached from the ELB. This is to allow the instance time to be drained from incoming TCP connections before terminating it, during a scale down operation"
+}
+
+variable "autoscale_enabled" {
+  type        = bool
+  default     = true
+  description = "Enable the Ocean Kubernetes autoscaler"
+}
+
+variable "autoscale_is_auto_config" {
+  type        = bool
+  default     = true
+  description = "Automatically configure and optimize headroom resources"
+}
+
+variable "autoscale_cooldown" {
+  type        = number
+  default     = null
+  description = "Cooldown period between scaling actions"
+}
+
+variable "autoscale_down_num_of_units" {
+  type        = number
+  default     = null
+  description = "The number of evaluation periods that should accumulate before a scale down action takes place"
+}
+
+variable "autoscale_resource_max_vpcu" {
+  type        = number
+  default     = 20000
+  description = "The maximum cpu in vCPU units that can be allocated to the cluster"
+}
+
+variable "autoscale_resource_memory_gib" {
+  type        = number
+  default     = 100000
+  description = "The maximum memory in GiB units that can be allocated to the cluster"
+}
+
+variable "autoscale_headroom_cpu_per_unit" {
+  type        = number
+  default     = 1000
+  description = "Configure the number of CPUs to allocate the headroom. CPUs are denoted in millicores, where 1000 millicores = 1 vCPU"
+}
+
+variable "autoscale_headroom_gpu_per_unit" {
+  type        = number
+  default     = 0
+  description = "Configure the number of GPUS to allocate the headroom."
+}
+
+variable "autoscale_headroom_memory_per_unit" {
+  type        = number
+  default     = 1024
+  description = "Configure the amount of memory (MB) to allocate the headroom"
+}
+
+variable "autoscale_headroom_num_of_units" {
+  type        = number
+  default     = 1
+  description = "The number of units to retain as headroom, where each unit has the defined headroom CPU and memory"
 }
 
