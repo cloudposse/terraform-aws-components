@@ -49,7 +49,7 @@ module "kops_metadata_launch_configurations" {
 }
 
 locals {
-  nodes_availability_zones = distinct(flatten(module.kops_metadata_launch_configurations.nodes.*.availability_zones))
+  nodes_availability_zones = distinct(flatten(module.kops_metadata_launch_configurations.nodes[*].availability_zones))
 
   node_groups             = values(module.kops_metadata_launch_configurations.nodes)
   default_group           = element(local.node_groups, 0)
