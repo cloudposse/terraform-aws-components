@@ -49,10 +49,10 @@ module "kops_metadata_launch_configurations" {
 }
 
 locals {
-  node_launch_configurations            = values(module.kops_metadata_launch_configurations.nodes)
-  default_launch_configuration          = element(local.node_launch_configurations, 0)
-  additional_launch_configuration_count = length(local.node_launch_configurations) - 1
-  additional_launch_configuration       = slice(local.node_launch_configurations, local.additional_launch_configuration_count > 0 ? 1 : 0, local.additional_launch_configuration_count)
+  node_groups             = values(module.kops_metadata_launch_configurations.nodes)
+  default_group           = element(local.node_groups, 0)
+  additional_groups_count = length(local.node_groups) - 1
+  additional_groups       = slice(local.node_groups, local.additional_groups_count > 0 ? 1 : 0, local.additional_groups_count)
 }
 
 resource "spotinst_ocean_aws" "default" {
@@ -68,19 +68,19 @@ resource "spotinst_ocean_aws" "default" {
   subnet_ids = module.kops_metadata_networking.private_subnet_ids
   whitelist  = var.instance_types
 
-  image_id             = local.default_launch_configuration.image_id
-  user_data            = local.default_launch_configuration.user_data
-  iam_instance_profile = local.default_launch_configuration.iam_instance_profile
+  image_id             = local.default_group.launch_configuration.image_id
+  user_data            = local.default_group.launch_configuration.user_data
+  iam_instance_profile = local.default_group.launch_configuration.iam_instance_profile
 
   security_groups = [module.kops_metadata_networking.nodes_security_group_id]
-  key_name        = local.default_launch_configuration.key_name
+  key_name        = local.default_group.launch_configuration.key_name
 
 
-  associate_public_ip_address = local.default_launch_configuration.associate_public_ip_address
-  root_volume_size            = local.default_launch_configuration.root_block_device[0].volume_size
-  monitoring                  = local.default_launch_configuration.enable_monitoring
+  associate_public_ip_address = local.default_group.launch_configuration.associate_public_ip_address
+  root_volume_size            = local.default_group.launch_configuration.root_block_device[0].volume_size
+  monitoring                  = local.default_group.launch_configuration.enable_monitoring
 
-  ebs_optimized = local.default_launch_configuration.ebs_optimized
+  ebs_optimized = local.default_group.launch_configuration.ebs_optimized
 
   spot_percentage            = var.spot_percentage
   utilize_reserved_instances = var.utilize_reserved_instances
@@ -113,7 +113,7 @@ resource "spotinst_ocean_aws" "default" {
   }
 
   dynamic "tags" {
-    for_each = toset(local.default_launch_configuration.tags)
+    for_each = toset(local.default_group.tags)
     content {
       key   = tags.value["key"]
       value = tags.value["value"]
@@ -130,11 +130,11 @@ resource "spotinst_ocean_aws" "default" {
 }
 
 resource "spotinst_ocean_aws_launch_spec" "default" {
-  count = var.enabled ? length(local.additional_launch_configuration) : 0
+  count = var.enabled ? length(local.additional_groups) : 0
 
   ocean_id = join("", spotinst_ocean_aws.default.*.id)
 
-  image_id             = local.additional_launch_configuration[count.index].image_id
-  user_data            = local.additional_launch_configuration[count.index].user_data
-  iam_instance_profile = local.additional_launch_configuration[count.index].iam_instance_profile
+  image_id             = local.additional_groups[count.index].launch_configuration.image_id
+  user_data            = local.additional_groups[count.index].launch_configuration.user_data
+  iam_instance_profile = local.additional_groups[count.index].launch_configuration.iam_instance_profile
 }
