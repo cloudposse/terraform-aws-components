@@ -83,7 +83,7 @@ locals {
 }
 
 resource "spotinst_ocean_aws" "default" {
-  count = var.enabled ? 1 : 0
+  count = local.default_instance_group_enabled  ? 1 : 0
 
   name          = local.cluster_name
   controller_id = local.cluster_name
@@ -95,19 +95,19 @@ resource "spotinst_ocean_aws" "default" {
   subnet_ids = [ for subnet in data.aws_subnet.default : subnet.id if contains(local.nodes_availability_zones, subnet.availability_zone) ]
   whitelist  = var.instance_types
 
-  image_id             = data.aws_launch_configuration.default.image_id
-  user_data            = data.aws_launch_configuration.default.user_data
-  iam_instance_profile = data.aws_launch_configuration.default.iam_instance_profile
+  image_id             = data.aws_launch_configuration.default[0].image_id
+  user_data            = data.aws_launch_configuration.default[0].user_data
+  iam_instance_profile = data.aws_launch_configuration.default[0].iam_instance_profile
 
   security_groups = [module.kops_metadata_networking.nodes_security_group_id]
-  key_name        = data.aws_launch_configuration.default.key_name
+  key_name        = data.aws_launch_configuration.default[0].key_name
 
 
-  associate_public_ip_address = data.aws_launch_configuration.default.associate_public_ip_address
-  root_volume_size            = data.aws_launch_configuration.default.root_block_device[0].volume_size
-  monitoring                  = data.aws_launch_configuration.default.enable_monitoring
+  associate_public_ip_address = data.aws_launch_configuration.default[0].associate_public_ip_address
+  root_volume_size            = data.aws_launch_configuration.default[0].root_block_device[0].volume_size
+  monitoring                  = data.aws_launch_configuration.default[0].enable_monitoring
 
-  ebs_optimized = data.aws_launch_configuration.default.ebs_optimized
+  ebs_optimized = data.aws_launch_configuration.default[0].ebs_optimized
 
   spot_percentage            = var.spot_percentage
   utilize_reserved_instances = var.utilize_reserved_instances
