@@ -29,7 +29,7 @@ module "kops_metadata_instance_groups" {
 }
 
 locals {
-  default_instance_group_enabled = var.enabled && length(module.kops_metadata_instance_groups.nodes) > 0 ? 1 : 0
+  default_instance_group_enabled   = var.enabled && length(module.kops_metadata_instance_groups.nodes) > 0 ? 1 : 0
   additional_instance_groups_count = var.enabled && length(module.kops_metadata_instance_groups.nodes) > 1 ? length(module.kops_metadata_instance_groups.nodes) - 1 : 0
 }
 
@@ -50,12 +50,12 @@ data "aws_launch_configuration" "default" {
 
 data "aws_launch_configuration" "additional" {
   count = local.additional_instance_groups_count
-  name  =  data.aws_autoscaling_group.additional[count.index].launch_configuration
+  name  = data.aws_autoscaling_group.additional[count.index].launch_configuration
 }
 
 data "aws_subnet" "default" {
   count = var.enabled ? length(module.kops_metadata_networking.private_subnet_ids) : 0
-  id = module.kops_metadata_networking.private_subnet_ids[count.index]
+  id    = module.kops_metadata_networking.private_subnet_ids[count.index]
 }
 
 locals {
@@ -72,7 +72,7 @@ resource "spotinst_ocean_aws" "default" {
   max_size = var.max_size
   min_size = var.min_size
 
-  subnet_ids = [ for subnet in data.aws_subnet.default : subnet.id if contains(local.nodes_availability_zones, subnet.availability_zone) ]
+  subnet_ids = [for subnet in data.aws_subnet.default : subnet.id if contains(local.nodes_availability_zones, subnet.availability_zone)]
   whitelist  = var.instance_types
 
   image_id             = data.aws_launch_configuration.default[0].image_id
