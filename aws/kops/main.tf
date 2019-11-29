@@ -94,7 +94,7 @@ data "aws_ssm_parameter" "availability_zones" {
 
 # List of NAT gateways from private subnet to public, one per subnet, which is one per availability zone
 data "aws_ssm_parameter" "nat_gateways" {
-  count = "${var.create_vpc == "true" ? 0 : 1}"
+  count = "${var.create_vpc == "false" && var.use_shared_nat_gateways == "true" ? 1 : 0}"
   name  = "${format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_paramter_prefix, "nat_gateways")}"
 }
 
@@ -197,7 +197,7 @@ resource "aws_ssm_parameter" "kops_shared_vpc_id" {
 resource "aws_ssm_parameter" "kops_shared_nat_gateways" {
   count       = "${var.create_vpc == "true" ? 0 : 1}"
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_shared_nat_gateways")}"
-  value       = "${join("", data.aws_ssm_parameter.nat_gateways.*.value)}"
+  value       = "${var.use_shared_nat_gateways == "true" ? join("", data.aws_ssm_parameter.nat_gateways.*.value) : replace(local.private_subnet_cidrs, "/[^,]+/", "External")}"
   description = "Kops (shared) private subnet NAT gateway AWS IDs"
   type        = "String"
   overwrite   = "true"

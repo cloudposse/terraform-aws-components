@@ -151,6 +151,11 @@ variable "create_vpc" {
   description = "Set to false to use VPC specified in Chamber VPC parameters, true to create a new VPC"
 }
 
+variable "use_shared_nat_gateways" {
+  default     = "false"
+  description = "Set true if shared VPC use NAT gateways"
+}
+
 variable "vpc_chamber_service" {
   default     = "vpc"
   description = "`chamber` service name where shared vpc parameters are stored"
