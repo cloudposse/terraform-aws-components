@@ -83,7 +83,7 @@ locals {
 }
 
 resource "spotinst_ocean_aws" "default" {
-  count = local.default_instance_group_enabled  ? 1 : 0
+  count = local.default_instance_group_enabled
 
   name          = local.cluster_name
   controller_id = local.cluster_name
