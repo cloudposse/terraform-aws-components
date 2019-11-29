@@ -24,7 +24,7 @@ locals {
 }
 
 module "account_id" {
-  source = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-chamber-reader.git?ref=init"
+  source = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-chamber-reader.git?ref=tags/0.1.0"
 
   enabled         = var.enabled
   chamber_format  = var.chamber_format
@@ -34,7 +34,7 @@ module "account_id" {
 }
 
 module "external_id" {
-  source = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-chamber-reader.git?ref=init"
+  source = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-chamber-reader.git?ref=tags/0.1.0"
 
   enabled         = var.enabled
   chamber_format  = var.chamber_format
@@ -44,7 +44,7 @@ module "external_id" {
 }
 
 module "principal" {
-  source = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-chamber-reader.git?ref=init"
+  source = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-chamber-reader.git?ref=tags/0.1.0"
 
   enabled         = var.enabled
   chamber_format  = var.chamber_format
@@ -54,7 +54,7 @@ module "principal" {
 }
 
 module "token" {
-  source = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-chamber-reader.git?ref=init"
+  source = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-chamber-reader.git?ref=tags/0.1.0"
 
   enabled         = var.enabled
   chamber_format  = var.chamber_format
@@ -64,7 +64,7 @@ module "token" {
 }
 
 module "default" {
-  source = "git::https://github.com/cloudposse/terraform-aws-cloudformation-stack.git?ref=init"
+  source = "git::https://github.com/cloudposse/terraform-aws-cloudformation-stack.git?ref=tags/0.1.0"
 
   providers = {
     aws = aws.spotinst

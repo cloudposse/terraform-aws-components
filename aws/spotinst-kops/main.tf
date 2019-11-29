@@ -9,26 +9,6 @@ provider "spotinst" {
   account = var.spotinst_account_id
 }
 
-module "account_id" {
-  source = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-chamber-reader.git?ref=init"
-
-  enabled         = var.enabled
-  chamber_format  = var.chamber_format
-  chamber_service = var.chamber_service
-  parameter       = var.chamber_name_account_id
-  override_value  = var.override_account_id
-}
-
-module "token" {
-  source = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-chamber-reader.git?ref=init"
-
-  enabled         = var.enabled
-  chamber_format  = var.chamber_format
-  chamber_service = var.chamber_service
-  parameter       = var.chamber_name_token
-  override_value  = var.override_token
-}
-
 data "aws_region" "current" {
 }
 
@@ -43,7 +23,7 @@ module "kops_metadata_networking" {
 }
 
 module "kops_metadata_instance_groups" {
-  source       = "git::https://github.com/cloudposse/terraform-aws-kops-data-launch-configurations.git?ref=init"
+  source       = "git::https://github.com/cloudposse/terraform-aws-kops-data-launch-configurations.git?ref=tags/0.1.0"
   enabled      = var.enabled
   cluster_name = local.cluster_name
 }
