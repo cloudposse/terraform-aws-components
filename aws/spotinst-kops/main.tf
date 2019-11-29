@@ -145,7 +145,7 @@ resource "spotinst_ocean_aws" "default" {
         [
           { key = "Name", value = join("", data.aws_autoscaling_group.default.*.name) }
         ],
-        module.kops_metadata_instance_groups.bastion_tags,
+        module.kops_metadata_instance_groups.nodes_tags,
         module.kops_metadata_instance_groups.common_tags
       )
     )
