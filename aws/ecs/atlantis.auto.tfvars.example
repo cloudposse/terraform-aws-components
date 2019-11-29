@@ -1,5 +1,8 @@
-# Write the github_oauth_token to SSM parameter store:
+# Write atlantis_gh_token to SSM parameter store:
 # chamber write atlantis atlantis_gh_token "....."
+
+# Write github_webhooks_token to SSM parameter store:
+# chamber write atlantis github_webhooks_token "....."
 
 # When using Cognito authentication (atlantis_authentication_type = COGNITO), write the following values to SSM parameter store:
 # chamber write atlantis atlantis_cognito_user_pool_arn "....."
@@ -10,7 +13,7 @@
 # chamber write atlantis atlantis_oidc_client_id "....."
 # chamber write atlantis atlantis_oidc_client_secret "....."
 
-atlantis_enabled = "true"
+atlantis_enabled = true
 
 atlantis_branch = "master"
 
@@ -40,10 +43,14 @@ atlantis_oidc_user_info_endpoint = "https://openidconnect.googleapis.com/v1/user
 
 atlantis_alb_ingress_unauthenticated_paths = ["/events"]
 
-atlantis_alb_ingress_listener_unauthenticated_priority = "50"
+atlantis_alb_ingress_listener_unauthenticated_priority = 50
 
 atlantis_alb_ingress_authenticated_paths = ["/*"]
 
-atlantis_alb_ingress_listener_authenticated_priority = "100"
+atlantis_alb_ingress_listener_authenticated_priority = 100
 
 availability_zones=["us-west-2a", "us-west-2b"]
+
+nat_instance_enabled = true
+
+nat_gateway_enabled = false
