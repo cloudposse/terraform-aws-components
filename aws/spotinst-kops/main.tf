@@ -42,19 +42,44 @@ module "kops_metadata_networking" {
   cluster_name = local.cluster_name
 }
 
-module "kops_metadata_launch_configurations" {
+module "kops_metadata_instance_groups" {
   source       = "git::https://github.com/cloudposse/terraform-aws-kops-data-launch-configurations.git?ref=init"
   enabled      = var.enabled
   cluster_name = local.cluster_name
 }
 
 locals {
-  nodes_availability_zones = distinct(flatten(module.kops_metadata_launch_configurations.nodes[*].availability_zones))
+  default_instance_group_enabled = var.enabled && length(module.kops_metadata_instance_groups.nodes) > 0 ? 1 : 0
+  additional_instance_groups_count = var.enabled && length(module.kops_metadata_instance_groups.nodes) > 1 ? length(module.kops_metadata_instance_groups.nodes) - 1 : 0
+}
 
-  node_groups             = values(module.kops_metadata_launch_configurations.nodes)
-  default_group           = element(local.node_groups, 0)
-  additional_groups_count = length(local.node_groups) - 1
-  additional_groups       = slice(local.node_groups, local.additional_groups_count > 0 ? 1 : 0, local.additional_groups_count)
+data "aws_autoscaling_group" "default" {
+  count = local.default_instance_group_enabled
+  name  = module.kops_metadata_instance_groups.nodes[0]
+}
+
+data "aws_autoscaling_group" "additional" {
+  count = local.additional_instance_groups_count
+  name  = module.kops_metadata_instance_groups.nodes[count.index + 1]
+}
+
+data "aws_launch_configuration" "default" {
+  count = local.default_instance_group_enabled
+  name  = data.aws_autoscaling_group.default[count.index].launch_configuration
+}
+
+data "aws_launch_configuration" "additional" {
+  count = local.additional_instance_groups_count
+  name  =  data.aws_autoscaling_group.additional[count.index].launch_configuration
+}
+
+data "aws_subnet" "default" {
+  count = var.enabled ? length(module.kops_metadata_networking.private_subnet_ids) : 0
+  id = module.kops_metadata_networking.private_subnet_ids[count.index]
+}
+
+locals {
+  nodes_availability_zones = distinct(flatten(concat(data.aws_autoscaling_group.default.*.availability_zones, data.aws_autoscaling_group.additional.*.availability_zones)))
 }
 
 resource "spotinst_ocean_aws" "default" {
@@ -67,22 +92,22 @@ resource "spotinst_ocean_aws" "default" {
   max_size = var.max_size
   min_size = var.min_size
 
-  subnet_ids = module.kops_metadata_networking.private_subnet_ids
+  subnet_ids = [ for subnet in data.aws_subnet.default : subnet.id if contains(local.nodes_availability_zones, subnet.availability_zone) ]
   whitelist  = var.instance_types
 
-  image_id             = local.default_group.launch_configuration.image_id
-  user_data            = local.default_group.launch_configuration.user_data
-  iam_instance_profile = local.default_group.launch_configuration.iam_instance_profile
+  image_id             = data.aws_launch_configuration.default.image_id
+  user_data            = data.aws_launch_configuration.default.user_data
+  iam_instance_profile = data.aws_launch_configuration.default.iam_instance_profile
 
   security_groups = [module.kops_metadata_networking.nodes_security_group_id]
-  key_name        = local.default_group.launch_configuration.key_name
+  key_name        = data.aws_launch_configuration.default.key_name
 
 
-  associate_public_ip_address = local.default_group.launch_configuration.associate_public_ip_address
-  root_volume_size            = local.default_group.launch_configuration.root_block_device[0].volume_size
-  monitoring                  = local.default_group.launch_configuration.enable_monitoring
+  associate_public_ip_address = data.aws_launch_configuration.default.associate_public_ip_address
+  root_volume_size            = data.aws_launch_configuration.default.root_block_device[0].volume_size
+  monitoring                  = data.aws_launch_configuration.default.enable_monitoring
 
-  ebs_optimized = local.default_group.launch_configuration.ebs_optimized
+  ebs_optimized = data.aws_launch_configuration.default.ebs_optimized
 
   spot_percentage            = var.spot_percentage
   utilize_reserved_instances = var.utilize_reserved_instances
@@ -115,7 +140,15 @@ resource "spotinst_ocean_aws" "default" {
   }
 
   dynamic "tags" {
-    for_each = toset(local.default_group.tags)
+    for_each = toset(
+      concat(
+        [
+          { key = "Name", value = join("", data.aws_autoscaling_group.default.*.name) }
+        ],
+        module.kops_metadata_instance_groups.bastion_tags,
+        module.kops_metadata_instance_groups.common_tags
+      )
+    )
     content {
       key   = tags.value["key"]
       value = tags.value["value"]
@@ -132,11 +165,11 @@ resource "spotinst_ocean_aws" "default" {
 }
 
 resource "spotinst_ocean_aws_launch_spec" "default" {
-  count = var.enabled ? length(local.additional_groups) : 0
+  count = local.additional_instance_groups_count
 
   ocean_id = join("", spotinst_ocean_aws.default.*.id)
 
-  image_id             = local.additional_groups[count.index].launch_configuration.image_id
-  user_data            = local.additional_groups[count.index].launch_configuration.user_data
-  iam_instance_profile = local.additional_groups[count.index].launch_configuration.iam_instance_profile
+  image_id             = data.aws_launch_configuration.additional[count.index].image_id
+  user_data            = data.aws_launch_configuration.additional[count.index].user_data
+  iam_instance_profile = data.aws_launch_configuration.additional[count.index].iam_instance_profile
 }
