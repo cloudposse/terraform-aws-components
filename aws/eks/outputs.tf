@@ -38,6 +38,11 @@ output "eks_cluster_identity_oidc_issuer" {
   value       = module.eks_cluster.eks_cluster_identity_oidc_issuer
 }
 
+output "eks_cluster_identity_oidc_provider_arn" {
+  description = "The OIDC Identity provider ARN for the cluster that can be used to associate IAM roles with Kubernetes service accounts"
+  value       = module.eks_cluster.eks_cluster_identity_oidc_issuer_arn
+}
+
 output "eks_node_group_role_arn" {
   description = "ARN of the worker nodes IAM role"
   value       = module.eks_node_group.eks_node_group_role_arn

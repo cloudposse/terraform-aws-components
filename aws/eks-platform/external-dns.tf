@@ -17,6 +17,10 @@ variable "chamber_service" {
   description = "`chamber` service name. See [chamber usage](https://github.com/segmentio/chamber#usage) for more details"
 }
 
+locals {
+  chamber_service = var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service
+}
+
 module "label" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.16.0"
   namespace  = var.namespace
@@ -27,36 +31,39 @@ module "label" {
   tags       = var.tags
 }
 
+data "aws_ssm_parameter" "eks_cluster_identity_oidc_provider_arn" {
+  name = format(var.chamber_parameter_name_pattern, local.chamber_service, "eks_cluster_identity_oidc_provider_arn")
+}
+
 resource "aws_iam_role" "default" {
-  name        = module.label.id
-  description = "Role that can be assumed by external-dns"
+  name               = module.label.id
+  description        = "Role that can be assumed by external-dns"
+  assume_role_policy = data.aws_iam_policy_document.assume_role.json
 
   lifecycle {
     create_before_destroy = true
   }
-
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
+# https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts-technical-overview.html
 data "aws_iam_policy_document" "assume_role" {
   statement {
     actions = [
-      "sts:AssumeRole"
+      "sts:AssumeRoleWithWebIdentity"
     ]
 
-    principals {
-      type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
-    }
-
-    principals {
-      type = "AWS"
-
-      identifiers = [
-      ]
-    }
-
     effect = "Allow"
+
+    principals {
+      type        = "Federated"
+      identifiers = [data.aws_ssm_parameter.eks_cluster_identity_oidc_provider_arn.value]
+    }
+
+    condition {
+      test     = "StringEquals"
+      values   = ["system:serviceaccount:SERVICE_ACCOUNT_NAMESPACE:SERVICE_ACCOUNT_NAME"]
+      variable = "OIDC_PROVIDER:sub"
+    }
   }
 }
 
@@ -109,10 +116,6 @@ data "aws_iam_policy_document" "default" {
 
     resources = ["*"]
   }
-}
-
-locals {
-  chamber_service = var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service
 }
 
 resource "aws_ssm_parameter" "external_dns_role_name" {
