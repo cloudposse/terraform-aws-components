@@ -67,10 +67,11 @@ variable "min_size" {
   description = "The minimum size of the AutoScaling Group"
 }
 
+# https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html
 variable "oidc_provider_enabled" {
   type        = bool
   default     = true
-  description = "Create an IAM OIDC identity provider for the cluster, then you can create IAM roles to associate with a service account in the cluster, instead of using kiam or kube2iam. For more information, see https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html"
+  description = "Create an IAM OIDC identity provider for the cluster. Then you can create IAM roles to associate with a service account in the cluster, instead of using kiam or kube2iam. For more information, see https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html"
 }
 
 variable "kubeconfig_path" {
@@ -91,4 +92,16 @@ variable "instance_types" {
 variable "kubernetes_labels" {
   type        = map(string)
   description = "Key-value mapping of Kubernetes labels. Only labels that are applied with the EKS API are managed by this argument. Other Kubernetes labels applied to the EKS Node Group will not be managed"
+}
+
+variable "chamber_parameter_name_pattern" {
+  type        = string
+  default     = "/%s/%s"
+  description = "Format string for creating SSM parameter name used to store chamber parameters. The default is usually best"
+}
+
+variable "chamber_service" {
+  type        = string
+  default     = "eks"
+  description = "`chamber` service name. See [chamber usage](https://github.com/segmentio/chamber#usage) for more details"
 }

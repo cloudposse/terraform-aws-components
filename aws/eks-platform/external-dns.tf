@@ -1,5 +1,6 @@
 # https://github.com/kubernetes-sigs/external-dns
 # https://aws.amazon.com/blogs/opensource/introducing-fine-grained-iam-roles-service-accounts/
+# https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html
 # https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html
 # https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts-technical-overview.html
 # https://docs.aws.amazon.com/eks/latest/userguide/create-service-account-iam-policy-and-role.html
@@ -8,6 +9,12 @@
 variable "dns_zone_names" {
   type        = list(string)
   description = "Names of DNS zones for `external-dns` to manage"
+}
+
+variable "chamber_service" {
+  type        = string
+  default     = "eks"
+  description = "`chamber` service name. See [chamber usage](https://github.com/segmentio/chamber#usage) for more details"
 }
 
 module "label" {
@@ -102,6 +109,26 @@ data "aws_iam_policy_document" "default" {
 
     resources = ["*"]
   }
+}
+
+locals {
+  chamber_service = var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service
+}
+
+resource "aws_ssm_parameter" "external_dns_role_name" {
+  name        = format(var.chamber_parameter_name_pattern, local.chamber_service, "external_dns_role_name")
+  value       = aws_iam_role.default.name
+  description = "external-dns IAM role name"
+  type        = "String"
+  overwrite   = true
+}
+
+resource "aws_ssm_parameter" "external_dns_role_arn" {
+  name        = format(var.chamber_parameter_name_pattern, local.chamber_service, "external_dns_role_arn")
+  value       = aws_iam_role.default.arn
+  description = "external-dns IAM role ARN"
+  type        = "String"
+  overwrite   = true
 }
 
 output "external_dns_role_name" {

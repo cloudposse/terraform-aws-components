@@ -71,3 +71,31 @@ module "eks_node_group" {
   kubernetes_version = var.kubernetes_version
   kubernetes_labels  = var.kubernetes_labels
 }
+
+locals {
+  chamber_service = var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service
+}
+
+resource "aws_ssm_parameter" "eks_cluster_id" {
+  name        = format(var.chamber_parameter_name_pattern, local.chamber_service, "eks_cluster_id")
+  value       = module.eks_cluster.eks_cluster_id
+  description = "EKS cluster ID"
+  type        = "String"
+  overwrite   = true
+}
+
+resource "aws_ssm_parameter" "eks_cluster_identity_oidc_issuer" {
+  name        = format(var.chamber_parameter_name_pattern, local.chamber_service, "eks_cluster_identity_oidc_issuer")
+  value       = module.eks_cluster.eks_cluster_identity_oidc_issuer
+  description = "EKS cluster identity OIDC issuer"
+  type        = "String"
+  overwrite   = true
+}
+
+resource "aws_ssm_parameter" "eks_cluster_endpoint" {
+  name        = format(var.chamber_parameter_name_pattern, local.chamber_service, "eks_cluster_endpoint")
+  value       = module.eks_cluster.eks_cluster_endpoint
+  description = "EKS cluster endpoint"
+  type        = "String"
+  overwrite   = true
+}

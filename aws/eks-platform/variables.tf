@@ -35,3 +35,9 @@ variable "cluster_name" {
   type        = string
   description = "EKS cluster name"
 }
+
+variable "chamber_parameter_name_pattern" {
+  type        = string
+  default     = "/%s/%s"
+  description = "Format string for creating SSM parameter name used to store chamber parameters. The default is usually best"
+}
