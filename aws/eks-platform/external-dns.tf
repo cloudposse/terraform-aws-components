@@ -17,6 +17,21 @@ variable "chamber_service" {
   description = "`chamber` service name. See [chamber usage](https://github.com/segmentio/chamber#usage) for more details"
 }
 
+variable "aws_account_id" {
+  type        = string
+  description = "AWS Account ID"
+}
+
+variable "kubernetes_service_account_namespace" {
+  type        = string
+  description = "Kubernetes Service Account namespace"
+}
+
+variable "kubernetes_service_account_name" {
+  type        = string
+  description = "Kubernetes Service Account name"
+}
+
 data "aws_ssm_parameter" "eks_cluster_identity_oidc_issuer_url" {
   name = format(var.chamber_parameter_name_pattern, local.chamber_service, "eks_cluster_identity_oidc_issuer_url")
 }
