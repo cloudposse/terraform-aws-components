@@ -92,8 +92,8 @@ resource "aws_ssm_parameter" "eks_cluster_endpoint" {
   overwrite   = true
 }
 
-resource "aws_ssm_parameter" "eks_cluster_identity_oidc_issuer" {
-  name        = format(var.chamber_parameter_name_pattern, local.chamber_service, "eks_cluster_identity_oidc_issuer")
+resource "aws_ssm_parameter" "eks_cluster_identity_oidc_issuer_url" {
+  name        = format(var.chamber_parameter_name_pattern, local.chamber_service, "eks_cluster_identity_oidc_issuer_url")
   value       = module.eks_cluster.eks_cluster_identity_oidc_issuer
   description = "EKS cluster identity OIDC issuer"
   type        = "String"

@@ -41,3 +41,18 @@ variable "chamber_parameter_name_pattern" {
   default     = "/%s/%s"
   description = "Format string for creating SSM parameter name used to store chamber parameters. The default is usually best"
 }
+
+variable "aws_account_id" {
+  type        = string
+  description = "AWS Account ID"
+}
+
+variable "kubernetes_service_account_namespace" {
+  type        = string
+  description = "Kubernetes Service Account namespace"
+}
+
+variable "kubernetes_service_account_name" {
+  type        = string
+  description = "Kubernetes Service Account name"
+}

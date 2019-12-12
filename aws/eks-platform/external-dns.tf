@@ -17,8 +17,13 @@ variable "chamber_service" {
   description = "`chamber` service name. See [chamber usage](https://github.com/segmentio/chamber#usage) for more details"
 }
 
+data "aws_ssm_parameter" "eks_cluster_identity_oidc_issuer_url" {
+  name = format(var.chamber_parameter_name_pattern, local.chamber_service, "eks_cluster_identity_oidc_issuer_url")
+}
+
 locals {
-  chamber_service = var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service
+  chamber_service                  = var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service
+  eks_cluster_identity_oidc_issuer = replace(data.aws_ssm_parameter.eks_cluster_identity_oidc_issuer_url.value, "https://", "")
 }
 
 module "label" {
@@ -29,10 +34,6 @@ module "label" {
   delimiter  = var.delimiter
   attributes = compact(concat(var.attributes, list("external-dns")))
   tags       = var.tags
-}
-
-data "aws_ssm_parameter" "eks_cluster_identity_oidc_provider_arn" {
-  name = format(var.chamber_parameter_name_pattern, local.chamber_service, "eks_cluster_identity_oidc_provider_arn")
 }
 
 resource "aws_iam_role" "default" {
@@ -46,6 +47,7 @@ resource "aws_iam_role" "default" {
 }
 
 # https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts-technical-overview.html
+# https://docs.aws.amazon.com/eks/latest/userguide/create-service-account-iam-policy-and-role.html
 data "aws_iam_policy_document" "assume_role" {
   statement {
     actions = [
@@ -56,13 +58,13 @@ data "aws_iam_policy_document" "assume_role" {
 
     principals {
       type        = "Federated"
-      identifiers = [data.aws_ssm_parameter.eks_cluster_identity_oidc_provider_arn.value]
+      identifiers = [format("arn:aws:iam::%s:oidc-provider/%s", var.aws_account_id, local.eks_cluster_identity_oidc_issuer)]
     }
 
     condition {
       test     = "StringEquals"
-      values   = ["system:serviceaccount:SERVICE_ACCOUNT_NAMESPACE:SERVICE_ACCOUNT_NAME"]
-      variable = "OIDC_PROVIDER:sub"
+      values   = [format("system:serviceaccount:%s:%s", var.kubernetes_service_account_namespace, var.kubernetes_service_account_name)]
+      variable = format("%s:sub", local.eks_cluster_identity_oidc_issuer)
     }
   }
 }
@@ -93,7 +95,7 @@ data "aws_iam_policy_document" "default" {
     sid = "GrantModifyAccessToDomains"
 
     actions = [
-      "route53:ChangeResourceRecordSets",
+      "route53:ChangeResourceRecordSets"
     ]
 
     effect = "Allow"
