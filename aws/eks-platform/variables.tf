@@ -31,11 +31,6 @@ variable "tags" {
   description = "Additional tags (e.g. `map('BusinessUnit`,`XYZ`)"
 }
 
-variable "cluster_name" {
-  type        = string
-  description = "EKS cluster name"
-}
-
 variable "chamber_parameter_name_pattern" {
   type        = string
   default     = "/%s/%s"
