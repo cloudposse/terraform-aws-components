@@ -113,11 +113,8 @@ data "aws_iam_policy_document" "default" {
       "route53:ChangeResourceRecordSets"
     ]
 
-    effect = "Allow"
-
-    resources = [
-      formatlist("arn:aws:route53:::hostedzone/%s", data.aws_route53_zone.default.*.zone_id),
-    ]
+    effect    = "Allow"
+    resources = formatlist("arn:aws:route53:::hostedzone/%s", data.aws_route53_zone.default.*.zone_id)
   }
 
   statement {
@@ -129,8 +126,7 @@ data "aws_iam_policy_document" "default" {
       "route53:ListResourceRecordSets"
     ]
 
-    effect = "Allow"
-
+    effect    = "Allow"
     resources = ["*"]
   }
 }
