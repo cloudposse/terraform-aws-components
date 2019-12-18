@@ -1,33 +1,56 @@
-# Write the github_oauth_token to SSM parameter store.
-# chamber write atlantis github_oauth_token "supersecret"
+# Write atlantis_gh_token to SSM parameter store:
+# chamber write atlantis atlantis_gh_token "....."
 
-atlantis_enabled = "true"
+# Write github_webhooks_token to SSM parameter store:
+# chamber write atlantis github_webhooks_token "....."
+
+# When using Cognito authentication (atlantis_authentication_type = COGNITO), write the following values to SSM parameter store:
+# chamber write atlantis atlantis_cognito_user_pool_arn "....."
+# chamber write atlantis atlantis_cognito_user_pool_client_id "....."
+# chamber write atlantis atlantis_cognito_user_pool_domain "....."
+
+# When using OIDC authentication (atlantis_authentication_type = OIDC), write the following values to SSM parameter store:
+# chamber write atlantis atlantis_oidc_client_id "....."
+# chamber write atlantis atlantis_oidc_client_secret "....."
+
+atlantis_enabled = true
+
 atlantis_branch = "master"
+
 atlantis_repo_name = "testing.example.co"
+
 atlantis_repo_owner = "example"
+
 atlantis_repo_whitelist = ["github.com/example/*"]
 
-atlantis_allow_repo_config = "true"
+atlantis_repo_config = "/conf/ecs/atlantis-repo-config.yaml"
 
 atlantis_gh_user = "examplebot"
+
 atlantis_gh_team_whitelist = "engineering:plan,devops:*"
 
 atlantis_wake_word = "atlantis"
 
+atlantis_authentication_type = "OIDC"
 
-# https://www.terraform.io/docs/providers/aws/r/lb_listener_rule.html
-atlantis_authentication_action = {
-  type = "authenticate-oidc"
+atlantis_oidc_issuer = "https://accounts.google.com"
 
-  authenticate_oidc = [{
-    # Use this URL to create a Google OAuth 2.0 Client and obtain the Client ID and Client Secret: https://console.developers.google.com/apis/credentials
-    client_id     = "XXXXXXXXXXXXXXXXXXXX"
-    client_secret = "XXXXXXXXXXXX_XXXXXX"
+atlantis_oidc_authorization_endpoint = "https://accounts.google.com/o/oauth2/v2/auth"
 
-    # Use this URL to get Google Auth endpoints: https://accounts.google.com/.well-known/openid-configuration
-    issuer                 = "https://accounts.google.com"
-    authorization_endpoint = "https://accounts.google.com/o/oauth2/v2/auth"
-    token_endpoint         = "https://oauth2.googleapis.com/token"
-    user_info_endpoint     = "https://openidconnect.googleapis.com/v1/userinfo"
-  }]
-}
+atlantis_oidc_token_endpoint = "https://oauth2.googleapis.com/token"
+
+atlantis_oidc_user_info_endpoint = "https://openidconnect.googleapis.com/v1/userinfo"
+
+atlantis_alb_ingress_unauthenticated_paths = ["/events"]
+
+atlantis_alb_ingress_listener_unauthenticated_priority = 50
+
+atlantis_alb_ingress_authenticated_paths = ["/*"]
+
+atlantis_alb_ingress_listener_authenticated_priority = 100
+
+availability_zones=["us-west-2a", "us-west-2b"]
+
+nat_instance_enabled = true
+
+nat_gateway_enabled = false

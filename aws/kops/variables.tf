@@ -20,7 +20,32 @@ variable "name" {
 
 variable "region" {
   type        = "string"
-  description = "AWS region"
+  default     = ""
+  description = "AWS region for resources. Can be overriden by `resource_region` and `state_store_region`"
+}
+
+variable "state_store_region" {
+  type        = "string"
+  default     = ""
+  description = "Region where to create the S3 bucket for the kops state store. Defaults to `var.region`"
+}
+
+variable "resource_region" {
+  type        = "string"
+  default     = ""
+  description = "Region where to create region-specific resources. Defaults to `var.region`"
+}
+
+variable "create_state_store_bucket" {
+  type        = "string"
+  default     = "true"
+  description = "Set to `false` to use existing S3 bucket (e.g. from another region)"
+}
+
+variable "cluster_name_prefix" {
+  type        = "string"
+  default     = ""
+  description = "Prefix to add before parent DNS zone name to identify this cluster, e.g. `us-east-1`. Defaults to `var.resource_region`"
 }
 
 variable "availability_zones" {
@@ -119,4 +144,28 @@ variable "chamber_service" {
 
 variable "chamber_parameter_name" {
   default = "/%s/%s"
+}
+
+variable "create_vpc" {
+  default     = "true"
+  description = "Set to false to use VPC specified in Chamber VPC parameters, true to create a new VPC"
+}
+
+variable "use_shared_nat_gateways" {
+  default     = "false"
+  description = "Set true if shared VPC use NAT gateways"
+}
+
+variable "vpc_chamber_service" {
+  default     = "vpc"
+  description = "`chamber` service name where shared vpc parameters are stored"
+}
+
+variable "vpc_chamber_parameter_name" {
+  default = "/%s/%s_%s"
+}
+
+variable "vpc_paramter_prefix" {
+  default     = "vpc_common"
+  description = "parameter name prefix to use when looking up VPC parameters in chamber"
 }

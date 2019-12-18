@@ -1,3 +1,11 @@
+output "teleport_version" {
+  value = "${var.teleport_version}"
+}
+
+output "teleport_proxy_domain_name" {
+  value = "${var.teleport_proxy_domain_name}"
+}
+
 output "parameter_store_prefix" {
   value = "${format(var.chamber_parameter_name, local.chamber_service, "")}"
 }

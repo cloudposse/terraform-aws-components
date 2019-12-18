@@ -4,38 +4,13 @@ terraform {
   backend "s3" {}
 }
 
-variable "aws_assume_role_arn" {
-  type = "string"
-}
-
 provider "aws" {
   assume_role {
     role_arn = "${var.aws_assume_role_arn}"
   }
 }
 
-variable "namespace" {
-  type        = "string"
-  description = "Namespace (e.g. `cp` or `cloudposse`)"
-}
-
-variable "stage" {
-  type        = "string"
-  description = "Stage (e.g. `audit`)"
-  default     = "audit"
-}
-
-variable "name" {
-  type        = "string"
-  description = "Name (e.g. `account`)"
-  default     = "account"
-}
-
-variable "region" {
-  type        = "string"
-  description = "AWS region"
-  default     = ""
-}
+data "aws_caller_identity" "default" {}
 
 data "aws_region" "default" {}
 
@@ -44,7 +19,7 @@ locals {
 }
 
 module "cloudtrail" {
-  source                        = "git::https://github.com/cloudposse/terraform-aws-cloudtrail.git?ref=tags/0.3.0"
+  source                        = "git::https://github.com/cloudposse/terraform-aws-cloudtrail.git?ref=tags/0.7.1"
   namespace                     = "${var.namespace}"
   stage                         = "${var.stage}"
   name                          = "${var.name}"
@@ -53,24 +28,52 @@ module "cloudtrail" {
   include_global_service_events = "true"
   is_multi_region_trail         = "true"
   s3_bucket_name                = "${module.cloudtrail_s3_bucket.bucket_id}"
+  kms_key_arn                   = "${module.kms_key_cloudtrail.alias_arn}"
+  cloud_watch_logs_group_arn    = "${module.logs.log_group_arn}"
+  cloud_watch_logs_role_arn     = "${module.logs.role_arn}"
 }
 
-module "cloudtrail_s3_bucket" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-cloudtrail-s3-bucket.git?ref=tags/0.1.1"
+module "kms_key_cloudtrail" {
+  source    = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=tags/0.1.3"
   namespace = "${var.namespace}"
-  stage     = "${var.stage}"
   name      = "${var.name}"
-  region    = "${local.region}"
+  stage     = "${var.stage}"
+
+  description             = "KMS key for CloudTrail"
+  deletion_window_in_days = 10
+  enable_key_rotation     = "true"
+
+  policy = "${data.aws_iam_policy_document.kms_key_cloudtrail.json}"
 }
 
-output "cloudtrail_bucket_domain_name" {
-  value = "${module.cloudtrail_s3_bucket.bucket_domain_name}"
-}
+data "aws_iam_policy_document" "kms_key_cloudtrail" {
+  statement {
+    sid    = "Allow CloudTrail to Encrypt with the key"
+    effect = "Allow"
 
-output "cloudtrail_bucket_id" {
-  value = "${module.cloudtrail_s3_bucket.bucket_id}"
-}
+    actions = [
+      "kms:GenerateDataKey*",
+    ]
 
-output "cloudtrail_bucket_arn" {
-  value = "${module.cloudtrail_s3_bucket.bucket_arn}"
+    resources = [
+      "*",
+    ]
+
+    principals {
+      type = "Service"
+
+      identifiers = [
+        "cloudtrail.amazonaws.com",
+      ]
+    }
+
+    condition {
+      test     = "StringLike"
+      variable = "kms:EncryptionContext:aws:cloudtrail:arn"
+
+      values = [
+        "arn:aws:cloudtrail:*:*:trail/*",
+      ]
+    }
+  }
 }

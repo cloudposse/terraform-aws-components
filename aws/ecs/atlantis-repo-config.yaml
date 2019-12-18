@@ -1,0 +1,22 @@
+# https://www.runatlantis.io/docs/configuring-atlantis.html
+# https://www.runatlantis.io/docs/server-configuration.html
+# https://www.runatlantis.io/docs/server-side-repo-config.html
+# https://www.runatlantis.io/docs/repo-level-atlantis-yaml.html
+
+# repos lists the config for specific repos
+repos:
+  # id can either be an exact repo ID or a regex.
+  # If using a regex, it must start and end with a slash
+  # Repo ID's are of the form {VCS hostname}/{org}/{repo name}
+  - id: /.*/
+
+    # apply_requirements sets the Apply Requirements for all repos that match
+    apply_requirements: [approved]
+
+    # allowed_overrides specifies which keys can be overridden by this repo in
+    # its atlantis.yaml file
+    allowed_overrides: [apply_requirements, workflow]
+
+    # allow_custom_workflows defines whether this repo can define its own
+    # workflows. If false (default), the repo can only use server-side defined workflows
+    allow_custom_workflows: true

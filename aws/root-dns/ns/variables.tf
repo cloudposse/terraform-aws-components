@@ -51,3 +51,9 @@ variable "key" {
   description = "Object in the remote state backend containing the state of `account-dns`"
   default     = "account-dns/terraform.tfstate"
 }
+
+variable "account" {
+  description = "If set, then it will be used instead of 'stage' to assume role. This is useful when you need another domain for existing stage"
+  type        = "string"
+  default     = ""
+}

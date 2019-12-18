@@ -1,12 +1,13 @@
 locals {
   enabled = "${contains(var.accounts_enabled, var.stage) == true}"
+  account = "${length(var.account) > 0 ? var.account : var.stage}"
 }
 
 module "label" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.5.4"
   enabled    = "${local.enabled ? "true" : "false"}"
   namespace  = "${var.namespace}"
-  stage      = "${var.stage}"
+  stage      = "${local.account}"
   name       = "${var.name}"
   delimiter  = "${var.delimiter}"
   attributes = "${var.attributes}"
@@ -17,7 +18,7 @@ module "label" {
 module "organization_account_access_role_arn" {
   enabled        = "${local.enabled ? "true" : "false"}"
   source         = "git::https://github.com/cloudposse/terraform-aws-ssm-parameter-store?ref=tags/0.1.5"
-  parameter_read = ["/${var.namespace}/${var.stage}/organization_account_access_role"]
+  parameter_read = ["/${var.namespace}/${local.account}/organization_account_access_role"]
 }
 
 locals {
