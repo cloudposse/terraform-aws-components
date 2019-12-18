@@ -164,7 +164,7 @@ locals {
 }
 
 module "rds" {
-  source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.3"
+  source                      = "git::https://github.com/cloudposse/terraform-aws-rds.git?ref=tags/0.4.4"
   enabled                     = "${var.rds_enabled}"
   namespace                   = "${var.namespace}"
   stage                       = "${var.stage}"
