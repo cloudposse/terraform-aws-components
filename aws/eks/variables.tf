@@ -46,10 +46,16 @@ variable "tags" {
   description = "Additional tags (e.g. `map('BusinessUnit`,`XYZ`)"
 }
 
-variable "kubernetes_version" {
+variable "cluster_kubernetes_version" {
   type        = string
   default     = null
   description = "Desired Kubernetes master version. If you do not specify a value, the latest available version is used"
+}
+
+variable "nodes_kubernetes_version" {
+  type        = string
+  default     = null
+  description = "Desired Kubernetes version for Kubernetes nodes. If you do not specify a value, the latest available version is used"
 }
 
 variable "desired_size" {
