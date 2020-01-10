@@ -1,5 +1,5 @@
 module "dynamodb" {
-  source = "git::https://github.com/cloudposse/terraform-aws-dynamodb.git?ref=tags/0.14.0"
+  source = "git::https://github.com/cloudposse/terraform-aws-dynamodb.git?ref=tags/0.15.0"
 
   namespace           = var.namespace
   stage               = var.stage
