@@ -4,12 +4,14 @@ variable "kops_alb_ingress_enabled" {
 }
 
 module "kops_alb_ingress" {
-  source       = "git::https://github.com/cloudposse/terraform-aws-kops-aws-alb-ingress.git?ref=tags/0.1.1"
+  source       = "git::https://github.com/cloudposse/terraform-aws-kops-aws-alb-ingress.git?ref=iam-role-session-duration"
   namespace    = "${var.namespace}"
   stage        = "${var.stage}"
   name         = "alb-ingress"
   cluster_name = "${var.region}.${var.zone_name}"
   enabled      = "${var.kops_alb_ingress_enabled}"
+
+  iam_role_max_session_duration = "${var.iam_role_max_session_duration}"
 
   tags = {
     Cluster = "${var.region}.${var.zone_name}"

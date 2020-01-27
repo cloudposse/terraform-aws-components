@@ -47,7 +47,7 @@ locals {
 }
 
 module "kops_efs_provisioner" {
-  source             = "git::https://github.com/cloudposse/terraform-aws-kops-efs.git?ref=tags/0.5.0"
+  source             = "git::https://github.com/cloudposse/terraform-aws-kops-efs.git?ref=iam-role-session-duration"
   enabled            = "${var.efs_enabled}"
   namespace          = "${var.namespace}"
   stage              = "${var.stage}"
@@ -62,6 +62,8 @@ module "kops_efs_provisioner" {
 
   throughput_mode                 = "${var.efs_throughput_mode}"
   provisioned_throughput_in_mibps = "${var.efs_provisioned_throughput_in_mibps}"
+
+  iam_role_max_session_duration = "${var.iam_role_max_session_duration}"
 
   tags = {
     Cluster = "${var.region}.${var.zone_name}"

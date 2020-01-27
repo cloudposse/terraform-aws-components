@@ -27,6 +27,8 @@ module "autoscaler_role" {
   role_description   = "Role for Cluster Auto-Scaler"
   policy_description = "Permit auto-scaling operations on auto-scaling groups"
 
+  max_session_duration = "${var.iam_role_max_session_duration}"
+
   principals = {
     AWS = ["${module.kops_metadata_iam.masters_role_arn}"]
   }
