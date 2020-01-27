@@ -65,3 +65,9 @@ variable "chamber_kms_key_id" {
   default     = "alias/aws/ssm"
   description = "KMS key ID, ARN, or alias to use for encrypting SSM secrets"
 }
+
+variable "max_session_duration" {
+  default     = 3600
+  description = "The maximum session duration (in seconds) for the role. Can have a value from 1 hour to 12 hours"
+}
+

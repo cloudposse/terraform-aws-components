@@ -22,6 +22,8 @@ module "teleport_backend" {
   glacier_transition_days  = "${var.s3_glacier_transition_days}"
   expiration_days          = "${var.s3_expiration_days}"
 
+  iam_role_max_session_duration = "${var.iam_role_max_session_duration}"
+
   # Autoscale min_read and min_write capacity will set the provisioned capacity for both cluster state and audit events
   autoscale_min_read_capacity  = "${var.autoscale_min_read_capacity}"
   autoscale_min_write_capacity = "${var.autoscale_min_write_capacity}"
@@ -80,9 +82,10 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 resource "aws_iam_role" "teleport" {
-  name               = "${module.teleport_role_name.id}"
-  assume_role_policy = "${data.aws_iam_policy_document.assume_role.json}"
-  description        = "The Teleport role to access teleport backend"
+  name                 = "${module.teleport_role_name.id}"
+  assume_role_policy   = "${data.aws_iam_policy_document.assume_role.json}"
+  max_session_duration = "${var.iam_role_max_session_duration}"
+  description          = "The Teleport role to access teleport backend"
 }
 
 data "aws_iam_policy_document" "teleport" {
