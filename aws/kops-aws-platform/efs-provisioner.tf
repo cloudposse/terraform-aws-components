@@ -47,7 +47,7 @@ locals {
 }
 
 module "kops_efs_provisioner" {
-  source             = "git::https://github.com/cloudposse/terraform-aws-kops-efs.git?ref=iam-role-session-duration"
+  source             = "git::https://github.com/cloudposse/terraform-aws-kops-efs.git?ref=tags/0.6.0"
   enabled            = "${var.efs_enabled}"
   namespace          = "${var.namespace}"
   stage              = "${var.stage}"

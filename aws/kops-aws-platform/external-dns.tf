@@ -1,5 +1,5 @@
 module "kops_external_dns" {
-  source         = "git::https://github.com/cloudposse/terraform-aws-kops-external-dns.git?ref=iam-role-session-duration"
+  source         = "git::https://github.com/cloudposse/terraform-aws-kops-external-dns.git?ref=tags/0.3.0"
   namespace      = "${var.namespace}"
   stage          = "${var.stage}"
   name           = "external-dns"

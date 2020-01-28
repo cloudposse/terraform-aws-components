@@ -1,5 +1,5 @@
 module "kops_chart_repo" {
-  source          = "git::https://github.com/cloudposse/terraform-aws-kops-chart-repo.git?ref=iam-role-session-duration"
+  source          = "git::https://github.com/cloudposse/terraform-aws-kops-chart-repo.git?ref=tags/0.3.0"
   namespace       = "${var.namespace}"
   stage           = "${var.stage}"
   name            = "chart-repo"
