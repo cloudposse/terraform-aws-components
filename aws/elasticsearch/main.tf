@@ -55,7 +55,7 @@ locals {
 }
 
 module "elasticsearch" {
-  source                          = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.3.0"
+  source                          = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.3.1"
   namespace                       = "${var.namespace}"
   stage                           = "${var.stage}"
   name                            = "${var.elasticsearch_name}"
@@ -75,6 +75,7 @@ module "elasticsearch" {
   encrypt_at_rest_enabled         = "${var.elasticsearch_encrypt_at_rest_enabled}"
   node_to_node_encryption_enabled = "${var.elasticsearch_node_to_node_encryption_enabled}"
   enabled                         = "${var.elasticsearch_enabled}"
+  iam_role_max_session_duration   = "${var.elasticsearch_iam_role_max_session_duration}"
 
   advanced_options {
     "rest.action.multi.allow_explicit_index" = "true"

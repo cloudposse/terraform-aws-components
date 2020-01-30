@@ -1,10 +1,12 @@
 module "kops_chart_repo" {
-  source          = "git::https://github.com/cloudposse/terraform-aws-kops-chart-repo.git?ref=tags/0.2.5"
+  source          = "git::https://github.com/cloudposse/terraform-aws-kops-chart-repo.git?ref=tags/0.3.0"
   namespace       = "${var.namespace}"
   stage           = "${var.stage}"
   name            = "chart-repo"
   cluster_name    = "${var.region}.${var.zone_name}"
   permitted_nodes = "${var.permitted_nodes}"
+
+  iam_role_max_session_duration = "${var.iam_role_max_session_duration}"
 
   tags = {
     Cluster = "${var.region}.${var.zone_name}"
