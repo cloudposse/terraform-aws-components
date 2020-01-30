@@ -55,7 +55,7 @@ locals {
 }
 
 module "elasticsearch" {
-  source                          = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.3.1"
+  source                          = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.3.2"
   namespace                       = "${var.namespace}"
   stage                           = "${var.stage}"
   name                            = "${var.elasticsearch_name}"
