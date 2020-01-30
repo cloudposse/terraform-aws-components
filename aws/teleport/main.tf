@@ -11,7 +11,7 @@ provider "aws" {
 }
 
 module "teleport_backend" {
-  source                   = "git::https://github.com/cloudposse/terraform-aws-teleport-storage.git?ref=iam-role-session-duration"
+  source                   = "git::https://github.com/cloudposse/terraform-aws-teleport-storage.git?ref=tags/0.4.0"
   namespace                = "${var.namespace}"
   stage                    = "${var.stage}"
   name                     = "${var.name}"
