@@ -55,7 +55,7 @@ locals {
 }
 
 module "elasticsearch" {
-  source                          = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=0.11/iam-role-session-duration"
+  source                          = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.3.1"
   namespace                       = "${var.namespace}"
   stage                           = "${var.stage}"
   name                            = "${var.elasticsearch_name}"
