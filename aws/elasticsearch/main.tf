@@ -55,7 +55,7 @@ locals {
 }
 
 module "elasticsearch" {
-  source                          = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.3.0"
+  source                          = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.3.2"
   namespace                       = "${var.namespace}"
   stage                           = "${var.stage}"
   name                            = "${var.elasticsearch_name}"
@@ -75,6 +75,7 @@ module "elasticsearch" {
   encrypt_at_rest_enabled         = "${var.elasticsearch_encrypt_at_rest_enabled}"
   node_to_node_encryption_enabled = "${var.elasticsearch_node_to_node_encryption_enabled}"
   enabled                         = "${var.elasticsearch_enabled}"
+  iam_role_max_session_duration   = "${var.elasticsearch_iam_role_max_session_duration}"
 
   advanced_options {
     "rest.action.multi.allow_explicit_index" = "true"
@@ -149,7 +150,7 @@ output "elasticsearch_user_iam_role_arn" {
 }
 
 module "elasticsearch_log_cleanup" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-lambda-elasticsearch-cleanup.git?ref=tags/0.3.0"
+  source    = "git::https://github.com/cloudposse/terraform-aws-lambda-elasticsearch-cleanup.git?ref=tags/0.4.2"
   enabled   = "${var.elasticsearch_enabled == "true" ? var.elasticsearch_log_cleanup_enabled : "false"}"
   namespace = "${var.namespace}"
   stage     = "${var.stage}"
@@ -163,4 +164,6 @@ module "elasticsearch_log_cleanup" {
 
   index        = "${var.elasticsearch_log_index_name}"
   delete_after = "${var.elasticsearch_log_retention_days}"
+
+  sns_arn = "${var.sns_arn}"
 }

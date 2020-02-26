@@ -3,24 +3,24 @@ variable "dns_parent_zone_name" {
 }
 
 variable "dns_enabled" {
-  default = "true"
+  default = true
 }
 
 variable "dns_zone_name" {
   description = "Zone name template"
-  default     = "$${region}-$${name}.$${parent_zone_name}"
+  default     = "$$${region}-$$${name}.$$${parent_zone_name}"
 }
 
 module "dns" {
-  source           = "git::https://github.com/cloudposse/terraform-aws-route53-cluster-zone.git?ref=tags/0.3.1"
-  enabled          = "${var.dns_enabled}"
-  namespace        = "${var.namespace}"
-  stage            = "${var.stage}"
-  name             = "${var.name}"
-  parent_zone_name = "${var.dns_parent_zone_name}"
-  zone_name        = "${var.dns_zone_name}"
+  source           = "git::https://github.com/cloudposse/terraform-aws-route53-cluster-zone.git?ref=tags/0.4.0"
+  enabled          = var.dns_enabled
+  namespace        = var.namespace
+  stage            = var.stage
+  name             = var.name
+  parent_zone_name = var.dns_parent_zone_name
+  zone_name        = var.dns_zone_name
 }
 
 output "dns_zone_name" {
-  value = "${module.dns.zone_name}"
+  value = module.dns.zone_name
 }

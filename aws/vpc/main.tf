@@ -43,13 +43,12 @@ module "vpc" {
 }
 
 module "subnets" {
-  source               = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.9.0"
+  source               = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.12.3"
   availability_zones   = "${local.availability_zones}"
   max_subnet_count     = "${var.max_subnet_count}"
   namespace            = "${var.namespace}"
   stage                = "${var.stage}"
   name                 = "${var.name}"
-  region               = "${var.region}"
   vpc_id               = "${module.vpc.vpc_id}"
   igw_id               = "${module.vpc.igw_id}"
   cidr_block           = "${module.vpc.vpc_cidr_block}"

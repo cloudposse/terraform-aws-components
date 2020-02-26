@@ -130,3 +130,8 @@ variable "autoscale_max_read_capacity" {
 variable "autoscale_max_write_capacity" {
   default = 100
 }
+
+variable "iam_role_max_session_duration" {
+  default     = 3600
+  description = "The maximum session duration (in seconds) for the role. Can have a value from 1 hour to 12 hours"
+}

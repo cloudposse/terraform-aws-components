@@ -11,7 +11,7 @@ provider "aws" {
 }
 
 module "teleport_backend" {
-  source                   = "git::https://github.com/cloudposse/terraform-aws-teleport-storage.git?ref=tags/0.3.0"
+  source                   = "git::https://github.com/cloudposse/terraform-aws-teleport-storage.git?ref=tags/0.4.0"
   namespace                = "${var.namespace}"
   stage                    = "${var.stage}"
   name                     = "${var.name}"
@@ -21,6 +21,8 @@ module "teleport_backend" {
   standard_transition_days = "${var.s3_standard_transition_days}"
   glacier_transition_days  = "${var.s3_glacier_transition_days}"
   expiration_days          = "${var.s3_expiration_days}"
+
+  iam_role_max_session_duration = "${var.iam_role_max_session_duration}"
 
   # Autoscale min_read and min_write capacity will set the provisioned capacity for both cluster state and audit events
   autoscale_min_read_capacity  = "${var.autoscale_min_read_capacity}"
@@ -80,9 +82,10 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 resource "aws_iam_role" "teleport" {
-  name               = "${module.teleport_role_name.id}"
-  assume_role_policy = "${data.aws_iam_policy_document.assume_role.json}"
-  description        = "The Teleport role to access teleport backend"
+  name                 = "${module.teleport_role_name.id}"
+  assume_role_policy   = "${data.aws_iam_policy_document.assume_role.json}"
+  max_session_duration = "${var.iam_role_max_session_duration}"
+  description          = "The Teleport role to access teleport backend"
 }
 
 data "aws_iam_policy_document" "teleport" {
