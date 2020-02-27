@@ -154,3 +154,8 @@ variable "elasticsearch_iam_role_max_session_duration" {
   default     = 3600
   description = "The maximum session duration (in seconds) for the role. Can have a value from 1 hour to 12 hours"
 }
+variable "kibana_subdomain_name" {
+  type        = "string"
+  default     = "kibana-elasticsearch"
+  description = "Kubana subdomain"
+}
