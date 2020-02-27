@@ -70,7 +70,7 @@ module "elasticsearch" {
   iam_role_arns                   = ["${local.role_arns[var.elasticsearch_iam_permitted_nodes]}"]
   iam_authorizing_role_arns       = "${coalescelist(local.role_arns[lookup(local.option_keys, var.elasticsearch_iam_authorizing_role_arn, "none")], list(var.elasticsearch_iam_authorizing_role_arn))}"
   iam_actions                     = ["${var.elasticsearch_iam_actions}"]
-  kibana_subdomain_name           = "kibana-elasticsearch"
+  kibana_subdomain_name           = "${var.kibana_subdomain_name}"
   ebs_volume_size                 = "${var.elasticsearch_ebs_volume_size}"
   encrypt_at_rest_enabled         = "${var.elasticsearch_encrypt_at_rest_enabled}"
   node_to_node_encryption_enabled = "${var.elasticsearch_node_to_node_encryption_enabled}"
