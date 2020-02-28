@@ -141,5 +141,21 @@ variable "elasticsearch_log_retention_days" {
 variable "elasticsearch_log_index_name" {
   type        = "string"
   default     = "all"
-  description = "Index/indices to process. Use a comma-separated list. Specify `all` to match every index except for `.kibana`"
+  description = "Index/indices to process. Use a comma-separated list. Specify `all` to match every index except for `.kibana` and `.kibana_1`"
+}
+
+variable "sns_arn" {
+  type        = "string"
+  default     = ""
+  description = "SNS ARN to publish alerts"
+}
+
+variable "elasticsearch_iam_role_max_session_duration" {
+  default     = 3600
+  description = "The maximum session duration (in seconds) for the role. Can have a value from 1 hour to 12 hours"
+}
+variable "kibana_subdomain_name" {
+  type        = "string"
+  default     = "kibana-elasticsearch"
+  description = "Kubana subdomain"
 }

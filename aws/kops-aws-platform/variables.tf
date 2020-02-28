@@ -45,3 +45,20 @@ variable "tags" {
   default     = {}
   description = "Additional tags (e.g. `map('BusinessUnit','XYZ')`"
 }
+
+variable "chamber_service" {
+  type        = "string"
+  default     = "kops"
+  description = "Service under which to store SSM parameters"
+}
+
+variable "chamber_service_kops" {
+  type        = "string"
+  default     = "kops"
+  description = "Service where kops stores its configuration information"
+}
+
+variable "iam_role_max_session_duration" {
+  default     = 3600
+  description = "The maximum session duration (in seconds) for the role. Can have a value from 1 hour to 12 hours"
+}

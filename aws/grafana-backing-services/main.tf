@@ -26,11 +26,6 @@ variable "stage" {
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
-variable "region" {
-  type        = string
-  description = "AWS region"
-}
-
 variable "dns_zone_name" {
   type        = string
   default     = ""

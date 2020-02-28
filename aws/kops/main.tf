@@ -19,7 +19,7 @@ locals {
 
   # If we are creating the VPC, concatenate the predefined AZs with the computed AZs and select the first N distinct AZs.
   # If we are using a shared VPC, use the availability zones dictated by the VPC
-  availability_zones = "${split(",", var.create_vpc == "true" ? join(",", slice(local.distinct_availability_zones, 0, var.availability_zone_count)) : join("",data.aws_ssm_parameter.availability_zones.*.value))}"
+  availability_zones = "${split(",", var.create_vpc == "true" ? join(",", slice(local.distinct_availability_zones, 0, var.availability_zone_count)) : join("", data.aws_ssm_parameter.availability_zones.*.value))}"
 
   availability_zone_count = "${length(local.availability_zones)}"
 }
@@ -59,7 +59,7 @@ module "private_subnets" {
   iprange      = "${local.vpc_network_cidr}"
   newbits      = "${var.private_subnets_newbits > 0 ? var.private_subnets_newbits : local.availability_zone_count}"
   netnum       = "${var.private_subnets_netnum}"
-  subnet_count = "${local.availability_zone_count+1}"
+  subnet_count = "${local.availability_zone_count + 1}"
 }
 
 # Divide up the first private subnet and use it for the utility subnet
@@ -94,7 +94,7 @@ data "aws_ssm_parameter" "availability_zones" {
 
 # List of NAT gateways from private subnet to public, one per subnet, which is one per availability zone
 data "aws_ssm_parameter" "nat_gateways" {
-  count = "${var.create_vpc == "true" ? 0 : 1}"
+  count = "${var.create_vpc == "false" && var.use_shared_nat_gateways == "true" ? 1 : 0}"
   name  = "${format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_paramter_prefix, "nat_gateways")}"
 }
 
@@ -127,9 +127,9 @@ data "aws_ssm_parameter" "public_subnet_ids" {
 ######
 
 locals {
-  vpc_network_cidr     = "${var.create_vpc == "true" ? var.network_cidr : join("",data.aws_ssm_parameter.vpc_cidr_block.*.value)}"
-  private_subnet_cidrs = "${var.create_vpc == "true" ? join(",", slice(module.private_subnets.cidrs, 1, local.availability_zone_count+1)) : join("",data.aws_ssm_parameter.private_subnet_cidrs.*.value)}"
-  utility_subnet_cidrs = "${var.create_vpc == "true" ? join(",", module.utility_subnets.cidrs): join("",data.aws_ssm_parameter.public_subnet_cidrs.*.value)}"
+  vpc_network_cidr     = "${var.create_vpc == "true" ? var.network_cidr : join("", data.aws_ssm_parameter.vpc_cidr_block.*.value)}"
+  private_subnet_cidrs = "${var.create_vpc == "true" ? join(",", slice(module.private_subnets.cidrs, 1, local.availability_zone_count + 1)) : join("", data.aws_ssm_parameter.private_subnet_cidrs.*.value)}"
+  utility_subnet_cidrs = "${var.create_vpc == "true" ? join(",", module.utility_subnets.cidrs) : join("", data.aws_ssm_parameter.public_subnet_cidrs.*.value)}"
 }
 
 # These parameters correspond to the kops manifest template:
@@ -197,7 +197,7 @@ resource "aws_ssm_parameter" "kops_shared_vpc_id" {
 resource "aws_ssm_parameter" "kops_shared_nat_gateways" {
   count       = "${var.create_vpc == "true" ? 0 : 1}"
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "kops_shared_nat_gateways")}"
-  value       = "${join("", data.aws_ssm_parameter.nat_gateways.*.value)}"
+  value       = "${var.use_shared_nat_gateways == "true" ? join("", data.aws_ssm_parameter.nat_gateways.*.value) : replace(local.private_subnet_cidrs, "/[^,]+/", "External")}"
   description = "Kops (shared) private subnet NAT gateway AWS IDs"
   type        = "String"
   overwrite   = "true"

@@ -11,7 +11,7 @@ provider "aws" {
 }
 
 module "teleport_backend" {
-  source                   = "git::https://github.com/cloudposse/terraform-aws-teleport-storage.git?ref=tags/0.3.0"
+  source                   = "git::https://github.com/cloudposse/terraform-aws-teleport-storage.git?ref=tags/0.4.0"
   namespace                = "${var.namespace}"
   stage                    = "${var.stage}"
   name                     = "${var.name}"
@@ -21,6 +21,8 @@ module "teleport_backend" {
   standard_transition_days = "${var.s3_standard_transition_days}"
   glacier_transition_days  = "${var.s3_glacier_transition_days}"
   expiration_days          = "${var.s3_expiration_days}"
+
+  iam_role_max_session_duration = "${var.iam_role_max_session_duration}"
 
   # Autoscale min_read and min_write capacity will set the provisioned capacity for both cluster state and audit events
   autoscale_min_read_capacity  = "${var.autoscale_min_read_capacity}"
@@ -80,30 +82,41 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 resource "aws_iam_role" "teleport" {
-  name               = "${module.teleport_role_name.id}"
-  assume_role_policy = "${data.aws_iam_policy_document.assume_role.json}"
-  description        = "The Teleport role to access teleport backend"
+  name                 = "${module.teleport_role_name.id}"
+  assume_role_policy   = "${data.aws_iam_policy_document.assume_role.json}"
+  max_session_duration = "${var.iam_role_max_session_duration}"
+  description          = "The Teleport role to access teleport backend"
 }
 
 data "aws_iam_policy_document" "teleport" {
+  // Teleport can use LetsEncrypt to get TLS certificates. For this  // it needs additional permissions which are not included here.
+
+  // Teleport can use SSM to publish "join tokens" and retreive the enterprise  // license, but that is not fully documented, so permissions to access SSM  // are not included at this time.
+
+  // S3 permissions are needed to save and replay SSH sessions
   statement {
+    sid       = "ListTeleportSessionData"
     effect    = "Allow"
-    actions   = ["s3:ListBucket"]
+    actions   = ["s3:ListBucket", "s3:ListBucketVersions"]
     resources = ["arn:aws:s3:::${module.teleport_backend.s3_bucket_id}"]
   }
 
   statement {
+    sid    = "GetTeleportSessionData"
     effect = "Allow"
 
     actions = [
       "s3:PutObject",
+      "s3:GetObjectVersion",
       "s3:GetObject",
     ]
 
     resources = ["arn:aws:s3:::${module.teleport_backend.s3_bucket_id}/*"]
   }
 
+  // DynamoDB permissions are needed to save configuration and event data
   statement {
+    sid     = "ReadWriteTeleportEventAndConfigData"
     effect  = "Allow"
     actions = ["dynamodb:*"]
 
@@ -187,6 +200,22 @@ resource "aws_ssm_parameter" "teleport_tokens" {
   name        = "${format(var.chamber_parameter_name, local.chamber_service, "${element(local.token_names, count.index)}")}"
   value       = "${element(random_string.tokens.*.result, count.index)}"
   description = "Teleport join token: ${element(local.token_names, count.index)}"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "teleport_proxy_domain_name" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "teleport_proxy_domain_name")}"
+  value       = "${var.teleport_proxy_domain_name}"
+  description = "Teleport Proxy domain name"
+  type        = "String"
+  overwrite   = "true"
+}
+
+resource "aws_ssm_parameter" "teleport_version" {
+  name        = "${format(var.chamber_parameter_name, local.chamber_service, "teleport_version")}"
+  value       = "${var.teleport_version}"
+  description = "Teleport version to install"
   type        = "String"
   overwrite   = "true"
 }
