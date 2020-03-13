@@ -161,6 +161,12 @@ variable "kibana_subdomain_name" {
   description = "Kubana subdomain"
 }
 
+variable "elasticsearch_subdomain_name" {
+  type        = "string"
+  default     = ""
+  description = "The name of the subdomain for Elasticsearch endpoint in the DNS zone (_e.g._ `elasticsearch`). If empty then module name will be used."
+}
+
 variable "create_iam_service_linked_role" {
   type        = "string"
   default     = "true"
