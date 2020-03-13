@@ -76,6 +76,7 @@ module "elasticsearch" {
   node_to_node_encryption_enabled = "${var.elasticsearch_node_to_node_encryption_enabled}"
   enabled                         = "${var.elasticsearch_enabled}"
   iam_role_max_session_duration   = "${var.elasticsearch_iam_role_max_session_duration}"
+  create_iam_service_linked_role  = "${var.create_iam_service_linked_role}"
 
   advanced_options {
     "rest.action.multi.allow_explicit_index" = "true"

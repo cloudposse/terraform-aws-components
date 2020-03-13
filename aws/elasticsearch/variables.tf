@@ -154,8 +154,15 @@ variable "elasticsearch_iam_role_max_session_duration" {
   default     = 3600
   description = "The maximum session duration (in seconds) for the role. Can have a value from 1 hour to 12 hours"
 }
+
 variable "kibana_subdomain_name" {
   type        = "string"
   default     = "kibana-elasticsearch"
   description = "Kubana subdomain"
+}
+
+variable "create_iam_service_linked_role" {
+  type        = "string"
+  default     = "true"
+  description = "Whether to create `AWSServiceRoleForAmazonElasticsearchService` service-linked role. Set it to `false` if you already have an ElasticSearch cluster created in the AWS account and AWSServiceRoleForAmazonElasticsearchService already exists. See https://github.com/terraform-providers/terraform-provider-aws/issues/5218 for more info"
 }
