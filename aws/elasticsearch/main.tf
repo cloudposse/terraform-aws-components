@@ -26,7 +26,6 @@ data "aws_route53_zone" "default" {
 
 locals {
   zone_id    = "${data.aws_route53_zone.default.zone_id}"
-  subnet_ids = ["${slice(module.kops_vpc.private_subnet_ids, 0, length(module.kops_vpc.private_subnet_ids))}"]
 }
 
 locals {
@@ -62,7 +61,7 @@ module "elasticsearch" {
   dns_zone_id                     = "${local.zone_id}"
   security_groups                 = ["${local.security_groups[var.elasticsearch_network_permitted_nodes]}"]
   vpc_id                          = "${module.kops_vpc.vpc_id}"
-  subnet_ids                      = "${local.subnet_ids}"
+  subnet_ids                      = "${module.kops_vpc.private_subnet_ids}"
   zone_awareness_enabled          = "${length(module.kops_vpc.private_subnet_ids) > 1 ? "true" : "false"}"
   elasticsearch_version           = "${var.elasticsearch_version}"
   instance_type                   = "${var.elasticsearch_instance_type}"
@@ -162,7 +161,7 @@ module "elasticsearch_log_cleanup" {
   es_domain_arn        = "${module.elasticsearch.domain_arn}"
   es_security_group_id = "${module.elasticsearch.security_group_id}"
   vpc_id               = "${module.kops_vpc.vpc_id}"
-  subnet_ids           = "${local.subnet_ids}"
+  subnet_ids           = "${module.kops_vpc.private_subnet_ids}"
 
   index        = "${var.elasticsearch_log_index_name}"
   delete_after = "${var.elasticsearch_log_retention_days}"
