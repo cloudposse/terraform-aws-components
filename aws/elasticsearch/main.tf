@@ -26,7 +26,7 @@ data "aws_route53_zone" "default" {
 
 locals {
   zone_id    = "${data.aws_route53_zone.default.zone_id}"
-  subnet_ids = ["${slice(module.kops_vpc.private_subnet_ids, 0, min(2, length(module.kops_vpc.private_subnet_ids)))}"]
+  subnet_ids = ["${slice(module.kops_vpc.private_subnet_ids, 0, length(module.kops_vpc.private_subnet_ids))}"]
 }
 
 locals {
