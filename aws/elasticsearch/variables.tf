@@ -123,8 +123,14 @@ variable "elasticsearch_iam_permitted_nodes" {
 
 variable "elasticsearch_iam_authorizing_role_arn" {
   type        = "string"
-  description = "IAM role allowed to assume the elasticsearch user role. Typically the role that `kiam` runs as. Full ARN, or 'nodes' or 'masters')"
+  description = "IAM role allowed to assume the Elasticsearch user role. Typically the role that `kiam` runs as. Full ARN, or 'nodes' or 'masters')"
   default     = "masters"
+}
+
+variable "iam_role_arns" {
+  type        = "list"
+  default     = []
+  description = "List of additional IAM role ARNs to permit access to the Elasticsearch domain"
 }
 
 variable "elasticsearch_log_cleanup_enabled" {

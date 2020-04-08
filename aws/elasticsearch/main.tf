@@ -66,7 +66,7 @@ module "elasticsearch" {
   elasticsearch_version           = "${var.elasticsearch_version}"
   instance_type                   = "${var.elasticsearch_instance_type}"
   instance_count                  = "${var.elasticsearch_instance_count}"
-  iam_role_arns                   = ["${local.role_arns[var.elasticsearch_iam_permitted_nodes]}"]
+  iam_role_arns                   = ["${concat(local.role_arns[var.elasticsearch_iam_permitted_nodes], var.iam_role_arns)}"]
   iam_authorizing_role_arns       = "${coalescelist(local.role_arns[lookup(local.option_keys, var.elasticsearch_iam_authorizing_role_arn, "none")], list(var.elasticsearch_iam_authorizing_role_arn))}"
   iam_actions                     = ["${var.elasticsearch_iam_actions}"]
   kibana_subdomain_name           = "${var.kibana_subdomain_name}"
