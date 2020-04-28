@@ -119,6 +119,11 @@ output "elasticsearch_domain_id" {
   value       = "${module.elasticsearch.domain_id}"
   description = "Unique identifier for the Elasticsearch domain"
 }
+  
+output "elasticsearch_domain_name" {
+  value       = "${module.elasticsearch.domain_name}"
+  description = "Name of the Elasticsearch domain"
+}
 
 output "elasticsearch_domain_endpoint" {
   value       = "${module.elasticsearch.domain_endpoint}"
