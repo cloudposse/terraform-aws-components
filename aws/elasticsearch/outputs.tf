@@ -3,6 +3,11 @@ output "elasticsearch_security_group_id" {
   description = "Security Group ID to control access to the Elasticsearch domain"
 }
 
+output "elasticsearch_domain_name" {
+  value       = module.elasticsearch.domain_name
+  description = "Name of the Elasticsearch domain"
+}
+
 output "elasticsearch_domain_arn" {
   value       = module.elasticsearch.domain_arn
   description = "ARN of the Elasticsearch domain"
