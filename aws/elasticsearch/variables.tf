@@ -141,7 +141,7 @@ variable "iam_role_arns" {
 
 variable "elasticsearch_log_cleanup_enabled" {
   type        = bool
-  description = "Set to \"true\" to enable automatic deletion of old logs"
+  description = "Set to `true` to enable automatic deletion of old logs"
   default     = true
 }
 
