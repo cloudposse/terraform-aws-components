@@ -102,6 +102,12 @@ variable "elasticsearch_instance_count" {
   default     = 4
 }
 
+variable "availability_zone_count" {
+  type        = number
+  default     = 2
+  description = "Number of Availability Zones for the domain to use."
+}
+
 # https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-ac.html
 variable "elasticsearch_iam_actions" {
   type        = list(string)
