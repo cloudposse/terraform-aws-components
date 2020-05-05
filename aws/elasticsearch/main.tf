@@ -133,7 +133,7 @@ resource "aws_ssm_parameter" "elasticsearch_kibana_endpoint" {
 }
 
 module "elasticsearch_log_cleanup" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-lambda-elasticsearch-cleanup.git?ref=tags/0.5.0"
+  source    = "git::https://github.com/cloudposse/terraform-aws-lambda-elasticsearch-cleanup.git?ref=tags/0.6.0"
   enabled   = var.elasticsearch_enabled && var.elasticsearch_log_cleanup_enabled
   namespace = var.namespace
   stage     = var.stage
@@ -148,5 +148,6 @@ module "elasticsearch_log_cleanup" {
   index        = var.elasticsearch_log_index_name
   delete_after = var.elasticsearch_log_retention_days
 
-  sns_arn = var.sns_arn
+  sns_arn      = var.sns_arn
+  artifact_url = var.artifact_url
 }
