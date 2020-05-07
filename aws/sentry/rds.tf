@@ -92,12 +92,12 @@ module "rds_instance_postgres" {
   enabled              = var.postgres_rds_instance_enabled
   namespace            = var.namespace
   stage                = var.stage
-  name                 = var.postgres_name
+  name                 = var.postgres_rds_instance_name
   engine               = "postgres"
   instance_class       = var.postgres_rds_instance_instance_class
   database_user        = var.postgres_rds_instance_user
   database_password    = local.postgres_rds_instance_admin_password
-  database_name        = var.postgres_db_name
+  database_name        = var.postgres_rds_instance_db_name
   database_port        = "5432"
   dns_zone_id          = local.zone_id
   vpc_id               = module.kops_metadata.vpc_id
