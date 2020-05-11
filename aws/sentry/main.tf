@@ -2,7 +2,6 @@ terraform {
   backend "s3" {}
 }
 
-
 data "aws_availability_zones" "available" {}
 
 data "aws_route53_zone" "default" {
@@ -22,7 +21,6 @@ locals {
   chamber_service    = var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service
 
   chamber_parameter_format = "/%s/%s"
-
 }
 
 provider "aws" {
@@ -31,11 +29,11 @@ provider "aws" {
   }
 }
 
-
 resource "random_string" "sentry_secret_key" {
   length  = 48
   special = true
 }
+
 resource "random_string" "sentry_admin_user_password" {
   length  = 21
   special = false
@@ -56,4 +54,3 @@ resource "aws_ssm_parameter" "sentry_admin_user_password" {
   type        = "String"
   overwrite   = true
 }
-

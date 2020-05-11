@@ -12,7 +12,6 @@ variable "stage" {
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
-
 variable "elasticache_availability_zones" {
   type        = list(string)
   description = "AWS region availability zones for elasticache (e.g.: ['us-west-2a', 'us-west-2b']). If empty will use all available zones"
