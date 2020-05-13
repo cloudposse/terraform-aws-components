@@ -26,8 +26,8 @@ variable "postgres_rds_instance_db_name" {
   description = "Postgres database name"
 }
 
-# https://aws.amazon.com/rds/aurora/pricing
-variable "postgres_rds_instance_instance_class" {
+# https://aws.amazon.com/rds/pricing/
+variable "postgres_rds_instance_type" {
   type        = string
   default     = "db.t3.medium"
   description = "EC2 instance type for Postgres cluster"
@@ -94,7 +94,7 @@ module "rds_instance_postgres" {
   stage                = var.stage
   name                 = var.postgres_rds_instance_name
   engine               = "postgres"
-  instance_class       = var.postgres_rds_instance_instance_class
+  instance_class       = var.postgres_rds_instance_type
   database_user        = var.postgres_rds_instance_user
   database_password    = local.postgres_rds_instance_admin_password
   database_name        = var.postgres_rds_instance_db_name

@@ -55,16 +55,19 @@ variable "postgres_cluster_size" {
   default     = 2
   description = "Postgres cluster size"
 }
+
 variable "postgres_autoscaling_enabled" {
   type        = bool
   default     = false
   description = "Set true to enable the database cluster autoscaler"
 }
+
 variable "postgres_autoscaling_min_capacity" {
   type        = number
   default     = 1
   description = "Minimum number of Postgres instances to be maintained by the autoscaler"
 }
+
 variable "postgres_autoscaling_max_capacity" {
   type        = number
   default     = 6
