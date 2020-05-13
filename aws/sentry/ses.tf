@@ -28,7 +28,7 @@ variable "ses_verify_dkim" {
 }
 
 module "ses" {
-  source        = "git::https://github.com/cloudposse/terraform-aws-ses.git?ref=ses-module"
+  source        = "git::https://github.com/cloudposse/terraform-aws-ses.git?ref=tags/0.1.0"
   namespace     = var.namespace
   name          = "sentry-ses"
   stage         = var.stage
