@@ -1,6 +1,5 @@
 namespace="cp"
 stage="staging"
-region="us-west-2"
 name="org-ecr"
 github_token="XXXXXXXXXXXX"
 github_organization="the-organization"
