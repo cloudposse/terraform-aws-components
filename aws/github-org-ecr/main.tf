@@ -33,3 +33,11 @@ module "ecr" {
   scan_images_on_push        = var.scan_images_on_push
   image_tag_mutability       = var.image_tag_mutability
 }
+
+output "repository_url_map" {
+  value = module.ecr.repository_url_map
+}
+
+output "repository_arn_map" {
+  value = module.ecr.repository_arn_map
+}
