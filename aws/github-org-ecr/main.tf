@@ -17,6 +17,10 @@ data "github_repositories" "all_org_repos" {
   query = "org:${var.github_organization}"
 }
 
+locals {
+  lower_org_names = [for s in data.github_repositories.all_org_repos.names : lower(s)]
+}
+
 module "ecr" {
   source                     = "git::https://github.com/cloudposse/terraform-aws-ecr.git?ref=0.16.0"
   namespace                  = var.namespace
@@ -25,7 +29,7 @@ module "ecr" {
   delimiter                  = var.delimiter
   attributes                 = var.attributes
   tags                       = var.tags
-  image_names                = data.github_repositories.all_org_repos.names
+  image_names                = local.lower_org_names
   max_image_count            = var.max_image_count
   principals_full_access     = var.principals_full_access
   principals_readonly_access = var.principals_readonly_access
