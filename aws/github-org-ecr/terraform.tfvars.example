@@ -1,0 +1,5 @@
+namespace="cp"
+stage="staging"
+name="org-ecr"
+github_token="XXXXXXXXXXXX"
+github_organization="the-organization"
