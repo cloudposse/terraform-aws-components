@@ -89,3 +89,29 @@ resource "aws_iam_user_policy" "ecr_power_user_policy" {
   policy = join("", data.aws_iam_policy_document.ecr_user_policy_doc.*.json)
   user   = module.ecr_user.user_name
 }
+
+output "user_name" {
+  value       = module.ecr_user.user_name
+  description = "Normalized IAM user name"
+}
+
+output "user_arn" {
+  value       = module.ecr_user.user_arn
+  description = "The ARN assigned by AWS for this user"
+}
+
+output "user_unique_id" {
+  value       = module.ecr_user.user_unique_id
+  description = "The unique ID assigned by AWS"
+}
+
+output "access_key_id" {
+  value       = module.ecr_user.access_key_id
+  description = "The access key ID"
+}
+
+output "secret_access_key" {
+  sensitive   = true
+  value       = module.ecr_user.secret_access_key
+  description = "The secret access key. This will be written to the state file in plain-text"
+}
