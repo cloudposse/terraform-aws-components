@@ -75,13 +75,13 @@ variable "image_tag_mutability" {
 }
 
 variable "enable_user" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "Enable creating user with Read and Write permissions for ECR"
 }
 
 variable "ecr_username" {
-  type = string
-  default = ""
+  type        = string
+  default     = ""
   description = "Username to use to create user with Read and Write permissions for ECR"
 }

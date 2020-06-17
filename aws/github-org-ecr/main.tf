@@ -19,7 +19,7 @@ data "github_repositories" "all_org_repos" {
 
 locals {
   lower_org_names = [for s in data.github_repositories.all_org_repos.names : lower(s)]
-  ecr_user = length(var.ecr_username) > 0 ? var.ecr_username : "${var.name}-user"
+  ecr_user        = length(var.ecr_username) > 0 ? var.ecr_username : "${var.name}-user"
 }
 
 module "ecr" {
@@ -62,7 +62,7 @@ data "aws_iam_policy_document" "ecr_user_policy_doc" {
 
   statement {
     effect = "Allow"
-    actions   = [
+    actions = [
       "ecr:GetAuthorizationToken",
       "ecr:BatchCheckLayerAvailability",
       "ecr:GetDownloadUrlForLayer",
@@ -78,13 +78,14 @@ data "aws_iam_policy_document" "ecr_user_policy_doc" {
       "ecr:InitiateLayerUpload",
       "ecr:UploadLayerPart",
       "ecr:CompleteLayerUpload",
-      "ecr:PutImage"]
+      "ecr:PutImage"
+    ]
     resources = ["*"]
   }
 }
 
 resource "aws_iam_user_policy" "ecr_power_user_policy" {
-  count = var.enable_user ? 1 : 0
+  count  = var.enable_user ? 1 : 0
   name   = "${local.ecr_user}-policy"
   policy = join("", data.aws_iam_policy_document.ecr_user_policy_doc.*.json)
   user   = module.ecr_user.user_name
