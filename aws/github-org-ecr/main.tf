@@ -19,6 +19,7 @@ data "github_repositories" "all_org_repos" {
 
 locals {
   lower_org_names = [for s in data.github_repositories.all_org_repos.names : lower(s)]
+  ecr_user = length(var.ecr_username) > 0 ? var.ecr_username : "${var.name}-user"
 }
 
 module "ecr" {
@@ -44,4 +45,47 @@ output "repository_url_map" {
 
 output "repository_arn_map" {
   value = module.ecr.repository_arn_map
+}
+
+module "ecr_user" {
+  source = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=0.9.0"
+
+  enabled   = var.enable_user
+  name      = local.ecr_user
+  namespace = var.namespace
+  stage     = var.stage
+  tags      = var.tags
+}
+
+data "aws_iam_policy_document" "ses_user_policy" {
+  count = var.enable_user ? 1 : 0
+
+  statement {
+    effect = "Allow"
+    actions   = [
+      "ecr:GetAuthorizationToken",
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:GetRepositoryPolicy",
+      "ecr:DescribeRepositories",
+      "ecr:ListImages",
+      "ecr:DescribeImages",
+      "ecr:BatchGetImage",
+      "ecr:GetLifecyclePolicy",
+      "ecr:GetLifecyclePolicyPreview",
+      "ecr:ListTagsForResource",
+      "ecr:DescribeImageScanFindings",
+      "ecr:InitiateLayerUpload",
+      "ecr:UploadLayerPart",
+      "ecr:CompleteLayerUpload",
+      "ecr:PutImage"]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_user_policy" "sending_emails" {
+  count = var.enable_user ? 1 : 0
+  name   = "${local.ecr_user}-policy"
+  policy = join("", data.aws_iam_policy_document.ses_user_policy.*.json)
+  user   = module.ecr_user.user_name
 }
