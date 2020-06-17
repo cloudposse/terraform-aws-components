@@ -57,7 +57,7 @@ module "ecr_user" {
   tags      = var.tags
 }
 
-data "aws_iam_policy_document" "ses_user_policy" {
+data "aws_iam_policy_document" "ecr_user_policy_doc" {
   count = var.enable_user ? 1 : 0
 
   statement {
@@ -83,9 +83,9 @@ data "aws_iam_policy_document" "ses_user_policy" {
   }
 }
 
-resource "aws_iam_user_policy" "sending_emails" {
+resource "aws_iam_user_policy" "ecr_power_user_policy" {
   count = var.enable_user ? 1 : 0
   name   = "${local.ecr_user}-policy"
-  policy = join("", data.aws_iam_policy_document.ses_user_policy.*.json)
+  policy = join("", data.aws_iam_policy_document.ecr_user_policy_doc.*.json)
   user   = module.ecr_user.user_name
 }
