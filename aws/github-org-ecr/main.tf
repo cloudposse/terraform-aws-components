@@ -18,7 +18,9 @@ data "github_repositories" "all_org_repos" {
 }
 
 locals {
+  cache_repo_list = var.cache_registry_name == "" ? [] : [var.cache_registry_name]
   lower_org_names = [for s in data.github_repositories.all_org_repos.names : lower(s)]
+  repos_to_create = concat(cache_repo_list, lower_org_names)
 }
 
 module "ecr" {
@@ -29,7 +31,7 @@ module "ecr" {
   delimiter                  = var.delimiter
   attributes                 = var.attributes
   tags                       = var.tags
-  image_names                = local.lower_org_names
+  image_names                = local.repos_to_create
   max_image_count            = var.max_image_count
   principals_full_access     = var.principals_full_access
   principals_readonly_access = var.principals_readonly_access

@@ -73,3 +73,9 @@ variable "image_tag_mutability" {
   default     = "MUTABLE"
   description = "The tag mutability setting for the repository. Must be one of: `MUTABLE` or `IMMUTABLE`"
 }
+
+variable "cache_registry_name" {
+  type = string
+  default = "caching-registry"
+  description = "Name for ECR repository used as caching registry. If empty string provided then no caching registry will be created"
+}
