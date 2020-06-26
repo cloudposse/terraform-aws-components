@@ -20,7 +20,7 @@ data "github_repositories" "all_org_repos" {
 locals {
   cache_repo_list = var.cache_registry_name == "" ? [] : [var.cache_registry_name]
   lower_org_names = [for s in data.github_repositories.all_org_repos.names : lower(s)]
-  repos_to_create = concat(cache_repo_list, lower_org_names)
+  repos_to_create = concat(local.cache_repo_list, local.lower_org_names)
 }
 
 module "ecr" {
