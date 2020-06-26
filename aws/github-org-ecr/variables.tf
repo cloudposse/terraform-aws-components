@@ -85,3 +85,9 @@ variable "ecr_username" {
   default     = ""
   description = "Username to use to create user with Read and Write permissions for ECR"
 }
+
+variable "cache_registry_name" {
+  type = string
+  default = "caching-registry"
+  description = "Name for ECR repository used as caching registry. If empty string provided then no caching registry will be created"
+}
