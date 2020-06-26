@@ -74,6 +74,18 @@ variable "image_tag_mutability" {
   description = "The tag mutability setting for the repository. Must be one of: `MUTABLE` or `IMMUTABLE`"
 }
 
+variable "enable_user" {
+  type        = bool
+  default     = false
+  description = "Enable creating user with Read and Write permissions for ECR"
+}
+
+variable "ecr_username" {
+  type        = string
+  default     = ""
+  description = "Username to use to create user with Read and Write permissions for ECR"
+}
+
 variable "cache_registry_name" {
   type = string
   default = "caching-registry"
