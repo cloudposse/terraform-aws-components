@@ -143,14 +143,14 @@ locals {
   vpc_id_use_ssm              = "${substr(var.vpc_id, 0, 1) == "/" && local.mysql_cluster_enabled}"
   vpc_subnet_ids_use_ssm      = "${substr(var.vpc_subnet_ids, 0, 1) == "/" && local.mysql_cluster_enabled}"
 
-  allowed_cidr_blocks_string = "${local.allowed_cidr_blocks_use_ssm ? join("",data.aws_ssm_parameter.allowed_cidr_blocks.*.value) : var.mysql_cluster_allowed_cidr_blocks}"
-  vpc_subnet_ids_string      = "${local.vpc_subnet_ids_use_ssm ? join("",data.aws_ssm_parameter.vpc_subnet_ids.*.value) : var.vpc_subnet_ids}"
+  allowed_cidr_blocks_string = "${local.allowed_cidr_blocks_use_ssm ? join("", data.aws_ssm_parameter.allowed_cidr_blocks.*.value) : var.mysql_cluster_allowed_cidr_blocks}"
+  vpc_subnet_ids_string      = "${local.vpc_subnet_ids_use_ssm ? join("", data.aws_ssm_parameter.vpc_subnet_ids.*.value) : var.vpc_subnet_ids}"
 
   allowed_cidr_blocks = [
     "${split(",", local.allowed_cidr_blocks_string)}",
   ]
 
-  vpc_id = "${local.vpc_id_use_ssm ? join("",data.aws_ssm_parameter.vpc_id.*.value) : var.vpc_id}"
+  vpc_id = "${local.vpc_id_use_ssm ? join("", data.aws_ssm_parameter.vpc_id.*.value) : var.vpc_id}"
 
   vpc_subnet_ids = [
     "${split(",", local.vpc_subnet_ids_string)}",

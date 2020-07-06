@@ -110,7 +110,7 @@ resource "aws_iam_role" "readonly" {
   assume_role_policy = "${data.aws_iam_policy_document.readonly.json}"
   description        = "The Kops readonly role for aws-iam-authenticator"
 
-  max_session_duration =  "${var.iam_role_max_session_duration}"
+  max_session_duration = "${var.iam_role_max_session_duration}"
 }
 
 data "aws_iam_policy_document" "admin" {
@@ -136,7 +136,7 @@ resource "aws_iam_role" "admin" {
   assume_role_policy = "${data.aws_iam_policy_document.admin.json}"
   description        = "The Kops admin role for aws-iam-authenticator"
 
-  max_session_duration =  "${var.iam_role_max_session_duration}"
+  max_session_duration = "${var.iam_role_max_session_duration}"
 }
 
 module "iam_authenticator_config" {
