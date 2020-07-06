@@ -30,7 +30,6 @@ variable "smtp_password" {
 
 variable "smtp_host" {
   description = "SMTP Host"
-  default     = "smtp.mailgun.org"
   default     = ""
 }
 

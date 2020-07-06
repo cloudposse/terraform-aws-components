@@ -89,7 +89,7 @@ module "elasticsearch" {
   encrypt_at_rest_enabled = "${var.elasticsearch_encrypt_at_rest_enabled}"
   enabled                 = "${var.elasticsearch_enabled}"
 
-  advanced_options {
+  advanced_options = {
     "rest.action.multi.allow_explicit_index" = "true"
   }
 }
