@@ -198,3 +198,39 @@ variable "artifact_url" {
   description = "URL template for the remote artifact for elasticsearch cleanup lambda"
   default     = "https://artifacts.cloudposse.com/$$${module_name}/$$${git_ref}/$$${filename}"
 }
+
+variable "elasticsearch_log_publishing_index_enabled" {
+  type        = bool
+  default     = false
+  description = "Specifies whether log publishing option for INDEX_SLOW_LOGS is enabled or not"
+}
+
+variable "elasticsearch_log_publishing_search_enabled" {
+  type        = bool
+  default     = false
+  description = "Specifies whether log publishing option for SEARCH_SLOW_LOGS is enabled or not"
+}
+
+variable "elasticsearch_log_publishing_application_enabled" {
+  type        = bool
+  default     = false
+  description = "Specifies whether log publishing option for ES_APPLICATION_LOGS is enabled or not"
+}
+
+variable "elasticsearch_log_publishing_index_cloudwatch_log_group_arn" {
+  type        = string
+  default     = ""
+  description = "ARN of the CloudWatch log group to which log for INDEX_SLOW_LOGS needs to be published"
+}
+
+variable "elasticsearch_log_publishing_search_cloudwatch_log_group_arn" {
+  type        = string
+  default     = ""
+  description = "ARN of the CloudWatch log group to which log for SEARCH_SLOW_LOGS needs to be published"
+}
+
+variable "elasticsearch_log_publishing_application_cloudwatch_log_group_arn" {
+  type        = string
+  default     = ""
+  description = "ARN of the CloudWatch log group to which log for ES_APPLICATION_LOGS needs to be published"
+}

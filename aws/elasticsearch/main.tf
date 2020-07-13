@@ -54,19 +54,25 @@ locals {
 }
 
 module "elasticsearch" {
-  source                  = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.14.0"
-  namespace               = var.namespace
-  stage                   = var.stage
-  name                    = var.elasticsearch_name
-  dns_zone_id             = local.zone_id
-  security_groups         = local.security_groups[var.elasticsearch_network_permitted_nodes]
-  vpc_id                  = module.kops_vpc.vpc_id
-  subnet_ids              = module.kops_vpc.private_subnet_ids
-  zone_awareness_enabled  = length(module.kops_vpc.private_subnet_ids) > 1 ? true : false
-  elasticsearch_version   = var.elasticsearch_version
-  instance_type           = var.elasticsearch_instance_type
-  instance_count          = var.elasticsearch_instance_count
-  availability_zone_count = var.availability_zone_count
+  source                                              = "git::https://github.com/cloudposse/terraform-aws-elasticsearch.git?ref=tags/0.14.0"
+  namespace                                           = var.namespace
+  stage                                               = var.stage
+  name                                                = var.elasticsearch_name
+  dns_zone_id                                         = local.zone_id
+  security_groups                                     = local.security_groups[var.elasticsearch_network_permitted_nodes]
+  vpc_id                                              = module.kops_vpc.vpc_id
+  subnet_ids                                          = module.kops_vpc.private_subnet_ids
+  zone_awareness_enabled                              = length(module.kops_vpc.private_subnet_ids) > 1 ? true : false
+  elasticsearch_version                               = var.elasticsearch_version
+  instance_type                                       = var.elasticsearch_instance_type
+  instance_count                                      = var.elasticsearch_instance_count
+  log_publishing_index_enabled                        = var.elasticsearch_log_publishing_index_enabled
+  log_publishing_index_cloudwatch_log_group_arn       = var.elasticsearch_log_publishing_index_cloudwatch_log_group_arn
+  log_publishing_search_enabled                       = var.elasticsearch_log_publishing_search_enabled
+  log_publishing_search_cloudwatch_log_group_arn      = var.elasticsearch_log_publishing_search_cloudwatch_log_group_arn
+  log_publishing_application_enabled                  = var.elasticsearch_log_publishing_application_enabled
+  log_publishing_application_cloudwatch_log_group_arn = var.elasticsearch_log_publishing_application_cloudwatch_log_group_arn
+  availability_zone_count                             = var.availability_zone_count
 
   iam_role_arns = distinct(
     concat(
