@@ -18,7 +18,7 @@ locals {
   chamber_service = "${var.chamber_service == "" ? basename(pathexpand(path.module)) : var.chamber_service}"
 
   # Work around limitation that conditional operator cannot be used with lists. https://github.com/hashicorp/terraform/issues/18259
-  availability_zones = "${split("|", length(var.availability_zones) == 0 ? join("|",data.aws_availability_zones.available.names) : join("|",var.availability_zones))}"
+  availability_zones = "${split("|", length(var.availability_zones) == 0 ? join("|", data.aws_availability_zones.available.names) : join("|", var.availability_zones))}"
 }
 
 module "parameter_prefix" {

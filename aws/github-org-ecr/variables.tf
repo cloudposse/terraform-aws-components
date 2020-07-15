@@ -87,7 +87,7 @@ variable "ecr_username" {
 }
 
 variable "cache_registry_name" {
-  type = string
-  default = "caching-registry"
+  type        = string
+  default     = "caching-registry"
   description = "Name for ECR repository used as caching registry. If empty string provided then no caching registry will be created"
 }

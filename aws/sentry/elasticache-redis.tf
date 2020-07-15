@@ -54,8 +54,8 @@ module "elasticache_redis" {
   availability_zones           = local.availability_zones
   automatic_failover           = true
 
-  transit_encryption_enabled   = false # not supported by Sentry https://github.com/getsentry/sentry/issues/11309
-  auth_token                   = null # must set transit_encryption_enabled true first
+  transit_encryption_enabled = false # not supported by Sentry https://github.com/getsentry/sentry/issues/11309
+  auth_token                 = null  # must set transit_encryption_enabled true first
 
   parameter = var.redis_params
 }

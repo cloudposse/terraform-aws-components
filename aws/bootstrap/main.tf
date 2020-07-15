@@ -139,9 +139,9 @@ data "template_file" "config" {
 
 # Write the config file to disk
 resource "local_file" "config_file" {
-  content = "${join("\n\n", 
+  content = "${join("\n\n",
     concat(list("[profile ${var.namespace}]"),
-       list(data.template_file.config_root.rendered), data.template_file.config.*.rendered))}"
+  list(data.template_file.config_root.rendered), data.template_file.config.*.rendered))}"
 
   filename = "${var.output_path}/${var.config_file}"
 }

@@ -222,11 +222,11 @@ resource "aws_ssm_parameter" "teleport_version" {
 
 resource "kubernetes_namespace" "default" {
   metadata {
-    annotations {
+    annotations = {
       "iam.amazonaws.com/permitted" = "${aws_iam_role.teleport.name}"
     }
 
-    labels {
+    labels = {
       name = "${var.kubernetes_namespace}"
     }
 

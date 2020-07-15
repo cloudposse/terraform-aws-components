@@ -14,7 +14,7 @@ output "igw_id" {
 
 output "nat_gateways" {
   description = "Comma-separated string list of AWS IDs of NAT Gateways for the VPC"
-  value       = "${join("",aws_ssm_parameter.nat_gateways.*.value)}"
+  value       = "${join("", aws_ssm_parameter.nat_gateways.*.value)}"
 }
 
 output "cidr_block" {
