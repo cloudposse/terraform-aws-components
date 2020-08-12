@@ -19,7 +19,7 @@ locals {
 data "aws_availability_zones" "available" {}
 
 module "vpc" {
-  source     = "git::https://github.com/cloudposse/terraform-aws-vpc.git?ref=tags/0.3.4"
+  source     = "git::https://github.com/cloudposse/terraform-aws-vpc.git?ref=tags/0.15.0"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   name       = "${var.name}"
