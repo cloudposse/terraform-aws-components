@@ -58,7 +58,7 @@ module "eks_cluster" {
 }
 
 module "eks_workers" {
-  source                             = "git::https://github.com/cloudposse/terraform-aws-eks-workers.git?ref=tags/0.1.1"
+  source                             = "git::https://github.com/cloudposse/terraform-aws-eks-workers.git?ref=tags/0.15.2"
   namespace                          = "${var.namespace}"
   stage                              = "${var.stage}"
   name                               = "${var.name}"
