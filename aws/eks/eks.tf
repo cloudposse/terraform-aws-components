@@ -29,7 +29,7 @@ module "vpc" {
 }
 
 module "subnets" {
-  source              = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.3.6"
+  source              = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.29.0"
   availability_zones  = ["${data.aws_availability_zones.available.names}"]
   namespace           = "${var.namespace}"
   stage               = "${var.stage}"
