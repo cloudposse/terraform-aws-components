@@ -1,0 +1,44 @@
+service:
+  - name: example-service
+    team_name: example-team
+
+
+alert_policies:
+  - name: example-service-alert-policy
+    owner_team_name:
+    tags:
+      - "ManagedBy:terraform"
+      - "service:example-service"
+    filter:
+      type: match-any-condition
+      conditions:
+        - field: description
+          operation: contains
+          expected_value: "example-service"
+        - field: message
+          operation: contains
+          expected_value: "example-service"
+    continue_policy: true
+    ignore_original_responders: true
+    responders:
+      - type: team
+        team_name: example-team
+
+
+service_incident_rules:
+  - name: example-service-incident-rule
+    service_name: example-service
+    incident_rule:
+      condition_match_type: match-any-condition
+
+      conditions:
+        - field: tags
+          operation: contains
+          expected_value: "service:example-service"
+
+      incident_properties:
+        message: example-service is having issues
+        priority: P2
+        stakeholder_properties:
+          message: example-service is having issues
+          enable: true

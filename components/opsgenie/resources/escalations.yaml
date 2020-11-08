@@ -1,0 +1,20 @@
+# https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/resources/escalation
+# https://docs.opsgenie.com/docs/escalation-api
+
+escalations:
+
+  - name: example-team-escalation-to-devops
+    description: "Escalate to 'devops' team if 'example-team' does not acknowledge in 10 minutes"
+    owner_team_name: example-team
+    rule:
+      condition: if-not-acked
+      notify_type: all
+      delay: 10
+      recipients:
+        - type: team
+          team_name: devops
+    repeat:
+      wait_interval: 10
+      count: 2
+      reset_recipient_states: false
+      close_alert_after_all: false

@@ -1,0 +1,16 @@
+teams:
+  - name: devops
+    description: "Infrastructure Team"
+    members:
+      - username: user1@example.com
+        role: admin
+      - username: user2@example.com
+        role: user
+
+  - name: example-team
+    description: "Example Team"
+    members:
+      - username: user3@example.com
+        role: admin
+      - username: user4@example.com
+        role: user

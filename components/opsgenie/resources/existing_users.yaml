@@ -1,0 +1,5 @@
+existing_users:
+  - username: user1@example.com
+  - username: user2@example.com
+  - username: user3@example.com
+  - username: user4@example.com

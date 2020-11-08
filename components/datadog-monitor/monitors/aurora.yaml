@@ -1,0 +1,34 @@
+aurora-replica-lag:
+  name: "(RDS) Aurora Replica Lag Detected"
+  type: metric alert
+  query: |
+    min(last_15m):min:aws.rds.aurora_replica_lag{*} by {dbinstanceidentifier} > 1000
+  message: |
+    {{#is_warning}}
+    ({dbinstanceidentifier}) Replica lag has been greater than half a second for more than 15 minutes
+    {{/is_warning}}
+    {{#is_alert}}
+    ({dbinstanceidentifier}) Replica lag has been greater than 1s for more than 15 minutes
+    {{/is_alert}}
+  escalation_message: ""
+  tags: [ "ManagedBy:Terraform" ]
+  notify_no_data: false
+  notify_audit: true
+  require_full_window: false
+  enable_logs_sample: false
+  force_delete: true
+  include_tags: true
+  locked: false
+  renotify_interval: 60
+  timeout_h: 60
+  evaluation_delay: 60
+  new_host_delay: 300
+  no_data_timeframe: 10
+  threshold_windows: { }
+  thresholds:
+    critical: 1000
+    warning: 500
+    #unknown:
+    #ok:
+    #critical_recovery:
+    #warning_recovery:
