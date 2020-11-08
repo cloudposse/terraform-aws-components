@@ -1,5 +1,7 @@
 # This file is included by default in terraform plans
 
+enabled = true
+
 # The maximum session duration (in seconds) that you want to set for the IAM roles.
 # If you do not specify a value for this setting, the default maximum of one hour is applied.
 # This setting can have a value from 1 hour (3600) to 12 hours (43200)

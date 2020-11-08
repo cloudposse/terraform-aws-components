@@ -1,3 +1,5 @@
+enabled = true
+
 name = "efs"
 
 performance_mode = "generalPurpose"
