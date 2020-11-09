@@ -73,7 +73,7 @@ output "non_eks_accounts" {
   description = "List of non EKS accounts"
 }
 
-output "accounts_ous_config" {
+output "organizational_units_accounts_config" {
   value       = var.organizational_units_accounts_config
-  description = "Accounts and Organizational Units configuration"
+  description = "Organizational Units and Accounts configuration"
 }

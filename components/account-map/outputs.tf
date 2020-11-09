@@ -26,12 +26,16 @@ output "full_account_map" {
   value = local.full_account_map
 }
 
-output "corp_eks_accounts" {
-  value = local.corp_eks_accounts
+output "eks_accounts" {
+  value = local.eks_accounts
 }
 
-output "corp_accounts" {
-  value = local.corp_accounts
+output "non_eks_accounts" {
+  value = local.non_eks_accounts
+}
+
+output "all_accounts" {
+  value = local.all_accounts
 }
 
 output "terraform_roles" {
