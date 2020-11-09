@@ -11,25 +11,25 @@ variable "root_account_aws_name" {
 variable "root_account_stage_name" {
   type        = string
   default     = "root"
-  description = "The stage name we are using for the root account"
+  description = "The stage name for the root account"
 }
 
 variable "identity_account_stage_name" {
   type        = string
   default     = "identity"
-  description = "The stage name we are using for the account holding primary IAM roles"
+  description = "The stage name for the account holding primary IAM roles"
 }
 
 variable "dns_account_stage_name" {
   type        = string
   default     = "dns"
-  description = "The stage name we are using for the primary DNS account"
+  description = "The stage name for the primary DNS account"
 }
 
 variable "audit_account_stage_name" {
   type        = string
   default     = "audit"
-  description = "The stage name we are using for the audit account"
+  description = "The stage name for the audit account"
 }
 
 variable "iam_role_arn_template" {

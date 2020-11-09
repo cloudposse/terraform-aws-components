@@ -19,17 +19,18 @@ variable "aws_service_access_principals" {
   description = "List of AWS service principal names for which you want to enable integration with your organization. This is typically in the form of a URL, such as service-abbreviation.amazonaws.com. Organization must have `feature_set` set to ALL. For additional information, see the [AWS Organizations User Guide](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html)"
 }
 
-variable "corp_eks_accounts" {
-  type        = list(string)
-  description = "A list of accounts to create, to be designated internal and with EKS clusters"
-}
-
-variable "corp_non_eks_accounts" {
-  type        = list(string)
-  description = "A list of accounts to create, to be designated internal and without EKS clusters"
-}
-
 variable "enabled_policy_types" {
   type        = list(string)
   description = "List of Organizations policy types to enable in the Organization Root. Organization must have feature_set set to ALL. For additional information about valid policy types (e.g. SERVICE_CONTROL_POLICY and TAG_POLICY), see the [AWS Organizations API Reference](https://docs.aws.amazon.com/organizations/latest/APIReference/API_EnablePolicyType.html)"
+}
+
+variable "root_account_stage_name" {
+  type        = string
+  default     = "root"
+  description = "The stage name for the Organization root (master) account"
+}
+
+variable "organizational_units_accounts_config" {
+  type        = map(any)
+  description = "Organizational Units and Accounts configuration"
 }

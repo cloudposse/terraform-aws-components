@@ -1,21 +1,41 @@
 output "account_arns" {
-  value       = values(aws_organizations_account.default)[*]["arn"]
+  value       = local.all_account_arns
   description = "List of account ARNs"
 }
 
 output "account_ids" {
-  value       = values(aws_organizations_account.default)[*]["id"]
+  value       = local.all_account_ids
   description = "List of account IDs"
 }
 
+output "organizational_unit_arns" {
+  value       = local.organizational_unit_arns
+  description = "List of Organizational Unit ARNs"
+}
+
+output "organizational_unit_ids" {
+  value       = local.organizational_unit_ids
+  description = "List of Organizational Unit IDs"
+}
+
 output "account_names_account_arns" {
-  value       = zipmap(values(aws_organizations_account.default)[*]["name"], values(aws_organizations_account.default)[*]["arn"])
+  value       = local.account_names_account_arns
   description = "Map of account names to account ARNs"
 }
 
 output "account_names_account_ids" {
-  value       = zipmap(values(aws_organizations_account.default)[*]["name"], values(aws_organizations_account.default)[*]["id"])
+  value       = local.account_names_account_ids
   description = "Map of account names to account IDs"
+}
+
+output "organizational_unit_names_organizational_unit_arns" {
+  value       = local.organizational_unit_names_organizational_unit_arns
+  description = "Map of Organizational Unit names to Organizational Unit ARNs"
+}
+
+output "organizational_unit_names_organizational_unit_ids" {
+  value       = local.organizational_unit_names_organizational_unit_ids
+  description = "Map of Organizational Unit names to Organizational Unit IDs"
 }
 
 output "organization_id" {
@@ -43,10 +63,17 @@ output "organization_master_account_email" {
   description = "Organization master account email"
 }
 
-output "corp_eks_accounts" {
-  value = var.corp_eks_accounts
+output "eks_accounts" {
+  value       = local.eks_account_names
+  description = "List of EKS accounts"
 }
 
-output "corp_non_eks_accounts" {
-  value = concat(["root"], var.corp_non_eks_accounts)
+output "non_eks_accounts" {
+  value       = local.non_eks_account_names
+  description = "List of non EKS accounts"
+}
+
+output "accounts_ous_config" {
+  value       = var.organizational_units_accounts_config
+  description = "Accounts and Organizational Units configuration"
 }
