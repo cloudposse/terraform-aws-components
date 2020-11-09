@@ -35,12 +35,6 @@ github_repo: "cloudposse/terraform-aws-components"
 
 # Badges to display
 badges:
-  - name: "Build Status"
-    image: "https://travis-ci.org/cloudposse/terraform-aws-components.svg?branch=master"
-    url: "https://travis-ci.org/cloudposse/terraform-aws-components"
-  - name: "Codefresh Build Status"
-    image: "https://g.codefresh.io/api/badges/build?repoOwner=cloudposse&repoName=terraform-aws-components&branch=master&pipelineName=terraform-aws-components&accountName=cloudposse&type=cf-1"
-    url: "https://g.codefresh.io/pipelines/terraform-aws-components/builds"
   - name: "Latest Release"
     image: "https://img.shields.io/github/release/cloudposse/terraform-aws-components.svg"
     url: "https://github.com/cloudposse/terraform-aws-components/releases/latest"

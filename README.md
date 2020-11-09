@@ -1,4 +1,4 @@
-# terraform-aws-components [![Build Status](https://travis-ci.org/cloudposse/terraform-aws-components.svg?branch=master)](https://travis-ci.org/cloudposse/terraform-aws-components) [![Codefresh Build Status](https://g.codefresh.io/api/badges/build?repoOwner=cloudposse&repoName=terraform-aws-components&branch=master&pipelineName=terraform-aws-components&accountName=cloudposse&type=cf-1)](https://g.codefresh.io/pipelines/terraform-aws-components/builds) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-components.svg)](https://github.com/cloudposse/terraform-aws-components/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# terraform-aws-components [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-components.svg)](https://github.com/cloudposse/terraform-aws-components/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 [![README Header][readme_header_img]][readme_header_link]
 
