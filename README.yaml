@@ -78,48 +78,11 @@ description: |-
 introduction: |-
   In this repo you'll find real-world examples of how we've implemented various common patterns using our [terraform modules](https://cpco.io/terraform-modules) for our customers.
 
-  The "root modules" form the module catalog of your organization. It's from this catalog that other developers in your organization will pick and choose from anytime they need to deploy some new capability.
+  The component catalog captures the business logic, opinions, best practices and non-functional requirements.
 
-  Normally, a company should build up their own service catalog of terraform modules like this one, which is just a collection of terraform modules that capture the business logic, opinions, "best practices" and non-functional requirements of the organization.
-  No two companies will ever have the same assembly of `terraform-aws-components`.
+  It's from this catalog that other developers in your organization will pick and choose from anytime they need to deploy some new capability.
 
-  The root modules are the most opinionated incarnations of modules that seldom translate verbatim across organizations. This is your secret sauce. We could never implement this in a sufficiently generic way without creating crazy bloat and complexity. Therefore treat the terraform-aws-components in this repository as your “starting off point” where you hardfork/diverge.
-  These modules are very specific to how we do things in our environment, so they might not "drop in" smoothly in other environments as they make a lot of assumptions on how things are organized.
-
-  A company writes their own root modules. It’s their flavor of how to leverage the [generic building blocks](https://cpco.io/terraform-modules) to achieve the specific customizations that are required without needing to write everything from the ground up because they are leveraging our general purpose modules.
-  The idea is to write all of the [`terraform-aws-*`](https://cpco.io/terraform-modules) type modules very generically so they are easily composable inside of other modules.
-
-  These `terraform-aws-components` make a lot of assumptions about how we've configured our environments. That said, they can still serve as an excellent reference for others.
-
-  We recommend that you start with your clean `terraform-root-module` repo. Then start by creating a new project in there to describe the infrastructure that you want.
-
-  ## Best Practices
-
-  * Every "root module" should include a `Makefile` that defines `init`, `plan`, and `apply` targets.
-    This establishes a common interface for interacting with terraform without the need of a wrapper like `terragrunt`.
-  * Never compose "root modules" inside of other root modules. If or when this is desired, then the module should be split off into a new repository and versioned independently as a standalone module.
-
-  ## Example Makefile
-
-  Here's a good example of a `Makefile` for a terraform project:
-
-  ```
-  ## Initialize terraform remote state
-  init:
-  	[ -f .terraform/terraform.tfstate ] || terraform $@
-
-  ## Clean up the project
-  clean:
-  	rm -rf .terraform *.tfstate*
-
-  ## Pass arguments through to terraform which require remote state
-  apply console destroy graph plan output providers show: init
-  	terraform $@
-
-  ## Pass arguments through to terraform which do not require remote state
-  get fmt validate version:
-  	terraform $@
-  ```
+  These components make a lot of assumptions about how we've configured our environments. That said, they can still serve as an excellent reference for others.
 
   ## Deprecations
 
