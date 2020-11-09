@@ -1,0 +1,15 @@
+# https://docs.opsgenie.com/docs/alert-and-notification-policy-api
+
+notification_policies:
+
+  - name: auto-close-based-on-priority
+    team_name: test
+    auto_close_action:
+      time_unit: minutes
+      time_amount: 120
+    filter:
+      type: match-all-conditions
+      conditions:
+        - field: priority
+          operation: less-than
+          expected_value: P3

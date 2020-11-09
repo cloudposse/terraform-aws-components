@@ -1,0 +1,6 @@
+api_integrations:
+
+  - name: datadog
+    type: Datadog
+    # Use an empty value for `owner_team_name` to make it a global integration
+    owner_team_name:
