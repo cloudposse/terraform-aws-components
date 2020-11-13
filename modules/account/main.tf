@@ -1,7 +1,7 @@
 locals {
-  organizational_units = toset(lookup(var.organizational_units_accounts_config, "organizational_units", []))
-
-  organization_accounts         = toset(lookup(var.organizational_units_accounts_config, "accounts", []))
+  organization                  = lookup(var.organization_config, "organization", {})
+  organizational_units          = toset(lookup(var.organization_config, "organizational_units", []))
+  organization_accounts         = toset(lookup(var.organization_config, "accounts", []))
   organizational_units_accounts = toset(local.organizational_units[*]["accounts"])
   all_accounts                  = concat(local.organization_accounts, local.organizational_units_accounts)
 
@@ -30,7 +30,7 @@ locals {
   organizational_unit_names_organizational_unit_arns = zipmap(local.organizational_unit_names, local.organizational_unit_arns)
   organizational_unit_names_organizational_unit_ids  = zipmap(local.organizational_unit_names, local.organizational_unit_ids)
 
-  account_names_organizational_unit_names_map = length(local.organizational_units) > 0 ? merge(
+  account_names_organizational_unit_names_map = local.organizational_units != null && length(local.organizational_units) > 0 ? merge(
     [
       for organizational_unit in local.organizational_units : {
         for account in lookup(organizational_unit, "accounts", []) : account.name => organizational_unit.name
@@ -46,13 +46,39 @@ locals {
     setsubtract(local.all_account_names, local.eks_account_names)
   )
 
-  service_control_policy_statements = flatten(
+  all_service_control_policy_statements = flatten(
     [
       for file in fileset(path.module, "service-control-policies/*.yaml") : [
         for k, v in yamldecode(file(format("%s/%s", path.module, file))) : v
       ]
     ]
   )
+
+  organization_service_control_policy_ids = lookup(local.organization, "service_control_policies", [])
+
+  organization_service_control_policy_statements = [
+    for st in local.all_service_control_policy_statements : st if contains(local.organization_service_control_policy_ids, st.sid)
+  ]
+
+  account_names_service_control_policy_ids_map = {
+    for acc in local.all_accounts : acc.name => acc.service_control_policies if acc.service_control_policies != null && length(acc.service_control_policies) > 0
+  }
+
+  account_names_service_control_policy_statements_map = {
+    for k, v in local.account_names_service_control_policy_ids_map : k => [
+      for st in local.all_service_control_policy_statements : st if contains(v, st.sid)
+    ]
+  }
+
+  organizational_unit_names_service_control_policy_ids_map = local.organizational_units != null && length(local.organizational_units) > 0 ? {
+    for ou in local.organizational_units : ou.name => ou.service_control_policies if ou.service_control_policies != null && length(ou.service_control_policies) > 0
+  } : {}
+
+  organizational_unit_names_service_control_policy_statements_map = {
+    for k, v in local.organizational_unit_names_service_control_policy_ids_map : k => [
+      for st in local.all_service_control_policy_statements : st if contains(v, st.sid)
+    ]
+  }
 }
 
 resource "aws_organizations_organization" "default" {
@@ -84,18 +110,50 @@ resource "aws_organizations_account" "organizational_units_accounts" {
   tags                       = merge(module.this.tags, each.value.tags)
 }
 
-module "service_control_policies" {
+module "organization_service_control_policies" {
   source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.1.0"
 
-  service_control_policy_statements  = local.service_control_policy_statements
-  service_control_policy_description = ""
-  target_id                          = ""
+  for_each = length(local.organization_service_control_policy_statements) > 0 ? [true] : []
+
+  attributes                         = concat(module.this.attributes, ["organization"])
+  service_control_policy_statements  = local.organization_service_control_policy_statements
+  service_control_policy_description = "Organization Service Control Policy"
+  target_id                          = aws_organizations_organization.default.roots[0].id
+
+  context = module.this.context
+}
+
+module "accounts_service_control_policies" {
+  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.1.0"
+
+  for_each = local.account_names_service_control_policy_statements_map
+
+  attributes                         = concat(module.this.attributes, [each.key, "account"])
+  service_control_policy_statements  = each.value
+  service_control_policy_description = "${each.key} Account Service Control Policy"
+  target_id                          = local.account_names_account_ids[each.key]
+
+  context = module.this.context
+}
+
+module "organizational_units_service_control_policies" {
+  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.1.0"
+
+  for_each = local.organizational_unit_names_service_control_policy_statements_map
+
+  attributes                         = concat(module.this.attributes, [each.key, "ou"])
+  service_control_policy_statements  = each.value
+  service_control_policy_description = "${each.key} Organizational Unit Service Control Policy"
+  target_id                          = local.organizational_unit_names_organizational_unit_ids[each.key]
 
   context = module.this.context
 }
 
 
-# organizational_units_accounts_config:
+# organization_config:
+#   organization:
+#     service_control_policies:
+#       - DenyS3BucketsPublicAccess
 #   accounts:
 #     - name: prod
 #       tags:
@@ -133,4 +191,3 @@ module "service_control_policies" {
 #       - DenyS3BucketsPublicAccess
 #       - DenyS3IncorrectEncryptionHeader
 #       - DenyS3UnEncryptedObjectUploads
-
