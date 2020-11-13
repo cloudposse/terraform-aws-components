@@ -106,6 +106,7 @@ module "service_control_policies" {
 #         - DenyCreatingIAMUsers
 #         - DenyDeletingKMSKeys
 #         - DenyDeletingRoute53Zones
+#         - DenyDeletingCloudWatchLogs
 #     - name: staging
 #       tags:
 #         eks: true
@@ -115,6 +116,7 @@ module "service_control_policies" {
 #         - DenyCreatingIAMUsers
 #         - DenyDeletingKMSKeys
 #         - DenyDeletingRoute53Zones
+#         - DenyDeletingCloudWatchLogs
 #   organizational_units:
 #   - name: security_audit
 #     accounts:
@@ -127,4 +129,8 @@ module "service_control_policies" {
 #       - DenyCreatingIAMUsers
 #       - DenyDeletingKMSKeys
 #       - DenyDeletingRoute53Zones
+#       - ProtectS3Buckets
+#       - DenyS3BucketsPublicAccess
+#       - DenyS3IncorrectEncryptionHeader
+#       - DenyS3UnEncryptedObjectUploads
 

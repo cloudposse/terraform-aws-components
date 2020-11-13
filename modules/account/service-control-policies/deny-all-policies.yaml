@@ -1,0 +1,6 @@
+- sid: "DenyAllAccess"
+  effect: "Deny"
+  actions:
+    - "*"
+  resources:
+    - "*"
