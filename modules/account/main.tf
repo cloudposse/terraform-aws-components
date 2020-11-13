@@ -45,6 +45,14 @@ locals {
     [var.root_account_stage_name],
     setsubtract(local.all_account_names, local.eks_account_names)
   )
+
+  service_control_policy_statements = flatten(
+    [
+      for file in fileset(path.module, "service-control-policies/*.yaml") : [
+        for k, v in yamldecode(file(format("%s/%s", path.module, file))) : v
+      ]
+    ]
+  )
 }
 
 resource "aws_organizations_organization" "default" {
@@ -76,17 +84,47 @@ resource "aws_organizations_account" "organizational_units_accounts" {
   tags                       = merge(module.this.tags, each.value.tags)
 }
 
+module "service_control_policies" {
+  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.1.0"
+
+  service_control_policy_statements  = local.service_control_policy_statements
+  service_control_policy_description = ""
+  target_id                          = ""
+
+  context = module.this.context
+}
+
 
 # organizational_units_accounts_config:
 #   accounts:
 #     - name: prod
 #       tags:
 #         eks: true
+#       service_control_policies:
+#         - DenyRootAccountAccess
+#         - DenyLeavingOrganization
+#         - DenyCreatingIAMUsers
+#         - DenyDeletingKMSKeys
+#         - DenyDeletingRoute53Zones
 #     - name: staging
 #       tags:
 #         eks: true
+#       service_control_policies:
+#         - DenyRootAccountAccess
+#         - DenyLeavingOrganization
+#         - DenyCreatingIAMUsers
+#         - DenyDeletingKMSKeys
+#         - DenyDeletingRoute53Zones
 #   organizational_units:
 #   - name: security_audit
 #     accounts:
 #       - name: audit
+#         service_control_policies:
+#          - DenyRootAccountAccess
 #       - name: security
+#     service_control_policies:
+#       - DenyLeavingOrganization
+#       - DenyCreatingIAMUsers
+#       - DenyDeletingKMSKeys
+#       - DenyDeletingRoute53Zones
+
