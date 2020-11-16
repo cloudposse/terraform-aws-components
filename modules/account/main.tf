@@ -124,7 +124,7 @@ module "organization_service_control_policies" {
 }
 
 module "accounts_service_control_policies" {
-  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.1.0"
+  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.3.0"
 
   for_each = local.account_names_service_control_policy_statements_map
 
@@ -137,7 +137,7 @@ module "accounts_service_control_policies" {
 }
 
 module "organizational_units_service_control_policies" {
-  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.1.0"
+  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.3.0"
 
   for_each = local.organizational_unit_names_service_control_policy_statements_map
 
