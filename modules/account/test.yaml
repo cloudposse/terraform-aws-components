@@ -1,0 +1,40 @@
+organization:
+  service_control_policies:
+    - DenyS3BucketsPublicAccess
+accounts:
+  - name: prod
+    tags:
+      eks: true
+    service_control_policies:
+      - DenyRootAccountAccess
+      - DenyLeavingOrganization
+      - DenyCreatingIAMUsers
+      - DenyDeletingKMSKeys
+      - DenyDeletingRoute53Zones
+      - DenyDeletingCloudWatchLogs
+  - name: staging
+    tags:
+      eks: true
+    service_control_policies:
+      - DenyRootAccountAccess
+      - DenyLeavingOrganization
+      - DenyCreatingIAMUsers
+      - DenyDeletingKMSKeys
+      - DenyDeletingRoute53Zones
+      - DenyDeletingCloudWatchLogs
+organizational_units:
+  - name: security_audit
+    accounts:
+      - name: audit
+        service_control_policies:
+          - DenyRootAccountAccess
+      - name: security
+    service_control_policies:
+      - DenyLeavingOrganization
+      - DenyCreatingIAMUsers
+      - DenyDeletingKMSKeys
+      - DenyDeletingRoute53Zones
+      - ProtectS3Buckets
+      - DenyS3BucketsPublicAccess
+      - DenyS3IncorrectEncryptionHeader
+      - DenyS3UnEncryptedObjectUploads

@@ -39,27 +39,27 @@ output "organizational_unit_names_organizational_unit_ids" {
 }
 
 output "organization_id" {
-  value       = aws_organizations_organization.default.id
+  value       = aws_organizations_organization.this.id
   description = "Organization ID"
 }
 
 output "organization_arn" {
-  value       = aws_organizations_organization.default.arn
+  value       = aws_organizations_organization.this.arn
   description = "Organization ARN"
 }
 
 output "organization_master_account_id" {
-  value       = aws_organizations_organization.default.master_account_id
+  value       = aws_organizations_organization.this.master_account_id
   description = "Organization master account ID"
 }
 
 output "organization_master_account_arn" {
-  value       = aws_organizations_organization.default.master_account_arn
+  value       = aws_organizations_organization.this.master_account_arn
   description = "Organization master account ARN"
 }
 
 output "organization_master_account_email" {
-  value       = aws_organizations_organization.default.master_account_email
+  value       = aws_organizations_organization.this.master_account_email
   description = "Organization master account email"
 }
 
@@ -71,9 +71,4 @@ output "eks_accounts" {
 output "non_eks_accounts" {
   value       = local.non_eks_account_names
   description = "List of non EKS accounts"
-}
-
-output "organizational_units_accounts_config" {
-  value       = var.organizational_units_accounts_config
-  description = "Organizational Units and Accounts configuration"
 }

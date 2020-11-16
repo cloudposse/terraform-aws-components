@@ -1,9 +1,18 @@
 locals {
-  organization                  = lookup(var.organization_config, "organization", {})
-  organizational_units          = toset(lookup(var.organization_config, "organizational_units", []))
-  organization_accounts         = toset(lookup(var.organization_config, "accounts", []))
-  organizational_units_accounts = toset(local.organizational_units[*]["accounts"])
-  all_accounts                  = concat(local.organization_accounts, local.organizational_units_accounts)
+  organization_config = yamldecode(file("${path.cwd}/test.yaml"))
+
+  organization = lookup(local.organization_config, "organization", {})
+
+  organizational_units     = lookup(local.organization_config, "organizational_units", [])
+  organizational_units_map = { for ou in local.organizational_units : ou.name => ou }
+
+  organization_accounts     = lookup(local.organization_config, "accounts", [])
+  organization_accounts_map = { for acc in local.organization_accounts : acc.name => acc }
+
+  organizational_units_accounts     = flatten([for ou in local.organizational_units : lookup(ou, "accounts", [])])
+  organizational_units_accounts_map = { for acc in local.organizational_units_accounts : acc.name => acc }
+
+  all_accounts = concat(local.organization_accounts, local.organizational_units_accounts)
 
   all_account_names = concat(
     values(aws_organizations_account.organization_accounts)[*]["name"],
@@ -20,9 +29,9 @@ locals {
     values(aws_organizations_account.organizational_units_accounts)[*]["id"]
   )
 
-  organizational_unit_names = values(aws_organizations_organizational_unit.default)[*]["name"]
-  organizational_unit_arns  = values(aws_organizations_organizational_unit.default)[*]["arn"]
-  organizational_unit_ids   = values(aws_organizations_organizational_unit.default)[*]["id"]
+  organizational_unit_names = values(aws_organizations_organizational_unit.this)[*]["name"]
+  organizational_unit_arns  = values(aws_organizations_organizational_unit.this)[*]["arn"]
+  organizational_unit_ids   = values(aws_organizations_organizational_unit.this)[*]["id"]
 
   account_names_account_arns = zipmap(local.all_account_names, local.all_account_arns)
   account_names_account_ids  = zipmap(local.all_account_names, local.all_account_ids)
@@ -38,12 +47,12 @@ locals {
   ]...) : {}
 
   eks_account_names = [
-    for acc in local.all_accounts : acc.name if acc.tags != null && lookup(acc.tags, "eks", false) == true
+    for acc in local.all_accounts : acc.name if lookup(try(acc.tags, {}), "eks", false) == true
   ]
 
   non_eks_account_names = concat(
     [var.root_account_stage_name],
-    setsubtract(local.all_account_names, local.eks_account_names)
+    [for acc in local.all_accounts : acc.name if lookup(try(acc.tags, {}), "eks", false) == false]
   )
 
   all_service_control_policy_statements = flatten(
@@ -61,7 +70,7 @@ locals {
   ]
 
   account_names_service_control_policy_ids_map = {
-    for acc in local.all_accounts : acc.name => acc.service_control_policies if acc.service_control_policies != null && length(acc.service_control_policies) > 0
+    for acc in local.all_accounts : acc.name => acc.service_control_policies if try(acc.service_control_policies, null) != null
   }
 
   account_names_service_control_policy_statements_map = {
@@ -71,7 +80,7 @@ locals {
   }
 
   organizational_unit_names_service_control_policy_ids_map = local.organizational_units != null && length(local.organizational_units) > 0 ? {
-    for ou in local.organizational_units : ou.name => ou.service_control_policies if ou.service_control_policies != null && length(ou.service_control_policies) > 0
+    for ou in local.organizational_units : ou.name => ou.service_control_policies if try(ou.service_control_policies, null) != null
   } : {}
 
   organizational_unit_names_service_control_policy_statements_map = {
@@ -81,44 +90,44 @@ locals {
   }
 }
 
-resource "aws_organizations_organization" "default" {
+resource "aws_organizations_organization" "this" {
   aws_service_access_principals = var.aws_service_access_principals
   enabled_policy_types          = var.enabled_policy_types
   feature_set                   = "ALL"
 }
 
 resource "aws_organizations_account" "organization_accounts" {
-  for_each                   = local.organization_accounts
+  for_each                   = local.organization_accounts_map
   name                       = each.value.name
   email                      = format(var.account_email_format, each.value.name)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
   tags                       = merge(module.this.tags, each.value.tags)
 }
 
-resource "aws_organizations_organizational_unit" "default" {
-  for_each  = local.organizational_units
+resource "aws_organizations_organizational_unit" "this" {
+  for_each  = local.organizational_units_map
   name      = each.value.name
-  parent_id = aws_organizations_organization.default.roots[0].id
+  parent_id = aws_organizations_organization.this.roots[0].id
 }
 
 resource "aws_organizations_account" "organizational_units_accounts" {
-  for_each                   = local.organizational_units_accounts
+  for_each                   = local.organizational_units_accounts_map
   name                       = each.value.name
-  parent_id                  = aws_organizations_organizational_unit.default[local.account_names_organizational_unit_names_map[each.value.name]].id
+  parent_id                  = aws_organizations_organizational_unit.this[local.account_names_organizational_unit_names_map[each.value.name]].id
   email                      = format(var.account_email_format, each.value.name)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
   tags                       = merge(module.this.tags, each.value.tags)
 }
 
 module "organization_service_control_policies" {
-  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.1.0"
+  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.3.0"
 
-  for_each = length(local.organization_service_control_policy_statements) > 0 ? [true] : []
+  for_each = length(local.organization_service_control_policy_statements) > 0 ? toset(["true"]) : []
 
   attributes                         = concat(module.this.attributes, ["organization"])
   service_control_policy_statements  = local.organization_service_control_policy_statements
   service_control_policy_description = "Organization Service Control Policy"
-  target_id                          = aws_organizations_organization.default.roots[0].id
+  target_id                          = aws_organizations_organization.this.roots[0].id
 
   context = module.this.context
 }
@@ -130,7 +139,7 @@ module "accounts_service_control_policies" {
 
   attributes                         = concat(module.this.attributes, [each.key, "account"])
   service_control_policy_statements  = each.value
-  service_control_policy_description = "${each.key} Account Service Control Policy"
+  service_control_policy_description = "${each.key} account Service Control Policy"
   target_id                          = local.account_names_account_ids[each.key]
 
   context = module.this.context
@@ -143,7 +152,7 @@ module "organizational_units_service_control_policies" {
 
   attributes                         = concat(module.this.attributes, [each.key, "ou"])
   service_control_policy_statements  = each.value
-  service_control_policy_description = "${titlecase(each.key)} Organizational Unit Service Control Policy"
+  service_control_policy_description = "${title(each.key)} Organizational Unit Service Control Policy"
   target_id                          = local.organizational_unit_names_organizational_unit_ids[each.key]
 
   context = module.this.context
