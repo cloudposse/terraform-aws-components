@@ -1,15 +1,17 @@
-locals {
-  datadog_monitors = merge([
-    for monitors_file in fileset(path.module, "monitors/*.yaml") : {
-      for k, v in yamldecode(file(format("%s/%s", path.module, monitors_file))) : k => v
-    }
-  ]...)
+# Convert all Datadog monitors from YAML config to Terraform map
+module "datadog_monitors_yaml_config" {
+  source = "git::https://github.com/cloudposse/terraform-yaml-config.git?ref=tags/0.1.0"
+
+  map_config_local_base_path = path.module
+  map_config_paths           = ["monitors/**/*.yaml"]
+
+  context = module.this.context
 }
 
 module "datadog_monitors" {
   source = "git::https://github.com/cloudposse/terraform-datadog-monitor.git?ref=tags/0.8.0"
 
-  datadog_monitors     = local.datadog_monitors
+  datadog_monitors     = module.datadog_monitors_yaml_config.map_configs
   alert_tags           = var.alert_tags
   alert_tags_separator = var.alert_tags_separator
 
