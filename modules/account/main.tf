@@ -116,7 +116,7 @@ resource "aws_organizations_account" "organizational_units_accounts" {
   parent_id                  = aws_organizations_organizational_unit.this[local.account_names_organizational_unit_names_map[each.value.name]].id
   email                      = format(var.account_email_format, each.value.name)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
-  tags                       = merge(module.this.tags, each.value.tags)
+  tags                       = merge(module.this.tags, try(each.value.tags, {}))
 }
 
 module "organization_service_control_policies" {
