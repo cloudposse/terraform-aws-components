@@ -72,3 +72,33 @@ output "non_eks_accounts" {
   value       = local.non_eks_account_names
   description = "List of non EKS accounts"
 }
+
+output "organization_scp_id" {
+  value       = join("", module.organization_service_control_policies.*.organizations_policy_id)
+  description = "Organization Service Control Policy ID"
+}
+
+output "organization_scp_arn" {
+  value       = join("", module.organization_service_control_policies.*.organizations_policy_arn)
+  description = "Organization Service Control Policy ARN"
+}
+
+output "account_names_account_scp_ids" {
+  value       = local.account_names_account_scp_ids
+  description = "Map of account names to SCP IDs"
+}
+
+output "account_names_account_scp_arns" {
+  value       = local.account_names_account_scp_arns
+  description = "Map of account names to SCP ARNs"
+}
+
+output "organizational_unit_names_organizational_unit_scp_ids" {
+  value       = local.organizational_unit_names_organizational_unit_scp_ids
+  description = "Map of OU names to SCP IDs"
+}
+
+output "organizational_unit_names_organizational_unit_scp_arns" {
+  value       = local.organizational_unit_names_organizational_unit_scp_arns
+  description = "Map of OU names to SCP ARNs"
+}
