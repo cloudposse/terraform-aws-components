@@ -139,7 +139,7 @@ module "accounts_service_control_policies" {
 
   attributes                         = concat(module.this.attributes, [each.key, "account"])
   service_control_policy_statements  = each.value
-  service_control_policy_description = "${each.key} account Service Control Policy"
+  service_control_policy_description = "'${each.key}' Account Service Control Policy"
   target_id                          = local.account_names_account_ids[each.key]
 
   context = module.this.context
@@ -152,7 +152,7 @@ module "organizational_units_service_control_policies" {
 
   attributes                         = concat(module.this.attributes, [each.key, "ou"])
   service_control_policy_statements  = each.value
-  service_control_policy_description = "${title(each.key)} Organizational Unit Service Control Policy"
+  service_control_policy_description = "'${each.key}' Organizational Unit Service Control Policy"
   target_id                          = local.organizational_unit_names_organizational_unit_ids[each.key]
 
   context = module.this.context
@@ -185,7 +185,7 @@ module "organizational_units_service_control_policies" {
 #         - DenyDeletingRoute53Zones
 #         - DenyDeletingCloudWatchLogs
 #   organizational_units:
-#   - name: security_audit
+#   - name: security-audit
 #     accounts:
 #       - name: audit
 #         service_control_policies:

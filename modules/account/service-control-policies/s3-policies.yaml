@@ -24,11 +24,11 @@
   resources:
     - "*"
   condition:
-    test: "StringNotEquals"
-    variable: "s3:x-amz-server-side-encryption"
-    values:
-      - "AES256"
-      - "aws:kms"
+    - test: "StringNotEquals"
+      variable: "s3:x-amz-server-side-encryption"
+      values:
+        - "AES256"
+        - "aws:kms"
 
 
 - sid: "DenyS3UnEncryptedObjectUploads"
@@ -38,7 +38,7 @@
   resources:
     - "*"
   condition:
-    test: "Null"
-    variable: "s3:x-amz-server-side-encryption"
-    values:
-      - true
+    - test: "Null"
+      variable: "s3:x-amz-server-side-encryption"
+      values:
+        - true

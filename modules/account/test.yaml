@@ -23,7 +23,7 @@ accounts:
       - DenyDeletingRoute53Zones
       - DenyDeletingCloudWatchLogs
 organizational_units:
-  - name: security_audit
+  - name: security-audit
     accounts:
       - name: audit
         service_control_policies:
