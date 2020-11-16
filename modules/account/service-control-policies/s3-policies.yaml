@@ -1,0 +1,44 @@
+- sid: "ProtectS3Buckets"
+  effect: "Deny"
+  actions:
+    - "s3:DeleteBucket"
+    - "s3:DeleteObject"
+    - "s3:DeleteObjectVersion"
+  resources:
+    - "*"
+
+
+- sid: "DenyS3BucketsPublicAccess"
+  effect: "Deny"
+  actions:
+    - "s3:PutBucketPublicAccessBlock"
+    - "s3:DeletePublicAccessBlock"
+  resources:
+    - "*"
+
+
+- sid: "DenyS3IncorrectEncryptionHeader"
+  effect: "Deny"
+  actions:
+    - "s3:PutObject"
+  resources:
+    - "*"
+  condition:
+    - test: "StringNotEquals"
+      variable: "s3:x-amz-server-side-encryption"
+      values:
+        - "AES256"
+        - "aws:kms"
+
+
+- sid: "DenyS3UnEncryptedObjectUploads"
+  effect: "Deny"
+  actions:
+    - "s3:PutObject"
+  resources:
+    - "*"
+  condition:
+    - test: "Null"
+      variable: "s3:x-amz-server-side-encryption"
+      values:
+        - true

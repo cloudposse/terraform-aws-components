@@ -1,0 +1,6 @@
+- sid: "DenyDeletingRoute53Zones"
+  effect: "Deny"
+  actions:
+    - "route53:DeleteHostedZone"
+  resources:
+    - "*"

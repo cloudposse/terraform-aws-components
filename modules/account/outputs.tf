@@ -39,27 +39,27 @@ output "organizational_unit_names_organizational_unit_ids" {
 }
 
 output "organization_id" {
-  value       = aws_organizations_organization.default.id
+  value       = aws_organizations_organization.this.id
   description = "Organization ID"
 }
 
 output "organization_arn" {
-  value       = aws_organizations_organization.default.arn
+  value       = aws_organizations_organization.this.arn
   description = "Organization ARN"
 }
 
 output "organization_master_account_id" {
-  value       = aws_organizations_organization.default.master_account_id
+  value       = aws_organizations_organization.this.master_account_id
   description = "Organization master account ID"
 }
 
 output "organization_master_account_arn" {
-  value       = aws_organizations_organization.default.master_account_arn
+  value       = aws_organizations_organization.this.master_account_arn
   description = "Organization master account ARN"
 }
 
 output "organization_master_account_email" {
-  value       = aws_organizations_organization.default.master_account_email
+  value       = aws_organizations_organization.this.master_account_email
   description = "Organization master account email"
 }
 
@@ -73,7 +73,32 @@ output "non_eks_accounts" {
   description = "List of non EKS accounts"
 }
 
-output "organizational_units_accounts_config" {
-  value       = var.organizational_units_accounts_config
-  description = "Organizational Units and Accounts configuration"
+output "organization_scp_id" {
+  value       = join("", module.organization_service_control_policies.*.organizations_policy_id)
+  description = "Organization Service Control Policy ID"
+}
+
+output "organization_scp_arn" {
+  value       = join("", module.organization_service_control_policies.*.organizations_policy_arn)
+  description = "Organization Service Control Policy ARN"
+}
+
+output "account_names_account_scp_ids" {
+  value       = local.account_names_account_scp_ids
+  description = "Map of account names to SCP IDs"
+}
+
+output "account_names_account_scp_arns" {
+  value       = local.account_names_account_scp_arns
+  description = "Map of account names to SCP ARNs"
+}
+
+output "organizational_unit_names_organizational_unit_scp_ids" {
+  value       = local.organizational_unit_names_organizational_unit_scp_ids
+  description = "Map of OU names to SCP IDs"
+}
+
+output "organizational_unit_names_organizational_unit_scp_arns" {
+  value       = local.organizational_unit_names_organizational_unit_scp_arns
+  description = "Map of OU names to SCP ARNs"
 }

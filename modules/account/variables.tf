@@ -30,7 +30,7 @@ variable "root_account_stage_name" {
   description = "The stage name for the Organization root (master) account"
 }
 
-variable "organizational_units_accounts_config" {
+variable "organization_config" {
   type        = map(any)
-  description = "Organizational Units and Accounts configuration"
+  description = "Organization, Organizational Units and Accounts configuration"
 }
