@@ -75,7 +75,7 @@ module "service_control_policy_statements_yaml_config" {
   source = "git::https://github.com/cloudposse/terraform-yaml-config.git?ref=tags/0.1.0"
 
   list_config_local_base_path = path.module
-  list_config_paths           = ["service-control-policies/**/*.yaml"]
+  list_config_paths           = var.service_control_policies_config_paths
 
   context = module.this.context
 }
@@ -115,7 +115,7 @@ resource "aws_organizations_account" "organizational_units_accounts" {
 
 # Provision Organization Service Control Policy
 module "organization_service_control_policies" {
-  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.3.0"
+  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.4.0"
 
   count = length(local.organization_service_control_policy_statements) > 0 ? 1 : 0
 
@@ -129,7 +129,7 @@ module "organization_service_control_policies" {
 
 # Provision Accounts Service Control Policies
 module "accounts_service_control_policies" {
-  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.3.0"
+  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.4.0"
 
   for_each = local.account_names_service_control_policy_statements_map
 
@@ -143,7 +143,7 @@ module "accounts_service_control_policies" {
 
 # Provision Organizational Units Service Control Policies
 module "organizational_units_service_control_policies" {
-  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.3.0"
+  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.4.0"
 
   for_each = local.organizational_unit_names_service_control_policy_statements_map
 
