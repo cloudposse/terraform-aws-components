@@ -26,3 +26,8 @@ variable "ssm_path" {
   default     = "datadog"
   description = "SSM path"
 }
+
+variable "datadog_monitors_config_paths" {
+  type        = list(string)
+  description = "List of paths to Datadog monitor configurations"
+}

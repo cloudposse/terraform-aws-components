@@ -34,3 +34,8 @@ variable "organization_config" {
   type        = map(any)
   description = "Organization, Organizational Units and Accounts configuration"
 }
+
+variable "service_control_policies_config_paths" {
+  type        = list(string)
+  description = "List of paths to Service Control Policy configurations"
+}
