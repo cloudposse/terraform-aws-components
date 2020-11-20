@@ -80,7 +80,7 @@ module "service_control_policy_statements_yaml_config" {
   context = module.this.context
 }
 
-# Provision Organization
+# Provision Organization or use existing one
 data "aws_organizations_organization" "existing" {
   count = var.create_organization ? 0 : 1
 }

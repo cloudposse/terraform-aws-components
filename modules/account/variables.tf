@@ -43,4 +43,5 @@ variable "service_control_policies_config_paths" {
 variable "create_organization" {
   type        = bool
   description = "A boolean flag indicating whether to create an Organization or use the existing one"
+  default     = true
 }
