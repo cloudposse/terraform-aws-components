@@ -1,17 +1,17 @@
 locals {
   # Organization config map
-  organization = lookup(var.organization_config, "organization", null) != null ? lookup(var.organization_config, "organization") : {}
+  organization = lookup(var.organization_config, "organization", {})
 
   # Organizational Units list and map configuration
-  organizational_units     = lookup(var.organization_config, "organizational_units", null) != null ? lookup(var.organization_config, "organizational_units") : []
+  organizational_units     = lookup(var.organization_config, "organizational_units", [])
   organizational_units_map = { for ou in local.organizational_units : ou.name => ou }
 
   # Organization's Accounts list and map configuration
-  organization_accounts     = lookup(var.organization_config, "accounts", null) != null ? lookup(var.organization_config, "accounts") : []
+  organization_accounts     = lookup(var.organization_config, "accounts", [])
   organization_accounts_map = { for acc in local.organization_accounts : acc.name => acc }
 
   # Organizational Units' Accounts list and map configuration
-  organizational_units_accounts     = flatten([for ou in local.organizational_units : (lookup(ou, "accounts", null) != null ? lookup(ou, "accounts") : [])])
+  organizational_units_accounts     = flatten([for ou in local.organizational_units : lookup(ou, "accounts", [])])
   organizational_units_accounts_map = { for acc in local.organizational_units_accounts : acc.name => acc }
 
   # All Accounts configuration
@@ -38,7 +38,7 @@ locals {
   all_service_control_policy_statements = module.service_control_policy_statements_yaml_config.list_configs
 
   # Service Control Policy SIDs for Organization
-  organization_service_control_policy_ids = lookup(local.organization, "service_control_policies", null) != null ? lookup(local.organization, "service_control_policies") : []
+  organization_service_control_policy_ids = lookup(local.organization, "service_control_policies", [])
 
   # List of Service Control Policy statements for Organization
   organization_service_control_policy_statements = [
