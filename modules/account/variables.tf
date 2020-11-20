@@ -39,3 +39,8 @@ variable "service_control_policies_config_paths" {
   type        = list(string)
   description = "List of paths to Service Control Policy configurations"
 }
+
+variable "create_organization" {
+  type        = bool
+  description = "A boolean flag indicating whether to create an Organization or use the existing one"
+}

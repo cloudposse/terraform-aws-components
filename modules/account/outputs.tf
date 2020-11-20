@@ -39,27 +39,27 @@ output "organizational_unit_names_organizational_unit_ids" {
 }
 
 output "organization_id" {
-  value       = aws_organizations_organization.this.id
+  value       = local.organization_id
   description = "Organization ID"
 }
 
 output "organization_arn" {
-  value       = aws_organizations_organization.this.arn
+  value       = local.organization_arn
   description = "Organization ARN"
 }
 
 output "organization_master_account_id" {
-  value       = aws_organizations_organization.this.master_account_id
+  value       = local.organization_master_account_id
   description = "Organization master account ID"
 }
 
 output "organization_master_account_arn" {
-  value       = aws_organizations_organization.this.master_account_arn
+  value       = local.organization_master_account_arn
   description = "Organization master account ARN"
 }
 
 output "organization_master_account_email" {
-  value       = aws_organizations_organization.this.master_account_email
+  value       = local.organization_master_account_email
   description = "Organization master account email"
 }
 
