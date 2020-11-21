@@ -1,6 +1,6 @@
 data "terraform_remote_state" "account_map" {
   backend   = "s3"
-  workspace = "${module.this.environment}-${module.this.stage}"
+  workspace = "${var.tfstate_role_environment_name}-${var.tfstate_role_stage_name}"
 
   config = {
     encrypt              = true

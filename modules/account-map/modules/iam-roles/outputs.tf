@@ -1,5 +1,6 @@
 output "terraform_role_arn" {
-  value = data.terraform_remote_state.account_map.outputs.terraform_roles[module.this.stage]
+  value = module.this.stage == data.terraform_remote_state.account_map.outputs.root_account_stage_name ? (
+  "") : data.terraform_remote_state.account_map.outputs.terraform_roles[module.this.stage]
 }
 
 output "org_role_arn" {
