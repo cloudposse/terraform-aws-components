@@ -82,28 +82,28 @@ module "service_control_policy_statements_yaml_config" {
 
 # Provision Organization or use existing one
 data "aws_organizations_organization" "existing" {
-  count = var.create_organization ? 0 : 1
+  count = var.organization_enabled ? 0 : 1
 }
 
-resource "aws_organizations_organization" "new" {
-  count                         = var.create_organization ? 1 : 0
+resource "aws_organizations_organization" "this" {
+  count                         = var.organization_enabled ? 1 : 0
   aws_service_access_principals = var.aws_service_access_principals
   enabled_policy_types          = var.enabled_policy_types
   feature_set                   = "ALL"
 }
 
 locals {
-  organization_root_account_id = var.create_organization ? aws_organizations_organization.new[0].roots[0].id : data.aws_organizations_organization.existing[0].roots[0].id
+  organization_root_account_id = var.organization_enabled ? aws_organizations_organization.this[0].roots[0].id : data.aws_organizations_organization.existing[0].roots[0].id
 
-  organization_id = var.create_organization ? aws_organizations_organization.new[0].id : data.aws_organizations_organization.existing[0].id
+  organization_id = var.organization_enabled ? aws_organizations_organization.this[0].id : data.aws_organizations_organization.existing[0].id
 
-  organization_arn = var.create_organization ? aws_organizations_organization.new[0].arn : data.aws_organizations_organization.existing[0].arn
+  organization_arn = var.organization_enabled ? aws_organizations_organization.this[0].arn : data.aws_organizations_organization.existing[0].arn
 
-  organization_master_account_id = var.create_organization ? aws_organizations_organization.new[0].master_account_id : data.aws_organizations_organization.existing[0].master_account_id
+  organization_master_account_id = var.organization_enabled ? aws_organizations_organization.this[0].master_account_id : data.aws_organizations_organization.existing[0].master_account_id
 
-  organization_master_account_arn = var.create_organization ? aws_organizations_organization.new[0].master_account_arn : data.aws_organizations_organization.existing[0].master_account_arn
+  organization_master_account_arn = var.organization_enabled ? aws_organizations_organization.this[0].master_account_arn : data.aws_organizations_organization.existing[0].master_account_arn
 
-  organization_master_account_email = var.create_organization ? aws_organizations_organization.new[0].master_account_email : data.aws_organizations_organization.existing[0].master_account_email
+  organization_master_account_email = var.organization_enabled ? aws_organizations_organization.this[0].master_account_email : data.aws_organizations_organization.existing[0].master_account_email
 }
 
 # Provision Accounts for Organization (not connected to OUs)

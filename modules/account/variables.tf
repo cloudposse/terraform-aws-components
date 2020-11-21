@@ -40,7 +40,7 @@ variable "service_control_policies_config_paths" {
   description = "List of paths to Service Control Policy configurations"
 }
 
-variable "create_organization" {
+variable "organization_enabled" {
   type        = bool
   description = "A boolean flag indicating whether to create an Organization or use the existing one"
   default     = true
