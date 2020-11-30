@@ -6,7 +6,7 @@ variable "region" {
 variable "domain_names" {
   type        = list(string)
   default     = null
-  description = "Root domain name list, e.g. `[\"breadgateway.net\"]`"
+  description = "Root domain name list"
 }
 
 variable "record_config" {
