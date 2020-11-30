@@ -80,11 +80,30 @@ module "service_control_policy_statements_yaml_config" {
   context = module.this.context
 }
 
-# Provision Organization
+# Provision Organization or use existing one
+data "aws_organizations_organization" "existing" {
+  count = var.organization_enabled ? 0 : 1
+}
+
 resource "aws_organizations_organization" "this" {
+  count                         = var.organization_enabled ? 1 : 0
   aws_service_access_principals = var.aws_service_access_principals
   enabled_policy_types          = var.enabled_policy_types
   feature_set                   = "ALL"
+}
+
+locals {
+  organization_root_account_id = var.organization_enabled ? aws_organizations_organization.this[0].roots[0].id : data.aws_organizations_organization.existing[0].roots[0].id
+
+  organization_id = var.organization_enabled ? aws_organizations_organization.this[0].id : data.aws_organizations_organization.existing[0].id
+
+  organization_arn = var.organization_enabled ? aws_organizations_organization.this[0].arn : data.aws_organizations_organization.existing[0].arn
+
+  organization_master_account_id = var.organization_enabled ? aws_organizations_organization.this[0].master_account_id : data.aws_organizations_organization.existing[0].master_account_id
+
+  organization_master_account_arn = var.organization_enabled ? aws_organizations_organization.this[0].master_account_arn : data.aws_organizations_organization.existing[0].master_account_arn
+
+  organization_master_account_email = var.organization_enabled ? aws_organizations_organization.this[0].master_account_email : data.aws_organizations_organization.existing[0].master_account_email
 }
 
 # Provision Accounts for Organization (not connected to OUs)
@@ -93,14 +112,14 @@ resource "aws_organizations_account" "organization_accounts" {
   name                       = each.value.name
   email                      = format(var.account_email_format, each.value.name)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
-  tags                       = merge(module.this.tags, each.value.tags)
+  tags                       = merge(module.this.tags, try(each.value.tags, {}), { Name : each.value.name })
 }
 
 # Provision Organizational Units
 resource "aws_organizations_organizational_unit" "this" {
   for_each  = local.organizational_units_map
   name      = each.value.name
-  parent_id = aws_organizations_organization.this.roots[0].id
+  parent_id = local.organization_root_account_id
 }
 
 # Provision Accounts connected to Organizational Units
@@ -110,7 +129,7 @@ resource "aws_organizations_account" "organizational_units_accounts" {
   parent_id                  = aws_organizations_organizational_unit.this[local.account_names_organizational_unit_names_map[each.value.name]].id
   email                      = format(var.account_email_format, each.value.name)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
-  tags                       = merge(module.this.tags, try(each.value.tags, {}))
+  tags                       = merge(module.this.tags, try(each.value.tags, {}), { Name : each.value.name })
 }
 
 # Provision Organization Service Control Policy
@@ -122,7 +141,7 @@ module "organization_service_control_policies" {
   attributes                         = concat(module.this.attributes, ["organization"])
   service_control_policy_statements  = local.organization_service_control_policy_statements
   service_control_policy_description = "Organization Service Control Policy"
-  target_id                          = aws_organizations_organization.this.roots[0].id
+  target_id                          = local.organization_root_account_id
 
   context = module.this.context
 }
