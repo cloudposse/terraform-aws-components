@@ -21,9 +21,10 @@ locals {
   # Unfortunately, we cannot create a map piece by piece, so
   # every service account module has to register in this output_map
   output_map = {
-    autoscaler   = module.autoscaler.outputs,
-    cert-manager = module.cert-manager.outputs,
-    external-dns = module.external-dns.outputs
+    alb-controller = module.alb-controller.outputs,
+    autoscaler     = module.autoscaler.outputs,
+    cert-manager   = module.cert-manager.outputs,
+    external-dns   = module.external-dns.outputs
   }
 
   cluster_context = {
