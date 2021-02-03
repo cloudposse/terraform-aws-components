@@ -74,11 +74,53 @@ Many of these deprecated components are used in our old reference architectures.
 
 We intend to eventually delete, but are leaving them for now in the repo.
 
+## Using `pre-commit` Hooks
+
+This repository uses [pre-commit](https://pre-commit.com/) and [pre-commit-terraform](https://github.com/antonbabenko/pre-commit-terraform) to enforce consistent Terraform code and documentation. This is accomplished by triggering hooks during `git commit` to block commits that don't pass checks (E.g. format, and module documentation). You can find the hooks that are being executed in the [`.pre-commit-config.yaml`](.pre-commit-config.yaml) file.
+
+You can install [pre-commit](https://pre-commit.com/) and this repo's pre-commit hooks on a Mac machine by running the following commands:
+
+```bash
+brew install pre-commit gawk terraform-docs coreutils
+pre-commit install --install-hooks
+```
+
+Then run the following command to rebuild the docs for all Terraform components:
+
+```bash
+make rebuild-docs
+```
+
+
+
+
 ## Usage
 
 
 
+See each component's README directory for usage.
 
+| Component | Description |
+|-----------|-------------|
+|[account](./modules/account) | This component is responsible for provisioning the full account hierarchy along with Organizational Units (OUs). |
+|[account-map](./modules/account-map) | This component is responsible for provisioning information only: it simply populates Terraform state with data (account ids, groups, and roles) that other root modules need via outputs. |
+|[account-settings](./modules/account-settings) | This component is responsible for provisioning account level settings: IAM password policy, AWS Account Alias, and EBS encryption. |
+|[cloudtrail](./modules/cloudtrail) | This component is responsible for provisioning cloudtrail auditing in an individual account. |
+|[cloudtrail-bucket](./modules/cloudtrail-bucket) | This component is responsible for provisioning a bucket for storing cloudtrail logs for auditing purposes. |
+|[datadog-integration](./modules/datadog-integration) | This component is responsible for provisioning a DataDog <=> AWS integration. |
+|[datadog-monitor](./modules/datadog-monitor) | This component is responsible for provisioning global DataDog monitors. |
+|[dns-delegated](./modules/dns-delegated) | This component is responsible for provisioning a DNS zone which delegates nameservers to the DNS zone in the primary DNS account. |
+|[dns-primary](./modules/dns-primary) | This component is responsible for provisioning the primary DNS zones into an AWS account. |
+|[ecr](./modules/ecr) | This component is responsible for provisioning repositories, lifecycle rules, and permissions for streamlined ECR usage. |
+|[efs](./modules/efs) | This component is responsible for provisioning an [EFS](https://aws.amazon.com/efs/) Network File System with KMS encryption-at-rest. |
+|[eks](./modules/eks) | This component is responsible for provisioning an end-to-end EKS Cluster, including managed node groups and [spotinst ocean](https://spot.io/products/ocean/) node pools. |
+|[eks-iam](./modules/eks-iam) | This component is responsible for provisioning specific [IAM roles for Kubernetes Service Accounts](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html). |
+|[iam-delegated-roles](./modules/iam-delegated-roles) | This component is responsible for provisioning all delegated user and system IAM roles. |
+|[iam-primary-roles](./modules/iam-primary-roles) | This component is responsible for provisioning all primary user and system roles into the centralized identity account. |
+|[sso](./modules/sso) | This component is responsible for provisioning SAML metadata into AWS IAM as new SAML providers. |
+|[tfstate-backend](./modules/tfstate-backend) | This component is responsible for provisioning an S3 Bucket and DynamoDB table that follow security best practices for usage as a Terraform backend. |
+|[transit-gateway](./modules/transit-gateway) | This component is responsible for provisioning an AWS Transit Gateway to connect various account separated VPCs through a central hub. |
+|[vpc](./modules/vpc) | This component is responsible for provisioning a VPC and corresponing Subnets. |
 
 
 
@@ -93,6 +135,7 @@ Available targets:
   help                                Help screen
   help/all                            Display help for all targets
   help/short                          This help short screen
+  rebuild-docs                        Rebuild README for all Terraform components
 
 ```
 <!-- markdownlint-restore -->
@@ -215,7 +258,7 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 ## Copyright
 
-Copyright © 2017-2020 [Cloud Posse, LLC](https://cpco.io/copyright)
+Copyright © 2017-2021 [Cloud Posse, LLC](https://cpco.io/copyright)
 
 
 
@@ -273,8 +316,8 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 ### Contributors
 
 <!-- markdownlint-disable -->
-|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] |
-|---|---|---|
+|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] | [![Matt Gowie][Gowiem_avatar]][Gowiem_homepage]<br/>[Matt Gowie][Gowiem_homepage] |
+|---|---|---|---|
 <!-- markdownlint-restore -->
 
   [osterman_homepage]: https://github.com/osterman
@@ -283,6 +326,8 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [goruha_avatar]: https://img.cloudposse.com/150x150/https://github.com/goruha.png
   [aknysh_homepage]: https://github.com/aknysh
   [aknysh_avatar]: https://img.cloudposse.com/150x150/https://github.com/aknysh.png
+  [Gowiem_homepage]: https://github.com/Gowiem
+  [Gowiem_avatar]: https://img.cloudposse.com/150x150/https://github.com/Gowiem.png
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
