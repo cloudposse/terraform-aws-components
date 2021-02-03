@@ -1,15 +1,23 @@
-# Component: `opsgenie`
+# Component: `sso`
 
-Terraform component to provision [Opsgenie resources](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs).
+This component is responsible for provisioning SAML metadata into AWS IAM as new SAML providers. Additionally, for an Okta integration (`okta` must be mentioned in the key given to the `saml_providers` input) it creates an Okta API user and corresponding Access Key pair which is pushed into AWS SSM.
 
 ## Usage
 
 **Stack Level**: Global
 
-Here's an example snippet for how to use this component. See the [detailed usage](./detailed-usage.md) documentation for the full breakdown in usage.
+Here's an example snippet for how to use this component.
+
+**IMPORTANT**: The given SAML metadata files must exist at the root of the module.
 
 ```yaml
-TODO: Do we have a full example YAML snippet somewhere?
+components:
+  terraform:
+    sso:
+      vars:
+        saml_providers:
+          example-okta: Okta_metadata_example.xml
+          example-gsuite: GoogleIDPMetadata-example.com.xml
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -17,10 +25,9 @@ TODO: Do we have a full example YAML snippet somewhere?
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12 |
+| terraform | >= 0.12.0 |
 | aws | >= 2.0 |
 | local | >= 1.3 |
-| opsgenie | >= 0.5.0 |
 | template | >= 2.0 |
 
 ## Providers
@@ -41,14 +48,12 @@ TODO: Do we have a full example YAML snippet somewhere?
 | environment | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | id\_length\_limit | Limit `id` to this many characters.<br>Set to `0` for unlimited length.<br>Set to `null` for default, which is `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | import\_role\_arn | IAM Role ARN to use when importing a resource | `string` | `null` | no |
-| kms\_key\_arn | AWS KMS key used for writing to SSM | `string` | `"alias/aws/ssm"` | no |
 | label\_order | The naming order of the id output and Name tag.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 5 elements, but at least one must be present. | `list(string)` | `null` | no |
 | name | Solution name, e.g. 'app' or 'jenkins' | `string` | `null` | no |
 | namespace | Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp' | `string` | `null` | no |
 | regex\_replace\_chars | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | region | AWS Region | `string` | n/a | yes |
-| ssm\_parameter\_name\_format | SSM parameter name format | `string` | `"/%s/%s"` | no |
-| ssm\_path | SSM path | `string` | `"opsgenie"` | no |
+| saml\_providers | Map of provider names to XML data filenames | `map(string)` | n/a | yes |
 | stage | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | tags | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
 | tfstate\_account\_id | The ID of the account where the Terraform remote state backend is provisioned | `string` | `""` | no |
@@ -65,22 +70,13 @@ TODO: Do we have a full example YAML snippet somewhere?
 
 | Name | Description |
 |------|-------------|
-| alert\_policies | Alert policies |
-| api\_integrations | API integrations |
-| escalations | Escalations |
-| existing\_users | Existing Users |
-| notification\_policies | Notification policies |
-| service\_incident\_rule\_ids | Service Incident Rule IDs |
-| services | Services |
-| team\_routing\_rules | Team routing rules |
-| teams | Teams |
-| users | Users |
+| saml\_provider\_arns | Map of SAML provider names to provider ARNs |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/opsgenie) - Cloud Posse's upstream component
+  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/sso) - Cloud Posse's upstream component
 
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

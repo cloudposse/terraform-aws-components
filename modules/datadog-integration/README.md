@@ -1,15 +1,25 @@
-# Component: `opsgenie`
+# Component: `datadog-integration`
 
-Terraform component to provision [Opsgenie resources](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs).
+This component is responsible for provisioning a DataDog <=> AWS integration. It's required that the DataDog API and App secret keys are available in the consuming account at the `var.datadog_api_secret_key` and `var.datadog_app_secret_key` paths in either AWS Secrets Manager or the AWS SSM Parameter Store.
 
 ## Usage
 
 **Stack Level**: Global
 
-Here's an example snippet for how to use this component. See the [detailed usage](./detailed-usage.md) documentation for the full breakdown in usage.
+Here's an example snippet for how to use this component. It's suggested to apply this component to all accounts which you want to track AWS metrics with DataDog.
 
 ```yaml
-TODO: Do we have a full example YAML snippet somewhere?
+components:
+  terraform:
+    datadog-integration:
+      vars:
+        integrations:
+          - "all"
+        secrets_store_type: ASM # AWS Secrets Manager
+        host_tags:
+          - env:uw2-demo
+          - region:us-west-2
+          - stage:demo
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -19,8 +29,8 @@ TODO: Do we have a full example YAML snippet somewhere?
 |------|---------|
 | terraform | >= 0.12 |
 | aws | >= 2.0 |
+| datadog | >= 2.15.0 |
 | local | >= 1.3 |
-| opsgenie | >= 0.5.0 |
 | template | >= 2.0 |
 
 ## Providers
@@ -33,22 +43,27 @@ TODO: Do we have a full example YAML snippet somewhere?
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| account\_specific\_namespace\_rules | An object, (in the form {"namespace1":true/false, "namespace2":true/false} ), that enables or disables metric collection for specific AWS namespaces for this AWS account only | `map(string)` | `{}` | no |
 | additional\_tag\_map | Additional tags for appending to tags\_as\_list\_of\_maps. Not added to `tags`. | `map(string)` | `{}` | no |
 | attributes | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
 | context | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | <pre>object({<br>    enabled             = bool<br>    namespace           = string<br>    environment         = string<br>    stage               = string<br>    name                = string<br>    delimiter           = string<br>    attributes          = list(string)<br>    tags                = map(string)<br>    additional_tag_map  = map(string)<br>    regex_replace_chars = string<br>    label_order         = list(string)<br>    id_length_limit     = number<br>  })</pre> | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_order": [],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
+| datadog\_aws\_account\_id | The AWS account ID Datadog's integration servers use for all integrations | `string` | `"464622532012"` | no |
 | delimiter | Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | enabled | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | environment | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
+| excluded\_regions | An array of AWS regions to exclude from metrics collection | `list(string)` | `[]` | no |
+| filter\_tags | An array of EC2 tags (in the form `key:value`) that defines a filter that Datadog use when collecting metrics from EC2. Wildcards, such as ? (for single characters) and \* (for multiple characters) can also be used | `list(string)` | `null` | no |
+| host\_tags | An array of tags (in the form `key:value`) to add to all hosts and metrics reporting through this integration | `list(string)` | `[]` | no |
 | id\_length\_limit | Limit `id` to this many characters.<br>Set to `0` for unlimited length.<br>Set to `null` for default, which is `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | import\_role\_arn | IAM Role ARN to use when importing a resource | `string` | `null` | no |
-| kms\_key\_arn | AWS KMS key used for writing to SSM | `string` | `"alias/aws/ssm"` | no |
+| integrations | List of AWS permission names to apply for different integrations (e.g. 'all', 'core') | `list(string)` | <pre>[<br>  "all"<br>]</pre> | no |
 | label\_order | The naming order of the id output and Name tag.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 5 elements, but at least one must be present. | `list(string)` | `null` | no |
 | name | Solution name, e.g. 'app' or 'jenkins' | `string` | `null` | no |
 | namespace | Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp' | `string` | `null` | no |
 | regex\_replace\_chars | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | region | AWS Region | `string` | n/a | yes |
 | ssm\_parameter\_name\_format | SSM parameter name format | `string` | `"/%s/%s"` | no |
-| ssm\_path | SSM path | `string` | `"opsgenie"` | no |
+| ssm\_path | SSM path | `string` | `"datadog"` | no |
 | stage | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | tags | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
 | tfstate\_account\_id | The ID of the account where the Terraform remote state backend is provisioned | `string` | `""` | no |
@@ -65,22 +80,15 @@ TODO: Do we have a full example YAML snippet somewhere?
 
 | Name | Description |
 |------|-------------|
-| alert\_policies | Alert policies |
-| api\_integrations | API integrations |
-| escalations | Escalations |
-| existing\_users | Existing Users |
-| notification\_policies | Notification policies |
-| service\_incident\_rule\_ids | Service Incident Rule IDs |
-| services | Services |
-| team\_routing\_rules | Team routing rules |
-| teams | Teams |
-| users | Users |
+| aws\_account\_id | AWS Account ID of the IAM Role for the Datadog integration |
+| aws\_role\_name | Name of the AWS IAM Role for the Datadog integration |
+| datadog\_external\_id | Datadog integration external ID |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/opsgenie) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/datadog-integration) - Cloud Posse's upstream component
 
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
