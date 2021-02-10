@@ -9,6 +9,25 @@ jobs:
   pre-commit:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-python@v1
-    - uses: pre-commit/action@v2.0.0
+      # Install terraform to ensure we're using our expected version
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.13.5
+
+      - uses: actions/checkout@v2
+
+      # Install terraform-docs for pre-commit hook
+      - name: Install terraform-docs
+        shell: bash
+        env:
+          INSTALL_PATH: "${{ github.workspace }}/bin"
+        run: |
+          make init
+          make packages/install/terraform-docs
+          echo "$INSTALL_PATH" >> $GITHUB_PATH
+
+      # pre-commit setup
+      - uses: actions/setup-python@v2
+
+      # pre-commit checks
+      - uses: pre-commit/action@v2.0.0

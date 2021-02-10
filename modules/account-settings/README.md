@@ -1,73 +1,20 @@
-# Component: `opsgenie`
+# Component: `account-settings`
 
-Terraform component to provision [Opsgenie resources](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs).
+This component is responsible for provisioning account level settings: IAM password policy, AWS Account Alias, and EBS encryption.
 
 ## Usage
 
 **Stack Level**: Global
 
-Here's an example snippet for how to use this component. For more information use these resources:
-
-1. See the [detailed usage](./detailed-usage.md) documentation for the full breakdown in usage.
-1. View the [Cloud Posse opsgenie module's example configuration](https://github.com/cloudposse/terraform-opsgenie-incident-management/tree/master/examples/config/resources) for a more complete example.
+Here's an example snippet for how to use this component. It's suggested to apply this component to all accounts, so put this snippet in each account's global stack (E.g. `gbl-root.yaml`, `gbl-devplatform.yaml`, `gbl-identity.yaml`, etc.)
 
 ```yaml
 components:
   terraform:
-    opsgenie:
+    account-settings:
       vars:
-        teams:
-        - name: acme
-          description: Global Team for Acme Co.
-          members:
-            username: opsgenie-test@cloudposse.com
-            role: admin
-        - name: acme.dev
-          description: Acme Dev Team
-          delete_default_resources: true
-          members:
-            username: opsgenie-test@cloudposse.com
-            role: admin
-        - name: acme.dev.some-service
-          description: "repo: https://github.com/acme/some-service;owner:David Lightman @David Lightman"
-          ignore_members: true
-          delete_default_resources: true
-          members:
-            username: opsgenie-test@cloudposse.com
-            role: admin
-
-        alert_policies:
-        - name: "prioritize-env-prod-critical-alerts"
-          owner_team_name: acme.dev
-          tags:
-            - "ManagedBy:terraform"
-          filter:
-            type: match-all-conditions
-            conditions:
-              - field: source
-                operation: matches
-                expected_value: ".*prod.acme.*"
-              - field: tags
-                operation: contains
-                expected_value: "severity:critical"
-          priority: P1
-
-        escalations:
-        - name: acme.dev.some-service-escalation
-          description: "repo: https://github.com/acme/some-service;owner:David Lightman @David Lightman"
-          owner_team_name: acme.dev
-          rule:
-            condition: if-not-acked
-            notify_type: default
-            delay: 0
-            recipients:
-            - type: team
-              team_name: acme.dev.some-service
-
-        api_integrations:
-        - name: acme-dev-opsgenie-sns-integration
-          type: AmazonSns
-          owner_team_name: acme.dev
+        minimum_password_length: 20
+        maximum_password_age: 120
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -75,10 +22,9 @@ components:
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12 |
+| terraform | >= 0.12.0 |
 | aws | >= 2.0 |
 | local | >= 1.3 |
-| opsgenie | >= 0.5.0 |
 | template | >= 2.0 |
 
 ## Providers
@@ -91,6 +37,7 @@ components:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| account\_alias\_template | Account alias template | `string` | n/a | yes |
 | additional\_tag\_map | Additional tags for appending to tags\_as\_list\_of\_maps. Not added to `tags`. | `map(string)` | `{}` | no |
 | attributes | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
 | context | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | <pre>object({<br>    enabled             = bool<br>    namespace           = string<br>    environment         = string<br>    stage               = string<br>    name                = string<br>    delimiter           = string<br>    attributes          = list(string)<br>    tags                = map(string)<br>    additional_tag_map  = map(string)<br>    regex_replace_chars = string<br>    label_order         = list(string)<br>    id_length_limit     = number<br>  })</pre> | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_order": [],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
@@ -99,14 +46,13 @@ components:
 | environment | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | id\_length\_limit | Limit `id` to this many characters.<br>Set to `0` for unlimited length.<br>Set to `null` for default, which is `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | import\_role\_arn | IAM Role ARN to use when importing a resource | `string` | `null` | no |
-| kms\_key\_arn | AWS KMS key used for writing to SSM | `string` | `"alias/aws/ssm"` | no |
 | label\_order | The naming order of the id output and Name tag.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 5 elements, but at least one must be present. | `list(string)` | `null` | no |
+| maximum\_password\_age | The number of days that an user password is valid | `number` | `190` | no |
+| minimum\_password\_length | Minimum number of characters allowed in an IAM user password. Integer between 6 and 128, per https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_passwords_account-policy.html | `string` | `14` | no |
 | name | Solution name, e.g. 'app' or 'jenkins' | `string` | `null` | no |
 | namespace | Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp' | `string` | `null` | no |
 | regex\_replace\_chars | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | region | AWS Region | `string` | n/a | yes |
-| ssm\_parameter\_name\_format | SSM parameter name format | `string` | `"/%s/%s"` | no |
-| ssm\_path | SSM path | `string` | `"opsgenie"` | no |
 | stage | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | tags | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
 | tfstate\_account\_id | The ID of the account where the Terraform remote state backend is provisioned | `string` | `""` | no |
@@ -123,22 +69,14 @@ components:
 
 | Name | Description |
 |------|-------------|
-| alert\_policies | Alert policies |
-| api\_integrations | API integrations |
-| escalations | Escalations |
-| existing\_users | Existing Users |
-| notification\_policies | Notification policies |
-| service\_incident\_rule\_ids | Service Incident Rule IDs |
-| services | Services |
-| team\_routing\_rules | Team routing rules |
-| teams | Teams |
-| users | Users |
+| account\_alias | Account alias |
+| expire\_passwords | Indicates whether passwords in the account expire. Returns `true` if `max_password_age` contains a value greater than 0. Returns `false` if it is 0 or not present |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/opsgenie) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/account-settings) - Cloud Posse's upstream component
 
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
