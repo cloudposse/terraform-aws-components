@@ -25,7 +25,7 @@ jobs:
     - name: "Checkout source code at current commit"
       uses: actions/checkout@v2
     - name: "Build Hugo Static Site"
-      uses: cloudposse/docs/actions/publish-github-pages@publish-hugo-to-github-pages
+      uses: ./actions/publish-github-pages
       env:
         CONTENT:
         HUGO_URL: https://cloudposse.github.io/docs
@@ -35,9 +35,10 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
     - name: "Deploy Hugo Static Site to GitHub Pages"
-      uses: cloudposse/actions/github/git-push@master
+      uses: cloudposse/actions/github/git-push@further-modify-git-push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
         GITHUB_REPOSITORY: env.GITHUB_PAGES_REPO
         GIT_DIRECTORY: ./${{ env.GITHUB_PAGES_DIRECTORY }}/
+        GIT_BRANCH: ${{ env.GITHUB_PAGES_BRANCH }}
