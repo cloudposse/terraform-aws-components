@@ -14834,7 +14834,7 @@ html {
 
 body,
 html {
-  font-family: "AdelleSans", "Proxima Nova", "Open Sans", sans-serif;
+  font-family: "AdelleSans", "proxima-nova", "Proxima Nova", sans-serif;
   line-height: 1.8;
   font-weight: 300;
   color: #33334f;
@@ -14919,8 +14919,10 @@ thead {
 th:empty {
   display: none; }
 
-body > .__slackin {
-  z-index: 2; }
+body {
+  font-size: 1.1rem; }
+  body > .__slackin {
+    z-index: 2; }
 
 div.calendly-badge-widget {
   right: 88px;
@@ -15630,7 +15632,8 @@ header {
     font-size: 13px;
     text-decoration: none;
     border-radius: 2px;
-    padding-left: 10px; }
+    padding-left: 10px;
+    max-width: 325px; }
     .right-sidebar nav a {
       padding-left: 10px;
       display: block; }
@@ -15641,7 +15644,7 @@ header {
         text-decoration: none; }
       .right-sidebar nav a.active {
         color: white;
-        background-color: #364548;
+        background-color: #151f2a;
         border-radius: 3px; }
     .right-sidebar nav > ul {
       list-style: none;
@@ -15691,7 +15694,7 @@ header {
         -ms-flex-wrap: wrap;
         flex-wrap: wrap; } }
   .page-content__title {
-    font-family: "AdelleSans", "Proxima Nova", "Open Sans", sans-serif;
+    font-family: "AdelleSans", "proxima-nova", "Proxima Nova", sans-serif;
     text-align: left;
     font-weight: bold;
     font-size: 30px;
@@ -15732,32 +15735,34 @@ header {
       display: inline-block; }
     .page-content__github-link i {
       margin-right: 5px; }
-  @supports (-webkit-overflow-scrolling: touch) {
-    .page-content__content {
-      -webkit-overflow-scrolling: touch;
-      overflow-y: scroll; } }
-  .page-content__content > h1 {
-    color: #555;
-    font-size: 23px;
-    font-weight: 700;
-    clear: both;
-    margin-top: 4rem; }
-  .page-content__content > h2 {
-    font-size: 21px;
-    font-weight: 500;
-    margin-top: 3rem; }
-  .page-content__content > h3 {
-    font-size: 13px;
-    font-weight: 300;
-    text-transform: uppercase; }
-  .page-content__content img {
-    margin: 0;
-    max-width: 50%; }
-  .page-content__content p {
-    margin: 1.7rem 0;
-    clear: both; }
-  .page-content__content .wip {
-    margin: 15px 0; }
+  .page-content__content {
+    min-height: 58vh; }
+    @supports (-webkit-overflow-scrolling: touch) {
+      .page-content__content {
+        -webkit-overflow-scrolling: touch;
+        overflow-y: scroll; } }
+    .page-content__content > h1 {
+      color: #555;
+      font-size: 23px;
+      font-weight: 700;
+      clear: both;
+      margin-top: 4rem; }
+    .page-content__content > h2 {
+      font-size: 21px;
+      font-weight: 500;
+      margin-top: 3rem; }
+    .page-content__content > h3 {
+      font-size: 13px;
+      font-weight: 300;
+      text-transform: uppercase; }
+    .page-content__content img {
+      margin: 0;
+      max-width: 50%; }
+    .page-content__content p {
+      margin: 1.7rem 0;
+      clear: both; }
+    .page-content__content .wip {
+      margin: 15px 0; }
   @media (min-width: 1024px) {
     .page-content__wrapper {
       display: -webkit-box;
@@ -15769,7 +15774,8 @@ header {
       flex-direction: column;
       -webkit-box-flex: 1;
       -ms-flex-positive: 1;
-      flex-grow: 1; } }
+      flex-grow: 1;
+      max-width: 57%; } }
   .page-content table {
     display: block;
     width: 100%;
