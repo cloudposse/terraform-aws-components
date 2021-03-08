@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>terraform on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/docs/tags/terraform/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/terraform/</link>
     <description>Recent content in terraform on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>HashiCorp Language (HCL)</title>
-      <link>https://cloudposse.github.io/docs/glossary/hcl/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/hcl/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/hcl/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/hcl/</guid>
       <description>The HashiCorp Configuration language was designed to be both human readable and machine friendly. It used by most HashiCorp tools such as terraform. The nice thing about HCL is also fully JSON compatible, which means that JSON can be used anywhere HCL is expected. By supporting JSON backwards compatibility, HCL remains interoperable with other systems.
 Here&amp;rsquo;s an example of HCL:
 variable &amp;#34;ami&amp;#34; { description = &amp;#34;the AMI to use&amp;#34; } </description>
@@ -19,19 +19,19 @@ variable &amp;#34;ami&amp;#34; { description = &amp;#34;the AMI to use&amp;#34; 
     
     <item>
       <title>Infrastructure as Code (IaC)</title>
-      <link>https://cloudposse.github.io/docs/glossary/infrastructure-as-code/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/infrastructure-as-code/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/infrastructure-as-code/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/infrastructure-as-code/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Terraform Best Practices</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/terraform-best-practices/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/terraform-best-practices/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-best-practices/</guid>
       <description>These are the opinionated best-practices we follow at Cloud Posse. They are inspired by years of experience writing terraform and borrow on the many other helpful resources like those by HashiCorp.
 See our general Best Practices which also apply to Terraform.
 Language Use indented HEREDOC syntax Using &amp;lt;&amp;lt;-EOT (as opposed to &amp;lt;&amp;lt;EOT without the -) ensures the code can be indented inline with the other code in the project. Note that EOT can be any uppercase string (e.</description>
@@ -39,19 +39,19 @@ Language Use indented HEREDOC syntax Using &amp;lt;&amp;lt;-EOT (as opposed to &
     
     <item>
       <title>Terraform Root Module</title>
-      <link>https://cloudposse.github.io/docs/glossary/root-module/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/root-module/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/root-module/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/root-module/</guid>
       <description>Terraform has two types of modules; the top-level module is always called the &amp;ldquo;root&amp;rdquo; module and the modules that are called from the root module are called &amp;ldquo;child&amp;rdquo; modules. Root modules are the most opinionated. They describe the architecture you want to deploy. It&amp;rsquo;s these &amp;ldquo;root&amp;rdquo; modules that we actually deploy when we run the terraform apply command. The &amp;ldquo;root&amp;rdquo; modules may contain many child modules or none at all. The &amp;ldquo;child&amp;rdquo; modules reusable modules that we invoke in root modules.</description>
     </item>
     
     <item>
       <title>Terraform Tips &amp; Tricks</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/terraform-tips-tricks/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-tips-tricks/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/terraform-tips-tricks/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-tips-tricks/</guid>
       <description>S3 Bucket Lifecycle Rules resource&amp;quot;aws_s3_bucket&amp;quot; &amp;quot;assets&amp;quot;{ bucket=&amp;quot;${module.assets_bucket_label.id}&amp;quot;tags=&amp;quot;${module.assets_bucket_label.tags}&amp;quot;acl=&amp;quot;private&amp;quot;region=&amp;quot;us-west-2&amp;quot;force_destroy=falselifecycle_rule{ id=&amp;quot;${module.assets_bucket_label.id}&amp;quot;enabled=trueprefix=&amp;quot;&amp;quot;tags=&amp;quot;${module.assets_bucket_label.tags}&amp;quot;&amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;noncurrent_version_expiration&amp;lt;/span&amp;gt; {  days=&amp;quot;90&amp;quot;}
 &amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;noncurrent_version_transition&amp;lt;/span&amp;gt; {  days=&amp;quot;60&amp;quot;storage_class=&amp;quot;GLACIER&amp;quot;}
 &amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;transition&amp;lt;/span&amp;gt; {  days=&amp;quot;30&amp;quot;storage_class=&amp;quot;STANDARD_IA&amp;quot;}
@@ -64,10 +64,10 @@ For an example of how we use it, check out our terraform-aws-s3-log-storage modu
     
     <item>
       <title>Tools</title>
-      <link>https://cloudposse.github.io/docs/reference/tools/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/tools/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/tools/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/tools/</guid>
       <description>1Password The 1Password for Teams product by AgileBits is argubably the most popular SaaS-based password management tool. In our opinion, it offers a better user experience over apps like LastPass as well as provides integration with Duo and Slack for real-time activity notifications.
 Best Practices Here are some of our recommended practices for working with 1Password. If your organization choses an alternative password management solution, we recommend implementing compensating controls.</description>
     </item>

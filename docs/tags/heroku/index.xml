@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>heroku on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/docs/tags/heroku/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/heroku/</link>
     <description>Recent content in heroku on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/heroku/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/heroku/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>12-Factor</title>
-      <link>https://cloudposse.github.io/docs/glossary/12-factor/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/12-factor/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/12-factor/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/12-factor/</guid>
       <description>The 12-Factor pattern is a language agnostic, “Best Practice” for writing Cloud Native applications that can be easily and consistently deployed using Continuous Integration and Continuous Delivery (“CI/CD”).
 The pattern can be summed up as:
  (a) treat all apps as disposable services that receive their configuration via environment variables; (b) rely on backing services to provide durability; (c) script all changes; and (d) treat all environments (dev, prod, qa, etc) as identical.</description>

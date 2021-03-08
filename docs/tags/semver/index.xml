@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>semver on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/docs/tags/semver/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/semver/</link>
     <description>Recent content in semver on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/semver/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/semver/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Semantic Version</title>
-      <link>https://cloudposse.github.io/docs/glossary/semver/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/semver/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/semver/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/semver/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Semantic Versioning</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/semver/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/semver/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/semver/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/semver/</guid>
       <description>We practice Semantic Versioning for all projects (e.g. GitHub Tags/Releases, Helm Charts, Terraform Modules, Docker Images). Using this versioning standard helps to reduce the entropy related to Dependency Hell.
 Image credit: Gopher Academy
 Semantics Generally, all of our versions follow this convention: X.Y.Z (e.g. 1.2.3). Sometimes, we&amp;rsquo;ll use this format: X.Y.Z-branch when we need to disambiguate between versions existing in multiple branches.

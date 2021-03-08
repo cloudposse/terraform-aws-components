@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tutorials on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/docs/tutorials/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tutorials/</link>
     <description>Recent content in Tutorials on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tutorials/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Getting started with Geodesic</title>
-      <link>https://cloudposse.github.io/docs/tutorials/geodesic-getting-started/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/tutorials/geodesic-getting-started/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/tutorials/geodesic-getting-started/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/tutorials/geodesic-getting-started/</guid>
       <description>Intro In the landscape of developing infrastructure, there are dozens of tools that we all need on our personal machines to do our jobs. In SweetOps, instead of having you install each tool individually, we use Docker to package all of these tools into one convenient image that you can use as your infrastructure automation toolbox. We call it Geodesic and we use it as our DevOps automation shell and as the base Docker image for all of our DevOps scripting / CI jobs.</description>
     </item>
     

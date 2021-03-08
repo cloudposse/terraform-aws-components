@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>git on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/docs/tags/git/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/git/</link>
     <description>Recent content in git on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/git/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Terraform Tips &amp; Tricks</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/terraform-tips-tricks/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-tips-tricks/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/terraform-tips-tricks/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-tips-tricks/</guid>
       <description>S3 Bucket Lifecycle Rules resource&amp;quot;aws_s3_bucket&amp;quot; &amp;quot;assets&amp;quot;{ bucket=&amp;quot;${module.assets_bucket_label.id}&amp;quot;tags=&amp;quot;${module.assets_bucket_label.tags}&amp;quot;acl=&amp;quot;private&amp;quot;region=&amp;quot;us-west-2&amp;quot;force_destroy=falselifecycle_rule{ id=&amp;quot;${module.assets_bucket_label.id}&amp;quot;enabled=trueprefix=&amp;quot;&amp;quot;tags=&amp;quot;${module.assets_bucket_label.tags}&amp;quot;&amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;noncurrent_version_expiration&amp;lt;/span&amp;gt; {  days=&amp;quot;90&amp;quot;}
 &amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;noncurrent_version_transition&amp;lt;/span&amp;gt; {  days=&amp;quot;60&amp;quot;storage_class=&amp;quot;GLACIER&amp;quot;}
 &amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;transition&amp;lt;/span&amp;gt; {  days=&amp;quot;30&amp;quot;storage_class=&amp;quot;STANDARD_IA&amp;quot;}

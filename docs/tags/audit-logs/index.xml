@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>audit logs on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/docs/tags/audit-logs/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/audit-logs/</link>
     <description>Recent content in audit logs on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/audit-logs/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/audit-logs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CloudTrail</title>
-      <link>https://cloudposse.github.io/docs/glossary/cloudtrail/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cloudtrail/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/cloudtrail/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cloudtrail/</guid>
       <description></description>
     </item>
     

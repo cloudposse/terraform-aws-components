@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Virtual Machine Image on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/docs/tags/virtual-machine-image/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/virtual-machine-image/</link>
     <description>Recent content in Virtual Machine Image on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/virtual-machine-image/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/virtual-machine-image/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Amazon Machine Image (AMI)</title>
-      <link>https://cloudposse.github.io/docs/glossary/ami/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ami/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/ami/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ami/</guid>
       <description></description>
     </item>
     

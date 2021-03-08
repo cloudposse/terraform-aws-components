@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>goofys on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/docs/tags/goofys/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/goofys/</link>
     <description>Recent content in goofys on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/goofys/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/goofys/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>FUSE</title>
-      <link>https://cloudposse.github.io/docs/glossary/fuse/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/fuse/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/fuse/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/fuse/</guid>
       <description></description>
     </item>
     
     <item>
       <title>s3fs</title>
-      <link>https://cloudposse.github.io/docs/glossary/s3fs/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/s3fs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/s3fs/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/s3fs/</guid>
       <description>The geodesic implements an s3fs using goofys.</description>
     </item>
     

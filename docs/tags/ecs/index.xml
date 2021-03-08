@@ -2,43 +2,43 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ecs on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/docs/tags/ecs/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/ecs/</link>
     <description>Recent content in ecs on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/ecs/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/ecs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Container Management Platform (CMP)</title>
-      <link>https://cloudposse.github.io/docs/glossary/cmp/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cmp/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/cmp/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cmp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ECS Agent</title>
-      <link>https://cloudposse.github.io/docs/glossary/ecs-agent/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-agent/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/ecs-agent/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-agent/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ECS Service</title>
-      <link>https://cloudposse.github.io/docs/glossary/ecs-service/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-service/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/ecs-service/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-service/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ECS Task</title>
-      <link>https://cloudposse.github.io/docs/glossary/ecs-task/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-task/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/ecs-task/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-task/</guid>
       <description></description>
     </item>
     

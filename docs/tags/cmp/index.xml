@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>CMP on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/docs/tags/cmp/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/cmp/</link>
     <description>Recent content in CMP on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/cmp/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/cmp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ECS</title>
-      <link>https://cloudposse.github.io/docs/glossary/ecs/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ecs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/ecs/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ecs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kubernetes</title>
-      <link>https://cloudposse.github.io/docs/glossary/kubernetes/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/kubernetes/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/kubernetes/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/kubernetes/</guid>
       <description></description>
     </item>
     

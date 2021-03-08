@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>monorepo on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/docs/tags/monorepo/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/monorepo/</link>
     <description>Recent content in monorepo on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/monorepo/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/monorepo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Monorepo</title>
-      <link>https://cloudposse.github.io/docs/glossary/monorepo/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/monorepo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/monorepo/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/monorepo/</guid>
       <description>See also polyrepo.</description>
     </item>
     
     <item>
       <title>Polyrepo</title>
-      <link>https://cloudposse.github.io/docs/glossary/polyrepo/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/polyrepo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/polyrepo/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/polyrepo/</guid>
       <description>See also monorepo.</description>
     </item>
     

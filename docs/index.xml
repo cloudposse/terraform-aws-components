@@ -2,44 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Home on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/docs/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/</link>
     <description>Recent content in Home on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Getting started with Geodesic</title>
-      <link>https://cloudposse.github.io/docs/tutorials/geodesic-getting-started/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/tutorials/geodesic-getting-started/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/tutorials/geodesic-getting-started/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/tutorials/geodesic-getting-started/</guid>
       <description>Intro In the landscape of developing infrastructure, there are dozens of tools that we all need on our personal machines to do our jobs. In SweetOps, instead of having you install each tool individually, we use Docker to package all of these tools into one convenient image that you can use as your infrastructure automation toolbox. We call it Geodesic and we use it as our DevOps automation shell and as the base Docker image for all of our DevOps scripting / CI jobs.</description>
     </item>
     
     <item>
       <title>Introduction</title>
-      <link>https://cloudposse.github.io/docs/fundamentals/introduction/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/fundamentals/introduction/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/fundamentals/introduction/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/fundamentals/introduction/</guid>
       <description>What is SweetOps? SweetOps is a methodology for building modern, secure infrastructure on top of Amazon Web Services (AWS). It provides a toolset, library of reusable Infrastructure as Code (IaC), and opinionated patterns to help you bootstrap robust cloud native architectures. Built in an Open Source first fashion by Cloud Posse, it is utilized by many high performing startups to ensure their cloud infrastructure is an advantage instead of a liability.</description>
     </item>
     
     <item>
       <title>Philosophy</title>
-      <link>https://cloudposse.github.io/docs/fundamentals/philosophy/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/fundamentals/philosophy/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/fundamentals/philosophy/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/fundamentals/philosophy/</guid>
       <description>SweetOps is built on a foundational philosophy that ensures the methodology is comprehensive and reusable across organizations. To fully understand what SweetOps is and how to utilize it effectively, it&amp;rsquo;s critical to understand the backing principles that define it.
 100% Open Source All of the primary technology that enables SweetOps is Open Sourced by Cloud Posse and the community under Apache 2.0 Open Source Software License. Using open source licensing is a practical, deliberate strategy.</description>
     </item>
     
     <item>
       <title>Concepts</title>
-      <link>https://cloudposse.github.io/docs/fundamentals/concepts/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/fundamentals/concepts/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/fundamentals/concepts/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/fundamentals/concepts/</guid>
       <description>SweetOps is built on top of a number of high-level concepts and terminology that are critical to understanding prior to getting started. In this document, we break down these concepts to help you get a leg up prior to going through your first tutorial.
 Components Components are opinionated, self-contained units of infrastructure as code that solve one, specific problem or use-case. SweetOps has two flavors of components:
  Terraform: Stand-alone root modules that implement some piece of your infrastructure.</description>
@@ -47,20 +47,20 @@ Components Components are opinionated, self-contained units of infrastructure as
     
     <item>
       <title></title>
-      <link>https://cloudposse.github.io/docs/documentation/standards/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/documentation/standards/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/documentation/standards/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/documentation/standards/</guid>
       <description>Documentation Standards Here are some guidelines to get you started:
  Use single ticks for all commands. Use code blocks to define multi-line commands (e.g. three ticks).  </description>
     </item>
     
     <item>
       <title>12-Factor</title>
-      <link>https://cloudposse.github.io/docs/glossary/12-factor/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/12-factor/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/12-factor/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/12-factor/</guid>
       <description>The 12-Factor pattern is a language agnostic, “Best Practice” for writing Cloud Native applications that can be easily and consistently deployed using Continuous Integration and Continuous Delivery (“CI/CD”).
 The pattern can be summed up as:
  (a) treat all apps as disposable services that receive their configuration via environment variables; (b) rely on backing services to provide durability; (c) script all changes; and (d) treat all environments (dev, prod, qa, etc) as identical.</description>
@@ -68,228 +68,228 @@ The pattern can be summed up as:
     
     <item>
       <title>Amazon Certificate Manager (ACM)</title>
-      <link>https://cloudposse.github.io/docs/glossary/acm/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/acm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/acm/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/acm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Amazon Machine Image (AMI)</title>
-      <link>https://cloudposse.github.io/docs/glossary/ami/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ami/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/ami/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ami/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Amazon Systems Manager (SSM)</title>
-      <link>https://cloudposse.github.io/docs/glossary/ssm/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ssm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/ssm/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ssm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Anti-Pattern</title>
-      <link>https://cloudposse.github.io/docs/glossary/anti-pattern/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/anti-pattern/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/anti-pattern/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/anti-pattern/</guid>
       <description>An anti-pattern is a common response to a recurring problem that is usually ineffective and risks being highly counterproductive. See best-practices.</description>
     </item>
     
     <item>
       <title>Ask a Question</title>
-      <link>https://cloudposse.github.io/docs/documentation/question/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/documentation/question/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/documentation/question/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/documentation/question/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Automated Testing</title>
-      <link>https://cloudposse.github.io/docs/community/automated-testing/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/community/automated-testing/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/community/automated-testing/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/community/automated-testing/</guid>
       <description>Terraform Testing Nearly all of our Terraform modules are updated with automated tests. We have 2 general strategies. First is by running some bats tests that do some basic sanity checks. These tests are defined in our test-harness and generally don&amp;rsquo;t require any credentials to run. Since that&amp;rsquo;s the case, they can really only do basic linting and static analysis.
 Then we have some tests which are based on the terratest library for infrastructure testing that do more in-depth integration tests of module functionality.</description>
     </item>
     
     <item>
       <title>Availability Zone (AZ)</title>
-      <link>https://cloudposse.github.io/docs/glossary/availability-zone/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/availability-zone/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/availability-zone/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/availability-zone/</guid>
       <description></description>
     </item>
     
     <item>
       <title>AWS</title>
-      <link>https://cloudposse.github.io/docs/glossary/aws/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/aws/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/aws/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/aws/</guid>
       <description>Amazon Web Services is a public cloud offering from Amazon. It&amp;rsquo;s also a command line tool (aws) use to control services running on the platform.</description>
     </item>
     
     <item>
       <title>aws-vault</title>
-      <link>https://cloudposse.github.io/docs/glossary/aws-vault/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/aws-vault/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/aws-vault/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/aws-vault/</guid>
       <description>aws-vault is a utility for securely managing secrets with AWS Systems Manager (SSM) Parameter Store and KMS</description>
     </item>
     
     <item>
       <title>Bastion</title>
-      <link>https://cloudposse.github.io/docs/glossary/bastion/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/bastion/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/bastion/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/bastion/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Best Practices</title>
-      <link>https://cloudposse.github.io/docs/glossary/best-practices/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/best-practices/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/best-practices/</guid>
       <description></description>
     </item>
     
     <item>
       <title>BeyondCorp</title>
-      <link>https://cloudposse.github.io/docs/glossary/beyondcorp/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/beyondcorp/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/beyondcorp/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/beyondcorp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Build Harness</title>
-      <link>https://cloudposse.github.io/docs/glossary/build-harness/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/build-harness/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/build-harness/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/build-harness/</guid>
       <description>The primary benefit of using a build-harness is it allows for the consolidation of business logic related to building software. This allows to keep things DRY. Using a centralized repo that can be versioned and shared across multiple projects reduces long-term technical debt associated with building and releasing software by reducing maintenance effort.
 We provide one that we use in nearly all of our projects. It&amp;rsquo;s available here: https://github.com/cloudposse/build-harness</description>
     </item>
     
     <item>
       <title>Business Logic</title>
-      <link>https://cloudposse.github.io/docs/glossary/business-logic/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/business-logic/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/business-logic/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/business-logic/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Chamber</title>
-      <link>https://cloudposse.github.io/docs/glossary/chamber/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/chamber/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/chamber/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/chamber/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Change Management</title>
-      <link>https://cloudposse.github.io/docs/glossary/change-control/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/change-control/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/change-control/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/change-control/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Chart Registry</title>
-      <link>https://cloudposse.github.io/docs/glossary/chart-registry/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/chart-registry/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/chart-registry/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/chart-registry/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CLI</title>
-      <link>https://cloudposse.github.io/docs/glossary/cli/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cli/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/cli/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cli/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ClickOps</title>
-      <link>https://cloudposse.github.io/docs/glossary/clickops/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/clickops/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/clickops/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/clickops/</guid>
       <description>ClickOps is the error-prone and time-consuming process of having people click-through various menu options in cloud providers’ websites, to select and configure the correct automated computing infrastructure. This is typically coupled with WikiOps processes and is considered bad practice in the modern cloud era.</description>
     </item>
     
     <item>
       <title>Cloud Posse, LLC</title>
-      <link>https://cloudposse.github.io/docs/glossary/cloudposse/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cloudposse/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/cloudposse/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cloudposse/</guid>
       <description>Cloud Posse is a DevOps Accelerator. Let us know how we can help. Reach us at hello@cloudposse.com.</description>
     </item>
     
     <item>
       <title>CloudFront</title>
-      <link>https://cloudposse.github.io/docs/glossary/cloudfront/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cloudfront/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/cloudfront/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cloudfront/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CloudTrail</title>
-      <link>https://cloudposse.github.io/docs/glossary/cloudtrail/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cloudtrail/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/cloudtrail/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cloudtrail/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CloudWatch</title>
-      <link>https://cloudposse.github.io/docs/glossary/cloudwatch/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cloudwatch/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/cloudwatch/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cloudwatch/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CloudWatch Logs</title>
-      <link>https://cloudposse.github.io/docs/glossary/cloudwatch-logs/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cloudwatch-logs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/cloudwatch-logs/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cloudwatch-logs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Code of Conduct</title>
-      <link>https://cloudposse.github.io/docs/community/code-of-conduct/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/community/code-of-conduct/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/community/code-of-conduct/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/community/code-of-conduct/</guid>
       <description>Our Pledge In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
 Our Standards Examples of behavior that contributes to creating a positive environment include:
  Using welcoming and inclusive language Being respectful of differing viewpoints and experiences Gracefully accepting constructive criticism Focusing on what is best for the community Showing empathy towards other community members  Examples of unacceptable behavior by participants include:</description>
@@ -297,130 +297,130 @@ Our Standards Examples of behavior that contributes to creating a positive envir
     
     <item>
       <title>Code Review (CR)</title>
-      <link>https://cloudposse.github.io/docs/glossary/code-review/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/code-review/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/code-review/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/code-review/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Code Review Guidelines</title>
-      <link>https://cloudposse.github.io/docs/community/code-reviews/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/community/code-reviews/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/community/code-reviews/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/community/code-reviews/</guid>
       <description>Here are some of our tips for conducting Code Reviews the SweetOps way. If you haven&amp;rsquo;t already, become familiar with our Best Practices and Terraform Best Practices.
  Use the &amp;ldquo;Suggest&amp;rdquo; feature as much as possible. This makes it quick and easy for the contributor to accept or dismiss the recommendations. Use proper markdown in suggestions (e.g. code blocks) Always be polite and appreciative of the contributions! Use emoticons to up-vote other comments (rather than +1 comments) Use ChatOps commands like /rebuild-readme or /terraform-fmt to fix common problems Use ChatOps commands like /test all, /test bats, /test readme, /test terratest to run integration tests Recommend changes to better conform to our best-practices.</description>
     </item>
     
     <item>
       <title>CodeBuild</title>
-      <link>https://cloudposse.github.io/docs/glossary/code-build/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/code-build/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/code-build/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/code-build/</guid>
       <description>CodeBuild scales continuously and processes multiple builds concurrently, so your builds are not left waiting in a queue. Because CodeBuild runs in AWS, it can leverage IAM Instance Profiles to assume roles to securely provision resources without exposing AWS access credentials.</description>
     </item>
     
     <item>
       <title>CodeDeploy</title>
-      <link>https://cloudposse.github.io/docs/glossary/code-deploy/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/code-deploy/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/code-deploy/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/code-deploy/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Codefresh</title>
-      <link>https://cloudposse.github.io/docs/glossary/codefresh/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/codefresh/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/codefresh/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/codefresh/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CodePipeline</title>
-      <link>https://cloudposse.github.io/docs/glossary/code-pipeline/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/code-pipeline/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/code-pipeline/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/code-pipeline/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Contact Us</title>
-      <link>https://cloudposse.github.io/docs/documentation/contact-us/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/documentation/contact-us/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/documentation/contact-us/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/documentation/contact-us/</guid>
       <description>We&amp;rsquo;re developers and ops practitioners who are gung-ho about doing things the &amp;ldquo;right way&amp;rdquo; (tm).
 We help companies achieve success in the cloud by automating systems for maximum efficiency and 24x7 uptime. Our solutions deliver world-class infrastructure by leveraging Open Source technologies coupled with proprietary integrations to reduce total cost of ownership. Following our proven methodology empowers companies to adopt the most current &amp;ldquo;best practices&amp;rdquo; including end-to-end CI/CD Pipelines, GitOps and Automated Deployments.</description>
     </item>
     
     <item>
       <title>Container Management Platform (CMP)</title>
-      <link>https://cloudposse.github.io/docs/glossary/cmp/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cmp/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/cmp/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cmp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Continuous Delivery (CD)</title>
-      <link>https://cloudposse.github.io/docs/glossary/continuous-delivery/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/continuous-delivery/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/continuous-delivery/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/continuous-delivery/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Continuous Integration (CI)</title>
-      <link>https://cloudposse.github.io/docs/glossary/continuous-integration/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/continuous-integration/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/continuous-integration/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/continuous-integration/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Continuous Integration / Continuous Delivery (CI/CD)</title>
-      <link>https://cloudposse.github.io/docs/glossary/cicd/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cicd/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/cicd/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cicd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Contributor Tips &amp; Tricks</title>
-      <link>https://cloudposse.github.io/docs/community/contributor-tips/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/community/contributor-tips/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/community/contributor-tips/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/community/contributor-tips/</guid>
       <description>About This document is intended to describe common and not-so-common processes that the contributor team executes as part of maintaining the 300+ open source projects within the Cloud Posse Organization.
 Tips &amp;amp; Tricks Update Multiple Repos at Once To update many of the open source repos with a common change such as updating Terraform required_version pinning, adding GitHub actions, or updating pinned providers, the contributor team has adopted using microplane. This tool allows us to execute automated changes across dozens or even hundreds of our open source repos, which saves many hours of contributor time.</description>
     </item>
     
     <item>
       <title>Create, Read, Update, Delete (CRUD)</title>
-      <link>https://cloudposse.github.io/docs/glossary/crud/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/crud/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/crud/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/crud/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</title>
-      <link>https://cloudposse.github.io/docs/license/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/license/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/license/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/license/</guid>
       <description>Copyright Copyright 2017-2021 © Cloud Posse, LLC.
 License This material may only be distributed subject to the terms and conditions set forth in the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License or later with the restrictions noted below (the latest version of the license is presently available at https://creativecommons.org/licenses/by-nc-sa/4.0/).
 Attribution You must attribute the work in the manner specified by the author or licensor.
@@ -429,19 +429,19 @@ Noncommercial The licensor permits others to copy, distribute and transmit the w
     
     <item>
       <title>Declarative Declaration</title>
-      <link>https://cloudposse.github.io/docs/glossary/declarative/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/declarative/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/declarative/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/declarative/</guid>
       <description>References  https://en.wikipedia.org/wiki/Infrastructure_as_Code#Types_of_approaches  </description>
     </item>
     
     <item>
       <title>Docker Best Practices</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/docker-best-practices/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/docker-best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/docker-best-practices/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/docker-best-practices/</guid>
       <description>Inheritance Inheritance is when you use FROM some-image:1.2.3 (vs FROM scratch) in a Dockerfile. We recommend to leverage lean base images (E.g. alpine or busybox).
 Try to leverage the same base image in as many of your images as possible for faster docker pulls.
 Multi-stage Builds There are two ways to leverage multi-stage builds.
@@ -450,37 +450,37 @@ Multi-stage Builds There are two ways to leverage multi-stage builds.
     
     <item>
       <title>Docker Compose</title>
-      <link>https://cloudposse.github.io/docs/glossary/docker-compose/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/docker-compose/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/docker-compose/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/docker-compose/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Docker Image</title>
-      <link>https://cloudposse.github.io/docs/glossary/docker-image/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/docker-image/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/docker-image/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/docker-image/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Docker Registry</title>
-      <link>https://cloudposse.github.io/docs/glossary/docker-registry/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/docker-registry/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/docker-registry/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/docker-registry/</guid>
       <description>It works together with the docker push and docker pull commands for standard CRUD operations.</description>
     </item>
     
     <item>
       <title>Docker Tips &amp; Tricks</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/docker-tips-tricks/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/docker-tips-tricks/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/docker-tips-tricks/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/docker-tips-tricks/</guid>
       <description>Here&amp;rsquo;s a collection of some nice little hacks for docker. A lot of them are related to house keeping.
 Docker Stats Produce console stats for all running containers (e.g. like top):
 docker stats $(docker ps --format=&#39;{{.Names}}&#39; Remove all stopped containers docker rm $(docker ps -a -q) Remove all untagged images docker images -q --filter &amp;quot;dangling=true&amp;quot; | xargs docker rmi Prune everything The docker system prune command is a shortcut that prunes images, containers, and networks.</description>
@@ -488,147 +488,147 @@ docker stats $(docker ps --format=&#39;{{.Names}}&#39; Remove all stopped contai
     
     <item>
       <title>Dockerfile</title>
-      <link>https://cloudposse.github.io/docs/glossary/dockerfile/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/dockerfile/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/dockerfile/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/dockerfile/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Don&#39;t Repeat Yourself (DRY)</title>
-      <link>https://cloudposse.github.io/docs/glossary/dry/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/dry/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/dry/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/dry/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ECS</title>
-      <link>https://cloudposse.github.io/docs/glossary/ecs/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ecs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/ecs/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ecs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ECS Agent</title>
-      <link>https://cloudposse.github.io/docs/glossary/ecs-agent/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-agent/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/ecs-agent/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-agent/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ECS Service</title>
-      <link>https://cloudposse.github.io/docs/glossary/ecs-service/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-service/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/ecs-service/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-service/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ECS Task</title>
-      <link>https://cloudposse.github.io/docs/glossary/ecs-task/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-task/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/ecs-task/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-task/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Editor Config</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/editor-config/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/editor-config/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/editor-config/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/editor-config/</guid>
       <description>Background The EditorConfig enables developers to define and maintain consistent coding styles between different editors and IDEs. It consists of a simple file format (.editorconfig) for defining coding styles such as tabs vs spaces. Most text editors support the format and adhere to defined styles. The config files are easily readable and they work nicely with version control systems.
 Example Place this file in the root of your git repository.</description>
     </item>
     
     <item>
       <title>Elastic Container Registry (ECR)</title>
-      <link>https://cloudposse.github.io/docs/glossary/ecr/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ecr/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/ecr/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ecr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ElasticBeanstalk (EB)</title>
-      <link>https://cloudposse.github.io/docs/glossary/eb/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/eb/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/eb/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/eb/</guid>
       <description></description>
     </item>
     
     <item>
       <title>End-to-end (e2e)</title>
-      <link>https://cloudposse.github.io/docs/glossary/e2e/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/e2e/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/e2e/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/e2e/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Environment Variable</title>
-      <link>https://cloudposse.github.io/docs/glossary/environment-variable/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/environment-variable/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/environment-variable/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/environment-variable/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Executable Documentation</title>
-      <link>https://cloudposse.github.io/docs/glossary/executable-documentation/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/executable-documentation/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/executable-documentation/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/executable-documentation/</guid>
       <description>We treat Makefiles as executable documentation. That is, for every target we add a meaningful annotations (e.g. ## Build docker container). The end-user can then choose to run the target (e.g. make build) or run the command described in the target (e.g. docker build -t example/image .).</description>
     </item>
     
     <item>
       <title>Feature Branches</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/github-feature-branches/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-feature-branches/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/github-feature-branches/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-feature-branches/</guid>
       <description>Problem When you&amp;rsquo;re working on a project, there will be a bunch of different features or ideas in progress at any given time, not all of which are ready for prime time. Further more, as business priorities change, you might need to prioritize certain features and put others on the back burner.
 At the same time, business requirements mandate that you have a stable version that can be deployed at any given time.</description>
     </item>
     
     <item>
       <title>FUSE</title>
-      <link>https://cloudposse.github.io/docs/glossary/fuse/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/fuse/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/fuse/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/fuse/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Geodesic</title>
-      <link>https://cloudposse.github.io/docs/glossary/geodesic/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/geodesic/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/geodesic/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/geodesic/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Geodesic Module</title>
-      <link>https://cloudposse.github.io/docs/glossary/geodesic-module/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/geodesic-module/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/geodesic-module/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/geodesic-module/</guid>
       <description>Usually we create geodesic modules that correspond to each AWS organization.
 For example, the standard geodesic modules are:
  root.cloudposse.org - a module which is reponsible for administering the root AWS account and provisioning all subaccounts (organizations). prod.cloudposse.org - a module which is responsible for provisioning all production infrastructure including production kops clusters and backing services (E.g. rds) staging.cloudposse.org - a module which is responsible for provisioning all staging resources dev.</description>
@@ -636,19 +636,19 @@ For example, the standard geodesic modules are:
     
     <item>
       <title>Geodesic Shell</title>
-      <link>https://cloudposse.github.io/docs/glossary/geodesic-shell/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/geodesic-shell/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/geodesic-shell/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/geodesic-shell/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Getting Started with Cloud Posse</title>
-      <link>https://cloudposse.github.io/docs/documentation/getting-started/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/documentation/getting-started/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/documentation/getting-started/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/documentation/getting-started/</guid>
       <description>Geodesic Start with getting familiar with the geodesic.
 Get intimately familiar with docker inheritance and multi-stage docker builds. We use this pattern extensively.
 Check out our terraform-aws-components for reference architectures to easily provision infrastructure
@@ -658,19 +658,19 @@ Tools Tons of tools/clis are used as part of our solution. We distribute these t
     
     <item>
       <title>Git Workflow</title>
-      <link>https://cloudposse.github.io/docs/glossary/git-workflow/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/git-workflow/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/git-workflow/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/git-workflow/</guid>
       <description>In the Git Workflow, the master branch is often treated as the pristine copy of the code base and considered always safe to deploy to production. Everytime a change is needed, a developer will open up a new branch against master and push their changes up to the origin. When the developer is ready to merge their changes, they open up a Pull Request and request one of their peers to perform a Code Review.</description>
     </item>
     
     <item>
       <title>GitHub Best Practices</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/github-best-practices/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/github-best-practices/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-best-practices/</guid>
       <description>Use .gitignore Use a .gitignore file in the root of every repo to exclude files that should never be committed.
 Here&amp;rsquo;s an example of the .gitignore from our documentation repository.
 themes/cloudposse/static/css/* themes/cloudposse/static/js/* static/webfonts/* static/css/* static/js/*</description>
@@ -678,49 +678,49 @@ themes/cloudposse/static/css/* themes/cloudposse/static/js/* static/webfonts/* s
     
     <item>
       <title>GitHub Contributors</title>
-      <link>https://cloudposse.github.io/docs/community/contributors/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/community/contributors/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/community/contributors/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/community/contributors/</guid>
       <description>About Cloud Posse maintains 300+ projects under our GitHub organization. All of our projects have stemmed from past consulting engagements with our customers. Everything we do is Open Sourced under our GitHub under the permissive APACHE2 license. With so many projects, however, it wouldn&amp;rsquo;t be possible to maintain all of them if we didn&amp;rsquo;t have the support from our community and some tools to make life easier.
 Our Tools Here are some of the tools we depend on for running our Open Source organization.</description>
     </item>
     
     <item>
       <title>GitHub Contributors FAQ</title>
-      <link>https://cloudposse.github.io/docs/community/faq/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/community/faq/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/community/faq/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/community/faq/</guid>
       <description>How do I see all open Pull Requests? You can find all open Pull Requests by going to GitHub and searching for open PRs.
 What if we approve and merge a Pull Request with a problem? We encourage everyone who uses our modules to practice version pinning. So while we try to ensure master is always stable, we&amp;rsquo;re not concerned if we occasionally break things. Also, we believe in a blameless culture.</description>
     </item>
     
     <item>
       <title>Goofys</title>
-      <link>https://cloudposse.github.io/docs/glossary/goofys/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/goofys/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/goofys/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/goofys/</guid>
       <description>goofys is a a high-performance, POSIX-ish Amazon S3 file system written in Go. We use goofys in Geodesic</description>
     </item>
     
     <item>
       <title>GOST Framework</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/gost-framework/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/gost-framework/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/gost-framework/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/gost-framework/</guid>
       <description>The GOST Framework is a method of clearly articulating a process for achieving a goal. It does this by decomposing it into it&amp;rsquo;s various parts: [G]oals, [O]bjectives, [S]trategies, [T]actics. It helps distinguish between the objectives, strategies and tactics so that relevant stakeholders can focus on what&amp;rsquo;s relevant to them.
 Goals A goal defines a broad primary outcome. This is the business driver and should relate to some specific benefit to the business.</description>
     </item>
     
     <item>
       <title>HashiCorp Language (HCL)</title>
-      <link>https://cloudposse.github.io/docs/glossary/hcl/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/hcl/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/hcl/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/hcl/</guid>
       <description>The HashiCorp Configuration language was designed to be both human readable and machine friendly. It used by most HashiCorp tools such as terraform. The nice thing about HCL is also fully JSON compatible, which means that JSON can be used anywhere HCL is expected. By supporting JSON backwards compatibility, HCL remains interoperable with other systems.
 Here&amp;rsquo;s an example of HCL:
 variable &amp;#34;ami&amp;#34; { description = &amp;#34;the AMI to use&amp;#34; } </description>
@@ -728,192 +728,192 @@ variable &amp;#34;ami&amp;#34; { description = &amp;#34;the AMI to use&amp;#34; 
     
     <item>
       <title>HashiCorp Terraform</title>
-      <link>https://cloudposse.github.io/docs/glossary/terraform/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/terraform/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/terraform/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/terraform/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Helm</title>
-      <link>https://cloudposse.github.io/docs/glossary/helm/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/helm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/helm/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/helm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Helm Chart</title>
-      <link>https://cloudposse.github.io/docs/glossary/helm-chart/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/helm-chart/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/helm-chart/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/helm-chart/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Helm Tiller</title>
-      <link>https://cloudposse.github.io/docs/glossary/helm-tiller/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/helm-tiller/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/helm-tiller/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/helm-tiller/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Idenity Aware Proxy</title>
-      <link>https://cloudposse.github.io/docs/glossary/iap/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/iap/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/iap/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/iap/</guid>
       <description>An Identity-Aware Proxy enables an organization to control access to cloud applications (e.g. SaaS). Typically, an IAP works together with an organization’s Single Sign-on (SSO) provide for verifying a user’s identity and determining if that user should be allowed to access the application.
 The IAP is part of the BeyondCorp enterprise security model pioneered by Google. It enables every employee to work from untrusted networks without the use of a VPN.</description>
     </item>
     
     <item>
       <title>Identity Access Management (IAM)</title>
-      <link>https://cloudposse.github.io/docs/glossary/iam/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/iam/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/iam/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/iam/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Imperative Declaration</title>
-      <link>https://cloudposse.github.io/docs/glossary/imperative/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/imperative/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/imperative/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/imperative/</guid>
       <description>References  https://en.wikipedia.org/wiki/Infrastructure_as_Code#Types_of_approaches  </description>
     </item>
     
     <item>
       <title>Infrastructure</title>
-      <link>https://cloudposse.github.io/docs/glossary/infrastructure/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/infrastructure/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/infrastructure/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/infrastructure/</guid>
       <description>Infrastructure is everything that supports running your software.</description>
     </item>
     
     <item>
       <title>Infrastructure as Code (IaC)</title>
-      <link>https://cloudposse.github.io/docs/glossary/infrastructure-as-code/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/infrastructure-as-code/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/infrastructure-as-code/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/infrastructure-as-code/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Ingress Controller</title>
-      <link>https://cloudposse.github.io/docs/glossary/ingress-controller/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ingress-controller/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/ingress-controller/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ingress-controller/</guid>
       <description>The Kubernetes Ingress Controller is a native resource type in Kubernetes that functions like a Layer 7 Load Balancer (e.g. HTTP Load Balancer) to route requests to various backend services based on incoming hostname (e.g. Host header) and request path (e.g. /foo).
 The default Ingress Controller in Kubernetes is powered by Nginx, but this is an implementation detail that is entirely abstracted away from the end user. There are many vendors, in addition to Nginx providing alternative implementations.</description>
     </item>
     
     <item>
       <title>init-terraform</title>
-      <link>https://cloudposse.github.io/docs/glossary/init-terraform/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/init-terraform/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/init-terraform/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/init-terraform/</guid>
       <description></description>
     </item>
     
     <item>
       <title>jq</title>
-      <link>https://cloudposse.github.io/docs/glossary/jq/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/jq/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/jq/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/jq/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kanban</title>
-      <link>https://cloudposse.github.io/docs/glossary/kanban/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/kanban/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/kanban/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/kanban/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Key Management Service (KMS)</title>
-      <link>https://cloudposse.github.io/docs/glossary/kms/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/kms/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/kms/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/kms/</guid>
       <description>AWS Key Management Service is integrated with most other AWS services to help you protect the data you store with these services. AWS Key Management Service is also integrated with AWS CloudTrail to provide you with logs of all key usage to help meet your regulatory and compliance needs.</description>
     </item>
     
     <item>
       <title>Key Performance Indicator (KPI)</title>
-      <link>https://cloudposse.github.io/docs/glossary/kpi/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/kpi/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/kpi/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/kpi/</guid>
       <description>A Key Performance Indicator is a metric (e.g. number of requests per second) that indicates if some key business objective is being satisfied. Since it’s a metric, it means that it must be able of being measured or quantified. Businesses usually use multiple KPIs to evaluate their success at reaching concrete targets.</description>
     </item>
     
     <item>
       <title>kubectl</title>
-      <link>https://cloudposse.github.io/docs/glossary/kubectl/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/kubectl/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/kubectl/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/kubectl/</guid>
       <description>kubectl is a cli for controlling Kubernetes clusters. It&amp;rsquo;s officially pronounced as &amp;ldquo;kube control&amp;rdquo;, but we&amp;rsquo;ll always refer to it as &amp;ldquo;kube cuddle&amp;rdquo;.</description>
     </item>
     
     <item>
       <title>Kubernetes</title>
-      <link>https://cloudposse.github.io/docs/glossary/kubernetes/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/kubernetes/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/kubernetes/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/kubernetes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kubernetes Ops (kops)</title>
-      <link>https://cloudposse.github.io/docs/glossary/kops/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/kops/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/kops/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/kops/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Lambda</title>
-      <link>https://cloudposse.github.io/docs/glossary/lambda/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/lambda/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/lambda/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/lambda/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Layer 7</title>
-      <link>https://cloudposse.github.io/docs/glossary/layer-7/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/layer-7/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/layer-7/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/layer-7/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Makefile Best Practices</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/make-best-practices/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/make-best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/make-best-practices/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/make-best-practices/</guid>
       <description>Avoid using Evals The use of $(eval ...) leads to very confusing execution paths, due to the way make evaluates a target. When make executes a target, it preprocesses all $(....) interpolations and renders the template. After that, it executes, line-by-line each command in the target.
 Namespace targets Over time, the number of targets in a Makefile will grow. We recommend namespacing all targets.
 For example:
@@ -922,10 +922,10 @@ docker/build: docker build -t example/test .</description>
     
     <item>
       <title>Managers vs Makers</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/project-management-managers-vs-makers/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/project-management-managers-vs-makers/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/project-management-managers-vs-makers/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/project-management-managers-vs-makers/</guid>
       <description>TL;DR Developers (Makers) and Managers work differently.
  Makers plan in half-day blocks of time. These are developers. Managers plan to minimize empty 15-minute slots in their calendar.  Interrupts are costly for developers and therefore the business.
 http://www.paulgraham.com/makersschedule.html (Paul Graham - YCombinator Founder)</description>
@@ -933,10 +933,10 @@ http://www.paulgraham.com/makersschedule.html (Paul Graham - YCombinator Founder
     
     <item>
       <title>Markdown Best Practices</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/markdown-best-practices/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/markdown-best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/markdown-best-practices/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/markdown-best-practices/</guid>
       <description>Code Blocks Use code blocks for anything more than 1 line. Use code for inline code, filenames, commands, etc.
 Code Block ``` # This is a code block ``` Table of Options Use tables to communicate lists of options.
 Here&amp;rsquo;s an example:
@@ -945,204 +945,204 @@ Table of Options | Name | Default | Description | Required | |:-----------|:----
     
     <item>
       <title>Monorepo</title>
-      <link>https://cloudposse.github.io/docs/glossary/monorepo/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/monorepo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/monorepo/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/monorepo/</guid>
       <description>See also polyrepo.</description>
     </item>
     
     <item>
       <title>Multi-Factor Authentication (MFA)</title>
-      <link>https://cloudposse.github.io/docs/glossary/mfa/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/mfa/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/mfa/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/mfa/</guid>
       <description>There are a lot of terms that roughly mean the same thing.
  MFA - Multi-factor Authentication OTP - One-time password (~MFA Token) 2FA - Two-factor authentication  </description>
     </item>
     
     <item>
       <title>On-call Engineer (OCE)</title>
-      <link>https://cloudposse.github.io/docs/glossary/oce/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/oce/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/oce/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/oce/</guid>
       <description></description>
     </item>
     
     <item>
       <title>OSI Model</title>
-      <link>https://cloudposse.github.io/docs/glossary/osi/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/osi/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/osi/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/osi/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Our GitHub</title>
-      <link>https://cloudposse.github.io/docs/documentation/our-github/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/documentation/our-github/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/documentation/our-github/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/documentation/our-github/</guid>
       <description>Our Commitment We commit to always provide free and public access to our Open Source repositories. If you see repository on our GitHub today, then it will be here tomorrow and thereafter in perpetuity.
 From time to time, we might decide we can no longer maintain a repository. If that happens, we will mark it as &amp;ldquo;archived&amp;rdquo; on GitHub. This will ensure you will continue to have access to the code.</description>
     </item>
     
     <item>
       <title>PagerDuty</title>
-      <link>https://cloudposse.github.io/docs/glossary/pagerduty/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/pagerduty/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/pagerduty/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/pagerduty/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Parameter Store</title>
-      <link>https://cloudposse.github.io/docs/glossary/parameter-store/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/parameter-store/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/parameter-store/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/parameter-store/</guid>
       <description>The Amazon Systems Manager Parameter Store provides secure, hierarchical storage for configuration data management and secrets management.
 You can store data such as passwords, database strings, and license codes as parameter values. You can store values as plain text or encrypted data using KMS. You can then reference values by using the unique name that you specified when you created the parameter. Highly scalable, available, and durable, Parameter Store is backed by the AWS Cloud.</description>
     </item>
     
     <item>
       <title>Password Management</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/password-management/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/password-management/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/password-management/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/password-management/</guid>
       <description>We strongly advise all companies to use &amp;ldquo;1Password for Teams&amp;rdquo; as their password management solution.
 Features  Shared MFA - useful for root accounts like AWS MFA Integration with Duo Groups Slack Integration Cloud Storage Cross-platform support (OSX, Windows, Linux, &amp;amp; Web)  Alternatives  LastPass  </description>
     </item>
     
     <item>
       <title>Pingdom</title>
-      <link>https://cloudposse.github.io/docs/glossary/pingdom/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/pingdom/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/pingdom/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/pingdom/</guid>
       <description>Pingdom is a service that tracks the availability (e.g. uptime &amp;amp; downtime) as well as the performance of websites. It’s been around for ages and is a tried-and-true method for being alerted when there’s an outage. They also have a feature called “Real User Monitoring” that uses a little bit of javascript to determine how fast your pages are loading for real end-users. Real-user-monitoring is essential for catching brown-outs where the site might be “up” but degraded.</description>
     </item>
     
     <item>
       <title>Platform-as-a-Service (PaaS)</title>
-      <link>https://cloudposse.github.io/docs/glossary/paas/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/paas/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/paas/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/paas/</guid>
       <description>A Platform-as-a-Service is a type of cloud platform which offers black-box services that enable developers to build applications on top of the compute infrastructure without needing to deal with the day-to-day maintenance of the infrastructure. This might include developer tools that are offered as a service to build services, or data access and database services, or billing services.</description>
     </item>
     
     <item>
       <title>Polyrepo</title>
-      <link>https://cloudposse.github.io/docs/glossary/polyrepo/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/polyrepo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/polyrepo/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/polyrepo/</guid>
       <description>See also monorepo.</description>
     </item>
     
     <item>
       <title>Pull Requests</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/github-pull-requests/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-pull-requests/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/github-pull-requests/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-pull-requests/</guid>
       <description>Submitting a Pull Request Prior to submitting your pull request, you might want to do a few things to clean up your branch and make it as simple as possible for the original repo&amp;rsquo;s maintainer to test, accept, and merge your work. If any commits have been made to the upstream master branch, you should rebase your development branch so that merging it will be a simple fast-forward that won&amp;rsquo;t require any conflict resolution work.</description>
     </item>
     
     <item>
       <title>RACI Matrix</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/project-management-raci-matrix/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/project-management-raci-matrix/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/project-management-raci-matrix/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/project-management-raci-matrix/</guid>
       <description>The RACI Responsibility assignment matrix is used to clarify the participation by various roles in completing tasks or deliverables as it relates to projects or teams.
  Responsible: Those who perform or recommend the work to achieve the task. Accountable: The one ultimately answerable for the correct and thorough completion of the deliverable or task, and the one who delegates the work to those responsible. They are required to sign off (approve) work that the Responsible party provides.</description>
     </item>
     
     <item>
       <title>Relational Database Service (RDS)</title>
-      <link>https://cloudposse.github.io/docs/glossary/rds/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/rds/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/rds/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/rds/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Release Engineering</title>
-      <link>https://cloudposse.github.io/docs/glossary/release-engineering/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/release-engineering/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/release-engineering/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/release-engineering/</guid>
       <description></description>
     </item>
     
     <item>
       <title>S3</title>
-      <link>https://cloudposse.github.io/docs/glossary/s3/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/s3/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/s3/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/s3/</guid>
       <description></description>
     </item>
     
     <item>
       <title>S3 Bucket</title>
-      <link>https://cloudposse.github.io/docs/glossary/s3-bucket/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/s3-bucket/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/s3-bucket/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/s3-bucket/</guid>
       <description>Think of an S3 bucket as a top-level folder. It must be globally unique on AWS across all customers and accounts.</description>
     </item>
     
     <item>
       <title>s3fs</title>
-      <link>https://cloudposse.github.io/docs/glossary/s3fs/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/s3fs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/s3fs/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/s3fs/</guid>
       <description>The geodesic implements an s3fs using goofys.</description>
     </item>
     
     <item>
       <title>Sandbox Environment</title>
-      <link>https://cloudposse.github.io/docs/glossary/sandbox/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/sandbox/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/sandbox/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/sandbox/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Search</title>
-      <link>https://cloudposse.github.io/docs/search/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/search/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/search/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/search/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Semantic Version</title>
-      <link>https://cloudposse.github.io/docs/glossary/semver/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/semver/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/semver/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/semver/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Semantic Versioning</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/semver/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/semver/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/semver/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/semver/</guid>
       <description>We practice Semantic Versioning for all projects (e.g. GitHub Tags/Releases, Helm Charts, Terraform Modules, Docker Images). Using this versioning standard helps to reduce the entropy related to Dependency Hell.
 Image credit: Gopher Academy
 Semantics Generally, all of our versions follow this convention: X.Y.Z (e.g. 1.2.3). Sometimes, we&amp;rsquo;ll use this format: X.Y.Z-branch when we need to disambiguate between versions existing in multiple branches.
@@ -1151,128 +1151,128 @@ Semantics Generally, all of our versions follow this convention: X.Y.Z (e.g. 1.2
     
     <item>
       <title>Service Level Agreement</title>
-      <link>https://cloudposse.github.io/docs/glossary/sla/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/sla/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/sla/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/sla/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Shared Memory Filesystem (/dev/shm)</title>
-      <link>https://cloudposse.github.io/docs/glossary/dev-shm/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/dev-shm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/dev-shm/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/dev-shm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Sidekick Containers</title>
-      <link>https://cloudposse.github.io/docs/glossary/sidekick-containers/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/sidekick-containers/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/sidekick-containers/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/sidekick-containers/</guid>
       <description>Examples of common sidekick containers are for service discovery or loading fixtures into a development database.</description>
     </item>
     
     <item>
       <title>Simple Notification Service (SNS)</title>
-      <link>https://cloudposse.github.io/docs/glossary/sns/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/sns/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/sns/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/sns/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Single Sign-on (SSO)</title>
-      <link>https://cloudposse.github.io/docs/glossary/sso/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/sso/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/sso/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/sso/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Slack</title>
-      <link>https://cloudposse.github.io/docs/glossary/slack/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/slack/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/slack/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/slack/</guid>
       <description>Visit Slack.com for more details.</description>
     </item>
     
     <item>
       <title>Software Development Lifecycle (SDLC)</title>
-      <link>https://cloudposse.github.io/docs/glossary/sdlc/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/sdlc/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/sdlc/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/sdlc/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Software-as-a-Service (SaaS)</title>
-      <link>https://cloudposse.github.io/docs/glossary/saas/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/saas/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/saas/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/saas/</guid>
       <description>Sofware-as-a-Service is a form of a cloud services platform, whereby the computing platform (operating system and associated services) is delivered as a service over the Internet by the provider.</description>
     </item>
     
     <item>
       <title>Stage</title>
-      <link>https://cloudposse.github.io/docs/glossary/stage/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/stage/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/stage/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/stage/</guid>
       <description>It&amp;rsquo;s important to note that within a given stage, there might be multiple environments. We always prescribe separating multiple stages by using multiple AWS accounts or organizational units. Then provisioning multiple environments within that stage as necessary.
 For example, the &amp;ldquo;staging&amp;rdquo; account might run &amp;ldquo;pre-production&amp;rdquo; and &amp;ldquo;QA&amp;rdquo; environments.</description>
     </item>
     
     <item>
       <title>String Interpolation</title>
-      <link>https://cloudposse.github.io/docs/glossary/interpolation/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/interpolation/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/interpolation/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/interpolation/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Subject Matter Expertise (SME)</title>
-      <link>https://cloudposse.github.io/docs/glossary/sme/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/sme/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/sme/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/sme/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Synthetic Monitoring</title>
-      <link>https://cloudposse.github.io/docs/glossary/synthetic-monitoring/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/synthetic-monitoring/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/synthetic-monitoring/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/synthetic-monitoring/</guid>
       <description>Synthetic monitoring is a style of monitoring that attempts to closely emulate the behavior of an end-user, often by using scripted recordings of web transactions played back through a web browser using plugin like Selenium. The scripts carry out behaviors (such as traversing paths) to simulate an action that a customer or end-user would take on a site. E.g. we highly recommend testing all user registration flows and password reset forms using this methodology.</description>
     </item>
     
     <item>
       <title>Technical Debt</title>
-      <link>https://cloudposse.github.io/docs/glossary/technical-debt/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/technical-debt/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/technical-debt/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/technical-debt/</guid>
       <description>It should be noted that the cost of tech debt is very real. It manifests in the form of engineering costs to address the problem, opportunity costs of fixing it versus working on new features, and business costs such as lost revenue from frustrated customers.</description>
     </item>
     
     <item>
       <title>Terraform Best Practices</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/terraform-best-practices/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/terraform-best-practices/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-best-practices/</guid>
       <description>These are the opinionated best-practices we follow at Cloud Posse. They are inspired by years of experience writing terraform and borrow on the many other helpful resources like those by HashiCorp.
 See our general Best Practices which also apply to Terraform.
 Language Use indented HEREDOC syntax Using &amp;lt;&amp;lt;-EOT (as opposed to &amp;lt;&amp;lt;EOT without the -) ensures the code can be indented inline with the other code in the project. Note that EOT can be any uppercase string (e.</description>
@@ -1280,19 +1280,19 @@ Language Use indented HEREDOC syntax Using &amp;lt;&amp;lt;-EOT (as opposed to &
     
     <item>
       <title>Terraform Root Module</title>
-      <link>https://cloudposse.github.io/docs/glossary/root-module/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/root-module/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/root-module/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/root-module/</guid>
       <description>Terraform has two types of modules; the top-level module is always called the &amp;ldquo;root&amp;rdquo; module and the modules that are called from the root module are called &amp;ldquo;child&amp;rdquo; modules. Root modules are the most opinionated. They describe the architecture you want to deploy. It&amp;rsquo;s these &amp;ldquo;root&amp;rdquo; modules that we actually deploy when we run the terraform apply command. The &amp;ldquo;root&amp;rdquo; modules may contain many child modules or none at all. The &amp;ldquo;child&amp;rdquo; modules reusable modules that we invoke in root modules.</description>
     </item>
     
     <item>
       <title>Terraform Tips &amp; Tricks</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/terraform-tips-tricks/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-tips-tricks/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/terraform-tips-tricks/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-tips-tricks/</guid>
       <description>S3 Bucket Lifecycle Rules resource&amp;quot;aws_s3_bucket&amp;quot; &amp;quot;assets&amp;quot;{ bucket=&amp;quot;${module.assets_bucket_label.id}&amp;quot;tags=&amp;quot;${module.assets_bucket_label.tags}&amp;quot;acl=&amp;quot;private&amp;quot;region=&amp;quot;us-west-2&amp;quot;force_destroy=falselifecycle_rule{ id=&amp;quot;${module.assets_bucket_label.id}&amp;quot;enabled=trueprefix=&amp;quot;&amp;quot;tags=&amp;quot;${module.assets_bucket_label.tags}&amp;quot;&amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;noncurrent_version_expiration&amp;lt;/span&amp;gt; {  days=&amp;quot;90&amp;quot;}
 &amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;noncurrent_version_transition&amp;lt;/span&amp;gt; {  days=&amp;quot;60&amp;quot;storage_class=&amp;quot;GLACIER&amp;quot;}
 &amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;transition&amp;lt;/span&amp;gt; {  days=&amp;quot;30&amp;quot;storage_class=&amp;quot;STANDARD_IA&amp;quot;}
@@ -1305,57 +1305,57 @@ For an example of how we use it, check out our terraform-aws-s3-log-storage modu
     
     <item>
       <title>The curl-bash pattern</title>
-      <link>https://cloudposse.github.io/docs/glossary/curl-bash/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/curl-bash/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/curl-bash/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/curl-bash/</guid>
       <description>The curl-bash pattern is an approach to installing software on your local machine via your terminal. It utilizes curl to download a script which is then piped (i.e. | ) into bash. This enables the script to execute code on your machine which then does whatever setup or installation steps it needs to do to install the target software. Example:
 curl -sSL https://get.rvm.io | bash </description>
     </item>
     
     <item>
       <title>The docker-bash pattern</title>
-      <link>https://cloudposse.github.io/docs/glossary/docker-bash/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/docker-bash/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/docker-bash/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/docker-bash/</guid>
       <description>The docker-bash pattern is an approach to installing software on your local machine via your terminal and docker. It utilizes docker run to output a script which is then piped (i.e. | ) into bash. This enables the script to execute code on your machine which then does whatever setup or installation steps it needs to do to install the target software. Geodesic utilizes this pattern via the init script which is expected to be piped into bash:</description>
     </item>
     
     <item>
       <title>Tools</title>
-      <link>https://cloudposse.github.io/docs/reference/tools/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/tools/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/tools/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/tools/</guid>
       <description>1Password The 1Password for Teams product by AgileBits is argubably the most popular SaaS-based password management tool. In our opinion, it offers a better user experience over apps like LastPass as well as provides integration with Duo and Slack for real-time activity notifications.
 Best Practices Here are some of our recommended practices for working with 1Password. If your organization choses an alternative password management solution, we recommend implementing compensating controls.</description>
     </item>
     
     <item>
       <title>Topology</title>
-      <link>https://cloudposse.github.io/docs/glossary/topology/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/topology/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/topology/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/topology/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Unlimited Staging Environments</title>
-      <link>https://cloudposse.github.io/docs/glossary/unlimited-staging-environments/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/unlimited-staging-environments/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/unlimited-staging-environments/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/unlimited-staging-environments/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Updating Modules for Terraform 0.14</title>
-      <link>https://cloudposse.github.io/docs/howto/updating-modules-for-terraform-14/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/howto/updating-modules-for-terraform-14/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/howto/updating-modules-for-terraform-14/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/howto/updating-modules-for-terraform-14/</guid>
       <description>Updating Cloud Posse Terraform modules for Terraform 0.14 We have some tools you can use for updating our Terraform modules to support Terraform 0.14. This should work for any Terraform modules we have published that currently support Terraform 0.12 or later and contain a context.tf file.
   Check out/fork the current version of the Terraform module
   Create a terraform-0.14-upgrade branch and check it out: git checkout -b terraform-0.</description>
@@ -1363,46 +1363,46 @@ Best Practices Here are some of our recommended practices for working with 1Pass
     
     <item>
       <title>Virtual Private Cloud (VPC)</title>
-      <link>https://cloudposse.github.io/docs/glossary/vpc/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/vpc/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/vpc/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/vpc/</guid>
       <description>A virtual private cloud (“VPC”) is an isolated environment running inside of a public cloud. You can think of it like a private data center with its own private subnets and resources. A VPC can also be an extension of a physical datacenter. The most common example of a VPC is the service that Amazon offers called “Amazon VPC” which allows customers to make Amazon EC2 an extension to their physical infrastructure using an IPsec VPN tunnel.</description>
     </item>
     
     <item>
       <title>WikiOps</title>
-      <link>https://cloudposse.github.io/docs/glossary/wikiops/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/wikiops/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/wikiops/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/wikiops/</guid>
       <description>WikiOps is the pattern of following Wiki-style documentation as the means of building and operating your infrastructure. This is to be avoided as it relies on ClickOps and documentation that becomes quickly outdated and inconsistent.</description>
     </item>
     
     <item>
       <title>Workstation Best Practices</title>
-      <link>https://cloudposse.github.io/docs/reference/best-practices/workstation-best-practices/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/workstation-best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/reference/best-practices/workstation-best-practices/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/workstation-best-practices/</guid>
       <description>OSX Enable File Vault Auto-lock Screen Saver Use MacID to Autolock Enable &amp;ldquo;Find My Mac&amp;rdquo; AWS Vault Leverage Key Chain for Secrets Use security command on the command line to add/remove secrets. Query keychain to retrieve secrets. Do not export secrets to the environment.</description>
     </item>
     
     <item>
       <title>YAML</title>
-      <link>https://cloudposse.github.io/docs/glossary/yaml/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/yaml/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/yaml/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/yaml/</guid>
       <description>YAML is a configuration syntax (aka data-serialization format) that is pervasive throughout the DevOps community. It is a superset of the popular JSON configuration format but provides a more concise, human-readable interface while also supporting value inheritance via anchors.</description>
     </item>
     
     <item>
       <title>yq</title>
-      <link>https://cloudposse.github.io/docs/glossary/yq/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/yq/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/yq/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/yq/</guid>
       <description></description>
     </item>
     

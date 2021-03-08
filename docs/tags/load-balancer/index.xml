@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>load balancer on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/docs/tags/load-balancer/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/load-balancer/</link>
     <description>Recent content in load balancer on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/load-balancer/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/load-balancer/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Layer 7</title>
-      <link>https://cloudposse.github.io/docs/glossary/layer-7/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/layer-7/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/layer-7/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/layer-7/</guid>
       <description></description>
     </item>
     

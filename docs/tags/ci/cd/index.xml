@@ -2,52 +2,52 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>CI/CD on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/docs/tags/ci/cd/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/ci/cd/</link>
     <description>Recent content in CI/CD on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/ci/cd/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/ci/cd/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CodeBuild</title>
-      <link>https://cloudposse.github.io/docs/glossary/code-build/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/code-build/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/code-build/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/code-build/</guid>
       <description>CodeBuild scales continuously and processes multiple builds concurrently, so your builds are not left waiting in a queue. Because CodeBuild runs in AWS, it can leverage IAM Instance Profiles to assume roles to securely provision resources without exposing AWS access credentials.</description>
     </item>
     
     <item>
       <title>Codefresh</title>
-      <link>https://cloudposse.github.io/docs/glossary/codefresh/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/codefresh/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/codefresh/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/codefresh/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Continuous Delivery (CD)</title>
-      <link>https://cloudposse.github.io/docs/glossary/continuous-delivery/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/continuous-delivery/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/continuous-delivery/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/continuous-delivery/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Continuous Integration (CI)</title>
-      <link>https://cloudposse.github.io/docs/glossary/continuous-integration/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/continuous-integration/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/continuous-integration/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/continuous-integration/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Release Engineering</title>
-      <link>https://cloudposse.github.io/docs/glossary/release-engineering/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/release-engineering/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/release-engineering/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/release-engineering/</guid>
       <description></description>
     </item>
     

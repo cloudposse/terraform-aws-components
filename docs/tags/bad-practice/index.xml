@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>bad practice on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/docs/tags/bad-practice/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/bad-practice/</link>
     <description>Recent content in bad practice on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/bad-practice/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/bad-practice/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ClickOps</title>
-      <link>https://cloudposse.github.io/docs/glossary/clickops/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/clickops/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/clickops/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/clickops/</guid>
       <description>ClickOps is the error-prone and time-consuming process of having people click-through various menu options in cloud providers’ websites, to select and configure the correct automated computing infrastructure. This is typically coupled with WikiOps processes and is considered bad practice in the modern cloud era.</description>
     </item>
     
     <item>
       <title>WikiOps</title>
-      <link>https://cloudposse.github.io/docs/glossary/wikiops/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/wikiops/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/docs/glossary/wikiops/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/wikiops/</guid>
       <description>WikiOps is the pattern of following Wiki-style documentation as the means of building and operating your infrastructure. This is to be avoided as it relies on ClickOps and documentation that becomes quickly outdated and inconsistent.</description>
     </item>
     
