@@ -22,6 +22,52 @@
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/documentation/standards/</loc>
   </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/docs/targets.md/targets/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/docs/terraform.md/terraform/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/account-map/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/account-settings/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/account/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/cloudtrail-bucket/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/cloudtrail/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/datadog-integration/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/datadog-monitor/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/dns-delegated/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/dns-primary/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/ecr/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/efs/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/eks-iam/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/eks/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/iam-delegated-roles/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/iam-primary-roles/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/opsgenie/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/opsgenie/detailed-usage.md/detailed-usage/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/sso/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/tfstate-backend/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/transit-gateway/_index.md/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/vpc/_index.md/</loc>
+  </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/.editorconfig/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/.env/</loc>
