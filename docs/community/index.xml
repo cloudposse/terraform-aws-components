@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Community Resources on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/docs/community/</link>
+    <description>Recent content in Community Resources on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/community/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Automated Testing</title>
+      <link>https://cloudposse.github.io/docs/community/automated-testing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/community/automated-testing/</guid>
+      <description>Terraform Testing Nearly all of our Terraform modules are updated with automated tests. We have 2 general strategies. First is by running some bats tests that do some basic sanity checks. These tests are defined in our test-harness and generally don&amp;rsquo;t require any credentials to run. Since that&amp;rsquo;s the case, they can really only do basic linting and static analysis.
+Then we have some tests which are based on the terratest library for infrastructure testing that do more in-depth integration tests of module functionality.</description>
+    </item>
+    
+    <item>
+      <title>Code of Conduct</title>
+      <link>https://cloudposse.github.io/docs/community/code-of-conduct/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/community/code-of-conduct/</guid>
+      <description>Our Pledge In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
+Our Standards Examples of behavior that contributes to creating a positive environment include:
+ Using welcoming and inclusive language Being respectful of differing viewpoints and experiences Gracefully accepting constructive criticism Focusing on what is best for the community Showing empathy towards other community members  Examples of unacceptable behavior by participants include:</description>
+    </item>
+    
+    <item>
+      <title>Code Review Guidelines</title>
+      <link>https://cloudposse.github.io/docs/community/code-reviews/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/community/code-reviews/</guid>
+      <description>Here are some of our tips for conducting Code Reviews the SweetOps way. If you haven&amp;rsquo;t already, become familiar with our Best Practices and Terraform Best Practices.
+ Use the &amp;ldquo;Suggest&amp;rdquo; feature as much as possible. This makes it quick and easy for the contributor to accept or dismiss the recommendations. Use proper markdown in suggestions (e.g. code blocks) Always be polite and appreciative of the contributions! Use emoticons to up-vote other comments (rather than +1 comments) Use ChatOps commands like /rebuild-readme or /terraform-fmt to fix common problems Use ChatOps commands like /test all, /test bats, /test readme, /test terratest to run integration tests Recommend changes to better conform to our best-practices.</description>
+    </item>
+    
+    <item>
+      <title>Contributor Tips &amp; Tricks</title>
+      <link>https://cloudposse.github.io/docs/community/contributor-tips/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/community/contributor-tips/</guid>
+      <description>About This document is intended to describe common and not-so-common processes that the contributor team executes as part of maintaining the 300+ open source projects within the Cloud Posse Organization.
+Tips &amp;amp; Tricks Update Multiple Repos at Once To update many of the open source repos with a common change such as updating Terraform required_version pinning, adding GitHub actions, or updating pinned providers, the contributor team has adopted using microplane. This tool allows us to execute automated changes across dozens or even hundreds of our open source repos, which saves many hours of contributor time.</description>
+    </item>
+    
+    <item>
+      <title>GitHub Contributors</title>
+      <link>https://cloudposse.github.io/docs/community/contributors/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/community/contributors/</guid>
+      <description>About Cloud Posse maintains 300+ projects under our GitHub organization. All of our projects have stemmed from past consulting engagements with our customers. Everything we do is Open Sourced under our GitHub under the permissive APACHE2 license. With so many projects, however, it wouldn&amp;rsquo;t be possible to maintain all of them if we didn&amp;rsquo;t have the support from our community and some tools to make life easier.
+Our Tools Here are some of the tools we depend on for running our Open Source organization.</description>
+    </item>
+    
+    <item>
+      <title>GitHub Contributors FAQ</title>
+      <link>https://cloudposse.github.io/docs/community/faq/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/community/faq/</guid>
+      <description>How do I see all open Pull Requests? You can find all open Pull Requests by going to GitHub and searching for open PRs.
+What if we approve and merge a Pull Request with a problem? We encourage everyone who uses our modules to practice version pinning. So while we try to ensure master is always stable, we&amp;rsquo;re not concerned if we occasionally break things. Also, we believe in a blameless culture.</description>
+    </item>
+    
+  </channel>
+</rss>

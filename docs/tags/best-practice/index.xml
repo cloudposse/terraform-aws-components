@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>best-practice on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/docs/tags/best-practice/</link>
+    <description>Recent content in best-practice on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/best-practice/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Build Harness</title>
+      <link>https://cloudposse.github.io/docs/glossary/build-harness/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/build-harness/</guid>
+      <description>The primary benefit of using a build-harness is it allows for the consolidation of business logic related to building software. This allows to keep things DRY. Using a centralized repo that can be versioned and shared across multiple projects reduces long-term technical debt associated with building and releasing software by reducing maintenance effort.
+We provide one that we use in nearly all of our projects. It&amp;rsquo;s available here: https://github.com/cloudposse/build-harness</description>
+    </item>
+    
+    <item>
+      <title>Multi-Factor Authentication (MFA)</title>
+      <link>https://cloudposse.github.io/docs/glossary/mfa/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/mfa/</guid>
+      <description>There are a lot of terms that roughly mean the same thing.
+ MFA - Multi-factor Authentication OTP - One-time password (~MFA Token) 2FA - Two-factor authentication  </description>
+    </item>
+    
+    <item>
+      <title>Single Sign-on (SSO)</title>
+      <link>https://cloudposse.github.io/docs/glossary/sso/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/sso/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

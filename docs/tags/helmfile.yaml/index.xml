@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>helmfile.yaml on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/docs/tags/helmfile.yaml/</link>
+    <description>Recent content in helmfile.yaml on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/helmfile.yaml/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Declarative Declaration</title>
+      <link>https://cloudposse.github.io/docs/glossary/declarative/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/declarative/</guid>
+      <description>References  https://en.wikipedia.org/wiki/Infrastructure_as_Code#Types_of_approaches  </description>
+    </item>
+    
+  </channel>
+</rss>

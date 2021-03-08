@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pattern on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/docs/tags/pattern/</link>
+    <description>Recent content in pattern on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/pattern/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The curl-bash pattern</title>
+      <link>https://cloudposse.github.io/docs/glossary/curl-bash/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/curl-bash/</guid>
+      <description>The curl-bash pattern is an approach to installing software on your local machine via your terminal. It utilizes curl to download a script which is then piped (i.e. | ) into bash. This enables the script to execute code on your machine which then does whatever setup or installation steps it needs to do to install the target software. Example:
+curl -sSL https://get.rvm.io | bash </description>
+    </item>
+    
+    <item>
+      <title>The docker-bash pattern</title>
+      <link>https://cloudposse.github.io/docs/glossary/docker-bash/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/docker-bash/</guid>
+      <description>The docker-bash pattern is an approach to installing software on your local machine via your terminal and docker. It utilizes docker run to output a script which is then piped (i.e. | ) into bash. This enables the script to execute code on your machine which then does whatever setup or installation steps it needs to do to install the target software. Geodesic utilizes this pattern via the init script which is expected to be piped into bash:</description>
+    </item>
+    
+  </channel>
+</rss>

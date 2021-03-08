@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Best Practices on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/docs/tags/best-practices/</link>
+    <description>Recent content in Best Practices on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/best-practices/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Code Review Guidelines</title>
+      <link>https://cloudposse.github.io/docs/community/code-reviews/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/community/code-reviews/</guid>
+      <description>Here are some of our tips for conducting Code Reviews the SweetOps way. If you haven&amp;rsquo;t already, become familiar with our Best Practices and Terraform Best Practices.
+ Use the &amp;ldquo;Suggest&amp;rdquo; feature as much as possible. This makes it quick and easy for the contributor to accept or dismiss the recommendations. Use proper markdown in suggestions (e.g. code blocks) Always be polite and appreciative of the contributions! Use emoticons to up-vote other comments (rather than +1 comments) Use ChatOps commands like /rebuild-readme or /terraform-fmt to fix common problems Use ChatOps commands like /test all, /test bats, /test readme, /test terratest to run integration tests Recommend changes to better conform to our best-practices.</description>
+    </item>
+    
+    <item>
+      <title>Makefile Best Practices</title>
+      <link>https://cloudposse.github.io/docs/reference/best-practices/make-best-practices/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/reference/best-practices/make-best-practices/</guid>
+      <description>Avoid using Evals The use of $(eval ...) leads to very confusing execution paths, due to the way make evaluates a target. When make executes a target, it preprocesses all $(....) interpolations and renders the template. After that, it executes, line-by-line each command in the target.
+Namespace targets Over time, the number of targets in a Makefile will grow. We recommend namespacing all targets.
+For example:
+docker/build: docker build -t example/test .</description>
+    </item>
+    
+    <item>
+      <title>Terraform Best Practices</title>
+      <link>https://cloudposse.github.io/docs/reference/best-practices/terraform-best-practices/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/reference/best-practices/terraform-best-practices/</guid>
+      <description>These are the opinionated best-practices we follow at Cloud Posse. They are inspired by years of experience writing terraform and borrow on the many other helpful resources like those by HashiCorp.
+See our general Best Practices which also apply to Terraform.
+Language Use indented HEREDOC syntax Using &amp;lt;&amp;lt;-EOT (as opposed to &amp;lt;&amp;lt;EOT without the -) ensures the code can be indented inline with the other code in the project. Note that EOT can be any uppercase string (e.</description>
+    </item>
+    
+  </channel>
+</rss>

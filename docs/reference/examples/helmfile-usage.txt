@@ -1,0 +1,26 @@
+NAME:
+   helmfile -
+
+USAGE:
+   helmfile [global options] command [command options] [arguments...]
+
+COMMANDS:
+     repos   sync repositories from state file (helm repo add && helm repo update)
+     charts  sync charts from state file (helm upgrade --install)
+     diff    diff charts from state file against env (helm diff)
+     sync    sync all resources from state file (repos, charts and local chart deps)
+     status  retrieve status of releases in state file
+     delete  delete charts from state file (helm delete)
+     test    test releases from state file (helm test)
+
+GLOBAL OPTIONS:
+   --file FILE, -f FILE         load config from FILE (default: "helmfile.yaml")
+   --quiet, -q                  silence output
+   --namespace value, -n value  Set namespace. Uses the namespace set in the context by default
+   --selector,l value           Only run using the releases that match labels. Labels can take the form of foo=bar or foo!=bar.
+	                              A release must match all labels in a group in order to be used. Multiple groups can be specified at once.
+	                              --selector tier=frontend,tier!=proxy --selector tier=backend. Will match all frontend, non-proxy releases AND all backend releases.
+	                              The name of a release can be used as a label. --selector name=myrelease
+   --kube-context value         Set kubectl context. Uses current context by default
+   --help, -h                   show help
+   --version, -v                print the version

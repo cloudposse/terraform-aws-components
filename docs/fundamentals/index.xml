@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fundamentals on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/docs/fundamentals/</link>
+    <description>Recent content in Fundamentals on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/fundamentals/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction</title>
+      <link>https://cloudposse.github.io/docs/fundamentals/introduction/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/fundamentals/introduction/</guid>
+      <description>What is SweetOps? SweetOps is a methodology for building modern, secure infrastructure on top of Amazon Web Services (AWS). It provides a toolset, library of reusable Infrastructure as Code (IaC), and opinionated patterns to help you bootstrap robust cloud native architectures. Built in an Open Source first fashion by Cloud Posse, it is utilized by many high performing startups to ensure their cloud infrastructure is an advantage instead of a liability.</description>
+    </item>
+    
+    <item>
+      <title>Philosophy</title>
+      <link>https://cloudposse.github.io/docs/fundamentals/philosophy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/fundamentals/philosophy/</guid>
+      <description>SweetOps is built on a foundational philosophy that ensures the methodology is comprehensive and reusable across organizations. To fully understand what SweetOps is and how to utilize it effectively, it&amp;rsquo;s critical to understand the backing principles that define it.
+100% Open Source All of the primary technology that enables SweetOps is Open Sourced by Cloud Posse and the community under Apache 2.0 Open Source Software License. Using open source licensing is a practical, deliberate strategy.</description>
+    </item>
+    
+    <item>
+      <title>Concepts</title>
+      <link>https://cloudposse.github.io/docs/fundamentals/concepts/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/fundamentals/concepts/</guid>
+      <description>SweetOps is built on top of a number of high-level concepts and terminology that are critical to understanding prior to getting started. In this document, we break down these concepts to help you get a leg up prior to going through your first tutorial.
+Components Components are opinionated, self-contained units of infrastructure as code that solve one, specific problem or use-case. SweetOps has two flavors of components:
+ Terraform: Stand-alone root modules that implement some piece of your infrastructure.</description>
+    </item>
+    
+  </channel>
+</rss>

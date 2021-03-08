@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>aws on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/docs/tags/aws/</link>
+    <description>Recent content in aws on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Amazon Certificate Manager (ACM)</title>
+      <link>https://cloudposse.github.io/docs/glossary/acm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/acm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Amazon Machine Image (AMI)</title>
+      <link>https://cloudposse.github.io/docs/glossary/ami/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/ami/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Amazon Systems Manager (SSM)</title>
+      <link>https://cloudposse.github.io/docs/glossary/ssm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/ssm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>aws-vault</title>
+      <link>https://cloudposse.github.io/docs/glossary/aws-vault/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/aws-vault/</guid>
+      <description>aws-vault is a utility for securely managing secrets with AWS Systems Manager (SSM) Parameter Store and KMS</description>
+    </item>
+    
+    <item>
+      <title>Chamber</title>
+      <link>https://cloudposse.github.io/docs/glossary/chamber/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/chamber/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CloudFront</title>
+      <link>https://cloudposse.github.io/docs/glossary/cloudfront/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/cloudfront/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CloudTrail</title>
+      <link>https://cloudposse.github.io/docs/glossary/cloudtrail/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/cloudtrail/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CloudWatch</title>
+      <link>https://cloudposse.github.io/docs/glossary/cloudwatch/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/cloudwatch/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CloudWatch Logs</title>
+      <link>https://cloudposse.github.io/docs/glossary/cloudwatch-logs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/cloudwatch-logs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CodeBuild</title>
+      <link>https://cloudposse.github.io/docs/glossary/code-build/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/code-build/</guid>
+      <description>CodeBuild scales continuously and processes multiple builds concurrently, so your builds are not left waiting in a queue. Because CodeBuild runs in AWS, it can leverage IAM Instance Profiles to assume roles to securely provision resources without exposing AWS access credentials.</description>
+    </item>
+    
+    <item>
+      <title>CodeDeploy</title>
+      <link>https://cloudposse.github.io/docs/glossary/code-deploy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/code-deploy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CodePipeline</title>
+      <link>https://cloudposse.github.io/docs/glossary/code-pipeline/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/code-pipeline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ECS</title>
+      <link>https://cloudposse.github.io/docs/glossary/ecs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/ecs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ECS Service</title>
+      <link>https://cloudposse.github.io/docs/glossary/ecs-service/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/ecs-service/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ECS Task</title>
+      <link>https://cloudposse.github.io/docs/glossary/ecs-task/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/ecs-task/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Elastic Container Registry (ECR)</title>
+      <link>https://cloudposse.github.io/docs/glossary/ecr/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/ecr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ElasticBeanstalk (EB)</title>
+      <link>https://cloudposse.github.io/docs/glossary/eb/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/eb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Goofys</title>
+      <link>https://cloudposse.github.io/docs/glossary/goofys/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/goofys/</guid>
+      <description>goofys is a a high-performance, POSIX-ish Amazon S3 file system written in Go. We use goofys in Geodesic</description>
+    </item>
+    
+    <item>
+      <title>HashiCorp Terraform</title>
+      <link>https://cloudposse.github.io/docs/glossary/terraform/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/terraform/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Identity Access Management (IAM)</title>
+      <link>https://cloudposse.github.io/docs/glossary/iam/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/iam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Key Management Service (KMS)</title>
+      <link>https://cloudposse.github.io/docs/glossary/kms/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/kms/</guid>
+      <description>AWS Key Management Service is integrated with most other AWS services to help you protect the data you store with these services. AWS Key Management Service is also integrated with AWS CloudTrail to provide you with logs of all key usage to help meet your regulatory and compliance needs.</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes Ops (kops)</title>
+      <link>https://cloudposse.github.io/docs/glossary/kops/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/kops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Lambda</title>
+      <link>https://cloudposse.github.io/docs/glossary/lambda/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/lambda/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Parameter Store</title>
+      <link>https://cloudposse.github.io/docs/glossary/parameter-store/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/parameter-store/</guid>
+      <description>The Amazon Systems Manager Parameter Store provides secure, hierarchical storage for configuration data management and secrets management.
+You can store data such as passwords, database strings, and license codes as parameter values. You can store values as plain text or encrypted data using KMS. You can then reference values by using the unique name that you specified when you created the parameter. Highly scalable, available, and durable, Parameter Store is backed by the AWS Cloud.</description>
+    </item>
+    
+    <item>
+      <title>Relational Database Service (RDS)</title>
+      <link>https://cloudposse.github.io/docs/glossary/rds/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/rds/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>S3</title>
+      <link>https://cloudposse.github.io/docs/glossary/s3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/s3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>S3 Bucket</title>
+      <link>https://cloudposse.github.io/docs/glossary/s3-bucket/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/s3-bucket/</guid>
+      <description>Think of an S3 bucket as a top-level folder. It must be globally unique on AWS across all customers and accounts.</description>
+    </item>
+    
+    <item>
+      <title>Simple Notification Service (SNS)</title>
+      <link>https://cloudposse.github.io/docs/glossary/sns/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/sns/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tools</title>
+      <link>https://cloudposse.github.io/docs/reference/tools/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/reference/tools/</guid>
+      <description>1Password The 1Password for Teams product by AgileBits is argubably the most popular SaaS-based password management tool. In our opinion, it offers a better user experience over apps like LastPass as well as provides integration with Duo and Slack for real-time activity notifications.
+Best Practices Here are some of our recommended practices for working with 1Password. If your organization choses an alternative password management solution, we recommend implementing compensating controls.</description>
+    </item>
+    
+    <item>
+      <title>Virtual Private Cloud (VPC)</title>
+      <link>https://cloudposse.github.io/docs/glossary/vpc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/vpc/</guid>
+      <description>A virtual private cloud (“VPC”) is an isolated environment running inside of a public cloud. You can think of it like a private data center with its own private subnets and resources. A VPC can also be an extension of a physical datacenter. The most common example of a VPC is the service that Amazon offers called “Amazon VPC” which allows customers to make Amazon EC2 an extension to their physical infrastructure using an IPsec VPN tunnel.</description>
+    </item>
+    
+  </channel>
+</rss>

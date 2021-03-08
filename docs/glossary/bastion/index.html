@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="google-site-verification" content="uY7FoBLCwsBfMMXefHxUz3lvHjZuWyURCIgpA-ia3_g" /><meta name="generator" content="Hugo 0.81.0" />
+<title>Bastion&nbsp;&mdash;&nbsp;Cloud Posse Developer Hub</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,900" rel="stylesheet">
+<link rel="shortcut icon" href="https://cloudposse.github.io/docs/images/favicon.png" type="image/x-icon" />
+<script type="text/javascript">
+      var baseurl = "https:\/\/cloudposse.github.io\/docs";
+</script>
+<link rel="canonical" href="https://cloudposse.github.io/docs/glossary/bastion/"><link rel="apple-touch-icon-precomposed" href="https://cloudposse.github.io/docs/images/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.0/styles/solarized-dark.min.css" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.0/highlight.min.js" crossorigin="anonymous"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="https://cloudposse.github.io/docs/css/styles.css">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WQWH2XV');</script>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
+
+
+<script type="application/ld+json">"{\"@context\":\"http://schema.org\",\"@type\":\"BlogPosting\",\"accountablePerson\":\"\",\"articleSection\":\"glossary\",\"author\":\"\",\"copyrightHolder\":\"\",\"copyrightYear\":\"0001\",\"creator\":\"\",\"dateModified\":\"0001-01-01T00:00:00Z\",\"datePublished\":\"0001-01-01T00:00:00Z\",\"description\":\"A bastion host is the only host permitted to be directly addressed via SSH from the internet.\",\"headline\":\"Bastion\",\"inLanguage\":\"en-US\",\"keywords\":[\"Blog\"],\"mainEntityOfPage\":{\"@id\":\"https://cloudposse.github.io/docs\",\"@type\":\"WebPage\"},\"name\":\"Bastion\",\"publisher\":\"\",\"url\":\"https://cloudposse.github.io/docs/glossary/bastion/\",\"wordCount\":0}"</script>
+
+<script type="application/ld+json">"""""""""""""""""""""{\"@context\":\"http://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":{\"@id\":\"https://cloudposse.github.io/docs\",\"name\":\"Home\"},\"position\":1},{\"@type\":\"ListItem\",\"item\":{\"@id\":\"https://cloudposse.github.io/docsglossary\",\"name\":\"Glossary\"},\"position\":3},{\"@type\":\"ListItem\",\"item\":{\"@id\":\"https://cloudposse.github.io/docsglossary/bastion\",\"name\":\"Bastion\"},\"position\":4}]}"</script>
+
+
+
+
+    
+  </head>
+
+  
+  <body data-url="https://cloudposse.github.io/docs/glossary/bastion/" class="cloudposse no-page-slug">
+  
+    
+      
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQWH2XV" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe>
+</noscript>
+<header class="header">
+  <div class="header__container container">
+    <div class="logo header__logo">
+      <a href="https://cloudposse.github.io/docs/"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 300 68.957">
+  <g>
+    <path d=" M 82.046 43.387 C 82.325 42.713 82.557 42.285 82.682 41.828 C 83.316 39.494 83.906 37.148 84.544 34.816 C 85.509 31.287 88.757 30.859 91.502 31.454 C 92.446 31.658 92.674 32.478 92.475 33.38 C 91.917 35.909 91.34 38.433 90.804 40.966 C 90.734 41.297 90.752 41.732 90.913 42.015 C 92.274 44.406 91.97 46.431 89.917 48.311 C 89.179 48.987 89.299 52.05 90.189 52.412 C 90.697 52.618 91.59 52.487 92.017 52.144 C 92.792 51.519 93.443 50.683 93.98 49.83 C 96.87 45.243 98.451 40.117 99.797 34.934 C 100.688 31.505 103.265 30.865 106.188 31.403 C 107.078 31.566 107.362 32.233 107.229 33.029 C 106.773 35.749 106.276 38.462 105.784 41.176 C 105.148 44.683 104.497 48.188 103.866 51.697 C 103.806 52.028 103.817 52.378 103.842 52.716 C 103.981 54.579 105.13 55.272 106.993 54.552 C 106.993 52.389 106.75 50.163 107.036 48.007 C 108.184 39.344 114.781 32.297 122.633 31.107 C 123.573 30.964 123.813 30.534 123.916 29.619 C 124.713 22.506 125.978 15.474 128.752 8.84 C 129.703 6.566 130.983 4.297 132.608 2.464 C 136.366 -1.775 142.158 -0.324 143.695 5.127 C 144.867 9.283 144.422 13.49 143.556 17.635 C 141.516 27.389 137.335 36.307 132.56 44.957 C 131.643 46.618 131.388 48.128 131.799 49.899 C 132.424 52.586 132.953 55.297 133.559 57.988 C 134.029 60.075 133.689 61.413 132.37 62.006 C 130.896 62.668 127.912 62.698 126.892 60.998 C 126.156 59.771 125.598 58.437 124.981 57.19 C 124.328 57.813 123.6 58.497 122.885 59.195 C 119.48 62.518 114.721 63.01 110.759 60.382 C 110.164 59.987 109.763 59.994 109.167 60.331 C 107.014 61.549 104.693 62.14 102.203 62.015 C 100.209 61.915 98.58 61.088 97.854 59.219 C 97.143 57.391 96.77 55.432 96.284 53.66 C 95.967 54.469 95.614 55.504 95.163 56.494 C 94.322 58.341 93.176 59.958 91.427 61.075 C 88.657 62.846 85.278 62.107 83.548 59.3 C 82.344 57.347 81.633 55.234 81.715 52.898 C 81.749 51.934 81.72 50.967 81.72 50.001 C 81.608 49.964 81.496 49.926 81.383 49.889 C 81.215 50.247 81 50.59 80.886 50.965 C 79.582 55.241 77.33 58.812 73.16 60.778 C 68.822 62.824 64.583 62.539 60.635 59.705 C 60.01 59.256 59.627 59.234 58.989 59.681 C 55.862 61.871 52.353 62.611 48.686 61.654 C 47.203 61.267 45.845 60.205 44.582 59.25 C 43.953 58.774 43.565 58.599 42.815 58.885 C 36.491 61.292 29.923 62.274 23.179 61.977 C 19.374 61.809 15.667 61.027 12.22 59.349 C 4.857 55.765 0.787 49.749 0.153 41.692 C -0.619 31.865 1.449 22.659 8.07 15.026 C 14.497 7.618 22.722 4.801 32.387 6.702 C 37.386 7.686 40.951 11.829 41.586 16.904 C 41.957 19.873 41.791 22.76 40.444 25.496 C 39.314 27.79 36.75 28.759 34.388 27.787 C 33.161 27.282 32.393 26.242 32.489 24.911 C 32.601 23.347 32.898 21.797 33.058 20.235 C 33.49 16.026 31.293 13.554 27.073 13.499 C 21.95 13.432 17.993 15.764 14.915 19.669 C 11.628 23.839 10.035 28.716 9.733 33.952 C 9.568 36.814 9.549 39.773 10.087 42.568 C 11.326 49.005 15.559 52.682 21.912 53.821 C 28.312 54.968 34.519 53.92 40.56 51.683 C 40.632 51.656 40.684 51.572 40.469 51.772 C 40.353 47.628 39.968 43.721 40.185 39.847 C 40.814 28.652 42.787 17.741 48.057 7.663 C 49.249 5.383 50.708 3.3 52.802 1.735 C 55.812 -0.516 59.543 -0.538 61.775 1.775 C 63.512 3.576 64.059 5.905 64.314 8.306 C 65.034 15.1 63.27 21.461 60.847 27.687 C 57.933 35.178 53.941 42.083 49.283 48.615 C 47.862 50.609 49.157 54.113 51.554 54.736 C 53.242 55.176 54.827 54.848 56.356 54.058 C 56.092 52.529 55.674 51.046 55.607 49.548 C 55.314 43.028 57.051 37.324 62.649 33.371 C 66.738 30.484 72.591 30.363 76.447 33.124 C 79.327 35.185 80.747 38.197 81.428 41.598 C 81.503 41.973 81.567 42.351 81.655 42.722 C 81.684 42.837 81.778 42.937 82.046 43.387 Z  M 47.854 40.568 C 48.003 40.595 48.152 40.623 48.301 40.651 C 52.819 32.785 56.789 24.691 57.932 15.538 C 58.218 13.247 58.046 10.888 57.954 8.565 C 57.92 7.707 57.65 6.698 56.553 6.527 C 55.459 6.357 54.974 7.253 54.582 8.036 C 53.938 9.322 53.313 10.633 52.85 11.992 C 50.651 18.445 49.353 25.105 48.545 31.858 C 48.199 34.747 48.078 37.664 47.854 40.568 Z  M 63.746 47.17 C 65.523 47.339 66.09 47.862 66.128 49.553 C 66.15 50.517 66.058 51.51 65.833 52.446 C 65.49 53.875 65.631 54.333 67.014 54.899 C 68.279 55.417 69.528 55.274 70.691 54.607 C 72.83 53.379 73.673 51.317 74.065 49.036 C 74.123 48.7 73.73 48.257 73.487 47.905 C 72.581 46.596 71.331 45.421 70.812 43.979 C 70.157 42.163 70.09 40.135 69.75 38.075 C 67.202 37.415 63.455 41.02 63.746 47.17 Z  M 131.18 37.095 C 131.548 36.707 131.666 36.632 131.713 36.526 C 134.697 29.845 137.389 23.062 138.35 15.744 C 138.698 13.095 138.995 10.403 138.157 7.779 C 137.995 7.272 137.502 6.871 137.162 6.422 C 136.721 6.775 136.068 7.041 135.879 7.498 C 135.252 9.02 134.567 10.574 134.307 12.181 C 133.355 18.085 132.524 24.01 131.736 29.94 C 131.436 32.198 131.375 34.489 131.18 37.095 Z  M 115.886 54.482 C 117.339 55.853 119.339 55.863 120.836 54.421 C 121.779 53.513 122.619 52.479 123.385 51.416 C 123.694 50.988 123.818 50.324 123.798 49.776 C 123.667 46.17 123.471 42.566 123.302 38.961 C 123.283 38.553 123.299 38.145 123.299 37.718 C 119.718 38.262 115.655 43.128 115.412 47.026 C 117.82 47.546 117.819 51.767 115.886 54.482 Z "
+      fill="rgb(54,69,72)" />
+    <path d=" M 250.193 51.211 C 251.733 48.959 253.608 46.63 255.021 44.049 C 256.873 40.666 258.398 37.101 259.992 33.582 C 261.162 31 265.227 29.478 267.729 30.85 C 268.091 31.049 268.453 31.768 268.372 32.153 C 268.166 33.135 267.784 34.101 267.337 35.007 C 266.042 37.634 265.903 40.11 267.976 42.45 C 268.735 43.307 269.397 44.253 270.074 45.181 C 272.104 47.961 274.016 50.789 273.291 54.567 C 274.526 54.448 274.66 53.9 274.416 52.911 C 272.947 46.942 273.918 41.391 277.73 36.533 C 280.904 32.491 285.162 30.71 290.326 31.388 C 293.962 31.866 296.566 34.625 296.882 38.298 C 297.275 42.877 295.551 46.516 291.642 48.881 C 289.631 50.097 287.36 50.922 285.135 51.728 C 284.185 52.072 283.806 52.742 283.731 53.465 C 283.688 53.882 284.321 54.517 284.799 54.815 C 286.898 56.123 290.789 55.801 292.729 54.093 C 294.03 52.946 295.203 51.642 296.348 50.335 C 297.018 49.571 297.805 48.84 298.709 49.376 C 299.334 49.747 299.849 50.731 299.942 51.499 C 300.347 54.816 298.586 57.19 296.167 59.131 C 291.6 62.796 284.05 63.088 279.032 59.803 C 278.265 59.301 277.734 59.353 276.871 59.637 C 274.794 60.319 272.619 60.705 270.485 61.219 C 270.044 61.325 269.539 61.364 269.187 61.612 C 266.874 63.243 264.334 63.75 261.56 63.343 C 258.385 62.876 256.648 61.122 256.282 57.92 C 256.165 57.938 256.016 57.915 255.94 57.98 C 253.307 60.172 250.187 60.982 246.856 61.232 C 246.416 61.265 245.92 61.384 245.568 61.632 C 243.087 63.379 240.353 63.802 237.427 63.27 C 234.96 62.822 232.96 60.866 232.815 58.795 C 232.653 56.487 234.174 54.64 236.487 54.413 C 237.286 54.335 238.1 54.377 238.905 54.413 C 239.697 54.449 240.486 54.547 241.426 54.632 C 241.249 51.038 239.127 48.616 236.961 45.964 C 236.674 46.438 236.454 46.772 236.262 47.122 C 234.227 50.846 231.656 54.161 228.618 57.117 C 227.171 58.525 225.603 58.813 224.54 57.876 C 223.417 56.886 223.412 55.142 224.531 53.586 C 224.63 53.448 224.732 53.31 224.845 53.183 C 229.84 47.595 233.423 41.151 236.118 34.213 C 237.364 31.006 239.514 30.445 242.219 30.523 C 244.98 30.603 245.622 31.448 244.258 33.806 C 241.972 37.759 242.776 40.921 245.642 44.194 C 247.422 46.223 248.632 48.753 250.193 51.211 Z  M 281.575 47.117 C 281.832 47.201 281.917 47.259 281.99 47.246 C 282.405 47.176 282.83 47.128 283.228 47 C 286.041 46.098 288.628 44.869 289.843 41.914 C 290.438 40.469 290.056 38.779 289.092 38.051 C 288.076 37.282 286.259 37.36 285.061 38.383 C 282.36 40.69 281.745 43.824 281.575 47.117 Z  M 260.601 46.036 C 259.844 47.058 260.026 47.006 260.301 47.958 C 260.63 49.095 260.78 50.348 260.685 51.524 C 260.609 52.475 260.056 53.388 259.724 54.292 C 261.489 54.384 263.205 54.472 265.052 54.567 C 264.798 51.01 262.716 48.543 260.601 46.036 Z "
+      fill="rgb(54,69,72)" />
+    <path d=" M 152.836 47.182 C 152.948 38.889 153.998 31.4 157.317 24.377 C 161.462 15.605 167.905 9.472 177.503 7.089 C 181.932 5.99 186.423 5.908 190.89 6.919 C 202.4 9.524 206.021 20.135 202.553 29.424 C 200.309 35.434 195.861 39.343 190.011 41.519 C 186.904 42.675 183.531 43.133 180.26 43.816 C 179.547 43.965 179.286 44.175 179.162 44.89 C 178.278 49.994 177.345 55.09 176.416 60.187 C 176.302 60.811 176.149 61.432 175.961 62.039 C 174.101 68.023 169.407 70.304 163.476 68.178 C 159.532 66.763 157.007 63.922 155.277 60.25 C 153.232 55.911 152.819 51.274 152.836 47.182 Z  M 180.513 37.267 C 181.574 37.083 182.413 36.986 183.226 36.788 C 186.832 35.908 190.065 34.407 192.104 31.1 C 194.02 27.993 194.495 24.577 193.886 21.04 C 193.275 17.501 191.154 15.046 187.712 14.104 C 181.472 12.398 175.658 13.381 170.581 17.577 C 167.226 20.349 164.967 23.932 163.357 27.928 C 161.436 32.695 160.395 37.682 160.1 42.797 C 159.865 46.873 159.731 51.005 161.104 54.921 C 161.747 56.755 162.789 58.527 163.99 60.062 C 164.982 61.332 166.331 60.965 167.003 59.469 C 167.434 58.509 167.776 57.483 167.977 56.451 C 168.487 53.826 168.893 51.181 169.344 48.545 C 169.613 46.971 169.89 45.399 170.177 43.747 C 169.165 43.579 168.328 43.474 167.507 43.296 C 165.483 42.857 164.462 41.357 164.811 39.39 C 165.135 37.564 166.53 36.66 168.615 36.919 C 169.483 37.027 170.352 37.121 171.265 37.226 C 171.397 36.55 171.51 36.014 171.606 35.474 C 172.316 31.461 173.014 27.446 173.737 23.435 C 174.051 21.692 174.886 20.292 176.675 19.758 C 178.422 19.237 180.279 18.984 181.801 20.196 C 183.272 21.368 182.881 23.122 182.621 24.719 C 181.953 28.82 181.247 32.915 180.513 37.267 Z "
+      fill="rgb(54,69,72)" />
+    <path d=" M 223.418 44.723 C 223.305 49.542 222.216 53.596 219.399 57.02 C 215.887 61.286 211.323 62.968 205.966 61.618 C 200.831 60.324 198.336 56.411 197.457 51.49 C 196.456 45.883 197.572 40.644 201.124 36.088 C 204.617 31.607 210.677 29.912 215.799 31.983 C 220.166 33.75 222.221 37.34 223.089 41.747 C 223.31 42.865 223.344 44.021 223.418 44.723 Z  M 205.13 47.485 C 205.284 48.701 205.346 49.937 205.612 51.128 C 206.115 53.381 207.59 54.797 209.463 55.004 C 211.315 55.208 212.982 54.237 213.974 52.141 C 215.583 48.743 215.719 45.168 214.725 41.597 C 214.228 39.812 213.122 38.368 211.051 38.186 C 208.91 37.998 207.542 39.195 206.577 40.939 C 205.453 42.969 205.278 45.21 205.13 47.485 Z "
+      fill="rgb(54,69,72)" />
+  </g>
+</svg>
+      </a>
+    </div>
+    <div class="burger header__burger">
+      <a class="header__burger-link" href="javascript:void(0);">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+    <nav class="shortcuts header__shortcuts">
+      <li id="nav-forum" class="" role="">
+        <a href="https://ask.sweetops.com"  rel="noopener">
+          <i class='fa fa-book'></i> <label>Forum</label>
+        </a>
+      </li>
+      <li id="nav-community" class="" role="">
+        <a href="https://sweetops.com"  rel="noopener">
+          <i class='fa fa-bullhorn'></i> <label>Community</label>
+        </a>
+      </li>
+      <li id="nav-slack" class="" role="">
+        <a href="https://slack.sweetops.com"  rel="noopener">
+          <i class='fa fa-bullhorn'></i> <label>Slack</label>
+        </a>
+      </li>
+      <li id="nav-github" class="" role="">
+        <a href="https://github.com/cloudposse/"  rel="noopener">
+          <i class='fab fa-github'></i> <label>Our GitHub</label>
+        </a>
+      </li>
+      <li id="nav-support" class="" role="">
+        <a href="https://cloudposse.com/accelerate"  rel="noopener">
+          <i class='fa fa-question'></i> <label>Support</label>
+        </a>
+      </li>
+      <li id="nav-contact-us" class="" role="">
+        <a href="https://cloudposse.github.io/docs/documentation/contact-us/"  rel="noopener">
+          <i class='fa fa-envelope'></i> <label>Contact Us</label>
+        </a>
+      </li>
+    </nav>
+  </div>
+</header>
+
+
+
+
+<div class="subnav">
+  <div class="subnav__container container">
+    
+    <div class="subnav__breadcrumbs breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+      
+
+
+
+
+
+
+
+ <a href='https://cloudposse.github.io/docs/'>Home</a> > <a href='https://cloudposse.github.io/docs/glossary/'>Glossary</a> > <span class='breadcrumbs__title'>Bastion</span>
+
+ 
+
+ 
+
+
+    </div>
+
+    <div class="subnav__search-bar search-bar search-bar--subnav">
+      <div id="search-box" class="search-box"></div>
+      <div id="search-results" class="search-results">
+        <div id="search-stats" class="search-stats"></div>
+        <div id="search-hits" class="search-hits"></div>
+        <div class="search-more">
+          <a class="search-more__link" href="https://cloudposse.github.io/docs/search/">view all results</a>
+        </div>
+      </div>
+    </div>
+    <div class="subnav__nav-select nav-select">
+      
+      <i class="fa fa-angle-down subnav__nav-select-icon"></i>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+<div class="page-layout">
+
+  
+  <aside class="left-sidebar">
+  <div class="left-sidebar__scroller">
+    <ul class="left-sidebar-menu">
+    <li data-nav-id="/fundamentals/" class="left-sidebar-menu__item haschildren
+        ">
+      <div class="left-sidebar-menu__item-title">
+      <a href="https://cloudposse.github.io/docs/fundamentals/" class="left-sidebar-menu__link">Fundamentals</a><i class="fa fa-angle-right fa-lg category-icon left-sidebar-menu__icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul class="left-sidebar-menu__submenu">
+      <li data-nav-id="/fundamentals/introduction/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/fundamentals/introduction/">
+            Introduction
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/fundamentals/philosophy/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/fundamentals/philosophy/">
+            Philosophy
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/fundamentals/concepts/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/fundamentals/concepts/">
+            Concepts
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/tutorials/" class="left-sidebar-menu__item haschildren
+        ">
+      <div class="left-sidebar-menu__item-title">
+      <a href="https://cloudposse.github.io/docs/tutorials/" class="left-sidebar-menu__link">Tutorials</a><i class="fa fa-angle-right fa-lg category-icon left-sidebar-menu__icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul class="left-sidebar-menu__submenu">
+      <li data-nav-id="/tutorials/geodesic-getting-started/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/tutorials/geodesic-getting-started/">
+            Getting started with Geodesic
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/howto/" class="left-sidebar-menu__item haschildren
+        ">
+      <div class="left-sidebar-menu__item-title">
+      <a href="https://cloudposse.github.io/docs/howto/" class="left-sidebar-menu__link">How-To</a><i class="fa fa-angle-right fa-lg category-icon left-sidebar-menu__icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul class="left-sidebar-menu__submenu">
+      <li data-nav-id="/howto/updating-modules-for-terraform-14/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/howto/updating-modules-for-terraform-14/">
+            Updating Modules for Terraform 0.14
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/reference/" class="left-sidebar-menu__item haschildren
+        ">
+      <div class="left-sidebar-menu__item-title">
+      <a href="https://cloudposse.github.io/docs/reference/" class="left-sidebar-menu__link">Reference</a><i class="fa fa-angle-right fa-lg category-icon left-sidebar-menu__icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul class="left-sidebar-menu__submenu">
+    <li data-nav-id="/reference/best-practices/" class="left-sidebar-menu__item haschildren
+        ">
+      <div class="left-sidebar-menu__item-title">
+      <a href="https://cloudposse.github.io/docs/reference/best-practices/" class="left-sidebar-menu__link">Best Practices</a><i class="fa fa-angle-right fa-lg category-icon left-sidebar-menu__icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul class="left-sidebar-menu__submenu">
+      <li data-nav-id="/reference/best-practices/docker-best-practices/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/reference/best-practices/docker-best-practices/">
+            Docker Best Practices
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/docker-tips-tricks/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/reference/best-practices/docker-tips-tricks/">
+            Docker Tips &amp; Tricks
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/editor-config/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/reference/best-practices/editor-config/">
+            Editor Config
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/github-feature-branches/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/reference/best-practices/github-feature-branches/">
+            Feature Branches
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/github-best-practices/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/reference/best-practices/github-best-practices/">
+            GitHub Best Practices
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/gost-framework/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/reference/best-practices/gost-framework/">
+            GOST Framework
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/make-best-practices/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/reference/best-practices/make-best-practices/">
+            Makefile Best Practices
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/project-management-managers-vs-makers/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/reference/best-practices/project-management-managers-vs-makers/">
+            Managers vs Makers
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/markdown-best-practices/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/reference/best-practices/markdown-best-practices/">
+            Markdown Best Practices
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/password-management/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/reference/best-practices/password-management/">
+            Password Management
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/github-pull-requests/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/reference/best-practices/github-pull-requests/">
+            Pull Requests
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/project-management-raci-matrix/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/reference/best-practices/project-management-raci-matrix/">
+            RACI Matrix
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/semver/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/reference/best-practices/semver/">
+            Semantic Versioning
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/terraform-best-practices/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/reference/best-practices/terraform-best-practices/">
+            Terraform Best Practices
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/terraform-tips-tricks/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/reference/best-practices/terraform-tips-tricks/">
+            Terraform Tips &amp; Tricks
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/reference/tools/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/reference/tools/">
+            Tools
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/community/" class="left-sidebar-menu__item haschildren
+        ">
+      <div class="left-sidebar-menu__item-title">
+      <a href="https://cloudposse.github.io/docs/community/" class="left-sidebar-menu__link">Community Resources</a><i class="fa fa-angle-right fa-lg category-icon left-sidebar-menu__icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul class="left-sidebar-menu__submenu">
+      <li data-nav-id="/community/automated-testing/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/community/automated-testing/">
+            Automated Testing
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/community/code-of-conduct/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/community/code-of-conduct/">
+            Code of Conduct
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/community/code-reviews/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/community/code-reviews/">
+            Code Review Guidelines
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/community/contributor-tips/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/community/contributor-tips/">
+            Contributor Tips &amp; Tricks
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/community/contributors/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/community/contributors/">
+            GitHub Contributors
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/community/faq/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/docs/community/faq/">
+            GitHub Contributors FAQ
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+      </ul>
+      <section>
+      </section>
+  </div>
+</aside>
+
+  <div class="page-content__wrapper">
+
+    <section class="page-content">
+      <div class="page-content__scroller">
+        <div class="page-content__preheader">
+  <div class="page-content__slack">
+    <script async defer src="https://slack.cloudposse.com/slackin.js"></script>
+  </div>
+</div>
+<div class="page-content__header">
+  <div class="page-content__title-wrapper">
+    <h1 class="page-content__title">Bastion</h1>
+    
+    <p class="page-content__excerpt-text">A bastion host is the only host permitted to be directly addressed via SSH from the internet.</p>
+    
+
+    
+    <div class="tags">
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/docstags/ssh">ssh</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/docstags/bastion">bastion</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/docstags/jumphost">jumphost</a>
+      
+    </div>
+    
+
+  </div>
+  
+</div>
+
+
+        <div class="page-content__content">
+          
+
+    
+    
+    
+    
+
+    
+    
+            </div>
+      
+        
+
+
+      
+
+      
+      <div class="chevrons">
+        <div id="navigation">
+<a class="nav nav-next" href="https://cloudposse.github.io/docs/fundamentals/" title="Fundamentals" style="margin-right: 0px;"><label>Fundamentals</label><i class="fa fa-chevron-right"></i></a></div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer class="footer">
+  <div class="footline">
+    <div class="copyright"> © 2021 Cloud Posse, LLC. <a rel="license" href="https://cloudposse.github.io/docs/license/">Creative
+        Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a></div>
+
+    
+
+    
+  </div>
+</footer>
+
+    </section>
+
+  </div>
+  
+  
+
+</div>
+
+<script src="https://cloudposse.github.io/docs/js/app.js"></script>
+<script src="https://cloudposse.github.io/docs/js/mermaid.js"></script>
+
+
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

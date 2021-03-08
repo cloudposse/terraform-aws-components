@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kubectl on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/docs/tags/kubectl/</link>
+    <description>Recent content in kubectl on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/kubectl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CLI</title>
+      <link>https://cloudposse.github.io/docs/glossary/cli/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/cli/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kubernetes</title>
+      <link>https://cloudposse.github.io/docs/glossary/kubernetes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

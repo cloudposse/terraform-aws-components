@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>opl on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/docs/tags/opl/</link>
+    <description>Recent content in opl on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/opl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</title>
+      <link>https://cloudposse.github.io/docs/license/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/license/</guid>
+      <description>Copyright Copyright 2017-2021 © Cloud Posse, LLC.
+License This material may only be distributed subject to the terms and conditions set forth in the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License or later with the restrictions noted below (the latest version of the license is presently available at https://creativecommons.org/licenses/by-nc-sa/4.0/).
+Attribution You must attribute the work in the manner specified by the author or licensor.
+Noncommercial The licensor permits others to copy, distribute and transmit the work.</description>
+    </item>
+    
+  </channel>
+</rss>

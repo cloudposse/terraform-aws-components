@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>.editorconfig on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/docs/tags/.editorconfig/</link>
+    <description>Recent content in .editorconfig on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/.editorconfig/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Editor Config</title>
+      <link>https://cloudposse.github.io/docs/reference/best-practices/editor-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/reference/best-practices/editor-config/</guid>
+      <description>Background The EditorConfig enables developers to define and maintain consistent coding styles between different editors and IDEs. It consists of a simple file format (.editorconfig) for defining coding styles such as tabs vs spaces. Most text editors support the format and adhere to defined styles. The config files are easily readable and they work nicely with version control systems.
+Example Place this file in the root of your git repository.</description>
+    </item>
+    
+  </channel>
+</rss>

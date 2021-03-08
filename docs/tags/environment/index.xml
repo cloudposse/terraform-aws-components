@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>environment on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/docs/tags/environment/</link>
+    <description>Recent content in environment on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/environment/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Stage</title>
+      <link>https://cloudposse.github.io/docs/glossary/stage/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/stage/</guid>
+      <description>It&amp;rsquo;s important to note that within a given stage, there might be multiple environments. We always prescribe separating multiple stages by using multiple AWS accounts or organizational units. Then provisioning multiple environments within that stage as necessary.
+For example, the &amp;ldquo;staging&amp;rdquo; account might run &amp;ldquo;pre-production&amp;rdquo; and &amp;ldquo;QA&amp;rdquo; environments.</description>
+    </item>
+    
+  </channel>
+</rss>

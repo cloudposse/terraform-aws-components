@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tips &amp; Tricks on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/docs/tags/tips-tricks/</link>
+    <description>Recent content in Tips &amp; Tricks on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/tips-tricks/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Terraform Tips &amp; Tricks</title>
+      <link>https://cloudposse.github.io/docs/reference/best-practices/terraform-tips-tricks/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/reference/best-practices/terraform-tips-tricks/</guid>
+      <description>S3 Bucket Lifecycle Rules resource&amp;quot;aws_s3_bucket&amp;quot; &amp;quot;assets&amp;quot;{ bucket=&amp;quot;${module.assets_bucket_label.id}&amp;quot;tags=&amp;quot;${module.assets_bucket_label.tags}&amp;quot;acl=&amp;quot;private&amp;quot;region=&amp;quot;us-west-2&amp;quot;force_destroy=falselifecycle_rule{ id=&amp;quot;${module.assets_bucket_label.id}&amp;quot;enabled=trueprefix=&amp;quot;&amp;quot;tags=&amp;quot;${module.assets_bucket_label.tags}&amp;quot;&amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;noncurrent_version_expiration&amp;lt;/span&amp;gt; {  days=&amp;quot;90&amp;quot;}
+&amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;noncurrent_version_transition&amp;lt;/span&amp;gt; {  days=&amp;quot;60&amp;quot;storage_class=&amp;quot;GLACIER&amp;quot;}
+&amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;transition&amp;lt;/span&amp;gt; {  days=&amp;quot;30&amp;quot;storage_class=&amp;quot;STANDARD_IA&amp;quot;}
+&amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;transition&amp;lt;/span&amp;gt; {  days=&amp;quot;60&amp;quot;storage_class=&amp;quot;GLACIER&amp;quot;}
+&amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;expiration&amp;lt;/span&amp;gt; {  days=&amp;quot;180&amp;quot;} } }
+For an example of how we use it, check out our terraform-aws-s3-log-storage module.
+Encrypted S3 Buckets resource&amp;quot;aws_s3_bucket&amp;quot; &amp;quot;assets&amp;quot;{ bucket=&amp;quot;${module.assets_bucket_label.id}&amp;quot;tags=&amp;quot;${module.assets_bucket_label.tags}&amp;quot;acl=&amp;quot;private&amp;quot;region=&amp;quot;us-west-2&amp;quot;force_destroy=falseserver_side_encryption_configuration{ rule{ apply_server_side_encryption_by_default{ sse_algorithm=&amp;quot;AES256&amp;quot;} } } }
+For an example of how we use it, check out our terraform-aws-s3-log-storage module.</description>
+    </item>
+    
+  </channel>
+</rss>

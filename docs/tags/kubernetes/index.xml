@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kubernetes on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/docs/tags/kubernetes/</link>
+    <description>Recent content in kubernetes on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/docs/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Container Management Platform (CMP)</title>
+      <link>https://cloudposse.github.io/docs/glossary/cmp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/cmp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ingress Controller</title>
+      <link>https://cloudposse.github.io/docs/glossary/ingress-controller/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/ingress-controller/</guid>
+      <description>The Kubernetes Ingress Controller is a native resource type in Kubernetes that functions like a Layer 7 Load Balancer (e.g. HTTP Load Balancer) to route requests to various backend services based on incoming hostname (e.g. Host header) and request path (e.g. /foo).
+The default Ingress Controller in Kubernetes is powered by Nginx, but this is an implementation detail that is entirely abstracted away from the end user. There are many vendors, in addition to Nginx providing alternative implementations.</description>
+    </item>
+    
+    <item>
+      <title>kubectl</title>
+      <link>https://cloudposse.github.io/docs/glossary/kubectl/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/kubectl/</guid>
+      <description>kubectl is a cli for controlling Kubernetes clusters. It&amp;rsquo;s officially pronounced as &amp;ldquo;kube control&amp;rdquo;, but we&amp;rsquo;ll always refer to it as &amp;ldquo;kube cuddle&amp;rdquo;.</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes Ops (kops)</title>
+      <link>https://cloudposse.github.io/docs/glossary/kops/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/kops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sidekick Containers</title>
+      <link>https://cloudposse.github.io/docs/glossary/sidekick-containers/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/docs/glossary/sidekick-containers/</guid>
+      <description>Examples of common sidekick containers are for service discovery or loading fixtures into a development database.</description>
+    </item>
+    
+  </channel>
+</rss>
