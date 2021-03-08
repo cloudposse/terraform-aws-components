@@ -27,7 +27,7 @@ jobs:
     - name: "Build Hugo Static Site"
       uses: cloudposse/docs/actions/publish-github-pages@publish-hugo-to-github-pages
       env:
-        CONTENT:
+        CONTENT: docs,modules
         HUGO_URL: https://cloudposse.github.io/terraform-aws-components
         HUGO_PUBLISH_DIR: docs
         HUGO_CONFIG: hugo.config.new.yml # this variable is the output location, not the input template location
