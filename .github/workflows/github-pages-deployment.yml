@@ -35,7 +35,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
     - name: "Deploy Hugo Static Site to GitHub Pages"
-      uses: cloudposse/actions/github/git-push@further-modify-git-push
+      uses: cloudposse/actions/github/git-push@0.30.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
