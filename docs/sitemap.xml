@@ -20,53 +20,53 @@
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/community/</loc>
   </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/docs/targets.md/targets/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/docs/terraform.md/terraform/</loc>
+  </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/documentation/standards/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/docs/targets.md/targets/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/account-map/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/docs/terraform.md/terraform/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/account-settings/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/account-map/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/account/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/account-settings/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/cloudtrail-bucket/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/account/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/cloudtrail/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/cloudtrail-bucket/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/datadog-integration/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/cloudtrail/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/datadog-monitor/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/datadog-integration/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/dns-delegated/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/datadog-monitor/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/dns-primary/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/dns-delegated/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/ecr/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/dns-primary/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/efs/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/ecr/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/eks-iam/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/efs/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/eks/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/eks-iam/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/iam-delegated-roles/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/eks/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/iam-primary-roles/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/iam-delegated-roles/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/opsgenie/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/iam-primary-roles/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/opsgenie/detailed-usage.md/detailed-usage/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/opsgenie/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/sso/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/opsgenie/detailed-usage.md/detailed-usage/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/tfstate-backend/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/sso/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/transit-gateway/_index.md/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/tfstate-backend/_index.md/</loc>
-  </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/transit-gateway/_index.md/</loc>
-  </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/modules/vpc/_index.md/</loc>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/vpc/_index.md/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/.editorconfig/</loc>
   </url><url>
@@ -267,6 +267,8 @@
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/dockerfile/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/glossary/dockerfile/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/docs/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/docs/</loc>
   </url><url>
@@ -487,6 +489,8 @@
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/mesos/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/module/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/monitoring/</loc>
   </url><url>

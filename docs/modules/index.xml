@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Modules on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/terraform-aws-components/modules/</link>
+    <description>Recent content in Modules on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/modules/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>https://cloudposse.github.io/terraform-aws-components/modules/opsgenie/detailed-usage.md/detailed-usage/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/modules/opsgenie/detailed-usage.md/detailed-usage/</guid>
+      <description>Opsgenie Resources The following Opsgenie resources are configured (see resources):
+ API Integrations Teams Users Notification Policies Alert Policies Services Service Incident Rules Escalations  api_integrations.yaml NOTE: We provision a Datadog integration without specifying the owning team. Because of that, all alerts coming to Opsgenie from Datadog do not get assigned to a team automatically (if we specified the owning team, then all alerts would go to the members of the team).</description>
+    </item>
+    
+  </channel>
+</rss>
