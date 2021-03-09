@@ -20,10 +20,6 @@
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/community/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/docs/targets.md/targets/</loc>
-  </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/docs/terraform.md/terraform/</loc>
-  </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/documentation/standards/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/modules/account-map.md/account-map/</loc>
@@ -67,6 +63,10 @@
     <loc>https://cloudposse.github.io/terraform-aws-components/modules/transit-gateway.md/transit-gateway/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/modules/vpc.md/vpc/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/targets.md/targets/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/terraform.md/terraform/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/.editorconfig/</loc>
   </url><url>
@@ -267,8 +267,6 @@
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/dockerfile/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/glossary/dockerfile/</loc>
-  </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/docs/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/docs/</loc>
   </url><url>
@@ -622,6 +620,8 @@
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/</loc>
   </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/targets.md/</loc>
+  </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/task-runner/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/glossary/technical-debt/</loc>
@@ -635,6 +635,8 @@
     <loc>https://cloudposse.github.io/terraform-aws-components/glossary/root-module/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-tips-tricks/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/terraform.md/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/tfstate/</loc>
   </url><url>

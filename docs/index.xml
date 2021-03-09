@@ -47,24 +47,6 @@ Components Components are opinionated, self-contained units of infrastructure as
     
     <item>
       <title></title>
-      <link>https://cloudposse.github.io/terraform-aws-components/docs/targets.md/targets/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/docs/targets.md/targets/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://cloudposse.github.io/terraform-aws-components/docs/terraform.md/terraform/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/docs/terraform.md/terraform/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title></title>
       <link>https://cloudposse.github.io/terraform-aws-components/documentation/standards/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -303,6 +285,24 @@ components: terraform: transit-gateway: vars: tgw_stage_name: network accounts_w
 Usage Stack Level: Regional
 Here&amp;rsquo;s an example snippet for how to use this component.
 components: terraform: vpc: vars: subnet_type_tag_key: &amp;#34;example.net/subnet/type&amp;#34; vpc_flow_logs_enabled: true vpc_flow_logs_bucket_environment_name: &amp;#34;uw2&amp;#34; vpc_flow_logs_bucket_stage_name: &amp;#34;audit&amp;#34; vpc_flow_logs_traffic_type: &amp;#34;ALL&amp;#34; cidr_block: &amp;#34;10.111.0.0/18&amp;#34; Requirements    Name Version     terraform &amp;gt;= 0.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://cloudposse.github.io/terraform-aws-components/targets.md/targets/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/targets.md/targets/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://cloudposse.github.io/terraform-aws-components/terraform.md/terraform/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/terraform.md/terraform/</guid>
+      <description></description>
     </item>
     
     <item>
