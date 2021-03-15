@@ -1,0 +1,44 @@
+#
+# Helm Chart Repositories
+#
+repositories:
+  # Stable repo of official helm charts
+  - name: "stable"
+    url: "https://kubernetes-charts.storage.googleapis.com"
+
+{{ if env "CHART_REPO_URL" }}
+  # Local chart repo
+  - name: "chart-repo"
+    url: '{{ env "CHART_REPO_URL" }}'
+{{ end }}
+
+#
+# Kubernetes
+#
+context: '{{ env "KUBE_CONTEXT" }}'
+
+#
+# Helm Releases
+#
+releases:
+  # Postgres
+  - name: '{{ env "RELEASE_NAME" }}-pg'
+    labels:
+      chart: "postgresql"
+      component: "database"
+    chart: "stable/postgresql"
+    version: "0.11.0"
+    namespace: '{{ env "NAMESPACE" }}'
+    set:
+      - name: "image"
+        value: "cloudposse/postgres"
+      - name: "imageTag"
+        value: '{{ coalesce (env "POSTGRES_IMAGE_TAG") "0.2.1" }}'
+      - name: "imagePullSecrets"
+        value: '{{ env "RELEASE_NAME" }}-pull-secret-dockercfg'
+      - name: "postgresDatabase"
+        value: '{{ env "POSTGRES_DB" }}'
+      - name: "postgresUser"
+        value: '{{ env "POSTGRES_USER" }}'
+      - name: "postgresPassword"
+        value: '{{ env "POSTGRES_PASSWORD" }}'

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tips-and-tricks on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/tips-and-tricks/</link>
+    <description>Recent content in tips-and-tricks on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/tips-and-tricks/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker Tips &amp; Tricks</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/docker-tips-tricks/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/docker-tips-tricks/</guid>
+      <description>Here&amp;rsquo;s a collection of some nice little hacks for docker. A lot of them are related to house keeping.
+Docker Stats Produce console stats for all running containers (e.g. like top):
+docker stats $(docker ps --format=&#39;{{.Names}}&#39; Remove all stopped containers docker rm $(docker ps -a -q) Remove all untagged images docker images -q --filter &amp;quot;dangling=true&amp;quot; | xargs docker rmi Prune everything The docker system prune command is a shortcut that prunes images, containers, and networks.</description>
+    </item>
+    
+  </channel>
+</rss>

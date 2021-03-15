@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HCL on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/hcl/</link>
+    <description>Recent content in HCL on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/hcl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HashiCorp Language (HCL)</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/hcl/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/hcl/</guid>
+      <description>The HashiCorp Configuration language was designed to be both human readable and machine friendly. It used by most HashiCorp tools such as terraform. The nice thing about HCL is also fully JSON compatible, which means that JSON can be used anywhere HCL is expected. By supporting JSON backwards compatibility, HCL remains interoperable with other systems.
+Here&amp;rsquo;s an example of HCL:
+variable &amp;#34;ami&amp;#34; { description = &amp;#34;the AMI to use&amp;#34; } </description>
+    </item>
+    
+  </channel>
+</rss>

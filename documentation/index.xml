@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Documentation on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/terraform-aws-components/documentation/</link>
+    <description>Recent content in Documentation on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/documentation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>https://cloudposse.github.io/terraform-aws-components/documentation/standards/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/documentation/standards/</guid>
+      <description>Documentation Standards Here are some guidelines to get you started:
+ Use single ticks for all commands. Use code blocks to define multi-line commands (e.g. three ticks).  </description>
+    </item>
+    
+    <item>
+      <title>Ask a Question</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/documentation/question/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/documentation/question/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Contact Us</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/documentation/contact-us/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/documentation/contact-us/</guid>
+      <description>We&amp;rsquo;re developers and ops practitioners who are gung-ho about doing things the &amp;ldquo;right way&amp;rdquo; (tm).
+We help companies achieve success in the cloud by automating systems for maximum efficiency and 24x7 uptime. Our solutions deliver world-class infrastructure by leveraging Open Source technologies coupled with proprietary integrations to reduce total cost of ownership. Following our proven methodology empowers companies to adopt the most current &amp;ldquo;best practices&amp;rdquo; including end-to-end CI/CD Pipelines, GitOps and Automated Deployments.</description>
+    </item>
+    
+    <item>
+      <title>Getting Started with Cloud Posse</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/documentation/getting-started/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/documentation/getting-started/</guid>
+      <description>Geodesic Start with getting familiar with the geodesic.
+Get intimately familiar with docker inheritance and multi-stage docker builds. We use this pattern extensively.
+Check out our terraform-aws-components for reference architectures to easily provision infrastructure
+Tools Tons of tools/clis are used as part of our solution. We distribute these tools in a couple of different ways.
+ Geodesic bundles most of these tools as part of the geodesic base image Our packages repo provides an embeddable Makefile system for installing packages in other contexts (e.</description>
+    </item>
+    
+    <item>
+      <title>Our GitHub</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/documentation/our-github/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/documentation/our-github/</guid>
+      <description>Our Commitment We commit to always provide free and public access to our Open Source repositories. If you see repository on our GitHub today, then it will be here tomorrow and thereafter in perpetuity.
+From time to time, we might decide we can no longer maintain a repository. If that happens, we will mark it as &amp;ldquo;archived&amp;rdquo; on GitHub. This will ensure you will continue to have access to the code.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>helmfile on Cloud Posse Developer Hub</title>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/helmfile/</link>
+    <description>Recent content in helmfile on Cloud Posse Developer Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/helmfile/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Declarative Declaration</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/declarative/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/declarative/</guid>
+      <description>References  https://en.wikipedia.org/wiki/Infrastructure_as_Code#Types_of_approaches  </description>
+    </item>
+    
+    <item>
+      <title>Helm</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/helm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/helm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Helm Chart</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/helm-chart/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/helm-chart/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tools</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/tools/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/tools/</guid>
+      <description>1Password The 1Password for Teams product by AgileBits is argubably the most popular SaaS-based password management tool. In our opinion, it offers a better user experience over apps like LastPass as well as provides integration with Duo and Slack for real-time activity notifications.
+Best Practices Here are some of our recommended practices for working with 1Password. If your organization choses an alternative password management solution, we recommend implementing compensating controls.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Block deprecated `readme.io` URLs
+Disallow: /v1.0/*
+Disallow: /v0.9.0/*
+Disallow: /logout
+Disallow: /discuss
+Disallow: /docs/*
+Disallow: /blog/*
+Disallow: /_footer/
+
+# Block versioned releases
+Disallow: /release/*

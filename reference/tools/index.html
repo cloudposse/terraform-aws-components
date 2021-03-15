@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="google-site-verification" content="uY7FoBLCwsBfMMXefHxUz3lvHjZuWyURCIgpA-ia3_g" /><meta name="generator" content="Hugo 0.81.0" />
+<title>Tools&nbsp;&mdash;&nbsp;Cloud Posse Developer Hub</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,900" rel="stylesheet">
+<link rel="shortcut icon" href="https://cloudposse.github.io/terraform-aws-components/images/favicon.png" type="image/x-icon" />
+<script type="text/javascript">
+      var baseurl = "https:\/\/cloudposse.github.io\/terraform-aws-components";
+</script>
+<link rel="canonical" href="https://cloudposse.github.io/terraform-aws-components/reference/tools/"><link rel="apple-touch-icon-precomposed" href="https://cloudposse.github.io/terraform-aws-components/images/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.0/styles/solarized-dark.min.css" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.0/highlight.min.js" crossorigin="anonymous"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="https://cloudposse.github.io/terraform-aws-components/css/styles.css">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WQWH2XV');</script>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
+
+
+<script type="application/ld+json">"{\"@context\":\"http://schema.org\",\"@type\":\"BlogPosting\",\"accountablePerson\":\"\",\"articleSection\":\"reference\",\"author\":\"\",\"copyrightHolder\":\"\",\"copyrightYear\":\"0001\",\"creator\":\"\",\"dateModified\":\"0001-01-01T00:00:00Z\",\"datePublished\":\"0001-01-01T00:00:00Z\",\"description\":\"The many tools that make up the SweetOps approach\",\"headline\":\"Tools\",\"inLanguage\":\"en-US\",\"keywords\":[\"Blog\"],\"mainEntityOfPage\":{\"@id\":\"https://cloudposse.github.io/terraform-aws-components\",\"@type\":\"WebPage\"},\"name\":\"Tools\",\"publisher\":\"\",\"url\":\"https://cloudposse.github.io/terraform-aws-components/reference/tools/\",\"wordCount\":4237}"</script>
+
+<script type="application/ld+json">"""""""""""""""""""""{\"@context\":\"http://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":{\"@id\":\"https://cloudposse.github.io/terraform-aws-components\",\"name\":\"Home\"},\"position\":1},{\"@type\":\"ListItem\",\"item\":{\"@id\":\"https://cloudposse.github.io/terraform-aws-componentsreference\",\"name\":\"Reference\"},\"position\":3},{\"@type\":\"ListItem\",\"item\":{\"@id\":\"https://cloudposse.github.io/terraform-aws-componentsreference/tools\",\"name\":\"Tools\"},\"position\":4}]}"</script>
+
+
+
+
+    
+  </head>
+
+  
+  <body data-url="https://cloudposse.github.io/terraform-aws-components/reference/tools/" class="cloudposse no-page-slug">
+  
+    
+      
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQWH2XV" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe>
+</noscript>
+<header class="header">
+  <div class="header__container container">
+    <div class="logo header__logo">
+      <a href="https://cloudposse.github.io/terraform-aws-components/"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 300 68.957">
+  <g>
+    <path d=" M 82.046 43.387 C 82.325 42.713 82.557 42.285 82.682 41.828 C 83.316 39.494 83.906 37.148 84.544 34.816 C 85.509 31.287 88.757 30.859 91.502 31.454 C 92.446 31.658 92.674 32.478 92.475 33.38 C 91.917 35.909 91.34 38.433 90.804 40.966 C 90.734 41.297 90.752 41.732 90.913 42.015 C 92.274 44.406 91.97 46.431 89.917 48.311 C 89.179 48.987 89.299 52.05 90.189 52.412 C 90.697 52.618 91.59 52.487 92.017 52.144 C 92.792 51.519 93.443 50.683 93.98 49.83 C 96.87 45.243 98.451 40.117 99.797 34.934 C 100.688 31.505 103.265 30.865 106.188 31.403 C 107.078 31.566 107.362 32.233 107.229 33.029 C 106.773 35.749 106.276 38.462 105.784 41.176 C 105.148 44.683 104.497 48.188 103.866 51.697 C 103.806 52.028 103.817 52.378 103.842 52.716 C 103.981 54.579 105.13 55.272 106.993 54.552 C 106.993 52.389 106.75 50.163 107.036 48.007 C 108.184 39.344 114.781 32.297 122.633 31.107 C 123.573 30.964 123.813 30.534 123.916 29.619 C 124.713 22.506 125.978 15.474 128.752 8.84 C 129.703 6.566 130.983 4.297 132.608 2.464 C 136.366 -1.775 142.158 -0.324 143.695 5.127 C 144.867 9.283 144.422 13.49 143.556 17.635 C 141.516 27.389 137.335 36.307 132.56 44.957 C 131.643 46.618 131.388 48.128 131.799 49.899 C 132.424 52.586 132.953 55.297 133.559 57.988 C 134.029 60.075 133.689 61.413 132.37 62.006 C 130.896 62.668 127.912 62.698 126.892 60.998 C 126.156 59.771 125.598 58.437 124.981 57.19 C 124.328 57.813 123.6 58.497 122.885 59.195 C 119.48 62.518 114.721 63.01 110.759 60.382 C 110.164 59.987 109.763 59.994 109.167 60.331 C 107.014 61.549 104.693 62.14 102.203 62.015 C 100.209 61.915 98.58 61.088 97.854 59.219 C 97.143 57.391 96.77 55.432 96.284 53.66 C 95.967 54.469 95.614 55.504 95.163 56.494 C 94.322 58.341 93.176 59.958 91.427 61.075 C 88.657 62.846 85.278 62.107 83.548 59.3 C 82.344 57.347 81.633 55.234 81.715 52.898 C 81.749 51.934 81.72 50.967 81.72 50.001 C 81.608 49.964 81.496 49.926 81.383 49.889 C 81.215 50.247 81 50.59 80.886 50.965 C 79.582 55.241 77.33 58.812 73.16 60.778 C 68.822 62.824 64.583 62.539 60.635 59.705 C 60.01 59.256 59.627 59.234 58.989 59.681 C 55.862 61.871 52.353 62.611 48.686 61.654 C 47.203 61.267 45.845 60.205 44.582 59.25 C 43.953 58.774 43.565 58.599 42.815 58.885 C 36.491 61.292 29.923 62.274 23.179 61.977 C 19.374 61.809 15.667 61.027 12.22 59.349 C 4.857 55.765 0.787 49.749 0.153 41.692 C -0.619 31.865 1.449 22.659 8.07 15.026 C 14.497 7.618 22.722 4.801 32.387 6.702 C 37.386 7.686 40.951 11.829 41.586 16.904 C 41.957 19.873 41.791 22.76 40.444 25.496 C 39.314 27.79 36.75 28.759 34.388 27.787 C 33.161 27.282 32.393 26.242 32.489 24.911 C 32.601 23.347 32.898 21.797 33.058 20.235 C 33.49 16.026 31.293 13.554 27.073 13.499 C 21.95 13.432 17.993 15.764 14.915 19.669 C 11.628 23.839 10.035 28.716 9.733 33.952 C 9.568 36.814 9.549 39.773 10.087 42.568 C 11.326 49.005 15.559 52.682 21.912 53.821 C 28.312 54.968 34.519 53.92 40.56 51.683 C 40.632 51.656 40.684 51.572 40.469 51.772 C 40.353 47.628 39.968 43.721 40.185 39.847 C 40.814 28.652 42.787 17.741 48.057 7.663 C 49.249 5.383 50.708 3.3 52.802 1.735 C 55.812 -0.516 59.543 -0.538 61.775 1.775 C 63.512 3.576 64.059 5.905 64.314 8.306 C 65.034 15.1 63.27 21.461 60.847 27.687 C 57.933 35.178 53.941 42.083 49.283 48.615 C 47.862 50.609 49.157 54.113 51.554 54.736 C 53.242 55.176 54.827 54.848 56.356 54.058 C 56.092 52.529 55.674 51.046 55.607 49.548 C 55.314 43.028 57.051 37.324 62.649 33.371 C 66.738 30.484 72.591 30.363 76.447 33.124 C 79.327 35.185 80.747 38.197 81.428 41.598 C 81.503 41.973 81.567 42.351 81.655 42.722 C 81.684 42.837 81.778 42.937 82.046 43.387 Z  M 47.854 40.568 C 48.003 40.595 48.152 40.623 48.301 40.651 C 52.819 32.785 56.789 24.691 57.932 15.538 C 58.218 13.247 58.046 10.888 57.954 8.565 C 57.92 7.707 57.65 6.698 56.553 6.527 C 55.459 6.357 54.974 7.253 54.582 8.036 C 53.938 9.322 53.313 10.633 52.85 11.992 C 50.651 18.445 49.353 25.105 48.545 31.858 C 48.199 34.747 48.078 37.664 47.854 40.568 Z  M 63.746 47.17 C 65.523 47.339 66.09 47.862 66.128 49.553 C 66.15 50.517 66.058 51.51 65.833 52.446 C 65.49 53.875 65.631 54.333 67.014 54.899 C 68.279 55.417 69.528 55.274 70.691 54.607 C 72.83 53.379 73.673 51.317 74.065 49.036 C 74.123 48.7 73.73 48.257 73.487 47.905 C 72.581 46.596 71.331 45.421 70.812 43.979 C 70.157 42.163 70.09 40.135 69.75 38.075 C 67.202 37.415 63.455 41.02 63.746 47.17 Z  M 131.18 37.095 C 131.548 36.707 131.666 36.632 131.713 36.526 C 134.697 29.845 137.389 23.062 138.35 15.744 C 138.698 13.095 138.995 10.403 138.157 7.779 C 137.995 7.272 137.502 6.871 137.162 6.422 C 136.721 6.775 136.068 7.041 135.879 7.498 C 135.252 9.02 134.567 10.574 134.307 12.181 C 133.355 18.085 132.524 24.01 131.736 29.94 C 131.436 32.198 131.375 34.489 131.18 37.095 Z  M 115.886 54.482 C 117.339 55.853 119.339 55.863 120.836 54.421 C 121.779 53.513 122.619 52.479 123.385 51.416 C 123.694 50.988 123.818 50.324 123.798 49.776 C 123.667 46.17 123.471 42.566 123.302 38.961 C 123.283 38.553 123.299 38.145 123.299 37.718 C 119.718 38.262 115.655 43.128 115.412 47.026 C 117.82 47.546 117.819 51.767 115.886 54.482 Z "
+      fill="rgb(54,69,72)" />
+    <path d=" M 250.193 51.211 C 251.733 48.959 253.608 46.63 255.021 44.049 C 256.873 40.666 258.398 37.101 259.992 33.582 C 261.162 31 265.227 29.478 267.729 30.85 C 268.091 31.049 268.453 31.768 268.372 32.153 C 268.166 33.135 267.784 34.101 267.337 35.007 C 266.042 37.634 265.903 40.11 267.976 42.45 C 268.735 43.307 269.397 44.253 270.074 45.181 C 272.104 47.961 274.016 50.789 273.291 54.567 C 274.526 54.448 274.66 53.9 274.416 52.911 C 272.947 46.942 273.918 41.391 277.73 36.533 C 280.904 32.491 285.162 30.71 290.326 31.388 C 293.962 31.866 296.566 34.625 296.882 38.298 C 297.275 42.877 295.551 46.516 291.642 48.881 C 289.631 50.097 287.36 50.922 285.135 51.728 C 284.185 52.072 283.806 52.742 283.731 53.465 C 283.688 53.882 284.321 54.517 284.799 54.815 C 286.898 56.123 290.789 55.801 292.729 54.093 C 294.03 52.946 295.203 51.642 296.348 50.335 C 297.018 49.571 297.805 48.84 298.709 49.376 C 299.334 49.747 299.849 50.731 299.942 51.499 C 300.347 54.816 298.586 57.19 296.167 59.131 C 291.6 62.796 284.05 63.088 279.032 59.803 C 278.265 59.301 277.734 59.353 276.871 59.637 C 274.794 60.319 272.619 60.705 270.485 61.219 C 270.044 61.325 269.539 61.364 269.187 61.612 C 266.874 63.243 264.334 63.75 261.56 63.343 C 258.385 62.876 256.648 61.122 256.282 57.92 C 256.165 57.938 256.016 57.915 255.94 57.98 C 253.307 60.172 250.187 60.982 246.856 61.232 C 246.416 61.265 245.92 61.384 245.568 61.632 C 243.087 63.379 240.353 63.802 237.427 63.27 C 234.96 62.822 232.96 60.866 232.815 58.795 C 232.653 56.487 234.174 54.64 236.487 54.413 C 237.286 54.335 238.1 54.377 238.905 54.413 C 239.697 54.449 240.486 54.547 241.426 54.632 C 241.249 51.038 239.127 48.616 236.961 45.964 C 236.674 46.438 236.454 46.772 236.262 47.122 C 234.227 50.846 231.656 54.161 228.618 57.117 C 227.171 58.525 225.603 58.813 224.54 57.876 C 223.417 56.886 223.412 55.142 224.531 53.586 C 224.63 53.448 224.732 53.31 224.845 53.183 C 229.84 47.595 233.423 41.151 236.118 34.213 C 237.364 31.006 239.514 30.445 242.219 30.523 C 244.98 30.603 245.622 31.448 244.258 33.806 C 241.972 37.759 242.776 40.921 245.642 44.194 C 247.422 46.223 248.632 48.753 250.193 51.211 Z  M 281.575 47.117 C 281.832 47.201 281.917 47.259 281.99 47.246 C 282.405 47.176 282.83 47.128 283.228 47 C 286.041 46.098 288.628 44.869 289.843 41.914 C 290.438 40.469 290.056 38.779 289.092 38.051 C 288.076 37.282 286.259 37.36 285.061 38.383 C 282.36 40.69 281.745 43.824 281.575 47.117 Z  M 260.601 46.036 C 259.844 47.058 260.026 47.006 260.301 47.958 C 260.63 49.095 260.78 50.348 260.685 51.524 C 260.609 52.475 260.056 53.388 259.724 54.292 C 261.489 54.384 263.205 54.472 265.052 54.567 C 264.798 51.01 262.716 48.543 260.601 46.036 Z "
+      fill="rgb(54,69,72)" />
+    <path d=" M 152.836 47.182 C 152.948 38.889 153.998 31.4 157.317 24.377 C 161.462 15.605 167.905 9.472 177.503 7.089 C 181.932 5.99 186.423 5.908 190.89 6.919 C 202.4 9.524 206.021 20.135 202.553 29.424 C 200.309 35.434 195.861 39.343 190.011 41.519 C 186.904 42.675 183.531 43.133 180.26 43.816 C 179.547 43.965 179.286 44.175 179.162 44.89 C 178.278 49.994 177.345 55.09 176.416 60.187 C 176.302 60.811 176.149 61.432 175.961 62.039 C 174.101 68.023 169.407 70.304 163.476 68.178 C 159.532 66.763 157.007 63.922 155.277 60.25 C 153.232 55.911 152.819 51.274 152.836 47.182 Z  M 180.513 37.267 C 181.574 37.083 182.413 36.986 183.226 36.788 C 186.832 35.908 190.065 34.407 192.104 31.1 C 194.02 27.993 194.495 24.577 193.886 21.04 C 193.275 17.501 191.154 15.046 187.712 14.104 C 181.472 12.398 175.658 13.381 170.581 17.577 C 167.226 20.349 164.967 23.932 163.357 27.928 C 161.436 32.695 160.395 37.682 160.1 42.797 C 159.865 46.873 159.731 51.005 161.104 54.921 C 161.747 56.755 162.789 58.527 163.99 60.062 C 164.982 61.332 166.331 60.965 167.003 59.469 C 167.434 58.509 167.776 57.483 167.977 56.451 C 168.487 53.826 168.893 51.181 169.344 48.545 C 169.613 46.971 169.89 45.399 170.177 43.747 C 169.165 43.579 168.328 43.474 167.507 43.296 C 165.483 42.857 164.462 41.357 164.811 39.39 C 165.135 37.564 166.53 36.66 168.615 36.919 C 169.483 37.027 170.352 37.121 171.265 37.226 C 171.397 36.55 171.51 36.014 171.606 35.474 C 172.316 31.461 173.014 27.446 173.737 23.435 C 174.051 21.692 174.886 20.292 176.675 19.758 C 178.422 19.237 180.279 18.984 181.801 20.196 C 183.272 21.368 182.881 23.122 182.621 24.719 C 181.953 28.82 181.247 32.915 180.513 37.267 Z "
+      fill="rgb(54,69,72)" />
+    <path d=" M 223.418 44.723 C 223.305 49.542 222.216 53.596 219.399 57.02 C 215.887 61.286 211.323 62.968 205.966 61.618 C 200.831 60.324 198.336 56.411 197.457 51.49 C 196.456 45.883 197.572 40.644 201.124 36.088 C 204.617 31.607 210.677 29.912 215.799 31.983 C 220.166 33.75 222.221 37.34 223.089 41.747 C 223.31 42.865 223.344 44.021 223.418 44.723 Z  M 205.13 47.485 C 205.284 48.701 205.346 49.937 205.612 51.128 C 206.115 53.381 207.59 54.797 209.463 55.004 C 211.315 55.208 212.982 54.237 213.974 52.141 C 215.583 48.743 215.719 45.168 214.725 41.597 C 214.228 39.812 213.122 38.368 211.051 38.186 C 208.91 37.998 207.542 39.195 206.577 40.939 C 205.453 42.969 205.278 45.21 205.13 47.485 Z "
+      fill="rgb(54,69,72)" />
+  </g>
+</svg>
+      </a>
+    </div>
+    <div class="burger header__burger">
+      <a class="header__burger-link" href="javascript:void(0);">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+    <nav class="shortcuts header__shortcuts">
+      <li id="nav-forum" class="" role="">
+        <a href="https://ask.sweetops.com"  rel="noopener">
+          <i class='fa fa-book'></i> <label>Forum</label>
+        </a>
+      </li>
+      <li id="nav-community" class="" role="">
+        <a href="https://sweetops.com"  rel="noopener">
+          <i class='fa fa-bullhorn'></i> <label>Community</label>
+        </a>
+      </li>
+      <li id="nav-slack" class="" role="">
+        <a href="https://slack.sweetops.com"  rel="noopener">
+          <i class='fa fa-bullhorn'></i> <label>Slack</label>
+        </a>
+      </li>
+      <li id="nav-github" class="" role="">
+        <a href="https://github.com/cloudposse/"  rel="noopener">
+          <i class='fab fa-github'></i> <label>Our GitHub</label>
+        </a>
+      </li>
+      <li id="nav-support" class="" role="">
+        <a href="https://cloudposse.com/accelerate"  rel="noopener">
+          <i class='fa fa-question'></i> <label>Support</label>
+        </a>
+      </li>
+      <li id="nav-contact-us" class="" role="">
+        <a href="https://cloudposse.github.io/terraform-aws-components/documentation/contact-us/"  rel="noopener">
+          <i class='fa fa-envelope'></i> <label>Contact Us</label>
+        </a>
+      </li>
+    </nav>
+  </div>
+</header>
+
+
+
+
+<div class="subnav">
+  <div class="subnav__container container">
+    
+    <div class="subnav__breadcrumbs breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+      
+
+
+
+
+
+
+
+ <a href='https://cloudposse.github.io/terraform-aws-components/'>Home</a> > <a href='https://cloudposse.github.io/terraform-aws-components/reference/'>Reference</a> > <span class='breadcrumbs__title'>Tools</span>
+
+ 
+
+ 
+
+
+    </div>
+
+    <div class="subnav__search-bar search-bar search-bar--subnav">
+      <div id="search-box" class="search-box"></div>
+      <div id="search-results" class="search-results">
+        <div id="search-stats" class="search-stats"></div>
+        <div id="search-hits" class="search-hits"></div>
+        <div class="search-more">
+          <a class="search-more__link" href="https://cloudposse.github.io/terraform-aws-components/search/">view all results</a>
+        </div>
+      </div>
+    </div>
+    <div class="subnav__nav-select nav-select">
+      
+      <i class="fa fa-angle-down subnav__nav-select-icon"></i>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+<div class="page-layout">
+
+  
+  <aside class="left-sidebar">
+  <div class="left-sidebar__scroller">
+    <ul class="left-sidebar-menu">
+    <li data-nav-id="/fundamentals/" class="left-sidebar-menu__item haschildren
+        ">
+      <div class="left-sidebar-menu__item-title">
+      <a href="https://cloudposse.github.io/terraform-aws-components/fundamentals/" class="left-sidebar-menu__link">Fundamentals</a><i class="fa fa-angle-right fa-lg category-icon left-sidebar-menu__icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul class="left-sidebar-menu__submenu">
+      <li data-nav-id="/fundamentals/introduction/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/fundamentals/introduction/">
+            Introduction
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/fundamentals/philosophy/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/fundamentals/philosophy/">
+            Philosophy
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/fundamentals/concepts/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/fundamentals/concepts/">
+            Concepts
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/tutorials/" class="left-sidebar-menu__item haschildren
+        ">
+      <div class="left-sidebar-menu__item-title">
+      <a href="https://cloudposse.github.io/terraform-aws-components/tutorials/" class="left-sidebar-menu__link">Tutorials</a><i class="fa fa-angle-right fa-lg category-icon left-sidebar-menu__icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul class="left-sidebar-menu__submenu">
+      <li data-nav-id="/tutorials/geodesic-getting-started/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/tutorials/geodesic-getting-started/">
+            Getting started with Geodesic
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/howto/" class="left-sidebar-menu__item haschildren
+        ">
+      <div class="left-sidebar-menu__item-title">
+      <a href="https://cloudposse.github.io/terraform-aws-components/howto/" class="left-sidebar-menu__link">How-To</a><i class="fa fa-angle-right fa-lg category-icon left-sidebar-menu__icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul class="left-sidebar-menu__submenu">
+      <li data-nav-id="/howto/updating-modules-for-terraform-14/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/howto/updating-modules-for-terraform-14/">
+            Updating Modules for Terraform 0.14
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/reference/" class="left-sidebar-menu__item parent haschildren
+        ">
+      <div class="left-sidebar-menu__item-title">
+      <a href="https://cloudposse.github.io/terraform-aws-components/reference/" class="left-sidebar-menu__link">Reference</a>
+            <i class="fa fa-angle-down fa-lg category-icon left-sidebar-menu__icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul class="left-sidebar-menu__submenu">
+    <li data-nav-id="/reference/best-practices/" class="left-sidebar-menu__item haschildren
+        ">
+      <div class="left-sidebar-menu__item-title">
+      <a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/" class="left-sidebar-menu__link">Best Practices</a><i class="fa fa-angle-right fa-lg category-icon left-sidebar-menu__icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul class="left-sidebar-menu__submenu">
+      <li data-nav-id="/reference/best-practices/docker-best-practices/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/docker-best-practices/">
+            Docker Best Practices
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/docker-tips-tricks/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/docker-tips-tricks/">
+            Docker Tips &amp; Tricks
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/editor-config/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/editor-config/">
+            Editor Config
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/github-feature-branches/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-feature-branches/">
+            Feature Branches
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/github-best-practices/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-best-practices/">
+            GitHub Best Practices
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/gost-framework/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/gost-framework/">
+            GOST Framework
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/make-best-practices/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/make-best-practices/">
+            Makefile Best Practices
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/project-management-managers-vs-makers/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/project-management-managers-vs-makers/">
+            Managers vs Makers
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/markdown-best-practices/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/markdown-best-practices/">
+            Markdown Best Practices
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/password-management/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/password-management/">
+            Password Management
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/github-pull-requests/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-pull-requests/">
+            Pull Requests
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/project-management-raci-matrix/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/project-management-raci-matrix/">
+            RACI Matrix
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/semver/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/semver/">
+            Semantic Versioning
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/terraform-best-practices/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-best-practices/">
+            Terraform Best Practices
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/reference/best-practices/terraform-tips-tricks/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-tips-tricks/">
+            Terraform Tips &amp; Tricks
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/reference/tools/" class="left-sidebar-menu__item active">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/reference/tools/">
+            Tools
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/community/" class="left-sidebar-menu__item haschildren
+        ">
+      <div class="left-sidebar-menu__item-title">
+      <a href="https://cloudposse.github.io/terraform-aws-components/community/" class="left-sidebar-menu__link">Community Resources</a><i class="fa fa-angle-right fa-lg category-icon left-sidebar-menu__icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul class="left-sidebar-menu__submenu">
+      <li data-nav-id="/community/automated-testing/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/community/automated-testing/">
+            Automated Testing
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/community/code-of-conduct/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/community/code-of-conduct/">
+            Code of Conduct
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/community/code-reviews/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/community/code-reviews/">
+            Code Review Guidelines
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/community/contributor-tips/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/community/contributor-tips/">
+            Contributor Tips &amp; Tricks
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/community/contributors/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/community/contributors/">
+            GitHub Contributors
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/community/faq/" class="left-sidebar-menu__item">
+        <div class="left-sidebar-menu__item-title">
+          <a href="https://cloudposse.github.io/terraform-aws-components/community/faq/">
+            GitHub Contributors FAQ
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+      </ul>
+      <section>
+      </section>
+  </div>
+</aside>
+
+  <div class="page-content__wrapper">
+
+    <section class="page-content">
+      <div class="page-content__scroller">
+        <div class="page-content__preheader">
+  <div class="page-content__slack">
+    <script async defer src="https://slack.cloudposse.com/slackin.js"></script>
+  </div>
+</div>
+<div class="page-content__header">
+  <div class="page-content__title-wrapper">
+    <h1 class="page-content__title">Tools</h1>
+    
+    <p class="page-content__excerpt-text">The many tools that make up the SweetOps approach</p>
+    
+
+    
+    <div class="tags">
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/tools">tools</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/aws">aws</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/chamber">chamber</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/gnumakefile">GNUMakefile</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/geodesic">geodesic</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/helm">helm</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/helm-chart">helm chart</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/helmfile">helmfile</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/iac">IaC</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/installer">installer</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/k8s">k8s</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/kms">kms</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/password-management">password management</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/make">make</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/makefile">makefile</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/s3">s3</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/secrets">secrets</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/security">security</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/task-runner">task runner</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/terraform">Terraform</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/ssm">ssm</a>
+      
+      <a class="tags__label label label-default" href="https://cloudposse.github.io/terraform-aws-componentstags/yaml">yaml</a>
+      
+    </div>
+    
+
+  </div>
+  
+</div>
+
+
+        <div class="page-content__content">
+          
+
+    
+    
+    
+    <h2 id="1password">1Password</h2>
+<p>The <a href="https://1password.com/teams/">1Password for Teams</a> product by AgileBits is argubably the most popular SaaS-based password management tool. In our opinion, it offers a better user experience over apps like LastPass as well as provides integration with <a href="https://duo.com/docs/1password">Duo</a> and <a href="https://support.1password.com/slack/">Slack</a> for real-time activity notifications.</p>
+<!-- raw HTML omitted -->
+<h3 id="best-practices">Best Practices</h3>
+<p>Here are some of our recommended practices for working with 1Password. If your organization choses an alternative password management solution, we recommend implementing compensating controls.</p>
+<h4 id="enable-real-time-slack-notifications">Enable Real-time Slack Notifications</h4>
+<p>With real-time slack notifications, you&rsquo;ll be able to monitor logins for anomalies.</p>
+<p><img src="https://cloudposse.github.io/terraform-aws-components/assets/1password-e3bc9e9c.png" alt="Real-time Slack Notifications"></p>
+<h4 id="duo-integration-for-mfa">Duo Integration for MFA</h4>
+<p>Leverage Duo push notifications for MFA. With Duo, you can do full-on geofencing to ensure logins do not come from untrusted locations.</p>
+<p><img src="https://cloudposse.github.io/terraform-aws-components/assets/1password-57e89599.png" alt="Duo Push Notifications"></p>
+<h4 id="create-role-based-teams">Create Role-based Teams</h4>
+<p>Define teams in terms of roles (E.g. <code>production-admin</code>, <code>staging-admin</code>, <code>dns</code>, <code>finance</code>, etc).</p>
+<h4 id="aws-master-credentials">AWS Master Credentials</h4>
+<p>We use 1Password to store the AWS Master Account &ldquo;root&rdquo; credentials. Share OTP (MFA) codes with trusted admins.</p>
+<p><img src="https://cloudposse.github.io/terraform-aws-components/assets/1password-ca184eb3.png" alt="1Password MFA Tokens"></p>
+<!-- raw HTML omitted -->
+<h2 id="aws-cli">AWS CLI</h2>
+<p>The AWS Command Line Interface (CLI) is a command line tool to manage multiple AWS services and is useful for shell automation using scripts.</p>
+<!-- raw HTML omitted -->
+<h3 id="delete-all-versions-of-objects-in-an-s3-bucket">Delete all versions of objects in an S3 bucket</h3>
+<pre><code>export BUCKET=foobar
+aws s3api delete-objects --bucket $BUCKET \
+  --delete &quot;$(aws s3api list-object-versions --bucket $BUCKET | \
+  jq -M '{Objects: [.[&quot;Versions&quot;,&quot;DeleteMarkers&quot;][]|select(.Key == &quot;key-value&quot;)| {Key:.Key, VersionId:.VersionId}], Quiet: false}')&quot;
+</code></pre><p>via: <a href="https://stackoverflow.com/a/36604650/1237191">stackoverflow</a></p>
+<!-- raw HTML omitted -->
+<h2 id="aws-vault">AWS Vault</h2>
+<p>The <a href="https://github.com/99designs/aws-vault"><code>aws-vault</code></a> command line tool by <a href="https://99designs.com/">99 Designs</a> is a utility for securely storing and accessing encrypted AWS credentials for use in development environments. This tool makes it extremely easy to work with IAM assumed roles across multiple AWS organizations.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h3 id="features">Features</h3>
+<ul>
+<li>Encrypted vault for IAM credentials (OSX KeyChain or file)</li>
+<li>IAM Metadata server (mocks the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">EC2 API</a>) to simulate instance profiles for local development</li>
+<li>Prompts for MFA Token</li>
+<li>Variable-length session TTLs</li>
+<li>Compatible with <code>~/.aws/config</code></li>
+<li>Automatic logins to AWS Web Console</li>
+</ul>
+<h3 id="local-configuration">Local Configuration</h3>
+<p>We recommend using the <code>file</code> type backend for <code>aws-vault</code> because this is compatible with Linux, which is needed for <a href="#geodesic">Geodesic</a> sessions.</p>
+<p>Add the following to your <code>~/.bashrc</code>:</p>
+<pre><code>export AWS_VAULT_BACKEND=&quot;file&quot;
+</code></pre><p>Then <code>source ~/.bashrc</code> to update your current session.</p>
+<ol>
+<li>Generate IAM Access Key ID/Secret on your AWS root account via IAM management page in the AWS Console.</li>
+</ol>
+<!-- raw HTML omitted -->
+<ol start="2">
+<li>Using the IAM Access Key ID/Secret generated in Step 1, add the <code>source_profile</code>:</li>
+</ol>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ aws-vault add example
+</code></pre></div><ol start="3">
+<li>Add the <code>source_profile</code> created in Step 2 to your <code>~/.aws/config</code>.</li>
+</ol>
+<pre><code>[profile example]
+region=us-west-2
+</code></pre><ol start="4">
+<li>Setup your <code>~/.aws/config</code> by adding a profile entry for each AWS account:</li>
+</ol>
+<!-- raw HTML omitted -->
+<pre><code>[profile example-staging-admin]
+region=us-west-2
+role_arn=arn:aws:iam::$aws_account_id_for_staging:role/OrganizationAccountAccessRole
+mfa_serial=arn:aws:iam::$aws_account_id_for_root:mfa/user@example.com
+source_profile=example
+</code></pre><ol start="5">
+<li>Test that it is all set up properly:</li>
+</ol>
+<pre><code>$ aws-vault login example-staging-admin
+</code></pre><p>This should open a browser and log you into the AWS console as the assumed role <code>example-staging-admin</code>.</p>
+<h3 id="using-with-geodesic">Using with Geodesic</h3>
+<p><code>aws-vault</code> is available in the geodesic shell. To start the shell, run:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#111">$CLUSTER_NAME</span>
+</code></pre></div><h4 id="add-your-profile-to-aws-vault">Add your profile to AWS Vault</h4>
+<p>Now we are ready to configure your AWS credentials. To add your AWS credentials to the encrypted vault run the following command. Remember to replace <code>example</code> with your source profile name.</p>
+<pre><code>aws-vault add example
+</code></pre><h4 id="troubleshooting">Troubleshooting</h4>
+<p>Most problems stem from misconfiguration.</p>
+<ul>
+<li><strong>Do not</strong> define a <code>[default]</code> profile in <code>~/.aws/credentials</code> or <code>[profile default]</code> in <code>~/aws/config</code></li>
+<li><strong>Do not</strong> set <code>AWS_SDK_LOAD_CONFIG</code></li>
+<li><strong>Do not</strong> set <code>AWS_SHARED_CREDENTIALS_FILE</code></li>
+</ul>
+<p>If using <code>--server</code> mode, ensure the following credentials are not exported:</p>
+<!-- raw HTML omitted -->
+<ul>
+<li><code>AWS_ACCESS_KEY_ID</code></li>
+<li><code>AWS_SECRET_ACCESS_KEY</code></li>
+<li><code>AWS_SECURITY_TOKEN</code></li>
+<li><code>AWS_SESSION_TOKEN</code></li>
+</ul>
+<p>Use <code>unset</code> to delete each of the above variables from your environment and ensure they aren&rsquo;t exported in your <code>~/.bashrc</code> or <code>~/.profile</code>.</p>
+<!-- raw HTML omitted -->
+<h2 id="build-harness">Build Harness</h2>
+<p>The <code>build-harness</code> is a collection of <a href="https://cloudposse.github.io/terraform-aws-components/reference/tools/">Makefiles</a> to facilitate building stuff. It supports Golang projects, Dockerfiles, Helm charts, and much more.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">GitHub Repo</td>
+<td style="text-align:left"><a href="https://github.com/cloudposse/build-harness/">https://github.com/cloudposse/build-harness/</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Build Status</td>
+<td style="text-align:left"><a href="https://travis-ci.org/cloudposse/build-harness"><img src="https://travis-ci.org/cloudposse/build-harness.svg" alt="Build Status"></a></td>
+</tr>
+<tr>
+<td style="text-align:left">Release</td>
+<td style="text-align:left"><a href="https://github.com/cloudposse/build-harness/releases"><img src="https://img.shields.io/github/release/cloudposse/build-harness.svg" alt="Release"></a></td>
+</tr>
+</tbody>
+</table>
+<p>It&rsquo;s designed to work with CI/CD systems such as GitHub Action, Codefresh, Jenkins, and others.</p>
+<p>It&rsquo;s 100% Open Source and licensed under <a href="https://cloudposse.github.io/terraform-aws-components/license/">APACHE2</a>.</p>
+<!-- raw HTML omitted -->
+<h3 id="usage">Usage</h3>
+<p>At the top of your <code>Makefile</code> add, the following&hellip;</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">-include <span style="color:#00a8c8">$(</span>shell curl -sSL -o .build-harness <span style="color:#d88200">&#34;https://git.io/build-harness&#34;</span><span style="color:#111">;</span> <span style="color:#111">echo</span> .build-harness<span style="color:#00a8c8">)</span>
+</code></pre></div><p>This will download a <code>Makefile</code> called <code>.build-harness</code> and include it at run-time. We recommend adding the <code>.build-harness</code> file to your <code>.gitignore</code>.</p>
+<p>This automatically exposes many new targets that you can leverage throughout your build &amp; CI/CD process.</p>
+<p>Run <code>make help</code> for a list of available targets.</p>
+<!-- raw HTML omitted -->
+<h3 id="real-world-examples">Real World Examples</h3>
+<p>We leverage the <code>build-harness</code> in nearly every project on our <a href="https://cloudposse.github.io/terraform-aws-components/documentation/our-github/">GitHub</a>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Example Repo</th>
+<th style="text-align:left">Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://github.com/cloudposse/charts/"><code>charts</code></a></td>
+<td style="text-align:left">A collection of Helm Charts that leverages <code>docker/%</code> and <code>helm/%</code> targets</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/cloudposse/terraform-null-label/"><code>terraform-null-label</code></a></td>
+<td style="text-align:left">A terraform module that leverages <code>terraform/%</code> targets</td>
+</tr>
+</tbody>
+</table>
+<!-- raw HTML omitted -->
+<h2 id="chamber">Chamber</h2>
+<p>Chamber is a CLI for managing secrets stored
+in <a href="https://aws.amazon.com/systems-manager/features/#Parameter_Store">AWS Systems Manager Parameter Store</a>.</p>
+<p>In the article <a href="https://aws.amazon.com/blogs/mt/the-right-way-to-store-secrets-using-parameter-store/">The Right Way to Store Secrets using Parameter Store</a>, <code>AWS</code> recommends using <code>chamber</code> for secrets management.</p>
+<!-- raw HTML omitted -->
+<h3 id="usage-1">Usage</h3>
+<p>Using chamber you can perform all standard CRUD operations on secrets stored in <a href="https://cloudposse.github.io/terraform-aws-components/glossary/ssm/">AWS SSM</a> and execute commands with environment variables populated from the secrets.
+For a complete description, check out the <a href="https://github.com/segmentio/chamber#usage">official documentation</a>.</p>
+<!-- raw HTML omitted -->
+<h2 id="geodesic">Geodesic</h2>
+<p><img src="https://cloudposse.github.io/terraform-aws-components/assets/638d917-geodesic-small.png" alt="Geodesic Logo"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">GitHub Repo</td>
+<td style="text-align:left"><a href="https://github.com/cloudposse/geodesic">https://github.com/cloudposse/geodesic</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Release</td>
+<td style="text-align:left"><a href="https://github.com/cloudposse/geodesic/releases"><img src="https://img.shields.io/github/release/cloudposse/geodesic.svg" alt="Release"></a></td>
+</tr>
+<tr>
+<td style="text-align:left">Build Status</td>
+<td style="text-align:left"><a href="https://github.com/cloudposse/geodesic/actions?query=workflow%3Adocker"><img src="https://github.com/cloudposse/geodesic/workflows/docker/badge.svg" alt="Build Status"></a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="introduction">Introduction</h3>
+<p>Geodesic is our <strong>Docker Based Toolbox</strong>. It&rsquo;s a DevOps Linux Distro distributed as a docker image that has all the essential tools for automation of <a href="https://aws.amazon.com/">AWS</a>, <a href="https://kubernetes.io/">kubernetes</a>, etc. The toolbox can be used as a docker base image in order to ship consistent tooling and we provide packages for all <a href="https://github.com/cloudposse/packages">popular devops tools</a>.</p>
+<!-- raw HTML omitted -->
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<p>At its core, Geodesic is a DevOps toolkit Linux Distro distributed via Docker for provisioning cloud infrastructure and the applications that sit on top of it. We leverage as many existing tools as possible to facilitate cloud fabrication and administration. Geodesic is like the connective tissue that sits between all of the components of a modern cloud.</p>
+<h3 id="technologies">Technologies</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Tool</th>
+<th style="text-align:left">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://github.com/hashicorp/terraform/"><code>terraform</code></a></td>
+<td style="text-align:left">for provisioning miscellaneous resources on pretty much any cloud</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/99designs/aws-vault"><code>aws-vault</code></a></td>
+<td style="text-align:left">for securely storing and accessing AWS credentials in an encrypted vault for the purpose of assuming IAM roles</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/aws/aws-cli/"><code>aws-cli</code></a></td>
+<td style="text-align:left">for interacting directly with the AWS APIs (E.g. s3, ec2, rds)</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/kubernetes/helm/"><code>helm</code></a></td>
+<td style="text-align:left">for installing packages like nginx-ingress or datadog agent on the Kubernetes cluster</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://kubernetes.io/docs/user-guide/kubectl-overview/"><code>kubectl</code></a></td>
+<td style="text-align:left">for controlling kubernetes resources like deployments, pods, configmaps, etc.</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/hairyhenderson/gomplate/"><code>gomplate</code></a></td>
+<td style="text-align:left">for template rendering configuration files using the GoLang template engine. Supports lots of local and remote data sources</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/kahing/goofys/"><code>goofys</code></a></td>
+<td style="text-align:left">for mounting encrypted S3 buckets that store cluster configurations and secrets</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/segmentio/chamber"><code>chamber</code></a></td>
+<td style="text-align:left">for managing secrets with AWS SSM+KMS</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/cloudposse/atmos"><code>atmos</code></a></td>
+<td style="text-align:left">for orchestrating terraform or helmfile automation</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/cloudposse/turf"><code>turf</code></a></td>
+<td style="text-align:left">for orchestrating automation tasks that are difficult to automate via IaC</td>
+</tr>
+</tbody>
+</table>
+<h3 id="our-logo">Our Logo</h3>
+<p>In mathematics, a geodesic line is the shortest distance between two points on a sphere. It&rsquo;s also a solid structure composed of geometric shapes such as hexagons.</p>
+<p>We like to think of geodesic as the shortest path to a rock-solid cloud infrastructure. The geodesic logo is a hexagon with a cube suspended at its center. The cube represents this geodesic container, which is central to everything and at the same time is what ties everything together.</p>
+<p>But look a little closer and you&rsquo;ll notice there&rsquo;s much more to it. It&rsquo;s also an isometric shape of a cube with a missing piece. This represents its pluggable design, which lets anyone extend it to suit their vision.</p>
+<!-- raw HTML omitted -->
+<h2 id="gomplate">Gomplate</h2>
+
+<figure class="logo">
+    
+        <img src="https://cloudposse.github.io/terraform-aws-components/assets/gomplate-5869374e.png"  />
+    
+    
+    <figcaption>
+        <h4>Gomplate Logo</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
+<p>A flexible commandline tool for template rendering. Supports lots of local and remote datasources.</p>
+<!-- raw HTML omitted -->
+<h3 id="why-gomplate">Why Gomplate?</h3>
+<p>The Go progamming language supports <a href="https://golang.org/pkg/text/template/">native templating</a>. The problem is that there aren&rsquo;t very many functions supported out-of-the-box and it cannot be called from the command line.</p>
+<p>Gomplate is a CLI tool that addresses this need. That is, it can be used as an alternative to <a href="https://www.gnu.org/software/gettext/manual/html_node/envsubst-Invocation.html"><code>envsubst</code></a>, but also supports
+additional template data-sources such as: JSON, YAML, and even AWS EC2 metadata.</p>
+<p>We love <code>envsubst</code> for its super-minimalist template processing, but sometimes more advanced templating with conditions is necessary. We use <code>gomplate</code> to parameterize a number of critical files across our architectures. Gomplate is an alternative to <code>envsubst</code> that provides some useful built-in functions to make templates even more expressive.</p>
+<h3 id="references">References</h3>
+<ul>
+<li><a href="https://docs.gomplate.ca/">Official Documentation</a></li>
+</ul>
+<!-- raw HTML omitted -->
+<h2 id="goofys">Goofys</h2>
+<p><a href="https://github.com/kahing/goofys">Goofys</a> a high-performance, POSIX-ish Amazon S3 file system written in Go. We use <code>goofys</code> as part of <a href="#geodesic">Geodesic</a> to provide our own S3 filesystem interface for mounting buckets securely inside a container for the purpose of storing master SSH keys needed by EC2 instances.</p>
+<!-- raw HTML omitted -->
+<h3 id="why-goofys">Why Goofys?</h3>
+<p>Goofys is similar to the original <a href="https://github.com/s3fs-fuse/s3fs-fuse"><code>s3fs</code></a> FUSE filesystem, but written in Golang and much, much faster. Also, it works seamlessly with EC2 instance profiles for assumed-roles, which <code>s3fs-fuse</code> does not support as of <code>v1.82</code>.</p>
+<p>The reason why <code>goofys</code> is faster is that it implements a subset of the POSIX filesystem semantics. Namely, it only supports <code>read</code>, <code>write</code> and <code>append</code> operations. This makes it suitable for many simple use-cases, but not suitable for running things like a database.</p>
+<!-- raw HTML omitted -->
+<h2 id="helm">Helm</h2>
+
+<figure class="logo tool-logo">
+    
+        <img src="https://cloudposse.github.io/terraform-aws-components/assets/helm-d7685fec.png"  />
+    
+    
+    <figcaption>
+        <h4>Helm Logo</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
+<p>Helm makes it easy to install <code>charts</code> (an application) on kubernetes clusters. Just like <code>npm</code> or <code>apt</code> make it easy to install NodeJS modules and Debian packages, <code>helm</code> makes it easy to deploy a full-fledged application with all of its dependencies on kubernetes.</p>
+<!-- raw HTML omitted -->
+<h3 id="delete-all-releases-in-namespace">Delete All Releases in Namespace</h3>
+<p>To delete all helm releases in <code>NAMESPACE</code>, run the following command:</p>
+<pre><code>helm list --namespace $NAMESPACE --short | xargs helm delete --purge
+</code></pre><!-- raw HTML omitted -->
+<p>Then after running this command, to delete the namespace, run:</p>
+<pre><code>kubectl delete namespace $NAMESPACE
+</code></pre><!-- raw HTML omitted -->
+<h2 id="helmfile">Helmfile</h2>
+<p>We use <code>helmfile</code> to deploy collections of charts. The <code>helmfile.yaml</code> is a declarative configuration file that makes it easier to deploy and manage a large number of helm charts.</p>
+<p>Another way to think about it is like this:</p>
+<blockquote>
+<p>If <code>helm</code> is responsible for deploying a single application to kubernetes, then <code>helmfile</code> is responsible for deploying multiple applications by calling <code>helm</code>.</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<h3 id="features-1">Features</h3>
+<ul>
+<li><strong>12-Factor Style Configurations</strong> - Parameterize all charts using Environment Variables</li>
+<li><strong>Inline <code>values.yaml</code></strong> - Maintain changes to chart configurations in version control</li>
+<li><strong>Chamber Compatibility</strong> - Use <a href="https://cloudposse.github.io/terraform-aws-components/reference/tools/"><code>chamber</code></a> to deploy helm charts with secrets pulled from SSM</li>
+<li><strong>CI/CD Integration</strong> - Easily integrate <code>helmfile</code> with CI/CD pipelines using our <a href="https://cloudposse.github.io/terraform-aws-components/reference/tools/"><code>build-harness</code></a></li>
+<li><strong>Synchronize Environments</strong>  - Rapidly deploy or update all services for a cluster</li>
+<li><strong>Go Templating</strong> - Configuration is templatized using <a href="https://godoc.org/text/template">Go template</a> and supports all the <a href="https://godoc.org/github.com/Masterminds/sprig">Sprig</a> intepolation functions.</li>
+</ul>
+<h3 id="use-cases">Use-cases</h3>
+<ul>
+<li>We recommend using a <code>helmfile</code> anywhere you need to deploy a helm chart. This is because <code>helm</code> does not support environment variables out-of-the-box.</li>
+<li>The <code>helmfile</code> reduces the need for complex umbrella charts that are more difficult to manage.</li>
+</ul>
+<h3 id="dependencies">Dependencies</h3>
+<p>Helmfile depends on the following <code>cli</code> tools.</p>
+<ul>
+<li><a href="https://cloudposse.github.io/terraform-aws-components/reference/tools/"><code>helm</code></a> - for managing helm packages</li>
+<li><a href="https://cloudposse.github.io/terraform-aws-components/reference/tools/"><code>kubectl</code></a> - for interfacing with the Kubernetes API</li>
+</ul>
+<!-- raw HTML omitted -->
+<p>Prior to using <code>helmfile</code>, you&rsquo;ll need a valid <code>kubectl</code> context.</p>
+<p>Alternatively, set the <code>KUBE_CONTEXT</code> when using <code>helmfile</code> with a Codefresh pipeline.</p>
+<h3 id="configuration-file">Configuration File</h3>
+<p>The <code>helmfile.yaml</code> is a <a href="https://golang.org/pkg/text/template/">go-template</a> formatted &ldquo;YAML&rdquo; file. Note, this means that it is first evaluated as a plain-text go-template before getting processed as YAML. It essential that the go-template result in well-formed YAML with properly escaped values.</p>
+<p>For complete examples, review our comprehensive distribution of <a href="https://github.com/cloudposse/helmfiles/tree/master/releases">helmfiles</a>.</p>
+<h3 id="example-helmfileyaml">Example <code>helmfile.yaml</code></h3>
+<p>Here&rsquo;s an example <code>helmfile.yaml</code>. Note that it&rsquo;s possible to use conditionals (e.g. <code>if</code> / <code>else</code>).</p>
+<!-- raw HTML omitted -->
+<p>{{ <!-- raw HTML omitted -->if env &quot;CHART_REPO_URL&quot; }}<!-- raw HTML omitted -->
+<!-- raw HTML omitted --># Local chart repo<!-- raw HTML omitted --></p>
+<ul>
+<li><!-- raw HTML omitted -->name<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->&quot;chart-repo&quot;<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->url<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->'{{ env &quot;CHART_REPO_URL&quot; }}'<!-- raw HTML omitted -->
+{{ <!-- raw HTML omitted -->end }}<!-- raw HTML omitted --></li>
+</ul>
+<p><!-- raw HTML omitted -->#<!-- raw HTML omitted -->
+<!-- raw HTML omitted --># Kubernetes<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->#<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->context<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->'{{ env &quot;KUBE_CONTEXT&quot; }}'<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->#<!-- raw HTML omitted -->
+<!-- raw HTML omitted --># Helm Releases<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->#<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->releases<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted -->
+<!-- raw HTML omitted --># Postgres<!-- raw HTML omitted --></p>
+<ul>
+<li><!-- raw HTML omitted -->name<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->'{{ env &quot;RELEASE_NAME&quot; }}-pg'<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->labels<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->chart<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->&quot;postgresql&quot;<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->component<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->&quot;database&quot;<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->chart<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->&quot;stable/postgresql&quot;<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->version<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->&quot;0.11.0&quot;<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->namespace<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->'{{ env &quot;NAMESPACE&quot; }}'<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->set<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted -->
+<ul>
+<li><!-- raw HTML omitted -->name<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->&quot;image&quot;<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->value<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->&quot;cloudposse/postgres&quot;<!-- raw HTML omitted --></li>
+<li><!-- raw HTML omitted -->name<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->&quot;imageTag&quot;<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->value<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->'{{ coalesce (env &quot;POSTGRES_IMAGE_TAG&quot;) &quot;0.2.1&quot; }}'<!-- raw HTML omitted --></li>
+<li><!-- raw HTML omitted -->name<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->&quot;imagePullSecrets&quot;<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->value<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->'{{ env &quot;RELEASE_NAME&quot; }}-pull-secret-dockercfg'<!-- raw HTML omitted --></li>
+<li><!-- raw HTML omitted -->name<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->&quot;postgresDatabase&quot;<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->value<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->'{{ env &quot;POSTGRES_DB&quot; }}'<!-- raw HTML omitted --></li>
+<li><!-- raw HTML omitted -->name<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->&quot;postgresUser&quot;<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->value<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->'{{ env &quot;POSTGRES_USER&quot; }}'<!-- raw HTML omitted --></li>
+<li><!-- raw HTML omitted -->name<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->&quot;postgresPassword&quot;<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->value<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->'{{ env &quot;POSTGRES_PASSWORD&quot; }}'<!-- raw HTML omitted --></li>
+</ul>
+</li>
+</ul>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<h3 id="environment-variables">Environment Variables</h3>
+<p>There are two options for retrieving environment variables.</p>
+<p>The <code>env</code> function will simply retrieve the environment variable. If it does not exist, it will return an empty string. Combined with the <code>default</code> function, it&rsquo;s possible to set a default value.</p>
+<pre><code>{{ env &quot;POSTGRES_USER&quot; }}
+</code></pre><p>The other option is to call <code>requiredEnv</code>. This method is not recommended.</p>
+<pre><code>{{ requiredEnv &quot;POSTGRES_USER&quot; }}
+</code></pre><p>This will throw an exception if the environment variable (<code>POSTGRES_USER</code>) is not set. While this sounds like a great feature, it&rsquo;s actually problematic because sometimes we only want to <code>sync</code> a particular chart using the <code>--selector</code> argument. In this case, we shouldn&rsquo;t need to set all environment variables - only the ones relevant to the chart we&rsquo;re installing. If the <code>helmfile.yaml</code> is using <code>requiredEnv</code>, all those environment variables will need to be defined. For this reason, we do not recommend using `requiredEnv.</p>
+<h3 id="default-values">Default Values</h3>
+<pre><code>{{ env &quot;POSTGRES_USER&quot; | default &quot;postgres&quot; }}
+</code></pre><p>An alternative way to express this is with the <code>coalesce</code> function (Sprig function).</p>
+<pre><code>{{ coalesce (env &quot;POSTGRES_USER&quot;) &quot;postgres&quot; }}
+</code></pre><h3 id="arguments">Arguments</h3>
+<!-- raw HTML omitted -->
+<p>USAGE:
+helmfile [global options] command [command options] [arguments&hellip;]</p>
+<p>COMMANDS:
+repos   sync repositories from state file (helm repo add &amp;&amp; helm repo update)
+charts  sync charts from state file (helm upgrade &ndash;install)
+diff    diff charts from state file against env (helm diff)
+sync    sync all resources from state file (repos, charts and local chart deps)
+status  retrieve status of releases in state file
+delete  delete charts from state file (helm delete)
+test    test releases from state file (helm test)</p>
+<p>GLOBAL OPTIONS:
+&ndash;file FILE, -f FILE         load config from FILE (default: &quot;helmfile.yaml&quot;)
+&ndash;quiet, -q                  silence output
+&ndash;namespace value, -n value  Set namespace. Uses the namespace set in the context by default
+&ndash;selector,l value           Only run using the releases that match labels. Labels can take the form of foo=bar or foo!=bar.
+A release must match all labels in a group in order to be used. Multiple groups can be specified at once.
+&ndash;selector tier=frontend,tier!=proxy &ndash;selector tier=backend. Will match all frontend, non-proxy releases AND all backend releases.
+The name of a release can be used as a label. &ndash;selector name=myrelease
+&ndash;kube-context value         Set kubectl context. Uses current context by default
+&ndash;help, -h                   show help
+&ndash;version, -v                print the version</p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<h3 id="example-sync-all-charts">Example: Sync All Charts</h3>
+<p>To deploy all charts defined in the <code>helmfile.yaml</code>, simply run <code>helmfile sync</code>. Typically, we do not run this, however, because a <code>helmfile.yaml</code> will define many more charts than installed on the cluster.</p>
+<h3 id="example-sync-specific-charts">Example: Sync Specific Charts</h3>
+<p>A <code>helmfile.yaml</code> may contain dozens of charts. To target specific charts, just pass the <code>--selector</code> argument to <code>helmfile</code>. Multiple label constraints can be specified by concatenating them with a <code>,</code> (comma). This works like a logical &ldquo;and&rdquo;.</p>
+<p>Alternatively, the <code>--selector</code> argument may be passed multiple times which works like a logical &ldquo;or&rdquo;; each parameter is resolved independently so a release that matches any parameter will be used.</p>
+<p>For example, to sync all charts that have the <code>default: true</code> label, we would run:</p>
+<pre><code>helmfile --selector default=true sync
+</code></pre><p>To sync all default charts, but exclude one in particular (e.g. <code>chartmuseum</code>), we could run something like:</p>
+<pre><code>helmfile --selector 'default=true,chart!=chartmuseum' sync
+</code></pre><p>To sync all default charts <em>or</em> <code>chartmuseum</code>, we would run:</p>
+<pre><code>helmfile --selector 'default=true' --selector 'chart=chartmuseum' sync
+</code></pre><h3 id="example-helmfile-with-chamber">Example: Helmfile with Chamber</h3>
+<p>We prefer to use SSM as the system of record for all secrets. To export those secrets as environment variables for usage with helm, run the following command:</p>
+<pre><code>chamber exec $service -- helmfile sync
+</code></pre><h3 id="references-1">References</h3>
+<ul>
+<li><a href="https://github.com/roboll/helmfile">Official Helmfile documentation</a></li>
+<li><a href="http://masterminds.github.io/sprig/">Sprig functions documentation</a></li>
+<li><a href="https://github.com/cloudposse/helmfiles/tree/master/releases/">Helmfiles</a></li>
+</ul>
+<!-- raw HTML omitted -->
+<h2 id="hugo">Hugo</h2>
+
+<figure class="logo tool-logo">
+    
+        <img src="https://cloudposse.github.io/terraform-aws-components/assets/hugo-7303d89d.png"  />
+    
+    
+    <figcaption>
+        <h4>Hugo Static Site Generator</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
+<p><a href="https://gohugo.io/">Hugo</a> is one of the most popular open-source static site generators. It also happens to be a rediculously fast framework for building static websites. We use it to build <a href="https://github.com/cloudposse/docs/">our documentation</a>.</p>
+<p>What we like about it is that it&rsquo;s written in Go, speaks &ldquo;markdown&rdquo; and uses Go-templates for rendering all pages.</p>
+<h2 id="kubectl">Kubectl</h2>
+<p><code>kubectl</code> is the command line tool (cli) for running commands against Kubernetes clusters. Think of it like the AWS CLI to Kubernetes clusters.</p>
+<h2 id="make">Make</h2>
+<p>The <code>make</code> command has been around for decades. Predominantly, it was used to build complex projects in C &amp; C++, but it&rsquo;s seen a resurgence in the ops world for automating routine tasks and orchestration of infrastructure-as-code. In the 12-factor pattern, these are your “admin tasks”.</p>
+<p><img src="https://cloudposse.github.io/terraform-aws-components/assets/4132caf-image_3.png" alt="Make is the only orchestrator you&rsquo;ll ever need."></p>
+<!-- raw HTML omitted -->
+<h3 id="understanding-makefiles">Understanding Makefiles</h3>
+<p>Because <code>make</code> is a very simple language, there&rsquo;s not very much you need to learn to get started. Some things, however, might seem unintuitive when approaching it from the perspective of other languages. Namely, <code>make</code> is really a template engine that renders “stubs” and then executes those stubs in a shell. Environment variables can be considered as the arguments to those targets.</p>
+<p>The reason for using <code>make</code> is that it&rsquo;s supposed to be less magical. It&rsquo;s such a basic language it should be hard to do something wrong. It defines every action you could possibly want to take and provides a consistent interface for calling those targets. Environment variables are used everywhere, so it&rsquo;s very configurable and also 12-factor-esque.</p>
+<p>On the other hand, something like <code>bash</code> is more full-featured, but suffers from some of the early criticisms of PHP. Most shell-scripts suck. They don&rsquo;t check exit codes. They don&rsquo;t accept arguments in consistent fashion. They don&rsquo;t use environment variables. They hardcode settings. They end up looking like spaghetti.</p>
+<h3 id="variables">Variables</h3>
+<p>Part of the confusion around make is that make variables (e.g. <code>$(FOO)</code>) resemble shell-like variables (e.g. <code>$FOO</code> or <code>${FOO}</code>).  Note, that in bash using  <code>$(....)</code> is synonymous using <code>...</code> (which will run the command).</p>
+<p>In <code>make</code>, variables are synonymous to environment variables. They can be defined ad-hoc on the command line or at the top of the Makefile.</p>
+<pre><code>make something FOO=bar
+</code></pre><p>or</p>
+<p>Makefile:</p>
+<pre><code>FOO=bar
+</code></pre><p>It&rsquo;s important to note that everything after the = is treated literally. Thus quotes (“) are not necessary, unlike in bash.</p>
+<h3 id="built-in-functions">Built-in Functions</h3>
+<p>There are many built-in functions. A few of the most common uses are explained below.</p>
+<p><code>$(call foobar,arg1,arg2)</code>
+This will call a macro called &ldquo;foobar&rdquo;</p>
+<p><code>$(shell /bin/ls)</code>
+This will run the command “/bin/ls” and output the results. Results always have new-lines &amp; carriage returns stripped off. There&rsquo;s no way around it.</p>
+<p><code>$(eval FOO=bar)</code></p>
+<p>This will evaluate the “<code>FOO=bar</code>” as “<code>make</code>” language formatted code. In this case, since “<code>FOO=bar</code>” is how a variable is defined, the result is that a variable named <code>FOO</code> gets set to bar in the global make namespace.</p>
+<h3 id="macros">Macros</h3>
+<p>TBD</p>
+<h3 id="targets">Targets</h3>
+<p>Targets are like “functions”. They can run any shell command. Those shell commands can be other scripts or apps like terraform or system commands. The <code>make</code> command is basically a “<code>bash</code>” template engine: every line of a make target is a one-line shell script. Think of the contents of a target as “stubs” or “scriptlets”.</p>
+<h4 id="make-evaluation">Make Evaluation</h4>
+<ol>
+<li>Treat entire target contents as a template</li>
+<li>Render all variables, functions and macros</li>
+<li>Then execute each line as a standalone shell script, which is executed in a sub-shell (<code>/bin/bash`` -c “......”</code>)</li>
+</ol>
+<h4 id="defintion">Defintion</h4>
+<p>There are 3 ways target names can be defined.</p>
+<ol>
+<li><code>:</code> - the default way. allows exactly one target to use this name. if another target attempts to use the same name, you&rsquo;ll see a warning</li>
+<li><code>::</code> - this works like #1, but allows a target to be redefined in multiple places. This is nice when you want to decompose a Makefile into many sub-makefiles. e.g. <code>deps::</code> is a good target to define this way, since multiple makefiles might want to define dependencies.</li>
+<li><code>%:</code> - This is a wildcard. You might want to do this if you want to write one target for multiple use-cases. For example, the following example could be used to create a target that installs a brew package (e.g. <code>make install-vim</code>)</li>
+</ol>
+<pre><code>install-%:
+    brew install $(subst,install-,)
+</code></pre><h4 id="dependencies-1">Dependencies</h4>
+<p>Targets require other targets. Just add those targets after the colon (<code>:</code>)</p>
+<p>For example&hellip;.</p>
+<pre><code>deps:
+    @which -s envsubst || brew install gettext
+
+replace: deps
+    @envsubst &lt; something.sh &gt; something.txt
+</code></pre><p><strong>WARNING:</strong></p>
+<p>If your target name contains an escaped color (:), builds deps do not work.</p>
+<p><em>The following example does not work.</em></p>
+<pre><code>example\:test:
+    @echo &quot;Hello world!&quot;
+
+example\:broken: example:text
+
+</code></pre><p><strong>Workaround:</strong> call make as part of your target. This work basically the sameway, however, since it will be called in a subshell, it cannot modify the parent process environment in anyway.</p>
+<pre><code>example\:test:
+    @echo &quot;Hello world!&quot;
+
+example\:broken:
+    @make example:text
+</code></pre><h3 id="examples">Examples</h3>
+<p>Below are some annotated examples with explanations of what&rsquo;s going on.</p>
+<h4 id="example-1"><strong>Example 1</strong></h4>
+<p>The basisc syntax is like this:</p>
+<pre><code>TMP_FILE = /tmp/test
+foobar:
+    touch $(TMP_FILE)
+    rm $(TMP_FILE)
+</code></pre><p>In this example, <code>foobar</code> is the target name. The leading spaces are all tabs (e.g. <code>^I</code>)</p>
+<ol>
+<li>It runs a command called “<code>touch /tmp/test</code>”. If that command exits 0 (success), then it will proceed to the next line. If the command exits non-zero, it&rsquo;s considered a failure and everything aborts at that point.</li>
+<li>It runs the command “rm /tmp/test”</li>
+</ol>
+<p>But behind the scenes though, a lot more is happening. <strong>This is the ROOT OF ALL MISUNDERSTANDINGS.</strong></p>
+<p>The contents of a <code>Makefile</code> target are a template. Think “<code>envsubst</code>”, only instead of simply replacing environment variables, the template supports make syntax. The make syntax has been described above and includes variables, functions, and macros.</p>
+<p>Let&rsquo;s break down the execution of the example above.</p>
+<pre><code>    touch $(TMP_FILE)
+    rm $(TMP_FILE)
+</code></pre><p>Gets first rendered as a template.</p>
+<p>The output would look like this:</p>
+<pre><code>    touch /tmp/test
+    rm /tmp/test
+</code></pre><p>Then, make will proceed to process the output data. Every line output is executed in it&rsquo;s own shell, unless the line ends with a backslash (e.g. <code>\</code>).  The shell is determined by the value of the SHELL variable. We usually default this to <code>bash</code>.</p>
+<p>Make then executes the following</p>
+<ol>
+<li><code>/bin/bash -c “touch /tmp/test”</code></li>
+<li><code>/bin/bash -c “rm /tmp/test”</code></li>
+</ol>
+<p>Note, by default, make will output each command run. This can be turned off by adding an @ at the beginning of the lines.
+This is a make-ism and nothing to do with shell. Remember, make is really just a template language.</p>
+<h4 id="example-2"><strong>Example 2</strong></h4>
+<p>Now that we&rsquo;ve explained how commands are executed, let&rsquo;s introduce a more complicated example that uses <code>$(eval ...)</code></p>
+<pre><code>foobar:
+    @echo &quot;TODAY=wednesday&quot; &gt; /tmp/env
+    $(eval -include /tmp/env)
+    @echo &quot;Today is: '$(TODAY)'&quot;
+</code></pre><p>This would output:</p>
+<pre><code>Today is: ''
+</code></pre><p>Why? Let&rsquo;s re-evaluate this file the way make looks at it.</p>
+<p>Here&rsquo;s what our template looks like:</p>
+<pre><code>    @echo &quot;TODAY=wednesday&quot; &gt; /tmp/env
+    $(eval -include /tmp/env)
+    @echo &quot;Today is: '$(TODAY)'&quot;
+</code></pre><ol>
+<li>Make will first render the template. It does this by first processing all make directives. These are everything in <code>$(....)</code>.</li>
+<li>It finds<code> $(eval -include /tmp/env)</code>. This says to include the contents of <code>/tmp/env</code> into the current scope. If the file <code>/tmp/env</code> does not exist, it will not error and silently continue. Without the leading <code>-</code>, it would exit if the file does not exist (which it doesn&rsquo;t in this example - readon for more details).</li>
+<li><code>/tmp/env</code> does not exist, so nothing got included. Even if it did exist, it would be from some previous execution</li>
+<li>Then it finds <code>$(TODAY)</code> which is not set, so it&rsquo;s evaluated to an empty string.</li>
+<li>All <code>$(...)</code> processing is complete, so the rendered contents look like:</li>
+</ol>
+<pre><code>@echo &quot;TODAY=wednesday&quot; &gt; /tmp/env
+@echo &quot;Today is: ''&quot;`
+</code></pre><ol start="6">
+<li>Make proceeds to execute the contents, line by line</li>
+<li><code>/bin/bash -c 'echo “TODAY=wednesday” &gt; /tmp/env'</code></li>
+<li><code>/bin/bash -c 'echo &quot;Today is: \'\'&quot;'</code></li>
+<li>And finally, we see something on our terminal:
+<code>Today is: ''</code></li>
+</ol>
+<h4 id="example-3"><strong>Example 3</strong></h4>
+<p>Here&rsquo;s another example that demonstrates how literally these templates are interpretted.</p>
+<pre><code>foobar:
+    #@echo &quot;Hello $(shell date)&quot;
+</code></pre><p>Will first render the<code> $(shell date)</code> function which calls the  <code>date</code> command and returns <code>Thu Feb 23 07:01:14 UTC 2017</code>, then execute the line in a sub-shell like this:</p>
+<pre><code>/bin/bash -c '#@echo &quot;Hello Thu Feb 23 07:01:14 UTC 2017&quot;'
+</code></pre><p>Thus, to avoid this unnecessary execution, it&rsquo;s recommend to place all comments (<code>#</code>) at the very beginning of the line.</p>
+<pre><code>foobar:
+##    @echo &quot;Hello&quot;
+</code></pre><h4 id="example-4"><strong>Example 4</strong></h4>
+<p>Here&rsquo;s an example of a multi-line bash script</p>
+<pre><code>foobar:
+    @if [ -d /tmp/test ]; then \
+        echo &quot;Directory exists&quot;; \
+        exit 0; \
+     else \
+        echo &quot;Directory does not exist&quot;; \
+        exit 1; \
+     fi
+</code></pre><p>Here we execute in a single bash execution, the inline script above. Note that all the line endings use a combination of <code>;</code> and <code>\</code> depending on context.</p>
+<h4 id="example-5"><strong>Example 5</strong></h4>
+<pre><code>foobar:
+    @export MONTH=February
+    @echo $${MONTH}
+</code></pre><p>This will output <em>nothing</em> but a new line <code>\n</code> because what happens is <code>export MONTH=February</code> is executed and exported in the first subshell, but a subshell cannot modify the environment of the parent process (<code>make</code>).</p>
+<p>Then when the <code>echo</code> runs, we try and output <code>${MONTH}</code> (in bash-syntax) and it&rsquo;s empty.</p>
+<p><strong>Note:</strong> we escape the dollar-sign with an extra <code>$</code> to avoid make from attempting to interpret it. Make always has priority since it&rsquo;s preprocessing the contents of the template looking for functions and variables.</p>
+<p>To correct this, we could instead write:</p>
+<pre><code>foobar:
+    @export MONTH=February; \
+    echo $${MONTH}
+</code></pre><!-- raw HTML omitted -->
+<h2 id="packages">Packages</h2>
+<p><a href="https://github.com/cloudposse/packages">&ldquo;Packages&rdquo;</a> is the Cloud Posse distribution of native apps. Use this repo to easily install binary releases of popular apps such as all of our standard tools mentioned in this doc. This is useful for inclusion into a Dockerfile to install dependencies.</p>
+<!-- raw HTML omitted -->
+<h3 id="usage-2">Usage</h3>
+<p>Clone the repo.</p>
+<pre><code>git clone git@github.com:cloudposse/packages.git
+</code></pre><p>See all available packages:</p>
+<pre><code>make -C packages/install help
+</code></pre><p>Install everything&hellip;</p>
+<pre><code>make -C packages/install all
+</code></pre><p>Install specific packages:</p>
+<pre><code>make -C packages/install aws-vault chamber
+</code></pre><p>Install to a specific folder:</p>
+<pre><code>make -C packages/install aws-vault INSTALL_PATH=/usr/bin
+</code></pre><p>Add this to a <code>Dockerfile</code> to easily install packages:</p>
+<pre><code>RUN git clone --depth=1 -b master https://github.com/cloudposse/packages.git /packages &amp;&amp; \
+    rm -rf /packages/.git &amp;&amp; \
+    make -C /packages/install kubectl
+</code></pre><p>Here&rsquo;s a <a href="https://github.com/cloudposse/geodesic/blob/0.9.17/Dockerfile#L37-L46">real example</a> of how we use it in <code>geodesic</code>.</p>
+<p>Uninstall a specific package</p>
+<pre><code>make -C uninstall yq
+</code></pre><h3 id="makefile-inclusion">Makefile Inclusion</h3>
+<p>Sometimes it&rsquo;s necessary to install some binary dependencies when building projects. For example, we frequently
+rely on <code>gomplate</code> or <code>helm</code> to build chart packages.</p>
+<p>Here&rsquo;s a stub you can include into a <code>Makefile</code> to make it easier to install binary dependencies.</p>
+<pre><code>export PACKAGES_VERSION ?= master
+export PACKAGES_PATH ?= packages/
+export INSTALL_PATH ?= $(PACKAGES_PATH)/vendor
+
+## Install packages
+packages/install:
+        @if [ ! -d $(PACKAGES_PATH) ]; then \
+          echo &quot;Installing packages $(PACKAGES_VERSION)...&quot;; \
+          rm -rf $(PACKAGES_PATH); \
+          git clone --depth=1 -b $(PACKAGES_VERSION) https://github.com/cloudposse/packages.git $(PACKAGES_PATH); \
+          rm -rf $(PACKAGES_PATH)/.git; \
+        fi
+
+## Install package (e.g. helm, helmfile, kubectl)
+packages/install/%: packages/install
+        @make -C $(PACKAGES_PATH)/install $(subst packages/install/,,$@)
+
+## Uninstall package (e.g. helm, helmfile, kubectl)
+packages/uninstall/%:
+        @make -C $(PACKAGES_PATH)/uninstall $(subst packages/uninstall/,,$@)
+</code></pre><p>Here&rsquo;s a <a href="https://github.com/cloudposse/build-harness/blob/0.5.5/modules/packages/Makefile">real example</a> of how we use it.</p>
+<!-- raw HTML omitted -->
+<h2 id="teleport">Teleport</h2>
+<p><a href="https://goteleport.com/">Teleport</a> is a BeyondCorp solution to provide the unified access plane for infrastructure.</p>
+<h2 id="terraform">Terraform</h2>
+<p>We use <code>terraform</code> as one of our most central tools for automating infrastructure. It&rsquo;s the predominate, cloud agnostic <a href="https://en.wikipedia.org/wiki/Infrastructure_as_code">Infrastructure as Code (IaC)</a> tool. We leverage <code>terraform</code> wherever possible to create composable, automated infrastructure architectures.</p>
+<p>Learn more:</p>
+<ol>
+<li><a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-best-practices/">Our Terraform Best Practices</a></li>
+<li><a href="https://github.com/cloudposse?q=terraform-">Our Terraform Modules</a></li>
+<li><a href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-tips-tricks/">Our Terraform Tips &amp; Tricks</a></li>
+</ol>
+<!-- raw HTML omitted -->
+
+
+    
+    
+            </div>
+      
+        
+
+<div id="related">
+  <h4>See Also</h4>
+  <ul>
+      
+      <li><i class="fa fa-chevron-right"></i><a href="https://cloudposse.github.io/terraform-aws-components/glossary/kms/">Key Management Service (KMS)</a></li>
+      
+      <li><i class="fa fa-chevron-right"></i><a href="https://cloudposse.github.io/terraform-aws-components/glossary/ssm/">Amazon Systems Manager (SSM)</a></li>
+      
+      <li><i class="fa fa-chevron-right"></i><a href="https://cloudposse.github.io/terraform-aws-components/glossary/chamber/">Chamber</a></li>
+      
+      <li><i class="fa fa-chevron-right"></i><a href="https://cloudposse.github.io/terraform-aws-components/glossary/helm-chart/">Helm Chart</a></li>
+      
+      <li><i class="fa fa-chevron-right"></i><a href="https://cloudposse.github.io/terraform-aws-components/glossary/infrastructure-as-code/">Infrastructure as Code (IaC)</a></li>
+      
+  </ul>
+</div>
+
+
+      
+
+      
+      <div class="chevrons">
+        <div id="navigation">
+<a class="nav nav-prev" href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-tips-tricks/" title="Terraform Tips &amp; Tricks"> <i class="fa fa-chevron-left"></i><label>Terraform Tips &amp; Tricks</label></a>
+    <a class="nav nav-next" href="https://cloudposse.github.io/terraform-aws-components/community/" title="Community Resources" style="margin-right: 0px;"><label>Community Resources</label><i class="fa fa-chevron-right"></i></a></div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer class="footer">
+  <div class="footline">
+    <div class="copyright"> © 2021 Cloud Posse, LLC. <a rel="license" href="https://cloudposse.github.io/terraform-aws-components/license/">Creative
+        Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a></div>
+
+    
+
+    
+  </div>
+</footer>
+
+    </section>
+
+  </div>
+  
+  <aside class="right-sidebar">
+  <h3 class="right-sidebar__title"><i class="fa fa-align-left"></i>Table of Contents</h3>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1password">1Password</a>
+      <ul>
+        <li><a href="#best-practices">Best Practices</a></li>
+      </ul>
+    </li>
+    <li><a href="#aws-cli">AWS CLI</a>
+      <ul>
+        <li><a href="#delete-all-versions-of-objects-in-an-s3-bucket">Delete all versions of objects in an S3 bucket</a></li>
+      </ul>
+    </li>
+    <li><a href="#aws-vault">AWS Vault</a>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#local-configuration">Local Configuration</a></li>
+        <li><a href="#using-with-geodesic">Using with Geodesic</a></li>
+      </ul>
+    </li>
+    <li><a href="#build-harness">Build Harness</a>
+      <ul>
+        <li><a href="#usage">Usage</a></li>
+        <li><a href="#real-world-examples">Real World Examples</a></li>
+      </ul>
+    </li>
+    <li><a href="#chamber">Chamber</a>
+      <ul>
+        <li><a href="#usage-1">Usage</a></li>
+      </ul>
+    </li>
+    <li><a href="#geodesic">Geodesic</a>
+      <ul>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#technologies">Technologies</a></li>
+        <li><a href="#our-logo">Our Logo</a></li>
+      </ul>
+    </li>
+    <li><a href="#gomplate">Gomplate</a>
+      <ul>
+        <li><a href="#why-gomplate">Why Gomplate?</a></li>
+        <li><a href="#references">References</a></li>
+      </ul>
+    </li>
+    <li><a href="#goofys">Goofys</a>
+      <ul>
+        <li><a href="#why-goofys">Why Goofys?</a></li>
+      </ul>
+    </li>
+    <li><a href="#helm">Helm</a>
+      <ul>
+        <li><a href="#delete-all-releases-in-namespace">Delete All Releases in Namespace</a></li>
+      </ul>
+    </li>
+    <li><a href="#helmfile">Helmfile</a>
+      <ul>
+        <li><a href="#features-1">Features</a></li>
+        <li><a href="#use-cases">Use-cases</a></li>
+        <li><a href="#dependencies">Dependencies</a></li>
+        <li><a href="#configuration-file">Configuration File</a></li>
+        <li><a href="#example-helmfileyaml">Example <code>helmfile.yaml</code></a></li>
+        <li><a href="#environment-variables">Environment Variables</a></li>
+        <li><a href="#default-values">Default Values</a></li>
+        <li><a href="#arguments">Arguments</a></li>
+        <li><a href="#example-sync-all-charts">Example: Sync All Charts</a></li>
+        <li><a href="#example-sync-specific-charts">Example: Sync Specific Charts</a></li>
+        <li><a href="#example-helmfile-with-chamber">Example: Helmfile with Chamber</a></li>
+        <li><a href="#references-1">References</a></li>
+      </ul>
+    </li>
+    <li><a href="#hugo">Hugo</a></li>
+    <li><a href="#kubectl">Kubectl</a></li>
+    <li><a href="#make">Make</a>
+      <ul>
+        <li><a href="#understanding-makefiles">Understanding Makefiles</a></li>
+        <li><a href="#variables">Variables</a></li>
+        <li><a href="#built-in-functions">Built-in Functions</a></li>
+        <li><a href="#macros">Macros</a></li>
+        <li><a href="#targets">Targets</a></li>
+        <li><a href="#examples">Examples</a></li>
+      </ul>
+    </li>
+    <li><a href="#packages">Packages</a>
+      <ul>
+        <li><a href="#usage-2">Usage</a></li>
+        <li><a href="#makefile-inclusion">Makefile Inclusion</a></li>
+      </ul>
+    </li>
+    <li><a href="#teleport">Teleport</a></li>
+    <li><a href="#terraform">Terraform</a></li>
+  </ul>
+</nav>
+</aside>
+
+  
+  
+
+</div>
+
+<script src="https://cloudposse.github.io/terraform-aws-components/js/app.js"></script>
+<script src="https://cloudposse.github.io/terraform-aws-components/js/mermaid.js"></script>
+
+
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>
