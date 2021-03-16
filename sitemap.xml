@@ -8,6 +8,14 @@
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/fundamentals/introduction/</loc>
   </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/targets/targets/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/terraform/terraform/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/targets/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/terraform/</loc>
+  </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/fundamentals/philosophy/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tutorials/</loc>
@@ -432,8 +440,6 @@
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/make-best-practices/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/targets/</loc>
-  </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/project-management-managers-vs-makers/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/manifest/</loc>
@@ -507,8 +513,6 @@
     <loc>https://cloudposse.github.io/terraform-aws-components/glossary/rds/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/glossary/release-engineering/</loc>
-  </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/terraform/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/glossary/s3/</loc>
   </url><url>

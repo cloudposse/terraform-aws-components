@@ -25,6 +25,27 @@
     </item>
     
     <item>
+      <title>Makefile Targets</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/targets/targets/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/targets/targets/</guid>
+      <description>Makefile Targets Available targets: help Help screen help/all Display help for all targets help/short This help short screen rebuild-docs Rebuild README for all Terraform components </description>
+    </item>
+    
+    <item>
+      <title>Requirements</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/terraform/terraform/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/terraform/terraform/</guid>
+      <description>Requirements No requirements.
+Providers No provider.
+Inputs No input.
+Outputs No output.</description>
+    </item>
+    
+    <item>
       <title>Philosophy</title>
       <link>https://cloudposse.github.io/terraform-aws-components/fundamentals/philosophy/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -921,15 +942,6 @@ docker/build: docker build -t example/test .</description>
     </item>
     
     <item>
-      <title>Makefile Targets</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/targets/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/targets/</guid>
-      <description>Makefile Targets Available targets: help Help screen help/all Display help for all targets help/short This help short screen rebuild-docs Rebuild README for all Terraform components </description>
-    </item>
-    
-    <item>
       <title>Managers vs Makers</title>
       <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/project-management-managers-vs-makers/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -1090,18 +1102,6 @@ Features  Shared MFA - useful for root accounts like AWS MFA Integration with Du
       
       <guid>https://cloudposse.github.io/terraform-aws-components/glossary/release-engineering/</guid>
       <description></description>
-    </item>
-    
-    <item>
-      <title>Requirements</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/terraform/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/terraform/</guid>
-      <description>Requirements No requirements.
-Providers No provider.
-Inputs No input.
-Outputs No output.</description>
     </item>
     
     <item>
