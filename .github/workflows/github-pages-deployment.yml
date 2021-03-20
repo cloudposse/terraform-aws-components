@@ -43,4 +43,4 @@ jobs:
         GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
         GITHUB_REPOSITORY: env.GITHUB_PAGES_REPO
         GIT_DIRECTORY: ./${{ env.GITHUB_PAGES_DIRECTORY }}/
-        GIT_BRANCH: ${{ env.GITHUB_PAGES_BRANCH }}
+        GIT_BRANCH: ${{ env.GITHUB_PAGES_PUSH_BRANCH }}
