@@ -34,15 +34,6 @@
     </item>
     
     <item>
-      <title>Makefile Targets</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/targets2/targets2/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/targets2/targets2/</guid>
-      <description>Makefile Targets Available targets: help Help screen help/all Display help for all targets help/short This help short screen rebuild-docs Rebuild README for all Terraform components </description>
-    </item>
-    
-    <item>
       <title>Requirements</title>
       <link>https://cloudposse.github.io/terraform-aws-components/terraform/terraform/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
