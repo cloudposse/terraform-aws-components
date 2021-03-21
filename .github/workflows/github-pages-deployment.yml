@@ -29,7 +29,7 @@ jobs:
       uses: cloudposse/docs/actions/publish-github-pages@publish-gh-pages-python
       env:
         CONTENT: docs,modules
-        DEBUG: true
+        DEBUG: True
         HUGO_URL: https://cloudposse.github.io/terraform-aws-components
         HUGO_PUBLISH_DIR: docs
         HUGO_CONFIG: hugo.config.new.yml # this variable is the file output location, not the input template location
