@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/account-map/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/eks-iam/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/eks/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/iam-delegated-roles/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/transit-gateway/</loc>
+  </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/fundamentals/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tutorials/geodesic-getting-started/</loc>
@@ -10,23 +20,55 @@
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/targets/targets/</loc>
   </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/opsgenie/detailed-usage/</loc>
+  </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/terraform/terraform/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/targets/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/terraform/</loc>
   </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/iam-primary-roles/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/opsgenie/</loc>
+  </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/fundamentals/philosophy/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tutorials/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/vpc/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/fundamentals/concepts/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/howto/</loc>
   </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/datadog-integration/</loc>
+  </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/reference/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/community/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/dns-delegated/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/tfstate-backend/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/cloudtrail-bucket/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/ecr/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/sso/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/datadog-monitor/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/account-settings/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/cloudtrail/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/dns-primary/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/account/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/efs/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/documentation/standards/</loc>
   </url><url>
@@ -449,6 +491,8 @@
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/mesos/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/module/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/tags/monitoring/</loc>
   </url><url>
