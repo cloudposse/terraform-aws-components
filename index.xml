@@ -7,6 +7,55 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Getting started with Geodesic</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/tutorials/geodesic-getting-started/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/tutorials/geodesic-getting-started/</guid>
+      <description>Intro In the landscape of developing infrastructure, there are dozens of tools that we all need on our personal machines to do our jobs. In SweetOps, instead of having you install each tool individually, we use Docker to package all of these tools into one convenient image that you can use as your infrastructure automation toolbox. We call it Geodesic and we use it as our DevOps automation shell and as the base Docker image for all of our DevOps scripting / CI jobs.</description>
+    </item>
+    
+    <item>
+      <title>Introduction</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/fundamentals/introduction/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/fundamentals/introduction/</guid>
+      <description>What is SweetOps? SweetOps is a methodology for building modern, secure infrastructure on top of Amazon Web Services (AWS). It provides a toolset, library of reusable Infrastructure as Code (IaC), and opinionated patterns to help you bootstrap robust cloud native architectures. Built in an Open Source first fashion by Cloud Posse, it is utilized by many high performing startups to ensure their cloud infrastructure is an advantage instead of a liability.</description>
+    </item>
+    
+    <item>
+      <title>Makefile Targets</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/targets/targets/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/targets/targets/</guid>
+      <description>Makefile Targets Available targets: help Help screen help/all Display help for all targets help/short This help short screen rebuild-docs Rebuild README for all Terraform components </description>
+    </item>
+    
+    <item>
+      <title>Requirements</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/terraform/terraform/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/terraform/terraform/</guid>
+      <description>Requirements No requirements.
+Providers No provider.
+Inputs No input.
+Outputs No output.</description>
+    </item>
+    
+    <item>
+      <title>Philosophy</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/fundamentals/philosophy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/fundamentals/philosophy/</guid>
+      <description>SweetOps is built on a foundational philosophy that ensures the methodology is comprehensive and reusable across organizations. To fully understand what SweetOps is and how to utilize it effectively, it&amp;rsquo;s critical to understand the backing principles that define it.
+100% Open Source All of the primary technology that enables SweetOps is Open Sourced by Cloud Posse and the community under Apache 2.0 Open Source Software License. Using open source licensing is a practical, deliberate strategy.</description>
+    </item>
+    
+    <item>
       <title>Component: `account-settings`</title>
       <link>https://cloudposse.github.io/terraform-aws-components/modules/account-settings/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -181,30 +230,14 @@ components: terraform: vpc: vars: subnet_type_tag_key: &amp;#34;example.net/subn
     </item>
     
     <item>
-      <title>Getting started with Geodesic</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tutorials/geodesic-getting-started/</link>
+      <title>Concepts</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/fundamentals/concepts/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tutorials/geodesic-getting-started/</guid>
-      <description>Intro In the landscape of developing infrastructure, there are dozens of tools that we all need on our personal machines to do our jobs. In SweetOps, instead of having you install each tool individually, we use Docker to package all of these tools into one convenient image that you can use as your infrastructure automation toolbox. We call it Geodesic and we use it as our DevOps automation shell and as the base Docker image for all of our DevOps scripting / CI jobs.</description>
-    </item>
-    
-    <item>
-      <title>Introduction</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/fundamentals/introduction/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/fundamentals/introduction/</guid>
-      <description>What is SweetOps? SweetOps is a methodology for building modern, secure infrastructure on top of Amazon Web Services (AWS). It provides a toolset, library of reusable Infrastructure as Code (IaC), and opinionated patterns to help you bootstrap robust cloud native architectures. Built in an Open Source first fashion by Cloud Posse, it is utilized by many high performing startups to ensure their cloud infrastructure is an advantage instead of a liability.</description>
-    </item>
-    
-    <item>
-      <title>Makefile Targets</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/targets/targets/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/targets/targets/</guid>
-      <description>Makefile Targets Available targets: help Help screen help/all Display help for all targets help/short This help short screen rebuild-docs Rebuild README for all Terraform components </description>
+      <guid>https://cloudposse.github.io/terraform-aws-components/fundamentals/concepts/</guid>
+      <description>SweetOps is built on top of a number of high-level concepts and terminology that are critical to understanding prior to getting started. In this document, we break down these concepts to help you get a leg up prior to going through your first tutorial.
+Components Components are opinionated, self-contained units of infrastructure as code that solve one, specific problem or use-case. SweetOps has two flavors of components:
+ Terraform: Stand-alone root modules that implement some piece of your infrastructure.</description>
     </item>
     
     <item>
@@ -215,39 +248,6 @@ components: terraform: vpc: vars: subnet_type_tag_key: &amp;#34;example.net/subn
       <guid>https://cloudposse.github.io/terraform-aws-components/modules/opsgenie/detailed-usage/</guid>
       <description>Opsgenie Resources The following Opsgenie resources are configured (see resources):
  API Integrations Teams Users Notification Policies Alert Policies Services Service Incident Rules Escalations  api_integrations.yaml NOTE: We provision a Datadog integration without specifying the owning team. Because of that, all alerts coming to Opsgenie from Datadog do not get assigned to a team automatically (if we specified the owning team, then all alerts would go to the members of the team).</description>
-    </item>
-    
-    <item>
-      <title>Requirements</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/terraform/terraform/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/terraform/terraform/</guid>
-      <description>Requirements No requirements.
-Providers No provider.
-Inputs No input.
-Outputs No output.</description>
-    </item>
-    
-    <item>
-      <title>Philosophy</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/fundamentals/philosophy/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/fundamentals/philosophy/</guid>
-      <description>SweetOps is built on a foundational philosophy that ensures the methodology is comprehensive and reusable across organizations. To fully understand what SweetOps is and how to utilize it effectively, it&amp;rsquo;s critical to understand the backing principles that define it.
-100% Open Source All of the primary technology that enables SweetOps is Open Sourced by Cloud Posse and the community under Apache 2.0 Open Source Software License. Using open source licensing is a practical, deliberate strategy.</description>
-    </item>
-    
-    <item>
-      <title>Concepts</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/fundamentals/concepts/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/fundamentals/concepts/</guid>
-      <description>SweetOps is built on top of a number of high-level concepts and terminology that are critical to understanding prior to getting started. In this document, we break down these concepts to help you get a leg up prior to going through your first tutorial.
-Components Components are opinionated, self-contained units of infrastructure as code that solve one, specific problem or use-case. SweetOps has two flavors of components:
- Terraform: Stand-alone root modules that implement some piece of your infrastructure.</description>
     </item>
     
     <item>

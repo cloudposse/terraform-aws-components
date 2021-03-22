@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/fundamentals/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/tutorials/geodesic-getting-started/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/fundamentals/introduction/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/targets/targets/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/terraform/terraform/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/targets/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/terraform/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/fundamentals/philosophy/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/tutorials/</loc>
+  </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/modules/account-map/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/modules/account-settings/</loc>
@@ -42,29 +60,11 @@
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/modules/vpc/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/fundamentals/</loc>
-  </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tutorials/geodesic-getting-started/</loc>
-  </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/fundamentals/introduction/</loc>
-  </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/targets/targets/</loc>
-  </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/opsgenie/detailed-usage/</loc>
-  </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/terraform/terraform/</loc>
-  </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/targets/</loc>
-  </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/terraform/</loc>
-  </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/fundamentals/philosophy/</loc>
-  </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tutorials/</loc>
-  </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/fundamentals/concepts/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/howto/</loc>
+  </url><url>
+    <loc>https://cloudposse.github.io/terraform-aws-components/modules/opsgenie/detailed-usage/</loc>
   </url><url>
     <loc>https://cloudposse.github.io/terraform-aws-components/reference/</loc>
   </url><url>
