@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>codebuild on Cloud Posse Developer Hub</title>
-    <link>http://localhost.cloudposse.com:1313/tags/codebuild/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/codebuild/</link>
     <description>Recent content in codebuild on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/codebuild/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/codebuild/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CodePipeline</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/code-pipeline/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/code-pipeline/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/code-pipeline/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/code-pipeline/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Continuous Integration / Continuous Delivery (CI/CD)</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/cicd/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cicd/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/cicd/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cicd/</guid>
       <description></description>
     </item>
     

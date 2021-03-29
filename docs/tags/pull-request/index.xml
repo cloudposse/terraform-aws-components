@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pull Request on Cloud Posse Developer Hub</title>
-    <link>http://localhost.cloudposse.com:1313/tags/pull-request/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/pull-request/</link>
     <description>Recent content in Pull Request on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/pull-request/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/pull-request/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Code Review (CR)</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/code-review/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/code-review/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/code-review/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/code-review/</guid>
       <description></description>
     </item>
     

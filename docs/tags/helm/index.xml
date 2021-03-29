@@ -2,43 +2,43 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>helm on Cloud Posse Developer Hub</title>
-    <link>http://localhost.cloudposse.com:1313/tags/helm/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/helm/</link>
     <description>Recent content in helm on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/helm/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/helm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CLI</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/cli/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cli/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/cli/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cli/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Helm Chart</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/helm-chart/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/helm-chart/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/helm-chart/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/helm-chart/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Infrastructure as Code (IaC)</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/infrastructure-as-code/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/infrastructure-as-code/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/infrastructure-as-code/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/infrastructure-as-code/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tools</title>
-      <link>http://localhost.cloudposse.com:1313/reference/tools/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/tools/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/reference/tools/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/tools/</guid>
       <description>1Password The 1Password for Teams product by AgileBits is argubably the most popular SaaS-based password management tool. In our opinion, it offers a better user experience over apps like LastPass as well as provides integration with Duo and Slack for real-time activity notifications.
 Best Practices Here are some of our recommended practices for working with 1Password. If your organization choses an alternative password management solution, we recommend implementing compensating controls.</description>
     </item>

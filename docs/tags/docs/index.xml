@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>docs on Cloud Posse Developer Hub</title>
-    <link>http://localhost.cloudposse.com:1313/tags/docs/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/docs/</link>
     <description>Recent content in docs on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/docs/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/docs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WikiOps</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/wikiops/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/wikiops/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/wikiops/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/wikiops/</guid>
       <description>WikiOps is the pattern of following Wiki-style documentation as the means of building and operating your infrastructure. This is to be avoided as it relies on ClickOps and documentation that becomes quickly outdated and inconsistent.</description>
     </item>
     

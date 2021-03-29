@@ -2,279 +2,279 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>aws on Cloud Posse Developer Hub</title>
-    <link>http://localhost.cloudposse.com:1313/tags/aws/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/aws/</link>
     <description>Recent content in aws on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/aws/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Amazon Certificate Manager (ACM)</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/acm/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/acm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/acm/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/acm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Amazon Machine Image (AMI)</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/ami/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ami/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/ami/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ami/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Amazon Systems Manager (SSM)</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/ssm/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ssm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/ssm/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ssm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>aws-vault</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/aws-vault/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/aws-vault/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/aws-vault/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/aws-vault/</guid>
       <description>aws-vault is a utility for securely managing secrets with AWS Systems Manager (SSM) Parameter Store and KMS</description>
     </item>
     
     <item>
       <title>Chamber</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/chamber/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/chamber/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/chamber/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/chamber/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CloudFront</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/cloudfront/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cloudfront/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/cloudfront/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cloudfront/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CloudTrail</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/cloudtrail/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cloudtrail/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/cloudtrail/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cloudtrail/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CloudWatch</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/cloudwatch/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cloudwatch/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/cloudwatch/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cloudwatch/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CloudWatch Logs</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/cloudwatch-logs/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cloudwatch-logs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/cloudwatch-logs/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cloudwatch-logs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CodeBuild</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/code-build/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/code-build/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/code-build/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/code-build/</guid>
       <description>CodeBuild scales continuously and processes multiple builds concurrently, so your builds are not left waiting in a queue. Because CodeBuild runs in AWS, it can leverage IAM Instance Profiles to assume roles to securely provision resources without exposing AWS access credentials.</description>
     </item>
     
     <item>
       <title>CodeDeploy</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/code-deploy/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/code-deploy/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/code-deploy/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/code-deploy/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CodePipeline</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/code-pipeline/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/code-pipeline/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/code-pipeline/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/code-pipeline/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ECS</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/ecs/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ecs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/ecs/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ecs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ECS Service</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/ecs-service/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-service/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/ecs-service/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-service/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ECS Task</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/ecs-task/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-task/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/ecs-task/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-task/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Elastic Container Registry (ECR)</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/ecr/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ecr/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/ecr/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ecr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ElasticBeanstalk (EB)</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/eb/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/eb/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/eb/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/eb/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Goofys</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/goofys/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/goofys/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/goofys/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/goofys/</guid>
       <description>goofys is a a high-performance, POSIX-ish Amazon S3 file system written in Go. We use goofys in Geodesic</description>
     </item>
     
     <item>
       <title>HashiCorp Terraform</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/terraform/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/terraform/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/terraform/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/terraform/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Identity Access Management (IAM)</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/iam/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/iam/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/iam/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/iam/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Key Management Service (KMS)</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/kms/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/kms/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/kms/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/kms/</guid>
       <description>AWS Key Management Service is integrated with most other AWS services to help you protect the data you store with these services. AWS Key Management Service is also integrated with AWS CloudTrail to provide you with logs of all key usage to help meet your regulatory and compliance needs.</description>
     </item>
     
     <item>
       <title>Kubernetes Ops (kops)</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/kops/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/kops/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/kops/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/kops/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Lambda</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/lambda/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/lambda/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/lambda/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/lambda/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Parameter Store</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/parameter-store/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/parameter-store/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/parameter-store/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/parameter-store/</guid>
       <description>The Amazon Systems Manager Parameter Store provides secure, hierarchical storage for configuration data management and secrets management.
 You can store data such as passwords, database strings, and license codes as parameter values. You can store values as plain text or encrypted data using KMS. You can then reference values by using the unique name that you specified when you created the parameter. Highly scalable, available, and durable, Parameter Store is backed by the AWS Cloud.</description>
     </item>
     
     <item>
       <title>Relational Database Service (RDS)</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/rds/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/rds/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/rds/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/rds/</guid>
       <description></description>
     </item>
     
     <item>
       <title>S3</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/s3/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/s3/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/s3/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/s3/</guid>
       <description></description>
     </item>
     
     <item>
       <title>S3 Bucket</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/s3-bucket/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/s3-bucket/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/s3-bucket/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/s3-bucket/</guid>
       <description>Think of an S3 bucket as a top-level folder. It must be globally unique on AWS across all customers and accounts.</description>
     </item>
     
     <item>
       <title>Simple Notification Service (SNS)</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/sns/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/sns/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/sns/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/sns/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tools</title>
-      <link>http://localhost.cloudposse.com:1313/reference/tools/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/reference/tools/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/reference/tools/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/reference/tools/</guid>
       <description>1Password The 1Password for Teams product by AgileBits is argubably the most popular SaaS-based password management tool. In our opinion, it offers a better user experience over apps like LastPass as well as provides integration with Duo and Slack for real-time activity notifications.
 Best Practices Here are some of our recommended practices for working with 1Password. If your organization choses an alternative password management solution, we recommend implementing compensating controls.</description>
     </item>
     
     <item>
       <title>Virtual Private Cloud (VPC)</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/vpc/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/vpc/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/vpc/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/vpc/</guid>
       <description>A virtual private cloud (“VPC”) is an isolated environment running inside of a public cloud. You can think of it like a private data center with its own private subnets and resources. A VPC can also be an extension of a physical datacenter. The most common example of a VPC is the service that Amazon offers called “Amazon VPC” which allows customers to make Amazon EC2 an extension to their physical infrastructure using an IPsec VPN tunnel.</description>
     </item>
     

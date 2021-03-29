@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Cloud Posse Developer Hub</title>
-    <link>http://localhost.cloudposse.com:1313/categories/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/categories/</link>
     <description>Recent content in Categories on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Community Resources</title>
-      <link>http://localhost.cloudposse.com:1313/categories/community-resources/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/categories/community-resources/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/categories/community-resources/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/categories/community-resources/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Terraform</title>
-      <link>http://localhost.cloudposse.com:1313/categories/terraform/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/categories/terraform/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/categories/terraform/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/categories/terraform/</guid>
       <description></description>
     </item>
     

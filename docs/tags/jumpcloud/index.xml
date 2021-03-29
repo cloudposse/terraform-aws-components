@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>jumpcloud on Cloud Posse Developer Hub</title>
-    <link>http://localhost.cloudposse.com:1313/tags/jumpcloud/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/jumpcloud/</link>
     <description>Recent content in jumpcloud on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/jumpcloud/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/jumpcloud/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Single Sign-on (SSO)</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/sso/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/sso/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/sso/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/sso/</guid>
       <description></description>
     </item>
     

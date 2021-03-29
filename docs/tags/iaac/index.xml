@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>IaaC on Cloud Posse Developer Hub</title>
-    <link>http://localhost.cloudposse.com:1313/tags/iaac/</link>
+    <link>https://cloudposse.github.io/terraform-aws-components/tags/iaac/</link>
     <description>Recent content in IaaC on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/iaac/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/iaac/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>HashiCorp Terraform</title>
-      <link>http://localhost.cloudposse.com:1313/glossary/terraform/</link>
+      <link>https://cloudposse.github.io/terraform-aws-components/glossary/terraform/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost.cloudposse.com:1313/glossary/terraform/</guid>
+      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/terraform/</guid>
       <description></description>
     </item>
     
