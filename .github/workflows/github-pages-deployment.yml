@@ -27,15 +27,15 @@ jobs:
       uses: actions/checkout@v2
     - name: "Build Hugo Static Site"
       uses: cloudposse/docs/actions/publish-github-pages@publish-gh-pages-python
-      with:
-        content: docs,modules
-        debug: True
-        hugo_url: https://cloudposse.github.io/terraform-aws-components
-        hugo_publish_dir: docs
-        hugo_config: hugo.config.new.yml # this variable is the file output location, not the input template location
-        htmltest_config: .htmltest.new.yml # this variable is the file output location, not the input template location
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        github_actor: ${{ secrets.GITHUB_ACTOR }}
+      env:
+        CONTENT: docs,modules
+        DEBUG: True
+        HUGO_URL: https://cloudposse.github.io/terraform-aws-components
+        HUGO_PUBLISH_DIR: docs
+        HUGO_CONFIG: hugo.config.new.yml # this variable is the file output location, not the input template location
+        HTMLTEST_CONFIG: .htmltest.new.yml # this variable is the file output location, not the input template location
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
     - name: "Deploy Hugo Static Site to GitHub Pages"
       uses: cloudposse/actions/github/git-push@git-push-debugging-info
       env:
