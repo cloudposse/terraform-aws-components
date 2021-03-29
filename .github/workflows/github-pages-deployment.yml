@@ -27,7 +27,7 @@ jobs:
       uses: actions/checkout@v2
     - name: "Build Hugo Static Site"
       uses: cloudposse/docs/actions/publish-github-pages@publish-gh-pages-python
-      env:
+      with:
         CONTENT: docs,modules
         DEBUG: True
         HUGO_URL: https://cloudposse.github.io/terraform-aws-components
