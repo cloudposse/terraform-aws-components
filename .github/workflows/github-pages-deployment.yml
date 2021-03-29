@@ -17,17 +17,17 @@ jobs:
   github-pages-deploy:
     name: "Build Hugo Site and Deploy to GitHub Pages"
     runs-on: ubuntu-latest
-    env:
-      GITHUB_PAGES_REPO: https://github.com/cloudposse/terraform-aws-components
-      GITHUB_PAGES_PULL_BRANCH: github-pages-docs
-      GITHUB_PAGES_PUSH_BRANCH: docs
-      GITHUB_PAGES_DIRECTORY: github_pages
+    #env:
+    #  GITHUB_PAGES_REPO: https://github.com/cloudposse/terraform-aws-components
+    #  GITHUB_PAGES_PULL_BRANCH: github-pages-docs
+    #  GITHUB_PAGES_PUSH_BRANCH: docs
+    #  GITHUB_PAGES_DIRECTORY: github_pages
     steps:
     - name: "Checkout source code at current commit"
       uses: actions/checkout@v2
     - name: "Build Hugo Static Site"
       uses: cloudposse/docs/actions/publish-github-pages@publish-gh-pages-python
-      env:
+      with:
         CONTENT: docs,modules
         DEBUG: True
         HUGO_URL: https://cloudposse.github.io/terraform-aws-components
@@ -36,6 +36,10 @@ jobs:
         HTMLTEST_CONFIG: .htmltest.new.yml # this variable is the file output location, not the input template location
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+        GITHUB_PAGES_REPO: https://github.com/cloudposse/terraform-aws-components
+        GITHUB_PAGES_PULL_BRANCH: github-pages-docs
+        GITHUB_PAGES_PUSH_BRANCH: docs
+        GITHUB_PAGES_DIRECTORY: github_pages
     - name: "Deploy Hugo Static Site to GitHub Pages"
       uses: cloudposse/actions/github/git-push@git-push-debugging-info
       env:
