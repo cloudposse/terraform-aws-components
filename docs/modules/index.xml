@@ -7,18 +7,6 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/modules/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Component: `account-map`</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/modules/account-map/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/modules/account-map/</guid>
-      <description>Component: account-map This component is responsible for provisioning information only: it simply populates Terraform state with data (account ids, groups, and roles) that other root modules need via outputs.
-Usage Stack Level: Global
-Here&amp;rsquo;s an example snippet for how to use this component. Stick this snippet in the management account&amp;rsquo;s stack (E.g. gbl-root.yaml)
-components: terraform: account-map: vars: root_account_aws_name: &amp;#34;aws-root&amp;#34; root_account_stage_name: root identity_account_stage_name: identity dns_account_stage_name: dns audit_account_stage_name: audit Requirements    Name Version     terraform &amp;gt;= 0.</description>
-    </item>
-    
-    <item>
       <title>Component: `account-settings`</title>
       <link>https://cloudposse.github.io/terraform-aws-components/modules/account-settings/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -31,15 +19,14 @@ components: terraform: account-settings: vars: minimum_password_length: 20 maxim
     </item>
     
     <item>
-      <title>Component: `account`</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/modules/account/</link>
+      <title>Component: `iam-delegated-roles`</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/modules/iam-delegated-roles/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/modules/account/</guid>
-      <description>Component: account This component is responsible for provisioning the full account hierarchy along with Organizational Units (OUs). It includes the ability to associate Service Control Policies (SCPs) to the Organization, each Organizational Unit and account.
+      <guid>https://cloudposse.github.io/terraform-aws-components/modules/iam-delegated-roles/</guid>
+      <description>Component: iam-delegated-roles This component is responsible for provisioning all delegated user and system IAM roles. It sets them up to be assumed from the primary, identity account roles. This is expected to be used alongside and applied after the iam-primary-roles component is applied to the identity account.
 Usage Stack Level: Global
-Here&amp;rsquo;s an example snippet for how to use this component. Stick this snippet in the management account&amp;rsquo;s stack (E.g. gbl-root.yaml)
-IMPORTANT: Account names must not contain dashes. Doing so will lead to unpredictable resource names as a - is the default delimiter.</description>
+Here&amp;rsquo;s an example snippet for how to use this component. This specific usage is for an audit stack (e.g. gbl-audit.</description>
     </item>
     
     <item>
@@ -55,15 +42,15 @@ components: terraform: cloudtrail-bucket: vars: name: &amp;#34;cloudtrail&amp;#3
     </item>
     
     <item>
-      <title>Component: `cloudtrail`</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/modules/cloudtrail/</link>
+      <title>Component: `dns-delegated`</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/modules/dns-delegated/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/modules/cloudtrail/</guid>
-      <description>Component: cloudtrail This component is responsible for provisioning cloudtrail auditing in an individual account. It&amp;rsquo;s expected to be used alongside the cloudtrail-bucket component as it utilizes that bucket via remote state.
+      <guid>https://cloudposse.github.io/terraform-aws-components/modules/dns-delegated/</guid>
+      <description>Component: dns-delegated This component is responsible for provisioning a DNS zone which delegates nameservers to the DNS zone in the primary DNS account. The primary DNS zone is expected to already be provisioned via the dns-primary component.
+This component also provisions a wildcard ACM certificate for the given subdomain.
 Usage Stack Level: Global
-Here&amp;rsquo;s an example snippet for how to use this component. It&amp;rsquo;s suggested to apply this component to all accounts, so put this snippet in each account&amp;rsquo;s global stack (E.g. gbl-root.yaml, gbl-devplatform.yaml, gbl-identity.yaml, etc.)
-components: terraform: cloudtrail: vars: cloudtrail_bucket_environment_name: &amp;#34;uw2&amp;#34; cloudtrail_bucket_stage_name: &amp;#34;audit&amp;#34; cloudwatch_logs_retention_in_days: 730 Requirements    Name Version     terraform &amp;gt;= 0.</description>
+Here&amp;rsquo;s an example snippet for how to use this component. Use this component in global stacks for any accounts where you host services that need DNS records on a given subdomain (e.</description>
     </item>
     
     <item>
@@ -78,29 +65,6 @@ Here&amp;rsquo;s an example snippet for how to use this component. It&amp;rsquo;
     </item>
     
     <item>
-      <title>Component: `datadog-monitor`</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/modules/datadog-monitor/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/modules/datadog-monitor/</guid>
-      <description>Component: datadog-monitor This component is responsible for provisioning global DataDog monitors. It&amp;rsquo;s required that the DataDog API and App secret keys are available in the consuming account at the var.datadog_api_secret_key and var.datadog_app_secret_key paths in either AWS Secrets Manager or the AWS SSM Parameter Store.
-Usage Stack Level: Regional
-Here&amp;rsquo;s an example snippet for how to use this component. This component should only be applied once as the monitors it creates are global across all accounts.</description>
-    </item>
-    
-    <item>
-      <title>Component: `dns-delegated`</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/modules/dns-delegated/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/modules/dns-delegated/</guid>
-      <description>Component: dns-delegated This component is responsible for provisioning a DNS zone which delegates nameservers to the DNS zone in the primary DNS account. The primary DNS zone is expected to already be provisioned via the dns-primary component.
-This component also provisions a wildcard ACM certificate for the given subdomain.
-Usage Stack Level: Global
-Here&amp;rsquo;s an example snippet for how to use this component. Use this component in global stacks for any accounts where you host services that need DNS records on a given subdomain (e.</description>
-    </item>
-    
-    <item>
       <title>Component: `dns-primary`</title>
       <link>https://cloudposse.github.io/terraform-aws-components/modules/dns-primary/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -108,88 +72,6 @@ Here&amp;rsquo;s an example snippet for how to use this component. Use this comp
       <guid>https://cloudposse.github.io/terraform-aws-components/modules/dns-primary/</guid>
       <description>Component: dns-primary This component is responsible for provisioning the primary DNS zones into an AWS account. By convention, we typically provision the primary DNS zones in the dns account. The primary account for branded zones (e.g. example.com), however, would be in the prod account, while staging zone (e.g. example.qa) might be in the staging account.
 The zones from the primary DNS zone are then expected to be delegated to other accounts via the dns-delegated component.</description>
-    </item>
-    
-    <item>
-      <title>Component: `ecr`</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/modules/ecr/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/modules/ecr/</guid>
-      <description>Component: ecr This component is responsible for provisioning repositories, lifecycle rules, and permissions for streamlined ECR usage. This utlizes the roles-to-principals submodule to assign accounts to various roles.
-Usage Stack Level: Regional
-Here&amp;rsquo;s an example snippet for how to use this component. This component should only be applied once as the resources it creates are global. This is typically done via the corp stack (e.g. uw2-corp.yaml).
-components: terraform: ecr: vars: ecr_user_enabled: true max_image_count: 500 scan_images_on_push: true cicd_accounts: - automation images: - infrastructure - microservice-a - microservice-b - microservice-c read_write_account_role_map: identity: - admin - ops - cicd automation: - admin - ops read_only_account_role_map: corp: [&amp;#34;*&amp;#34;] devdata: [&amp;#34;*&amp;#34;] devplatform: [&amp;#34;*&amp;#34;] proddata: [&amp;#34;*&amp;#34;] prodplatform: [&amp;#34;*&amp;#34;] stagedata: [&amp;#34;*&amp;#34;] stageplatform: [&amp;#34;*&amp;#34;] Requirements    Name Version     terraform &amp;gt;= 0.</description>
-    </item>
-    
-    <item>
-      <title>Component: `efs`</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/modules/efs/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/modules/efs/</guid>
-      <description>Component: efs This component is responsible for provisioning an EFS Network File System with KMS encryption-at-rest. EFS is an excellent choice as the default block storage for EKS clusters so that volumes are not zone-locked.
-Usage Stack Level: Regional
-Here&amp;rsquo;s an example snippet for how to use this component.
-components: terraform: efs: vars: name: shared-files dns_name: shared-files provisioned_throughput_in_mibps: 10 Requirements    Name Version     terraform &amp;gt;= 0.</description>
-    </item>
-    
-    <item>
-      <title>Component: `eks-iam`</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/modules/eks-iam/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/modules/eks-iam/</guid>
-      <description>Component: eks-iam This component is responsible for provisioning specific IAM roles for Kubernetes Service Accounts. IAM roles are created for the following Kubernetes projects:
- aws-load-balancer-controller cluster-proportional-autoscaler cert-manager external-dns  Usage Stack Level: Regional
-Here&amp;rsquo;s an example snippet for how to use this component.
-components: terraform: eks-iam: vars: standard_service_accounts: - &amp;#34;alb-controller&amp;#34;, - &amp;#34;external-dns&amp;#34; - &amp;#34;cert-manager&amp;#34; Requirements    Name Version     terraform &amp;gt;= 0.13.0   aws &amp;gt;= 3.</description>
-    </item>
-    
-    <item>
-      <title>Component: `eks`</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/modules/eks/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/modules/eks/</guid>
-      <description>Component: eks This component is responsible for provisioning an end-to-end EKS Cluster, including managed node groups and spotinst ocean node pools.
-Usage Stack Level: Regional
-Here&amp;rsquo;s an example snippet for how to use this component.
-components: terraform: eks: vars: cluster_kubernetes_version: &amp;#34;1.19&amp;#34; region_availability_zones: [&amp;#34;us-east-1b&amp;#34;, &amp;#34;us-east-1c&amp;#34;, &amp;#34;us-east-1d&amp;#34;] spotinst_instance_profile: example-gbl-dev-spotinst-worker map_additional_worker_roles: [&amp;#34;arn:aws:iam::xxxxxxxxxx:role/example-ue1-dev-spotinst-worker&amp;#34;] public_access_cidrs: [&amp;#34;72.107.0.0/24&amp;#34;] spotinst_oceans: main: &amp;amp;standard_node_group desired_group_size: 1 max_group_size: 10 min_group_size: 1 # Can only set one of ami_release_version or kubernetes_version # Leave both null to use latest AMI for Cluster Kubernetes version kubernetes_version: null # use cluster Kubernetes version ami_release_version: null # use latest AMI for Kubernetes version attributes: null disk_size: 100 instance_types: null ami_type: null # use &amp;#34;AL2_x86_64&amp;#34; for standard instances, &amp;#34;AL2_x86_64_GPU&amp;#34; for GPU instances tags: null Requirements    Name Version     terraform &amp;gt;= 0.</description>
-    </item>
-    
-    <item>
-      <title>Component: `iam-delegated-roles`</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/modules/iam-delegated-roles/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/modules/iam-delegated-roles/</guid>
-      <description>Component: iam-delegated-roles This component is responsible for provisioning all delegated user and system IAM roles. It sets them up to be assumed from the primary, identity account roles. This is expected to be used alongside and applied after the iam-primary-roles component is applied to the identity account.
-Usage Stack Level: Global
-Here&amp;rsquo;s an example snippet for how to use this component. This specific usage is for an audit stack (e.g. gbl-audit.</description>
-    </item>
-    
-    <item>
-      <title>Component: `iam-primary-roles`</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/modules/iam-primary-roles/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/modules/iam-primary-roles/</guid>
-      <description>Component: iam-primary-roles This component is responsible for provisioning all primary user and system roles into the centralized identity account. This is expected to be use alongside the iam-delegated-roles component to provide fine grained role delegation across the account hierarchy.
-Usage Stack Level: Global
-Here&amp;rsquo;s an example snippet for how to use this component. The component should only be applied once, which is typically done via the identity stack (e.g. gbl-identity.yaml).</description>
-    </item>
-    
-    <item>
-      <title>Component: `sso`</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/modules/sso/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cloudposse.github.io/terraform-aws-components/modules/sso/</guid>
-      <description>Component: sso This component is responsible for provisioning SAML metadata into AWS IAM as new SAML providers. Additionally, for an Okta integration (okta must be mentioned in the key given to the saml_providers input) it creates an Okta API user and corresponding Access Key pair which is pushed into AWS SSM.
-Usage Stack Level: Global
-Here&amp;rsquo;s an example snippet for how to use this component.
-IMPORTANT: The given SAML metadata files must exist at the root of the module.</description>
     </item>
     
     <item>
@@ -205,6 +87,54 @@ components: terraform: tfstate-backend: vars: name: tfstate force_destroy: false
     </item>
     
     <item>
+      <title>Component: `eks-iam`</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/modules/eks-iam/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/modules/eks-iam/</guid>
+      <description>Component: eks-iam This component is responsible for provisioning specific IAM roles for Kubernetes Service Accounts. IAM roles are created for the following Kubernetes projects:
+ aws-load-balancer-controller cluster-proportional-autoscaler cert-manager external-dns  Usage Stack Level: Regional
+Here&amp;rsquo;s an example snippet for how to use this component.
+components: terraform: eks-iam: vars: standard_service_accounts: - &amp;#34;alb-controller&amp;#34;, - &amp;#34;external-dns&amp;#34; - &amp;#34;cert-manager&amp;#34; Requirements    Name Version     terraform &amp;gt;= 0.13.0   aws &amp;gt;= 3.</description>
+    </item>
+    
+    <item>
+      <title>Component: `account-map`</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/modules/account-map/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/modules/account-map/</guid>
+      <description>Component: account-map This component is responsible for provisioning information only: it simply populates Terraform state with data (account ids, groups, and roles) that other root modules need via outputs.
+Usage Stack Level: Global
+Here&amp;rsquo;s an example snippet for how to use this component. Stick this snippet in the management account&amp;rsquo;s stack (E.g. gbl-root.yaml)
+components: terraform: account-map: vars: root_account_aws_name: &amp;#34;aws-root&amp;#34; root_account_stage_name: root identity_account_stage_name: identity dns_account_stage_name: dns audit_account_stage_name: audit Requirements    Name Version     terraform &amp;gt;= 0.</description>
+    </item>
+    
+    <item>
+      <title>Component: `sso`</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/modules/sso/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/modules/sso/</guid>
+      <description>Component: sso This component is responsible for provisioning SAML metadata into AWS IAM as new SAML providers. Additionally, for an Okta integration (okta must be mentioned in the key given to the saml_providers input) it creates an Okta API user and corresponding Access Key pair which is pushed into AWS SSM.
+Usage Stack Level: Global
+Here&amp;rsquo;s an example snippet for how to use this component.
+IMPORTANT: The given SAML metadata files must exist at the root of the module.</description>
+    </item>
+    
+    <item>
+      <title>Component: `ecr`</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/modules/ecr/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/modules/ecr/</guid>
+      <description>Component: ecr This component is responsible for provisioning repositories, lifecycle rules, and permissions for streamlined ECR usage. This utlizes the roles-to-principals submodule to assign accounts to various roles.
+Usage Stack Level: Regional
+Here&amp;rsquo;s an example snippet for how to use this component. This component should only be applied once as the resources it creates are global. This is typically done via the corp stack (e.g. uw2-corp.yaml).
+components: terraform: ecr: vars: ecr_user_enabled: true max_image_count: 500 scan_images_on_push: true cicd_accounts: - automation images: - infrastructure - microservice-a - microservice-b - microservice-c read_write_account_role_map: identity: - admin - ops - cicd automation: - admin - ops read_only_account_role_map: corp: [&amp;#34;*&amp;#34;] devdata: [&amp;#34;*&amp;#34;] devplatform: [&amp;#34;*&amp;#34;] proddata: [&amp;#34;*&amp;#34;] prodplatform: [&amp;#34;*&amp;#34;] stagedata: [&amp;#34;*&amp;#34;] stageplatform: [&amp;#34;*&amp;#34;] Requirements    Name Version     terraform &amp;gt;= 0.</description>
+    </item>
+    
+    <item>
       <title>Component: `transit-gateway`</title>
       <link>https://cloudposse.github.io/terraform-aws-components/modules/transit-gateway/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -217,6 +147,64 @@ components: terraform: transit-gateway: vars: tgw_stage_name: network accounts_w
     </item>
     
     <item>
+      <title>Component: `cloudtrail`</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/modules/cloudtrail/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/modules/cloudtrail/</guid>
+      <description>Component: cloudtrail This component is responsible for provisioning cloudtrail auditing in an individual account. It&amp;rsquo;s expected to be used alongside the cloudtrail-bucket component as it utilizes that bucket via remote state.
+Usage Stack Level: Global
+Here&amp;rsquo;s an example snippet for how to use this component. It&amp;rsquo;s suggested to apply this component to all accounts, so put this snippet in each account&amp;rsquo;s global stack (E.g. gbl-root.yaml, gbl-devplatform.yaml, gbl-identity.yaml, etc.)
+components: terraform: cloudtrail: vars: cloudtrail_bucket_environment_name: &amp;#34;uw2&amp;#34; cloudtrail_bucket_stage_name: &amp;#34;audit&amp;#34; cloudwatch_logs_retention_in_days: 730 Requirements    Name Version     terraform &amp;gt;= 0.</description>
+    </item>
+    
+    <item>
+      <title>Component: `iam-primary-roles`</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/modules/iam-primary-roles/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/modules/iam-primary-roles/</guid>
+      <description>Component: iam-primary-roles This component is responsible for provisioning all primary user and system roles into the centralized identity account. This is expected to be use alongside the iam-delegated-roles component to provide fine grained role delegation across the account hierarchy.
+Usage Stack Level: Global
+Here&amp;rsquo;s an example snippet for how to use this component. The component should only be applied once, which is typically done via the identity stack (e.g. gbl-identity.yaml).</description>
+    </item>
+    
+    <item>
+      <title>Component: `efs`</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/modules/efs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/modules/efs/</guid>
+      <description>Component: efs This component is responsible for provisioning an EFS Network File System with KMS encryption-at-rest. EFS is an excellent choice as the default block storage for EKS clusters so that volumes are not zone-locked.
+Usage Stack Level: Regional
+Here&amp;rsquo;s an example snippet for how to use this component.
+components: terraform: efs: vars: name: shared-files dns_name: shared-files provisioned_throughput_in_mibps: 10 Requirements    Name Version     terraform &amp;gt;= 0.</description>
+    </item>
+    
+    <item>
+      <title>Component: `eks`</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/modules/eks/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/modules/eks/</guid>
+      <description>Component: eks This component is responsible for provisioning an end-to-end EKS Cluster, including managed node groups and spotinst ocean node pools.
+Usage Stack Level: Regional
+Here&amp;rsquo;s an example snippet for how to use this component.
+components: terraform: eks: vars: cluster_kubernetes_version: &amp;#34;1.19&amp;#34; region_availability_zones: [&amp;#34;us-east-1b&amp;#34;, &amp;#34;us-east-1c&amp;#34;, &amp;#34;us-east-1d&amp;#34;] spotinst_instance_profile: example-gbl-dev-spotinst-worker map_additional_worker_roles: [&amp;#34;arn:aws:iam::xxxxxxxxxx:role/example-ue1-dev-spotinst-worker&amp;#34;] public_access_cidrs: [&amp;#34;72.107.0.0/24&amp;#34;] spotinst_oceans: main: &amp;amp;standard_node_group desired_group_size: 1 max_group_size: 10 min_group_size: 1 # Can only set one of ami_release_version or kubernetes_version # Leave both null to use latest AMI for Cluster Kubernetes version kubernetes_version: null # use cluster Kubernetes version ami_release_version: null # use latest AMI for Kubernetes version attributes: null disk_size: 100 instance_types: null ami_type: null # use &amp;#34;AL2_x86_64&amp;#34; for standard instances, &amp;#34;AL2_x86_64_GPU&amp;#34; for GPU instances tags: null Requirements    Name Version     terraform &amp;gt;= 0.</description>
+    </item>
+    
+    <item>
+      <title>Component: `datadog-monitor`</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/modules/datadog-monitor/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/modules/datadog-monitor/</guid>
+      <description>Component: datadog-monitor This component is responsible for provisioning global DataDog monitors. It&amp;rsquo;s required that the DataDog API and App secret keys are available in the consuming account at the var.datadog_api_secret_key and var.datadog_app_secret_key paths in either AWS Secrets Manager or the AWS SSM Parameter Store.
+Usage Stack Level: Regional
+Here&amp;rsquo;s an example snippet for how to use this component. This component should only be applied once as the monitors it creates are global across all accounts.</description>
+    </item>
+    
+    <item>
       <title>Component: `vpc`</title>
       <link>https://cloudposse.github.io/terraform-aws-components/modules/vpc/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -226,6 +214,18 @@ components: terraform: transit-gateway: vars: tgw_stage_name: network accounts_w
 Usage Stack Level: Regional
 Here&amp;rsquo;s an example snippet for how to use this component.
 components: terraform: vpc: vars: subnet_type_tag_key: &amp;#34;example.net/subnet/type&amp;#34; vpc_flow_logs_enabled: true vpc_flow_logs_bucket_environment_name: &amp;#34;uw2&amp;#34; vpc_flow_logs_bucket_stage_name: &amp;#34;audit&amp;#34; vpc_flow_logs_traffic_type: &amp;#34;ALL&amp;#34; cidr_block: &amp;#34;10.111.0.0/18&amp;#34; Requirements    Name Version     terraform &amp;gt;= 0.</description>
+    </item>
+    
+    <item>
+      <title>Component: `account`</title>
+      <link>https://cloudposse.github.io/terraform-aws-components/modules/account/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cloudposse.github.io/terraform-aws-components/modules/account/</guid>
+      <description>Component: account This component is responsible for provisioning the full account hierarchy along with Organizational Units (OUs). It includes the ability to associate Service Control Policies (SCPs) to the Organization, each Organizational Unit and account.
+Usage Stack Level: Global
+Here&amp;rsquo;s an example snippet for how to use this component. Stick this snippet in the management account&amp;rsquo;s stack (E.g. gbl-root.yaml)
+IMPORTANT: Account names must not contain dashes. Doing so will lead to unpredictable resource names as a - is the default delimiter.</description>
     </item>
     
   </channel>
