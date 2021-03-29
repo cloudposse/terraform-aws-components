@@ -656,7 +656,10 @@
     </div>
     <div class="post__excerpt">
       
-        <div class="post__paragraph">No description available.</div>
+        <div class="post__paragraph">Component: account-settings This component is responsible for provisioning account level settings: IAM password policy, AWS Account Alias, and EBS encryption.
+Usage Stack Level: Global
+Here’s an example snippet for how to use this component. It’s suggested to apply this component to all accounts, so put this snippet in each account’s global stack (E.g. gbl-root.yaml, gbl-devplatform.yaml, gbl-identity.yaml, etc.)
+components: terraform: account-settings: vars: minimum_password_length: 20 maximum_password_age: 120 Requirements    Name Version     terraform &gt;= 0.</div>
       
     </div>
     <div class="post__footer footline" >
@@ -674,7 +677,9 @@
     </div>
     <div class="post__excerpt">
       
-        <div class="post__paragraph">No description available.</div>
+        <div class="post__paragraph">Component: iam-delegated-roles This component is responsible for provisioning all delegated user and system IAM roles. It sets them up to be assumed from the primary, identity account roles. This is expected to be used alongside and applied after the iam-primary-roles component is applied to the identity account.
+Usage Stack Level: Global
+Here’s an example snippet for how to use this component. This specific usage is for an audit stack (e.g. gbl-audit.</div>
       
     </div>
     <div class="post__footer footline" >
@@ -692,7 +697,10 @@
     </div>
     <div class="post__excerpt">
       
-        <div class="post__paragraph">No description available.</div>
+        <div class="post__paragraph">Component: cloudtrail-bucket This component is responsible for provisioning a bucket for storing cloudtrail logs for auditing purposes. It’s expected to be used alongside the cloudtrail component.
+Usage Stack Level: Regional
+Here’s an example snippet for how to use this component. It’s suggested to apply this component to only the centralized audit account.
+components: terraform: cloudtrail-bucket: vars: name: &#34;cloudtrail&#34; noncurrent_version_expiration_days: 180 noncurrent_version_transition_days: 30 standard_transition_days: 60 glacier_transition_days: 180 expiration_days: 365 Requirements    Name Version     terraform &gt;= 0.</div>
       
     </div>
     <div class="post__footer footline" >
@@ -710,7 +718,10 @@
     </div>
     <div class="post__excerpt">
       
-        <div class="post__paragraph">No description available.</div>
+        <div class="post__paragraph">Component: dns-delegated This component is responsible for provisioning a DNS zone which delegates nameservers to the DNS zone in the primary DNS account. The primary DNS zone is expected to already be provisioned via the dns-primary component.
+This component also provisions a wildcard ACM certificate for the given subdomain.
+Usage Stack Level: Global
+Here’s an example snippet for how to use this component. Use this component in global stacks for any accounts where you host services that need DNS records on a given subdomain (e.</div>
       
     </div>
     <div class="post__footer footline" >
@@ -728,7 +739,9 @@
     </div>
     <div class="post__excerpt">
       
-        <div class="post__paragraph">No description available.</div>
+        <div class="post__paragraph">Component: datadog-integration This component is responsible for provisioning a DataDog &lt;=&gt; AWS integration. It’s required that the DataDog API and App secret keys are available in the consuming account at the var.datadog_api_secret_key and var.datadog_app_secret_key paths in either AWS Secrets Manager or the AWS SSM Parameter Store.
+Usage Stack Level: Global
+Here’s an example snippet for how to use this component. It’s suggested to apply this component to all accounts which you want to track AWS metrics with DataDog.</div>
       
     </div>
     <div class="post__footer footline" >
@@ -746,7 +759,8 @@
     </div>
     <div class="post__excerpt">
       
-        <div class="post__paragraph">No description available.</div>
+        <div class="post__paragraph">Component: dns-primary This component is responsible for provisioning the primary DNS zones into an AWS account. By convention, we typically provision the primary DNS zones in the dns account. The primary account for branded zones (e.g. example.com), however, would be in the prod account, while staging zone (e.g. example.qa) might be in the staging account.
+The zones from the primary DNS zone are then expected to be delegated to other accounts via the dns-delegated component.</div>
       
     </div>
     <div class="post__footer footline" >
@@ -764,7 +778,10 @@
     </div>
     <div class="post__excerpt">
       
-        <div class="post__paragraph">No description available.</div>
+        <div class="post__paragraph">Component: tfstate-backend This component is responsible for provisioning an S3 Bucket and DynamoDB table that follow security best practices for usage as a Terraform backend.
+Usage Stack Level: Regional
+Here’s an example snippet for how to use this component.
+components: terraform: tfstate-backend: vars: name: tfstate force_destroy: false prevent_unencrypted_uploads: true enable_server_side_encryption: true Requirements    Name Version     terraform &gt;= 0.12.0   aws &gt;= 2.0   local &gt;= 1.</div>
       
     </div>
     <div class="post__footer footline" >
@@ -782,7 +799,10 @@
     </div>
     <div class="post__excerpt">
       
-        <div class="post__paragraph">No description available.</div>
+        <div class="post__paragraph">Component: eks-iam This component is responsible for provisioning specific IAM roles for Kubernetes Service Accounts. IAM roles are created for the following Kubernetes projects:
+aws-load-balancer-controller cluster-proportional-autoscaler cert-manager external-dns  Usage Stack Level: Regional
+Here’s an example snippet for how to use this component.
+components: terraform: eks-iam: vars: standard_service_accounts: - &#34;alb-controller&#34;, - &#34;external-dns&#34; - &#34;cert-manager&#34; Requirements    Name Version     terraform &gt;= 0.13.0   aws &gt;= 3.</div>
       
     </div>
     <div class="post__footer footline" >
@@ -800,7 +820,10 @@
     </div>
     <div class="post__excerpt">
       
-        <div class="post__paragraph">No description available.</div>
+        <div class="post__paragraph">Component: account-map This component is responsible for provisioning information only: it simply populates Terraform state with data (account ids, groups, and roles) that other root modules need via outputs.
+Usage Stack Level: Global
+Here’s an example snippet for how to use this component. Stick this snippet in the management account’s stack (E.g. gbl-root.yaml)
+components: terraform: account-map: vars: root_account_aws_name: &#34;aws-root&#34; root_account_stage_name: root identity_account_stage_name: identity dns_account_stage_name: dns audit_account_stage_name: audit Requirements    Name Version     terraform &gt;= 0.</div>
       
     </div>
     <div class="post__footer footline" >
@@ -818,7 +841,10 @@
     </div>
     <div class="post__excerpt">
       
-        <div class="post__paragraph">No description available.</div>
+        <div class="post__paragraph">Component: sso This component is responsible for provisioning SAML metadata into AWS IAM as new SAML providers. Additionally, for an Okta integration (okta must be mentioned in the key given to the saml_providers input) it creates an Okta API user and corresponding Access Key pair which is pushed into AWS SSM.
+Usage Stack Level: Global
+Here’s an example snippet for how to use this component.
+IMPORTANT: The given SAML metadata files must exist at the root of the module.</div>
       
     </div>
     <div class="post__footer footline" >
@@ -836,7 +862,8 @@
     </div>
     <div class="post__excerpt">
       
-        <div class="post__paragraph">No description available.</div>
+        <div class="post__paragraph">Opsgenie Resources The following Opsgenie resources are configured (see resources):
+API Integrations Teams Users Notification Policies Alert Policies Services Service Incident Rules Escalations  api_integrations.yaml NOTE: We provision a Datadog integration without specifying the owning team. Because of that, all alerts coming to Opsgenie from Datadog do not get assigned to a team automatically (if we specified the owning team, then all alerts would go to the members of the team).</div>
       
     </div>
     <div class="post__footer footline" >

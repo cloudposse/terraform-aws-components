@@ -29,7 +29,7 @@
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
 
 
-<script type="application/ld+json">"{\"@context\":\"http://schema.org\",\"@type\":\"BlogPosting\",\"accountablePerson\":\"\",\"articleSection\":\"modules\",\"author\":\"\",\"copyrightHolder\":\"\",\"copyrightYear\":\"0001\",\"creator\":\"\",\"dateModified\":\"0001-01-01T00:00:00Z\",\"datePublished\":\"0001-01-01T00:00:00Z\",\"description\":\"No description available.\",\"headline\":\"Component: `ecr`\",\"inLanguage\":\"en-US\",\"keywords\":[\"Blog\"],\"mainEntityOfPage\":{\"@id\":\"https://cloudposse.github.io/terraform-aws-components\",\"@type\":\"WebPage\"},\"name\":\"Component: `ecr`\",\"publisher\":\"\",\"url\":\"https://cloudposse.github.io/terraform-aws-components/modules/ecr/\",\"wordCount\":726}"</script>
+<script type="application/ld+json">"{\"@context\":\"http://schema.org\",\"@type\":\"BlogPosting\",\"accountablePerson\":\"\",\"articleSection\":\"modules\",\"author\":\"\",\"copyrightHolder\":\"\",\"copyrightYear\":\"0001\",\"creator\":\"\",\"dateModified\":\"0001-01-01T00:00:00Z\",\"datePublished\":\"0001-01-01T00:00:00Z\",\"description\":\"Component: ecr This component is responsible for provisioning repositories, lifecycle rules, and permissions for streamlined ECR usage. This utlizes the roles-to-principals submodule to assign accounts to various roles.\\nUsage Stack Level: Regional\\nHere\\u0026rsquo;s an example snippet for how to use this component. This component should only be applied once as the resources it creates are global. This is typically done via the corp stack (e.g. uw2-corp.yaml).\\ncomponents: terraform: ecr: vars: ecr_user_enabled: true max_image_count: 500 scan_images_on_push: true cicd_accounts: - automation images: - infrastructure - microservice-a - microservice-b - microservice-c read_write_account_role_map: identity: - admin - ops - cicd automation: - admin - ops read_only_account_role_map: corp: [\\u0026#34;*\\u0026#34;] devdata: [\\u0026#34;*\\u0026#34;] devplatform: [\\u0026#34;*\\u0026#34;] proddata: [\\u0026#34;*\\u0026#34;] prodplatform: [\\u0026#34;*\\u0026#34;] stagedata: [\\u0026#34;*\\u0026#34;] stageplatform: [\\u0026#34;*\\u0026#34;] Requirements    Name Version     terraform \\u0026gt;= 0.\",\"headline\":\"Component: `ecr`\",\"inLanguage\":\"en-US\",\"keywords\":[\"Blog\"],\"mainEntityOfPage\":{\"@id\":\"https://cloudposse.github.io/terraform-aws-components\",\"@type\":\"WebPage\"},\"name\":\"Component: `ecr`\",\"publisher\":\"\",\"url\":\"https://cloudposse.github.io/terraform-aws-components/modules/ecr/\",\"wordCount\":726}"</script>
 
 <script type="application/ld+json">"""""""""""""""""""""{\"@context\":\"http://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":{\"@id\":\"https://cloudposse.github.io/terraform-aws-components\",\"name\":\"Home\"},\"position\":1},{\"@type\":\"ListItem\",\"item\":{\"@id\":\"https://cloudposse.github.io/terraform-aws-componentsmodules\",\"name\":\"Modules\"},\"position\":3},{\"@type\":\"ListItem\",\"item\":{\"@id\":\"https://cloudposse.github.io/terraform-aws-componentsmodules/ecr\",\"name\":\"Ecr\"},\"position\":4}]}"</script>
 
@@ -608,8 +608,6 @@
 <div class="page-content__header">
   <div class="page-content__title-wrapper">
     <h1 class="page-content__title">Component: <code>ecr</code></h1>
-    
-    <p class="page-content__excerpt-text">No description available.</p>
     
 
     
