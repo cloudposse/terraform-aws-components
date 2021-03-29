@@ -2,34 +2,34 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Software development on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/terraform-aws-components/tags/software-development/</link>
+    <link>http://localhost.cloudposse.com:1313/tags/software-development/</link>
     <description>Recent content in Software development on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/software-development/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/software-development/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Code Review (CR)</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/code-review/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/code-review/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/code-review/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/code-review/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Git Workflow</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/git-workflow/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/git-workflow/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/git-workflow/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/git-workflow/</guid>
       <description>In the Git Workflow, the master branch is often treated as the pristine copy of the code base and considered always safe to deploy to production. Everytime a change is needed, a developer will open up a new branch against master and push their changes up to the origin. When the developer is ready to merge their changes, they open up a Pull Request and request one of their peers to perform a Code Review.</description>
     </item>
     
     <item>
       <title>Software Development Lifecycle (SDLC)</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/sdlc/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/sdlc/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/sdlc/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/sdlc/</guid>
       <description></description>
     </item>
     

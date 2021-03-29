@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>yq on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/terraform-aws-components/tags/yq/</link>
+    <link>http://localhost.cloudposse.com:1313/tags/yq/</link>
     <description>Recent content in yq on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/yq/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/yq/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>jq</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/jq/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/jq/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/jq/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/jq/</guid>
       <description></description>
     </item>
     
     <item>
       <title>yq</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/yq/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/yq/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/yq/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/yq/</guid>
       <description></description>
     </item>
     

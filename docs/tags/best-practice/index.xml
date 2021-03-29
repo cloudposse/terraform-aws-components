@@ -2,36 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>best-practice on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/terraform-aws-components/tags/best-practice/</link>
+    <link>http://localhost.cloudposse.com:1313/tags/best-practice/</link>
     <description>Recent content in best-practice on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/best-practice/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/best-practice/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Build Harness</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/build-harness/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/build-harness/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/build-harness/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/build-harness/</guid>
       <description>The primary benefit of using a build-harness is it allows for the consolidation of business logic related to building software. This allows to keep things DRY. Using a centralized repo that can be versioned and shared across multiple projects reduces long-term technical debt associated with building and releasing software by reducing maintenance effort.
 We provide one that we use in nearly all of our projects. It&amp;rsquo;s available here: https://github.com/cloudposse/build-harness</description>
     </item>
     
     <item>
       <title>Multi-Factor Authentication (MFA)</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/mfa/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/mfa/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/mfa/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/mfa/</guid>
       <description>There are a lot of terms that roughly mean the same thing.
  MFA - Multi-factor Authentication OTP - One-time password (~MFA Token) 2FA - Two-factor authentication  </description>
     </item>
     
     <item>
       <title>Single Sign-on (SSO)</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/sso/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/sso/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/sso/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/sso/</guid>
       <description></description>
     </item>
     

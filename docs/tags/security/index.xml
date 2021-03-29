@@ -2,44 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>security on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/terraform-aws-components/tags/security/</link>
+    <link>http://localhost.cloudposse.com:1313/tags/security/</link>
     <description>Recent content in security on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/security/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CloudTrail</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cloudtrail/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/cloudtrail/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cloudtrail/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/cloudtrail/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Identity Access Management (IAM)</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/iam/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/iam/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/iam/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/iam/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Multi-Factor Authentication (MFA)</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/mfa/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/mfa/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/mfa/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/mfa/</guid>
       <description>There are a lot of terms that roughly mean the same thing.
  MFA - Multi-factor Authentication OTP - One-time password (~MFA Token) 2FA - Two-factor authentication  </description>
     </item>
     
     <item>
       <title>Tools</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/tools/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/tools/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/tools/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/tools/</guid>
       <description>1Password The 1Password for Teams product by AgileBits is argubably the most popular SaaS-based password management tool. In our opinion, it offers a better user experience over apps like LastPass as well as provides integration with Duo and Slack for real-time activity notifications.
 Best Practices Here are some of our recommended practices for working with 1Password. If your organization choses an alternative password management solution, we recommend implementing compensating controls.</description>
     </item>

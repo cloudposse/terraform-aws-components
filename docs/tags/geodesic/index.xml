@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Geodesic on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/terraform-aws-components/tags/geodesic/</link>
+    <link>http://localhost.cloudposse.com:1313/tags/geodesic/</link>
     <description>Recent content in Geodesic on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/geodesic/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/geodesic/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Geodesic</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/geodesic/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/geodesic/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/geodesic/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/geodesic/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Geodesic Module</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/geodesic-module/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/geodesic-module/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/geodesic-module/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/geodesic-module/</guid>
       <description>Usually we create geodesic modules that correspond to each AWS organization.
 For example, the standard geodesic modules are:
  root.cloudposse.org - a module which is reponsible for administering the root AWS account and provisioning all subaccounts (organizations). prod.cloudposse.org - a module which is responsible for provisioning all production infrastructure including production kops clusters and backing services (E.g. rds) staging.cloudposse.org - a module which is responsible for provisioning all staging resources dev.</description>
@@ -28,28 +28,28 @@ For example, the standard geodesic modules are:
     
     <item>
       <title>Geodesic Shell</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/geodesic-shell/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/geodesic-shell/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/geodesic-shell/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/geodesic-shell/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kubernetes Ops (kops)</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/kops/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/kops/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/kops/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/kops/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tools</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/tools/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/tools/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/tools/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/tools/</guid>
       <description>1Password The 1Password for Teams product by AgileBits is argubably the most popular SaaS-based password management tool. In our opinion, it offers a better user experience over apps like LastPass as well as provides integration with Duo and Slack for real-time activity notifications.
 Best Practices Here are some of our recommended practices for working with 1Password. If your organization choses an alternative password management solution, we recommend implementing compensating controls.</description>
     </item>

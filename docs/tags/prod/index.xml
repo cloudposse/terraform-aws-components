@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>prod on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/terraform-aws-components/tags/prod/</link>
+    <link>http://localhost.cloudposse.com:1313/tags/prod/</link>
     <description>Recent content in prod on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/prod/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/prod/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Stage</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/stage/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/stage/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/stage/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/stage/</guid>
       <description>It&amp;rsquo;s important to note that within a given stage, there might be multiple environments. We always prescribe separating multiple stages by using multiple AWS accounts or organizational units. Then provisioning multiple environments within that stage as necessary.
 For example, the &amp;ldquo;staging&amp;rdquo; account might run &amp;ldquo;pre-production&amp;rdquo; and &amp;ldquo;QA&amp;rdquo; environments.</description>
     </item>

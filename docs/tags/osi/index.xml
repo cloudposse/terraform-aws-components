@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>OSI on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/terraform-aws-components/tags/osi/</link>
+    <link>http://localhost.cloudposse.com:1313/tags/osi/</link>
     <description>Recent content in OSI on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/osi/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/osi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Layer 7</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/layer-7/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/layer-7/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/layer-7/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/layer-7/</guid>
       <description></description>
     </item>
     

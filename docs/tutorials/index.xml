@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tutorials on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/terraform-aws-components/tutorials/</link>
+    <link>http://localhost.cloudposse.com:1313/tutorials/</link>
     <description>Recent content in Tutorials on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tutorials/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Getting started with Geodesic</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tutorials/geodesic-getting-started/</link>
+      <link>http://localhost.cloudposse.com:1313/tutorials/geodesic-getting-started/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tutorials/geodesic-getting-started/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tutorials/geodesic-getting-started/</guid>
       <description>Intro In the landscape of developing infrastructure, there are dozens of tools that we all need on our personal machines to do our jobs. In SweetOps, instead of having you install each tool individually, we use Docker to package all of these tools into one convenient image that you can use as your infrastructure automation toolbox. We call it Geodesic and we use it as our DevOps automation shell and as the base Docker image for all of our DevOps scripting / CI jobs.</description>
     </item>
     
     <item>
       <title>Getting started with Atmos</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tutorials/atmos-getting-started/</link>
+      <link>http://localhost.cloudposse.com:1313/tutorials/atmos-getting-started/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tutorials/atmos-getting-started/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tutorials/atmos-getting-started/</guid>
       <description>Intro atmos is part of the SweetOps toolchain and was built to make DevOps and Cloud automation easier across multiple tools. It has direct support for automating Terraform, Helm, Helmfile, and Istio. By natively utilizing stacks, atmos enables you to effortlessly manage your Terraform and Helmfile components from your local machine or in your CI/CD pipelines.
 In this tutorial we&amp;rsquo;ll be looking at a simple (albeit contrived) example of automating multiple Terraform components together into a workflow.</description>
     </item>

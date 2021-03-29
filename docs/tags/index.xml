@@ -2,1393 +2,1393 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/terraform-aws-components/tags/</link>
+    <link>http://localhost.cloudposse.com:1313/tags/</link>
     <description>Recent content in Tags on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>.editorconfig</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/.editorconfig/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/.editorconfig/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/.editorconfig/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/.editorconfig/</guid>
       <description></description>
     </item>
     
     <item>
       <title>.env</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/.env/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/.env/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/.env/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/.env/</guid>
       <description></description>
     </item>
     
     <item>
       <title>12-factor</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/12-factor/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/12-factor/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/12-factor/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/12-factor/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ACL</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/acl/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/acl/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/acl/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/acl/</guid>
       <description></description>
     </item>
     
     <item>
       <title>agreement</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/agreement/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/agreement/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/agreement/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/agreement/</guid>
       <description></description>
     </item>
     
     <item>
       <title>alert escalations</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/alert-escalations/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/alert-escalations/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/alert-escalations/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/alert-escalations/</guid>
       <description></description>
     </item>
     
     <item>
       <title>audit logs</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/audit-logs/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/audit-logs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/audit-logs/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/audit-logs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>automated deployments</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/automated-deployments/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/automated-deployments/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/automated-deployments/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/automated-deployments/</guid>
       <description></description>
     </item>
     
     <item>
       <title>aws</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/aws/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/aws/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/aws/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/aws/</guid>
       <description></description>
     </item>
     
     <item>
       <title>aws-cli</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/aws-cli/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/aws-cli/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/aws-cli/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/aws-cli/</guid>
       <description></description>
     </item>
     
     <item>
       <title>bad practice</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/bad-practice/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/bad-practice/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/bad-practice/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/bad-practice/</guid>
       <description></description>
     </item>
     
     <item>
       <title>bash</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/bash/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/bash/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/bash/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/bash/</guid>
       <description></description>
     </item>
     
     <item>
       <title>bastion</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/bastion/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/bastion/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/bastion/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/bastion/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Best Practices</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/best-practices/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/best-practices/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/best-practices/</guid>
       <description></description>
     </item>
     
     <item>
       <title>best-practice</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/best-practice/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/best-practice/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/best-practice/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/best-practice/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cattle</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/cattle/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/cattle/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/cattle/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/cattle/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CDN</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/cdn/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/cdn/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/cdn/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/cdn/</guid>
       <description></description>
     </item>
     
     <item>
       <title>chamber</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/chamber/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/chamber/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/chamber/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/chamber/</guid>
       <description></description>
     </item>
     
     <item>
       <title>change control</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/change-control/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/change-control/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/change-control/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/change-control/</guid>
       <description></description>
     </item>
     
     <item>
       <title>change Management</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/change-management/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/change-management/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/change-management/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/change-management/</guid>
       <description></description>
     </item>
     
     <item>
       <title>chartmuseum</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/chartmuseum/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/chartmuseum/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/chartmuseum/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/chartmuseum/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CI/CD</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/ci/cd/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/ci/cd/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/ci/cd/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/ci/cd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CI/code</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/ci/code/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/ci/code/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/ci/code/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/ci/code/</guid>
       <description></description>
     </item>
     
     <item>
       <title>circleci</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/circleci/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/circleci/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/circleci/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/circleci/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cli</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/cli/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/cli/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/cli/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/cli/</guid>
       <description></description>
     </item>
     
     <item>
       <title>clickops</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/clickops/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/clickops/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/clickops/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/clickops/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cloud native</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/cloud-native/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/cloud-native/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/cloud-native/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/cloud-native/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cloudposse</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/cloudposse/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/cloudposse/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/cloudposse/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/cloudposse/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cloudwatch</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/cloudwatch/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/cloudwatch/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/cloudwatch/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/cloudwatch/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CMP</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/cmp/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/cmp/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/cmp/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/cmp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>code style</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/code-style/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/code-style/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/code-style/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/code-style/</guid>
       <description></description>
     </item>
     
     <item>
       <title>codebuild</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/codebuild/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/codebuild/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/codebuild/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/codebuild/</guid>
       <description></description>
     </item>
     
     <item>
       <title>codefresh</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/codefresh/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/codefresh/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/codefresh/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/codefresh/</guid>
       <description></description>
     </item>
     
     <item>
       <title>codepipeline</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/codepipeline/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/codepipeline/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/codepipeline/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/codepipeline/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Component</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/component/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/component/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/component/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/component/</guid>
       <description></description>
     </item>
     
     <item>
       <title>config</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/config/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/config/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/config/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/config/</guid>
       <description></description>
     </item>
     
     <item>
       <title>configuration</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/configuration/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/configuration/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/configuration/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/configuration/</guid>
       <description></description>
     </item>
     
     <item>
       <title>configuration management</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/configuration-management/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/configuration-management/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/configuration-management/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/configuration-management/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Container Management Platform</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/container-management-platform/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/container-management-platform/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/container-management-platform/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/container-management-platform/</guid>
       <description></description>
     </item>
     
     <item>
       <title>curl</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/curl/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/curl/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/curl/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/curl/</guid>
       <description></description>
     </item>
     
     <item>
       <title>curl-bash</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/curl-bash/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/curl-bash/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/curl-bash/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/curl-bash/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Database</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/database/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/database/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/database/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/database/</guid>
       <description></description>
     </item>
     
     <item>
       <title>dev</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/dev/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/dev/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/dev/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/dev/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Development</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/development/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/development/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/development/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/development/</guid>
       <description></description>
     </item>
     
     <item>
       <title>DevOps</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/devops/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/devops/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/devops/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/devops/</guid>
       <description></description>
     </item>
     
     <item>
       <title>docker</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/docker/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/docker/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/docker/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Docker Hub</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/docker-hub/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/docker-hub/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/docker-hub/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/docker-hub/</guid>
       <description></description>
     </item>
     
     <item>
       <title>docker image</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/docker-image/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/docker-image/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/docker-image/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/docker-image/</guid>
       <description></description>
     </item>
     
     <item>
       <title>docker-bash</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/docker-bash/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/docker-bash/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/docker-bash/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/docker-bash/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Dockerfile</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/dockerfile/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/dockerfile/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/dockerfile/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/dockerfile/</guid>
       <description></description>
     </item>
     
     <item>
       <title>docs</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/docs/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/docs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/docs/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/docs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>documentation</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/documentation/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/documentation/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/documentation/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/documentation/</guid>
       <description></description>
     </item>
     
     <item>
       <title>dotenv</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/dotenv/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/dotenv/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/dotenv/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/dotenv/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Duo</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/duo/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/duo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/duo/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/duo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>EC2</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/ec2/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/ec2/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/ec2/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/ec2/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ECR</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/ecr/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/ecr/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/ecr/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/ecr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ecs</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/ecs/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/ecs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/ecs/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/ecs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>environment</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/environment/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/environment/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/environment/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/environment/</guid>
       <description></description>
     </item>
     
     <item>
       <title>environment variables</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/environment-variables/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/environment-variables/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/environment-variables/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/environment-variables/</guid>
       <description></description>
     </item>
     
     <item>
       <title>fluentd</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/fluentd/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/fluentd/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/fluentd/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/fluentd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>formatting</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/formatting/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/formatting/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/formatting/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/formatting/</guid>
       <description></description>
     </item>
     
     <item>
       <title>fuse</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/fuse/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/fuse/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/fuse/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/fuse/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Geodesic</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/geodesic/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/geodesic/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/geodesic/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/geodesic/</guid>
       <description></description>
     </item>
     
     <item>
       <title>git</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/git/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/git/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/git/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/git/</guid>
       <description></description>
     </item>
     
     <item>
       <title>GNUMakefile</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/gnumakefile/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/gnumakefile/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/gnumakefile/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/gnumakefile/</guid>
       <description></description>
     </item>
     
     <item>
       <title>goofys</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/goofys/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/goofys/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/goofys/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/goofys/</guid>
       <description></description>
     </item>
     
     <item>
       <title>google</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/google/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/google/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/google/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/google/</guid>
       <description></description>
     </item>
     
     <item>
       <title>HashiCorp</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/hashicorp/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/hashicorp/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/hashicorp/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/hashicorp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>HCL</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/hcl/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/hcl/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/hcl/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/hcl/</guid>
       <description></description>
     </item>
     
     <item>
       <title>helm</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/helm/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/helm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/helm/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/helm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>helm chart</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/helm-chart/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/helm-chart/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/helm-chart/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/helm-chart/</guid>
       <description></description>
     </item>
     
     <item>
       <title>helm charts</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/helm-charts/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/helm-charts/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/helm-charts/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/helm-charts/</guid>
       <description></description>
     </item>
     
     <item>
       <title>helm manifest</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/helm-manifest/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/helm-manifest/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/helm-manifest/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/helm-manifest/</guid>
       <description></description>
     </item>
     
     <item>
       <title>helmfile</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/helmfile/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/helmfile/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/helmfile/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/helmfile/</guid>
       <description></description>
     </item>
     
     <item>
       <title>helmfile.yaml</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/helmfile.yaml/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/helmfile.yaml/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/helmfile.yaml/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/helmfile.yaml/</guid>
       <description></description>
     </item>
     
     <item>
       <title>heroku</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/heroku/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/heroku/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/heroku/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/heroku/</guid>
       <description></description>
     </item>
     
     <item>
       <title>IaaC</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/iaac/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/iaac/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/iaac/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/iaac/</guid>
       <description></description>
     </item>
     
     <item>
       <title>IaaS</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/iaas/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/iaas/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/iaas/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/iaas/</guid>
       <description></description>
     </item>
     
     <item>
       <title>IaC</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/iac/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/iac/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/iac/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/iac/</guid>
       <description></description>
     </item>
     
     <item>
       <title>IAM</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/iam/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/iam/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/iam/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/iam/</guid>
       <description></description>
     </item>
     
     <item>
       <title>IAP</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/iap/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/iap/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/iap/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/iap/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Identity Aware Proxy</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/identity-aware-proxy/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/identity-aware-proxy/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/identity-aware-proxy/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/identity-aware-proxy/</guid>
       <description></description>
     </item>
     
     <item>
       <title>installer</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/installer/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/installer/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/installer/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/installer/</guid>
       <description></description>
     </item>
     
     <item>
       <title>jenkins</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/jenkins/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/jenkins/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/jenkins/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/jenkins/</guid>
       <description></description>
     </item>
     
     <item>
       <title>jq</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/jq/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/jq/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/jq/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/jq/</guid>
       <description></description>
     </item>
     
     <item>
       <title>jumpcloud</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/jumpcloud/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/jumpcloud/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/jumpcloud/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/jumpcloud/</guid>
       <description></description>
     </item>
     
     <item>
       <title>jumphost</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/jumphost/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/jumphost/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/jumphost/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/jumphost/</guid>
       <description></description>
     </item>
     
     <item>
       <title>k8s</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/k8s/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/k8s/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/k8s/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/k8s/</guid>
       <description></description>
     </item>
     
     <item>
       <title>KMS</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/kms/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/kms/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/kms/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/kms/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kops</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/kops/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/kops/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/kops/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/kops/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kops manifest</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/kops-manifest/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/kops-manifest/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/kops-manifest/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/kops-manifest/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kubectl</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/kubectl/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/kubectl/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/kubectl/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/kubectl/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kubernetes</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/kubernetes/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/kubernetes/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/kubernetes/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/kubernetes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kubernetes jobs</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/kubernetes-jobs/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/kubernetes-jobs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/kubernetes-jobs/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/kubernetes-jobs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kubernetes manifest</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/kubernetes-manifest/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/kubernetes-manifest/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/kubernetes-manifest/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/kubernetes-manifest/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Layer 1</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/layer-1/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/layer-1/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/layer-1/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/layer-1/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Layer 2</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/layer-2/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/layer-2/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/layer-2/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/layer-2/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Layer 3</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/layer-3/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/layer-3/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/layer-3/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/layer-3/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Layer 4</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/layer-4/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/layer-4/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/layer-4/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/layer-4/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Layer 5</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/layer-5/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/layer-5/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/layer-5/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/layer-5/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Layer 6</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/layer-6/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/layer-6/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/layer-6/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/layer-6/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Layer 7</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/layer-7/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/layer-7/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/layer-7/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/layer-7/</guid>
       <description></description>
     </item>
     
     <item>
       <title>license</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/license/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/license/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/license/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/license/</guid>
       <description></description>
     </item>
     
     <item>
       <title>load balancer</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/load-balancer/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/load-balancer/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/load-balancer/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/load-balancer/</guid>
       <description></description>
     </item>
     
     <item>
       <title>logmein</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/logmein/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/logmein/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/logmein/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/logmein/</guid>
       <description></description>
     </item>
     
     <item>
       <title>make</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/make/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/make/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/make/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/make/</guid>
       <description></description>
     </item>
     
     <item>
       <title>makefile</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/makefile/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/makefile/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/makefile/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/makefile/</guid>
       <description></description>
     </item>
     
     <item>
       <title>manifest</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/manifest/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/manifest/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/manifest/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/manifest/</guid>
       <description></description>
     </item>
     
     <item>
       <title>mesos</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/mesos/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/mesos/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/mesos/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/mesos/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Module</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/module/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/module/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/module/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/module/</guid>
       <description></description>
     </item>
     
     <item>
       <title>monitoring</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/monitoring/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/monitoring/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/monitoring/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/monitoring/</guid>
       <description></description>
     </item>
     
     <item>
       <title>monorepo</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/monorepo/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/monorepo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/monorepo/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/monorepo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>okta</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/okta/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/okta/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/okta/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/okta/</guid>
       <description></description>
     </item>
     
     <item>
       <title>on-call</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/on-call/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/on-call/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/on-call/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/on-call/</guid>
       <description></description>
     </item>
     
     <item>
       <title>open publication license</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/open-publication-license/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/open-publication-license/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/open-publication-license/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/open-publication-license/</guid>
       <description></description>
     </item>
     
     <item>
       <title>open-source</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/open-source/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/open-source/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/open-source/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/open-source/</guid>
       <description></description>
     </item>
     
     <item>
       <title>opl</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/opl/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/opl/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/opl/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/opl/</guid>
       <description></description>
     </item>
     
     <item>
       <title>OSI</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/osi/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/osi/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/osi/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/osi/</guid>
       <description></description>
     </item>
     
     <item>
       <title>PaaS</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/paas/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/paas/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/paas/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/paas/</guid>
       <description></description>
     </item>
     
     <item>
       <title>password management</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/password-management/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/password-management/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/password-management/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/password-management/</guid>
       <description></description>
     </item>
     
     <item>
       <title>pattern</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/pattern/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/pattern/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/pattern/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/pattern/</guid>
       <description></description>
     </item>
     
     <item>
       <title>pki</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/pki/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/pki/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/pki/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/pki/</guid>
       <description></description>
     </item>
     
     <item>
       <title>pods</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/pods/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/pods/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/pods/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/pods/</guid>
       <description></description>
     </item>
     
     <item>
       <title>polyrepo</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/polyrepo/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/polyrepo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/polyrepo/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/polyrepo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>prod</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/prod/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/prod/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/prod/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/prod/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Pull Request</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/pull-request/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/pull-request/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/pull-request/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/pull-request/</guid>
       <description></description>
     </item>
     
     <item>
       <title>qa</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/qa/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/qa/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/qa/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/qa/</guid>
       <description></description>
     </item>
     
     <item>
       <title>s3</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/s3/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/s3/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/s3/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/s3/</guid>
       <description></description>
     </item>
     
     <item>
       <title>s3fs</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/s3fs/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/s3fs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/s3fs/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/s3fs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SaaS</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/saas/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/saas/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/saas/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/saas/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SDLC</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/sdlc/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/sdlc/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/sdlc/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/sdlc/</guid>
       <description></description>
     </item>
     
     <item>
       <title>secrets</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/secrets/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/secrets/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/secrets/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/secrets/</guid>
       <description></description>
     </item>
     
     <item>
       <title>security</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/security/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/security/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/security/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/security/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Selenium</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/selenium/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/selenium/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/selenium/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/selenium/</guid>
       <description></description>
     </item>
     
     <item>
       <title>semver</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/semver/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/semver/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/semver/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/semver/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Software development</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/software-development/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/software-development/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/software-development/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/software-development/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ssh</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/ssh/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/ssh/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/ssh/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/ssh/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SSM</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/ssm/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/ssm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/ssm/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/ssm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SSO</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/sso/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/sso/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/sso/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/sso/</guid>
       <description></description>
     </item>
     
     <item>
       <title>staging</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/staging/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/staging/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/staging/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/staging/</guid>
       <description></description>
     </item>
     
     <item>
       <title>task runner</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/task-runner/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/task-runner/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/task-runner/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/task-runner/</guid>
       <description></description>
     </item>
     
     <item>
       <title>terraform</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/terraform/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/terraform/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/terraform/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/terraform/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tfstate</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/tfstate/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/tfstate/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/tfstate/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/tfstate/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tips &amp; Tricks</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/tips-tricks/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/tips-tricks/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/tips-tricks/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/tips-tricks/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tips-and-tricks</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/tips-and-tricks/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/tips-and-tricks/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/tips-and-tricks/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/tips-and-tricks/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tls</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/tls/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/tls/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/tls/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/tls/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tool</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/tool/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/tool/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/tool/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/tool/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tools</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/tools/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/tools/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/tools/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/tools/</guid>
       <description></description>
     </item>
     
     <item>
       <title>travisci</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/travisci/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/travisci/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/travisci/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/travisci/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Virtual Machine Image</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/virtual-machine-image/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/virtual-machine-image/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/virtual-machine-image/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/virtual-machine-image/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vpn</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/vpn/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/vpn/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/vpn/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/vpn/</guid>
       <description></description>
     </item>
     
     <item>
       <title>wiki</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/wiki/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/wiki/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/wiki/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/wiki/</guid>
       <description></description>
     </item>
     
     <item>
       <title>yaml</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/yaml/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/yaml/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/yaml/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/yaml/</guid>
       <description></description>
     </item>
     
     <item>
       <title>yq</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/tags/yq/</link>
+      <link>http://localhost.cloudposse.com:1313/tags/yq/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/tags/yq/</guid>
+      <guid>http://localhost.cloudposse.com:1313/tags/yq/</guid>
       <description></description>
     </item>
     

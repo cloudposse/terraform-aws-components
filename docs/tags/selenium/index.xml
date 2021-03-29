@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Selenium on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/terraform-aws-components/tags/selenium/</link>
+    <link>http://localhost.cloudposse.com:1313/tags/selenium/</link>
     <description>Recent content in Selenium on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/selenium/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/selenium/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Synthetic Monitoring</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/synthetic-monitoring/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/synthetic-monitoring/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/synthetic-monitoring/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/synthetic-monitoring/</guid>
       <description>Synthetic monitoring is a style of monitoring that attempts to closely emulate the behavior of an end-user, often by using scripted recordings of web transactions played back through a web browser using plugin like Selenium. The scripts carry out behaviors (such as traversing paths) to simulate an action that a customer or end-user would take on a site. E.g. we highly recommend testing all user registration flows and password reset forms using this methodology.</description>
     </item>
     

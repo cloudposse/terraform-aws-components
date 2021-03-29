@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Best Practices on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/</link>
+    <link>http://localhost.cloudposse.com:1313/reference/best-practices/</link>
     <description>Recent content in Best Practices on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/reference/best-practices/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/reference/best-practices/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Docker Best Practices</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/docker-best-practices/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/docker-best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/docker-best-practices/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/docker-best-practices/</guid>
       <description>Inheritance Inheritance is when you use FROM some-image:1.2.3 (vs FROM scratch) in a Dockerfile. We recommend to leverage lean base images (E.g. alpine or busybox).
 Try to leverage the same base image in as many of your images as possible for faster docker pulls.
 Multi-stage Builds There are two ways to leverage multi-stage builds.
@@ -20,10 +20,10 @@ Multi-stage Builds There are two ways to leverage multi-stage builds.
     
     <item>
       <title>Docker Tips &amp; Tricks</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/docker-tips-tricks/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/docker-tips-tricks/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/docker-tips-tricks/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/docker-tips-tricks/</guid>
       <description>Here&amp;rsquo;s a collection of some nice little hacks for docker. A lot of them are related to house keeping.
 Docker Stats Produce console stats for all running containers (e.g. like top):
 docker stats $(docker ps --format=&#39;{{.Names}}&#39; Remove all stopped containers docker rm $(docker ps -a -q) Remove all untagged images docker images -q --filter &amp;quot;dangling=true&amp;quot; | xargs docker rmi Prune everything The docker system prune command is a shortcut that prunes images, containers, and networks.</description>
@@ -31,30 +31,30 @@ docker stats $(docker ps --format=&#39;{{.Names}}&#39; Remove all stopped contai
     
     <item>
       <title>Editor Config</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/editor-config/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/editor-config/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/editor-config/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/editor-config/</guid>
       <description>Background The EditorConfig enables developers to define and maintain consistent coding styles between different editors and IDEs. It consists of a simple file format (.editorconfig) for defining coding styles such as tabs vs spaces. Most text editors support the format and adhere to defined styles. The config files are easily readable and they work nicely with version control systems.
 Example Place this file in the root of your git repository.</description>
     </item>
     
     <item>
       <title>Feature Branches</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-feature-branches/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/github-feature-branches/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-feature-branches/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/github-feature-branches/</guid>
       <description>Problem When you&amp;rsquo;re working on a project, there will be a bunch of different features or ideas in progress at any given time, not all of which are ready for prime time. Further more, as business priorities change, you might need to prioritize certain features and put others on the back burner.
 At the same time, business requirements mandate that you have a stable version that can be deployed at any given time.</description>
     </item>
     
     <item>
       <title>GitHub Best Practices</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-best-practices/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/github-best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-best-practices/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/github-best-practices/</guid>
       <description>Use .gitignore Use a .gitignore file in the root of every repo to exclude files that should never be committed.
 Here&amp;rsquo;s an example of the .gitignore from our documentation repository.
 themes/cloudposse/static/css/* themes/cloudposse/static/js/* static/webfonts/* static/css/* static/js/*</description>
@@ -62,20 +62,20 @@ themes/cloudposse/static/css/* themes/cloudposse/static/js/* static/webfonts/* s
     
     <item>
       <title>GOST Framework</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/gost-framework/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/gost-framework/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/gost-framework/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/gost-framework/</guid>
       <description>The GOST Framework is a method of clearly articulating a process for achieving a goal. It does this by decomposing it into it&amp;rsquo;s various parts: [G]oals, [O]bjectives, [S]trategies, [T]actics. It helps distinguish between the objectives, strategies and tactics so that relevant stakeholders can focus on what&amp;rsquo;s relevant to them.
 Goals A goal defines a broad primary outcome. This is the business driver and should relate to some specific benefit to the business.</description>
     </item>
     
     <item>
       <title>Makefile Best Practices</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/make-best-practices/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/make-best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/make-best-practices/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/make-best-practices/</guid>
       <description>Avoid using Evals The use of $(eval ...) leads to very confusing execution paths, due to the way make evaluates a target. When make executes a target, it preprocesses all $(....) interpolations and renders the template. After that, it executes, line-by-line each command in the target.
 Namespace targets Over time, the number of targets in a Makefile will grow. We recommend namespacing all targets.
 For example:
@@ -84,10 +84,10 @@ docker/build: docker build -t example/test .</description>
     
     <item>
       <title>Managers vs Makers</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/project-management-managers-vs-makers/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/project-management-managers-vs-makers/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/project-management-managers-vs-makers/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/project-management-managers-vs-makers/</guid>
       <description>TL;DR Developers (Makers) and Managers work differently.
  Makers plan in half-day blocks of time. These are developers. Managers plan to minimize empty 15-minute slots in their calendar.  Interrupts are costly for developers and therefore the business.
 http://www.paulgraham.com/makersschedule.html (Paul Graham - YCombinator Founder)</description>
@@ -95,10 +95,10 @@ http://www.paulgraham.com/makersschedule.html (Paul Graham - YCombinator Founder
     
     <item>
       <title>Markdown Best Practices</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/markdown-best-practices/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/markdown-best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/markdown-best-practices/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/markdown-best-practices/</guid>
       <description>Code Blocks Use code blocks for anything more than 1 line. Use code for inline code, filenames, commands, etc.
 Code Block ``` # This is a code block ``` Table of Options Use tables to communicate lists of options.
 Here&amp;rsquo;s an example:
@@ -107,39 +107,39 @@ Table of Options | Name | Default | Description | Required | |:-----------|:----
     
     <item>
       <title>Password Management</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/password-management/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/password-management/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/password-management/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/password-management/</guid>
       <description>We strongly advise all companies to use &amp;ldquo;1Password for Teams&amp;rdquo; as their password management solution.
 Features  Shared MFA - useful for root accounts like AWS MFA Integration with Duo Groups Slack Integration Cloud Storage Cross-platform support (OSX, Windows, Linux, &amp;amp; Web)  Alternatives  LastPass  </description>
     </item>
     
     <item>
       <title>Pull Requests</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-pull-requests/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/github-pull-requests/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-pull-requests/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/github-pull-requests/</guid>
       <description>Submitting a Pull Request Prior to submitting your pull request, you might want to do a few things to clean up your branch and make it as simple as possible for the original repo&amp;rsquo;s maintainer to test, accept, and merge your work. If any commits have been made to the upstream master branch, you should rebase your development branch so that merging it will be a simple fast-forward that won&amp;rsquo;t require any conflict resolution work.</description>
     </item>
     
     <item>
       <title>RACI Matrix</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/project-management-raci-matrix/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/project-management-raci-matrix/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/project-management-raci-matrix/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/project-management-raci-matrix/</guid>
       <description>The RACI Responsibility assignment matrix is used to clarify the participation by various roles in completing tasks or deliverables as it relates to projects or teams.
  Responsible: Those who perform or recommend the work to achieve the task. Accountable: The one ultimately answerable for the correct and thorough completion of the deliverable or task, and the one who delegates the work to those responsible. They are required to sign off (approve) work that the Responsible party provides.</description>
     </item>
     
     <item>
       <title>Semantic Versioning</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/semver/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/semver/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/semver/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/semver/</guid>
       <description>We practice Semantic Versioning for all projects (e.g. GitHub Tags/Releases, Helm Charts, Terraform Modules, Docker Images). Using this versioning standard helps to reduce the entropy related to Dependency Hell.
 Image credit: Gopher Academy
 Semantics Generally, all of our versions follow this convention: X.Y.Z (e.g. 1.2.3). Sometimes, we&amp;rsquo;ll use this format: X.Y.Z-branch when we need to disambiguate between versions existing in multiple branches.
@@ -148,10 +148,10 @@ Semantics Generally, all of our versions follow this convention: X.Y.Z (e.g. 1.2
     
     <item>
       <title>Terraform Best Practices</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-best-practices/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/terraform-best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-best-practices/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/terraform-best-practices/</guid>
       <description>These are the opinionated best-practices we follow at Cloud Posse. They are inspired by years of experience writing terraform and borrow on the many other helpful resources like those by HashiCorp.
 See our general Best Practices which also apply to Terraform.
 Language Use indented HEREDOC syntax Using &amp;lt;&amp;lt;-EOT (as opposed to &amp;lt;&amp;lt;EOT without the -) ensures the code can be indented inline with the other code in the project. Note that EOT can be any uppercase string (e.</description>
@@ -159,10 +159,10 @@ Language Use indented HEREDOC syntax Using &amp;lt;&amp;lt;-EOT (as opposed to &
     
     <item>
       <title>Terraform Tips &amp; Tricks</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-tips-tricks/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/terraform-tips-tricks/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-tips-tricks/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/terraform-tips-tricks/</guid>
       <description>S3 Bucket Lifecycle Rules resource&amp;quot;aws_s3_bucket&amp;quot; &amp;quot;assets&amp;quot;{ bucket=&amp;quot;${module.assets_bucket_label.id}&amp;quot;tags=&amp;quot;${module.assets_bucket_label.tags}&amp;quot;acl=&amp;quot;private&amp;quot;region=&amp;quot;us-west-2&amp;quot;force_destroy=falselifecycle_rule{ id=&amp;quot;${module.assets_bucket_label.id}&amp;quot;enabled=trueprefix=&amp;quot;&amp;quot;tags=&amp;quot;${module.assets_bucket_label.tags}&amp;quot;&amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;noncurrent_version_expiration&amp;lt;/span&amp;gt; {  days=&amp;quot;90&amp;quot;}
 &amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;noncurrent_version_transition&amp;lt;/span&amp;gt; {  days=&amp;quot;60&amp;quot;storage_class=&amp;quot;GLACIER&amp;quot;}
 &amp;lt;span style=&amp;quot;color:#00a8c8&amp;quot;&amp;gt;transition&amp;lt;/span&amp;gt; {  days=&amp;quot;30&amp;quot;storage_class=&amp;quot;STANDARD_IA&amp;quot;}
@@ -175,10 +175,10 @@ For an example of how we use it, check out our terraform-aws-s3-log-storage modu
     
     <item>
       <title>Workstation Best Practices</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/workstation-best-practices/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/workstation-best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/workstation-best-practices/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/workstation-best-practices/</guid>
       <description>OSX Enable File Vault Auto-lock Screen Saver Use MacID to Autolock Enable &amp;ldquo;Find My Mac&amp;rdquo; AWS Vault Leverage Key Chain for Secrets Use security command on the command line to add/remove secrets. Query keychain to retrieve secrets. Do not export secrets to the environment.</description>
     </item>
     

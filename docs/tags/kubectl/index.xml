@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>kubectl on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/terraform-aws-components/tags/kubectl/</link>
+    <link>http://localhost.cloudposse.com:1313/tags/kubectl/</link>
     <description>Recent content in kubectl on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/kubectl/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/kubectl/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CLI</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/cli/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/cli/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/cli/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/cli/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kubernetes</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/kubernetes/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/kubernetes/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/kubernetes/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/kubernetes/</guid>
       <description></description>
     </item>
     

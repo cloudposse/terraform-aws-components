@@ -2,688 +2,688 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/account-settings/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/account-settings/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/opsgenie/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/opsgenie/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/fundamentals/</loc>
+    <loc>http://localhost.cloudposse.com:1313/fundamentals/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tutorials/geodesic-getting-started/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tutorials/geodesic-getting-started/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/fundamentals/introduction/</loc>
+    <loc>http://localhost.cloudposse.com:1313/fundamentals/introduction/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/targets/targets/</loc>
+    <loc>http://localhost.cloudposse.com:1313/targets/targets/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/terraform/terraform/</loc>
+    <loc>http://localhost.cloudposse.com:1313/terraform/terraform/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/targets/</loc>
+    <loc>http://localhost.cloudposse.com:1313/targets/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/terraform/</loc>
+    <loc>http://localhost.cloudposse.com:1313/terraform/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/iam-delegated-roles/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/iam-delegated-roles/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tutorials/atmos-getting-started/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tutorials/atmos-getting-started/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/opsgenie/detailed-usage/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/opsgenie/detailed-usage/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/fundamentals/philosophy/</loc>
+    <loc>http://localhost.cloudposse.com:1313/fundamentals/philosophy/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tutorials/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tutorials/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/cloudtrail-bucket/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/cloudtrail-bucket/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/fundamentals/concepts/</loc>
+    <loc>http://localhost.cloudposse.com:1313/fundamentals/concepts/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/howto/</loc>
+    <loc>http://localhost.cloudposse.com:1313/howto/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/dns-delegated/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/dns-delegated/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/community/</loc>
+    <loc>http://localhost.cloudposse.com:1313/community/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/datadog-integration/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/datadog-integration/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/dns-primary/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/dns-primary/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/tfstate-backend/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/tfstate-backend/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/eks-iam/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/eks-iam/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/account-map/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/account-map/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/sso/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/sso/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/ecr/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/ecr/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/transit-gateway/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/transit-gateway/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/cloudtrail/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/cloudtrail/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/iam-primary-roles/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/iam-primary-roles/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/efs/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/efs/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/eks/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/eks/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/datadog-monitor/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/datadog-monitor/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/vpc/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/vpc/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/account/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/account/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/documentation/standards/</loc>
+    <loc>http://localhost.cloudposse.com:1313/documentation/standards/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/.editorconfig/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/.editorconfig/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/.env/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/.env/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/12-factor/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/12-factor/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/12-factor/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/12-factor/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/acl/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/acl/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/agreement/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/agreement/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/alert-escalations/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/alert-escalations/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/acm/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/acm/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/ami/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/ami/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/ssm/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/ssm/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/anti-pattern/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/anti-pattern/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/documentation/question/</loc>
+    <loc>http://localhost.cloudposse.com:1313/documentation/question/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/audit-logs/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/audit-logs/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/automated-deployments/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/automated-deployments/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/community/automated-testing/</loc>
+    <loc>http://localhost.cloudposse.com:1313/community/automated-testing/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/availability-zone/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/availability-zone/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/aws/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/aws/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/aws/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/aws/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/aws-cli/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/aws-cli/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/aws-vault/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/aws-vault/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/bad-practice/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/bad-practice/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/bash/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/bash/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/bastion/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/bastion/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/bastion/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/bastion/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/best-practices/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/best-practices/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/best-practices/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/best-practices/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/best-practice/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/best-practice/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/beyondcorp/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/beyondcorp/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/build-harness/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/build-harness/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/business-logic/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/business-logic/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/categories/</loc>
+    <loc>http://localhost.cloudposse.com:1313/categories/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/cattle/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/cattle/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/cdn/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/cdn/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/chamber/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/chamber/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/chamber/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/chamber/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/change-control/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/change-control/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/change-control/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/change-control/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/change-management/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/change-management/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/chart-registry/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/chart-registry/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/chartmuseum/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/chartmuseum/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/ci/cd/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/ci/cd/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/ci/code/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/ci/code/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/circleci/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/circleci/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/cli/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/cli/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/cli/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/cli/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/clickops/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/clickops/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/clickops/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/clickops/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/cloud-native/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/cloud-native/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/cloudposse/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/cloudposse/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/cloudfront/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/cloudfront/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/cloudposse/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/cloudposse/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/cloudtrail/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/cloudtrail/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/cloudwatch/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/cloudwatch/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/cloudwatch/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/cloudwatch/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/cloudwatch-logs/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/cloudwatch-logs/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/cmp/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/cmp/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/community/code-of-conduct/</loc>
+    <loc>http://localhost.cloudposse.com:1313/community/code-of-conduct/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/code-review/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/code-review/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/community/code-reviews/</loc>
+    <loc>http://localhost.cloudposse.com:1313/community/code-reviews/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/code-style/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/code-style/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/code-build/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/code-build/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/codebuild/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/codebuild/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/code-deploy/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/code-deploy/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/codefresh/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/codefresh/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/codefresh/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/codefresh/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/code-pipeline/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/code-pipeline/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/codepipeline/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/codepipeline/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/categories/community-resources/</loc>
+    <loc>http://localhost.cloudposse.com:1313/categories/community-resources/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/component/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/component/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/config/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/config/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/configuration/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/configuration/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/configuration-management/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/configuration-management/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/documentation/contact-us/</loc>
+    <loc>http://localhost.cloudposse.com:1313/documentation/contact-us/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/container-management-platform/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/container-management-platform/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/cmp/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/cmp/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/continuous-delivery/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/continuous-delivery/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/continuous-integration/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/continuous-integration/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/cicd/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/cicd/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/community/contributor-tips/</loc>
+    <loc>http://localhost.cloudposse.com:1313/community/contributor-tips/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/crud/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/crud/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/license/</loc>
+    <loc>http://localhost.cloudposse.com:1313/license/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/curl/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/curl/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/curl-bash/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/curl-bash/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/database/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/database/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/declarative/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/declarative/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/dev/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/dev/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/development/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/development/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/devops/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/devops/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/docker/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/docker/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/docker-best-practices/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/docker-best-practices/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/docker-compose/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/docker-compose/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/docker-hub/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/docker-hub/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/docker-image/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/docker-image/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/docker-image/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/docker-image/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/docker-registry/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/docker-registry/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/docker-tips-tricks/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/docker-tips-tricks/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/docker-bash/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/docker-bash/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/dockerfile/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/dockerfile/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/dockerfile/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/dockerfile/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/docs/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/docs/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/documentation/</loc>
+    <loc>http://localhost.cloudposse.com:1313/documentation/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/documentation/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/documentation/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/dry/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/dry/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/dotenv/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/dotenv/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/duo/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/duo/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/ec2/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/ec2/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/ecr/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/ecr/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/ecs/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/ecs/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/ecs/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/ecs/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-agent/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/ecs-agent/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-service/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/ecs-service/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/ecs-task/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/ecs-task/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/editor-config/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/editor-config/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/ecr/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/ecr/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/eb/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/eb/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/e2e/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/e2e/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/environment/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/environment/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/environment-variable/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/environment-variable/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/environment-variables/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/environment-variables/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/executable-documentation/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/executable-documentation/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-feature-branches/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/github-feature-branches/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/fluentd/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/fluentd/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/formatting/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/formatting/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/fuse/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/fuse/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/fuse/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/fuse/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/geodesic/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/geodesic/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/geodesic/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/geodesic/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/geodesic-module/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/geodesic-module/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/geodesic-shell/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/geodesic-shell/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/documentation/getting-started/</loc>
+    <loc>http://localhost.cloudposse.com:1313/documentation/getting-started/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/git/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/git/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/git-workflow/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/git-workflow/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-best-practices/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/github-best-practices/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/community/contributors/</loc>
+    <loc>http://localhost.cloudposse.com:1313/community/contributors/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/community/faq/</loc>
+    <loc>http://localhost.cloudposse.com:1313/community/faq/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/gnumakefile/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/gnumakefile/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/goofys/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/goofys/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/goofys/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/goofys/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/google/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/google/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/gost-framework/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/gost-framework/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/hashicorp/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/hashicorp/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/hcl/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/hcl/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/terraform/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/terraform/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/hcl/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/hcl/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/helm/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/helm/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/helm/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/helm/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/helm-chart/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/helm-chart/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/helm-chart/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/helm-chart/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/helm-charts/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/helm-charts/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/helm-manifest/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/helm-manifest/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/helm-tiller/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/helm-tiller/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/helmfile/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/helmfile/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/helmfile.yaml/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/helmfile.yaml/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/heroku/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/heroku/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/</loc>
+    <loc>http://localhost.cloudposse.com:1313/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/iaac/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/iaac/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/iaas/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/iaas/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/iac/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/iac/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/iam/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/iam/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/iap/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/iap/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/iap/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/iap/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/iam/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/iam/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/identity-aware-proxy/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/identity-aware-proxy/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/imperative/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/imperative/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/infrastructure/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/infrastructure/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/infrastructure-as-code/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/infrastructure-as-code/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/ingress-controller/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/ingress-controller/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/init-terraform/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/init-terraform/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/installer/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/installer/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/jenkins/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/jenkins/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/jq/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/jq/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/jq/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/jq/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/jumpcloud/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/jumpcloud/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/jumphost/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/jumphost/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/k8s/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/k8s/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/kanban/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/kanban/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/kms/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/kms/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/kpi/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/kpi/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/kms/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/kms/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/kops/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/kops/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/kops-manifest/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/kops-manifest/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/kubectl/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/kubectl/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/kubectl/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/kubectl/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/kubernetes/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/kubernetes/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/kubernetes/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/kubernetes/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/kubernetes-jobs/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/kubernetes-jobs/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/kubernetes-manifest/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/kubernetes-manifest/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/kops/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/kops/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/lambda/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/lambda/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/layer-1/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/layer-1/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/layer-2/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/layer-2/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/layer-3/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/layer-3/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/layer-4/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/layer-4/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/layer-5/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/layer-5/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/layer-6/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/layer-6/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/layer-7/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/layer-7/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/layer-7/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/layer-7/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/license/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/license/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/load-balancer/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/load-balancer/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/logmein/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/logmein/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/make/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/make/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/makefile/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/makefile/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/make-best-practices/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/make-best-practices/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/project-management-managers-vs-makers/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/project-management-managers-vs-makers/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/manifest/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/manifest/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/markdown-best-practices/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/markdown-best-practices/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/mesos/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/mesos/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/module/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/module/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/modules/</loc>
+    <loc>http://localhost.cloudposse.com:1313/modules/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/monitoring/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/monitoring/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/monorepo/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/monorepo/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/monorepo/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/monorepo/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/mfa/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/mfa/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/okta/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/okta/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/on-call/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/on-call/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/oce/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/oce/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/open-publication-license/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/open-publication-license/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/open-source/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/open-source/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/opl/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/opl/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/osi/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/osi/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/osi/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/osi/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/documentation/our-github/</loc>
+    <loc>http://localhost.cloudposse.com:1313/documentation/our-github/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/paas/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/paas/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/pagerduty/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/pagerduty/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/parameter-store/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/parameter-store/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/password-management/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/password-management/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/password-management/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/password-management/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/pattern/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/pattern/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/pingdom/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/pingdom/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/pki/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/pki/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/paas/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/paas/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/pods/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/pods/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/polyrepo/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/polyrepo/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/polyrepo/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/polyrepo/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/prod/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/prod/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/pull-request/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/pull-request/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/github-pull-requests/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/github-pull-requests/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/qa/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/qa/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/project-management-raci-matrix/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/project-management-raci-matrix/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/rds/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/rds/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/release-engineering/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/release-engineering/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/s3/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/s3/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/s3/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/s3/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/s3-bucket/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/s3-bucket/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/s3fs/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/s3fs/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/s3fs/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/s3fs/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/saas/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/saas/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/sandbox/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/sandbox/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/sdlc/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/sdlc/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/search/</loc>
+    <loc>http://localhost.cloudposse.com:1313/search/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/secrets/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/secrets/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/security/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/security/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/selenium/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/selenium/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/semver/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/semver/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/semver/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/semver/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/semver/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/semver/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/sla/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/sla/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/dev-shm/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/dev-shm/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/sidekick-containers/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/sidekick-containers/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/sns/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/sns/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/sso/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/sso/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/slack/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/slack/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/software-development/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/software-development/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/sdlc/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/sdlc/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/saas/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/saas/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/ssh/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/ssh/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/ssm/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/ssm/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/sso/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/sso/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/stage/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/stage/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/staging/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/staging/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/interpolation/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/interpolation/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/sme/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/sme/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/synthetic-monitoring/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/synthetic-monitoring/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/task-runner/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/task-runner/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/technical-debt/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/technical-debt/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/categories/terraform/</loc>
+    <loc>http://localhost.cloudposse.com:1313/categories/terraform/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/terraform/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/terraform/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-best-practices/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/terraform-best-practices/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/root-module/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/root-module/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/terraform-tips-tricks/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/terraform-tips-tricks/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/tfstate/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/tfstate/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/curl-bash/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/curl-bash/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/docker-bash/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/docker-bash/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/tips-tricks/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/tips-tricks/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/tips-and-tricks/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/tips-and-tricks/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/tls/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/tls/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/tool/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/tool/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/tools/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/tools/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/tools/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/tools/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/topology/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/topology/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/travisci/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/travisci/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/unlimited-staging-environments/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/unlimited-staging-environments/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/howto/updating-modules-for-terraform-14/</loc>
+    <loc>http://localhost.cloudposse.com:1313/howto/updating-modules-for-terraform-14/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/virtual-machine-image/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/virtual-machine-image/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/vpc/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/vpc/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/vpn/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/vpn/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/wiki/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/wiki/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/wikiops/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/wikiops/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/workstation-best-practices/</loc>
+    <loc>http://localhost.cloudposse.com:1313/reference/best-practices/workstation-best-practices/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/yaml/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/yaml/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/yaml/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/yaml/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/tags/yq/</loc>
+    <loc>http://localhost.cloudposse.com:1313/tags/yq/</loc>
   </url><url>
-    <loc>https://cloudposse.github.io/terraform-aws-components/glossary/yq/</loc>
+    <loc>http://localhost.cloudposse.com:1313/glossary/yq/</loc>
   </url>
 </urlset>

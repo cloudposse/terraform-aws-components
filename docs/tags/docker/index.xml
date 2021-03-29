@@ -2,43 +2,43 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>docker on Cloud Posse Developer Hub</title>
-    <link>https://cloudposse.github.io/terraform-aws-components/tags/docker/</link>
+    <link>http://localhost.cloudposse.com:1313/tags/docker/</link>
     <description>Recent content in docker on Cloud Posse Developer Hub</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://cloudposse.github.io/terraform-aws-components/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://localhost.cloudposse.com:1313/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Docker Compose</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/docker-compose/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/docker-compose/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/docker-compose/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/docker-compose/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Docker Image</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/docker-image/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/docker-image/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/docker-image/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/docker-image/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Docker Registry</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/docker-registry/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/docker-registry/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/docker-registry/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/docker-registry/</guid>
       <description>It works together with the docker push and docker pull commands for standard CRUD operations.</description>
     </item>
     
     <item>
       <title>Docker Tips &amp; Tricks</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/docker-tips-tricks/</link>
+      <link>http://localhost.cloudposse.com:1313/reference/best-practices/docker-tips-tricks/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/reference/best-practices/docker-tips-tricks/</guid>
+      <guid>http://localhost.cloudposse.com:1313/reference/best-practices/docker-tips-tricks/</guid>
       <description>Here&amp;rsquo;s a collection of some nice little hacks for docker. A lot of them are related to house keeping.
 Docker Stats Produce console stats for all running containers (e.g. like top):
 docker stats $(docker ps --format=&#39;{{.Names}}&#39; Remove all stopped containers docker rm $(docker ps -a -q) Remove all untagged images docker images -q --filter &amp;quot;dangling=true&amp;quot; | xargs docker rmi Prune everything The docker system prune command is a shortcut that prunes images, containers, and networks.</description>
@@ -46,46 +46,46 @@ docker stats $(docker ps --format=&#39;{{.Names}}&#39; Remove all stopped contai
     
     <item>
       <title>Dockerfile</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/dockerfile/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/dockerfile/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/dockerfile/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/dockerfile/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Elastic Container Registry (ECR)</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/ecr/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/ecr/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/ecr/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/ecr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kubernetes</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/kubernetes/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/kubernetes/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/kubernetes/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/kubernetes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Sidekick Containers</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/sidekick-containers/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/sidekick-containers/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/sidekick-containers/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/sidekick-containers/</guid>
       <description>Examples of common sidekick containers are for service discovery or loading fixtures into a development database.</description>
     </item>
     
     <item>
       <title>The docker-bash pattern</title>
-      <link>https://cloudposse.github.io/terraform-aws-components/glossary/docker-bash/</link>
+      <link>http://localhost.cloudposse.com:1313/glossary/docker-bash/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cloudposse.github.io/terraform-aws-components/glossary/docker-bash/</guid>
+      <guid>http://localhost.cloudposse.com:1313/glossary/docker-bash/</guid>
       <description>The docker-bash pattern is an approach to installing software on your local machine via your terminal and docker. It utilizes docker run to output a script which is then piped (i.e. | ) into bash. This enables the script to execute code on your machine which then does whatever setup or installation steps it needs to do to install the target software. Geodesic utilizes this pattern via the init script which is expected to be piped into bash:</description>
     </item>
     
