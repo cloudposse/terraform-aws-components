@@ -27,6 +27,7 @@ jobs:
     - name: "Build Hugo Static Site"
       uses: cloudposse/docs/actions/publish-github-pages@publish-gh-pages-python
       env:
+        CSS: "body {\n>.__slackin {\n  z-index: 2;\n}\nfont-size: 1.1rem;\n}"
         STAGING_DIR: /tmp/staging
         CONTENT: docs,modules
         DEBUG: True
