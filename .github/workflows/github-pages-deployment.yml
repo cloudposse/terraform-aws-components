@@ -36,6 +36,7 @@ jobs:
         HUGO_CONFIG: hugo.config.new.yml # this variable is the file output location, not the input template location
         HTMLTEST_CONFIG: .htmltest.new.yml # this variable is the file output location, not the input template location
         GITHUB_PAGES_PULL_BRANCH: github-pages-docs
+        GITHUB_PAGES_HUGO_PATH: /tmp/hugo
     - name: "Deploy Hugo Static Site to GitHub Pages"
       uses: cloudposse/actions/github/git-push@0.30.0
       env:
