@@ -28,20 +28,20 @@ jobs:
       uses: cloudposse/docs/actions/publish-github-pages@publish-gh-pages-python
       with:
         CSS: "body {\n>.__slackin {\n  z-index: 2;\n}\nfont-size: 1.1rem;\n}"
-        STAGING_DIR: /tmp/staging
-        CONTENT: docs,modules
-        DEBUG: True
-        HUGO_URL: https://cloudposse.github.io/terraform-aws-components
-        HUGO_PUBLISH_DIR: docs
-        HUGO_CONFIG: hugo.config.new.yml # this variable is the file output location, not the input template location
-        HTMLTEST_CONFIG: .htmltest.new.yml # this variable is the file output location, not the input template location
-        GITHUB_PAGES_PULL_BRANCH: github-pages-docs
-        GITHUB_PAGES_HUGO_PATH: /tmp/hugo
+        content: docs,modules
+        config: |
+          .baseURL="https://cloudposse.github.io/terraform-aws-components"
+          .enableEmoji="absolutely"
+        hugo_url: https://cloudposse.github.io/docs
+        github_pages_pull_branch: github-pages-docs
+        github_pages_repo: ${{ env.GITHUB_PAGES_REPO }}
+        github_pages_push_branch: ${{ env.GITHUB_PAGES_PUSH_BRANCH }}
+        github_pages_push_path: ${{ env.GITHUB_PAGES_PUSH_PATH }}
     - name: "Deploy Hugo Static Site to GitHub Pages"
       uses: cloudposse/actions/github/git-push@0.30.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
-        GITHUB_REPOSITORY: env.GITHUB_PAGES_REPO
-        GIT_DIRECTORY: ./${{ env.GITHUB_PAGES_DIRECTORY }}/
+        GITHUB_REPOSITORY: ${{ env.GITHUB_PAGES_REPO }}
+        GIT_DIRECTORY: ${{ env.GITHUB_PAGES_DIRECTORY }}
         GIT_BRANCH: ${{ env.GITHUB_PAGES_PUSH_BRANCH }}
