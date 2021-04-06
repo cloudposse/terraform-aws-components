@@ -14,7 +14,8 @@ locals {
 }
 
 module "vpc" {
-  source = "git::https://github.com/cloudposse/terraform-aws-vpc.git?ref=tags/0.18.0"
+  source  = "cloudposse/vpc/aws"
+  version = "0.18.0"
 
   tags       = local.tags
   cidr_block = var.cidr_block
@@ -22,6 +23,7 @@ module "vpc" {
   context = module.this.context
 }
 
+# required tags to make ALB ingress work https://docs.aws.amazon.com/eks/latest/userguide/alb-ingress.html
 # https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html
 locals {
   public_subnets_additional_tags = {
@@ -34,7 +36,8 @@ locals {
 }
 
 module "subnets" {
-  source = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.31.0"
+  source  = "cloudposse/dynamic-subnets/aws"
+  version = "0.31.0"
 
   tags = local.tags
 
