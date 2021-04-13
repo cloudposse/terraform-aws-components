@@ -18,4 +18,5 @@ variable "maximum_password_age" {
 variable "account_alias_template" {
   type        = string
   description = "Account alias template"
+  default     = "%s-%s-%s"
 }
