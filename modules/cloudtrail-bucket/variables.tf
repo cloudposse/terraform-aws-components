@@ -3,6 +3,12 @@ variable "region" {
   description = "AWS Region"
 }
 
+variable "lifecycle_rule_enabled" {
+  type        = bool
+  description = "Enable lifecycle events on this bucket"
+  default     = true
+}
+
 variable "noncurrent_version_expiration_days" {
   description = "Specifies when noncurrent object versions expire"
   default     = 90
