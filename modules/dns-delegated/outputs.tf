@@ -4,7 +4,7 @@ output "zones" {
 }
 
 output "default_domain_name" {
-  description = "Default root domain name for the cluster"
+  description = "Default root domain name (e.g. dev.example.net) for the cluster"
   value       = join(".", [var.zone_config[0].subdomain, var.zone_config[0].zone_name])
 }
 
