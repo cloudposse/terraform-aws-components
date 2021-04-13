@@ -37,6 +37,6 @@ upstream-component:
 
 	@cp -r $(UPSTREAM_PATH)/components/terraform/$(COMPONENT) ./modules/; \
 		test -f "./modules/$(COMPONENT)/backend.tf.json" && rm ./modules/$(COMPONENT)/backend.tf.json; \
-		test -d "./modules/$(COMPONENT)/.terraform" && rm -r ./modules/$(COMPONENT)/.terraform; \
+		test -d "./modules/$(COMPONENT)/.terraform" && rm -rf ./modules/$(COMPONENT)/.terraform; \
 		echo "Upstreamed ./modules/$(COMPONENT)";
 
