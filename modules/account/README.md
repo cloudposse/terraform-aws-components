@@ -45,13 +45,13 @@ components:
                 - DenyLeavingOrganization
             - name: platform
               accounts:
-                - name: prodplatform
+                - name: platformprod
                   tags:
                     eks: true
-                - name: devplatform
+                - name: platformdev
                   tags:
                     eks: true
-                - name: stageplatform
+                - name: platformstaging
                   tags:
                     eks: true
               service_control_policies:
@@ -185,9 +185,8 @@ components:
 | <a name="output_organizational_unit_names_organizational_unit_scp_ids"></a> [organizational\_unit\_names\_organizational\_unit\_scp\_ids](#output\_organizational\_unit\_names\_organizational\_unit\_scp\_ids) | Map of OU names to SCP IDs |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
-
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/account) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/account) - Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
