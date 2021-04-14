@@ -15,7 +15,7 @@ locals {
 
 module "vpc" {
   source  = "cloudposse/vpc/aws"
-  version = "0.18.0"
+  version = "0.21.0"
 
   tags       = local.tags
   cidr_block = var.cidr_block
@@ -37,7 +37,7 @@ locals {
 
 module "subnets" {
   source  = "cloudposse/dynamic-subnets/aws"
-  version = "0.31.0"
+  version = "0.37.6"
 
   tags = local.tags
 

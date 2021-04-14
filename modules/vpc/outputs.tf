@@ -93,13 +93,3 @@ output "max_subnet_count" {
   value       = local.max_subnet_count
   description = "Maximum allowed number of subnets before all subnet CIDRs need to be recomputed"
 }
-
-output "vpc_flow_log_id" {
-  value       = join("", aws_flow_log.default.*.id)
-  description = "VPC Flow Log ID"
-}
-
-output "vpc_flow_log_arn" {
-  value       = join("", aws_flow_log.default.*.arn)
-  description = "VPC Flow Log ARN"
-}
