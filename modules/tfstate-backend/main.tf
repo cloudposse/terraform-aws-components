@@ -1,5 +1,6 @@
 module "tfstate_backend" {
-  source = "git::https://github.com/cloudposse/terraform-aws-tfstate-backend.git?ref=tags/0.28.0"
+  source  = "cloudposse/tfstate-backend/aws"
+  version = "0.32.0" # requires Terraform >= 0.13.0
 
   force_destroy                 = var.force_destroy
   prevent_unencrypted_uploads   = var.prevent_unencrypted_uploads
