@@ -5,14 +5,21 @@ No requirements.
 
 ## Providers
 
-No provider.
+No providers.
+
+## Modules
+
+No modules.
+
+## Resources
+
+No resources.
 
 ## Inputs
 
-No input.
+No inputs.
 
 ## Outputs
 
-No output.
-
+No outputs.
 <!-- markdownlint-restore -->
