@@ -1,4 +1,4 @@
-runner_image = "TODO" # "999999999999.dkr.ecr.us-east-1.amazonaws.com/image-name:latest"
+runner_image = "TODO" # <ACCOUNTID>.dkr.ecr.<REGION>.amazonaws.com/<INFRA_IMAGE>:latest
 
 worker_pool_id = "TODO"
 
