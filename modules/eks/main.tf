@@ -21,10 +21,10 @@ locals {
     groups   = role.groups
   }]
 
-  map_additional_iam_roles = concat(local.primary_iam_roles, local.delegated_iam_roles)
+  map_additional_iam_roles = concat(local.primary_iam_roles, local.delegated_iam_roles, local.sso_auths)
   managed_worker_role_arns = local.eks_outputs.eks_managed_node_workers_role_arns
   worker_role_arns = compact(concat([
-    module.spotinst_role.outputs.workers_role_arn
+    module.workers_role.outputs.workers_role_arn,
   ], var.map_additional_worker_roles, local.managed_worker_role_arns))
 
   subnet_type_tag_key = var.subnet_type_tag_key != null ? var.subnet_type_tag_key : local.vpc_outputs.vpc.subnet_type_tag_key
@@ -32,7 +32,7 @@ locals {
 
 module "eks_cluster" {
   source  = "cloudposse/eks-cluster/aws"
-  version = "0.34.1"
+  version = "0.37.0"
 
   region     = var.region
   attributes = local.attributes
@@ -52,6 +52,8 @@ module "eks_cluster" {
   public_access_cidrs          = var.public_access_cidrs
   subnet_ids                   = concat(local.private_subnet_ids, local.public_subnet_ids)
   vpc_id                       = local.vpc_id
+
+  cluster_encryption_config_enabled = var.cluster_encryption_config_enabled
 
   kubernetes_config_map_ignore_role_changes = false
 

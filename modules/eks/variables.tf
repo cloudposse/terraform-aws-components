@@ -8,6 +8,22 @@ variable "region_availability_zones" {
   description = "AWS Availability Zones in which to deploy multi-AZ resources"
 }
 
+variable "availability_zone_abbreviation_type" {
+  type        = string
+  description = "Type of Availability Zone abbreviation (either `fixed` or `short`) to use in names. See https://github.com/cloudposse/terraform-aws-utils for details."
+  default     = "fixed"
+  validation {
+    condition     = contains(["fixed", "short"], var.availability_zone_abbreviation_type)
+    error_message = "The availability_zone_abbreviation_type must be either \"fixed\" or \"short\"."
+  }
+}
+
+variable "managed_node_groups_enabled" {
+  type        = bool
+  description = "Set false to prevent the creation of EKS managed node groups."
+  default     = true
+}
+
 variable "oidc_provider_enabled" {
   type        = bool
   description = "Create an IAM OIDC identity provider for the cluster, then you can create IAM roles to associate with a service account in the cluster, instead of using kiam or kube2iam. For more information, see https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html"
@@ -134,24 +150,26 @@ variable "enable_vpn_access" {
 variable "node_groups" {
   # will create 1 node group for each item in map
   type = map(object({
-    # will create 1 auto scaling group in each specified availability zone
-    availability_zones = list(string)
+    # EKS AMI version to use, e.g. "1.16.13-20200821" (no "v").
+    ami_release_version = string
+    # Type of Amazon Machine Image (AMI) associated with the EKS Node Group
+    ami_type = string
     # Additional attributes (e.g. `1`) for the node group
     attributes = list(string)
+    # will create 1 auto scaling group in each specified availability zone
+    availability_zones = list(string)
+    # Whether to enable Node Group to scale its AutoScaling Group
+    cluster_autoscaler_enabled = bool
     # True to create new node_groups before deleting old ones, avoiding a temporary outage
     create_before_destroy = bool
     # Desired number of worker nodes when initially provisioned
     desired_group_size = number
+    # Enable disk encryption for the created launch template (if we aren't provided with an existing launch template)
+    disk_encryption_enabled = bool
     # Disk size in GiB for worker nodes. Terraform will only perform drift detection if a configuration value is provided.
     disk_size = number
-    # Whether to enable Node Group to scale its AutoScaling Group
-    cluster_autoscaler_enabled = bool
     # Set of instance types associated with the EKS Node Group. Terraform will only perform drift detection if a configuration value is provided.
     instance_types = list(string)
-    # Type of Amazon Machine Image (AMI) associated with the EKS Node Group
-    ami_type = string
-    # EKS AMI version to use, e.g. "1.16.13-20200821" (no "v").
-    ami_release_version = string
     # Key-value mapping of Kubernetes labels. Only labels that are applied with the EKS API are managed by this argument. Other Kubernetes labels applied to the EKS Node Group will not be managed
     kubernetes_labels = map(string)
     # Key-value mapping of Kubernetes taints.
@@ -174,18 +192,19 @@ variable "node_group_defaults" {
   # Any value in the node group that is null will be replaced
   # by the value in this object, which can also be null
   type = object({
-    availability_zones         = list(string) # set to null to use var.region_availability_zones
+    ami_release_version        = string
+    ami_type                   = string
     attributes                 = list(string)
+    availability_zones         = list(string) # set to null to use var.region_availability_zones
+    cluster_autoscaler_enabled = bool
     create_before_destroy      = bool
     desired_group_size         = number
+    disk_encryption_enabled    = bool
     disk_size                  = number
-    cluster_autoscaler_enabled = bool
     instance_types             = list(string)
-    ami_type                   = string
-    ami_release_version        = string
-    kubernetes_version         = string # set to null to use cluster_kubernetes_version
     kubernetes_labels          = map(string)
     kubernetes_taints          = map(string)
+    kubernetes_version         = string # set to null to use cluster_kubernetes_version
     max_group_size             = number
     min_group_size             = number
     resources_to_tag           = list(string)
@@ -193,18 +212,19 @@ variable "node_group_defaults" {
   })
   description = "Defaults for node groups in the cluster"
   default = {
-    availability_zones         = null
+    ami_release_version        = null
+    ami_type                   = null
     attributes                 = null
+    availability_zones         = null
+    cluster_autoscaler_enabled = true
     create_before_destroy      = true
     desired_group_size         = 1
+    disk_encryption_enabled    = true
     disk_size                  = 20
-    cluster_autoscaler_enabled = true
     instance_types             = ["t3.medium"]
-    ami_type                   = null
-    ami_release_version        = null
-    kubernetes_version         = null # set to null to use cluster_kubernetes_version
     kubernetes_labels          = null
     kubernetes_taints          = null
+    kubernetes_version         = null # set to null to use cluster_kubernetes_version
     max_group_size             = 100
     min_group_size             = null
     resources_to_tag           = null
@@ -224,32 +244,38 @@ variable "iam_primary_roles_stage_name" {
   default     = "identity"
 }
 
-variable "aws_ssm_enabled" {
+variable "cluster_encryption_config_enabled" {
   type        = bool
-  description = "Set true to install the AWS SSM agent on each EC2 instance"
   default     = false
+  description = "Set to `true` to enable Cluster Encryption Configuration"
 }
 
-variable "ssm_installer" {
+variable "cluster_encryption_config_kms_key_id" {
   type        = string
-  description = "Command to install AWS SSM agent on EC2 instance"
-  default     = "yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm\n"
+  default     = ""
+  description = "Specify KMS Key Id ARN to use for cluster encryption config"
 }
 
-variable "update_policy_should_roll" {
+variable "cluster_encryption_config_kms_key_enable_key_rotation" {
   type        = bool
   default     = true
-  description = "If true, roll the cluster when its configuration is updated"
+  description = "Cluster Encryption Config KMS Key Resource argument - enable kms key rotation"
 }
 
-variable "update_policy_batch_size_percentage" {
+variable "cluster_encryption_config_kms_key_deletion_window_in_days" {
   type        = number
-  default     = 25
-  description = "When rolling the cluster due to an update, the percentage of the instances to deploy in each batch."
+  default     = 10
+  description = "Cluster Encryption Config KMS Key Resource argument - key deletion windows in days post destruction"
 }
 
-variable "spotinst_secrets_region" {
+variable "cluster_encryption_config_kms_key_policy" {
   type        = string
-  default     = "us-west-2"
-  description = "The region to retrieve the spotinst secrets from"
+  default     = null
+  description = "Cluster Encryption Config KMS Key Resource argument - key policy"
+}
+
+variable "cluster_encryption_config_resources" {
+  type        = list(any)
+  default     = ["secrets"]
+  description = "Cluster Encryption Config Resources to encrypt, e.g. ['secrets']"
 }

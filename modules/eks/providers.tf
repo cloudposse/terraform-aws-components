@@ -4,17 +4,12 @@ provider "aws" {
   assume_role {
     # `terraform import` will not use data from a data source,
     # so on import we have to explicitly specify the role
-    role_arn = coalesce(var.import_role_arn, module.iam_roles.terraform_role_arn)
-  }
-}
-
-provider "aws" {
-  region = var.spotinst_secrets_region
-  alias  = "spotinst_secrets"
-
-  assume_role {
-    # `terraform import` will not use data from a data source,
-    # so on import we have to explicitly specify the role
+    # WARNING:
+    #   The EKS cluster is owned by the role that created it, and that
+    #   role is the only role that can access the cluster without an
+    #   entry in the auth-map ConfigMap, so it is crucial it is created
+    #   with the provisioned Terraform role and not an SSO role that could
+    #   be removed without notice.
     role_arn = coalesce(var.import_role_arn, module.iam_roles.terraform_role_arn)
   }
 }
@@ -28,9 +23,4 @@ variable "import_role_arn" {
   type        = string
   default     = null
   description = "IAM Role ARN to use when importing a resource"
-}
-
-provider "spotinst" {
-  token   = local.spotinst_token
-  account = local.spotinst_account
 }
