@@ -1,20 +1,20 @@
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.10.0"
+  version = "0.13.0"
 
-  stack_config_local_path = "../../../stacks"
   component               = "vpc"
+  stack_config_local_path = "../../../stacks"
 
   context = module.this.context
 }
 
 module "primary_roles" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.10.0"
+  version = "0.13.0"
 
-  stack_config_local_path = "../../../stacks"
   component               = "iam-primary-roles"
   environment             = var.iam_roles_environment_name
+  stack_config_local_path = "../../../stacks"
   stage                   = var.iam_primary_roles_stage_name
 
   context = module.this.context
@@ -22,25 +22,24 @@ module "primary_roles" {
 
 module "delegated_roles" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.10.0"
+  version = "0.13.0"
 
-  stack_config_local_path = "../../../stacks"
   component               = "iam-delegated-roles"
   environment             = var.iam_roles_environment_name
+  stack_config_local_path = "../../../stacks"
 
   context = module.this.context
 }
 
-module "spotinst_role" {
+module "workers_role" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.10.0"
+  version = "0.13.0"
 
-  stack_config_local_path = "../../../stacks"
-  component               = "spotinst-integration"
-  environment             = var.iam_roles_environment_name
+  component = "eks-workers"
   defaults = {
     workers_role_arn = null
   }
+  stack_config_local_path = "../../../stacks"
 
   context = module.this.context
 }
@@ -50,13 +49,13 @@ module "spotinst_role" {
 # to it rather than overwrite it (specifically the aws-auth configMap)
 module "eks" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.10.0"
+  version = "0.13.0"
 
-  stack_config_local_path = "../../../stacks"
-  component               = "eks"
+  component = "eks"
   defaults = {
     eks_managed_node_workers_role_arns = []
   }
+  stack_config_local_path = "../../../stacks"
 
   context = module.this.context
 }

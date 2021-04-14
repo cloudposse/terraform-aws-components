@@ -1,5 +1,7 @@
 
 locals {
+  node_groups_enabled = module.this.enabled && var.managed_node_groups_enabled
+
   node_group_default_availability_zones = var.node_group_defaults.availability_zones == null ? var.region_availability_zones : var.node_group_defaults.availability_zones
   node_group_default_kubernetes_version = var.node_group_defaults.kubernetes_version == null ? var.cluster_kubernetes_version : var.node_group_defaults.kubernetes_version
 
@@ -15,7 +17,7 @@ locals {
 }
 
 module "region_node_group" {
-  for_each = module.this.enabled ? var.node_groups : {}
+  for_each = local.node_groups_enabled ? var.node_groups : {}
 
   source = "./modules/node_group_by_region"
 
@@ -33,16 +35,18 @@ module "region_node_group" {
   } : null
 
   cluster_context = module.this.enabled ? {
+    ami_release_version        = each.value.ami_release_version == null ? var.node_group_defaults.ami_release_version : each.value.ami_release_version
+    ami_type                   = each.value.ami_type == null ? var.node_group_defaults.ami_type : each.value.ami_type
+    az_abbreviation_type       = var.availability_zone_abbreviation_type
+    cluster_autoscaler_enabled = each.value.cluster_autoscaler_enabled == null ? var.node_group_defaults.cluster_autoscaler_enabled : each.value.cluster_autoscaler_enabled
     cluster_name               = module.eks_cluster.eks_cluster_id
     create_before_destroy      = each.value.create_before_destroy == null ? var.node_group_defaults.create_before_destroy : each.value.create_before_destroy
+    disk_encryption_enabled    = each.value.disk_encryption_enabled == null ? var.node_group_defaults.disk_encryption_enabled : each.value.disk_encryption_enabled
     disk_size                  = each.value.disk_size == null ? var.node_group_defaults.disk_size : each.value.disk_size
-    cluster_autoscaler_enabled = each.value.cluster_autoscaler_enabled == null ? var.node_group_defaults.cluster_autoscaler_enabled : each.value.cluster_autoscaler_enabled
     instance_types             = each.value.instance_types == null ? var.node_group_defaults.instance_types : each.value.instance_types
-    ami_type                   = each.value.ami_type == null ? var.node_group_defaults.ami_type : each.value.ami_type
-    ami_release_version        = each.value.ami_release_version == null ? var.node_group_defaults.ami_release_version : each.value.ami_release_version
-    kubernetes_version         = each.value.kubernetes_version == null ? local.node_group_default_kubernetes_version : each.value.kubernetes_version
     kubernetes_labels          = each.value.kubernetes_labels == null ? var.node_group_defaults.kubernetes_labels : each.value.kubernetes_labels
     kubernetes_taints          = each.value.kubernetes_taints == null ? var.node_group_defaults.kubernetes_taints : each.value.kubernetes_taints
+    kubernetes_version         = each.value.kubernetes_version == null ? local.node_group_default_kubernetes_version : each.value.kubernetes_version
     resources_to_tag           = each.value.resources_to_tag == null ? var.node_group_defaults.resources_to_tag : each.value.resources_to_tag
     subnet_type_tag_key        = local.subnet_type_tag_key
     vpc_id                     = local.vpc_id

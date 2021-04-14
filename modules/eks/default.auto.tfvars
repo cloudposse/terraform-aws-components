@@ -4,6 +4,8 @@ enabled = true
 
 name = "eks"
 
+availability_zone_abbreviation_type = "short"
+
 allowed_security_groups = []
 
 allowed_cidr_blocks = []
@@ -14,7 +16,7 @@ cluster_endpoint_private_access = true
 
 cluster_endpoint_public_access = true
 
-cluster_kubernetes_version = "1.18"
+cluster_kubernetes_version = "1.19"
 
 enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
@@ -92,14 +94,15 @@ node_group_defaults = {
   kubernetes_version  = null # use cluster_kubernetes_version
   ami_release_version = null # use latest for given Kubernetes version
 
-  attributes                = []
-  create_before_destroy     = true
-  disk_size                 = 100 # root EBS volume size in GB
-  enable_cluster_autoscaler = true
-  instance_types            = ["t3.medium"]
-  ami_type                  = "AL2_x86_64"
-  kubernetes_labels         = {}
-  kubernetes_taints         = {}
-  resources_to_tag          = ["instance", "volume"]
-  tags                      = null
+  attributes                 = []
+  create_before_destroy      = true
+  disk_size                  = 100 # root EBS volume size in GB
+  cluster_autoscaler_enabled = true
+  instance_types             = ["t3.medium"]
+  ami_type                   = "AL2_x86_64"
+  kubernetes_labels          = {}
+  kubernetes_taints          = {}
+  disk_encryption_enabled    = true
+  resources_to_tag           = ["instance", "volume"]
+  tags                       = null
 }
