@@ -24,10 +24,10 @@ components:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 2.0 |
-| <a name="requirement_local"></a> [local](#requirement\_local) | >= 1.3 |
-| <a name="requirement_template"></a> [template](#requirement\_template) | >= 2.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 0.14.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.32 |
+| <a name="requirement_local"></a> [local](#requirement\_local) | ~> 2.1 |
+| <a name="requirement_template"></a> [template](#requirement\_template) | ~> 2.2 |
 
 ## Providers
 
@@ -37,8 +37,8 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_tfstate_backend"></a> [tfstate\_backend](#module\_tfstate\_backend) | git::https://github.com/cloudposse/terraform-aws-tfstate-backend.git?ref=tags/0.28.0 |  |
-| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.21.0 |  |
+| <a name="module_tfstate_backend"></a> [tfstate\_backend](#module\_tfstate\_backend) | cloudposse/tfstate-backend/aws | 0.32.0 |
+| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.24.1 |
 
 ## Resources
 
@@ -87,9 +87,8 @@ No resources.
 | <a name="output_tfstate_backend_s3_bucket_id"></a> [tfstate\_backend\_s3\_bucket\_id](#output\_tfstate\_backend\_s3\_bucket\_id) | Terraform state S3 bucket ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
-
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/tfstate-backend) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/tfstate-backend) - Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
