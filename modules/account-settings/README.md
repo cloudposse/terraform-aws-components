@@ -22,23 +22,26 @@ components:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 2.0 |
-| <a name="requirement_local"></a> [local](#requirement\_local) | >= 1.3 |
-| <a name="requirement_template"></a> [template](#requirement\_template) | >= 2.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 0.14.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.32 |
+| <a name="requirement_external"></a> [external](#requirement\_external) | ~> 2.1 |
+| <a name="requirement_http"></a> [http](#requirement\_http) | ~> 2.0 |
+| <a name="requirement_local"></a> [local](#requirement\_local) | ~> 2.0 |
+| <a name="requirement_template"></a> [template](#requirement\_template) | ~> 2.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 2.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 3.32 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_iam_account_settings"></a> [iam\_account\_settings](#module\_iam\_account\_settings) | cloudposse/iam-account-settings/aws | 0.2.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles |  |
-| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.21.0 |  |
+| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.24.1 |
 
 ## Resources
 
@@ -46,13 +49,12 @@ components:
 |------|------|
 | [aws_ebs_encryption_by_default.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ebs_encryption_by_default) | resource |
 | [aws_iam_account_alias.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_account_alias) | resource |
-| [aws_iam_account_password_policy.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_account_password_policy) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_account_alias_template"></a> [account\_alias\_template](#input\_account\_alias\_template) | Account alias template | `string` | n/a | yes |
+| <a name="input_account_alias_template"></a> [account\_alias\_template](#input\_account\_alias\_template) | Account alias template | `string` | `"%s-%s-%s"` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional tags for appending to tags\_as\_list\_of\_maps. Not added to `tags`. | `map(string)` | `{}` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | <pre>object({<br>    enabled             = bool<br>    namespace           = string<br>    environment         = string<br>    stage               = string<br>    name                = string<br>    delimiter           = string<br>    attributes          = list(string)<br>    tags                = map(string)<br>    additional_tag_map  = map(string)<br>    regex_replace_chars = string<br>    label_order         = list(string)<br>    id_length_limit     = number<br>  })</pre> | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_order": [],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
@@ -85,7 +87,6 @@ components:
 | Name | Description |
 |------|-------------|
 | <a name="output_account_alias"></a> [account\_alias](#output\_account\_alias) | Account alias |
-| <a name="output_expire_passwords"></a> [expire\_passwords](#output\_expire\_passwords) | Indicates whether passwords in the account expire. Returns `true` if `max_password_age` contains a value greater than 0. Returns `false` if it is 0 or not present |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
