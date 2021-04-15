@@ -26,6 +26,7 @@ run:
 ## Rebuild README for all Terraform components
 rebuild-docs:
 	@pre-commit run --all-files terraform_docs
+
 ## Upstream a given component
 upstream-component:
 # Requires:
