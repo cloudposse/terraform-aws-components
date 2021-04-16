@@ -11,8 +11,8 @@ This component assumes that AWS SSO has already been enabled via the AWS Console
 The example snippet below shows how to use this module with various combinations (plain YAML, YAML Anchors and a combination of the two):
 
 ```yaml
-prod-cloud-engineers: &prod-cloud-engineers
-  Production Cloud Infrastructure Engineers:
+prod-cloud-admins: &prod-cloud-admins
+  Production Cloud Admins:
     permission_sets:
       - AdministratorAccess
       - ReadOnlyAccess
@@ -24,7 +24,8 @@ components:
         account_assignments:
           audit:
             groups:
-              Production Cloud Infrastructure Engineers:
+              # This is the group name from IDP
+              "Production Cloud Admins":
                 permission_sets:
                   - AdministratorAccess
                   - ReadOnlyAccess
@@ -33,8 +34,8 @@ components:
                   - ReadOnlyAccess
           auto:
             groups:
-              <<: *prod-cloud-engineers
-              Production Cloud Engineers:
+              <<: *prod-cloud-devs
+              A Less Special Group in IDP:
                 permission_sets:
                   - ReadOnlyAccess
           corp:
