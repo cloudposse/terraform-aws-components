@@ -27,16 +27,15 @@ run:
 rebuild-docs:
 	@pre-commit run --all-files terraform_docs
 
-# Upstream a given component
-# Requires:
-# UPSTREAM_PATH -- The relative or absolute path to the upstream project directory
-# COMPONENT     -- The name of the component to upstream into this repository
+## Upstream a given component
 upstream-component:
+# Requires:
+#   UPSTREAM_PATH -- The relative or absolute path to the upstream project directory
+#   COMPONENT     -- The name of the component to upstream into this repository
 	@test "$(UPSTREAM_PATH)" != "NONE" || { echo "Please set UPSTREAM_PATH"; exit 1; }
 	@test "$(COMPONENT)" != "NONE" || { echo "Please set COMPONENT"; exit 1; }
 
 	@cp -r $(UPSTREAM_PATH)/components/terraform/$(COMPONENT) ./modules/; \
 		test -f "./modules/$(COMPONENT)/backend.tf.json" && rm ./modules/$(COMPONENT)/backend.tf.json; \
-		test -d "./modules/$(COMPONENT)/.terraform" && rm -r ./modules/$(COMPONENT)/.terraform; \
+		test -d "./modules/$(COMPONENT)/.terraform" && rm -rf ./modules/$(COMPONENT)/.terraform; \
 		echo "Upstreamed ./modules/$(COMPONENT)";
-
