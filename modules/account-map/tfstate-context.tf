@@ -68,3 +68,11 @@ locals {
   tfstate_bucket         = "${module.this.namespace}-${var.tfstate_bucket_environment_name}-${var.tfstate_bucket_stage_name}-tfstate"
   tfstate_dynamodb_table = "${module.this.namespace}-${var.tfstate_bucket_environment_name}-${var.tfstate_bucket_stage_name}-tfstate-lock"
 }
+
+output "tfstate_bucket" {
+  value = local.tfstate_bucket
+}
+
+output "tfstate_dynamodb_table" {
+  value = local.tfstate_dynamodb_table
+}

@@ -4,7 +4,7 @@ module "accounts" {
 
   component               = "account"
   privileged              = true
-  stack_config_local_path = "../../../stacks"
+  stack_config_local_path = "/home/user/ws/datameer/infrastructure-atmos-novel/stacks"
 
   context = module.this.context
 }

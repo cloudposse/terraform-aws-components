@@ -15,7 +15,7 @@ module "account_map" {
   component               = "account-map"
   privileged              = var.privileged
   environment             = var.global_environment_name
-  stack_config_local_path = "../../../stacks"
+  stack_config_local_path = "/home/user/ws/datameer/infrastructure-atmos-novel/stacks"
   stage                   = var.root_account_stage_name
 
   context = module.forced.context

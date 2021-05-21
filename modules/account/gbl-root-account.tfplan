@@ -1,0 +1,86 @@
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_organizations_account.organization_accounts["test"] will be created
+  + resource "aws_organizations_account" "organization_accounts" {
+      + arn                        = (known after apply)
+      + email                      = "aws+atmos-test@datameer.com"
+      + iam_user_access_to_billing = "DENY"
+      + id                         = (known after apply)
+      + joined_method              = (known after apply)
+      + joined_timestamp           = (known after apply)
+      + name                       = "test"
+      + parent_id                  = (known after apply)
+      + status                     = (known after apply)
+      + tags                       = {
+          + "Environment" = "gbl"
+          + "Name"        = "test"
+          + "Namespace"   = "atmos"
+          + "Stage"       = "root"
+        }
+      + tags_all                   = {
+          + "Environment" = "gbl"
+          + "Name"        = "test"
+          + "Namespace"   = "atmos"
+          + "Stage"       = "root"
+        }
+    }
+
+  # aws_organizations_organization.this will be created
+  + resource "aws_organizations_organization" "this" {
+      + accounts                      = (known after apply)
+      + arn                           = (known after apply)
+      + aws_service_access_principals = [
+          + "cloudtrail.amazonaws.com",
+          + "ram.amazonaws.com",
+        ]
+      + enabled_policy_types          = [
+          + "SERVICE_CONTROL_POLICY",
+          + "TAG_POLICY",
+        ]
+      + feature_set                   = "ALL"
+      + id                            = (known after apply)
+      + master_account_arn            = (known after apply)
+      + master_account_email          = (known after apply)
+      + master_account_id             = (known after apply)
+      + non_master_accounts           = (known after apply)
+      + roots                         = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + account_arns                                           = [
+      + (known after apply),
+    ]
+  + account_ids                                            = [
+      + (known after apply),
+    ]
+  + account_names_account_arns                             = {
+      + test = (known after apply)
+    }
+  + account_names_account_ids                              = {
+      + test = (known after apply)
+    }
+  + account_names_account_scp_arns                         = {}
+  + account_names_account_scp_ids                          = {}
+  + eks_accounts                                           = []
+  + non_eks_accounts                                       = [
+      + "root",
+      + "test",
+    ]
+  + organization_arn                                       = (known after apply)
+  + organization_id                                        = (known after apply)
+  + organization_master_account_arn                        = (known after apply)
+  + organization_master_account_email                      = (known after apply)
+  + organization_master_account_id                         = (known after apply)
+  + organizational_unit_arns                               = []
+  + organizational_unit_ids                                = []
+  + organizational_unit_names_organizational_unit_arns     = {}
+  + organizational_unit_names_organizational_unit_ids      = {}
+  + organizational_unit_names_organizational_unit_scp_arns = {}
+  + organizational_unit_names_organizational_unit_scp_ids  = {}

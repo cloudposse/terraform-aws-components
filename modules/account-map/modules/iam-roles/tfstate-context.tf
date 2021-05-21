@@ -52,6 +52,11 @@ variable "tfstate_role_name" {
   description = "IAM Role name for accessing the Terraform remote state"
 }
 
+variable "tfstate_region" {
+  type        = string
+  description = "IAM Role name for accessing the Terraform remote state"
+}
+
 locals {
   tfstate_access_role_arn = var.tfstate_assume_role ? (
     (var.tfstate_existing_role_arn != null && var.tfstate_existing_role_arn != "") ? var.tfstate_existing_role_arn : (

@@ -1,0 +1,147 @@
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # module.tfstate_backend.data.template_file.terraform_backend_config will be read during apply
+  # (config refers to values not yet known)
+ <= data "template_file" "terraform_backend_config"  {
+      + id       = (known after apply)
+      + rendered = (known after apply)
+      + template = <<-EOT
+            terraform {
+              required_version = ">= ${terraform_version}"
+            
+              backend "s3" {
+                region         = "${region}"
+                bucket         = "${bucket}"
+                key            = "${terraform_state_file}"
+                dynamodb_table = "${dynamodb_table}"
+                profile        = "${profile}"
+                role_arn       = "${role_arn}"
+                encrypt        = "${encrypt}"
+              }
+            }
+        EOT
+      + vars     = {
+          + "bucket"               = (known after apply)
+          + "dynamodb_table"       = "atmos-gbl-root-tfstate-lock"
+          + "encrypt"              = "true"
+          + "environment"          = null
+          + "name"                 = null
+          + "namespace"            = null
+          + "profile"              = ""
+          + "region"               = "us-east-2"
+          + "role_arn"             = ""
+          + "stage"                = null
+          + "terraform_state_file" = "terraform.tfstate"
+          + "terraform_version"    = "0.12.2"
+        }
+    }
+
+  # module.tfstate_backend.aws_dynamodb_table.with_server_side_encryption[0] will be created
+  + resource "aws_dynamodb_table" "with_server_side_encryption" {
+      + arn              = (known after apply)
+      + billing_mode     = "PROVISIONED"
+      + hash_key         = "LockID"
+      + id               = (known after apply)
+      + name             = "atmos-gbl-root-tfstate-lock"
+      + read_capacity    = 5
+      + stream_arn       = (known after apply)
+      + stream_label     = (known after apply)
+      + stream_view_type = (known after apply)
+      + tags             = {
+          + "Attributes"  = "lock"
+          + "Environment" = "gbl"
+          + "Name"        = "atmos-gbl-root-tfstate-lock"
+          + "Namespace"   = "atmos"
+          + "Stage"       = "root"
+        }
+      + tags_all         = {
+          + "Attributes"  = "lock"
+          + "Environment" = "gbl"
+          + "Name"        = "atmos-gbl-root-tfstate-lock"
+          + "Namespace"   = "atmos"
+          + "Stage"       = "root"
+        }
+      + write_capacity   = 5
+
+      + attribute {
+          + name = "LockID"
+          + type = "S"
+        }
+
+      + point_in_time_recovery {
+          + enabled = true
+        }
+
+      + server_side_encryption {
+          + enabled     = true
+          + kms_key_arn = (known after apply)
+        }
+    }
+
+  # module.tfstate_backend.aws_s3_bucket.default will be created
+  + resource "aws_s3_bucket" "default" {
+      + acceleration_status         = (known after apply)
+      + acl                         = "private"
+      + arn                         = (known after apply)
+      + bucket                      = "atmos-gbl-root-tfstate"
+      + bucket_domain_name          = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Environment" = "gbl"
+          + "Name"        = "atmos-gbl-root-tfstate"
+          + "Namespace"   = "atmos"
+          + "Stage"       = "root"
+        }
+      + tags_all                    = {
+          + "Environment" = "gbl"
+          + "Name"        = "atmos-gbl-root-tfstate"
+          + "Namespace"   = "atmos"
+          + "Stage"       = "root"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + server_side_encryption_configuration {
+          + rule {
+              + apply_server_side_encryption_by_default {
+                  + sse_algorithm = "AES256"
+                }
+            }
+        }
+
+      + versioning {
+          + enabled    = true
+          + mfa_delete = false
+        }
+    }
+
+  # module.tfstate_backend.aws_s3_bucket_public_access_block.default[0] will be created
+  + resource "aws_s3_bucket_public_access_block" "default" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + restrict_public_buckets = true
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + tfstate_backend_dynamodb_table_arn    = (known after apply)
+  + tfstate_backend_dynamodb_table_id     = (known after apply)
+  + tfstate_backend_dynamodb_table_name   = "atmos-gbl-root-tfstate-lock"
+  + tfstate_backend_s3_bucket_arn         = (known after apply)
+  + tfstate_backend_s3_bucket_domain_name = (known after apply)
+  + tfstate_backend_s3_bucket_id          = (known after apply)

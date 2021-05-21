@@ -8,7 +8,7 @@ data "terraform_remote_state" "account_map" {
     workspace_key_prefix = "account-map"
     key                  = "terraform.tfstate"
     dynamodb_table       = local.tfstate_dynamodb_table
-    region               = var.region
+    region               = var.tfstate_region
     role_arn             = local.tfstate_access_role_arn
     acl                  = "bucket-owner-full-control"
   }
