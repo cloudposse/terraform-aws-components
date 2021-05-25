@@ -52,11 +52,6 @@ variable "tfstate_role_name" {
   description = "IAM Role name for accessing the Terraform remote state"
 }
 
-variable "tfstate_region" {
-  type        = string
-  description = "IAM Role name for accessing the Terraform remote state"
-}
-
 locals {
   tfstate_access_role_arn = var.tfstate_assume_role ? (
     (var.tfstate_existing_role_arn != null && var.tfstate_existing_role_arn != "") ? var.tfstate_existing_role_arn : (
@@ -71,7 +66,5 @@ locals {
   ) : null
 
   tfstate_bucket         = "${module.this.namespace}-${var.tfstate_bucket_environment_name}-${var.tfstate_bucket_stage_name}-tfstate"
-  # tfstate_bucket         = "atmos-gbl-root-tfstate"
   tfstate_dynamodb_table = "${module.this.namespace}-${var.tfstate_bucket_environment_name}-${var.tfstate_bucket_stage_name}-tfstate-lock"
-  # tfstate_dynamodb_table = "atmos-gbl-root-tfstate-lock"
 }

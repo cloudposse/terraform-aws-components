@@ -9,7 +9,7 @@
         "key": "terraform.tfstate",
         "region": "us-east-2",
         "role_arn": "arn:aws:iam::101236733906:role/atmos-gbl-root-terraform",
-        "workspace_key_prefix": "iam-primary-roles"
+        "workspace_key_prefix": "eks-workers"
       }
     }
   }

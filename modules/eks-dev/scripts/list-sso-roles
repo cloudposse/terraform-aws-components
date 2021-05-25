@@ -1,0 +1,38 @@
+#!/usr/bin/env sh
+# Use plain sh for compatibility with Terraform cloud
+# Unfortunately it does not have -o pipefail
+set -e
+
+# Validate required commands
+if ! [ -x "$(command -v aws)" ]; then
+	echo 'Error: aws is not installed.' >&2
+	exit 1
+fi
+if ! [ -x "$(command -v jq)" ]; then
+	echo 'Error: jq is not installed.' >&2
+	exit 1
+fi
+
+# Get the query
+TERRAFORM_QUERY=$(jq -Mc .)
+
+# Extract the query attributes
+ASSUME_ROLE_ARN=$(echo "${TERRAFORM_QUERY}" | jq -r '.assume_role_arn')
+if [ -n "$ASSUME_ROLE_ARN" ]; then
+	ASSUME_ROLE_ARN=$(printf "%s" "$ASSUME_ROLE_ARN" | sed 's%:sts:%:iam:%' | sed -E 's%:assumed-role/([^/]+)/.*%:role/\1%')
+fi
+
+# Do we need to assume a role?
+if [ -n "${ASSUME_ROLE_ARN}" ]; then
+	TEMP_ROLE=$(aws sts assume-role --role-arn "${ASSUME_ROLE_ARN}" --role-session-name "${ROLE_SESSION_NAME:-Terraform}")
+	export AWS_ACCESS_KEY_ID=$(echo "${TEMP_ROLE}" | jq -r '.Credentials.AccessKeyId')
+	export AWS_SECRET_ACCESS_KEY=$(echo "${TEMP_ROLE}" | jq -r '.Credentials.SecretAccessKey')
+	export AWS_SESSION_TOKEN=$(echo "${TEMP_ROLE}" | jq -r '.Credentials.SessionToken')
+fi
+
+# Disable any assigned pager
+export AWS_PAGER=""
+
+json=$(aws iam list-roles --path-prefix /aws-reserved/sso.amazonaws.com/ --query 'Roles[].RoleName' --output json)
+
+printf "%s" "$json" | jq '{ output: @json }'

@@ -8,7 +8,7 @@ data "terraform_remote_state" "primary_roles" {
     workspace_key_prefix = "iam-primary-roles"
     key                  = "terraform.tfstate"
     dynamodb_table       = local.tfstate_dynamodb_table
-    region               = var.tfstate_region
+    region               = var.region
     role_arn             = local.tfstate_access_role_arn
     acl                  = "bucket-owner-full-control"
   }
@@ -24,7 +24,7 @@ data "terraform_remote_state" "delegated_roles" {
     workspace_key_prefix = "iam-delegated-roles"
     key                  = "terraform.tfstate"
     dynamodb_table       = local.tfstate_dynamodb_table
-    region               = var.tfstate_region
+    region               = var.region
     role_arn             = local.tfstate_access_role_arn
     acl                  = "bucket-owner-full-control"
   }
@@ -40,7 +40,7 @@ data "terraform_remote_state" "vpc" {
     workspace_key_prefix = "vpc"
     key                  = "terraform.tfstate"
     dynamodb_table       = local.tfstate_dynamodb_table
-    region               = var.tfstate_region
+    region               = var.region
     role_arn             = local.tfstate_access_role_arn
     acl                  = "bucket-owner-full-control"
   }
@@ -59,7 +59,7 @@ data "terraform_remote_state" "eks" {
     workspace_key_prefix = "eks"
     key                  = "terraform.tfstate"
     dynamodb_table       = local.tfstate_dynamodb_table
-    region               = var.tfstate_region
+    region               = var.region
     role_arn             = local.tfstate_access_role_arn
     acl                  = "bucket-owner-full-control"
   }
