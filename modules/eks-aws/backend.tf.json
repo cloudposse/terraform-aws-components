@@ -1,7 +1,16 @@
 {
   "terraform": {
     "backend": {
-      "s3": {}
+      "s3": {
+        "acl": "bucket-owner-full-control",
+        "bucket": "atmos-gbl-root-tfstate",
+        "dynamodb_table": "atmos-gbl-root-tfstate-lock",
+        "encrypt": true,
+        "key": "terraform.tfstate",
+        "region": "us-east-2",
+        "role_arn": "arn:aws:iam::101236733906:role/atmos-gbl-root-terraform",
+        "workspace_key_prefix": "eks-aws"
+      }
     }
   }
 }
