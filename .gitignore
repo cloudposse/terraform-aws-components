@@ -4,8 +4,10 @@
 .terraform
 .viminfo
 *.iml
+*.planfile
 *.terraform.lock.hcl
 *.terraform.tfvars.json
 *.tfplan
 *.tfstate*
 backend.tf.json
+terraform.tfvars.json
