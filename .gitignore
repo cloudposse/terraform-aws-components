@@ -2,11 +2,9 @@
 .envrc
 .idea
 .terraform
-.terraform.d
 .viminfo
 *.iml
-*.tfstate
-*.tfstate.*
-**/*.terraform.lock.hcl
-build-harness
-.terraform.bak
+*.terraform.lock.hcl
+*.tfplan
+*.tfstate*
+backend.tf.json
