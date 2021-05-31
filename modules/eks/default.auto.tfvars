@@ -38,18 +38,18 @@ primary_iam_roles = [
     role   = "admin"
     groups = ["system:masters", "idp:ops"]
   },
-  # {
-  #   role   = "ops"
-  #   groups = ["idp:ops"]
-  # },
-  # {
-  #   role   = "poweruser"
-  #   groups = ["idp:poweruser"]
-  # },
-  # {
-  #   role   = "observer"
-  #   groups = ["idp:observer"]
-  # }
+  {
+    role   = "ops"
+    groups = ["idp:ops"]
+  },
+  {
+    role   = "poweruser"
+    groups = ["idp:poweruser"]
+  },
+  {
+    role   = "observer"
+    groups = ["idp:observer"]
+  }
 ]
 
 # Roles from the account owning the cluster to allow access to the cluster
@@ -58,26 +58,26 @@ delegated_iam_roles = [
     role   = "admin"
     groups = ["system:masters", "idp:ops"]
   },
-  # {
-  #   role   = "ops"
-  #   groups = ["idp:ops"]
-  # },
-  # {
-  #   role   = "poweruser"
-  #   groups = ["idp:poweruser"]
-  # },
-  # {
-  #   role   = "observer"
-  #   groups = ["idp:observer"]
-  # },
+  {
+    role   = "ops"
+    groups = ["idp:ops"]
+  },
+  {
+    role   = "poweruser"
+    groups = ["idp:poweruser"]
+  },
+  {
+    role   = "observer"
+    groups = ["idp:observer"]
+  },
   {
     role   = "terraform"
     groups = ["system:masters"]
   },
-  # {
-  #   role   = "helm"
-  #   groups = ["system:masters"]
-  # }
+  {
+    role   = "helm"
+    groups = ["system:masters"]
+  }
 ]
 
 public_access_cidrs = ["0.0.0.0/0"]
