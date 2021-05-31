@@ -10,10 +10,10 @@ terraform {
       source  = "hashicorp/external"
       version = "~> 2.1"
     }
-    # kubernetes = {
-    #   source  = "hashicorp/kubernetes"
-    #   version = "~> 1.13"
-    # }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 1.13"
+    }
     local = {
       source  = "hashicorp/local"
       version = "~> 2.1"
