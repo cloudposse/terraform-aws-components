@@ -71,7 +71,5 @@ locals {
   ) : null
 
   tfstate_bucket         = "${module.this.namespace}-${var.tfstate_bucket_environment_name}-${var.tfstate_bucket_stage_name}-tfstate"
-  # tfstate_bucket         = "atmos-gbl-root-tfstate"
   tfstate_dynamodb_table = "${module.this.namespace}-${var.tfstate_bucket_environment_name}-${var.tfstate_bucket_stage_name}-tfstate-lock"
-  # tfstate_dynamodb_table = "atmos-gbl-root-tfstate-lock"
 }

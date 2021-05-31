@@ -3,7 +3,7 @@ module "vpc" {
   version = "0.13.0"
 
   component               = "vpc"
-  stack_config_local_path = "/home/user/ws/datameer/infrastructure-atmos-novel/stacks"
+  stack_config_local_path = "../../../stacks"
 
   context = module.this.context
 }
@@ -14,7 +14,7 @@ module "primary_roles" {
 
   component               = "iam-primary-roles"
   environment             = var.iam_roles_environment_name
-  stack_config_local_path = "/home/user/ws/datameer/infrastructure-atmos-novel/stacks"
+  stack_config_local_path = "../../../stacks"
   stage                   = var.iam_primary_roles_stage_name
 
   context = module.this.context
@@ -26,7 +26,7 @@ module "delegated_roles" {
 
   component               = "iam-delegated-roles"
   environment             = var.iam_roles_environment_name
-  stack_config_local_path = "/home/user/ws/datameer/infrastructure-atmos-novel/stacks"
+  stack_config_local_path = "../../../stacks"
 
   context = module.this.context
 }
@@ -39,7 +39,7 @@ module "workers_role" {
   defaults = {
     workers_role_arn = null
   }
-  stack_config_local_path = "/home/user/ws/datameer/infrastructure-atmos-novel/stacks"
+  stack_config_local_path = "../../../stacks"
 
   context = module.this.context
 }
@@ -55,7 +55,7 @@ module "eks" {
   defaults = {
     eks_managed_node_workers_role_arns = []
   }
-  stack_config_local_path = "/home/user/ws/datameer/infrastructure-atmos-novel/stacks"
+  stack_config_local_path = "../../../stacks"
 
   context = module.this.context
 }

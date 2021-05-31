@@ -4,7 +4,7 @@ module "account_map" {
 
   component               = "account-map"
   environment             = var.account_map_environment_name
-  stack_config_local_path = "/home/user/ws/datameer/infrastructure-atmos-novel/stacks"
+  stack_config_local_path = "../../../stacks"
   stage                   = var.account_map_stage_name
   privileged              = true
 
@@ -17,7 +17,7 @@ module "primary_roles" {
 
   component               = "iam-primary-roles"
   environment             = var.iam_roles_environment_name
-  stack_config_local_path = "/home/user/ws/datameer/infrastructure-atmos-novel/stacks"
+  stack_config_local_path = "../../../stacks"
   stage                   = var.iam_primary_roles_stage_name
   privileged              = true
 
@@ -32,7 +32,7 @@ module "tfstate" {
   enabled                 = module.this.stage == var.tfstate_backend_stage_name
   environment             = var.tfstate_backend_environment_name
   privileged              = true
-  stack_config_local_path = "/home/user/ws/datameer/infrastructure-atmos-novel/stacks"
+  stack_config_local_path = "../../../stacks"
 
   context = module.this.context
 }
