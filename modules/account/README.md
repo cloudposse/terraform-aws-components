@@ -106,11 +106,11 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_accounts_service_control_policies"></a> [accounts\_service\_control\_policies](#module\_accounts\_service\_control\_policies) | git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.4.0 |  |
-| <a name="module_organization_service_control_policies"></a> [organization\_service\_control\_policies](#module\_organization\_service\_control\_policies) | git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.4.0 |  |
-| <a name="module_organizational_units_service_control_policies"></a> [organizational\_units\_service\_control\_policies](#module\_organizational\_units\_service\_control\_policies) | git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.4.0 |  |
-| <a name="module_service_control_policy_statements_yaml_config"></a> [service\_control\_policy\_statements\_yaml\_config](#module\_service\_control\_policy\_statements\_yaml\_config) | git::https://github.com/cloudposse/terraform-yaml-config.git?ref=tags/0.1.0 |  |
-| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.21.0 |  |
+| <a name="module_accounts_service_control_policies"></a> [accounts\_service\_control\_policies](#module\_accounts\_service\_control\_policies) | git::https://github.com/cloudposse/terraform-aws-service-control-policies.git | tags/0.4.0 |
+| <a name="module_organization_service_control_policies"></a> [organization\_service\_control\_policies](#module\_organization\_service\_control\_policies) | git::https://github.com/cloudposse/terraform-aws-service-control-policies.git | tags/0.4.0 |
+| <a name="module_organizational_units_service_control_policies"></a> [organizational\_units\_service\_control\_policies](#module\_organizational\_units\_service\_control\_policies) | git::https://github.com/cloudposse/terraform-aws-service-control-policies.git | tags/0.4.0 |
+| <a name="module_service_control_policy_statements_yaml_config"></a> [service\_control\_policy\_statements\_yaml\_config](#module\_service\_control\_policy\_statements\_yaml\_config) | git::https://github.com/cloudposse/terraform-yaml-config.git | tags/0.1.0 |
+| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/cloudposse/terraform-null-label.git | tags/0.21.0 |
 
 ## Resources
 
