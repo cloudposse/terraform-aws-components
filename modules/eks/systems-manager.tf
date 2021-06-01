@@ -1,6 +1,6 @@
 
 locals {
-  ssm_enabled = module.this.enabled && var.aws_ssm_enabled
+  ssm_enabled = module.this.enabled
   # worker_role_arns does not include managed node group role ARNs created in this invocation
   all_worker_role_arns = local.ssm_enabled ? toset(
     distinct(compact(concat(local.worker_role_arns, local.node_group_role_arns)))
