@@ -6,8 +6,6 @@ terraform {
       source  = "spacelift.io/spacelift-io/spacelift"
       version = "~> 1.0.0"
     }
-    aws      = "~> 3.0"
-    template = "~> 2.0"
-    local    = "~> 1.3"
+    aws = "~> 3.0"
   }
 }
