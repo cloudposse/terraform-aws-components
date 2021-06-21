@@ -11,10 +11,20 @@ Here's an example snippet for how to use this component.
 ```yaml
 components:
   terraform:
-    github-runners:
+    firewall-manager:
       vars:
-        github_scope: company
-        instance_type: "t3.small"
+        organization_management_arn: "arn:aws:iam::111111111111:role/<namespace>-gbl-root-admin"
+        firewall_manager_administrator_arn: "arn:aws:iam::222222222222:role/<namespace>-gbl-identity-admin"
+        admin_account_ids: ["111111111"]
+        security_groups_common_policies:
+          - name: "demo"
+            delete_all_policy_resources: true
+            exclude_resource_tags: false
+            remediation_enabled: false
+            resource_type_list: []
+            managed_service_data:
+              security_groups:
+                - "sg-abc123"
 
 ```
 
