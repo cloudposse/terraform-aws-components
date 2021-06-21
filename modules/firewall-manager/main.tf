@@ -1,17 +1,3 @@
-//resource "null_resource" "is_destroy" {
-////  lifecycle {
-////    create_before_destroy = true
-////  }
-//  provisioner "local-exec" {
-//    when    = destroy
-//    command = "echo 'is_destroy = true' > ./command.auto.tfvars"
-//  }
-////  provisioner "local-exec" {
-////    when    = apply
-////    command = "echo 'is_destroy = false' > ./command.auto.tfvars"
-////  }
-//}
-
 locals {
   assume_arn = var.is_destroy ? var.firewall_manager_administrator_arn : var.organization_management_arn
   region = "us-east-1" // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/fms_admin_account
