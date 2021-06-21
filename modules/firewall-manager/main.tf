@@ -1,5 +1,16 @@
+resource "null_resource" "is_apply" {
+  provisioner "local-exec" {
+    command = "echo 'is_destroy = false' > ${path.module}/command.auto.tfvars"
+  }
+}
+resource "null_resource" "is_destroy" {
+  provisioner "local-exec" {
+    when    = destroy
+    command = "echo 'is_destroy = true' > ${path.module}/command.auto.tfvars"
+  }
+}
+
 locals {
-  assume_arn = var.is_destroy ? var.firewall_manager_administrator_arn : var.organization_management_arn
   region = "us-east-1" // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/fms_admin_account
 }
 
@@ -9,8 +20,8 @@ module "aws_firewall_manager" {
   context = module.this.context
 
   region            = local.region
-  assume_arn        = local.assume_arn
   admin_account_ids = var.admin_account_ids
+  is_destroy        = var.is_destroy
 
   security_groups_common_policies           = var.security_groups_common_policies
   security_groups_content_audit_policies    = var.security_groups_content_audit_policies
