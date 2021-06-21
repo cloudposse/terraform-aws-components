@@ -15,8 +15,7 @@ locals {
 }
 
 module "aws_firewall_manager" {
-  //  source = "git::https://github.com/cloudposse/terraform-aws-firewall-manager.git?ref=ALTAIS-372"
-  source = "../../../terraform-aws-firewall-manager/"
+  source = "git::https://github.com/cloudposse/terraform-aws-firewall-manager.git?ref=Aws-Firewall-Manager-development"
   context = module.this.context
 
   region            = local.region
