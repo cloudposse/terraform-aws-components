@@ -4,7 +4,7 @@ provider "aws" {
   region = var.region
 
   # `terraform import` will not use data from a data source, so on import we have to explicitly specify the profile
-  profile = coalesce(var.import_profile_name_primary, module.iam_roles.dns_terraform_profile_name)
+  profile = coalesce(var.import_profile_name, module.iam_roles.dns_terraform_profile_name)
 }
 
 provider "aws" {
@@ -19,12 +19,6 @@ provider "aws" {
 module "iam_roles" {
   source  = "../account-map/modules/iam-roles"
   context = module.this.context
-}
-
-variable "import_profile_name_primary" {
-  type        = string
-  default     = null
-  description = "AWS Profile name to use when importing a resource"
 }
 
 variable "import_profile_name" {
