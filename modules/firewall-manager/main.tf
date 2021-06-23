@@ -1,15 +1,19 @@
+
 locals {
-  assume_arn = var.is_destroy ? var.firewall_manager_administrator_arn : var.organization_management_arn
-  region = "us-east-1" // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/fms_admin_account
+  assumed_arn = var.is_destroy ? var.firewall_manager_administrator_arn : var.organization_management_arn
 }
 
-module "aws_firewall_manager" {
-  source = "git::https://github.com/cloudposse/terraform-aws-firewall-manager.git?ref=Aws-Firewall-Manager-development"
+module "components_firewall_manager" {
+  providers = {
+    aws.dynamic_provider = aws.dynamic_provider
+    aws = aws
+  }
+//  source  = "cloudposse/components/aws//modules/firewall_manager"
+//  version = "0.149.0"
+  source = "../../../../../cloudposse/terraform-aws-firewall-manager/"
   context = module.this.context
 
-  region            = local.region
-  assume_arn        = local.assume_arn
-  admin_account_ids = var.admin_account_ids
+  admin_account_id = var.admin_account_id
 
   security_groups_common_policies           = var.security_groups_common_policies
   security_groups_content_audit_policies    = var.security_groups_content_audit_policies

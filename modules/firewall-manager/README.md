@@ -4,7 +4,7 @@ This component is responsible for provisioning AWS Firewall Manager Admin Accoun
 
 ## Usage
 
-**Stack Level**: Regional
+**Stack Level**: Global
 
 Here's an example snippet for how to use this component.
 
@@ -15,7 +15,7 @@ components:
       vars:
         organization_management_arn: "arn:aws:iam::111111111111:role/<namespace>-gbl-root-admin"
         firewall_manager_administrator_arn: "arn:aws:iam::222222222222:role/<namespace>-gbl-identity-admin"
-        admin_account_ids: ["111111111"]
+        admin_account_ids: ["222222222222"]
         security_groups_common_policies:
           - name: "demo"
             delete_all_policy_resources: true
@@ -27,6 +27,17 @@ components:
                 - "sg-abc123"
 
 ```
+
+## Key Notes
+#### AWS FMS Admin Account
+
+- You `Create` through AWS Organizations management account (Account: `gbl-root-admin`).
+- You `Destroy` through the AWS Firewall Manager administrator account (Account: `gbl-security-admin`)
+
+Because of this the terraform module has a `is_destroy` variable. set it to `true` when destroying the module. This is due to a limitation on the AWS SDK. 
+
+ - [Terraform Provider Issue 19928](https://github.com/hashicorp/terraform-provider-aws/issues/19928)
+
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
