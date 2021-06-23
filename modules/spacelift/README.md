@@ -101,15 +101,15 @@ chmod +x rootfs/usr/local/bin/spacelift*
 ```bash
 aws ec2 describe-images --region $YOUR_TARGET_REGION --owners amazon --filters "Name=name,Values=amzn2-ami-hvm-2.0.202*-x86_64-gp2" --query 'sort_by(Images, &CreationDate)[-1]' | jq -r .ImageId
 ```
-1. In the cloned repo, add a `default.hcl` file with the following content:
+1. In the cloned repo, add a `default.hcl` file with the following content (replace anything in `<PLACEHOLDER>` with the specified value):
 ```hcl
-base_ami = "$IMAGE_ID_FROM_ABOVE
-region = "$YOUR_TARGET_REGION"
-ami_regions = ["$YOUR_TARGET_REGION"]
+base_ami = "<IMAGE_ID_FROM_ABOVE>" # ami-????????????
+region = "<YOUR_TARGET_REGION>" # us-east-1, us-west-2, etc.
+ami_regions = ["<YOUR_TARGET_REGION>"] # us-east-1, us-west-2, etc.
 ami_groups = []
 shared_credentials_file = "~/.aws/credentials"
 additional_tags = {
-  CreatedBy = "$YOUR_NAME" # So someone can find you =)
+  CreatedBy = "<YOUR_NAME>" # So someone can find you =)
 }
 ```
 1. Run `packer build -var-file=default.hcl .` against the account Spacelift will be deployed to
