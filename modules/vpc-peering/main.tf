@@ -4,7 +4,7 @@ locals {
 
 module "vpc_peering" {
   source  = "cloudposse/vpc-peering-multi-account/aws"
-  version = "0.14.0"
+  version = "0.16.0"
 
   auto_accept = var.auto_accept
 
