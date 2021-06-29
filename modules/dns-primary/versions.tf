@@ -1,5 +1,5 @@
 terraform {
-  required_version = "~> 0.14.0"
+  required_version = ">= 0.14.0"
 
   required_providers {
     aws = {
@@ -17,10 +17,6 @@ terraform {
     local = {
       source  = "hashicorp/local"
       version = "~> 2.0"
-    }
-    template = {
-      source  = "hashicorp/template"
-      version = "~> 2.2"
     }
     utils = {
       source  = "cloudposse/utils"
