@@ -12,7 +12,7 @@ locals {
 module "acm" {
   enabled = local.certificate_enabled
   source  = "cloudposse/acm-request-certificate/aws"
-  version = "0.10.0"
+  version = "0.13.1"
   providers = {
     aws = aws.delegated
   }
