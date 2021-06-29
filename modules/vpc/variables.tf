@@ -82,15 +82,3 @@ variable "vpc_flow_logs_log_destination_type" {
   description = "he type of the logging destination. Valid values: `cloud-watch-logs`, `s3`"
   default     = "s3"
 }
-
-variable "vpc_flow_logs_bucket_environment_name" {
-  type        = string
-  description = "The name of the environment where the VPC Flow Logs bucket is provisioned"
-  default     = ""
-}
-
-variable "vpc_flow_logs_bucket_stage_name" {
-  type        = string
-  description = "The stage (account) name where the VPC Flow Logs bucket is provisioned"
-  default     = ""
-}
