@@ -1,4 +1,4 @@
 output "account_alias" {
-  value       = aws_iam_account_alias.default.account_alias
+  value       = module.iam_account_settings.account_alias
   description = "Account alias"
 }
