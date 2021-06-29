@@ -14,9 +14,3 @@ variable "maximum_password_age" {
   default     = 190
   description = "The number of days that an user password is valid"
 }
-
-variable "account_alias_template" {
-  type        = string
-  description = "Account alias template"
-  default     = "%s-%s-%s"
-}
