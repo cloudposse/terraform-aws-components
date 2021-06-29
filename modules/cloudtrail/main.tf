@@ -1,6 +1,6 @@
 module "cloudtrail" {
   source  = "cloudposse/cloudtrail/aws"
-  version = "0.19.0"
+  version = "0.20.0"
 
   cloud_watch_logs_role_arn     = aws_iam_role.cloudtrail_cloudwatch_logs.arn
   cloud_watch_logs_group_arn    = "${aws_cloudwatch_log_group.cloudtrail_cloudwatch_logs.arn}:*"

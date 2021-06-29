@@ -1,6 +1,6 @@
 module "kms_key_cloudtrail" {
   source  = "cloudposse/kms-key/aws"
-  version = "0.9.0"
+  version = "0.10.0"
 
   description             = "KMS key for CloudTrail"
   deletion_window_in_days = 10
