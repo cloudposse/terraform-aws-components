@@ -3,8 +3,13 @@ locals {
   organization = lookup(var.organization_config, "organization", {})
 
   # Organizational Units list and map configuration
-  organizational_units     = lookup(var.organization_config, "organizational_units", [])
-  organizational_units_map = { for ou in local.organizational_units : ou.name => ou }
+  organizational_units = lookup(var.organization_config, "organizational_units", [])
+  organizational_units_map = { for ou in local.organizational_units : try(split("/", ou.name)[1], ou.name) => merge(ou, {
+    parent = length(split("/", ou.name)) > 1 ? try(split("/", ou.name)[0], null) : null,
+    name   = try(split("/", ou.name)[1], ou.name)
+  }) }
+  child_organizational_units_map  = { for ou in local.organizational_units_map : ou.name => ou if ou.parent != null }
+  parent_organizational_units_map = { for ou in local.organizational_units_map : ou.name => ou if ou.parent == null }
 
   # Organization's Accounts list and map configuration
   organization_accounts     = lookup(var.organization_config, "accounts", [])
@@ -17,20 +22,23 @@ locals {
   # All Accounts configuration
   all_accounts = concat(local.organization_accounts, local.organizational_units_accounts)
 
+  # Map of Organizational Unit resources
+  organizational_unit_resources = merge(aws_organizations_organizational_unit.parents, aws_organizations_organizational_unit.children)
+
   # List of Organizational Unit names
-  organizational_unit_names = values(aws_organizations_organizational_unit.this)[*]["name"]
+  organizational_unit_names = values(local.organizational_unit_resources)[*]["name"]
 
   # List of Organizational Unit ARNs
-  organizational_unit_arns = values(aws_organizations_organizational_unit.this)[*]["arn"]
+  organizational_unit_arns = values(local.organizational_unit_resources)[*]["arn"]
 
   # List of Organizational Unit IDs
-  organizational_unit_ids = values(aws_organizations_organizational_unit.this)[*]["id"]
+  organizational_unit_ids = values(local.organizational_unit_resources)[*]["id"]
 
   # Map of account names to OU names (used for lookup `parent_id` for each account under an OU)
   account_names_organizational_unit_names_map = length(local.organizational_units) > 0 ? merge(
     [
-      for organizational_unit in local.organizational_units : {
-        for account in lookup(organizational_unit, "accounts", []) : account.name => organizational_unit.name
+      for ou in local.organizational_units_map : {
+        for account in lookup(ou, "accounts", []) : account.name => ou.name
       }
   ]...) : {}
 
@@ -59,7 +67,7 @@ locals {
 
   # Map of OU names to list of Service Control Policy SIDs for each OU
   organizational_unit_names_service_control_policy_ids_map = length(local.organizational_units) > 0 ? {
-    for ou in local.organizational_units : ou.name => ou.service_control_policies if try(ou.service_control_policies, null) != null
+    for ou in local.organizational_units_map : ou.name => ou.service_control_policies if try(ou.service_control_policies, []) != []
   } : {}
 
   # Map of OU names to list of Service Control Policy statements for each OU
@@ -72,7 +80,8 @@ locals {
 
 # Convert all Service Control Policy statements from YAML config to Terraform list
 module "service_control_policy_statements_yaml_config" {
-  source = "git::https://github.com/cloudposse/terraform-yaml-config.git?ref=tags/0.1.0"
+  source  = "cloudposse/config/yaml"
+  version = "0.1.0"
 
   list_config_local_base_path = path.module
   list_config_paths           = var.service_control_policies_config_paths
@@ -80,30 +89,19 @@ module "service_control_policy_statements_yaml_config" {
   context = module.this.context
 }
 
-# Provision Organization or use existing one
-data "aws_organizations_organization" "existing" {
-  count = var.organization_enabled ? 0 : 1
-}
-
 resource "aws_organizations_organization" "this" {
-  count                         = var.organization_enabled ? 1 : 0
   aws_service_access_principals = var.aws_service_access_principals
   enabled_policy_types          = var.enabled_policy_types
   feature_set                   = "ALL"
 }
 
 locals {
-  organization_root_account_id = var.organization_enabled ? aws_organizations_organization.this[0].roots[0].id : data.aws_organizations_organization.existing[0].roots[0].id
-
-  organization_id = var.organization_enabled ? aws_organizations_organization.this[0].id : data.aws_organizations_organization.existing[0].id
-
-  organization_arn = var.organization_enabled ? aws_organizations_organization.this[0].arn : data.aws_organizations_organization.existing[0].arn
-
-  organization_master_account_id = var.organization_enabled ? aws_organizations_organization.this[0].master_account_id : data.aws_organizations_organization.existing[0].master_account_id
-
-  organization_master_account_arn = var.organization_enabled ? aws_organizations_organization.this[0].master_account_arn : data.aws_organizations_organization.existing[0].master_account_arn
-
-  organization_master_account_email = var.organization_enabled ? aws_organizations_organization.this[0].master_account_email : data.aws_organizations_organization.existing[0].master_account_email
+  organization_root_account_id      = aws_organizations_organization.this.roots[0].id
+  organization_id                   = aws_organizations_organization.this.id
+  organization_arn                  = aws_organizations_organization.this.arn
+  organization_master_account_id    = aws_organizations_organization.this.master_account_id
+  organization_master_account_arn   = aws_organizations_organization.this.master_account_arn
+  organization_master_account_email = aws_organizations_organization.this.master_account_email
 }
 
 # Provision Accounts for Organization (not connected to OUs)
@@ -116,17 +114,23 @@ resource "aws_organizations_account" "organization_accounts" {
 }
 
 # Provision Organizational Units
-resource "aws_organizations_organizational_unit" "this" {
-  for_each  = local.organizational_units_map
+resource "aws_organizations_organizational_unit" "parents" {
+  for_each  = local.parent_organizational_units_map
   name      = each.value.name
   parent_id = local.organization_root_account_id
+}
+
+resource "aws_organizations_organizational_unit" "children" {
+  for_each  = local.child_organizational_units_map
+  name      = each.value.name
+  parent_id = aws_organizations_organizational_unit.parents[each.value.parent].id
 }
 
 # Provision Accounts connected to Organizational Units
 resource "aws_organizations_account" "organizational_units_accounts" {
   for_each                   = local.organizational_units_accounts_map
   name                       = each.value.name
-  parent_id                  = aws_organizations_organizational_unit.this[local.account_names_organizational_unit_names_map[each.value.name]].id
+  parent_id                  = local.organizational_unit_resources[local.account_names_organizational_unit_names_map[each.value.name]].id
   email                      = format(var.account_email_format, each.value.name)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
   tags                       = merge(module.this.tags, try(each.value.tags, {}), { Name : each.value.name })
@@ -134,7 +138,8 @@ resource "aws_organizations_account" "organizational_units_accounts" {
 
 # Provision Organization Service Control Policy
 module "organization_service_control_policies" {
-  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.4.0"
+  source  = "cloudposse/service-control-policies/aws"
+  version = "0.4.0"
 
   count = length(local.organization_service_control_policy_statements) > 0 ? 1 : 0
 
@@ -148,7 +153,8 @@ module "organization_service_control_policies" {
 
 # Provision Accounts Service Control Policies
 module "accounts_service_control_policies" {
-  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.4.0"
+  source  = "cloudposse/service-control-policies/aws"
+  version = "0.4.0"
 
   for_each = local.account_names_service_control_policy_statements_map
 
@@ -162,7 +168,8 @@ module "accounts_service_control_policies" {
 
 # Provision Organizational Units Service Control Policies
 module "organizational_units_service_control_policies" {
-  source = "git::https://github.com/cloudposse/terraform-aws-service-control-policies.git?ref=tags/0.4.0"
+  source  = "cloudposse/service-control-policies/aws"
+  version = "0.4.0"
 
   for_each = local.organizational_unit_names_service_control_policy_statements_map
 
@@ -238,46 +245,3 @@ locals {
     for k, v in local.organizational_unit_names_service_control_policy_statements_map : k => module.organizational_units_service_control_policies[k].organizations_policy_arn
   }
 }
-
-
-# organization_config:
-#   organization:
-#     service_control_policies:
-#       - DenyS3BucketsPublicAccess
-#   accounts:
-#     - name: prod
-#       tags:
-#         eks: true
-#       service_control_policies:
-#         - DenyRootAccountAccess
-#         - DenyLeavingOrganization
-#         - DenyCreatingIAMUsers
-#         - DenyDeletingKMSKeys
-#         - DenyDeletingRoute53Zones
-#         - DenyDeletingCloudWatchLogs
-#     - name: staging
-#       tags:
-#         eks: true
-#       service_control_policies:
-#         - DenyRootAccountAccess
-#         - DenyLeavingOrganization
-#         - DenyCreatingIAMUsers
-#         - DenyDeletingKMSKeys
-#         - DenyDeletingRoute53Zones
-#         - DenyDeletingCloudWatchLogs
-#   organizational_units:
-#   - name: security-audit
-#     accounts:
-#       - name: audit
-#         service_control_policies:
-#          - DenyRootAccountAccess
-#       - name: security
-#     service_control_policies:
-#       - DenyLeavingOrganization
-#       - DenyCreatingIAMUsers
-#       - DenyDeletingKMSKeys
-#       - DenyDeletingRoute53Zones
-#       - ProtectS3Buckets
-#       - DenyS3BucketsPublicAccess
-#       - DenyS3IncorrectEncryptionHeader
-#       - DenyS3UnEncryptedObjectUploads
