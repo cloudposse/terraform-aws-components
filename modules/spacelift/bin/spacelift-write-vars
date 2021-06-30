@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e -o pipefail
+
+function main() {
+  if [[ -z $ATMOS_STACK ]] || [[ -z $ATMOS_COMPONENT ]]; then
+    echo "Missing required environment variable" >&2
+    echo "  ATMOS_STACK=$ATMOS_STACK" >&2
+    echo "  ATMOS_COMPONENT=$ATMOS_COMPONENT" >&2
+    return 3
+  fi
+
+  echo "Writing Stack variables to spacelift.auto.tfvars.json for Spacelift..."
+
+  atmos --config-dir ../../../stacks --terraform-dir ../ terraform write varfile "$ATMOS_COMPONENT" --stack="$ATMOS_STACK" >/dev/null
+  mv -f "${ATMOS_STACK}-${ATMOS_COMPONENT}.terraform.tfvars.json" spacelift.auto.tfvars.json
+  jq . <spacelift.auto.tfvars.json
+}
+
+main
