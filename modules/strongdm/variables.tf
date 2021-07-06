@@ -47,7 +47,7 @@ variable "register_nodes" {
 
 variable "kubernetes_namespace" {
   type        = string
-  description = "The namespace to install the release into. Defaults to `default`."
+  description = "The Kubernetes namespace to install the release into. Defaults to `default`."
   default     = null
 }
 
