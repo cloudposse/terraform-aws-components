@@ -1,6 +1,6 @@
 # Component: `strongdm`
 
-This component installs the `strong-dm` component.
+This component provisions [strongDM](https://www.strongdm.com/) gateway, relay and roles 
 
 ## Usage
 
