@@ -19,7 +19,7 @@ provider "aws" {
   alias  = "api_keys"
   region = var.ssm_region
 
-  profile = coalesce(var.import_profile_name, module.iam_roles.terraform_profile_name)
+  profile = coalesce(var.import_profile_name, module.iam_roles_network.terraform_profile_name)
 }
 
 module "iam_roles_network" {
