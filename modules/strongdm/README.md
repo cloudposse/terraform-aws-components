@@ -1,4 +1,4 @@
-# Component: `strong-dm`
+# Component: `strongdm`
 
 This component installs the `strong-dm` component.
 
