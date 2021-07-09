@@ -4,11 +4,13 @@ This component is responsible for provisioning a generic Bastion host with param
 
 If a special `container.sh` script is desired to run, set `container_enabled` to `true`, and set the `image_repository` and `image_container` variables.
 
+This component can either be used as a regular SSH Bastion deployed to a public subnet with Security Group Rules allowing inbound traffic over port 22, or it can be used as an "SSM Bastion" which is deployed to a private subnet and has SSM Enabled, allowing access via the AWS Console, AWS CLI, or SSM Session tools such as [aws-gate](https://github.com/xen0l/aws-gate).
+
 ## Usage
 
 **Stack Level**: Regional
 
-Here's an example snippet for how to use this component.
+The following is an example snippet for how to use this component as a regular bastion:
 
 ```yaml
 components:
@@ -32,6 +34,28 @@ components:
             cidr_blocks : ["0.0.0.0/0"]
 ```
 
+
+The following is an example snippet for how to use this component as an "SSM Bastion":
+
+```yaml
+components:
+  terraform:
+    bastion-ssm:
+      component: bastion
+      vars:
+        name: bastion-ssm
+        enabled: true
+        ssm_enabled: true
+        associate_public_ip_address: false # provision bastion in a private subnet
+        custom_bastion_hostname: bastion
+        security_group_rules:
+          - type        : "egress"
+            from_port   : 0
+            to_port     : 0
+            protocol    : -1
+            cidr_blocks : ["0.0.0.0/0"]
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -39,23 +63,21 @@ components:
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
-| <a name="requirement_null"></a> [null](#requirement\_null) | >= 3.0 |
-| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.0 |
-| <a name="requirement_template"></a> [template](#requirement\_template) | >= 2.2 |
+| <a name="requirement_cloudinit"></a> [cloudinit](#requirement\_cloudinit) | ~> 2.2.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
-| <a name="provider_cloudinit"></a> [cloudinit](#provider\_cloudinit) | n/a |
+| <a name="provider_cloudinit"></a> [cloudinit](#provider\_cloudinit) | ~> 2.2.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_aws_key_pair"></a> [aws\_key\_pair](#module\_aws\_key\_pair) | cloudposse/key-pair/aws | 0.18.1 |
-| <a name="module_ec2_bastion"></a> [ec2\_bastion](#module\_ec2\_bastion) | cloudposse/ec2-bastion-server/aws | 0.28.1 |
+| <a name="module_ec2_bastion"></a> [ec2\_bastion](#module\_ec2\_bastion) | cloudposse/ec2-bastion-server/aws | 0.28.3 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.24.1 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 0.17.0 |
@@ -64,18 +86,12 @@ components:
 
 | Name | Type |
 |------|------|
-| [aws_ebs_volume.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ebs_volume) | resource |
-| [aws_eip.static](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) | resource |
-| [aws_eip_association.static](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip_association) | resource |
 | [aws_iam_instance_profile.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
 | [aws_iam_role.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
-| [aws_route53_record.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_ssm_parameter.ssh_private_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
-| [aws_volume_attachment.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/volume_attachment) | resource |
 | [aws_iam_policy_document.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_route53_zone.vanity](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
 | [cloudinit_config.config](https://registry.terraform.io/providers/hashicorp/cloudinit/latest/docs/data-sources/config) | data source |
 
 ## Inputs
