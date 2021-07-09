@@ -32,6 +32,11 @@ locals {
   })
 }
 
+data "aws_route53_zone" "route53_zone" {
+  count = try(length(var.vanity_domain), 0) > 0 ? 1 : 0
+  name  = var.vanity_domain
+}
+
 module "aws_key_pair" {
   source              = "cloudposse/key-pair/aws"
   version             = "0.18.1"
@@ -79,7 +84,7 @@ module "ec2_bastion" {
   # Version 0.25.0 of this module did not assign an EIP, so we do it
   # in this component. Preserve backward compatibility by disabling it.
   assign_eip_address = false
-  zone_id            = var.vanity_domain
+  zone_id            = try(length(var.vanity_domain), 0) > 0 ? data.aws_route53_zone.route53_zone[0].id : null
   host_name          = var.custom_bastion_hostname
 
   ebs_block_device_volume_size = var.ebs_block_device_volume_size
