@@ -19,7 +19,7 @@ output "public_ip" {
 }
 
 output "bastion_fqdn" {
-  value       = join("", aws_route53_record.default.*.fqdn)
+  value       = module.ec2_bastion.hostname
   description = "Bastion server custom hostname FQDN"
 }
 

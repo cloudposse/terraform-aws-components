@@ -1,6 +1,7 @@
 locals {
   enabled         = module.this.enabled
-  route53_enabled = local.enabled && var.associate_public_ip_address && var.custom_bastion_hostname != null && var.vanity_domain != null
+  route53_enabled = local.enabled && (try(length(var.route53_zone_name), 0) > 0 || try(length(var.route53_zone_id), 0) > 0)
+  ssh_key_enabled = local.enabled && var.ssh_key_enabled
 
   vpc_id                 = module.vpc.outputs.vpc_id
   vpc_private_subnet_ids = module.vpc.outputs.private_subnet_ids
@@ -8,7 +9,6 @@ locals {
   vpc_subnet_ids         = var.associate_public_ip_address ? local.vpc_public_subnet_ids : local.vpc_private_subnet_ids
 
   bastion_subnet = slice(local.vpc_subnet_ids, 0, 1)
-  bastion_az     = module.vpc.outputs.availability_zones[0]
 
   userdata_template             = "${path.module}/templates/user-data.sh"
   container_template            = "${path.module}/templates/container.sh"
@@ -34,27 +34,21 @@ locals {
   })
 }
 
-data "aws_route53_zone" "vanity" {
-  count = local.route53_enabled ? 1 : 0
-  name  = var.vanity_domain
-}
-
-resource "aws_route53_record" "default" {
+data "aws_route53_zone" "route53_zone" {
   count   = local.route53_enabled ? 1 : 0
-  zone_id = join("", data.aws_route53_zone.vanity.*.zone_id)
-  name    = "${var.custom_bastion_hostname}.${var.vanity_domain}"
-  type    = "A"
-  ttl     = "300"
-  records = aws_eip.static.*.public_ip
+  zone_id = try(length(var.route53_zone_id), 0) > 0 ? var.route53_zone_id : null
+  name    = try(length(var.route53_zone_name), 0) > 0 ? var.route53_zone_name : null
 }
 
 module "aws_key_pair" {
-  source              = "cloudposse/key-pair/aws"
-  version             = "0.18.1"
+  source  = "cloudposse/key-pair/aws"
+  version = "0.18.1"
+
   attributes          = ["ssh", "key"]
   ssh_public_key_path = var.ssh_key_path
-  generate_ssh_key    = var.generate_ssh_key
+  generate_ssh_key    = local.ssh_key_enabled
 
+  enabled = local.ssh_key_enabled
   context = module.this.context
 }
 
@@ -82,14 +76,9 @@ data "cloudinit_config" "config" {
   }
 }
 
-resource "aws_eip" "static" {
-  count = local.enabled ? 1 : 0
-  vpc   = true
-}
-
 module "ec2_bastion" {
   source  = "cloudposse/ec2-bastion-server/aws"
-  version = "0.28.1"
+  version = "0.28.3"
 
   instance_type = var.instance_type
   ## Use only one availability zone to be sure volume will be in the same zone
@@ -100,8 +89,10 @@ module "ec2_bastion" {
   # Version 0.25.0 of this module did not assign an EIP, so we do it
   # in this component. Preserve backward compatibility by disabling it.
   assign_eip_address = false
+  zone_id            = local.route53_enabled ? data.aws_route53_zone.route53_zone[0].id : null
+  host_name          = var.custom_bastion_hostname
 
-  ebs_block_device_volume_size = 0
+  ebs_block_device_volume_size = var.ebs_block_device_volume_size
   ebs_delete_on_termination    = var.ebs_delete_on_termination
   user_data_base64             = join("", data.cloudinit_config.config.*.rendered)
   security_group_rules         = var.security_group_rules
@@ -113,30 +104,8 @@ module "ec2_bastion" {
   context = module.this.context
 }
 
-resource "aws_ebs_volume" "default" {
-  count             = local.enabled ? 1 : 0
-  availability_zone = local.bastion_az
-  size              = var.ebs_block_device_volume_size
-  encrypted         = true
-}
-
-resource "aws_volume_attachment" "default" {
-  count = local.enabled ? 1 : 0
-
-  ## Use /dev/sdh as this is default device name for bastion
-  device_name = "/dev/sdh"
-  instance_id = module.ec2_bastion.instance_id
-  volume_id   = aws_ebs_volume.default[0].id
-}
-
-resource "aws_eip_association" "static" {
-  count         = local.enabled ? 1 : 0
-  instance_id   = module.ec2_bastion.instance_id
-  allocation_id = join("", aws_eip.static.*.id)
-}
-
 resource "aws_ssm_parameter" "ssh_private_key" {
-  count = var.generate_ssh_key ? 1 : 0
+  count = local.ssh_key_enabled ? 1 : 0
 
   name        = format("/%s/%s", "bastion", "ssh_private_key")
   value       = module.aws_key_pair.private_key
