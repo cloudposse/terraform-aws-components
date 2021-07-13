@@ -1,6 +1,7 @@
 locals {
   enabled         = module.this.enabled
   route53_enabled = local.enabled && (try(length(var.route53_zone_name), 0) > 0 || try(length(var.route53_zone_id), 0) > 0)
+  ssh_key_enabled = local.enabled && var.ssh_key_enabled
 
   vpc_id                 = module.vpc.outputs.vpc_id
   vpc_private_subnet_ids = module.vpc.outputs.private_subnet_ids
@@ -40,12 +41,14 @@ data "aws_route53_zone" "route53_zone" {
 }
 
 module "aws_key_pair" {
-  source              = "cloudposse/key-pair/aws"
-  version             = "0.18.1"
+  source  = "cloudposse/key-pair/aws"
+  version = "0.18.1"
+
   attributes          = ["ssh", "key"]
   ssh_public_key_path = var.ssh_key_path
-  generate_ssh_key    = var.generate_ssh_key
+  generate_ssh_key    = local.ssh_key_enabled
 
+  enabled = local.ssh_key_enabled
   context = module.this.context
 }
 
@@ -102,7 +105,7 @@ module "ec2_bastion" {
 }
 
 resource "aws_ssm_parameter" "ssh_private_key" {
-  count = var.generate_ssh_key ? 1 : 0
+  count = local.ssh_key_enabled ? 1 : 0
 
   name        = format("/%s/%s", "bastion", "ssh_private_key")
   value       = module.aws_key_pair.private_key

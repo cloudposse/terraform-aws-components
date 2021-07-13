@@ -4,38 +4,13 @@ This component is responsible for provisioning a generic Bastion host with param
 
 If a special `container.sh` script is desired to run, set `container_enabled` to `true`, and set the `image_repository` and `image_container` variables.
 
-This component can either be used as a regular SSH Bastion deployed to a public subnet with Security Group Rules allowing inbound traffic over port 22, or it can be used as an "SSM Bastion" which is deployed to a private subnet and has SSM Enabled, allowing access via the AWS Console, AWS CLI, or SSM Session tools such as [aws-gate](https://github.com/xen0l/aws-gate).
+By default, this component acts as an "SSM Bastion", which is deployed to a private subnet and has SSM Enabled, allowing access via the AWS Console, AWS CLI, or SSM Session tools such as [aws-gate](https://github.com/xen0l/aws-gate). Alternatively, this component can be used as a regular SSH Bastion, deployed to a public subnet with Security Group Rules allowing inbound traffic over port 22.
 
 ## Usage
 
 **Stack Level**: Regional
 
-The following is an example snippet for how to use this component as a regular bastion:
-
-```yaml
-components:
-  terraform:
-    bastion:
-      vars:
-        enabled: true
-        associate_public_ip_address: true
-        custom_bastion_hostname: bastion
-        vanity_domain: example.com
-        security_group_rules:
-          - type        : "ingress"
-            from_port   : 22
-            to_port     : 22
-            protocol    : tcp
-            cidr_blocks : ["1.2.3.4/32"]
-          - type        : "egress"
-            from_port   : 0
-            to_port     : 0
-            protocol    : -1
-            cidr_blocks : ["0.0.0.0/0"]
-```
-
-
-The following is an example snippet for how to use this component as an "SSM Bastion":
+By default, this component can be used as an "SSM Bastion" (deployed to a private subnet, accessed via SSM):
 
 ```yaml
 components:
@@ -45,10 +20,37 @@ components:
       vars:
         name: bastion-ssm
         enabled: true
-        ssm_enabled: true
-        associate_public_ip_address: false # provision bastion in a private subnet
+        ssm_enabled: true # default
+        ssh_key_enabled: false # default
+        associate_public_ip_address: false # default — this deploys the bastion to a private subnet
         custom_bastion_hostname: bastion
         security_group_rules:
+          - type        : "egress"
+            from_port   : 0
+            to_port     : 0
+            protocol    : -1
+            cidr_blocks : ["0.0.0.0/0"]
+```
+
+The following is an example snippet for how to use this component as a traditional bastion:
+
+```yaml
+components:
+  terraform:
+    bastion:
+      vars:
+        enabled: true
+        associate_public_ip_address: true # deploy to public subnet and associate public IP with instance
+        ssh_key_enabled: true # create an SSH key for this instance and write it to SSM
+        ssm_enabled: false # we are relying on sshd for access instead of SSM
+        custom_bastion_hostname: bastion
+        vanity_domain: example.com
+        security_group_rules:
+          - type        : "ingress"
+            from_port   : 22
+            to_port     : 22
+            protocol    : tcp
+            cidr_blocks : ["1.2.3.4/32"]
           - type        : "egress"
             from_port   : 0
             to_port     : 0
@@ -100,7 +102,7 @@ components:
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional tags for appending to tags\_as\_list\_of\_maps. Not added to `tags`. | `map(string)` | `{}` | no |
-| <a name="input_associate_public_ip_address"></a> [associate\_public\_ip\_address](#input\_associate\_public\_ip\_address) | Whether to associate public IP to the instance. | `bool` | `false` | no |
+| <a name="input_associate_public_ip_address"></a> [associate\_public\_ip\_address](#input\_associate\_public\_ip\_address) | Whether to deploy this bastion to a public subnet and associate a public IP to it. | `bool` | `false` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
 | <a name="input_container_command"></a> [container\_command](#input\_container\_command) | The container command passed in after `docker run --rm -it <image> bash -c`. | `string` | `"bash"` | no |
 | <a name="input_container_enabled"></a> [container\_enabled](#input\_container\_enabled) | Enable or disable container functionality. | `bool` | `false` | no |
@@ -111,7 +113,6 @@ components:
 | <a name="input_ebs_delete_on_termination"></a> [ebs\_delete\_on\_termination](#input\_ebs\_delete\_on\_termination) | Whether the EBS volume should be destroyed on instance termination. | `bool` | `false` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_generate_ssh_key"></a> [generate\_ssh\_key](#input\_generate\_ssh\_key) | Whether or not to generate an SSH key. | `bool` | `true` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for default, which is `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_image_container"></a> [image\_container](#input\_image\_container) | The image container to use in `container.sh`. This is required if `container_enabled` is `true`. | `string` | `""` | no |
 | <a name="input_image_repository"></a> [image\_repository](#input\_image\_repository) | The image repository to use in `container.sh`. This is required if `container_enabled` is `true`. | `string` | `""` | no |
@@ -129,6 +130,7 @@ components:
 | <a name="input_route53_zone_id"></a> [route53\_zone\_id](#input\_route53\_zone\_id) | ID of the Route53 hosted zone to contain the record for the bastion (or specify `parent_zone_name`). | `string` | `""` | no |
 | <a name="input_route53_zone_name"></a> [route53\_zone\_name](#input\_route53\_zone\_name) | Name of the Route53 hosted zone to contain the record for the bastion (or specify `parent_zone_id`). | `string` | `""` | no |
 | <a name="input_security_group_rules"></a> [security\_group\_rules](#input\_security\_group\_rules) | A list of maps of Security Group rules.<br>The values of map is fully complated with `aws_security_group_rule` resource.<br>To get more info see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule. | `list(any)` | <pre>[<br>  {<br>    "cidr_blocks": [<br>      "0.0.0.0/0"<br>    ],<br>    "from_port": 0,<br>    "protocol": -1,<br>    "to_port": 0,<br>    "type": "egress"<br>  },<br>  {<br>    "cidr_blocks": [<br>      "0.0.0.0/0"<br>    ],<br>    "from_port": 22,<br>    "protocol": "tcp",<br>    "to_port": 22,<br>    "type": "ingress"<br>  }<br>]</pre> | no |
+| <a name="input_ssh_key_enabled"></a> [ssh\_key\_enabled](#input\_ssh\_key\_enabled) | Whether or not to generate an SSH key. | `bool` | `false` | no |
 | <a name="input_ssh_key_path"></a> [ssh\_key\_path](#input\_ssh\_key\_path) | Save location for ssh public keys generated by the module. | `string` | `"./secrets"` | no |
 | <a name="input_ssh_pub_keys"></a> [ssh\_pub\_keys](#input\_ssh\_pub\_keys) | Enable ssh pub keys from chamber. | `bool` | `false` | no |
 | <a name="input_ssm_enabled"></a> [ssm\_enabled](#input\_ssm\_enabled) | Enable SSM Agent on Host. | `bool` | `true` | no |
