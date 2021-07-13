@@ -95,7 +95,6 @@ module "ec2_bastion" {
   security_group_rules         = var.security_group_rules
   key_name                     = module.aws_key_pair.key_name
   instance_profile             = join("", aws_iam_instance_profile.default.*.name)
-  user_data                    = var.user_data
 
   ssm_enabled = var.ssm_enabled
 

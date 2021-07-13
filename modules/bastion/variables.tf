@@ -33,12 +33,6 @@ variable "ebs_delete_on_termination" {
   description = "Whether the EBS volume should be destroyed on instance termination."
 }
 
-variable "user_data" {
-  type        = list(string)
-  default     = []
-  description = "User data content."
-}
-
 variable "security_group_rules" {
   type = list(any)
   default = [
