@@ -14,6 +14,7 @@ components:
   terraform:
     aws-waf-acl:
       vars:
+        enabled: true
         acl_name: default
         default_action: allow
         description: Default web ACL
