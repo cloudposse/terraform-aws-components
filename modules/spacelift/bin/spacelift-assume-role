@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Unset the AWS_ environment variables so we always use the AWS Metadata API to obtain the STS credentials
+unset AWS_PROFILE
+unset AWS_ACCESS_KEY_ID
+unset AWS_SECRET_ACCESS_KEY
+unset AWS_SESSION_TOKEN
+
+# Assume the role and export the AWS environment variables, so subsequent calls to the AWS SDK use these instead of the AWS metadata API
+aws sts assume-role --role-arn $1 --role-session-name spacelift | \
+  jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)\n"'

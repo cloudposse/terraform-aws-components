@@ -26,6 +26,12 @@ variable "dns_account_stage_name" {
   description = "The stage name for the primary DNS account"
 }
 
+variable "artifacts_account_stage_name" {
+  type        = string
+  default     = "artifacts"
+  description = "The stage name for the artifacts account"
+}
+
 variable "audit_account_stage_name" {
   type        = string
   default     = "audit"
@@ -36,4 +42,16 @@ variable "iam_role_arn_template" {
   type        = string
   default     = "arn:aws:iam::%s:role/%s-%s-%s-%s"
   description = "IAM Role ARN template"
+}
+
+variable "profile_template" {
+  type        = string
+  default     = "%s-%s-%s-%s"
+  description = "AWS Profile name template"
+}
+
+variable "global_environment_name" {
+  type        = string
+  default     = "gbl"
+  description = "Global environment name"
 }

@@ -43,9 +43,9 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_datadog_integration"></a> [datadog\_integration](#module\_datadog\_integration) | git::https://github.com/cloudposse/terraform-aws-datadog-integration.git?ref=tags/0.6.1 |  |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles |  |
-| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.21.0 |  |
+| <a name="module_datadog_integration"></a> [datadog\_integration](#module\_datadog\_integration) | git::https://github.com/cloudposse/terraform-aws-datadog-integration.git | tags/0.6.1 |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
+| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/cloudposse/terraform-null-label.git | tags/0.21.0 |
 
 ## Resources
 

@@ -62,11 +62,11 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ecr"></a> [ecr](#module\_ecr) | git::https://github.com/cloudposse/terraform-aws-ecr.git?ref=tags/0.29.0 |  |
-| <a name="module_full_access"></a> [full\_access](#module\_full\_access) | ../account-map/modules/roles-to-principals |  |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles |  |
-| <a name="module_readonly_access"></a> [readonly\_access](#module\_readonly\_access) | ../account-map/modules/roles-to-principals |  |
-| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.21.0 |  |
+| <a name="module_ecr"></a> [ecr](#module\_ecr) | git::https://github.com/cloudposse/terraform-aws-ecr.git | tags/0.29.0 |
+| <a name="module_full_access"></a> [full\_access](#module\_full\_access) | ../account-map/modules/roles-to-principals | n/a |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
+| <a name="module_readonly_access"></a> [readonly\_access](#module\_readonly\_access) | ../account-map/modules/roles-to-principals | n/a |
+| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/cloudposse/terraform-null-label.git | tags/0.21.0 |
 
 ## Resources
 

@@ -39,10 +39,10 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles |  |
-| <a name="module_subnets"></a> [subnets](#module\_subnets) | git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.31.0 |  |
-| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.21.0 |  |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::https://github.com/cloudposse/terraform-aws-vpc.git?ref=tags/0.18.0 |  |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
+| <a name="module_subnets"></a> [subnets](#module\_subnets) | git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git | tags/0.31.0 |
+| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/cloudposse/terraform-null-label.git | tags/0.21.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::https://github.com/cloudposse/terraform-aws-vpc.git | tags/0.18.0 |
 
 ## Resources
 

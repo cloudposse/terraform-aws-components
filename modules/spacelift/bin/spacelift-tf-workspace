@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+echo "Selecting Terraform workspace..."
+terraform init -lock=false -reconfigure
+atmos --config-dir ../../../stacks --terraform-dir ../ terraform workspace "$ATMOS_COMPONENT" --stack="$ATMOS_STACK"
