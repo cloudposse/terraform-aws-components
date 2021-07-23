@@ -1,16 +1,5 @@
 # IAM permissions for the Jenkins master, mainly to read credentials from Secrets Manager
 
-# variable "authorize_cluster_workers_as_jenkins" {
-#   type        = bool
-#   default     = false
-#   description = "Set true to set all workers to be able to act as Jenkins"
-# }
-
-# locals {
-#   jenkins-operator-jenkins_enabled          = try(index(local.service_account_list, "jenkins-operator-jenkins"), -1) >= 0
-#   jenkins-operator-jenkins_authorized_roles = toset(var.authorize_cluster_workers_as_jenkins ? local.eks_outputs.eks_node_group_role_names : [])
-# }
-
 module "jenkins-operator-jenkins" {
   source                    = "./modules/service-account"
 

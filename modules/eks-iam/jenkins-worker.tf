@@ -5,17 +5,6 @@ variable "ecr_registry_arn" {
   description = "ECR registry (not repo) ARN, like arn:aws:ecr:us-east-1:123456789012:repository"
 }
 
-# variable "authorize_jenkins_cluster_workers_as_jenkins_worker" {
-#   type        = bool
-#   default     = false
-#   description = "Set true to set Jenkins cluster workers instances to be able to act as Jenkins workers"
-# }
-
-# locals {
-#   jenkins-worker_enabled          = try(index(local.service_account_list, "jenkins-worker"), -1) >= 0
-#   jenkins-worker_authorized_roles = toset(var.authorize_jenkins_cluster_workers_as_jenkins_worker ? [local.eks_outputs.jenkins_worker_role_name] : [])
-# }
-
 module "jenkins-worker" {
   source                    = "./modules/service-account"
 
