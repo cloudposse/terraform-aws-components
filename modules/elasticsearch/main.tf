@@ -5,9 +5,10 @@ locals {
   vpc_id                        = module.vpc.outputs.vpc_id
   vpc_default_security_group    = module.vpc.outputs.vpc_default_security_group_id
   vpc_private_subnet_ids        = module.vpc.outputs.private_subnet_ids
-  elasticsearch_domain_endpoint = format("/%s/%s/%s", "elasticsearch", module.this.name, "elasticsearch_domain_endpoint")
-  elasticsearch_kibana_endpoint = format("/%s/%s/%s", "elasticsearch", module.this.name, "elasticsearch_kibana_endpoint")
-  elasticsearch_admin_password  = format("/%s/%s/%s", "elasticsearch", module.this.name, "password")
+  elasticsearch_endpoint_format = "/elasticsearch/${module.this.name}/%s"
+  elasticsearch_domain_endpoint = format(local.elasticsearch_endpoint_format, "elasticsearch_domain_endpoint")
+  elasticsearch_kibana_endpoint = format(local.elasticsearch_endpoint_format, "elasticsearch_kibana_endpoint")
+  elasticsearch_admin_password  = format(local.elasticsearch_endpoint_format, "password")
 }
 
 locals {
