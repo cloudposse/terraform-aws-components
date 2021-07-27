@@ -27,7 +27,7 @@ locals {
     cert-manager             = module.cert-manager.outputs
     external-dns             = module.external-dns.outputs
     github-action-runner     = module.github-action-runner.outputs
-    jenkins-operator-jenkins = module.jenkins-operator-jenkins,
+    jenkins-master           = module.jenkins-master,
     jenkins-worker           = module.jenkins-worker,
   }
 

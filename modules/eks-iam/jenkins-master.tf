@@ -1,17 +1,17 @@
 # IAM permissions for the Jenkins master, mainly to read credentials from Secrets Manager
 
-module "jenkins-operator-jenkins" {
+module "jenkins-master" {
   source                    = "./modules/service-account"
 
-  service_account_name      = "jenkins-operator-jenkins"
+  service_account_name      = "jenkins-master"
   service_account_namespace = "jenkins"
-  aws_iam_policy_document = join("", data.aws_iam_policy_document.jenkins-operator-jenkins.*.json)
+  aws_iam_policy_document = join("", data.aws_iam_policy_document.jenkins-master.*.json)
 
   cluster_context = local.cluster_context
   context         = module.this.context
 }
 
-data "aws_iam_policy_document" "jenkins-operator-jenkins" {
+data "aws_iam_policy_document" "jenkins-master" {
   statement {
     sid = "ReadSecrets"
 
@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "jenkins-operator-jenkins" {
     effect = "Allow"
     # resources = ["*"]
     resources = [
-      "arn:aws:secretsmanager:*:498979307932:secret:*",
+      "arn:aws:secretsmanager:*:314028178888:secret:*",
     ]
 
     # Limit Jenkins to secrets tagged for Jenkins
