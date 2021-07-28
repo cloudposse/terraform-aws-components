@@ -6,7 +6,7 @@ data "aws_caller_identity" "current" {}
 
 module "logs" {
   source  = "cloudposse/cloudwatch-logs/aws"
-  version = "0.4.2"
+  version = "0.4.3"
 
   stream_names           = var.stream_names
   retention_in_days      = var.retention_in_days
