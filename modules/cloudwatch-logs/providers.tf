@@ -4,9 +4,10 @@ provider "aws" {
   # `terraform import` will not use data from a data source, so on import we have to explicitly specify the profile
   profile = coalesce(var.import_profile_name, module.iam_roles.terraform_profile_name)
 
-  default_tags {
-    tags = module.this.tags
-  }
+  # See issue: https://github.com/hashicorp/terraform-provider-aws/issues/18311
+  # default_tags {
+  #   tags = module.this.tags
+  # }
 }
 
 module "iam_roles" {
