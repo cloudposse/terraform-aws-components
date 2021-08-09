@@ -12,6 +12,8 @@ module "eks" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "0.17.0"
 
+  count = var.use_eks_security_group ? 1 : 0
+
   component               = "eks"
   stack_config_local_path = "../../../stacks"
 
