@@ -25,3 +25,9 @@ variable "dns_name" {
   type        = string
   description = "Name of the CNAME record to create"
 }
+
+variable "use_eks_security_group" {
+  type        = bool
+  description = "Use the eks default security group"
+  default     = false
+}
