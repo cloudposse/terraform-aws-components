@@ -9,6 +9,7 @@ module "vpc" {
 }
 
 module "eks" {
+  count = var.use_eks_security_group ? 1 : 0
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "0.17.0"
 
