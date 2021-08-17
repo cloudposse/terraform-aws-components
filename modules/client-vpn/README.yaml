@@ -1,0 +1,98 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: terraform-client-vpn-module
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Copyrights
+copyrights:
+  - name: "Cloud Posse, LLC"
+    url: "https://cloudposse.com"
+    year: "2020"
+
+# Canonical GitHub repo
+github_repo: cloudposse/terraform-aws-components
+
+# Badges to display
+badges:
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-example-module.svg"
+    url: "https://github.com/cloudposse/terraform-example-module/releases/latest"
+  - name: "Slack Community"
+    image: "https://slack.cloudposse.com/badge.svg"
+    url: "https://slack.cloudposse.com"
+  - name: "Discourse Forum"
+    image: "https://img.shields.io/discourse/https/ask.sweetops.com/posts.svg"
+    url: "https://ask.sweetops.com/"
+
+# List any related terraform modules that this module may be used with or that this module depends on.
+related:
+  - name: "terraform-aws-components"
+    description: "Repository collection of aws components."
+    url: "https://github.com/cloudposse/terraform-aws-components"
+
+# List any resources helpful for someone to get started. For example, link to the hashicorp documentation or AWS documentation.
+references:
+  - name: "Terraform Standard Module Structure"
+    description: "HashiCorp's standard module structure is a file and directory layout we recommend for reusable modules distributed in separate repositories."
+    url: "https://www.terraform.io/docs/modules/index.html#standard-module-structure"
+  - name: "Terraform Module Requirements"
+    description: "HashiCorp's guidance on all the requirements for publishing a module. Meeting the requirements for publishing a module is extremely easy."
+    url: "https://www.terraform.io/docs/registry/modules/publish.html#requirements"
+  - name: "Terraform `random_integer` Resource"
+    description: "The resource random_integer generates random values from a given range, described by the min and max attributes of a given resource."
+    url: "https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/integer"
+  - name: "Terraform Version Pinning"
+    description: "The required_version setting can be used to constrain which versions of the Terraform CLI can be used with your configuration"
+    url: "https://www.terraform.io/docs/configuration/terraform.html#specifying-a-required-terraform-version"
+
+# Short description of this project
+description: |-
+  This is `terraform-example-module` project provides all the scaffolding for a typical well-built Cloud Posse module. It's a template repository you can
+  use when creating new repositories.
+
+# Introduction to the project
+#introduction: |-
+#  This is an introduction.
+
+# How to use this module. Should be an easy example to copy and paste.
+usage: |-
+  For a complete example, see [examples/complete](examples/complete).
+  
+  For automated tests of the complete example using [bats](https://github.com/bats-core/bats-core) and [Terratest](https://github.com/gruntwork-io/terratest)
+  (which tests and deploys the example on AWS), see [test](test).
+
+  ```hcl
+  module "example" {
+    source = "https://github.com/cloudposse/terraform-example-module.git?ref=master"
+    example = "Hello world!"
+  }
+  ```
+
+# Example usage
+examples: |-
+  Here is an example of using this module:
+  - [`examples/complete`](https://github.com/cloudposse/terraform-example-module/) - complete example of using this module
+
+# How to get started quickly
+#quickstart: |-
+#  Here's how to get started...
+
+# Other files to include in this README from the project folder
+include:
+  - "docs/targets.md"
+  - "docs/terraform.md"
+
+# Contributors to this project
+contributors:
+  - name: "Erik Osterman"
+    github: "osterman"
