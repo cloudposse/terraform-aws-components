@@ -59,20 +59,9 @@ resource "aws_cloudwatch_log_stream" "vpn" {
   log_group_name = aws_cloudwatch_log_group.vpn.name
 }
 
-# the sed edit is to add 'asdf.' to the DNS entry 
-# to make it work work for the OpenVPN Window's client (Mac also accepts this)
-resource "null_resource" "export_client_config" {
-  provisioner "local-exec" {
-    command = <<-EOT
-    mkdir -p ${path.root}/vpn_config/ && \
-    aws ec2 export-client-vpn-client-configuration \
-            --client-vpn-endpoint-id ${aws_ec2_client_vpn_endpoint.default.id} \
-            --output text > ${path.root}/vpn_config/${module.this.id}-client-config-original.ovpn \
-            --region ${var.region}
-    sed -i ".backup" "s/remote cvpn/remote asdf.cvpn/g" ${path.root}/vpn_config/${module.this.id}-client-config-original.ovpn
-    rm ${path.root}/vpn_config/${module.this.id}-client-config-original.ovpn.backup
-EOT
-  }
+resource "awsutils_export_client_config" "default" {
+  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.default.id
+  filename               = "${path.root}/vpn_config/${module.this.id}-client-config-final.ovpn"
 
   depends_on = [
     aws_ec2_client_vpn_endpoint.default,
@@ -95,10 +84,4 @@ data "template_file" "client_config" {
     private_key            = tls_private_key.root.private_key_pem,
     original_client_config = data.local_file.client_config_file.content
   }
-}
-
-resource "local_file" "client_config" {
-  filename        = "${path.root}/vpn_config/${module.this.id}-client-config-final.ovpn"
-  file_permission = "0644"
-  content         = data.template_file.client_config.rendered
 }
