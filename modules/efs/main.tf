@@ -1,8 +1,8 @@
 locals {
   existing_security_groups = var.use_eks_security_group ? [module.eks[0].outputs.eks_cluster_managed_security_group_id] : []
-  private_subnet_ids                    = module.vpc.outputs.private_subnet_ids
-  vpc_id                                = module.vpc.outputs.vpc_id
-  zone_id                               = module.dns_delegated.outputs.default_dns_zone_id
+  private_subnet_ids       = module.vpc.outputs.private_subnet_ids
+  vpc_id                   = module.vpc.outputs.vpc_id
+  zone_id                  = module.dns_delegated.outputs.default_dns_zone_id
 }
 
 module "efs" {
