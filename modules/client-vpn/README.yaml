@@ -73,7 +73,7 @@ usage: |-
 
   ```hcl
   module "example" {
-    source = "https://github.com/cloudposse/terraform-example-module.git?ref=master"
+    source = "https://github.com/cloudposse/terraform-aws-components.git?ref=master"
     example = "Hello world!"
   }
   ```
@@ -81,7 +81,7 @@ usage: |-
 # Example usage
 examples: |-
   Here is an example of using this module:
-  - [`examples/complete`](https://github.com/cloudposse/terraform-aws-components/tree/feat/terraform-aws-client-vpn/modules/client-vpn/examples/complete/) - complete example of using this module
+  - [`examples/complete`](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/client-vpn/examples/complete/) - complete example of using this module
 
 # How to get started quickly
 #quickstart: |-

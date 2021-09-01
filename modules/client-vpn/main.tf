@@ -2,6 +2,29 @@ provider "awsutils" {
   region = "us-east-1"
 }
 
+module "tls_self_signed" {
+  source = "./modules/tls-self-signed"
+
+  organization_name = var.organization_name
+}
+
+resource "aws_acm_certificate" "ca" {
+  private_key      = module.tls_self_signed.ca_private_key_pem
+  certificate_body = module.tls_self_signed.ca_cert_pem
+}
+
+resource "aws_acm_certificate" "root" {
+  private_key       = module.tls_self_signed.root_private_key_pem
+  certificate_body  = module.tls_self_signed.root_cert_pem
+  certificate_chain = module.tls_self_signed.ca_cert_pem
+}
+
+resource "aws_acm_certificate" "server" {
+  private_key       = module.tls_self_signed.server_private_key_pem
+  certificate_body  = module.tls_self_signed.server_cert_pem
+  certificate_chain = module.tls_self_signed.ca_cert_pem
+}
+
 resource "aws_ec2_client_vpn_endpoint" "default" {
   description            = module.this.id
   server_certificate_arn = aws_acm_certificate.server.arn

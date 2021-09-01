@@ -2,18 +2,14 @@ terraform {
   required_version = ">= 0.13"
 
   required_providers {
+    # Update these to reflect the actual requirements of your module
     local = {
       source  = "hashicorp/local"
       version = ">= 1.2"
     }
-    awsutils = {
-      source  = "cloudposse/awsutils"
-      version = "~> 1.0"
+    random = {
+      source  = "hashicorp/random"
+      version = ">= 2.2"
     }
   }
-}
-
-# Configure the AWS Provider
-provider "awsutils" {
-  region = "us-east-1"
 }

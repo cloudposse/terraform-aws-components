@@ -42,3 +42,8 @@ Enables an authorization rule and route for the VPN to access the internet.
 Please note, you must allow ingress/egress to the internet (0.0.0.0/0) via the Subnet's security group.
 EOT
 }
+
+variable "organization_name" {
+  type        = string
+  description = "Name of organization to use in private certificate"
+}
