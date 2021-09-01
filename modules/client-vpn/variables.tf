@@ -3,18 +3,13 @@ variable "region" {
   description = "VPN Endpoints are region-specific. This identifies the region. AWS Region"
 } 
 
-variable "vpn_client_cidr" {
+variable "client_cidr" {
   description = "Network CIDR to use for clients"
 }
 
 variable "aws_subnet_id" {
   type        = string
   description = "The Subnet ID to associate with the Client VPN Endpoint."
-}
-
-variable "tls_organization_name" {
-  type        = string
-  description = "Name of organization to use in private certificate"
 }
 
 variable "aws_authorization_rule_target_cidr" {

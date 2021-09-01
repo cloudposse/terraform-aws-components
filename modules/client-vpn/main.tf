@@ -46,12 +46,12 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
 
 resource "aws_ec2_client_vpn_network_association" "default" {
   client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.default.id
-  subnet_id              = var.subnet_id
+  subnet_id              = var.aws_subnet_id
 }
 
 resource "aws_ec2_client_vpn_authorization_rule" "internal" {
   client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.default.id
-  target_network_cidr    = var.authorization_rule_target_cidr
+  target_network_cidr    = var.aws_authorization_rule_target_cidr
   authorize_all_groups   = true
 }
 
@@ -103,8 +103,8 @@ data "local_file" "client_config_file" {
 data "template_file" "client_config" {
   template = "${file("${path.module}/templates/client-config.ovpn.tpl")}"
   vars = {
-    cert                   = tls_locally_signed_cert.root.cert_pem,
-    private_key            = tls_private_key.root.private_key_pem,
+    cert                   = module.tls_self_signed.root_cert_pem,
+    private_key            = module.tls_self_signed.root_private_key_pem,
     original_client_config = data.local_file.client_config_file.content
   }
 }
