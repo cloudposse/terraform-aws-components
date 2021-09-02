@@ -6,7 +6,7 @@ terraform {
 
 provider "aws" {
   assume_role {
-    role_arn = "${var.aws_assume_role_arn}"
+    role_arn = var.aws_assume_role_arn
   }
 }
 
@@ -20,22 +20,22 @@ data "terraform_remote_state" "cis" {
 }
 
 resource "null_resource" "instances" {
-  count = "${var.enabled == "true" ? length(keys(var.cis_instances)) : 0}"
+  count = var.enabled == "true" ? length(keys(var.cis_instances)) : 0
 
   triggers {
-    account = "${join("|", formatlist("%s:%s", element(keys(var.cis_instances), count.index), var.cis_instances[element(keys(var.cis_instances), count.index)]))}"
+    account = join("|", formatlist("%s:%s", element(keys(var.cis_instances), count.index), var.cis_instances[element(keys(var.cis_instances), count.index)]))
   }
 }
 
 locals {
   raw_instances = ["${split("|", join("|", null_resource.instances.*.triggers.account))}"]
-  instances     = "${compact(local.raw_instances)}"
+  instances     = compact(local.raw_instances)
 }
 
 resource "aws_cloudformation_stack_set_instance" "default" {
-  count               = "${var.enabled == "true" && length(local.instances) > 0 ? length(local.instances) : 0}"
-  stack_set_name      = "${data.terraform_remote_state.cis.name}"
-  account_id          = "${element(split(":", element(local.instances, count.index)), 0)}"
-  region              = "${element(split(":", element(local.instances, count.index)), 1)}"
-  parameter_overrides = "${var.parameters}"
+  count               = var.enabled == "true" && length(local.instances) > 0 ? length(local.instances) : 0
+  stack_set_name      = data.terraform_remote_state.cis.name
+  account_id          = element(split(":", element(local.instances, count.index)), 0)
+  region              = element(split(":", element(local.instances, count.index)), 1)
+  parameter_overrides = var.parameters
 }
