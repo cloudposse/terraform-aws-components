@@ -1,17 +1,23 @@
+provider "aws" {
+  region = var.region
+}
+
 module "example" {
-  region = "us-west-2"
+  source = "../../"
 
-  client_cidr = "0.0.0.0/24"
+  region = var.region
 
-  subnet_id = "sn-12345"
+  client_cidr = var.client_cidr
 
-  organization_name = "Dewey, Cheatum, and Howe Penny Stocks"
+  aws_subnet_id = var.aws_subnet_id
 
-  authorization_rule_target_cidr = "0.0.0.0/24"
+  organization_name = var.organization_name
 
-  logging_enabled = true
+  aws_authorization_rule_target_cidr = var.aws_authorization_rule_target_cidr
 
-  logs_retention = 0
+  logging_enabled = var.logging_enabled
 
-  internet_access_enabled = false
+  logs_retention = var.logs_retention
+
+  internet_access_enabled = var.internet_access_enabled
 }
