@@ -1,6 +1,6 @@
 module "datadog_integration" {
   source  = "cloudposse/datadog-integration/aws"
-  version = "0.6.1"
+  version = "0.14.3"
 
   datadog_aws_account_id           = var.datadog_aws_account_id
   integrations                     = var.integrations
