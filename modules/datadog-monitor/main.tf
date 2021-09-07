@@ -1,7 +1,7 @@
 # Convert all Datadog monitors from YAML config to Terraform map
 module "datadog_monitors_yaml_config" {
   source  = "cloudposse/config/yaml"
-  version = "0.2.0"
+  version = "0.8.1"
 
   map_config_local_base_path = path.module
   map_config_paths           = var.datadog_monitors_config_paths
@@ -11,7 +11,7 @@ module "datadog_monitors_yaml_config" {
 
 module "datadog_monitors" {
   source  = "cloudposse/monitor/datadog"
-  version = "0.9.0"
+  version = "0.20.0"
 
   datadog_monitors     = module.datadog_monitors_yaml_config.map_configs
   alert_tags           = var.alert_tags
