@@ -21,6 +21,7 @@ variable "cluster_context" {
     disk_encryption_enabled    = bool
     disk_size                  = number
     instance_types             = list(string)
+    capacity_type              = string
     kubernetes_labels          = map(string)
     kubernetes_taints          = map(string)
     kubernetes_version         = string
