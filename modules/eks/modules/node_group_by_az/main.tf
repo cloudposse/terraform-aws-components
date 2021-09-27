@@ -46,6 +46,7 @@ module "eks_node_group" {
   instance_types                          = local.enabled ? var.cluster_context.instance_types : null
   ami_type                                = local.enabled ? var.cluster_context.ami_type : null
   ami_release_version                     = local.enabled ? var.cluster_context.ami_release_version : null
+  capacity_type                           = local.enabled ? var.cluster_context.capacity_type : null
   kubernetes_labels                       = local.enabled ? var.cluster_context.kubernetes_labels : null
   kubernetes_taints                       = local.enabled ? var.cluster_context.kubernetes_taints : null
   kubernetes_version                      = local.enabled ? var.cluster_context.kubernetes_version : null
