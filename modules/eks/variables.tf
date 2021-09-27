@@ -225,7 +225,7 @@ variable "node_group_defaults" {
     disk_encryption_enabled    = true
     disk_size                  = 20
     instance_types             = ["t3.medium"]
-    capacity_type              = "ON_DEMAND"
+    capacity_type              = null
     kubernetes_labels          = null
     kubernetes_taints          = null
     kubernetes_version         = null # set to null to use cluster_kubernetes_version
