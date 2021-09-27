@@ -99,6 +99,7 @@ node_group_defaults = {
   disk_size                  = 100 # root EBS volume size in GB
   cluster_autoscaler_enabled = true
   instance_types             = ["t3.medium"]
+  capacity_type              = null
   ami_type                   = "AL2_x86_64"
   kubernetes_labels          = {}
   kubernetes_taints          = {}

@@ -170,6 +170,8 @@ variable "node_groups" {
     disk_size = number
     # Set of instance types associated with the EKS Node Group. Terraform will only perform drift detection if a configuration value is provided.
     instance_types = list(string)
+    # Type of EKS Node (can be either SPOT or ON_DEMAND)
+    capacity_type = string
     # Key-value mapping of Kubernetes labels. Only labels that are applied with the EKS API are managed by this argument. Other Kubernetes labels applied to the EKS Node Group will not be managed
     kubernetes_labels = map(string)
     # Key-value mapping of Kubernetes taints.
@@ -202,6 +204,7 @@ variable "node_group_defaults" {
     disk_encryption_enabled    = bool
     disk_size                  = number
     instance_types             = list(string)
+    capacity_type              = string
     kubernetes_labels          = map(string)
     kubernetes_taints          = map(string)
     kubernetes_version         = string # set to null to use cluster_kubernetes_version
@@ -222,6 +225,7 @@ variable "node_group_defaults" {
     disk_encryption_enabled    = true
     disk_size                  = 20
     instance_types             = ["t3.medium"]
+    capacity_type              = "ON_DEMAND"
     kubernetes_labels          = null
     kubernetes_taints          = null
     kubernetes_version         = null # set to null to use cluster_kubernetes_version

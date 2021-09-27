@@ -44,6 +44,7 @@ module "region_node_group" {
     disk_encryption_enabled    = each.value.disk_encryption_enabled == null ? var.node_group_defaults.disk_encryption_enabled : each.value.disk_encryption_enabled
     disk_size                  = each.value.disk_size == null ? var.node_group_defaults.disk_size : each.value.disk_size
     instance_types             = each.value.instance_types == null ? var.node_group_defaults.instance_types : each.value.instance_types
+    capacity_type              = each.value.capacity_type == null ? var.node_group_defaults.capacity_type : each.value.capacity_type
     kubernetes_labels          = each.value.kubernetes_labels == null ? var.node_group_defaults.kubernetes_labels : each.value.kubernetes_labels
     kubernetes_taints          = each.value.kubernetes_taints == null ? var.node_group_defaults.kubernetes_taints : each.value.kubernetes_taints
     kubernetes_version         = each.value.kubernetes_version == null ? local.node_group_default_kubernetes_version : each.value.kubernetes_version
