@@ -4,7 +4,7 @@ variable "region" {
 }
 
 variable "ami_filter" {
-  description = "List of maps used to create the AMI filter for the action runner AMI."
+  description = "Map of lists used to look up the AMI which will be used for the GitHub Actions Runner."
   type        = map(list(string))
 
   default = {
@@ -54,10 +54,9 @@ variable "min_size" {
   description = "The minimum size of the autoscale group"
 }
 
-variable "github_scope" {
-  description = "GitHub Org or GitHub Org/GitHub Repo i.e cloudposse/atmos"
+variable "github_org" {
+  description = "GitHub Org e.g. cloudposse"
   type        = string
-  default     = null
 }
 
 variable "wait_for_capacity_timeout" {
@@ -85,13 +84,25 @@ variable "ssm_parameter_name_format" {
 variable "ssm_path" {
   type        = string
   default     = "github"
-  description = "SSM path"
+  description = "GitHub token SSM path"
 }
 
 variable "runner_version" {
   type        = string
-  default     = "v2.277.1"
+  default     = "2.283.1"
   description = "GitHub runner release version"
+}
+
+variable "runner_labels" {
+  type        = list(string)
+  default     = []
+  description = "List of labels to add to the GitHub Runner (e.g. 'Amazon Linux 2')."
+}
+
+variable "runner_role_additional_policy_arns" {
+  type        = list(string)
+  default     = []
+  description = "List of policy ARNs that will be attached to the runners' default role on creation in addition to the defaults"
 }
 
 variable "default_cooldown" {
@@ -116,6 +127,16 @@ variable "account_map_stage_name" {
   type        = string
   description = "The name of the stage where `account_map` is provisioned"
   default     = "root"
+}
+
+variable "account_map_tenant_name" {
+  type        = string
+  description = <<-EOT
+  The name of the tenant where `account_map` is provisioned.
+
+  If the `tenant` label is not used, leave this as `null`.
+  EOT
+  default     = null
 }
 
 variable "block_device_mappings" {

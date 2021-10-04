@@ -1,4 +1,4 @@
-enabled = true
+enabled = false
 
 name = "gh-runner"
 
