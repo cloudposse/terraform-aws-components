@@ -6,7 +6,7 @@ terraform {
 
 provider "aws" {
   assume_role {
-    role_arn = "${var.aws_assume_role_arn}"
+    role_arn = var.aws_assume_role_arn
   }
 }
 
@@ -19,7 +19,7 @@ data "aws_vpc" "default" {
 }
 
 resource "aws_default_security_group" "default" {
-  vpc_id = "${data.aws_vpc.default.id}"
+  vpc_id = data.aws_vpc.default.id
 
   tags = {
     Name = "Default Security Group"
@@ -30,15 +30,15 @@ module "flow_logs" {
   source = "git::https://github.com/cloudposse/terraform-aws-vpc-flow-logs-s3-bucket.git?ref=tags/0.1.0"
 
   name       = "vpc"
-  namespace  = "${var.namespace}"
-  stage      = "${var.stage}"
-  tags       = "${var.tags}"
-  attributes = "${concat(list("default"), var.attributes, list("flow-logs"))}"
-  delimiter  = "${var.delimiter}"
+  namespace  = var.namespace
+  stage      = var.stage
+  tags       = var.tags
+  attributes = concat(list("default"), var.attributes, list("flow-logs"))
+  delimiter  = var.delimiter
 
-  region = "${var.region}"
+  region = var.region
 
-  enabled = "${var.flow_logs_enabled}"
+  enabled = var.flow_logs_enabled
 
-  vpc_id = "${data.aws_vpc.default.id}"
+  vpc_id = data.aws_vpc.default.id
 }

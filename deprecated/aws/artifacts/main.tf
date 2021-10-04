@@ -9,14 +9,14 @@ provider "aws" {
   region = "us-east-1"
 
   assume_role {
-    role_arn = "${var.aws_assume_role_arn}"
+    role_arn = var.aws_assume_role_arn
   }
 }
 
 # https://www.terraform.io/artifacts/providers/aws/d/acm_certificate.html
 data "aws_acm_certificate" "acm_cloudfront_certificate" {
   provider = "aws.virginia"
-  domain   = "${var.domain_name}"
+  domain   = var.domain_name
   statuses = ["ISSUED"]
   types    = ["AMAZON_ISSUED"]
 }
@@ -29,19 +29,19 @@ locals {
 
 module "artifacts_user" {
   source    = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=tags/0.2.2"
-  namespace = "${var.namespace}"
-  stage     = "${var.stage}"
-  name      = "${local.name}"
+  namespace = var.namespace
+  stage     = var.stage
+  name      = local.name
 }
 
 module "origin" {
   source               = "git::https://github.com/cloudposse/terraform-aws-s3-website.git?ref=tags/0.5.2"
-  namespace            = "${var.namespace}"
-  stage                = "${var.stage}"
-  name                 = "${local.name}"
-  hostname             = "${local.cdn_domain}"
-  parent_zone_name     = "${var.domain_name}"
-  region               = "${var.region}"
+  namespace            = var.namespace
+  stage                = var.stage
+  name                 = local.name
+  hostname             = local.cdn_domain
+  parent_zone_name     = var.domain_name
+  region               = var.region
   cors_allowed_headers = ["*"]
   cors_allowed_methods = ["GET"]
   cors_allowed_origins = ["*"]
@@ -66,14 +66,14 @@ module "origin" {
 # CloudFront CDN fronting origin
 module "cdn" {
   source                 = "git::https://github.com/cloudposse/terraform-aws-cloudfront-cdn.git?ref=tags/0.5.7"
-  namespace              = "${var.namespace}"
-  stage                  = "${var.stage}"
-  name                   = "${local.name}"
+  namespace              = var.namespace
+  stage                  = var.stage
+  name                   = local.name
   aliases                = ["${local.cdn_domain}", "artifacts.cloudposse.com"]
-  origin_domain_name     = "${module.origin.s3_bucket_website_endpoint}"
+  origin_domain_name     = module.origin.s3_bucket_website_endpoint
   origin_protocol_policy = "http-only"
   viewer_protocol_policy = "redirect-to-https"
-  parent_zone_name       = "${var.domain_name}"
+  parent_zone_name       = var.domain_name
   forward_cookies        = "none"
   forward_headers        = ["Origin", "Access-Control-Request-Headers", "Access-Control-Request-Method"]
   default_ttl            = 60
@@ -84,5 +84,5 @@ module "cdn" {
   allowed_methods        = ["GET", "HEAD", "OPTIONS"]
   price_class            = "PriceClass_All"
   default_root_object    = "index.html"
-  acm_certificate_arn    = "${data.aws_acm_certificate.acm_cloudfront_certificate.arn}"
+  acm_certificate_arn    = data.aws_acm_certificate.acm_cloudfront_certificate.arn
 }

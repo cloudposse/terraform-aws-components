@@ -1,39 +1,39 @@
 variable "accounts_enabled" {
-  type        = "list"
+  type        = list(string)
   description = "Accounts to enable"
   default     = ["dev", "staging", "prod", "testing", "audit"]
 }
 
 variable "namespace" {
-  type        = "string"
+  type        = string
   description = "Namespace (e.g. `eg` or `example`)"
 }
 
 variable "stage" {
-  type        = "string"
+  type        = string
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
 variable "name" {
-  type        = "string"
+  type        = string
   default     = "terraform"
   description = "Name  (e.g. `app` or `cluster`)"
 }
 
 variable "delimiter" {
-  type        = "string"
+  type        = string
   default     = "-"
   description = "Delimiter to be used between `namespace`, `stage`, `name`, and `attributes`"
 }
 
 variable "attributes" {
-  type        = "list"
+  type        = list(string)
   default     = ["state"]
   description = "Additional attributes (e.g. `state`)"
 }
 
 variable "tags" {
-  type        = "map"
+  type        = map(string)
   default     = {}
   description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)"
 }
@@ -54,6 +54,6 @@ variable "key" {
 
 variable "account" {
   description = "If set, then it will be used instead of 'stage' to assume role. This is useful when you need another domain for existing stage"
-  type        = "string"
+  type        = string
   default     = ""
 }
