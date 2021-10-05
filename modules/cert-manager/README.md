@@ -53,7 +53,7 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cert_manager"></a> [cert\_manager](#module\_cert\_manager) | cloudposse/helm-release/aws | 0.1.4 |
+| <a name="module_cert_manager"></a> [cert\_manager](#module\_cert\_manager) | cloudposse/helm-release/aws | 0.2.0 |
 | <a name="module_cert_manager_issuer"></a> [cert\_manager\_issuer](#module\_cert\_manager\_issuer) | cloudposse/helm-release/aws | 0.1.3 |
 | <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 0.19.0 |
 | <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 0.19.0 |
@@ -65,7 +65,6 @@ components:
 
 | Name | Type |
 |------|------|
-| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_eks_cluster.kubernetes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
 | [aws_eks_cluster_auth.kubernetes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |

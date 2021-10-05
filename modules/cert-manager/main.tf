@@ -1,22 +1,14 @@
 locals {
   enabled = module.this.enabled
-  # Role ARN of IAM Role created by the helm-release module
-  # e.g. arn:aws:iam::123456789012:role/acme-mgmt-uw2-dev-external-dns-external-dns@kube-system
-  # needs to be calculated manually in order to avoid a cyclic dependency.
-  iam_role_arn = "arn:${join("", data.aws_partition.current.*.partition)}:iam::${join("", data.aws_caller_identity.current.*.account_id)}:role/${module.this.id}-${module.this.name}@${var.kubernetes_namespace}"
 }
 
 data "aws_partition" "current" {
   count = local.enabled ? 1 : 0
 }
 
-data "aws_caller_identity" "current" {
-  count = local.enabled ? 1 : 0
-}
-
 module "cert_manager" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.1.4"
+  version = "0.2.0"
 
   name                 = module.this.name
   chart                = var.cert_manager_chart
@@ -35,8 +27,9 @@ module "cert_manager" {
 
   eks_cluster_oidc_issuer_url = module.eks.outputs.eks_cluster_identity_oidc_issuer
 
-  service_account_name      = module.this.name
-  service_account_namespace = var.kubernetes_namespace
+  service_account_name                        = module.this.name
+  service_account_namespace                   = var.kubernetes_namespace
+  service_account_role_arn_annotation_enabled = var.letsencrypt_enabled
 
   iam_policy_statements = [
     {
@@ -90,11 +83,6 @@ module "cert_manager" {
         defaultIssuerName                = "ClusterIssuer"
         ingress_shim_default_issuer_name = "letsencrypt-staging"
       },
-      serviceAccount = {
-        annotations = {
-          "eks.amazonaws.com/role-arn" = local.iam_role_arn
-        }
-      }
     }) : "",
     var.cert_manager_metrics_enabled ? yamlencode({
       prometheus = {
