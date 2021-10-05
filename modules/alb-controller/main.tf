@@ -37,6 +37,7 @@ module "alb_controller" {
   service_account_namespace = var.kubernetes_namespace
 
   iam_role_enabled = true
+  # https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.2.1/docs/install/iam_policy.json
   iam_policy_statements = [
     {
       sid       = "AllowManageCompute"
