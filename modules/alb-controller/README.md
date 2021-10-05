@@ -19,7 +19,7 @@ The default catalog values `e.g. stacks/catalog/eks/alb-controller.yaml`
 ```yaml
 components:
   terraform:
-    external-dns:
+    alb-controller:
       backend:
         s3:
           workspace_key_prefix: alb-controller
@@ -123,7 +123,7 @@ components:
 
 ## References
 
-- [external-dns](https://artifacthub.io/packages/helm/bitnami/external-dns) - Helm Chart
-- [ExternalDNS](https://github.com/bitnami/bitnami-docker-external-dns) - ExternalDNS addon
+- [alb-controller](https://artifacthub.io/packages/helm/aws/aws-load-balancer-controller) - Helm Chart
+- [alb-controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) - AWS Load Balancer Controller
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
