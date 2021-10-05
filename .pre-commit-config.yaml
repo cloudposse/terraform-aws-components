@@ -3,6 +3,7 @@ repos:
     rev: v2.3.0
     hooks:
       - id: check-yaml
+        exclude: modules/cert-manager/cert-manager-issuer/templates/.*.yaml
   - repo: git://github.com/antonbabenko/pre-commit-terraform
     rev: v1.48.0
     hooks:
