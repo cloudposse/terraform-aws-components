@@ -1,23 +1,10 @@
 locals {
   enabled = module.this.enabled
-
-  # Role ARN of IAM Role created by the helm-release module
-  # e.g. arn:aws:iam::123456789012:role/acme-mgmt-uw2-dev-external-dns-external-dns@kube-system
-  # needs to be calculated manually in order to avoid a cyclic dependency.
-  iam_role_arn = "arn:${join("", data.aws_partition.current.*.partition)}:iam::${join("", data.aws_caller_identity.current.*.account_id)}:role/${module.this.id}-${module.this.name}@${var.kubernetes_namespace}"
-}
-
-data "aws_partition" "current" {
-  count = local.enabled ? 1 : 0
-}
-
-data "aws_caller_identity" "current" {
-  count = local.enabled ? 1 : 0
 }
 
 module "alb_controller" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.1.4"
+  version = "0.2.0"
 
   name                 = module.this.name
   chart                = var.chart
@@ -301,9 +288,6 @@ module "alb_controller" {
       fullnameOverride = module.this.name,
       serviceAccount = {
         name = module.this.name
-        annotations = {
-          "eks.amazonaws.com/role-arn" = local.iam_role_arn
-        }
       },
       resources = var.resources
       rbac = {
