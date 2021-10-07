@@ -6,7 +6,7 @@ terraform {
 
 provider "aws" {
   assume_role {
-    role_arn = "${var.aws_assume_role_arn}"
+    role_arn = var.aws_assume_role_arn
   }
 }
 
@@ -18,13 +18,13 @@ locals {
 module "default" {
   source = "git::https://github.com/cloudposse/terraform-aws-cloudformation-stack-set.git?ref=tags/0.1.0"
 
-  enabled            = "${var.enabled}"
-  namespace          = "${var.namespace}"
-  stage              = "${var.stage}"
-  name               = "${var.name}"
+  enabled            = var.enabled
+  namespace          = var.namespace
+  stage              = var.stage
+  name               = var.name
   attributes         = ["${var.attributes}"]
-  parameters         = "${var.parameters}"
-  template_url       = "${local.template_url}"
-  executor_role_name = "${local.executor_role_name}"
-  capabilities       = "${var.capabilities}"
+  parameters         = var.parameters
+  template_url       = local.template_url
+  executor_role_name = local.executor_role_name
+  capabilities       = var.capabilities
 }
