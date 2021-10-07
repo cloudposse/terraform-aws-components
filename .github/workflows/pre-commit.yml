@@ -12,7 +12,7 @@ jobs:
       # Install terraform to ensure we're using our expected version
       - uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 0.13.5
+          terraform_version: 1.0.8
 
       - uses: actions/checkout@v2
 
