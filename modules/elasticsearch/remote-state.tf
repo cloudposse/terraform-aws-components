@@ -5,8 +5,8 @@ module "vpc" {
   stack_config_local_path = "../../../stacks"
   component               = "vpc"
 
-  context = module.this.context
-  enabled = true
+  context =module.this.context
+  enabled =true
 }
 
 module "dns_delegated" {
