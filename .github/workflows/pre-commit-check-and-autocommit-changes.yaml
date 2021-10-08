@@ -13,7 +13,7 @@ jobs:
         id: get-terraform-version
         shell: bash -x -e -o pipefail {0}
         env:
-          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          BASE_REF: ${{ github.base_ref }}
           LABELS: ${{ join(github.event.client_payload.pull_request.labels.*.name, '\n') }}
         run: |
           # Match lables like `terraform/0.12` or nothing (to prevent non-zero exit code)
@@ -46,9 +46,10 @@ jobs:
         id: get-modified-files
         shell: bash -x -e -o pipefail {0}
         env:
-          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          BASE_REF: ${{ github.base_ref }}
+          HEAD_REF: ${{ github.head_ref }}
         run: |
-            MODIFIED_FILES=$(git diff --name-only ${BASE_REF}...HEAD)
+            MODIFIED_FILES=$(git diff --name-only ${BASE_REF} ${HEAD_REF})
             if [[ ! -z "$MODIFIED_FILES" ]]; then
                 echo '::set-output name=modified_files::$MODIFIED_FILES'
             else
