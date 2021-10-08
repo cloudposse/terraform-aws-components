@@ -15,12 +15,18 @@ jobs:
         env:
           BASE_REF: ${{ github.base_ref }}
           LABELS: ${{ join(github.event.client_payload.pull_request.labels.*.name, '\n') }}
+          LABEL: ${{ github.event.label.name }}
         run: |
           # Match lables like `terraform/0.12` or nothing (to prevent non-zero exit code)
           # Use [0-9] because \d is not standard part of egrep
           echo "PR labels: ${LABELS}"
-          TERRAFORM_VERSION=$(grep -Eo '(terraform/[0-9]+\.[x0-9]+|)' <<<${LABELS} | cut -d/ -f2)
-          if [ -n "${TERRAFORM_VERSION}" ]; then
+          echo "PR label: ${LABEL}"
+          if [ -z "$LABELS" ]; then
+            TERRAFORM_VERSION=$(grep -Eo '(terraform/[0-9]+\.[x0-9]+|)' <<<${LABEL} | cut -d/ -f2)
+          else
+            TERRAFORM_VERSION=$(grep -Eo '(terraform/[0-9]+\.[x0-9]+|)' <<<${LABELS} | cut -d/ -f2)
+          fi
+          if [ -z "${TERRAFORM_VERSION}" ]; then
             echo "A label is required indicating the versino of Terraform to be used on this component. (E.g., \"terraform/1.0\")"
             exit 1
           else
