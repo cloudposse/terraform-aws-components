@@ -50,7 +50,7 @@ jobs:
           BASE_REF: ${{ github.base_ref }}
           HEAD_REF: ${{ github.head_ref }}
         run: |
-            MODIFIED_FILES=$(git diff --name-only ${BASE_REF} ${HEAD_REF})
+            MODIFIED_FILES=$(git diff --name-only origin/${BASE_REF} origin/${HEAD_REF})
             if [[ ! -z "$MODIFIED_FILES" ]]; then
                 echo '::set-output name=modified_files::$MODIFIED_FILES'
             else
