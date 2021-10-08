@@ -9,12 +9,17 @@ jobs:
   run-pre-commit-checks-and-autocommit-changes:
     runs-on: ubuntu-latest
     steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
       - name: Get Terraform Version
         id: get-terraform-version
         shell: bash -x -e -o pipefail {0}
         env:
           BASE_REF: ${{ github.base_ref }}
-          LABELS: ${{ join(github.event.client_payload.pull_request.labels.*.name, '\n') }}
+          LABELS: ${{ join(github.event.pull_request.labels.*.name, '\n') }}
           LABEL: ${{ github.event.label.name }}
         run: |
           # Match lables like `terraform/0.12` or nothing (to prevent non-zero exit code)
