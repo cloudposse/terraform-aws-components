@@ -20,24 +20,18 @@ jobs:
         env:
           BASE_REF: ${{ github.base_ref }}
           LABELS: ${{ join(github.event.pull_request.labels.*.name, '\n') }}
-          LABEL: ${{ github.event.label.name }}
         run: |
           # Match lables like `terraform/0.12` or nothing (to prevent non-zero exit code)
           # Use [0-9] because \d is not standard part of egrep
           echo "PR labels: ${LABELS}"
-          echo "PR label: ${LABEL}"
-          if [ -z "$LABELS" ]; then
-            TERRAFORM_VERSION=$(grep -Eo '(terraform/[0-9]+\.[x0-9]+|)' <<<${LABEL} | cut -d/ -f2)
-          else
-            TERRAFORM_VERSION=$(grep -Eo '(terraform/[0-9]+\.[x0-9]+|)' <<<${LABELS} | cut -d/ -f2)
-          fi
+          TERRAFORM_VERSION=$(grep -Eo '(terraform/[0-9]+\.[x0-9]+|)' <<<${LABELS} | cut -d/ -f2)
           if [ -z "${TERRAFORM_VERSION}" ]; then
             echo "A label is required indicating the versino of Terraform to be used on this component. (E.g., \"terraform/1.0\")"
             exit 1
           else
             echo "Terraform version ${TERRAFORM_VERSION} will be used to check the formatting of files that have been modified since this branch diverged from ${BASE_REF}."
           fi
-          echo '::set-output name=terraform_version::${TERRAFORM_VERSION}'
+          echo '::set-output name=terraform_version::$(echo $TERRAFORM_VERSION)'
 
       # Install terraform to ensure we're using our expected version
       - uses: hashicorp/setup-terraform@v1
@@ -68,7 +62,7 @@ jobs:
                 exit 1
             else
                 echo "Running checks on the following files: ${MODIFIED_FILES}"
-                echo '::set-output name=modified_files::$MODIFIED_FILES'
+                echo '::set-output name=modified_files::$(echo $MODIFIED_FILES)'
             fi
 
       # Install terraform-docs for pre-commit hook
