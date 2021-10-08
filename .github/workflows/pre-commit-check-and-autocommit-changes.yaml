@@ -52,6 +52,7 @@ jobs:
         run: |
             MODIFIED_FILES=$(git diff --name-only origin/${BASE_REF} origin/${HEAD_REF})
             if [[ ! -z "$MODIFIED_FILES" ]]; then
+                echo "Running checks on the following files: ${MODIFIED_FILES}"
                 echo '::set-output name=modified_files::$MODIFIED_FILES'
             else
                 echo "No changed files detected on this branch? This must be an error."
