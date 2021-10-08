@@ -36,11 +36,12 @@ jobs:
         if: github.event.pull_request.state == 'open'
         name: Privileged Checkout
         with:
+          fetch-depth: 0
           token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           # Check out the PR commit, not the merge commit
           # Use `ref` instead of `sha` to enable pushing back to `ref`
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.head_ref }}
 
       - name: Get List of Modified files
         id: get-modified-files
