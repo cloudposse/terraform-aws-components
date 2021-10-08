@@ -1,0 +1,132 @@
+name: pre-commit-check-and-autocommit-changes
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  run-pre-commit-checks-and-autocommit-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Terraform Version
+        id: get-terraform-version
+        shell: bash -x -e -o pipefail {0}
+        env:
+          BASE_REF: ${{ github.event.client_payload.pull_request.base.ref }}
+          LABELS: ${{ join(github.event.client_payload.pull_request.labels.*.name, '\n') }}
+        run: |
+          # Match lables like `terraform/0.12` or nothing (to prevent non-zero exit code)
+          # Use [0-9] because \d is not standard part of egrep
+          TERRAFORM_VERSION=$(grep -Eo '(terraform/[0-9]+\.[x0-9]+|)' <<<${LABELS} | cut -d/ -f2)
+          if [ -n "${TERRAFORM_VERSION}" ]; then
+            echo "A label is required indicating the versino of Terraform to be used on this component. (E.g., \"terraform/1.0\")"
+            exit 1
+          else
+            echo "Terraform version ${TERRAFORM_VERSION} will be used to check formatting in ${BASE_REF}."
+          fi
+          echo '::set-output name=terraform_version::${TERRAFORM_VERSION}'
+
+      # Install terraform to ensure we're using our expected version
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: ~${{ steps.get-terraform-version.outputs.terraform_version }}
+
+      - uses: actions/checkout@v2
+        if: github.event.pull_request.state == 'open'
+        name: Privileged Checkout
+        with:
+          token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          # Check out the PR commit, not the merge commit
+          # Use `ref` instead of `sha` to enable pushing back to `ref`
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Get List of Modified files
+        id: get-modified-files
+        shell: bash -x -e -o pipefail {0}
+        env:
+          BASE_REF: ${{ github.event.client_payload.pull_request.base.ref }}
+        run: |
+            MODIFIED_FILES=$(git diff --name-only ${BASE_REF}...HEAD)
+            if [[ ! -z "$MODIFIED_FILES" ]]; then
+                echo '::set-output name=modified_files::$MODIFIED_FILES'
+            else
+                echo "No changed files detected on this branch? This must be an error."
+                exit 1
+
+      # Install terraform-docs for pre-commit hook
+      - name: Install terraform-docs
+        shell: bash
+        env:
+          INSTALL_PATH: "${{ github.workspace }}/bin"
+        run: |
+          make init
+          mkdir -p "${INSTALL_PATH}"
+          make packages/install/terraform-docs
+          echo "$INSTALL_PATH" >> $GITHUB_PATH
+
+      # pre-commit setup
+      - uses: actions/setup-python@v2
+      # pre-commit checks: fmt + terraform-docs
+      # We skip tf_validate as it requires an init
+      # of all root modules, which is to be avoided.
+      - uses: pre-commit/action@v2.0.2
+        env:
+          SKIP: tf_validate
+        with:
+          token: ${{ secrets.CODE_OWNER_VALIDATION }}
+          extra_args: --files ${{ steps.get-modified-files.outputs.modified_files }}
+
+      # Commit changes (if any) to the PR branch
+      - name: Commit changes to the PR branch
+        if: github.event.pull_request.state == 'open'
+        shell: bash
+        id: commit
+        env:
+          SENDER: ${{ github.event.sender.login }}
+        run: |
+          set -x
+          output=$(git diff --name-only)
+          if [ -n "$output" ]; then
+            echo "Changes detected. Pushing to the PR branch"
+            git config --global user.name 'cloudpossebot'
+            git config --global user.email '11232728+cloudpossebot@users.noreply.github.com'
+            git add -A
+            git commit -m "Auto Format"
+            # Prevent looping by not pushing changes in response to changes from cloudpossebot
+            [[ $SENDER ==  "cloudpossebot" ]] || git push
+            # Set status to fail, because the push should trigger another status check,
+            # and we use success to indicate the checks are finished.
+            printf "::set-output name=%s::%s\n" "changed" "true"
+            exit 1
+          else
+            printf "::set-output name=%s::%s\n" "changed" "false"
+            echo "No changes detected"
+          fi
+
+      - name: Auto Test
+        uses: cloudposse/actions/github/repository-dispatch@0.22.0
+        # match users by ID because logins (user names) are inconsistent,
+        # for example in the REST API Renovate Bot is `renovate[bot]` but
+        # in GraphQL it is just `renovate`, plus there is a non-bot
+        # user `renovate` with ID 1832810.
+        # Mergify bot: 37929162
+        # Renovate bot: 29139614
+        # Cloudpossebot: 11232728
+        # Need to use space separators to prevent "21" from matching "112144"
+        if: >
+          contains(' 37929162 29139614 11232728 ', format(' {0} ', github.event.pull_request.user.id))
+          && steps.commit.outputs.changed == 'false' && github.event.pull_request.state == 'open'
+        with:
+          token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
+          repository: cloudposse/actions
+          event-type: test-command
+          client-payload: |-
+            { "slash_command":{"args": {"unnamed": {"all": "all", "arg1": "all"}}},
+               "pull_request": ${{ toJSON(github.event.pull_request) }},
+               "github":{"payload":{"repository": ${{ toJSON(github.event.repository) }},
+                                    "comment": {"id": ""}
+                                   }
+                        }
+            }
