@@ -77,6 +77,8 @@ jobs:
           echo "$INSTALL_PATH" >> $GITHUB_PATH
 
       # pre-commit setup
+      # NOTE: This step will fail whenever it has to change the code.
+      #       We control for this by adding always() conditionals to all following steps.
       - uses: actions/setup-python@v2
       # pre-commit checks: fmt + terraform-docs
       # We skip tf_validate as it requires an init
@@ -90,7 +92,7 @@ jobs:
 
       # Commit changes (if any) to the PR branch
       - name: Commit changes to the PR branch
-        if: github.event.pull_request.state == 'open'
+        if: github.event.pull_request.state == 'open' && always()
         shell: bash
         id: commit
         env:
@@ -127,7 +129,7 @@ jobs:
         # Need to use space separators to prevent "21" from matching "112144"
         if: >
           contains(' 37929162 29139614 11232728 ', format(' {0} ', github.event.pull_request.user.id))
-          && steps.commit.outputs.changed == 'false' && github.event.pull_request.state == 'open'
+          && steps.commit.outputs.changed == 'false' && github.event.pull_request.state == 'open' && always()
         with:
           token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
           repository: cloudposse/actions
