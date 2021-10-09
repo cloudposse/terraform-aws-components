@@ -27,12 +27,17 @@ jobs:
           else
             echo "Terraform version ${TERRAFORM_VERSION} will be used to check the formatting of files that have been modified since this branch diverged from ${BASE_REF}."
           fi
-          echo "::set-output name=terraform_version::$(echo $TERRAFORM_VERSION)"
+          if grep -q 'x$' <<<${TERRAFORM_VERSION}; then
+            TERRAFORM_SEMVER=$TERRAFORM_VERSION
+          else
+            TERRAFORM_SEMVER=~$TERRAFORM_VERSION
+          fi
+          echo "::set-output name=terraform_semver::$(echo $TERRAFORM_SEMVER)"
 
       # Install terraform to ensure we're using our expected version
       - uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: ~${{ steps.get-terraform-version.outputs.terraform_version }}
+          terraform_version: ${{ steps.get-terraform-version.outputs.terraform_semver }}
 
       - uses: actions/checkout@v2
         name: Privileged Checkout
