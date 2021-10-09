@@ -76,10 +76,11 @@ jobs:
           make packages/install/terraform-docs
           echo "$INSTALL_PATH" >> $GITHUB_PATH
 
-      # pre-commit setup
+      # python setup, in preparation for pre-commit run
+      - uses: actions/setup-python@v2
+
       # NOTE: This step will fail whenever it has to change the code.
       #       We control for this by adding always() conditionals to all following steps.
-      - uses: actions/setup-python@v2
       # pre-commit checks: fmt + terraform-docs
       # We skip tf_validate as it requires an init
       # of all root modules, which is to be avoided.
