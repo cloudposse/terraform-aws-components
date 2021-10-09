@@ -22,7 +22,7 @@ jobs:
           echo "PR labels: ${LABELS}"
           TERRAFORM_VERSION=$(grep -Eo '(terraform/[0-9]+\.[x0-9]+|)' <<<${LABELS} | cut -d/ -f2)
           if [ -z "${TERRAFORM_VERSION}" ]; then
-            echo "A label is required indicating the version of Terraform to be used on this component. (E.g., \"terraform/1.0\")"
+            echo "A label is required indicating the version of Terraform to be used on this component. (E.g., \"terraform/1.x\" or \"terraform/0.15\")"
             exit 1
           else
             echo "Terraform version ${TERRAFORM_VERSION} will be used to check the formatting of files that have been modified since this branch diverged from ${BASE_REF}."
