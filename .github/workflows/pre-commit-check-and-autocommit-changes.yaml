@@ -8,6 +8,7 @@ on:
 jobs:
   run-pre-commit-checks-and-autocommit-changes:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.state == 'open'
     steps:
       - name: Dump GitHub context
         env:
@@ -39,7 +40,6 @@ jobs:
           terraform_version: ~${{ steps.get-terraform-version.outputs.terraform_version }}
 
       - uses: actions/checkout@v2
-        if: github.event.pull_request.state == 'open'
         name: Privileged Checkout
         with:
           fetch-depth: 0
@@ -92,7 +92,7 @@ jobs:
 
       # Commit changes (if any) to the PR branch
       - name: Commit changes to the PR branch
-        if: github.event.pull_request.state == 'open' && always()
+        if: always()
         shell: bash
         id: commit
         env:
@@ -129,7 +129,7 @@ jobs:
         # Need to use space separators to prevent "21" from matching "112144"
         if: >
           contains(' 37929162 29139614 11232728 ', format(' {0} ', github.event.pull_request.user.id))
-          && steps.commit.outputs.changed == 'false' && github.event.pull_request.state == 'open' && always()
+          && steps.commit.outputs.changed == 'false' && always()
         with:
           token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
           repository: cloudposse/actions
