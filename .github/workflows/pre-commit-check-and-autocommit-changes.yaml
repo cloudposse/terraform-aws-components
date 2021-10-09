@@ -10,11 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.state == 'open'
     steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-
       - name: Get Terraform Version
         id: get-terraform-version
         shell: bash -x -e -o pipefail {0}
@@ -117,29 +112,3 @@ jobs:
             printf "::set-output name=%s::%s\n" "changed" "false"
             echo "No changes detected"
           fi
-
-      - name: Auto Test
-        uses: cloudposse/actions/github/repository-dispatch@0.22.0
-        # match users by ID because logins (user names) are inconsistent,
-        # for example in the REST API Renovate Bot is `renovate[bot]` but
-        # in GraphQL it is just `renovate`, plus there is a non-bot
-        # user `renovate` with ID 1832810.
-        # Mergify bot: 37929162
-        # Renovate bot: 29139614
-        # Cloudpossebot: 11232728
-        # Need to use space separators to prevent "21" from matching "112144"
-        if: >
-          contains(' 37929162 29139614 11232728 ', format(' {0} ', github.event.pull_request.user.id))
-          && steps.commit.outputs.changed == 'false' && always()
-        with:
-          token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
-          repository: cloudposse/actions
-          event-type: test-command
-          client-payload: |-
-            { "slash_command":{"args": {"unnamed": {"all": "all", "arg1": "all"}}},
-               "pull_request": ${{ toJSON(github.event.pull_request) }},
-               "github":{"payload":{"repository": ${{ toJSON(github.event.repository) }},
-                                    "comment": {"id": ""}
-                                   }
-                        }
-            }
