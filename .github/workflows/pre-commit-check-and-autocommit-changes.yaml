@@ -9,11 +9,6 @@ jobs:
   run-pre-commit-checks-and-autocommit-changes:
     runs-on: ubuntu-latest
     steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-
       - name: Get Terraform Version
         id: get-terraform-version
         shell: bash -x -e -o pipefail {0}
