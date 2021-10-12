@@ -8,7 +8,7 @@ data "aws_caller_identity" "current" {}
 
 module "ses" {
   source  = "cloudposse/ses/aws"
-  version = "0.14.1"
+  version = "0.20.0"
 
   domain        = local.ses_domain
   zone_id       = local.ses_zone_id
