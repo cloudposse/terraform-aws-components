@@ -10,6 +10,7 @@ module "ses" {
   source  = "cloudposse/ses/aws"
   version = "0.20.0"
 
+  enabled       = module.this.enabled
   domain        = local.ses_domain
   zone_id       = local.ses_zone_id
   verify_dkim   = var.ses_verify_dkim
@@ -20,7 +21,7 @@ module "ses" {
 
 module "kms_key_ses" {
   source  = "cloudposse/kms-key/aws"
-  version = "0.9.1"
+  version = "0.11.0"
 
   description             = "KMS key for SES"
   deletion_window_in_days = 10
