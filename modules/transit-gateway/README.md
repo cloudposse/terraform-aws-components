@@ -69,13 +69,13 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles |  |
-| <a name="module_iam_roles_tgw"></a> [iam\_roles\_tgw](#module\_iam\_roles\_tgw) | ../account-map/modules/iam-roles |  |
-| <a name="module_tgw_vpc_attachment_dev"></a> [tgw\_vpc\_attachment\_dev](#module\_tgw\_vpc\_attachment\_dev) | ./modules/standard_vpc_attachment |  |
-| <a name="module_tgw_vpc_attachment_prod"></a> [tgw\_vpc\_attachment\_prod](#module\_tgw\_vpc\_attachment\_prod) | ./modules/standard_vpc_attachment |  |
-| <a name="module_tgw_vpc_attachment_staging"></a> [tgw\_vpc\_attachment\_staging](#module\_tgw\_vpc\_attachment\_staging) | ./modules/standard_vpc_attachment |  |
-| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.21.0 |  |
-| <a name="module_transit_gateway"></a> [transit\_gateway](#module\_transit\_gateway) | git::https://github.com/cloudposse/terraform-aws-transit-gateway.git?ref=tags/0.2.1 |  |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
+| <a name="module_iam_roles_tgw"></a> [iam\_roles\_tgw](#module\_iam\_roles\_tgw) | ../account-map/modules/iam-roles | n/a |
+| <a name="module_tgw_vpc_attachment_dev"></a> [tgw\_vpc\_attachment\_dev](#module\_tgw\_vpc\_attachment\_dev) | ./modules/standard_vpc_attachment | n/a |
+| <a name="module_tgw_vpc_attachment_prod"></a> [tgw\_vpc\_attachment\_prod](#module\_tgw\_vpc\_attachment\_prod) | ./modules/standard_vpc_attachment | n/a |
+| <a name="module_tgw_vpc_attachment_staging"></a> [tgw\_vpc\_attachment\_staging](#module\_tgw\_vpc\_attachment\_staging) | ./modules/standard_vpc_attachment | n/a |
+| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/cloudposse/terraform-null-label.git | tags/0.21.0 |
+| <a name="module_transit_gateway"></a> [transit\_gateway](#module\_transit\_gateway) | git::https://github.com/cloudposse/terraform-aws-transit-gateway.git | tags/0.2.1 |
 
 ## Resources
 

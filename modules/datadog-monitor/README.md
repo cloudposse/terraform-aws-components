@@ -44,10 +44,10 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_datadog_monitors"></a> [datadog\_monitors](#module\_datadog\_monitors) | git::https://github.com/cloudposse/terraform-datadog-monitor.git?ref=tags/0.9.0 |  |
-| <a name="module_datadog_monitors_yaml_config"></a> [datadog\_monitors\_yaml\_config](#module\_datadog\_monitors\_yaml\_config) | git::https://github.com/cloudposse/terraform-yaml-config.git?ref=tags/0.1.0 |  |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles |  |
-| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.21.0 |  |
+| <a name="module_datadog_monitors"></a> [datadog\_monitors](#module\_datadog\_monitors) | git::https://github.com/cloudposse/terraform-datadog-monitor.git | tags/0.9.0 |
+| <a name="module_datadog_monitors_yaml_config"></a> [datadog\_monitors\_yaml\_config](#module\_datadog\_monitors\_yaml\_config) | git::https://github.com/cloudposse/terraform-yaml-config.git | tags/0.1.0 |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
+| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/cloudposse/terraform-null-label.git | tags/0.21.0 |
 
 ## Resources
 

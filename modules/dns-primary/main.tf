@@ -1,7 +1,7 @@
 locals {
-  dns_soa_config = "awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400"
   domains_set    = toset(var.domain_names)
   zone_recs_map  = { for zone in var.record_config : "${zone.name}${zone.root_zone}.${zone.type}" => zone }
+  zone_alias_map = { for zone in var.alias_record_config : "${zone.name}${zone.root_zone}.${zone.type}" => zone }
 }
 
 resource "aws_route53_zone" "root" {
@@ -22,7 +22,7 @@ resource "aws_route53_record" "soa" {
   ttl             = "60"
 
   records = [
-    "${aws_route53_zone.root[each.key].name_servers[0]}. ${local.dns_soa_config}"
+    "${aws_route53_zone.root[each.key].name_servers[0]}. ${var.dns_soa_config}"
   ]
 }
 
@@ -35,4 +35,19 @@ resource "aws_route53_record" "dnsrec" {
   ttl     = each.value.ttl
 
   records = each.value.records
+}
+
+resource "aws_route53_record" "aliasrec" {
+  for_each = local.zone_alias_map
+
+  name    = format("%s%s", each.value.name, each.value.root_zone)
+  type    = each.value.type
+  zone_id = aws_route53_zone.root[each.value.root_zone].zone_id
+
+
+  alias {
+    name                   = each.value.record
+    zone_id                = each.value.zone_id
+    evaluate_target_health = each.value.target_health
+  }
 }

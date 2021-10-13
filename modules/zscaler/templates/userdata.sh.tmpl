@@ -1,0 +1,17 @@
+#!/bin/bash
+cat <<EOF > /etc/yum.repos.d/zscaler.repo
+[zscaler]
+name=Zscaler Private Access Repository
+baseurl=https://yum.private.zscaler.com/yum/el7
+enabled=1
+gpgcheck=1
+gpgkey=https://yum.private.zscaler.com/gpg
+EOF
+yum update -y
+sudo yum install -y zpa-connector
+echo "${key}" > /opt/zscaler/var/provision_key
+systemctl enable zpa-connector
+systemctl start zpa-connector
+sleep 60 # https://help.zscaler.com/zpa/connector-deployment-guide-amazon-web-services
+systemctl stop zpa-connector
+systemctl start zpa-connector
