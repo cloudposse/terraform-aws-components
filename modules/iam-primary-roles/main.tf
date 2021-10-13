@@ -28,7 +28,7 @@ locals {
   allowed_assume_role_principals_map = {
     for target_role, config in local.roles_config : target_role => [
       for source_role in config.trusted_primary_roles : # aws_iam_role.default[role].arn
-      format("arn:aws:iam::%s:role/%s", var.primary_account_id, local.role_name_map[source_role]) if !contains([target_role, "cicd"], source_role)
+      format("arn:aws:iam::%s:role/%s", var.primary_account_id, local.role_name_map[source_role]) if ! contains([target_role, "cicd"], source_role)
     ]
   }
 }
@@ -63,7 +63,7 @@ data "aws_iam_policy_document" "primary_roles_assume" {
   for_each = local.roles_config
 
   dynamic "statement" {
-    for_each = !local.assume_role_restricted || length(local.allowed_assume_role_principals_map[each.key]) > 0 ? ["has_principals"] : []
+    for_each = ! local.assume_role_restricted || length(local.allowed_assume_role_principals_map[each.key]) > 0 ? ["has_principals"] : []
     content {
       sid = "IdentityAccountAssume"
       actions = [
