@@ -7,4 +7,5 @@ repos:
     rev: v1.48.0
     hooks:
       - id: terraform_fmt
+        exclude: deprecated
       - id: terraform_docs

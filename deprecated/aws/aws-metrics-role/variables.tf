@@ -43,7 +43,7 @@ variable "kops_cluster_name" {
 }
 
 variable "assume_role_permitted_roles" {
-  type        = string
+  type        = "string"
   description = "Roles that are permitted to assume thie role. One of 'kiam', 'nodes', 'masters', or 'both' (nodes + masters)."
   default     = "kiam"
 }
