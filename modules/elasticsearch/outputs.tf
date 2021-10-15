@@ -9,13 +9,13 @@ output "domain_arn" {
 }
 
 output "domain_id" {
-  value           = module.elasticsearch.domain_id
-  description   = "Unique identifier for the Elasticsearch domain"
+  value       = module.elasticsearch.domain_id
+  description = "Unique identifier for the Elasticsearch domain"
 }
 
 output "domain_endpoint" {
-  value                = module.elasticsearch.domain_endpoint
-  description                  = "Domain-specific endpoint used to submit index, search, and data upload requests"
+  value       = module.elasticsearch.domain_endpoint
+  description = "Domain-specific endpoint used to submit index, search, and data upload requests"
 }
 
 output "kibana_endpoint" {
