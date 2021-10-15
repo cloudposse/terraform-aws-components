@@ -2,8 +2,6 @@ name: pre-commit-check-and-autocommit-changes
 
 on:
   pull_request:
-  push:
-    branches: [master]
 
 jobs:
   run-pre-commit-checks-and-autocommit-changes:
