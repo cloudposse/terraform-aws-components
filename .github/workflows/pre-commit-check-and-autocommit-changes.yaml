@@ -45,7 +45,7 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           # Check out the PR commit, not the merge commit
           # Use `ref` instead of `sha` to enable pushing back to `ref`
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Get List of Modified files
         id: get-modified-files
