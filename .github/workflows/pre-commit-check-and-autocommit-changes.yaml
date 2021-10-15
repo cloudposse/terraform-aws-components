@@ -86,32 +86,5 @@ jobs:
         env:
           SKIP: tf_validate
         with:
-          token: ${{ secrets.CODE_OWNER_VALIDATION }}
+          token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
           extra_args: --files ${{ steps.get-modified-files.outputs.modified_files }}
-
-      # Commit changes (if any) to the PR branch
-      - name: Commit changes to the PR branch
-        if: always()
-        shell: bash
-        id: commit
-        env:
-          SENDER: ${{ github.event.sender.login }}
-        run: |
-          set -x
-          output=$(git diff --name-only)
-          if [ -n "$output" ]; then
-            echo "Changes detected. Pushing to the PR branch"
-            git config --global user.name 'cloudpossebot'
-            git config --global user.email '11232728+cloudpossebot@users.noreply.github.com'
-            git add -A
-            git commit -m "Auto Format"
-            # Prevent looping by not pushing changes in response to changes from cloudpossebot
-            [[ $SENDER ==  "cloudpossebot" ]] || git push
-            # Set status to fail, because the push should trigger another status check,
-            # and we use success to indicate the checks are finished.
-            printf "::set-output name=%s::%s\n" "changed" "true"
-            exit 1
-          else
-            printf "::set-output name=%s::%s\n" "changed" "false"
-            echo "No changes detected"
-          fi
