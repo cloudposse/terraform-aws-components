@@ -84,7 +84,7 @@ jobs:
       # pre-commit checks: fmt + terraform-docs
       # We skip tf_validate as it requires an init
       # of all root modules, which is to be avoided.
-      - uses: pre-commit/action@v2.0.2
+      - uses: pre-commit/action@v2.0.3
         env:
           SKIP: tf_validate
         with:
