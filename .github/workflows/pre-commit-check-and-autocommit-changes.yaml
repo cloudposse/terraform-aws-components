@@ -1,7 +1,8 @@
 name: pre-commit-check-and-autocommit-changes
 
 on:
-  pull_request:
+  pull_request_target:
+    types: [opened, synchronize]
 
 jobs:
   run-pre-commit-checks-and-autocommit-changes:
