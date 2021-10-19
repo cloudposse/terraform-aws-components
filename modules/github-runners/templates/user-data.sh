@@ -12,7 +12,7 @@ echo '{ "credsStore": "ecr-login" }' > ~/.docker/config.json
 service docker start
 usermod -a -G docker ec2-user
 
-yum install -y curl jq git go gcc uby-devel rubygems amazon-ecr-credential-helper
+yum install -y curl jq git go gcc ruby-devel rubygems amazon-ecr-credential-helper
 gem install bundler
 
 sudo systemctl enable amazon-ssm-agent
