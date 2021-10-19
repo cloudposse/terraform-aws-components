@@ -5,7 +5,7 @@ on:
     types: [labeled, opened, synchronize, unlabeled]
 
 jobs:
-  run-pre-commit-checks-and-autocommit-changes:
+  run-pre-commit-checks-and-autocommit-changes-copy:
     runs-on: ubuntu-latest
     if: github.event.pull_request.state == 'open'
     steps:
