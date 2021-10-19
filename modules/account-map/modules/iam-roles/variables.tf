@@ -4,6 +4,12 @@ variable "privileged" {
   default     = false
 }
 
+variable "global_tenant_name" {
+  type        = string
+  description = "Global tenant name"
+  default     = null
+}
+
 variable "global_environment_name" {
   type        = string
   description = "Global environment name"
