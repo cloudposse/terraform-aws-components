@@ -4,4 +4,3 @@ data "aws_ssm_parameter" "github_token" {
   name            = format(var.ssm_parameter_name_format, var.ssm_path, "token")
   with_decryption = true
 }
-
