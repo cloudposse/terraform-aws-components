@@ -30,6 +30,7 @@ data "aws_iam_policy_document" "instance-assume-role-policy" {
 
 
 data "aws_iam_policy_document" "github-action-runner" {
+  // bridgecrew:skip=BC_AWS_IAM_64:BC complains about this IAM policy, even though it's relatively finely scoped.
   count = local.enabled ? 1 : 0
 
   # Allow EC2 instances to modify their tags — the user-data script will change the Name tag in order to add a dynamic suffix
