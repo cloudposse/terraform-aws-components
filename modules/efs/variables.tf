@@ -1,12 +1,12 @@
 variable "region" {
-  type        =    string
-  description =       "AWS Region"
+  type        = string
+  description = "AWS Region"
 }
 
 variable "performance_mode" {
-  type        =    string
-  default     =  "generalPurpose"
-  description =           "The file system performance mode. Can be either `generalPurpose` or `maxIO`"
+  type        = string
+  default     = "generalPurpose"
+  description = "The file system performance mode. Can be either `generalPurpose` or `maxIO`"
 }
 
 variable "throughput_mode" {
