@@ -37,16 +37,6 @@ variable "resources" {
     })
   })
   description = "The cpu and memory of the deployment's limits and requests."
-  default = {
-    limits = {
-      cpu    = "200m"
-      memory = "256Mi"
-    },
-    requests = {
-      cpu    = "100m"
-      memory = "128Mi"
-    }
-  }
 }
 
 variable "create_namespace" {
@@ -85,8 +75,8 @@ variable "wait" {
 }
 
 variable "chart_values" {
-  type        = map(any)
-  description = "Addition map values to yamlencode as `helm_release` values."
+  type        = any
+  description = "Additional values to yamlencode as `helm_release` values."
   default     = {}
 }
 

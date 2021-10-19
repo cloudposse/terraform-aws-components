@@ -4,9 +4,9 @@ locals {
 
 module "alb_controller" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.2.0"
+  version = "0.2.1"
 
-  name                 = module.this.name
+  name                 = "" # avoids hitting length restrictions on IAM Role names
   chart                = var.chart
   repository           = var.chart_repository
   description          = var.chart_description
