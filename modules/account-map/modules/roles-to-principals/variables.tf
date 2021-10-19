@@ -5,7 +5,7 @@ variable "role_map" {
 
 variable "iam_role_arn_template" {
   type        = string
-  default     = "arn:aws:iam::%s:role/%s-%s-%s-%s"
+  default     = "arn:aws:iam::%s:role/%s-%s-%s-%s-%s"
   description = "IAM Role ARN template"
 }
 
@@ -13,6 +13,12 @@ variable "privileged" {
   type        = bool
   description = "True if the default provider already has access to the backend"
   default     = false
+}
+
+variable "global_tenant_name" {
+  type        = string
+  description = "Global tenant name"
+  default     = null
 }
 
 variable "global_environment_name" {

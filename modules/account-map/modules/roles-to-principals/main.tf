@@ -1,6 +1,6 @@
-module "forced" {
+module "always" {
   source  = "cloudposse/label/null"
-  version = "0.24.1"
+  version = "0.25.0"
 
   # account_map must always be enabled, even for components that are disabled
   enabled = true
@@ -10,15 +10,16 @@ module "forced" {
 
 module "account_map" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.14.0"
+  version = "0.19.0"
 
   component               = "account-map"
   privileged              = var.privileged
+  tenant                  = var.global_tenant_name
   environment             = var.global_environment_name
   stack_config_local_path = "../../../stacks"
   stage                   = var.root_account_stage_name
 
-  context = module.forced.context
+  context = module.always.context
 }
 
 locals {
@@ -27,7 +28,7 @@ locals {
     [
       for role in v : format(var.iam_role_arn_template,
         module.account_map.outputs.full_account_map[acct],
-        module.forced.namespace,
+        module.always.namespace,
         var.global_environment_name,
         acct,
         role
