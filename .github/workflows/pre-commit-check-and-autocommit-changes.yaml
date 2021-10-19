@@ -2,7 +2,7 @@ name: pre-commit-check-and-autocommit-changes
 
 on:
   pull_request_target:
-    types: [opened, synchronize]
+    types: [labeled, opened, synchronize, unlabeled]
 
 jobs:
   run-pre-commit-checks-and-autocommit-changes:
@@ -16,21 +16,28 @@ jobs:
           BASE_REF: ${{ github.base_ref }}
           LABELS: ${{ join(github.event.pull_request.labels.*.name, '\n') }}
         run: |
-          # Match lables like `terraform/0.12` or nothing (to prevent non-zero exit code)
+          # Match labels like `terraform/0.12` or nothing (to prevent grep from returning a non-zero exit code)
           # Use [0-9] because \d is not standard part of egrep
           echo "PR labels: ${LABELS}"
-          TERRAFORM_VERSION=$(grep -Eo '(terraform/[0-9]+\.[x0-9]+|)' <<<${LABELS} | cut -d/ -f2)
-          if [ -z "${TERRAFORM_VERSION}" ]; then
-            echo "A label is required indicating the version of Terraform to be used on this component. (E.g., \"terraform/1.x\" or \"terraform/0.15\")"
+          TERRAFORM_VERSION=$(grep -Eo 'terraform/[0-9]+\.[x0-9]+|' <<<${LABELS} | cut -d/ -f2)
+          # Go through all the possible cases: one compliant label, no compliant labels, and multiple compliant labels
+          if grep -E '^[0-9]+\.[x0-9]+$' <<<${TERRAFORM_VERSION}; then
+            echo "Terraform version ${TERRAFORM_VERSION} will be used to check the formatting of files that have been modified since this branch diverged from ${BASE_REF}."
+          elif [ -z "${TERRAFORM_VERSION}" ]; then
+            echo "A label is required indicating the version of Terraform to be used for formatting this component. (E.g., \"terraform/1.x\" or \"terraform/0.15\")"
             exit 1
           else
-            echo "Terraform version ${TERRAFORM_VERSION} will be used to check the formatting of files that have been modified since this branch diverged from ${BASE_REF}."
+            echo "You have either chosen terraform labels with malformed versions or, more likely, you have chosen multiple terraform version labels."
+            echo "Please select a single terraform version label that matches the following regular expression: terraform/[0-9]+\.[x0-9]+"
+            exit 2
           fi
+          # Construct the actual semver expression that will be passed to Terraform
           if grep -q 'x$' <<<${TERRAFORM_VERSION}; then
             TERRAFORM_SEMVER=$TERRAFORM_VERSION
           else
             TERRAFORM_SEMVER=~$TERRAFORM_VERSION
           fi
+          # Create GitHub Actions step output
           echo "::set-output name=terraform_semver::$(echo $TERRAFORM_SEMVER)"
 
       # Install terraform to ensure we're using our expected version
@@ -78,8 +85,6 @@ jobs:
       # python setup, in preparation for pre-commit run
       - uses: actions/setup-python@v2
 
-      # NOTE: This step will fail whenever it has to change the code.
-      #       We control for this by adding always() conditionals to all following steps.
       # pre-commit checks: fmt + terraform-docs
       # We skip tf_validate as it requires an init
       # of all root modules, which is to be avoided.
