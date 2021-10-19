@@ -49,7 +49,7 @@ jobs:
           echo "PR labels: ${LABELS}"
           TERRAFORM_VERSION=$(grep -Eo 'terraform/[0-9]+\.[x0-9]+|' <<<${LABELS} | cut -d/ -f2)
           # Go through all the possible cases: one compliant label, no compliant labels, and multiple compliant labels
-          if grep -Ez '^\<[0-9]+\.[x0-9]+\>$' <<<${TERRAFORM_VERSION}; then
+          if grep -Ez '^\W*[0-9]+\.[x0-9]+\W*$' <<<${TERRAFORM_VERSION}; then
             echo "Terraform version ${TERRAFORM_VERSION} will be used to check the formatting of files that have been modified since this branch diverged from ${BASE_REF}."
           elif [ -z "${TERRAFORM_VERSION}" ]; then
             # If there are no compliant labels, it could be that the PR doesn't need Terraform linting in the first place
