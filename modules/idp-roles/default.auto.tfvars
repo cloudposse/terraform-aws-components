@@ -1,0 +1,10 @@
+enabled              = false
+name                 = "idp-roles"
+chart                = "idp-roles"
+kubernetes_namespace = "kube-system"
+create_namespace     = "false"
+chart_description    = "Identity provider roles and role bindings"
+timeout              = 300
+wait                 = true
+atomic               = true
+cleanup_on_fail      = true
