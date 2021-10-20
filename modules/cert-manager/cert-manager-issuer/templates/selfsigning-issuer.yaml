@@ -6,4 +6,12 @@ metadata:
   name: selfsigning-issuer
 spec:
   selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: my-ca-issuer
+spec:
+  ca:
+    secretName: {{ .Values.selfsigned_secretname }}
 {{- end }}

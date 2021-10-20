@@ -2,4 +2,6 @@ letsencrypt_installed: false
 
 selfsigned_installed: true
 
+selfsigned_secretname: ca-key-pair
+
 support_email_template: aws+%v@example.com

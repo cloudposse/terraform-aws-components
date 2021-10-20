@@ -48,22 +48,24 @@ variable "cert_manager_resources" {
     })
   })
   description = "The cpu and memory of the cert manager's limits and requests."
-  default = {
-    limits = {
-      cpu    = "200m"
-      memory = "256Mi"
-    },
-    requests = {
-      cpu    = "100m"
-      memory = "128Mi"
-    }
-  }
+}
+
+variable "cart_manager_rbac_enabled" {
+  type        = bool
+  default     = true
+  description = "Service Account for pods."
 }
 
 variable "cert_manager_metrics_enabled" {
   type        = bool
-  description = "Whether or not to enable metrics in the cert-manager."
+  description = "Whether or not to enable metrics for cert-manager."
   default     = false
+}
+
+variable "cert_manager_values" {
+  type        = any
+  description = "Additional values to yamlencode as `helm_release` values for cert-manager."
+  default     = {}
 }
 
 ## cert_manager_issuer
@@ -100,6 +102,12 @@ variable "cert_manager_issuer_selfsigned_enabled" {
   type        = bool
   description = "Whether or not to use selfsigned issuer."
   default     = true
+}
+
+variable "cert_manager_issuer_values" {
+  type        = any
+  description = "Additional values to yamlencode as `helm_release` values for cert-manager-issuer."
+  default     = {}
 }
 
 variable "create_namespace" {

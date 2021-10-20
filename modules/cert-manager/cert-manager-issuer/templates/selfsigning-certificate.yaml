@@ -1,0 +1,20 @@
+{{- if .Values.selfsigned_installed }}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: my-selfsigned-ca
+# Define resources: https://cert-manager.io/docs/configuration/selfsigned/#bootstrapping-ca-issuers
+# Create cert: https://docs.cert-manager.io/en/release-0.8/tasks/issuers/setup-ca.html
+spec:
+  isCA: true
+  commonName: my-selfsigned-ca
+  secretName: {{ .Values.selfsigned_secretname }}
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: selfsigned-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+{{- end }}

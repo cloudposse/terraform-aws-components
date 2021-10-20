@@ -1,7 +1,13 @@
 provider "aws" {
   region = var.region
 
-  profile = coalesce(var.import_profile_name, module.iam_roles.terraform_profile_name)
+  profile = module.iam_roles.profiles_enabled ? coalesce(var.import_profile_name, module.iam_roles.terraform_profile_name) : null
+  dynamic "assume_role" {
+    for_each = module.iam_roles.profiles_enabled ? [] : ["role"]
+    content {
+      role_arn = coalesce(var.import_role_arn, module.iam_roles.terraform_role_arn)
+    }
+  }
 }
 
 module "iam_roles" {
@@ -13,6 +19,12 @@ variable "import_profile_name" {
   type        = string
   default     = null
   description = "AWS Profile name to use when importing a resource"
+}
+
+variable "import_role_arn" {
+  type        = string
+  default     = null
+  description = "IAM Role ARN to use when importing a resource"
 }
 
 data "aws_eks_cluster" "kubernetes" {
@@ -29,8 +41,8 @@ data "aws_eks_cluster_auth" "kubernetes" {
 
 provider "helm" {
   kubernetes {
-    host                   = data.aws_eks_cluster.kubernetes[0].endpoint
-    token                  = data.aws_eks_cluster_auth.kubernetes[0].token
-    cluster_ca_certificate = base64decode(data.aws_eks_cluster.kubernetes[0].certificate_authority[0].data)
+    host                   = local.enabled ? data.aws_eks_cluster.kubernetes[0].endpoint : null
+    token                  = local.enabled ? data.aws_eks_cluster_auth.kubernetes[0].token : null
+    cluster_ca_certificate = local.enabled ? base64decode(data.aws_eks_cluster.kubernetes[0].certificate_authority[0].data) : null
   }
 }

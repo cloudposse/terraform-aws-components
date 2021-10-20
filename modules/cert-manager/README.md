@@ -34,6 +34,14 @@ components:
         cert_manager_issuer_support_email_template: aws+%s@acme.com
 ```
 
+To generate a custom cert called `ca-key-pair`
+
+```
+openssl genrsa -out ca.key 2048
+openssl req -x509 -new -nodes -key ca.key -subj "/CN=${COMMON_NAME}" -days 3650 -reqexts v3_req -extensions v3_ca -out ca.crt
+kubectl create secret tls ca-key-pair --cert=ca.crt --key=ca.key --namespace=kube-system
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -53,9 +61,8 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cert_manager"></a> [cert\_manager](#module\_cert\_manager) | cloudposse/helm-release/aws | 0.2.0 |
-| <a name="module_cert_manager_issuer"></a> [cert\_manager\_issuer](#module\_cert\_manager\_issuer) | cloudposse/helm-release/aws | 0.1.3 |
-| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 0.19.0 |
+| <a name="module_cert_manager"></a> [cert\_manager](#module\_cert\_manager) | cloudposse/helm-release/aws | 0.2.1 |
+| <a name="module_cert_manager_issuer"></a> [cert\_manager\_issuer](#module\_cert\_manager\_issuer) | cloudposse/helm-release/aws | 0.2.1 |
 | <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 0.19.0 |
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.19.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
@@ -76,6 +83,7 @@ components:
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_atomic"></a> [atomic](#input\_atomic) | If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used. | `bool` | `true` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
+| <a name="input_cart_manager_rbac_enabled"></a> [cart\_manager\_rbac\_enabled](#input\_cart\_manager\_rbac\_enabled) | Service Account for pods. | `bool` | `true` | no |
 | <a name="input_cert_manager_chart"></a> [cert\_manager\_chart](#input\_cert\_manager\_chart) | Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended. | `string` | n/a | yes |
 | <a name="input_cert_manager_chart_version"></a> [cert\_manager\_chart\_version](#input\_cert\_manager\_chart\_version) | Specify the exact chart version to install. If this is not specified, the latest version is installed. | `string` | `null` | no |
 | <a name="input_cert_manager_description"></a> [cert\_manager\_description](#input\_cert\_manager\_description) | Set release description attribute (visible in the history). | `string` | `null` | no |
@@ -85,9 +93,11 @@ components:
 | <a name="input_cert_manager_issuer_repository"></a> [cert\_manager\_issuer\_repository](#input\_cert\_manager\_issuer\_repository) | Repository URL where to locate the requested chart. | `string` | `null` | no |
 | <a name="input_cert_manager_issuer_selfsigned_enabled"></a> [cert\_manager\_issuer\_selfsigned\_enabled](#input\_cert\_manager\_issuer\_selfsigned\_enabled) | Whether or not to use selfsigned issuer. | `bool` | `true` | no |
 | <a name="input_cert_manager_issuer_support_email_template"></a> [cert\_manager\_issuer\_support\_email\_template](#input\_cert\_manager\_issuer\_support\_email\_template) | The support email template format. | `string` | n/a | yes |
-| <a name="input_cert_manager_metrics_enabled"></a> [cert\_manager\_metrics\_enabled](#input\_cert\_manager\_metrics\_enabled) | Whether or not to enable metrics in the cert-manager. | `bool` | `false` | no |
+| <a name="input_cert_manager_issuer_values"></a> [cert\_manager\_issuer\_values](#input\_cert\_manager\_issuer\_values) | Additional values to yamlencode as `helm_release` values for cert-manager-issuer. | `any` | `{}` | no |
+| <a name="input_cert_manager_metrics_enabled"></a> [cert\_manager\_metrics\_enabled](#input\_cert\_manager\_metrics\_enabled) | Whether or not to enable metrics for cert-manager. | `bool` | `false` | no |
 | <a name="input_cert_manager_repository"></a> [cert\_manager\_repository](#input\_cert\_manager\_repository) | Repository URL where to locate the requested chart. | `string` | `null` | no |
-| <a name="input_cert_manager_resources"></a> [cert\_manager\_resources](#input\_cert\_manager\_resources) | The cpu and memory of the cert manager's limits and requests. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | <pre>{<br>  "limits": {<br>    "cpu": "200m",<br>    "memory": "256Mi"<br>  },<br>  "requests": {<br>    "cpu": "100m",<br>    "memory": "128Mi"<br>  }<br>}</pre> | no |
+| <a name="input_cert_manager_resources"></a> [cert\_manager\_resources](#input\_cert\_manager\_resources) | The cpu and memory of the cert manager's limits and requests. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | n/a | yes |
+| <a name="input_cert_manager_values"></a> [cert\_manager\_values](#input\_cert\_manager\_values) | Additional values to yamlencode as `helm_release` values for cert-manager. | `any` | `{}` | no |
 | <a name="input_cleanup_on_fail"></a> [cleanup\_on\_fail](#input\_cleanup\_on\_fail) | Allow deletion of new resources created in this upgrade when upgrade fails. | `bool` | `true` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_create_namespace"></a> [create\_namespace](#input\_create\_namespace) | Create the namespace if it does not yet exist. Defaults to `false`. | `bool` | `null` | no |
@@ -97,6 +107,7 @@ components:
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
+| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_kubernetes_namespace"></a> [kubernetes\_namespace](#input\_kubernetes\_namespace) | The namespace to install the release into. | `string` | n/a | yes |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
@@ -115,7 +126,14 @@ components:
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_cert_manager_issuer_metadata"></a> [cert\_manager\_issuer\_metadata](#output\_cert\_manager\_issuer\_metadata) | Block status of the deployed release |
+| <a name="output_cert_manager_metadata"></a> [cert\_manager\_metadata](#output\_cert\_manager\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
+
+* [cert-manager](https://github.com/jetstack/cert-manager)
+
+[<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

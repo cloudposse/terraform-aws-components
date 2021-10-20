@@ -8,9 +8,9 @@ data "aws_partition" "current" {
 
 module "cert_manager" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.2.0"
+  version = "0.2.1"
 
-  name                 = module.this.name
+  name                 = "" # avoids hitting length restrictions on IAM Role names
   chart                = var.cert_manager_chart
   repository           = var.cert_manager_repository
   description          = var.cert_manager_description
@@ -22,7 +22,7 @@ module "cert_manager" {
   cleanup_on_fail      = var.cleanup_on_fail
   timeout              = var.timeout
 
-  # Only install IAM role if letsencrypt_installed is enabled
+  # Only install IAM role if letsencrypt_enabled is true
   iam_role_enabled = var.letsencrypt_enabled
 
   eks_cluster_oidc_issuer_url = module.eks.outputs.eks_cluster_identity_oidc_issuer
@@ -61,7 +61,8 @@ module "cert_manager" {
       ]
       resources = [
         for zone_id in concat(
-          [for value in module.dns_delegated.outputs.zones : value.zone_id],
+          # [for value in module.dns_delegated.outputs.zones : value.zone_id],
+          [],
           [for value in module.dns_gbl_delegated.outputs.zones : value.zone_id]
         ) :
         "arn:${join("", data.aws_partition.current.*.partition)}:route53:::hostedzone/${zone_id}"
@@ -71,13 +72,20 @@ module "cert_manager" {
   ]
 
   values = compact([
+    # hardcoded values
+    file("${path.module}/resources/cert-manager-values.yaml"),
+    # standard k8s object settings
     yamlencode({
       fullnameOverride = module.this.name,
       serviceAccount = {
         name = module.this.name
       },
       resources = var.cert_manager_resources
+      rbac = {
+        create = var.cart_manager_rbac_enabled
+      }
     }),
+    # cert-manager-specific values
     var.letsencrypt_enabled ? yamlencode({
       ingressShim = {
         defaultIssuerName                = "ClusterIssuer"
@@ -92,7 +100,8 @@ module "cert_manager" {
         }
       }
     }) : "",
-    file("${path.module}/cert-manager-values.yaml"),
+    # additional values
+    yamlencode(var.cert_manager_values)
   ])
 
   context = module.this.context
@@ -100,7 +109,7 @@ module "cert_manager" {
 
 module "cert_manager_issuer" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.1.3"
+  version = "0.2.1"
 
   # Only install the issuer if either letsencrypt_installed or selfsigned_installed is true
   enabled = local.enabled && (var.letsencrypt_enabled || var.cert_manager_issuer_selfsigned_enabled)
@@ -118,14 +127,17 @@ module "cert_manager_issuer" {
   timeout              = var.timeout
 
   # NOTE: Use with the local chart
-  values = [
+  values = compact([
     yamlencode({
       letsencrypt_installed  = var.letsencrypt_enabled
       selfsigned_installed   = var.cert_manager_issuer_selfsigned_enabled
       account                = join("-", compact([module.this.tenant, module.this.stage]))
       support_email_template = var.cert_manager_issuer_support_email_template
-    })
-  ]
+      stage                  = var.stage
+      dns_region             = var.region
+    }),
+    yamlencode(var.cert_manager_issuer_values)
+  ])
 
   context = module.this.context
 
