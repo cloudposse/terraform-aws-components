@@ -8,3 +8,5 @@ build-harness
 .viminfo
 .terraform.d
 .envrc
+*.planfile
+backend.tf.json
