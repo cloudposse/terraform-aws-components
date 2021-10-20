@@ -1,0 +1,10 @@
+enabled              = false
+name                 = "echo-server"
+chart                = "echo-server"
+kubernetes_namespace = "echo"
+description          = "Echo server, for testing purposes"
+create_namespace     = true
+timeout              = 180
+wait                 = true
+atomic               = true
+cleanup_on_fail      = true

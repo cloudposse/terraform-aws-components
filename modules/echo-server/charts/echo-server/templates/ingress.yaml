@@ -1,0 +1,55 @@
+{{- if .Values.ingress.enabled -}}
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: nginx
+spec:
+  controller: k8s.io/ingress-nginx
+---
+apiVersion: networking.k8s.io/v1
+{{- $fullName := include "echo-server.fullname" . -}}
+{{- $svcPort := .Values.service.port -}}
+{{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
+  {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
+    {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
+  {{- end }}
+{{- end }}
+## Not yet supported by Forecastle, introduced in Kubernetes 1.19: apiVersion: networking.k8s.io/v1
+## See https://github.com/stakater/Forecastle/issues/128
+{{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1
+{{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  annotations:
+    kubernetes.io/ingress.class: {{ .Values.ingress.class }}
+    {{- if (index .Values.ingress "tls_certificate_cluster_issuer") }}
+    cert-manager.io/cluster-issuer: {{ .Values.ingress.tls_certificate_cluster_issuer }}
+    {{- end }}
+    external-dns.alpha.kubernetes.io/target: {{ .Values.ingress.target_hostname }}
+spec:
+  # {{- if and .Values.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
+  # ingressClassName: {{ .Values.ingress.className }}
+  # {{- end }}
+  tls: # < placing a host in the TLS config will indicate a certificate should be created
+  - hosts:
+    - {{ .Values.host | quote }}
+    secretName: echo-server-cert # < cert-manager will store the created certificate in this secret.
+  rules:
+  - host: {{ .Values.host | quote }}
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: echo-server
+            port:
+              name: http
+{{- end }}
