@@ -4,7 +4,10 @@ locals {
   ses_zone_id = module.dns_delegated.outputs.default_dns_zone_id
 }
 
-data "aws_caller_identity" "current" {}
+
+data "aws_caller_identity" "current" {
+  count = local.enabled ? 1 : 0
+}
 
 module "ses" {
   source  = "cloudposse/ses/aws"
@@ -34,40 +37,37 @@ module "ssm-parameter-store" {
   source  = "cloudposse/ssm-parameter-store/aws"
   version = "0.8.2"
 
-  count = local.enabled ? 1 : 0
-
   # KMS key is only applied to SecureString params
   # https://github.com/cloudposse/terraform-aws-ssm-parameter-store/blob/master/main.tf#L17
   kms_arn = module.kms_key_ses.key_arn
-
   parameter_write = [
     {
-      description = "SES AWS access key ID"
       name        = "/ses/ses_access_key_id"
-      overwrite   = true
-      type        = "String"
       value       = module.ses.access_key_id
-    },
-    {
-      description = "SES user IAM secret for usage with SES API"
-      name        = "/ses/ses_secret_access_key"
-      overwrite   = true
-      type        = "SecureString"
-      value       = module.ses.secret_access_key
-    },
-    {
-      description = "SES IAM user name"
-      name        = "/ses/ses_user_name"
-      overwrite   = true
+      description = "SES user IAM access key ID for usage with SES API"
       type        = "String"
-      value       = module.ses.user_name
+      overwrite   = true
     },
     {
-      description = "SES SMTP password"
-      name        = "/ses/ses_smtp_password"
-      overwrite   = true
+      name        = "/ses/ses_secret_access_key"
+      value       = module.ses.secret_access_key
+      description = "SES user IAM secret key for usage with SES API"
       type        = "SecureString"
+      overwrite   = true
+    },
+    {
+      name        = "/ses/ses_user_name"
+      value       = module.ses.user_name
+      description = "SES IAM user name"
+      type        = "String"
+      overwrite   = true
+    },
+    {
+      name        = "/ses/ses_smtp_password"
       value       = module.ses.ses_smtp_password
+      description = "SES SMTP password"
+      type        = "SecureString"
+      overwrite   = true
     }
   ]
 
@@ -75,6 +75,10 @@ module "ssm-parameter-store" {
 }
 
 data "aws_iam_policy_document" "kms_key_ses" {
+  #bridgecrew:skip=BC_AWS_IAM_57: Skipping `Write access allowed without constraint` check. This is a resource-based policy allowing the account to use the CMK.
+  #bridgecrew:skip=BC_AWS_IAM_56: Skipping `Resource exposure allows modification of policies and exposes resources` check. See note above.
+  count = local.enabled ? 1 : 0
+
   # https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default-allow-administrators
   # https://aws.amazon.com/premiumsupport/knowledge-center/update-key-policy-future/
   statement {
@@ -93,7 +97,7 @@ data "aws_iam_policy_document" "kms_key_ses" {
       type = "AWS"
 
       identifiers = [
-        format("arn:aws:iam::%s:root", data.aws_caller_identity.current.account_id)
+        format("arn:aws:iam::%s:root", join("", data.aws_caller_identity.current.*.account_id))
       ]
     }
   }
@@ -124,7 +128,7 @@ data "aws_iam_policy_document" "kms_key_ses" {
       variable = "kms:EncryptionContext:aws:ses:source-account"
 
       values = [
-        data.aws_caller_identity.current.account_id
+        join("", data.aws_caller_identity.current.*.account_id)
       ]
     }
   }
