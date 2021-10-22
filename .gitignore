@@ -10,3 +10,4 @@ build-harness
 .envrc
 *.planfile
 backend.tf.json
+.terraform.lock.hcl
