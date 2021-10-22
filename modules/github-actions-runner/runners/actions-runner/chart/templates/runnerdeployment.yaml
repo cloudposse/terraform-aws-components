@@ -1,0 +1,58 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: {{ .Values.release_name }}
+spec:
+  replicas: 1
+  template:
+    spec:
+      # You could reserve nodes for runners by labeling and tainting nodes with
+      #   node-role.kubernetes.io/actions-runner
+      # and then adding the following to this RunnerDeployment
+      #
+      #  nodeSelector:
+      #    node-role.kubernetes.io/actions-runner: ""
+      #
+      #  tolerations:
+      #  - effect: NoSchedule
+      #    key: node-role.kubernetes.io/actions-runner
+      #    operator: Exists
+
+      {{ if eq .Values.type "org" }}
+      organization: {{ .Values.target }}
+      {{ end }}
+      {{ if eq .Values.type "repo" }}
+      repository: {{ .Values.target }}
+      {{ end }}
+      # You can use labels to create subsets of runners.
+      # See https://github.com/summerwind/actions-runner-controller#runner-labels
+      # and https://docs.github.com/en/free-pro-team@latest/actions/hosting-your-own-runners/using-self-hosted-runners-in-a-workflow
+      dockerdWithinRunnerContainer: true
+      image: {{ .Values.runners_image | quote }}
+      imagePullPolicy: IfNotPresent
+      serviceAccountName: {{ .Values.service_account_name }}
+      env:
+        - name: AWS_ROLE_ARN
+          value: {{ quote .Values.role_arn }}
+        - name: AWS_WEB_IDENTITY_TOKEN_FILE
+          value: /var/run/secrets/eks.amazonaws.com/serviceaccount/token
+      volumeMounts:
+        - mountPath: /var/run/secrets/eks.amazonaws.com/serviceaccount
+          name: aws-iam-token
+          readOnly: true
+      volumes:
+        - name: aws-iam-token
+          projected:
+            defaultMode: 0644 # rw-r--r--
+            sources:
+              - serviceAccountToken:
+                  audience: sts.amazonaws.com
+                  expirationSeconds: 86400
+                  path: token
+      securityContext:
+        # Without setting fsGroup, the AWS_WEB_IDENTITY_TOKEN_FILE is not readable by the runner,
+        # it is owned by root and readable only by root. Setting fsGroup makes it group readable.
+        # The container allows group 27 to use `sudo`, so we use that group.
+        fsGroup: 27
+      resources:
+        {{- toYaml .Values.runner_resources.resources | nindent 8 }}
