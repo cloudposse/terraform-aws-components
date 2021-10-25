@@ -1,4 +1,4 @@
-# Component: `ls3-bucket`
+# Component: `s3-bucket`
 
 This component is responsible for provisioning S3 buckets.
 
