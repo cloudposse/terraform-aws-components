@@ -1,0 +1,84 @@
+# The official Datadog API documentation with available query parameters & alert types:
+# https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor
+
+# Synthetic Metrics:
+## https://docs.datadoghq.com/synthetics/metrics/
+
+synthetics-slo-generic:
+  name: "(SLO) - Synthetic Checks"
+  type: metric
+  query:
+    numerator: sum:synthetics.test_runs{status:success}.as_count()
+    denominator: sum:synthetics.test_runs{*}.as_count()
+  description: |
+    Number of Successful Synthetic Checks.
+  message: |
+    ({stage} {region}) {instance_id} failed a SLO check
+  force_delete: true
+  validate: true
+  thresholds:
+    - target: "99.5"
+      target_display: "99.50"
+      timeframe: "7d"
+      warning: "99.9"
+      warning_display: "99.90"
+  groups: [ ]
+  monitor_ids: [ ]
+  tags:
+    - "ManagedBy:Terraform"
+
+synthetics-slo-sbx-http:
+  name: "(SLO) - Synthetic Checks HTTP"
+  type: metric
+  query:
+    numerator: sum:synthetics.http.response{status_code_class:2xx}.as_count()
+    denominator: sum:synthetics.http.response{*}.as_count()
+  description: |
+    Number of Successful Synthetic Checks.
+  message: |
+    ({stage} {region}) {instance_id} failed a SLO check
+  force_delete: true
+  validate: true
+  thresholds:
+  - target: "99.5"
+    target_display: "99.50"
+    timeframe: "7d"
+    warning: "99.9"
+    warning_display: "99.90"
+  - target: "99"
+    target_display: "99.00"
+    timeframe: "30d"
+    warning: "99.5"
+    warning_display: "99.50"
+  groups: []
+  monitor_ids: []
+  tags:
+    - "ManagedBy:Terraform"
+
+synthetics-slo-sbx-browser:
+  name: "(SLO) - Synthetic Checks Browser"
+  type: metric
+  query:
+    numerator: datadog.estimated_usage.synthetics.browser_test_runs{*}.as_count() - count_not_null(cutoff_min(avg:synthetics.browser.test_duration{*}, 6000))
+    denominator: sum:datadog.estimated_usage.synthetics.browser_test_runs{*}.as_count()
+  description: |
+    Number of Successful Synthetic Checks.
+  message: |
+    ({stage} {region}) {instance_id} failed a SLO check
+  force_delete: true
+  validate: true
+  thresholds:
+    - target: "99.5"
+      target_display: "99.50"
+      timeframe: "7d"
+      warning: "99.9"
+      warning_display: "99.90"
+    - target: "99"
+      target_display: "99.00"
+      timeframe: "30d"
+      warning: "99.5"
+      warning_display: "99.50"
+  groups: []
+  monitor_ids: []
+  tags:
+    - "ManagedBy:Terraform"
