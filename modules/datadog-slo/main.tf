@@ -19,6 +19,7 @@ locals {
 
 module "datadog_slos" {
   source  = "cloudposse/platform/datadog//modules/slo"
+  version = "0.23.0"
 
   datadog_slos = local.slo_map
   alert_tags = var.alert_tags
