@@ -320,3 +320,9 @@ variable "kubeconfig_file_enabled" {
     Mainly for when the standard configuration produces a Terraform error.
     EOF
 }
+
+variable "aws_auth_yaml_strip_quotes" {
+  type        = bool
+  default     = true
+  description = "If true, remove double quotes from the generated aws-auth ConfigMap YAML to reduce spurious diffs in plans"
+}
