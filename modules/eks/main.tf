@@ -46,7 +46,7 @@ module "eks_cluster" {
 
   kube_data_auth_enabled = false
   # Avoid 'Error: configmaps "aws-auth" is forbidden'
-  kube_exec_auth_enabled = ! var.kubeconfig_file_enabled
+  kube_exec_auth_enabled = !var.kubeconfig_file_enabled
   # If using `exec` method (recommended) for authentication, provide an explict
   # IAM role ARN to exec as for authentication to EKS cluster.
   kube_exec_auth_role_arn         = coalesce(var.import_role_arn, module.iam_roles.terraform_role_arn)
