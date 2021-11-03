@@ -98,9 +98,11 @@ jobs:
       # pre-commit checks: fmt + terraform-docs
       # We skip tf_validate as it requires an init
       # of all root modules, which is to be avoided.
-      - uses: pre-commit/action@v2.0.3
+      - uses: cloudposse/github-action-pre-commit@v2.1.2
         env:
           SKIP: tf_validate
         with:
           token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
+          git_user_name: cloudpossebot
+          git_user_email: cloudpossebot@users.noreply.github.com
           extra_args: --files ${{ steps.get-modified-files.outputs.modified_files }}
