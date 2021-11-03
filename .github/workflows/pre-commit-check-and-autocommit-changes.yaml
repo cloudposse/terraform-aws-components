@@ -92,6 +92,18 @@ jobs:
           make packages/install/terraform-docs
           echo "$INSTALL_PATH" >> $GITHUB_PATH
 
+      # https://github.com/terraform-linters/tflint/releases
+      - name: Install tflint
+        shell: bash
+        env:
+          TFLINT_VERSION: "v0.33.1"
+        run: |
+          mkdir -p tflint-$TFLINT_VERSION/src
+          wget https://github.com/terraform-linters/tflint/releases/download/$TFLINT_VERSION/tflint_linux_amd64.zip
+          unzip tflint_linux_amd64.zip -d tflint-$TFLINT_VERSION/src
+          rm tflint_linux_amd64.zip
+          echo "tflint-$TFLINT_VERSION/src" >> $GITHUB_PATH
+
       # python setup, in preparation for pre-commit run
       - uses: actions/setup-python@v2
 
