@@ -55,7 +55,6 @@ module "eks_cluster" {
   kubeconfig_path         = var.kubeconfig_file
   kubeconfig_path_enabled = var.kubeconfig_file_enabled
 
-  # security_groups              = var.allowed_security_groups
   allowed_security_groups      = var.allowed_security_groups
   allowed_cidr_blocks          = var.allowed_cidr_blocks
   apply_config_map_aws_auth    = var.apply_config_map_aws_auth
