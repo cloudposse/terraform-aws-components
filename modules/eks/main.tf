@@ -106,6 +106,8 @@ module "eks_cluster" {
   # managed node groups here, and we get that by reading our current (pre plan or apply) Terraform state.
   workers_role_arns = local.worker_role_arns
 
+  aws_auth_yaml_strip_quotes = var.aws_auth_yaml_strip_quotes
+
   cluster_encryption_config_enabled                         = var.cluster_encryption_config_enabled
   cluster_encryption_config_kms_key_id                      = var.cluster_encryption_config_kms_key_id
   cluster_encryption_config_kms_key_enable_key_rotation     = var.cluster_encryption_config_kms_key_enable_key_rotation
