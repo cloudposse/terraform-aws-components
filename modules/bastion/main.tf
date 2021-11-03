@@ -113,4 +113,5 @@ resource "aws_ssm_parameter" "ssh_private_key" {
   type        = "SecureString"
   key_id      = var.kms_alias_name_ssm
   overwrite   = true
+
 }
