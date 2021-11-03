@@ -45,7 +45,8 @@ module "eks_cluster" {
   attributes = local.attributes
 
   kube_data_auth_enabled = false
-  # Avoid 'Error: configmaps "aws-auth" is forbidden'
+  # exec_auth is more reliable than data_auth when the aws CLI is available
+  # Details at https://github.com/cloudposse/terraform-aws-eks-cluster/releases/tag/0.42.0
   kube_exec_auth_enabled = !var.kubeconfig_file_enabled
   # If using `exec` method (recommended) for authentication, provide an explict
   # IAM role ARN to exec as for authentication to EKS cluster.
