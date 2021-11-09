@@ -27,7 +27,7 @@ synthetics-slo-generic:
   tags:
     - "ManagedBy:Terraform"
 
-synthetics-slo-sbx-http:
+synthetics-slo-http:
   name: "(SLO) - Synthetic Checks HTTP"
   type: metric
   query:
@@ -55,7 +55,7 @@ synthetics-slo-sbx-http:
   tags:
     - "ManagedBy:Terraform"
 
-synthetics-slo-sbx-browser:
+synthetics-slo-browser:
   name: "(SLO) - Synthetic Checks Browser"
   type: metric
   query:

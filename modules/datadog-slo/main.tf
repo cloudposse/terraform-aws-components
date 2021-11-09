@@ -25,6 +25,5 @@ module "datadog_slos" {
   alert_tags           = var.alert_tags
   alert_tags_separator = var.alert_tags_separator
 
-  enabled = var.enabled
   context = module.this.context
 }
