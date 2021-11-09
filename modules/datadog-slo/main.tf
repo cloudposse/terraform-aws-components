@@ -1,12 +1,15 @@
 locals {
   enabled = module.this.enabled
 
-  datadog_api_key = (var.secrets_store_type == "ASM" ? (
+  asm_enabled = local.enabled && var.secrets_store_type == "ASM"
+  ssm_enabled = local.enabled && var.secrets_store_type == "SSM"
+
+  datadog_api_key = (local.asm_enabled ? (
     data.aws_secretsmanager_secret_version.datadog_api_key[0].secret_string) :
     data.aws_ssm_parameter.datadog_api_key[0].value
   )
 
-  datadog_app_key = (var.secrets_store_type == "ASM" ? (
+  datadog_app_key = (local.asm_enabled ? (
     data.aws_secretsmanager_secret_version.datadog_app_key[0].secret_string) :
     data.aws_ssm_parameter.datadog_app_key[0].value
   )
