@@ -91,9 +91,9 @@ components:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_datadog_metric_slos"></a> [datadog\_metric\_slos](#output\_datadog\_metric\_slos) | Map of created Metric Based SLOs |
-| <a name="output_datadog_monitor_slos"></a> [datadog\_monitor\_slos](#output\_datadog\_monitor\_slos) | Map of created Monitor Based SLOs |
-| <a name="output_datadog_slo_alerts"></a> [datadog\_slo\_alerts](#output\_datadog\_slo\_alerts) | Map of created SLO Based Alerts |
+| <a name="output_datadog_metric_slos"></a> [datadog\_metric\_slos](#output\_datadog\_metric\_slos) | Map of created Metric SLOs |
+| <a name="output_datadog_monitor_slos"></a> [datadog\_monitor\_slos](#output\_datadog\_monitor\_slos) | Map of created Monitor SLOs |
+| <a name="output_datadog_slo_alerts"></a> [datadog\_slo\_alerts](#output\_datadog\_slo\_alerts) | Map of created SLO-based alerts |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
