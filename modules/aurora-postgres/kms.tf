@@ -21,8 +21,6 @@ data "aws_partition" "current" {
 # https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default-allow-administrators
 # https://aws.amazon.com/premiumsupport/knowledge-center/update-key-policy-future/
 data "aws_iam_policy_document" "kms_key_rds" {
-  #bridgecrew:skip=BC_AWS_IAM_56:Skipping `Ensure IAM policies do not allow permissions management / resource exposure without constraint` check because this is the policy recommended by AWS
-  #bridgecrew:skip=BC_AWS_IAM_57:Skipping `Ensure IAM policies does not allow write access without constraint` check because this is the policy recommended by AWS
   count = local.enabled ? 1 : 0
 
   statement {

@@ -2,6 +2,11 @@
 # This means that explicit provider blocks appear only in the root module, and downstream modules can simply
 # declare resources for that provider and have them automatically associated with the root provider configurations
 
+locals {
+  additional_users           = local.enabled ? var.additional_users : {}
+  sanitized_additional_users = { for k, v in module.additional_users : k => { for kk, vv in v : kk => vv if kk != "db_user_password" } }
+}
+
 # https://www.terraform.io/docs/providers/aws/r/rds_cluster.html
 module "aurora_postgres_cluster" {
   source  = "cloudposse/rds-cluster/aws"
@@ -82,9 +87,3 @@ module "additional_users" {
 
   depends_on = [module.aurora_postgres_cluster.cluster_identifier]
 }
-
-locals {
-  additional_users           = local.enabled ? var.additional_users : {}
-  sanitized_additional_users = { for k, v in module.additional_users : k => { for kk, vv in v : kk => vv if kk != "db_user_password" } }
-}
-

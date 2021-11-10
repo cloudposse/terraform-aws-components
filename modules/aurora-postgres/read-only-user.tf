@@ -1,9 +1,3 @@
-variable "read_only_users_enabled" {
-  type        = bool
-  default     = false
-  description = "Set `true` to automatically create read-only users for every database"
-}
-
 locals {
   ro_users_enabled        = local.enabled && var.read_only_users_enabled
   ro_user_ssm_path_prefix = format("%v/read_only", local.ssm_path_prefix)
@@ -30,6 +24,34 @@ locals {
       object_type : "table"
     },
   ] }
+
+  # Need a placeholder for the derived admin_user so that we can use users_map in for_each
+  admin_user_placeholder = "+ADMIN_USER+"
+
+  # Map each db user to the list of databases they have access to
+  user_dbs = merge({ for service, v in var.additional_users : v.db_user => distinct([for g in v.grants : g.db if g.object_type == "database"]) },
+  { (local.admin_user_placeholder) = local.all_databases })
+  # Flatten user_dbs into a list of (db, user) pairs
+  users_map = merge(flatten([for u, dbs in local.user_dbs : { for db in dbs : "${db}_${u}" => {
+    user = u
+    db   = db
+  } }])...)
+
+  read_only_users = local.ro_users_enabled ? merge(module.read_only_db_users,
+    {
+      cluster = module.read_only_cluster_user[0]
+    }
+  ) : {}
+  sanitized_ro_users = {
+    for k, v in local.read_only_users :
+    k => { for kk, vv in v : kk => vv if kk != "db_user_password" }
+  }
+}
+
+variable "read_only_users_enabled" {
+  type        = bool
+  default     = false
+  description = "Set `true` to automatically create read-only users for every database"
 }
 
 module "read_only_db_users" {
@@ -70,20 +92,6 @@ module "read_only_cluster_user" {
   context = module.this.context
 }
 
-locals {
-  # Need a placeholder for the derived admin_user so that we can use users_map in for_each
-  admin_user_placeholder = "+ADMIN_USER+"
-
-  # Map each db user to the list of databases they have access to
-  user_dbs = merge({ for service, v in var.additional_users : v.db_user => distinct([for g in v.grants : g.db if g.object_type == "database"]) },
-  { (local.admin_user_placeholder) = local.all_databases })
-  # Flatten user_dbs into a list of (db, user) pairs
-  users_map = merge(flatten([for u, dbs in local.user_dbs : { for db in dbs : "${db}_${u}" => {
-    user = u
-    db   = db
-  } }])...)
-}
-
 # For every user with access to a database, ensure that user by default
 # grants "SELECT" privileges to every table they create to the db RO user
 resource "postgresql_default_privileges" "read_only_tables_users" {
@@ -108,8 +116,6 @@ resource "postgresql_default_privileges" "read_only_tables_users" {
 resource "postgresql_default_privileges" "read_only_tables_cluster" {
   for_each = local.users_map
 
-  enabled = true
-
   role     = local.cluster_ro_user
   database = each.value.db
   schema   = "public"
@@ -122,12 +128,6 @@ resource "postgresql_default_privileges" "read_only_tables_cluster" {
     module.read_only_db_users,
     module.read_only_cluster_user,
   ]
-}
-
-locals {
-  read_only_users = local.ro_users_enabled ? merge(module.read_only_db_users,
-  { cluster = module.read_only_cluster_user[0] }) : {}
-  sanitized_ro_users = { for k, v in local.read_only_users : k => { for kk, vv in v : kk => vv if kk != "db_user_password" } }
 }
 
 output "read_only_users" {

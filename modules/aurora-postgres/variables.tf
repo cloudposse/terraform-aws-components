@@ -16,7 +16,8 @@ variable "cluster_name" {
 
 variable "database_name" {
   type        = string
-  description = "Name for an automatically created database on cluster creation"
+  description = "Name for an automatically created database on cluster creation. An empty name will generate a db name."
+  default     = ""
 }
 
 variable "deletion_protection" {
@@ -45,11 +46,13 @@ variable "storage_encrypted" {
 variable "engine" {
   type        = string
   description = "Name of the database engine to be used for the DB cluster"
+  default     = "postgresql"
 }
 
 variable "engine_version" {
   type        = string
   description = "Engine version of the Aurora global database"
+  default     = "13.4"
 }
 
 variable "engine_mode" {
@@ -60,6 +63,7 @@ variable "engine_mode" {
 variable "cluster_family" {
   type        = string
   description = "Family of the DB parameter group. Valid values for Aurora PostgreSQL: `aurora-postgresql9.6`, `aurora-postgresql10`, `aurora-postgresql11`, `aurora-postgresql12`"
+  default     = "aurora-postgresql13"
 }
 
 # AWS KMS alias used for encryption/decryption of SSM secure strings
@@ -126,6 +130,7 @@ variable "cluster_size" {
 variable "iam_database_authentication_enabled" {
   type        = bool
   description = "Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled"
+  default     = false
 }
 
 variable "cluster_dns_name_part" {

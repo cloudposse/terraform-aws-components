@@ -20,14 +20,6 @@ engine_mode = "provisioned"
 # For Aurora Postgres 12.4:
 # engine: "postgresql"
 # cluster_family: "aurora-postgresql12"
-engine_version = "12.4"
+engine_version = "13.4"
 
-cluster_family = "aurora-postgresql12"
-
-database_name = ""
-
-admin_user = ""
-
-admin_password = ""
-
-iam_database_authentication_enabled = false
+cluster_family = "aurora-postgresql13"
