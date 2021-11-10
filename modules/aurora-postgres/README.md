@@ -4,8 +4,8 @@ This component is responsible for provisioning Aurora Postgres RDS clusters.
 It seeds relevant database information (hostnames, username, password, etc.) into AWS SSM Parameter Store.
 
 **NOTE**: Creating additional users (including read-only users) and databases 
-requires Spacelift, since that action to be done via the postgresql provider,
-and by default only the automation account is whitelisted by the Aurora cluster.
+requires Spacelift, since that action needs to be done via the postgresql provider,
+and by default only the automation account is allowlisted by the Aurora cluster.
 
 ## Usage
 
