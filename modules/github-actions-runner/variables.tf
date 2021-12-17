@@ -219,7 +219,7 @@ variable "iam_source_json_url" {
 variable "iam_policy_statements" {
   type        = any
   description = "IAM policy for the service account. Required if `var.iam_role_enabled` is `true`. This will not do variable replacements. Please see `var.iam_policy_statements_template_path`."
-  default     = {}
+  default     = []
 }
 
 ## eks_iam_role

@@ -1,15 +1,15 @@
 output "release_name" {
-  value       = join("", helm_release.actions_runner_controller.*.name)
+  value       = var.controller_chart_release_name
   description = "Name of the release"
 }
 
 output "release_namespace" {
-  value       = join("", helm_release.actions_runner_controller.*.namespace)
+  value       = var.controller_chart_namespace
   description = "Namespace of the release"
 }
 
 output "service_account_role_arn" {
-  value       = module.eks_iam_role.service_account_role_arn
+  value       = module.actions_runner_controller.service_account_role_arn
   description = "Service Account role ARN"
 }
 
