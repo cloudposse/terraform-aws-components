@@ -20,8 +20,10 @@ components:
           - repo: yet-another-repo
 ```
 
-### Runner Types:
-**small**
+### Runner Types
+
+#### small
+
 ```yaml
 resources:
   limits:
@@ -32,7 +34,8 @@ resources:
     memory: "1Gi"
 ```
 
-**medium**
+#### medium
+
 ```yaml
 resources:
   limits:
@@ -43,7 +46,8 @@ resources:
     memory: "1Gi"
 ```
 
-**large**
+#### large
+
 ```yaml
 resources:
   limits:
@@ -54,46 +58,50 @@ resources:
     memory: "1Gi"
 ```
 
-### Autoscale Types:
-**low_concurrency**
+### Autoscale Types
+
+#### low_concurrency
+
 ```yaml
 minReplicas: 1
 maxReplicas: 8
 metrics:
   type: PercentageRunnersBusy
-  scaleUpThreshold: '0.75'
-  scaleDownThreshold: '0.3'
+  scaleUpThreshold: "0.75"
+  scaleDownThreshold: "0.3"
   scaleUpAdjustment: 1
   scaleDownAdjustment: 1
 ```
 
-**medium_concurrency**
+#### medium_concurrency
+
 ```yaml
 minReplicas: 1
 maxReplicas: 16
 metrics:
   type: PercentageRunnersBusy
-  scaleUpThreshold: '0.75'
-  scaleDownThreshold: '0.3'
+  scaleUpThreshold: "0.75"
+  scaleDownThreshold: "0.3"
   scaleUpAdjustment: 4
   scaleDownAdjustment: 2
 ```
 
-**high_concurrency**
+#### high_concurrency
+
 ```yaml
 minReplicas: 1
 maxReplicas: 32
 metrics:
   type: PercentageRunnersBusy
-  scaleUpThreshold: '0.75'
-  scaleDownThreshold: '0.3'
+  scaleUpThreshold: "0.75"
+  scaleDownThreshold: "0.3"
   scaleUpAdjustment: 8
   scaleDownAdjustment: 4
 ```
 
 ## Managing the Runner Docker Image
 
-```
+```bash
 cd components/terraform/github-actions-runner/runners/runner
 ```
 
@@ -142,7 +150,7 @@ kubectl create secret generic controller-manager -n actions-runner-system \
   --from-literal=github_token=${GITHUB_TOKEN}
 ```
 
-_NOTE_: configure the desired cluster in Geodesic using `set-cluster account` (where `account` is the AWS account name; ex: `set-cluster auto`).
+_NOTE_: configure the desired cluster in Geodesic using `set-cluster account` (where `account` is the AWS account name; ex: `set-cluster auto`). The region may be required as well as a tenant, if the project uses tenants; ex: `set-cluster apse1-auto`.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -158,18 +166,19 @@ _NOTE_: configure the desired cluster in Geodesic using `set-cluster account` (w
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.19.0 |
+| <a name="module_actions_runner"></a> [actions\_runner](#module\_actions\_runner) | cloudposse/helm-release/aws | 0.3.0 |
+| <a name="module_actions_runner_controller"></a> [actions\_runner\_controller](#module\_actions\_runner\_controller) | cloudposse/helm-release/aws | 0.3.0 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.0 |
 | <a name="module_eks_iam_policy"></a> [eks\_iam\_policy](#module\_eks\_iam\_policy) | cloudposse/iam-policy/aws | 0.2.2 |
 | <a name="module_eks_iam_role"></a> [eks\_iam\_role](#module\_eks\_iam\_role) | cloudposse/eks-iam-role/aws | 0.10.3 |
 | <a name="module_github_action_controller_label"></a> [github\_action\_controller\_label](#module\_github\_action\_controller\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_github_action_helm_label"></a> [github\_action\_helm\_label](#module\_github\_action\_helm\_label) | cloudposse/label/null | 0.25.0 |
-| <a name="module_iam_primary_roles"></a> [iam\_primary\_roles](#module\_iam\_primary\_roles) | cloudposse/stack-config/yaml//modules/remote-state | 0.19.0 |
+| <a name="module_iam_primary_roles"></a> [iam\_primary\_roles](#module\_iam\_primary\_roles) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -181,8 +190,6 @@ _NOTE_: configure the desired cluster in Geodesic using `set-cluster account` (w
 | [aws_iam_role_policy_attachment.github_action_runner_kms](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_kms_alias.github_action_runner](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_alias) | resource |
 | [aws_kms_key.github_action_runner](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
-| [helm_release.actions_runner](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [helm_release.actions_runner_controller](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_eks_cluster.kubernetes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
 | [aws_eks_cluster_auth.kubernetes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
@@ -212,7 +219,7 @@ _NOTE_: configure the desired cluster in Geodesic using `set-cluster account` (w
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_iam_policy_statements"></a> [iam\_policy\_statements](#input\_iam\_policy\_statements) | IAM policy for the service account. Required if `var.iam_role_enabled` is `true`. This will not do variable replacements. Please see `var.iam_policy_statements_template_path`. | `any` | `{}` | no |
+| <a name="input_iam_policy_statements"></a> [iam\_policy\_statements](#input\_iam\_policy\_statements) | IAM policy for the service account. Required if `var.iam_role_enabled` is `true`. This will not do variable replacements. Please see `var.iam_policy_statements_template_path`. | `any` | `[]` | no |
 | <a name="input_iam_primary_roles_environment_name"></a> [iam\_primary\_roles\_environment\_name](#input\_iam\_primary\_roles\_environment\_name) | The name of the environment where global `iam_primary_roles` is provisioned | `string` | `"gbl"` | no |
 | <a name="input_iam_primary_roles_stage_name"></a> [iam\_primary\_roles\_stage\_name](#input\_iam\_primary\_roles\_stage\_name) | The name of the stage where `iam_primary_roles` is provisioned | `string` | `"identity"` | no |
 | <a name="input_iam_role_enabled"></a> [iam\_role\_enabled](#input\_iam\_role\_enabled) | Whether to create an IAM role. Setting this to `true` will also replace any occurrences of `{service_account_role_arn}` in `var.values_template_path` with the ARN of the IAM role created by this module. | `bool` | `false` | no |

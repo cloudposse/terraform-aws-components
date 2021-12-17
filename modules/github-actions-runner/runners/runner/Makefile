@@ -1,6 +1,6 @@
-ECR_PROFILE ?= vymd-gbl-automation-ops
+ECR_PROFILE ?= eg-gbl-automation-ops
 DOCKER_REGION := us-east-2
-DOCKER_REPO := 475282536323.dkr.ecr.us-east-2.amazonaws.com
+DOCKER_REPO := 123456789012.dkr.ecr.us-east-2.amazonaws.com
 DOCKER_IMAGE := summerwind/actions-runner
 DOCKER_TAG = $(TAG)
 
@@ -46,4 +46,3 @@ push:
 
 .DEFAULT_GOAL: help
 .PHONY: help list-tags build push
-
