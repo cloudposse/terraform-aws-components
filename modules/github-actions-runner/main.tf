@@ -28,7 +28,7 @@ module "github_action_controller_label" {
 # https://github.com/hashicorp/terraform-provider-helm/issues/735
 module "actions_runner_controller" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.3.0"
+  version = "0.3.1"
 
   name    = var.controller_chart_release_name # module.github_action_controller_label.tags["Attributes"]
   enabled = local.enabled
@@ -182,7 +182,7 @@ module "github_action_helm_label" {
 
 module "actions_runner" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.3.0"
+  version = "0.3.1"
 
   depends_on = [
     module.actions_runner_controller
