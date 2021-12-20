@@ -33,4 +33,7 @@ provider "helm" {
     token                  = local.enabled ? data.aws_eks_cluster_auth.kubernetes[0].token : null
     cluster_ca_certificate = local.enabled ? base64decode(data.aws_eks_cluster.kubernetes[0].certificate_authority[0].data) : null
   }
+  experiments {
+    manifest = true
+  }
 }
