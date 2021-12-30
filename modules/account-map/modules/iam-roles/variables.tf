@@ -21,3 +21,14 @@ variable "root_account_stage_name" {
   description = "The stage name for the root account"
   default     = "root"
 }
+
+variable "stack_config_local_path" {
+  description = <<-EOT
+  An override for the `stack_config_local_path` when invoking the `account-map` module.
+
+  This is useful when invoking this module from another repository, which may not have a `stacks` directory.
+
+  Leave this as `null` when not performing such an invocation.
+  EOT
+  default     = "../../../stacks"
+}
