@@ -15,6 +15,12 @@ variable "privileged" {
   default     = false
 }
 
+variable "global_tenant_name" {
+  type        = string
+  description = "Global tenant name"
+  default     = null
+}
+
 variable "global_environment_name" {
   type        = string
   description = "Global environment name"
@@ -26,14 +32,3 @@ variable "root_account_stage_name" {
   description = "The stage name for the root account"
   default     = "root"
 }
-
-variable "root_account_tenant_name" {
-  type        = string
-  description = <<-EOT
-  The tenant name for the root account.
-
-  If the `tenant` label is not used, set this to `null`.
-  EOT
-  default     = "mgmt"
-}
-
