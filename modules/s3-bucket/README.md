@@ -6,7 +6,7 @@ This component is responsible for provisioning S3 buckets.
 
 **Stack Level**: Regional
 
-Atmos now supports virtual component inheritance. We can leverage this feature to keep bucket configuration completely `D.R.Y.`.  Here's an example snippet with multiple `s3-bucket` types:
+This component leverages virtual component inheritance to keep bucket configuration completely `D.R.Y.` and requires `atmos` version `>= v1.3.12`.  Here's an example snippet with multiple `s3-bucket` types:
 
 ```
 /stacks/catalog/s3-bucket/
