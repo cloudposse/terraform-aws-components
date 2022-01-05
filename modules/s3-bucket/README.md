@@ -6,52 +6,110 @@ This component is responsible for provisioning S3 buckets.
 
 **Stack Level**: Regional
 
-Here's an example snippet for how to use this component.
+Atmos now supports virtual component inheritance. We can leverage this feature to keep bucket configuration completely `D.R.Y.`.  Here's an example snippet with multiple `s3-bucket` types:
 
-`stacks/catalog/s3/s3-defaults.yaml` file (base component for all S3 buckets with default settings):
+```
+/stacks/catalog/s3-bucket/
+
+├── app
+│   └── examples.yaml
+└── common
+    ├── defaults.yaml
+    ├── s3-bucket-logs.yaml
+    └── s3-bucket-scripts.yaml
+```
+
+`stacks/catalog/s3-bucket/common/defaults.yaml` file (base component for all S3 buckets with default settings):
 
 ```yaml
 components:
   terraform:
     s3-bucket:
       vars:
-        enabled: false
+        # Suggested configuration for all buckets
+        user_enabled: false
         acl: "private"
         grants: null
         policy: ""
         force_destroy: false
-        versioning_enabled: true
-        allow_encrypted_uploads_only: false
-        lifecycle_rule_enabled: false
-        noncurrent_version_glacier_transition_days: 30
-        noncurrent_version_deeparchive_transition_days: 60
-        noncurrent_version_expiration_days: 90
-        standard_transition_days: 30
-        glacier_transition_days: 60
-        deeparchive_transition_days: 90
-        enable_glacier_transition: false
-        enable_deeparchive_transition: false
-        enable_standard_ia_transition: false
-        enable_current_object_expiration: false
-        expiration_days: 90
-        lifecycle_tags: {}
+        versioning_enabled: false
+        allow_encrypted_uploads_only: true
         block_public_acls: true
         block_public_policy: true
         ignore_public_acls: true
         restrict_public_buckets: true
+        allow_ssl_requests_only: true
 ```
 
-`stacks/catalog/s3/my-documents-bucket`:
+`stacks/catalog/s3-bucket/common/s3-bucket-logs.yaml`:
 
 ```yaml
+import:
+  - catalog/s3-bucket/common/defaults
+
 components:
   terraform:
-    my-documents-bucket:
+    s3-bucket-logs:
       component: s3-bucket
       vars:
-        enabled: true
-        name: "my-documents"
+        attributes: ["logs"]
+        # This is an example for setting configuration for a specific s3-bucket bucket type, s3-bucket-logs
+        lifecycle_rules:
+          - prefix: ""
+            enabled: true
+            tags: {}
+            enable_glacier_transition: true
+            enable_deeparchive_transition: false
+            enable_standard_ia_transition: false
+            enable_current_object_expiration: true
+            enable_noncurrent_version_expiration: true
+            abort_incomplete_multipart_upload_days: 90
+            noncurrent_version_glacier_transition_days: 30
+            noncurrent_version_deeparchive_transition_days: 60
+            noncurrent_version_expiration_days: 90
+            standard_transition_days: 30
+            glacier_transition_days: 60
+            deeparchive_transition_days: 90
+            expiration_days: 90
 ```
+
+`stacks/catalog/s3-bucket/app/examples.yaml` configuration for the list of buckets to be created:
+
+```yaml
+import:
+- catalog/s3-bucket/common/s3-bucket-*
+
+components:
+  terraform:
+
+    s3-bucket-logs-cloudtrail:
+      component: s3-bucket-logs
+      settings:
+        spacelift:
+          workspace_enabled: true
+      vars:
+        enabled: true
+        name: "cloudtrail"
+
+    s3-bucket-scripts-endpoints:
+      component: s3-bucket-scripts
+      settings:
+        spacelift:
+          workspace_enabled: true
+      vars:
+        enabled: true
+        name: "endpoints"
+```
+
+Now we can import the entire bucket list into any given stack:
+```yaml
+import:
+- catalog/s3-bucket/app/examples
+
+components:
+  terraform: {}
+```
+
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
