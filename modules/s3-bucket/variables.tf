@@ -3,6 +3,28 @@ variable "region" {
   description = "AWS Region"
 }
 
+variable "account_map_environment_name" {
+  type        = string
+  description = "The name of the environment where `account_map` is provisioned"
+  default     = "gbl"
+}
+
+variable "account_map_stage_name" {
+  type        = string
+  description = "The name of the stage where `account_map` is provisioned"
+  default     = "root"
+}
+
+variable "account_map_tenant_name" {
+  type        = string
+  description = <<-EOT
+  The name of the tenant where `account_map` is provisioned.
+
+  If the `tenant` label is not used, leave this as `null`.
+  EOT
+  default     = null
+}
+
 variable "acl" {
   type        = string
   default     = "private"
@@ -90,10 +112,11 @@ variable "lifecycle_rules" {
     enabled = bool
     tags    = map(string)
 
-    enable_glacier_transition        = bool
-    enable_deeparchive_transition    = bool
-    enable_standard_ia_transition    = bool
-    enable_current_object_expiration = bool
+    enable_glacier_transition            = bool
+    enable_deeparchive_transition        = bool
+    enable_standard_ia_transition        = bool
+    enable_current_object_expiration     = bool
+    enable_noncurrent_version_expiration = bool
 
     abort_incomplete_multipart_upload_days         = number
     noncurrent_version_glacier_transition_days     = number
@@ -110,10 +133,11 @@ variable "lifecycle_rules" {
     prefix  = ""
     tags    = {}
 
-    enable_glacier_transition        = true
-    enable_deeparchive_transition    = false
-    enable_standard_ia_transition    = false
-    enable_current_object_expiration = true
+    enable_glacier_transition            = true
+    enable_deeparchive_transition        = false
+    enable_standard_ia_transition        = false
+    enable_current_object_expiration     = true
+    enable_noncurrent_version_expiration = true
 
     abort_incomplete_multipart_upload_days         = 90
     noncurrent_version_glacier_transition_days     = 30

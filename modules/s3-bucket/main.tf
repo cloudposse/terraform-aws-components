@@ -13,35 +13,35 @@ data "aws_partition" "current" {}
 
 module "s3_bucket" {
   source  = "cloudposse/s3-bucket/aws"
-  version = "0.42.0"
+  version = "0.44.2"
 
+  abort_incomplete_multipart_upload_days = var.abort_incomplete_multipart_upload_days
   acl                                    = var.acl
-  grants                                 = var.grants
-  policy                                 = local.bucket_policy
-  force_destroy                          = var.force_destroy
-  versioning_enabled                     = var.versioning_enabled
-  logging                                = var.logging
-  sse_algorithm                          = var.sse_algorithm
-  kms_master_key_arn                     = var.kms_master_key_arn
   allow_encrypted_uploads_only           = var.allow_encrypted_uploads_only
-  lifecycle_rules                        = var.lifecycle_rules
-  cors_rule_inputs                       = var.cors_rule_inputs
+  allow_ssl_requests_only                = var.allow_ssl_requests_only
   block_public_acls                      = var.block_public_acls
   block_public_policy                    = var.block_public_policy
-  ignore_public_acls                     = var.ignore_public_acls
-  restrict_public_buckets                = var.restrict_public_buckets
-  s3_replication_enabled                 = var.s3_replication_enabled
-  s3_replica_bucket_arn                  = var.s3_replica_bucket_arn
-  s3_replication_source_roles            = var.s3_replication_source_roles
-  s3_replication_rules                   = var.s3_replication_rules
   bucket_name                            = var.bucket_name
-  allow_ssl_requests_only                = var.allow_ssl_requests_only
+  cors_rule_inputs                       = var.cors_rule_inputs
+  force_destroy                          = var.force_destroy
+  grants                                 = var.grants
+  ignore_public_acls                     = var.ignore_public_acls
+  kms_master_key_arn                     = var.kms_master_key_arn
+  lifecycle_rules                        = var.lifecycle_rules
+  logging                                = var.logging
   object_lock_configuration              = var.object_lock_configuration
-  abort_incomplete_multipart_upload_days = var.abort_incomplete_multipart_upload_days
-  website_inputs                         = var.website_inputs
-  privileged_principal_arns              = var.privileged_principal_arns
+  policy                                 = local.bucket_policy
   privileged_principal_actions           = var.privileged_principal_actions
+  privileged_principal_arns              = var.privileged_principal_arns
+  restrict_public_buckets                = var.restrict_public_buckets
+  s3_replica_bucket_arn                  = var.s3_replica_bucket_arn
+  s3_replication_enabled                 = var.s3_replication_enabled
+  s3_replication_rules                   = var.s3_replication_rules
+  s3_replication_source_roles            = var.s3_replication_source_roles
+  sse_algorithm                          = var.sse_algorithm
   transfer_acceleration_enabled          = var.transfer_acceleration_enabled
+  versioning_enabled                     = var.versioning_enabled
+  website_inputs                         = var.website_inputs
 
   # IAM user with permissions to access the s3 bucket
   user_enabled           = var.user_enabled
