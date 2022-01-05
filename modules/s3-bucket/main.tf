@@ -13,7 +13,7 @@ data "aws_partition" "current" {}
 
 module "s3_bucket" {
   source  = "cloudposse/s3-bucket/aws"
-  version = "0.44.1"
+  version = "0.44.2"
 
   abort_incomplete_multipart_upload_days = var.abort_incomplete_multipart_upload_days
   acl                                    = var.acl
