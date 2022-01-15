@@ -8,9 +8,18 @@ repos:
                 modules/cert-manager/cert-manager-issuer/templates/.*.yaml |
                 modules/github-actions-runner/runners/actions-runner/chart/templates/.*.yaml
             )$
-  - repo: git://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.55.0
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.62.3
     hooks:
       - id: terraform_fmt
       - id: terraform_docs
         args: ['--args=--lockfile=false']
+  - repo: local
+    hooks:
+      - id: rebuild-mixins-docs
+        name: rebuild-mixins-docs
+        entry: bash -c 'make rebuild-mixins-docs'
+        language: system
+        types: ["markdown"]
+        files: mixins\/README.md
+        pass_filenames: false
