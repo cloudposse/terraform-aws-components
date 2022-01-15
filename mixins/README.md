@@ -8,7 +8,7 @@ Mixins are meant to encourage code reuse, leading to more simple components with
 to component.
 
 <!-- BEGINNING OF TERRAFORM-MIXINS DOCS HOOK -->
-## `introspection.mixin.tf`
+## Mixin: `introspection.mixin.tf`
 
 This mixin is meant to be added to Terraform components in order to append a 'Component' tag to all resources in the
 configuration, specifying which component the resources belong to.
@@ -16,7 +16,7 @@ configuration, specifying which component the resources belong to.
 It's important to note that all modules and resources within the component then need to supply `module.introspection.context`
 and `module.introspection.tags`, respectively, rather than `module.this.context` and `module.this.tags`.
 
-## `monorepo.mixin.tf`
+## Mixin: `monorepo.mixin.tf`
 
 This mixin is meant to be placed in a Terraform config outside the organization's infrastructure monorepo in order to:
 
@@ -34,7 +34,7 @@ when "dropped into" a Terraform configuration:
 1. Infrastructure monorepo: 'github.com/ACME/infrastructure'
 2. Infrastructure monorepo ref: '0.1.0'
 
-## `sops.mixin.tf`
+## Mixin: `sops.mixin.tf`
 
 This mixin is meant to be added to Terraform EKS components which are used in a cluster where sops-secrets-operator (see: https://github.com/isindir/sops-secrets-operator)
 is deployed. It will then allow for SOPS-encrypted SopsSecret CRD manifests (such as `example.sops.yaml`) placed in a
