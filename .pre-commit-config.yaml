@@ -20,6 +20,6 @@ repos:
         name: rebuild-mixins-docs
         entry: bash -c 'make rebuild-mixins-docs'
         language: system
-        types: ["markdown"]
-        files: mixins\/README\.md
+        types: ["text"]
+        files: (mixins\/.*|bin\/rebuild-mixins-docs\.sh)
         pass_filenames: false
