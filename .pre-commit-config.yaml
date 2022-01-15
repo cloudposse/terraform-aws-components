@@ -21,5 +21,5 @@ repos:
         entry: bash -c 'make rebuild-mixins-docs'
         language: system
         types: ["markdown"]
-        files: mixins\/README.md
+        files: mixins\/README\.md
         pass_filenames: false
