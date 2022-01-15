@@ -1,6 +1,6 @@
 # <-- BEGIN DOC -->
 #
-# This mixin is meant to be added to Terraform components in order to append a 'Component' tag to all resources in the
+# This mixin is meant to be added to Terraform components in order to append a `Component` tag to all resources in the
 # configuration, specifying which component the resources belong to.
 #
 # It's important to note that all modules and resources within the component then need to supply `module.introspection.context`

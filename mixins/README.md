@@ -10,7 +10,7 @@ to component.
 <!-- BEGINNING OF TERRAFORM-MIXINS DOCS HOOK -->
 ## Mixin: `introspection.mixin.tf`
 
-This mixin is meant to be added to Terraform components in order to append a 'Component' tag to all resources in the
+This mixin is meant to be added to Terraform components in order to append a `Component` tag to all resources in the
 configuration, specifying which component the resources belong to.
 
 It's important to note that all modules and resources within the component then need to supply `module.introspection.context`
@@ -21,18 +21,18 @@ and `module.introspection.tags`, respectively, rather than `module.this.context`
 This mixin is meant to be placed in a Terraform config outside the organization's infrastructure monorepo in order to:
 
 1. Instantiate an AWS Provider using roles managed by the infrastructure monorepo. Since Cloud Posse's providers.tf pattern
-requires an invocation of the 'account-map' component’s 'iam-roles' submodule, which is not present in a repository
+requires an invocation of the `account-map` component’s `iam-roles` submodule, which is not present in a repository
 outside of the infrastructure monorepo.
-2. Retrieve outputs from a component in the infrastructure monorepo. Since Cloud Posse’s 'remote-state' module expects
-a 'stacks' directory, which will not be present in this repository, the monorepo must be cloned via a 'monorepo' module
+2. Retrieve outputs from a component in the infrastructure monorepo. Since Cloud Posse’s `remote-state` module expects
+a `stacks` directory, which will not be present in this repository, the monorepo must be cloned via a `monorepo` module
 instantiation.
 
-Because the source attribute in the 'monorepo' and 'remote-state' modules cannot be interpolated and refers to a monorepo
+Because the source attribute in the `monorepo` and `remote-state` modules cannot be interpolated and refers to a monorepo
 in a given organization, the following dummy placeholders have been put in place upstream and need to be replaced accordingly
 when "dropped into" a Terraform configuration:
 
-1. Infrastructure monorepo: 'github.com/ACME/infrastructure'
-2. Infrastructure monorepo ref: '0.1.0'
+1. Infrastructure monorepo: `github.com/ACME/infrastructure`
+2. Infrastructure monorepo ref: `0.1.0`
 
 ## Mixin: `sops.mixin.tf`
 
