@@ -10,13 +10,13 @@ to component.
 <!-- BEGINNING OF TERRAFORM-MIXINS DOCS HOOK -->
 ## Mixin: `infra-state.mixin.tf`
 
-This mixin is meant to be placed in a Terraform config outside the organization's infrastructure monorepo in order to:
+This mixin is meant to be placed in a Terraform configuration outside the organization's infrastructure monorepo in order to:
 
-1. Instantiate an AWS Provider using roles managed by the infrastructure monorepo. Since Cloud Posse's providers.tf pattern
+1. Instantiate an AWS Provider using roles managed by the infrastructure monorepo. This is required because Cloud Posse's `providers.tf` pattern
 requires an invocation of the `account-map` component’s `iam-roles` submodule, which is not present in a repository
 outside of the infrastructure monorepo.
-2. Retrieve outputs from a component in the infrastructure monorepo. Since Cloud Posse’s `remote-state` module expects
-a `stacks` directory, which will not be present in this repository, the monorepo must be cloned via a `monorepo` module
+2. Retrieve outputs from a component in the infrastructure monorepo. This is required because Cloud Posse’s `remote-state` module expects
+a `stacks` directory, which will not be present in other repositories, the monorepo must be cloned via a `monorepo` module
 instantiation.
 
 Because the source attribute in the `monorepo` and `remote-state` modules cannot be interpolated and refers to a monorepo
@@ -31,7 +31,7 @@ when "dropped into" a Terraform configuration:
 This mixin is meant to be added to Terraform components in order to append a `Component` tag to all resources in the
 configuration, specifying which component the resources belong to.
 
-It's important to note that all modules and resources within the component then need to supply `module.introspection.context`
+It's important to note that all modules and resources within the component then need to use `module.introspection.context`
 and `module.introspection.tags`, respectively, rather than `module.this.context` and `module.this.tags`.
 
 ## Mixin: `sops.mixin.tf`
