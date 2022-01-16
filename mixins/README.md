@@ -8,15 +8,7 @@ Mixins are meant to encourage code reuse, leading to more simple components with
 to component.
 
 <!-- BEGINNING OF TERRAFORM-MIXINS DOCS HOOK -->
-## Mixin: `introspection.mixin.tf`
-
-This mixin is meant to be added to Terraform components in order to append a `Component` tag to all resources in the
-configuration, specifying which component the resources belong to.
-
-It's important to note that all modules and resources within the component then need to supply `module.introspection.context`
-and `module.introspection.tags`, respectively, rather than `module.this.context` and `module.this.tags`.
-
-## Mixin: `monorepo.mixin.tf`
+## Mixin: `infra-state.mixin.tf`
 
 This mixin is meant to be placed in a Terraform config outside the organization's infrastructure monorepo in order to:
 
@@ -33,6 +25,14 @@ when "dropped into" a Terraform configuration:
 
 1. Infrastructure monorepo: `github.com/ACME/infrastructure`
 2. Infrastructure monorepo ref: `0.1.0`
+
+## Mixin: `introspection.mixin.tf`
+
+This mixin is meant to be added to Terraform components in order to append a `Component` tag to all resources in the
+configuration, specifying which component the resources belong to.
+
+It's important to note that all modules and resources within the component then need to supply `module.introspection.context`
+and `module.introspection.tags`, respectively, rather than `module.this.context` and `module.this.tags`.
 
 ## Mixin: `sops.mixin.tf`
 
