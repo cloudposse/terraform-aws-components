@@ -65,6 +65,7 @@ variable "sops_secrets" {
 }
 
 output "sops_secrets" {
+  description = "List of provisioned SopsSecret Kubernetes resources and their respective templated Secret objects."
   value = {
     for sops_secret in kubernetes_manifest.sops_secret : sops_secret.manifest.metadata.name =>
     {
