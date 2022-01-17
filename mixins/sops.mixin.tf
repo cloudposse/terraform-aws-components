@@ -22,9 +22,9 @@ locals {
 }
 
 provider "kubernetes" {
-  host                   = local.kubernetes_host
-  token                  = local.kubernetes_token
-  cluster_ca_certificate = local.kubernetes_cluster_ca_certificate
+  host                   = local.sops_kubernetes_host
+  token                  = local.sops_kubernetes_token
+  cluster_ca_certificate = local.sops_kubernetes_cluster_ca_certificate
 }
 
 resource "kubernetes_manifest" "sops_secret" {
