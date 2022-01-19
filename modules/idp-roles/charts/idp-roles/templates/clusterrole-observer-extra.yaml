@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: "{{ .Values.observer_cluster_role }}-extra"
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-observer: "true"
+rules:
+- apiGroups:
+    - ""
+  resources:
+    - secrets
+  verbs:
+    - list
+- apiGroups:
+    - monitoring.coreos.com
+  resources:
+    - alertmanagers
+    - prometheuses
+    - servicemonitors
+    - prometheusrules
+  verbs:
+    - list
+    - get

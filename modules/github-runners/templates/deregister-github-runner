@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# get aws region from IMDSv2
+imdsv2_token=$(curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+aws_region=$(curl -H "X-aws-ec2-metadata-token: $imdsv2_token" --silent http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)
+
+# retrieve GitHub PAT
+github_token=$(aws ssm get-parameter --name ${github_token_ssm_path} --region $aws_region --with-decryption | jq -r .Parameter.Value)
+
+# generate GitHub Actions Runner remove token
+remove_token=$(curl -s -X POST https://api.github.com/orgs/${github_org}/actions/runners/remove-token -H "accept: application/vnd.github.everest-preview+json" -H "authorization: token $github_token" | jq -r '.token')
+
+# remove GitHub Actions Runner
+pushd /opt/actions-runner
+./svc.sh stop
+./svc.sh uninstall
+sudo -u ec2-user ./config.sh remove --token $remove_token
+popd

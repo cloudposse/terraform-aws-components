@@ -9,3 +9,6 @@ build-harness
 .terraform.d
 .terraform.*
 .envrc
+*.planfile
+backend.tf.json
+.terraform.lock.hcl

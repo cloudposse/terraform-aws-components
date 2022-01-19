@@ -1,0 +1,17 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: {{ .Values.release_name }}-autoscaler
+spec:
+  # matches runnerdeployment name
+  scaleTargetRef:
+    name: {{ .Values.release_name }}
+  minReplicas: {{ .Values.autoscale.minReplicas }}
+  maxReplicas: {{ .Values.autoscale.maxReplicas }}
+  scaleDownDelaySecondsAfterScaleOut: 300
+  metrics:
+    - type: {{ .Values.autoscale.metrics.type }}
+      scaleUpThreshold: {{ .Values.autoscale.metrics.scaleUpThreshold | quote }}
+      scaleDownThreshold: {{ .Values.autoscale.metrics.scaleDownThreshold | quote }}
+      scaleUpAdjustment: {{ .Values.autoscale.metrics.scaleUpAdjustment }}
+      scaleDownAdjustment: {{ .Values.autoscale.metrics.scaleDownAdjustment }}
