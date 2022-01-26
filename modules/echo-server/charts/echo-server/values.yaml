@@ -41,6 +41,8 @@ service:
   type: ClusterIP
   port: 80
 
+tlsEnabled: true
+
 ingress:
   nginx:
     # ingress.nginx.enabled -- Enable NGiNX ingress
@@ -63,7 +65,6 @@ ingress:
       enabled: true
     ## alb.ingress.kubernetes.io/ssl-redirect:
       port: 443
-    tls_enabled: true
 
 #resources: {}
 #  # We usually recommend not to specify default resources and to leave this as a conscious

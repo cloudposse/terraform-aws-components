@@ -26,7 +26,7 @@ resource "helm_release" "this" {
   # NOTE: Use with the local chart
   set {
     name  = "ingress.hostname"
-    value = format(var.hostname_template, var.stage, var.environment)
+    value = format(var.hostname_template, var.tenant, var.stage, var.environment)
   }
   set {
     name  = "ingress.nginx.enabled"

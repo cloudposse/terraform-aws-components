@@ -41,7 +41,7 @@ variable "verify" {
 variable "wait" {
   type        = bool
   description = "Will wait until all resources are in a ready state before marking the release as successful. It will wait for as long as `timeout`. Defaults to `true`."
-  default     = null
+  default     = true
 }
 
 variable "atomic" {
@@ -70,5 +70,8 @@ variable "ingress_type" {
 
 variable "hostname_template" {
   type        = string
-  description = "The `format()` string to use to generate the hostname via `format(var.hostname_template, var.stage, var.environment)`"
+  description = <<-EOT
+    The `format()` string to use to generate the hostname via `format(var.hostname_template, var.tenant, var.stage, var.environment)`"
+    Typically something like `"echo.%[3]v.%[2]v.example.com"`.
+    EOT
 }

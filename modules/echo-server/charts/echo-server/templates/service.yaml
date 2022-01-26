@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "echo-server.fullname" . }}
+  name: {{ include "echo-server.name" . }}
   labels:
     {{- include "echo-server.labels" . | nindent 4 }}
 spec:
