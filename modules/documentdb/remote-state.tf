@@ -13,7 +13,7 @@ module "eks" {
 
   component = "eks"
 
-  bypass = ! var.eks_security_group_ingress_enabled
+  bypass = !var.eks_security_group_ingress_enabled
 
   defaults = {
     eks_cluster_managed_security_group_id : ""
