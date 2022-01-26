@@ -1,7 +1,7 @@
 locals {
   enabled            = module.this.enabled
   is_on_demand       = local.enabled && var.billing_mode == "PAY_PER_REQUEST"
-  autoscaler_enabled = ! local.is_on_demand && var.autoscaler_enabled
+  autoscaler_enabled = !local.is_on_demand && var.autoscaler_enabled
 }
 
 module "dynamodb_table" {
