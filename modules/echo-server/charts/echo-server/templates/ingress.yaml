@@ -1,55 +1,55 @@
-{{- if .Values.ingress.enabled -}}
----
+{{- if or (eq (printf "%v" .Values.ingress.nginx.enabled) "true") (eq (printf "%v" .Values.ingress.alb.enabled) "true") -}}
+  {{- $fullName := include "echo-server.fullname" . -}}
+  {{- $svcPort := .Values.service.port -}}
+  {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1
-kind: IngressClass
-metadata:
-  name: nginx
-spec:
-  controller: k8s.io/ingress-nginx
----
-apiVersion: networking.k8s.io/v1
-{{- $fullName := include "echo-server.fullname" . -}}
-{{- $svcPort := .Values.service.port -}}
-{{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
-  {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
-    {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
-  {{- end }}
-{{- end }}
-## Not yet supported by Forecastle, introduced in Kubernetes 1.19: apiVersion: networking.k8s.io/v1
-## See https://github.com/stakater/Forecastle/issues/128
-{{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
-apiVersion: networking.k8s.io/v1
-{{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+  {{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1beta1
-{{- else -}}
+  {{- else -}}
 apiVersion: extensions/v1beta1
-{{- end }}
+  {{- end }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}
   annotations:
-    kubernetes.io/ingress.class: {{ .Values.ingress.class }}
-    {{- if (index .Values.ingress "tls_certificate_cluster_issuer") }}
-    cert-manager.io/cluster-issuer: {{ .Values.ingress.tls_certificate_cluster_issuer }}
+    {{- if eq (printf "%v" .Values.ingress.nginx.enabled) "true" }}
+    kubernetes.io/ingress.class: {{ .Values.ingress.nginx.class }}
+      {{- if (index .Values.ingress.nginx "tls_certificate_cluster_issuer") }}
+    cert-manager.io/cluster-issuer: {{ .Values.ingress.nginx.tls_certificate_cluster_issuer }}
+      {{- end }}
+    {{- else if eq (printf "%v" .Values.ingress.alb.enabled) "true" }}
+    kubernetes.io/ingress.class: {{ .Values.ingress.alb.class }}
+    alb.ingress.kubernetes.io/load-balancer-name: {{ index .Values.ingress.alb "load_balancer_name" | default "k8s-common" }}
+    alb.ingress.kubernetes.io/group.name: {{ index .Values.ingress.alb "group_name" | default "common" }}
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/load-balancer-attributes: access_logs.s3.enabled=false
+    alb.ingress.kubernetes.io/target-type: 'ip'
+      {{- if eq (printf "%v" .Values.ingress.alb.ssl_redirect.enabled) "true" }}
+    alb.ingress.kubernetes.io/ssl-redirect: {{ .Values.ingress.alb.ssl_redirect.port }}
+      {{- end }}
+      {{- if eq (printf "%v" .Values.ingress.alb.tls_enabled) "true" }}
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80},{"HTTPS":443}]'
+      {{- else }}
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+      {{- end }}
     {{- end }}
-    external-dns.alpha.kubernetes.io/target: {{ .Values.ingress.target_hostname }}
+  labels:
+    {{ include "echo-server.labels" . | indent 4 }}
 spec:
-  # {{- if and .Values.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
-  # ingressClassName: {{ .Values.ingress.className }}
-  # {{- end }}
   tls: # < placing a host in the TLS config will indicate a certificate should be created
   - hosts:
-    - {{ .Values.host | quote }}
+    - {{ .Values.ingress.hostname }}
     secretName: echo-server-cert # < cert-manager will store the created certificate in this secret.
   rules:
-  - host: {{ .Values.host | quote }}
+  - host: {{ .Values.ingress.hostname }}
     http:
       paths:
       - path: /
         pathType: ImplementationSpecific
         backend:
           service:
-            name: echo-server
+            name: {{ $fullName }}
             port:
-              name: http
+              number: {{ $svcPort }}
 {{- end }}
