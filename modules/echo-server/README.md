@@ -1,6 +1,37 @@
 # Component: `echo-server`
 
-This component installs the `echo-server` for EKS clusters. An echo server is a server that replicates the request sent by the client and sends it back. For further details, please consult this [echo-server Helm chart project documentation](https://github.com/Ealenn/Echo-Server).
+This component installs the [Ealenn/Echo-Server](https://github.com/Ealenn/Echo-Server) to EKS clusters. 
+The echo server is a server that sends it back to the client a JSON representation of all the data
+the server received, which is a combination of information sent by the client and information sent
+by the web server infrastructure. For further details, please consult the [Echo-Server documentation](https://ealenn.github.io/Echo-Server/).
+
+## Prerequisites
+
+Echo server is intended to provide end-to-end testing of everything needed to deploy an application or service with a public HTTPS endpoint. 
+Therefore it requires several other components. 
+At the moment, it supports 2 configurations:
+
+1. ALB with ACM Certificate
+  - AWS Load Balancer Controller (ALB) version 2.2.0 or later, with ACM certificate auto-discovery enabled
+  - Pre-provisioned ACM TLS certificate covering the provisioned host name (typically a wildcard certificate covering all hosts in the domain)
+2. Nginx with Cert Manager Certificate
+  - Nginx (via `kubernetes/ingress-nginx` controller). We recommend `ingress-nginx` v1.1.0 or later, but `echo-server` 
+    should work with any version that supports Ingress API version `networking.k8s.io/v1`.
+  - `jetstack/cert-manager` configured to automatically (via Ingress Shim, installed by default) generate TLS certificates via a Cluster Issuer
+    (by default, named `letsEncrypt-prod`).
+
+In both configurations, it has these common requirements:
+- Kubernetes version 1.19 or later
+- Ingress API version `networking.k8s.io/v1`
+- [kubernetes-sigs/external-dns](https://github.com/kubernetes-sigs/external-dns)
+
+## Warnings
+
+A Terraform plan may fail to apply, giving a Kubernetes authentication failure. This is due to a known issue with 
+Terraform and the Kubernetes provider. During the "plan" phase Terraform gets a short-lived Kubernetes
+authentication token and caches it, and then tries to use it during "apply". If the token has expired by
+the time you try to run "apply", the "apply" will fail. The workaround is to run `terraform apply -auto-approve` without
+a "plan" file.
 
 ## Usage
 
@@ -18,7 +49,7 @@ components:
       vars:
         enabled: true
         ingress_type: "nginx"
-        hostname_template: "echo.%v.%v.sample-domain.net"
+        hostname_template: "echo.%[3]v.%[2]v.sample-domain.net"
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
