@@ -18,7 +18,6 @@ metadata:
     alb.ingress.kubernetes.io/load-balancer-name: {{ index .Values.ingress.alb "load_balancer_name" | default "k8s-common" }}
     alb.ingress.kubernetes.io/group.name: {{ index .Values.ingress.alb "group_name" | default "common" }}
     alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/load-balancer-attributes: access_logs.s3.enabled=false
     alb.ingress.kubernetes.io/target-type: 'ip'
       {{- if eq (printf "%v" .Values.ingress.alb.ssl_redirect.enabled) "true" }}
     alb.ingress.kubernetes.io/ssl-redirect: '{{ .Values.ingress.alb.ssl_redirect.port }}'
