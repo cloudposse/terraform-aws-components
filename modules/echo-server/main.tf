@@ -1,7 +1,7 @@
 locals {
-  enabled = module.this.enabled
-  ingress_nginx_enabled = "${ var.ingress_type == "nginx" ? true : false }"
-  ingress_alb_enabled = "${ var.ingress_type == "alb" ? true : false }"
+  enabled               = module.this.enabled
+  ingress_nginx_enabled = var.ingress_type == "nginx" ? true : false
+  ingress_alb_enabled   = var.ingress_type == "alb" ? true : false
 }
 
 resource "helm_release" "this" {
@@ -25,7 +25,7 @@ resource "helm_release" "this" {
 
   # NOTE: Use with the local chart
   set {
-    name = "ingress.hostname"
+    name  = "ingress.hostname"
     value = format(var.hostname_template, var.stage, var.environment)
   }
   set {
