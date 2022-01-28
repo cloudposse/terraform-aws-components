@@ -1,5 +1,7 @@
 locals {
-  enabled = module.this.enabled
+  enabled               = module.this.enabled
+  ingress_nginx_enabled = var.ingress_type == "nginx" ? true : false
+  ingress_alb_enabled   = var.ingress_type == "alb" ? true : false
 }
 
 resource "helm_release" "this" {
@@ -21,13 +23,17 @@ resource "helm_release" "this" {
   cleanup_on_fail  = var.cleanup_on_fail
   timeout          = var.timeout
 
-  values = [
-    yamlencode({
-      host = format(var.hostname_template, var.environment, var.stage),
-      ingress = {
-        target_hostname = module.ingress_nginx.outputs.ingress_nginx_hostname
-      }
-    }),
-    yamlencode(var.chart_values)
-  ]
+  # NOTE: Use with the local chart
+  set {
+    name  = "ingress.hostname"
+    value = format(var.hostname_template, var.tenant, var.stage, var.environment)
+  }
+  set {
+    name  = "ingress.nginx.enabled"
+    value = local.ingress_nginx_enabled
+  }
+  set {
+    name  = "ingress.alb.enabled"
+    value = local.ingress_alb_enabled
+  }
 }
