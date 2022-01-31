@@ -11,38 +11,42 @@ variable "root_account_aws_name" {
 variable "root_account_account_name" {
   type        = string
   default     = "root"
-  description = "The stage name for the root account"
+  description = "The name (usually `stage` or `tenant-stage`) of the root account"
 }
 
 variable "identity_account_account_name" {
   type        = string
   default     = "identity"
-  description = "The stage name for the account holding primary IAM roles"
+  description = "The name (usually `stage` or `tenant-stage`) of the account holding primary IAM roles"
 }
 
 variable "dns_account_account_name" {
   type        = string
   default     = "dns"
-  description = "The stage name for the primary DNS account"
+  description = "The name (usually `stage` or `tenant-stage`) of the primary DNS account"
 }
 
 variable "artifacts_account_account_name" {
   type        = string
   default     = "artifacts"
-  description = "The stage name for the artifacts account"
+  description = "The name (usually `stage` or `tenant-stage`) of the artifacts account"
 }
 
 variable "audit_account_account_name" {
   type        = string
   default     = "audit"
-  description = "The stage name for the audit account"
+  description = "The name (usually `stage` or `tenant-stage`) of the audit account"
 }
 
-variable "iam_role_arn_template" {
+variable "iam_role_arn_template_template" {
   type        = string
-  default     = "arn:aws:iam::%s:role/%s-%s-%s-%s"
+  default     = "arn:aws:iam::%s:role/%s-%s-%s-%%s"
   description = <<-EOT
-  The template used to render Role ARNs.
+  The template for the template used to render Role ARNs.
+  The template is first used to render a template for the account that takes only the role name.
+  Then that rendered template is used to create the final Role ARN for the account.
+  Default is appropriate when not using tenant. Use `"arn:aws:iam::%s:role/%s-%s-%s-%s-%%s"` when using tenant.
+
 
   Note that if the `null-label` variable `label_order` is truncated or extended with additional labels, this template will
   need to be updated to reflect the new number of labels.

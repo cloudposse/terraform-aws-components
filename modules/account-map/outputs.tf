@@ -62,6 +62,11 @@ output "all_accounts" {
   description = "A list of all accounts in the AWS Organization"
 }
 
+output "iam_role_arn_templates" {
+  value       = local.iam_role_arn_templates
+  description = "Map of accounts to corresponding IAM Role ARN templates"
+}
+
 output "terraform_roles" {
   value       = local.terraform_roles
   description = "A list of all IAM roles used to run terraform updates"
