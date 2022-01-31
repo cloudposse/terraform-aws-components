@@ -14,10 +14,10 @@ module "account_map" {
 
   component               = "account-map"
   privileged              = var.privileged
-  tenant                  = var.global_tenant_name
   environment             = var.global_environment_name
-  stack_config_local_path = "../../../stacks"
+  stack_config_local_path = var.stack_config_local_path
   stage                   = var.root_account_stage_name
+  tenant                  = var.root_account_tenant_name
 
   context = module.always.context
 }
