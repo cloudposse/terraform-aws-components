@@ -29,7 +29,7 @@ output "eks_cluster_version" {
 }
 
 output "eks_node_group_arns" {
-  description = "ARN of the worker nodes IAM role"
+  description = "List of all the node group ARNs in the cluster"
   value       = local.node_group_arns
 }
 
@@ -49,11 +49,16 @@ output "eks_node_group_ids" {
 }
 
 output "eks_node_group_role_names" {
-  description = "Name of the worker nodes IAM role"
+  description = "List of worker nodes IAM role names"
   value       = compact(flatten([for group in local.node_groups : group.eks_node_group_role_name]))
 }
 
-//output "eks_node_group_statuses" {
-//  description = "Status of the EKS Node Group"
-//  value       = compact([for group in local.node_groups : group.eks_node_group_status])
-//}
+output "eks_auth_worker_roles" {
+  description = "List of worker IAM roles that were included in the `auth-map` ConfigMap."
+  value       = local.worker_role_arns
+}
+
+output "eks_node_group_statuses" {
+  description = "Status of the EKS Node Group"
+  value       = compact([for group in local.node_groups : group.eks_node_group_status])
+}
