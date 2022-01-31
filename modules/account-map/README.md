@@ -14,6 +14,9 @@ components:
     account-map:
       vars:
         enabled: true
+        # If this is true, profile must be provided instead of role_arn in each backend.tf.json
+        # If this is false, role_arn must be provided instead of profile in each backend.tf.json
+        profiles_enabled: false
         root_account_aws_name: "aws-root"
         root_account_account_name: root
         identity_account_account_name: identity
