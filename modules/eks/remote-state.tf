@@ -37,7 +37,7 @@ module "spotinst_role" {
 
   count = local.spotinst_enabled ? 1 : 0
 
-  bypass = !local.spotinst_enabled
+  bypass = ! local.spotinst_enabled
 
   component = "spotinst-integration"
 
