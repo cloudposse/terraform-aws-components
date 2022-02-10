@@ -1,34 +1,58 @@
 locals {
-  primary_role_map   = data.terraform_remote_state.primary_roles.outputs.role_name_role_arn_map
-  delegated_role_map = data.terraform_remote_state.delegated_roles.outputs.role_name_role_arn_map
-  eks_outputs        = data.terraform_remote_state.eks.outputs
-  vpc_outputs        = data.terraform_remote_state.vpc.outputs
+  enabled            = module.this.enabled
+  primary_role_map   = module.primary_roles.outputs.role_name_role_arn_map
+  delegated_role_map = module.delegated_roles.outputs.role_name_role_arn_map
+  eks_outputs        = module.eks.outputs
+  vpc_outputs        = module.vpc.outputs
 
   attributes         = flatten(concat(module.this.attributes, [var.color]))
   public_subnet_ids  = local.vpc_outputs.public_subnet_ids
   private_subnet_ids = local.vpc_outputs.private_subnet_ids
   vpc_id             = local.vpc_outputs.vpc_id
 
+  iam_primary_roles_tenant_name = try(coalesce(var.iam_primary_roles_tenant_name, module.this.tenant), null)
+
   primary_iam_roles = [for role in var.primary_iam_roles : {
     rolearn  = local.primary_role_map[role.role]
-    username = format("identity-%s", role.role)
+    username = module.this.context.tenant != null ? format("%s-identity-%s", local.iam_primary_roles_tenant_name, role.role) : format("identity-%s", role.role)
     groups   = role.groups
   }]
 
   delegated_iam_roles = [for role in var.delegated_iam_roles : {
     rolearn  = local.delegated_role_map[role.role]
-    username = format("%s-%s", module.this.stage, role.role)
+    username = module.this.context.tenant != null ? format("%s-%s-%s", module.this.tenant, module.this.stage, role.role) : format("%s-%s", module.this.stage, role.role)
     groups   = role.groups
   }]
 
-  map_additional_iam_roles = concat(local.primary_iam_roles, local.delegated_iam_roles)
+  map_additional_iam_roles = concat(
+    local.primary_iam_roles,
+    local.delegated_iam_roles,
+    var.map_additional_iam_roles
+  )
+  managed_worker_role_arns = local.eks_outputs.eks_managed_node_workers_role_arns
+  worker_role_arns         = compact(concat(var.map_additional_worker_roles, local.managed_worker_role_arns))
+
+  subnet_type_tag_key = var.subnet_type_tag_key != null ? var.subnet_type_tag_key : local.vpc_outputs.vpc.subnet_type_tag_key
 }
 
 module "eks_cluster" {
-  source = "git::https://github.com/cloudposse/terraform-aws-eks-cluster.git?ref=tags/0.29.0"
+  source  = "cloudposse/eks-cluster/aws"
+  version = "0.44.0"
 
   region     = var.region
   attributes = local.attributes
+
+  kube_data_auth_enabled = false
+  # exec_auth is more reliable than data_auth when the aws CLI is available
+  # Details at https://github.com/cloudposse/terraform-aws-eks-cluster/releases/tag/0.42.0
+  kube_exec_auth_enabled = !var.kubeconfig_file_enabled
+  # If using `exec` method (recommended) for authentication, provide an explict
+  # IAM role ARN to exec as for authentication to EKS cluster.
+  kube_exec_auth_role_arn         = coalesce(var.import_role_arn, module.iam_roles.terraform_role_arn)
+  kube_exec_auth_role_arn_enabled = true
+  # Path to KUBECONFIG file to use to access the EKS cluster
+  kubeconfig_path         = var.kubeconfig_file
+  kubeconfig_path_enabled = var.kubeconfig_file_enabled
 
   allowed_security_groups      = var.allowed_security_groups
   allowed_cidr_blocks          = var.allowed_cidr_blocks
@@ -78,59 +102,25 @@ module "eks_cluster" {
   # when they are created. However, after they are created, they will not be replaced if they are
   # later removed, and in step 3 we replace the entire configMap. So we have to add the pre-existing
   # managed node groups here, and we get that by reading our current (pre plan or apply) Terraform state.
-  workers_role_arns = compact(concat(local.eks_outputs.eks_managed_node_workers_role_arns))
+  workers_role_arns = local.worker_role_arns
 
-  context = module.this.context
-}
+  aws_auth_yaml_strip_quotes = var.aws_auth_yaml_strip_quotes
 
-locals {
-  node_group_default_availability_zones = var.node_group_defaults.availability_zones == null ? var.region_availability_zones : var.node_group_defaults.availability_zones
-  node_group_default_kubernetes_version = var.node_group_defaults.kubernetes_version == null ? var.cluster_kubernetes_version : var.node_group_defaults.kubernetes_version
+  cluster_encryption_config_enabled                         = var.cluster_encryption_config_enabled
+  cluster_encryption_config_kms_key_id                      = var.cluster_encryption_config_kms_key_id
+  cluster_encryption_config_kms_key_enable_key_rotation     = var.cluster_encryption_config_kms_key_enable_key_rotation
+  cluster_encryption_config_kms_key_deletion_window_in_days = var.cluster_encryption_config_kms_key_deletion_window_in_days
+  cluster_encryption_config_kms_key_policy                  = var.cluster_encryption_config_kms_key_policy
+  cluster_encryption_config_resources                       = var.cluster_encryption_config_resources
 
-  # values(module.region_node_group) is an array of `region_node_group` objects
-  # values(module.region_node_group)[*].region_node_groups is an array of
-  #   maps with keys availability zones and values the output map of terraform-aws-eks-node-group
-  # node_groups is a flattened array of output maps of terraform-aws-eks-node-group
-  node_groups = flatten([for m in values(module.region_node_group)[*].region_node_groups : values(m)])
-
-  # node_group_arns is a list of all the node group ARNs in the cluster
-  node_group_arns      = compact([for group in local.node_groups : group.eks_node_group_arn])
-  node_group_role_arns = compact([for group in local.node_groups : group.eks_node_group_role_arn])
-}
-
-module "region_node_group" {
-  for_each = module.this.enabled ? var.node_groups : {}
-
-  source = "./modules/node_group_by_region"
-
-  availability_zones = each.value.availability_zones == null ? local.node_group_default_availability_zones : each.value.availability_zones
-  attributes         = flatten(concat(var.attributes, [each.key], [var.color], each.value.attributes == null ? var.node_group_defaults.attributes : each.value.attributes))
-
-  node_group_size = module.this.enabled ? {
-    desired_size = each.value.desired_group_size == null ? var.node_group_defaults.desired_group_size : each.value.desired_group_size
-    min_size     = each.value.min_group_size == null ? var.node_group_defaults.min_group_size : each.value.min_group_size
-    max_size     = each.value.max_group_size == null ? var.node_group_defaults.max_group_size : each.value.max_group_size
-  } : null
-
-  cluster_context = module.this.enabled ? {
-    cluster_name              = module.eks_cluster.eks_cluster_id
-    create_before_destroy     = each.value.create_before_destroy == null ? var.node_group_defaults.create_before_destroy : each.value.create_before_destroy
-    disk_size                 = each.value.disk_size == null ? var.node_group_defaults.disk_size : each.value.disk_size
-    enable_cluster_autoscaler = each.value.enable_cluster_autoscaler == null ? var.node_group_defaults.enable_cluster_autoscaler : each.value.enable_cluster_autoscaler
-    instance_types            = each.value.instance_types == null ? var.node_group_defaults.instance_types : each.value.instance_types
-    ami_type                  = each.value.ami_type == null ? var.node_group_defaults.ami_type : each.value.ami_type
-    ami_release_version       = each.value.ami_release_version == null ? var.node_group_defaults.ami_release_version : each.value.ami_release_version
-    kubernetes_version        = each.value.kubernetes_version == null ? local.node_group_default_kubernetes_version : each.value.kubernetes_version
-    kubernetes_labels         = each.value.kubernetes_labels == null ? var.node_group_defaults.kubernetes_labels : each.value.kubernetes_labels
-    kubernetes_taints         = each.value.kubernetes_taints == null ? var.node_group_defaults.kubernetes_taints : each.value.kubernetes_taints
-    resources_to_tag          = each.value.resources_to_tag == null ? var.node_group_defaults.resources_to_tag : each.value.resources_to_tag
-    subnet_type_tag_key       = var.subnet_type_tag_key
-    vpc_id                    = local.vpc_id
-
-    # See "Ensure ordering of resource creation" comment above for explanation
-    # of "module_depends_on"
-    module_depends_on = module.eks_cluster.kubernetes_config_map_id
-  } : null
+  addons = [
+    {
+      addon_name               = "vpc-cni"
+      addon_version            = null
+      resolve_conflicts        = "NONE"
+      service_account_role_arn = null
+    }
+  ]
 
   context = module.this.context
 }

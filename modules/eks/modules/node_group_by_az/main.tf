@@ -4,7 +4,7 @@ data "aws_subnet_ids" "private" {
   vpc_id = var.cluster_context.vpc_id
 
   tags = {
-    "${var.cluster_context.subnet_type_tag_key}" = "private"
+    (var.cluster_context.subnet_type_tag_key) = "private"
   }
 
   filter {
@@ -13,16 +13,24 @@ data "aws_subnet_ids" "private" {
   }
 }
 
+module "az_abbreviation" {
+  source  = "cloudposse/utils/aws"
+  version = "0.8.1"
+}
+
 locals {
   enabled         = module.this.enabled && length(var.availability_zone) > 0
   sentinel        = "~~"
   subnet_ids_test = coalescelist(flatten(data.aws_subnet_ids.private[*].ids), [local.sentinel])
   subnet_ids      = local.subnet_ids_test[0] == local.sentinel ? null : local.subnet_ids_test
-  az_attribute    = replace(var.availability_zone, "/^((.)[^-]*-(.)[^-]*-)/", "$2$3")
+  az_map          = var.cluster_context.az_abbreviation_type == "short" ? module.az_abbreviation.region_az_alt_code_maps.to_short : module.az_abbreviation.region_az_alt_code_maps.to_fixed
+  az_attribute    = local.az_map[var.availability_zone]
 }
 
 module "eks_node_group" {
-  source  = "git::https://github.com/cloudposse/terraform-aws-eks-node-group.git?ref=tags/0.13.0"
+  source  = "cloudposse/eks-node-group/aws"
+  version = "0.27.0"
+
   enabled = local.enabled
 
   attributes = length(var.availability_zone) > 0 ? flatten([module.this.attributes, local.az_attribute]) : module.this.attributes
@@ -31,20 +39,34 @@ module "eks_node_group" {
   min_size     = local.enabled ? var.node_group_size.min_size : null
   max_size     = local.enabled ? var.node_group_size.max_size : null
 
-  cluster_name              = local.enabled ? var.cluster_context.cluster_name : null
-  create_before_destroy     = local.enabled ? var.cluster_context.create_before_destroy : null
-  disk_size                 = local.enabled ? var.cluster_context.disk_size : null
-  enable_cluster_autoscaler = local.enabled ? var.cluster_context.enable_cluster_autoscaler : null
-  instance_types            = local.enabled ? var.cluster_context.instance_types : null
-  ami_type                  = local.enabled ? var.cluster_context.ami_type : null
-  ami_release_version       = local.enabled ? var.cluster_context.ami_release_version : null
-  kubernetes_labels         = local.enabled ? var.cluster_context.kubernetes_labels : null
-  kubernetes_taints         = local.enabled ? var.cluster_context.kubernetes_taints : null
-  kubernetes_version        = local.enabled ? var.cluster_context.kubernetes_version : null
-  resources_to_tag          = local.enabled ? var.cluster_context.resources_to_tag : null
-  subnet_ids                = local.enabled ? local.subnet_ids : null
+  # NOTE: the following values are using the migration pattern outlined
+  # https://github.com/cloudposse/terraform-aws-eks-node-group/blob/34be126797af6673ca0375d6e60bca5616257786/MIGRATION.md#block_device_mappings
+
+  cluster_name               = local.enabled ? var.cluster_context.cluster_name : null
+  create_before_destroy      = local.enabled ? var.cluster_context.create_before_destroy : null
+  cluster_autoscaler_enabled = local.enabled ? var.cluster_context.cluster_autoscaler_enabled : null
+  instance_types             = local.enabled ? var.cluster_context.instance_types : null
+  ami_type                   = local.enabled ? var.cluster_context.ami_type : null
+  ami_release_version        = local.enabled && length(compact([var.cluster_context.ami_release_version])) != 0 ? [var.cluster_context.ami_release_version] : []
+  kubernetes_labels          = local.enabled ? var.cluster_context.kubernetes_labels : null
+  kubernetes_taints          = local.enabled ? var.cluster_context.kubernetes_taints : []
+  kubernetes_version         = local.enabled && length(compact([var.cluster_context.kubernetes_version])) != 0 ? [var.cluster_context.kubernetes_version] : []
+  resources_to_tag           = local.enabled ? var.cluster_context.resources_to_tag : null
+  subnet_ids                 = local.enabled ? local.subnet_ids : null
+
+  block_device_mappings = local.enabled ? [{
+    delete_on_termination = true
+    device_name           = "/dev/xvda"
+    encrypted             = var.cluster_context.disk_encryption_enabled
+    kms_key_id            = var.cluster_context.kms_key_id
+    volume_size           = var.cluster_context.disk_size
+    volume_type           = "gp2"
+  }] : []
+
   # Prevent the node groups from being created before the Kubernetes aws-auth configMap
   module_depends_on = var.cluster_context.module_depends_on
+
+  node_role_policy_arns = var.cluster_context.aws_ssm_agent_enabled ? ["arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"] : []
 
   context = module.this.context
 }

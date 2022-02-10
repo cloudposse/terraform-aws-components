@@ -18,6 +18,11 @@ output "eks_cluster_identity_oidc_issuer" {
   value       = module.eks_cluster.eks_cluster_identity_oidc_issuer
 }
 
+output "eks_cluster_certificate_authority_data" {
+  description = "The Kubernetes cluster certificate authority data"
+  value       = module.eks_cluster.eks_cluster_certificate_authority_data
+}
+
 output "eks_cluster_managed_security_group_id" {
   description = "Security Group ID that was created by EKS for the cluster. EKS creates a Security Group and applies it to ENI that is attached to EKS Control Plane master nodes and to any managed workloads"
   value       = module.eks_cluster.eks_cluster_managed_security_group_id
@@ -29,7 +34,7 @@ output "eks_cluster_version" {
 }
 
 output "eks_node_group_arns" {
-  description = "ARN of the worker nodes IAM role"
+  description = "List of all the node group ARNs in the cluster"
   value       = local.node_group_arns
 }
 
@@ -49,11 +54,16 @@ output "eks_node_group_ids" {
 }
 
 output "eks_node_group_role_names" {
-  description = "Name of the worker nodes IAM role"
+  description = "List of worker nodes IAM role names"
   value       = compact(flatten([for group in local.node_groups : group.eks_node_group_role_name]))
 }
 
-//output "eks_node_group_statuses" {
-//  description = "Status of the EKS Node Group"
-//  value       = compact([for group in local.node_groups : group.eks_node_group_status])
-//}
+output "eks_auth_worker_roles" {
+  description = "List of worker IAM roles that were included in the `auth-map` ConfigMap."
+  value       = local.worker_role_arns
+}
+
+output "eks_node_group_statuses" {
+  description = "Status of the EKS Node Group"
+  value       = compact([for group in local.node_groups : group.eks_node_group_status])
+}
