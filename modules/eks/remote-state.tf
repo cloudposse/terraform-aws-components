@@ -1,6 +1,6 @@
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.0"
+  version = "0.22.1"
 
   component = "vpc"
 
@@ -9,7 +9,7 @@ module "vpc" {
 
 module "primary_roles" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.0"
+  version = "0.22.1"
 
   component = "iam-primary-roles"
 
@@ -22,30 +22,11 @@ module "primary_roles" {
 
 module "delegated_roles" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.0"
+  version = "0.22.1"
 
   component = "iam-delegated-roles"
 
   environment = var.iam_roles_environment_name
-
-  context = module.this.context
-}
-
-module "spotinst_role" {
-  source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.0"
-
-  count = local.spotinst_enabled ? 1 : 0
-
-  bypass = !local.spotinst_enabled
-
-  component = "spotinst-integration"
-
-  environment = var.iam_roles_environment_name
-
-  defaults = {
-    workers_role_arn = null
-  }
 
   context = module.this.context
 }
@@ -55,7 +36,7 @@ module "spotinst_role" {
 # to it rather than overwrite it (specifically the aws-auth configMap)
 module "eks" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.0"
+  version = "0.22.1"
 
   component = "eks"
 

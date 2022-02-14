@@ -37,7 +37,7 @@ locals {
 
 module "eks_cluster" {
   source  = "cloudposse/eks-cluster/aws"
-  version = "0.44.0"
+  version = "0.45.0"
 
   region     = var.region
   attributes = local.attributes
