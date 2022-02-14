@@ -20,6 +20,8 @@ data "aws_caller_identity" "current" {
   count = local.enabled ? 1 : 0
 }
 
+#bridgecrew:skip=BC_AWS_IAM_57: Skipping `Write access allowed without constraint` check. This is a resource-based policy allowing the account to use the CMK.
+#bridgecrew:skip=BC_AWS_IAM_56: Skipping `Resource exposure allows modification of policies and exposes resources` check. See note above.
 data "aws_iam_policy_document" "eks_kms_key" {
   count = local.enabled ? 1 : 0
 
