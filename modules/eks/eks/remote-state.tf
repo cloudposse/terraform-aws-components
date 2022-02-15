@@ -38,7 +38,7 @@ module "eks" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "0.22.1"
 
-  component = "eks"
+  component = "eks/eks"
 
   defaults = {
     eks_managed_node_workers_role_arns = []
