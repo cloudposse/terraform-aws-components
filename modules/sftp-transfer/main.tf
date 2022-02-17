@@ -25,7 +25,7 @@ resource "aws_eip" "sftp" {
 
 module "transfer-sftp" {
   source  = "cloudposse/transfer-sftp/aws"
-  version = "0.5.0"
+  version = "0.5.2"
 
   s3_bucket_name         = local.sftp_bucket_name
   sftp_users             = var.sftp_users
