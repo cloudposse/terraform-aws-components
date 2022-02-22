@@ -207,7 +207,7 @@ variable "node_group_defaults" {
     ami_release_version        = string
     ami_type                   = string
     attributes                 = list(string)
-    availability_zones         = list(string) # set to null to use var.region_availability_zones
+    availability_zones         = list(string) # set to null to use var.availability_zones
     cluster_autoscaler_enabled = bool
     create_before_destroy      = bool
     desired_group_size         = number
