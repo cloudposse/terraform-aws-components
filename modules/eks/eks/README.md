@@ -17,7 +17,9 @@ components:
         enabled: true
         name: eks
         cluster_kubernetes_version: "1.21"
+        availability_zones: []
         region_availability_zones: ["us-west-2a", "us-west-2b", "us-west-2c"]
+        oidc_provider_enabled: true
         public_access_cidrs: ["72.107.0.0/24"]
         managed_node_groups_enabled: true
         node_groups: # null means use default set in defaults.auto.tf.vars
@@ -36,6 +38,11 @@ components:
             kubernetes_version: null # use cluster Kubernetes version
             ami_release_version: null # use latest AMI for Kubernetes version
 
+            # disk encryption
+            disk_encryption_enabled: false
+            # this must be set, even if it's null
+            kms_key_id: null
+
             attributes: []
             create_before_destroy: true
             disk_size: 100
@@ -44,7 +51,7 @@ components:
               - t3.medium
             ami_type: AL2_x86_64 # use "AL2_x86_64" for standard instances, "AL2_x86_64_GPU" for GPU instances
             kubernetes_labels: {}
-            kubernetes_taints: {}
+            kubernetes_taints: []
             resources_to_tag:
               - instance
               - volume
@@ -57,13 +64,13 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | > 3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | > 3.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 3.0 |
 
 ## Modules
 
