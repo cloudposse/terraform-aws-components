@@ -55,12 +55,11 @@ module "eks_node_group" {
   subnet_ids                 = local.enabled ? local.subnet_ids : null
 
   block_device_mappings = local.enabled ? [{
-    delete_on_termination = true
     device_name           = "/dev/xvda"
-    encrypted             = var.cluster_context.disk_encryption_enabled
-    kms_key_id            = var.cluster_context.kms_key_id
     volume_size           = var.cluster_context.disk_size
     volume_type           = "gp2"
+    encrypted             = var.cluster_context.disk_encryption_enabled
+    delete_on_termination = true
   }] : []
 
   # Prevent the node groups from being created before the Kubernetes aws-auth configMap

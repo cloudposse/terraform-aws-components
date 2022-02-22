@@ -1,5 +1,5 @@
-variable "availability_zones" {
-  type = list(string)
+variable "availability_zone" {
+  type = string
 }
 
 variable "node_group_size" {
@@ -21,7 +21,6 @@ variable "cluster_context" {
     disk_encryption_enabled    = bool
     disk_size                  = number
     instance_types             = list(string)
-    kms_key_id                 = string
     kubernetes_labels          = map(string)
     kubernetes_taints = list(object({
       key    = string

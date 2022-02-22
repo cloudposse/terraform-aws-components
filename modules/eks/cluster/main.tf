@@ -10,7 +10,7 @@ locals {
   private_subnet_ids = local.vpc_outputs.private_subnet_ids
   vpc_id             = local.vpc_outputs.vpc_id
 
-  iam_primary_roles_tenant_name = try(coalesce(var.iam_primary_roles_tenant_name, module.this.tenant), null)
+  iam_primary_roles_tenant_name = coalesce(var.iam_primary_roles_tenant_name, module.this.tenant)
 
   primary_iam_roles = [for role in var.primary_iam_roles : {
     rolearn  = local.primary_role_map[role.role]
@@ -33,6 +33,14 @@ locals {
   worker_role_arns         = compact(concat(var.map_additional_worker_roles, local.managed_worker_role_arns))
 
   subnet_type_tag_key = var.subnet_type_tag_key != null ? var.subnet_type_tag_key : local.vpc_outputs.vpc.subnet_type_tag_key
+
+  allowed_cidr_blocks = concat(
+    var.allowed_cidr_blocks,
+    [
+      for k in keys(module.vpc_ingress) :
+      module.vpc_ingress[k].outputs.vpc_cidr
+    ]
+  )
 }
 
 module "eks_cluster" {
@@ -55,7 +63,7 @@ module "eks_cluster" {
   kubeconfig_path_enabled = var.kubeconfig_file_enabled
 
   allowed_security_groups      = var.allowed_security_groups
-  allowed_cidr_blocks          = var.allowed_cidr_blocks
+  allowed_cidr_blocks          = local.allowed_cidr_blocks
   apply_config_map_aws_auth    = var.apply_config_map_aws_auth
   cluster_log_retention_period = var.cluster_log_retention_period
   enabled_cluster_log_types    = var.enabled_cluster_log_types
@@ -67,7 +75,7 @@ module "eks_cluster" {
   map_additional_iam_roles     = local.map_additional_iam_roles
   map_additional_iam_users     = var.map_additional_iam_users
   public_access_cidrs          = var.public_access_cidrs
-  subnet_ids                   = concat(local.private_subnet_ids, local.public_subnet_ids)
+  subnet_ids                   = var.cluster_private_subnets_only ? local.private_subnet_ids : concat(local.private_subnet_ids, local.public_subnet_ids)
   vpc_id                       = local.vpc_id
 
   kubernetes_config_map_ignore_role_changes = false
@@ -113,14 +121,6 @@ module "eks_cluster" {
   cluster_encryption_config_kms_key_policy                  = var.cluster_encryption_config_kms_key_policy
   cluster_encryption_config_resources                       = var.cluster_encryption_config_resources
 
-  addons = [
-    {
-      addon_name               = "vpc-cni"
-      addon_version            = null
-      resolve_conflicts        = "NONE"
-      service_account_role_arn = null
-    }
-  ]
-
   context = module.this.context
 }
+

@@ -176,8 +176,6 @@ variable "node_groups" {
     disk_size = number
     # Set of instance types associated with the EKS Node Group. Terraform will only perform drift detection if a configuration value is provided.
     instance_types = list(string)
-    # The ARN of the AWS Key Management Service (AWS KMS) customer master key (CMK) to use when creating the encrypted volume. `disk_encryption_enabled` must be set to true when this is set.
-    kms_key_id = string
     # Key-value mapping of Kubernetes labels. Only labels that are applied with the EKS API are managed by this argument. Other Kubernetes labels applied to the EKS Node Group will not be managed
     kubernetes_labels = map(string)
     # List of objects describing Kubernetes taints.
@@ -214,7 +212,6 @@ variable "node_group_defaults" {
     disk_encryption_enabled    = bool
     disk_size                  = number
     instance_types             = list(string)
-    kms_key_id                 = string
     kubernetes_labels          = map(string)
     kubernetes_taints = list(object({
       key    = string
@@ -239,7 +236,6 @@ variable "node_group_defaults" {
     disk_encryption_enabled    = true
     disk_size                  = 20
     instance_types             = ["t3.medium"]
-    kms_key_id                 = null
     kubernetes_labels          = null
     kubernetes_taints          = null
     kubernetes_version         = null # set to null to use cluster_kubernetes_version
@@ -331,8 +327,20 @@ variable "aws_auth_yaml_strip_quotes" {
   description = "If true, remove double quotes from the generated aws-auth ConfigMap YAML to reduce spurious diffs in plans"
 }
 
-variable "autoscaling_service_linked_role_enabled" {
+variable "cluster_private_subnets_only" {
   type        = bool
-  default     = true
-  description = "If true, the autoscaling.amazonaws.com service linked role will be created."
+  default     = false
+  description = "Whether or not to enable private subnets or both public and private subnets"
+}
+
+variable "allow_ingress_from_vpc_stages" {
+  type        = list(string)
+  default     = ["auto", "corp"]
+  description = "List of stages to pull VPC ingress CIDR and add to security group"
+}
+
+variable "eks_component_name" {
+  type        = string
+  description = "The name of the eks component"
+  default     = "eks/cluster"
 }
