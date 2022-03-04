@@ -2,6 +2,10 @@
 
 This component is responsible for provisioning EC2 instances for GitHub runners.
 
+## Pre-Requisites
+
+Before using this component, you must obtain a Github Runner registration token and store it in SSM parameter store. Please see the [Reference Architecture documentation](https://cloudposse.atlassian.net/wiki/spaces/REFARCH/pages/1180303385/github-runners) for details on how to do this.
+
 ## Usage
 
 **Stack Level**: Regional
@@ -13,7 +17,7 @@ components:
   terraform:
     github-runners:
       vars:
-        github_scope: company
+        github_org: cloudposse
         instance_type: "t3.small"
         min_size: 1
         max_size: 10
