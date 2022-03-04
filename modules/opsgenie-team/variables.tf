@@ -47,8 +47,8 @@ variable "create_only_integrations_enabled" {
 }
 
 variable "ignore_team_members" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "Set to true to ignore any configured member blocks and any team member added/updated/removed via OpsGenie web UI."
 }
 

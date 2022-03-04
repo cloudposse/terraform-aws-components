@@ -188,7 +188,7 @@ module "routing" {
 }
 
 module "escalations" {
-  source  = "./modules/escalations"
+  source = "./modules/escalations"
 
   for_each = {
     for k, v in var.escalations :
