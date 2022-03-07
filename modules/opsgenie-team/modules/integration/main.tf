@@ -115,8 +115,8 @@ resource "opsgenie_integration_action" "datadog" {
       type = "team"
     }
   }
-  
-    create {
+
+  create {
     ignore_responders_from_payload = true
 
     name = "Create Synthetic Alert"
