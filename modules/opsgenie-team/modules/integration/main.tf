@@ -103,9 +103,59 @@ resource "opsgenie_integration_action" "datadog" {
 
       conditions {
         # not `source` as described in the TF docs
-        field          = "source_type_name"
+        field          = "event_type"
         operation      = "equals"
-        expected_value = "Monitor Alert"
+        expected_value = "query_alert_monitor"
+      }
+
+    }
+
+    responders {
+      id   = local.team_id
+      type = "team"
+    }
+  }
+  
+    create {
+    ignore_responders_from_payload = true
+
+    name = "Create Synthetic Alert"
+    # Only add the Statuspage component and incident ID tags.
+    # If all of dd_tags is added, then the alert will be polluted with probe_ tags, which are not necessary in OpsGenie,
+    # and also cause the alert's tag count to exceed the limit (20). This then prevents the Statuspage integration from
+    # appending the incident_id tag, which is required for bidirectional OpsGenie <-> Statuspage communication.
+    tags = [
+      "{{ dd_tags.substringBetween(\"cmp_\",\",\") }}",
+      "{{ dd_tags.substringBetween(\"incident_id:\",\",\") }}"
+    ]
+    user          = "Datadog"
+    note          = "{{note}}"
+    alias         = "{{alias}}"
+    source        = "{{source}}"
+    message       = "{{monitor_name.substringAfter(\"[Synthetics]\")}}"
+    entity        = "{{entity}}"
+    alert_actions = []
+
+    description = "{{templated_message.substringBefore(\"@\")}}\n"
+    extra_properties = {
+      "Event Url" : "{{event_url}}"
+    }
+
+    filter {
+      type = "match-all-conditions"
+
+      conditions {
+        # not `actions` as described in the TF docs
+        field          = "action"
+        operation      = "equals"
+        expected_value = "create"
+      }
+
+      conditions {
+        # not `source` as described in the TF docs
+        field          = "event_type"
+        operation      = "equals"
+        expected_value = "synthetics_alert"
       }
 
     }
