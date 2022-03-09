@@ -28,12 +28,12 @@ variable "cluster_context" {
       value  = string
       effect = string
     }))
-    kubernetes_version    = string
-    module_depends_on     = any
+    kubernetes_version            = string
+    module_depends_on             = any
     metadata_http_tokens_required = bool
-    resources_to_tag      = list(string)
-    subnet_type_tag_key   = string
-    aws_ssm_agent_enabled = bool
-    vpc_id                = string
+    resources_to_tag              = list(string)
+    subnet_type_tag_key           = string
+    aws_ssm_agent_enabled         = bool
+    vpc_id                        = string
   })
 }
