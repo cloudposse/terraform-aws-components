@@ -6,7 +6,7 @@ This component is responsible for provisioning Opsgenie teams and related servic
 
 **Stack Level**: Global
 
-Here's an example snippet for how to use this component. 
+Here's an example snippet for how to use this component.
 
 This component should only be applied once as the resources it creates are regional, but it works with integrations. This is typically done via the auto or corp stack (e.g. `gbl-auto.yaml`).
 
@@ -30,7 +30,7 @@ waking_hours: &waking_hours
       start_min: 00
       end_hour: 17
       end_min: 00
-      
+
 priority_level_to_incident: &priority_level_to_incident
   enabled: true
   type: incident
@@ -98,14 +98,61 @@ components:
           # Since Incidents require a service, we create a rule for every `routing_rule` type `incident` for every service on the team.
           p1: *p1_is_incident
           p2: *p2_is_incident
-          
+
     # New team
     opsgenie-team-sre:
       component: opsgenie-team
       vars:
         enabled: true
         name: sre
+
+        members:
+          - user: matt@masterpoint.io
+            role: owner
+          - user: other@masterpoint.io
+            role: admin
+          - user: other2@masterpoint.io
+            role: admin
+
+        escalations:
+          otherteam_escalation:
+            enabled: true
+            name: otherteam_escalation
+            description: Other team escalation
+            rule:
+              condition: if-not-acked
+              notify_type: default
+              delay: 60
+              recipients:
+              - type: team
+                name: otherteam
+
+          yaep_escalation:
+            enabled: true
+            name: yaep_escalation
+            description: Yet another escalation policy
+            rule:
+              condition: if-not-acked
+              notify_type: default
+              delay: 90
+              recipients:
+              - type: user
+                name: matt@masterpoint.io
+
+          schedule_escalation:
+            enabled: true
+            name: schedule_escalation
+            description: Schedule escalation policy
+            rule:
+              condition: if-not-acked
+              notify_type: default
+              delay: 30
+              recipients:
+              - type: schedule
+                name: secondary_on_call
+
 ```
+
 
 The API keys relating to the Opsgenie Integrations are stored in SSM Parameter Store and can be accessed via chamber.
 
@@ -133,25 +180,25 @@ The problem is there are 3 different api endpoints in use
 
  - Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/278
 ### There isn’t a resource for datadog to create an opsgenie integration so this has to be done manually via ClickOps
- 
+
  - Track the issue: https://github.com/DataDog/terraform-provider-datadog/issues/836
 
 ### No Resource to create Slack Integration
 
  - Track the issue: https://github.com/DataDog/terraform-provider-datadog/issues/67
- 
+
 ### Out of Date Terraform Docs
 
-Another Problem is the terraform docs are not always up to date with the provider code. 
+Another Problem is the terraform docs are not always up to date with the provider code.
 
-The OpsGenie Provider uses a mix of `/v1` and `/v2`. This means there are many things you can only do from the UI. 
+The OpsGenie Provider uses a mix of `/v1` and `/v2`. This means there are many things you can only do from the UI.
 
-Listed below in no particular order 
+Listed below in no particular order
 - Incident Routing cannot add dependent services - in `v1` and `v2` a service_incident_rule object has `serviceId` as type string, in webapp this becomes `serviceIds` of type `list(string)`
 - Opsgenie Provider appears to be inconsistent with how it uses time_restriction:
     - `restrictions` for type `weekday-and-time-of-day`
     - `restriction` for type `time-of-day`
- 
+
 Unfortunately none of this is in the terraform docs, and was found via errors and digging through source code.
 
 Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/282
@@ -238,6 +285,7 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 | <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
 | <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_integrations"></a> [integrations](#input\_integrations) | API Integrations for the team. If not specified, `datadog` is assumed. | `map(any)` | `{}` | no |
+| <a name="input_integrations_enabled"></a> [integrations\_enabled](#input\_integrations\_enabled) | Whether to enable the integrations submodule or not | `bool` | `true` | no |
 | <a name="input_kms_key_arn"></a> [kms\_key\_arn](#input\_kms\_key\_arn) | AWS KMS key used for writing to SSM | `string` | `"alias/aws/ssm"` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
