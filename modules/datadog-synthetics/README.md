@@ -23,8 +23,8 @@ components:
         secrets_store_type: SSM
         synthetics_paths:
           - "catalog/synthetics/defaults/*.yaml"
-          - "catalog/synthetics/mdev/*.yaml"
-          - "catalog/synthetics/mdev/dev/*.yaml"
+          - "catalog/synthetics/acme/*.yaml"
+          - "catalog/synthetics/acme/sandbox/*.yaml"
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
