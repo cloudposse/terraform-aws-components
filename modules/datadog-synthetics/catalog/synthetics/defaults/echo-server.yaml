@@ -1,0 +1,32 @@
+echo-server:
+  name: "[${tenant} ${stage}] Echo Server Synthetics Check"
+  message: "Echo Server Error - browser test error on [{{tenant}} {{stage}}]"
+  type: browser
+  subtype: http
+  tags:
+    - "ManagedBy:Terraform"
+  status: "live"
+  locations:
+    - "all"
+  request_definition:
+    url: "https://echo.${environment}.${tenant}-${stage}.acme.com:443"
+    method: GET
+  request_headers:
+    Accept: "text/html"
+  options_list:
+    tick_every: 1800
+    no_screenshot: false
+    follow_redirects: false
+    retry:
+      count: 2
+      interval: 10
+    monitor_options:
+      renotify_interval: 300
+  browser_step:
+    - name: "Check current URL"
+      type: assertCurrentUrl
+      params:
+        check: contains
+        value: "echo"
+  device_ids:
+    - laptop_large
