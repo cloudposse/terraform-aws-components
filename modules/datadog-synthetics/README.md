@@ -10,7 +10,7 @@ from the managed locations around the globe and to monitor internal endpoints fr
 **Stack Level**: Regional
 
 Here's an example snippet for how to use this component:
-
+### Stack Configuration
 ```yaml
 components:
   terraform:
@@ -25,6 +25,74 @@ components:
           - "catalog/synthetics/defaults/*.yaml"
           - "catalog/synthetics/acme/*.yaml"
           - "catalog/synthetics/acme/sandbox/*.yaml"
+```
+### Synthetic Yaml Configuration (in path of `synthetic_paths`)
+```yaml
+my-browser-test:
+  name: "Browser Test"
+  message: "Browser Test Failed"
+  type: browser
+  subtype: http
+  device_ids:
+    - "laptop_large"
+  tags:
+    - "managed-by:Terraform"
+  status: "live"
+  request_definition:
+    url: "CHANGEME"
+    method: GET
+  request_headers:
+    Accept-Charset: "utf-8, iso-8859-1;q=0.5"
+    Accept: "text/html"
+  options_list:
+    tick_every: 1800
+    no_screenshot: false
+    follow_redirects: false
+    retry:
+      count: 2
+      interval: 10
+    monitor_options:
+      renotify_interval: 300
+  browser_step:
+    - name: "Check current URL"
+      type: assertCurrentUrl
+      params:
+        check: contains
+        value: "CHANGEME"
+
+my-api-test:
+  name: "API Test"
+  message: "API Test Failed"
+  type: api
+  subtype: http
+  tags:
+    - "managed-by:Terraform"
+  status: "live"
+  request_definition:
+    url: "CHANGEME"
+    method: GET
+  request_headers:
+    Accept-Charset: "utf-8, iso-8859-1;q=0.5"
+    Accept: "text/json"
+  options_list:
+    tick_every: 1800
+    no_screenshot: false
+    follow_redirects: true
+    retry:
+      count: 2
+      interval: 10
+    monitor_options:
+      renotify_interval: 300
+  assertion:
+    - type: statusCode
+      operator: is
+      target: "200"
+    - type: body
+      operator: validatesJSONPath
+      targetjsonpath:
+        operator: is
+        targetvalue: true
+        jsonpath: foo.bar
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
