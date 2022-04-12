@@ -1,5 +1,5 @@
 # This file is included by default in terraform plans
 
-enabled = true
+enabled = false
 
-name = "tgw"
+name = "tgw-spoke"
