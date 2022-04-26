@@ -10,7 +10,7 @@ data "aws_iam_policy_document" "delegated_assume_role" {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
     resources = [
-      "arn:aws:iam::*:role/*",
+      format("arn:%s:iam::*:role/*", data.aws_partition.current.partition),
     ]
   }
 
@@ -19,9 +19,9 @@ data "aws_iam_policy_document" "delegated_assume_role" {
     effect  = "Deny"
     actions = ["sts:AssumeRole"]
     resources = [
-      format("arn:aws:iam::%s:role/*", local.root_account_id),
-      format("arn:aws:iam::%s:role/*", local.identity_account_id),
-      format("arn:aws:iam::%s:role/*", local.audit_account_id),
+      format("arn:%s:iam::%s:role/*", data.aws_partition.current.partition, local.root_account_id),
+      format("arn:%s:iam::%s:role/*", data.aws_partition.current.partition, local.identity_account_id),
+      format("arn:%s:iam::%s:role/*", data.aws_partition.current.partition, local.audit_account_id),
     ]
   }
 }

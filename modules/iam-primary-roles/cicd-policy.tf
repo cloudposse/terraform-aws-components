@@ -7,7 +7,7 @@ data "aws_iam_policy_document" "cicd" {
       "sts:TagSession",
     ]
     resources = [
-      "arn:aws:iam::*:role/*-helm",
+      "arn:aws-us-gov:iam::*:role/*-helm",
       //"arn:aws:iam::*:role/*-terraform",
     ]
   }
@@ -16,7 +16,7 @@ data "aws_iam_policy_document" "cicd" {
     effect  = "Deny"
     actions = ["sts:AssumeRole"]
     resources = [
-      "arn:aws:iam::xxx:role/*"
+      "arn:aws-us-gov:iam::xxx:role/*"
     ]
   }
   statement {

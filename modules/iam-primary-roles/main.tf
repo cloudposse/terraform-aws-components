@@ -28,10 +28,12 @@ locals {
   allowed_assume_role_principals_map = {
     for target_role, config in local.roles_config : target_role => [
       for source_role in config.trusted_primary_roles : # aws_iam_role.default[role].arn
-      format("arn:aws:iam::%s:role/%s", var.primary_account_id, local.role_name_map[source_role]) if ! contains([target_role, "cicd"], source_role)
+      format("arn:%s:iam::%s:role/%s", data.aws_partition.current.partition, var.primary_account_id, local.role_name_map[source_role]) if ! contains([target_role, "cicd"], source_role)
     ]
   }
 }
+
+data "aws_partition" "current" {}
 
 data "aws_iam_policy_document" "empty" {
 }
@@ -48,7 +50,7 @@ data "aws_iam_policy_document" "saml_provider_assume" {
       type = "Federated"
 
       # Loop over the IDPs from the `sso` component
-      identifiers = [for name, arn in data.terraform_remote_state.sso.outputs.saml_provider_arn : arn]
+      identifiers = [for name, arn in data.terraform_remote_state.sso.outputs.saml_provider_arns : arn]
     }
 
     condition {
@@ -75,7 +77,7 @@ data "aws_iam_policy_document" "primary_roles_assume" {
         type = "AWS"
 
         identifiers = local.assume_role_restricted ? local.allowed_assume_role_principals_map[each.key] : [
-          format("arn:aws:iam::%s:root", var.primary_account_id)
+          format("arn:%s:iam::%s:root", data.aws_partition.current.partition, var.primary_account_id)
         ]
       }
     }
@@ -113,7 +115,9 @@ resource "aws_iam_role" "default" {
   description          = local.roles_config[each.key]["role_description"]
   assume_role_policy   = data.aws_iam_policy_document.aggregated[each.key].json
   max_session_duration = var.iam_role_max_session_duration
-  tags                 = merge(module.this.tags, map("Name", local.role_name_map[each.key]))
+  tags                 = merge(module.this.tags, tomap(
+    { "Name" = local.role_name_map[each.key] }
+  ))
 }
 
 resource "aws_iam_role_policy_attachment" "default" {
