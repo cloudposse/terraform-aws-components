@@ -18,7 +18,7 @@ variable "tfstate_account_id" {
 
 variable "tfstate_role_arn_template" {
   type        = string
-  default     = "arn:aws-us-gov:iam::%s:role/%s-%s-%s-%s"
+  default     = "arn:aws:iam::%s:role/%s-%s-%s-%s"
   description = "IAM Role ARN template for accessing the Terraform remote state"
 }
 
