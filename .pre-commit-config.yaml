@@ -9,8 +9,8 @@ repos:
                 modules/github-actions-runner/runners/actions-runner/chart/templates/.*.yaml |
                 modules/echo-server/charts/echo-server/templates/.*.yaml
             )$
-  - repo: git://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.55.0
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.69.0
     hooks:
       - id: terraform_fmt
       - id: terraform_docs
