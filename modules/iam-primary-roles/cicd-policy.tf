@@ -7,7 +7,7 @@ data "aws_iam_policy_document" "cicd" {
       "sts:TagSession",
     ]
     resources = [
-      format("arn:%s:iam::*:role/*-helm", data.aws_partition.current.partition),
+      format("arn:%s:iam::%s:role/*-helm", data.aws_partition.current.partition, data.aws_caller_identity.current.account_id),
       //"arn:aws:iam::*:role/*-terraform",
     ]
   }
