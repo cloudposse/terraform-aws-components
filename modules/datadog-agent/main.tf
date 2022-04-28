@@ -19,35 +19,35 @@ locals {
   cluster_checks_enabled = local.enabled && var.cluster_checks_enabled
 
   context_tags = {
-  for k, v in module.this.tags :
-  lower(k) => v
+    for k, v in module.this.tags :
+    lower(k) => v
   }
 
-  deep_map_merge         = module.datadog_cluster_check_yaml_config[0].map_configs
+  deep_map_merge = module.datadog_cluster_check_yaml_config[0].map_configs
   datadog_cluster_checks = {
-  for k, v in local.deep_map_merge :
-  k => merge( v, {
-    instances : [
-    for key, val in v.instances :
-    merge(val, {
-      tags : [
-      for tag, tag_value in local.context_tags :
-      format("%s:%s", tag, tag_value)
-      if contains(var.datadog_cluster_check_auto_added_tags, tag)
+    for k, v in local.deep_map_merge :
+    k => merge(v, {
+      instances : [
+        for key, val in v.instances :
+        merge(val, {
+          tags : [
+            for tag, tag_value in local.context_tags :
+            format("%s:%s", tag, tag_value)
+            if contains(var.datadog_cluster_check_auto_added_tags, tag)
+          ]
+        })
       ]
     })
-    ]
-  })
   }
   set_datadog_cluster_checks = [
-  for cluster_check_key, cluster_check_value in local.datadog_cluster_checks :
-  {
-    # Since we are using json pathing to set deep yaml values, and the key we want to set is `something.yaml`
-    # we need to escape the key of the cluster check.
-    name  = format("clusterAgent.confd.%s", replace(cluster_check_key, ".", "\\."))
-    type  = "auto"
-    value = yamlencode(cluster_check_value)
-  }
+    for cluster_check_key, cluster_check_value in local.datadog_cluster_checks :
+    {
+      # Since we are using json pathing to set deep yaml values, and the key we want to set is `something.yaml`
+      # we need to escape the key of the cluster check.
+      name  = format("clusterAgent.confd.%s", replace(cluster_check_key, ".", "\\."))
+      type  = "auto"
+      value = yamlencode(cluster_check_value)
+    }
   ]
 }
 
