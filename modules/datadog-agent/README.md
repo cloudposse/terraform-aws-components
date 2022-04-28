@@ -58,6 +58,41 @@ Once they are added, and properly configured, the new checks show up in the netw
 
 **Please note:** the yaml file name doesn't matter, but the root key inside which is `something.yaml` does matter. this is following [datadogs docs](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files) for <integration name>.yaml.
 
+## Monitoring Cluster Checks
+
+Using Cloudposse's `datadog-monitor` component. The following yaml snippet will monitor all HTTP Cluster Checks, this can be added to each stage (usually via a defaults folder).
+
+```yaml
+https-checks:
+  name: "(Network Check) ${stage} - HTTPS Check"
+  type: service check
+  query: |
+    "http.can_connect".over("stage:${stage}").by("instance").last(2).count_by_status()
+  message: |
+    HTTPS Check failed on <code>{{instance.name}}</code>
+      in Stage: <code>{{stage.name}}</code>
+  escalation_message: ""
+  tags: 
+    managed-by: Terraform
+  notify_no_data: false
+  notify_audit: false
+  require_full_window: true
+  enable_logs_sample: false
+  force_delete: true
+  include_tags: true
+  locked: false
+  renotify_interval: 0
+  timeout_h: 0
+  evaluation_delay: 0
+  new_host_delay: 0
+  new_group_delay: 0
+  no_data_timeframe: 2
+  threshold_windows: { }
+  thresholds:
+    critical: 1
+    warning: 1
+    ok: 1
+```
 ## References
 
 * https://github.com/DataDog/helm-charts/tree/main/charts/datadog
