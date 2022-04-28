@@ -2,6 +2,10 @@
 
 This component installs the `datadog-agent` for EKS clusters.
 
+Note that pending https://tanzle.atlassian.net/browse/SRE-268 & https://cloudposse.atlassian.net/browse/MEROPE-381 , failed Terraform applies for this component may leave state & live release config inconsistent resulting in out-of-sync configuration but a no-change plan.
+
+If you're getting a "No changes" plan when you know the live release config doesn't match the new values, force a taint/recreate of the Helm release with a Spacelift task for the stack like this: `terraform apply -replace='module.datadog_agent.helm_release.this[0]' -auto-approve`.
+
 ## Usage
 
 **Stack Level**: Regional
@@ -19,36 +23,78 @@ components:
         enabled: true
 ```
 
+Dev Example
+```yaml
+components:
+  terraform:
+    datadog-agent:
+      vars:
+        # Order affects merge order. Later takes priority. We append lists though.
+        datadog_cluster_check_config_paths:
+          - catalog/cluster-checks/defaults/*.yaml
+          - catalog/cluster-checks/dev/*.yaml
+        datadog_cluster_check_config_parameters: {}
+        datadog_tags:
+          - "env:dev"
+          - "region:us-west-2"
+          - "stage:dev"
+```
+
+# Cluster Checks
+
+Cluster Checks are configurations that allow us to setup external URLs to be monitored. They can be configured through the datadog agent or annotations on kubernetes services.
+
+Cluster Checks are similar to synthetics checks, they are not as indepth, but significantly cheaper. Use Cluster Checks when you need a simple health check beyond the kubernetes pod health check.
+
+Public addresses that test endpoints must use the agent configuration, whereas service addresses internal to the cluster can be tested by annotations.
+
+## Adding Cluster Checks
+
+Cluster Checks can be enabled or disabled via the `cluster_checks_enabled` variable. We recommend this be set to true.
+
+New Cluster Checks can be added to defaults to be applied in every account. Alternatively they can be placed in an individual stage folder which will be applied to individual stages. This is controlled by the `datadog_cluster_check_config_parameters` variable, which determines the paths of yaml files to look for cluster checks per stage.
+
+Once they are added, and properly configured, the new checks show up in the network monitor creation under `ssl` and `Http`
+
+**Please note:** the yaml file name doesn't matter, but the root key inside which is `something.yaml` does matter. this is following [datadogs docs](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files) for <integration name>.yaml.
+
+## References
+
+* https://github.com/DataDog/helm-charts/tree/main/charts/datadog
+* https://github.com/DataDog/helm-charts/blob/main/charts/datadog/values.yaml
+* https://github.com/DataDog/helm-charts/blob/main/examples/datadog/agent_basic_values.yaml
+* https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release
+* https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 2.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
-| <a name="provider_aws.api_keys"></a> [aws.api\_keys](#provider\_aws.api\_keys) | >= 3.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 2.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.3.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_datadog_agent"></a> [datadog\_agent](#module\_datadog\_agent) | cloudposse/helm-release/aws | 0.3.0 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.0 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.19.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_iam_roles_datadog_secrets"></a> [iam\_roles\_datadog\_secrets](#module\_iam\_roles\_datadog\_secrets) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [helm_release.this](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [aws_eks_cluster.kubernetes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
 | [aws_eks_cluster_auth.kubernetes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 | [aws_secretsmanager_secret.datadog_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
@@ -72,15 +118,13 @@ components:
 | <a name="input_create_namespace"></a> [create\_namespace](#input\_create\_namespace) | Create the Kubernetes namespace if it does not yet exist | `bool` | `true` | no |
 | <a name="input_datadog_api_secret_key"></a> [datadog\_api\_secret\_key](#input\_datadog\_api\_secret\_key) | The key of the Datadog API secret | `string` | `"datadog/datadog_api_key"` | no |
 | <a name="input_datadog_app_secret_key"></a> [datadog\_app\_secret\_key](#input\_datadog\_app\_secret\_key) | The key of the Datadog Application secret | `string` | `"datadog/datadog_app_key"` | no |
-| <a name="input_datadog_secrets_source_store_account"></a> [datadog\_secrets\_source\_store\_account](#input\_datadog\_secrets\_source\_store\_account) | Account (stage) holding Secret Store for Datadog API and app keys. | `string` | `"auto"` | no |
-| <a name="input_datadog_tags"></a> [datadog\_tags](#input\_datadog\_tags) | List of static tags to attach to every metric, event and service check collected by the agent | `list(string)` | `[]` | no |
+| <a name="input_datadog_tags"></a> [datadog\_tags](#input\_datadog\_tags) | List of static tags to attach to every metric, event and service check collected by the agent | `set(string)` | `[]` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_description"></a> [description](#input\_description) | Release description attribute (visible in the history) | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
 | <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_kubernetes_namespace"></a> [kubernetes\_namespace](#input\_kubernetes\_namespace) | Kubernetes namespace to install the release into | `string` | n/a | yes |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
@@ -106,12 +150,5 @@ components:
 |------|-------------|
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
-## References
-* https://github.com/DataDog/helm-charts/tree/main/charts/datadog
-* https://github.com/DataDog/helm-charts/blob/main/charts/datadog/values.yaml
-* https://github.com/DataDog/helm-charts/blob/main/examples/datadog/agent_basic_values.yaml
-* https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release
-
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
