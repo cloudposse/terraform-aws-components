@@ -1,6 +1,8 @@
 locals {
   enabled = module.this.enabled
 
+  tags = module.introspection.tags
+
   datadog_api_key = local.enabled ? (var.secrets_store_type == "ASM" ? (
     data.aws_secretsmanager_secret_version.datadog_api_key[0].secret_string) :
     data.aws_ssm_parameter.datadog_api_key[0].value
@@ -76,6 +78,8 @@ resource "kubernetes_namespace" "default" {
 
   metadata {
     name = var.kubernetes_namespace
+
+    labels = local.tags
   }
 }
 
