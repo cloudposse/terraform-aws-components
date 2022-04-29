@@ -25,7 +25,9 @@ locals {
     lower(k) => v
   }
 
+  #  This deep merges the cluster checks with array merging
   deep_map_merge = module.datadog_cluster_check_yaml_config[0].map_configs
+  #  We then take the merged instances and merge tags onto every instance check for every tag in `datadog_cluster_check_auto_added_tags`
   datadog_cluster_checks = {
     for k, v in local.deep_map_merge :
     k => merge(v, {
@@ -41,6 +43,7 @@ locals {
       ]
     })
   }
+  #  This then turns the map of root keys to objects, into an array so we can concat it in the set block.
   set_datadog_cluster_checks = [
     for cluster_check_key, cluster_check_value in local.datadog_cluster_checks :
     {
