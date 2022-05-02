@@ -46,6 +46,12 @@ variable "create_only_integrations_enabled" {
   description = "Whether to reuse all existing resources and only create new integrations"
 }
 
+variable "integrations_enabled" {
+  type        = bool
+  default     = true
+  description = "Whether to enable the integrations submodule or not"
+}
+
 variable "ignore_team_members" {
   type        = bool
   default     = false

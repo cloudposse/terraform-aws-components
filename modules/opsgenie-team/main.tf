@@ -69,11 +69,11 @@ module "integration" {
 
   // We add Datadog here because we need the core input for the team.
   // Can be overridden by var.integrations.datadog
-  for_each = merge({
+  for_each = var.integrations_enabled ? merge({
     datadog : {
       type : "Datadog"
     }
-  }, var.integrations)
+  }, var.integrations) : {}
 
   type = each.value.type
 
