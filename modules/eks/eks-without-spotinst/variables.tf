@@ -49,7 +49,7 @@ variable "cluster_kubernetes_version" {
 
 variable "public_access_cidrs" {
   type        = list(string)
-  default     = ["0.0.0.0/0"]
+  default     = []
   description = "Indicates which CIDR blocks can access the Amazon EKS public API server endpoint when enabled. EKS defaults this to a list with 0.0.0.0/0."
 }
 
@@ -61,7 +61,7 @@ variable "enabled_cluster_log_types" {
 
 variable "cluster_log_retention_period" {
   type        = number
-  default     = 0
+  default     = 90
   description = "Number of days to retain cluster logs. Requires `enabled_cluster_log_types` to be set. See https://docs.aws.amazon.com/en_us/eks/latest/userguide/control-plane-logs.html."
 }
 
@@ -335,7 +335,7 @@ variable "cluster_private_subnets_only" {
 
 variable "allow_ingress_from_vpc_stages" {
   type        = list(string)
-  default     = ["auto", "corp"]
+  default     = []
   description = "List of stages to pull VPC ingress CIDR and add to security group"
 }
 
