@@ -11,7 +11,11 @@ locals {
   organization_accounts_map = { for acc in local.organization_accounts : acc.name => acc }
 
   # Organizational Units' Accounts list and map configuration
-  organizational_units_accounts     = flatten([for ou in local.organizational_units : lookup(ou, "accounts", [])])
+  organizational_units_accounts = flatten([
+    for ou in local.organizational_units : [
+      for account in lookup(ou, "accounts", []) : merge(account, { "ou" = ou.name })
+    ]
+  ])
   organizational_units_accounts_map = { for acc in local.organizational_units_accounts : acc.name => acc }
 
   # All Accounts configuration
@@ -78,7 +82,7 @@ module "service_control_policy_statements_yaml_config" {
   list_config_local_base_path = path.module
   list_config_paths           = var.service_control_policies_config_paths
 
-  context = module.this.context
+  context = module.introspection.context
 }
 
 # Provision Organization or use existing one
@@ -113,7 +117,7 @@ resource "aws_organizations_account" "organization_accounts" {
   name                       = each.value.name
   email                      = format(var.account_email_format, each.value.name)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
-  tags                       = merge(module.this.tags, try(each.value.tags, {}), { Name : each.value.name })
+  tags                       = merge(module.introspection.tags, try(each.value.tags, {}), { Name : each.value.name })
 }
 
 # Provision Organizational Units
@@ -130,7 +134,7 @@ resource "aws_organizations_account" "organizational_units_accounts" {
   parent_id                  = aws_organizations_organizational_unit.this[local.account_names_organizational_unit_names_map[each.value.name]].id
   email                      = format(var.account_email_format, each.value.name)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
-  tags                       = merge(module.this.tags, try(each.value.tags, {}), { Name : each.value.name })
+  tags                       = merge(module.introspection.tags, try(each.value.tags, {}), { Name : each.value.name })
 }
 
 # Provision Organization Service Control Policy
@@ -145,7 +149,7 @@ module "organization_service_control_policies" {
   service_control_policy_description = "Organization Service Control Policy"
   target_id                          = local.organization_root_account_id
 
-  context = module.this.context
+  context = module.introspection.context
 }
 
 # Provision Accounts Service Control Policies
@@ -160,7 +164,7 @@ module "accounts_service_control_policies" {
   service_control_policy_description = "'${each.key}' Account Service Control Policy"
   target_id                          = local.account_names_account_ids[each.key]
 
-  context = module.this.context
+  context = module.introspection.context
 }
 
 # Provision Organizational Units Service Control Policies
@@ -175,7 +179,7 @@ module "organizational_units_service_control_policies" {
   service_control_policy_description = "'${each.key}' Organizational Unit Service Control Policy"
   target_id                          = local.organizational_unit_names_organizational_unit_ids[each.key]
 
-  context = module.this.context
+  context = module.introspection.context
 }
 
 
@@ -244,13 +248,15 @@ locals {
 
   account_info_map = merge({ for acc in local.all_accounts : acc.name => merge({ for k, v in acc : k => v if k != "name" },
     {
-      eks = tobool(lookup(try(acc.tags, {}), "eks", false))
-      id  = local.account_names_account_ids[acc.name]
+      eks    = tobool(lookup(try(acc.tags, {}), "eks", false))
+      id     = local.account_names_account_ids[acc.name]
+      tenant = try(acc.tenant, var.tenant)
     }) },
     {
       (var.organization_config.root_account.name) = merge({ for k, v in var.organization_config.root_account : k => v if k != "name" }, {
-        id  = local.organization_master_account_id
-        eks = tobool(lookup(try(var.organization_config.root_account.tags, {}), "eks", false))
+        id     = local.organization_master_account_id
+        eks    = tobool(lookup(try(var.organization_config.root_account.tags, {}), "eks", false))
+        tenant = var.tenant
       })
   })
 
