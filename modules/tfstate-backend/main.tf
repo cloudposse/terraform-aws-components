@@ -5,6 +5,7 @@ module "tfstate_backend" {
   force_destroy                 = var.force_destroy
   prevent_unencrypted_uploads   = var.prevent_unencrypted_uploads
   enable_server_side_encryption = var.enable_server_side_encryption
+  enable_point_in_time_recovery = var.enable_point_in_time_recovery
 
   context = module.introspection.context
 }
