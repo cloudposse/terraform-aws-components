@@ -1,12 +1,16 @@
 locals {
-  merged_role_policy_arns = merge(var.default_account_role_policy_arns, var.account_role_policy_arns)
-  roles_config            = { for key, value in data.terraform_remote_state.primary_roles.outputs.delegated_roles_config : key => value if ! contains(var.exclude_roles, key) }
-  roles_policy_arns       = { for key, value in local.roles_config : key => lookup(local.merged_role_policy_arns, key, value["role_policy_arns"]) }
-  role_name_map           = { for role_name, config in data.terraform_remote_state.primary_roles.outputs.delegated_roles_config : role_name => format("%s-%s", module.label.id, role_name) }
+  roles_config      = { for key, value in var.roles : key => value if lookup(value, "enabled", false) }
+  roles_policy_arns = { for role, config in local.roles_config : role => config.role_policy_arns }
 
-  trusted_primary_roles = { for key, value in local.roles_config : key => lookup(var.trusted_primary_role_overrides, key, value.trusted_primary_roles) }
+  # It would be nice if we could use null-label and set name = each.key but we do not want the name to be normalized
+  role_name_map = { for role_name, config in local.roles_config : role_name => format("%s%s%s", module.this.id, module.this.delimiter, role_name) }
 
-  custom_policy_map = { "root-terraform" = try(aws_iam_policy.tfstate[0].arn, null) }
+  # If you want to create custom policies to add to multiple roles by name, create the policy
+  # using an aws_iam_policy resource and then map it to the name you want to use in the
+  # YAML configuration by adding an entry in `custom_policy_map`. See iam-primary-roles for an example.
+  custom_policy_map = {
+    support = aws_iam_policy.support.arn
+  }
 
   # Intermediate step in calculating all policy attachments.
   # Create a list of [role, arn] lists
@@ -20,38 +24,61 @@ locals {
     # The value is the policy ARN to attach to the role
     try(local.custom_policy_map[split("+", role_arns)[1]], split("+", role_arns)[1])
   }
+
+  saml_login_enabled = module.this.enabled && length(local.saml_provider_arns) > 0 ? contains([for v in local.roles_config : (v.enabled && v.sso_login_enabled)], true) : false
+  saml_provider_arns = try(module.sso.outputs.saml_provider_arns, [])
+
+  this_account_name = try(module.this.account, module.this.descriptors["account_name"], module.this.stage)
+
+
 }
 
-module "label" {
-  source = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.21.0"
+module "assume_role" {
+  for_each = local.roles_config
+  source   = "./modules/iam-assume-role-policy"
 
-  name = ""
+  allowed_roles           = { (var.iam_primary_roles_account_name) = each.value.trusted_primary_roles }
+  denied_roles            = { (var.iam_primary_roles_account_name) = each.value.denied_primary_roles }
+  allowed_principal_arns  = each.value.trusted_role_arns
+  denied_principal_arns   = each.value.denied_role_arns
+  allowed_permission_sets = { (local.this_account_name) = each.value.trusted_permission_sets }
+  denied_permission_sets  = { (local.this_account_name) = each.value.denied_permission_sets }
+
+  privileged = true
 
   context = module.this.context
 }
 
-data "aws_iam_policy_document" "assume_role" {
-  for_each = local.roles_config
+data "aws_iam_policy_document" "saml_provider_assume" {
+  count = local.saml_login_enabled ? 1 : 0
+
   statement {
-    sid = "IdentityAccountAssume"
+    sid = "SamlProviderAssume"
     actions = [
-      "sts:AssumeRole",
-      "sts:TagSession"
+      "sts:AssumeRoleWithSAML",
+      "sts:TagSession",
     ]
 
     principals {
-      type = "AWS"
+      type = "Federated"
 
-      identifiers = concat([
-        # Allow role in primary account to assume this role
-        for role in local.trusted_primary_roles[each.key] : data.terraform_remote_state.primary_roles.outputs.role_name_role_arn_map[role]
-        ],
-        var.allow_same_account_assume_role ? [
-          for role in local.trusted_primary_roles[each.key] :
-          format("arn:aws:iam::%s:role/%s", var.account_number, local.role_name_map[role]) if ! contains(var.exclude_roles, role)
-      ] : [])
+      # Loop over the IDPs from the `sso` component
+      identifiers = [for name, arn in local.saml_provider_arns : arn]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "SAML:aud"
+      values   = ["https://signin.aws.amazon.com/saml"]
     }
   }
+}
+
+data "aws_iam_policy_document" "assume_role_aggregated" {
+  for_each = local.roles_config
+
+  source_policy_documents = concat([module.assume_role[each.key].policy_document],
+  local.saml_login_enabled && local.roles_config[each.key].sso_login_enabled ? [data.aws_iam_policy_document.saml_provider_assume[0].json] : [])
 }
 
 resource "aws_iam_role" "default" {
@@ -59,9 +86,9 @@ resource "aws_iam_role" "default" {
 
   name                 = local.role_name_map[each.key]
   description          = each.value["role_description"]
-  assume_role_policy   = data.aws_iam_policy_document.assume_role[each.key].json
-  max_session_duration = var.iam_role_max_session_duration
-  tags                 = merge(module.label.tags, map("Name", local.role_name_map[each.key]))
+  assume_role_policy   = data.aws_iam_policy_document.assume_role_aggregated[each.key].json
+  max_session_duration = each.value["max_session_duration"]
+  tags                 = merge(module.this.tags, { Name = local.role_name_map[each.key] })
 }
 
 resource "aws_iam_role_policy_attachment" "default" {

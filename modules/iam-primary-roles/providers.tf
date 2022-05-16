@@ -4,22 +4,19 @@ provider "aws" {
   dynamic "assume_role" {
     for_each = module.iam_roles.org_role_arn != null ? [true] : []
     content {
-      # `terraform import` will not use data from a data source,
-      # so on import we have to explicitly specify the role
       role_arn = coalesce(var.import_role_arn, module.iam_roles.org_role_arn)
     }
   }
 }
 
 module "iam_roles" {
-  source      = "../account-map/modules/iam-roles"
-  stage       = var.stage
-  assume_role = false
-  region      = var.region
+  source     = "../account-map/modules/iam-roles"
+  privileged = true
+  context    = module.this.context
 }
 
 variable "import_role_arn" {
+  description = "IAM Role ARN to use when importing a resource"
   type        = string
   default     = null
-  description = "IAM Role ARN to use when importing a resource"
 }

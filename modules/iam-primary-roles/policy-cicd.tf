@@ -1,25 +1,5 @@
 data "aws_iam_policy_document" "cicd" {
   statement {
-    sid    = "CicdAssumeRole"
-    effect = "Allow"
-    actions = [
-      "sts:AssumeRole",
-      "sts:TagSession",
-    ]
-    resources = [
-      "arn:aws:iam::*:role/*-helm",
-      //"arn:aws:iam::*:role/*-terraform",
-    ]
-  }
-  statement {
-    sid     = "CicdDenySensitiveAssumeRole"
-    effect  = "Deny"
-    actions = ["sts:AssumeRole"]
-    resources = [
-      "arn:aws:iam::xxx:role/*"
-    ]
-  }
-  statement {
     sid    = "EcrReadWriteDeleteAccess"
     effect = "Allow"
 
