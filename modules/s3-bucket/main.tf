@@ -1,17 +1,13 @@
 locals {
   enabled = module.this.enabled
 
-  aws_partition = data.aws_partition.current.partition
-
   custom_policy_account_arns = [
     for acct in var.custom_policy_account_names :
-    format("arn:%s:iam::%s:root", local.aws_partition, module.account_map.outputs.full_account_map[acct])
+    format("arn:aws:iam::%s:root", local.aws_partition, module.account_map.outputs.full_account_map[acct])
   ]
 
   bucket_policy = var.custom_policy_enabled ? data.aws_iam_policy_document.custom_policy[0].json : data.template_file.bucket_policy.rendered
 }
-
-data "aws_partition" "current" {}
 
 data "template_file" "bucket_policy" {
   template = module.bucket_policy.json
@@ -27,7 +23,7 @@ module "bucket_policy" {
 
   iam_policy_statements = var.source_policy_documents
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 module "s3_bucket" {
@@ -77,7 +73,7 @@ module "s3_bucket" {
   user_enabled           = var.user_enabled
   allowed_bucket_actions = var.allowed_bucket_actions
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 data "aws_iam_policy_document" "custom_policy" {
@@ -87,11 +83,11 @@ data "aws_iam_policy_document" "custom_policy" {
     actions = var.custom_policy_actions
 
     resources = [
-      format("arn:%s:s3:::%s", local.aws_partition, module.this.id),
-      format("arn:%s:s3:::%s/*", local.aws_partition, module.this.id)
+      module.s3_bucket.bucket_id,
+      "${module.s3_bucket.bucket_id}/*",
     ]
     principals {
-      identifiers = length(local.custom_policy_account_arns) > 0 ? local.custom_policy_account_arns : ["*"]
+      identifiers = local.custom_policy_account_arns
       type        = "AWS"
     }
 

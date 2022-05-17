@@ -171,7 +171,7 @@ variable "lifecycle_configuration_rules" {
     noncurrent_version_transition = list(any)
   }))
   default     = []
-  description = "A list of lifecycle V2 rules"
+  description = "A list of lifecycle V2 rules. See [terraform-aws-s3-bucket](https://github.com/cloudposse/terraform-aws-s3-bucket) for details."
 }
 
 variable "cors_rule_inputs" {
@@ -228,42 +228,9 @@ variable "s3_replica_bucket_arn" {
 }
 
 variable "s3_replication_rules" {
-  # type = list(object({
-  #   id          = string
-  #   priority    = number
-  #   prefix      = string
-  #   status      = string
-  #   delete_marker_replication_status = string
-  #   # destination_bucket is specified here rather than inside the destination object
-  #   # to make it easier to work with the Terraform type system and create a list of consistent type.
-  #   destination_bucket = string # destination bucket ARN, overrides s3_replica_bucket_arn
-  #
-  #   destination = object({
-  #     storage_class              = string
-  #     replica_kms_key_id         = string
-  #     access_control_translation = object({
-  #       owner = string
-  #     })
-  #     account_id                 = string
-  #     metrics                    = object({
-  #       status = string
-  #     })
-  #   })
-  #   source_selection_criteria = object({
-  #     sse_kms_encrypted_objects = object({
-  #       enabled = bool
-  #     })
-  #   })
-  #   # filter.prefix overrides top level prefix
-  #   filter = object({
-  #     prefix = string
-  #     tags = map(string)
-  #   })
-  # }))
-
   type        = list(any)
   default     = null
-  description = "Specifies the replication rules for S3 bucket replication if enabled. You must also set s3_replication_enabled to true."
+  description = "Specifies the replication rules for S3 bucket replication if enabled. You must also set s3_replication_enabled to true. See [terraform-aws-s3-bucket](https://github.com/cloudposse/terraform-aws-s3-bucket) for details."
 }
 
 variable "s3_replication_source_roles" {
