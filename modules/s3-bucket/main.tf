@@ -1,12 +1,25 @@
 locals {
   enabled = module.this.enabled
 
-  custom_policy_account_arns = [
-    for acct in var.custom_policy_account_names :
-    format("arn:aws:iam::%s:root", local.aws_partition, module.account_map.outputs.full_account_map[acct])
-  ]
-
   bucket_policy = var.custom_policy_enabled ? data.aws_iam_policy_document.custom_policy[0].json : data.template_file.bucket_policy.rendered
+}
+
+module "custom_policy_account_roles" {
+  count = local.enabled && var.custom_policy_enabled ? 1 : 0
+
+  source = "../account-map/modules/roles-to-principals"
+
+  iam_role_arn_template = "arn:aws:iam::%s:role/%s-%s-%s-%s"
+  role_map = {
+    for acct in var.custom_policy_account_names :
+    acct => ["root"]
+  }
+
+  root_account_stage_name = var.account_map_stage_name
+  global_environment_name = var.account_map_environment_name
+  global_tenant_name      = coalesce(var.account_map_tenant_name, module.this.tenant)
+
+  context = module.this.context
 }
 
 data "template_file" "bucket_policy" {
@@ -27,6 +40,11 @@ module "bucket_policy" {
 }
 
 module "s3_bucket" {
+  # Note: 
+  # Version 2.0 introduces a breaking change to var.website_inputs. 
+  # The AWS provider v3 configuration of S3 static websites was replaced with a new aws_s3_bucket_website_configuration resource which has additional features. The s3-bucket v1 website_inputs is broken (due to an oversight) in v2 and is inadequate to handle the new features.
+  # See the 2.0 release notes:
+  # https://github.com/cloudposse/terraform-aws-s3-bucket/wiki/Upgrading-to-v2.0
   source  = "cloudposse/s3-bucket/aws"
   version = "2.0.0"
 
@@ -48,7 +66,7 @@ module "s3_bucket" {
 
   # Static website configuration
   cors_rule_inputs = var.cors_rule_inputs
-  website_inputs   = var.website_inputs
+  # website_inputs   = var.website_inputs
 
   # Bucket feature flags
   transfer_acceleration_enabled = var.transfer_acceleration_enabled
@@ -83,11 +101,11 @@ data "aws_iam_policy_document" "custom_policy" {
     actions = var.custom_policy_actions
 
     resources = [
-      module.s3_bucket.bucket_id,
-      "${module.s3_bucket.bucket_id}/*",
+      module.s3_bucket.bucket_arn,
+      "${module.s3_bucket.bucket_arn}/*",
     ]
     principals {
-      identifiers = local.custom_policy_account_arns
+      identifiers = module.custom_policy_account_roles.principals
       type        = "AWS"
     }
 
