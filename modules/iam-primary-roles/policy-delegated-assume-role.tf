@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "delegated_assume_role" {
   statement {
     sid     = "DelegatedAssumeRole"
     effect  = "Allow"
-    actions = ["sts:AssumeRole"]
+    actions = ["sts:AssumeRole", "sts:TagSession"]
     resources = [
       "arn:aws:iam::*:role/*",
     ]
