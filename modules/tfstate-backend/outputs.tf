@@ -27,8 +27,3 @@ output "tfstate_backend_dynamodb_table_arn" {
   value       = module.tfstate_backend.dynamodb_table_arn
   description = "Terraform state DynamoDB table ARN"
 }
-
-output "tfstate_backend_access_role_arns" {
-  value       = { for k, v in aws_iam_role.default : k => v.arn }
-  description = "IAM Role ARNs for accessing the Terraform State Backend"
-}
