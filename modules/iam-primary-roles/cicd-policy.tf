@@ -1,5 +1,27 @@
 data "aws_iam_policy_document" "cicd" {
   statement {
+    sid    = "CicdAssumeRole"
+    effect = "Allow"
+    actions = [
+      "sts:AssumeRole",
+      "sts:TagSession",
+    ]
+    resources = [
+      "arn:aws:iam::*:role/*-helm",
+      "arn:aws:iam::*:role/*-terraform",
+    ]
+  }
+  statement {
+    sid     = "CicdDenySensitiveAssumeRole"
+    effect  = "Deny"
+    actions = ["sts:AssumeRole"]
+    resources = [
+      format("arn:aws:iam::%s:role/*", local.root_account_id),
+      format("arn:aws:iam::%s:role/*", local.identity_account_id),
+      format("arn:aws:iam::%s:role/*", local.audit_account_id),
+    ]
+  }
+  statement {
     sid    = "EcrReadWriteDeleteAccess"
     effect = "Allow"
 
@@ -38,4 +60,6 @@ data "aws_iam_policy_document" "cicd" {
 resource "aws_iam_policy" "cicd" {
   name   = format("%s-cicd", module.this.id)
   policy = data.aws_iam_policy_document.cicd.json
+
+  tags = module.introspection.tags
 }
