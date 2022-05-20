@@ -17,6 +17,7 @@ components:
       vars:
         saml_providers:
           enabled: true
+          example-okta: Okta_metadata_example.xml
           example-gsuite: GoogleIDPMetadata-example.com.xml
 ```
 
