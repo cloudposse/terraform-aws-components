@@ -7,10 +7,15 @@ locals {
 
   # If you want to create custom policies to add to multiple roles by name, create the policy
   # using an aws_iam_policy resource and then map it to the name you want to use in the
-  # YAML configuration by adding an entry in `custom_policy_map`. See iam-primary-roles for an example.
+  # YAML configuration by adding an entry in `custom_policy_map`.
   custom_policy_map = {
-    support = aws_iam_policy.support.arn
+    billing_read_only = aws_iam_policy.billing_read_only.arn
+    billing_admin     = aws_iam_policy.billing_admin.arn
+    support           = aws_iam_policy.support.arn
   }
+
+  configured_policies = flatten([for k, v in local.roles_config : v.role_policy_arns])
+  enabled_policies    = { for k in keys(local.custom_policy_map) : k => contains(local.configured_policies, k) }
 
   # Intermediate step in calculating all policy attachments.
   # Create a list of [role, arn] lists
@@ -30,12 +35,14 @@ locals {
 
   this_account_name = try(module.this.account, module.this.descriptors["account_name"], module.this.stage)
 
-
+  aws_partition = data.aws_partition.current.partition
 }
+
+data "aws_partition" "current" {}
 
 module "assume_role" {
   for_each = local.roles_config
-  source   = "./modules/iam-assume-role-policy"
+  source   = "../../registry/terraform/iam-assume-role-policy"
 
   allowed_roles           = { (var.iam_primary_roles_account_name) = each.value.trusted_primary_roles }
   denied_roles            = { (var.iam_primary_roles_account_name) = each.value.denied_primary_roles }

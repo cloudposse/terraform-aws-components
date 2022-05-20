@@ -2,12 +2,16 @@
 #
 # The reason for this is as follows:
 #
-# When iam-primary-roles creates this policy and allows it to be referenced by its short name in its configuration,
-# it also exports its configuration such that it can be consumed by iam-delegated-roles.
-# The latter component will then attempt to attach this customer-managed policy as per the exported configuration.
+# The support role (unlike most roles in the identity account) needs specific access to
+# resources in the identity account. Policies must be created per-account, so the identity
+# account needs a support policy, and that has to be created in iam-primary-roles.
 #
-# Because of this, the iam-delegated-roles component needs to both create this same policy in the target account and map the short name to it
-# in order to be able to attach it to the appropriate roles, as per the exported configuration.
+# Other custom roles are only needed in either the identity or the other accounts, not both.
+#
+
+locals {
+  support_policy_enabled = local.enabled_policies["support"]
+}
 
 data "aws_iam_policy_document" "support_access_trusted_advisor" {
   count = local.support_policy_enabled ? 1 : 0
@@ -46,5 +50,5 @@ resource "aws_iam_policy" "support" {
   name   = format("%s-support", module.this.id)
   policy = data.aws_iam_policy_document.support_access_aggregated[0].json
 
-  tags = module.introspection.tags
+  tags = module.this.tags
 }
