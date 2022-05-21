@@ -3,6 +3,12 @@ variable "region" {
   description = "AWS Region"
 }
 
+variable "iam_primary_roles_account_name" {
+  description = "The name of the account where the IAM primary roles are provisioned"
+  type        = string
+  default     = "identity"
+}
+
 variable "roles" {
   description = "A roles map to configure the accounts."
   type = map(object({

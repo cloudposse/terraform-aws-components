@@ -9,13 +9,12 @@ locals {
   # using an aws_iam_policy resource and then map it to the name you want to use in the
   # YAML configuration by adding an entry in `custom_policy_map`.
   custom_policy_map = {
-    billing_read_only = aws_iam_policy.billing_read_only.arn
-    billing_admin     = aws_iam_policy.billing_admin.arn
-    support           = aws_iam_policy.support.arn
+    billing_read_only = try(aws_iam_policy.billing_read_only[0].arn, null)
+    billing_admin     = try(aws_iam_policy.billing_admin[0].arn, null)
+    support           = try(aws_iam_policy.support[0].arn, null)
   }
 
   configured_policies = flatten([for k, v in local.roles_config : v.role_policy_arns])
-  enabled_policies    = { for k in keys(local.custom_policy_map) : k => contains(local.configured_policies, k) }
 
   # Intermediate step in calculating all policy attachments.
   # Create a list of [role, arn] lists

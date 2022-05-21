@@ -1,6 +1,6 @@
 locals {
-  billing_read_only_policy_enabled = local.enabled_policies["billing_read_only"]
-  billing_admin_policy_enabled     = local.enabled_policies["billing_admin"]
+  billing_read_only_policy_enabled = contains(local.configured_policies, "billing_read_only")
+  billing_admin_policy_enabled     = contains(local.configured_policies, "billing_admin")
 }
 
 # Billing Read-Only Policies / Roles

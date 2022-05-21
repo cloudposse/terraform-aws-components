@@ -22,16 +22,3 @@ module "account_map" {
   context = module.this.context
 }
 
-module "spacelift_worker_pool" {
-  source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.2"
-
-  count = var.spacelift_roles_enabled ? 1 : 0
-
-  component   = "spacelift-worker-pool"
-  environment = coalesce(var.spacelift_worker_pool_environment_name, module.this.environment)
-  stage       = var.spacelift_worker_pool_stage_name
-
-  context = module.this.context
-}
-

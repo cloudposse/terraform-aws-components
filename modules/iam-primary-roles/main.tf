@@ -8,7 +8,7 @@ locals {
   # YAML configuration by adding an entry in `custom_policy_map`.
   custom_policy_map = {
     delegated_assume_role = aws_iam_policy.delegated_assume_role.arn
-    support               = try(aws_iam_policy.support[0].arn)
+    support               = try(aws_iam_policy.support[0].arn, null)
   }
 
   configured_policies = flatten([for k, v in local.roles_config : v.role_policy_arns])

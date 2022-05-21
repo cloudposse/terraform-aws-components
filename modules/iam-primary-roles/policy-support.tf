@@ -10,7 +10,7 @@
 #
 
 locals {
-  support_policy_enabled = local.enabled_policies["support"]
+  support_policy_enabled = contains(local.configured_policies, "support")
 }
 
 data "aws_iam_policy_document" "support_access_trusted_advisor" {
