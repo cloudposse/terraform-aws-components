@@ -9,22 +9,16 @@ variable "permission_set_map" {
   default     = {}
 }
 
-variable "iam_role_arn_template" {
-  type        = string
-  default     = "arn:%s:iam::%s:role/%s-%s-%s-%s"
-  description = "IAM Role ARN template"
-}
-
 variable "privileged" {
   type        = bool
   description = "True if the default provider already has access to the backend"
   default     = false
 }
 
-variable "aws_partition" {
+variable "global_tenant_name" {
   type        = string
-  description = "The AWS \"partition\" to use when constructing ARNs"
-  default     = "aws"
+  description = "The tenant name used for organization-wide resources"
+  default     = "core"
 }
 
 variable "global_environment_name" {

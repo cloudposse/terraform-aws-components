@@ -38,11 +38,16 @@ variable "audit_account_account_name" {
   description = "The stage name for the audit account"
 }
 
-variable "iam_role_arn_template" {
+variable "iam_role_arn_template_template" {
   type        = string
-  default     = "arn:aws:iam::%s:role/%s-%s-%s-%s"
+  default     = "arn:%s:iam::%s:role/%s-%s-%s-%s-%%s"
   description = <<-EOT
-  The template used to render Role ARNs.
+  The template for the template used to render Role ARNs.
+  The template is first used to render a template for the account that takes only the role name.
+  Then that rendered template is used to create the final Role ARN for the account.
+  Default is appropriate when using `tenant` and default label order with `null-label`.
+  Use `"arn:%s:iam::%s:role/%s-%s-%s-%%s"` when not using `tenant`.
+
 
   Note that if the `null-label` variable `label_order` is truncated or extended with additional labels, this template will
   need to be updated to reflect the new number of labels.
@@ -51,9 +56,11 @@ variable "iam_role_arn_template" {
 
 variable "profile_template" {
   type        = string
-  default     = "%s-%s-%s-%s"
+  default     = "%s-%s-%s-%s-%s"
   description = <<-EOT
   The template used to render AWS Profile names.
+  Default is appropriate when using `tenant` and default label order with `null-label`.
+  Use `"%s-%s-%s-%s"` when not using `tenant`.
 
   Note that if the `null-label` variable `label_order` is truncated or extended with additional labels, this template will
   need to be updated to reflect the new number of labels.
