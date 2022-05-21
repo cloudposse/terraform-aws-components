@@ -12,3 +12,8 @@ output "full_account_map" {
   description = "Map of account names to account IDs"
   value       = module.account_map.outputs.full_account_map
 }
+
+output "aws_partition" {
+  value       = local.aws_partition
+  description = "The AWS \"partition\" to use when constructing resource ARNs"
+}

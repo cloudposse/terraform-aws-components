@@ -23,6 +23,7 @@ module "account_map" {
 
 locals {
   aws_partition = module.account_map.outputs.aws_partition
+
   principals = distinct(compact(flatten([for acct, v in var.role_map : (
     contains(v, "*") ? [format("arn:%s:iam::%s:root", local.aws_partition, module.account_map.outputs.full_account_map[acct])] :
     [

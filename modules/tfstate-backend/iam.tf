@@ -25,7 +25,7 @@ module "label" {
 
 module "assume_role" {
   for_each = local.access_roles
-  source   = "../../registry/terraform/iam-assume-role-policy"
+  source   = "../account-map/modules/iam-assume-role-policy"
 
   allowed_roles          = each.value.allowed_roles
   denied_roles           = each.value.denied_roles

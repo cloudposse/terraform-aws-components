@@ -1,5 +1,35 @@
 # iam-assume-role-policy
 
+This submodule generates a JSON-encoded IAM Policy Document suitable for use as an "Assume Role Policy".
+
+You can designate both who is allowed to assume a role and who is explicitly denied permission
+to assume a role. The value of this submodule is that it allows for many ways
+to specify the "who" while at the same time limiting the "who" to assumed IAM roles:
+
+- All assumed roles in the `dev` account: `allowed_roles = { dev = ["*"] }`
+- Only the `admin` role in the dev account: `allowed_roles = { dev = ["admin"] }`
+- A specific principal in any account (though it must still be an assumed role): `allowed_principal_arns = arn:aws:iam::123456789012:role/trusted-role`
+- A user of a specific AWS SSO Permission Set: `allowed_permission_sets = { dev = ["DeveloperAccess"] }`
+
+## Usage
+
+```hcl
+
+module "assume_role" {
+  source   = "../account-map/modules/iam-assume-role-policy"
+
+  allowed_roles = { dev = ["admin"] }
+
+  context = module.this.context
+}
+
+resource "aws_iam_role" "default" {
+  assume_role_policy = module.assume_role.policy_document
+
+  # ...
+}
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

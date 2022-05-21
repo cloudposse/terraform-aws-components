@@ -41,7 +41,7 @@ data "aws_partition" "current" {}
 
 module "assume_role" {
   for_each = local.roles_config
-  source   = "../../registry/terraform/iam-assume-role-policy"
+  source   = "../account-map/modules/iam-assume-role-policy"
 
   allowed_roles           = { (var.iam_primary_roles_account_name) = each.value.trusted_primary_roles }
   denied_roles            = { (var.iam_primary_roles_account_name) = each.value.denied_primary_roles }

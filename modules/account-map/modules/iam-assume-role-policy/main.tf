@@ -11,6 +11,7 @@ locals {
   denied_arn_accounts    = data.aws_arn.denied[*].account
   denied_accounts        = sort(distinct(concat(local.denied_mapped_accounts, local.denied_arn_accounts)))
 
+  aws_partition = module.allowed_role_map.aws_partition
 }
 
 data "aws_arn" "allowed" {
@@ -73,7 +74,7 @@ data "aws_iam_policy_document" "assume_role" {
       type = "AWS"
       # Principals is a required field, so we allow any principal in any of the accounts, restricted by the assumed Role ARN in the condition clauses.
       # This allows us to allow non-existent (yet to be created) roles, which would not be allowed if directly specified in `principals`.
-      identifiers = formatlist("arn:aws:iam::%s:root", local.allowed_accounts)
+      identifiers = formatlist("arn:${local.aws_partition}:iam::%s:root", local.allowed_accounts)
     }
   }
 
@@ -89,7 +90,7 @@ data "aws_iam_policy_document" "assume_role" {
     condition {
       test     = "ArnLike"
       variable = "aws:PrincipalArn"
-      values   = concat(["arn:aws:iam::*:user/*"], local.denied_principals)
+      values   = concat(["arn:${local.aws_partition}:iam::*:user/*"], local.denied_principals)
     }
 
     principals {
@@ -98,7 +99,7 @@ data "aws_iam_policy_document" "assume_role" {
       # Principals is a required field, so we allow any principal in any of the accounts, restricted by the assumed Role ARN in the condition clauses.
       # This allows us to allow non-existent (yet to be created) roles, which would not be allowed if directly specified in `principals`.
       # We also deny all directly logged-in users from all the enabled accounts.
-      identifiers = formatlist("arn:aws:iam::%s:root", sort(distinct(concat(local.denied_accounts, local.allowed_accounts))))
+      identifiers = formatlist("arn:${local.aws_partition}:iam::%s:root", sort(distinct(concat(local.denied_accounts, local.allowed_accounts))))
     }
   }
 }
