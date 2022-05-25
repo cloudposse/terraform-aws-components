@@ -1,7 +1,6 @@
 locals {
   roles_config     = merge(var.primary_roles_config, var.delegated_roles_config)
   role_name_map    = { for role_name, config in local.roles_config : role_name => format("%s%s%s", module.this.id, module.this.delimiter, role_name) }
-  configured_roles = keys(local.roles_config)
 
   # If you want to create custom policies to add to multiple roles by name, create the policy
   # using an aws_iam_policy resource and then map it to the name you want to use in the
@@ -12,7 +11,6 @@ locals {
   }
 
   configured_policies = flatten([for k, v in local.roles_config : v.role_policy_arns])
-  enabled_policies    = { for k in keys(local.custom_policy_map) : k => contains(local.configured_policies, k) }
 
   # Intermediate step in calculating all policy attachments.
   # Create a list of [role, arn] lists
