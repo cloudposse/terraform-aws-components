@@ -50,7 +50,6 @@ variable "iam_primary_roles_stage_name" {
   default     = "identity"
 }
 
-
 variable "identity_roles_accessible" {
   type        = set(string)
   description = <<-EOT

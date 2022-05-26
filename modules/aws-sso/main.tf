@@ -10,8 +10,6 @@ module "permission_sets" {
     local.identity_access_permission_sets,
     local.poweruser_access_permission_set,
     local.read_only_access_permission_set,
-    local.restaurants_support_engineer_access_permission_set,
-    local.scratch_poweruser_access_permission_set
   )
 
   context = module.this.context
