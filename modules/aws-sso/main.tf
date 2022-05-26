@@ -1,6 +1,6 @@
 module "permission_sets" {
   source  = "cloudposse/sso/aws//modules/permission-sets"
-  version = "0.6.1"
+  version = "0.6.2"
 
   permission_sets = concat(
     local.administrator_access_permission_set,
@@ -17,7 +17,7 @@ module "permission_sets" {
 
 module "sso_account_assignments" {
   source  = "cloudposse/sso/aws//modules/account-assignments"
-  version = "0.6.1"
+  version = "0.6.2"
 
   account_assignments = local.account_assignments
   context             = module.this.context
