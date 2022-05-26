@@ -1,6 +1,6 @@
 locals {
-  roles_config     = merge(var.primary_roles_config, var.delegated_roles_config)
-  role_name_map    = { for role_name, config in local.roles_config : role_name => format("%s%s%s", module.this.id, module.this.delimiter, role_name) }
+  roles_config  = merge(var.primary_roles_config, var.delegated_roles_config)
+  role_name_map = { for role_name, config in local.roles_config : role_name => format("%s%s%s", module.this.id, module.this.delimiter, role_name) }
 
   # If you want to create custom policies to add to multiple roles by name, create the policy
   # using an aws_iam_policy resource and then map it to the name you want to use in the

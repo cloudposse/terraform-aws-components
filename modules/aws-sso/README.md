@@ -111,29 +111,23 @@ components:
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.1 |
-| <a name="module_permission_sets"></a> [permission\_sets](#module\_permission\_sets) | cloudposse/sso/aws//modules/permission-sets | 0.6.1 |
+| <a name="module_permission_sets"></a> [permission\_sets](#module\_permission\_sets) | cloudposse/sso/aws//modules/permission-sets | 0.6.2 |
 | <a name="module_role_prefix"></a> [role\_prefix](#module\_role\_prefix) | cloudposse/label/null | 0.25.0 |
-| <a name="module_sso_account_assignments"></a> [sso\_account\_assignments](#module\_sso\_account\_assignments) | cloudposse/sso/aws//modules/account-assignments | 0.6.1 |
+| <a name="module_sso_account_assignments"></a> [sso\_account\_assignments](#module\_sso\_account\_assignments) | cloudposse/sso/aws//modules/account-assignments | 0.6.2 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.24.1 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-
-| [aws_iam_policy_document.DNSAdministratorAccess](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.RestaurantsSupportEngineerAccess](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.assume_identity_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-=======
 | [aws_iam_policy_document.dns_administrator_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.restaurants_support_engineer_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_account_assignments"></a> [account\_assignments](#input\_account\_assignments) | Enables access to permission sets for users and groups in accounts, in the following structure:<pre><account-name>:<br>  groups:<br>    <group-name>:<br>      permission_sets:<br>        - <permission-set-name><br>  users:<br>    <user-name>:<br>      permission_sets:<br>        - <permission-set-name></pre> | <pre>map(map(map(object({<br>    permission_sets = list(string)<br>    }<br>  ))))</pre> | `{}` | no |
+| <a name="input_account_assignments"></a> [account\_assignments](#input\_account\_assignments) | Enables access to permission sets for users and groups in accounts, in the following structure:<pre>yaml<br><account-name>:<br>  groups:<br>    <group-name>:<br>      permission_sets:<br>        - <permission-set-name><br>  users:<br>    <user-name>:<br>      permission_sets:<br>        - <permission-set-name></pre> | <pre>map(map(map(object({<br>    permission_sets = list(string)<br>    }<br>  ))))</pre> | `{}` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional tags for appending to tags\_as\_list\_of\_maps. Not added to `tags`. | `map(string)` | `{}` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
