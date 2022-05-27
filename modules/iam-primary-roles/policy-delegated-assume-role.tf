@@ -26,4 +26,6 @@ resource "aws_iam_policy" "delegated_assume_role" {
   name        = format("%s-delegatedAssumeRole", module.this.id)
   description = "Allow assume-role to delegated accounts"
   policy      = data.aws_iam_policy_document.delegated_assume_role.json
+
+  tags = module.this.tags
 }

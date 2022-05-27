@@ -50,5 +50,5 @@ resource "aws_iam_policy" "support" {
   name   = format("%s-support", module.this.id)
   policy = data.aws_iam_policy_document.support_access_aggregated[0].json
 
-  tags = module.introspection.tags
+  tags = module.this.tags
 }

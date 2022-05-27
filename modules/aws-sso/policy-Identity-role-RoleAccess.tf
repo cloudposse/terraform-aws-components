@@ -29,7 +29,7 @@ data "aws_iam_policy_document" "assume_identity_role" {
     ]
 
     resources = [
-      format("arn:aws:iam::%s:role/%s-%s", local.identity_account, module.role_prefix.id, each.value)
+      format("arn:${local.aws_partition}:iam::%s:role/%s-%s", local.identity_account, module.role_prefix.id, each.value)
     ]
 
     /* For future reference, this tag-based restriction also works, based on
