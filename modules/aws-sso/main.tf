@@ -56,4 +56,8 @@ locals {
     ] if lookup(account, "users", null) != null
   ])
   account_assignments = concat(local.account_assignments_groups, local.account_assignments_users)
+
+  aws_partition = data.aws_partition.current.partition
 }
+
+data "aws_partition" "current" {}

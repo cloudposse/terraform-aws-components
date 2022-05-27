@@ -7,8 +7,8 @@ locals {
     tags             = {},
     inline_policy    = ""
     policy_attachments = [
-      "arn:aws:iam::aws:policy/AWSBillingReadOnlyAccess",
-      "arn:aws:iam::aws:policy/AWSSupportAccess",
+      "arn:${local.aws_partition}:iam::aws:policy/AWSBillingReadOnlyAccess",
+      "arn:${local.aws_partition}:iam::aws:policy/AWSSupportAccess",
     ]
   }]
 }

@@ -60,6 +60,6 @@ locals {
     session_duration   = "",
     tags               = {},
     inline_policy      = data.aws_iam_policy_document.assume_identity_role[role].json
-    policy_attachments = ["arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"]
+    policy_attachments = ["arn:${local.aws_partition}:iam::aws:policy/job-function/ViewOnlyAccess"]
   }]
 }

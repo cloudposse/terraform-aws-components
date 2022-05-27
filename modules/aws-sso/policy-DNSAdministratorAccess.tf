@@ -33,6 +33,6 @@ locals {
     session_duration   = "",
     tags               = {},
     inline_policy      = data.aws_iam_policy_document.dns_administrator_access.json,
-    policy_attachments = ["arn:aws:iam::aws:policy/AWSSupportAccess"]
+    policy_attachments = ["arn:${local.aws_partition}:iam::aws:policy/AWSSupportAccess"]
   }]
 }

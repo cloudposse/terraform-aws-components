@@ -6,6 +6,6 @@ locals {
     session_duration   = "",
     tags               = {},
     inline_policy      = ""
-    policy_attachments = ["arn:aws:iam::aws:policy/AdministratorAccess"]
+    policy_attachments = ["arn:${local.aws_partition}:iam::aws:policy/AdministratorAccess"]
   }]
 }
