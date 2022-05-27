@@ -1,20 +1,19 @@
-module "vpc" {
+module "dns_delegated" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.17.0"
+  version = "0.22.1"
 
-  stack_config_local_path = "../../../stacks"
-  stack                   = var.vpc_stack_name
-  component               = "vpc"
+  component               = "dns-delegated"
 
   context = module.this.context
 }
 
-module "bucket" {
+module "account_map" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.17.0"
+  version = "0.22.1"
 
-  stack_config_local_path = "../../../stacks"
-  component               = "sftp-bucket"
+  component               = "account-map"
+  environment             = "gbl"
+  stage                   = "root"
 
   context = module.this.context
 }
