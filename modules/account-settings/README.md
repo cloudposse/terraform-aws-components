@@ -68,7 +68,6 @@ components:
 | <a name="module_budgets"></a> [budgets](#module\_budgets) | cloudposse/budgets/aws | 0.1.0 |
 | <a name="module_iam_account_settings"></a> [iam\_account\_settings](#module\_iam\_account\_settings) | cloudposse/iam-account-settings/aws | 0.4.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_introspection"></a> [introspection](#module\_introspection) | cloudposse/label/null | 0.25.0 |
 | <a name="module_service_quotas"></a> [service\_quotas](#module\_service\_quotas) | cloudposse/service-quotas/aws | 0.1.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -108,7 +107,6 @@ components:
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_required_tags"></a> [required\_tags](#input\_required\_tags) | List of required tag names | `list(string)` | `[]` | no |
 | <a name="input_root_account_tenant_name"></a> [root\_account\_tenant\_name](#input\_root\_account\_tenant\_name) | The tenant name for the root account | `string` | `null` | no |
 | <a name="input_service_quotas"></a> [service\_quotas](#input\_service\_quotas) | A list of service quotas to manage or lookup.<br>To lookup the value of a service quota, set `value = null` and either `quota_code` or `quota_name`.<br>To manage a service quota, set `value` to a number. Service Quotas can only be managed via `quota_code`.<br>For a more specific example, see https://github.com/cloudposse/terraform-aws-service-quotas/blob/master/examples/complete/fixtures.us-east-2.tfvars. | `list(any)` | `[]` | no |
 | <a name="input_service_quotas_enabled"></a> [service\_quotas\_enabled](#input\_service\_quotas\_enabled) | Whether or not this component should handle Service Quotas | `bool` | `false` | no |
