@@ -11,7 +11,7 @@ variable "force_destroy" {
 
 variable "prevent_unencrypted_uploads" {
   type        = bool
-  default     = false
+  default     = true
   description = "Prevent uploads of unencrypted objects to S3"
 }
 

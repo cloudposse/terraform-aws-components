@@ -59,6 +59,12 @@ variable "github_org" {
   type        = string
 }
 
+variable "github_repo" {
+  description = "GitHub Repo e.g. infra-live. If specified, the runner will be created for the repo rather than for the organization."
+  type        = string
+  default     = null
+}
+
 variable "wait_for_capacity_timeout" {
   type        = string
   description = "A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. (See also Waiting for Capacity below.) Setting this to '0' causes Terraform to skip all Capacity Waiting behavior"
@@ -89,7 +95,7 @@ variable "ssm_path" {
 
 variable "runner_version" {
   type        = string
-  default     = "2.283.1"
+  default     = "2.288.1"
   description = "GitHub runner release version"
 }
 

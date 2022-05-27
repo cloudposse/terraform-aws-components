@@ -38,11 +38,8 @@ aws_region=$(curl -H "X-aws-ec2-metadata-token: $imdsv2_token" --silent http://1
 runner_name_suffix=$(openssl rand -hex 3)
 aws ec2 create-tags --resources $instance_id --tags Key=Name,Value="${runner_name_prefix}-$runner_name_suffix" --region $aws_region
 
-# get GitHub PAT
-github_token=$(aws ssm get-parameter --name ${github_token_ssm_path} --region $aws_region --with-decryption | jq -r .Parameter.Value)
-
-# Get Actions Runner Registration Token
-registration_token=$(curl -s -X POST https://api.github.com/orgs/${github_org}/actions/runners/registration-token -H "accept: application/vnd.github.everest-preview+json" -H "authorization: token $github_token" | jq -r '.token')
+# get GitHub Registration Token
+registration_token=$(aws ssm get-parameter --name ${github_token_ssm_path} --region $aws_region --with-decryption | jq -r .Parameter.Value)
 
 # Install GitHub Actions Runner
 mkdir -p /opt/actions-runner
@@ -50,7 +47,7 @@ chown -R ec2-user /opt/actions-runner
 pushd /opt/actions-runner
 curl -O -L https://github.com/actions/runner/releases/download/v${runner_version}/actions-runner-linux-x64-${runner_version}.tar.gz
 sudo -u ec2-user tar xzf actions-runner-linux-x64-${runner_version}.tar.gz
-sudo -u ec2-user ./config.sh --unattended --url https://github.com/${github_org} --token $registration_token --name "${runner_name_prefix}-$runner_name_suffix" --labels %{ if length(runner_labels) > 0 }-l "${join(",", runner_labels)}"%{ endif }
+sudo -u ec2-user ./config.sh --unattended --url ${registration_url} --token $registration_token --name "${runner_name_prefix}-$runner_name_suffix" --labels %{ if length(runner_labels) > 0 }-l "${join(",", runner_labels)}"%{ endif }
 ./svc.sh install
 ./svc.sh start
 popd

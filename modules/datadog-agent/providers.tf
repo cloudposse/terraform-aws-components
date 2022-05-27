@@ -58,10 +58,4 @@ data "aws_eks_cluster_auth" "kubernetes" {
   name = module.eks.outputs.eks_cluster_id
 }
 
-provider "helm" {
-  kubernetes {
-    host                   = local.enabled ? data.aws_eks_cluster.kubernetes[0].endpoint : null
-    token                  = local.enabled ? data.aws_eks_cluster_auth.kubernetes[0].token : null
-    cluster_ca_certificate = local.enabled ? base64decode(data.aws_eks_cluster.kubernetes[0].certificate_authority[0].data) : null
-  }
-}
+provider "utils" {}
