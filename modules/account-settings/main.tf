@@ -14,5 +14,5 @@ module "iam_account_settings" {
   minimum_password_length = var.minimum_password_length
   max_password_age        = var.maximum_password_age
 
-  context = module.introspection.context
+  context = module.this.context
 }

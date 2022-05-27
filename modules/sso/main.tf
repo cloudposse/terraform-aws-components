@@ -14,5 +14,5 @@ module "okta_api_user" {
 
   attributes = [each.key, "oktaapi"]
 
-  context = module.introspection.context
+  context = module.this.context
 }

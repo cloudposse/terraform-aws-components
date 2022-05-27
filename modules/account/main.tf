@@ -82,7 +82,7 @@ module "service_control_policy_statements_yaml_config" {
   list_config_local_base_path = path.module
   list_config_paths           = var.service_control_policies_config_paths
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 # Provision Organization or use existing one
@@ -117,7 +117,7 @@ resource "aws_organizations_account" "organization_accounts" {
   name                       = each.value.name
   email                      = format(each.value.account_email_format, each.value.name)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
-  tags                       = merge(module.introspection.tags, try(each.value.tags, {}), { Name : each.value.name })
+  tags                       = merge(module.this.tags, try(each.value.tags, {}), { Name : each.value.name })
 }
 
 # Provision Organizational Units
@@ -134,7 +134,7 @@ resource "aws_organizations_account" "organizational_units_accounts" {
   parent_id                  = aws_organizations_organizational_unit.this[local.account_names_organizational_unit_names_map[each.value.name]].id
   email                      = format(each.value.account_email_format, each.value.name)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
-  tags                       = merge(module.introspection.tags, try(each.value.tags, {}), { Name : each.value.name })
+  tags                       = merge(module.this.tags, try(each.value.tags, {}), { Name : each.value.name })
 }
 
 # Provision Organization Service Control Policy
@@ -149,7 +149,7 @@ module "organization_service_control_policies" {
   service_control_policy_description = "Organization Service Control Policy"
   target_id                          = local.organization_root_account_id
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 # Provision Accounts Service Control Policies
@@ -164,7 +164,7 @@ module "accounts_service_control_policies" {
   service_control_policy_description = "'${each.key}' Account Service Control Policy"
   target_id                          = local.account_names_account_ids[each.key]
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 # Provision Organizational Units Service Control Policies
@@ -179,7 +179,7 @@ module "organizational_units_service_control_policies" {
   service_control_policy_description = "'${each.key}' Organizational Unit Service Control Policy"
   target_id                          = local.organizational_unit_names_organizational_unit_ids[each.key]
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 
