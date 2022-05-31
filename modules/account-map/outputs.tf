@@ -34,6 +34,11 @@ output "org" {
 
 }
 
+output "aws_partition" {
+  value       = local.aws_partition
+  description = "The AWS \"partition\" to use when constructing resource ARNs"
+}
+
 output "account_info_map" {
   value       = local.account_info_map
   description = <<-EOT

@@ -1,6 +1,10 @@
 data "aws_organizations_organization" "organization" {}
 
+data "aws_partition" "current" {}
+
 locals {
+  aws_partition = data.aws_partition.current.partition
+
   full_account_map = {
     for acct in data.aws_organizations_organization.organization.accounts
     : acct.name == var.root_account_aws_name ? var.root_account_account_name : acct.name => acct.id
@@ -9,6 +13,7 @@ locals {
   iam_role_arn_templates = {
     for name, info in local.account_info_map : name => format(var.iam_role_arn_template_template, compact(
       [
+        local.aws_partition,
         info.id,
         module.this.namespace,
         lookup(info, "tenant", ""),
