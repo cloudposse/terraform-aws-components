@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 module "iam_roles" {
-  source  = "../account-map/modules/iam-roles"
+  source             = "../account-map/modules/iam-roles"
   global_tenant_name = var.root_account_tenant_name
 
   context = module.this.context
