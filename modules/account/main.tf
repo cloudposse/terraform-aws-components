@@ -11,7 +11,11 @@ locals {
   organization_accounts_map = { for acc in local.organization_accounts : acc.name => acc }
 
   # Organizational Units' Accounts list and map configuration
-  organizational_units_accounts     = flatten([for ou in local.organizational_units : lookup(ou, "accounts", [])])
+  organizational_units_accounts = flatten([
+    for ou in local.organizational_units : [
+      for account in lookup(ou, "accounts", []) : merge(account, { "ou" = ou.name, "account_email_format" = lookup(ou, "account_email_format", var.account_email_format) })
+    ]
+  ])
   organizational_units_accounts_map = { for acc in local.organizational_units_accounts : acc.name => acc }
 
   # All Accounts configuration
@@ -111,7 +115,7 @@ locals {
 resource "aws_organizations_account" "organization_accounts" {
   for_each                   = local.organization_accounts_map
   name                       = each.value.name
-  email                      = format(var.account_email_format, each.value.name)
+  email                      = format(each.value.account_email_format, each.value.name)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
   tags                       = merge(module.this.tags, try(each.value.tags, {}), { Name : each.value.name })
 }
@@ -128,7 +132,7 @@ resource "aws_organizations_account" "organizational_units_accounts" {
   for_each                   = local.organizational_units_accounts_map
   name                       = each.value.name
   parent_id                  = aws_organizations_organizational_unit.this[local.account_names_organizational_unit_names_map[each.value.name]].id
-  email                      = format(var.account_email_format, each.value.name)
+  email                      = format(each.value.account_email_format, each.value.name)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
   tags                       = merge(module.this.tags, try(each.value.tags, {}), { Name : each.value.name })
 }
@@ -244,13 +248,15 @@ locals {
 
   account_info_map = merge({ for acc in local.all_accounts : acc.name => merge({ for k, v in acc : k => v if k != "name" },
     {
-      eks = tobool(lookup(try(acc.tags, {}), "eks", false))
-      id  = local.account_names_account_ids[acc.name]
+      eks    = tobool(lookup(try(acc.tags, {}), "eks", false))
+      id     = local.account_names_account_ids[acc.name]
+      tenant = try(acc.tenant, var.tenant)
     }) },
     {
       (var.organization_config.root_account.name) = merge({ for k, v in var.organization_config.root_account : k => v if k != "name" }, {
-        id  = local.organization_master_account_id
-        eks = tobool(lookup(try(var.organization_config.root_account.tags, {}), "eks", false))
+        id     = local.organization_master_account_id
+        eks    = tobool(lookup(try(var.organization_config.root_account.tags, {}), "eks", false))
+        tenant = var.tenant
       })
   })
 

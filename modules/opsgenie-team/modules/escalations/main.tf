@@ -1,12 +1,21 @@
 locals {
-  #  [for f in local.slo_files : yamldecode(file(f))]
-  lookup_team_arr   = [for recipient in var.escalation.rule.recipients : recipient if recipient.type == "team"]
-  lookup_team_names = [for r in local.lookup_team_arr : r.team_name]
-  #  lookup_team_map = {for r in local.lookup_team_arr: r.team_name->data.}
+  lookup_teams     = [for recipient in var.escalation.rule.recipients : recipient.name if recipient.type == "team"]
+  lookup_users     = [for recipient in var.escalation.rule.recipients : recipient.name if recipient.type == "user"]
+  lookup_schedules = [for recipient in var.escalation.rule.recipients : recipient.name if recipient.type == "schedule"]
 }
 
 data "opsgenie_team" "recipients" {
-  for_each = toset(local.lookup_team_names)
+  for_each = toset(local.lookup_teams)
+  name     = each.value
+}
+
+data "opsgenie_user" "recipients" {
+  for_each = toset(local.lookup_users)
+  username = each.value
+}
+
+data "opsgenie_schedule" "recipients" {
+  for_each = toset(local.lookup_schedules)
   name     = each.value
 }
 
@@ -26,7 +35,7 @@ resource "opsgenie_escalation" "this" {
       for_each = try(var.escalation.rule.recipients, [])
 
       content {
-        id   = data.opsgenie_team.recipients[recipient.value.team_name].id
+        id   = recipient.value.type == "team" ? data.opsgenie_team.recipients[recipient.value.name].id : recipient.value.type == "schedule" ? data.opsgenie_schedule.recipients[recipient.value.name].id : data.opsgenie_user.recipients[recipient.value.name].id
         type = recipient.value.type
       }
     }

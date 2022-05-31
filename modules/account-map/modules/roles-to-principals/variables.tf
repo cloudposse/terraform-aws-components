@@ -3,10 +3,10 @@ variable "role_map" {
   description = "Map of account:[role, role...]. Use `*` as role for entire account"
 }
 
-variable "iam_role_arn_template" {
-  type        = string
-  default     = "arn:aws:iam::%s:role/%s-%s-%s-%s-%s"
-  description = "IAM Role ARN template"
+variable "permission_set_map" {
+  type        = map(list(string))
+  description = "Map of account:[PermissionSet, PermissionSet...] specifying AWS SSO PermissionSets when accessed from specified accounts"
+  default     = {}
 }
 
 variable "privileged" {
@@ -18,7 +18,7 @@ variable "privileged" {
 variable "global_tenant_name" {
   type        = string
   description = "The tenant name used for organization-wide resources"
-  default     = "mgmt"
+  default     = "core"
 }
 
 variable "global_environment_name" {

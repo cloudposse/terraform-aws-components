@@ -4,13 +4,13 @@ repos:
     hooks:
       - id: check-yaml
         exclude: |
-          (?x)^(
-              modules/cert-manager/cert-manager-issuer/templates/.*.yaml |
-              modules/github-actions-runner/runners/actions-runner/chart/templates/.*.yaml |
-              modules/echo-server/charts/echo-server/templates/.*.yaml
-          )$
+            (?x)^(
+                modules/cert-manager/cert-manager-issuer/templates/.*.yaml |
+                modules/github-actions-runner/runners/actions-runner/chart/templates/.*.yaml |
+                modules/echo-server/charts/echo-server/templates/.*.yaml
+            )$
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.55.0
+    rev: v1.69.0
     hooks:
       - id: terraform_fmt
       - id: terraform_docs
