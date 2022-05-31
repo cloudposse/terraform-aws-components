@@ -12,16 +12,8 @@ provider "aws" {
 }
 
 module "iam_roles" {
-  source             = "../account-map/modules/iam-roles"
-  global_tenant_name = var.root_account_tenant_name
-
+  source  = "../account-map/modules/iam-roles"
   context = module.this.context
-}
-
-variable "root_account_tenant_name" {
-  type        = string
-  description = "The tenant name for the root account"
-  default     = null
 }
 
 variable "import_profile_name" {
