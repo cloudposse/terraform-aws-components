@@ -3,6 +3,12 @@ variable "region" {
   description = "AWS Region"
 }
 
+variable "lifecycle_rule_enabled" {
+  type        = bool
+  description = "Enable lifecycle events on this bucket"
+  default     = true
+}
+
 variable "noncurrent_version_expiration_days" {
   description = "Specifies when noncurrent object versions expire"
   default     = 90
@@ -26,4 +32,16 @@ variable "glacier_transition_days" {
 variable "expiration_days" {
   description = "Number of days after which to expunge the objects"
   default     = 90
+}
+
+variable "create_access_log_bucket" {
+  type        = bool
+  default     = false
+  description = "Whether or not to create an access log bucket."
+}
+
+variable "access_log_bucket_name" {
+  type        = string
+  default     = ""
+  description = "If var.create_access_log_bucket is false, this is the name of the S3 bucket where s3 access logs will be sent to."
 }
