@@ -10,10 +10,23 @@ variable "tgw_config" {
     existing_transit_gateway_route_table_id = string
     vpcs                                    = any
     eks                                     = any
-    # Routes will be created from the owning account's VPC to the accounts
-    # specified in the connected_accounts map for the owning account
-    connected_accounts = map(list(string))
-    expose_eks_sg      = bool
   })
   description = "Object to pass common data from root module to this submodule. See root module for details"
+}
+
+variable "connections" {
+  type        = list(string)
+  description = "List of accounts to connect to"
+}
+
+variable "expose_eks_sg" {
+  type        = bool
+  description = "Set true to allow EKS clusters to accept traffic from source accounts"
+  default     = true
+}
+
+variable "eks_component_names" {
+  type        = set(string)
+  description = "The names of the eks components"
+  default     = ["eks/cluster"]
 }

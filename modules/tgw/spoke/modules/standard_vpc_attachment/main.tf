@@ -1,8 +1,22 @@
 locals {
   vpcs               = var.tgw_config.vpcs
   own_vpc            = local.vpcs[var.owning_account].outputs
-  own_eks_sg         = var.tgw_config.eks[var.owning_account].outputs.eks_cluster_managed_security_group_id
-  connected_accounts = [for acct in var.tgw_config.connected_accounts[var.owning_account] : acct if acct != var.owning_account]
+  connected_accounts = var.connections
+
+  # Create a list of all of the EKS security groups
+  own_eks_sgs = compact([
+    for account_component in setproduct([var.owning_account], var.eks_component_names) :
+    try(var.tgw_config.eks[join("-", account_component)].outputs.eks_cluster_managed_security_group_id, "")
+  ])
+
+  # Create a map of accounts (<tenant>-<stage> or <stage>) and the security group to add ingress rules for
+  connected_accounts_allow_ingress = {
+    for account_sg in setproduct(local.connected_accounts, local.own_eks_sgs) :
+    account_sg[0] => {
+      account = account_sg[0]
+      sg      = account_sg[1]
+    }
+  }
 
   allowed_cidrs = [
     for k, v in local.vpcs : v.outputs.vpc_cidr
@@ -10,8 +24,9 @@ locals {
   ]
 }
 
-module "tgw_vpc_attachment" {
-  source = "git::https://github.com/cloudposse/terraform-aws-transit-gateway.git?ref=tags/0.2.1"
+module "standard_vpc_attachment" {
+  source  = "cloudposse/transit-gateway/aws"
+  version = "0.6.1"
 
   existing_transit_gateway_id             = var.tgw_config.existing_transit_gateway_id
   existing_transit_gateway_route_table_id = var.tgw_config.existing_transit_gateway_route_table_id
@@ -39,13 +54,13 @@ module "tgw_vpc_attachment" {
 }
 
 resource "aws_security_group_rule" "ingress_cidr_blocks" {
-  for_each = var.tgw_config.expose_eks_sg ? toset(local.connected_accounts) : []
+  for_each = var.expose_eks_sg ? local.connected_accounts_allow_ingress : {}
 
   description       = "Allow inbound traffic from ${each.key}"
   type              = "ingress"
   from_port         = 0
   to_port           = 65535
   protocol          = "tcp"
-  cidr_blocks       = [local.vpcs[each.key].outputs.vpc_cidr]
-  security_group_id = local.own_eks_sg
+  cidr_blocks       = [local.vpcs[each.value.account].outputs.vpc_cidr]
+  security_group_id = each.value.sg
 }

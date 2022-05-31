@@ -6,8 +6,9 @@
 # AWS RAM does not send invitations to principals. Principals in your organization get access to shared resources without exchanging invitations.
 # https://docs.aws.amazon.com/ram/latest/userguide/getting-started-sharing.html
 
-module "transit_gateway" {
-  source = "git::https://github.com/cloudposse/terraform-aws-transit-gateway.git?ref=tags/0.2.1"
+module "tgw_hub" {
+  source  = "cloudposse/transit-gateway/aws"
+  version = "0.6.1"
 
   ram_resource_share_enabled = true
   route_keys_enabled         = true
@@ -15,24 +16,20 @@ module "transit_gateway" {
   create_transit_gateway                                         = true
   create_transit_gateway_route_table                             = true
   create_transit_gateway_vpc_attachment                          = false
-  create_transit_gateway_route_table_association_and_propagation = true
+  create_transit_gateway_route_table_association_and_propagation = false
 
-  config = local.tgw_vpc_attachments_config
+  config = {}
 
-  context = module.this.context
-
-  providers = {
-    aws = aws.tgw
-  }
+  context = module.introspection.context
 }
 
 locals {
   tgw_config = {
-    existing_transit_gateway_id             = module.transit_gateway.transit_gateway_id
-    existing_transit_gateway_route_table_id = module.transit_gateway.transit_gateway_route_table_id
-    vpcs                                    = data.terraform_remote_state.vpc
-    eks                                     = data.terraform_remote_state.eks
-    connected_accounts                      = var.connections
+    existing_transit_gateway_id             = module.tgw_hub.transit_gateway_id
+    existing_transit_gateway_route_table_id = module.tgw_hub.transit_gateway_route_table_id
+    vpcs                                    = module.vpc
+    eks                                     = module.eks
     expose_eks_sg                           = var.expose_eks_sg
+    eks_component_names                     = var.eks_component_names
   }
 }

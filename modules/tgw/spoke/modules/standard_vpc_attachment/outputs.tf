@@ -1,4 +1,5 @@
 output "tg_config" {
+  ## Fit tg config type https://github.com/cloudposse/terraform-aws-transit-gateway#input_config
   value = {
     vpc_id                            = null
     vpc_cidr                          = null
@@ -7,6 +8,6 @@ output "tg_config" {
     route_to                          = null
     route_to_cidr_blocks              = null
     static_routes                     = null
-    transit_gateway_vpc_attachment_id = module.tgw_vpc_attachment.transit_gateway_vpc_attachment_ids[var.owning_account]
+    transit_gateway_vpc_attachment_id = module.standard_vpc_attachment.transit_gateway_vpc_attachment_ids[var.owning_account]
   }
 }
