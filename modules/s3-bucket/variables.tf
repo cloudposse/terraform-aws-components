@@ -289,16 +289,18 @@ variable "object_lock_configuration" {
 }
 
 variable "website_inputs" {
-
   type = list(object({
     index_document           = string
     error_document           = string
     redirect_all_requests_to = string
     routing_rules            = string
   }))
-  default = null
-
+  default     = null
   description = "Specifies the static website hosting configuration object."
+  validation {
+    condition     = var.website_inputs == null
+    error_message = "The \"cloudposse/s3-bucket/aws\" module v2.0.0 introduced a breaking change for website_inputs and will be fixed with future updates."
+  }
 }
 
 # Need input to be a list to fix https://github.com/cloudposse/terraform-aws-s3-bucket/issues/102
