@@ -27,7 +27,7 @@ module "bucket_policy" {
 
   iam_policy_statements = var.source_policy_documents
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 module "s3_bucket" {
@@ -77,7 +77,7 @@ module "s3_bucket" {
   user_enabled           = var.user_enabled
   allowed_bucket_actions = var.allowed_bucket_actions
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 data "aws_iam_policy_document" "custom_policy" {
