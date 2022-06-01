@@ -22,10 +22,6 @@ components:
       vars:
         enabled: true
         account_map_tenant_name: core
-        root_account_tenant_name: core
-        tags:
-          Team: sre
-          Service: s3
         # Suggested configuration for all buckets
         user_enabled: false
         acl: "private"
