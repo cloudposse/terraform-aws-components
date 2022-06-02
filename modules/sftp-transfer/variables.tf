@@ -142,7 +142,7 @@ variable "ssh_server_host_key_ssm_path" {
 
 variable "sftp_admins" {
   type = map(object({
-    admin_name  = string,
+    admin_name = string,
     public_key = string,
   }))
 
@@ -151,7 +151,7 @@ variable "sftp_admins" {
 }
 
 variable "ssh_banner" {
-    type        = string
+  type        = string
   description = "SSH banner displayed at connection time before the client authenticates (AWS pre_authentication_login_banner attribute)."
   default     = ""
 }

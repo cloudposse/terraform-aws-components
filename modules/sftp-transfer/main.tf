@@ -6,17 +6,17 @@ locals {
   user_names             = keys(var.sftp_users)
   user_names_map         = { for idx, user in local.user_names : idx => user }
 
-  account_number         = module.account_map.outputs.full_account_map[module.this.stage]
+  account_number = module.account_map.outputs.full_account_map[module.this.stage]
 
-  admin_names            = keys(var.sftp_admins)
-  admin_names_map        = { for idx, user in local.admin_names : idx => user }
+  admin_names     = keys(var.sftp_admins)
+  admin_names_map = { for idx, user in local.admin_names : idx => user }
 
-  s3_bucket              = var.create_bucket ? join("", module.s3_bucket[*].bucket_id) : var.s3_bucket_name
+  s3_bucket = var.create_bucket ? join("", module.s3_bucket[*].bucket_id) : var.s3_bucket_name
 
-  ssh_server_host_key    = var.ssh_server_host_key_ssm_path != "" ? data.aws_ssm_parameter.ssh_server_host_key[0].value : ""
+  ssh_server_host_key = var.ssh_server_host_key_ssm_path != "" ? data.aws_ssm_parameter.ssh_server_host_key[0].value : ""
 
-  zone_id                = var.zone_id != "" ? var.zone_id : module.dns_delegated.outputs.default_dns_zone_id
-  domain_name            = var.domain_name != "" ? var.domain_name : join(".", [module.this.name, module.dns_delegated.outputs.default_domain_name])
+  zone_id     = var.zone_id != "" ? var.zone_id : module.dns_delegated.outputs.default_dns_zone_id
+  domain_name = var.domain_name != "" ? var.domain_name : join(".", [module.this.name, module.dns_delegated.outputs.default_domain_name])
 }
 
 data "aws_s3_bucket" "landing" {
@@ -49,14 +49,14 @@ resource "aws_transfer_server" "default" {
     }
   }
 
-# The AWS console cheats to set "aws"-prefixed tags which integrates with Route 53
-# to provision a CNAME for the Transfer Server endpoint, and the documentation at
-# https://docs.aws.amazon.com/transfer/latest/userguide/requirements-dns.html for
-# tagging this out-of-band simply doesn't work. Leaving this here to provide more
-# context for why we have a separately managed DNS RR. -MR
-# See also: https://github.com/hashicorp/terraform-provider-aws/issues/6956 
+  # The AWS console cheats to set "aws"-prefixed tags which integrates with Route 53
+  # to provision a CNAME for the Transfer Server endpoint, and the documentation at
+  # https://docs.aws.amazon.com/transfer/latest/userguide/requirements-dns.html for
+  # tagging this out-of-band simply doesn't work. Leaving this here to provide more
+  # context for why we have a separately managed DNS RR. -MR
+  # See also: https://github.com/hashicorp/terraform-provider-aws/issues/6956 
 
-  tags = merge(module.this.tags, { 
+  tags = merge(module.this.tags, {
     "fixme:aws:transfer:route53HostedZoneId" = join("", ["/hostedzone/", local.zone_id])
     "fixme:aws:transfer:customHostname"      = local.domain_name
   })
@@ -185,9 +185,9 @@ data "aws_iam_policy_document" "assume_role_policy" {
       # Specifying server path with precise ARN or wildcard refuses access despite 
       # https://docs.aws.amazon.com/transfer/latest/userguide/confused-deputy.html .
       # This scopes role assumption to any transfer servers in the reigon + account. 
-      values   = [
-      "arn:aws:transfer:${var.region}:${local.account_number}:*" 
-      ]  
+      values = [
+        "arn:aws:transfer:${var.region}:${local.account_number}:*"
+      ]
     }
   }
 }
