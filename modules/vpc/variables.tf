@@ -58,3 +58,67 @@ variable "max_subnet_count" {
   default     = 0
   description = "Sets the maximum amount of subnets to deploy. 0 will deploy a subnet for every provided availability zone (in `region_availability_zones` variable) within the region"
 }
+
+variable "vpc_flow_logs_enabled" {
+  type        = bool
+  description = "Enable or disable the VPC Flow Logs"
+  default     = true
+}
+
+variable "vpc_flow_logs_traffic_type" {
+  type        = string
+  description = "The type of traffic to capture. Valid values: `ACCEPT`, `REJECT`, `ALL`"
+  default     = "ALL"
+}
+
+variable "vpc_flow_logs_log_destination_type" {
+  type        = string
+  description = "The type of the logging destination. Valid values: `cloud-watch-logs`, `s3`"
+  default     = "s3"
+}
+
+variable "vpc_flow_logs_bucket_environment_name" {
+  type        = string
+  description = "The name of the environment where the VPC Flow Logs bucket is provisioned"
+  default     = ""
+}
+
+variable "vpc_flow_logs_bucket_stage_name" {
+  type        = string
+  description = "The stage (account) name where the VPC Flow Logs bucket is provisioned"
+  default     = ""
+}
+
+variable "vpc_flow_logs_bucket_tenant_name" {
+  type        = string
+  description = <<-EOT
+  The name of the tenant where the VPC Flow Logs bucket is provisioned.
+
+  If the `tenant` label is not used, leave this as `null`.
+  EOT
+  default     = null
+}
+
+variable "ec2_vpc_endpoint_enabled" {
+  type        = bool
+  description = "Enable or disable an EC2 interface VPC Endpoint in this VPC."
+  default     = false
+}
+
+variable "nat_eip_aws_shield_protection_enabled" {
+  type        = bool
+  description = "Enable or disable AWS Shield Advanced protection for NAT EIPs. If set to 'true', a subscription to AWS Shield Advanced must exist in this account."
+  default     = false
+}
+
+variable "eks_tags_enabled" {
+  type        = bool
+  description = "Whether or not to apply EKS-releated tags to resources"
+  default     = false
+}
+
+variable "eks_component_names" {
+  type        = set(string)
+  description = "The names of the eks components"
+  default     = ["eks/cluster"]
+}
