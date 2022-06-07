@@ -15,9 +15,13 @@ variable "region_availability_zones" {
   description = "List of availability zones in region, to be used as default when `availability_zones` is not supplied"
 }
 
-variable "cidr_block" {
+variable "ipv4_primary_cidr_block" {
   type        = string
-  description = "VPC CIDR block"
+  description = <<-EOT
+    The primary IPv4 CIDR block for the VPC.
+    Either `ipv4_primary_cidr_block` or `ipv4_primary_cidr_block_association` must be set, but not both.
+    EOT
+  default     = null
 }
 
 variable "nat_gateway_enabled" {
@@ -45,12 +49,6 @@ variable "map_public_ip_on_launch" {
 variable "subnet_type_tag_key" {
   type        = string
   description = "Key for subnet type tag to provide information about the type of subnets, e.g. `cpco/subnet/type=private` or `cpcp/subnet/type=public`"
-}
-
-variable "subnet_type_tag_value_format" {
-  type        = string
-  default     = "%s"
-  description = "This is using the format interpolation symbols to allow the value of the subnet_type_tag_key to be modified"
 }
 
 variable "max_subnet_count" {
@@ -121,4 +119,17 @@ variable "eks_component_names" {
   type        = set(string)
   description = "The names of the eks components"
   default     = ["eks/cluster"]
+}
+
+variable "ipv4_primary_cidr_block_association" {
+  type = object({
+    # ipv4_ipam_pool_id   = string
+    ipv4_netmask_length = number
+  })
+  description = <<-EOT
+    Configuration of the VPC's primary IPv4 CIDR block via IPAM. Conflicts with `ipv4_primary_cidr_block`.
+    One of `ipv4_primary_cidr_block` or `ipv4_primary_cidr_block_association` must be set.
+    Additional CIDR blocks can be set via `ipv4_additional_cidr_block_associations`.
+    EOT
+  default     = null
 }
