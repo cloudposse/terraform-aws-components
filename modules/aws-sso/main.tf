@@ -23,6 +23,18 @@ module "sso_account_assignments" {
   context             = module.this.context
 }
 
+module "sso_account_assignments_root" {
+  source  = "cloudposse/sso/aws//modules/account-assignments"
+  version = "0.6.2"
+
+  providers = {
+    aws = aws.root
+  }
+
+  account_assignments = local.account_assignments_root
+  context             = module.this.context
+}
+
 locals {
   enabled = module.this.enabled
 
@@ -41,6 +53,17 @@ locals {
       ]
     ] if lookup(account, "groups", null) != null
   ])
+  # Remove root because the identity org role cannot provision root assignments
+  account_assignments_groups_no_root = [
+    for val in local.account_assignments_groups :
+    val
+    if val.account != local.account_map["root"]
+  ]
+  account_assignments_groups_only_root = [
+    for val in local.account_assignments_groups :
+    val
+    if val.account == local.account_map["root"]
+  ]
   account_assignments_users = flatten([
     for account_key, account in var.account_assignments : [
       for principal_key, principal in account.users : [
@@ -55,7 +78,19 @@ locals {
       ]
     ] if lookup(account, "users", null) != null
   ])
-  account_assignments = concat(local.account_assignments_groups, local.account_assignments_users)
+  account_assignments_users_no_root = [
+    for val in local.account_assignments_users :
+    val
+    if val.account != local.account_map["root"]
+  ]
+  account_assignments_users_only_root = [
+    for val in local.account_assignments_users :
+    val
+    if val.account == local.account_map["root"]
+  ]
+
+  account_assignments      = concat(local.account_assignments_groups_no_root, local.account_assignments_users_no_root)
+  account_assignments_root = concat(local.account_assignments_groups_only_root, local.account_assignments_users_only_root)
 
   aws_partition = data.aws_partition.current.partition
 }
