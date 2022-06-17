@@ -1,3 +1,3 @@
-enabled = true
+# This file is included by default in terraform plans
 
-name = "ecr"
+enabled = false

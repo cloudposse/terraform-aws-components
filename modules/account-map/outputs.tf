@@ -34,6 +34,11 @@ output "org" {
 
 }
 
+output "aws_partition" {
+  value       = local.aws_partition
+  description = "The AWS \"partition\" to use when constructing resource ARNs"
+}
+
 output "account_info_map" {
   value       = local.account_info_map
   description = <<-EOT
@@ -60,6 +65,11 @@ output "non_eks_accounts" {
 output "all_accounts" {
   value       = local.all_accounts
   description = "A list of all accounts in the AWS Organization"
+}
+
+output "iam_role_arn_templates" {
+  value       = local.iam_role_arn_templates
+  description = "Map of accounts to corresponding IAM Role ARN templates"
 }
 
 output "terraform_roles" {

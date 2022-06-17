@@ -14,14 +14,21 @@ components:
     account-map:
       vars:
         enabled: true
-        # If this is true, profile must be provided instead of role_arn in each backend.tf.json
-        # If this is false, role_arn must be provided instead of profile in each backend.tf.json
-        profiles_enabled: false
+        # Since this is false, role_arn must be provided instead of profile in each terraform backend
+        # profiles_enabled: false
         root_account_aws_name: "aws-root"
         root_account_account_name: root
         identity_account_account_name: identity
         dns_account_account_name: dns
         audit_account_account_name: audit
+        # The template used to render Role ARNs.
+        # Note that if the `null-label` variable `label_order` is truncated or extended with additional labels, this template will
+        # need to be updated to reflect the new number of labels.
+        iam_role_arn_template: "arn:aws:iam::%s:role/%s-%s-%s-%s"
+        # The template used to render AWS Profile names.
+        # Note that if the `null-label` variable `label_order` is truncated or extended with additional labels, this template will
+        # need to be updated to reflect the new number of labels.
+        profile_template: "%s-%s-%s-%s"
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -30,19 +37,19 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_accounts"></a> [accounts](#module\_accounts) | cloudposse/stack-config/yaml//modules/remote-state | 0.19.0 |
+| <a name="module_accounts"></a> [accounts](#module\_accounts) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.2 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -50,6 +57,7 @@ components:
 | Name | Type |
 |------|------|
 | [aws_organizations_organization.organization](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/organizations_organization) | data source |
+| [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
 
 ## Inputs
 
@@ -66,7 +74,7 @@ components:
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_global_environment_name"></a> [global\_environment\_name](#input\_global\_environment\_name) | Global environment name | `string` | `"gbl"` | no |
-| <a name="input_iam_role_arn_template"></a> [iam\_role\_arn\_template](#input\_iam\_role\_arn\_template) | The template used to render Role ARNs.<br><br>Note that if the `null-label` variable `label_order` is truncated or extended with additional labels, this template will<br>need to be updated to reflect the new number of labels. | `string` | `"arn:aws:iam::%s:role/%s-%s-%s-%s"` | no |
+| <a name="input_iam_role_arn_template_template"></a> [iam\_role\_arn\_template\_template](#input\_iam\_role\_arn\_template\_template) | The template for the template used to render Role ARNs.<br>The template is first used to render a template for the account that takes only the role name.<br>Then that rendered template is used to create the final Role ARN for the account.<br>Default is appropriate when using `tenant` and default label order with `null-label`.<br>Use `"arn:%s:iam::%s:role/%s-%s-%s-%%s"` when not using `tenant`.<br><br><br>Note that if the `null-label` variable `label_order` is truncated or extended with additional labels, this template will<br>need to be updated to reflect the new number of labels. | `string` | `"arn:%s:iam::%s:role/%s-%s-%s-%s-%%s"` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_identity_account_account_name"></a> [identity\_account\_account\_name](#input\_identity\_account\_account\_name) | The stage name for the account holding primary IAM roles | `string` | `"identity"` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
@@ -75,7 +83,7 @@ components:
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_profile_template"></a> [profile\_template](#input\_profile\_template) | The template used to render AWS Profile names.<br><br>Note that if the `null-label` variable `label_order` is truncated or extended with additional labels, this template will<br>need to be updated to reflect the new number of labels. | `string` | `"%s-%s-%s-%s"` | no |
+| <a name="input_profile_template"></a> [profile\_template](#input\_profile\_template) | The template used to render AWS Profile names.<br>Default is appropriate when using `tenant` and default label order with `null-label`.<br>Use `"%s-%s-%s-%s"` when not using `tenant`.<br><br>Note that if the `null-label` variable `label_order` is truncated or extended with additional labels, this template will<br>need to be updated to reflect the new number of labels. | `string` | `"%s-%s-%s-%s-%s"` | no |
 | <a name="input_profiles_enabled"></a> [profiles\_enabled](#input\_profiles\_enabled) | Whether or not to enable profiles instead of roles for the backend. If true, profile must be set. If false, role\_arn must be set. | `bool` | `false` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
@@ -93,6 +101,7 @@ components:
 | <a name="output_all_accounts"></a> [all\_accounts](#output\_all\_accounts) | A list of all accounts in the AWS Organization |
 | <a name="output_artifacts_account_account_name"></a> [artifacts\_account\_account\_name](#output\_artifacts\_account\_account\_name) | The short name for the artifacts account |
 | <a name="output_audit_account_account_name"></a> [audit\_account\_account\_name](#output\_audit\_account\_account\_name) | The short name for the audit account |
+| <a name="output_aws_partition"></a> [aws\_partition](#output\_aws\_partition) | The AWS "partition" to use when constructing resource ARNs |
 | <a name="output_cicd_profiles"></a> [cicd\_profiles](#output\_cicd\_profiles) | A list of all SSO profiles used by cicd platforms |
 | <a name="output_cicd_roles"></a> [cicd\_roles](#output\_cicd\_roles) | A list of all IAM roles used by cicd platforms |
 | <a name="output_dns_account_account_name"></a> [dns\_account\_account\_name](#output\_dns\_account\_account\_name) | The short name for the primary DNS account |
@@ -100,6 +109,7 @@ components:
 | <a name="output_full_account_map"></a> [full\_account\_map](#output\_full\_account\_map) | The map of account name to account ID (number). |
 | <a name="output_helm_profiles"></a> [helm\_profiles](#output\_helm\_profiles) | A list of all SSO profiles used to run helm updates |
 | <a name="output_helm_roles"></a> [helm\_roles](#output\_helm\_roles) | A list of all IAM roles used to run helm updates |
+| <a name="output_iam_role_arn_templates"></a> [iam\_role\_arn\_templates](#output\_iam\_role\_arn\_templates) | Map of accounts to corresponding IAM Role ARN templates |
 | <a name="output_identity_account_account_name"></a> [identity\_account\_account\_name](#output\_identity\_account\_account\_name) | The short name for the account holding primary IAM roles |
 | <a name="output_non_eks_accounts"></a> [non\_eks\_accounts](#output\_non\_eks\_accounts) | A list of all accounts in the AWS Organization that do not contain EKS clusters |
 | <a name="output_org"></a> [org](#output\_org) | The name of the AWS Organization |

@@ -1,6 +1,6 @@
 module "account_map" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.0"
+  version = "0.22.1"
 
   component   = "account-map"
   environment = var.account_map_environment_name

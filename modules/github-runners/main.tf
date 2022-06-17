@@ -5,6 +5,9 @@ locals {
   identity_account_name  = module.account_map.outputs.identity_account_account_name
   identity_account_id    = module.account_map.outputs.full_account_map[local.identity_account_name]
 
+  github_token_ssm_path = join("", data.aws_ssm_parameter.github_token.*.name)
+  registration_url      = var.github_repo == null ? format("https://github.com/%s", var.github_org) : format("https://github.com/%s/%s", var.github_org, var.github_repo)
+
   userdata_template                = "${path.module}/templates/user-data.sh"
   deregistr_runner_script_template = "${path.module}/templates/deregister-github-runner"
 
@@ -18,8 +21,7 @@ locals {
       owner       = "root:root"
       encoding    = "b64"
       content = base64encode(templatefile(local.deregistr_runner_script_template, {
-        github_token_ssm_path = join("", data.aws_ssm_parameter.github_token.*.name)
-        github_org            = var.github_org
+        github_token_ssm_path = local.github_token_ssm_path
       }))
     },
     {
@@ -50,8 +52,8 @@ data "cloudinit_config" "config" {
     content_type = "text/x-shellscript"
     filename     = "user-data.sh"
     content = templatefile(local.userdata_template, {
-      github_token_ssm_path = join("", data.aws_ssm_parameter.github_token.*.name)
-      github_org            = var.github_org
+      github_token_ssm_path = local.github_token_ssm_path
+      registration_url      = local.registration_url
       runner_version        = var.runner_version
       runner_name_prefix    = module.this.id
       runner_labels         = var.runner_labels
