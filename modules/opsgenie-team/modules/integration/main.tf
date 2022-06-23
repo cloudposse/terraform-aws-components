@@ -62,6 +62,7 @@ resource "opsgenie_integration_action" "datadog" {
     ignore_responders_from_payload = true
 
     name          = "Create Metric Alert"
+    order         = 1
     alias         = "{{alias}}"
     tags          = ["{{dd_tags}}"]
     user          = "Datadog"
@@ -119,7 +120,9 @@ resource "opsgenie_integration_action" "datadog" {
   create {
     ignore_responders_from_payload = true
 
-    name = "Create Synthetic Alert"
+    name  = "Create Synthetic Alert"
+    order = 2
+
     # Only add the Statuspage component and incident ID tags.
     # If all of dd_tags is added, then the alert will be polluted with probe_ tags, which are not necessary in OpsGenie,
     # and also cause the alert's tag count to exceed the limit (20). This then prevents the Statuspage integration from
@@ -166,7 +169,7 @@ resource "opsgenie_integration_action" "datadog" {
     }
   }
 
-  // Close Action of a Metric Alert from Datadog
+  # Close Action of a Metric Alert from Datadog
   close {
     name  = "Close Alert"
     alias = "{{alias}}"
@@ -191,7 +194,7 @@ resource "opsgenie_integration_action" "datadog" {
     }
   }
 
-  // Acknowledge Action of a Metric Alert from Datadog
+  # Acknowledge Action of a Metric Alert from Datadog
   acknowledge {
     name  = "Acknowledge Alert"
     alias = "{{alias}}"
@@ -221,7 +224,7 @@ resource "opsgenie_integration_action" "datadog" {
 
 # Populate SSM Parameter Store with API Keys for OpsGenie API Integrations.
 # These keys can either be used when setting up OpsGenie integrations manually,
-# Or they can be used programatically, if their respective Terraform provider supports it.
+# Or they can be used programmatically, if their respective Terraform provider supports it.
 module "ssm_parameter_store" {
   source  = "cloudposse/ssm-parameter-store/aws"
   version = "0.8.4"

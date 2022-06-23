@@ -67,8 +67,8 @@ module "team" {
 module "integration" {
   source = "./modules/integration"
 
-  // We add Datadog here because we need the core input for the team.
-  // Can be overridden by var.integrations.datadog
+  # We add Datadog here because we need the core input for the team.
+  # Can be overridden by var.integrations.datadog
   for_each = var.integrations_enabled ? merge({
     datadog : {
       type : "Datadog"
@@ -205,7 +205,7 @@ module "escalations" {
 
     description = try(each.value.description, null)
 
-    rule   = try(each.value.rule, null)
+    rules  = try(each.value.rules, null)
     repeat = try(each.value.repeat, null)
   }
 
