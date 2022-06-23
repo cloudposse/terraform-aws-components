@@ -69,9 +69,12 @@ p2: &p2_is_incident
 components:
   terraform:
     # defaults
-    opsgenie-team:
-      vars:
+    opsgenie-team-defaults:
+      metadata:
+        type: abstract
+        component: opsgenie
 
+      vars:
         schedules:
           london_schedule:
             enabled: false
@@ -101,18 +104,20 @@ components:
 
     # New team
     opsgenie-team-sre:
-      component: opsgenie-team
+      metadata:
+        type: real
+        component: opsgenie-team
+        inherits:
+          - opsgenie-team-defaults
       vars:
         enabled: true
         name: sre
 
+        # These members will be added with an opsgenie_user
+        # To clickops members, set this key to an empty list `[]`
         members:
-          - user: matt@masterpoint.io
+          - user: user@example.com
             role: owner
-          - user: other@masterpoint.io
-            role: admin
-          - user: other2@masterpoint.io
-            role: admin
 
         escalations:
           otherteam_escalation:
@@ -137,7 +142,7 @@ components:
               delay: 90
               recipients:
               - type: user
-                name: matt@masterpoint.io
+                name: user@example.com
 
           schedule_escalation:
             enabled: true
@@ -153,7 +158,6 @@ components:
 
 ```
 
-
 The API keys relating to the Opsgenie Integrations are stored in SSM Parameter Store and can be accessed via chamber.
 
 ```
@@ -163,6 +167,7 @@ AWS_PROFILE=foo chamber list opsgenie-team/<team>
 ### ClickOps Work
  - The initial Setup requires ClickOps to setup the datadog integration on the datadog side. This is a limitation because there isn’t a resource for datadog to create an opsgenie integration so this has to be done manually via ClickOps. (See Limitations Below)
  - After deploying the opsgenie-team component the created team will have a schedule named after the team. This is purposely left to be clickOps’d so the UI can be used to set who is on call, as that is the usual way (not through code). Additionally We do not want a re-apply of the terraform to delete or shuffle who is planned to be on call, thus we left who is on-call on a schedule out of the component.
+
 ## Known Issues
 
 ### Different API Endpoints in Use
@@ -179,6 +184,7 @@ The problem is there are 3 different api endpoints in use
 ### Cannot Add Stakeholders
 
  - Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/278
+
 ### There isn’t a resource for datadog to create an opsgenie integration so this has to be done manually via ClickOps
 
  - Track the issue: https://github.com/DataDog/terraform-provider-datadog/issues/836
@@ -194,8 +200,8 @@ Another Problem is the terraform docs are not always up to date with the provide
 The OpsGenie Provider uses a mix of `/v1` and `/v2`. This means there are many things you can only do from the UI.
 
 Listed below in no particular order
-- Incident Routing cannot add dependent services - in `v1` and `v2` a service_incident_rule object has `serviceId` as type string, in webapp this becomes `serviceIds` of type `list(string)`
-- Opsgenie Provider appears to be inconsistent with how it uses time_restriction:
+- Incident Routing cannot add dependent services - in `v1` and `v2` a `service_incident_rule` object has `serviceId` as type string, in webapp this becomes `serviceIds` of type `list(string)`
+- Opsgenie Provider appears to be inconsistent with how it uses `time_restriction`:
     - `restrictions` for type `weekday-and-time-of-day`
     - `restriction` for type `time-of-day`
 
@@ -318,7 +324,7 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/TODO) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/opsgenie-team) - Cloud Posse's upstream component
 
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
