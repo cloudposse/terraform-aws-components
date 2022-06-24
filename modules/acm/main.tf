@@ -25,7 +25,7 @@ module "acm" {
   subject_alternative_names         = concat([format("*.%s", var.domain_name)], var.subject_alternative_names)
   zone_id                           = join("", data.aws_route53_zone.default.*.zone_id)
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 resource "aws_ssm_parameter" "acm_arn" {
@@ -37,5 +37,5 @@ resource "aws_ssm_parameter" "acm_arn" {
   type        = "String"
   overwrite   = true
 
-  tags = module.introspection.tags
+  tags = module.this.tags
 }

@@ -25,7 +25,7 @@ module "aws_waf" {
   visibility_config                           = var.visibility_config
   xss_match_statement_rules                   = var.xss_match_statement_rules
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 resource "aws_ssm_parameter" "acl_arn" {
@@ -35,5 +35,5 @@ resource "aws_ssm_parameter" "acl_arn" {
   description = "ARN for WAF web ACL ${var.acl_name}"
   type        = "String"
   overwrite   = true
-  tags        = module.introspection.tags
+  tags        = module.this.tags
 }
