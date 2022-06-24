@@ -28,7 +28,7 @@ variable "import_role_arn" {
 }
 
 provider "postgresql" {
-  # host      = local.cluster_endpoint
+  host      = local.cluster_endpoint
   username  = local.admin_user
   password  = local.admin_password
   superuser = false
