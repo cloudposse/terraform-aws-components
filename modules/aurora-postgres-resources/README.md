@@ -13,19 +13,16 @@ components:
   terraform:
     aurora-postgres-resources:
       vars:
-        database_name: example
-        region: us-west-2
-        region_secondary: us-east-2
-        environment_secondary: ue2
-        engine: aurora-postgresql
-        engine_version: "12.4"
-        engine_mode: global
-        cluster_family: aurora-postgresql12
-        cluster_size: 1
-        instance_type: db.r4.large
-        iam_database_authentication_enabled: true
-        storage_encrypted: true
-        deletion_protection: false
+        aurora_postgres_component_name: aurora-postgres-example
+        additional_users:
+          example:
+            db_user: example
+            db_password: ""
+            grants:
+              - grant: [ "ALL" ]
+                db: example
+                object_type: database
+                schema: null
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
