@@ -1,38 +1,32 @@
 locals {
   lookup_teams = distinct(flatten([
-    for rule in var.escalation.rules : [
-      for recipient in rule.recipients :
-      recipient.name
-      if recipient.type == "team"
-    ]
+    for rule in var.escalation.rules :
+    rule.recipient.name
+    if rule.recipient.type == "team"
   ]))
   lookup_users = distinct(flatten([
-    for rule in var.escalation.rules : [
-      for recipient in rule.recipients :
-      recipient.name
-      if recipient.type == "user"
-    ]
+    for rule in var.escalation.rules :
+    rule.recipient.name
+    if rule.recipient.type == "user"
   ]))
   lookup_schedules = distinct(flatten([
-    for rule in var.escalation.rules : [
-      for recipient in rule.recipients :
-      recipient.name
-      if recipient.type == "schedule"
-    ]
+    for rule in var.escalation.rules :
+    rule.recipient.name
+    if rule.recipient.type == "schedule"
   ]))
 }
 
-data "opsgenie_team" "recipients" {
+data "opsgenie_team" "recipient" {
   for_each = toset(local.lookup_teams)
   name     = each.value
 }
 
-data "opsgenie_user" "recipients" {
+data "opsgenie_user" "recipient" {
   for_each = toset(local.lookup_users)
   username = each.value
 }
 
-data "opsgenie_schedule" "recipients" {
+data "opsgenie_schedule" "recipient" {
   for_each = toset(local.lookup_schedules)
   name     = each.value
 }
@@ -53,13 +47,10 @@ resource "opsgenie_escalation" "this" {
       notify_type = try(rules.value.notify_type, "default")
       delay       = try(rules.value.delay, 0)
 
-      dynamic "recipient" {
-        for_each = try(rules.value.recipients, [])
-
-        content {
-          id   = recipient.value.type == "team" ? data.opsgenie_team.recipients[recipient.value.name].id : recipient.value.type == "schedule" ? data.opsgenie_schedule.recipients[recipient.value.name].id : data.opsgenie_user.recipients[recipient.value.name].id
-          type = recipient.value.type
-        }
+      # In spite of the docs, only one recipient can be used per escalation resource with multiple rules
+      recipient {
+        id   = rules.value.recipient.type == "team" ? data.opsgenie_team.recipient[rules.value.recipient.name].id : rules.value.recipient.type == "schedule" ? data.opsgenie_schedule.recipient[rules.value.recipient.name].id : data.opsgenie_user.recipient[rules.value.recipient.name].id
+        type = rules.value.recipient.type
       }
     }
   }
