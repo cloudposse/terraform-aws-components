@@ -33,7 +33,7 @@ resource "aws_ssm_parameter" "acm_arn" {
 
   name        = "/acm/${var.domain_name}"
   value       = module.acm.arn
-  description = "ACM certificate id"
+  description = format("ACM certificate ARN for '%s' domain", var.domain_name)
   type        = "String"
   overwrite   = true
 
