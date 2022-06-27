@@ -1,5 +1,5 @@
 output "zones" {
-  value       = aws_route53_zone.default
+  value       = local.aws_route53_zone
   description = "Subdomain and zone config"
 }
 
@@ -10,5 +10,10 @@ output "default_domain_name" {
 
 output "default_dns_zone_id" {
   description = "Default root DNS zone ID for the cluster"
-  value       = aws_route53_zone.default[var.zone_config[0].subdomain].zone_id
+  value       = local.aws_route53_zone[var.zone_config[0].subdomain].zone_id
+}
+
+output "route53_hosted_zone_protections" {
+  description = "List of AWS Shield Advanced Protections for Route53 Hosted Zones."
+  value       = aws_shield_protection.shield_protection
 }
