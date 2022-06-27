@@ -15,6 +15,7 @@ components:
     aws-waf-acl:
       vars:
         enabled: true
+        name: waf
         acl_name: default
         default_action: allow
         description: Default web ACL
