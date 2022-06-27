@@ -111,7 +111,7 @@ components:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_acl"></a> [acl](#output\_acl) | Information about the created WAF ACL |
+| <a name="output_waf"></a> [waf](#output\_waf) | Information about the created WAF ACL |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
