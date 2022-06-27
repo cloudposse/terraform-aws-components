@@ -3,12 +3,6 @@ variable "region" {
   description = "AWS Region"
 }
 
-variable "description" {
-  type        = string
-  default     = null
-  description = "Team Description in Opsgenie"
-}
-
 variable "schedules" {
   type        = map(any)
   default     = {}
@@ -52,10 +46,10 @@ variable "integrations_enabled" {
   description = "Whether to enable the integrations submodule or not"
 }
 
-variable "ignore_team_members" {
-  type        = bool
-  default     = false
-  description = "Set to true to ignore any configured member blocks and any team member added/updated/removed via OpsGenie web UI."
+variable "team" {
+  type        = map(any)
+  default     = {}
+  description = "Configure the team inputs"
 }
 
 variable "escalations" {

@@ -33,11 +33,11 @@ data "opsgenie_user" "team_members" {
 
 module "members_merge" {
   source  = "cloudposse/config/yaml//modules/deepmerge"
-  version = "0.8.1"
+  version = "1.0.1"
 
   # Cannot use context to disable
   # See issue: https://github.com/cloudposse/terraform-yaml-config/issues/18
-  count = local.enabled ? 1 : 0
+  count = local.enabled && lookup(var.team, "ignore_members", false) ? 1 : 0
 
   maps = [
     data.opsgenie_user.team_members,
@@ -49,17 +49,15 @@ module "members_merge" {
 
 module "team" {
   source  = "cloudposse/incident-management/opsgenie//modules/team"
-  version = "0.15.0"
+  version = "0.16.0"
 
   # Only create if not reusing an existing team
   enabled = local.create_all_enabled
 
-  team = {
-    name           = module.this.name
-    description    = var.description
-    members        = try(module.members_merge[0].merged, [])
-    ignore_members = var.ignore_team_members
-  }
+  team = merge({
+    name    = module.this.name
+    members = try(module.members_merge[0].merged, [])
+  }, var.team)
 
   context = module.introspection.context
 }
@@ -102,7 +100,7 @@ module "integration" {
 
 module "service" {
   source  = "cloudposse/incident-management/opsgenie//modules/service"
-  version = "0.15.0"
+  version = "0.16.0"
 
   for_each = var.services
 
@@ -122,7 +120,7 @@ module "service" {
 
 module "schedule" {
   source  = "cloudposse/incident-management/opsgenie//modules/schedule"
-  version = "0.15.0"
+  version = "0.16.0"
 
   for_each = {
     for k, v in var.schedules :
@@ -142,7 +140,9 @@ module "schedule" {
 
   context = module.introspection.context
 
-  depends_on = [module.team]
+  depends_on = [
+    module.team,
+  ]
 }
 
 module "routing" {
@@ -183,12 +183,13 @@ module "routing" {
   depends_on = [
     module.team,
     module.schedule,
-    module.service
+    module.service,
+    module.escalation,
   ]
 }
 
-module "escalations" {
-  source = "./modules/escalations"
+module "escalation" {
+  source = "./modules/escalation"
 
   for_each = {
     for k, v in var.escalations :
@@ -211,5 +212,8 @@ module "escalations" {
 
   context = module.introspection.context
 
-  depends_on = [module.team]
+  depends_on = [
+    module.team,
+    module.schedule,
+  ]
 }
