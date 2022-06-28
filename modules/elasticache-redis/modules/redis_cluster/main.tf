@@ -10,7 +10,7 @@ locals {
 
 module "redis" {
   source  = "cloudposse/elasticache-redis/aws"
-  version = "0.42.0"
+  version = "0.44.0"
 
   name = var.cluster_name
 
@@ -65,7 +65,7 @@ resource "random_password" "auth_token" {
 
 module "parameter_store_write" {
   source  = "cloudposse/ssm-parameter-store/aws"
-  version = "0.9.1"
+  version = "0.10.0"
 
   enabled = local.auth_token_enabled
 

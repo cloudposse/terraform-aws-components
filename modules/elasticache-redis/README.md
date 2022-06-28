@@ -8,7 +8,7 @@ This component is responsible for provisioning [ElastiCache Redis](https://aws.a
 
 Here's an example snippet for how to use this component.
 
-`stacks/elasticache/elasticache-redis/defaults.yaml` file (default settings for all Redis clusters):
+`stacks/catalog/elasticache/elasticache-redis/defaults.yaml` file (default settings for all Redis clusters):
 
 ```yaml
 components:
@@ -38,11 +38,11 @@ components:
                 value: "lK"
 ```
 
-`stacks/ue1-dev.yaml` file (imports and overrides the default settings for a specific cluster):
+`stacks/org/ou/account/region.yaml` file (imports and overrides the default settings for a specific cluster):
 
 ```yaml
 import:
-  - elasticache/elasticache-redis/defaults.yaml
+  - catalog/elasticache/elasticache-redis/defaults.yaml
 
 components:
   terraform:
