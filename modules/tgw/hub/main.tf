@@ -20,7 +20,7 @@ module "tgw_hub" {
 
   config = {}
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 locals {
