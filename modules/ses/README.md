@@ -21,7 +21,6 @@ components:
         # {environment}.{stage}.{tenant}.acme.org
         domain_template: "%s[2]s.%[3]s.%[1]s.acme.org"
         # use this when `account-map` is deployed in a separate `tenant`
-        root_account_tenant_name: core
         tags:
           Team: sre
           Service: ses
