@@ -1,19 +1,19 @@
 output "url" {
-  description = "The URL for the created Amazon SQS queue."
+  description = "The URL of the created Amazon SQS queue."
   value       = module.sqs_queue.url
 }
 
 output "id" {
-  description = "The ID for the created Amazon SQS queue. Same as the URL."
+  description = "The ID of the created Amazon SQS queue. Same as the URL."
   value       = module.sqs_queue.id
 }
 
 output "name" {
-  description = "The name for the created Amazon SQS queue."
+  description = "The name of the created Amazon SQS queue."
   value       = module.sqs_queue.name
 }
 
 output "arn" {
-  description = "The ARN of the SQS queue"
+  description = "The ARN of the created Amazon SQS queue"
   value       = module.sqs_queue.arn
 }
