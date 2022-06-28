@@ -47,7 +47,6 @@ components:
 |------|--------|---------|
 | <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.3 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_introspection"></a> [introspection](#module\_introspection) | cloudposse/label/null | 0.25.0 |
 | <a name="module_kms_key_ses"></a> [kms\_key\_ses](#module\_kms\_key\_ses) | cloudposse/kms-key/aws | 0.12.1 |
 | <a name="module_ses"></a> [ses](#module\_ses) | cloudposse/ses/aws | 0.20.6 |
 | <a name="module_ssm_parameter_store"></a> [ssm\_parameter\_store](#module\_ssm\_parameter\_store) | cloudposse/ssm-parameter-store/aws | 0.9.1 |
@@ -84,7 +83,6 @@ components:
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_required_tags"></a> [required\_tags](#input\_required\_tags) | List of required tag names | `list(string)` | `[]` | no |
 | <a name="input_ses_verify_dkim"></a> [ses\_verify\_dkim](#input\_ses\_verify\_dkim) | If provided the module will create Route53 DNS records used for DKIM verification. | `bool` | `true` | no |
 | <a name="input_ses_verify_domain"></a> [ses\_verify\_domain](#input\_ses\_verify\_domain) | If provided the module will create Route53 DNS records used for domain verification. | `bool` | `true` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
