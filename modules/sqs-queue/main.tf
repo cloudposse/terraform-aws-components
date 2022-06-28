@@ -19,5 +19,5 @@ module "sqs_queue" {
   kms_data_key_reuse_period_seconds = var.kms_data_key_reuse_period_seconds
   deduplication_scope               = try([var.deduplication_scope[0]], [])
 
-  context = module.introspection.context
+  context = module.this.context
 }
