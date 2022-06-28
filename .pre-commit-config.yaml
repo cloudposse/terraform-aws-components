@@ -14,4 +14,13 @@ repos:
     hooks:
       - id: terraform_fmt
       - id: terraform_docs
-        args: ["--args=--lockfile=false"]
+        args: ['--args=--lockfile=false']
+  - repo: local
+    hooks:
+      - id: rebuild-mixins-docs
+        name: rebuild-mixins-docs
+        entry: bash -c 'make rebuild-mixins-docs'
+        language: system
+        types: ["text"]
+        files: (mixins\/.*|bin\/rebuild-mixins-docs\.sh)
+        pass_filenames: false

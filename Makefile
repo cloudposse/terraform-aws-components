@@ -27,6 +27,10 @@ run:
 rebuild-docs:
 	@pre-commit run --all-files terraform_docs
 
+## Rebuild README for Terraform Mixins
+rebuild-mixins-docs:
+	bin/rebuild-mixins-docs.sh
+
 ## Upstream a given component
 upstream-component:
 # Requires:
