@@ -13,7 +13,7 @@ data "aws_partition" "current" {}
 
 module "ses" {
   source  = "cloudposse/ses/aws"
-  version = "0.20.6"
+  version = "0.22.3"
 
   domain        = local.ses_domain
   zone_id       = local.ses_zone_id
@@ -37,7 +37,7 @@ module "kms_key_ses" {
 
 module "ssm_parameter_store" {
   source  = "cloudposse/ssm-parameter-store/aws"
-  version = "0.9.1"
+  version = "0.10.0"
 
   count = local.enabled ? 1 : 0
 
