@@ -1,4 +1,4 @@
-# Component: `sqs queue`
+# Component: `sqs-queue`
 
 This component is responsible for creating an SQS queue.
 
