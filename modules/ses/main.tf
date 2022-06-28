@@ -80,6 +80,10 @@ module "ssm_parameter_store" {
 }
 
 data "aws_iam_policy_document" "kms_key_ses" {
+  #bridgecrew:skip=BC_AWS_IAM_57: Skipping `Write access allowed without constraint` check. This is a resource-based policy allowing the account to use the CMK.
+  #bridgecrew:skip=BC_AWS_IAM_56: Skipping `Resource exposure allows modification of policies and exposes resources` check. See note above.
+  count = local.enabled ? 1 : 0
+
   # https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default-allow-administrators
   # https://aws.amazon.com/premiumsupport/knowledge-center/update-key-policy-future/
   statement {
