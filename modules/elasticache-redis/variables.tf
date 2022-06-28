@@ -71,7 +71,7 @@ variable "redis_clusters" {
 
 variable "allow_ingress_from_vpc_stages" {
   type        = list(string)
-  default     = ["auto", "corp"]
+  default     = []
   description = "List of stages to pull VPC ingress cidr and add to security group"
 }
 
@@ -84,5 +84,5 @@ variable "eks_security_group_enabled" {
 variable "eks_component_names" {
   type        = set(string)
   description = "The names of the eks components"
-  default     = ["eks/eks"]
+  default     = []
 }
