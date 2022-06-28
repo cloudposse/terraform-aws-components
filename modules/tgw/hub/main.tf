@@ -8,7 +8,7 @@
 
 module "tgw_hub" {
   source  = "cloudposse/transit-gateway/aws"
-  version = "0.6.1"
+  version = "0.9.1"
 
   ram_resource_share_enabled = true
   route_keys_enabled         = true
@@ -20,7 +20,7 @@ module "tgw_hub" {
 
   config = {}
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 locals {
