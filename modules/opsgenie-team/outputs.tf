@@ -22,3 +22,8 @@ output "routing" {
   value       = module.routing
   description = "Routing rules created"
 }
+
+output "escalation" {
+  value       = module.escalation
+  description = "Escalation rules created"
+}

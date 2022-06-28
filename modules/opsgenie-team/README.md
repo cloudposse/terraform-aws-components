@@ -69,9 +69,12 @@ p2: &p2_is_incident
 components:
   terraform:
     # defaults
-    opsgenie-team:
-      vars:
+    opsgenie-team-defaults:
+      metadata:
+        type: abstract
+        component: opsgenie
 
+      vars:
         schedules:
           london_schedule:
             enabled: false
@@ -101,18 +104,20 @@ components:
 
     # New team
     opsgenie-team-sre:
-      component: opsgenie-team
+      metadata:
+        type: real
+        component: opsgenie-team
+        inherits:
+          - opsgenie-team-defaults
       vars:
         enabled: true
         name: sre
 
+        # These members will be added with an opsgenie_user
+        # To clickops members, set this key to an empty list `[]`
         members:
-          - user: matt@masterpoint.io
+          - user: user@example.com
             role: owner
-          - user: other@masterpoint.io
-            role: admin
-          - user: other2@masterpoint.io
-            role: admin
 
         escalations:
           otherteam_escalation:
@@ -137,7 +142,7 @@ components:
               delay: 90
               recipients:
               - type: user
-                name: matt@masterpoint.io
+                name: user@example.com
 
           schedule_escalation:
             enabled: true
@@ -153,7 +158,6 @@ components:
 
 ```
 
-
 The API keys relating to the Opsgenie Integrations are stored in SSM Parameter Store and can be accessed via chamber.
 
 ```
@@ -163,6 +167,7 @@ AWS_PROFILE=foo chamber list opsgenie-team/<team>
 ### ClickOps Work
  - The initial Setup requires ClickOps to setup the datadog integration on the datadog side. This is a limitation because there isn’t a resource for datadog to create an opsgenie integration so this has to be done manually via ClickOps. (See Limitations Below)
  - After deploying the opsgenie-team component the created team will have a schedule named after the team. This is purposely left to be clickOps’d so the UI can be used to set who is on call, as that is the usual way (not through code). Additionally We do not want a re-apply of the terraform to delete or shuffle who is planned to be on call, thus we left who is on-call on a schedule out of the component.
+
 ## Known Issues
 
 ### Different API Endpoints in Use
@@ -179,6 +184,7 @@ The problem is there are 3 different api endpoints in use
 ### Cannot Add Stakeholders
 
  - Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/278
+
 ### There isn’t a resource for datadog to create an opsgenie integration so this has to be done manually via ClickOps
 
  - Track the issue: https://github.com/DataDog/terraform-provider-datadog/issues/836
@@ -194,8 +200,8 @@ Another Problem is the terraform docs are not always up to date with the provide
 The OpsGenie Provider uses a mix of `/v1` and `/v2`. This means there are many things you can only do from the UI.
 
 Listed below in no particular order
-- Incident Routing cannot add dependent services - in `v1` and `v2` a service_incident_rule object has `serviceId` as type string, in webapp this becomes `serviceIds` of type `list(string)`
-- Opsgenie Provider appears to be inconsistent with how it uses time_restriction:
+- Incident Routing cannot add dependent services - in `v1` and `v2` a `service_incident_rule` object has `serviceId` as type string, in webapp this becomes `serviceIds` of type `list(string)`
+- Opsgenie Provider appears to be inconsistent with how it uses `time_restriction`:
     - `restrictions` for type `weekday-and-time-of-day`
     - `restriction` for type `time-of-day`
 
@@ -247,15 +253,15 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_escalations"></a> [escalations](#module\_escalations) | ./modules/escalations | n/a |
+| <a name="module_escalation"></a> [escalation](#module\_escalation) | ./modules/escalation | n/a |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_integration"></a> [integration](#module\_integration) | ./modules/integration | n/a |
 | <a name="module_introspection"></a> [introspection](#module\_introspection) | cloudposse/label/null | 0.25.0 |
-| <a name="module_members_merge"></a> [members\_merge](#module\_members\_merge) | cloudposse/config/yaml//modules/deepmerge | 0.8.1 |
+| <a name="module_members_merge"></a> [members\_merge](#module\_members\_merge) | cloudposse/config/yaml//modules/deepmerge | 1.0.1 |
 | <a name="module_routing"></a> [routing](#module\_routing) | ./modules/routing | n/a |
-| <a name="module_schedule"></a> [schedule](#module\_schedule) | cloudposse/incident-management/opsgenie//modules/schedule | 0.15.0 |
-| <a name="module_service"></a> [service](#module\_service) | cloudposse/incident-management/opsgenie//modules/service | 0.15.0 |
-| <a name="module_team"></a> [team](#module\_team) | cloudposse/incident-management/opsgenie//modules/team | 0.15.0 |
+| <a name="module_schedule"></a> [schedule](#module\_schedule) | cloudposse/incident-management/opsgenie//modules/schedule | 0.16.0 |
+| <a name="module_service"></a> [service](#module\_service) | cloudposse/incident-management/opsgenie//modules/service | 0.16.0 |
+| <a name="module_team"></a> [team](#module\_team) | cloudposse/incident-management/opsgenie//modules/team | 0.16.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -275,13 +281,11 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_create_only_integrations_enabled"></a> [create\_only\_integrations\_enabled](#input\_create\_only\_integrations\_enabled) | Whether to reuse all existing resources and only create new integrations | `bool` | `false` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| <a name="input_description"></a> [description](#input\_description) | Team Description in Opsgenie | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_escalations"></a> [escalations](#input\_escalations) | Escalations to configure and create for the team. | `map(any)` | `{}` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_ignore_team_members"></a> [ignore\_team\_members](#input\_ignore\_team\_members) | Set to true to ignore any configured member blocks and any team member added/updated/removed via OpsGenie web UI. | `bool` | `false` | no |
 | <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
 | <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_integrations"></a> [integrations](#input\_integrations) | API Integrations for the team. If not specified, `datadog` is assumed. | `map(any)` | `{}` | no |
@@ -304,12 +308,14 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 | <a name="input_ssm_path"></a> [ssm\_path](#input\_ssm\_path) | SSM path | `string` | `"opsgenie"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
+| <a name="input_team"></a> [team](#input\_team) | Configure the team inputs | `map(any)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| <a name="output_escalation"></a> [escalation](#output\_escalation) | Escalation rules created |
 | <a name="output_integration"></a> [integration](#output\_integration) | Integrations created |
 | <a name="output_routing"></a> [routing](#output\_routing) | Routing rules created |
 | <a name="output_team_id"></a> [team\_id](#output\_team\_id) | Team ID |
@@ -318,7 +324,7 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/TODO) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/opsgenie-team) - Cloud Posse's upstream component
 
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
