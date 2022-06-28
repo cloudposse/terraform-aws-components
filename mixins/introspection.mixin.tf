@@ -9,10 +9,10 @@
 # <-- END DOC -->
 locals {
   # Throw an error if lookup fails
-  check_required_tags = [
+  check_required_tags = module.this.enabled ? [
     for k in var.required_tags :
     lookup(module.this.tags, k)
-  ]
+  ] : []
 }
 
 variable "required_tags" {
