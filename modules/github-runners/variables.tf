@@ -94,7 +94,7 @@ variable "ssm_path" {
 
 variable "runner_version" {
   type        = string
-  default     = "2.287.1"
+  default     = "2.288.1"
   description = "GitHub runner release version"
 }
 
