@@ -1,0 +1,179 @@
+# The official Datadog API documentation with available query parameters & alert types:
+# https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor
+
+rds-cpuutilization:
+  name: "(RDS) ${tenant} ${ stage } - CPU Utilization above 90%"
+  type: metric alert
+  query: |
+    avg(last_15m):avg:aws.rds.cpuutilization{stage:${ stage }} by {dbinstanceidentifier} > 90
+  message: |
+    {{#is_warning}}
+    ({dbinstanceidentifier}) CPU Utilization above 85%
+    {{/is_warning}}
+    {{#is_alert}}
+    ({dbinstanceidentifier}) CPU Utilization above 90%
+    {{/is_alert}}
+  escalation_message: ""
+  tags: [ "managed-by:Terraform" ]
+  notify_no_data: false
+  notify_audit: true
+  require_full_window: true
+  enable_logs_sample: false
+  force_delete: true
+  include_tags: true
+  locked: false
+  renotify_interval: 60
+  timeout_h: 24
+  evaluation_delay: 60
+  new_host_delay: 300
+  no_data_timeframe: 10
+  threshold_windows: { }
+  thresholds:
+    critical: 90
+    warning: 85
+    #unknown:
+    #ok:
+    #critical_recovery:
+    #warning_recovery:
+
+rds-disk-queue-depth:
+  name: "(RDS) ${tenant} ${ stage } - Disk queue depth above 64"
+  type: metric alert
+  query: |
+    avg(last_15m):avg:aws.rds.disk_queue_depth{stage:${ stage }} by {dbinstanceidentifier} > 64
+  message: |
+    {{#is_warning}}
+    ({dbinstanceidentifier}) Disk queue depth above 48
+    {{/is_warning}}
+    {{#is_alert}}
+    ({dbinstanceidentifier}) Disk queue depth above 64
+    {{/is_alert}}
+  escalation_message: ""
+  tags: [ "managed-by:Terraform" ]
+  notify_no_data: false
+  notify_audit: true
+  require_full_window: true
+  enable_logs_sample: false
+  force_delete: true
+  include_tags: true
+  locked: false
+  renotify_interval: 60
+  timeout_h: 24
+  evaluation_delay: 60
+  new_host_delay: 300
+  no_data_timeframe: 10
+  threshold_windows: { }
+  thresholds:
+    critical: 64
+    warning: 48
+    #unknown:
+    #ok:
+    #critical_recovery:
+    #warning_recovery:
+
+rds-freeable-memory:
+  name: "(RDS) ${tenant} ${ stage } - Freeable memory below 256 MB"
+  type: metric alert
+  query: |
+    avg(last_5m):avg:aws.rds.freeable_memory{stage:${ stage }} < 256000000
+  message: |
+    {{#is_warning}}
+    ({dbinstanceidentifier}) Freeable memory below 512 MB
+    {{/is_warning}}
+    {{#is_alert}}
+    ({dbinstanceidentifier}) Freeable memory below 256 MB
+    {{/is_alert}}
+  escalation_message: ""
+  tags: [ "managed-by:Terraform" ]
+  notify_no_data: false
+  notify_audit: true
+  require_full_window: true
+  enable_logs_sample: false
+  force_delete: true
+  include_tags: true
+  locked: false
+  renotify_interval: 60
+  timeout_h: 24
+  evaluation_delay: 60
+  new_host_delay: 300
+  no_data_timeframe: 10
+  threshold_windows: { }
+  thresholds:
+    critical: 256000000
+    warning: 512000000
+    #unknown:
+    #ok:
+    #critical_recovery:
+    #warning_recovery:
+
+rds-swap-usage:
+  name: "(RDS) ${tenant} ${ stage } - Swap usage above 256 MB"
+  type: metric alert
+  query: |
+    avg(last_15m):avg:aws.rds.swap_usage{stage:${ stage }} by {dbinstanceidentifier} > 256000000
+  message: |
+    {{#is_warning}}
+    ({dbinstanceidentifier}) Swap usage above 128 MB
+    {{/is_warning}}
+    {{#is_alert}}
+    ({dbinstanceidentifier}) Swap usage above 256 MB
+    {{/is_alert}}
+  escalation_message: ""
+  tags: [ "managed-by:Terraform" ]
+  notify_no_data: false
+  notify_audit: true
+  require_full_window: true
+  enable_logs_sample: false
+  force_delete: true
+  include_tags: true
+  locked: false
+  renotify_interval: 60
+  timeout_h: 24
+  evaluation_delay: 60
+  new_host_delay: 300
+  no_data_timeframe: 10
+  threshold_windows: { }
+  thresholds:
+    critical: 256000000
+    warning: 128000000
+    #unknown:
+    #ok:
+    #critical_recovery:
+    #warning_recovery:
+
+rds-database-connections:
+  name: "(RDS) ${tenant} ${ stage } - Anomaly of a large variance in RDS connection count"
+  type: metric alert
+  query: |
+    avg(last_4h):anomalies(avg:aws.rds.database_connections{stage:${ stage }}, 'basic', 2, direction='both', alert_window='last_15m', interval=60, count_default_zero='true') >= 1
+  message: |
+    {{#is_warning}}
+    ({dbinstanceidentifier}) Anomaly of a large variance in RDS connection count
+    {{/is_warning}}
+    {{#is_alert}}
+    ({dbinstanceidentifier}) Anomaly of a large variance in RDS connection count
+    {{/is_alert}}
+  escalation_message: ""
+  tags: [ "managed-by:Terraform" ]
+  notify_no_data: false
+  notify_audit: true
+  require_full_window: true
+  enable_logs_sample: false
+  force_delete: true
+  include_tags: true
+  locked: false
+  renotify_interval: 60
+  timeout_h: 24
+  evaluation_delay: 60
+  new_host_delay: 300
+  no_data_timeframe: 10
+  threshold_windows:
+    trigger_window: "last_15m"
+    recovery_window: "last_15m"
+  thresholds:
+    critical: 1
+    #warning:
+    #unknown:
+    #ok:
+    critical_recovery: 0
+    #warning_recovery:
