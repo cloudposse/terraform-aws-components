@@ -80,7 +80,7 @@ data "aws_ami" "runner" {
 
 module "sg" {
   source  = "cloudposse/security-group/aws"
-  version = "0.4.3"
+  version = "1.0.1"
 
   security_group_description = "Security group for GitHub runners"
   allow_all_egress           = true
@@ -91,7 +91,7 @@ module "sg" {
 
 module "autoscale_group" {
   source  = "cloudposse/ec2-autoscale-group/aws"
-  version = "0.30.0"
+  version = "0.30.1"
 
   image_id                    = join("", data.aws_ami.runner.*.id)
   instance_type               = var.instance_type
