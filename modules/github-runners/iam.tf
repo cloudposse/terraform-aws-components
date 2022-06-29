@@ -88,7 +88,7 @@ resource "aws_iam_role" "github_action_runner" {
   count = local.enabled ? 1 : 0
 
   name                = module.this.id
-  tags                = module.introspection.tags
+  tags                = module.this.tags
   assume_role_policy  = data.aws_iam_policy_document.instance_assume_role_policy[0].json
   managed_policy_arns = concat([join("", aws_iam_policy.github_action_runner.*.arn), "arn:${local.aws_partition}:iam::aws:policy/AmazonSSMManagedInstanceCore"], var.runner_role_additional_policy_arns)
 }

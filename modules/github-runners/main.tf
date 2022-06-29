@@ -86,7 +86,7 @@ module "sg" {
   allow_all_egress           = true
   vpc_id                     = local.vpc_id
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 module "autoscale_group" {
@@ -115,7 +115,7 @@ module "autoscale_group" {
   cpu_utilization_high_threshold_percent = var.cpu_utilization_high_threshold_percent
   cpu_utilization_low_threshold_percent  = var.cpu_utilization_low_threshold_percent
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 module "graceful_scale_in" {
@@ -126,5 +126,5 @@ module "graceful_scale_in" {
 
   attributes = ["deregistration"]
 
-  context = module.introspection.context
+  context = module.this.context
 }
