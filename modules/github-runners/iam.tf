@@ -1,20 +1,12 @@
 locals {
-  ec2_arn_prefix = "arn:${join("", data.aws_partition.current.*.partition)}:ec2:${join("", data.aws_region.current.*.name)}:${join("", data.aws_caller_identity.current.*.account_id)}:instance/"
+  aws_partition = join("", data.aws_partition.current[*].partition)
 }
 
 data "aws_partition" "current" {
   count = local.enabled ? 1 : 0
 }
 
-data "aws_caller_identity" "current" {
-  count = local.enabled ? 1 : 0
-}
-
-data "aws_region" "current" {
-  count = local.enabled ? 1 : 0
-}
-
-data "aws_iam_policy_document" "instance-assume-role-policy" {
+data "aws_iam_policy_document" "instance_assume_role_policy" {
   count = local.enabled ? 1 : 0
 
   statement {
@@ -28,23 +20,8 @@ data "aws_iam_policy_document" "instance-assume-role-policy" {
   }
 }
 
-
-data "aws_iam_policy_document" "github-action-runner" {
+data "aws_iam_policy_document" "github_action_runner" {
   count = local.enabled ? 1 : 0
-
-  # Allow EC2 instances to modify their tags — the user-data script will change the Name tag in order to add a dynamic suffix
-  statement {
-    sid     = "AllowUpdateEC2NameTag"
-    actions = ["ec2:CreateTags"]
-    resources = [
-      "${local.ec2_arn_prefix}*"
-    ]
-    condition {
-      test     = "StringLike"
-      values   = ["${module.this.id}-*"]
-      variable = "aws:ResourceTag/aws:autoscaling:groupName"
-    }
-  }
 
   # Allow EC2 instances to read their designated GitHub PAT from SSM Parameter Store.
   # This assumes that the SSM Parameter uses the alias/aws/ssm KMS Key, and NOT a CMK.
@@ -60,7 +37,7 @@ data "aws_iam_policy_document" "github-action-runner" {
     sid     = "AllowAssumeCICDRole"
     actions = ["sts:AssumeRole"]
     resources = [
-      format(module.this.tenant != null ? "arn:${join("", data.aws_partition.current.*.partition)}:iam::%[3]s:role/%[1]s-%[2]s-gbl-identity-cicd" : "arn:${join("", data.aws_partition.current.*.partition)}:iam::%[3]s:role/%[1]s-gbl-identity-cicd", module.this.namespace, module.this.tenant, local.identity_account_id)
+      format(module.this.tenant != null ? "arn:${local.aws_partition}:iam::%[3]s:role/%[1]s-%[2]s-gbl-identity-cicd" : "arn:${local.aws_partition}:iam::%[3]s:role/%[1]s-gbl-identity-cicd", module.this.namespace, module.this.tenant, local.identity_account_id)
     ]
   }
 
@@ -100,25 +77,25 @@ data "aws_iam_policy_document" "github-action-runner" {
   }
 }
 
-resource "aws_iam_policy" "github-action-runner" {
+resource "aws_iam_policy" "github_action_runner" {
   count = local.enabled ? 1 : 0
 
   name   = module.this.id
-  policy = data.aws_iam_policy_document.github-action-runner[0].json
+  policy = data.aws_iam_policy_document.github_action_runner[0].json
 }
 
-resource "aws_iam_role" "github-action-runner" {
+resource "aws_iam_role" "github_action_runner" {
   count = local.enabled ? 1 : 0
 
   name                = module.this.id
   tags                = module.this.tags
-  assume_role_policy  = data.aws_iam_policy_document.instance-assume-role-policy[0].json
-  managed_policy_arns = concat([join("", aws_iam_policy.github-action-runner.*.arn), "arn:${join("", data.aws_partition.current.*.partition)}:iam::aws:policy/AmazonSSMManagedInstanceCore"], var.runner_role_additional_policy_arns)
+  assume_role_policy  = data.aws_iam_policy_document.instance_assume_role_policy[0].json
+  managed_policy_arns = concat([join("", aws_iam_policy.github_action_runner.*.arn), "arn:${local.aws_partition}:iam::aws:policy/AmazonSSMManagedInstanceCore"], var.runner_role_additional_policy_arns)
 }
 
-resource "aws_iam_instance_profile" "github-action-runner" {
+resource "aws_iam_instance_profile" "github_action_runner" {
   count = local.enabled ? 1 : 0
 
   name = module.this.id
-  role = aws_iam_role.github-action-runner[0].name
+  role = aws_iam_role.github_action_runner[0].name
 }

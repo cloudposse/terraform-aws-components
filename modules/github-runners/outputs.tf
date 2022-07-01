@@ -23,6 +23,11 @@ output "eventbridge_target_arn" {
   value       = module.graceful_scale_in.eventbridge_target_arn
 }
 
+output "iam_role_arn" {
+  description = "The ARN of the IAM role associated with the Autoscaling Group"
+  value       = join("", aws_iam_role.github_action_runner[*].arn)
+}
+
 output "ssm_document_arn" {
   description = "The ARN of the SSM document."
   value       = module.graceful_scale_in.ssm_document_arn

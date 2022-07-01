@@ -18,6 +18,12 @@ variable "ami_owners" {
   default     = ["amazon"]
 }
 
+variable "docker_compose_version" {
+  description = "The version of docker-compose to install"
+  type        = string
+  default     = "1.29.2"
+}
+
 variable "instance_type" {
   description = "Default instance type for the action runner."
   type        = string
@@ -54,22 +60,15 @@ variable "min_size" {
   description = "The minimum size of the autoscale group"
 }
 
-variable "github_org" {
-  description = "GitHub Org e.g. cloudposse"
+variable "github_scope" {
   type        = string
-}
-
-variable "github_repo" {
-  description = "GitHub Repo e.g. infra-live. If specified, the runner will be created for the repo rather than for the organization."
-  type        = string
-  default     = null
+  description = "Scope of the runner (e.g. `cloudposse/example` for repo or `cloudposse` for org)"
 }
 
 variable "wait_for_capacity_timeout" {
   type        = string
   description = "A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. (See also Waiting for Capacity below.) Setting this to '0' causes Terraform to skip all Capacity Waiting behavior"
 }
-
 
 variable "cpu_utilization_high_threshold_percent" {
   type        = number
@@ -121,6 +120,18 @@ variable "scale_down_cooldown_seconds" {
   type        = number
   default     = 300
   description = "The amount of time, in seconds, after a scaling activity completes and before the next scaling activity can start"
+}
+
+variable "userdata_pre_install" {
+  type        = string
+  default     = ""
+  description = "Shell script to run before installation of github action runner"
+}
+
+variable "userdata_post_install" {
+  type        = string
+  default     = ""
+  description = "Shell script to run post installation of github action runner"
 }
 
 variable "account_map_environment_name" {

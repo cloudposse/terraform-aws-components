@@ -50,6 +50,7 @@ resource "aws_iam_policy" "eventbridge_policy" {
   count = local.enabled ? 1 : 0
 
   name   = module.eventbridge_label.id
+  tags   = module.eventbridge_label.tags
   policy = join("", data.aws_iam_policy_document.eventbridge_policy.*.json)
 }
 
@@ -66,6 +67,7 @@ resource "aws_cloudwatch_event_rule" "default" {
   count = local.enabled ? 1 : 0
 
   name        = module.eventbridge_label.id
+  tags        = module.eventbridge_label.tags
   description = "Auto Scaling Group EC2 Instance Termination"
 
   event_pattern = jsonencode({
