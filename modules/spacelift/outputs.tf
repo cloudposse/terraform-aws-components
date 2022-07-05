@@ -1,3 +1,4 @@
-output "environments" {
-  value = module.spacelift.environments
+output "stacks" {
+  value       = module.spacelift.stacks
+  description = "Spacelift stacks"
 }
