@@ -289,7 +289,6 @@ variable "object_lock_configuration" {
 }
 
 variable "website_inputs" {
-
   type = list(object({
     index_document           = string
     error_document           = string
