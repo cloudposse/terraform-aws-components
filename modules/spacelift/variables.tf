@@ -84,7 +84,7 @@ variable "policies_available" {
 }
 
 variable "policies_enabled" {
-  type        = string(list)
+  type        = list(string)
   description = "List of default policies to attach to all Spacelift stacks"
   default = [
     "git_push.proposed-run",
