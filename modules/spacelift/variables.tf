@@ -195,15 +195,3 @@ variable "before_init" {
   description = "List of before-init scripts"
   default     = []
 }
-
-variable "context_attachments" {
-  type        = list(string)
-  description = "A list of context IDs to attach to all stacks administered by this module"
-  default     = []
-}
-
-variable "labels" {
-  type        = list(string)
-  description = "Set of labels to attach to each stack"
-  default     = []
-}

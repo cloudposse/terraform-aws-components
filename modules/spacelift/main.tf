@@ -2,7 +2,7 @@ provider "spacelift" {}
 
 module "spacelift" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift"
-  version = "0.49.2"
+  version = "0.49.4"
 
   context_filters = var.context_filters
 
@@ -51,9 +51,6 @@ module "spacelift" {
   external_execution       = var.external_execution
 
   before_init = var.before_init
-
-  context_attachments = var.context_attachments
-  labels              = var.labels
 
   context = module.this.context
 }
