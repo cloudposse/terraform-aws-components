@@ -34,7 +34,7 @@ data "opsgenie_service" "incident_service" {
 
 module "team_routing_rule" {
   source  = "cloudposse/incident-management/opsgenie//modules/team_routing_rule"
-  version = "0.15.0"
+  version = "0.16.0"
 
   count = local.team_alert_rule_enabled ? 1 : 0
 
@@ -63,7 +63,7 @@ module "team_routing_rule" {
 
 module "service_incident_rule" {
   source  = "cloudposse/incident-management/opsgenie//modules/service_incident_rule"
-  version = "0.15.0"
+  version = "0.16.0"
 
   for_each = local.service_incident_rule_enabled ? var.services : {}
 

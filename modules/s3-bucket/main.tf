@@ -27,12 +27,12 @@ module "bucket_policy" {
 
   iam_policy_statements = var.source_policy_documents
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 module "s3_bucket" {
   source  = "cloudposse/s3-bucket/aws"
-  version = "2.0.0"
+  version = "2.0.1"
 
   bucket_name = var.bucket_name
 
@@ -52,7 +52,11 @@ module "s3_bucket" {
 
   # Static website configuration
   cors_rule_inputs = var.cors_rule_inputs
-  website_inputs   = var.website_inputs
+
+  # Version 2.0.0 introduced a breaking change for `var.website_inputs`.
+  # If you are using website_inputs, do not upgrade to v2.x yet.
+  # See https://github.com/cloudposse/terraform-aws-s3-bucket/releases/tag/2.0.0
+  # website_inputs   = var.website_inputs
 
   # Bucket feature flags
   transfer_acceleration_enabled = var.transfer_acceleration_enabled

@@ -1,53 +1,63 @@
 #!/bin/bash -e
 exec > >(tee /var/log/user-data.log | logger -t user-data -s 2>/dev/console) 2>&1
 
-# Install dependencies
+${pre_install}
+
+# Install docker
 amazon-linux-extras install docker
-amazon-linux-extras install ruby2.6
 amazon-linux-extras enable docker
 
-mkdir -p ~/.docker
-echo '{ "credsStore": "ecr-login" }' > ~/.docker/config.json
+# Install docker-compose
+# Note: runner PATH=/sbin:/bin:/usr/sbin:/usr/bin so we put it in /usr/bin
+curl -sL "https://github.com/docker/compose/releases/download/${docker_compose_version}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
+chmod +x /usr/bin/docker-compose
+
+mkdir -p /root/.docker
+echo '{ "credsStore": "ecr-login" }' >/root/.docker/config.json
+mkdir -p /home/ec2-user/.docker
+echo '{ "credsStore": "ecr-login" }' >/home/ec2-user/.docker/config.json
 
 service docker start
 usermod -a -G docker ec2-user
 
-yum install -y curl jq git go gcc ruby-devel rubygems amazon-ecr-credential-helper
-gem install bundler
+yum install -y \
+	curl \
+	jq \
+	git \
+	amazon-ecr-credential-helper \
+	amazon-cloudwatch-agent
 
-sudo systemctl enable amazon-ssm-agent
-sudo systemctl start amazon-ssm-agent
+# Install awscli v2 following https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+# Installs to /usr/local/bin/aws
+sudo ./aws/install
+# The github runner still sees /bin/aws as the default so we overwrite the existing binary
+sudo cp /usr/local/bin/aws /bin/aws
+# Clean up
+rm -rf ./aws
 
+# Configure cloudwatch agent
 export CONFIG_DESTINATION=/opt/aws/amazon-cloudwatch-agent/bin/config.json
 export CONFIG_SOURCE=/tmp/amazon-cloudwatch-agent.json
-export DOWNLOAD_URL=https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
-export RPM_PATH=/tmp/amazon-cloudwatch-agent.rpm
 
-curl $DOWNLOAD_URL --output $RPM_PATH
-sudo rpm -U $RPM_PATH
-rm $RPM_PATH
 sudo mv $CONFIG_SOURCE $CONFIG_DESTINATION
-sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:$CONFIG_DESTINATION
+amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:$CONFIG_DESTINATION
 
-# get instance ID from IMDSv2
-imdsv2_token=$(curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
-instance_id=$(curl -H "X-aws-ec2-metadata-token: $imdsv2_token" http://169.254.169.254/latest/meta-data/instance-id)
-aws_region=$(curl -H "X-aws-ec2-metadata-token: $imdsv2_token" --silent http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)
+# Install runner
+export REGION=$(TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600") && curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/region)
+export RUNNER_CFG_PAT=$(aws --region $REGION ssm get-parameter --with-decryption --name ${github_token_ssm_path} | jq -r .Parameter.Value)
+export AMI_ID=$(TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600") && curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/ami-id)
+export INSTANCE_TYPE=$(TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600") && curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/instance-type)
+export INSTANCE_ID=$(TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600") && curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/instance-id)
+export DATESTAMP=$(date +"%Y-%m-%d")
+# e.g. i-02f6ddaed897352c2_2099-06-23
+export NODE_NAME="$INSTANCE_ID"_"$DATESTAMP"
+# region is omitted here since the abbreviated region is part of the context
+export LABELS="${labels},$INSTANCE_TYPE,$AMI_ID"
+export RUNNER_ALLOW_RUNASROOT=true
+export USER=root
 
-# Add instance name suffix
-runner_name_suffix=$(openssl rand -hex 3)
-aws ec2 create-tags --resources $instance_id --tags Key=Name,Value="${runner_name_prefix}-$runner_name_suffix" --region $aws_region
+${post_install}
 
-# get GitHub Registration Token
-registration_token=$(aws ssm get-parameter --name ${github_token_ssm_path} --region $aws_region --with-decryption | jq -r .Parameter.Value)
-
-# Install GitHub Actions Runner
-mkdir -p /opt/actions-runner
-chown -R ec2-user /opt/actions-runner
-pushd /opt/actions-runner
-curl -O -L https://github.com/actions/runner/releases/download/v${runner_version}/actions-runner-linux-x64-${runner_version}.tar.gz
-sudo -u ec2-user tar xzf actions-runner-linux-x64-${runner_version}.tar.gz
-sudo -u ec2-user ./config.sh --unattended --url ${registration_url} --token $registration_token --name "${runner_name_prefix}-$runner_name_suffix" --labels %{ if length(runner_labels) > 0 }-l "${join(",", runner_labels)}"%{ endif }
-./svc.sh install
-./svc.sh start
-popd
+curl -s https://raw.githubusercontent.com/actions/runner/v${runner_version}/scripts/create-latest-svc.sh | bash -s ${github_scope} "" $NODE_NAME $USER $LABELS

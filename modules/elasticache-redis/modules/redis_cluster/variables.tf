@@ -40,19 +40,20 @@ variable "replicas_per_shard" {
 
 variable "cluster_attributes" {
   type = object({
-    availability_zones         = list(string)
-    vpc_id                     = string
-    allowed_cidr_blocks        = list(string)
-    allowed_security_groups    = list(string)
-    egress_cidr_blocks         = list(string)
-    subnets                    = list(string)
-    family                     = string
-    port                       = number
-    zone_id                    = string
-    at_rest_encryption_enabled = bool
-    transit_encryption_enabled = bool
-    apply_immediately          = bool
-    automatic_failover_enabled = bool
+    availability_zones              = list(string)
+    vpc_id                          = string
+    additional_security_group_rules = list(any)
+    allowed_security_groups         = list(string)
+    allow_all_egress                = bool
+    subnets                         = list(string)
+    family                          = string
+    port                            = number
+    zone_id                         = string
+    at_rest_encryption_enabled      = bool
+    transit_encryption_enabled      = bool
+    apply_immediately               = bool
+    automatic_failover_enabled      = bool
+    auth_token_enabled              = bool
   })
   description = "Cluster attributes"
 }
@@ -63,4 +64,9 @@ variable "parameters" {
     value = string
   }))
   description = "Parameters to configure cluster parameter group"
+}
+
+variable "kms_alias_name_ssm" {
+  default     = "alias/aws/ssm"
+  description = "KMS alias name for SSM"
 }
