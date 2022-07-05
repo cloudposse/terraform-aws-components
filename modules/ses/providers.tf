@@ -2,6 +2,22 @@ provider "aws" {
   region = var.region
 
   profile = module.iam_roles.profiles_enabled ? coalesce(var.import_profile_name, module.iam_roles.terraform_profile_name) : null
+
+  dynamic "assume_role" {
+    for_each = module.iam_roles.profiles_enabled ? [] : ["role"]
+    content {
+      role_arn = coalesce(var.import_role_arn, module.iam_roles.terraform_role_arn)
+    }
+  }
+}
+
+provider "awsutils" {
+  # TODO: remove skip_region_validation until awsutils 0.11.1 can be downloaded from the registry
+  skip_region_validation = true
+  region                 = var.region
+
+  profile = module.iam_roles.profiles_enabled ? coalesce(var.import_profile_name, module.iam_roles.terraform_profile_name) : null
+
   dynamic "assume_role" {
     for_each = module.iam_roles.profiles_enabled ? [] : ["role"]
     content {

@@ -5,11 +5,8 @@ locals {
   identity_account_name  = module.account_map.outputs.identity_account_account_name
   identity_account_id    = module.account_map.outputs.full_account_map[local.identity_account_name]
 
-  github_token_ssm_path = join("", data.aws_ssm_parameter.github_token.*.name)
-  registration_url      = var.github_repo == null ? format("https://github.com/%s", var.github_org) : format("https://github.com/%s/%s", var.github_org, var.github_repo)
-
-  userdata_template                = "${path.module}/templates/user-data.sh"
-  deregistr_runner_script_template = "${path.module}/templates/deregister-github-runner"
+  userdata_template                 = "${path.module}/templates/user-data.sh"
+  deregister_runner_script_template = "${path.module}/templates/deregister-github-runner"
 
   cloud_config = <<-END
     #cloud-config
@@ -20,8 +17,10 @@ locals {
       permissions = "0755"
       owner       = "root:root"
       encoding    = "b64"
-      content = base64encode(templatefile(local.deregistr_runner_script_template, {
-        github_token_ssm_path = local.github_token_ssm_path
+      content = base64encode(templatefile(local.deregister_runner_script_template, {
+        github_scope          = var.github_scope,
+        github_token_ssm_path = join("", data.aws_ssm_parameter.github_token.*.name),
+        runner_version        = var.runner_version
       }))
     },
     {
@@ -52,11 +51,13 @@ data "cloudinit_config" "config" {
     content_type = "text/x-shellscript"
     filename     = "user-data.sh"
     content = templatefile(local.userdata_template, {
-      github_token_ssm_path = local.github_token_ssm_path
-      registration_url      = local.registration_url
-      runner_version        = var.runner_version
-      runner_name_prefix    = module.this.id
-      runner_labels         = var.runner_labels
+      docker_compose_version = var.docker_compose_version
+      github_token_ssm_path  = join("", data.aws_ssm_parameter.github_token.*.name)
+      github_scope           = var.github_scope
+      labels                 = join(",", var.runner_labels)
+      pre_install            = var.userdata_pre_install
+      post_install           = var.userdata_post_install
+      runner_version         = var.runner_version
     })
   }
 }
@@ -79,7 +80,7 @@ data "aws_ami" "runner" {
 
 module "sg" {
   source  = "cloudposse/security-group/aws"
-  version = "0.4.0"
+  version = "1.0.1"
 
   security_group_description = "Security group for GitHub runners"
   allow_all_egress           = true
@@ -90,7 +91,7 @@ module "sg" {
 
 module "autoscale_group" {
   source  = "cloudposse/ec2-autoscale-group/aws"
-  version = "0.28.1"
+  version = "0.30.1"
 
   image_id                    = join("", data.aws_ami.runner.*.id)
   instance_type               = var.instance_type
@@ -105,7 +106,7 @@ module "autoscale_group" {
   user_data_base64            = join("", data.cloudinit_config.config.*.rendered)
   tags                        = module.this.tags
   security_group_ids          = [module.sg.id]
-  iam_instance_profile_name   = join("", aws_iam_instance_profile.github-action-runner.*.name)
+  iam_instance_profile_name   = join("", aws_iam_instance_profile.github_action_runner.*.name)
   block_device_mappings       = var.block_device_mappings
   associate_public_ip_address = false
 

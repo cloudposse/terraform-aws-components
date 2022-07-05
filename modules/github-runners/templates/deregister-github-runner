@@ -5,11 +5,12 @@ imdsv2_token=$(curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-e
 aws_region=$(curl -H "X-aws-ec2-metadata-token: $imdsv2_token" --silent http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)
 
 # retrieve GitHub PAT
-remove_token=$(aws ssm get-parameter --name ${github_token_ssm_path} --region $aws_region --with-decryption | jq -r .Parameter.Value)
+export RUNNER_CFG_PAT=$(aws ssm get-parameter --name ${github_token_ssm_path} --region $aws_region --with-decryption | jq -r .Parameter.Value)
 
-# remove GitHub Actions Runner
-pushd /opt/actions-runner
-./svc.sh stop
-./svc.sh uninstall
-sudo -u ec2-user ./config.sh remove --unattended --token $remove_token
+export RUNNER_ALLOW_RUNASROOT=true
+
+pushd /
+
+curl -s https://raw.githubusercontent.com/actions/runner/v${runner_version}/scripts/remove-svc.sh | bash -s ${github_scope}
+
 popd
