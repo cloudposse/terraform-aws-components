@@ -312,7 +312,7 @@ No resources.
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 | <a name="input_terraform_version"></a> [terraform\_version](#input\_terraform\_version) | Default Terraform version for all stacks created by this project | `string` | n/a | yes |
 | <a name="input_terraform_version_map"></a> [terraform\_version\_map](#input\_terraform\_version\_map) | A map to determine which Terraform patch version to use for each minor version | `map(string)` | `{}` | no |
-| <a name="input_worker_pool_id"></a> [worker\_pool\_id](#input\_worker\_pool\_id) | DEPRECATED: Use worker\_pool\_name\_id\_map instead. Worker pool ID | `any` | `""` | no |
+| <a name="input_worker_pool_id"></a> [worker\_pool\_id](#input\_worker\_pool\_id) | DEPRECATED: Use worker\_pool\_name\_id\_map instead. Worker pool ID | `string` | `""` | no |
 | <a name="input_worker_pool_name_id_map"></a> [worker\_pool\_name\_id\_map](#input\_worker\_pool\_name\_id\_map) | Map of worker pool names to worker pool IDs | `any` | `{}` | no |
 
 ## Outputs

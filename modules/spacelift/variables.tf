@@ -9,7 +9,7 @@ variable "runner_image" {
 }
 
 variable "worker_pool_id" {
-  type        = any
+  type        = string
   description = "DEPRECATED: Use worker_pool_name_id_map instead. Worker pool ID"
   default     = ""
 }

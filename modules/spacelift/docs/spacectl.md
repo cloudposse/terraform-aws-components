@@ -11,8 +11,8 @@ Install
 Setup a profile
 
 ```
-⨠ spacectl profile login crypto-model
-Enter Spacelift endpoint (eg. https://unicorn.app.spacelift.io/): https://crypto-model.app.spacelift.io
+⨠ spacectl profile login <org name>
+Enter Spacelift endpoint (eg. https://unicorn.app.spacelift.io/): https://<github org>.app.spacelift.io
 Select credentials type: 1 for API key, 2 for GitHub access token: 1
 Enter API key ID: 01FKN...
 Enter API key secret:
