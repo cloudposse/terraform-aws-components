@@ -4,7 +4,7 @@ variable "region" {
 }
 
 variable "runner_image" {
-  type        = any
+  type        = string
   description = "Full address & tag of the Spacelift runner image (e.g. on ECR)"
 }
 
@@ -15,7 +15,7 @@ variable "worker_pool_id" {
 }
 
 variable "worker_pool_name_id_map" {
-  type        = any
+  type        = map(any)
   description = "Map of worker pool names to worker pool IDs"
   default     = {}
 }
@@ -72,7 +72,7 @@ variable "stack_config_path_template" {
 }
 
 variable "policies_available" {
-  type        = any
+  type        = list(string)
   description = "List of available default policies to create in Spacelift (these policies will not be attached to Spacelift stacks by default, use `var.policies_enabled`)"
   default = [
     "git_push.proposed-run",
@@ -84,7 +84,7 @@ variable "policies_available" {
 }
 
 variable "policies_enabled" {
-  type        = any
+  type        = string(list)
   description = "List of default policies to attach to all Spacelift stacks"
   default = [
     "git_push.proposed-run",
@@ -95,7 +95,7 @@ variable "policies_enabled" {
 }
 
 variable "policies_by_id_enabled" {
-  type        = any
+  type        = list(string)
   description = "List of existing policy IDs to attach to all Spacelift stacks"
   default     = []
 }
