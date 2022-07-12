@@ -29,62 +29,36 @@ locals {
     try(local.custom_policy_map[split("+", role_arns)[1]], split("+", role_arns)[1])
   }
 
-  saml_login_enabled = module.this.enabled && length(local.saml_provider_arns) > 0 ? contains([for v in local.roles_config : (v.enabled && v.sso_login_enabled)], true) : false
-  saml_provider_arns = try(module.sso.outputs.saml_provider_arns, [])
+  this_account_name             = try(module.this.account, module.this.descriptors["account_name"], module.this.stage)
+  identity_account_account_name = module.iam_roles.identity_account_account_name
 
-  this_account_name = try(module.this.account, module.this.descriptors["account_name"], module.this.stage)
-
-  aws_partition = data.aws_partition.current.partition
+  aws_partition = module.iam_roles.aws_partition
 }
-
-data "aws_partition" "current" {}
 
 module "assume_role" {
   for_each = local.roles_config
-  source   = "../account-map/modules/iam-assume-role-policy"
+  source   = "../account-map/modules/team-assume-role-policy"
 
-  allowed_roles           = { (var.iam_primary_roles_account_name) = each.value.trusted_primary_roles }
-  denied_roles            = { (var.iam_primary_roles_account_name) = each.value.denied_primary_roles }
+  allowed_roles           = { (local.identity_account_account_name) = each.value.trusted_teams }
+  denied_roles            = { (local.identity_account_account_name) = each.value.denied_teams }
   allowed_principal_arns  = each.value.trusted_role_arns
   denied_principal_arns   = each.value.denied_role_arns
   allowed_permission_sets = { (local.this_account_name) = each.value.trusted_permission_sets }
   denied_permission_sets  = { (local.this_account_name) = each.value.denied_permission_sets }
+
+  trusted_github_repos = try(var.trusted_github_repos[each.key], [])
 
   privileged = true
 
   context = module.this.context
 }
 
-data "aws_iam_policy_document" "saml_provider_assume" {
-  count = local.saml_login_enabled ? 1 : 0
-
-  statement {
-    sid = "SamlProviderAssume"
-    actions = [
-      "sts:AssumeRoleWithSAML",
-      "sts:TagSession",
-    ]
-
-    principals {
-      type = "Federated"
-
-      # Loop over the IDPs from the `sso` component
-      identifiers = [for name, arn in local.saml_provider_arns : arn]
-    }
-
-    condition {
-      test     = "StringEquals"
-      variable = "SAML:aud"
-      values   = ["https://signin.aws.amazon.com/saml"]
-    }
-  }
-}
-
 data "aws_iam_policy_document" "assume_role_aggregated" {
   for_each = local.roles_config
 
-  source_policy_documents = concat([module.assume_role[each.key].policy_document],
-  local.saml_login_enabled && local.roles_config[each.key].sso_login_enabled ? [data.aws_iam_policy_document.saml_provider_assume[0].json] : [])
+  source_policy_documents = compact(concat([module.assume_role[each.key].policy_document,
+    module.assume_role[each.key].github_assume_role_policy],
+  local.roles_config[each.key].aws_saml_login_enabled ? [module.aws_saml.outputs.saml_provider_assume_role_policy] : []))
 }
 
 resource "aws_iam_role" "default" {
