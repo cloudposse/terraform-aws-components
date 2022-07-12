@@ -178,8 +178,8 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_assume_role"></a> [assume\_role](#module\_assume\_role) | ../account-map/modules/iam-assume-role-policy | n/a |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
+| <a name="module_assume_role"></a> [assume\_role](#module\_assume\_role) | ../../modules/account-map/modules/iam-assume-role-policy | n/a |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../modules/account-map/modules/iam-roles | n/a |
 | <a name="module_sso"></a> [sso](#module\_sso) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.2 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
