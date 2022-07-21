@@ -13,7 +13,7 @@ Here are some example snippets for how to use this component:
 ```yaml
 components:
   terraform:
-    sns-defaults:
+    sns-topic-defaults:
       metadata:
         type: abstract
       settings:
@@ -23,7 +23,7 @@ components:
         enabled: true
         tags:
           Team: kin
-          Service: sns
+          Service: sns-topic
         subscribers: {}
         allowed_aws_services_for_sns_published: []
         kms_master_key_id: alias/aws/sns
