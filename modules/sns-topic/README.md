@@ -49,7 +49,7 @@ import:
 
 components:
   terraform:
-    template-bucket:
+    sns-topic-example: 
       metadata:
         component: sns-topic
         inherits:
