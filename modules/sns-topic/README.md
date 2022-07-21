@@ -13,7 +13,7 @@ Here are some example snippets for how to use this component:
 ```yaml
 components:
   terraform:
-    sns-topic-defaults:
+    sns-topic/defaults:
       metadata:
         type: abstract
       settings:
