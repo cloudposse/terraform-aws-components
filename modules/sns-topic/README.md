@@ -1,4 +1,4 @@
-# Component: `sns`
+# Component: `sns-topic`
 
 This component is responsible for provisioning an SNS topic.
 
