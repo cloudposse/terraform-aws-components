@@ -53,7 +53,7 @@ components:
       metadata:
         component: sns-topic
         inherits:
-          - sns-topic-defaults
+          - sns-topic/defaults
       vars:
         enabled: true
         name: sns-topic-example
