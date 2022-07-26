@@ -116,8 +116,8 @@ See each component's README directory for usage.
 |[efs](./modules/efs) | Provisions an [EFS](https://aws.amazon.com/efs/) Network File System with KMS encryption-at-rest. |
 |[eks](./modules/eks) | Provisions an end-to-end EKS Cluster, including managed node groups and [spotinst ocean](https://spot.io/products/ocean/) node pools. |
 |[eks-iam](./modules/eks-iam) | Provisions specific [IAM roles for Kubernetes Service Accounts](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html). |
-|[iam-delegated-roles](./modules/iam-delegated-roles) | Provisions all delegated user and system IAM roles. |
-|[iam-primary-roles](./modules/iam-primary-roles) | Provisions all primary user and system roles into the centralized identity account. |
+|[iam-delegated-roles](deprecated/iam-delegated-roles) | Provisions all delegated user and system IAM roles. |
+|[iam-primary-roles](deprecated/iam-primary-roles) | Provisions all primary user and system roles into the centralized identity account. |
 |[sso](./modules/sso) | Provisions SAML metadata into AWS IAM as new SAML providers. |
 |[tfstate-backend](./modules/tfstate-backend) | Provisions an S3 Bucket and DynamoDB table that follow security best practices for usage as a Terraform backend. |
 |[transit-gateway](./modules/transit-gateway) | Provisions an AWS Transit Gateway to connect various account separated VPCs through a central hub. |

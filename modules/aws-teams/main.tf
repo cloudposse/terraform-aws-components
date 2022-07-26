@@ -1,13 +1,13 @@
 locals {
-  roles_config  = merge(var.primary_roles_config, var.delegated_roles_config)
+  roles_config  = var.teams_config
   role_name_map = { for role_name, config in local.roles_config : role_name => format("%s%s%s", module.this.id, module.this.delimiter, role_name) }
 
   # If you want to create custom policies to add to multiple roles by name, create the policy
   # using an aws_iam_policy resource and then map it to the name you want to use in the
   # YAML configuration by adding an entry in `custom_policy_map`.
   custom_policy_map = {
-    delegated_assume_role = aws_iam_policy.delegated_assume_role.arn
-    support               = try(aws_iam_policy.support[0].arn, null)
+    team_role_access = aws_iam_policy.team_role_access.arn
+    support          = try(aws_iam_policy.support[0].arn, null)
   }
 
   configured_policies = flatten([for k, v in local.roles_config : v.role_policy_arns])
@@ -28,55 +28,33 @@ locals {
   full_account_map              = module.account_map.outputs.full_account_map
   identity_account_account_name = module.account_map.outputs.identity_account_account_name
 
-  aws_partition = data.aws_partition.current.partition
+  aws_partition = module.account_map.outputs.aws_partition
 }
-
-data "aws_partition" "current" {}
 
 module "assume_role" {
   for_each = local.roles_config
-  source   = "../account-map/modules/iam-assume-role-policy"
+  source   = "../account-map/modules/team-assume-role-policy"
 
-  allowed_roles           = { (local.identity_account_account_name) = each.value.trusted_primary_roles }
-  denied_roles            = { (local.identity_account_account_name) = each.value.denied_primary_roles }
+  allowed_roles           = { (local.identity_account_account_name) = each.value.trusted_teams }
+  denied_roles            = { (local.identity_account_account_name) = each.value.denied_teams }
   allowed_principal_arns  = each.value.trusted_role_arns
   denied_principal_arns   = each.value.denied_role_arns
   allowed_permission_sets = { (local.identity_account_account_name) = each.value.trusted_permission_sets }
   denied_permission_sets  = { (local.identity_account_account_name) = each.value.denied_permission_sets }
+
+  trusted_github_repos = try(var.trusted_github_repos[each.key], [])
 
   privileged = true
 
   context = module.this.context
 }
 
-data "aws_iam_policy_document" "saml_provider_assume" {
-  statement {
-    sid = "SamlProviderAssume"
-    actions = [
-      "sts:AssumeRoleWithSAML",
-      "sts:TagSession",
-    ]
-
-    principals {
-      type = "Federated"
-
-      # Loop over the IDPs from the `sso` component
-      identifiers = [for name, arn in module.sso.outputs.saml_provider_arns : arn]
-    }
-
-    condition {
-      test     = "StringEquals"
-      variable = "SAML:aud"
-      values   = ["https://signin.aws.amazon.com/saml"]
-    }
-  }
-}
-
 data "aws_iam_policy_document" "assume_role_aggregated" {
   for_each = local.roles_config
 
-  source_policy_documents = concat([module.assume_role[each.key].policy_document],
-  local.roles_config[each.key].sso_login_enabled ? [data.aws_iam_policy_document.saml_provider_assume.json] : [])
+  source_policy_documents = compact(concat([module.assume_role[each.key].policy_document,
+    module.assume_role[each.key].github_assume_role_policy],
+  local.roles_config[each.key].aws_saml_login_enabled ? [module.aws_saml.outputs.saml_provider_assume_role_policy] : []))
 }
 
 resource "aws_iam_role" "default" {
