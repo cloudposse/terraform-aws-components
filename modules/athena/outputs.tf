@@ -17,3 +17,13 @@ output "databases" {
   description = "List of newly created Athena databases."
   value       = module.athena.databases
 }
+
+output "data_catalogs" {
+  description = "List of newly created Athena data catalogs."
+  value       = module.athena.data_catalogs
+}
+
+output "named_queries" {
+  description = "List of newly created Athena named queries."
+  value       = module.athena.named_queries
+}

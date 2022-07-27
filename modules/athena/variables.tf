@@ -57,7 +57,7 @@ variable "publish_cloudwatch_metrics_enabled" {
   default     = true
 }
 
-variable "encryption_option" {
+variable "workgroup_encryption_option" {
   description = "Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (SSE_S3), server-side encryption with KMS-managed keys (SSE_KMS), or client-side encryption with KMS-managed keys (CSE_KMS) is used."
   type        = string
   default     = "SSE_KMS"
@@ -75,7 +75,25 @@ variable "workgroup_state" {
   default     = "ENABLED"
 }
 
+variable "workgroup_force_destroy" {
+  description = "The option to delete the workgroup and its contents even if the workgroup contains any named queries."
+  type        = bool
+  default     = false
+}
+
 variable "databases" {
-  description = "List of Athena databases to provision within this workgroup."
-  type        = list(string)
+  description = "Map of Athena databases and related configuration."
+  type        = map(any)
+}
+
+variable "data_catalogs" {
+  description = "Map of Athena data catalogs and parameters"
+  type        = map(any)
+  default     = {}
+}
+
+variable "named_queries" {
+  description = "Map of Athena named queries and parameters"
+  type        = map(map(string))
+  default     = {}
 }
