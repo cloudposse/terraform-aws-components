@@ -21,16 +21,17 @@ variable "record_config" {
   default = []
 }
 
-# zone_ids can be found here: https://docs.aws.amazon.com/general/latest/gr/elb.html 
+# Elastic Load Balancing Hosted Zone IDs can be found here: https://docs.aws.amazon.com/general/latest/gr/elb.html
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#alias-record
 variable "alias_record_config" {
   description = "DNS Alias Record config"
   type = list(object({
-    root_zone     = string
-    name          = string
-    type          = string
-    zone_id       = string
-    record        = string
-    target_health = string
+    root_zone              = string
+    name                   = string
+    type                   = string
+    zone_id                = string
+    record                 = string
+    evaluate_target_health = bool
   }))
   default = []
 }
