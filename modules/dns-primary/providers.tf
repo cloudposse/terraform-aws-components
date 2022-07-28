@@ -1,8 +1,14 @@
 provider "aws" {
   region = var.region
 
-  # `terraform import` will not use data from a data source, so on import we have to explicitly specify the profile
-  profile = coalesce(var.import_profile_name, module.iam_roles.terraform_profile_name)
+  profile = module.iam_roles.profiles_enabled ? coalesce(var.import_profile_name, module.iam_roles.terraform_profile_name) : null
+
+  dynamic "assume_role" {
+    for_each = var.import_role_arn == null ? (module.iam_roles.terraform_role_arn != null ? [true] : []) : ["import"]
+    content {
+      role_arn = coalesce(var.import_role_arn, module.iam_roles.terraform_role_arn)
+    }
+  }
 }
 
 module "iam_roles" {
@@ -14,4 +20,10 @@ variable "import_profile_name" {
   type        = string
   default     = null
   description = "AWS Profile name to use when importing a resource"
+}
+
+variable "import_role_arn" {
+  type        = string
+  default     = null
+  description = "IAM Role ARN to use when importing a resource"
 }

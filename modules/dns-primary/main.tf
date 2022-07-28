@@ -44,10 +44,9 @@ resource "aws_route53_record" "aliasrec" {
   type    = each.value.type
   zone_id = aws_route53_zone.root[each.value.root_zone].zone_id
 
-
   alias {
     name                   = each.value.record
     zone_id                = each.value.zone_id
-    evaluate_target_health = each.value.target_health
+    evaluate_target_health = each.value.evaluate_target_health
   }
 }
