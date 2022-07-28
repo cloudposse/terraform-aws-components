@@ -2,7 +2,7 @@
 
 This component is responsible for provisioning the primary DNS zones into an AWS account. By convention, we typically provision the primary DNS zones in the `dns` account. The primary account for branded zones (e.g. `example.com`), however, would be in the `prod` account, while staging zone (e.g. `example.qa`) might be in the `staging` account.
 
-The zones from the primary DNS zone are then expected to be delegated to other accounts via [the `dns-delegated` component](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/dns-delegated). Additional, external records can be created on the primary DNS zones via the `record_config` variable.
+The zones from the primary DNS zone are then expected to be delegated to other accounts via [the `dns-delegated` component](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/dns-delegated). Additionally, external records can be created on the primary DNS zones via the `record_config` variable.
 
 
 ## Usage
