@@ -1,14 +1,10 @@
 locals {
-  enabled         = module.this.enabled
-  route53_enabled = local.enabled && (try(length(var.route53_zone_name), 0) > 0 || try(length(var.route53_zone_id), 0) > 0)
-  ssh_key_enabled = local.enabled && var.ssh_key_enabled
-
+  enabled                = module.this.enabled
   vpc_id                 = module.vpc.outputs.vpc_id
   vpc_private_subnet_ids = module.vpc.outputs.private_subnet_ids
   vpc_public_subnet_ids  = module.vpc.outputs.public_subnet_ids
   vpc_subnet_ids         = var.associate_public_ip_address ? local.vpc_public_subnet_ids : local.vpc_private_subnet_ids
-
-  bastion_subnet = slice(local.vpc_subnet_ids, 0, 1)
+  route52_enabled        = var.associate_public_ip_address && var.custom_bastion_hostname != null && var.vanity_domain != null
 
   userdata_template             = "${path.module}/templates/user-data.sh"
   container_template            = "${path.module}/templates/container.sh"
@@ -34,83 +30,88 @@ locals {
   })
 }
 
-data "aws_route53_zone" "route53_zone" {
-  count   = local.route53_enabled ? 1 : 0
-  zone_id = try(length(var.route53_zone_id), 0) > 0 ? var.route53_zone_id : null
-  name    = try(length(var.route53_zone_name), 0) > 0 ? var.route53_zone_name : null
+module "sg" {
+  source  = "cloudposse/security-group/aws"
+  version = "1.0.1"
+
+  security_group_description = "Security group for Bastion Hosts"
+  allow_all_egress           = true
+  vpc_id                     = local.vpc_id
+
+  context = module.this.context
 }
 
-module "aws_key_pair" {
-  source  = "cloudposse/key-pair/aws"
-  version = "0.18.1"
+module "ssm_tls_ssh_key_pair" {
+  source  = "cloudposse/ssm-tls-ssh-key-pair/aws"
+  version = "0.10.2"
 
-  attributes          = ["ssh", "key"]
-  ssh_public_key_path = var.ssh_key_path
-  generate_ssh_key    = local.ssh_key_enabled
+  ssm_path_prefix   = format("%s/%s", "bastion", "ssh_private_key")
+  ssh_key_algorithm = "RSA"
 
-  enabled = local.ssh_key_enabled
+  kms_key_id = var.kms_alias_name_ssm
+
   context = module.this.context
 }
 
 data "cloudinit_config" "config" {
-  count         = local.enabled ? 1 : 0
   gzip          = false
   base64_encode = true
 
-  dynamic "part" {
-    for_each = var.container_enabled ? [1] : []
-
-    content {
-      content_type = "text/cloud-config"
-      filename     = "cloud-config.yaml"
-      content      = local.cloudwatch_agent_config
-    }
+  part {
+    content_type = "text/cloud-config"
+    filename     = "cloud-config.yaml"
+    content      = local.cloudwatch_agent_config
   }
 
   part {
     content_type = "text/x-shellscript"
     filename     = "user-data.sh"
-    content = templatefile(local.userdata_template, {
-      ssh_pub_keys = var.ssh_pub_keys
-    })
+    content      = file(local.userdata_template)
   }
 }
 
-module "ec2_bastion" {
-  source  = "cloudposse/ec2-bastion-server/aws"
-  version = "0.28.3"
+data "aws_ami" "bastion_image" {
+  count = local.enabled ? 1 : 0
 
-  instance_type = var.instance_type
-  ## Use only one availability zone to be sure volume will be in the same zone
-  subnets                       = local.bastion_subnet
-  vpc_id                        = local.vpc_id
-  root_block_device_volume_size = var.root_block_device_volume_size
-  associate_public_ip_address   = var.associate_public_ip_address
-  # Version 0.25.0 of this module did not assign an EIP, so we do it
-  # in this component. Preserve backward compatibility by disabling it.
-  assign_eip_address = false
-  zone_id            = local.route53_enabled ? data.aws_route53_zone.route53_zone[0].id : null
-  host_name          = var.custom_bastion_hostname
+  most_recent = "true"
 
-  ebs_block_device_volume_size = var.ebs_block_device_volume_size
-  ebs_delete_on_termination    = var.ebs_delete_on_termination
-  user_data_base64             = join("", data.cloudinit_config.config.*.rendered)
-  security_group_rules         = var.security_group_rules
-  key_name                     = module.aws_key_pair.key_name
-  instance_profile             = join("", aws_iam_instance_profile.default.*.name)
+  dynamic "filter" {
+    for_each = {
+      name = ["amzn2-ami-hvm-2.*-x86_64-ebs"]
+    }
+    content {
+      name   = filter.key
+      values = filter.value
+    }
+  }
 
-  ssm_enabled = var.ssm_enabled
-
-  context = module.this.context
+  owners = ["amazon"]
 }
 
-resource "aws_ssm_parameter" "ssh_private_key" {
-  count = local.ssh_key_enabled ? 1 : 0
+module "bastion_autoscale_group" {
+  source  = "cloudposse/ec2-autoscale-group/aws"
+  version = "0.30.1"
 
-  name        = format("/%s/%s", "bastion", "ssh_private_key")
-  value       = module.aws_key_pair.private_key
-  description = "SSH Private key for bastion key-pair"
-  type        = "SecureString"
-  key_id      = var.kms_alias_name_ssm
-  overwrite   = true
+  image_id                    = join("", data.aws_ami.bastion_image.*.id)
+  instance_type               = var.instance_type
+  subnet_ids                  = local.vpc_private_subnet_ids
+  health_check_type           = "EC2"
+  min_size                    = 1
+  max_size                    = 2
+  default_cooldown            = 300
+  scale_down_cooldown_seconds = 300
+  wait_for_capacity_timeout   = "10m"
+  user_data_base64            = join("", data.cloudinit_config.config.*.rendered)
+  tags                        = module.this.tags
+  security_group_ids          = [module.sg.id]
+  iam_instance_profile_name   = join("", aws_iam_instance_profile.default.*.name)
+  block_device_mappings       = []
+  associate_public_ip_address = false
+
+  # Auto-scaling policies and CloudWatch metric alarms
+  autoscaling_policies_enabled           = true
+  cpu_utilization_high_threshold_percent = 80
+  cpu_utilization_low_threshold_percent  = 20
+
+  context = module.this.context
 }
