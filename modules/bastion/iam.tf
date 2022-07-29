@@ -10,17 +10,19 @@ resource "aws_iam_role" "default" {
   path  = "/"
   tags  = module.this.tags
 
-  assume_role_policy = data.aws_iam_policy_document.default.json
+  assume_role_policy = data.aws_iam_policy_document.default[0].json
 }
 
 resource "aws_iam_role_policy" "main" {
   count  = local.enabled ? 1 : 0
   name   = module.this.id
   role   = aws_iam_role.default[0].id
-  policy = data.aws_iam_policy_document.main.json
+  policy = data.aws_iam_policy_document.main[0].json
 }
 
 data "aws_iam_policy_document" "default" {
+  count = local.enabled ? 1 : 0
+
   statement {
     sid = ""
 
@@ -38,6 +40,8 @@ data "aws_iam_policy_document" "default" {
 }
 
 data "aws_iam_policy_document" "main" {
+  count = local.enabled ? 1 : 0
+
   statement {
     effect = "Allow"
 

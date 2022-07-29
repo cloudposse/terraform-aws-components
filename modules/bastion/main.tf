@@ -54,6 +54,8 @@ module "ssm_tls_ssh_key_pair" {
 }
 
 data "cloudinit_config" "config" {
+  count = local.enabled ? 1 : 0
+
   gzip          = false
   base64_encode = true
 
@@ -101,7 +103,7 @@ module "bastion_autoscale_group" {
   default_cooldown            = 300
   scale_down_cooldown_seconds = 300
   wait_for_capacity_timeout   = "10m"
-  user_data_base64            = join("", data.cloudinit_config.config.*.rendered)
+  user_data_base64            = join("", data.cloudinit_config.config[0].*.rendered)
   tags                        = module.this.tags
   security_group_ids          = [module.sg.id]
   iam_instance_profile_name   = join("", aws_iam_instance_profile.default.*.name)
