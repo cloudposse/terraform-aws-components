@@ -130,7 +130,11 @@ components:
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_autoscaling_group_id"></a> [autoscaling\_group\_id](#output\_autoscaling\_group\_id) | The AutoScaling Group ID |
+| <a name="output_iam_instance_profile"></a> [iam\_instance\_profile](#output\_iam\_instance\_profile) | Name of AWS IAM Instance Profile |
+| <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | ID on the AWS Security Group associated with the ASG |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
