@@ -1,1 +1,3 @@
-name = "spacelift-worker-pool"
+enabled = false
+
+github_netrc_enabled = true
