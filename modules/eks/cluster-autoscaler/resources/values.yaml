@@ -1,0 +1,26 @@
+# https://github.com/kubernetes/autoscaler/tree/master/charts/cluster-autoscaler
+# https://github.com/kubernetes/autoscaler/blob/master/charts/cluster-autoscaler/values.yaml
+
+cloudProvider: "aws"
+
+extraArgs:
+  skip-nodes-with-local-storage: false
+  skip-nodes-with-system-pods: false
+  balance-similar-node-groups: true
+
+rbac:
+  create: true
+  serviceAccount:
+    create: true
+  pspEnabled: false
+
+serviceMonitor:
+  enabled: false
+
+updateStrategy:
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+  type: "RollingUpdate"
+
+replicaCount: 1

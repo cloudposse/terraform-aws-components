@@ -1,0 +1,12 @@
+AllowToScaleEKSNodeGroupAutoScalingGroup:
+  sid: "AllowToScaleEKSNodeGroupAutoScalingGroup"
+  actions:
+    - "ec2:DescribeLaunchTemplateVersions"
+    - "autoscaling:TerminateInstanceInAutoScalingGroup"
+    - "autoscaling:SetDesiredCapacity"
+    - "autoscaling:DescribeTags"
+    - "autoscaling:DescribeLaunchConfigurations"
+    - "autoscaling:DescribeAutoScalingInstances"
+    - "autoscaling:DescribeAutoScalingGroups"
+  effect: "Allow"
+  resources: ["*"]
