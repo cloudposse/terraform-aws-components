@@ -77,7 +77,6 @@ _HINT_: The API key ID is displayed as an upper-case, 16-character alphanumeric 
 |------|------|
 | [aws_iam_role_policy.spacelift_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
 | [aws_security_group.spacelift](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
-
 | spacelift_worker_pool.primary | resource |
 | [aws_iam_policy_document.spacelift_role_policy_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_ssm_parameter.spacelift_key_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |

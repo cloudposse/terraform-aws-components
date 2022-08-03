@@ -146,7 +146,7 @@ To generate the token, please follow [these instructions](https://cloudposse.atl
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_runner_labels"></a> [runner\_labels](#input\_runner\_labels) | List of labels to add to the GitHub Runner (e.g. 'Amazon Linux 2'). | `list(string)` | `[]` | no |
 | <a name="input_runner_role_additional_policy_arns"></a> [runner\_role\_additional\_policy\_arns](#input\_runner\_role\_additional\_policy\_arns) | List of policy ARNs that will be attached to the runners' default role on creation in addition to the defaults | `list(string)` | `[]` | no |
-| <a name="input_runner_version"></a> [runner\_version](#input\_runner\_version) | GitHub runner release version | `string` | `"2.287.1"` | no |
+| <a name="input_runner_version"></a> [runner\_version](#input\_runner\_version) | GitHub runner release version | `string` | `"2.288.1"` | no |
 | <a name="input_scale_down_cooldown_seconds"></a> [scale\_down\_cooldown\_seconds](#input\_scale\_down\_cooldown\_seconds) | The amount of time, in seconds, after a scaling activity completes and before the next scaling activity can start | `number` | `300` | no |
 | <a name="input_ssm_parameter_name_format"></a> [ssm\_parameter\_name\_format](#input\_ssm\_parameter\_name\_format) | SSM parameter name format | `string` | `"/%s/%s"` | no |
 | <a name="input_ssm_path"></a> [ssm\_path](#input\_ssm\_path) | GitHub token SSM path | `string` | `"github"` | no |
