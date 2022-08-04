@@ -1,3 +1,14 @@
+variable "role_map" {
+  type        = map(list(string))
+  description = "Map of account:[role, role...]. Use `*` as role for entire account"
+}
+
+variable "permission_set_map" {
+  type        = map(list(string))
+  description = "Map of account:[PermissionSet, PermissionSet...] specifying AWS SSO PermissionSets when accessed from specified accounts"
+  default     = {}
+}
+
 variable "privileged" {
   type        = bool
   description = "True if the default provider already has access to the backend"
@@ -16,8 +27,8 @@ variable "global_environment_name" {
   default     = "gbl"
 }
 
-variable "global_stage_name" {
+variable "root_account_stage_name" {
   type        = string
-  description = "The stage name for the organization management account (where the `accout-map` state is stored)"
+  description = "The stage name for the root account"
   default     = "root"
 }
