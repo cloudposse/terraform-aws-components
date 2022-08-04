@@ -93,7 +93,7 @@ No resources.
 | <a name="input_bytes_scanned_cutoff_per_query"></a> [bytes\_scanned\_cutoff\_per\_query](#input\_bytes\_scanned\_cutoff\_per\_query) | Integer for the upper data usage limit (cutoff) for the amount of bytes a single query in a workgroup is allowed to scan. Must be at least 10485760. | `number` | `null` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_create_kms_key"></a> [create\_kms\_key](#input\_create\_kms\_key) | Enable the creation of a KMS key used by Athena workgroup. | `bool` | `true` | no |
-| <a name="input_create_s3_bucket"></a> [create\_s3\_bucket](#input\_create\_s3\_bucket) | Enable the creation of an S3 bucket to use Athena query results | `bool` | `true` | no |
+| <a name="input_create_s3_bucket"></a> [create\_s3\_bucket](#input\_create\_s3\_bucket) | Enable the creation of an S3 bucket to use for Athena query results | `bool` | `true` | no |
 | <a name="input_data_catalogs"></a> [data\_catalogs](#input\_data\_catalogs) | Map of Athena data catalogs and parameters | `map(any)` | `{}` | no |
 | <a name="input_databases"></a> [databases](#input\_databases) | Map of Athena databases and related configuration. | `map(any)` | n/a | yes |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
@@ -118,7 +118,7 @@ No resources.
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_workgroup_description"></a> [workgroup\_description](#input\_workgroup\_description) | A description the of Athena workgroup. | `string` | `""` | no |
+| <a name="input_workgroup_description"></a> [workgroup\_description](#input\_workgroup\_description) | Description of the Athena workgroup. | `string` | `""` | no |
 | <a name="input_workgroup_encryption_option"></a> [workgroup\_encryption\_option](#input\_workgroup\_encryption\_option) | Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (SSE\_S3), server-side encryption with KMS-managed keys (SSE\_KMS), or client-side encryption with KMS-managed keys (CSE\_KMS) is used. | `string` | `"SSE_KMS"` | no |
 | <a name="input_workgroup_force_destroy"></a> [workgroup\_force\_destroy](#input\_workgroup\_force\_destroy) | The option to delete the workgroup and its contents even if the workgroup contains any named queries. | `bool` | `false` | no |
 | <a name="input_workgroup_state"></a> [workgroup\_state](#input\_workgroup\_state) | State of the workgroup. Valid values are `DISABLED` or `ENABLED`. | `string` | `"ENABLED"` | no |
@@ -131,7 +131,7 @@ No resources.
 | <a name="output_databases"></a> [databases](#output\_databases) | List of newly created Athena databases. |
 | <a name="output_kms_key_arn"></a> [kms\_key\_arn](#output\_kms\_key\_arn) | ARN of KMS key used by Athena. |
 | <a name="output_named_queries"></a> [named\_queries](#output\_named\_queries) | List of newly created Athena named queries. |
-| <a name="output_s3_bucket_id"></a> [s3\_bucket\_id](#output\_s3\_bucket\_id) | ID of S3 bucket used by Athena. |
+| <a name="output_s3_bucket_id"></a> [s3\_bucket\_id](#output\_s3\_bucket\_id) | ID of S3 bucket used for Athena query results. |
 | <a name="output_workgroup_id"></a> [workgroup\_id](#output\_workgroup\_id) | ID of newly created Athena workgroup. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
