@@ -34,7 +34,7 @@ variable "athena_kms_key_deletion_window" {
 }
 
 variable "workgroup_description" {
-  description = "A description the of Athena workgroup."
+  description = "Description of the Athena workgroup."
   type        = string
   default     = ""
 }
