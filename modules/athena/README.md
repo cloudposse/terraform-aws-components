@@ -27,7 +27,6 @@ components:
         create_s3_bucket: true
         create_kms_key: true
         athena_kms_key_deletion_window: 7
-        workgroup_description: ""
         bytes_scanned_cutoff_per_query: null
         enforce_workgroup_configuration: true
         publish_cloudwatch_metrics_enabled: true
