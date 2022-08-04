@@ -2,7 +2,7 @@ module "athena" {
   source  = "cloudposse/athena/aws"
   version = "0.1.0"
 
- 
+
 
   create_s3_bucket               = var.create_s3_bucket
   athena_s3_bucket_id            = var.athena_s3_bucket_id
