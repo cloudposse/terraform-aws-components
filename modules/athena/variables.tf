@@ -4,7 +4,7 @@ variable "region" {
 }
 
 variable "create_s3_bucket" {
-  description = "Enable the creation of an S3 bucket to use Athena query results"
+  description = "Enable the creation of an S3 bucket to use for Athena query results"
   type        = bool
   default     = true
 }
