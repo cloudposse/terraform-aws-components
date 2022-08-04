@@ -1,32 +1,32 @@
 module "account_map" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.13.0"
+  version = "0.22.4"
 
-  component               = "account-map"
-  environment             = var.account_map_environment_name
-  stack_config_local_path = "../../../stacks"
-  stage                   = var.account_map_stage_name
+  component   = "account-map"
+  environment = coalesce(var.account_map_environment_name, module.this.environment)
+  stage       = var.account_map_stage_name
+  tenant      = coalesce(var.account_map_tenant_name, module.this.tenant)
 
   context = module.this.context
 }
 
 module "ecr" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.14.0"
+  version = "0.22.4"
 
-  component               = "ecr-mutable"
-  stack_config_local_path = "../../../stacks"
-  stage                   = var.ecr_account_name
+  component   = "ecr"
+  environment = coalesce(var.ecr_environment_name, module.this.environment)
+  stage       = var.ecr_stage_name
+  tenant      = coalesce(var.ecr_tenant_name, module.this.tenant)
 
   context = module.this.context
 }
 
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.13.0"
+  version = "0.22.4"
 
-  component               = "vpc"
-  stack_config_local_path = "../../../stacks"
+  component = "vpc"
 
   context = module.this.context
 }

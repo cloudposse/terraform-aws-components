@@ -118,6 +118,10 @@ resource "aws_organizations_account" "organization_accounts" {
   email                      = format(each.value.account_email_format, each.value.name)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
   tags                       = merge(module.this.tags, try(each.value.tags, {}), { Name : each.value.name })
+
+  lifecycle {
+    ignore_changes = [iam_user_access_to_billing]
+  }
 }
 
 # Provision Organizational Units
@@ -135,6 +139,10 @@ resource "aws_organizations_account" "organizational_units_accounts" {
   email                      = format(each.value.account_email_format, each.value.name)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
   tags                       = merge(module.this.tags, try(each.value.tags, {}), { Name : each.value.name })
+
+  lifecycle {
+    ignore_changes = [iam_user_access_to_billing]
+  }
 }
 
 # Provision Organization Service Control Policy

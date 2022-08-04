@@ -1,29 +1,14 @@
-output "instance_id" {
-  value       = module.ec2_bastion.instance_id
-  description = "Instance ID"
+output "autoscaling_group_id" {
+  value       = module.bastion_autoscale_group.autoscaling_group_id
+  description = "The AutoScaling Group ID"
 }
 
-output "role" {
-  value       = module.ec2_bastion.role
-  description = "Name of AWS IAM Role associated with the instance"
+output "iam_instance_profile" {
+  value       = join("", aws_iam_instance_profile.default.*.name)
+  description = "Name of AWS IAM Instance Profile"
 }
 
-output "private_ip" {
-  value       = module.ec2_bastion.private_ip
-  description = "Private IP of the instance"
-}
-
-output "public_ip" {
-  value       = module.ec2_bastion.public_ip
-  description = "Public IP of the instance (or EIP)"
-}
-
-output "bastion_fqdn" {
-  value       = module.ec2_bastion.hostname
-  description = "Bastion server custom hostname FQDN"
-}
-
-output "security_group_ids" {
-  value       = module.ec2_bastion.security_group_ids
-  description = "IDs on the AWS Security Groups associated with the instance"
+output "security_group_id" {
+  value       = module.sg.id
+  description = "ID on the AWS Security Group associated with the ASG"
 }

@@ -1,20 +1,28 @@
-# Component: `iam-delegated-roles`
+# Component: `aws-team-roles`
 
-This component is responsible for provisioning all user and system IAM roles. It sets them up to be assumed from the primary, `identity` account roles. This is expected to be used alongside and applied after [the `iam-primary-roles` component][1] is applied to the identity account.
+This component is responsible for provisioning user and system IAM roles outside the `identity` account. 
+It sets them up to be assumed from the "team" roles defined in the `identity` account by
+[the `aws-teams` component](../aws-teams) and/or the AWS SSO permission sets 
+defined in [the `aws-sso` component](../aws-sso).
 
 ## Usage
 
 **Stack Level**: Global
 **Deployment**: Must be deployed by SuperAdmin using `atmos` CLI
 
-Here's an example snippet for how to use this component. This specific usage is intended to be used as the default, and is therefore more restrictive than you may want for development accounts, and not restrictive enough for sensitive accounts like `audit`. You can make account-specific changes by importing this default configuration and then overriding settings, for example by setting `enabled: false` for roles you do not want created in that account, limiting access by setting a different value for `trusted_primary_roles`, or by changing the permissions available to that role by overriding the `role_policy_arns` (not recommended, limit access to the role instead).
+Here's an example snippet for how to use this component. This specific usage is an example only, and not intended for production use.
+You set the defaults in one YAML file, and import that file into each account's Global stack (except for the `identity` account itself).
+If desired, you can make account-specific changes by overriding settings, for example
+- Disable entire roles in the account by setting `enabled: false` 
+- Limit who can access the role by setting a different value for `trusted_teams`
+- Change the permissions available to that role by overriding the `role_policy_arns` (not recommended, limit access to the role or create a different role with the desired set of permissions instead).
 
 Note that when overriding, **maps are deep merged, but lists are replaced**. This means, for example, that your setting of `trusted_primary_roles` in an override completely replaces the default, it does not add to it, so if you want to allow an extra "primary" role to have access to the role, you have to include all the default "primary" roles in the list, too, or they will lose access.
 
 ```yaml
 components:
   terraform:
-    iam-delegated-roles:
+    aws-team-roles:
       backend:
         s3:
           # Override the default Role for accessing the backend, because SuperAdmin is not allowed to assume that role
@@ -46,10 +54,10 @@ components:
             role_policy_arns: []
             role_description: "Template role, should not exist"
 
-            # If `sso_login_enabled: true` then the role will be available via SAML logins,
+            # If `aws_saml_login_enabled: true` then the role will be available via SAML logins,
             # but only via the SAML IDPs configured for this account.
             # Otherwise, it will only be accessible via `assume role`.
-            sso_login_enabled: false
+            aws_saml_login_enabled: false
 
             ## The following attributes control access to this role via `assume role`.
             ## `trusted_*` grants access, `denied_*` denies access.
@@ -62,8 +70,8 @@ components:
             # Primary roles specify the short role names of roles in the primary (identity)
             # account that are allowed to assume this role.
             # BE CAREFUL: This is setting the default access for other roles.
-            trusted_primary_roles: []
-            denied_primary_roles: []
+            trusted_teams: []
+            denied_teams: []
 
             # Role ARNs specify Role ARNs in any account that are allowed to assume this role.
             # BE CAREFUL: there is nothing limiting these Role ARNs to roles within our organization.
@@ -71,8 +79,7 @@ components:
             denied_role_arns: []
 
           ##
-          ## admin, terraform, and helm are the core delegated roles
-          ## We configure them here for "restricted" accounts, with other categories overriding as needed.
+          ## admin and terraform are the core team roles
           ##
 
           admin:
@@ -81,82 +88,20 @@ components:
             role_policy_arns:
             - "arn:aws:iam::aws:policy/AdministratorAccess"
             role_description: "Full administration of this account"
-            trusted_primary_roles: ["admin"]
-            trusted_permission_sets: ["AdministratorAccess"]
-
-          helm:
-            <<: *user-template
-            enabled: true
-            role_policy_arns:
-            - "arn:aws:iam::aws:policy/AdministratorAccess"
-            role_description: "Role for Helm administration of this account"
-            trusted_primary_roles: ["admin", "cicd"]
-            # Unfortunately, we have not yet figured out acceptable limits on Helm.
-            # It might work with PowerUser (further restricted to deny AWS SSO changes).
-            trusted_permission_sets: ["AdministratorAccess"]
+            trusted_teams: ["admin"]
 
           terraform:
             <<: *user-template
             enabled: true
-            role_policy_arns:
-            - "arn:aws:iam::aws:policy/AdministratorAccess"
-            role_description: "Role for Terraform administration of this account"
-            trusted_primary_roles: ["admin", "spacelift"]
             # We require Terraform to be allowed to create and modify IAM roles
             # and policies (e.g. for EKS service accounts), so there is no use trying to restrict it.
             # For better security, we could segregate components that needed
             # administrative permissions and use a more restrictive role
             # for Terraform, such as PowerUser (further restricted to deny AWS SSO changes).
-            trusted_permission_sets: ["AdministratorAccess"]
-
-          poweruser:
-            <<: *user-template
-            enabled: true
             role_policy_arns:
-            - "arn:aws:iam::aws:policy/PowerUserAccess"
-            - "support"
-            role_description: "Role for Power Users (read/write)"
-            trusted_primary_roles: ["admin", "poweruser"]
-            trusted_permission_sets: ["AdministratorAccess", "PowerUserAccess"]
-
-          # https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-cis-controls.html#securityhub-cis-controls-1.20
-          support:
-            <<: *user-template
-            enabled: true
-            role_policy_arns:
-            - "support"
-            role_description: "Role with permissions for accessing the AWS Support Service"
-            # Terraform is too powerful a role to allow powerusers to access it
-            trusted_primary_roles: ["admin", "support"]
-            trusted_permission_sets: ["AdministratorAccess", "SupportAccess", "ReadOnlyAccess"]
-
-          ##
-          ## observer and reader are for read-only access to the account.
-          ## reader is able to read sensitive information (Read Only job function)
-          ## while observer is more limited (View Only job function).
-          ## Reference: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html
-          ##
-
-          reader:
-            <<: *user-template
-            enabled: true
-            role_policy_arns:
-            - "arn:aws:iam::aws:policy/ReadOnlyAccess"
-            - "support"
-            role_description: "Read Only access (including reading S3 and other sensitive information)"
-            trusted_primary_roles: ["admin", "cicd", "poweruser", "reader", "spacelift"]
-            trusted_permission_sets: ["AdministratorAccess", "PowerUserAccess", "ReadOnlyAccess"]
-
-
-          observer:
-            <<: *user-template
-            enabled: true
-            role_policy_arns:
-            - "arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"
-            - "support"
-            role_description: "View Only access"
-            trusted_primary_roles: ["admin", "observer", "poweruser", "reader"]
-            trusted_permission_sets: ["AdministratorAccess", "PowerUserAccess", "ReadOnlyAccess"]
+            - "arn:aws:iam::aws:policy/AdministratorAccess"
+            role_description: "Role for Terraform administration of this account"
+            trusted_teams: ["admin", "spacelift"]
 
 ```
 
@@ -178,9 +123,9 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_assume_role"></a> [assume\_role](#module\_assume\_role) | ../account-map/modules/iam-assume-role-policy | n/a |
+| <a name="module_assume_role"></a> [assume\_role](#module\_assume\_role) | ../account-map/modules/team-assume-role-policy | n/a |
+| <a name="module_aws_saml"></a> [aws\_saml](#module\_aws\_saml) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.3 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_sso"></a> [sso](#module\_sso) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.2 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -197,10 +142,8 @@ components:
 | [aws_iam_policy.aws_support_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy) | data source |
 | [aws_iam_policy_document.assume_role_aggregated](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.billing_admin_access_aggregated](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.saml_provider_assume](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.support_access_aggregated](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.support_access_trusted_advisor](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
 
 ## Inputs
 
@@ -213,7 +156,6 @@ components:
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_iam_primary_roles_account_name"></a> [iam\_primary\_roles\_account\_name](#input\_iam\_primary\_roles\_account\_name) | The name of the account where the IAM primary roles are provisioned | `string` | `"identity"` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
 | <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
@@ -225,66 +167,18 @@ components:
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_roles"></a> [roles](#input\_roles) | A roles map to configure the accounts. | <pre>map(object({<br>    enabled = bool<br><br>    denied_permission_sets  = list(string)<br>    denied_primary_roles    = list(string)<br>    denied_role_arns        = list(string)<br>    max_session_duration    = number # in seconds 3600 <= max <= 43200 (12 hours)<br>    role_description        = string<br>    role_policy_arns        = list(string)<br>    sso_login_enabled       = bool<br>    trusted_permission_sets = list(string)<br>    trusted_primary_roles   = list(string)<br>    trusted_role_arns       = list(string)<br>  }))</pre> | n/a | yes |
+| <a name="input_roles"></a> [roles](#input\_roles) | A map of roles to configure the accounts. | <pre>map(object({<br>    enabled = bool<br><br>    denied_teams            = list(string)<br>    denied_permission_sets  = list(string)<br>    denied_role_arns        = list(string)<br>    max_session_duration    = number # in seconds 3600 <= max <= 43200 (12 hours)<br>    role_description        = string<br>    role_policy_arns        = list(string)<br>    aws_saml_login_enabled  = bool<br>    trusted_teams           = list(string)<br>    trusted_permission_sets = list(string)<br>    trusted_role_arns       = list(string)<br>  }))</pre> | n/a | yes |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
+| <a name="input_trusted_github_repos"></a> [trusted\_github\_repos](#input\_trusted\_github\_repos) | Map where keys are role names (same keys as `roles`) and values are lists of<br>GitHub repositories allowed to assume those roles. See `account-map/modules/github-assume-role-policy.mixin.tf`<br>for specifics about repository designations. | `map(list(string))` | `{}` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_role_long_name_policy_arn_map"></a> [role\_long\_name\_policy\_arn\_map](#output\_role\_long\_name\_policy\_arn\_map) | Map of role long names to attached IAM Policy ARNs |
 | <a name="output_role_name_role_arn_map"></a> [role\_name\_role\_arn\_map](#output\_role\_name\_role\_arn\_map) | Map of role names to role ARNs |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
-* [cloudposse/terraform-aws-components][44] - Cloud Posse's upstream component
-
-[<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>][45]
-
-[1]:	https://github.com/cloudposse/terraform-aws-components/tree/master/modules/iam-primary-roles
-[2]:	#requirement%5C_terraform
-[3]:	#requirement%5C_aws
-[4]:	#requirement%5C_local
-[5]:	#requirement%5C_template
-[6]:	#requirement%5C_utils
-[7]:	#provider%5C_aws
-[8]:	#module%5C_assume%5C_role
-[9]:	#module%5C_iam%5C_roles
-[10]:	#module%5C_sso
-[11]:	#module%5C_this
-[12]:	https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
-[13]:	https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role
-[14]:	https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment
-[15]:	https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy
-[16]:	https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document
-[17]:	https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document
-[18]:	https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document
-[19]:	https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document
-[20]:	#input%5C_additional%5C_tag%5C_map
-[21]:	#input%5C_attributes
-[22]:	#input%5C_context
-[23]:	#input%5C_delimiter
-[24]:	#input%5C_descriptor%5C_formats
-[25]:	#input%5C_enabled
-[26]:	#input%5C_environment
-[27]:	#input%5C_iam%5C_primary%5C_roles%5C_account%5C_name
-[28]:	#input%5C_id%5C_length%5C_limit
-[29]:	#input%5C_import%5C_role%5C_arn
-[30]:	#input%5C_label%5C_key%5C_case
-[31]:	#input%5C_label%5C_order
-[32]:	#input%5C_label%5C_value%5C_case
-[33]:	#input%5C_labels%5C_as%5C_tags
-[34]:	#input%5C_name
-[35]:	#input%5C_namespace
-[36]:	#input%5C_regex%5C_replace%5C_chars
-[37]:	#input%5C_region
-[38]:	#input%5C_roles
-[39]:	#input%5C_stage
-[40]:	#input%5C_tags
-[41]:	#input%5C_tenant
-[42]:	#output%5C_role%5C_long%5C_name%5C_policy%5C_arn%5C_map
-[43]:	#output%5C_role%5C_name%5C_role%5C_arn%5C_map
-[44]:	https://github.com/cloudposse/terraform-aws-components/tree/master/modules/TODO
-[45]:	https://cpco.io/component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components) - Cloud Posse's upstream components
