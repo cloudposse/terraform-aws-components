@@ -1,5 +1,5 @@
 output "s3_bucket_id" {
-  description = "ID of S3 bucket used by Athena."
+  description = "ID of S3 bucket used for Athena query results."
   value       = module.athena.s3_bucket_id
 }
 
