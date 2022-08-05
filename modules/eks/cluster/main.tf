@@ -14,13 +14,13 @@ locals {
 
   primary_iam_roles = [for role in var.primary_iam_roles : {
     rolearn  = local.primary_role_map[role.role]
-    username = module.introspection.context.tenant != null ? format("%s-identity-%s", local.iam_primary_roles_tenant_name, role.role) : format("identity-%s", role.role)
+    username = module.this.context.tenant != null ? format("%s-identity-%s", local.iam_primary_roles_tenant_name, role.role) : format("identity-%s", role.role)
     groups   = role.groups
   }]
 
   delegated_iam_roles = [for role in var.delegated_iam_roles : {
     rolearn  = local.delegated_role_map[role.role]
-    username = module.introspection.context.tenant != null ? format("%s-%s-%s", module.this.tenant, module.this.stage, role.role) : format("%s-%s", module.this.stage, role.role)
+    username = module.this.context.tenant != null ? format("%s-%s-%s", module.this.tenant, module.this.stage, role.role) : format("%s-%s", module.this.stage, role.role)
     groups   = role.groups
   }]
 
@@ -150,6 +150,6 @@ module "eks_cluster" {
   cluster_encryption_config_kms_key_policy                  = var.cluster_encryption_config_kms_key_policy
   cluster_encryption_config_resources                       = var.cluster_encryption_config_resources
 
-  context = module.introspection.context
+  context = module.this.context
 }
 

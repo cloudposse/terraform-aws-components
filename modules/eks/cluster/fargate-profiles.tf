@@ -15,5 +15,5 @@ module "fargate_profile" {
   permissions_boundary                    = var.fargate_profile_iam_role_permissions_boundary
   iam_role_kubernetes_namespace_delimiter = var.fargate_profile_iam_role_kubernetes_namespace_delimiter
 
-  context = module.introspection.context
+  context = module.this.context
 }

@@ -15,7 +15,7 @@ data "aws_subnet_ids" "private" {
 
 module "az_abbreviation" {
   source  = "cloudposse/utils/aws"
-  version = "0.8.1"
+  version = "1.0.0"
 }
 
 locals {
@@ -29,7 +29,7 @@ locals {
 
 module "eks_node_group" {
   source  = "cloudposse/eks-node-group/aws"
-  version = "0.27.3"
+  version = "2.6.0"
 
   enabled = local.enabled
 
