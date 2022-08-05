@@ -62,10 +62,9 @@ variable "tgw_hub_tenant_name" {
 module "tgw_hub_role" {
   source = "../../account-map/modules/iam-roles"
 
-  stage              = var.tgw_hub_stage_name
-  environment        = var.tgw_hub_environment_name
-  tenant             = var.tgw_hub_tenant_name
-  global_tenant_name = var.root_account_tenant_name
+  stage       = var.tgw_hub_stage_name
+  environment = var.tgw_hub_environment_name
+  tenant      = var.tgw_hub_tenant_name
 
   context = module.this.context
 }
