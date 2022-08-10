@@ -4,13 +4,13 @@ locals {
 
 module "global_accelerator" {
   source  = "cloudposse/global-accelerator/aws"
-  version = "0.4.0"
-
-  context = module.this.context
+  version = "0.5.0"
 
   flow_logs_enabled   = var.flow_logs_enabled
   flow_logs_s3_prefix = var.flow_logs_s3_prefix
   flow_logs_s3_bucket = local.flow_logs_s3_bucket
 
   listeners = var.listeners
+
+  context = module.this.context
 }
