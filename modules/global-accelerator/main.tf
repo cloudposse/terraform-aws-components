@@ -12,5 +12,5 @@ module "global_accelerator" {
 
   listeners = var.listeners
 
-  context = module.introspection.context
+  context = module.this.context
 }
