@@ -1,5 +1,5 @@
 locals {
-  flow_logs_s3_bucket = try(length(var.flow_logs_s3_bucket), 0) > 0 ? var.flow_logs_s3_bucket : format("%v-%v-%v-global-accelerator-flow-logs", var.namespace, var.flow_logs_s3_bucket_environment, var.stage)
+  flow_logs_s3_bucket = var.flow_logs_enabled ? module.flow_logs_bucket[0].outputs.bucket_id : null
 }
 
 module "global_accelerator" {
@@ -12,5 +12,5 @@ module "global_accelerator" {
 
   listeners = var.listeners
 
-  context = module.this.context
+  context = module.introspection.context
 }

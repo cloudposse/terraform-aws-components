@@ -9,21 +9,31 @@ variable "flow_logs_enabled" {
   default     = false
 }
 
-variable "flow_logs_s3_bucket" {
-  description = <<-EOT
-  The name of the S3 Bucket for the Accelerator Flow Logs.
-  If not specified but `var.flow_logs_enabled` is set to `true`, then the bucket name will be computed dynamically via
-  `format("%v-%v-%v-global-accelerator-flow-logs", var.namespace, var.environment, var.stage)`.
-  EOT
-  type        = string
-  default     = null
-}
-
 variable "flow_logs_s3_prefix" {
   description = "The Object Prefix within the S3 Bucket for the Accelerator Flow Logs. Required if `var.flow_logs_enabled` is set to `true`."
   type        = string
   default     = null
 }
+
+variable "flow_logs_s3_bucket_component" {
+  description = "The component that deploys the S3 Bucket for the Accelerator Flow Logs. Required if `var.flow_logs_enabled` is set to `true`."
+  type        = string
+  default     = null
+}
+
+
+variable "flow_logs_s3_bucket_tenant" {
+  description = "The tenant where the S3 Bucket for the Accelerator Flow Logs exists. Required if `var.flow_logs_enabled` is set to `true`."
+  type        = string
+  default     = null
+}
+
+variable "flow_logs_s3_bucket_stage" {
+  description = "The stage where the S3 Bucket for the Accelerator Flow Logs exists. Required if `var.flow_logs_enabled` is set to `true`."
+  type        = string
+  default     = null
+}
+
 
 variable "flow_logs_s3_bucket_environment" {
   description = "The environment where the S3 Bucket for the Accelerator Flow Logs exists. Required if `var.flow_logs_enabled` is set to `true`."

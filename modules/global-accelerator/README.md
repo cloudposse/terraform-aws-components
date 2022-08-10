@@ -41,6 +41,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_flow_logs_bucket"></a> [flow\_logs\_bucket](#module\_flow\_logs\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
 | <a name="module_global_accelerator"></a> [global\_accelerator](#module\_global\_accelerator) | cloudposse/global-accelerator/aws | 0.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -61,8 +62,10 @@ No resources.
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_flow_logs_enabled"></a> [flow\_logs\_enabled](#input\_flow\_logs\_enabled) | Enable or disable flow logs for the Global Accelerator. | `bool` | `false` | no |
-| <a name="input_flow_logs_s3_bucket"></a> [flow\_logs\_s3\_bucket](#input\_flow\_logs\_s3\_bucket) | The name of the S3 Bucket for the Accelerator Flow Logs.<br>If not specified but `var.flow_logs_enabled` is set to `true`, then the bucket name will be computed dynamically via<br>`format("%v-%v-%v-global-accelerator-flow-logs", var.namespace, var.environment, var.stage)`. | `string` | `null` | no |
+| <a name="input_flow_logs_s3_bucket_component"></a> [flow\_logs\_s3\_bucket\_component](#input\_flow\_logs\_s3\_bucket\_component) | The component that deploys the S3 Bucket for the Accelerator Flow Logs. Required if `var.flow_logs_enabled` is set to `true`. | `string` | `null` | no |
 | <a name="input_flow_logs_s3_bucket_environment"></a> [flow\_logs\_s3\_bucket\_environment](#input\_flow\_logs\_s3\_bucket\_environment) | The environment where the S3 Bucket for the Accelerator Flow Logs exists. Required if `var.flow_logs_enabled` is set to `true`. | `string` | `null` | no |
+| <a name="input_flow_logs_s3_bucket_stage"></a> [flow\_logs\_s3\_bucket\_stage](#input\_flow\_logs\_s3\_bucket\_stage) | The stage where the S3 Bucket for the Accelerator Flow Logs exists. Required if `var.flow_logs_enabled` is set to `true`. | `string` | `null` | no |
+| <a name="input_flow_logs_s3_bucket_tenant"></a> [flow\_logs\_s3\_bucket\_tenant](#input\_flow\_logs\_s3\_bucket\_tenant) | The tenant where the S3 Bucket for the Accelerator Flow Logs exists. Required if `var.flow_logs_enabled` is set to `true`. | `string` | `null` | no |
 | <a name="input_flow_logs_s3_prefix"></a> [flow\_logs\_s3\_prefix](#input\_flow\_logs\_s3\_prefix) | The Object Prefix within the S3 Bucket for the Accelerator Flow Logs. Required if `var.flow_logs_enabled` is set to `true`. | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
