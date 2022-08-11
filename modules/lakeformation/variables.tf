@@ -14,6 +14,12 @@ variable "role_arn" {
   default     = null
 }
 
+variable "create_service_linked_role" {
+  description = "Set to 'true' to create service-linked role for Lake Formation (can only be done once!)"
+  type        = bool
+  default     = false
+}
+
 variable "catalog_id" {
   description = "(Optional) Identifier for the Data Catalog. If not provided, the account ID will be used."
   type        = string
