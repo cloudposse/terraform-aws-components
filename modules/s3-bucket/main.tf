@@ -23,16 +23,16 @@ data "template_file" "bucket_policy" {
 
 module "bucket_policy" {
   source  = "cloudposse/iam-policy/aws"
-  version = "0.3.0"
+  version = "0.4.0"
 
-  iam_policy_statements = var.source_policy_documents
+  iam_policy_statements = var.iam_policy_statements
 
   context = module.this.context
 }
 
 module "s3_bucket" {
   source  = "cloudposse/s3-bucket/aws"
-  version = "2.0.1"
+  version = "2.0.3"
 
   bucket_name = var.bucket_name
 
