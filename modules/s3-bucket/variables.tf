@@ -361,3 +361,10 @@ variable "custom_policy_enabled" {
   type        = bool
   default     = false
 }
+
+variable "iam_policy_statements" {
+  type        = any
+  description = "Map of IAM policy statements to use in the bucket policy."
+  default     = {}
+}
+
