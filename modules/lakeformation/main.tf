@@ -1,8 +1,22 @@
-# So we can assign admin permissions to the current user
-data "aws_caller_identity" "current" {}
+# Find our service-linked role for Lake Formation if we weren't provided a role
+# and we're not attempting to create it...
+data "aws_iam_role" "lakeformation" {
+  count = (var.role_arn == null && !var.create_service_linked_role) ? 1 : 0
+
+  name = "AWSServiceRoleForLakeFormationDataAccess"
+}
+
+resource "aws_iam_service_linked_role" "lakeformation" {
+  count = var.create_service_linked_role ? 1 : 0
+
+  aws_service_name = "lakeformation.amazonaws.com"
+}
 
 locals {
-  admin_arn_list = concat(data.aws_caller_identity.current.arn, var.admin_arn_list)
+  role_arn = coalesce(var.role_arn, try(aws_iam_service_linked_role.lakeformation[0].arn, null), try(data.aws_iam_role.lakeformation[0].arn, null))
+
+  # We need the Terraform role to have admin rights in order to complete the deployment
+  admin_arn_list = concat([module.iam_roles.terraform_role_arn], var.admin_arn_list)
 }
 
 module "lakeformation" {
@@ -12,7 +26,7 @@ module "lakeformation" {
   enabled = module.this.enabled
 
   s3_bucket_arn                = var.s3_bucket_arn
-  role_arn                     = var.role_arn
+  role_arn                     = local.role_arn
   catalog_id                   = var.catalog_id
   admin_arn_list               = local.admin_arn_list
   trusted_resource_owners      = var.trusted_resource_owners
