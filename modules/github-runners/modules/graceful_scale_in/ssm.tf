@@ -74,6 +74,8 @@ resource "aws_iam_policy" "ssm_document_policy" {
 
   name   = module.ssm_document_label.id
   policy = join("", data.aws_iam_policy_document.ssm_document_policy.*.json)
+
+  tags = module.ssm_document_label.tags
 }
 
 resource "aws_iam_role" "ssm_document_role" {

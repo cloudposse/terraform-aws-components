@@ -46,7 +46,7 @@ amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:$CONFIG_DESTINATIO
 
 # Install runner
 export REGION=$(TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600") && curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/region)
-export RUNNER_CFG_PAT=$(aws --region $REGION ssm get-parameter --with-decryption --name ${github_token_ssm_path} | jq -r .Parameter.Value)
+export RUNNER_TOKEN=$(aws --region $REGION ssm get-parameter --with-decryption --name ${github_token_ssm_path} | jq -r .Parameter.Value)
 export AMI_ID=$(TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600") && curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/ami-id)
 export INSTANCE_TYPE=$(TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600") && curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/instance-type)
 export INSTANCE_ID=$(TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600") && curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/instance-id)
@@ -60,4 +60,5 @@ export USER=root
 
 ${post_install}
 
-curl -s https://raw.githubusercontent.com/actions/runner/v${runner_version}/scripts/create-latest-svc.sh | bash -s ${github_scope} "" $NODE_NAME $USER $LABELS
+ls -la /tmp
+/tmp/create-latest-svc.sh ${github_scope} "" $NODE_NAME $USER $LABELS
