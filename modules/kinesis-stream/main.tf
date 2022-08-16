@@ -1,6 +1,6 @@
 module "kinesis" {
   source  = "cloudposse/kinesis-stream/aws"
-  version = "0.1.0"
+  version = "0.2.0"
 
   shard_count               = var.shard_count
   retention_period          = var.retention_period
@@ -9,6 +9,7 @@ module "kinesis" {
   encryption_type           = var.encryption_type
   kms_key_id                = var.kms_key_id
   stream_mode               = var.stream_mode
+  consumer_count            = var.consumer_count
 
   context = module.this.context
 }

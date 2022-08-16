@@ -47,3 +47,9 @@ variable "stream_mode" {
   type        = string
   default     = null
 }
+
+variable "consumer_count" {
+  description = "Number of consumers to register with the Kinesis stream."
+  type        = number
+  default     = 0
+}
