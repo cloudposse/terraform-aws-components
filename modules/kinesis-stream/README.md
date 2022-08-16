@@ -39,7 +39,6 @@ components:
         inherits:
           - kinesis-stream/defaults
       vars:
-        enabled: true
         name: kinesis-stream-example
         stream_mode: ON_DEMAND
         # shard_count: 2  # This does nothing if `stream_mode` is set to `ON_DEMAND`
