@@ -33,7 +33,7 @@ unzip awscliv2.zip
 # Installs to /usr/local/bin/aws
 sudo ./aws/install
 # The github runner still sees /bin/aws as the default so we overwrite the existing binary
-sudo cp /usr/local/bin/aws /bin/aws
+sudo ln -s /usr/local/bin/aws /bin/aws
 # Clean up
 rm -rf ./aws
 
