@@ -119,6 +119,8 @@ __NOTE:__ Replace `<LEGACY ACCOUNT ID>` with the ID of the legacy account.
 
 Add the following trust policy to the IAM role:
 
+__NOTE:__ Replace `<IDENTITY ACCOUNT ID>` with the ID of the `identity` account in the new infrastructure.
+
 ```json
 {
   "Version": "2012-10-17",
@@ -130,7 +132,10 @@ Add the following trust policy to the IAM role:
           "arn:aws:iam::<IDENTITY ACCOUNT ID>:root"
         ]
       },
-      "Action": "sts:AssumeRole",
+      "Action": [
+        "sts:AssumeRole",
+        "sts:TagSession"
+      ],
       "Condition": {}
     }
   ]
