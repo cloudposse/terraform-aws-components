@@ -48,7 +48,9 @@ components:
           image:
             tag: 7.0.4-debian-11-r11
             repository: bitnami/redis
-
+        # Disabling Manifest Experiment disables stored metadata with Terraform state
+        # Otherwise, the state will show changes on all plans
+        helm_manifest_experiment_enabled: false
 
 ```
 
