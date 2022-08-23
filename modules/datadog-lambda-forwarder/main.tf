@@ -4,14 +4,14 @@ locals {
   cloudwatch_forwarder_log_groups = {
     for k, v in var.cloudwatch_forwarder_log_groups :
     k => {
-      "name" : lookup(v, "name_suffix", null) != null ? format(
+      name : lookup(v, "name_suffix", null) != null ? format(
         "%s%s%s%s",
         lookup(v, "name_prefix", "/aws/"),
         module.log_group_prefix.id,
         module.log_group_prefix.delimiter,
         lookup(v, "name_suffix")
       ) : lookup(v, "name")
-      "filter_pattern" : lookup(v, "filter_pattern", "")
+      filter_pattern : lookup(v, "filter_pattern", "")
     }
   }
 
@@ -38,7 +38,7 @@ module "log_group_prefix" {
 
 module "datadog_lambda_forwarder" {
   source  = "cloudposse/datadog-lambda-forwarder/aws"
-  version = "0.8.0"
+  version = "0.12.0"
 
   cloudwatch_forwarder_log_groups       = local.cloudwatch_forwarder_log_groups
   dd_api_key_kms_ciphertext_blob        = var.dd_api_key_kms_ciphertext_blob
