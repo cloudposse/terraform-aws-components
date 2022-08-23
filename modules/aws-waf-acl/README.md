@@ -57,7 +57,7 @@ components:
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_aws_waf"></a> [aws\_waf](#module\_aws\_waf) | cloudposse/waf/aws | 0.0.1 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles |  |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.24.1 |
 
 ## Resources

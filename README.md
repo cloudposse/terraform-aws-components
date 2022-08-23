@@ -110,14 +110,15 @@ See each component's README directory for usage.
 |[cloudtrail-bucket](./modules/cloudtrail-bucket) | Provisions a bucket for storing cloudtrail logs for auditing purposes. |
 |[datadog-integration](./modules/datadog-integration) | Provisions a DataDog <=> AWS integration. |
 |[datadog-monitor](./modules/datadog-monitor) | Provisions global DataDog monitors. |
+|[dms](./modules/dms) | Provisions AWS DMS resources: DMS IAM roles, DMS endpoints, DMS replication instances, DMS replication tasks. |
 |[dns-delegated](./modules/dns-delegated) | Provisions a DNS zone which delegates nameservers to the DNS zone in the primary DNS account. |
 |[dns-primary](./modules/dns-primary) | Provisions the primary DNS zones into an AWS account. |
 |[ecr](./modules/ecr) | Provisions repositories, lifecycle rules, and permissions for streamlined ECR usage. |
 |[efs](./modules/efs) | Provisions an [EFS](https://aws.amazon.com/efs/) Network File System with KMS encryption-at-rest. |
 |[eks](./modules/eks) | Provisions an end-to-end EKS Cluster, including managed node groups and [spotinst ocean](https://spot.io/products/ocean/) node pools. |
 |[eks-iam](./modules/eks-iam) | Provisions specific [IAM roles for Kubernetes Service Accounts](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html). |
-|[iam-delegated-roles](deprecated/iam-delegated-roles) | Provisions all delegated user and system IAM roles. |
-|[iam-primary-roles](deprecated/iam-primary-roles) | Provisions all primary user and system roles into the centralized identity account. |
+|[iam-delegated-roles](./modules/iam-delegated-roles) | Provisions all delegated user and system IAM roles. |
+|[iam-primary-roles](./modules/iam-primary-roles) | Provisions all primary user and system roles into the centralized identity account. |
 |[sso](./modules/sso) | Provisions SAML metadata into AWS IAM as new SAML providers. |
 |[tfstate-backend](./modules/tfstate-backend) | Provisions an S3 Bucket and DynamoDB table that follow security best practices for usage as a Terraform backend. |
 |[transit-gateway](./modules/transit-gateway) | Provisions an AWS Transit Gateway to connect various account separated VPCs through a central hub. |
@@ -137,6 +138,7 @@ Available targets:
   help/all                            Display help for all targets
   help/short                          This help short screen
   rebuild-docs                        Rebuild README for all Terraform components
+  rebuild-mixins-docs                 Rebuild README for Terraform Mixins
   upstream-component                  Upstream a given component
 
 ```
@@ -324,8 +326,8 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 ### Contributors
 
 <!-- markdownlint-disable -->
-|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] | [![Matt Gowie][Gowiem_avatar]][Gowiem_homepage]<br/>[Matt Gowie][Gowiem_homepage] |
-|---|---|---|---|
+|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] | [![Matt Gowie][Gowiem_avatar]][Gowiem_homepage]<br/>[Matt Gowie][Gowiem_homepage] | [![Yonatan Koren][korenyoni_avatar]][korenyoni_homepage]<br/>[Yonatan Koren][korenyoni_homepage] |
+|---|---|---|---|---|
 <!-- markdownlint-restore -->
 
   [osterman_homepage]: https://github.com/osterman
@@ -336,10 +338,12 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [aknysh_avatar]: https://img.cloudposse.com/150x150/https://github.com/aknysh.png
   [Gowiem_homepage]: https://github.com/Gowiem
   [Gowiem_avatar]: https://img.cloudposse.com/150x150/https://github.com/Gowiem.png
+  [korenyoni_homepage]: https://github.com/korenyoni
+  [korenyoni_avatar]: https://img.cloudposse.com/150x150/https://github.com/korenyoni.png
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
-
+<!-- markdownlint-disable -->
   [logo]: https://cloudposse.com/logo-300x69.svg
   [docs]: https://cpco.io/docs?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=docs
   [website]: https://cpco.io/homepage?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=website
@@ -370,3 +374,4 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [share_googleplus]: https://plus.google.com/share?url=https://github.com/cloudposse/terraform-aws-components
   [share_email]: mailto:?subject=terraform-aws-components&body=https://github.com/cloudposse/terraform-aws-components
   [beacon]: https://ga-beacon.cloudposse.com/UA-76589703-4/cloudposse/terraform-aws-components?pixel&cs=github&cm=readme&an=terraform-aws-components
+<!-- markdownlint-restore -->
