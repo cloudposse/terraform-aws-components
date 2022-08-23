@@ -8,10 +8,16 @@ This component installs `redis` for EKS clusters. This is a Self Hosted Redis Cl
 
 Use this in the catalog or use these variables to overwrite the catalog values.
 
+
+`stacks/catalog/eks/redis/defaults` file (base component for default Redis settings):
+
 ```yaml
 components:
   terraform:
-    eks/redis:
+    eks/redis/defaults:
+      metadata:
+        component: eks/redis
+        type: abstract
       settings:
         spacelift:
           workspace_enabled: true
@@ -42,6 +48,24 @@ components:
           image:
             tag: 7.0.4-debian-11-r11
             repository: bitnami/redis
+
+
+```
+
+`stacks/catalog/eks/redis/dev` file (derived component for "dev" specific settings):
+
+```yaml
+import:
+  - catalog/eks/redis/defaults
+
+components:
+  terraform:
+    eks/redis/dev:
+      metadata:
+        component: eks/redis
+        inherits:
+          - eks/redis/defaults
+      vars: {}
 
 ```
 
@@ -134,3 +158,7 @@ components:
 |------|-------------|
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+## References
+  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/redis) - Cloud Posse's upstream component
+
