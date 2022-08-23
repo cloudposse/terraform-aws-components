@@ -20,9 +20,6 @@ components:
           autodeploy: false
       vars:
         enabled: true
-        tags:
-          team: kin
-          app_name: dms
 
     dms-endpoint-source-example:
       metadata:

@@ -29,9 +29,6 @@ components:
         multi_az: false
         preferred_maintenance_window: "sun:10:30-sun:14:30"
         publicly_accessible: false
-        tags:
-          team: kin
-          app_name: dms
 
     dms-replication-instance-t2-small:
       metadata:

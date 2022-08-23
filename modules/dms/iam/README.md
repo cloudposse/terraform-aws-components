@@ -21,9 +21,6 @@ components:
       vars:
         enabled: true
         name: dms
-        tags:
-          team: kin
-          app_name: dms
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
