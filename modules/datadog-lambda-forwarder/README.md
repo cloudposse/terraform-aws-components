@@ -19,9 +19,28 @@ components:
           workspace_enabled: true
       vars:
         enabled: true
-        forwarder_log_enabled: true
+        name: datadog-lambda-forwarder
+        # Set `forwarder_rds_enabled`  to `true` and configure `rds-enhanced-monitoring` Log Group when:
+        # 1. The account has RDS instances provisioned
+        # 2. RDS Enhanced Monitoring is enabled
+        # 3. CloudWatch Log Group `RDSOSMetrics` exists (it will be created by AWS automatically when RDS Enhanced Monitoring is enabled)
         forwarder_rds_enabled: true
+        forwarder_log_enabled: true
         forwarder_vpc_enabled: true
+        cloudwatch_forwarder_log_groups:
+          rds-enhanced-monitoring:
+            name: "RDSOSMetrics"
+            filter_pattern: ""
+          eks-cluster:
+            # Use either `name` or `name_prefix` with `name_suffix`
+            # If `name_prefix` with `name_suffix` are used, the final `name` will be constructed using `name_prefix` + context + `name_suffix`, 
+            # e.g. "/aws/eks/eg-ue2-prod-eks-cluster/cluster"
+            name_prefix: "/aws/eks/"
+            name_suffix: "eks-cluster/cluster"
+            filter_pattern: ""
+          transfer-sftp:
+            name: "/aws/transfer/s-xxxxxxxxxxxx"
+            filter_pattern: ""
         dd_api_key_source:
           resource: "ssm"
           identifier: "datadog/datadog_api_key"
@@ -33,7 +52,7 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
 
 ## Providers
 
@@ -43,7 +62,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_datadog_lambda_forwarder"></a> [datadog\_lambda\_forwarder](#module\_datadog\_lambda\_forwarder) | cloudposse/datadog-lambda-forwarder/aws | 0.8.0 |
+| <a name="module_datadog_lambda_forwarder"></a> [datadog\_lambda\_forwarder](#module\_datadog\_lambda\_forwarder) | cloudposse/datadog-lambda-forwarder/aws | 0.12.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_log_group_prefix"></a> [log\_group\_prefix](#module\_log\_group\_prefix) | cloudposse/label/null | 0.25.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
