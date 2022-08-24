@@ -2,8 +2,6 @@
 
 This component is responsible for provisioning Spacelift worker pools.
 
-**NOTE**: By default, the autoscaling group is set to 0 instances. Sign into the target account and manually update the count.
-
 ## Usage
 
 **Stack Level**: Regional
@@ -18,11 +16,13 @@ components:
         spacelift:
           workspace_enabled: true
       vars:
+        enabled: true
+        name: "spacelift-worker-pool"
         ec2_instance_type: r5n.large
         ecr_account_name: corp
         spacelift_api_endpoint: https://<GITHUBORG>.app.spacelift.io
         spacelift_ami_id: ami-xxxyyyzzz
-        spacelift_runner_image: <ACCOUNTID>.dkr.ecr.<REGION>.amazonaws.com/<INFRA_IMAGE>:latest
+        spacelift_runner_image: <ACCOUNTID>.dkr.ecr.<REGION>.amazonaws.com/infrastructure:latest
 ```
 
 ## Configuration
@@ -33,16 +33,23 @@ Build and tag a Docker image for this repository and push to ECR. Ensure the acc
 
 ### API Key
 
-Prior to deployment, the API key must exist in SSM.
+Prior to deployment, the API key must exist in SSM. The key must have admin permissions.
 
 To generate the key, please follow [these instructions](https://docs.spacelift.io/integrations/api#api-key-management). Once generated, write the API key ID and secret to the SSM key store at the following locations within the same AWS account and region where the Spacelift worker pool will reside.
 
-| Key     | SSM Path                | Type           |
-|---------|-------------------------|----------------|
-| API Key | `/spacelift/key_id`     | `SecureString` |
-| API ID  | `/spacelift/key_secret` | `SecureString` |
+| Key      | SSM Path                | Type           |
+| -------- | ----------------------- | -------------- |
+| API ID   | `/spacelift/key_id`     | `SecureString` |
+| API Key  | `/spacelift/key_secret` | `SecureString` |
 
 _HINT_: The API key ID is displayed as an upper-case, 16-character alphanumeric value next to the key name in the API key list.
+
+Save the keys using `chamber` using the correct profile for where spacelift worker pool is provisioned
+
+```
+AWS_PROFILE=acme-gbl-auto-admin chamber write spacelift key_id 1234567890123456
+AWS_PROFILE=acme-gbl-auto-admin chamber write spacelift key_secret abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
+```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -185,5 +192,6 @@ _HINT_: The API key ID is displayed as an upper-case, 16-character alphanumeric 
 ## References
 
 - [cloudposse/terraform-spacelift-cloud-infrastructure-automation](https://github.com/cloudposse/terraform-spacelift-cloud-infrastructure-automation) - Cloud Posse's related upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/spacelift-worker-pool) - Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
