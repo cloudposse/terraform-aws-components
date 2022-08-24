@@ -10,13 +10,13 @@ module "always" {
 
 module "account_map" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.2"
+  version = "0.22.3"
 
   component   = "account-map"
   privileged  = var.privileged
   tenant      = var.global_tenant_name
   environment = var.global_environment_name
-  stage       = var.root_account_stage_name
+  stage       = var.global_stage_name
 
   context = module.always.context
 }
@@ -33,6 +33,8 @@ locals {
 
   # Support for AWS SSO Permission Sets
   permission_set_arn_like = distinct(compact(flatten([for acct, v in var.permission_set_map : formatlist(
-    format("arn:%s:iam::%s:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_%%s_*", local.aws_partition, module.account_map.outputs.full_account_map[acct]),
+    # arn:aws:iam::550826706431:role/aws-reserved/sso.amazonaws.com/ap-southeast-1/AWSReservedSSO_IdentityAdminRoleAccess_b68e107e9495e2fc
+    # AWS SSO Sometimes includes `/region/`, but not always.
+    format("arn:%s:iam::%s:role/aws-reserved/sso.amazonaws.com*/AWSReservedSSO_%%s_*", local.aws_partition, module.account_map.outputs.full_account_map[acct]),
   v)])))
 }

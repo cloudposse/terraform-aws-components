@@ -115,6 +115,7 @@ usage: |-
   |[cloudtrail-bucket](./modules/cloudtrail-bucket) | Provisions a bucket for storing cloudtrail logs for auditing purposes. |
   |[datadog-integration](./modules/datadog-integration) | Provisions a DataDog <=> AWS integration. |
   |[datadog-monitor](./modules/datadog-monitor) | Provisions global DataDog monitors. |
+  |[dms](./modules/dms) | Provisions AWS DMS resources: DMS IAM roles, DMS endpoints, DMS replication instances, DMS replication tasks. |
   |[dns-delegated](./modules/dns-delegated) | Provisions a DNS zone which delegates nameservers to the DNS zone in the primary DNS account. |
   |[dns-primary](./modules/dns-primary) | Provisions the primary DNS zones into an AWS account. |
   |[ecr](./modules/ecr) | Provisions repositories, lifecycle rules, and permissions for streamlined ECR usage. |

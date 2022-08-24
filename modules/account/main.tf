@@ -77,7 +77,7 @@ locals {
 # Convert all Service Control Policy statements from YAML config to Terraform list
 module "service_control_policy_statements_yaml_config" {
   source  = "cloudposse/config/yaml"
-  version = "0.8.1"
+  version = "1.0.1"
 
   list_config_local_base_path = path.module
   list_config_paths           = var.service_control_policies_config_paths
@@ -259,15 +259,15 @@ locals {
       eks    = tobool(lookup(try(acc.tags, {}), "eks", false))
       id     = local.account_names_account_ids[acc.name]
       tenant = try(acc.tenant, var.tenant)
+      stage  = try(acc.stage, acc.name)
     }) },
     {
       (var.organization_config.root_account.name) = merge({ for k, v in var.organization_config.root_account : k => v if k != "name" }, {
         id     = local.organization_master_account_id
         eks    = tobool(lookup(try(var.organization_config.root_account.tags, {}), "eks", false))
         tenant = var.tenant
+        stage  = try(var.organization_config.root_account.stage, var.organization_config.root_account.name)
       })
   })
 
 }
-
-

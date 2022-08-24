@@ -16,8 +16,8 @@ variable "global_environment_name" {
   default     = "gbl"
 }
 
-variable "root_account_stage_name" {
+variable "global_stage_name" {
   type        = string
-  description = "The stage name for the root account"
+  description = "The stage name for the organization management account (where the `accout-map` state is stored)"
   default     = "root"
 }

@@ -22,7 +22,7 @@ components:
       vars:
         enabled: true
         tags:
-          Team: kin
+          Team: sre
           Service: sns-topic
         subscribers: {}
         allowed_aws_services_for_sns_published: []

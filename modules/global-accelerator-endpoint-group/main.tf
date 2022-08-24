@@ -1,6 +1,6 @@
 module "endpoint_group" {
   source  = "cloudposse/global-accelerator/aws//modules/endpoint-group"
-  version = "0.4.0"
+  version = "0.5.0"
 
   context = module.this.context
 

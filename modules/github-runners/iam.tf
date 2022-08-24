@@ -23,21 +23,17 @@ data "aws_iam_policy_document" "instance_assume_role_policy" {
 data "aws_iam_policy_document" "github_action_runner" {
   count = local.enabled ? 1 : 0
 
-  # Allow EC2 instances to read their designated GitHub PAT from SSM Parameter Store.
-  # This assumes that the SSM Parameter uses the alias/aws/ssm KMS Key, and NOT a CMK.
-  statement {
-    sid     = "AllowGetGitHubToken"
-    actions = ["ssm:GetParameters"]
-    resources = [
-      join("", data.aws_ssm_parameter.github_token.*.arn)
-    ]
-  }
-
   statement {
     sid     = "AllowAssumeCICDRole"
     actions = ["sts:AssumeRole"]
     resources = [
-      format(module.this.tenant != null ? "arn:${local.aws_partition}:iam::%[3]s:role/%[1]s-%[2]s-gbl-identity-cicd" : "arn:${local.aws_partition}:iam::%[3]s:role/%[1]s-gbl-identity-cicd", module.this.namespace, module.this.tenant, local.identity_account_id)
+      format(
+        var.tenant != null ? (
+          "arn:${local.aws_partition}:iam::%[3]s:role/%[1]s-%[2]s-gbl-identity-cicd"
+        ) : "arn:${local.aws_partition}:iam::%[3]s:role/%[1]s-gbl-identity-cicd",
+        module.this.namespace,
+        module.this.tenant,
+      local.identity_account_id)
     ]
   }
 
@@ -74,6 +70,16 @@ data "aws_iam_policy_document" "github_action_runner" {
       "ecr:UploadLayerPart",
     ]
     resources = ["*"]
+  }
+
+  # Allow EC2 instances to read their designated GitHub PAT from SSM Parameter Store.
+  # This assumes that the SSM Parameter uses the alias/aws/ssm KMS Key, and NOT a CMK.
+  statement {
+    sid     = "AllowGetGitHubToken"
+    actions = ["ssm:GetParameters"]
+    resources = [
+      join("", data.aws_ssm_parameter.github_token.*.arn)
+    ]
   }
 }
 

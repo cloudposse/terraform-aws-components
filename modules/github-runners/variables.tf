@@ -70,14 +70,40 @@ variable "wait_for_capacity_timeout" {
   description = "A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. (See also Waiting for Capacity below.) Setting this to '0' causes Terraform to skip all Capacity Waiting behavior"
 }
 
+variable "cpu_utilization_high_evaluation_periods" {
+  type        = number
+  default     = 2
+  description = "The number of periods over which data is compared to the specified threshold"
+}
+
+variable "cpu_utilization_high_period_seconds" {
+  type        = number
+  default     = 300
+  description = "The period in seconds over which the specified statistic is applied"
+}
+
 variable "cpu_utilization_high_threshold_percent" {
   type        = number
-  description = "CPU utilization high threshold"
+  default     = 90
+  description = "The value against which the specified statistic is compared"
+}
+
+variable "cpu_utilization_low_evaluation_periods" {
+  type        = number
+  default     = 2
+  description = "The number of periods over which data is compared to the specified threshold"
+}
+
+variable "cpu_utilization_low_period_seconds" {
+  type        = number
+  default     = 300
+  description = "The period in seconds over which the specified statistic is applied"
 }
 
 variable "cpu_utilization_low_threshold_percent" {
   type        = number
-  description = "CPU utilization low threshold"
+  default     = 10
+  description = "The value against which the specified statistic is compared"
 }
 
 variable "ssm_parameter_name_format" {
@@ -90,6 +116,12 @@ variable "ssm_path" {
   type        = string
   default     = "github"
   description = "GitHub token SSM path"
+}
+
+variable "ssm_path_key" {
+  type        = string
+  default     = "registration-token"
+  description = "GitHub token SSM path key"
 }
 
 variable "runner_version" {
@@ -175,4 +207,10 @@ variable "block_device_mappings" {
   }))
 
   default = []
+}
+
+variable "max_instance_lifetime" {
+  type        = number
+  default     = null
+  description = "The maximum amount of time, in seconds, that an instance can be in service, values must be either equal to 0 or between 604800 and 31536000 seconds"
 }

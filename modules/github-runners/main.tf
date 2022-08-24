@@ -6,6 +6,7 @@ locals {
   identity_account_id    = module.account_map.outputs.full_account_map[local.identity_account_name]
 
   userdata_template                 = "${path.module}/templates/user-data.sh"
+  create-latest-svc                 = "${path.module}/templates/create-latest-svc.sh"
   deregister_runner_script_template = "${path.module}/templates/deregister-github-runner"
 
   cloud_config = <<-END
@@ -30,9 +31,23 @@ locals {
       encoding    = "b64"
       content     = filebase64("${path.module}/templates/amazon-cloudwatch-agent.json")
     },
+    {
+      path        = "/tmp/create-latest-svc.sh"
+      permissions = "0755"
+      owner       = "root:root"
+      encoding    = "b64"
+      content     = filebase64(local.create-latest-svc)
+    },
   ]
 })}
   END
+}
+
+data "aws_ssm_parameter" "github_token" {
+  count = local.enabled ? 1 : 0
+
+  name            = format(var.ssm_parameter_name_format, var.ssm_path, var.ssm_path_key)
+  with_decryption = true
 }
 
 data "cloudinit_config" "config" {
@@ -82,7 +97,7 @@ module "sg" {
   source  = "cloudposse/security-group/aws"
   version = "1.0.1"
 
-  security_group_description = "Security group for GitHub runners"
+  security_group_description = "Security group for GitHub runner"
   allow_all_egress           = true
   vpc_id                     = local.vpc_id
 
@@ -109,11 +124,16 @@ module "autoscale_group" {
   iam_instance_profile_name   = join("", aws_iam_instance_profile.github_action_runner.*.name)
   block_device_mappings       = var.block_device_mappings
   associate_public_ip_address = false
+  max_instance_lifetime       = var.max_instance_lifetime
 
   # Auto-scaling policies and CloudWatch metric alarms
-  autoscaling_policies_enabled           = true
-  cpu_utilization_high_threshold_percent = var.cpu_utilization_high_threshold_percent
-  cpu_utilization_low_threshold_percent  = var.cpu_utilization_low_threshold_percent
+  autoscaling_policies_enabled            = true
+  cpu_utilization_high_threshold_percent  = var.cpu_utilization_high_threshold_percent
+  cpu_utilization_high_period_seconds     = var.cpu_utilization_high_period_seconds
+  cpu_utilization_high_evaluation_periods = var.cpu_utilization_high_evaluation_periods
+  cpu_utilization_low_threshold_percent   = var.cpu_utilization_low_threshold_percent
+  cpu_utilization_low_period_seconds      = var.cpu_utilization_low_period_seconds
+  cpu_utilization_low_evaluation_periods  = var.cpu_utilization_low_evaluation_periods
 
   context = module.this.context
 }
