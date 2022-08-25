@@ -59,7 +59,7 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_iam_policy"></a> [iam\_policy](#module\_iam\_policy) | cloudposse/iam-policy/aws | 0.3.0 |
+| <a name="module_iam_policy"></a> [iam\_policy](#module\_iam\_policy) | cloudposse/iam-policy/aws | 0.4.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_mwaa_environment"></a> [mwaa\_environment](#module\_mwaa\_environment) | cloudposse/mwaa/aws | 0.4.8 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
