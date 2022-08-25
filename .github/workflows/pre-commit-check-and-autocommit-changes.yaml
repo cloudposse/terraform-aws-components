@@ -42,6 +42,7 @@ jobs:
           BASE_REF: ${{ github.base_ref }}
           LABELS: ${{ join(github.event.pull_request.labels.*.name, '\n') }}
           MODIFIED_FILES: ${{ steps.get-modified-files.outputs.modified_files }}
+          DEFAULT_TERRAFORM_VERSION: ${{ secrets.DEFAULT_TERRAFORM_VERSION }}
         run: |
           # Match labels like `terraform/0.12` or nothing (to prevent grep from returning a non-zero exit code)
           # Use [0-9] because \d is not standard part of egrep
@@ -51,17 +52,8 @@ jobs:
           if grep -Ez '^\W*[0-9]+\.[x0-9]+\W*$' <<<${TERRAFORM_VERSION}; then
             echo "Terraform version ${TERRAFORM_VERSION} will be used to check the formatting of files that have been modified since this branch diverged from ${BASE_REF}."
           elif [ -z "${TERRAFORM_VERSION}" ]; then
-            # If there are no compliant labels, it could be that the PR doesn't need Terraform linting in the first place
-            # To detemine this, check to see if any ".tf" files are modified.
-            if grep -E '.tf\>' <<<${MODIFIED_FILES}; then
-              echo "Terraform files have been modified on this branch, but there is no label on the pull request indicating which version of Terraform they are meant to be compliant with."
-              echo "A label is required indicating the version of Terraform to be used for formatting this component. (E.g., \"terraform/1.x\" or \"terraform/0.15\")"
-              exit 1
-            else
-              # Currently, TERRAFORM_VERSION='' and, since there are no .tf files for pre-commit to format, we just need to assign a placeholder
-              # version to get the pre-commit check step to pass.
-              TERRAFORM_VERSION=1.x
-            fi
+            TERRAFORM_VERSION="${DEFAULT_TERRAFORM_VERSION:-1.x}"
+            echo "No Terraform version found in the PR labels. Using the default Terraform version ${TERRAFORM_VERSION}."
           else
             echo "You have either chosen terraform labels with malformed versions or, more likely, you have chosen multiple terraform version labels."
             echo "Please select a single terraform version label that matches the following regular expression: terraform/[0-9]+\.[x0-9]+"
