@@ -1,6 +1,6 @@
 module "iam_policy" {
   source  = "cloudposse/iam-policy/aws"
-  version = "0.3.0"
+  version = "0.4.0"
   context = module.this.context
 
   iam_policy_statements = {
