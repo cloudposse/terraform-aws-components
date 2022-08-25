@@ -23,6 +23,7 @@ variable "description" {
 
 variable "alias" {
   type        = string
+  default     = ""
   description = "The display name of the alias. The name must start with the word `alias` followed by a forward slash. If not specified, the alias name will be auto-generated."
 }
 
