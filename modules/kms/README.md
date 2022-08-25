@@ -1,6 +1,6 @@
 # Component: `kms`
 
-This component is responsible for creating an kms Key.
+This component is responsible for provisioning a KMS Key.
 
 ## Usage
 
