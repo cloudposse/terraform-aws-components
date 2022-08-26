@@ -1,12 +1,8 @@
 # Component: `cognito`
 
-This component is responsible for deploying and managing Cognito User Pools on AWS.
-Cognito user pools are used for authentication and act as identity provider.
-With a user pool, your app users can sign in through the user pool or federate through a third-party identity provider (IdP). 
+This component is responsible for provisioning and managing AWS Cognito resources.
 
-For more information, see https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html
-
-This component can provision the following resources (defined via `cognito` YAML stack config):
+This component can provision the following resources:
 
   - [Cognito User Pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
   - [Cognito User Pool Clients](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-client-apps.html)

@@ -68,7 +68,6 @@ locals {
 
   # If lambda_config is NOT null
   lambda_config_not_null = var.lambda_config == null ? local.lambda_config_is_null : {
-
     create_auth_challenge          = lookup(var.lambda_config, "create_auth_challenge", null) == null ? var.lambda_config_create_auth_challenge : lookup(var.lambda_config, "create_auth_challenge")
     custom_message                 = lookup(var.lambda_config, "custom_message", null) == null ? var.lambda_config_custom_message : lookup(var.lambda_config, "custom_message")
     define_auth_challenge          = lookup(var.lambda_config, "define_auth_challenge", null) == null ? var.lambda_config_define_auth_challenge : lookup(var.lambda_config, "define_auth_challenge")
@@ -88,7 +87,7 @@ locals {
   lambda_config = var.lambda_config == null ? [local.lambda_config_is_null] : [local.lambda_config_not_null]
 
   # If no password_policy is provided, build a password_policy using the default values
-  # If lambda_config is null
+  # If password_policy is null
   password_policy_is_null = {
     minimum_length                   = var.password_policy_minimum_length
     require_lowercase                = var.password_policy_require_lowercase
@@ -98,6 +97,7 @@ locals {
     temporary_password_validity_days = var.password_policy_temporary_password_validity_days
   }
 
+  # If password_policy is NOT null
   password_policy_not_null = var.password_policy == null ? local.password_policy_is_null : {
     minimum_length                   = lookup(var.password_policy, "minimum_length", null) == null ? var.password_policy_minimum_length : lookup(var.password_policy, "minimum_length")
     require_lowercase                = lookup(var.password_policy, "require_lowercase", null) == null ? var.password_policy_require_lowercase : lookup(var.password_policy, "require_lowercase")
