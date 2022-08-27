@@ -129,7 +129,7 @@ variable "region" {
   description = "AWS Region"
 }
 
-variable "create_bucket" {
+variable "bucket_enabled" {
   type        = bool
   description = "Create a new S3 bucket for this SFTP server if true - set s3_bucket_name to an existing bucket otherwise"
 }
