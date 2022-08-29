@@ -4,7 +4,7 @@ export DOCKER_TAG ?= latest
 export DOCKER_IMAGE_NAME ?= $(DOCKER_IMAGE):$(DOCKER_TAG)
 export DOCKER_BUILD_FLAGS =
 export README_DEPS ?= docs/targets.md docs/terraform.md
--include $(shell curl -sSL -o .build-harness "https://git.io/build-harness"; echo .build-harness)
+-include $(shell curl -sSL -o .build-harness "https://cloudposse.tools/build-harness"; echo .build-harness)
 
 UPSTREAM_PATH := "NONE"
 COMPONENT    := "NONE"
@@ -26,6 +26,10 @@ run:
 ## Rebuild README for all Terraform components
 rebuild-docs:
 	@pre-commit run --all-files terraform_docs
+
+## Rebuild README for Terraform Mixins
+rebuild-mixins-docs:
+	bin/rebuild-mixins-docs.sh
 
 ## Upstream a given component
 upstream-component:

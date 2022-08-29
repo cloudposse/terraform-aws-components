@@ -24,12 +24,6 @@ variable "enabled_policy_types" {
   description = "List of Organizations policy types to enable in the Organization Root. Organization must have feature_set set to ALL. For additional information about valid policy types (e.g. SERVICE_CONTROL_POLICY and TAG_POLICY), see the [AWS Organizations API Reference](https://docs.aws.amazon.com/organizations/latest/APIReference/API_EnablePolicyType.html)"
 }
 
-variable "root_account_stage_name" {
-  type        = string
-  default     = "root"
-  description = "The stage name for the Organization root (master) account"
-}
-
 variable "organization_config" {
   type        = any
   description = "Organization, Organizational Units and Accounts configuration"
@@ -40,3 +34,8 @@ variable "service_control_policies_config_paths" {
   description = "List of paths to Service Control Policy configurations"
 }
 
+variable "organization_enabled" {
+  type        = bool
+  description = "A boolean flag indicating whether to create an Organization or use the existing one"
+  default     = true
+}

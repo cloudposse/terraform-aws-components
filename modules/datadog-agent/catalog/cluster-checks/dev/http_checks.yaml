@@ -1,0 +1,4 @@
+http_check.yaml:
+  instances:
+    - name: "[${stage}] Custom Dev App"
+      url: "https://my-custom-dev-app.acme.com"

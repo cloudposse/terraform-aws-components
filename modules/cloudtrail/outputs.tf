@@ -14,21 +14,21 @@ output "cloudtrail_home_region" {
 }
 
 output "cloudtrail_logs_log_group_arn" {
-  value       = aws_cloudwatch_log_group.cloudtrail_cloudwatch_logs.arn
+  value       = local.enabled ? join("", aws_cloudwatch_log_group.cloudtrail_cloudwatch_logs[*].arn) : null
   description = "CloudTrail Logs log group ARN"
 }
 
 output "cloudtrail_logs_log_group_name" {
-  value       = aws_cloudwatch_log_group.cloudtrail_cloudwatch_logs.name
+  value       = local.enabled ? join("", aws_cloudwatch_log_group.cloudtrail_cloudwatch_logs[*].name) : null
   description = "CloudTrail Logs log group name"
 }
 
 output "cloudtrail_logs_role_arn" {
-  value       = aws_iam_role.cloudtrail_cloudwatch_logs.arn
+  value       = local.enabled ? join("", aws_iam_role.cloudtrail_cloudwatch_logs[*].arn) : null
   description = "CloudTrail Logs role ARN"
 }
 
 output "cloudtrail_logs_role_name" {
-  value       = aws_iam_role.cloudtrail_cloudwatch_logs.name
+  value       = local.enabled ? join("", aws_iam_role.cloudtrail_cloudwatch_logs[*].name) : null
   description = "CloudTrail Logs role name"
 }

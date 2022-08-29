@@ -1,3 +1,4 @@
+
 <!-- markdownlint-disable -->
 # terraform-aws-components [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-components.svg)](https://github.com/cloudposse/terraform-aws-components/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 <!-- markdownlint-restore -->
@@ -28,7 +29,6 @@
 -->
 
 This is a collection of reusable Terraform components and blueprints for provisioning reference architectures.
-
 
 ---
 
@@ -94,6 +94,7 @@ make rebuild-docs
 
 
 
+
 ## Usage
 
 
@@ -109,6 +110,7 @@ See each component's README directory for usage.
 |[cloudtrail-bucket](./modules/cloudtrail-bucket) | Provisions a bucket for storing cloudtrail logs for auditing purposes. |
 |[datadog-integration](./modules/datadog-integration) | Provisions a DataDog <=> AWS integration. |
 |[datadog-monitor](./modules/datadog-monitor) | Provisions global DataDog monitors. |
+|[dms](./modules/dms) | Provisions AWS DMS resources: DMS IAM roles, DMS endpoints, DMS replication instances, DMS replication tasks. |
 |[dns-delegated](./modules/dns-delegated) | Provisions a DNS zone which delegates nameservers to the DNS zone in the primary DNS account. |
 |[dns-primary](./modules/dns-primary) | Provisions the primary DNS zones into an AWS account. |
 |[ecr](./modules/ecr) | Provisions repositories, lifecycle rules, and permissions for streamlined ECR usage. |
@@ -136,6 +138,8 @@ Available targets:
   help/all                            Display help for all targets
   help/short                          This help short screen
   rebuild-docs                        Rebuild README for all Terraform components
+  rebuild-mixins-docs                 Rebuild README for Terraform Mixins
+  upstream-component                  Upstream a given component
 
 ```
 <!-- markdownlint-restore -->
@@ -174,6 +178,7 @@ Like this project? Please give it a ★ on [our GitHub](https://github.com/cloud
 Are you using this project or any of our other projects? Consider [leaving a testimonial][testimonial]. =)
 
 
+
 ## Related Projects
 
 Check out these related projects.
@@ -183,8 +188,6 @@ Check out these related projects.
 - [prod.cloudposse.co](https://github.com/cloudposse/prod.cloudposse.co) - Example Terraform Reference Architecture of a Geodesic Module for a Production Organization in AWS.
 - [staging.cloudposse.co](https://github.com/cloudposse/staging.cloudposse.co) - Example Terraform Reference Architecture of a Geodesic Module for a Staging Organization in AWS.
 - [dev.cloudposse.co](https://github.com/cloudposse/dev.cloudposse.co) - Example Terraform Reference Architecture of a Geodesic Module for a Development Sandbox Organization in AWS.
-
-
 
 
 ## References
@@ -265,7 +268,7 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 ## Copyright
 
-Copyright © 2017-2021 [Cloud Posse, LLC](https://cpco.io/copyright)
+Copyright © 2017-2022 [Cloud Posse, LLC](https://cpco.io/copyright)
 
 
 
@@ -323,8 +326,8 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 ### Contributors
 
 <!-- markdownlint-disable -->
-|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] | [![Matt Gowie][Gowiem_avatar]][Gowiem_homepage]<br/>[Matt Gowie][Gowiem_homepage] |
-|---|---|---|---|
+|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] | [![Matt Gowie][Gowiem_avatar]][Gowiem_homepage]<br/>[Matt Gowie][Gowiem_homepage] | [![Yonatan Koren][korenyoni_avatar]][korenyoni_homepage]<br/>[Yonatan Koren][korenyoni_homepage] |
+|---|---|---|---|---|
 <!-- markdownlint-restore -->
 
   [osterman_homepage]: https://github.com/osterman
@@ -335,10 +338,12 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [aknysh_avatar]: https://img.cloudposse.com/150x150/https://github.com/aknysh.png
   [Gowiem_homepage]: https://github.com/Gowiem
   [Gowiem_avatar]: https://img.cloudposse.com/150x150/https://github.com/Gowiem.png
+  [korenyoni_homepage]: https://github.com/korenyoni
+  [korenyoni_avatar]: https://img.cloudposse.com/150x150/https://github.com/korenyoni.png
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
-
+<!-- markdownlint-disable -->
   [logo]: https://cloudposse.com/logo-300x69.svg
   [docs]: https://cpco.io/docs?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=docs
   [website]: https://cpco.io/homepage?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=website
@@ -369,3 +374,4 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [share_googleplus]: https://plus.google.com/share?url=https://github.com/cloudposse/terraform-aws-components
   [share_email]: mailto:?subject=terraform-aws-components&body=https://github.com/cloudposse/terraform-aws-components
   [beacon]: https://ga-beacon.cloudposse.com/UA-76589703-4/cloudposse/terraform-aws-components?pixel&cs=github&cm=readme&an=terraform-aws-components
+<!-- markdownlint-restore -->

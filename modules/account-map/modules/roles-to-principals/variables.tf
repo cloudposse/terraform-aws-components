@@ -3,10 +3,10 @@ variable "role_map" {
   description = "Map of account:[role, role...]. Use `*` as role for entire account"
 }
 
-variable "iam_role_arn_template" {
-  type        = string
-  default     = "arn:aws:iam::%s:role/%s-%s-%s-%s"
-  description = "IAM Role ARN template"
+variable "permission_set_map" {
+  type        = map(list(string))
+  description = "Map of account:[PermissionSet, PermissionSet...] specifying AWS SSO PermissionSets when accessed from specified accounts"
+  default     = {}
 }
 
 variable "privileged" {
@@ -15,14 +15,20 @@ variable "privileged" {
   default     = false
 }
 
+variable "global_tenant_name" {
+  type        = string
+  description = "The tenant name used for organization-wide resources"
+  default     = "core"
+}
+
 variable "global_environment_name" {
   type        = string
   description = "Global environment name"
   default     = "gbl"
 }
 
-variable "root_account_stage_name" {
+variable "global_stage_name" {
   type        = string
-  description = "The stage name for the root account"
+  description = "The stage name for the organization management account (where the `accout-map` state is stored)"
   default     = "root"
 }

@@ -3,8 +3,24 @@ repos:
     rev: v2.3.0
     hooks:
       - id: check-yaml
-  - repo: git://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.48.0
+        exclude: |
+            (?x)^(
+                modules/cert-manager/cert-manager-issuer/templates/.*.yaml |
+                modules/github-actions-runner/runners/actions-runner/chart/templates/.*.yaml |
+                modules/echo-server/charts/echo-server/templates/.*.yaml
+            )$
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.71.0
     hooks:
       - id: terraform_fmt
       - id: terraform_docs
+        args: ['--args=--lockfile=false']
+  - repo: local
+    hooks:
+      - id: rebuild-mixins-docs
+        name: rebuild-mixins-docs
+        entry: bash -c 'make rebuild-mixins-docs'
+        language: system
+        types: ["text"]
+        files: (mixins\/.*|bin\/rebuild-mixins-docs\.sh)
+        pass_filenames: false

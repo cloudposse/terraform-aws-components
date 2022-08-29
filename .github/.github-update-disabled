@@ -1,0 +1,6 @@
+This presence of a .github/.github-update-disabled file
+prevents `make github/update` from making any changes including
+changes to the CODEOWNERS file. You can prevent changes to
+CODEOWNERS while allowing all other normal `github/update` changes
+by creating a .github/.github-CODEOWNERS-update-disabled file instead.
+The contents of these files are ignored, only their presence or absence matters.

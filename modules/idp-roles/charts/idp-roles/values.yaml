@@ -1,0 +1,29 @@
+# Default values for idp-roles.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# These default values can be overridden per environment in conf/<env>.yaml files
+
+# Root is most powerful role, can do anything
+# Ops personnel need this level of access, so Admins are "Super" Ops
+root_crb_name: "idp-ops"
+
+root_cluster_role: "cluster-admin"
+
+# If you can edit the kube-system/aws-auth configmap you can give yourself
+# whatever privileges you want. Ops personnel need to be able to edit configmaps,
+# so unless we can find a way to protect that specific configmap, we might as well
+# let them be cluster admins.
+#
+# This role cannot be called idp:admin because that name is already used by Keycloak
+root_client_role: "idp:ops"
+
+# PowerUser
+poweruser_crb_name: "idp-poweruser"
+poweruser_cluster_role: "edit"
+poweruser_client_role: "idp:poweruser"
+
+# Observer
+observer_crb_name: "idp-observer"
+observer_cluster_role: "idp-observer"
+observer_client_role: "idp:observer"

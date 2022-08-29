@@ -1,8 +1,8 @@
 locals {
-  eks_cluster_managed_security_group_id = data.terraform_remote_state.eks.outputs.eks_cluster_managed_security_group_id
-  private_subnet_ids                    = data.terraform_remote_state.vpc.outputs.private_subnet_ids
-  vpc_id                                = data.terraform_remote_state.vpc.outputs.vpc_id
-  zone_id                               = data.terraform_remote_state.dns_delegated.outputs.default_dns_zone_id
+  existing_security_groups = var.use_eks_security_group ? [module.eks[0].outputs.eks_cluster_managed_security_group_id] : []
+  private_subnet_ids       = module.vpc.outputs.private_subnet_ids
+  vpc_id                   = module.vpc.outputs.vpc_id
+  zone_id                  = module.dns_delegated.outputs.default_dns_zone_id
 }
 
 module "efs" {
@@ -11,7 +11,7 @@ module "efs" {
   region                          = var.region
   vpc_id                          = local.vpc_id
   subnets                         = local.private_subnet_ids
-  security_groups                 = [local.eks_cluster_managed_security_group_id]
+  security_groups                 = local.existing_security_groups
   performance_mode                = var.performance_mode
   provisioned_throughput_in_mibps = var.provisioned_throughput_in_mibps
   throughput_mode                 = var.throughput_mode
