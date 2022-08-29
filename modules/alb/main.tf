@@ -1,6 +1,6 @@
 module "alb" {
   source  = "cloudposse/alb/aws"
-  version = "0.33.2"
+  version = "1.4.0"
 
   vpc_id          = module.remote_vpc.outputs.vpc_id
   subnet_ids      = module.remote_vpc.outputs.public_subnet_ids

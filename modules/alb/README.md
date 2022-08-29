@@ -34,7 +34,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_alb"></a> [alb](#module\_alb) | cloudposse/alb/aws | 0.33.2 |
+| <a name="module_alb"></a> [alb](#module\_alb) | cloudposse/alb/aws | 1.4.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_remote_dns"></a> [remote\_dns](#module\_remote\_dns) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
 | <a name="module_remote_vpc"></a> [remote\_vpc](#module\_remote\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
