@@ -24,7 +24,7 @@ components:
         mysql_storage_encrypted: true
         aurora_mysql_engine: "aurora-mysql"
         allowed_cidr_blocks:
-          # all otto
+          # all automation
           - 10.128.0.0/22
           # all corp
           - 10.128.16.0/22
@@ -76,6 +76,65 @@ components:
         cluster_size: 1
         cluster_name: main
         database_name: main
+```
+
+## Disaster Recovery with Cross-Region Replication
+
+This component is designed to support cross-region replication with continuous replication. If enabled and deployed, a secondary cluster will be deployed in a different region than the primary cluster. This approach is highly aggresive and costly, but in a disaster scenario where the primary cluster fails, the secondary cluster can be promoted to take its place. Follow these steps to handle a Disaster Recovery.
+
+### Set up
+
+To deploy a secondary cluster for cross-region replication, add the following catalog entries to an alternative region:
+
+Default settings for a secondary cluster:
+```yaml
+import:
+  - catalog/aurora-mysql/defaults
+
+components:
+  terraform:
+    aurora-mysql/secondary/defaults:
+      metadata:
+        component: aurora-mysql
+        inherits:
+          - aurora-mysql/defaults
+      vars:
+        eks_component_names: []
+        allowed_cidr_blocks:
+          # all automation in use1 (where Spacelift is deployed)
+          - 10.128.0.0/22
+          # all corp in the same region, use2
+          - 10.132.16.0/22
+        mysql_instance_type: "db.t3.medium"
+        mysql_name: "replica"
+        primary_cluster_region: use1
+        is_read_replica: true
+```
+
+Environment specific settings for `dev` as an example:
+
+```yaml
+import:
+  - catalog/aurora-mysql/clusters/secondary/defaults
+
+components:
+  terraform:
+    aurora-mysql/dev:
+      metadata:
+        component: aurora-mysql
+        inherits:
+          - aurora-mysql/defaults
+          - aurora-mysql/secondary/defaults
+      vars:
+        enabled: true
+        primary_cluster_component: aurora-mysql/dev
+```
+
+### Promoting the Read Replica
+
+To promote the secondary cluster to a primary cluster, change the following values and redeploy the component with Atmos.
+```yaml
+is_read_replica: false # Disable is_read_replica to promote the replica
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
