@@ -19,8 +19,7 @@
 #
 
 module "this" {
-  source  = "cloudposse/label/null"
-  version = "0.24.1"
+  source = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.21.0"
 
   enabled             = var.enabled
   namespace           = var.namespace

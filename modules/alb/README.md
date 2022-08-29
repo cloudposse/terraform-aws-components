@@ -22,8 +22,8 @@ components:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.32 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | >= 2.1 |
 
 ## Providers
@@ -35,10 +35,10 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_alb"></a> [alb](#module\_alb) | cloudposse/alb/aws | 0.33.2 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles |  |
-| <a name="module_remote_dns"></a> [remote\_dns](#module\_remote\_dns) | cloudposse/stack-config/yaml//modules/remote-state | 0.17.0 |
-| <a name="module_remote_vpc"></a> [remote\_vpc](#module\_remote\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 0.17.0 |
-| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.24.1 |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
+| <a name="module_remote_dns"></a> [remote\_dns](#module\_remote\_dns) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_remote_vpc"></a> [remote\_vpc](#module\_remote\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/cloudposse/terraform-null-label.git | tags/0.21.0 |
 
 ## Resources
 
