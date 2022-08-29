@@ -94,12 +94,6 @@ variable "mysql_cluster_size" {
   description = "MySQL cluster size"
 }
 
-variable "mysql_cluster_enabled" {
-  type        = string
-  default     = true
-  description = "Set to `false` to prevent the module from creating any resources"
-}
-
 variable "mysql_storage_encrypted" {
   type        = string
   default     = true
@@ -159,8 +153,33 @@ variable "publicly_accessible" {
   default = false
 }
 
-variable "eks_component_name" {
-  type        = string
-  description = "The name of the eks component"
-  default     = "eks/eks"
+variable "eks_component_names" {
+  type        = set(string)
+  description = "The names of the eks components"
+  default     = ["eks/cluster"]
 }
+
+variable "replication_source_identifier" {
+  type        = string
+  description = "ARN of a source DB cluster or DB instance if this DB cluster is to be created as a Read Replica. If this value is empty and replication is enabled, remote state will attempt to find a matching cluster in the Primary DB Cluster's region"
+  default     = ""
+}
+
+variable "replication_enabled" {
+  type        = bool
+  description = "Whether or not to create this DB cluster as a Read Replica."
+  default     = false
+}
+
+variable "primary_cluster_region" {
+  type        = string
+  description = "If replication is enabled and no replication source is explicitly given, the region to look for a matching cluster"
+  default     = ""
+}
+
+variable "primary_cluster_component" {
+  type        = string
+  description = "If replication is enabled and no replication source is explicitly given, the component name for the primary cluster"
+  default     = "aurora-mysql"
+}
+

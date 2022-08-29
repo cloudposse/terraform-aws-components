@@ -106,6 +106,7 @@ components:
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_kms_key_rds"></a> [kms\_key\_rds](#module\_kms\_key\_rds) | cloudposse/kms-key/aws | 0.12.1 |
 | <a name="module_parameter_store_write"></a> [parameter\_store\_write](#module\_parameter\_store\_write) | cloudposse/ssm-parameter-store/aws | 0.10.0 |
+| <a name="module_primary_cluster"></a> [primary\_cluster](#module\_primary\_cluster) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
 
@@ -137,7 +138,7 @@ components:
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_eks_component_name"></a> [eks\_component\_name](#input\_eks\_component\_name) | The name of the eks component | `string` | `"eks/eks"` | no |
+| <a name="input_eks_component_names"></a> [eks\_component\_names](#input\_eks\_component\_names) | The names of the eks components | `set(string)` | <pre>[<br>  "eks/cluster"<br>]</pre> | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
@@ -151,7 +152,6 @@ components:
 | <a name="input_mysql_admin_user"></a> [mysql\_admin\_user](#input\_mysql\_admin\_user) | MySQL admin user name | `string` | `""` | no |
 | <a name="input_mysql_backup_retention_period"></a> [mysql\_backup\_retention\_period](#input\_mysql\_backup\_retention\_period) | Number of days for which to retain backups | `number` | `3` | no |
 | <a name="input_mysql_backup_window"></a> [mysql\_backup\_window](#input\_mysql\_backup\_window) | Daily time range during which the backups happen | `string` | `"07:00-09:00"` | no |
-| <a name="input_mysql_cluster_enabled"></a> [mysql\_cluster\_enabled](#input\_mysql\_cluster\_enabled) | Set to `false` to prevent the module from creating any resources | `string` | `true` | no |
 | <a name="input_mysql_cluster_size"></a> [mysql\_cluster\_size](#input\_mysql\_cluster\_size) | MySQL cluster size | `string` | `2` | no |
 | <a name="input_mysql_db_name"></a> [mysql\_db\_name](#input\_mysql\_db\_name) | Database name (default is not to create a database | `string` | `""` | no |
 | <a name="input_mysql_deletion_protection"></a> [mysql\_deletion\_protection](#input\_mysql\_deletion\_protection) | Set to `true` to protect the database from deletion | `string` | `true` | no |
@@ -164,9 +164,13 @@ components:
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_performance_insights_enabled"></a> [performance\_insights\_enabled](#input\_performance\_insights\_enabled) | Set `true` to enable Performance Insights | `bool` | `false` | no |
+| <a name="input_primary_cluster_component"></a> [primary\_cluster\_component](#input\_primary\_cluster\_component) | If replication is enabled and no replication source is explicitly given, the component name for the primary cluster | `string` | `"aurora-mysql"` | no |
+| <a name="input_primary_cluster_region"></a> [primary\_cluster\_region](#input\_primary\_cluster\_region) | If replication is enabled and no replication source is explicitly given, the region to look for a matching cluster | `string` | `""` | no |
 | <a name="input_publicly_accessible"></a> [publicly\_accessible](#input\_publicly\_accessible) | n/a | `bool` | `false` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
+| <a name="input_replication_enabled"></a> [replication\_enabled](#input\_replication\_enabled) | Whether or not to create this DB cluster as a Read Replica. | `bool` | `false` | no |
+| <a name="input_replication_source_identifier"></a> [replication\_source\_identifier](#input\_replication\_source\_identifier) | ARN of a source DB cluster or DB instance if this DB cluster is to be created as a Read Replica. If this value is empty and replication is enabled, remote state will attempt to find a matching cluster in the Primary DB Cluster's region | `string` | `""` | no |
 | <a name="input_ssm_password_source"></a> [ssm\_password\_source](#input\_ssm\_password\_source) | If set, DB Admin user password will be retrieved from SSM using the key `format(var.ssm_password_source, local.db_username)` | `string` | `""` | no |
 | <a name="input_ssm_path_prefix"></a> [ssm\_path\_prefix](#input\_ssm\_path\_prefix) | SSM path prefix | `string` | `"rds"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
@@ -177,6 +181,8 @@ components:
 
 | Name | Description |
 |------|-------------|
+| <a name="output_aurora_mysql_cluster_arn"></a> [aurora\_mysql\_cluster\_arn](#output\_aurora\_mysql\_cluster\_arn) | The ARN of Aurora Cluster |
+| <a name="output_aurora_mysql_cluster_id"></a> [aurora\_mysql\_cluster\_id](#output\_aurora\_mysql\_cluster\_id) | The ID of Aurora Cluster |
 | <a name="output_aurora_mysql_cluster_name"></a> [aurora\_mysql\_cluster\_name](#output\_aurora\_mysql\_cluster\_name) | RDS Aurora-MySQL: Cluster Identifier |
 | <a name="output_aurora_mysql_endpoint"></a> [aurora\_mysql\_endpoint](#output\_aurora\_mysql\_endpoint) | RDS Aurora-MySQL: Endpoint |
 | <a name="output_aurora_mysql_master_hostname"></a> [aurora\_mysql\_master\_hostname](#output\_aurora\_mysql\_master\_hostname) | RDS Aurora-MySQL: DB Master hostname |

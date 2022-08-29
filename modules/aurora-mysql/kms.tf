@@ -2,8 +2,6 @@ module "kms_key_rds" {
   source  = "cloudposse/kms-key/aws"
   version = "0.12.1"
 
-  enabled = local.mysql_enabled
-
   description             = "KMS key for Aurora MySQL"
   deletion_window_in_days = 10
   enable_key_rotation     = true
@@ -59,7 +57,8 @@ data "aws_iam_policy_document" "kms_key_rds" {
       "kms:Decrypt*",
       "kms:ReEncrypt*",
       "kms:GenerateDataKey*",
-      "kms:Describe*"
+      "kms:Describe*",
+      "kms:CreateGrant"
     ]
 
     resources = [
