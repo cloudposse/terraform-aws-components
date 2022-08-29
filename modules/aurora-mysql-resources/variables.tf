@@ -23,7 +23,7 @@ variable "ssm_path_prefix" {
 variable "ssm_password_source" {
   type        = string
   default     = ""
-  description = "If var.ssm_passwords_enabled is true, DB user passwords will be retrieved from SSM using the key `format(var.ssm_password_source, local.db_username)`. If this value is not set, a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster."
+  description = "If var.ssm_passwords_enabled is true, DB user passwords will be retrieved from SSM using `var.ssm_password_source` and the database username. If this value is not set, a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster."
 }
 
 variable "mysql_admin_password" {

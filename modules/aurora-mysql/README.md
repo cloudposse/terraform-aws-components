@@ -171,7 +171,7 @@ components:
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_replication_enabled"></a> [replication\_enabled](#input\_replication\_enabled) | Whether or not to create this DB cluster as a Read Replica. | `bool` | `false` | no |
 | <a name="input_replication_source_identifier"></a> [replication\_source\_identifier](#input\_replication\_source\_identifier) | ARN of a source DB cluster or DB instance if this DB cluster is to be created as a Read Replica. If this value is empty and replication is enabled, remote state will attempt to find a matching cluster in the Primary DB Cluster's region | `string` | `""` | no |
-| <a name="input_ssm_password_source"></a> [ssm\_password\_source](#input\_ssm\_password\_source) | If set, DB Admin user password will be retrieved from SSM using the key `format(var.ssm_password_source, local.db_username)` | `string` | `""` | no |
+| <a name="input_ssm_password_source"></a> [ssm\_password\_source](#input\_ssm\_password\_source) | If var.ssm\_passwords\_enabled is true, DB user passwords will be retrieved from SSM using `var.ssm_password_source` and the database username. If this value is not set, a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster. | `string` | `""` | no |
 | <a name="input_ssm_path_prefix"></a> [ssm\_path\_prefix](#input\_ssm\_path\_prefix) | SSM path prefix | `string` | `"rds"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
@@ -181,17 +181,17 @@ components:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_aurora_mysql_cluster_arn"></a> [aurora\_mysql\_cluster\_arn](#output\_aurora\_mysql\_cluster\_arn) | The ARN of Aurora Cluster |
-| <a name="output_aurora_mysql_cluster_id"></a> [aurora\_mysql\_cluster\_id](#output\_aurora\_mysql\_cluster\_id) | The ID of Aurora Cluster |
-| <a name="output_aurora_mysql_cluster_name"></a> [aurora\_mysql\_cluster\_name](#output\_aurora\_mysql\_cluster\_name) | RDS Aurora-MySQL: Cluster Identifier |
-| <a name="output_aurora_mysql_endpoint"></a> [aurora\_mysql\_endpoint](#output\_aurora\_mysql\_endpoint) | RDS Aurora-MySQL: Endpoint |
-| <a name="output_aurora_mysql_master_hostname"></a> [aurora\_mysql\_master\_hostname](#output\_aurora\_mysql\_master\_hostname) | RDS Aurora-MySQL: DB Master hostname |
-| <a name="output_aurora_mysql_master_password"></a> [aurora\_mysql\_master\_password](#output\_aurora\_mysql\_master\_password) | Location of admin password |
+| <a name="output_aurora_mysql_cluster_arn"></a> [aurora\_mysql\_cluster\_arn](#output\_aurora\_mysql\_cluster\_arn) | The ARN of Aurora cluster |
+| <a name="output_aurora_mysql_cluster_id"></a> [aurora\_mysql\_cluster\_id](#output\_aurora\_mysql\_cluster\_id) | The ID of Aurora cluster |
+| <a name="output_aurora_mysql_cluster_name"></a> [aurora\_mysql\_cluster\_name](#output\_aurora\_mysql\_cluster\_name) | Aurora MySQL cluster identifier |
+| <a name="output_aurora_mysql_endpoint"></a> [aurora\_mysql\_endpoint](#output\_aurora\_mysql\_endpoint) | Aurora MySQL endpoint |
+| <a name="output_aurora_mysql_master_hostname"></a> [aurora\_mysql\_master\_hostname](#output\_aurora\_mysql\_master\_hostname) | Aurora MySQL DB master hostname |
+| <a name="output_aurora_mysql_master_password"></a> [aurora\_mysql\_master\_password](#output\_aurora\_mysql\_master\_password) | Location of admin password in SSM |
 | <a name="output_aurora_mysql_master_password_ssm_key"></a> [aurora\_mysql\_master\_password\_ssm\_key](#output\_aurora\_mysql\_master\_password\_ssm\_key) | SSM key for admin password |
-| <a name="output_aurora_mysql_master_username"></a> [aurora\_mysql\_master\_username](#output\_aurora\_mysql\_master\_username) | RDS Aurora-MySQL: Username for the master DB user |
-| <a name="output_aurora_mysql_reader_endpoint"></a> [aurora\_mysql\_reader\_endpoint](#output\_aurora\_mysql\_reader\_endpoint) | RDS Aurora-MySQL: Reader Endpoint |
-| <a name="output_aurora_mysql_replicas_hostname"></a> [aurora\_mysql\_replicas\_hostname](#output\_aurora\_mysql\_replicas\_hostname) | RDS Aurora-MySQL: Replicas hostname |
-| <a name="output_cluster_domain"></a> [cluster\_domain](#output\_cluster\_domain) | AWS DNS name under which DB instances are provisioned |
+| <a name="output_aurora_mysql_master_username"></a> [aurora\_mysql\_master\_username](#output\_aurora\_mysql\_master\_username) | Aurora MySQL username for the master DB user |
+| <a name="output_aurora_mysql_reader_endpoint"></a> [aurora\_mysql\_reader\_endpoint](#output\_aurora\_mysql\_reader\_endpoint) | Aurora MySQL reader endpoint |
+| <a name="output_aurora_mysql_replicas_hostname"></a> [aurora\_mysql\_replicas\_hostname](#output\_aurora\_mysql\_replicas\_hostname) | Aurora MySQL replicas hostname |
+| <a name="output_cluster_domain"></a> [cluster\_domain](#output\_cluster\_domain) | Cluster DNS name |
 | <a name="output_kms_key_arn"></a> [kms\_key\_arn](#output\_kms\_key\_arn) | KMS key ARN for Aurora MySQL |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
