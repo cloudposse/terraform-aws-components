@@ -7,8 +7,8 @@ locals {
   create_db_user       = local.enabled && var.service_name != local.db_user
   save_password_in_ssm = local.enabled && var.save_password_in_ssm
 
-  db_user_key     = format("%s/%s/%s", var.ssm_path_prefix, var.service_name, "db_user")
-  db_password_key = format("%s/%s/%s", var.ssm_path_prefix, var.service_name, "db_password")
+  db_user_key     = format("%s/%s/users/%s/username", var.ssm_path_prefix, var.service_name, local.db_user)
+  db_password_key = format("%s/%s/users/%s/password", var.ssm_path_prefix, var.service_name, local.db_user)
 
   db_user_ssm = local.create_db_user ? {
     name        = local.db_user_key
@@ -91,7 +91,6 @@ resource "mysql_user" "default" {
   user               = local.db_user
   host               = "%"
   plaintext_password = local.db_password
-  #  depends_on         = [var.instance_ids]
 }
 
 # Grant the user full access to this specific database

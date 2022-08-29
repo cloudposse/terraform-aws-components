@@ -11,7 +11,7 @@ variable "aurora_mysql_component_name" {
 variable "ssm_passwords_enabled" {
   type        = bool
   default     = true
-  description = "Whether or not to use SSM for user passwords"
+  description = "When `true`, fetch user passwords from SSM"
 }
 
 variable "ssm_path_prefix" {
@@ -23,7 +23,9 @@ variable "ssm_path_prefix" {
 variable "ssm_password_source" {
   type        = string
   default     = ""
-  description = "If var.ssm_passwords_enabled is true, DB user passwords will be retrieved from SSM using `var.ssm_password_source` and the database username. If this value is not set, a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster."
+  description = <<-EOT
+    If var.ssm_passwords_enabled is true, DB user passwords will be retrieved from SSM using `var.ssm_password_source` and the database username. If this value is not set, a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster.
+    EOT
 }
 
 variable "mysql_admin_password" {

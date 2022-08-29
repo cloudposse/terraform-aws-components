@@ -55,9 +55,10 @@ module "additional_grants" {
   grants       = each.value
   kms_key_id   = local.kms_key_arn
 
+  # If `ssm_passwords_enabled` is true, that means passwords already exist in SSM
   # If no password is given, a random password will be created
   db_password = local.ssm_passwords_enabled ? data.aws_ssm_parameter.password[each.key].value : ""
-  # If generating a password, store it in SSM
+  # If generating a password, store it in SSM. Otherwise, we don't need to save an existing password in SSM
   save_password_in_ssm = local.ssm_passwords_enabled ? false : true
   ssm_path_prefix      = local.ssm_path_prefix
 
