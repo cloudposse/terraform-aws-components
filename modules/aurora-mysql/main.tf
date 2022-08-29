@@ -11,17 +11,18 @@ locals {
   eks_cluster_managed_security_group_ids = [for cluster in module.eks : cluster.outputs.eks_cluster_managed_security_group_id]
 
   # Read Replication uses either an explicit ARN of the replication source or Remote State from the primary region
-  replication_enabled           = local.enabled && var.replication_enabled
-  remote_read_replica_enabled   = local.replication_enabled && !(length(var.replication_source_identifier) > 0) && length(var.primary_cluster_region) > 0
+  is_read_replica               = local.enabled && var.is_read_replica
+  remote_read_replica_enabled   = local.is_read_replica && !(length(var.replication_source_identifier) > 0) && length(var.primary_cluster_region) > 0
   replication_source_identifier = local.remote_read_replica_enabled ? module.primary_cluster[0].outputs.aurora_mysql_cluster_arn : var.replication_source_identifier
 
   # For encrypted cross-region replica, kmsKeyId should be explicitly specified
   # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html
-  # A read replica of an Amazon RDS encrypted instance must be encrypted using the same KMS key as the primary DB instance when both are in the same AWS Region. If the primary DB instance and read replica are in different AWS Regions, you encrypt the read replica using the KMS key for that AWS Region.
+  # A read replica of an Amazon RDS encrypted instance must be encrypted using the same KMS key as the primary DB instance when both are in the same AWS Region. 
+  # If the primary DB instance and read replica are in different AWS Regions, you encrypt the read replica using the KMS key for that AWS Region.
   kms_key_arn = module.kms_key_rds.key_arn
 
-  # Do not create a DB & DB resources if Read Replications is enabled
-  mysql_db_enabled     = local.enabled && !local.replication_enabled
+  # Do not create a DB & DB resources if Read Replication is enabled
+  mysql_db_enabled     = local.enabled && !local.is_read_replica
   mysql_db_name        = length(var.mysql_db_name) > 0 ? var.mysql_db_name : join("", random_pet.mysql_db_name.*.id)
   mysql_admin_user     = length(var.mysql_admin_user) > 0 ? var.mysql_admin_user : join("", random_pet.mysql_admin_user.*.id)
   fetch_admin_password = local.mysql_db_enabled && length(var.ssm_password_source) > 0

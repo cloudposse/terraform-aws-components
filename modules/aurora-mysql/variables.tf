@@ -12,7 +12,9 @@ variable "ssm_path_prefix" {
 variable "ssm_password_source" {
   type        = string
   default     = ""
-  description = "If var.ssm_passwords_enabled is true, DB user passwords will be retrieved from SSM using `var.ssm_password_source` and the database username. If this value is not set, a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster."
+  description = <<-EOT
+    If var.ssm_passwords_enabled is true, DB user passwords will be retrieved from SSM using `var.ssm_password_source` and the database username. If this value is not set, a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster."
+    EOT
 }
 
 variable "allowed_cidr_blocks" {
@@ -161,25 +163,27 @@ variable "eks_component_names" {
 
 variable "replication_source_identifier" {
   type        = string
-  description = "ARN of a source DB cluster or DB instance if this DB cluster is to be created as a Read Replica. If this value is empty and replication is enabled, remote state will attempt to find a matching cluster in the Primary DB Cluster's region"
+  description = <<-EOT
+    ARN of a source DB cluster or DB instance if this DB cluster is to be created as a Read Replica. If this value is empty and replication is enabled, remote state will attempt to find a matching cluster in the Primary DB Cluster's region"
+    EOT
   default     = ""
 }
 
-variable "replication_enabled" {
+variable "is_read_replica" {
   type        = bool
-  description = "Whether or not to create this DB cluster as a Read Replica."
+  description = "If `true`, create this DB cluster as a Read Replica."
   default     = false
 }
 
 variable "primary_cluster_region" {
   type        = string
-  description = "If replication is enabled and no replication source is explicitly given, the region to look for a matching cluster"
+  description = "If this cluster is a read replica and no replication source is explicitly given, the region to look for a matching cluster"
   default     = ""
 }
 
 variable "primary_cluster_component" {
   type        = string
-  description = "If replication is enabled and no replication source is explicitly given, the component name for the primary cluster"
+  description = "If this cluster is a read replica and no replication source is explicitly given, the component name for the primary cluster"
   default     = "aurora-mysql"
 }
 
