@@ -57,8 +57,8 @@ components:
         mysql_skip_final_snapshot: false
 ```
 
-Example (not actual)
-`stacks/uw2-dev.yaml` file (override the default settings for the cluster in the `dev` account):
+Example configuration for a dev cluster. Import this file into the primary region.
+`stacks/catalog/aurora-mysql/dev.yaml` file (override the default settings for the cluster in the `dev` account):
 
 ```yaml
 import:
@@ -82,18 +82,19 @@ components:
 
 This component is designed to support cross-region replication with continuous replication. If enabled and deployed, a secondary cluster will be deployed in a different region than the primary cluster. This approach is highly aggresive and costly, but in a disaster scenario where the primary cluster fails, the secondary cluster can be promoted to take its place. Follow these steps to handle a Disaster Recovery.
 
-### Set up
+### Usage
 
 To deploy a secondary cluster for cross-region replication, add the following catalog entries to an alternative region:
 
-Default settings for a secondary cluster:
+Default settings for a secondary, replica cluster. For this example, this file is saved as `stacks/catalog/aurora-mysql/replica/defaults.yaml`
+
 ```yaml
 import:
   - catalog/aurora-mysql/defaults
 
 components:
   terraform:
-    aurora-mysql/secondary/defaults:
+    aurora-mysql/replica/defaults:
       metadata:
         component: aurora-mysql
         inherits:
@@ -101,9 +102,9 @@ components:
       vars:
         eks_component_names: []
         allowed_cidr_blocks:
-          # all automation in use1 (where Spacelift is deployed)
+          # all automation in primary region (where Spacelift is deployed)
           - 10.128.0.0/22
-          # all corp in the same region, use2
+          # all corp in the same region as this cluster 
           - 10.132.16.0/22
         mysql_instance_type: "db.t3.medium"
         mysql_name: "replica"
@@ -115,7 +116,7 @@ Environment specific settings for `dev` as an example:
 
 ```yaml
 import:
-  - catalog/aurora-mysql/clusters/secondary/defaults
+  - catalog/aurora-mysql/clusters/replica/defaults
 
 components:
   terraform:
@@ -124,7 +125,7 @@ components:
         component: aurora-mysql
         inherits:
           - aurora-mysql/defaults
-          - aurora-mysql/secondary/defaults
+          - aurora-mysql/replica/defaults
       vars:
         enabled: true
         primary_cluster_component: aurora-mysql/dev
@@ -133,9 +134,17 @@ components:
 ### Promoting the Read Replica
 
 To promote the secondary cluster to a primary cluster, change the following values and redeploy the component with Atmos.
+
+In this example, modify `stacks/catalog/aurora-mysql/replica/defaults.yaml`
+
 ```yaml
 is_read_replica: false # Disable is_read_replica to promote the replica
 ```
+
+Example deployment with secondary cluster deployed to us-east-2 in a `platform-dev` account:
+
+`atmos terraform apply aurora-mysql/dev -s platform-use2-dev`
+
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
