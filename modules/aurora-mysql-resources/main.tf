@@ -1,14 +1,14 @@
 locals {
-  enabled               = module.this.enabled
-  mysql_enabled         = local.enabled && var.mysql_cluster_enabled
-  ssm_passwords_enabled = local.enabled && var.ssm_passwords_enabled
+  enabled                 = module.this.enabled
+  mysql_enabled           = local.enabled && var.mysql_cluster_enabled
+  read_passwords_from_ssm = local.enabled && var.read_passwords_from_ssm
 
   # If pulling passwords from SSM, determine the SSM path for passwords for each user
   # example SSM password source: /rds/acme-platform-use1-dev-rds-shared/%s/password
   ssm_path_prefix     = format("/%s/%s", var.ssm_path_prefix, module.aurora_mysql.outputs.aurora_mysql_cluster_id)
   ssm_password_source = length(var.ssm_password_source) > 0 ? var.ssm_password_source : format("%s/%s", local.ssm_path_prefix, "%s/password")
 
-  password_users_to_fetch = local.ssm_passwords_enabled ? toset(concat(["admin"], keys(var.additional_grants))) : []
+  password_users_to_fetch = local.read_passwords_from_ssm ? toset(concat(["admin"], keys(var.additional_grants))) : []
 
   mysql_admin_password = length(var.mysql_admin_password) > 0 ? var.mysql_admin_password : data.aws_ssm_parameter.password["admin"].value
 
@@ -55,11 +55,11 @@ module "additional_grants" {
   grants       = each.value
   kms_key_id   = local.kms_key_arn
 
-  # If `ssm_passwords_enabled` is true, that means passwords already exist in SSM
+  # If `read_passwords_from_ssm` is true, that means passwords already exist in SSM
   # If no password is given, a random password will be created
-  db_password = local.ssm_passwords_enabled ? data.aws_ssm_parameter.password[each.key].value : ""
+  db_password = local.read_passwords_from_ssm ? data.aws_ssm_parameter.password[each.key].value : ""
   # If generating a password, store it in SSM. Otherwise, we don't need to save an existing password in SSM
-  save_password_in_ssm = local.ssm_passwords_enabled ? false : true
+  save_password_in_ssm = local.read_passwords_from_ssm ? false : true
   ssm_path_prefix      = local.ssm_path_prefix
 
   depends_on = [

@@ -18,7 +18,7 @@ locals {
   # For encrypted cross-region replica, kmsKeyId should be explicitly specified
   # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html
   # A read replica of an Amazon RDS encrypted instance must be encrypted using the same KMS key as the primary DB instance when both are in the same AWS Region. 
-  # If the primary DB instance and read replica are in different AWS Regions, you encrypt the read replica using the KMS key for that AWS Region.
+  # If the primary DB instance and read replica are in different AWS Regions, you encrypt the read replica using a KMS key in that AWS Region.
   kms_key_arn = module.kms_key_rds.key_arn
 
   # Do not create a DB & DB resources if Read Replication is enabled
