@@ -179,6 +179,12 @@ variable "is_read_replica" {
   default     = false
 }
 
+variable "is_promoted_read_replica" {
+  type        = bool
+  description = "If `true`, do not assign a Replication Source to the Cluster. Set to `true` after manually promoting the cluster from a replica to a standalone cluster."
+  default     = false
+}
+
 variable "primary_cluster_region" {
   type        = string
   description = "If this cluster is a read replica and no replication source is explicitly given, the region to look for a matching cluster"

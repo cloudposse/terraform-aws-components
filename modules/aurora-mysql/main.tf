@@ -11,9 +11,14 @@ locals {
   eks_cluster_managed_security_group_ids = [for cluster in module.eks : cluster.outputs.eks_cluster_managed_security_group_id]
 
   # Read Replication uses either an explicit ARN of the replication source or Remote State from the primary region
-  is_read_replica               = local.enabled && var.is_read_replica
-  remote_read_replica_enabled   = local.is_read_replica && !(length(var.replication_source_identifier) > 0) && length(var.primary_cluster_region) > 0
-  replication_source_identifier = local.remote_read_replica_enabled ? module.primary_cluster[0].outputs.aurora_mysql_cluster_arn : var.replication_source_identifier
+  is_read_replica             = local.enabled && var.is_read_replica
+  remote_read_replica_enabled = local.is_read_replica && !(length(var.replication_source_identifier) > 0) && length(var.primary_cluster_region) > 0
+
+  # Removing the replicate source attribute from an existing RDS Replicate database managed by Terraform 
+  # should promote the database to a fully standalone database but currently is not supported by Terraform. 
+  # Instead, first manually promote with the AWS CLI or console, and then remove the replication source identitier from the Terrafrom state
+  # See https://github.com/hashicorp/terraform-provider-aws/issues/6749
+  replication_source_identifier = local.remote_read_replica_enabled && !var.is_promoted_read_replica ? module.primary_cluster[0].outputs.aurora_mysql_cluster_arn : var.replication_source_identifier
 
   # For encrypted cross-region replica, kmsKeyId should be explicitly specified
   # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html
