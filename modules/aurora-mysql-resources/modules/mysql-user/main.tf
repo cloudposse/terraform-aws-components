@@ -1,20 +1,13 @@
 locals {
   enabled = module.this.enabled
 
-  db_user         = length(var.db_user) > 0 ? var.db_user : var.service_name
-  db_password     = length(var.db_password) > 0 ? var.db_password : join("", random_password.db_password.*.result)
-  db_password_key = format("/%s/%s/%s", var.ssm_path_prefix, var.service_name, "db_password")
+  db_user     = length(var.db_user) > 0 ? var.db_user : var.service_name
+  db_password = length(var.db_password) > 0 ? var.db_password : join("", random_password.db_password.*.result)
 
   create_db_user       = local.enabled && var.service_name != local.db_user
   save_password_in_ssm = local.enabled && var.save_password_in_ssm
 
-  db_user_ssm = local.create_db_user ? {
-    name        = format("/%s/%s/%s", var.ssm_path_prefix, var.service_name, "db_user")
-    value       = local.db_user
-    description = "MySQL Username for ${var.service_name} service"
-    type        = "String"
-    overwrite   = true
-  } : null
+  db_password_key = format("%s/%s/passwords/%s", var.ssm_path_prefix, var.service_name, local.db_user)
   db_password_ssm = local.save_password_in_ssm ? {
     name        = local.db_password_key
     value       = local.db_password
@@ -23,10 +16,7 @@ locals {
     overwrite   = true
   } : null
 
-  # In order to avoid:
-  # "local.parameter_write will be known only after apply"
-  # We must define exactly what the list should include
-  parameter_write = (local.create_db_user && local.save_password_in_ssm) ? [local.db_user_ssm, local.db_password_ssm] : (((local.create_db_user) ? [local.db_user_ssm] : ((local.save_password_in_ssm) ? [local.db_password_ssm] : [])))
+  parameter_write = (local.create_db_user && local.save_password_in_ssm) ? [local.db_password_ssm] : []
 
   # You cannot grant "ALL" to an RDS user because "ALL" includes privileges that
   # Master does not have (because this is a managed database).
@@ -89,7 +79,8 @@ resource "mysql_user" "default" {
   user               = local.db_user
   host               = "%"
   plaintext_password = local.db_password
-  #  depends_on         = [var.instance_ids]
+
+  depends_on = [var.instance_ids]
 }
 
 # Grant the user full access to this specific database

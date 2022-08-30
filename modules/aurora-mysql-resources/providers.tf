@@ -30,6 +30,6 @@ variable "import_role_arn" {
 
 provider "mysql" {
   endpoint = module.aurora_mysql.outputs.aurora_mysql_endpoint
-  username = local.mysql_admin_user
+  username = module.aurora_mysql.outputs.aurora_mysql_master_username
   password = local.mysql_admin_password
 }

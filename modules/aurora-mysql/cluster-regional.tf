@@ -2,7 +2,6 @@ module "aurora_mysql" {
   source  = "cloudposse/rds-cluster/aws"
   version = "1.3.1"
 
-  enabled    = local.mysql_enabled
   attributes = [var.mysql_name]
 
   engine              = var.aurora_mysql_engine
@@ -23,7 +22,7 @@ module "aurora_mysql" {
   publicly_accessible = var.publicly_accessible
   subnets             = var.publicly_accessible ? local.public_subnet_ids : local.private_subnet_ids
   allowed_cidr_blocks = var.publicly_accessible ? coalescelist(var.allowed_cidr_blocks, ["0.0.0.0/0"]) : var.allowed_cidr_blocks
-  security_groups     = [local.eks_cluster_managed_security_group_id]
+  security_groups     = local.eks_cluster_managed_security_group_ids
 
   zone_id          = local.zone_id
   cluster_dns_name = "master.${local.cluster_subdomain}"
@@ -40,9 +39,11 @@ module "aurora_mysql" {
   retention_period   = var.mysql_backup_retention_period
 
   storage_encrypted               = var.mysql_storage_encrypted
-  kms_key_arn                     = var.mysql_storage_encrypted ? module.kms_key_rds.key_arn : null
+  kms_key_arn                     = var.mysql_storage_encrypted ? local.kms_key_arn : null
   performance_insights_enabled    = var.performance_insights_enabled
-  performance_insights_kms_key_id = var.performance_insights_enabled ? module.kms_key_rds.key_arn : null
+  performance_insights_kms_key_id = var.performance_insights_enabled ? local.kms_key_arn : null
+
+  replication_source_identifier = local.replication_source_identifier
 
   context = module.this.context
 }

@@ -8,6 +8,12 @@ variable "aurora_mysql_component_name" {
   description = "Aurora MySQL component name to read the remote state from"
 }
 
+variable "read_passwords_from_ssm" {
+  type        = bool
+  default     = true
+  description = "When `true`, fetch user passwords from SSM"
+}
+
 variable "ssm_path_prefix" {
   type        = string
   default     = "rds"
@@ -17,7 +23,9 @@ variable "ssm_path_prefix" {
 variable "ssm_password_source" {
   type        = string
   default     = ""
-  description = "If set, DB user passwords will be retrieved from SSM using the key `format(var.ssm_password_source, local.db_username)`"
+  description = <<-EOT
+    If var.read_passwords_from_ssm is true, DB user passwords will be retrieved from SSM using `var.ssm_password_source` and the database username. If this value is not set, a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster.
+    EOT
 }
 
 variable "mysql_admin_password" {

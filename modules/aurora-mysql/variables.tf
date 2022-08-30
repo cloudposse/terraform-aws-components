@@ -12,7 +12,11 @@ variable "ssm_path_prefix" {
 variable "ssm_password_source" {
   type        = string
   default     = ""
-  description = "If set, DB Admin user password will be retrieved from SSM using the key `format(var.ssm_password_source, local.db_username)`"
+  description = <<-EOT
+    If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved from SSM using 
+    `var.ssm_password_source` and the database username. If this value is not set, 
+    a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster.
+    EOT
 }
 
 variable "allowed_cidr_blocks" {
@@ -94,12 +98,6 @@ variable "mysql_cluster_size" {
   description = "MySQL cluster size"
 }
 
-variable "mysql_cluster_enabled" {
-  type        = string
-  default     = true
-  description = "Set to `false` to prevent the module from creating any resources"
-}
-
 variable "mysql_storage_encrypted" {
   type        = string
   default     = true
@@ -159,8 +157,43 @@ variable "publicly_accessible" {
   default = false
 }
 
-variable "eks_component_name" {
-  type        = string
-  description = "The name of the eks component"
-  default     = "eks/eks"
+variable "eks_component_names" {
+  type        = set(string)
+  description = "The names of the eks components"
+  default     = ["eks/cluster"]
 }
+
+variable "replication_source_identifier" {
+  type        = string
+  description = <<-EOT
+    ARN of a source DB cluster or DB instance if this DB cluster is to be created as a Read Replica. 
+    If this value is empty and replication is enabled, remote state will attempt to find 
+    a matching cluster in the Primary DB Cluster's region
+    EOT
+  default     = ""
+}
+
+variable "is_read_replica" {
+  type        = bool
+  description = "If `true`, create this DB cluster as a Read Replica."
+  default     = false
+}
+
+variable "is_promoted_read_replica" {
+  type        = bool
+  description = "If `true`, do not assign a Replication Source to the Cluster. Set to `true` after manually promoting the cluster from a replica to a standalone cluster."
+  default     = false
+}
+
+variable "primary_cluster_region" {
+  type        = string
+  description = "If this cluster is a read replica and no replication source is explicitly given, the region to look for a matching cluster"
+  default     = ""
+}
+
+variable "primary_cluster_component" {
+  type        = string
+  description = "If this cluster is a read replica and no replication source is explicitly given, the component name for the primary cluster"
+  default     = "aurora-mysql"
+}
+
