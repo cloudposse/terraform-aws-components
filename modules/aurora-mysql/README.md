@@ -116,7 +116,7 @@ Environment specific settings for `dev` as an example:
 
 ```yaml
 import:
-  - catalog/aurora-mysql/clusters/replica/defaults
+  - catalog/aurora-mysql/replica/defaults
 
 components:
   terraform:
