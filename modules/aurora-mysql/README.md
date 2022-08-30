@@ -78,9 +78,7 @@ components:
         database_name: main
 ```
 
-Example deployment with primary cluster deployed to us-east-1 in a `platform-dev` account:
-
-`atmos terraform apply aurora-mysql/dev -s platform-use1-dev`
+Example deployment with primary cluster deployed to us-east-1 in a `platform-dev` account: `atmos terraform apply aurora-mysql/dev -s platform-use1-dev`
 
 ## Disaster Recovery with Cross-Region Replication
 
@@ -138,13 +136,9 @@ components:
 
 ### Promoting the Read Replica
 
-Promoting an existing RDS Replicate cluster to a fully standalone cluster is not currently supported by Terraform: 
+Promoting an existing RDS Replicate cluster to a fully standalone cluster is not currently supported by Terraform: https://github.com/hashicorp/terraform-provider-aws/issues/6749
 
-https://github.com/hashicorp/terraform-provider-aws/issues/6749
-
-Instead, promote the Replicate cluster with the AWS CLI command 
-
-`aws rds promote-read-replica-db-cluster --db-cluster-identifier <identifier>`
+Instead, promote the Replicate cluster with the AWS CLI command: `aws rds promote-read-replica-db-cluster --db-cluster-identifier <identifier>`
 
 After promoting the replica, update the stack configuration to prevent future Terrafrom runs from re-enabling replication. In this example, modify `stacks/catalog/aurora-mysql/replica/defaults.yaml`
 
@@ -152,9 +146,7 @@ After promoting the replica, update the stack configuration to prevent future Te
 is_promoted_read_replica: true
 ```
 
-Reploying the component should show no changes. Example deployment with secondary cluster deployed to us-east-2 in a `platform-dev` account:
-
-`atmos terraform apply aurora-mysql/dev -s platform-use2-dev`
+Reploying the component should show no changes. Example deployment with secondary cluster deployed to us-east-2 in a `platform-dev` account: `atmos terraform apply aurora-mysql/dev -s platform-use2-dev`
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
