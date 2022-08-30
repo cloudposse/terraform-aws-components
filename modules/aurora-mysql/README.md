@@ -146,7 +146,7 @@ After promoting the replica, update the stack configuration to prevent future Te
 is_promoted_read_replica: true
 ```
 
-Reploying the component should show no changes. Example deployment with secondary cluster deployed to us-east-2 in a `platform-dev` account: `atmos terraform apply aurora-mysql/dev -s platform-use2-dev`
+Reploying the component should show no changes. For example, `atmos terraform apply aurora-mysql/dev -s platform-use2-dev`
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
