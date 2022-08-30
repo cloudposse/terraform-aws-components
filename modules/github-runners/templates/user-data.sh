@@ -28,7 +28,7 @@ yum install -y \
 	amazon-ecr-credential-helper \
 	amazon-cloudwatch-agent
 
-echo "Installing AWS cli ..."
+echo "Installing AWS cli..."
 # Install awscli v2 following https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip -o awscliv2.zip
@@ -39,7 +39,7 @@ sudo ln -sf /usr/local/bin/aws /bin/aws
 # Clean up
 rm -rf ./aws
 
-echo "Configuring CloudWatch Agent...."
+echo "Configuring CloudWatch Agent..."
 # Configure cloudwatch agent
 export CONFIG_DESTINATION=/opt/aws/amazon-cloudwatch-agent/bin/config.json
 export CONFIG_SOURCE=/tmp/amazon-cloudwatch-agent.json
@@ -47,7 +47,7 @@ export CONFIG_SOURCE=/tmp/amazon-cloudwatch-agent.json
 sudo cp $CONFIG_SOURCE $CONFIG_DESTINATION
 amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:$CONFIG_DESTINATION
 
-echo "Install runner"
+echo "Installing runner..."
 export REGION=$(TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600") && curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/region)
 export RUNNER_TOKEN=$(aws --region $REGION ssm get-parameter --with-decryption --name ${github_token_ssm_path} | jq -r .Parameter.Value)
 export AMI_ID=$(TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600") && curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/ami-id)
