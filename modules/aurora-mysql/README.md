@@ -78,6 +78,10 @@ components:
         database_name: main
 ```
 
+Example deployment with primary cluster deployed to us-east-1 in a `platform-dev` account:
+
+`atmos terraform apply aurora-mysql/dev -s platform-use1-dev`
+
 ## Disaster Recovery with Cross-Region Replication
 
 This component is designed to support cross-region replication with continuous replication. If enabled and deployed, a secondary cluster will be deployed in a different region than the primary cluster. This approach is highly aggresive and costly, but in a disaster scenario where the primary cluster fails, the secondary cluster can be promoted to take its place. Follow these steps to handle a Disaster Recovery.
