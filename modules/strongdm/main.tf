@@ -27,7 +27,7 @@ data "aws_ssm_parameter" "ssh_admin_token" {
 
 # Create a gateway
 resource "sdm_node" "gateway" {
-  count = local.install_gateway ? 2 : 0
+  count = local.install_gateway ? var.gateway_count : 0
   gateway {
     # The 6 dashes tells StrongDM to ignore what follows and
     # consider what comes before it to be the logical name of the
@@ -41,14 +41,14 @@ resource "sdm_node" "gateway" {
 
 # Create a relay
 resource "sdm_node" "relay" {
-  count = local.install_relay ? 2 : 0
+  count = local.install_relay ? var.relay_count : 0
   relay {
     name = "${module.this.id}-relay------${count.index + 1}"
   }
 }
 
 resource "aws_ssm_parameter" "gateway_tokens" {
-  count       = local.install_gateway ? 2 : 0
+  count       = local.install_gateway ? var.gateway_count : 0
   name        = "/vpn/sdm/gateway/${count.index + 1}/token"
   value       = sdm_node.gateway[count.index].gateway[0].token
   description = "Gateway authentication token"
@@ -57,9 +57,8 @@ resource "aws_ssm_parameter" "gateway_tokens" {
   key_id      = var.kms_alias_name
 }
 
-
 resource "aws_ssm_parameter" "relay_tokens" {
-  count       = local.install_relay ? 2 : 0
+  count       = local.install_relay ? var.relay_count : 0
   name        = "/vpn/sdm/relay/${count.index + 1}/token"
   value       = sdm_node.relay[count.index].relay[0].token
   description = "Relay authentication token"

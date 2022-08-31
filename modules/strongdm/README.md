@@ -56,9 +56,6 @@ components:
 | [helm_release.relay](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [sdm_node.gateway](https://registry.terraform.io/providers/strongdm/sdm/latest/docs/resources/node) | resource |
 | [sdm_node.relay](https://registry.terraform.io/providers/strongdm/sdm/latest/docs/resources/node) | resource |
-| [sdm_role.all_access](https://registry.terraform.io/providers/strongdm/sdm/latest/docs/resources/role) | resource |
-| [sdm_role.roles](https://registry.terraform.io/providers/strongdm/sdm/latest/docs/resources/role) | resource |
-| [sdm_role_attachment.all_access](https://registry.terraform.io/providers/strongdm/sdm/latest/docs/resources/role_attachment) | resource |
 | [aws_ssm_parameter.api_access_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.api_secret_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.ssh_admin_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
@@ -75,12 +72,13 @@ components:
 | <a name="input_dns_zone"></a> [dns\_zone](#input\_dns\_zone) | n/a | `string` | `null` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
+| <a name="input_gateway_count"></a> [gateway\_count](#input\_gateway\_count) | Number of gateways to provision | `number` | `2` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for default, which is `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
 | <a name="input_install_gateway"></a> [install\_gateway](#input\_install\_gateway) | Set `true` to install a pair of gateways | `bool` | `false` | no |
 | <a name="input_install_relay"></a> [install\_relay](#input\_install\_relay) | Set `true` to install a pair of relays | `bool` | `true` | no |
 | <a name="input_kms_alias_name"></a> [kms\_alias\_name](#input\_kms\_alias\_name) | AWS KMS alias used for encryption/decryption default is alias used in SSM | `string` | `"alias/aws/ssm"` | no |
-| <a name="input_kubernetes_namespace"></a> [kubernetes\_namespace](#input\_kubernetes\_namespace) | The namespace to install the release into. Defaults to `default`. | `string` | `null` | no |
+| <a name="input_kubernetes_namespace"></a> [kubernetes\_namespace](#input\_kubernetes\_namespace) | The Kubernetes namespace to install the release into. Defaults to `default`. | `string` | `null` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | The letter case of label keys (`tag` names) (i.e. `name`, `namespace`, `environment`, `stage`, `attributes`) to use in `tags`.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The naming order of the id output and Name tag.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 5 elements, but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | The letter case of output label values (also used in `tags` and `id`).<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Default value: `lower`. | `string` | `null` | no |
@@ -89,6 +87,7 @@ components:
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_register_nodes"></a> [register\_nodes](#input\_register\_nodes) | Set `true` to register nodes as SSH targets | `bool` | `true` | no |
+| <a name="input_relay_count"></a> [relay\_count](#input\_relay\_count) | Number of relays to provision | `number` | `2` | no |
 | <a name="input_ssm_account"></a> [ssm\_account](#input\_ssm\_account) | Account (stage) housing SSM parameters | `string` | n/a | yes |
 | <a name="input_ssm_region"></a> [ssm\_region](#input\_ssm\_region) | AWS Region housing SSM parameters | `string` | n/a | yes |
 | <a name="input_stage"></a> [stage](#input\_stage) | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |

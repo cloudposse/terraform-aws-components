@@ -1,5 +1,5 @@
 resource "helm_release" "gateway" {
-  count = local.enabled ? 2 : 0
+  count = local.enabled ? var.gateway_count : 0
 
   name            = "${module.this.name}-gateway-${count.index + 1}"
   chart           = "./charts/strongdm"
@@ -21,7 +21,7 @@ resource "helm_release" "gateway" {
 }
 
 resource "helm_release" "relay" {
-  count = local.enabled ? 2 : 0
+  count = local.enabled ? var.relay_count : 0
 
   name            = "${module.this.name}-relay-${count.index + 1}"
   chart           = "./charts/strongdm"

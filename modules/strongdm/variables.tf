@@ -56,3 +56,15 @@ variable "dns_zone" {
   description = ""
   default     = null
 }
+
+variable "gateway_count" {
+  type        = number
+  description = "Number of gateways to provision"
+  default     = 2
+}
+
+variable "relay_count" {
+  type        = number
+  description = "Number of relays to provision"
+  default     = 2
+}
