@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# get aws region from IMDSv2
+imdsv2_token=$(curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+aws_region=$(curl -H "X-aws-ec2-metadata-token: $imdsv2_token" --silent http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)
+
+# retrieve GitHub PAT
+export RUNNER_CFG_PAT=$(aws ssm get-parameter --name ${github_token_ssm_path} --region $aws_region --with-decryption | jq -r .Parameter.Value)
+
+export RUNNER_ALLOW_RUNASROOT=true
+
+pushd /
+
+curl -s https://raw.githubusercontent.com/actions/runner/v${runner_version}/scripts/remove-svc.sh | bash -s ${github_scope}
+
+popd

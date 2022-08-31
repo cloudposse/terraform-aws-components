@@ -1,0 +1,52 @@
+{{- if or (eq (printf "%v" .Values.ingress.nginx.enabled) "true") (eq (printf "%v" .Values.ingress.alb.enabled) "true") -}}
+  {{- $fullName := include "echo-server.fullname" . -}}
+  {{- $svcName := include "echo-server.name" . -}}
+  {{- $svcPort := .Values.service.port -}}
+  {{- $nginxTlsEnabled := and (eq (printf "%v" .Values.ingress.nginx.enabled) "true") (eq (printf "%v" .Values.tlsEnabled) "true")}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  annotations:
+    {{- if eq (printf "%v" .Values.ingress.nginx.enabled) "true" }}
+    kubernetes.io/ingress.class: {{ .Values.ingress.nginx.class }}
+      {{- if (index .Values.ingress.nginx "tls_certificate_cluster_issuer") }}
+    cert-manager.io/cluster-issuer: {{ .Values.ingress.nginx.tls_certificate_cluster_issuer }}
+      {{- end }}
+    {{- else if eq (printf "%v" .Values.ingress.alb.enabled) "true" }}
+    kubernetes.io/ingress.class: {{ .Values.ingress.alb.class }}
+    alb.ingress.kubernetes.io/load-balancer-name: {{ index .Values.ingress.alb "load_balancer_name" | default "k8s-common" }}
+    alb.ingress.kubernetes.io/group.name: {{ index .Values.ingress.alb "group_name" | default "common" }}
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: 'ip'
+      {{- if eq (printf "%v" .Values.ingress.alb.ssl_redirect.enabled) "true" }}
+    alb.ingress.kubernetes.io/ssl-redirect: '{{ .Values.ingress.alb.ssl_redirect.port }}'
+      {{- end }}
+      {{- if eq (printf "%v" .Values.tlsEnabled) "true" }}
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80},{"HTTPS":443}]'
+      {{- else }}
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+      {{- end }}
+    {{- end }}
+  labels:
+    {{- include "echo-server.labels" . | nindent 4 }}
+spec:
+  {{- if $nginxTlsEnabled }}
+  tls: # < placing a host in the TLS config will indicate a certificate should be created
+  - hosts:
+    - {{ .Values.ingress.hostname }}
+    secretName: {{ $svcName }}-cert # < cert-manager will store the created certificate in this secret.
+  {{- end }}
+  rules:
+  - host: {{ .Values.ingress.hostname }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ $svcName }}
+            port:
+              number: {{ $svcPort }}
+{{- end }}

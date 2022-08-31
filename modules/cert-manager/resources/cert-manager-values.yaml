@@ -1,0 +1,20 @@
+rbac:
+  create: true
+installCRDs: true
+serviceAccount:
+  create: true
+securityContext:
+  enabled: true
+  fsGroup: 1001
+  runAsGroup: 1001
+prometheus:
+  servicemonitor:
+    prometheusInstance: default
+    targetPort: 9402
+    path: /metrics
+    interval: 60s
+    scrapeTimeout: 30s
+webhook:
+  enabled: true
+cainjector:
+  enabled: true

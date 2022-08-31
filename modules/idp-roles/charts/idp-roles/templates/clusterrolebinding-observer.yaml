@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ .Values.observer_crb_name | quote }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ .Values.observer_cluster_role | quote }}
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: {{ .Values.observer_client_role | quote }}
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: {{ .Values.observer_client_role | quote }}

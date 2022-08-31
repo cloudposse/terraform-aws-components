@@ -1,0 +1,48 @@
+{{- if .Values.letsencrypt_installed }}
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: "letsencrypt-staging"
+spec:
+  acme:
+    # The ACME server URL
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    # Email address used for ACME registration
+    email: {{ printf .Values.support_email_template .Values.stage | quote }}
+    # Name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: letsencrypt-staging
+    solvers:
+      #            # Enable the HTTP-01 challenge provider
+      #            - http01:
+      #                ingress:
+      #                  class: nginx
+      # Enable the DNS-01 challenge provider
+      - dns01:
+          route53:
+            region: {{ .Values.dns_region | quote }}
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    # The ACME server URL
+    server: https://acme-v02.api.letsencrypt.org/directory
+    # Email address used for ACME registration
+    email: {{ printf .Values.support_email_template .Values.account | quote }}
+    # Name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+      #            # Enable the HTTP-01 challenge provider
+      #            - http01:
+      #                ingress:
+      #                  class: nginx
+      # Enable the DNS-01 challenge provider
+      - dns01:
+          route53:
+            region: {{ .Values.dns_region | quote }}
+{{- end }}

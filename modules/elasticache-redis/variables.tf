@@ -24,9 +24,13 @@ variable "ingress_cidr_blocks" {
   description = "CIDR blocks for permitted ingress"
 }
 
-variable "egress_cidr_blocks" {
-  type        = list(string)
-  description = "CIDR blocks for permitted egress"
+variable "allow_all_egress" {
+  type        = bool
+  default     = true
+  description = <<-EOT
+    If `true`, the created security group will allow egress on all ports and protocols to all IP address.
+    If this is false and no egress rules are otherwise specified, then no egress will be allowed.
+    EOT
 }
 
 variable "at_rest_encryption_enabled" {
@@ -37,6 +41,12 @@ variable "at_rest_encryption_enabled" {
 variable "transit_encryption_enabled" {
   type        = bool
   description = "Enable TLS"
+}
+
+variable "auth_token_enabled" {
+  type        = bool
+  description = "Enable auth token"
+  default     = true
 }
 
 variable "apply_immediately" {
@@ -57,4 +67,22 @@ variable "cloudwatch_metric_alarms_enabled" {
 variable "redis_clusters" {
   type        = map(any)
   description = "Redis cluster configuration"
+}
+
+variable "allow_ingress_from_vpc_stages" {
+  type        = list(string)
+  default     = []
+  description = "List of stages to pull VPC ingress cidr and add to security group"
+}
+
+variable "eks_security_group_enabled" {
+  type        = bool
+  description = "Use the eks default security group"
+  default     = false
+}
+
+variable "eks_component_names" {
+  type        = set(string)
+  description = "The names of the eks components"
+  default     = []
 }
