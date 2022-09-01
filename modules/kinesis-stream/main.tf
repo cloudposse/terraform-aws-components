@@ -1,6 +1,6 @@
 module "kinesis" {
   source  = "cloudposse/kinesis-stream/aws"
-  version = "0.2.0"
+  version = "0.3.0"
 
   shard_count               = var.shard_count
   retention_period          = var.retention_period
