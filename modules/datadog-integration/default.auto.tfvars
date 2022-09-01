@@ -2,5 +2,4 @@
 
 enabled = false
 
-name = "datadog-integration"
 
