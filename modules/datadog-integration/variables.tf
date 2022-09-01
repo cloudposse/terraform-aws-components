@@ -18,7 +18,7 @@ variable "integrations" {
 variable "filter_tags" {
   type        = list(string)
   description = "An array of EC2 tags (in the form `key:value`) that defines a filter that Datadog use when collecting metrics from EC2. Wildcards, such as ? (for single characters) and * (for multiple characters) can also be used"
-  default     = null
+  default     = []
 }
 
 variable "host_tags" {
@@ -39,14 +39,56 @@ variable "account_specific_namespace_rules" {
   default     = {}
 }
 
-variable "ssm_parameter_name_format" {
+variable "datadog_secrets_store_type" {
   type        = string
-  default     = "/%s/%s"
-  description = "SSM parameter name format"
+  description = "Secret Store type for Datadog API and app keys. Valid values: `SSM`, `ASM`"
+  default     = "SSM"
 }
 
-variable "ssm_path" {
+variable "datadog_secrets_source_store_account" {
   type        = string
-  default     = "datadog"
-  description = "SSM path"
+  description = "Account (stage) holding Secret Store for Datadog API and app keys."
+  default     = "tools"
+}
+
+variable "datadog_api_secret_key_source_pattern" {
+  type        = string
+  description = "The format string (%v will be replaced by the var.datadog_api_secret_key) for the key of the Datadog API secret in the source account"
+  default     = "/datadog/%v/datadog_api_key"
+}
+
+variable "datadog_app_secret_key_source_pattern" {
+  type        = string
+  description = "The format string (%v will be replaced by the var.datadog_app_secret_key) for the key of the Datadog APP secret in the source account"
+  default     = "/datadog/%v/datadog_app_key"
+}
+
+variable "datadog_api_secret_key_target_pattern" {
+  type        = string
+  description = "The format string (%v will be replaced by the var.datadog_api_secret_key) for the key of the Datadog API secret in the target account"
+  default     = "/datadog/datadog_api_key"
+}
+
+variable "datadog_app_secret_key_target_pattern" {
+  type        = string
+  description = "The format string (%v will be replaced by the var.datadog_api_secret_key) for the key of the Datadog APP secret in the target account"
+  default     = "/datadog/datadog_app_key"
+}
+
+variable "datadog_api_secret_key" {
+  type        = string
+  description = "The name of the Datadog API secret"
+  default     = "default"
+}
+
+variable "datadog_app_secret_key" {
+  type        = string
+  description = "The name of the Datadog APP secret"
+  default     = "default"
+}
+#
+variable "context_host_and_filter_tags" {
+  type        = list(string)
+  description = "Automatically add host and filter tags for these context keys"
+  default     = ["namespace", "tenant", "stage"]
 }
