@@ -45,10 +45,16 @@ variable "datadog_secrets_store_type" {
   default     = "SSM"
 }
 
-variable "datadog_secrets_source_store_account" {
+variable "datadog_secrets_source_store_account_stage" {
   type        = string
-  description = "Account (stage) holding Secret Store for Datadog API and app keys."
+  description = "Stage holding Secret Store for Datadog API and app keys."
   default     = "tools"
+}
+
+variable "datadog_secrets_source_store_account_tenant" {
+  type        = string
+  description = "Tenant holding Secret Store for Datadog API and app keys."
+  default     = "core"
 }
 
 variable "datadog_api_secret_key_source_pattern" {
