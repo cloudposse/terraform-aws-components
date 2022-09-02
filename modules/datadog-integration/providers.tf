@@ -42,7 +42,8 @@ provider "aws" {
 
 module "iam_roles_datadog_secrets" {
   source  = "../account-map/modules/iam-roles"
-  stage   = var.datadog_secrets_source_store_account
+  stage   = var.datadog_secrets_source_store_account_stage
+  tenant  = var.datadog_secrets_source_store_account_tenant
   context = module.this.context
 }
 
