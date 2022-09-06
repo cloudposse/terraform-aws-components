@@ -27,8 +27,8 @@ components:
           workspace_enabled: true
       vars:
         enabled: true
-        # The full name of the User Pool will be: <bfly>-<environment>-<stage>-enterprise
-        name: enterprise
+        # The full name of the User Pool will be: <namespace>-<environment>-<stage>-<name>
+        name: cognito
         schemas:
           - name: "email"
             attribute_data_type: "String"
