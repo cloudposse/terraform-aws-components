@@ -13,11 +13,6 @@ locals {
     data.aws_ssm_parameter.datadog_app_key[0].value
   ) : null
 
-  # combine context tags with passed in datadog_tags
-  # skip name since that won't be relevant for each metric
-  datadog_tags = distinct(concat([for k, v in module.this.tags : "${lower(k)}:${v}" if lower(k) != "name"], var.datadog_tags))
-
-
   cluster_checks_enabled = local.enabled && var.cluster_checks_enabled
 
   context_tags = {
@@ -25,9 +20,7 @@ locals {
     lower(k) => v
   }
 
-  #  This deep merges the cluster checks with array merging
-  deep_map_merge = module.datadog_cluster_check_yaml_config[0].map_configs
-  #  We then take the merged instances and merge tags onto every instance check for every tag in `datadog_cluster_check_auto_added_tags`
+  deep_map_merge = local.cluster_checks_enabled ? module.datadog_cluster_check_yaml_config[0].map_configs : {}
   datadog_cluster_checks = {
     for k, v in local.deep_map_merge :
     k => merge(v, {
@@ -43,19 +36,15 @@ locals {
       ]
     })
   }
-  #  This then turns the map of root keys to objects, into an array so we can concat it in the set block.
-  set_datadog_cluster_checks = [
-    for cluster_check_key, cluster_check_value in local.datadog_cluster_checks :
+  set_datadog_cluster_checks = [for cluster_check_key, cluster_check_value in local.datadog_cluster_checks :
     {
       # Since we are using json pathing to set deep yaml values, and the key we want to set is `something.yaml`
       # we need to escape the key of the cluster check.
       name  = format("clusterAgent.confd.%s", replace(cluster_check_key, ".", "\\."))
       type  = "auto"
       value = yamlencode(cluster_check_value)
-    }
-  ]
+  }]
 }
-
 
 module "datadog_cluster_check_yaml_config" {
   count = local.cluster_checks_enabled ? 1 : 0
@@ -88,7 +77,7 @@ resource "kubernetes_namespace" "default" {
 
 module "datadog_agent" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.3.2"
+  version = "0.6.0"
 
   name                 = module.this.name
   chart                = var.chart
@@ -103,8 +92,10 @@ module "datadog_agent" {
   cleanup_on_fail      = var.cleanup_on_fail
   timeout              = var.timeout
 
+  eks_cluster_oidc_issuer_url = module.eks.outputs.eks_cluster_identity_oidc_issuer
+
   values = [
-    file("${path.module}/resources/values.yaml")
+    file("${path.module}/values.yaml")
   ]
 
   set_sensitive = [
@@ -124,10 +115,9 @@ module "datadog_agent" {
     {
       name  = "datadog.tags"
       type  = "auto"
-      value = yamlencode(local.datadog_tags)
+      value = yamlencode(var.datadog_tags)
     }
   ], local.set_datadog_cluster_checks)
 
   depends_on = [kubernetes_namespace.default]
-
 }
