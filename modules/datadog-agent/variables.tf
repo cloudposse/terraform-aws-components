@@ -50,3 +50,9 @@ variable "datadog_cluster_check_auto_added_tags" {
   description = "List of tags to add to Datadog Cluster Check"
   default     = ["stage", "environment"]
 }
+
+variable "eks_component_name" {
+  type        = string
+  description = "The name of the eks component"
+  default     = "eks/eks"
+}

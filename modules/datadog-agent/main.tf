@@ -1,7 +1,7 @@
 locals {
   enabled = module.this.enabled
 
-  tags = module.introspection.tags
+  tags = module.this.tags
 
   datadog_api_key = local.enabled ? (var.secrets_store_type == "ASM" ? (
     data.aws_secretsmanager_secret_version.datadog_api_key[0].secret_string) :
@@ -116,6 +116,11 @@ module "datadog_agent" {
       name  = "datadog.tags"
       type  = "auto"
       value = yamlencode(var.datadog_tags)
+    },
+    {
+      name  = "datadog.clusterName"
+      type  = "string"
+      value = module.eks.outputs.eks_cluster_id
     }
   ], local.set_datadog_cluster_checks)
 
