@@ -15,7 +15,7 @@ atmos terraform deploy datadog-agent -s ${region}-${stage} -replace='module.data
 
 **Stack Level**: Regional
 
-Use this in the catalog or use these variables to overwrite the catalog values.
+Use this in the catalog as default values.
 
 ```yaml
 components:
@@ -32,14 +32,15 @@ components:
         create_namespace: true
         repository: "https://helm.datadoghq.com"
         chart: "datadog"
-        chart_version: "2.34.5"
+        chart_version: "3.0.0"
         timeout: 600
         wait: true
         atomic: true
         cleanup_on_fail: true
 ```
 
-Dev Example
+Deploy this to a particular environment such as dev, prod, etc.
+
 ```yaml
 components:
   terraform:
@@ -73,6 +74,42 @@ New Cluster Checks can be added to defaults to be applied in every account. Alte
 Once they are added, and properly configured, the new checks show up in the network monitor creation under `ssl` and `Http`
 
 **Please note:** the yaml file name doesn't matter, but the root key inside which is `something.yaml` does matter. this is following [datadogs docs](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files) for <integration name>.yaml.
+
+## Monitoring Cluster Checks
+
+Using Cloudposse's `datadog-monitor` component. The following yaml snippet will monitor all HTTP Cluster Checks, this can be added to each stage (usually via a defaults folder).
+
+```yaml
+https-checks:
+  name: "(Network Check) ${stage} - HTTPS Check"
+  type: service check
+  query: |
+    "http.can_connect".over("stage:${stage}").by("instance").last(2).count_by_status()
+  message: |
+    HTTPS Check failed on <code>{{instance.name}}</code>
+      in Stage: <code>{{stage.name}}</code>
+  escalation_message: ""
+  tags: 
+    managed-by: Terraform
+  notify_no_data: false
+  notify_audit: false
+  require_full_window: true
+  enable_logs_sample: false
+  force_delete: true
+  include_tags: true
+  locked: false
+  renotify_interval: 0
+  timeout_h: 0
+  evaluation_delay: 0
+  new_host_delay: 0
+  new_group_delay: 0
+  no_data_timeframe: 2
+  threshold_windows: { }
+  thresholds:
+    critical: 1
+    warning: 1
+    ok: 1
+```
 
 ## References
 
@@ -190,6 +227,5 @@ Once they are added, and properly configured, the new checks show up in the netw
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
-
-* https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler
-* https://github.com/kubernetes/autoscaler/tree/master/charts
+* Datadog's [Kubernetes Agent documentation](https://docs.datadoghq.com/containers/kubernetes/)
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/datadog-agent) - Cloud Posse's upstream component
