@@ -53,6 +53,6 @@ variable "datadog_cluster_check_auto_added_tags" {
 
 variable "eks_component_name" {
   type        = string
-  description = "The name of the eks component"
+  description = "The name of the EKS component. Used to get the remote state"
   default     = "eks/eks"
 }
