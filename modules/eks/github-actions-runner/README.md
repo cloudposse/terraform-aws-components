@@ -185,7 +185,6 @@ _NOTE_: configure the desired cluster in Geodesic using `set-cluster account` (w
 | <a name="module_github_action_controller_label"></a> [github\_action\_controller\_label](#module\_github\_action\_controller\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_github_action_helm_label"></a> [github\_action\_helm\_label](#module\_github\_action\_helm\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
-| <a name="module_introspection"></a> [introspection](#module\_introspection) | cloudposse/label/null | 0.25.0 |
 | <a name="module_team_roles"></a> [team\_roles](#module\_team\_roles) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -254,7 +253,6 @@ _NOTE_: configure the desired cluster in Geodesic using `set-cluster account` (w
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_required_tags"></a> [required\_tags](#input\_required\_tags) | List of required tag names | `list(string)` | `[]` | no |
 | <a name="input_runner_chart_image"></a> [runner\_chart\_image](#input\_runner\_chart\_image) | Controller Helm chart name. | `string` | `"actions-runner"` | no |
 | <a name="input_runner_chart_values"></a> [runner\_chart\_values](#input\_runner\_chart\_values) | Additional values to yamlencode as `helm_release` values. | `any` | `{}` | no |
 | <a name="input_runner_configurations"></a> [runner\_configurations](#input\_runner\_configurations) | List of maps to create runners from | `list(map(string))` | n/a | yes |
