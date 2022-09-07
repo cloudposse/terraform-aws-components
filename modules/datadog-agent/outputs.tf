@@ -1,5 +1,5 @@
 output "metadata" {
-  value       = local.enabled ? module.datadog_agent.metadata : ""
+  value       = local.enabled ? module.datadog_agent.metadata : null
   description = "Block status of the deployed release"
 }
 
