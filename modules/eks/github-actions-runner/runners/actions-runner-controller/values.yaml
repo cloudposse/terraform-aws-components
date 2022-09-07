@@ -1,0 +1,15 @@
+authSecret:
+  create: false
+  name: controller-manager
+replicaCount: 1
+serviceAccount:
+  create: true
+  name: github-action-runner
+  annotations: {}
+scope:
+  # If true, the controller will only watch custom resources in a single namespace,
+  # which by default is the namespace the controller is in.
+  # This provides the ability to run multiple controllers in different namespaces
+  # with different TOKENS to get around GitHub API rate limits, among other things.
+  singleNamespace: true
+syncPeriod: 120s

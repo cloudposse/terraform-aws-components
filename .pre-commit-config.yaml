@@ -6,7 +6,7 @@ repos:
         exclude: |
             (?x)^(
                 modules/cert-manager/cert-manager-issuer/templates/.*.yaml |
-                modules/github-actions-runner/runners/actions-runner/chart/templates/.*.yaml |
+                modules/eks/github-actions-runner/runners/actions-runner/chart/templates/.*.yaml |
                 modules/echo-server/charts/echo-server/templates/.*.yaml
             )$
   - repo: https://github.com/antonbabenko/pre-commit-terraform
