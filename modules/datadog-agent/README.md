@@ -39,6 +39,23 @@ components:
         cleanup_on_fail: true
 ```
 
+Dev Example
+```yaml
+components:
+  terraform:
+    datadog-agent:
+      vars:
+        # Order affects merge order. Later takes priority. We append lists though.
+        datadog_cluster_check_config_paths:
+          - catalog/cluster-checks/defaults/*.yaml
+          - catalog/cluster-checks/dev/*.yaml
+        datadog_cluster_check_config_parameters: {}
+        datadog_tags:
+          - "env:dev"
+          - "region:us-west-2"
+          - "stage:dev"
+```
+
 # Cluster Checks
 
 Cluster Checks are configurations that allow us to setup external URLs to be monitored. They can be configured through the datadog agent or annotations on kubernetes services.

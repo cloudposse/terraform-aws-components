@@ -13,6 +13,10 @@ locals {
     data.aws_ssm_parameter.datadog_app_key[0].value
   ) : null
 
+  # combine context tags with passed in datadog_tags
+  # skip name since that won't be relevant for each metric
+  datadog_tags = distinct(concat([for k, v in module.this.tags : "${lower(k)}:${v}" if lower(k) != "name"], var.datadog_tags))
+
   cluster_checks_enabled = local.enabled && var.cluster_checks_enabled
 
   context_tags = {
@@ -115,7 +119,7 @@ module "datadog_agent" {
     {
       name  = "datadog.tags"
       type  = "auto"
-      value = yamlencode(var.datadog_tags)
+      value = yamlencode(local.datadog_tags)
     },
     {
       name  = "datadog.clusterName"
