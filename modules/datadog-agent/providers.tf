@@ -27,25 +27,6 @@ variable "import_role_arn" {
   description = "IAM Role ARN to use when importing a resource"
 }
 
-provider "aws" {
-  alias  = "api_keys"
-  region = var.region
-
-  profile = module.iam_roles_datadog_secrets.profiles_enabled ? coalesce(var.import_profile_name, module.iam_roles_datadog_secrets.terraform_profile_name) : null
-  dynamic "assume_role" {
-    for_each = module.iam_roles.profiles_enabled ? [] : ["role"]
-    content {
-      role_arn = coalesce(var.import_role_arn, module.iam_roles_datadog_secrets.terraform_role_arn)
-    }
-  }
-}
-
-module "iam_roles_datadog_secrets" {
-  source  = "../account-map/modules/iam-roles"
-  stage   = var.datadog_secrets_source_store_account
-  context = module.this.context
-}
-
 data "aws_eks_cluster" "kubernetes" {
   count = local.enabled ? 1 : 0
 
@@ -59,3 +40,4 @@ data "aws_eks_cluster_auth" "kubernetes" {
 }
 
 provider "utils" {}
+

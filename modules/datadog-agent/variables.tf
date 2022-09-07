@@ -9,12 +9,6 @@ variable "secrets_store_type" {
   default     = "SSM"
 }
 
-variable "datadog_secrets_source_store_account" {
-  type        = string
-  description = "Account (stage) holding Secret Store for Datadog API and app keys."
-  default     = "auto"
-}
-
 variable "datadog_api_secret_key" {
   type        = string
   description = "The key of the Datadog API secret"
@@ -28,7 +22,7 @@ variable "datadog_app_secret_key" {
 }
 
 variable "datadog_tags" {
-  type        = list(string)
+  type        = set(string)
   description = "List of static tags to attach to every metric, event and service check collected by the agent"
   default     = []
 }
@@ -55,4 +49,10 @@ variable "datadog_cluster_check_auto_added_tags" {
   type        = list(string)
   description = "List of tags to add to Datadog Cluster Check"
   default     = ["stage", "environment"]
+}
+
+variable "eks_component_name" {
+  type        = string
+  description = "The name of the EKS component. Used to get the remote state"
+  default     = "eks/eks"
 }

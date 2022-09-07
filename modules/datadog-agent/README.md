@@ -6,11 +6,16 @@ Note that pending https://tanzle.atlassian.net/browse/SRE-268 & https://cloudpos
 
 If you're getting a "No changes" plan when you know the live release config doesn't match the new values, force a taint/recreate of the Helm release with a Spacelift task for the stack like this: `terraform apply -replace='module.datadog_agent.helm_release.this[0]' -auto-approve`.
 
+Locally this looks like
+```shell
+atmos terraform deploy datadog-agent -s ${region}-${stage} -replace='module.datadog_agent.helm_release.this[0]'
+```
+
 ## Usage
 
 **Stack Level**: Regional
 
-Use this in the catalog or use these variables to overwrite the catalog values.
+Use this in the catalog as default values.
 
 ```yaml
 components:
@@ -21,9 +26,21 @@ components:
           workspace_enabled: true
       vars:
         enabled: true
+        name: "datadog"
+        description: "Datadog Kubernetes Agent"
+        kubernetes_namespace: "monitoring"
+        create_namespace: true
+        repository: "https://helm.datadoghq.com"
+        chart: "datadog"
+        chart_version: "3.0.0"
+        timeout: 600
+        wait: true
+        atomic: true
+        cleanup_on_fail: true
 ```
 
-Dev Example
+Deploy this to a particular environment such as dev, prod, etc.
+
 ```yaml
 components:
   terraform:
@@ -93,6 +110,7 @@ https-checks:
     warning: 1
     ok: 1
 ```
+
 ## References
 
 * https://github.com/DataDog/helm-charts/tree/main/charts/datadog
@@ -116,19 +134,16 @@ https-checks:
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
-| <a name="provider_aws.api_keys"></a> [aws.api\_keys](#provider\_aws.api\_keys) | ~> 4.0 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_datadog_agent"></a> [datadog\_agent](#module\_datadog\_agent) | cloudposse/helm-release/aws | 0.3.2 |
+| <a name="module_datadog_agent"></a> [datadog\_agent](#module\_datadog\_agent) | cloudposse/helm-release/aws | 0.6.0 |
 | <a name="module_datadog_cluster_check_yaml_config"></a> [datadog\_cluster\_check\_yaml\_config](#module\_datadog\_cluster\_check\_yaml\_config) | cloudposse/config/yaml | 1.0.1 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.1 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_iam_roles_datadog_secrets"></a> [iam\_roles\_datadog\_secrets](#module\_iam\_roles\_datadog\_secrets) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_introspection"></a> [introspection](#module\_introspection) | cloudposse/label/null | 0.25.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -164,11 +179,11 @@ https-checks:
 | <a name="input_datadog_cluster_check_auto_added_tags"></a> [datadog\_cluster\_check\_auto\_added\_tags](#input\_datadog\_cluster\_check\_auto\_added\_tags) | List of tags to add to Datadog Cluster Check | `list(string)` | <pre>[<br>  "stage",<br>  "environment"<br>]</pre> | no |
 | <a name="input_datadog_cluster_check_config_parameters"></a> [datadog\_cluster\_check\_config\_parameters](#input\_datadog\_cluster\_check\_config\_parameters) | Map of parameters to Datadog Cluster Check configurations | `map(any)` | `{}` | no |
 | <a name="input_datadog_cluster_check_config_paths"></a> [datadog\_cluster\_check\_config\_paths](#input\_datadog\_cluster\_check\_config\_paths) | List of paths to Datadog Cluster Check configurations | `list(string)` | `[]` | no |
-| <a name="input_datadog_secrets_source_store_account"></a> [datadog\_secrets\_source\_store\_account](#input\_datadog\_secrets\_source\_store\_account) | Account (stage) holding Secret Store for Datadog API and app keys. | `string` | `"auto"` | no |
-| <a name="input_datadog_tags"></a> [datadog\_tags](#input\_datadog\_tags) | List of static tags to attach to every metric, event and service check collected by the agent | `list(string)` | `[]` | no |
+| <a name="input_datadog_tags"></a> [datadog\_tags](#input\_datadog\_tags) | List of static tags to attach to every metric, event and service check collected by the agent | `set(string)` | `[]` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_description"></a> [description](#input\_description) | Release description attribute (visible in the history) | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
+| <a name="input_eks_component_name"></a> [eks\_component\_name](#input\_eks\_component\_name) | The name of the EKS component. Used to get the remote state | `string` | `"eks/eks"` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_helm_manifest_experiment_enabled"></a> [helm\_manifest\_experiment\_enabled](#input\_helm\_manifest\_experiment\_enabled) | Enable storing of the rendered manifest for helm\_release so the full diff of what is changing can been seen in the plan | `bool` | `true` | no |
@@ -182,7 +197,7 @@ https-checks:
 | <a name="input_kube_exec_auth_role_arn"></a> [kube\_exec\_auth\_role\_arn](#input\_kube\_exec\_auth\_role\_arn) | The role ARN for `aws eks get-token` to use | `string` | `""` | no |
 | <a name="input_kube_exec_auth_role_arn_enabled"></a> [kube\_exec\_auth\_role\_arn\_enabled](#input\_kube\_exec\_auth\_role\_arn\_enabled) | If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token` | `bool` | `true` | no |
 | <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes kube config file | `string` | `""` | no |
-| <a name="input_kubeconfig_exec_auth_api_version"></a> [kubeconfig\_exec\_auth\_api\_version](#input\_kubeconfig\_exec\_auth\_api\_version) | The Kubernetes API version of the credentials returned by the `exec` auth plugin | `string` | `"client.authentication.k8s.io/v1alpha1"` | no |
+| <a name="input_kubeconfig_exec_auth_api_version"></a> [kubeconfig\_exec\_auth\_api\_version](#input\_kubeconfig\_exec\_auth\_api\_version) | The Kubernetes API version of the credentials returned by the `exec` auth plugin | `string` | `"client.authentication.k8s.io/v1beta1"` | no |
 | <a name="input_kubeconfig_file"></a> [kubeconfig\_file](#input\_kubeconfig\_file) | The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true` | `string` | `""` | no |
 | <a name="input_kubeconfig_file_enabled"></a> [kubeconfig\_file\_enabled](#input\_kubeconfig\_file\_enabled) | If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster | `bool` | `false` | no |
 | <a name="input_kubernetes_namespace"></a> [kubernetes\_namespace](#input\_kubernetes\_namespace) | Kubernetes namespace to install the release into | `string` | n/a | yes |
@@ -195,7 +210,6 @@ https-checks:
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_repository"></a> [repository](#input\_repository) | Repository URL where to locate the requested chart | `string` | `null` | no |
-| <a name="input_required_tags"></a> [required\_tags](#input\_required\_tags) | List of required tag names | `list(string)` | `[]` | no |
 | <a name="input_secrets_store_type"></a> [secrets\_store\_type](#input\_secrets\_store\_type) | Secret store type for Datadog API and app keys. Valid values: `SSM`, `ASM` | `string` | `"SSM"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
@@ -212,4 +226,6 @@ https-checks:
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
-[<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
+## References
+* Datadog's [Kubernetes Agent documentation](https://docs.datadoghq.com/containers/kubernetes/)
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/datadog-agent) - Cloud Posse's upstream component
