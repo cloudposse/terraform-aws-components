@@ -92,7 +92,7 @@ data "aws_ssm_parameter" "github_token" {
 }
 
 data "aws_ssm_parameter" "github_webhook_secret_token" {
-  count = local.enabled ? 1 : 0
+  count = local.webhook_enabled ? 1 : 0
 
   name            = var.ssm_github_webhook_secret_token_path
   with_decryption = true
