@@ -195,6 +195,6 @@ variable "eks_component_name" {
 
 variable "ssm_github_token_path" {
   type        = string
-  description = "The path in SSM to the GitHub token. Required if `var.sops_enabled` is `false`"
+  description = "The path in SSM to the GitHub token."
   default     = ""
 }
