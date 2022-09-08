@@ -44,3 +44,4 @@ spec:
       serviceAccountName: {{ .Values.service_account_name }}
       resources:
         {{- toYaml .Values.resources | nindent 8 }}
+

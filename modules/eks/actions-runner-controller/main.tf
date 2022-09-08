@@ -6,6 +6,24 @@ locals {
   webhook_enabled       = local.enabled ? try(var.webhook.enabled, false) : false
   webhook_host          = local.webhook_enabled ? format(var.webhook.hostname_template, var.tenant, var.stage, var.environment) : "example.com"
 
+  default_secrets = local.enabled ? [
+    {
+      name  = "authSecret.github_token"
+      value = join("", data.aws_ssm_parameter.github_token[0].*.value)
+      type  = "string"
+    }
+  ] : []
+
+  webhook_secrets = local.webhook_enabled ? [
+    {
+      name  = "githubWebhookServer.secret.github_webhook_secret_token"
+      value = join("", data.aws_ssm_parameter.github_webhook_secret_token[0].*.value)
+      type  = "string"
+    }
+  ] : []
+
+  set_sensitive = concat(local.default_secrets, local.webhook_secrets)
+
   default_iam_policy_statements = [
     {
       sid = "AllowECRActions"
@@ -73,6 +91,13 @@ data "aws_ssm_parameter" "github_token" {
   with_decryption = true
 }
 
+data "aws_ssm_parameter" "github_webhook_secret_token" {
+  count = local.enabled ? 1 : 0
+
+  name            = var.ssm_github_webhook_secret_token_path
+  with_decryption = true
+}
+
 module "actions_runner_controller" {
   source  = "cloudposse/helm-release/aws"
   version = "0.6.0"
@@ -130,19 +155,14 @@ module "actions_runner_controller" {
       },
       authSecret = {
         enabled = true
+        create  = true
       }
     }),
     # additional values
     yamlencode(var.chart_values)
   ])
 
-  set_sensitive = local.enabled ? [] : [
-    {
-      name  = "authSecret.github_token"
-      value = join("", data.aws_ssm_parameter.github_token[0].*.value)
-      type  = "string"
-    }
-  ]
+  set_sensitive = local.set_sensitive
 
   context = module.this.context
 }

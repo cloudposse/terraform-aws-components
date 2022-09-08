@@ -128,7 +128,7 @@ variable "runners" {
     type = "organization" # can be either 'organization' or 'repository'
     dind_enabled: false # A Docker sidecar container will be deployed
     image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'
-    scope = "ACME"
+    scope = "ACME"  # org name for Organization runners, repo name for Repository runners
     scale_down_delay_seconds = 300
     min_replicas = 1
     max_replicas = 5
@@ -196,5 +196,11 @@ variable "eks_component_name" {
 variable "ssm_github_token_path" {
   type        = string
   description = "The path in SSM to the GitHub token."
+  default     = ""
+}
+
+variable "ssm_github_webhook_secret_token_path" {
+  type        = string
+  description = "The path in SSM to the GitHub Webhook Secret token."
   default     = ""
 }

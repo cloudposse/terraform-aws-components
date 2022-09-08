@@ -12,3 +12,4 @@ output "webhook_payload_url" {
   value       = local.webhook_enabled ? format("https://${var.webhook.hostname_template}", var.tenant, var.stage, var.environment) : null
   description = "Payload URL for GitHub webhook"
 }
+
