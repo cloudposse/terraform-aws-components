@@ -157,3 +157,4 @@ components:
 
 ## References
 * https://github.com/Ealenn/Echo-Server
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/eks/echo-server) - Cloud Posse's upstream component
