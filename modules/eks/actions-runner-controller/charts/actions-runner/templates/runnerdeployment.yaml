@@ -1,0 +1,47 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: {{ .Values.release_name }}
+spec:
+  # Do not use `replicas` with HorizontalRunnerAutoscaler
+  # See https://github.com/actions-runner-controller/actions-runner-controller/issues/206#issuecomment-748601907
+  # replicas: 1
+  template:
+    spec:
+      # You could reserve nodes for runners by labeling and tainting nodes with
+      #   node-role.kubernetes.io/actions-runner
+      # and then adding the following to this RunnerDeployment
+      #
+      #  nodeSelector:
+      #    node-role.kubernetes.io/actions-runner: ""
+      #
+      #  tolerations:
+      #  - effect: NoSchedule
+      #    key: node-role.kubernetes.io/actions-runner
+      #    operator: Exists
+
+      {{ if eq .Values.type "organization" }}
+      organization: {{ .Values.scope }}
+      {{ end }}
+      {{ if eq .Values.type "repository" }}
+      repository: {{ .Values.scope }}
+      {{ end }}
+      # You can use labels to create subsets of runners.
+      # See https://github.com/summerwind/actions-runner-controller#runner-labels
+      # and https://docs.github.com/en/free-pro-team@latest/actions/hosting-your-own-runners/using-self-hosted-runners-in-a-workflow
+      labels:
+        # It appears that the webhook autoscaler requires the runner deployment
+        # to explicitly include the "self-hosted" label in order to match the
+        # workflow_job to it.
+        - self-hosted
+      {{- range .Values.labels }}
+        - {{ . | quote }}
+      {{- end }}
+      # dockerdWithinRunnerContainer = false means access to a Docker daemon is provided by a sidecar container.
+      dockerdWithinRunnerContainer: {{ .Values.dind_enabled }}
+      image: {{ .Values.image | quote }}
+      imagePullPolicy: IfNotPresent
+      serviceAccountName: {{ .Values.service_account_name }}
+      resources:
+        {{- toYaml .Values.resources | nindent 8 }}
+

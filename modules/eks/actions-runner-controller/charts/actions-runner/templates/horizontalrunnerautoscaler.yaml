@@ -1,0 +1,35 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: {{ .Values.release_name }}
+spec:
+  # Runners in the targeted RunnerDeployment won't be scaled down
+  # for 5 minutes instead of the default 10 minutes now
+  scaleDownDelaySecondsAfterScaleOut: {{ .Values.scale_down_delay_seconds }}
+  scaleTargetRef:
+    name: {{ .Values.release_name }}
+  minReplicas: {{ .Values.min_replicas }}
+  maxReplicas: {{ .Values.max_replicas }}
+  {{- if .Values.pull_driven_scaling_enabled }}
+  metrics:
+    - type: PercentageRunnersBusy
+      scaleUpThreshold: {{ .Values.scale_up_threshold | quote }}
+      scaleDownThreshold: {{ .Values.scale_down_threshold | quote }}
+      {{- if .Values.scale_up_factor }}
+      scaleUpFactor: {{ .Values.scale_up_factor | quote }}
+      {{- else }}
+      scaleUpAdjustment: {{ .Values.scale_up_adjustment | quote }}
+      {{- end }}
+      {{- if .Values.scale_down_factor }}
+      scaleDownFactor: {{ .Values.scale_down_factor | quote }}
+      {{- else }}
+      scaleUpAdjustment: {{ .Values.scale_down_adjustment | quote }}
+      {{- end }}
+  {{- end }}
+  {{- if .Values.webhook_driven_scaling_enabled }}
+  scaleUpTriggers:
+  - githubEvent:
+      workflowJob: {}
+    amount: 1
+    duration: "{{ .Values.scale_down_delay_seconds }}s"
+  {{- end }}
