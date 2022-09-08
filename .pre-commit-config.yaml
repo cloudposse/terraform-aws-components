@@ -7,7 +7,7 @@ repos:
             (?x)^(
                 modules/cert-manager/cert-manager-issuer/templates/.*.yaml |
                 modules/github-actions-runner/runners/actions-runner/chart/templates/.*.yaml |
-                modules/echo-server/charts/echo-server/templates/.*.yaml
+                modules/echo-server/charts/eks/echo-server/templates/.*.yaml
             )$
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.71.0
