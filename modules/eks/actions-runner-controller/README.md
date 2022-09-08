@@ -39,6 +39,7 @@ components:
             cpu: 10m
             memory: 30Mi
         ssm_github_token_path: "/github/acme/github_token"
+        ssm_github_webhook_secret_token_path: "/github/acme/github_webhook_secret_token"
         runners:
           repository-runner:
             type: "repository" # can be either 'organization' or 'repository'
@@ -66,6 +67,17 @@ components:
               - "Ubuntu"
               - "core-otto"
 ```
+
+### Creating Github Tokens
+
+Ensure that the required tokens are created in AWS SSM.
+1. The `github_token` saved under `var.ssm_github_token_path`. The value should be a PAT with the scope outlined in [this document](https://github.com/actions-runner-controller/actions-runner-controller#deploying-using-pat-authentication).
+2. If using the Webhook Driven autoscaling (recommended), include the key `github_webhook_secret_token` saved under `var.ssm_github_webhook_secret_token_path`. Set to a random string you will use as the Secret when creating the webhook in GitHub.
+Generate the string using 1Password (no special characters, length 45) or by running
+```bash
+dd if=/dev/random bs=1 count=33  2>/dev/null | base64
+```
+
 
 ### Updating CRDs
 
