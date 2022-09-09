@@ -20,9 +20,10 @@ resource "github_repository_file" "readme" {
   branch     = join("", github_repository.default.*.default_branch)
   file       = "README.md"
   content = templatefile("${path.module}/templates/README.md.tpl", {
-    repository_name        = join("", github_repository.default.*.name)
-    repository_description = join("", github_repository.default.*.description)
-    github_organization    = var.github_organization
+    applicationset_template = var.applicationset_template
+    repository_name         = join("", github_repository.default.*.name)
+    repository_description  = join("", github_repository.default.*.description)
+    github_organization     = var.github_organization
   })
   commit_message      = "Create README.md file."
   commit_author       = var.github_user

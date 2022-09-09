@@ -2,7 +2,6 @@ provider "aws" {
   region = var.region
 
   profile = module.iam_roles.profiles_enabled ? coalesce(var.import_profile_name, module.iam_roles.terraform_profile_name) : null
-
   dynamic "assume_role" {
     for_each = module.iam_roles.profiles_enabled ? [] : ["role"]
     content {
@@ -28,8 +27,22 @@ variable "import_role_arn" {
   description = "IAM Role ARN to use when importing a resource"
 }
 
-provider "github" {
-  base_url = var.github_base_url
-  owner    = var.github_organization
-  token    = local.github_token
+data "aws_eks_cluster" "kubernetes" {
+  count = 1
+
+  name = module.eks.outputs.eks_cluster_id
+}
+
+data "aws_eks_cluster_auth" "kubernetes" {
+  count = 1
+
+  name = module.eks.outputs.eks_cluster_id
+}
+
+provider "helm" {
+  kubernetes {
+    host                   = data.aws_eks_cluster.kubernetes[0].endpoint
+    token                  = data.aws_eks_cluster_auth.kubernetes[0].token
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.kubernetes[0].certificate_authority[0].data)
+  }
 }

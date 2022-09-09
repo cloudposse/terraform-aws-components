@@ -25,13 +25,13 @@ metadata:
     notifications.argoproj.io/subscribe.on-deployed.github-commit-status: ""
     notifications.argoproj.io/subscribe.on-deleted.github-deployment: ""
   creationTimestamp: null
-  name: ${name}
+  name: cluster-config
   namespace: ${namespace}
 spec:
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
-  description: ${name} project
+  description: cluster-config project
   destinations:
     - namespace: '*'
       server: '*'
@@ -49,37 +49,35 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
   creationTimestamp: null
-  name: ${name}
+  name: cluster-config
   namespace: ${namespace}
 spec:
   generators:
     - git:
         repoURL: ${ssh_url}
         revision: HEAD
-        files:
-          - path: ${environment}/apps/*/*/config.yaml
+        directories:
+          - path: ${environment}/config/*
   template:
     metadata:
-      annotations:
-        deployment_id: '{{deployment_id}}'
-        app_repository: '{{app_repository}}'
-        app_commit: '{{app_commit}}'
-        app_hostname: 'https://{{app_hostname}}'
-      name: '{{name}}'
+      name: '${environment_normalized}-{{path.basename}}'
     spec:
-      project: ${name}
+      project: cluster-config
       source:
         repoURL: ${ssh_url}
         targetRevision: HEAD
-        path: '{{manifests}}'
+        path: '{{path}}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{namespace}}'
+%{if auto-sync || auto-sync-namespaces ~}
       syncPolicy:
+%{ endif ~}
 %{if auto-sync ~}
         automated:
           prune: true
           selfHeal: true
 %{ endif ~}
+%{if auto-sync-namespaces ~}
         syncOptions:
           - CreateNamespace=true
+%{ endif ~}

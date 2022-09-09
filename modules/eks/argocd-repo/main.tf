@@ -9,22 +9,11 @@ locals {
       env.stage,
     )) => env
   } : {}
+
+  deploy_key_generation_environments = var.deploy_key_generation_enabled ? local.environments : {}
+  ssm_deploy_key_environments        = var.deploy_key_generation_enabled ? {} : local.environments
+
   manifest_kubernetes_namespace = "argocd"
-
-  team_slugs = toset(compact([
-    for permission in var.permissions : lookup(permission, "team_slug", null)
-  ]))
-
-  team_ids = [
-    for team in data.github_team.default : team.id
-  ]
-
-  team_permissions = {
-    for index, id in local.team_ids : (var.permissions[index].team_slug) => {
-      id         = id
-      permission = var.permissions[index].permission
-    }
-  }
 }
 
 resource "github_repository" "default" {
@@ -72,32 +61,27 @@ resource "github_branch_protection" "default" {
   ]
 }
 
-data "github_team" "default" {
-  for_each = local.team_slugs
-
-  slug = each.value
-}
-
-resource "github_team_repository" "default" {
-  for_each = local.team_permissions
-
-  repository = join("", github_repository.default[*].name)
-  team_id    = each.value.id
-  permission = each.value.permission
-}
 
 resource "tls_private_key" "default" {
-  for_each = local.environments
+  for_each = local.deploy_key_generation_environments
 
-  algorithm = "RSA"
-  rsa_bits  = "2048"
+  algorithm = "ED25519"
 }
 
-resource "github_repository_deploy_key" "default" {
-  for_each = local.environments
+resource "github_repository_deploy_key" "generated_deploy_keys" {
+  for_each = local.deploy_key_generation_environments
 
   title      = "Deploy key for ArgoCD environment: ${each.key} (${join("", github_repository.default.*.default_branch)} branch)"
   repository = join("", github_repository.default.*.name)
   key        = tls_private_key.default[each.key].public_key_openssh
+  read_only  = true
+}
+
+resource "github_repository_deploy_key" "deploy_key" {
+  for_each = local.ssm_deploy_key_environments
+
+  title      = "Deploy key for ArgoCD environment: ${each.key} (${join("", github_repository.default.*.default_branch)} branch)"
+  repository = join("", github_repository.default.*.name)
+  key        = data.aws_ssm_parameter.public_deploy_keys[each.key].value
   read_only  = true
 }

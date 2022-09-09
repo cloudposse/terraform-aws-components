@@ -1,20 +1,22 @@
 variable "region" {
   type        = string
-  description = "AWS Region"
+  description = "AWS Region."
 }
 
 variable "description" {
   type        = string
-  description = "The description of the repository"
+  description = "Repository description."
   default     = null
 }
 
 variable "environments" {
   type = list(object({
-    tenant      = string
-    environment = string
-    stage       = string
-    auto-sync   = bool
+    tenant               = string
+    environment          = string
+    stage                = string
+    auto-sync            = bool
+    auto-sync-namespaces = bool
+    slack_channel        = string
   }))
   description = <<-EOT
   Environments to populate `applicationset.yaml` files and repository deploy keys (for ArgoCD) for.
@@ -65,7 +67,7 @@ variable "github_organization" {
 
 variable "github_token_override" {
   type        = string
-  description = "Use the value of this variable as the GitHub token instead of reading it from SSM"
+  description = "TODO"
   default     = null
 }
 
@@ -75,37 +77,35 @@ variable "ssm_github_api_key" {
   default     = "/argocd/github/api_key"
 }
 
+variable "deploy_key_generation_enabled" {
+  type        = bool
+  description = <<-EOT
+  If true, the private keys for the GitHub Deploy Keys will be created and written to SSM Parameter Store.
+
+  If false, it is expected that the private keys are exist in SSM beforehand.
+  EOT
+  default     = false
+}
+
 variable "ssm_github_deploy_key_format" {
   type        = string
-  description = "Format string of the SSM parameter path to which the deploy keys will be written to (%s will be replaced with the environment name)"
+  description = "Format string of the SSM parameter path to which the deploy keys will be written to (%s will be replaced with the environment name)."
   default     = "/argocd/deploy_keys/%s"
 }
 
-variable "permissions" {
-  type = list(object({
-    team_slug  = string,
-    permission = string
-  }))
+variable "applicationset_template" {
+  type        = string
   description = <<-EOT
-    A list of Repository Permission objects used to configure the team permissions of the repository
-
-    `team_slug` should be the name of the team without the `@{org}` e.g. `@cloudposse/team` => `team`
-    `permission` is just one of the available values listed below
+  The name of the applicationset template used to initialize each environment.
+  Valid values are:
+    apps.applicationset.yaml.tpl (default)
+    config.applicationset.yaml.tpl
   EOT
-
-  default = []
-
-  validation {
-    condition = alltrue([
-      for obj in var.permissions : can(contains(["pull", "triage", "push", "maintain", "admin"], obj.permission))
-    ])
-
-    error_message = "Permission value must be a subset of [pull, triage, push, maintain, admin]."
-  }
+  default     = "apps.applicationset.yaml.tpl"
 }
 
-variable "slack_channel" {
-  type        = string
-  description = "The name of the slack channel to configure ArgoCD notifications for"
-  default     = null
+variable "cluster_config_types" {
+  type        = set(string)
+  description = "Cluster configuration types to initialize when `var.applicationset_template == config.applicationset.yaml.tpl`"
+  default     = []
 }

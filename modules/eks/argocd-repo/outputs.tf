@@ -1,34 +1,34 @@
 output "deploy_keys_ssm_paths" {
-  description = "SSM Parameter Store paths for the repository's deploy keys"
-  value       = module.store_write.names
+  description = "SSM Parameter Store paths for the repository's deploy keys."
+  value       = var.deploy_key_generation_enabled ? [for k, v in local.environments : format(var.ssm_github_deploy_key_format, k)] : [for parameter in data.aws_ssm_parameter.private_deploy_keys : parameter.id]
 }
 
 output "deploy_keys_ssm_path_format" {
-  description = "SSM Parameter Store path format for the repository's deploy keys"
+  description = "SSM Parameter Store path format for the repository's deploy keys."
   value       = local.enabled ? var.ssm_github_deploy_key_format : null
 }
 
 output "repository_description" {
-  description = "Repository description"
+  description = "Repository description."
   value       = join("", github_repository.default.*.description)
 }
 
 output "repository_default_branch" {
-  description = "Repository default branch"
+  description = "Repository default branch."
   value       = join("", github_repository.default.*.default_branch)
 }
 
 output "repository_url" {
-  description = "Repository URL"
+  description = "Repository URL."
   value       = join("", github_repository.default.*.html_url)
 }
 
 output "repository_git_clone_url" {
-  description = "Repository git clone URL"
+  description = "Repository git clone URL."
   value       = join("", github_repository.default.*.git_clone_url)
 }
 
 output "repository_ssh_clone_url" {
-  description = "Repository SSH clone URL"
+  description = "Repository SSH clone URL."
   value       = join("", github_repository.default.*.ssh_clone_url)
 }
