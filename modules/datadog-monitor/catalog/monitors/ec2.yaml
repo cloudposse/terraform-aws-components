@@ -9,7 +9,8 @@ ec2-failed-status-check:
   message: |
     ({stage} {region}) {instance_id} failed a status check
   escalation_message: ""
-  tags: [ "managed-by:Terraform" ]
+  tags:
+    managed-by: Terraform
   notify_no_data: false
   notify_audit: true
   require_full_window: true

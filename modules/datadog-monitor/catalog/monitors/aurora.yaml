@@ -14,7 +14,8 @@ aurora-replica-lag:
     ({dbinstanceidentifier}) Replica lag has been greater than 1s for more than 15 minutes
     {{/is_alert}}
   escalation_message: ""
-  tags: [ "managed-by:Terraform" ]
+  tags:
+    managed-by: Terraform
   notify_no_data: false
   notify_audit: true
   require_full_window: false
