@@ -44,7 +44,7 @@ locals {
   datadog_monitors = {
     for k, v in module.datadog_monitors_merge :
     k => merge(v.merged, {
-      message = format("%s%s%s", var.message_prefix, v.merged.message, var.message_postfix)
+      message = format("%s%s%s", var.message_prefix, lookup(v.merged, "message", ""), var.message_postfix)
     })
   }
 
@@ -89,8 +89,8 @@ module "datadog_monitors_merge" {
 
   # for_each = { for k, v in local.datadog_monitors_yaml_config_map_configs : k => v if local.datadog_monitors_enabled }
   for_each = { for k, v in merge(
-    (local.local_datadog_monitors_enabled) ? module.local_datadog_monitors_yaml_config.map_configs : {},
-    (local.remote_datadog_monitors_enabled) ? module.remote_datadog_monitors_yaml_config.map_configs : {}
+    module.local_datadog_monitors_yaml_config.map_configs,
+    module.remote_datadog_monitors_yaml_config.map_configs
   ) : k => v if local.datadog_monitors_enabled }
 
   # Merge in order: datadog monitor, datadog monitor globals, context tags
