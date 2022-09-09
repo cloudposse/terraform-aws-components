@@ -10,8 +10,8 @@ rabbitmq-messages-unacknowledged-rate-too-high:
     RabbitMQ Queue: {{queue.name}}
   escalation_message: ""
   tags:
-    - "managed-by:Terraform"
-    - "integration:rabbitmq"
+    managed-by: Terraform
+    integration: rabbitmq
   notify_no_data: false
   notify_audit: true
   require_full_window: true
@@ -44,8 +44,8 @@ rabbitmq-memory-utilization:
     Node: {{node.name}}
   escalation_message: ""
   tags:
-    - "managed-by:Terraform"
-    - "integration:rabbitmq"
+    managed-by: Terraform
+    integration: rabbitmq
   notify_no_data: false
   notify_audit: true
   require_full_window: true
@@ -77,8 +77,8 @@ rabbitmq-disk-utilization:
     Node: {{node.name}}
   escalation_message: ""
   tags:
-    - "managed-by:Terraform"
-    - "integration:rabbitmq"
+    managed-by: Terraform
+    integration: rabbitmq
   notify_no_data: false
   notify_audit: true
   require_full_window: true

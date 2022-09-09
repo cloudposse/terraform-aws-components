@@ -13,7 +13,8 @@ elb-lb-httpcode-5xx-notify:
     {{/is_alert}}
     Check LB
   escalation_message: ""
-  tags: [ "managed-by:Terraform" ]
+  tags:
+    managed-by: Terraform
   notify_no_data: false
   notify_audit: true
   require_full_window: true

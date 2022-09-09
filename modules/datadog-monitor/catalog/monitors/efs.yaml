@@ -9,7 +9,8 @@ efs-throughput-utilization-check:
   message: |
     ({stage} {region}) {filesystemid} Throughput Utilization is too high
   escalation_message: ""
-  tags: [ "managed-by:Terraform" ]
+  tags:
+    managed-by: Terraform
   notify_no_data: false
   notify_audit: true
   require_full_window: false
@@ -42,7 +43,8 @@ efs-burst-balance:
   message: |
     ({stage} {region}) {filesystemid} EFS Burst Balance for {filesystemid} dipped below 100 GB.
   escalation_message: ""
-  tags: [ "managed-by:Terraform" ]
+  tags:
+    managed-by: Terraform
   notify_no_data: false
   notify_audit: true
   require_full_window: false
@@ -73,7 +75,8 @@ efs-io-percent-limit:
   message: |
     ({stage} {region}) {filesystemid} EFS I/O limit has been reached for fs {filesystemid}.
   escalation_message: ""
-  tags: [ "managed-by:Terraform" ]
+  tags:
+    managed-by: Terraform
   notify_no_data: false
   notify_audit: true
   require_full_window: false
@@ -103,7 +106,8 @@ efs-client-connection-anomaly:
   message: |
     ({stage} {region}) [{name}] EFS Client Connection Anomoly for filesystem {filesystemid}.
   escalation_message: ""
-  tags: [ "managed-by:Terraform" ]
+  tags:
+    managed-by: Terraform
   notify_no_data: false
   notify_audit: true
   require_full_window: false
