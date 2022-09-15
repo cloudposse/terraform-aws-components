@@ -24,7 +24,7 @@ locals {
 
   ingress_controller_group_name = module.this.name
 
-  kube_tags = join(",", [for k, v in module.introspection.tags : "${k}=${v}"])
+  kube_tags = join(",", [for k, v in module.this.tags : "${k}=${v}"])
 
   default_rule = "default-404-rule"
 
@@ -43,7 +43,7 @@ resource "kubernetes_namespace" "default" {
   metadata {
     name = var.kubernetes_namespace
 
-    labels = module.introspection.tags
+    labels = module.this.tags
   }
 }
 
