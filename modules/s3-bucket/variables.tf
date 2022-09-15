@@ -74,6 +74,12 @@ variable "versioning_enabled" {
   description = "A state of versioning. Versioning is a means of keeping multiple variants of an object in the same bucket"
 }
 
+variable "logging_bucket_name_rendering_enabled" {
+  type        = bool
+  default     = false
+  description = "Whether to render the logging bucket name, prepending context"
+}
+
 variable "logging" {
   type = object({
     bucket_name = string
@@ -174,7 +180,7 @@ variable "lifecycle_configuration_rules" {
   description = "A list of lifecycle V2 rules"
 }
 
-variable "cors_rule_inputs" {
+variable "cors_configuration" {
   type = list(object({
     allowed_headers = list(string)
     allowed_methods = list(string)
