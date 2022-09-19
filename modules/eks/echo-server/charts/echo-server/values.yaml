@@ -65,6 +65,10 @@ ingress:
       enabled: true
     ## alb.ingress.kubernetes.io/ssl-redirect:
       port: 443
+    access_logs:
+      enabled: false
+      ## s3_bucket_name: "acme-ue2-prod-eks-cluster-alb-access-logs"
+      s3_bucket_prefix: "echo-server"
 
 #resources: {}
 #  # We usually recommend not to specify default resources and to leave this as a conscious

@@ -15,9 +15,14 @@ metadata:
       {{- end }}
     {{- else if eq (printf "%v" .Values.ingress.alb.enabled) "true" }}
     kubernetes.io/ingress.class: {{ .Values.ingress.alb.class }}
+      {{- if not .Values.ingress.alb.group_name }}
     alb.ingress.kubernetes.io/load-balancer-name: {{ index .Values.ingress.alb "load_balancer_name" | default "k8s-common" }}
+      {{- end }}
     alb.ingress.kubernetes.io/group.name: {{ index .Values.ingress.alb "group_name" | default "common" }}
     alb.ingress.kubernetes.io/scheme: internet-facing
+      {{- if .Values.ingress.alb.access_logs.enabled }}
+    alb.ingress.kubernetes.io/load-balancer-attributes: access_logs.s3.enabled=true,access_logs.s3.bucket={{.Values.ingress.alb.access_logs.s3_bucket_name}},access_logs.s3.prefix={{.Values.ingress.alb.access_logs.s3_bucket_prefix}}
+      {{- end }}
     alb.ingress.kubernetes.io/target-type: 'ip'
       {{- if eq (printf "%v" .Values.ingress.alb.ssl_redirect.enabled) "true" }}
     alb.ingress.kubernetes.io/ssl-redirect: '{{ .Values.ingress.alb.ssl_redirect.port }}'
