@@ -7,7 +7,7 @@ module "eks" {
   context = module.this.context
 }
 
-module "alb-controller-ingress-group" {
+module "alb_controller_ingress_group" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "0.22.4"
 
