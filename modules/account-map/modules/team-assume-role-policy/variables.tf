@@ -47,7 +47,7 @@ variable "denied_permission_sets" {
   default     = {}
 }
 
-variable "deny_users" {
+variable "deny_all_iam_users" {
   type        = bool
   description = "False if you would like IAM Users to be able to assume the role."
   default     = true
