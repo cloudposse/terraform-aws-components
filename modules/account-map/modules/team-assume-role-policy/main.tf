@@ -68,11 +68,16 @@ data "aws_iam_policy_document" "assume_role" {
         "sts:TagSession",
       ]
 
-      condition {
-        test     = "StringEquals"
-        variable = "aws:PrincipalType"
-        values   = ["AssumedRole"]
+      dynamic "condition" {
+        for_each = var.deny_users ? [1] : []
+
+        content {
+          test     = "StringEquals"
+          variable = "aws:PrincipalType"
+          values   = ["AssumedRole"]
+        }
       }
+
       condition {
         test     = "ArnLike"
         variable = "aws:PrincipalArn"
@@ -89,6 +94,7 @@ data "aws_iam_policy_document" "assume_role" {
   }
 
   # As a safety measure, we do not allow AWS Users (not Roles) to assume the SAML Teams or Team roles.
+  # This can be override by settings `var.deny_users` to false.
   # In particular, this prevents SuperAdmin from running Terraform on components that should be handled by Spacelift.
   statement {
     sid = "RoleDenyAllUsersDenyAssumeRole"
@@ -102,7 +108,7 @@ data "aws_iam_policy_document" "assume_role" {
     condition {
       test     = "ArnLike"
       variable = "aws:PrincipalArn"
-      values   = concat(["arn:${local.aws_partition}:iam::*:user/*"], local.denied_principals)
+      values   = concat(var.deny_users ? ["arn:${local.aws_partition}:iam::*:user/*"] : [], local.denied_principals)
     }
 
     principals {
