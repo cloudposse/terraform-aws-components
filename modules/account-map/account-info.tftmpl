@@ -1,0 +1,88 @@
+#!/bin/bash
+
+# CAUTION: this script is appended to other scripts,
+# so it must not destroy variables like `functions`.
+
+
+functions+=(namespace)
+function namespace() {
+  echo ${namespace}
+}
+
+declare -A accounts
+
+# root account included
+accounts=(
+  %{ for k, v in account_info_map ~}
+  ["${k}"]="${v.id}"
+  %{ endfor ~}
+)
+
+declare -A account_roles
+
+account_roles=(
+  %{ for k, v in account_role_map ~}
+  ["${k}"]="${v}"
+  %{ endfor ~}
+)
+
+functions+=("account-names")
+function account-names() {
+  printf "%s\n" "$${!accounts[@]}" | sort
+}
+
+functions+=("account-ids")
+function account-ids() {
+  for name in $(account-names); do
+    printf "%s = %s\n" "$name" "$${accounts[$name]}"
+  done
+}
+
+functions+=("account-roles")
+function account-roles() {
+  printf "%s\n" "$${!account_roles[@]}" | sort
+}
+
+
+########### non-template helpers ###########
+
+functions+=("account-id")
+function account-id() {
+	local id="$${accounts[$1]}"
+	if [[ -n $id ]]; then
+		echo $id
+	else
+		echo "Account $1 not found" >&2
+		exit 1
+	fi
+}
+
+functions+=("account-for-role")
+function account-for-role() {
+	local account="$${account_roles[$1]}"
+	if [[ -n $account ]]; then
+		echo $account
+	else
+		echo "Account $1 not found" >&2
+		exit 1
+	fi
+}
+
+function account_info_main() {
+  if printf '%s\0' "$${functions[@]}" | grep -Fxqz -- "$1"; then
+	  "$@"
+  else
+    fns=$(printf '%s\n' "$${functions[@]}" | sort)
+    usage=$${fns//$'\n'/ | }
+    echo "Usage: $0 [ $usage ]"
+  fi
+}
+
+if ! command -v main >/dev/null; then
+  function main() {
+    account_info_main "$@"
+  }
+fi
+
+# If this script is being sourced, do not execute main
+(return 0 2>/dev/null) && sourced=1 || main "$@"

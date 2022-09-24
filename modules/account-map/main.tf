@@ -29,6 +29,16 @@ locals {
   all_accounts     = concat(local.eks_accounts, local.non_eks_accounts)
   account_info_map = module.accounts.outputs.account_info_map
 
+  # We should move this to be specified by tags on the accounts,
+  # like we do with EKS, but for now....
+  account_role_map = {
+    artifacts = var.artifacts_account_account_name
+    audit     = var.audit_account_account_name
+    dns       = var.dns_account_account_name
+    identity  = var.identity_account_account_name
+    root      = var.root_account_account_name
+  }
+
   terraform_roles = {
     for name, info in local.account_info_map : name =>
     format(local.iam_role_arn_templates[name],

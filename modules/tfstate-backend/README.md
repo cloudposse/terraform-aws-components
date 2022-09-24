@@ -3,6 +3,8 @@
 This component is responsible for provisioning an S3 Bucket and DynamoDB table that follow security best practices for usage as a Terraform backend. It also creates IAM roles for access to the Terraform backend.
 
 Once the initial S3 backend is configured, this component can create additional backends, allowing you to segregate them and control access to each backend separately. This may be desirable because any secret or sensitive information (such as generated passwords) that Terraform has access to gets stored in the Terraform state backend S3 bucket, so you may wish to restrict who can read the production Terraform state backend S3 bucket.
+However, perhaps counter-intuitively, all Terraform users require read access to the most sensitive accounts, such as `root` and `audit`, in order to read security configuration information, so careful planning is required when architecting backend splits.
+
 
 ### Access Control
 
@@ -17,7 +19,7 @@ For each backend, this module will create an IAM role with read/write access and
 
 ## Usage
 
-**Stack Level**: Regional (because DynamoDB is region-specific), but only in a single region and only in the `root` account
+**Stack Level**: Regional (because DynamoDB is region-specific), but deploy only in a single region and only in the `root` account
 **Deployment**: Must be deployed by SuperAdmin using `atmos` CLI
 
 This component configures the shared Terraform backend, and as such is the first component that must be deployed, since all other components depend on it. In fact, this component even depends on itself, so special deployment procedures are needed for the initial deployment (documented in the "Cold Start" procedures).
@@ -76,7 +78,7 @@ Here's an example snippet for how to use this component.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_assume_role"></a> [assume\_role](#module\_assume\_role) | ../account-map/modules/iam-assume-role-policy | n/a |
+| <a name="module_assume_role"></a> [assume\_role](#module\_assume\_role) | ../account-map/modules/team-assume-role-policy | n/a |
 | <a name="module_label"></a> [label](#module\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_tfstate_backend"></a> [tfstate\_backend](#module\_tfstate\_backend) | cloudposse/tfstate-backend/aws | 0.38.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -93,6 +95,7 @@ Here's an example snippet for how to use this component.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_roles"></a> [access\_roles](#input\_access\_roles) | Map of access roles to create (key is role name, use "default" for same as component). See iam-assume-role-policy module for details. | <pre>map(object({<br>    write_enabled           = bool<br>    allowed_roles           = map(list(string))<br>    denied_roles            = map(list(string))<br>    allowed_principal_arns  = list(string)<br>    denied_principal_arns   = list(string)<br>    allowed_permission_sets = map(list(string))<br>    denied_permission_sets  = map(list(string))<br>  }))</pre> | `{}` | no |
+| <a name="input_access_roles_enabled"></a> [access\_roles\_enabled](#input\_access\_roles\_enabled) | Enable creation of access roles. Set false for cold start (before account-map has been created). | `bool` | `true` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
@@ -132,49 +135,4 @@ Here's an example snippet for how to use this component.
 
 
 ## References
-  * [cloudposse/terraform-aws-components][41] - Cloud Posse's upstream component
-
-[<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>][42]
-
-[1]:	#requirement%5C_terraform
-[2]:	#requirement%5C_aws
-[3]:	#provider%5C_aws
-[4]:	#module%5C_assume%5C_role
-[5]:	#module%5C_label
-[6]:	#module%5C_tfstate%5C_backend
-[7]:	#module%5C_this
-[8]:	https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role
-[9]:	https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document
-[10]:	#input%5C_access%5C_roles
-[11]:	#input%5C_additional%5C_tag%5C_map
-[12]:	#input%5C_attributes
-[13]:	#input%5C_context
-[14]:	#input%5C_delimiter
-[15]:	#input%5C_descriptor%5C_formats
-[16]:	#input%5C_enable%5C_point%5C_in%5C_time%5C_recovery
-[17]:	#input%5C_enable%5C_server%5C_side%5C_encryption
-[18]:	#input%5C_enabled
-[19]:	#input%5C_environment
-[20]:	#input%5C_force%5C_destroy
-[21]:	#input%5C_id%5C_length%5C_limit
-[22]:	#input%5C_label%5C_key%5C_case
-[23]:	#input%5C_label%5C_order
-[24]:	#input%5C_label%5C_value%5C_case
-[25]:	#input%5C_labels%5C_as%5C_tags
-[26]:	#input%5C_name
-[27]:	#input%5C_namespace
-[28]:	#input%5C_prevent%5C_unencrypted%5C_uploads
-[29]:	#input%5C_regex%5C_replace%5C_chars
-[30]:	#input%5C_region
-[31]:	#input%5C_stage
-[32]:	#input%5C_tags
-[33]:	#input%5C_tenant
-[34]:	#output%5C_tfstate%5C_backend%5C_access%5C_role%5C_arns
-[35]:	#output%5C_tfstate%5C_backend%5C_dynamodb%5C_table%5C_arn
-[36]:	#output%5C_tfstate%5C_backend%5C_dynamodb%5C_table%5C_id
-[37]:	#output%5C_tfstate%5C_backend%5C_dynamodb%5C_table%5C_name
-[38]:	#output%5C_tfstate%5C_backend%5C_s3%5C_bucket%5C_arn
-[39]:	#output%5C_tfstate%5C_backend%5C_s3%5C_bucket%5C_domain%5C_name
-[40]:	#output%5C_tfstate%5C_backend%5C_s3%5C_bucket%5C_id
-[41]:	https://github.com/cloudposse/terraform-aws-components/tree/master/modules/tfstate-backend
-[42]:	https://cpco.io/component
+  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/tfstate-backend) - Cloud Posse's upstream component

@@ -40,3 +40,9 @@ variable "access_roles" {
   }))
   default = {}
 }
+
+variable "access_roles_enabled" {
+  type        = bool
+  description = "Enable creation of access roles. Set false for cold start (before account-map has been created)."
+  default     = true
+}

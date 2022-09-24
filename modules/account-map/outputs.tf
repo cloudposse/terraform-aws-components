@@ -106,3 +106,12 @@ output "profiles_enabled" {
   value       = var.profiles_enabled
   description = "Whether or not to enable profiles instead of roles for the backend"
 }
+
+resource "local_file" "account_info" {
+  content = templatefile("${path.module}/account-info.tftmpl", {
+    account_info_map = local.account_info_map
+    account_role_map = local.account_role_map
+    namespace        = module.this.namespace
+  })
+  filename = "${path.module}/account-info/${module.this.id}.sh"
+}

@@ -5,6 +5,8 @@ locals {
   # It would be nice if we could use null-label and set name = each.key but we do not want the name to be normalized
   role_name_map = { for role_name, config in local.roles_config : role_name => format("%s%s%s", module.this.id, module.this.delimiter, role_name) }
 
+  role_name_role_arn_map = { for key, value in local.roles_config : key => try(aws_iam_role.default[key].arn, null) }
+
   # If you want to create custom policies to add to multiple roles by name, create the policy
   # using an aws_iam_policy resource and then map it to the name you want to use in the
   # YAML configuration by adding an entry in `custom_policy_map`.

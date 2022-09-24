@@ -36,4 +36,5 @@ resource "aws_iam_policy" "team_role_access" {
   name        = format("%s-TeamRoleAccess", module.this.id)
   description = "IAM permission to use AssumeRole"
   policy      = data.aws_iam_policy_document.team_role_access.json
+  tags        = module.this.tags
 }
