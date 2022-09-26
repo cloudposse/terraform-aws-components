@@ -1,0 +1,10 @@
+aws:
+  evaluateTargetHealth: false
+rbac:
+  ## Service Account for pods
+  ## https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+  ## RBAC API version
+  apiVersion: v1
+  ## Podsecuritypolicy
+  pspEnabled: false
+provider: aws

@@ -1,0 +1,21 @@
+podMonitor:
+  create: false
+  interval: "30s"
+  sampleLimit: 5000
+
+priorityClassName: system-node-critical
+
+rbac:
+  pspEnabled: true
+
+securityContext:
+  runAsUserID: 1000
+  runAsGroupID: 1000
+
+tolerations:
+  - operator: Exists
+
+updateStrategy:
+  type: "RollingUpdate"
+  rollingUpdate:
+    maxUnavailable: 1

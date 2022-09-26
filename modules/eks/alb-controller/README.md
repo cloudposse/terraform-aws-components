@@ -24,13 +24,6 @@ components:
     alb-controller:
       vars:
         enabled: true
-        name: "alb-controller"
-        chart: "aws-load-balancer-controller"
-        chart_repository: "https://aws.github.io/eks-charts"
-        chart_version: "1.3.3"
-        create_namespace: true
-        kubernetes_namespace: "alb-controller"
-
         # You can use `chart_values` to set any other chart options. Treat `chart_values` as the root of the doc.
         #
         # # For example
@@ -46,14 +39,14 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
 
 ## Modules

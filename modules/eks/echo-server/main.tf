@@ -4,10 +4,10 @@ locals {
   ingress_alb_enabled   = var.ingress_type == "alb" ? true : false
 
   alb_access_logs_enabled = var.alb_access_logs_enabled && var.alb_access_logs_s3_bucket_name != null && var.alb_access_logs_s3_bucket_name != ""
-  ingress_controller_group_enabled = var.alb_controller_ingress_group_enabled ? [
+  ingress_controller_group_enabled = var.enable_alb_controller_ingress_group ? [
     {
       name  = "ingress.alb.group_name"
-      value = module.alb_controller_ingress_group.outputs.group_name
+      value = module.alb-controller-ingress-group.outputs.group_name
       type  = "auto"
     }
   ] : []
@@ -19,7 +19,7 @@ resource "kubernetes_namespace" "default" {
   metadata {
     name = var.kubernetes_namespace
 
-    labels = module.this.tags
+    labels = module.introspection.tags
   }
 }
 
@@ -84,6 +84,6 @@ module "echo_server" {
     file("${path.module}/values.yaml"),
   ])
 
-  context = module.this.context
+  context = module.introspection.context
 }
 

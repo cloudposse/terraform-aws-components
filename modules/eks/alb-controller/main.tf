@@ -23,7 +23,7 @@ module "alb_controller" {
   repository           = var.chart_repository
   description          = var.chart_description
   chart_version        = var.chart_version
-  kubernetes_namespace = local.enabled && var.create_namespace ? join("", kubernetes_namespace.default.*.id) : var.kubernetes_namespace
+  kubernetes_namespace = join("", kubernetes_namespace.default.*.id)
   create_namespace     = false
   wait                 = var.wait
   atomic               = var.atomic

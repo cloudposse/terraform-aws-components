@@ -6,7 +6,7 @@ repos:
         exclude: |
           (?x)^(
               deprecated/github-actions-runner/runners/actions-runner/chart/templates/.*.yaml |
-              modules/cert-manager/cert-manager-issuer/templates/.*.yaml |
+              modules/eks/cert-manager/cert-manager-issuer/templates/.*.yaml |
               modules/eks/actions-runner-controller/charts/actions-runner/templates/.*.yaml |
               modules/eks/echo-server/charts/echo-server/templates/.*.yaml |
               modules/idp-roles/charts/idp-roles/templates/.*.yaml |

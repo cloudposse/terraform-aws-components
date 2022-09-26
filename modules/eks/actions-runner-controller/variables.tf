@@ -140,7 +140,7 @@ variable "runners" {
     }
     labels = [
       "Ubuntu",
-      "mgmt-automation",
+      "core-automation",
     ]
   }
   ```
