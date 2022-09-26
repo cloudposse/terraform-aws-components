@@ -56,5 +56,5 @@ module "region_node_group" {
     module_depends_on = module.eks_cluster.kubernetes_config_map_id
   } : null
 
-  context = module.introspection.context
+  context = module.this.context
 }

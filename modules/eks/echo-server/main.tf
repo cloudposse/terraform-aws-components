@@ -19,7 +19,7 @@ resource "kubernetes_namespace" "default" {
   metadata {
     name = var.kubernetes_namespace
 
-    labels = module.introspection.tags
+    labels = module.this.tags
   }
 }
 
@@ -84,6 +84,6 @@ module "echo_server" {
     file("${path.module}/values.yaml"),
   ])
 
-  context = module.introspection.context
+  context = module.this.context
 }
 

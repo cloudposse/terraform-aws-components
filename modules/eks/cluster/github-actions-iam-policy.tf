@@ -10,7 +10,7 @@ locals {
   github_actions_iam_role_map = [
     {
       rolearn  = aws_iam_role.github_actions[0].arn
-      username = module.introspection.context.tenant != null ? format("%s-%s-%s", module.this.tenant, module.this.stage, local.github_role_name) : format("%s-%s", module.this.stage, local.github_role_name)
+      username = module.this.context.tenant != null ? format("%s-%s-%s", module.this.tenant, module.this.stage, local.github_role_name) : format("%s-%s", module.this.stage, local.github_role_name)
       groups = [
         "system:masters"
       ]

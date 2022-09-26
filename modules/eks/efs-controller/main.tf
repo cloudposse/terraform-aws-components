@@ -8,7 +8,7 @@ resource "kubernetes_namespace" "default" {
   metadata {
     name = var.kubernetes_namespace
 
-    labels = module.introspection.tags
+    labels = module.this.tags
   }
 }
 
@@ -63,5 +63,5 @@ module "efs_controller" {
     yamlencode(var.chart_values)
   ])
 
-  context = module.introspection.context
+  context = module.this.context
 }
