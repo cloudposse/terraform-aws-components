@@ -15,9 +15,6 @@ Here is an example snippet for how to use this component. Include this snippet i
 the content directly, or create a `stacks/catalog/account.yaml` file and import it from there.
 
 ```yaml
-
-
-```yaml
 components:
   terraform:
     account:
