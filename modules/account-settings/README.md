@@ -6,9 +6,9 @@ This component is responsible for provisioning account level settings: IAM passw
 
 **Stack Level**: Global
 
-Here's an example snippet for how to use this component. It's suggested to apply this component to all accounts, so put this snippet in each account's global stack (E.g. `gbl-root.yaml`, `gbl-devplatform.yaml`, `gbl-identity.yaml`, etc.)
-
-When defining `service_quotas`, they can be referenced by either their `quota_name` or `quota_code` which can be derived from the AWS Service Quotas API. The `awscli` is one way to accomplish this: `aws service-quotas list-service-quotas --service-code vpc`.
+Here's an example snippet for how to use this component. It's suggested to apply this component to all accounts, 
+so create a file `stacks/catalog/account-settings.yaml` with the following content and then import
+that file in each account's global stack (overriding any parameters as needed):
 
 ```yaml
 components:
