@@ -48,7 +48,6 @@ variable "iam_role_arn_template_template" {
   Default is appropriate when using `tenant` and default label order with `null-label`.
   Use `"arn:%s:iam::%s:role/%s-%s-%s-%%s"` when not using `tenant`.
 
-
   Note that if the `null-label` variable `label_order` is truncated or extended with additional labels, this template will
   need to be updated to reflect the new number of labels.
   EOT

@@ -31,7 +31,6 @@ output "audit_account_account_name" {
 output "org" {
   value       = data.aws_organizations_organization.organization
   description = "The name of the AWS Organization"
-
 }
 
 output "aws_partition" {

@@ -29,7 +29,6 @@ output "account_info_map" {
     EOT
 }
 
-
 output "account_names_account_arns" {
   value       = local.account_names_account_arns
   description = "Map of account names to account ARNs (excluding root account)"
