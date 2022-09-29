@@ -31,21 +31,32 @@ components:
         chart_version: "0.20.2"
         kubernetes_namespace: "actions-runner-system"
         create_namespace: true
+        kubeconfig_exec_auth_api_version: "client.authentication.k8s.io/v1beta1"
+        # Stay within the limits of a "c5.xlarge"
+        # vCPU 4, Memory 8 GiB
         resources:
           limits:
-            cpu: 50m
-            memory: 100Mi
+            cpu: 2
+            memory: 6Gi
+            ephemeral-storage: 20Gi
           requests:
-            cpu: 10m
-            memory: 30Mi
-        ssm_github_token_path: "/github/acme/github_token"
-        ssm_github_webhook_secret_token_path: "/github/acme/github_webhook_secret_token"
+            cpu: 1
+            memory: 2Gi
+        ssm_github_token_path: "/github/example/github_token"
+        ssm_github_webhook_secret_token_path: "/github/example/github_webhook_secret_token"
+        timeout: 120
+        github_actions_iam_role_enabled: true
+        github_actions_iam_role_attributes: [ "eks" ]
+        github_actions_allowed_repos:
+          - example/infrastructure
+          - example/app_repo
         runners:
-          repository-runner:
+          infrastructure-runner:
             type: "repository" # can be either 'organization' or 'repository'
-            dind_enabled: false # A Docker sidecar container will be deployed
-            image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'
-            scope: "acme/infrastructure"
+            dind_enabled: false # If `true`, a Docker sidecar container will be deployed
+            # To run Docker in Docker (dind), change image from summerwind/actions-runner to summerwind/actions-runner-dind
+            image: summerwind/actions-runner
+            scope: "example/infrastructure"
             scale_down_delay_seconds: 300
             min_replicas: 1
             max_replicas: 5
@@ -56,16 +67,44 @@ components:
               scale_down_factor: 0.5
             resources:
               limits:
-                cpu: 50m
-                memory: 100Mi
+                cpu: 200m
+                memory: 256Mi
               requests:
-                cpu: 10m
-                memory: 30Mi
+                cpu: 100m
+                memory: 128Mi
             webhook_driven_scaling_enabled: false
             pull_driven_scaling_enabled: false
             labels:
               - "Ubuntu"
               - "core-otto"
+          app-runner:
+            type: "repository" # can be either 'organization' or 'repository'
+            dind_enabled: true # If `true`, a Docker sidecar container will be deployed
+            # To run Docker in Docker (dind), change image from summerwind/actions-runner to summerwind/actions-runner-dind
+            image: summerwind/actions-runner-dind 
+            scope: "example/app_repo"
+            scale_down_delay_seconds: 300
+            min_replicas: 1
+            max_replicas: 2
+            busy_metrics:
+              scale_up_threshold: 0.75
+              scale_down_threshold: 0.25
+              scale_up_factor: 2
+              scale_down_factor: 0.5
+            resources:
+              limits:
+                cpu: 1.5
+                memory: 4Gi
+                ephemeral-storage: 10Gi
+              requests:
+                cpu: 0.5
+                memory: 1Gi
+            webhook_driven_scaling_enabled: false
+            pull_driven_scaling_enabled: false
+            labels:
+              - "Ubuntu"
+              - "core-otto"
+
 ```
 
 ### Creating Github Tokens
@@ -164,7 +203,7 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 | <a name="input_kube_exec_auth_role_arn"></a> [kube\_exec\_auth\_role\_arn](#input\_kube\_exec\_auth\_role\_arn) | The role ARN for `aws eks get-token` to use | `string` | `""` | no |
 | <a name="input_kube_exec_auth_role_arn_enabled"></a> [kube\_exec\_auth\_role\_arn\_enabled](#input\_kube\_exec\_auth\_role\_arn\_enabled) | If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token` | `bool` | `true` | no |
 | <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes kube config file | `string` | `""` | no |
-| <a name="input_kubeconfig_exec_auth_api_version"></a> [kubeconfig\_exec\_auth\_api\_version](#input\_kubeconfig\_exec\_auth\_api\_version) | The Kubernetes API version of the credentials returned by the `exec` auth plugin | `string` | `"client.authentication.k8s.io/v1beta1"` | no |
+| <a name="input_kubeconfig_exec_auth_api_version"></a> [kubeconfig\_exec\_auth\_api\_version](#input\_kubeconfig\_exec\_auth\_api\_version) | The Kubernetes API version of the credentials returned by the `exec` auth plugin | `string` | `"client.authentication.k8s.io/v1alpha1"` | no |
 | <a name="input_kubeconfig_file"></a> [kubeconfig\_file](#input\_kubeconfig\_file) | The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true` | `string` | `""` | no |
 | <a name="input_kubeconfig_file_enabled"></a> [kubeconfig\_file\_enabled](#input\_kubeconfig\_file\_enabled) | If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster | `bool` | `false` | no |
 | <a name="input_kubernetes_namespace"></a> [kubernetes\_namespace](#input\_kubernetes\_namespace) | The namespace to install the release into. | `string` | n/a | yes |
@@ -177,7 +216,7 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 | <a name="input_rbac_enabled"></a> [rbac\_enabled](#input\_rbac\_enabled) | Service Account for pods. | `bool` | `true` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region. | `string` | n/a | yes |
-| <a name="input_resources"></a> [resources](#input\_resources) | The cpu and memory of the deployment's limits and requests. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | n/a | yes |
+| <a name="input_resources"></a> [resources](#input\_resources) | The cpu, memory, and ephemeral storage of the deployment's limits and requests. | <pre>object({<br>    limits = object({<br>      cpu               = string<br>      memory            = string<br>      ephemeral-storage = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | n/a | yes |
 | <a name="input_runners"></a> [runners](#input\_runners) | Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in<br>kebab-case.<br><br>For example:<pre>hcl<br>organization_runner = {<br>  type = "organization" # can be either 'organization' or 'repository'<br>  dind_enabled: false # A Docker sidecar container will be deployed<br>  image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'<br>  scope = "ACME"  # org name for Organization runners, repo name for Repository runners<br>  scale_down_delay_seconds = 300<br>  min_replicas = 1<br>  max_replicas = 5<br>  busy_metrics = {<br>    scale_up_threshold = 0.75<br>    scale_down_threshold = 0.25<br>    scale_up_factor = 2<br>    scale_down_factor = 0.5<br>  }<br>  labels = [<br>    "Ubuntu",<br>    "mgmt-automation",<br>  ]<br>}</pre> | <pre>map(object({<br>    type                           = string<br>    scope                          = string<br>    image                          = string<br>    dind_enabled                   = bool<br>    scale_down_delay_seconds       = number<br>    min_replicas                   = number<br>    max_replicas                   = number<br>    busy_metrics                   = map(string)<br>    webhook_driven_scaling_enabled = bool<br>    pull_driven_scaling_enabled    = bool<br>    labels                         = list(string)<br>    resources = object({<br>      limits = object({<br>        cpu    = string<br>        memory = string<br>      })<br>      requests = object({<br>        cpu    = string<br>        memory = string<br>      })<br>    })<br>  }))</pre> | n/a | yes |
 | <a name="input_s3_bucket_arns"></a> [s3\_bucket\_arns](#input\_s3\_bucket\_arns) | List of ARNs of S3 Buckets to which the runners will have read-write access to. | `list(string)` | `[]` | no |
 | <a name="input_ssm_github_token_path"></a> [ssm\_github\_token\_path](#input\_ssm\_github\_token\_path) | The path in SSM to the GitHub token. | `string` | `""` | no |

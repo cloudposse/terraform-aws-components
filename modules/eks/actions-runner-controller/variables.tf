@@ -28,15 +28,16 @@ variable "chart_version" {
 variable "resources" {
   type = object({
     limits = object({
-      cpu    = string
-      memory = string
+      cpu               = string
+      memory            = string
+      ephemeral-storage = string
     })
     requests = object({
       cpu    = string
       memory = string
     })
   })
-  description = "The cpu and memory of the deployment's limits and requests."
+  description = "The cpu, memory, and ephemeral storage of the deployment's limits and requests."
 }
 
 variable "create_namespace" {
