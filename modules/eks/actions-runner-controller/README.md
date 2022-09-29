@@ -18,6 +18,7 @@ The default catalog values `e.g. stacks/catalog/eks/actions-runner-controller.ya
 
 ```yaml
 components:
+components:
   terraform:
     eks/actions-runner-controller:
       settings:
@@ -32,24 +33,21 @@ components:
         kubernetes_namespace: "actions-runner-system"
         create_namespace: true
         kubeconfig_exec_auth_api_version: "client.authentication.k8s.io/v1beta1"
-        # Stay within the limits of a "c5.xlarge"
-        # vCPU 4, Memory 8 GiB
         resources:
           limits:
             cpu: 2
             memory: 6Gi
-            ephemeral-storage: 20Gi
           requests:
             cpu: 1
             memory: 2Gi
         ssm_github_token_path: "/github/example/github_token"
         ssm_github_webhook_secret_token_path: "/github/example/github_webhook_secret_token"
-        timeout: 120
         github_actions_iam_role_enabled: true
         github_actions_iam_role_attributes: [ "eks" ]
         github_actions_allowed_repos:
+          - example/app
           - example/infrastructure
-          - example/app_repo
+        timeout: 120
         runners:
           infrastructure-runner:
             type: "repository" # can be either 'organization' or 'repository'
@@ -68,7 +66,7 @@ components:
             resources:
               limits:
                 cpu: 200m
-                memory: 256Mi
+                memory: 1Gi
               requests:
                 cpu: 100m
                 memory: 128Mi
@@ -82,7 +80,7 @@ components:
             dind_enabled: true # If `true`, a Docker sidecar container will be deployed
             # To run Docker in Docker (dind), change image from summerwind/actions-runner to summerwind/actions-runner-dind
             image: summerwind/actions-runner-dind 
-            scope: "example/app_repo"
+            scope: "example/app"
             scale_down_delay_seconds: 300
             min_replicas: 1
             max_replicas: 2
@@ -95,10 +93,10 @@ components:
               limits:
                 cpu: 1.5
                 memory: 4Gi
-                ephemeral-storage: 10Gi
               requests:
                 cpu: 0.5
                 memory: 1Gi
+            storage: 10Gi
             webhook_driven_scaling_enabled: false
             pull_driven_scaling_enabled: false
             labels:
