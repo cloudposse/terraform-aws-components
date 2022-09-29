@@ -44,5 +44,5 @@ variable "eks_security_group_enabled" {
 variable "eks_component_names" {
   type        = set(string)
   description = "The names of the eks components"
-  default     = ["eks/eks"]
+  default     = ["eks/cluster"]
 }
