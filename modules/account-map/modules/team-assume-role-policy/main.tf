@@ -71,7 +71,7 @@ data "aws_iam_policy_document" "assume_role" {
       condition {
         test     = "StringEquals"
         variable = "aws:PrincipalType"
-        values   = concat(["AssumedRole"], var.deny_all_iam_users ? [] : ["User"])
+        values   = ["AssumedRole"]
       }
       condition {
         test     = "ArnLike"

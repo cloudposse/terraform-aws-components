@@ -41,12 +41,15 @@ locals {
   # Convert all Service Control Policy statements from YAML config to Terraform list
   all_service_control_policy_statements = module.service_control_policy_statements_yaml_config.list_configs
 
+  # Convert to map, so we can lookup by name and detect missing policies
+  all_service_control_policy_statements_map = { for st in local.all_service_control_policy_statements : st.sid => st }
+
   # Service Control Policy SIDs for Organization
   organization_service_control_policy_ids = lookup(local.organization, "service_control_policies", [])
 
   # List of Service Control Policy statements for Organization
   organization_service_control_policy_statements = [
-    for st in local.all_service_control_policy_statements : st if contains(local.organization_service_control_policy_ids, st.sid)
+    for sid in local.organization_service_control_policy_ids : local.all_service_control_policy_statements_map[sid]
   ]
 
   # Map of account names to list Service Control Policy SIDs for each account
@@ -57,7 +60,7 @@ locals {
   # Map of account names to list of Service Control Policy statements for each account
   account_names_service_control_policy_statements_map = {
     for k, v in local.account_names_service_control_policy_ids_map : k => [
-      for st in local.all_service_control_policy_statements : st if contains(v, st.sid)
+      for sid in v : local.all_service_control_policy_statements_map[sid]
     ]
   }
 
@@ -69,7 +72,7 @@ locals {
   # Map of OU names to list of Service Control Policy statements for each OU
   organizational_unit_names_service_control_policy_statements_map = {
     for k, v in local.organizational_unit_names_service_control_policy_ids_map : k => [
-      for st in local.all_service_control_policy_statements : st if contains(v, st.sid)
+      for sid in v : local.all_service_control_policy_statements_map[sid]
     ]
   }
 }
