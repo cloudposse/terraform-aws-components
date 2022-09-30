@@ -36,8 +36,8 @@ components:
         # vCPU 4, Memory 8 GiB
         resources:
           limits:
-            cpu: 2
-            memory: 6Gi
+            cpu: 4
+            memory: 8Gi
           requests:
             cpu: 1
             memory: 2Gi
@@ -70,7 +70,6 @@ components:
               requests:
                 cpu: 100m
                 memory: 128Mi
-            storage: "" # Disabled if no value given
             webhook_driven_scaling_enabled: false
             pull_driven_scaling_enabled: false
             labels:
@@ -92,9 +91,9 @@ components:
               scale_down_factor: 0.5
             resources:
               limits:
-                cpu: 1.5
-                memory: 4Gi
-                ephemeral-storage: "10Gi"
+                cpu: 2
+                memory: 6Gi
+                ephemeral_storage: "10Gi"
               requests:
                 cpu: 0.5
                 memory: 1Gi
@@ -138,7 +137,7 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.0 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.0 |
@@ -217,7 +216,7 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region. | `string` | n/a | yes |
 | <a name="input_resources"></a> [resources](#input\_resources) | The cpu and memory of the deployment's limits and requests. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | n/a | yes |
-| <a name="input_runners"></a> [runners](#input\_runners) | Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in<br>kebab-case.<br><br>For example:<pre>hcl<br>organization_runner = {<br>  type = "organization" # can be either 'organization' or 'repository'<br>  dind_enabled: false # A Docker sidecar container will be deployed<br>  image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'<br>  scope = "ACME"  # org name for Organization runners, repo name for Repository runners<br>  scale_down_delay_seconds = 300<br>  min_replicas = 1<br>  max_replicas = 5<br>  busy_metrics = {<br>    scale_up_threshold = 0.75<br>    scale_down_threshold = 0.25<br>    scale_up_factor = 2<br>    scale_down_factor = 0.5<br>  }<br>  labels = [<br>    "Ubuntu",<br>    "mgmt-automation",<br>  ]<br>}</pre> | `map(any)` | n/a | yes |
+| <a name="input_runners"></a> [runners](#input\_runners) | Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in<br>kebab-case.<br><br>For example:<pre>hcl<br>organization_runner = {<br>  type = "organization" # can be either 'organization' or 'repository'<br>  dind_enabled: false # A Docker sidecar container will be deployed<br>  image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'<br>  scope = "ACME"  # org name for Organization runners, repo name for Repository runners<br>  scale_down_delay_seconds = 300<br>  min_replicas = 1<br>  max_replicas = 5<br>  busy_metrics = {<br>    scale_up_threshold = 0.75<br>    scale_down_threshold = 0.25<br>    scale_up_factor = 2<br>    scale_down_factor = 0.5<br>  }<br>  labels = [<br>    "Ubuntu",<br>    "mgmt-automation",<br>  ]<br>}</pre> | <pre>map(object({<br>    type                           = string<br>    scope                          = string<br>    image                          = string<br>    dind_enabled                   = bool<br>    scale_down_delay_seconds       = number<br>    min_replicas                   = number<br>    max_replicas                   = number<br>    busy_metrics                   = map(string)<br>    webhook_driven_scaling_enabled = bool<br>    pull_driven_scaling_enabled    = bool<br>    labels                         = list(string)<br>    storage                        = optional(string, false)<br>    resources = object({<br>      limits = object({<br>        cpu               = string<br>        memory            = string<br>        ephemeral_storage = optional(string, false)<br>      })<br>      requests = object({<br>        cpu    = string<br>        memory = string<br>      })<br>    })<br>  }))</pre> | n/a | yes |
 | <a name="input_s3_bucket_arns"></a> [s3\_bucket\_arns](#input\_s3\_bucket\_arns) | List of ARNs of S3 Buckets to which the runners will have read-write access to. | `list(string)` | `[]` | no |
 | <a name="input_ssm_github_token_path"></a> [ssm\_github\_token\_path](#input\_ssm\_github\_token\_path) | The path in SSM to the GitHub token. | `string` | `""` | no |
 | <a name="input_ssm_github_webhook_secret_token_path"></a> [ssm\_github\_webhook\_secret\_token\_path](#input\_ssm\_github\_webhook\_secret\_token\_path) | The path in SSM to the GitHub Webhook Secret token. | `string` | `""` | no |

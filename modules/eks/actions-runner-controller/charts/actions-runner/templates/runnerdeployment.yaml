@@ -43,8 +43,16 @@ spec:
       imagePullPolicy: IfNotPresent
       serviceAccountName: {{ .Values.service_account_name }}
       resources:
-        {{- toYaml .Values.resources | nindent 8 }}
-      {{ if and .Values.dind_enabled .Values.storage}}
+        limits:
+          cpu: {{ .Values.resources.limits.cpu }}
+          memory: {{ .Values.resources.limits.memory }}
+          {{- if and .Values.dind_enabled .Values.resources.limits.ephemeral_storage }}
+          ephemeral-storage: {{ .Values.resources.limits.ephemeral_storage }}
+          {{- end }}
+        requests:
+          cpu: {{ .Values.resources.requests.cpu }}
+          memory: {{ .Values.resources.requests.memory }}
+      {{- if and .Values.dind_enabled .Values.storage }}
       dockerVolumeMounts:
       - mountPath: /var/lib/docker
         name: docker-volume
@@ -57,5 +65,5 @@ spec:
               resources:
                 requests:
                   storage: {{ .Values.storage }}
-      {{ end }}
+      {{- end }}
 
