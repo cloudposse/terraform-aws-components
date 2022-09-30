@@ -192,6 +192,7 @@ module "actions_runner" {
       dind_enabled                   = each.value.dind_enabled
       service_account_role_arn       = module.actions_runner_controller.service_account_role_arn
       resources                      = each.value.resources
+      storage                        = each.value.storage # Storage is only enabled if dind_enabled and storage value given
       labels                         = each.value.labels
       scale_down_delay_seconds       = each.value.scale_down_delay_seconds
       min_replicas                   = each.value.min_replicas
@@ -204,7 +205,6 @@ module "actions_runner" {
       scale_down_factor              = try(each.value.busy_metrics.scale_down_factor, null)
       webhook_driven_scaling_enabled = each.value.webhook_driven_scaling_enabled
       pull_driven_scaling_enabled    = each.value.pull_driven_scaling_enabled
-      storage                        = try(each.value.storage, null) # Storage is only enabled if dind_enabled and storage value given
     })
   ]
 

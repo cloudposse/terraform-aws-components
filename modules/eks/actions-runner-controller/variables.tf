@@ -168,6 +168,7 @@ variable "runners" {
         memory = string
       })
     })
+    storage = string
   }))
 }
 
