@@ -65,12 +65,12 @@ components:
               scale_down_factor: 0.5
             resources:
               limits:
-                cpu: 200m
-                memory: 1Gi
+                cpu: 50m
+                memory: 100Mi
               requests:
-                cpu: 100m
-                memory: 128Mi
-            webhook_driven_scaling_enabled: false
+                cpu: 10m
+                memory: 30Mi
+            webhook_driven_scaling_enabled: true
             pull_driven_scaling_enabled: false
             labels:
               - "Ubuntu"
@@ -98,7 +98,7 @@ components:
                 cpu: 0.5
                 memory: 1Gi
             storage: "10Gi"
-            webhook_driven_scaling_enabled: false
+            webhook_driven_scaling_enabled: true
             pull_driven_scaling_enabled: false
             labels:
               - "Ubuntu"
