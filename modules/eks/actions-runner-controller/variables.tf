@@ -146,30 +146,7 @@ variable "runners" {
   ```
   EOT
 
-  type = map(object({
-    type                           = string
-    scope                          = string
-    image                          = string
-    dind_enabled                   = bool
-    scale_down_delay_seconds       = number
-    min_replicas                   = number
-    max_replicas                   = number
-    busy_metrics                   = map(string)
-    webhook_driven_scaling_enabled = bool
-    pull_driven_scaling_enabled    = bool
-    labels                         = list(string)
-    resources = object({
-      limits = object({
-        cpu    = string
-        memory = string
-      })
-      requests = object({
-        cpu    = string
-        memory = string
-      })
-    })
-    storage = string
-  }))
+  type = map(any)
 }
 
 variable "webhook" {
