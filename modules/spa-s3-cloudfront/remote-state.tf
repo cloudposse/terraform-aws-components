@@ -32,7 +32,6 @@ module "github_runners" {
 
   count = local.github_runners_enabled ? 1 : 0
 
-  # bypass      = !local.github_runners_enabled
   component   = "github-runners"
   stage       = var.github_runners_stage_name
   environment = var.github_runners_environment_name
