@@ -1,0 +1,54 @@
+name: bats
+
+on:
+  pull_request_target:
+    types: [labeled, opened, synchronize, unlabeled]
+
+jobs:
+  bats:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.state == 'open'
+    container: cloudposse/test-harness:latest
+    env:
+      MAKE_INCLUDES: Makefile
+      TF_PLUGIN_CACHE_DIR: /tmp
+      BATS_TESTS: input-descriptions lint output-descriptions module-pinning provider-pinning
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        repository: ${{ github.event.pull_request.head.repo.full_name }}
+        # Check out the PR commit, not the merge commit
+        # Use `ref` instead of `sha` to enable pushing back to `ref`
+        ref: ${{ github.event.pull_request.head.ref }}
+
+    - name: Run tests on modified modules
+      id: get-modified-files
+      shell: bash -x -e -o pipefail {0}
+      env:
+        BASE_REF: ${{ github.base_ref }}
+        HEAD_REF: ${{ github.head_ref }}
+      run: |
+        MODIFIED_MODULES=($(git diff --name-only origin/${BASE_REF} origin/${HEAD_REF} |
+          xargs -n 1 dirname | sort | uniq | grep ^modules/)))
+        if [ -z "$MODIFIED_MODULES" ]; then
+            echo "No modules changed in this PR. Skipping tests."
+            exit 0
+        else
+            echo "Running checks on the following modules:"
+            printf -- "- %s\n" "${MODIFIED_MODULES[@]#modules/}"
+        fi
+        pass=true
+        for dir in "${MODIFIED_MODULES[@]}"; do 
+          (
+            status=pass
+            cd $dir
+            printf "\n\nTesting in $dir\n"
+            for test in $BATS_TESTS; do 
+              bats -t /test/terraform/${test}.bats || status=fail
+            done
+            [[ status == "pass" ]]
+          ) || pass=false
+        done
+        [[ pass == "true" ]]
