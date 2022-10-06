@@ -19,56 +19,61 @@ The default catalog values `e.g. stacks/catalog/eks/actions-runner-controller.ya
 ```yaml
 components:
   terraform:
-    actions-runner-controller:
-      backend:
-        s3:
-          workspace_key_prefix: actions-runner-controller
+    eks/actions-runner-controller:
+      settings:
+        spacelift:
+          workspace_enabled: true
       vars:
         enabled: true
-        # You can use `chart_values` to set any other chart options. Treat `chart_values` as the root of the doc.
-        #
-        # # For example
-        # ---
-        # chart_values:
-        #   enableShield: false
-        chart_values: {}
-```
-
-Finally, in the regional stack, you can set the `runners` variable to configure the runners:
-
-```yaml
-actions-runner-controller:
-  vars:
-    enabled: true
-    create_namespace: true
-    webhook:
-      enabled: true
-      # gha-webhook.use2.dev.core.acme.net
-      hostname_template: "gha-webhook.%[3]v.%[2]v.%[1]v.acme.net"
-    runners:
-      eg-mgmt-uw2-automation-eks:
-        type: organization
-        scope: ACME
-        image: summerwind/actions-runner-dind
-        # Runners won't be scaled down for 5 minutes
-        scale_down_delay_seconds: 300
-        min_replicas: 1
-        max_replicas: 5
-        webhook_driven_scaling_enabled: true
-        pull_driven_scaling_enabled: false
-        busy_metrics: {}
-        labels:
-          - "ubuntu"
-          - "mgmt-automation"
-        resources:
-          limits:
-            cpu: 200m
-            memory: 256Mi
-          requests:
-            cpu: 100m
-            memory: 128Mi
-    s3_bucket_arns:
-      - "arn:aws:s3:::eg-mgmt-uw2-artifacts"
+        name: "actions-runner" # avoids hitting name length limit on IAM role
+        chart: "actions-runner-controller"
+        chart_repository: "https://actions-runner-controller.github.io/actions-runner-controller"
+        chart_version: "0.21.0"
+        kubernetes_namespace: "actions-runner-system"
+        create_namespace: true
+        kubeconfig_exec_auth_api_version: "client.authentication.k8s.io/v1beta1"
+        # Purposely omit resource limits and requests
+        # https://github.com/actions-runner-controller/actions-runner-controller/blob/91102c8088b6c01645bbb218b3d4552e774672bf/charts/actions-runner-controller/values.yaml#L100-L111
+        resources: null
+        ssm_github_token_path: "/github/acme/github_token"
+        ssm_github_webhook_secret_token_path: "/github/acme/github_webhook_secret_token"
+        webhook:
+          enabled: true
+          # gha-webhook.use1.otto.core.acme.net
+          hostname_template: "gha-webhook.%[3]v.%[2]v.%[1]v.acme.net"
+        github_actions_iam_role_enabled: true
+        github_actions_iam_role_attributes: [ "eks" ]
+        github_actions_allowed_repos:
+          - acme/app
+          - acme/infrastructure
+        timeout: 120
+        runners:
+          infrastructure-runner:
+            type: "repository" # can be either 'organization' or 'repository'
+            dind_enabled: false # If `true`, a Docker sidecar container will be deployed
+            # To run Docker in Docker (dind), change image from summerwind/actions-runner to summerwind/actions-runner-dind
+            image: summerwind/actions-runner
+            scope: "acme/infrastructure"
+            scale_down_delay_seconds: 300
+            min_replicas: 1
+            max_replicas: 5
+            busy_metrics:              
+              scale_up_threshold: 0.75
+              scale_down_threshold: 0.25
+              scale_up_factor: 2
+              scale_down_factor: 0.5
+            resources:
+              limits:
+                cpu: 200m
+                memory: 256Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+            webhook_driven_scaling_enabled: true
+            pull_driven_scaling_enabled: false
+            labels:
+              - "Ubuntu"
+              - "core-otto"
 ```
 
 ### Generating Required Secrets

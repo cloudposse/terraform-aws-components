@@ -29,7 +29,7 @@ spec:
   {{- if .Values.webhook_driven_scaling_enabled }}
   scaleUpTriggers:
   - githubEvent:
-    #  workflowJob: {}
+      workflowJob: {}
     amount: 1
     duration: "{{ .Values.scale_down_delay_seconds }}s"
   {{- end }}
