@@ -2,7 +2,6 @@ locals {
   github_actions_iam_policy = join("", data.aws_iam_policy_document.github_actions_iam_policy.*.json)
 }
 
-#bridgecrew:skip=BC_AWS_IAM_57:OK to allow write access to all ECRs because ECRs have their own access policies
 data "aws_iam_policy_document" "github_actions_iam_policy" {
   count = var.github_actions_iam_role_enabled ? 1 : 0
 
@@ -30,6 +29,9 @@ data "aws_iam_policy_document" "github_actions_iam_policy" {
       "ecr:CompleteLayerUpload",
       "ecr:PutImage",
     ]
+
+    #bridgecrew:skip=BC_AWS_IAM_57:OK to allow write access to all ECRs because ECRs have their own access policies
+    # and this policy prohibits the user from making changes to the access policy.
     resources = ["*"]
   }
 }
