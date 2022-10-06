@@ -12,10 +12,10 @@ locals {
 }
 
 module "acm" {
-  source  = "cloudposse/acm-request-certificate/aws"
-  version = "0.16.0"
-
   for_each = local.zone_map
+
+  source  = "cloudposse/acm-request-certificate/aws"
+  version = "0.17.0"
 
   enabled = local.certificate_enabled
 
