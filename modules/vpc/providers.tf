@@ -27,9 +27,3 @@ variable "import_role_arn" {
   default     = null
   description = "IAM Role ARN to use when importing a resource"
 }
-
-variable "root_account_tenant_name" {
-  type        = string
-  description = "The tenant name for the root account"
-  default     = null
-}
