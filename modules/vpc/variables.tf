@@ -5,14 +5,24 @@ variable "region" {
 
 variable "availability_zones" {
   type        = list(string)
+  description = <<-EOT
+    List of Availability Zones (AZs) where subnets will be created. Ignored when `availability_zone_ids` is set.
+    The order of zones in the list ***must be stable*** or else Terraform will continually make changes.
+    If no AZs are specified, then `max_subnet_count` AZs will be selected in alphabetical order.
+    If `max_subnet_count > 0` and `length(var.availability_zones) > max_subnet_count`, the list
+    will be truncated. We recommend setting `availability_zones` and `max_subnet_count` explicitly as constant
+    (not computed) values for predictability, consistency, and stability.
+    EOT
   default     = []
-  description = "List of availability zones in which to provision VPC subnets"
 }
 
-variable "region_availability_zones" {
+variable "availability_zone_ids" {
   type        = list(string)
+  description = <<-EOT
+    List of Availability Zones IDs where subnets will be created. Overrides `availability_zones`.
+    Useful in some regions when using only some AZs and you want to use the same ones across multiple accounts.
+    EOT
   default     = []
-  description = "List of availability zones in region, to be used as default when `availability_zones` is not supplied"
 }
 
 variable "ipv4_primary_cidr_block" {
@@ -24,14 +34,41 @@ variable "ipv4_primary_cidr_block" {
   default     = null
 }
 
+variable "ipv4_cidrs" {
+  type = list(object({
+    private = list(string)
+    public  = list(string)
+  }))
+  description = <<-EOT
+    Lists of CIDRs to assign to subnets. Order of CIDRs in the lists must not change over time.
+    Lists may contain more CIDRs than needed.
+    EOT
+  default     = []
+  validation {
+    condition     = length(var.ipv4_cidrs) < 2
+    error_message = "Only 1 ipv4_cidrs object can be provided. Lists of CIDRs are passed via the `public` and `private` attributes of the single object."
+  }
+}
+
+variable "public_subnets_enabled" {
+  type        = bool
+  description = <<-EOT
+    If false, do not create public subnets.
+    Since NAT gateways and instances must be created in public subnets, these will also not be created when `false`.
+    EOT
+  default     = true
+}
+
 variable "nat_gateway_enabled" {
   type        = bool
   description = "Flag to enable/disable NAT gateways"
+  default     = true
 }
 
 variable "nat_instance_enabled" {
   type        = bool
   description = "Flag to enable/disable NAT instances"
+  default     = false
 }
 
 variable "nat_instance_type" {
@@ -97,12 +134,6 @@ variable "vpc_flow_logs_bucket_tenant_name" {
   default     = null
 }
 
-variable "ec2_vpc_endpoint_enabled" {
-  type        = bool
-  description = "Enable or disable an EC2 interface VPC Endpoint in this VPC."
-  default     = false
-}
-
 variable "nat_eip_aws_shield_protection_enabled" {
   type        = bool
   description = "Enable or disable AWS Shield Advanced protection for NAT EIPs. If set to 'true', a subscription to AWS Shield Advanced must exist in this account."
@@ -115,21 +146,14 @@ variable "eks_tags_enabled" {
   default     = false
 }
 
-variable "eks_component_names" {
+variable "gateway_vpc_endpoints" {
   type        = set(string)
-  description = "The names of the eks components"
-  default     = ["eks/cluster"]
+  description = "A list of Gateway VPC Endpoints to provision into the VPC. Only valid values are \"dynamodb\" and \"s3\"."
+  default     = []
 }
 
-variable "ipv4_primary_cidr_block_association" {
-  type = object({
-    # ipv4_ipam_pool_id   = string
-    ipv4_netmask_length = number
-  })
-  description = <<-EOT
-    Configuration of the VPC's primary IPv4 CIDR block via IPAM. Conflicts with `ipv4_primary_cidr_block`.
-    One of `ipv4_primary_cidr_block` or `ipv4_primary_cidr_block_association` must be set.
-    Additional CIDR blocks can be set via `ipv4_additional_cidr_block_associations`.
-    EOT
-  default     = null
+variable "interface_vpc_endpoints" {
+  type        = set(string)
+  description = "A list of Interface VPC Endpoints to provision into the VPC."
+  default     = []
 }
