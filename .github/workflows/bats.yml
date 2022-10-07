@@ -31,7 +31,7 @@ jobs:
         HEAD_REF: ${{ github.head_ref }}
       run: |
         MODIFIED_MODULES=($(git diff --name-only origin/${BASE_REF} origin/${HEAD_REF} |
-          xargs -n 1 dirname | sort | uniq | grep ^modules/)))
+          xargs -n 1 dirname | sort | uniq | grep ^modules/))
         if [ -z "$MODIFIED_MODULES" ]; then
             echo "No modules changed in this PR. Skipping tests."
             exit 0
