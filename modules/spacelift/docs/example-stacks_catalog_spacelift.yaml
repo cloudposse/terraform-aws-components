@@ -38,7 +38,7 @@ components:
         # These values need to be overridden in the stacks that use this abstract component
         # Runner image needs to be set per org: use your custom image with scripts and config files.
         # TODO: copy config from spacelift-worker-pool
-        runner_image: registry.hub.docker.com/cloudposse/geodesic:latest-debian
+        # runner_image: registry.hub.docker.com/cloudposse/geodesic:latest-debian
 
         # The aws role integration is only needed for public runners
         aws_role_enabled: false

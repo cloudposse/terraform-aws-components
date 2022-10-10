@@ -18,4 +18,9 @@ components:
           description: Spacelift Administrative stack for Org
       vars:
         enabled: true
+        runner_image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/infrastructure:latest
         autodeploy: true # Autodeploy in dev
+        drift_detection_enabled: true
+        drift_detection_reconcile: false
+        drift_detection_schedule:
+        - 0 4 * * *
