@@ -2,14 +2,20 @@
 
 Spacelift is a specialized, Terraform-compatible continuous integration and deployment (CI/CD) platform for
 infra-as-code. It's designed and implemented by long-time DevOps practitioners based on previous experience with
-large-scale installations - dozens of teams, hundreds of engineers and tens of thousands of cloud resources.​
+large-scale installations - dozens of teams, hundreds of engineers and tens of thousands of cloud resources.
 
 ## Projects & Configuration
 
-​There are two projects located in this repository that are required for the deplyoment & day-to-day operation of
-Spacelift. ​ | Project | Description | | ------- | ----------- | | `spacelift-worker-pool` | Deploys Spacelift workers
-to EC2 | | `spacelift` | Creates & manages all Spacelift stacks & configuration | ​ The `spacelift` project relies on
-this repository's stack configurations ([../stacks](../stacks)).
+There are two projects located in this repository that are required for the deplyoment & day-to-day operation of
+Spacelift.
+
+| Project                 | Description                                             |
+|-------------------------|---------------------------------------------------------|
+| `spacelift-worker-pool` | Deploys Spacelift workers to EC2                        |
+| `spacelift`             | Creates & manages all Spacelift stacks & configuration  |
+
+
+The `spacelift` project relies on this repository's stack configurations ([../stacks](../stacks)).
 
 ## Bootstrapping
 
@@ -52,5 +58,4 @@ atmos terraform apply spacelift --stack core-gbl-auto -target 'module.spacelift.
 
 5. Merge the pull request and check the Spacelift job
 
-    ![Spacelift-Infrastructure-Behavior.png](img/Spacelift-Merge-Execution.png) ​ **NOTE**: This job is not set to
-    `autodeploy` and requires manual confirmation before applying.
+    ![Spacelift-Infrastructure-Behavior.png](img/Spacelift-Merge-Execution.png) **NOTE**: This job is not set to `autodeploy` and requires manual confirmation before applying.

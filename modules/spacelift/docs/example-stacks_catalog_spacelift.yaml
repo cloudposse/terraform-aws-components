@@ -1,0 +1,90 @@
+# stacks/catalog/spacelift.yaml
+
+# This sets up the defaults for multiple Spacelift administrative stacks
+# that get individually deployed. See example-stacks_deployed_spacelift.yaml
+# for what to put in the stacks that get deployed.
+
+components:
+  terraform:
+    spacelift-defaults:
+      metadata:
+        type: abstract
+        component: spacelift
+      settings:
+        spacelift:
+          workspace_enabled: true
+          administrative: true
+          autodeploy: true
+          before_init: []
+          component_root: components/terraform/spacelift
+          description: Spacelift Administrative stack for the organization
+          stack_destructor_enabled: false
+          worker_pool_name: null
+          # Do not add normal set of child policies to admin stacks
+          policies_enabled: []
+          administrative_trigger_policy_enabled: false # set explicitly below
+          policies_by_id_enabled:
+          - trigger-administrative-policy
+      vars:
+        # These values need to be manually updated as external configuration changes
+        # This should match the version set in the Dockerfile and be updated when the version changes.
+        terraform_version: "1.3.2"
+        terraform_version_map:
+          "1": "1.3.2"
+        # This needs to be updated with every worker pool build
+        worker_pool_name_id_map:
+          org-default: "01ABCDE01ABCD01ABCDE01ABCD"
+
+        # These values need to be overridden in the stacks that use this abstract component
+        # Runner image needs to be set per org: use your custom image with scripts and config files.
+        # TODO: copy config from spacelift-worker-pool
+        runner_image: registry.hub.docker.com/cloudposse/geodesic:latest-debian
+
+        # The aws role integration is only needed for public runners
+        aws_role_enabled: false
+        aws_role_generate_credentials_in_worker: false
+        aws_role_arn: "arn:aws:iam::123456789012:role/org-identity-spacelift"
+
+
+        # additional defaults
+        git_repository: infrastructure
+        git_branch: main
+        infracost_enabled: false
+        # This is to locally apply the stack
+        external_execution: true
+        administrative_trigger_policy_enabled: false
+        autodeploy: false
+        stack_config_path_template: stacks/%s.yaml
+        spacelift_component_path: components/terraform
+        administrative_stack_drift_detection_enabled: false
+        administrative_stack_drift_detection_reconcile: false
+        administrative_stack_drift_detection_schedule:
+        - 0 4 * * *
+        drift_detection_enabled: false
+        drift_detection_reconcile: false
+        drift_detection_schedule:
+        - 0 4 * * *
+        stack_destructor_enabled: false
+        # The first administrative stack will use `policies_available` to create the policies, but
+        # subsequent administrative stacks will need to override and set `policies_available: []`
+        # These are the policies available from
+        # https://github.com/cloudposse/terraform-spacelift-cloud-infrastructure-automation/tree/master/catalog/policies
+        # minus the `.rego` extension.
+        policies_available:
+        - git_push.proposed-run
+        - git_push.tracked-run
+        - plan.default
+        - trigger.dependencies
+        - trigger.retries
+        # This is to auto deploy launch template image ID changes
+        - plan.warn-on-resource-changes-except-image-id
+        # This is the global admin policy
+        - trigger.administrative
+        # These are the policies added to each spacelift stack created by this admin stack
+        policies_by_id_enabled:
+        - git_push-proposed-run-policy
+        - git_push-tracked-run-policy
+        - plan-default-policy
+        - trigger-dependencies-policy
+        # These are Rego policies in `components/terraform/spacelift/rego-policies/` (minus the `.rego` extension)
+        policies_by_name_enabled: []

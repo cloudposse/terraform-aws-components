@@ -39,6 +39,23 @@ locals {
     root      = var.root_account_account_name
   }
 
+  account_profiles = {
+    # dropping the role name from the profile, especially with trimsuffix(),
+    # is a hack for expedience while we work out the kinks in the
+    # aws-config file automatic generation and related issues.
+    # The proper solution will probably come out of the null-label v2
+    # which should have an account_long_name output.
+    for name, info in local.account_info_map : name => trimsuffix(format(var.profile_template, compact(
+      [
+        module.this.namespace,
+        lookup(info, "tenant", ""),
+        module.this.environment,
+        info.stage, "~"
+      ]
+    )...), "-~")
+  }
+
+
   terraform_roles = {
     for name, info in local.account_info_map : name =>
     format(local.iam_role_arn_templates[name],

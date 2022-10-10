@@ -109,6 +109,7 @@ output "profiles_enabled" {
 resource "local_file" "account_info" {
   content = templatefile("${path.module}/account-info.tftmpl", {
     account_info_map = local.account_info_map
+    account_profiles = local.account_profiles
     account_role_map = local.account_role_map
     namespace        = module.this.namespace
   })
