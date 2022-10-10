@@ -266,18 +266,17 @@ variable "infracost_warn_on_failure" {
 
 variable "aws_config_file" {
   type        = string
-  description = "The AWS_CONFIG_FILE used by the worker"
+  description = "The AWS_CONFIG_FILE used by the worker. Can be overridden by `/.spacelift/config.yml`."
   default     = "/etc/aws-config/aws-config-spacelift"
 }
 
-variable "aws_profile_format" {
+variable "aws_profile" {
   type        = string
   description = <<-EOT
-  The format of the AWS_PROFILE used by the worker.
-
-  %s will be replaced by `$namespace` or `$namespace-$tenant`, depending on whether or not the `tenant` label is used.
-  EOT
-  default     = "%s-gbl-identity"
+    The AWS_PROFILE used by the worker. If not specified, `"$${var.namespace}-identity"` will be used.
+    Can be overridden by `/.spacelift/config.yml`.
+    EOT
+  default     = null
 }
 
 variable "spacelift_agents_per_node" {

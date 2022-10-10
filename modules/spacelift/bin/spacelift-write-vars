@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -e -o pipefail
+# Add -x for troubleshooting
+set -ex -o pipefail
 
 function main() {
   if [[ -z $ATMOS_STACK ]] || [[ -z $ATMOS_COMPONENT ]]; then
@@ -12,9 +13,16 @@ function main() {
 
   echo "Writing Stack variables to spacelift.auto.tfvars.json for Spacelift..."
 
-  atmos --config-dir ../../../stacks --terraform-dir ../ terraform write varfile "$ATMOS_COMPONENT" --stack="$ATMOS_STACK" >/dev/null
-  mv -f "${ATMOS_STACK}-${ATMOS_COMPONENT}.terraform.tfvars.json" spacelift.auto.tfvars.json
+  atmos terraform generate varfile "$ATMOS_COMPONENT" --stack="$ATMOS_STACK" -f spacelift.auto.tfvars.json >/dev/null
   jq . <spacelift.auto.tfvars.json
+
+  echo "Writing Terraform state backend configuration to backend.tf.json for Spacelift..."
+
+  atmos terraform generate backend "$ATMOS_COMPONENT" --stack="$ATMOS_STACK"
+  jq . <backend.tf.json
 }
 
 main
+
+# Remove -x for security
+set +x

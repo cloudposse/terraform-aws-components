@@ -4,13 +4,11 @@ data "aws_partition" "current" {
 
 # The Spacelift always validates its credentials, so we always pass api_key_id and api_key_secret
 data "aws_ssm_parameter" "spacelift_key_id" {
-  count = local.enabled ? 1 : 0
-  name  = "/spacelift/key_id"
+  name = "/spacelift/key_id"
 }
 
 data "aws_ssm_parameter" "spacelift_key_secret" {
-  count = local.enabled ? 1 : 0
-  name  = "/spacelift/key_secret"
+  name = "/spacelift/key_secret"
 }
 
 data "aws_ami" "spacelift" {

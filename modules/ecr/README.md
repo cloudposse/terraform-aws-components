@@ -2,7 +2,7 @@
 
 This component is responsible for provisioning repositories, lifecycle rules, and permissions for streamlined ECR usage.
 This utilizes [the roles-to-principals submodule](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/account-map/modules/roles-to-principals)
-to assign accounts to various roles. It is also compatible with the 
+to assign accounts to various roles. It is also compatible with the
 [GitHub Actions IAM Role mixin](https://github.com/cloudposse/terraform-aws-components/blob/master/mixins/github-actions-iam-role/README-github-action-iam-role.md).
 
 ## Usage
@@ -12,7 +12,7 @@ to assign accounts to various roles. It is also compatible with the
 Here's an example snippet for how to use this component. This component is normally only applied once as the resources
 it creates are globally accessible, but you may want to create ECRs in multiple regions for redundancy.
 This is typically provisioned via the stack for the "artifact" account (typically `auto`, `artifact`, or `corp`)
-in the primary region. 
+in the primary region.
 
 ```yaml
 components:
@@ -23,7 +23,7 @@ components:
         enable_lifecycle_policy: true
         max_image_count: 500
         scan_images_on_push: true
-        protected_tags: 
+        protected_tags:
           - prod
         image_tag_mutability: MUTABLE
 
@@ -40,12 +40,9 @@ components:
           - admin
         read_only_account_role_map:
           corp: ["*"]
-          devdata: ["*"]
-          devplatform: ["*"]
-          proddata: ["*"]
-          prodplatform: ["*"]
-          stagedata: ["*"]
-          stageplatform: ["*"]
+          dev: ["*"]
+          prod: ["*"]
+          stage: ["*"]
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

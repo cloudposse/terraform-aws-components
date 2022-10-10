@@ -53,7 +53,7 @@ data "cloudinit_config" "config" {
     content = templatefile(local.userdata_template, {
       region                            = var.region
       aws_config_file                   = var.aws_config_file
-      aws_profile                       = format(var.aws_profile_format, join("-", compact([module.this.namespace, module.this.tenant])))
+      aws_profile                       = coalesce(var.aws_profile, "${var.namespace}-identity")
       ecr_region                        = local.ecr_region
       ecr_account_id                    = local.ecr_account_id
       spacelift_runner_image            = local.spacelift_runner_image
@@ -74,7 +74,7 @@ data "cloudinit_config" "config" {
 
 module "security_group" {
   source  = "cloudposse/security-group/aws"
-  version = "1.0.1"
+  version = "2.0.0-rc1"
 
   security_group_description = "Security Group for Spacelift worker pool"
   allow_all_egress           = true
