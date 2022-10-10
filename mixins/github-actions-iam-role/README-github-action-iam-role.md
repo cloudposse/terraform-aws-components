@@ -10,7 +10,7 @@ to define the policy to be associated with the role. The policy should be as res
 
 At this time, only one role can be created per component (per account, per region). Generated role names
 include all the `null-label` labels, so it is possible to create multiple roles in the same account,
-but not multiple roles in the same component in the same region with different policies. 
+but not multiple roles in the same component in the same region with different policies.
 This limitation of the mixin is somewhat intentional, in that each role should be created for a specific
 component, and component can create its own specific role. If this limitation turns
 out to be truly burdensome, note that `aws-teams` also supports GitHub actions assuming its roles.
@@ -22,11 +22,11 @@ out to be truly burdensome, note that `aws-teams` also supports GitHub actions a
 
 This mixin provisions a specific IAM role that can be assumed by a GitHub action for a specific purpose, analogous to
 how [EKS IAM Roles for Service Accounts](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html)
-works for EKS. 
+works for EKS.
 
 ### Define the role policy
 
-Create a file named `github-actions-iam-policy.tf` that defines the desired policy for the role and saves it 
+Create a file named `github-actions-iam-policy.tf` that defines the desired policy for the role and saves it
 as a JSON string in a local variable named `github_actions_iam_policy`. For example:
 
 ```hcl
@@ -36,7 +36,7 @@ locals {
 
 data "aws_iam_policy_document" "github_actions_iam_policy" {
   count = var.github_actions_iam_role_enabled ? 1 : 0
-  
+
   statement {
     sid       = "ECRGetAuthorizationToken"
     effect    = "Allow"
@@ -48,7 +48,7 @@ data "aws_iam_policy_document" "github_actions_iam_policy" {
 
 ### Create the role alongside the component
 
-Include in the stack for the component, values for the variables defined in `github-actions-iam-role.mixin.tf`.
+Define values for the variables defined in `github-actions-iam-role.mixin.tf` in the stack for the component.
 Most importantly, set `github_actions_allowed_repos` to the list of GitHub repositories where installed
 GitHub actions will be allowed to assume the role. Wildcards are allowed, so you can allow all repositories
 in your organization by setting `github_actions_allowed_repos = ["<your-github-organization>/*"]`.
@@ -71,7 +71,7 @@ components:
 
 #### Add required workflow permissions
 
-In the GitHub action workflow, add required permissions at the top of the 
+In the GitHub action workflow, add required permissions at the top of the
 workflow, or within the job. See the [GitHub documentation](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#adding-permissions-settings)
 for more details.
 
