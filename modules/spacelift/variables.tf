@@ -86,7 +86,7 @@ variable "policies_available" {
 variable "policies_enabled" {
   type        = list(string)
   description = "DEPRECATED: Use `policies_by_id_enabled` instead. List of default policies created by this stack to attach to all Spacelift stacks"
-  default = []
+  default     = []
 }
 
 variable "policies_by_id_enabled" {
