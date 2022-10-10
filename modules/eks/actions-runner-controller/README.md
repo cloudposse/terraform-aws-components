@@ -73,29 +73,27 @@ components:
             pull_driven_scaling_enabled: false
             labels:
               - "Ubuntu"
-              - "core-otto"
+              - "self-hosted"
 ```
 
 ### Generating Required Secrets
 
-Generate the following secrets to be stored with AWS SSM:
+AWS SSM is used to store and retrieve secrets. Generate the following as required and add each to AWS SSM at your chosen path:
 
-1. The key `github_token` and the value a PAT with the scope outlined in [this document](https://github.com/actions-runner-controller/actions-runner-controller#deploying-using-pat-authentication).
-2. If using the Webhook Driven autoscaling (recommended), include the key `github_webhook_secret_token` set to a random string you will use as the Secret when creating the webhook in GitHub.
-Generate the string using 1Password (no special characters, length 45) or by running
-```bash
-dd if=/dev/random bs=1 count=33  2>/dev/null | base64
-```
-
-### Setting AWS SSM Parameters 
-
-AWS SSM is used to store and retrieve the required secrets. Create a SSM Parameter for each secret generated with the "Generating Required Secrets" step above, and set the following variables to those Parameter paths:
+1. A PAT with the scope outlined in [this document](https://github.com/actions-runner-controller/actions-runner-controller#deploying-using-pat-authentication). Save this to the value specified by `ssm_github_token_path`:
 
 ```
 ssm_github_token_path: "/github/acme/github_token"
 ```
 
-And if using Webhook Driven autoscaling:
+2. If using the Webhook Driven autoscaling (recommended), generate a random string to use as the Secret when creating the webhook in GitHub.
+
+Generate the string using 1Password (no special characters, length 45) or by running
+```bash
+dd if=/dev/random bs=1 count=33  2>/dev/null | base64
+```
+
+Store this key in AWS SSM
 ```
 ssm_github_webhook_secret_token_path: "/github/acme/github_webhook_secret_token"
 ```
