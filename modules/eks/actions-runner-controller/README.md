@@ -39,7 +39,7 @@ components:
         ssm_github_webhook_secret_token_path: "/github/acme/github_webhook_secret_token"
         webhook:
           enabled: true
-          # gha-webhook.use1.otto.core.acme.net
+          # gha-webhook.use1.auto.core.acme.net
           hostname_template: "gha-webhook.%[3]v.%[2]v.%[1]v.acme.net"
         github_actions_iam_role_enabled: true
         github_actions_iam_role_attributes: [ "eks" ]
