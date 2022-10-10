@@ -28,56 +28,99 @@ components:
         name: "actions-runner" # avoids hitting name length limit on IAM role
         chart: "actions-runner-controller"
         chart_repository: "https://actions-runner-controller.github.io/actions-runner-controller"
-        chart_version: "0.20.2"
+        chart_version: "0.21.0"
         kubernetes_namespace: "actions-runner-system"
         create_namespace: true
-        resources:
-          limits:
-            cpu: 50m
-            memory: 100Mi
-          requests:
-            cpu: 10m
-            memory: 30Mi
+        kubeconfig_exec_auth_api_version: "client.authentication.k8s.io/v1beta1"
+        # Purposely omit resource limits and requests
+        # https://github.com/actions-runner-controller/actions-runner-controller/blob/91102c8088b6c01645bbb218b3d4552e774672bf/charts/actions-runner-controller/values.yaml#L100-L111
+        resources: {}
         ssm_github_token_path: "/github/acme/github_token"
         ssm_github_webhook_secret_token_path: "/github/acme/github_webhook_secret_token"
+        webhook:
+          enabled: true
+          # gha-webhook.use1.auto.core.acme.net
+          hostname_template: "gha-webhook.%[3]v.%[2]v.%[1]v.acme.net"
+        github_actions_iam_role_enabled: true
+        github_actions_iam_role_attributes: [ "eks" ]
+        github_actions_allowed_repos:
+          - acme/app
+          - acme/infrastructure
+        timeout: 120
         runners:
-          repository-runner:
+          infrastructure-runner:
             type: "repository" # can be either 'organization' or 'repository'
-            dind_enabled: false # A Docker sidecar container will be deployed
-            image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'
+            dind_enabled: false # If `true`, a Docker sidecar container will be deployed
+            # To run Docker in Docker (dind), change image from summerwind/actions-runner to summerwind/actions-runner-dind
+            image: summerwind/actions-runner
             scope: "acme/infrastructure"
             scale_down_delay_seconds: 300
             min_replicas: 1
             max_replicas: 5
-            busy_metrics:
+            busy_metrics:              
               scale_up_threshold: 0.75
               scale_down_threshold: 0.25
               scale_up_factor: 2
               scale_down_factor: 0.5
             resources:
               limits:
-                cpu: 50m
-                memory: 100Mi
+                cpu: 200m
+                memory: 256Mi
               requests:
-                cpu: 10m
-                memory: 30Mi
-            webhook_driven_scaling_enabled: false
+                cpu: 100m
+                memory: 128Mi
+            webhook_driven_scaling_enabled: true
             pull_driven_scaling_enabled: false
             labels:
               - "Ubuntu"
-              - "core-otto"
+              - "self-hosted"
 ```
 
-### Creating Github Tokens
+### Generating Required Secrets
 
-Ensure that the required tokens are created in AWS SSM.
-1. The `github_token` saved under `var.ssm_github_token_path`. The value should be a PAT with the scope outlined in [this document](https://github.com/actions-runner-controller/actions-runner-controller#deploying-using-pat-authentication).
-2. If using the Webhook Driven autoscaling (recommended), include the key `github_webhook_secret_token` saved under `var.ssm_github_webhook_secret_token_path`. Set to a random string you will use as the Secret when creating the webhook in GitHub.
+AWS SSM is used to store and retrieve secrets. Generate the following as required and add each to AWS SSM at your chosen path:
+
+1. A PAT with the scope outlined in [this document](https://github.com/actions-runner-controller/actions-runner-controller#deploying-using-pat-authentication). Save this to the value specified by `ssm_github_token_path`:
+
+```
+ssm_github_token_path: "/github/acme/github_token"
+```
+
+2. If using the Webhook Driven autoscaling (recommended), generate a random string to use as the Secret when creating the webhook in GitHub.
+
 Generate the string using 1Password (no special characters, length 45) or by running
 ```bash
 dd if=/dev/random bs=1 count=33  2>/dev/null | base64
 ```
 
+Store this key in AWS SSM under the same path specified by `ssm_github_webhook_secret_token_path`
+```
+ssm_github_webhook_secret_token_path: "/github/acme/github_webhook_secret_token"
+```
+
+### Using Webhook Driven Autoscaling
+
+To use the Webhook Driven autoscaling, you must also install the GitHub organization-level webhook after deploying the component
+(specifically, the webhook server). The URL for the webhook is determined by the `webhook.hostname_template` and where
+it is deployed. Recommended URL is `https://gha-webhook.[environment].[stage].[tenant].[service-discovery-domain]`.
+
+As a GitHub organization admin, go to `https://github.com/organizations/[organization]/settings/hooks`, and then:
+- Click"Add webhook" and create a new webhook with the following settings:
+  - Payload URL: copy from Terraform output `webhook_payload_url`
+  - Content type: `application/json`
+  - Secret: whatever you configured in the `sops` secret above
+  - Which events would you like to trigger this webhook: 
+    - Select "Let me select individual events"
+    - Uncheck everything ("Pushes" is likely the only thing already selected)
+    - Check "Workflow jobs"
+  - Ensure that "Active" is checked (should be checked by default)
+  - Click "Add webhook" at the bottom of the settings page
+
+After the webhook is created, select "edit" for the webhook and go to the "Recent Deliveries" tab and verify that there is a delivery
+(of a "ping" event) with a green check mark. If not, verify all the settings and consult
+the logs of the `actions-runner-controller-github-webhook-server` pod.
+
+Useful Reference
 
 ### Updating CRDs
 
@@ -99,7 +142,7 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.0 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.0 |
@@ -178,7 +221,7 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region. | `string` | n/a | yes |
 | <a name="input_resources"></a> [resources](#input\_resources) | The cpu and memory of the deployment's limits and requests. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | n/a | yes |
-| <a name="input_runners"></a> [runners](#input\_runners) | Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in<br>kebab-case.<br><br>For example:<pre>hcl<br>organization_runner = {<br>  type = "organization" # can be either 'organization' or 'repository'<br>  dind_enabled: false # A Docker sidecar container will be deployed<br>  image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'<br>  scope = "ACME"  # org name for Organization runners, repo name for Repository runners<br>  scale_down_delay_seconds = 300<br>  min_replicas = 1<br>  max_replicas = 5<br>  busy_metrics = {<br>    scale_up_threshold = 0.75<br>    scale_down_threshold = 0.25<br>    scale_up_factor = 2<br>    scale_down_factor = 0.5<br>  }<br>  labels = [<br>    "Ubuntu",<br>    "mgmt-automation",<br>  ]<br>}</pre> | <pre>map(object({<br>    type                           = string<br>    scope                          = string<br>    image                          = string<br>    dind_enabled                   = bool<br>    scale_down_delay_seconds       = number<br>    min_replicas                   = number<br>    max_replicas                   = number<br>    busy_metrics                   = map(string)<br>    webhook_driven_scaling_enabled = bool<br>    pull_driven_scaling_enabled    = bool<br>    labels                         = list(string)<br>    resources = object({<br>      limits = object({<br>        cpu    = string<br>        memory = string<br>      })<br>      requests = object({<br>        cpu    = string<br>        memory = string<br>      })<br>    })<br>  }))</pre> | n/a | yes |
+| <a name="input_runners"></a> [runners](#input\_runners) | Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in<br>kebab-case.<br><br>For example:<pre>hcl<br>organization_runner = {<br>  type = "organization" # can be either 'organization' or 'repository'<br>  dind_enabled: false # A Docker sidecar container will be deployed<br>  image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'<br>  scope = "ACME"  # org name for Organization runners, repo name for Repository runners<br>  scale_down_delay_seconds = 300<br>  min_replicas = 1<br>  max_replicas = 5<br>  busy_metrics = {<br>    scale_up_threshold = 0.75<br>    scale_down_threshold = 0.25<br>    scale_up_factor = 2<br>    scale_down_factor = 0.5<br>  }<br>  labels = [<br>    "Ubuntu",<br>    "mgmt-automation",<br>  ]<br>}</pre> | <pre>map(object({<br>    type                           = string<br>    scope                          = string<br>    image                          = string<br>    dind_enabled                   = bool<br>    scale_down_delay_seconds       = number<br>    min_replicas                   = number<br>    max_replicas                   = number<br>    busy_metrics                   = map(string)<br>    webhook_driven_scaling_enabled = bool<br>    pull_driven_scaling_enabled    = bool<br>    labels                         = list(string)<br>    storage                        = optional(string, false)<br>    resources = object({<br>      limits = object({<br>        cpu               = string<br>        memory            = string<br>        ephemeral_storage = optional(string, false)<br>      })<br>      requests = object({<br>        cpu    = string<br>        memory = string<br>      })<br>    })<br>  }))</pre> | n/a | yes |
 | <a name="input_s3_bucket_arns"></a> [s3\_bucket\_arns](#input\_s3\_bucket\_arns) | List of ARNs of S3 Buckets to which the runners will have read-write access to. | `list(string)` | `[]` | no |
 | <a name="input_ssm_github_token_path"></a> [ssm\_github\_token\_path](#input\_ssm\_github\_token\_path) | The path in SSM to the GitHub token. | `string` | `""` | no |
 | <a name="input_ssm_github_webhook_secret_token_path"></a> [ssm\_github\_webhook\_secret\_token\_path](#input\_ssm\_github\_webhook\_secret\_token\_path) | The path in SSM to the GitHub Webhook Secret token. | `string` | `""` | no |
@@ -203,5 +246,7 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 - [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/eks/actions-runner-controller) - Cloud Posse's upstream component
 - [alb-controller](https://artifacthub.io/packages/helm/aws/aws-load-balancer-controller) - Helm Chart
 - [alb-controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) - AWS Load Balancer Controller
+- [actions-runner-controller Webhook Driven Scaling](https://github.com/actions-runner-controller/actions-runner-controller/blob/master/docs/detailed-docs.md#webhook-driven-scaling)
+- [actions-runner-controller Chart Values](https://github.com/actions-runner-controller/actions-runner-controller/blob/master/charts/actions-runner-controller/values.yaml)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
