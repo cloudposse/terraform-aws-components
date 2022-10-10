@@ -93,7 +93,7 @@ Generate the string using 1Password (no special characters, length 45) or by run
 dd if=/dev/random bs=1 count=33  2>/dev/null | base64
 ```
 
-Store this key in AWS SSM
+Store this key in AWS SSM under the same path specified by `ssm_github_webhook_secret_token_path`
 ```
 ssm_github_webhook_secret_token_path: "/github/acme/github_webhook_secret_token"
 ```
