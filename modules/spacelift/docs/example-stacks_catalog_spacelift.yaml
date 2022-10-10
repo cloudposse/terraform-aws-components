@@ -80,7 +80,9 @@ components:
         - plan.warn-on-resource-changes-except-image-id
         # This is the global admin policy
         - trigger.administrative
-        # These are the policies added to each spacelift stack created by this admin stack
+        # `policies_enabled` and `policies_by_id_enabled` are 2 different ways of specifying
+        # the policies added to each spacelift stack created by this admin stack
+        policies_enabled: []
         policies_by_id_enabled:
         - git_push-proposed-run-policy
         - git_push-tracked-run-policy
