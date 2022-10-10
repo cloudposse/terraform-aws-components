@@ -34,7 +34,7 @@ components:
         kubeconfig_exec_auth_api_version: "client.authentication.k8s.io/v1beta1"
         # Purposely omit resource limits and requests
         # https://github.com/actions-runner-controller/actions-runner-controller/blob/91102c8088b6c01645bbb218b3d4552e774672bf/charts/actions-runner-controller/values.yaml#L100-L111
-        resources: null
+        resources: {}
         ssm_github_token_path: "/github/acme/github_token"
         ssm_github_webhook_secret_token_path: "/github/acme/github_webhook_secret_token"
         webhook:
