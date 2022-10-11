@@ -28,10 +28,3 @@ rules:
   verbs:
     - list
     - get
-- apiGroups:
-    - ""
-  resources:
-    - nodes
-  verbs:
-    - list
-    - get
