@@ -1,0 +1,33 @@
+image:
+  pullPolicy: IfNotPresent
+rbac:
+  create: true
+  pspEnabled: false
+
+serviceAccount:
+  # Specifies whether a ServiceAccount should be created
+  create: true
+
+# Defaults args are fine for EKS
+# See https://docs.aws.amazon.com/eks/latest/userguide/metrics-server.html
+# extraArgs:
+#   kubelet-preferred-address-types: InternalIP,InternalDNS,ExternalDNS,ExternalIP,Hostname
+#   kubelet-insecure-tls: true
+
+apiService:
+  # Specifies if the v1beta1.metrics.k8s.io API service should be created.
+  # You typically want this enabled! If you disable API service creation you have to
+  # manage it outside of this chart for e.g horizontal pod autoscaling to
+  # work with this release.
+  create: true
+
+podDisruptionBudget:
+  # https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+  enabled: true
+  # Note: due to a (common) bug in the chart, setting minAvailable to zero does not actually do that.
+  # To set minAvailable or maxUnavailable to zero, you need to use "0%". Also, you cannot set both.
+  # When using percentage, Kubernetes rounds up to the nearest integer. If you say minAvailable: 25%
+  # but only have 1 replica, minAvailable will round up to 1, leaving you stuck. That is why it is
+  # better to use maxUnavailable for small numbers.
+  # minAvailable:
+  maxUnavailable: "75%"

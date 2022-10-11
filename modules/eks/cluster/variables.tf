@@ -352,7 +352,7 @@ variable "allow_ingress_from_vpc_accounts" {
 variable "eks_component_name" {
   type        = string
   description = "The name of the eks component"
-  default     = "eks/eks"
+  default     = "eks/cluster"
 }
 
 variable "karpenter_iam_role_enabled" {

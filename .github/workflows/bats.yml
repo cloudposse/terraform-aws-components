@@ -14,11 +14,10 @@ jobs:
       TF_PLUGIN_CACHE_DIR: /tmp
       BATS_TESTS: input-descriptions lint output-descriptions module-pinning provider-pinning
     steps:
-    - name: Privileged Checkout
+    - name: Checkout
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-        token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
         repository: ${{ github.event.pull_request.head.repo.full_name }}
         # Check out the PR commit, not the merge commit
         # Use `ref` instead of `sha` to enable pushing back to `ref`
@@ -31,6 +30,8 @@ jobs:
         BASE_REF: ${{ github.base_ref }}
         HEAD_REF: ${{ github.head_ref }}
       run: |
+        # when running in test-harness, need to mark the directory safe for git operations
+        make safe-directory
         MODIFIED_MODULES=($(git diff --name-only origin/${BASE_REF} origin/${HEAD_REF} | xargs -n 1 dirname | sort | uniq | grep ^modules/))
         if [ -z "$MODIFIED_MODULES" ]; then
             echo "No modules changed in this PR. Skipping tests."
