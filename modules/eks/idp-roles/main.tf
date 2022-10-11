@@ -4,7 +4,7 @@ locals {
 
 module "idp_roles" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.2.1"
+  version = "0.6.0"
 
   # Required arguments
   name                 = module.this.name
@@ -20,6 +20,8 @@ module "idp_roles" {
   cleanup_on_fail      = var.cleanup_on_fail
   timeout              = var.timeout
   values               = [yamlencode(var.chart_values)]
+
+  eks_cluster_oidc_issuer_url = replace(module.eks.outputs.eks_cluster_identity_oidc_issuer, "https://", "")
 
   context = module.this.context
 }
