@@ -3,6 +3,12 @@ variable "region" {
   description = "AWS Region"
 }
 
+variable "eks_component_name" {
+  type        = string
+  description = "The name of the eks component"
+  default     = "eks/cluster"
+}
+
 variable "chart" {
   type        = string
   description = "Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended."

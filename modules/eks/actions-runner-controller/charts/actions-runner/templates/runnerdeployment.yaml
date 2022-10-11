@@ -66,4 +66,3 @@ spec:
                 requests:
                   storage: {{ .Values.storage }}
       {{- end }}
-
