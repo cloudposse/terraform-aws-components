@@ -73,7 +73,7 @@ variable "kube_exec_auth_aws_profile_enabled" {
 
 variable "kubeconfig_exec_auth_api_version" {
   type        = string
-  default     = "client.authentication.k8s.io/v1alpha1"
+  default     = "client.authentication.k8s.io/v1beta1"
   description = "The Kubernetes API version of the credentials returned by the `exec` auth plugin"
 }
 
