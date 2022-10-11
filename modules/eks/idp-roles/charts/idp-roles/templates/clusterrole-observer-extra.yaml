@@ -28,4 +28,10 @@ rules:
   verbs:
     - list
     - get
-    - test
+- apiGroups:
+    - ""
+  resources:
+    - nodes
+  verbs:
+    - list
+    - get
