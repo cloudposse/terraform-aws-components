@@ -17,7 +17,7 @@ components:
           workspace_enabled: true
       vars:
         enabled: true
-        chart_version: "0.1.0"
+        name: "idp-roles"
         kubeconfig_exec_auth_api_version: "client.authentication.k8s.io/v1beta1"
 ```
 
