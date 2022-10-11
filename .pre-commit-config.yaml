@@ -7,9 +7,7 @@ repos:
           (?x)^(
               deprecated/github-actions-runner/runners/actions-runner/chart/templates/.*.yaml |
               modules/cert-manager/cert-manager-issuer/templates/.*.yaml |
-              modules/eks/actions-runner-controller/charts/actions-runner/templates/.*.yaml |
-              modules/eks/echo-server/charts/echo-server/templates/.*.yaml |
-              modules/eks/idp-roles/charts/idp-roles/templates/.*.yaml |
+              modules/eks/*/charts/*/templates/.*.yaml
               modules/strongdm/charts/strongdm/templates/.*.yaml
           )$
   - repo: https://github.com/antonbabenko/pre-commit-terraform
