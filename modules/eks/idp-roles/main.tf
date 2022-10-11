@@ -8,7 +8,7 @@ module "idp_roles" {
 
   # Required arguments
   name                 = module.this.name
-  chart                = "${path.module}/charts/${var.chart}"
+  chart                = "${path.module}/charts/idp-roles"
   repository           = var.chart_repository
   description          = var.chart_description
   chart_version        = var.chart_version

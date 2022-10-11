@@ -9,15 +9,10 @@ variable "eks_component_name" {
   default     = "eks/cluster"
 }
 
-variable "chart" {
-  type        = string
-  description = "Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended."
-}
-
 variable "chart_description" {
   type        = string
   description = "Set release description attribute (visible in the history)."
-  default     = null
+  default     = "Identity provider roles and role bindings"
 }
 
 variable "chart_repository" {
@@ -29,6 +24,7 @@ variable "chart_repository" {
 variable "kubernetes_namespace" {
   type        = string
   description = "Kubernetes namespace to install the release into"
+  default     = "kube-system"
 }
 
 variable "create_namespace" {
@@ -52,7 +48,7 @@ variable "verify" {
 variable "wait" {
   type        = bool
   description = "Will wait until all resources are in a ready state before marking the release as successful. It will wait for as long as `timeout`. Defaults to `true`."
-  default     = null
+  default     = true
 }
 
 variable "atomic" {
@@ -70,7 +66,7 @@ variable "cleanup_on_fail" {
 variable "timeout" {
   type        = number
   description = "Time in seconds to wait for any individual kubernetes operation (like Jobs for hooks). Defaults to `300` seconds"
-  default     = null
+  default     = 300
 }
 
 variable "chart_values" {
