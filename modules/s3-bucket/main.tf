@@ -9,6 +9,11 @@ locals {
   ]
 
   bucket_policy = var.custom_policy_enabled ? data.aws_iam_policy_document.custom_policy[0].json : data.template_file.bucket_policy.rendered
+
+  logging = var.logging != null ? {
+    bucket_name = var.logging_bucket_name_rendering_enabled ? format(var.logging_bucket_name_rendering_template, var.namespace, var.tenant, var.environment, var.stage, var.logging.bucket_name) : var.logging.bucket_name
+    prefix      = var.logging_bucket_name_rendering_enabled ? format(var.logging_bucket_prefix_rendering_template, var.logging.prefix, var.name) : var.logging.prefix
+  } : null
 }
 
 data "aws_partition" "current" {}
@@ -32,7 +37,7 @@ module "bucket_policy" {
 
 module "s3_bucket" {
   source  = "cloudposse/s3-bucket/aws"
-  version = "2.0.3"
+  version = "3.0.0"
 
   bucket_name = var.bucket_name
 
@@ -45,13 +50,13 @@ module "s3_bucket" {
   block_public_policy          = var.block_public_policy
   ignore_public_acls           = var.ignore_public_acls
   restrict_public_buckets      = var.restrict_public_buckets
-  logging                      = var.logging
+  logging                      = local.logging
   source_policy_documents      = [local.bucket_policy]
   privileged_principal_actions = var.privileged_principal_actions
   privileged_principal_arns    = var.privileged_principal_arns
 
   # Static website configuration
-  cors_rule_inputs = var.cors_rule_inputs
+  cors_configuration = var.cors_configuration
 
   # Version 2.0.0 introduced a breaking change for `var.website_inputs`.
   # If you are using website_inputs, do not upgrade to v2.x yet.
@@ -70,6 +75,7 @@ module "s3_bucket" {
   # Object encryption
   sse_algorithm      = var.sse_algorithm
   kms_master_key_arn = var.kms_master_key_arn
+  bucket_key_enabled = var.bucket_key_enabled
 
   # Object replication
   s3_replication_enabled      = var.s3_replication_enabled
