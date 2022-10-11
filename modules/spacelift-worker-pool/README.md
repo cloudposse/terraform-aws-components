@@ -2,6 +2,24 @@
 
 This component is responsible for provisioning Spacelift worker pools.
 
+By default, workers are given pull access to the configured ECR,
+permission to assume the `spacelift` team role in the identity account
+(although you must also configure the `spacelift` team in the identity
+account to allow the workers to assume the role via `trusted_role_arns`),
+and have the following AWS managed IAM policies attached:
+
+* AmazonSSMManagedInstanceCore
+* AutoScalingReadOnlyAccess
+* AWSXRayDaemonWriteAccess
+* CloudWatchAgentServerPolicy
+
+Among other things, this allows workers with SSM agent installed to
+be accessed via SSM Session Manager.
+
+```bash
+aws ssm start-session --target <instance-id>
+```
+
 ## Usage
 
 **Stack Level**: Regional
@@ -18,11 +36,10 @@ components:
       vars:
         enabled: true
         name: "spacelift-worker-pool"
-        ec2_instance_type: r5n.large
+        ec2_instance_type: m6i.large
         ecr_account_name: corp
+        ecr_repo_name: infrastructure
         spacelift_api_endpoint: https://<GITHUBORG>.app.spacelift.io
-        spacelift_ami_id: ami-xxxyyyzzz
-        spacelift_runner_image: <ACCOUNTID>.dkr.ecr.<REGION>.amazonaws.com/infrastructure:latest
 ```
 
 ## Configuration
@@ -35,7 +52,7 @@ Build and tag a Docker image for this repository and push to ECR. Ensure the acc
 
 Prior to deployment, the API key must exist in SSM. The key must have admin permissions.
 
-To generate the key, please follow [these instructions](https://docs.spacelift.io/integrations/api#api-key-management). Once generated, write the API key ID and secret to the SSM key store at the following locations within the same AWS account and region where the Spacelift worker pool will reside.
+To generate the key, please follow [these instructions](https://docs.spacelift.io/integrations/api.html#spacelift-api-key-token). Once generated, write the API key ID and secret to the SSM key store at the following locations within the same AWS account and region where the Spacelift worker pool will reside.
 
 | Key      | SSM Path                | Type           |
 | -------- | ----------------------- | -------------- |
@@ -51,13 +68,19 @@ AWS_PROFILE=acme-gbl-auto-admin chamber write spacelift key_id 1234567890123456
 AWS_PROFILE=acme-gbl-auto-admin chamber write spacelift key_secret abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
 ```
 
+### IAM configuration
+
+After provisioning the component, you must give the created instance role permission
+to assume the Spacelift worker role. This is done by adding `iam_role_arn` from
+the output to the `trusted_role_arns` list for the `spacelift` role in `aws-teams`.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 | <a name="requirement_cloudinit"></a> [cloudinit](#requirement\_cloudinit) | >= 2.2.0 |
 | <a name="requirement_spacelift"></a> [spacelift](#requirement\_spacelift) | >= 0.1.2 |
 
@@ -65,7 +88,7 @@ AWS_PROFILE=acme-gbl-auto-admin chamber write spacelift key_secret abcdefghijklm
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
 | <a name="provider_cloudinit"></a> [cloudinit](#provider\_cloudinit) | >= 2.2.0 |
 | <a name="provider_spacelift"></a> [spacelift](#provider\_spacelift) | >= 0.1.2 |
 
@@ -73,14 +96,14 @@ AWS_PROFILE=acme-gbl-auto-admin chamber write spacelift key_secret abcdefghijklm
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.1.0 |
 | <a name="module_autoscale_group"></a> [autoscale\_group](#module\_autoscale\_group) | cloudposse/ec2-autoscale-group/aws | 0.30.1 |
-| <a name="module_ecr"></a> [ecr](#module\_ecr) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_ecr"></a> [ecr](#module\_ecr) | cloudposse/stack-config/yaml//modules/remote-state | 1.1.0 |
 | <a name="module_iam_label"></a> [iam\_label](#module\_iam\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_security_group"></a> [security\_group](#module\_security\_group) | cloudposse/security-group/aws | 1.0.1 |
+| <a name="module_security_group"></a> [security\_group](#module\_security\_group) | cloudposse/security-group/aws | 2.0.0-rc1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.1.0 |
 
 ## Resources
 
@@ -107,8 +130,8 @@ AWS_PROFILE=acme-gbl-auto-admin chamber write spacelift key_secret abcdefghijklm
 | <a name="input_account_map_tenant_name"></a> [account\_map\_tenant\_name](#input\_account\_map\_tenant\_name) | The name of the tenant where `account_map` is provisioned.<br><br>If the `tenant` label is not used, leave this as `null`. | `string` | `null` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_aws_config_file"></a> [aws\_config\_file](#input\_aws\_config\_file) | The AWS\_CONFIG\_FILE used by the worker | `string` | `"/etc/aws-config/aws-config-spacelift"` | no |
-| <a name="input_aws_profile_format"></a> [aws\_profile\_format](#input\_aws\_profile\_format) | The format of the AWS\_PROFILE used by the worker.<br><br>%s will be replaced by `$namespace` or `$namespace-$tenant`, depending on whether or not the `tenant` label is used. | `string` | `"%s-gbl-identity"` | no |
+| <a name="input_aws_config_file"></a> [aws\_config\_file](#input\_aws\_config\_file) | The AWS\_CONFIG\_FILE used by the worker. Can be overridden by `/.spacelift/config.yml`. | `string` | `"/etc/aws-config/aws-config-spacelift"` | no |
+| <a name="input_aws_profile"></a> [aws\_profile](#input\_aws\_profile) | The AWS\_PROFILE used by the worker. If not specified, `"${var.namespace}-identity"` will be used.<br>Can be overridden by `/.spacelift/config.yml`. | `string` | `null` | no |
 | <a name="input_block_device_mappings"></a> [block\_device\_mappings](#input\_block\_device\_mappings) | Specify volumes to attach to the instance besides the volumes specified by the AMI | <pre>list(object({<br>    device_name  = string<br>    no_device    = bool<br>    virtual_name = string<br>    ebs = object({<br>      delete_on_termination = bool<br>      encrypted             = bool<br>      iops                  = number<br>      kms_key_id            = string<br>      snapshot_id           = string<br>      volume_size           = number<br>      volume_type           = string<br>    })<br>  }))</pre> | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_cpu_utilization_high_threshold_percent"></a> [cpu\_utilization\_high\_threshold\_percent](#input\_cpu\_utilization\_high\_threshold\_percent) | CPU utilization high threshold | `number` | n/a | yes |

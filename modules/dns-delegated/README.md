@@ -24,6 +24,16 @@ components:
           zone_name: example.net
         request_acm_certificate: true
         dns_private_zone_enabled: false
+        #  dns_soa_config configures the SOA record for the zone::
+        #    - awsdns-hostmaster.amazon.com. ; AWS default value for administrator email address
+        #    - 1 ; serial number, not used by AWS
+        #    - 7200 ; refresh time in seconds for secondary DNS servers to refreh SOA record
+        #    - 900 ; retry time in seconds for secondary DNS servers to retry failed SOA record update
+        #    - 1209600 ; expire time in seconds (1209600 is 2 weeks) for secondary DNS servers to remove SOA record if they cannot refresh it
+        #    - 60 ; nxdomain TTL, or time in seconds for secondary DNS servers to cache negative responses
+        #    See [SOA Record Documentation](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html) for more information.
+        dns_soa_config: "awsdns-hostmaster.amazon.com. 1 7200 900 1209600 60"
+
 ```
 
 Private Hosted Zone `devplatform.example.net` will be created and `example.net` HZ in the dns primary account will contain a record delegating DNS to the new HZ
@@ -80,25 +90,25 @@ NOTE: With each of these workarounds, you may have an issue connecting to the se
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 3.0 |
-| <a name="provider_aws.primary"></a> [aws.primary](#provider\_aws.primary) | ~> 3.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
+| <a name="provider_aws.primary"></a> [aws.primary](#provider\_aws.primary) | >= 4.9.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_acm"></a> [acm](#module\_acm) | cloudposse/acm-request-certificate/aws | 0.16.0 |
+| <a name="module_acm"></a> [acm](#module\_acm) | cloudposse/acm-request-certificate/aws | 0.17.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_private_ca"></a> [private\_ca](#module\_private\_ca) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.3 |
+| <a name="module_private_ca"></a> [private\_ca](#module\_private\_ca) | cloudposse/stack-config/yaml//modules/remote-state | 1.1.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_utils"></a> [utils](#module\_utils) | cloudposse/utils/aws | 1.0.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.3 |
+| <a name="module_utils"></a> [utils](#module\_utils) | cloudposse/utils/aws | 1.1.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.1.0 |
 
 ## Resources
 
@@ -130,6 +140,7 @@ NOTE: With each of these workarounds, you may have an issue connecting to the se
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_dns_private_zone_enabled"></a> [dns\_private\_zone\_enabled](#input\_dns\_private\_zone\_enabled) | Whether to set the zone to public or private | `bool` | `false` | no |
+| <a name="input_dns_soa_config"></a> [dns\_soa\_config](#input\_dns\_soa\_config) | Root domain name DNS SOA record:<br>- awsdns-hostmaster.amazon.com. ; AWS default value for administrator email address<br>- 1 ; serial number, not used by AWS<br>- 7200 ; refresh time in seconds for secondary DNS servers to refreh SOA record<br>- 900 ; retry time in seconds for secondary DNS servers to retry failed SOA record update<br>- 1209600 ; expire time in seconds (1209600 is 2 weeks) for secondary DNS servers to remove SOA record if they cannot refresh it<br>- 60 ; nxdomain TTL, or time in seconds for secondary DNS servers to cache negative responses<br>See [SOA Record Documentation](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html) for more information. | `string` | `"awsdns-hostmaster.amazon.com. 1 7200 900 1209600 60"` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |

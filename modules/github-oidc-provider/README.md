@@ -14,10 +14,7 @@ Here's an example snippet for how to use this component.
 - This must be installed in each individual account where you want to provision a service role for a GitHub action
   that will be assumed directly by the action.
 
-For security, since this component adds and identity provider, only SuperAdmin can install it.
-
-
-**IMPORTANT**: The given SAML metadata files must exist at the root of the module.
+For security, since this component adds an identity provider, only SuperAdmin can install it.
 
 ```yaml
 components:
@@ -42,13 +39,13 @@ to get the new thumbprint and add it to the list in `var.thumbprint_list`.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
 
 ## Modules
 

@@ -192,6 +192,7 @@ module "actions_runner" {
       dind_enabled                   = each.value.dind_enabled
       service_account_role_arn       = module.actions_runner_controller.service_account_role_arn
       resources                      = each.value.resources
+      storage                        = each.value.storage
       labels                         = each.value.labels
       scale_down_delay_seconds       = each.value.scale_down_delay_seconds
       min_replicas                   = each.value.min_replicas

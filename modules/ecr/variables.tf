@@ -45,6 +45,7 @@ variable "scan_images_on_push" {
 variable "protected_tags" {
   type        = list(string)
   description = "Tags to refrain from deleting"
+  default     = []
 }
 
 variable "enable_lifecycle_policy" {

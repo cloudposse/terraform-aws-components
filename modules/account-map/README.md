@@ -6,7 +6,9 @@ This component is responsible for provisioning information only: it simply popul
 
 **Stack Level**: Global
 
-Here's an example snippet for how to use this component. Stick this snippet in the management account's stack (E.g. `gbl-root.yaml`)
+Here is an example snippet for how to use this component. Include this snippet in the stack configuration for the management account
+(typically `root`) in the management tenant/OU (usually something like `mgmt` or `core`) in the global region (`gbl`). You can include
+the content directly, or create a `stacks/catalog/account-map.yaml` file and import it from there.
 
 ```yaml
 components:
@@ -14,21 +16,31 @@ components:
     account-map:
       vars:
         enabled: true
-        # Since this is false, role_arn must be provided instead of profile in each terraform backend
-        # profiles_enabled: false
+        # Set profiles_enabled to false unless we are using AWS config profiles for Terraform access.
+        # When profiles_enabled is false, role_arn must be provided instead of profile in each terraform component provider.
+        # This is automatically handled by the component's `provider.tf` file in conjunction with 
+        # the `account-map/modules/iam-roles` module.
+        profiles_enabled: false
         root_account_aws_name: "aws-root"
         root_account_account_name: root
         identity_account_account_name: identity
         dns_account_account_name: dns
         audit_account_account_name: audit
-        # The template used to render Role ARNs.
-        # Note that if the `null-label` variable `label_order` is truncated or extended with additional labels, this template will
-        # need to be updated to reflect the new number of labels.
-        iam_role_arn_template: "arn:aws:iam::%s:role/%s-%s-%s-%s"
-        # The template used to render AWS Profile names.
-        # Note that if the `null-label` variable `label_order` is truncated or extended with additional labels, this template will
-        # need to be updated to reflect the new number of labels.
-        profile_template: "%s-%s-%s-%s"
+        
+        # The following variables contain `format()` strings that take the labels from `null-label`
+        # as arguments in the standard order. The default values are shown here, assuming
+        # the `null-label.label_order` is 
+        # ["namespace", "tenant", "environment", "stage", "name", "attributes"]
+        # Note that you can rearrange the order of the labels in the template by
+        # using [explicit argument indexes](https://pkg.go.dev/fmt#hdr-Explicit_argument_indexes) just like in `go`.
+
+        #  `iam_role_arn_template_template` is the template for the template [sic] used to render Role ARNs.
+        #  The template is first used to render a template for the account that takes only the role name.                   
+        #  Then that rendered template is used to create the final Role ARN for the account.
+        iam_role_arn_template_template: "arn:%s:iam::%s:role/%s-%s-%s-%s-%%s"
+        # `profile_template` is the template used to render AWS Profile names.
+        profile_template: "%s-%s-%s-%s-%s"
+
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -37,25 +49,27 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
+| <a name="provider_local"></a> [local](#provider\_local) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_accounts"></a> [accounts](#module\_accounts) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.3 |
+| <a name="module_accounts"></a> [accounts](#module\_accounts) | cloudposse/stack-config/yaml//modules/remote-state | 1.0.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [local_file.account_info](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 | [aws_organizations_organization.organization](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/organizations_organization) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
 
@@ -74,7 +88,7 @@ components:
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_global_environment_name"></a> [global\_environment\_name](#input\_global\_environment\_name) | Global environment name | `string` | `"gbl"` | no |
-| <a name="input_iam_role_arn_template_template"></a> [iam\_role\_arn\_template\_template](#input\_iam\_role\_arn\_template\_template) | The template for the template used to render Role ARNs.<br>The template is first used to render a template for the account that takes only the role name.<br>Then that rendered template is used to create the final Role ARN for the account.<br>Default is appropriate when using `tenant` and default label order with `null-label`.<br>Use `"arn:%s:iam::%s:role/%s-%s-%s-%%s"` when not using `tenant`.<br><br><br>Note that if the `null-label` variable `label_order` is truncated or extended with additional labels, this template will<br>need to be updated to reflect the new number of labels. | `string` | `"arn:%s:iam::%s:role/%s-%s-%s-%s-%%s"` | no |
+| <a name="input_iam_role_arn_template_template"></a> [iam\_role\_arn\_template\_template](#input\_iam\_role\_arn\_template\_template) | The template for the template used to render Role ARNs.<br>The template is first used to render a template for the account that takes only the role name.<br>Then that rendered template is used to create the final Role ARN for the account.<br>Default is appropriate when using `tenant` and default label order with `null-label`.<br>Use `"arn:%s:iam::%s:role/%s-%s-%s-%%s"` when not using `tenant`.<br><br>Note that if the `null-label` variable `label_order` is truncated or extended with additional labels, this template will<br>need to be updated to reflect the new number of labels. | `string` | `"arn:%s:iam::%s:role/%s-%s-%s-%s-%%s"` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_identity_account_account_name"></a> [identity\_account\_account\_name](#input\_identity\_account\_account\_name) | The stage name for the account holding primary IAM roles | `string` | `"identity"` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
