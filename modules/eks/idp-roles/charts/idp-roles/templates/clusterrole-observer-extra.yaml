@@ -28,3 +28,4 @@ rules:
   verbs:
     - list
     - get
+    -test
