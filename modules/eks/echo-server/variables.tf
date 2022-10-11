@@ -9,16 +9,16 @@ variable "eks_component_name" {
   default     = "eks/cluster"
 }
 
-variable "alb_controller_ingress_group_component_name" {
+variable "alb_controller_group_name" {
   type        = string
-  description = "The name of the alb-controller-ingress-group component"
-  default     = "eks/alb-controller-ingress-group"
+  description = "The name of the ALB controller Ingress group to use"
+  default     = ""
 }
 
-variable "alb_controller_ingress_group_enabled" {
-  type        = bool
-  description = "Uses alb-controller-ingress-group component for alb ingress group"
-  default     = false
+variable "alb_controller_load_balancer_name" {
+  type        = string
+  description = "The name to assign to the load balancer created by the ALB controller"
+  default     = ""
 }
 
 variable "alb_access_logs_enabled" {
@@ -37,4 +37,10 @@ variable "alb_access_logs_s3_bucket_prefix" {
   type        = string
   description = "The prefix to use when storing the access logs"
   default     = "echo-server"
+}
+
+variable "ipv6_enabled" {
+  type        = bool
+  description = "Set true to enable IPv6 addressing of the ingress"
+  default     = false
 }

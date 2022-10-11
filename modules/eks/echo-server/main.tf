@@ -3,14 +3,8 @@ locals {
   ingress_nginx_enabled = var.ingress_type == "nginx" ? true : false
   ingress_alb_enabled   = var.ingress_type == "alb" ? true : false
 
+  alb_load_balancer_name  = coalesce(var.alb_controller_load_balancer_name, var.ipv6_enabled ? "k8s-ipv6-common" : "k8s-common")
   alb_access_logs_enabled = var.alb_access_logs_enabled && var.alb_access_logs_s3_bucket_name != null && var.alb_access_logs_s3_bucket_name != ""
-  ingress_controller_group_enabled = var.alb_controller_ingress_group_enabled ? [
-    {
-      name  = "ingress.alb.group_name"
-      value = module.alb_controller_ingress_group.outputs.group_name
-      type  = "auto"
-    }
-  ] : []
 }
 
 resource "kubernetes_namespace" "default" {
@@ -25,7 +19,7 @@ resource "kubernetes_namespace" "default" {
 
 module "echo_server" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.5.0"
+  version = "0.6.0"
 
   name  = module.this.name
   chart = "${path.module}/charts/echo-server"
@@ -44,10 +38,25 @@ module "echo_server" {
 
   eks_cluster_oidc_issuer_url = replace(module.eks.outputs.eks_cluster_identity_oidc_issuer, "https://", "")
 
-  set = concat([
+  set = [
     {
       name  = "ingress.hostname"
       value = format(var.hostname_template, var.tenant, var.stage, var.environment)
+      type  = "auto"
+    },
+    {
+      name  = "ingress.alb.group_name"
+      value = var.alb_controller_group_name
+      type  = "auto"
+    },
+    {
+      name  = "ingress.alb.load_balancer_name"
+      value = local.alb_load_balancer_name
+      type  = "auto"
+    },
+    {
+      name  = "ipv6_enabled"
+      value = local.ingress_alb_enabled && var.ipv6_enabled
       type  = "auto"
     },
     {
@@ -75,9 +84,7 @@ module "echo_server" {
       value = var.alb_access_logs_s3_bucket_prefix
       type  = "auto"
     }
-    ],
-    local.ingress_controller_group_enabled
-  )
+  ]
 
   values = compact([
     # hardcoded values
