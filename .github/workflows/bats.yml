@@ -12,7 +12,7 @@ jobs:
     env:
       MAKE_INCLUDES: Makefile
       TF_PLUGIN_CACHE_DIR: /tmp
-      BATS_TESTS: input-descriptions lint output-descriptions module-pinning provider-pinning
+      BATS_TESTS: input-descriptions lint output-descriptions provider-pinning
     steps:
     - name: Checkout
       uses: actions/checkout@v3
