@@ -55,7 +55,7 @@ resource "aws_route53_zone" "private" {
 
 module "utils" {
   source  = "cloudposse/utils/aws"
-  version = "1.0.0"
+  version = "1.1.0"
 }
 
 resource "aws_route53_zone_association" "secondary" {
@@ -89,7 +89,7 @@ resource "aws_route53_record" "soa" {
   zone_id         = local.aws_route53_zone[each.key].zone_id
 
   records = [
-    format("${local.aws_route53_zone[each.key].name_servers[0]}%s awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400", local.public_enabled ? "." : "")
+    format("${local.aws_route53_zone[each.key].name_servers[0]}%s %s", local.public_enabled ? "." : "", var.dns_soa_config)
   ]
 }
 

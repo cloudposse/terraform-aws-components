@@ -15,7 +15,7 @@ variable "alb_controller_ingress_group_component_name" {
   default     = "eks/alb-controller-ingress-group"
 }
 
-variable "alb_controller_ingress_group_enabled" {
+variable "enable_alb_controller_ingress_group" {
   type        = bool
   description = "Uses alb-controller-ingress-group component for alb ingress group"
   default     = false

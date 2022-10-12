@@ -85,18 +85,19 @@ variable "policies_available" {
 
 variable "policies_enabled" {
   type        = list(string)
-  description = "List of default policies to attach to all Spacelift stacks"
-  default = [
-    "git_push.proposed-run",
-    "git_push.tracked-run",
-    "plan.default",
-    "trigger.dependencies"
-  ]
+  description = "DEPRECATED: Use `policies_by_id_enabled` instead. List of default policies created by this stack to attach to all Spacelift stacks"
+  default     = []
 }
 
 variable "policies_by_id_enabled" {
   type        = list(string)
-  description = "List of existing policy IDs to attach to all Spacelift stacks"
+  description = "List of existing policy IDs to attach to all Spacelift stacks. These policies must already exist in Spacelift"
+  default     = []
+}
+
+variable "policies_by_name_enabled" {
+  type        = list(string)
+  description = "List of existing policy names to attach to all Spacelift stacks. These policies must exist in `modules/spacelift/rego-policies`"
   default     = []
 }
 
@@ -157,7 +158,7 @@ variable "aws_role_external_id" {
 variable "aws_role_generate_credentials_in_worker" {
   type        = bool
   description = "Flag to enable/disable generating AWS credentials in the private worker after assuming the supplied IAM role"
-  default     = true
+  default     = false
 }
 
 variable "stack_destructor_enabled" {

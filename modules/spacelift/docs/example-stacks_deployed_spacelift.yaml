@@ -1,0 +1,26 @@
+# This snippet would get merged into the stack where you are
+# going to deploy the spacelift worker pool.
+
+components:
+  terraform:
+    spacelift:
+      metadata:
+        component: spacelift
+        inherits:
+        - spacelift-defaults
+      settings:
+        spacelift:
+          workspace_enabled: true
+          # worker_pool_name is entry in worker_pool_name_id_map
+          worker_pool_name: org-default
+          # TODO: configure using remote state as is done with spacelift-worker-pool
+          runner_image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/infrastructure:latest
+          description: Spacelift Administrative stack for Org
+      vars:
+        enabled: true
+        runner_image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/infrastructure:latest
+        autodeploy: true # Autodeploy in dev
+        drift_detection_enabled: true
+        drift_detection_reconcile: false
+        drift_detection_schedule:
+        - 0 4 * * *

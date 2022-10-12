@@ -6,11 +6,9 @@ repos:
         exclude: |
           (?x)^(
               deprecated/github-actions-runner/runners/actions-runner/chart/templates/.*.yaml |
-              modules/cert-manager/cert-manager-issuer/templates/.*.yaml |
-              modules/eks/actions-runner-controller/charts/actions-runner/templates/.*.yaml |
-              modules/eks/echo-server/charts/echo-server/templates/.*.yaml |
-              modules/idp-roles/charts/idp-roles/templates/.*.yaml |
-              modules/strongdm/charts/strongdm/templates/.*.yaml
+              modules/eks/cert-manager/cert-manager-issuer/templates/.*.yaml |
+              modules/strongdm/charts/strongdm/templates/.*.yaml |
+              modules/eks/.*/charts/.*/templates/.*.yaml
           )$
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.75.0
@@ -27,3 +25,4 @@ repos:
         types: ["text"]
         files: (mixins\/.*|bin\/rebuild-mixins-docs\.sh)
         pass_filenames: false
+
