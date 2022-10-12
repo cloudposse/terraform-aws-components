@@ -12,7 +12,8 @@ jobs:
     env:
       MAKE_INCLUDES: Makefile
       TF_PLUGIN_CACHE_DIR: /tmp
-      BATS_TESTS: input-descriptions lint output-descriptions module-pinning provider-pinning
+      BATS_MODULE_TESTS: input-descriptions lint output-descriptions provider-pinning
+      BATS_SUBMODULE_TESTS: input-descriptions lint output-descriptions
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -42,14 +43,17 @@ jobs:
         fi
         pass=true
         for dir in "${MODIFIED_MODULES[@]}"; do
+          printf "\n\nBegin testing in $dir\n"
           (
             status=pass
             cd $dir
-            printf "\n\nTesting in $dir\n"
-            for test in $BATS_TESTS; do
+            [[ $dir =~ modules/.*/modules/ ]] && tests=$BATS_SUBMODULE_TESTS || tests=$BATS_MODULE_TESTS
+            for test in $tests; do
+              printf "\n\nRunning ${test} in $dir\n"
               bats -t /test/terraform/${test}.bats || status=fail
             done
             [[ status == "pass" ]]
           ) || pass=false
+          printf "\n\End of testing in $dir\n\n\n"
         done
         [[ pass == "true" ]]
