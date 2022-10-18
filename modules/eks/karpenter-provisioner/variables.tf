@@ -23,33 +23,41 @@ variable "provisioners" {
     total_cpu_limit = string
     # Karpenter provisioner total memory limit for all pods running on the EC2 instances launched by Karpenter
     total_memory_limit = string
-    # Set acceptable (In) and unacceptable (Out) Kubernetes and Karpenter values for node provisioning based on Well-Known Labels and cloud-specific settings. These can include instance types, zones, computer architecture, and capacity type (such as AWS spot or on-demand). See https://karpenter.sh/v0.10.1/provisioner/#specrequirements for more details
+    # Set acceptable (In) and unacceptable (Out) Kubernetes and Karpenter values for node provisioning based on Well-Known Labels and cloud-specific settings. These can include instance types, zones, computer architecture, and capacity type (such as AWS spot or on-demand). See https://karpenter.sh/v0.18.0/provisioner/#specrequirements for more details
     requirements = list(object({
       key      = string
       operator = string
       values   = list(string)
     }))
     # Karpenter provisioner taints configuration. See https://aws.github.io/aws-eks-best-practices/karpenter/#create-provisioners-that-are-mutually-exclusive for more details
-    taints = list(object({
+    taints = optional(list(object({
       key    = string
       effect = string
       value  = string
-    }))
-    startup_taints = list(object({
+    })))
+    startup_taints = optional(list(object({
       key    = string
       effect = string
       value  = string
-    }))
-    # Karpenter provisioner metadata options. See https://karpenter.sh/v0.10.1/aws/provisioning/#metadata-options for more details
-    metadata_options = map(string)
+    })))
+    # Karpenter provisioner metadata options. See https://karpenter.sh/v0.18.0/aws/provisioning/#metadata-options for more details
+    metadata_options = optional(map(string), {})
     # The AMI used by Karpenter provisioner when provisioning nodes. Based on the value set for amiFamily, Karpenter will automatically query for the appropriate EKS optimized AMI via AWS Systems Manager (SSM)
     ami_family = string
-    # Karpenter provisioner block device mappings. Controls the Elastic Block Storage volumes that Karpenter attaches to provisioned nodes. Karpenter uses default block device mappings for the AMI Family specified. For example, the Bottlerocket AMI Family defaults with two block device mappings. See https://karpenter.sh/v0.10.1/aws/provisioning/#block-device-mappings for more details
+    # Karpenter provisioner block device mappings. Controls the Elastic Block Storage volumes that Karpenter attaches to provisioned nodes. Karpenter uses default block device mappings for the AMI Family specified. For example, the Bottlerocket AMI Family defaults with two block device mappings. See https://karpenter.sh/v0.18.0/aws/provisioning/#block-device-mappings for more details
     block_device_mappings = list(object({
       deviceName = string
-      ebs        = map(string)
+      ebs = optional(object({
+        volumeSize          = string
+        volumeType          = string
+        deleteOnTermination = optional(bool, true)
+        encrypted           = optional(bool, true)
+        iops                = optional(number)
+        kmsKeyID            = optional(string, "alias/aws/ebs")
+        snapshotID          = optional(string)
+        throughput          = optional(number)
+      }))
     }))
   }))
   description = "Karpenter provisioners config"
-  default     = {}
 }

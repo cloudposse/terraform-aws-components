@@ -1,13 +1,7 @@
-variable "github_oidc_trusted_role_arns" {
-  type        = list(string)
-  description = "A list of IAM Role ARNs allowed to assume this cluster's GitHub OIDC role"
-  default     = []
-}
-
 locals {
   github_role_name          = "gha-oidc"
-  github_actions_iam_policy = data.aws_iam_policy_document.github_actions_iam_policy.json
-  github_actions_iam_role_map = [
+  github_actions_iam_policy = local.github_actions_iam_role_enabled ? data.aws_iam_policy_document.github_actions_iam_policy[0].json : ""
+  github_actions_iam_role_map = local.github_actions_iam_role_enabled ? [
     {
       rolearn  = aws_iam_role.github_actions[0].arn
       username = module.this.context.tenant != null ? format("%s-%s-%s", module.this.tenant, module.this.stage, local.github_role_name) : format("%s-%s", module.this.stage, local.github_role_name)
@@ -15,22 +9,11 @@ locals {
         "system:masters"
       ]
     }
-  ]
+  ] : []
 }
 
 data "aws_iam_policy_document" "github_actions_iam_policy" {
-  # Allows trusted roles to assume this role
-  statement {
-    sid    = "TrustedRoleAccess"
-    effect = "Allow"
-    actions = [
-      "sts:AssumeRole",
-      "sts:TagSession",
-    ]
-    resources = var.github_oidc_trusted_role_arns
-  }
-
-  # Allow actions on this EKS Cluster
+  count = local.github_actions_iam_role_enabled ? 1 : 0 # Allow actions on this EKS Cluster
   statement {
     sid    = "AllowEKSActions"
     effect = "Allow"

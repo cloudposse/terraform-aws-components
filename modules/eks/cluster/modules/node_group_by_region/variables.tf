@@ -1,5 +1,6 @@
 variable "availability_zones" {
-  type = list(string)
+  type    = list(string)
+  default = []
 }
 
 variable "node_group_size" {

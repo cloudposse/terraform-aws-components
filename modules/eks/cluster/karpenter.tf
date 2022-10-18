@@ -59,21 +59,21 @@ resource "aws_iam_role" "karpenter" {
 resource "aws_iam_role_policy_attachment" "amazon_ssm_managed_instance_core" {
   count = local.karpenter_iam_role_enabled ? 1 : 0
 
-  role       = aws_iam_role.karpenter[0].name
+  role       = one(aws_iam_role.karpenter[*].name)
   policy_arn = format("arn:%s:iam::aws:policy/AmazonSSMManagedInstanceCore", local.partition)
 }
 
 resource "aws_iam_role_policy_attachment" "amazon_eks_worker_node_policy" {
   count = local.karpenter_iam_role_enabled ? 1 : 0
 
-  role       = aws_iam_role.karpenter[0].name
+  role       = one(aws_iam_role.karpenter[*].name)
   policy_arn = format("arn:%s:iam::aws:policy/AmazonEKSWorkerNodePolicy", local.partition)
 }
 
 resource "aws_iam_role_policy_attachment" "amazon_ec2_container_registry_readonly" {
   count = local.karpenter_iam_role_enabled ? 1 : 0
 
-  role       = aws_iam_role.karpenter[0].name
+  role       = one(aws_iam_role.karpenter[*].name)
   policy_arn = format("arn:%s:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly", local.partition)
 }
 
@@ -125,6 +125,6 @@ resource "aws_iam_policy" "ipv6_eks_cni_policy" {
 resource "aws_iam_role_policy_attachment" "ipv6_eks_cni_policy" {
   count = local.karpenter_iam_role_enabled ? 1 : 0
 
-  role       = aws_iam_role.karpenter[0].name
-  policy_arn = aws_iam_policy.ipv6_eks_cni_policy[0].arn
+  role       = one(aws_iam_role.karpenter[*].name)
+  policy_arn = one(aws_iam_policy.ipv6_eks_cni_policy[*].arn)
 }

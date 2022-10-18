@@ -7,31 +7,23 @@ data "aws_partition" "current" {
   count = local.enabled ? 1 : 0
 }
 
-resource "kubernetes_namespace" "default" {
-  count = local.enabled && var.create_namespace ? 1 : 0
-
-  metadata {
-    name = var.kubernetes_namespace
-
-    labels = module.this.tags
-  }
-}
-
 module "cert_manager" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.5.0"
+  version = "0.7.0"
 
-  name                 = "" # avoids hitting length restrictions on IAM Role names
-  chart                = var.cert_manager_chart
-  repository           = var.cert_manager_repository
-  description          = var.cert_manager_description
-  chart_version        = var.cert_manager_chart_version
-  kubernetes_namespace = join("", kubernetes_namespace.default.*.id)
-  create_namespace     = false
-  wait                 = var.wait
-  atomic               = var.atomic
-  cleanup_on_fail      = var.cleanup_on_fail
-  timeout              = var.timeout
+  name            = "" # avoids hitting length restrictions on IAM Role names
+  chart           = var.cert_manager_chart
+  repository      = var.cert_manager_repository
+  description     = var.cert_manager_description
+  chart_version   = var.cert_manager_chart_version
+  wait            = var.wait || var.letsencrypt_enabled || var.cert_manager_issuer_selfsigned_enabled
+  atomic          = var.atomic
+  cleanup_on_fail = var.cleanup_on_fail
+  timeout         = var.timeout
+
+  create_namespace_with_kubernetes = var.create_namespace
+  kubernetes_namespace             = var.kubernetes_namespace
+  kubernetes_namespace_labels      = merge(module.this.tags, { name = var.kubernetes_namespace })
 
   # Only install IAM role if letsencrypt_enabled is true
   iam_role_enabled            = var.letsencrypt_enabled
@@ -113,9 +105,10 @@ module "cert_manager" {
   context = module.this.context
 }
 
+
 module "cert_manager_issuer" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.5.0"
+  version = "0.7.0"
 
   # Only install the issuer if either letsencrypt_installed or selfsigned_installed is true
   enabled = local.enabled && (var.letsencrypt_enabled || var.cert_manager_issuer_selfsigned_enabled)
@@ -125,7 +118,7 @@ module "cert_manager_issuer" {
   repository           = var.cert_manager_issuer_repository
   description          = var.cert_manager_issuer_description
   chart_version        = var.cert_manager_issuer_chart_version
-  kubernetes_namespace = join("", kubernetes_namespace.default.*.id)
+  kubernetes_namespace = var.kubernetes_namespace
   create_namespace     = false
   wait                 = var.wait
   atomic               = var.atomic
@@ -133,7 +126,7 @@ module "cert_manager_issuer" {
   timeout              = var.timeout
 
   # Only install IAM role if letsencrypt_enabled is true
-  iam_role_enabled            = var.letsencrypt_enabled
+  iam_role_enabled            = false
   eks_cluster_oidc_issuer_url = replace(module.eks.outputs.eks_cluster_identity_oidc_issuer, "https://", "")
 
   # NOTE: Use with the local chart

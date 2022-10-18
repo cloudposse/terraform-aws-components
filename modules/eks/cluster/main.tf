@@ -54,7 +54,7 @@ locals {
   managed_worker_role_arns = local.eks_outputs.eks_managed_node_workers_role_arns
 
   # If Karpenter IAM role is enabled, add it to the `aws-auth` ConfigMap to allow the nodes launched by Karpenter to join the EKS cluster
-  karpenter_role_arn = var.karpenter_iam_role_enabled ? aws_iam_role.karpenter[0].arn : ""
+  karpenter_role_arn = one(aws_iam_role.karpenter[*].arn)
 
   worker_role_arns = compact(concat(
     var.map_additional_worker_roles,
@@ -75,7 +75,7 @@ locals {
 
 module "eks_cluster" {
   source  = "cloudposse/eks-cluster/aws"
-  version = "2.3.2"
+  version = "2.5.0"
 
   region     = var.region
   attributes = local.attributes
