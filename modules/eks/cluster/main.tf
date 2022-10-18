@@ -47,7 +47,6 @@ locals {
     local.delegated_iam_roles,
     var.map_additional_iam_roles,
     local.map_fargate_profile_roles,
-    local.github_actions_iam_role_map # Part of GitHub OIDC requirement
   )
 
   # Existing managed worker role ARNs
