@@ -1,7 +1,7 @@
 variable "availability_zones" {
-  type    = list(string)
+  type        = list(string)
   description = "List of availability zones to deploy the cluster in"
-  default = []
+  default     = []
 }
 
 variable "node_group_size" {

@@ -1,5 +1,5 @@
 variable "availability_zone" {
-  type = string
+  type        = string
   description = "The availability zone to deploy the node group in"
 }
 
