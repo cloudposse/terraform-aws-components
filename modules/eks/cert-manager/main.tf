@@ -125,7 +125,7 @@ module "cert_manager_issuer" {
   cleanup_on_fail      = var.cleanup_on_fail
   timeout              = var.timeout
 
-  # Only install IAM role if letsencrypt_enabled is true
+  # IAM role will be created by the cert-manager module above, if needed. Do not create a duplicate here.
   iam_role_enabled            = false
   eks_cluster_oidc_issuer_url = replace(module.eks.outputs.eks_cluster_identity_oidc_issuer, "https://", "")
 
