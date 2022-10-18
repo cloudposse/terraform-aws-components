@@ -12,7 +12,6 @@ locals {
   ] : []
 }
 
-#bridgecrew:skip=BC_AWS_IAM_57: This policy provides no write access, so complaint about unconstrained write access is incorrect.
 data "aws_iam_policy_document" "github_actions_iam_policy" {
   count = local.github_actions_iam_role_enabled ? 1 : 0 # Allow actions on this EKS Cluster
   statement {
@@ -24,6 +23,7 @@ data "aws_iam_policy_document" "github_actions_iam_policy" {
     resources = [module.eks_cluster.eks_cluster_arn]
   }
 
+  #bridgecrew:skip=BC_AWS_IAM_57: This policy provides no write access, so complaint about unconstrained write access is incorrect.
   # Allow chamber to read secrets
   statement {
     sid    = "AllowKMSAccess"
