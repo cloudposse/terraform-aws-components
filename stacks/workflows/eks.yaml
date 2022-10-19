@@ -1,0 +1,21 @@
+# Atmos workflows for managing EKS clusters
+
+workflows:
+
+  deploy-basics:
+    description: Deploy the basic infrastructure for an EKS cluster
+    steps:
+    - command: terraform deploy eks/cert-manager
+    - command: terraform deploy eks/alb-controller
+    - command: terraform deploy eks/external-dns
+    - command: terraform deploy eks/reloader
+    - command: terraform deploy eks/echo-server
+
+  destroy-basics:
+    description: Destroy the basic infrastructure for an EKS cluster, leaving Karpenter
+    steps:
+    - command: terraform destroy eks/echo-server
+    - command: terraform destroy eks/reloader
+    - command: terraform destroy eks/alb-controller
+    - command: terraform destroy eks/external-dns
+    - command: terraform destroy eks/cert-manager
