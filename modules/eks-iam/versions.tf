@@ -8,7 +8,7 @@ terraform {
     }
     template = {
       source  = "cloudposse/template"
-      version = ">= 2.0"
+      version = ">= 2.2"
     }
     local = {
       source  = "hashicorp/local"
