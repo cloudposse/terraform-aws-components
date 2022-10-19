@@ -1,4 +1,4 @@
-# Component: `external-dns`
+# Component: `eks/external-dns`
 
 This component creates a Helm deployment for [external-dns](https://github.com/bitnami/bitnami-docker-external-dns) on a Kubernetes cluster. [external-dns](https://github.com/bitnami/bitnami-docker-external-dns) is a Kubernetes addon that configures public DNS servers with information about exposed Kubernetes services to make them discoverable.
 
@@ -20,22 +20,14 @@ The default catalog values `e.g. stacks/catalog/eks/external-dns.yaml`
 components:
   terraform:
     external-dns:
-      backend:
-        s3:
-          workspace_key_prefix: external-dns
       vars:
         enabled: true
-        chart_version: 5.4.7
-        crd_enabled: false
-        istio_enabled: false
-        # txt_prefix will have -${STAGE}- appended
-        txt_prefix: "external-dns"
-        policy: "sync"
-        # Teleport, for one, needs publishInternalServices: true
-        publish_internal_services: true
-        rbac_enabled: true
-        # Must be "external-dns", IAM role will not work
-        service_account_name: "external-dns"
+        name: external-dns
+        chart: external-dns
+        chart_repository: https://charts.bitnami.com/bitnami
+        chart_version: "6.7.5"
+        create_namespace: true
+        kubernetes_namespace: external-dns
 
         # Resources
         limit_cpu: "200m"
@@ -59,23 +51,23 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.7.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
-| <a name="module_external_dns"></a> [external\_dns](#module\_external\_dns) | cloudposse/helm-release/aws | 0.5.0 |
+| <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.3.1 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.3.1 |
+| <a name="module_external_dns"></a> [external\_dns](#module\_external\_dns) | cloudposse/helm-release/aws | 0.7.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -83,7 +75,6 @@ components:
 
 | Name | Type |
 |------|------|
-| [kubernetes_namespace.default](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
 

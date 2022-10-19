@@ -2,33 +2,23 @@ locals {
   enabled = module.this.enabled
 }
 
-resource "kubernetes_namespace" "default" {
-  count = local.enabled && var.create_namespace ? 1 : 0
-
-  metadata {
-    name = var.kubernetes_namespace
-
-    annotations = {}
-
-    labels = module.this.tags
-  }
-}
-
 module "alb_controller" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.5.0"
+  version = "0.7.0"
 
-  name                 = "" # avoids hitting length restrictions on IAM Role names
-  chart                = var.chart
-  repository           = var.chart_repository
-  description          = var.chart_description
-  chart_version        = var.chart_version
-  kubernetes_namespace = join("", kubernetes_namespace.default.*.id)
-  create_namespace     = false
-  wait                 = var.wait
-  atomic               = var.atomic
-  cleanup_on_fail      = var.cleanup_on_fail
-  timeout              = var.timeout
+  name            = "" # avoids hitting length restrictions on IAM Role names
+  chart           = var.chart
+  repository      = var.chart_repository
+  description     = var.chart_description
+  chart_version   = var.chart_version
+  wait            = true # required for installing IngressClassParams
+  atomic          = var.atomic
+  cleanup_on_fail = var.cleanup_on_fail
+  timeout         = var.timeout
+
+  create_namespace_with_kubernetes = var.create_namespace
+  kubernetes_namespace             = var.kubernetes_namespace
+  kubernetes_namespace_labels      = merge(module.this.tags, { name = var.kubernetes_namespace })
 
   eks_cluster_oidc_issuer_url = replace(module.eks.outputs.eks_cluster_identity_oidc_issuer, "https://", "")
 
@@ -311,7 +301,24 @@ module "alb_controller" {
       aws = {
         region = var.region
       }
-      clusterName = module.eks.outputs.eks_cluster_id
+      clusterName                = module.eks.outputs.eks_cluster_id
+      createIngressClassResource = var.default_ingress_enabled
+      ingressClass               = var.default_ingress_class_name
+      ingressClassParams = {
+        name    = var.default_ingress_class_name
+        create  = var.default_ingress_enabled
+        default = true
+        spec = {
+          group = {
+            name = var.default_ingress_group
+          }
+          scheme                 = var.default_ingress_scheme
+          ipAddressType          = var.default_ingress_ip_address_type
+          tags                   = [for k, v in merge(module.this.tags, var.default_ingress_additional_tags) : { key = k, value = v }]
+          loadBalancerAttributes = var.default_ingress_load_balancer_attributes
+        }
+      }
+      defaultTags = module.this.tags
     }),
     # additional values
     yamlencode(var.chart_values)

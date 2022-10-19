@@ -70,12 +70,12 @@ output "eks_node_group_statuses" {
 
 output "karpenter_iam_role_arn" {
   description = "Karpenter IAM Role ARN"
-  value       = local.karpenter_iam_role_enabled ? aws_iam_role.karpenter[0].arn : null
+  value       = one(aws_iam_role.karpenter[*].arn)
 }
 
 output "karpenter_iam_role_name" {
   description = "Karpenter IAM Role name"
-  value       = local.karpenter_iam_role_enabled ? aws_iam_role.karpenter[0].name : null
+  value       = one(aws_iam_role.karpenter[*].name)
 }
 
 output "fargate_profiles" {

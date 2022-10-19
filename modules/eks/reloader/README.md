@@ -1,6 +1,9 @@
 # Component: `eks/reloader`
 
-This component installs the `reloader` for EKS clusters. `reloader` can watch `ConfigMap`s and `Secret`s for changes and use these to trigger rolling upgrades on pods and their associated `DeploymentConfig`s, `Deployment`s, `Daemonset`s `Statefulset`s and `Rollout`s.
+This component installs the [Stakater Reloader](https://github.com/stakater/Reloader) for EKS clusters.
+`reloader` can watch `ConfigMap`s and `Secret`s for changes
+and use these to trigger rolling upgrades on pods and their associated
+`DeploymentConfig`s, `Deployment`s, `Daemonset`s `Statefulset`s and `Rollout`s.
 
 ## Usage
 
@@ -22,11 +25,8 @@ components:
         kubernetes_namespace: "reloader"
         repository: "https://stakater.github.io/stakater-charts"
         chart: "reloader"
-        chart_version: "v0.0.68"
+        chart_version: "v0.0.124"
         timeout: 180
-        tags:
-          Team: sre
-          Service: reloader
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -35,22 +35,23 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.7.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.7.1 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.3.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
