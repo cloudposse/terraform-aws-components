@@ -1,10 +1,10 @@
 output "cluster_arn" {
-  value       = join("", aws_ecs_cluster.default[*].arn)
+  value       = module.cluster.name
   description = "ECS cluster ARN"
 }
 
 output "cluster_name" {
-  value       = join("", aws_ecs_cluster.default[*].name)
+  value       = module.cluster.arn
   description = "ECS Cluster Name"
 }
 

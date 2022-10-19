@@ -3,7 +3,7 @@ locals {
 
   dns_enabled = local.enabled && var.route53_enabled
 
-  acm_certificate_domain = length(var.acm_certificate_domain_suffix) > 0 ? format("%s.%s.%s", var.acm_certificate_domain_suffix, var.environment, module.dns_delegated.outputs.default_domain_name) : coalesce(var.acm_certificate_domain, module.dns_delegated.outputs.default_domain_name)
+  acm_certificate_domain = try(length(var.acm_certificate_domain_suffix) > 0, false) ? format("%s.%s.%s", var.acm_certificate_domain_suffix, var.environment, module.dns_delegated.outputs.default_domain_name) : coalesce(var.acm_certificate_domain, module.dns_delegated.outputs.default_domain_name)
 
   maintenance_page_fixed_response = {
     content_type = "text/html"
@@ -27,47 +27,64 @@ module "target_group_label" {
   context = module.this.context
 }
 
-resource "aws_ecs_cluster" "default" {
-  count = local.enabled ? 1 : 0
-
-  name = module.this.id
-
-  # TODO: configuration.execute_command_configuration
-  # execute_command_configuration {
-  #   kms_key_id =
-  #   logging = "OVERRIDE" # "DEFAULT"
-  #   # log_configuration is required when logging is set to "OVERRIDE"
-  #   log_configuration {
-  #     cloud_watch_encryption_enabled = var.cloud_watch_encryption_enabled
-  #     cloud_watch_log_group_name     = module.cloudwatch_log_group.name
-  #     s3_bucket_name                 = module.logging_bucket.name
-  #     s3_bucket_encryption_enabled   = true
-  #     s3_key_prefix                  = "/"
-  #   }
-  # }
-
-  setting {
-    name  = "containerInsights"
-    value = var.container_insights_enabled ? "enabled" : "disabled"
-  }
-
-  tags = module.this.tags
+resource "aws_security_group" "default" {
+  count       = local.enabled ? 1 : 0
+  name        = module.this.id
+  description = "ECS cluster EC2 autoscale capacity providers"
+  vpc_id      = module.vpc.outputs.vpc_id
 }
 
-# TODO: setup capacity providers
-# resource "aws_ecs_cluster_capacity_providers" "default" {
-#   count = local.enabled ? 1 : 0
-#
-#   cluster_name = join("", aws_ecs_cluster.default[*].name)
-#
-#   capacity_providers = ["FARGATE"]
-#
-#   default_capacity_provider_strategy {
-#     base              = 1
-#     weight            = 100
-#     capacity_provider = "FARGATE"
-#   }
-# }
+resource "aws_security_group_rule" "ingress_cidr" {
+  for_each          = local.enabled ? toset(var.allowed_cidr_blocks) : []
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  cidr_blocks       = [each.value]
+  security_group_id = join("", aws_security_group.default.*.id)
+}
+
+resource "aws_security_group_rule" "ingress_security_groups" {
+  for_each                 = local.enabled ? toset(var.allowed_security_groups) : []
+  type                     = "ingress"
+  from_port                = 0
+  to_port                  = 65535
+  protocol                 = "tcp"
+  source_security_group_id = each.value
+  security_group_id        = join("", aws_security_group.default.*.id)
+}
+
+resource "aws_security_group_rule" "egress" {
+  count             = local.enabled ? 1 : 0
+  type              = "egress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = join("", aws_security_group.default.*.id)
+}
+
+module "cluster" {
+  source  = "cloudposse/ecs-cluster/aws"
+  version = "0.1.0"
+
+  context = module.this.context
+
+  container_insights_enabled      = var.container_insights_enabled
+  capacity_providers_fargate      = var.capacity_providers_fargate
+  capacity_providers_fargate_spot = var.capacity_providers_fargate_spot
+  capacity_providers_ec2 = {
+    for name, provider in var.capacity_providers_ec2 :
+    name => merge(
+      provider,
+      {
+        security_group_ids          = concat(aws_security_group.default.*.id, provider.security_group_ids)
+        subnet_ids                  = var.internal_enabled ? module.vpc.outputs.private_subnet_ids : module.vpc.outputs.public_subnet_ids
+        associate_public_ip_address = ! var.internal_enabled
+      }
+    )
+  }
+}
 
 resource "aws_route53_record" "default" {
   for_each = local.dns_enabled ? var.alb_configuration : {}
