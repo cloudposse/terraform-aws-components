@@ -80,7 +80,7 @@ module "cluster" {
       {
         security_group_ids          = concat(aws_security_group.default.*.id, provider.security_group_ids)
         subnet_ids                  = var.internal_enabled ? module.vpc.outputs.private_subnet_ids : module.vpc.outputs.public_subnet_ids
-        associate_public_ip_address = ! var.internal_enabled
+        associate_public_ip_address = !var.internal_enabled
       }
     )
   }

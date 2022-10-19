@@ -135,8 +135,8 @@ variable "capacity_providers_fargate_spot" {
 variable "capacity_providers_ec2" {
   description = "EC2 autoscale groups capacity providers"
   type = map(object({
-    instance_type      = string
-    max_size           = number
+    instance_type                        = string
+    max_size                             = number
     security_group_ids                   = optional(list(string), [])
     min_size                             = optional(number, 0)
     image_id                             = optional(string)
@@ -190,7 +190,7 @@ variable "capacity_providers_ec2" {
         spot_instance_pools                      = number
         spot_max_price                           = string
       })
-    }), {
+      }), {
       instances_distribution = null
     })
     placement = optional(object({
