@@ -1,6 +1,6 @@
 # Component: `imported-account`
 
-This component is optional and is used to create the OrganizationAccountAccessRole role in an imported account.
+This component is optional and is used to create the `OrganizationAccountAccessRole` role in an imported account.
 The role created is only required during cold start, so could potentially be removed after the `aws-teams` and `aws-team-roles`
 components are applied to the imported account. Once these are applied, the account can be managed using the standard `identity` roles.
 
@@ -82,5 +82,5 @@ No resources.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_org_account_access_role_arn"></a> [org\_account\_access\_role\_arn](#output\_org\_account\_access\_role\_arn) | n/a |
+| <a name="output_org_account_access_role_arn"></a> [org\_account\_access\_role\_arn](#output\_org\_account\_access\_role\_arn) | The ARN of the newly created OrganizationAccountAccessRole |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
