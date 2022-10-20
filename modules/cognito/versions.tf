@@ -8,5 +8,9 @@ terraform {
       # https://github.com/hashicorp/terraform-provider-aws/releases
       version = ">= 4.8.0"
     }
+    sops = {
+      source  = "carlpett/sops"
+      version = "~> 0.6"
+    }
   }
 }

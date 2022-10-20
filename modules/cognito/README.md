@@ -44,12 +44,14 @@ components:
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.8.0 |
+| <a name="requirement_sops"></a> [sops](#requirement\_sops) | ~> 0.6 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.8.0 |
+| <a name="provider_sops"></a> [sops](#provider\_sops) | ~> 0.6 |
 
 ## Modules
 
@@ -68,6 +70,8 @@ components:
 | [aws_cognito_user_pool.pool](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool) | resource |
 | [aws_cognito_user_pool_client.client](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool_client) | resource |
 | [aws_cognito_user_pool_domain.domain](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool_domain) | resource |
+| [aws_ssm_parameter.ssm_secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+| [sops_file.sops_secrets](https://registry.terraform.io/providers/carlpett/sops/latest/docs/data-sources/file) | data source |
 
 ## Inputs
 
@@ -158,6 +162,7 @@ components:
 | <a name="input_resource_server_scope_name"></a> [resource\_server\_scope\_name](#input\_resource\_server\_scope\_name) | Resource server scope name | `string` | `null` | no |
 | <a name="input_resource_servers"></a> [resource\_servers](#input\_resource\_servers) | Resource servers configuration | `list(any)` | `[]` | no |
 | <a name="input_schemas"></a> [schemas](#input\_schemas) | A container with the schema attributes of a User Pool. Maximum of 50 attributes | `list(any)` | `[]` | no |
+| <a name="input_secret_mapping"></a> [secret\_mapping](#input\_secret\_mapping) | The list of secret mappings the application will need. This creates secret values for the component to consume at `local.secrets[name]`. | <pre>list(object({<br>    name = string<br>    type = string<br>    path = string<br>    file = string<br>  }))</pre> | `[]` | no |
 | <a name="input_sms_authentication_message"></a> [sms\_authentication\_message](#input\_sms\_authentication\_message) | A string representing the SMS authentication message | `string` | `null` | no |
 | <a name="input_sms_configuration"></a> [sms\_configuration](#input\_sms\_configuration) | SMS configuration | `map(any)` | `{}` | no |
 | <a name="input_sms_configuration_external_id"></a> [sms\_configuration\_external\_id](#input\_sms\_configuration\_external\_id) | The external ID used in IAM role trust relationships | `string` | `""` | no |
