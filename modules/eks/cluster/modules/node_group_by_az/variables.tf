@@ -1,5 +1,6 @@
 variable "availability_zone" {
-  type = string
+  type        = string
+  description = "The availability zone to deploy the node group in"
 }
 
 variable "node_group_size" {
@@ -8,6 +9,7 @@ variable "node_group_size" {
     min_size     = number
     max_size     = number
   })
+  description = "The desired, minimum and maximum size of the node group in this availability zone"
 }
 
 variable "cluster_context" {
@@ -34,4 +36,5 @@ variable "cluster_context" {
     aws_ssm_agent_enabled = bool
     vpc_id                = string
   })
+  description = "The common settings for all node groups."
 }

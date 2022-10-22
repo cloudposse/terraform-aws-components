@@ -22,12 +22,13 @@ variable "cert_manager_description" {
 variable "cert_manager_chart" {
   type        = string
   description = "Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended."
+  default     = "cert-manager"
 }
 
 variable "cert_manager_repository" {
   type        = string
   description = "Repository URL where to locate the requested chart."
-  default     = null
+  default     = "https://charts.jetstack.io"
 }
 
 variable "cert_manager_chart_version" {
@@ -48,12 +49,22 @@ variable "cert_manager_resources" {
     })
   })
   description = "The cpu and memory of the cert manager's limits and requests."
+  default = {
+    limits = {
+      cpu    = "200m"
+      memory = "256Mi"
+    }
+    requests = {
+      cpu    = "100m"
+      memory = "128Mi"
+    }
+  }
 }
 
 variable "cart_manager_rbac_enabled" {
   type        = bool
-  default     = true
   description = "Service Account for pods."
+  default     = true
 }
 
 variable "cert_manager_metrics_enabled" {
@@ -79,6 +90,7 @@ variable "cert_manager_issuer_description" {
 variable "cert_manager_issuer_chart" {
   type        = string
   description = "Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended."
+  default     = "./cert-manager-issuer/"
 }
 
 variable "cert_manager_issuer_repository" {
@@ -112,13 +124,14 @@ variable "cert_manager_issuer_values" {
 
 variable "create_namespace" {
   type        = bool
-  description = "Create the namespace if it does not yet exist. Defaults to `false`."
-  default     = null
+  description = "Create the namespace if it does not yet exist. Defaults to `true`."
+  default     = true
 }
 
 variable "kubernetes_namespace" {
   type        = string
   description = "The namespace to install the release into."
+  default     = "cert-manager"
 }
 
 variable "timeout" {
@@ -129,20 +142,20 @@ variable "timeout" {
 
 variable "cleanup_on_fail" {
   type        = bool
-  description = "Allow deletion of new resources created in this upgrade when upgrade fails."
+  description = "If `true`, resources created in this deploy will be deleted when deploy fails. Highly recommended to prevent cert-manager from getting into a wedeged state."
   default     = true
 }
 
 variable "atomic" {
   type        = bool
-  description = "If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used."
+  description = "If `true`, if any part of the installation process fails, all parts are treated as failed. Highly recommended to prevent cert-manager from getting into a wedged state. The wait flag will be set automatically if atomic is used."
   default     = true
 }
 
 variable "wait" {
   type        = bool
-  description = "Will wait until all resources are in a ready state before marking the release as successful. It will wait for as long as `timeout`. Defaults to `true`."
-  default     = null
+  description = "Set `true` to wait until all resources are in a ready state before marking the release as successful. Ignored if provisioning Issuers. It will wait for as long as `timeout`. Defaults to `true`."
+  default     = true
 }
 
 variable "eks_component_name" {

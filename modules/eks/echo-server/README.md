@@ -1,23 +1,23 @@
-# Component: `echo-server`
+# Component: `eks/echo-server`
 
 This is copied from [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/echo-server).
 
-This component installs the [Ealenn/Echo-Server](https://github.com/Ealenn/Echo-Server) to EKS clusters. 
+This component installs the [Ealenn/Echo-Server](https://github.com/Ealenn/Echo-Server) to EKS clusters.
 The echo server is a server that sends it back to the client a JSON representation of all the data
 the server received, which is a combination of information sent by the client and information sent
 by the web server infrastructure. For further details, please consult the [Echo-Server documentation](https://ealenn.github.io/Echo-Server/).
 
 ## Prerequisites
 
-Echo server is intended to provide end-to-end testing of everything needed to deploy an application or service with a public HTTPS endpoint. 
-Therefore it requires several other components. 
+Echo server is intended to provide end-to-end testing of everything needed to deploy an application or service with a public HTTPS endpoint.
+Therefore, it requires several other components.
 At the moment, it supports 2 configurations:
 
 1. ALB with ACM Certificate
   - AWS Load Balancer Controller (ALB) version 2.2.0 or later, with ACM certificate auto-discovery enabled
   - Pre-provisioned ACM TLS certificate covering the provisioned host name (typically a wildcard certificate covering all hosts in the domain)
 2. Nginx with Cert Manager Certificate
-  - Nginx (via `kubernetes/ingress-nginx` controller). We recommend `ingress-nginx` v1.1.0 or later, but `echo-server` 
+  - Nginx (via `kubernetes/ingress-nginx` controller). We recommend `ingress-nginx` v1.1.0 or later, but `echo-server`
     should work with any version that supports Ingress API version `networking.k8s.io/v1`.
   - `jetstack/cert-manager` configured to automatically (via Ingress Shim, installed by default) generate TLS certificates via a Cluster Issuer
     (by default, named `letsEncrypt-prod`).
@@ -26,10 +26,11 @@ In both configurations, it has these common requirements:
 - Kubernetes version 1.19 or later
 - Ingress API version `networking.k8s.io/v1`
 - [kubernetes-sigs/external-dns](https://github.com/kubernetes-sigs/external-dns)
+- A default IngressClass, either explicitly provisioned or supported without provisioning by the Ingress controller.
 
 ## Warnings
 
-A Terraform plan may fail to apply, giving a Kubernetes authentication failure. This is due to a known issue with 
+A Terraform plan may fail to apply, giving a Kubernetes authentication failure. This is due to a known issue with
 Terraform and the Kubernetes provider. During the "plan" phase Terraform gets a short-lived Kubernetes
 authentication token and caches it, and then tries to use it during "apply". If the token has expired by
 the time you try to run "apply", the "apply" will fail. The workaround is to run `terraform apply -auto-approve` without
@@ -72,21 +73,20 @@ components:
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.7.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_alb-controller-ingress-group"></a> [alb-controller-ingress-group](#module\_alb-controller-ingress-group) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
-| <a name="module_echo_server"></a> [echo\_server](#module\_echo\_server) | cloudposse/helm-release/aws | 0.5.0 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_echo_server"></a> [echo\_server](#module\_echo\_server) | cloudposse/helm-release/aws | 0.7.0 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.3.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -94,7 +94,6 @@ components:
 
 | Name | Type |
 |------|------|
-| [kubernetes_namespace.default](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [aws_eks_cluster.kubernetes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
 | [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 | [aws_eks_cluster_auth.kubernetes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
@@ -104,12 +103,9 @@ components:
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_alb_access_logs_enabled"></a> [alb\_access\_logs\_enabled](#input\_alb\_access\_logs\_enabled) | Whether or not to enable access logs for the ALB | `bool` | `false` | no |
-| <a name="input_alb_access_logs_s3_bucket_name"></a> [alb\_access\_logs\_s3\_bucket\_name](#input\_alb\_access\_logs\_s3\_bucket\_name) | The name of the S3 bucket to store the access logs in | `string` | `null` | no |
-| <a name="input_alb_access_logs_s3_bucket_prefix"></a> [alb\_access\_logs\_s3\_bucket\_prefix](#input\_alb\_access\_logs\_s3\_bucket\_prefix) | The prefix to use when storing the access logs | `string` | `"echo-server"` | no |
-| <a name="input_alb_controller_ingress_group_component_name"></a> [alb\_controller\_ingress\_group\_component\_name](#input\_alb\_controller\_ingress\_group\_component\_name) | The name of the alb-controller-ingress-group component | `string` | `"eks/alb-controller-ingress-group"` | no |
 | <a name="input_atomic"></a> [atomic](#input\_atomic) | If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used. | `bool` | `true` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
+| <a name="input_chart_values"></a> [chart\_values](#input\_chart\_values) | Addition map values to yamlencode as `helm_release` values. | `any` | `{}` | no |
 | <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Specify the exact chart version to install. If this is not specified, the latest version is installed. | `string` | `null` | no |
 | <a name="input_cleanup_on_fail"></a> [cleanup\_on\_fail](#input\_cleanup\_on\_fail) | Allow deletion of new resources created in this upgrade when upgrade fails. | `bool` | `true` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
@@ -118,7 +114,6 @@ components:
 | <a name="input_description"></a> [description](#input\_description) | Set release description attribute (visible in the history). | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_eks_component_name"></a> [eks\_component\_name](#input\_eks\_component\_name) | The name of the eks component | `string` | `"eks/cluster"` | no |
-| <a name="input_enable_alb_controller_ingress_group"></a> [enable\_alb\_controller\_ingress\_group](#input\_enable\_alb\_controller\_ingress\_group) | Uses alb-controller-ingress-group component for alb ingress group | `bool` | `false` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_helm_manifest_experiment_enabled"></a> [helm\_manifest\_experiment\_enabled](#input\_helm\_manifest\_experiment\_enabled) | Enable storing of the rendered manifest for helm\_release so the full diff of what is changing can been seen in the plan | `bool` | `true` | no |

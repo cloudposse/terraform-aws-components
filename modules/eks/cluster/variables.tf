@@ -5,7 +5,11 @@ variable "region" {
 
 variable "availability_zones" {
   type        = list(string)
-  description = "AWS Availability Zones in which to deploy multi-AZ resources"
+  description = <<-EOT
+    AWS Availability Zones in which to deploy multi-AZ resources.
+    If not provided, resources will be provisioned in every private subnet in the VPC.
+    EOT
+  default     = []
 }
 
 variable "availability_zone_abbreviation_type" {

@@ -1,86 +1,96 @@
-# Component: `karpenter-provisioner`
+# Component: `eks/karpenter-provisioner`
 
-This component deploys [Karpenter provisioners](https://karpenter.sh/v0.10.1/aws/provisioning) on an EKS cluster.
+This component deploys [Karpenter provisioners](https://karpenter.sh/v0.18.0/aws/provisioning) on an EKS cluster.
 
 ## Usage
 
 **Stack Level**: Regional
 
+If provisioning more than one provisioner, it is [best practice](https://aws.github.io/aws-eks-best-practices/karpenter/#create-provisioners-that-are-mutually-exclusive-or-weighted)
+to create provisioners that are mutually exclusive or weighted.
+
 ```yaml
 components:
   terraform:
-    
-    # Base component for all `karpenter-provisioner` components
     eks/karpenter-provisioner:
-      metadata:
-        type: abstract
       settings:
         spacelift:
           workspace_enabled: true
       vars:
         enabled: true
-        root_account_tenant_name: core
-        tags:
-          Team: sre
-          Service: karpenter
         eks_component_name: eks/cluster
         name: "karpenter-provisioner"
+        # https://karpenter.sh/v0.18.0/getting-started/getting-started-with-terraform
+        # https://karpenter.sh/v0.18.0/aws/provisioning
         provisioners:
           default:
             name: default
             # Whether to place EC2 instances launched by Karpenter into VPC private subnets. Set it to `false` to use public subnets
             private_subnets_enabled: true
-            # Configures Karpenter to terminate empty nodes after the specified number of seconds. This behavior can be disabled by setting the value to `null` (never scales down if not set)
+            # Configures Karpenter to terminate empty nodes after the specified number of seconds.
+            # This behavior can be disabled by setting the value to `null` (never scales down if not set)
             ttl_seconds_after_empty: 30
-            # Configures Karpenter to terminate nodes when a maximum age is reached. This behavior can be disabled by setting the value to `null` (never expires if not set)
+            # Configures Karpenter to terminate nodes when a maximum age is reached.
+            #This behavior can be disabled by setting the value to `null` (never expires if not set)
             ttl_seconds_until_expired: 2592000
             # Karpenter provisioner total CPU limit for all pods running on the EC2 instances launched by Karpenter
-            total_cpu_limit: "1k"
+            total_cpu_limit: "100"
             # Karpenter provisioner total memory limit for all pods running on the EC2 instances launched by Karpenter
             total_memory_limit: "1000Gi"
-            # https://karpenter.sh/v0.10.1/provisioner/#specrequirements
-            # https://karpenter.sh/v0.10.1/getting-started/getting-started-with-terraform
-            # https://karpenter.sh/v0.10.1/aws/provisioning
-            # Set acceptable (In) and unacceptable (Out) Kubernetes and Karpenter values for node provisioning based on Well-Known Labels and cloud-specific settings. These can include instance types, zones, computer architecture, and capacity type (such as AWS spot or on-demand). See https://karpenter.sh/v0.10.1/provisioner/#specrequirements for more details
+            # Set acceptable (In) and unacceptable (Out) Kubernetes and Karpenter values for node provisioning based on
+            # Well-Known Labels and cloud-specific settings. These can include instance types, zones, computer architecture,
+            # and capacity type (such as AWS spot or on-demand).
+            # See https://karpenter.sh/v0.18.0/provisioner/#specrequirements for more details
             requirements:
-              - key: "karpenter.sh/capacity-type"
-                operator: "In"
-                values:
-                  - "on-demand"
-              - key: "node.kubernetes.io/instance-type"
-                operator: "In"
-                values:
-                  - "m5.xlarge"
-                  - "m5.large"
-                  - "m5.medium"
-                  - "c5.xlarge"
-                  - "c5.large"
-                  - "c5.medium"
-              - key: "kubernetes.io/arch"
-                operator: "In"
-                values:
-                  - "amd64"
-            # Karpenter provisioner taints configuration
-            taints: null
-            startup_taints: null
+            - key: "karpenter.sh/capacity-type"
+              operator: "In"
+              values:
+              - "on-demand"
+              - "spot"
+            - key: "node.kubernetes.io/instance-type"
+              operator: "In"
+              # See https://aws.amazon.com/ec2/instance-explorer/ and https://aws.amazon.com/ec2/instance-types/
+              # Values limited by DenyEC2InstancesWithoutEncryptionInTransit service control policy
+              # See https://github.com/cloudposse/terraform-aws-service-control-policies/blob/master/catalog/ec2-policies.yaml
+              # Karpenter recommends allowing at least 20 instance types to ensure availability.
+              values:
+              - "c5n.2xlarge"
+              - "c5n.xlarge"
+              - "c5n.large"
+              - "c6i.2xlarge"
+              - "c6i.xlarge"
+              - "c6i.large"
+              - "m5n.2xlarge"
+              - "m5n.xlarge"
+              - "m5n.large"
+              - "m5zn.2xlarge"
+              - "m5zn.xlarge"
+              - "m5zn.large"
+              - "m6i.2xlarge"
+              - "m6i.xlarge"
+              - "m6i.large"
+              - "r5n.2xlarge"
+              - "r5n.xlarge"
+              - "r5n.large"
+              - "r6i.2xlarge"
+              - "r6i.xlarge"
+              - "r6i.large"
+            - key: "kubernetes.io/arch"
+              operator: "In"
+              values:
+              - "amd64"
             # The AMI used by Karpenter provisioner when provisioning nodes. Based on the value set for amiFamily, Karpenter will automatically query for the appropriate EKS optimized AMI via AWS Systems Manager (SSM)
             # Bottlerocket, AL2, Ubuntu
-            # https://karpenter.sh/v0.10.1/aws/provisioning/#amazon-machine-image-ami-family
+            # https://karpenter.sh/v0.18.0/aws/provisioning/#amazon-machine-image-ami-family
             ami_family: AL2
-            # Disabling Manifest Experiment disables stored metadata with Terraform state
-            # Otherwise, the state will show changes on all plans
-            helm_manifest_experiment_enabled: false
-
-    # Provision `karpenter-provisioner` component on the blue EKS cluster
-    eks/karpenter-provisioner-blue:
-      metadata:
-        component: eks/karpenter-provisioner
-        inherits:
-          - eks/karpenter-provisioner
-      vars:
-        attributes:
-          - blue
-        eks_component_name: eks/cluster-blue
+            # Karpenter provisioner block device mappings.
+            block_device_mappings:
+            - deviceName: /dev/xvda
+              ebs:
+                volumeSize: 200Gi
+                volumeType: gp3
+                encrypted: true
+                deleteOnTermination: true
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -88,31 +98,33 @@ components:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.14.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.14.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.3.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.3.1 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [kubernetes_manifest.default](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
+| [kubernetes_manifest.provider](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
+| [kubernetes_manifest.provisioner](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
 | [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 
 ## Inputs
@@ -147,7 +159,7 @@ components:
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_provisioners"></a> [provisioners](#input\_provisioners) | Karpenter provisioners config | <pre>map(object({<br>    # The name of the Karpenter provisioner<br>    name = string<br>    # Whether to place EC2 instances launched by Karpenter into VPC private subnets. Set it to `false` to use public subnets<br>    private_subnets_enabled = bool<br>    # Configures Karpenter to terminate empty nodes after the specified number of seconds. This behavior can be disabled by setting the value to `null` (never scales down if not set)<br>    ttl_seconds_after_empty = number<br>    # Configures Karpenter to terminate nodes when a maximum age is reached. This behavior can be disabled by setting the value to `null` (never expires if not set)<br>    ttl_seconds_until_expired = number<br>    # Karpenter provisioner total CPU limit for all pods running on the EC2 instances launched by Karpenter<br>    total_cpu_limit = string<br>    # Karpenter provisioner total memory limit for all pods running on the EC2 instances launched by Karpenter<br>    total_memory_limit = string<br>    # Set acceptable (In) and unacceptable (Out) Kubernetes and Karpenter values for node provisioning based on Well-Known Labels and cloud-specific settings. These can include instance types, zones, computer architecture, and capacity type (such as AWS spot or on-demand). See https://karpenter.sh/v0.10.1/provisioner/#specrequirements for more details<br>    requirements = list(object({<br>      key      = string<br>      operator = string<br>      values   = list(string)<br>    }))<br>    # Karpenter provisioner taints configuration. See https://aws.github.io/aws-eks-best-practices/karpenter/#create-provisioners-that-are-mutually-exclusive for more details<br>    taints = list(object({<br>      key    = string<br>      effect = string<br>      value  = string<br>    }))<br>    startup_taints = list(object({<br>      key    = string<br>      effect = string<br>      value  = string<br>    }))<br>    # Karpenter provisioner metadata options. See https://karpenter.sh/v0.10.1/aws/provisioning/#metadata-options for more details<br>    metadata_options = map(string)<br>    # The AMI used by Karpenter provisioner when provisioning nodes. Based on the value set for amiFamily, Karpenter will automatically query for the appropriate EKS optimized AMI via AWS Systems Manager (SSM)<br>    ami_family = string<br>    # Karpenter provisioner block device mappings. Controls the Elastic Block Storage volumes that Karpenter attaches to provisioned nodes. Karpenter uses default block device mappings for the AMI Family specified. For example, the Bottlerocket AMI Family defaults with two block device mappings. See https://karpenter.sh/v0.10.1/aws/provisioning/#block-device-mappings for more details<br>    block_device_mappings = list(object({<br>      deviceName = string<br>      ebs        = map(string)<br>    }))<br>  }))</pre> | `{}` | no |
+| <a name="input_provisioners"></a> [provisioners](#input\_provisioners) | Karpenter provisioners config | <pre>map(object({<br>    # The name of the Karpenter provisioner<br>    name = string<br>    # Whether to place EC2 instances launched by Karpenter into VPC private subnets. Set it to `false` to use public subnets<br>    private_subnets_enabled = bool<br>    # Configures Karpenter to terminate empty nodes after the specified number of seconds. This behavior can be disabled by setting the value to `null` (never scales down if not set)<br>    ttl_seconds_after_empty = number<br>    # Configures Karpenter to terminate nodes when a maximum age is reached. This behavior can be disabled by setting the value to `null` (never expires if not set)<br>    ttl_seconds_until_expired = number<br>    # Karpenter provisioner total CPU limit for all pods running on the EC2 instances launched by Karpenter<br>    total_cpu_limit = string<br>    # Karpenter provisioner total memory limit for all pods running on the EC2 instances launched by Karpenter<br>    total_memory_limit = string<br>    # Set acceptable (In) and unacceptable (Out) Kubernetes and Karpenter values for node provisioning based on Well-Known Labels and cloud-specific settings. These can include instance types, zones, computer architecture, and capacity type (such as AWS spot or on-demand). See https://karpenter.sh/v0.18.0/provisioner/#specrequirements for more details<br>    requirements = list(object({<br>      key      = string<br>      operator = string<br>      values   = list(string)<br>    }))<br>    # Karpenter provisioner taints configuration. See https://aws.github.io/aws-eks-best-practices/karpenter/#create-provisioners-that-are-mutually-exclusive for more details<br>    taints = optional(list(object({<br>      key    = string<br>      effect = string<br>      value  = string<br>    })))<br>    startup_taints = optional(list(object({<br>      key    = string<br>      effect = string<br>      value  = string<br>    })))<br>    # Karpenter provisioner metadata options. See https://karpenter.sh/v0.18.0/aws/provisioning/#metadata-options for more details<br>    metadata_options = optional(map(string), {})<br>    # The AMI used by Karpenter provisioner when provisioning nodes. Based on the value set for amiFamily, Karpenter will automatically query for the appropriate EKS optimized AMI via AWS Systems Manager (SSM)<br>    ami_family = string<br>    # Karpenter provisioner block device mappings. Controls the Elastic Block Storage volumes that Karpenter attaches to provisioned nodes. Karpenter uses default block device mappings for the AMI Family specified. For example, the Bottlerocket AMI Family defaults with two block device mappings. See https://karpenter.sh/v0.18.0/aws/provisioning/#block-device-mappings for more details<br>    block_device_mappings = list(object({<br>      deviceName = string<br>      ebs = optional(object({<br>        volumeSize          = string<br>        volumeType          = string<br>        deleteOnTermination = optional(bool, true)<br>        encrypted           = optional(bool, true)<br>        iops                = optional(number)<br>        kmsKeyID            = optional(string, "alias/aws/ebs")<br>        snapshotID          = optional(string)<br>        throughput          = optional(number)<br>      }))<br>    }))<br>  }))</pre> | n/a | yes |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
@@ -158,6 +170,7 @@ components:
 
 | Name | Description |
 |------|-------------|
+| <a name="output_providers"></a> [providers](#output\_providers) | Deployed Karpenter AWSNodeTemplates |
 | <a name="output_provisioners"></a> [provisioners](#output\_provisioners) | Deployed Karpenter provisioners |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
@@ -165,13 +178,13 @@ components:
 
 - https://karpenter.sh
 - https://aws.github.io/aws-eks-best-practices/karpenter
-- https://karpenter.sh/v0.10.1/getting-started/getting-started-with-terraform
+- https://karpenter.sh/v0.18.0/getting-started/getting-started-with-terraform
 - https://aws.amazon.com/blogs/aws/introducing-karpenter-an-open-source-high-performance-kubernetes-cluster-autoscaler
 - https://github.com/aws/karpenter
 - https://www.eksworkshop.com/beginner/085_scaling_karpenter
 - https://ec2spotworkshops.com/karpenter.html
 - https://www.eksworkshop.com/beginner/085_scaling_karpenter/install_karpenter
-- https://karpenter.sh/v0.10.1/development-guide
-- https://karpenter.sh/v0.10.1/aws/provisioning
+- https://karpenter.sh/v0.18.0/development-guide
+- https://karpenter.sh/v0.18.0/aws/provisioning
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

@@ -1,6 +1,6 @@
 module "eks" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.4"
+  version = "1.3.1"
 
   component = var.eks_component_name
 
@@ -9,7 +9,7 @@ module "eks" {
 
 module "dns_gbl_delegated" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.4"
+  version = "1.3.1"
 
   component   = "dns-delegated"
   environment = var.dns_gbl_delegated_environment_name

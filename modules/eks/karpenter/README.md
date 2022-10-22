@@ -1,10 +1,15 @@
-# Component: `karpenter`
+# Component: `eks/karpenter`
 
 This component provisions [Karpenter](https://karpenter.sh) on an EKS cluster.
 
 ## Usage
 
 **Stack Level**: Regional
+
+These instructions assume you are provisioning 2 EKS clusters in the same account
+and region, named "blue" and "green", and alternating between them.
+If you are only using a single cluster, you can ignore the "blue" and "green"
+references and remove the `metadata` block from the `karpenter` module.
 
 ```yaml
 components:
@@ -27,7 +32,7 @@ components:
         name: "karpenter"
         chart: "karpenter"
         chart_repository: "https://charts.karpenter.sh"
-        chart_version: "v0.10.1"
+        chart_version: "v0.16.3"
         create_namespace: true
         kubernetes_namespace: "karpenter"
         resources:
@@ -59,51 +64,29 @@ We will be using the `plat-ue2-dev` stack as an example.
 
 ### Provision Service-Linked Roles for EC2 Spot and EC2 Spot Fleet
 
-__Note:__ If you want to use EC2 Spot or Spot Fleet for the instances launched by Karpenter,
-you will need to provision the following Service-Linked Roles for EC2 Spot and Spot Fleet before provisioning Karpenter:
+__Note:__ If you want to use EC2 Spot for the instances launched by Karpenter,
+you may need to provision the following Service-Linked Role for EC2 Spot:
 
 - Service-Linked Role for EC2 Spot
-- Service-Linked Role for EC2 Spot Fleet
 
-This is only necessary if this is the first time you're using EC2 Spot and Spot Fleet in the account.
-
-```yaml
-components:
-  terraform:
-    iam-service-linked-roles:
-      settings:
-        spacelift:
-          workspace_enabled: true
-      vars:
-        enabled: true
-        root_account_tenant_name: core
-        service_linked_roles:
-          spot_amazonaws_com:
-            aws_service_name: "spot.amazonaws.com"
-            description: "AWSServiceRoleForEC2Spot Service-Linked Role for EC2 Spot"
-          spotfleet_amazonaws_com:
-            aws_service_name: "spotfleet.amazonaws.com"
-            description: "AWSServiceRoleForEC2SpotFleet Service-Linked Role for EC2 Spot Fleet"
-```
+This is only necessary if this is the first time you're using EC2 Spot in the account.
+Since this is a one-time operation, we recommend you do this manually via
+the AWS CLI:
 
 ```bash
-atmos terraform plan iam-service-linked-roles -s plat-gbl-dev
-atmos terraform apply iam-service-linked-roles -s plat-gbl-dev
+aws --profile <namespace>-<tenamt>-gbl-<stage>-admin iam create-service-linked-role --aws-service-name spot.amazonaws.com
 ```
 
-Note that if the Service-Linked Roles already exist in the AWS account (if you used EC2 Spot or Spot Fleet before), 
+Note that if the Service-Linked Roles already exist in the AWS account (if you used EC2 Spot or Spot Fleet before),
 and you try to provision them again, you will see the following errors:
 
 ```text
 An error occurred (InvalidInput) when calling the CreateServiceLinkedRole operation:
 Service role name AWSServiceRoleForEC2Spot has been taken in this account, please try a different suffix
-
-An error occurred (InvalidInput) when calling the CreateServiceLinkedRole operation:
-Service role name AWSServiceRoleForEC2SpotFleet has been taken in this account, please try a different suffix
 ```
 
 For more details, see:
- - https://karpenter.sh/v0.10.1/getting-started/getting-started-with-terraform/
+ - https://karpenter.sh/v0.18.0/getting-started/getting-started-with-terraform/
  - https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
  - https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html
 
@@ -145,26 +128,26 @@ __Notes__:
 We use EKS Fargate Profile for Karpenter because It is recommended to run Karpenter on an EKS Fargate Profile.
 
 ```text
-Karpenter is installed using a Helm chart. The Helm chart installs the Karpenter controller and 
-a webhook pod as a Deployment that needs to run before the controller can be used for scaling your cluster. 
-We recommend a minimum of one small node group with at least one worker node. 
+Karpenter is installed using a Helm chart. The Helm chart installs the Karpenter controller and
+a webhook pod as a Deployment that needs to run before the controller can be used for scaling your cluster.
+We recommend a minimum of one small node group with at least one worker node.
 
 As an alternative, you can run these pods on EKS Fargate by creating a Fargate profile for the
-karpenter namespace. Doing so will cause all pods deployed into this namespace to run on EKS Fargate. 
+karpenter namespace. Doing so will cause all pods deployed into this namespace to run on EKS Fargate.
 Do not run Karpenter on a node that is managed by Karpenter.
 ```
 
 See [Run Karpenter Controller on EKS Fargate](https://aws.github.io/aws-eks-best-practices/karpenter/#run-the-karpenter-controller-on-eks-fargate-or-on-a-worker-node-that-belongs-to-a-node-group)
 for more details.
 
-We provision IAM Role for Nodes launched by Karpenter because they must run with an Instance Profile that grants 
+We provision IAM Role for Nodes launched by Karpenter because they must run with an Instance Profile that grants
 permissions necessary to run containers and configure networking.
 
 We define the IAM role for the Instance Profile in `components/terraform/eks/cluster/karpenter.tf`.
 
 Note that we provision the EC2 Instance Profile for the Karpenter IAM role in the `components/terraform/eks/karpenter` component (see the next step).
 
-Run the following commands to provision the EKS Fargate Profile for Karpenter and the IAM role for instances launched by Karpenter 
+Run the following commands to provision the EKS Fargate Profile for Karpenter and the IAM role for instances launched by Karpenter
 on the blue EKS cluster and add the role ARNs to the `aws-auth` ConfigMap:
 
 ```bash
@@ -174,8 +157,8 @@ atmos terraform apply eks/cluster-blue -s plat-ue2-dev
 
 For more details, refer to:
 
-- https://karpenter.sh/v0.10.1/getting-started/getting-started-with-terraform
-- https://karpenter.sh/v0.10.1/getting-started/getting-started-with-eksctl
+- https://karpenter.sh/v0.18.0/getting-started/getting-started-with-terraform
+- https://karpenter.sh/v0.18.0/getting-started/getting-started-with-eksctl
 
 
 ### 2. Provision `karpenter` component
@@ -207,10 +190,10 @@ Note that the stack config for the blue Karpenter component is defined in `stack
 
 ### 3. Provision `karpenter-provisioner` component
 
-In this step, we provision the `components/terraform/eks/karpenter-provisioner` component, which deploys Karpenter [Provisioners](https://karpenter.sh/v0.10.1/aws/provisioning) 
+In this step, we provision the `components/terraform/eks/karpenter-provisioner` component, which deploys Karpenter [Provisioners](https://karpenter.sh/v0.18.0/aws/provisioning)
 using the `kubernetes_manifest` resource.
 
-__NOTE:__ We deploy the provisioners in a separate step as a separate component since it uses `kind: Provisioner` CRD which itself is created by 
+__NOTE:__ We deploy the provisioners in a separate step as a separate component since it uses `kind: Provisioner` CRD which itself is created by
 the `karpenter` component in the previous step.
 
 Run the following commands to deploy the Karpenter provisioners on the blue EKS cluster:
@@ -238,7 +221,7 @@ You can override the default values from the `eks/karpenter-provisioner` base co
 
 For your cluster, you will need to review the following configurations for the Karpenter provisioners and update it according to your requirements:
 
-  - [requirements](https://karpenter.sh/v0.10.1/provisioner/#specrequirements):
+  - [requirements](https://karpenter.sh/v0.18.0/provisioner/#specrequirements):
 
     ```yaml
         requirements:
@@ -297,8 +280,8 @@ For your cluster, you will need to review the following configurations for the K
 
 For more details, refer to:
 
- - https://karpenter.sh/v0.10.1/provisioner/#specrequirements
- - https://karpenter.sh/v0.10.1/aws/provisioning
+ - https://karpenter.sh/v0.18.0/provisioner/#specrequirements
+ - https://karpenter.sh/v0.18.0/aws/provisioning
  - https://aws.github.io/aws-eks-best-practices/karpenter/#creating-provisioners
  - https://aws.github.io/aws-eks-best-practices/karpenter
  - https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
@@ -310,23 +293,23 @@ For more details, refer to:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.7.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.3.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
-| <a name="module_karpenter"></a> [karpenter](#module\_karpenter) | cloudposse/helm-release/aws | 0.5.0 |
+| <a name="module_karpenter"></a> [karpenter](#module\_karpenter) | cloudposse/helm-release/aws | 0.7.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -334,7 +317,6 @@ For more details, refer to:
 | Name | Type |
 |------|------|
 | [aws_iam_instance_profile.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
-| [kubernetes_namespace.default](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 
 ## Inputs
@@ -400,14 +382,14 @@ For more details, refer to:
 
 - https://karpenter.sh
 - https://aws.github.io/aws-eks-best-practices/karpenter
-- https://karpenter.sh/v0.10.1/getting-started/getting-started-with-terraform
+- https://karpenter.sh/v0.18.0/getting-started/getting-started-with-terraform
 - https://aws.amazon.com/blogs/aws/introducing-karpenter-an-open-source-high-performance-kubernetes-cluster-autoscaler
 - https://github.com/aws/karpenter
 - https://www.eksworkshop.com/beginner/085_scaling_karpenter
 - https://ec2spotworkshops.com/karpenter.html
 - https://www.eksworkshop.com/beginner/085_scaling_karpenter/install_karpenter
-- https://karpenter.sh/v0.10.1/development-guide
-- https://karpenter.sh/v0.10.1/aws/provisioning
+- https://karpenter.sh/v0.18.0/development-guide
+- https://karpenter.sh/v0.18.0/aws/provisioning
 - https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html
 - https://aws.amazon.com/premiumsupport/knowledge-center/fargate-troubleshoot-profile-creation
 - https://learn.hashicorp.com/tutorials/terraform/kubernetes-crd-faas
