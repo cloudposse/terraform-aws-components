@@ -111,7 +111,7 @@ components:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_quotas"></a> [quotas](#output\_quotas) | n/a |
+| <a name="output_quotas"></a> [quotas](#output\_quotas) | Full report on all service quotas managed by this component. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
