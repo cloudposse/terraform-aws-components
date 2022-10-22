@@ -9,6 +9,7 @@ locals {
     value        = quota.value
     }
   }
+
   quota_name_map = { for k, quota in local.quotas_with_service_codes : k => {
     service_code = quota.service_code
     quota_name   = quota.quota_name
