@@ -197,3 +197,19 @@ variable "primary_cluster_component" {
   default     = "aurora-mysql"
 }
 
+variable "allow_ingress_from_vpc_accounts" {
+  type        = any
+  default     = []
+  description = <<-EOF
+    List of account contexts to pull VPC ingress CIDR and add to cluster security group.
+
+    e.g.
+
+    {
+      environment = "ue2",
+      stage       = "auto",
+      tenant      = "core"
+    }
+  EOF
+}
+

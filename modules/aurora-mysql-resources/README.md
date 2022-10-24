@@ -56,14 +56,14 @@ components:
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
-| <a name="requirement_mysql"></a> [mysql](#requirement\_mysql) | >= 1.9 |
+| <a name="requirement_mysql"></a> [mysql](#requirement\_mysql) | >= 3.0.22 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
-| <a name="provider_mysql"></a> [mysql](#provider\_mysql) | >= 1.9 |
+| <a name="provider_mysql"></a> [mysql](#provider\_mysql) | >= 3.0.22 |
 
 ## Modules
 
@@ -71,7 +71,7 @@ components:
 |------|--------|---------|
 | <a name="module_additional_grants"></a> [additional\_grants](#module\_additional\_grants) | ./modules/mysql-user | n/a |
 | <a name="module_additional_users"></a> [additional\_users](#module\_additional\_users) | ./modules/mysql-user | n/a |
-| <a name="module_aurora_mysql"></a> [aurora\_mysql](#module\_aurora\_mysql) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_aurora_mysql"></a> [aurora\_mysql](#module\_aurora\_mysql) | cloudposse/stack-config/yaml//modules/remote-state | 1.3.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -79,7 +79,8 @@ components:
 
 | Name | Type |
 |------|------|
-| [mysql_database.additional](https://registry.terraform.io/providers/terraform-providers/mysql/latest/docs/resources/database) | resource |
+| [mysql_database.additional](https://registry.terraform.io/providers/petoju/mysql/latest/docs/resources/database) | resource |
+| [aws_ssm_parameter.admin_password](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.password](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 
 ## Inputs
@@ -104,7 +105,7 @@ components:
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_mysql_admin_password"></a> [mysql\_admin\_password](#input\_mysql\_admin\_password) | MySQL password for the admin user | `string` | `""` | no |
+| <a name="input_mysql_admin_password"></a> [mysql\_admin\_password](#input\_mysql\_admin\_password) | MySQL password for the admin user. If not provided, the password will be pulled from SSM | `string` | `""` | no |
 | <a name="input_mysql_cluster_enabled"></a> [mysql\_cluster\_enabled](#input\_mysql\_cluster\_enabled) | Set to `false` to prevent the module from creating any resources | `string` | `true` | no |
 | <a name="input_mysql_db_name"></a> [mysql\_db\_name](#input\_mysql\_db\_name) | Database name (default is not to create a database | `string` | `""` | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |

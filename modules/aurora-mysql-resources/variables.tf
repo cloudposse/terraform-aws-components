@@ -28,12 +28,6 @@ variable "ssm_password_source" {
     EOT
 }
 
-variable "mysql_admin_password" {
-  type        = string
-  description = "MySQL password for the admin user"
-  default     = ""
-}
-
 variable "mysql_db_name" {
   type        = string
   description = "Database name (default is not to create a database"
