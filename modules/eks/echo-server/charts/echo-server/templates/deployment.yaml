@@ -21,6 +21,9 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+          # Disable the feature that turns the echo server into a file browser on the server (security risk)
+          - "--enable:file=false"
           ports:
             - name: http
               containerPort: 80

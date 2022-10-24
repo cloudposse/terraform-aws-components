@@ -16,31 +16,24 @@ data "aws_partition" "current" {
   count = local.enabled ? 1 : 0
 }
 
-resource "kubernetes_namespace" "default" {
-  count = local.enabled && var.create_namespace ? 1 : 0
-
-  metadata {
-    name = var.kubernetes_namespace
-
-    labels = module.this.tags
-  }
-}
-
 module "external_dns" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.5.0"
+  version = "0.7.0"
 
-  name                 = module.this.name
-  chart                = var.chart
-  repository           = var.chart_repository
-  description          = var.chart_description
-  chart_version        = var.chart_version
-  kubernetes_namespace = join("", kubernetes_namespace.default.*.id)
-  create_namespace     = false
-  wait                 = var.wait
-  atomic               = var.atomic
-  cleanup_on_fail      = var.cleanup_on_fail
-  timeout              = var.timeout
+  name            = module.this.name
+  chart           = var.chart
+  repository      = var.chart_repository
+  description     = var.chart_description
+  chart_version   = var.chart_version
+  wait            = var.wait
+  atomic          = var.atomic
+  cleanup_on_fail = var.cleanup_on_fail
+  timeout         = var.timeout
+
+  create_namespace_with_kubernetes = var.create_namespace
+  kubernetes_namespace             = var.kubernetes_namespace
+  kubernetes_namespace_labels      = merge(module.this.tags, { name = var.kubernetes_namespace })
+
 
   eks_cluster_oidc_issuer_url = replace(module.eks.outputs.eks_cluster_identity_oidc_issuer, "https://", "")
 

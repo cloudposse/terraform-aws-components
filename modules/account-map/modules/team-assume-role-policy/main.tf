@@ -71,7 +71,7 @@ data "aws_iam_policy_document" "assume_role" {
       condition {
         test     = "StringEquals"
         variable = "aws:PrincipalType"
-        values   = ["AssumedRole"]
+        values   = compact(concat(["AssumedRole"], var.iam_users_enabled ? ["User"] : []))
       }
       condition {
         test     = "ArnLike"
@@ -103,7 +103,7 @@ data "aws_iam_policy_document" "assume_role" {
     condition {
       test     = "ArnLike"
       variable = "aws:PrincipalArn"
-      values   = concat(local.denied_principals, var.deny_all_iam_users ? ["arn:${local.aws_partition}:iam::*:user/*"] : [])
+      values   = compact(concat(local.denied_principals, var.iam_users_enabled ? [] : ["arn:${local.aws_partition}:iam::*:user/*"]))
     }
 
     principals {
