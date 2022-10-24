@@ -33,3 +33,16 @@ variable "ssm_path_prefix" {
   default     = "aurora-postgres"
   description = "SSM path prefix (without leading or trailing slash)"
 }
+
+variable "save_password_in_ssm" {
+  type        = bool
+  default     = true
+  description = "If true, DB user's password will be stored in SSM"
+}
+
+variable "kms_key_id" {
+  type        = string
+  default     = "alias/aws/rds"
+  description = "KMS key ID, ARN, or alias to use for encrypting the database"
+}
+

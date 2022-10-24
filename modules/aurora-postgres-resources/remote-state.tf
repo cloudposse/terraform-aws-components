@@ -1,6 +1,6 @@
 module "aurora_postgres" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.3"
+  version = "1.3.1"
 
   component = var.aurora_postgres_component_name
 
