@@ -31,21 +31,21 @@ components:
         chart_version: "0.21.0"
         kubernetes_namespace: "actions-runner-system"
         create_namespace: true
-        kubeconfig_exec_auth_api_version: "client.authentication.k8s.io/v1beta1"
-        # Purposely omit resource limits and requests
-        # https://github.com/actions-runner-controller/actions-runner-controller/blob/91102c8088b6c01645bbb218b3d4552e774672bf/charts/actions-runner-controller/values.yaml#L100-L111
-        resources: {}
-        ssm_github_token_path: "/github/acme/github_token"
-        ssm_github_webhook_secret_token_path: "/github/acme/github_webhook_secret_token"
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        ssm_github_token_path: "/github_runners/controller_github_app_secret"
+        ssm_github_webhook_secret_token_path: "/github_runners/controller_github_app_secret"
+        github_app_id: "123456"
+        github_app_installation_id: "234567890"
         webhook:
           enabled: true
           # gha-webhook.use1.auto.core.acme.net
           hostname_template: "gha-webhook.%[3]v.%[2]v.%[1]v.acme.net"
-        github_actions_iam_role_enabled: true
-        github_actions_iam_role_attributes: [ "eks" ]
-        github_actions_allowed_repos:
-          - acme/app
-          - acme/infrastructure
         timeout: 120
         runners:
           infrastructure-runner:
@@ -57,11 +57,6 @@ components:
             scale_down_delay_seconds: 300
             min_replicas: 1
             max_replicas: 5
-            busy_metrics:              
-              scale_up_threshold: 0.75
-              scale_down_threshold: 0.25
-              scale_up_factor: 2
-              scale_down_factor: 0.5
             resources:
               limits:
                 cpu: 200m
@@ -78,12 +73,62 @@ components:
 
 ### Generating Required Secrets
 
-AWS SSM is used to store and retrieve secrets. Generate the following as required and add each to AWS SSM at your chosen path:
+AWS SSM is used to store and retrieve secrets.
 
-1. A PAT with the scope outlined in [this document](https://github.com/actions-runner-controller/actions-runner-controller#deploying-using-pat-authentication). Save this to the value specified by `ssm_github_token_path`:
+Decide on the SSM path for the GitHub secret (PAT or Application private key) and GitHub webhook secret.
+
+Since the secret is automatically scoped by AWS to the account and region where the secret is stored,
+we recommend the secret be stored at `/github_runners/controller_github_app_secret` unless you
+plan on running multiple instances of the controller. If you plan on running multiple instances of the controller,
+and want to give them different access (otherwise they could share the same secret), then you can add
+a path component to the SSM path. For example `/github_runners/cicd/controller_github_app_secret`.
 
 ```
-ssm_github_token_path: "/github/acme/github_token"
+ssm_github_secret_path: "/github_runners/controller_github_app_secret"
+```
+
+The preferred way to authenticate is by _creating_ and _installing_ a GitHub App.
+This is the recommended approach as it allows for more much more restricted access than using a personal access token,
+at least until [fine-grained personal access token permissions](https://github.blog/2022-10-18-introducing-fine-grained-personal-access-tokens-for-github/) are generally available.
+Follow the instructions [here](https://github.com/actions-runner-controller/actions-runner-controller/blob/master/docs/detailed-docs.md#deploying-using-github-app-authentication) to create and install the GitHub App.
+
+At the creation stage, you will be asked to generate a private key. This is the private key that will be used to authenticate
+the Action Runner Controller. Download the file and store the contents in SSM using the following command, adjusting the profile
+and file name. The profile should be the `admin` role in the account to which you are deploying the runner controller.
+The file name should be the name of the private key file you downloaded.
+
+```
+AWS_PROFILE=acme-mgmt-use2-auto-admin chamber write github_runners controller_github_app_secret -- "$(cat APP_NAME.DATE.private-key.pem)"
+```
+
+You can verify the file was correctly written to SSM by matching the private key fingerprint reported by GitHub with:
+
+```
+AWS_PROFILE=acme-mgmt-use2-auto-admin chamber read -q github_runners controller_github_app_secret | openssl rsa -in - -pubout -outform DER | openssl sha256 -binary | openssl base64
+```
+
+At this stage, record the Application ID and the private key fingerprint in your secrets manager (e.g. 1Password).
+You will need the Application ID to configure the runner controller, and want the fingerprint to verify the private key.
+
+Proceed to install the GitHub App in the organization or repository you want to use the runner controller for,
+and record the Installation ID (the final numeric part of the URL, as explained in the instructions
+linked above) in your secrets manager. You will need the Installation ID to configure the runner controller.
+
+In your stack configuration, set the following variables, making sure to quote the values so they are
+treated as strings, not numbers.
+
+```
+github_app_id: "12345"
+github_app_installation_id: "12345"
+```
+
+OR (obsolete)
+- A PAT with the scope outlined in [this document](https://github.com/actions-runner-controller/actions-runner-controller#deploying-using-pat-authentication).
+  Save this to the value specified by `ssm_github_token_path` using the following command, adjusting the
+  AWS_PROFILE to refer to the `admin` role in the account to which you are deploying the runner controller:
+
+```
+AWS_PROFILE=acme-mgmt-use2-auto-admin chamber write github_runners controller_github_app_secret -- "<PAT>"
 ```
 
 2. If using the Webhook Driven autoscaling (recommended), generate a random string to use as the Secret when creating the webhook in GitHub.
@@ -95,7 +140,7 @@ dd if=/dev/random bs=1 count=33  2>/dev/null | base64
 
 Store this key in AWS SSM under the same path specified by `ssm_github_webhook_secret_token_path`
 ```
-ssm_github_webhook_secret_token_path: "/github/acme/github_webhook_secret_token"
+ssm_github_webhook_secret_token_path: "/github_runners/github_webhook_secret"
 ```
 
 ### Using Webhook Driven Autoscaling
@@ -109,7 +154,7 @@ As a GitHub organization admin, go to `https://github.com/organizations/[organiz
   - Payload URL: copy from Terraform output `webhook_payload_url`
   - Content type: `application/json`
   - Secret: whatever you configured in the `sops` secret above
-  - Which events would you like to trigger this webhook: 
+  - Which events would you like to trigger this webhook:
     - Select "Let me select individual events"
     - Uncheck everything ("Pushes" is likely the only thing already selected)
     - Check "Workflow jobs"
@@ -126,9 +171,9 @@ Useful Reference
 
 When updating the chart or application version of `actions-runner-controller`, it is possible you will need to install
 new CRDs. Such a requirement should be indicated in the `actions-runner-controller` release notes and may require some adjustment to our
-custom chart or configuration. 
+custom chart or configuration.
 
-This component uses `helm` to manage the deployment, and `helm` will not auto-update CRDs. 
+This component uses `helm` to manage the deployment, and `helm` will not auto-update CRDs.
 If new CRDs are needed, install them manually via a command like
 
 ```
@@ -143,7 +188,7 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.0 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.0 |
 
@@ -151,16 +196,15 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
-| <a name="module_actions_runner"></a> [actions\_runner](#module\_actions\_runner) | cloudposse/helm-release/aws | 0.6.0 |
-| <a name="module_actions_runner_controller"></a> [actions\_runner\_controller](#module\_actions\_runner\_controller) | cloudposse/helm-release/aws | 0.6.0 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_actions_runner"></a> [actions\_runner](#module\_actions\_runner) | cloudposse/helm-release/aws | 0.7.0 |
+| <a name="module_actions_runner_controller"></a> [actions\_runner\_controller](#module\_actions\_runner\_controller) | cloudposse/helm-release/aws | 0.7.0 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.3.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -169,7 +213,6 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 | Name | Type |
 |------|------|
 | [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
-| [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
 | [aws_ssm_parameter.github_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.github_webhook_secret_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 
@@ -177,9 +220,6 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_account_map_environment_name"></a> [account\_map\_environment\_name](#input\_account\_map\_environment\_name) | The name of the environment where `account_map` is provisioned | `string` | `"gbl"` | no |
-| <a name="input_account_map_stage_name"></a> [account\_map\_stage\_name](#input\_account\_map\_stage\_name) | The name of the stage where `account_map` is provisioned | `string` | `"root"` | no |
-| <a name="input_account_map_tenant_name"></a> [account\_map\_tenant\_name](#input\_account\_map\_tenant\_name) | The name of the tenant where `account_map` is provisioned.<br><br>If the `tenant` label is not used, leave this as `null`. | `string` | `"core"` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_atomic"></a> [atomic](#input\_atomic) | If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used. | `bool` | `true` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
@@ -196,6 +236,9 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 | <a name="input_eks_component_name"></a> [eks\_component\_name](#input\_eks\_component\_name) | The name of the eks component | `string` | `"eks/cluster"` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
+| <a name="input_existing_kubernetes_secret_name"></a> [existing\_kubernetes\_secret\_name](#input\_existing\_kubernetes\_secret\_name) | If you are going to create the Kubernetes Secret the runner-controller will use<br>by some means (such as SOPS) outside of this component, set the name of the secret<br>here and it will be used. In this case, this component will not create a secret<br>and you can leave the secret-related inputs with their default (empty) values.<br>The same secret will be used by both the runner-controller and the webhook-server. | `string` | `""` | no |
+| <a name="input_github_app_id"></a> [github\_app\_id](#input\_github\_app\_id) | The ID of the GitHub App to use for the runner controller. | `string` | `""` | no |
+| <a name="input_github_app_installation_id"></a> [github\_app\_installation\_id](#input\_github\_app\_installation\_id) | The "Installation ID" of the GitHub App to use for the runner controller. | `string` | `""` | no |
 | <a name="input_helm_manifest_experiment_enabled"></a> [helm\_manifest\_experiment\_enabled](#input\_helm\_manifest\_experiment\_enabled) | Enable storing of the rendered manifest for helm\_release so the full diff of what is changing can been seen in the plan | `bool` | `true` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
@@ -221,9 +264,9 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region. | `string` | n/a | yes |
 | <a name="input_resources"></a> [resources](#input\_resources) | The cpu and memory of the deployment's limits and requests. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | n/a | yes |
-| <a name="input_runners"></a> [runners](#input\_runners) | Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in<br>kebab-case.<br><br>For example:<pre>hcl<br>organization_runner = {<br>  type = "organization" # can be either 'organization' or 'repository'<br>  dind_enabled: false # A Docker sidecar container will be deployed<br>  image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'<br>  scope = "ACME"  # org name for Organization runners, repo name for Repository runners<br>  scale_down_delay_seconds = 300<br>  min_replicas = 1<br>  max_replicas = 5<br>  busy_metrics = {<br>    scale_up_threshold = 0.75<br>    scale_down_threshold = 0.25<br>    scale_up_factor = 2<br>    scale_down_factor = 0.5<br>  }<br>  labels = [<br>    "Ubuntu",<br>    "core-automation",<br>  ]<br>}</pre> | <pre>map(object({<br>    type                           = string<br>    scope                          = string<br>    image                          = string<br>    dind_enabled                   = bool<br>    scale_down_delay_seconds       = number<br>    min_replicas                   = number<br>    max_replicas                   = number<br>    busy_metrics                   = map(string)<br>    webhook_driven_scaling_enabled = bool<br>    pull_driven_scaling_enabled    = bool<br>    labels                         = list(string)<br>    storage                        = optional(string, false)<br>    resources = object({<br>      limits = object({<br>        cpu               = string<br>        memory            = string<br>        ephemeral_storage = optional(string, false)<br>      })<br>      requests = object({<br>        cpu    = string<br>        memory = string<br>      })<br>    })<br>  }))</pre> | n/a | yes |
+| <a name="input_runners"></a> [runners](#input\_runners) | Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in<br>kebab-case.<br><br>For example:<pre>hcl<br>organization_runner = {<br>  type = "organization" # can be either 'organization' or 'repository'<br>  dind_enabled: false # A Docker sidecar container will be deployed<br>  image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'<br>  scope = "ACME"  # org name for Organization runners, repo name for Repository runners<br>  scale_down_delay_seconds = 300<br>  min_replicas = 1<br>  max_replicas = 5<br>  busy_metrics = {<br>    scale_up_threshold = 0.75<br>    scale_down_threshold = 0.25<br>    scale_up_factor = 2<br>    scale_down_factor = 0.5<br>  }<br>  labels = [<br>    "Ubuntu",<br>    "core-automation",<br>  ]<br>}</pre> | <pre>map(object({<br>    type                     = string<br>    scope                    = string<br>    image                    = optional(string, "")<br>    dind_enabled             = bool<br>    scale_down_delay_seconds = number<br>    min_replicas             = number<br>    max_replicas             = number<br>    busy_metrics = optional(object({<br>      scale_up_threshold    = string<br>      scale_down_threshold  = string<br>      scale_up_adjustment   = optional(string)<br>      scale_down_adjustment = optional(string)<br>      scale_up_factor       = optional(string)<br>      scale_down_factor     = optional(string)<br>    }))<br>    webhook_driven_scaling_enabled = bool<br>    pull_driven_scaling_enabled    = bool<br>    labels                         = list(string)<br>    storage                        = optional(string, "")<br>    resources = object({<br>      limits = object({<br>        cpu               = string<br>        memory            = string<br>        ephemeral_storage = optional(string, "")<br>      })<br>      requests = object({<br>        cpu    = string<br>        memory = string<br>      })<br>    })<br>  }))</pre> | n/a | yes |
 | <a name="input_s3_bucket_arns"></a> [s3\_bucket\_arns](#input\_s3\_bucket\_arns) | List of ARNs of S3 Buckets to which the runners will have read-write access to. | `list(string)` | `[]` | no |
-| <a name="input_ssm_github_token_path"></a> [ssm\_github\_token\_path](#input\_ssm\_github\_token\_path) | The path in SSM to the GitHub token. | `string` | `""` | no |
+| <a name="input_ssm_github_secret_path"></a> [ssm\_github\_secret\_path](#input\_ssm\_github\_secret\_path) | The path in SSM to the GitHub app private key file contents or GitHub PAT token. | `string` | `""` | no |
 | <a name="input_ssm_github_webhook_secret_token_path"></a> [ssm\_github\_webhook\_secret\_token\_path](#input\_ssm\_github\_webhook\_secret\_token\_path) | The path in SSM to the GitHub Webhook Secret token. | `string` | `""` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
