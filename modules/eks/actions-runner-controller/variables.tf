@@ -88,6 +88,7 @@ variable "rbac_enabled" {
 
 # Runner-specific settings
 
+/*
 variable "account_map_environment_name" {
   type        = string
   description = "The name of the environment where `account_map` is provisioned"
@@ -108,6 +109,20 @@ variable "account_map_tenant_name" {
   If the `tenant` label is not used, leave this as `null`.
   EOT
   default     = "core"
+}
+
+*/
+
+variable "existing_kubernetes_secret_name" {
+  type        = string
+  description = <<-EOT
+    If you are going to create the Kubernetes Secret the runner-controller will use
+    by some means (such as SOPS) outside of this component, set the name of the secret
+    here and it will be used. In this case, this component will not create a secret
+    and you can leave the secret-related inputs with their default (empty) values.
+    The same secret will be used by both the runner-controller and the webhook-server.
+    EOT
+  default     = ""
 }
 
 variable "s3_bucket_arns" {
@@ -147,23 +162,30 @@ variable "runners" {
   EOT
 
   type = map(object({
-    type                           = string
-    scope                          = string
-    image                          = string
-    dind_enabled                   = bool
-    scale_down_delay_seconds       = number
-    min_replicas                   = number
-    max_replicas                   = number
-    busy_metrics                   = map(string)
+    type                     = string
+    scope                    = string
+    image                    = optional(string, "")
+    dind_enabled             = bool
+    scale_down_delay_seconds = number
+    min_replicas             = number
+    max_replicas             = number
+    busy_metrics = optional(object({
+      scale_up_threshold    = string
+      scale_down_threshold  = string
+      scale_up_adjustment   = optional(string)
+      scale_down_adjustment = optional(string)
+      scale_up_factor       = optional(string)
+      scale_down_factor     = optional(string)
+    }))
     webhook_driven_scaling_enabled = bool
     pull_driven_scaling_enabled    = bool
     labels                         = list(string)
-    storage                        = optional(string, false)
+    storage                        = optional(string, "")
     resources = object({
       limits = object({
         cpu               = string
         memory            = string
-        ephemeral_storage = optional(string, false)
+        ephemeral_storage = optional(string, "")
       })
       requests = object({
         cpu    = string
@@ -195,9 +217,21 @@ variable "eks_component_name" {
   default     = "eks/cluster"
 }
 
-variable "ssm_github_token_path" {
+variable "github_app_id" {
   type        = string
-  description = "The path in SSM to the GitHub token."
+  description = "The ID of the GitHub App to use for the runner controller."
+  default     = ""
+}
+
+variable "github_app_installation_id" {
+  type        = string
+  description = "The \"Installation ID\" of the GitHub App to use for the runner controller."
+  default     = ""
+}
+
+variable "ssm_github_secret_path" {
+  type        = string
+  description = "The path in SSM to the GitHub app private key file contents or GitHub PAT token."
   default     = ""
 }
 
