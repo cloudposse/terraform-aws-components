@@ -17,6 +17,13 @@ locals {
   } : null
 
   parameter_write = (local.create_db_user && local.save_password_in_ssm) ? [local.db_password_ssm] : []
+
+  # ALL grant always shows Terraform drift:
+  # https://github.com/cyrilgdn/terraform-provider-postgresql/issues/32
+  # To workaround, expand what an ALL grant means for db or table
+  # https://github.com/cyrilgdn/terraform-provider-postgresql/blob/master/postgresql/helpers.go#L237-L244
+  all_privileges_database = ["CREATE", "CONNECT", "TEMPORARY"]
+  all_privileges_schema   = ["CREATE", "USAGE"]
 }
 
 resource "random_password" "db_password" {
@@ -43,7 +50,11 @@ resource "postgresql_grant" "default" {
   database    = var.grants[count.index].db
   schema      = var.grants[count.index].schema
   object_type = var.grants[count.index].object_type
-  privileges  = var.grants[count.index].grant
+
+  # Conditionally set the privileges to either the explicit list of database privileges 
+  # or schema privileges if this is a db grant or a schema grant respectively.
+  # We can determine this is a schema grant if a schema is given
+  privileges = contains(var.grants[count.index].grant, "ALL") ? ((length(var.grants[count.index].schema) > 0) ? local.all_privileges_schema : local.all_privileges_database) : var.grants[count.index].grant
 }
 
 module "parameter_store_write" {

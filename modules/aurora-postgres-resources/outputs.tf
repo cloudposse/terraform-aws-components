@@ -8,6 +8,11 @@ output "additional_databases" {
   description = "Additional databases"
 }
 
+output "additional_schemas" {
+  value       = local.enabled ? values(postgresql_schema.additional)[*].name : null
+  description = "Additional schemas"
+}
+
 output "additional_grants" {
   value       = keys(module.additional_grants)
   description = "Additional grants"

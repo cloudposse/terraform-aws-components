@@ -66,7 +66,7 @@ components:
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_databases"></a> [additional\_databases](#input\_additional\_databases) | n/a | `set(string)` | `[]` | no |
 | <a name="input_additional_grants"></a> [additional\_grants](#input\_additional\_grants) | Create additional database user with specified grants.<br>If `var.ssm_password_source` is set, passwords will be retrieved from SSM parameter store,<br>otherwise, passwords will be generated and stored in SSM parameter store under the service's key. | <pre>map(list(object({<br>    grant : list(string)<br>    db : string<br>  })))</pre> | `{}` | no |
-| <a name="input_additional_schemas"></a> [additional\_schemas](#input\_additional\_schemas) | n/a | `set(string)` | `[]` | no |
+| <a name="input_additional_schemas"></a> [additional\_schemas](#input\_additional\_schemas) | Create additonal schemas for a given database.<br>If no database is given, the schema will use the database used by the provider configuration | <pre>map(object({<br>    database : string<br>  }))</pre> | `{}` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_additional_users"></a> [additional\_users](#input\_additional\_users) | Create additional database user for a service, specifying username, grants, and optional password.<br>If no password is specified, one will be generated. Username and password will be stored in<br>SSM parameter store under the service's key. | <pre>map(object({<br>    db_user : string<br>    db_password : string<br>    grants : list(object({<br>      grant : list(string)<br>      db : string<br>      schema : string<br>      object_type : string<br>    }))<br>  }))</pre> | `{}` | no |
 | <a name="input_admin_password"></a> [admin\_password](#input\_admin\_password) | postgresql password for the admin user | `string` | `""` | no |
@@ -103,6 +103,7 @@ components:
 |------|-------------|
 | <a name="output_additional_databases"></a> [additional\_databases](#output\_additional\_databases) | Additional databases |
 | <a name="output_additional_grants"></a> [additional\_grants](#output\_additional\_grants) | Additional grants |
+| <a name="output_additional_schemas"></a> [additional\_schemas](#output\_additional\_schemas) | Additional schemas |
 | <a name="output_additional_users"></a> [additional\_users](#output\_additional\_users) | Additional users |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

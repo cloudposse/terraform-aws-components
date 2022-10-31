@@ -19,13 +19,13 @@ variable "grants" {
   type = list(object({
     grant : list(string)
     db : string
-    schema : string
+    schema : optional(string, "")
     object_type : string
   }))
   description = <<-EOT
-    List of { grant: [<grant>, <grant>, ...], db: "db", schema: null, object_type: "database"}.
+    List of { grant: [<grant>, <grant>, ...], db: "db", schema: "", object_type: "database"}.
     EOT
-  default     = [{ grant : ["ALL"], db : "*", schema : null, object_type : "database" }]
+  default     = [{ grant : ["ALL"], db : "*", schema : "", object_type : "database" }]
 }
 
 variable "ssm_path_prefix" {

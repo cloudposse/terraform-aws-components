@@ -28,9 +28,10 @@ resource "postgresql_database" "additional" {
 }
 
 resource "postgresql_schema" "additional" {
-  for_each = local.enabled ? var.additional_schemas : []
+  for_each = local.enabled ? var.additional_schemas : {}
 
-  name = each.key
+  name     = each.key
+  database = try(each.value.database, null) # If null, the database used by your provider configuration
 }
 
 module "additional_users" {
@@ -46,6 +47,7 @@ module "additional_users" {
 
   depends_on = [
     postgresql_database.additional,
+    postgresql_schema.additional,
   ]
 
   context = module.this.context
@@ -68,6 +70,7 @@ module "additional_grants" {
 
   depends_on = [
     postgresql_database.additional,
+    postgresql_schema.additional,
   ]
 
   context = module.this.context
