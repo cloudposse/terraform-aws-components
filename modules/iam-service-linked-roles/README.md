@@ -1,186 +1,55 @@
-# Component: `vpc-peering`
+# Component: `iam-service-linked-roles`
 
-This component is responsible for creating a peering connection between two VPCs existing in different AWS accounts.
+This component is responsible for provisioning [IAM Service-Linked Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html).
 
 ## Usage
 
-**Stack Level**: Regional
-
-Here's an example snippet for how to use this component.
-
-Default VPC peering settings for all accounts:
+**Stack Level**: Global
 
 ```yaml
-# stacks/catalog/vpc-peering/defaults.yaml
 components:
   terraform:
-    vpc-peering/defaults:
+    iam-service-linked-roles:
       settings:
         spacelift:
           workspace_enabled: true
-      metadata:
-        component: vpc-peering
-        type: abstract
       vars:
         enabled: true
-        requester_allow_remote_vpc_dns_resolution: true
-        accepter_allow_remote_vpc_dns_resolution: true
+        root_account_tenant_name: core
+        service_linked_roles:
+          spot_amazonaws_com:
+            aws_service_name: "spot.amazonaws.com"
+            description: "AWSServiceRoleForEC2Spot Service-Linked Role for EC2 Spot"
+          spotfleet_amazonaws_com:
+            aws_service_name: "spotfleet.amazonaws.com"
+            description: "AWSServiceRoleForEC2SpotFleet Service-Linked Role for EC2 Spot Fleet"
 ```
 
-Use case: Peering v1 accounts to v2
+## Service-Linked Roles for EC2 Spot and EC2 Spot Fleet
 
-```yaml
-# stacks/catalogs/vpc-peering/ue1-prod.yaml
-import:
-  - catalog/vpc-peering/defaults
+__Note:__ If you want to use EC2 Spot or Spot Fleet,
+you will need to provision the following Service-Linked Roles:
 
-components:
-  terraform:
-    vpc-peering-use1:
-      metadata:
-        component: vpc-peering
-        inherits:
-          - vpc-peering/defaults
-      vars:
-        accepter_region: us-east-1
-        accepter_vpc_id: vpc-xyz
-        accepter_aws_assume_role_arn: arn:aws:iam::<LEGACY ACCOUNT ID>:role/acme-vpc-peering
+- Service-Linked Role for EC2 Spot
+- Service-Linked Role for EC2 Spot Fleet
+
+This is only necessary if this is the first time you're using EC2 Spot and Spot Fleet in the account.
+
+Note that if the Service-Linked Roles already exist in the AWS account (if you used EC2 Spot or Spot Fleet before),
+and you try to provision them again, you will see the following errors:
+
+```text
+An error occurred (InvalidInput) when calling the CreateServiceLinkedRole operation:
+Service role name AWSServiceRoleForEC2Spot has been taken in this account, please try a different suffix
+
+An error occurred (InvalidInput) when calling the CreateServiceLinkedRole operation:
+Service role name AWSServiceRoleForEC2SpotFleet has been taken in this account, please try a different suffix
 ```
 
-Use case: Peering v2 accounts to v2
+For more details, see:
+- https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
+- https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html
 
-```yaml
-    vpc-peering/<stage>-vpc0:
-      metadata:
-        component: vpc-peering
-        inherits:
-          - vpc-peering/defaults
-      vars:
-        requester_vpc_component_name: vpc
-        accepter_region: us-east-1
-        accepter_stage_name: <fill-in-with-accepter-stage-name>
-        accepter_vpc:
-          tags:
-            # Fill in with your own information
-            Name: acme-<tenant>-<environment>-<stage>-<name>
-```
-
-## Legacy Account Configuration
-
-The `vpc-peering` component peers the `dev`, `prod`, `sandbox` and `staging` VPCs to a VPC in the legacy account.
-
-The `dev`, `prod`, `sandbox` and `staging` VPCs are the requesters of the VPC peering connection,
-while the legacy VPC is the accepter of the peering connection.
-
-To provision VPC peering and all related resources with Terraform, we need the following information from the legacy account:
-
-  - Legacy account ID
-  - Legacy VPC ID
-  - Legacy AWS region
-  - Legacy IAM role (the role must be created in the legacy account with permissions to create VPC peering and routes).
-    The name of the role could be `acme-vpc-peering` and the ARN of the role should look like `arn:aws:iam::<LEGACY ACCOUNT ID>:role/acme-vpc-peering`
-
-
-### Legacy Account IAM Role
-
-In the legacy account, create IAM role `acme-vpc-peering` with the following policy:
-
-__NOTE:__ Replace `<LEGACY ACCOUNT ID>` with the ID of the legacy account.
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ec2:CreateRoute",
-        "ec2:DeleteRoute"
-      ],
-      "Resource": "arn:aws:ec2:*:<LEGACY ACCOUNT ID>:route-table/*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ec2:DescribeVpcPeeringConnections",
-        "ec2:DescribeVpcs",
-        "ec2:ModifyVpcPeeringConnectionOptions",
-        "ec2:DescribeSubnets",
-        "ec2:DescribeVpcAttribute",
-        "ec2:DescribeRouteTables"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ec2:AcceptVpcPeeringConnection",
-        "ec2:DeleteVpcPeeringConnection",
-        "ec2:CreateVpcPeeringConnection",
-        "ec2:RejectVpcPeeringConnection"
-      ],
-      "Resource": [
-        "arn:aws:ec2:*:<LEGACY ACCOUNT ID>:vpc-peering-connection/*",
-        "arn:aws:ec2:*:<LEGACY ACCOUNT ID>:vpc/*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ec2:DeleteTags",
-        "ec2:CreateTags"
-      ],
-      "Resource": "arn:aws:ec2:*:<LEGACY ACCOUNT ID>:vpc-peering-connection/*"
-    }
-  ]
-}
-```
-
-Add the following trust policy to the IAM role:
-
-__NOTE:__ Replace `<IDENTITY ACCOUNT ID>` with the ID of the `identity` account in the new infrastructure.
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": [
-          "arn:aws:iam::<IDENTITY ACCOUNT ID>:root"
-        ]
-      },
-      "Action": [
-        "sts:AssumeRole",
-        "sts:TagSession"
-      ],
-      "Condition": {}
-    }
-  ]
-}
-```
-
-The trust policy allows the `identity` account to assume the role (and provision all the resources in the legacy account).
-
-## Provisioning
-
-Provision the VPC peering connections in the `dev`, `prod`, `sandbox` and `staging` accounts by executing
-the following commands:
-
-```sh
-atmos terraform plan vpc-peering -s ue1-sandbox
-atmos terraform apply vpc-peering -s ue1-sandbox
-
-atmos terraform plan vpc-peering -s ue1-dev
-atmos terraform apply vpc-peering -s ue1-dev
-
-atmos terraform plan vpc-peering -s ue1-staging
-atmos terraform apply vpc-peering -s ue1-staging
-
-atmos terraform plan vpc-peering -s ue1-prod
-atmos terraform apply vpc-peering -s ue1-prod
-```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -194,35 +63,27 @@ atmos terraform apply vpc-peering -s ue1-prod
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws.accepter"></a> [aws.accepter](#provider\_aws.accepter) | >= 3.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_requester_vpc"></a> [requester\_vpc](#module\_requester\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.3.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc_peering"></a> [vpc\_peering](#module\_vpc\_peering) | cloudposse/vpc-peering-multi-account/aws | 0.19.1 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aws_vpc.accepter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
+| [aws_iam_service_linked_role.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_service_linked_role) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_accepter_allow_remote_vpc_dns_resolution"></a> [accepter\_allow\_remote\_vpc\_dns\_resolution](#input\_accepter\_allow\_remote\_vpc\_dns\_resolution) | Allow accepter VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the requester VPC | `bool` | `true` | no |
-| <a name="input_accepter_aws_assume_role_arn"></a> [accepter\_aws\_assume\_role\_arn](#input\_accepter\_aws\_assume\_role\_arn) | Accepter AWS assume role ARN | `string` | `null` | no |
-| <a name="input_accepter_region"></a> [accepter\_region](#input\_accepter\_region) | Accepter AWS region | `string` | n/a | yes |
-| <a name="input_accepter_stage_name"></a> [accepter\_stage\_name](#input\_accepter\_stage\_name) | Accepter stage name if in v1 | `string` | `null` | no |
-| <a name="input_accepter_vpc"></a> [accepter\_vpc](#input\_accepter\_vpc) | Accepter VPC map of id, cidr\_block, or default arguments for the data source | `any` | n/a | yes |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_auto_accept"></a> [auto\_accept](#input\_auto\_accept) | Automatically accept peering request | `bool` | `true` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
@@ -239,8 +100,7 @@ atmos terraform apply vpc-peering -s ue1-prod
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_requester_allow_remote_vpc_dns_resolution"></a> [requester\_allow\_remote\_vpc\_dns\_resolution](#input\_requester\_allow\_remote\_vpc\_dns\_resolution) | Allow requester VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the accepter VPC | `bool` | `true` | no |
-| <a name="input_requester_vpc_component_name"></a> [requester\_vpc\_component\_name](#input\_requester\_vpc\_component\_name) | Requestor vpc component name | `string` | `"vpc"` | no |
+| <a name="input_service_linked_roles"></a> [service\_linked\_roles](#input\_service\_linked\_roles) | Service-Linked roles config | <pre>map(object({<br>    aws_service_name = string<br>    description      = string<br>  }))</pre> | n/a | yes |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
@@ -249,9 +109,10 @@ atmos terraform apply vpc-peering -s ue1-prod
 
 | Name | Description |
 |------|-------------|
-| <a name="output_vpc_peering"></a> [vpc\_peering](#output\_vpc\_peering) | VPC peering outputs |
+| <a name="output_service_linked_roles"></a> [service\_linked\_roles](#output\_service\_linked\_roles) | Provisioned Service-Linked roles |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/vpc-peering) - Cloud Posse's upstream component
+## References
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/iam-service-linked-roles) - Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
