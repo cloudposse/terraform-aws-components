@@ -29,7 +29,7 @@ module "spacelift" {
   policies_enabled         = var.policies_enabled
   policies_by_id_enabled   = var.policies_by_id_enabled
   policies_by_name_enabled = var.policies_by_name_enabled
-  policies_by_name_path    = format("%s/rego-policies", path.module)
+  policies_by_name_path    = var.policies_by_name_path != "" ? var.policies_by_name_path : format("%s/rego-policies", path.module)
 
   administrative_trigger_policy_enabled = var.administrative_trigger_policy_enabled
 
