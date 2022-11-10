@@ -37,8 +37,8 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_allowed_role_map"></a> [allowed\_role\_map](#module\_allowed\_role\_map) | ../account-map/modules/roles-to-principals |  |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles |  |
+| <a name="module_allowed_role_map"></a> [allowed\_role\_map](#module\_allowed\_role\_map) | ../account-map/modules/roles-to-principals | n/a |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_kms_key"></a> [kms\_key](#module\_kms\_key) | cloudposse/kms-key/aws | 0.12.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
