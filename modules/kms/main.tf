@@ -35,7 +35,7 @@ module "kms_key" {
   customer_master_key_spec = var.customer_master_key_spec
   multi_region             = var.multi_region
 
-  policy = data.aws_iam_policy_document.key_policy.json
+  policy = var.policy != "" ? var.policy : data.aws_iam_policy_document.key_policy.json
 
   context = module.this.context
 }
