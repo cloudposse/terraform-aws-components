@@ -11,8 +11,8 @@ terraform {
       version = "~> 2.1"
     }
     template = {
-      source  = "hashicorp/template"
-      version = "~> 2.2"
+      source  = "cloudposse/template"
+      version = ">= 2.2"
     }
     local = {
       source  = "hashicorp/local"
