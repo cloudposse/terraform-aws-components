@@ -26,7 +26,8 @@ components:
         spacelift:
           workspace_enabled: false
       vars:
-        provision_org_access_role: true
+        profile: import-profile
+        org_admin_arn: arn:aws:iam::123456789012:user/OrgAdmin
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
