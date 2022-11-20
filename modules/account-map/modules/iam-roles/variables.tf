@@ -7,7 +7,7 @@ variable "privileged" {
 variable "global_tenant_name" {
   type        = string
   description = "The tenant name used for organization-wide resources"
-  default     = "core"
+  default     = "gov"
 }
 
 variable "global_environment_name" {

@@ -1,23 +1,28 @@
 locals {
-  enabled               = module.this.enabled
-  identity_account_name = module.account_map.outputs.identity_account_account_name
-  identity_account_id   = module.account_map.outputs.full_account_map[local.identity_account_name]
-  stack_name            = local.enabled ? format("${module.this.tenant != null ? "%[1]s-" : ""}%[2]s-%[3]s", module.this.tenant, module.this.environment, module.this.stage) : ""
-  webhook_enabled       = local.enabled ? try(var.webhook.enabled, false) : false
-  webhook_host          = local.webhook_enabled ? format(var.webhook.hostname_template, var.tenant, var.stage, var.environment) : "example.com"
+  enabled = module.this.enabled
 
-  default_secrets = local.enabled ? [
+  webhook_enabled = local.enabled ? try(var.webhook.enabled, false) : false
+  webhook_host    = local.webhook_enabled ? format(var.webhook.hostname_template, var.tenant, var.stage, var.environment) : "example.com"
+
+  github_app_enabled = length(var.github_app_id) > 0 && length(var.github_app_installation_id) > 0
+  create_secret      = local.enabled && length(var.existing_kubernetes_secret_name) == 0
+
+  busy_metrics_filtered = { for runner, runner_config in var.runners : runner => try(runner_config.busy_metrics, null) == null ? null : {
+    for k, v in runner_config.busy_metrics : k => v if v != null
+  } }
+
+  default_secrets = local.create_secret ? [
     {
-      name  = "authSecret.github_token"
-      value = join("", data.aws_ssm_parameter.github_token[0].*.value)
+      name  = local.github_app_enabled ? "authSecret.github_app_private_key" : "authSecret.github_token"
+      value = one(data.aws_ssm_parameter.github_token[*].value)
       type  = "string"
     }
   ] : []
 
-  webhook_secrets = local.webhook_enabled ? [
+  webhook_secrets = local.create_secret && local.webhook_enabled ? [
     {
       name  = "githubWebhookServer.secret.github_webhook_secret_token"
-      value = join("", data.aws_ssm_parameter.github_webhook_secret_token[0].*.value)
+      value = one(data.aws_ssm_parameter.github_webhook_secret_token[*].value)
       type  = "string"
     }
   ] : []
@@ -80,19 +85,15 @@ locals {
   iam_policy_statements = concat(local.default_iam_policy_statements, local.s3_iam_policy_statements)
 }
 
-data "aws_partition" "current" {
-  count = local.enabled ? 1 : 0
-}
-
 data "aws_ssm_parameter" "github_token" {
-  count = local.enabled ? 1 : 0
+  count = local.create_secret ? 1 : 0
 
-  name            = var.ssm_github_token_path
+  name            = var.ssm_github_secret_path
   with_decryption = true
 }
 
 data "aws_ssm_parameter" "github_webhook_secret_token" {
-  count = local.webhook_enabled ? 1 : 0
+  count = local.create_secret && local.webhook_enabled ? 1 : 0
 
   name            = var.ssm_github_webhook_secret_token_path
   with_decryption = true
@@ -100,19 +101,20 @@ data "aws_ssm_parameter" "github_webhook_secret_token" {
 
 module "actions_runner_controller" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.6.0"
+  version = "0.7.0"
 
-  name                 = "" # avoids hitting length restrictions on IAM Role names
-  chart                = var.chart
-  repository           = var.chart_repository
-  description          = var.chart_description
-  chart_version        = var.chart_version
-  kubernetes_namespace = var.kubernetes_namespace
-  create_namespace     = var.create_namespace
-  wait                 = var.wait
-  atomic               = var.atomic
-  cleanup_on_fail      = var.cleanup_on_fail
-  timeout              = var.timeout
+  name            = "" # avoids hitting length restrictions on IAM Role names
+  chart           = var.chart
+  repository      = var.chart_repository
+  description     = var.chart_description
+  chart_version   = var.chart_version
+  wait            = var.wait
+  atomic          = var.atomic
+  cleanup_on_fail = var.cleanup_on_fail
+  timeout         = var.timeout
+
+  kubernetes_namespace             = var.kubernetes_namespace
+  create_namespace_with_kubernetes = var.create_namespace
 
   eks_cluster_oidc_issuer_url = module.eks.outputs.eks_cluster_identity_oidc_issuer
 
@@ -155,7 +157,23 @@ module "actions_runner_controller" {
       },
       authSecret = {
         enabled = true
-        create  = true
+        create  = local.create_secret
+      }
+    }),
+    local.github_app_enabled ? yamlencode({
+      authSecret = {
+        github_app_id              = var.github_app_id
+        github_app_installation_id = var.github_app_installation_id
+      }
+    }) : "",
+    local.create_secret ? "" : yamlencode({
+      authSecret = {
+        name = var.existing_kubernetes_secret_name
+      },
+      githubWebhookServer = {
+        secret = {
+          name = var.existing_kubernetes_secret_name
+        }
       }
     }),
     # additional values
@@ -171,18 +189,18 @@ module "actions_runner" {
   for_each = local.enabled ? var.runners : {}
 
   source  = "cloudposse/helm-release/aws"
-  version = "0.6.0"
+  version = "0.7.0"
 
   name  = each.key
   chart = "${path.module}/charts/actions-runner"
 
   kubernetes_namespace = var.kubernetes_namespace
-  create_namespace     = var.create_namespace
+  create_namespace     = false # will be created by controller above
   atomic               = var.atomic
 
   eks_cluster_oidc_issuer_url = module.eks.outputs.eks_cluster_identity_oidc_issuer
 
-  values = [
+  values = compact([
     yamlencode({
       release_name                   = each.key
       service_account_name           = module.actions_runner_controller.service_account_name
@@ -197,16 +215,11 @@ module "actions_runner" {
       scale_down_delay_seconds       = each.value.scale_down_delay_seconds
       min_replicas                   = each.value.min_replicas
       max_replicas                   = each.value.max_replicas
-      scale_up_threshold             = try(each.value.busy_metrics.scale_up_threshold, null)
-      scale_down_threshold           = try(each.value.busy_metrics.scale_down_threshold, null)
-      scale_up_adjustment            = try(each.value.busy_metrics.scale_up_adjustment, null)
-      scale_down_adjustment          = try(each.value.busy_metrics.scale_down_adjustment, null)
-      scale_up_factor                = try(each.value.busy_metrics.scale_up_factor, null)
-      scale_down_factor              = try(each.value.busy_metrics.scale_down_factor, null)
       webhook_driven_scaling_enabled = each.value.webhook_driven_scaling_enabled
       pull_driven_scaling_enabled    = each.value.pull_driven_scaling_enabled
-    })
-  ]
+    }),
+    local.busy_metrics_filtered[each.key] == null ? "" : yamlencode(local.busy_metrics_filtered[each.key]),
+  ])
 
   depends_on = [module.actions_runner_controller]
 }

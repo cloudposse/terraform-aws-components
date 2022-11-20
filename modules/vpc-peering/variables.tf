@@ -18,6 +18,7 @@ variable "accepter_allow_remote_vpc_dns_resolution" {
 variable "accepter_aws_assume_role_arn" {
   type        = string
   description = "Accepter AWS assume role ARN"
+  default     = null
 }
 
 variable "accepter_region" {
@@ -25,13 +26,25 @@ variable "accepter_region" {
   description = "Accepter AWS region"
 }
 
-variable "accepter_vpc_id" {
+variable "accepter_vpc" {
+  type        = any
+  description = "Accepter VPC map of id, cidr_block, or default arguments for the data source"
+}
+
+variable "accepter_stage_name" {
   type        = string
-  description = "Accepter VPC ID"
+  description = "Accepter stage name if in v1"
+  default     = null
 }
 
 variable "requester_allow_remote_vpc_dns_resolution" {
   type        = bool
   description = "Allow requester VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the accepter VPC"
   default     = true
+}
+
+variable "requester_vpc_component_name" {
+  type        = string
+  description = "Requestor vpc component name"
+  default     = "vpc"
 }
