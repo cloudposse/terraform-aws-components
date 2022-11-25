@@ -13,6 +13,24 @@ locals {
     )
   )
 
+  availability_zones = length(var.availability_zones) > 0 ? (
+    (substr(
+      var.availability_zones[0],
+      0,
+      length(var.region)
+    ) == var.region) ? var.availability_zones : formatlist("${var.region}%s", var.availability_zones)
+  ) : var.availability_zones
+
+  short_region = module.utils.region_az_alt_code_maps["to_short"][var.region]
+
+  availability_zone_ids = length(var.availability_zone_ids) > 0 ? (
+    (substr(
+      var.availability_zone_ids[0],
+      0,
+      length(local.short_region)
+    ) == local.short_region) ? var.availability_zone_ids : formatlist("${local.short_region}%s", var.availability_zone_ids)
+  ) : var.availability_zone_ids
+
   # required tags to make ALB ingress work https://docs.aws.amazon.com/eks/latest/userguide/alb-ingress.html
   # https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html
   public_subnets_additional_tags = {
@@ -47,13 +65,18 @@ locals {
   } }
 }
 
+module "utils" {
+  source  = "cloudposse/utils/aws"
+  version = "1.1.0"
+}
+
 module "vpc" {
   source  = "cloudposse/vpc/aws"
-  version = "2.0.0-rc1"
+  version = "2.0.0"
 
   ipv4_primary_cidr_block          = var.ipv4_primary_cidr_block
   internet_gateway_enabled         = var.public_subnets_enabled
-  assign_generated_ipv6_cidr_block = false # disable IPv6
+  assign_generated_ipv6_cidr_block = var.assign_generated_ipv6_cidr_block
 
   # Required for DNS resolution of VPC Endpoint interfaces, and generally harmless
   # See https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-support
@@ -100,7 +123,7 @@ module "endpoint_security_groups" {
 
 module "vpc_endpoints" {
   source  = "cloudposse/vpc/aws//modules/vpc-endpoints"
-  version = "2.0.0-rc1"
+  version = "2.0.0"
 
   enabled = (length(var.interface_vpc_endpoints) + length(var.gateway_vpc_endpoints)) > 0
 
@@ -115,8 +138,8 @@ module "subnets" {
   source  = "cloudposse/dynamic-subnets/aws"
   version = "2.0.4"
 
-  availability_zones              = var.availability_zones
-  availability_zone_ids           = var.availability_zone_ids
+  availability_zones              = local.availability_zones
+  availability_zone_ids           = local.availability_zone_ids
   ipv4_cidr_block                 = [module.vpc.vpc_cidr_block]
   ipv4_cidrs                      = var.ipv4_cidrs
   ipv6_enabled                    = false
