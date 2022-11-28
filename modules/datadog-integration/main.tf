@@ -1,6 +1,8 @@
 module "datadog_integration" {
   source  = "cloudposse/datadog-integration/aws"
-  version = "0.18.0"
+  version = "1.0.0"
+
+  count = module.this.enabled && length(var.integrations) > 0 ? 1 : 0
 
   datadog_aws_account_id           = var.datadog_aws_account_id
   integrations                     = var.integrations
@@ -13,13 +15,7 @@ module "datadog_integration" {
 }
 
 locals {
-  enabled     = module.this.enabled
-  asm_enabled = local.enabled && var.datadog_secrets_store_type == "ASM"
-  ssm_enabled = local.enabled && var.datadog_secrets_store_type == "SSM"
-
-  # https://docs.datadoghq.com/account_management/api-app-keys/
-  datadog_api_key = local.enabled ? (local.asm_enabled ? data.aws_secretsmanager_secret_version.datadog_api_key[0].secret_string : data.aws_ssm_parameter.datadog_api_key[0].value) : null
-  datadog_app_key = local.enabled ? (local.asm_enabled ? data.aws_secretsmanager_secret_version.datadog_app_key[0].secret_string : data.aws_ssm_parameter.datadog_app_key[0].value) : null
+  enabled = module.this.enabled
 
   # Get the context tags and skip tags that we don't want applied to every resource.
   # i.e. we don't want name since each metric would be called something other than this component's name.
