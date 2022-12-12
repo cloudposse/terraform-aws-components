@@ -1,3 +1,24 @@
+{{- if .Values.pvc_enabled }}
+---
+# Persistent Volumes can be used for image caching
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.release_name }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  # StorageClassName comes from efs-controller and must be deployed first.
+  storageClassName: efs-sc
+  resources:
+    requests:
+      # EFS is not actually storage constrained, but this storage request is
+      # required. 100Gi is a ballpark for how much we initially request, but this
+      # may grow. We are responsible for docker pruning this periodically to 
+      # save space.
+      storage: 100Gi 
+{{- end }}
+---
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
 metadata:
@@ -56,7 +77,15 @@ spec:
       dockerVolumeMounts:
       - mountPath: /var/lib/docker
         name: docker-volume
+      {{- end }}
+      {{- if .Values.pvc_enabled }}
+      volumeMounts:
+      - mountPath: /home/runner/work/shared
+        name: shared-volume
+      {{- end }}
+      {{- if or (and .Values.dind_enabled .Values.storage) (.Values.pvc_enabled) }}
       volumes:
+      {{- if and .Values.dind_enabled .Values.storage }}
       - name: docker-volume
         ephemeral:
           volumeClaimTemplate:
@@ -65,4 +94,10 @@ spec:
               resources:
                 requests:
                   storage: {{ .Values.storage }}
+      {{- end }}
+      {{- if .Values.pvc_enabled }}
+      - name: shared-volume
+        persistentVolumeClaim:
+          claimName: {{ .Values.release_name }}
+      {{- end }}
       {{- end }}

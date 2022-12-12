@@ -178,6 +178,7 @@ variable "runners" {
       scale_down_factor     = optional(string)
     }))
     webhook_driven_scaling_enabled = bool
+    webhook_startup_timeout        = optional(string, null)
     pull_driven_scaling_enabled    = bool
     labels                         = list(string)
     storage                        = optional(string, "")
