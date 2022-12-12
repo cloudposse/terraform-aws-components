@@ -17,6 +17,7 @@ variable "chart" {
 variable "chart_repository" {
   type        = string
   description = "Repository URL where to locate the requested chart"
+  default     = ""
 }
 
 variable "chart_version" {
@@ -42,7 +43,7 @@ variable "resources" {
 variable "create_namespace" {
   type        = bool
   description = "Create the namespace if it does not yet exist. Defaults to `false`"
-  default     = null
+  default     = false
 }
 
 variable "kubernetes_namespace" {
