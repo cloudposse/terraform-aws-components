@@ -165,7 +165,6 @@ After the webhook is created, select "edit" for the webhook and go to the "Recen
 (of a "ping" event) with a green check mark. If not, verify all the settings and consult
 the logs of the `actions-runner-controller-github-webhook-server` pod.
 
-Useful Reference
 
 ### Updating CRDs
 
@@ -179,6 +178,9 @@ If new CRDs are needed, install them manually via a command like
 ```
 kubectl create -f https://raw.githubusercontent.com/actions-runner-controller/actions-runner-controller/master/charts/actions-runner-controller/crds/actions.summerwind.dev_horizontalrunnerautoscalers.yaml
 ```
+
+
+### Useful Reference
 
 Consult [actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller) documentation for further details.
 
