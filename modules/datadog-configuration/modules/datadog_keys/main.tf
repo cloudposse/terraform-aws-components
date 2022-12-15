@@ -18,6 +18,14 @@ locals {
   # if we are in the global region, use the
   environment = module.this.environment == var.global_environment_name ? module.utils_example_complete.region_az_alt_code_maps[var.region_abbreviation_type][var.region] : var.environment
 
+  context_tags = {
+    for k, v in module.this.tags :
+    lower(k) => v
+  }
+  dd_tags = [
+    for k, v in local.context_tags :
+    v != null ? format("%s:%s", k, v) : k
+  ]
 }
 module "datadog_configuration" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
