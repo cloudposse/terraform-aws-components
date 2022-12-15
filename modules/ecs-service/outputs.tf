@@ -1,16 +1,6 @@
 output "logs" {
-  value       = module.logs
+  value       = one(module.logs[*])
   description = "Output of cloudwatch logs module"
-}
-
-output "container_definition" {
-  value       = local.container_definition
-  description = "Output of container definition module"
-}
-
-output "task" {
-  value       = module.ecs_alb_service_task
-  description = "Output of service task module"
 }
 
 output "ecs_cluster_arn" {
@@ -51,4 +41,14 @@ output "lb_listener_https" {
 output "full_domain" {
   value       = local.full_domain
   description = "Domain to respond to GET requests"
+}
+
+output "environment_map" {
+  value       = local.env_map_subst
+  description = "Environment variables to pass to the container, this is a map of key/value pairs, where the key is `containerName,variableName`"
+}
+
+output "service_image" {
+  value       = try(nonsensitive(local.containers.service.image), null)
+  description = "The image of the service container"
 }
