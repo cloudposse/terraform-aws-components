@@ -25,7 +25,7 @@ variable "lambda_reserved_concurrent_executions" {
 variable "lambda_runtime" {
   type        = string
   description = "Runtime environment for Datadog Lambda"
-  default     = "python3.7"
+  default     = "python3.8"
 }
 
 variable "tracing_config_mode" {
@@ -92,7 +92,7 @@ variable "dd_module_name" {
 variable "dd_forwarder_version" {
   type        = string
   description = "Version tag of Datadog lambdas to use. https://github.com/DataDog/datadog-serverless-functions/releases"
-  default     = "3.40.0"
+  default     = "3.61.0"
 }
 
 variable "forwarder_log_enabled" {
@@ -181,16 +181,6 @@ variable "lambda_policy_source_json" {
   default     = ""
 }
 
-variable "forwarder_lambda_datadog_host" {
-  type        = string
-  description = "Datadog Site to send data to. Possible values are `datadoghq.com`, `datadoghq.eu`, `us3.datadoghq.com` and `ddog-gov.com`"
-  default     = "datadoghq.com"
-  validation {
-    condition     = contains(["datadoghq.com", "datadoghq.eu", "us3.datadoghq.com", "ddog-gov.com"], var.forwarder_lambda_datadog_host)
-    error_message = "Invalid host: possible values are `datadoghq.com`, `datadoghq.eu`, `us3.datadoghq.com` and `ddog-gov.com`."
-  }
-}
-
 variable "forwarder_log_layers" {
   type        = list(string)
   description = "List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog log forwarder lambda function"
@@ -237,4 +227,38 @@ variable "context_tags" {
   type        = set(string)
   description = "List of context tags to add to each monitor"
   default     = ["namespace", "tenant", "environment", "stage"]
+}
+
+variable "lambda_arn_enabled" {
+  type        = bool
+  description = "Enable adding the Lambda Arn to this account integration"
+  default     = true
+}
+
+# No Datasource for this (yet?)
+/**
+curl -X GET "${DD_API_URL}/api/v1/integration/aws/logs/services" \
+-H "Accept: application/json" \
+-H "DD-API-KEY: ${DD_API_KEY}" \
+-H "DD-APPLICATION-KEY: ${DD_APP_KEY}"
+**/
+variable "log_collection_services" {
+  type        = list(string)
+  description = "List of log collection services to enable"
+  default = [
+    "apigw-access-logs",
+    "apigw-execution-logs",
+    "elbv2",
+    "elb",
+    "cloudfront",
+    "lambda",
+    "redshift",
+    "s3"
+  ]
+}
+
+variable "datadog_forwarder_lambda_environment_variables" {
+  type        = map(string)
+  default     = {}
+  description = "Map of environment variables to pass to the Lambda Function"
 }
