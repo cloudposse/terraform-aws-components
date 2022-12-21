@@ -1,17 +1,17 @@
+module "datadog_configuration" {
+  source  = "../datadog-configuration/modules/datadog_keys"
+  region  = var.region
+  context = module.this.context
+}
+
+
 locals {
   enabled = module.this.enabled
 
   tags = module.this.tags
 
-  datadog_api_key = local.enabled ? (var.secrets_store_type == "ASM" ? (
-    data.aws_secretsmanager_secret_version.datadog_api_key[0].secret_string) :
-    data.aws_ssm_parameter.datadog_api_key[0].value
-  ) : null
-
-  datadog_app_key = local.enabled ? (var.secrets_store_type == "ASM" ? (
-    data.aws_secretsmanager_secret_version.datadog_app_key[0].secret_string) :
-    data.aws_ssm_parameter.datadog_app_key[0].value
-  ) : null
+  datadog_api_key = module.datadog_configuration.datadog_api_key
+  datadog_app_key = module.datadog_configuration.datadog_app_key
 
   # combine context tags with passed in datadog_tags
   # skip name since that won't be relevant for each metric
