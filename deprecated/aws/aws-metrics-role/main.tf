@@ -57,8 +57,8 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "default" {
-  role       = "${aws_iam_role.default.name}"
-  policy_arn = "${aws_iam_policy.default.arn}"
+  role       = aws_iam_role.default.name
+  policy_arn = aws_iam_policy.default.arn
 
   lifecycle {
     create_before_destroy = true
@@ -66,9 +66,9 @@ resource "aws_iam_role_policy_attachment" "default" {
 }
 
 resource "aws_iam_policy" "default" {
-  name        = "${module.label.id}"
+  name        = module.label.id
   description = "Grant permissions for external-dns"
-  policy      = "${data.aws_iam_policy_document.default.json}"
+  policy      = data.aws_iam_policy_document.default.json
 }
 
 data "aws_iam_policy_document" "default" {
