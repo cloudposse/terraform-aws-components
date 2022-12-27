@@ -4,7 +4,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.0"
+      version = ">= 4.0"
     }
     # terraform-providers/mysql is archived
     # https://github.com/hashicorp/terraform-provider-mysql
