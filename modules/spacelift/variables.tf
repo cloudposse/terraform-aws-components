@@ -8,12 +8,6 @@ variable "runner_image" {
   description = "Full address & tag of the Spacelift runner image (e.g. on ECR)"
 }
 
-variable "worker_pool_id" {
-  type        = string
-  description = "DEPRECATED: Use worker_pool_name_id_map instead. Worker pool ID"
-  default     = ""
-}
-
 variable "worker_pool_name_id_map" {
   type        = map(any)
   description = "Map of worker pool names to worker pool IDs"
@@ -97,7 +91,7 @@ variable "policies_by_id_enabled" {
 
 variable "policies_by_name_enabled" {
   type        = list(string)
-  description = "List of existing policy names to attach to all Spacelift stacks. These policies must exist in `modules/spacelift/rego-policies`"
+  description = "List of custom policy names to attach to all Spacelift stacks. These policies must exist in `components/terraform/spacelift/rego-policies`"
   default     = []
 }
 
@@ -168,8 +162,14 @@ variable "stack_destructor_enabled" {
 }
 
 variable "context_filters" {
-  type        = map(list(string))
+  type        = map(any)
   description = "Context filters to create stacks for specific context information. Valid lists are `namespaces`, `environments`, `tenants`, `stages`."
+  default     = {}
+}
+
+variable "tag_filters" {
+  type        = map(string)
+  description = "A map of tags that will filter stack creation by the matching `tags` set in a component `vars` configuration."
   default     = {}
 }
 
@@ -195,4 +195,10 @@ variable "before_init" {
   type        = list(string)
   description = "List of before-init scripts"
   default     = []
+}
+
+variable "space_id" {
+  type        = string
+  description = "Place the stack(s) in the specified space_id."
+  default     = "legacy"
 }

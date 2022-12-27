@@ -1,8 +1,8 @@
-# Component: `datadog-monitor`
+x# Component: `datadog-monitor`
 
-This component is responsible for provisioning Datadog monitors and assigning Datadog roles to the monitors. 
+This component is responsible for provisioning Datadog monitors and assigning Datadog roles to the monitors.
 
-It's required that the DataDog API and APP secret keys are available in the consuming account at the `var.datadog_api_secret_key` 
+It's required that the DataDog API and APP secret keys are available in the consuming account at the `var.datadog_api_secret_key`
 and `var.datadog_app_secret_key` paths in the AWS SSM Parameter Store.
 
 ## Usage
@@ -41,36 +41,28 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 | <a name="requirement_datadog"></a> [datadog](#requirement\_datadog) | >= 3.3.0 |
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
+No providers.
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_datadog_monitors"></a> [datadog\_monitors](#module\_datadog\_monitors) | cloudposse/platform/datadog//modules/monitors | 1.0.0 |
-| <a name="module_datadog_monitors_merge"></a> [datadog\_monitors\_merge](#module\_datadog\_monitors\_merge) | cloudposse/config/yaml//modules/deepmerge | 1.0.1 |
+| <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | ../datadog-configuration/modules/datadog_keys | n/a |
+| <a name="module_datadog_monitors"></a> [datadog\_monitors](#module\_datadog\_monitors) | cloudposse/platform/datadog//modules/monitors | 1.0.1 |
+| <a name="module_datadog_monitors_merge"></a> [datadog\_monitors\_merge](#module\_datadog\_monitors\_merge) | cloudposse/config/yaml//modules/deepmerge | 1.0.2 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_local_datadog_monitors_yaml_config"></a> [local\_datadog\_monitors\_yaml\_config](#module\_local\_datadog\_monitors\_yaml\_config) | cloudposse/config/yaml | 1.0.1 |
-| <a name="module_remote_datadog_monitors_yaml_config"></a> [remote\_datadog\_monitors\_yaml\_config](#module\_remote\_datadog\_monitors\_yaml\_config) | cloudposse/config/yaml | 1.0.1 |
+| <a name="module_local_datadog_monitors_yaml_config"></a> [local\_datadog\_monitors\_yaml\_config](#module\_local\_datadog\_monitors\_yaml\_config) | cloudposse/config/yaml | 1.0.2 |
+| <a name="module_remote_datadog_monitors_yaml_config"></a> [remote\_datadog\_monitors\_yaml\_config](#module\_remote\_datadog\_monitors\_yaml\_config) | cloudposse/config/yaml | 1.0.2 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [aws_secretsmanager_secret.datadog_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
-| [aws_secretsmanager_secret.datadog_app_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
-| [aws_secretsmanager_secret_version.datadog_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
-| [aws_secretsmanager_secret_version.datadog_app_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
-| [aws_ssm_parameter.datadog_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameter.datadog_app_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+No resources.
 
 ## Inputs
 
@@ -82,6 +74,7 @@ components:
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_datadog_api_secret_key"></a> [datadog\_api\_secret\_key](#input\_datadog\_api\_secret\_key) | The key of the Datadog API secret | `string` | `"datadog/datadog_api_key"` | no |
+| <a name="input_datadog_api_url"></a> [datadog\_api\_url](#input\_datadog\_api\_url) | The Datadog API URL | `string` | `null` | no |
 | <a name="input_datadog_app_secret_key"></a> [datadog\_app\_secret\_key](#input\_datadog\_app\_secret\_key) | The key of the Datadog Application secret | `string` | `"datadog/datadog_app_key"` | no |
 | <a name="input_datadog_monitor_context_tags"></a> [datadog\_monitor\_context\_tags](#input\_datadog\_monitor\_context\_tags) | List of context tags to add to each monitor | `set(string)` | <pre>[<br>  "namespace",<br>  "tenant",<br>  "environment",<br>  "stage"<br>]</pre> | no |
 | <a name="input_datadog_monitor_context_tags_enabled"></a> [datadog\_monitor\_context\_tags\_enabled](#input\_datadog\_monitor\_context\_tags\_enabled) | Whether to add context tags to each monitor | `bool` | `true` | no |

@@ -50,6 +50,12 @@ variable "ipv4_cidrs" {
   }
 }
 
+variable "assign_generated_ipv6_cidr_block" {
+  type        = bool
+  description = "When `true`, assign AWS generated IPv6 CIDR block to the VPC.  Conflicts with `ipv6_ipam_pool_id`."
+  default     = false
+}
+
 variable "public_subnets_enabled" {
   type        = bool
   description = <<-EOT
@@ -137,12 +143,6 @@ variable "vpc_flow_logs_bucket_tenant_name" {
 variable "nat_eip_aws_shield_protection_enabled" {
   type        = bool
   description = "Enable or disable AWS Shield Advanced protection for NAT EIPs. If set to 'true', a subscription to AWS Shield Advanced must exist in this account."
-  default     = false
-}
-
-variable "eks_tags_enabled" {
-  type        = bool
-  description = "Whether or not to apply EKS-releated tags to resources"
   default     = false
 }
 

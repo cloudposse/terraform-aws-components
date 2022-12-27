@@ -1,7 +1,11 @@
 output "terraform_role_arn" {
   value       = module.account_map.outputs.terraform_roles[local.account_name]
   description = "The AWS Role ARN for Terraform to use when provisioning resources in the account, when Role ARNs are in use"
+}
 
+output "terraform_role_arns" {
+  value       = module.account_map.outputs.terraform_roles
+  description = "All of the terraform role arns"
 }
 
 output "terraform_profile_name" {
