@@ -46,3 +46,9 @@ variable "denied_permission_sets" {
   description = "Map of account:[PermissionSet, PermissionSet...] specifying AWS SSO PermissionSets denied access to the role when coming from specified account"
   default     = {}
 }
+
+variable "iam_users_enabled" {
+  type        = bool
+  description = "True if you would like IAM Users to be able to assume the role."
+  default     = false
+}

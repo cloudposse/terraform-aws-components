@@ -4,18 +4,18 @@ repos:
     hooks:
       - id: check-yaml
         exclude: |
-            (?x)^(
-                modules/cert-manager/cert-manager-issuer/templates/.*.yaml |
-                modules/eks/actions-runner-controller/charts/actions-runner/templates/.*.yaml |
-                modules/echo-server/charts/eks/echo-server/templates/.*.yaml |
-                deprecated/github-actions-runner/runners/actions-runner/chart/templates/.*.yaml
-            )$
+          (?x)^(
+              deprecated/github-actions-runner/runners/actions-runner/chart/templates/.*.yaml |
+              modules/eks/cert-manager/cert-manager-issuer/templates/.*.yaml |
+              modules/strongdm/charts/strongdm/templates/.*.yaml |
+              modules/eks/.*/charts/.*/templates/.*.yaml
+          )$
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.71.0
+    rev: v1.75.0
     hooks:
       - id: terraform_fmt
       - id: terraform_docs
-        args: ['--args=--lockfile=false']
+        args: ["--args=--lockfile=false"]
   - repo: local
     hooks:
       - id: rebuild-mixins-docs
@@ -25,3 +25,4 @@ repos:
         types: ["text"]
         files: (mixins\/.*|bin\/rebuild-mixins-docs\.sh)
         pass_filenames: false
+

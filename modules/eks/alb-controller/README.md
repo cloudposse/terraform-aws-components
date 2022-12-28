@@ -1,8 +1,10 @@
-# Component: `alb-controller`
+# Component: `eks/alb-controller`
 
 This component creates a Helm release for [alb-controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) on an EKS cluster.
 
-[alb-controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) is a Kubernetes addon that, in the context of AWS, provisions and manages ALBs and NLBs based on Service and Ingress annotations.
+[alb-controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) is a Kubernetes addon that,
+in the context of AWS, provisions and manages ALBs and NLBs based on Service and Ingress annotations.
+This module also can (and is recommended to) provision a default IngressClass.
 
 ## Usage
 
@@ -21,16 +23,21 @@ The default catalog values `e.g. stacks/catalog/eks/alb-controller.yaml`
 ```yaml
 components:
   terraform:
-    alb-controller:
+    eks/alb-controller:
       vars:
-        enabled: true
-        name: "alb-controller"
-        chart: "aws-load-balancer-controller"
-        chart_repository: "https://aws.github.io/eks-charts"
-        chart_version: "1.3.3"
+        chart: aws-load-balancer-controller
+        chart_repository: https://aws.github.io/eks-charts
+        chart_version: "1.4.5"
         create_namespace: true
-        kubernetes_namespace: "alb-controller"
+        kubernetes_namespace: alb-controller
+        # this feature causes inconsistent final plans
+        # see https://github.com/hashicorp/terraform-provider-helm/issues/711#issuecomment-836192991
+        helm_manifest_experiment_enabled: false
 
+        default_ingress_class_name: default
+        default_ingress_group: common
+        default_ingress_ip_address_type: ipv4
+        default_ingress_scheme: internet-facing
         # You can use `chart_values` to set any other chart options. Treat `chart_values` as the root of the doc.
         #
         # # For example
@@ -46,22 +53,22 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.14.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_alb_controller"></a> [alb\_controller](#module\_alb\_controller) | cloudposse/helm-release/aws | 0.5.0 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_alb_controller"></a> [alb\_controller](#module\_alb\_controller) | cloudposse/helm-release/aws | 0.7.0 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.3.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -69,7 +76,6 @@ components:
 
 | Name | Type |
 |------|------|
-| [kubernetes_namespace.default](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 
 ## Inputs
@@ -87,9 +93,16 @@ components:
 | <a name="input_cleanup_on_fail"></a> [cleanup\_on\_fail](#input\_cleanup\_on\_fail) | Allow deletion of new resources created in this upgrade when upgrade fails. | `bool` | `true` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_create_namespace"></a> [create\_namespace](#input\_create\_namespace) | Create the namespace if it does not yet exist. Defaults to `false`. | `bool` | `null` | no |
+| <a name="input_default_ingress_additional_tags"></a> [default\_ingress\_additional\_tags](#input\_default\_ingress\_additional\_tags) | Additional tags to apply to the ingress load balancer. | `map(string)` | `{}` | no |
+| <a name="input_default_ingress_class_name"></a> [default\_ingress\_class\_name](#input\_default\_ingress\_class\_name) | Class name for default ingress | `string` | `"default"` | no |
+| <a name="input_default_ingress_enabled"></a> [default\_ingress\_enabled](#input\_default\_ingress\_enabled) | Set `true` to deploy a default IngressClass. There should only be one default per cluster. | `bool` | `true` | no |
+| <a name="input_default_ingress_group"></a> [default\_ingress\_group](#input\_default\_ingress\_group) | Group name for default ingress | `string` | `"common"` | no |
+| <a name="input_default_ingress_ip_address_type"></a> [default\_ingress\_ip\_address\_type](#input\_default\_ingress\_ip\_address\_type) | IP address type for default ingress, one of `ipv4` or `dualstack`. | `string` | `"dualstack"` | no |
+| <a name="input_default_ingress_load_balancer_attributes"></a> [default\_ingress\_load\_balancer\_attributes](#input\_default\_ingress\_load\_balancer\_attributes) | A list of load balancer attributes to apply to the default ingress load balancer.<br>See [Load Balancer Attributes](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancers.html#load-balancer-attributes). | `list(object({ key = string, value = string }))` | `[]` | no |
+| <a name="input_default_ingress_scheme"></a> [default\_ingress\_scheme](#input\_default\_ingress\_scheme) | Scheme for default ingress, one of `internet-facing` or `internal`. | `string` | `"internet-facing"` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_eks_component_name"></a> [eks\_component\_name](#input\_eks\_component\_name) | The name of the eks component | `string` | `"eks/eks"` | no |
+| <a name="input_eks_component_name"></a> [eks\_component\_name](#input\_eks\_component\_name) | The name of the eks component | `string` | `"eks/cluster"` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_helm_manifest_experiment_enabled"></a> [helm\_manifest\_experiment\_enabled](#input\_helm\_manifest\_experiment\_enabled) | Enable storing of the rendered manifest for helm\_release so the full diff of what is changing can been seen in the plan | `bool` | `true` | no |

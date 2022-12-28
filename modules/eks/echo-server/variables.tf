@@ -6,5 +6,11 @@ variable "region" {
 variable "eks_component_name" {
   type        = string
   description = "The name of the eks component"
-  default     = "eks/eks"
+  default     = "eks/cluster"
+}
+
+variable "chart_values" {
+  type        = any
+  description = "Addition map values to yamlencode as `helm_release` values."
+  default     = {}
 }

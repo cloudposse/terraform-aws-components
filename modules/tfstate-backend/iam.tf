@@ -1,5 +1,5 @@
 locals {
-  access_roles = local.enabled ? {
+  access_roles = local.enabled && var.access_roles_enabled ? {
     for k, v in var.access_roles : (
       length(split(module.this.delimiter, k)) > 1 ? k : module.label[k].id
     ) => v
@@ -25,7 +25,7 @@ module "label" {
 
 module "assume_role" {
   for_each = local.access_roles
-  source   = "../account-map/modules/iam-assume-role-policy"
+  source   = "../account-map/modules/team-assume-role-policy"
 
   allowed_roles          = each.value.allowed_roles
   denied_roles           = each.value.denied_roles

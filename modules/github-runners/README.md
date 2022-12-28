@@ -19,6 +19,7 @@ components:
         max_size: 10
         default_cooldown: 300
         scale_down_cooldown_seconds: 2700
+        wait_for_capacity_timeout: 10m
         cpu_utilization_high_threshold_percent: 5
         cpu_utilization_low_threshold_percent: 1
         spot_maxprice: 0.02
@@ -72,27 +73,27 @@ chamber write github/runners/<github-org> registration-token ghp_secretstring
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
-| <a name="requirement_cloudinit"></a> [cloudinit](#requirement\_cloudinit) | ~> 2.2 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
+| <a name="requirement_cloudinit"></a> [cloudinit](#requirement\_cloudinit) | >= 2.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
-| <a name="provider_cloudinit"></a> [cloudinit](#provider\_cloudinit) | ~> 2.2 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
+| <a name="provider_cloudinit"></a> [cloudinit](#provider\_cloudinit) | >= 2.2 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.1.1 |
 | <a name="module_autoscale_group"></a> [autoscale\_group](#module\_autoscale\_group) | cloudposse/ec2-autoscale-group/aws | 0.30.1 |
 | <a name="module_graceful_scale_in"></a> [graceful\_scale\_in](#module\_graceful\_scale\_in) | ./modules/graceful_scale_in | n/a |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_sg"></a> [sg](#module\_sg) | cloudposse/security-group/aws | 1.0.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.1.1 |
 
 ## Resources
 
@@ -162,7 +163,7 @@ chamber write github/runners/<github-org> registration-token ghp_secretstring
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 | <a name="input_userdata_post_install"></a> [userdata\_post\_install](#input\_userdata\_post\_install) | Shell script to run post installation of github action runner | `string` | `""` | no |
 | <a name="input_userdata_pre_install"></a> [userdata\_pre\_install](#input\_userdata\_pre\_install) | Shell script to run before installation of github action runner | `string` | `""` | no |
-| <a name="input_wait_for_capacity_timeout"></a> [wait\_for\_capacity\_timeout](#input\_wait\_for\_capacity\_timeout) | A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. (See also Waiting for Capacity below.) Setting this to '0' causes Terraform to skip all Capacity Waiting behavior | `string` | n/a | yes |
+| <a name="input_wait_for_capacity_timeout"></a> [wait\_for\_capacity\_timeout](#input\_wait\_for\_capacity\_timeout) | A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. (See also Waiting for Capacity below.) Setting this to '0' causes Terraform to skip all Capacity Waiting behavior | `string` | `"10m"` | no |
 
 ## Outputs
 

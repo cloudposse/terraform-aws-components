@@ -116,5 +116,5 @@ output "interface_vpc_endpoints" {
 
 output "availability_zones" {
   description = "List of Availability Zones where subnets were created"
-  value       = local.availability_zones
+  value       = module.subnets.availability_zones
 }

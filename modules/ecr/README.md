@@ -1,24 +1,32 @@
 # Component: `ecr`
 
-This component is responsible for provisioning repositories, lifecycle rules, and permissions for streamlined ECR usage. This utilizes [the roles-to-principals submodule](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/account-map/modules/roles-to-principals) to assign accounts to various roles.
+This component is responsible for provisioning repositories, lifecycle rules, and permissions for streamlined ECR usage.
+This utilizes [the roles-to-principals submodule](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/account-map/modules/roles-to-principals)
+to assign accounts to various roles. It is also compatible with the
+[GitHub Actions IAM Role mixin](https://github.com/cloudposse/terraform-aws-components/blob/master/mixins/github-actions-iam-role/README-github-action-iam-role.md).
 
 ## Usage
 
 **Stack Level**: Regional
 
-Here's an example snippet for how to use this component. This component should only be applied once as the resources it creates are global. This is typically done via the corp stack (e.g. `uw2-corp.yaml`).
+Here's an example snippet for how to use this component. This component is normally only applied once as the resources
+it creates are globally accessible, but you may want to create ECRs in multiple regions for redundancy.
+This is typically provisioned via the stack for the "artifact" account (typically `auto`, `artifact`, or `corp`)
+in the primary region.
 
 ```yaml
 components:
   terraform:
     ecr:
       vars:
-        enabled: true
-        ecr_user_enabled: true
+        ecr_user_enabled: false
+        enable_lifecycle_policy: true
         max_image_count: 500
         scan_images_on_push: true
-        cicd_accounts:
-        - automation
+        protected_tags:
+          - prod
+        image_tag_mutability: MUTABLE
+
         images:
           - infrastructure
           - microservice-a
@@ -27,19 +35,14 @@ components:
         read_write_account_role_map:
           identity:
           - admin
-          - ops
           - cicd
           automation:
           - admin
-          - ops
         read_only_account_role_map:
           corp: ["*"]
-          devdata: ["*"]
-          devplatform: ["*"]
-          proddata: ["*"]
-          prodplatform: ["*"]
-          stagedata: ["*"]
-          stageplatform: ["*"]
+          dev: ["*"]
+          prod: ["*"]
+          stage: ["*"]
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -48,13 +51,13 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
 
 ## Modules
 
@@ -100,12 +103,11 @@ components:
 | <a name="input_max_image_count"></a> [max\_image\_count](#input\_max\_image\_count) | Max number of images to store. Old ones will be deleted to make room for new ones. | `number` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_protected_tags"></a> [protected\_tags](#input\_protected\_tags) | Tags to refrain from deleting | `list(string)` | n/a | yes |
+| <a name="input_protected_tags"></a> [protected\_tags](#input\_protected\_tags) | Tags to refrain from deleting | `list(string)` | `[]` | no |
 | <a name="input_read_only_account_role_map"></a> [read\_only\_account\_role\_map](#input\_read\_only\_account\_role\_map) | Map of `account:[role, role...]` for read-only access. Use `*` for role to grant access to entire account | `map(list(string))` | `{}` | no |
 | <a name="input_read_write_account_role_map"></a> [read\_write\_account\_role\_map](#input\_read\_write\_account\_role\_map) | Map of `account:[role, role...]` for write access. Use `*` for role to grant access to entire account | `map(list(string))` | n/a | yes |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_root_account_tenant_name"></a> [root\_account\_tenant\_name](#input\_root\_account\_tenant\_name) | The tenant name for the root account | `string` | `null` | no |
 | <a name="input_scan_images_on_push"></a> [scan\_images\_on\_push](#input\_scan\_images\_on\_push) | Indicates whether images are scanned after being pushed to the repository | `bool` | `false` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |

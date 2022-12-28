@@ -1,0 +1,28 @@
+version: "1"
+
+stack_defaults:
+  before_init:
+    - spacelift-configure
+    - spacelift-write-vars
+    - spacelift-tf-workspace
+
+  before_plan:
+    - spacelift-configure
+
+  before_apply:
+    - spacelift-configure
+
+  environment:
+    AWS_SDK_LOAD_CONFIG: true
+    # AWS_PROFILE varies with worker pool, cannot be set here
+    AWS_CONFIG_FILE: /etc/aws-config/aws-config-spacelift
+    ATMOS_BASE_PATH: /mnt/workspace/source
+    TF_CLI_ARGS_plan:  -parallelism=50
+    TF_CLI_ARGS_apply:  -parallelism=50
+    TF_CLI_ARGS_destroy: -parallelism=50
+
+stacks:
+  infra:
+    before_init: []
+    before_plan: []
+    before_apply: []

@@ -11,7 +11,10 @@ data "aws_iam_policy_document" "assume_role_policy" {
   count = local.enabled ? 1 : 0
 
   statement {
-    actions = ["sts:AssumeRole"]
+    actions = [
+      "sts:AssumeRole",
+      "sts:TagSession",
+    ]
 
     principals {
       type        = "Service"
@@ -21,19 +24,18 @@ data "aws_iam_policy_document" "assume_role_policy" {
 }
 
 locals {
-  partition = one(data.aws_partition.current[*].partition)
-
-  role_arn_template_template = "arn:%[4]s:iam::%[3]s:role/%[1]s${module.this.tenant == null ? "" : "-%[2]s"}-gbl-identity-%%s"
-
-  role_arn_template = format(local.role_arn_template_template, module.this.namespace, module.this.tenant, local.identity_account_id, local.partition)
+  role_arn_template = module.account_map.outputs.iam_role_arn_templates[local.identity_account_name]
 }
 
 data "aws_iam_policy_document" "default" {
   count = local.enabled ? 1 : 0
 
   statement {
-    actions   = ["sts:AssumeRole"]
-    resources = formatlist(local.role_arn_template, ["ops", "spacelift"])
+    actions = [
+      "sts:AssumeRole",
+      "sts:TagSession",
+    ]
+    resources = formatlist(local.role_arn_template, ["spacelift"])
   }
 
   statement {

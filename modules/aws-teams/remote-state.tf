@@ -1,6 +1,6 @@
 module "aws_saml" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.4"
+  version = "1.0.0"
 
   component  = "aws-saml"
   privileged = true
@@ -16,7 +16,7 @@ module "aws_saml" {
 
 module "account_map" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.3"
+  version = "1.0.0"
 
   component   = "account-map"
   environment = var.account_map_environment_name

@@ -8,12 +8,6 @@ variable "runner_image" {
   description = "Full address & tag of the Spacelift runner image (e.g. on ECR)"
 }
 
-variable "worker_pool_id" {
-  type        = string
-  description = "DEPRECATED: Use worker_pool_name_id_map instead. Worker pool ID"
-  default     = ""
-}
-
 variable "worker_pool_name_id_map" {
   type        = map(any)
   description = "Map of worker pool names to worker pool IDs"
@@ -85,18 +79,19 @@ variable "policies_available" {
 
 variable "policies_enabled" {
   type        = list(string)
-  description = "List of default policies to attach to all Spacelift stacks"
-  default = [
-    "git_push.proposed-run",
-    "git_push.tracked-run",
-    "plan.default",
-    "trigger.dependencies"
-  ]
+  description = "DEPRECATED: Use `policies_by_id_enabled` instead. List of default policies created by this stack to attach to all Spacelift stacks"
+  default     = []
 }
 
 variable "policies_by_id_enabled" {
   type        = list(string)
-  description = "List of existing policy IDs to attach to all Spacelift stacks"
+  description = "List of existing policy IDs to attach to all Spacelift stacks. These policies must already exist in Spacelift"
+  default     = []
+}
+
+variable "policies_by_name_enabled" {
+  type        = list(string)
+  description = "List of custom policy names to attach to all Spacelift stacks. These policies must exist in `components/terraform/spacelift/rego-policies`"
   default     = []
 }
 
@@ -157,7 +152,7 @@ variable "aws_role_external_id" {
 variable "aws_role_generate_credentials_in_worker" {
   type        = bool
   description = "Flag to enable/disable generating AWS credentials in the private worker after assuming the supplied IAM role"
-  default     = true
+  default     = false
 }
 
 variable "stack_destructor_enabled" {
@@ -167,8 +162,14 @@ variable "stack_destructor_enabled" {
 }
 
 variable "context_filters" {
-  type        = map(list(string))
+  type        = map(any)
   description = "Context filters to create stacks for specific context information. Valid lists are `namespaces`, `environments`, `tenants`, `stages`."
+  default     = {}
+}
+
+variable "tag_filters" {
+  type        = map(string)
+  description = "A map of tags that will filter stack creation by the matching `tags` set in a component `vars` configuration."
   default     = {}
 }
 
@@ -194,4 +195,10 @@ variable "before_init" {
   type        = list(string)
   description = "List of before-init scripts"
   default     = []
+}
+
+variable "space_id" {
+  type        = string
+  description = "Place the stack(s) in the specified space_id."
+  default     = "legacy"
 }

@@ -1,10 +1,9 @@
-provider "spacelift" {}
-
 module "spacelift" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift"
-  version = "0.49.4"
+  version = "0.50.2"
 
   context_filters = var.context_filters
+  tag_filters     = var.tag_filters
 
   stack_config_path_template = var.stack_config_path_template
   components_path            = var.spacelift_component_path
@@ -14,7 +13,6 @@ module "spacelift" {
   commit_sha              = var.git_commit_sha
   spacelift_run_enabled   = var.spacelift_run_enabled
   runner_image            = var.runner_image
-  worker_pool_id          = var.worker_pool_id
   worker_pool_name_id_map = var.worker_pool_name_id_map
   autodeploy              = var.autodeploy
   manage_state            = false
@@ -26,10 +24,11 @@ module "spacelift" {
   stack_deps_processing_enabled     = false
   component_deps_processing_enabled = true
 
-  policies_available     = var.policies_available
-  policies_enabled       = var.policies_enabled
-  policies_by_id_enabled = var.policies_by_id_enabled
-  policies_by_name_path  = format("%s/rego-policies", path.module)
+  policies_available       = var.policies_available
+  policies_enabled         = var.policies_enabled
+  policies_by_id_enabled   = var.policies_by_id_enabled
+  policies_by_name_enabled = var.policies_by_name_enabled
+  policies_by_name_path    = format("%s/rego-policies", path.module)
 
   administrative_trigger_policy_enabled = var.administrative_trigger_policy_enabled
 

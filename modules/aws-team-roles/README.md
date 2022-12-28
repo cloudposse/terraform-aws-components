@@ -118,13 +118,14 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
+| <a name="provider_local"></a> [local](#provider\_local) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_assume_role"></a> [assume\_role](#module\_assume\_role) | ../account-map/modules/team-assume-role-policy | n/a |
-| <a name="module_aws_saml"></a> [aws\_saml](#module\_aws\_saml) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_aws_saml"></a> [aws\_saml](#module\_aws\_saml) | cloudposse/stack-config/yaml//modules/remote-state | 1.0.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -137,6 +138,7 @@ components:
 | [aws_iam_policy.support](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy_attachment.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [local_file.account_info](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 | [aws_iam_policy.aws_billing_admin_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy) | data source |
 | [aws_iam_policy.aws_billing_read_only_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy) | data source |
 | [aws_iam_policy.aws_support_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy) | data source |

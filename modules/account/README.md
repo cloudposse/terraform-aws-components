@@ -8,9 +8,11 @@ In addition, it enables [AWS IAM Access Analyzer](https://docs.aws.amazon.com/IA
 
 **Stack Level**: Global
 
-Here is an example snippet for how to use this component. Stick this snippet in the management account stack (E.g. `gbl-root.yaml`)
+**IMPORTANT**: Account names must not contain dashes. Doing so will lead to unpredictable resource names as a `-` is the default delimiter. Additionally, account names must be lower case alpha-numeric with no special characters.
 
-**IMPORTANT**: Account names must not contain dashes. Doing so will lead to unpredictable resource names as a `-` is the default delimiter. Additionally, account names must be alpha-numeric with no special characters.
+Here is an example snippet for how to use this component. Include this snippet in the stack configuration for the management account
+(typically `root`) in the management tenant/OU (usually something like `mgmt` or `core`) in the global region (`gbl`). You can insert 
+the content directly, or create a `stacks/catalog/account.yaml` file and import it from there.
 
 ```yaml
 components:
@@ -86,6 +88,19 @@ components:
                     eks: true
               service_control_policies:
                 - DenyLeavingOrganization
+        service_control_policies_config_paths:
+        # These paths specify where to find the service control policies identified by SID in the service_control_policies sections above.
+        # The number such as "0.12.0" is the release number/tag of the service control policies repository, and you may want to 
+        # update it to reflect the latest release.
+        - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/organization-policies.yaml"
+        - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/ec2-policies.yaml"
+        - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/cloudwatch-logs-policies.yaml"
+        - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/deny-all-policies.yaml"
+        - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/iam-policies.yaml"
+        - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/kms-policies.yaml"
+        - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/route53-policies.yaml"
+        - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/s3-policies.yaml"
+
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -94,13 +109,13 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
 
 ## Modules
 

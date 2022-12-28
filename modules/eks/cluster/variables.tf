@@ -5,7 +5,11 @@ variable "region" {
 
 variable "availability_zones" {
   type        = list(string)
-  description = "AWS Availability Zones in which to deploy multi-AZ resources"
+  description = <<-EOT
+    AWS Availability Zones in which to deploy multi-AZ resources.
+    If not provided, resources will be provisioned in every private subnet in the VPC.
+    EOT
+  default     = []
 }
 
 variable "availability_zone_abbreviation_type" {
@@ -352,7 +356,7 @@ variable "allow_ingress_from_vpc_accounts" {
 variable "eks_component_name" {
   type        = string
   description = "The name of the eks component"
-  default     = "eks/eks"
+  default     = "eks/cluster"
 }
 
 variable "karpenter_iam_role_enabled" {
