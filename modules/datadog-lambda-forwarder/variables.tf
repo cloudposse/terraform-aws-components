@@ -34,43 +34,6 @@ variable "tracing_config_mode" {
   default     = "PassThrough"
 }
 
-variable "dd_api_key_source" {
-  description = "One of: ARN for AWS Secrets Manager (asm) to retrieve the Datadog (DD) api key, ARN for the KMS (kms) key used to decrypt the ciphertext_blob of the api key, or the name of the SSM (ssm) parameter used to retrieve the Datadog API key"
-  type = object({
-    resource   = string
-    identifier = string
-  })
-
-  default = {
-    resource   = ""
-    identifier = ""
-  }
-
-  # Resource can be one of kms, asm, ssm ("" to disable all lambda resources)
-  validation {
-    condition     = can(regex("(kms|asm|ssm)", var.dd_api_key_source.resource)) || var.dd_api_key_source.resource == ""
-    error_message = "Provide one, and only one, ARN for (kms, asm) or name (ssm) to retrieve or decrypt Datadog api key."
-  }
-
-  # Check KMS ARN format
-  validation {
-    condition     = var.dd_api_key_source.resource == "kms" ? can(regex("arn:.*:kms:.*:key/.*", var.dd_api_key_source.identifier)) : true
-    error_message = "ARN for KMS key does not appear to be valid format (example: arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab)."
-  }
-
-  # Check ASM ARN format
-  validation {
-    condition     = var.dd_api_key_source.resource == "asm" ? can(regex("arn:.*:secretsmanager:.*:secret:.*", var.dd_api_key_source.identifier)) : true
-    error_message = "ARN for AWS Secrets Manager (asm) does not appear to be valid format (example: arn:aws:secretsmanager:us-west-2:111122223333:secret:aes128-1a2b3c)."
-  }
-
-  # Check SSM name format
-  validation {
-    condition     = var.dd_api_key_source.resource == "ssm" ? can(regex("^[a-zA-Z0-9_./-]+$", var.dd_api_key_source.identifier)) : true
-    error_message = "Name for SSM parameter does not appear to be valid format, acceptable characters are `a-zA-Z0-9_.-` and `/` to delineate hierarchies."
-  }
-}
-
 variable "dd_api_key_kms_ciphertext_blob" {
   type        = string
   description = "CiphertextBlob stored in environment variable DD_KMS_API_KEY used by the lambda function, along with the KMS key, to decrypt Datadog API key"
@@ -240,7 +203,7 @@ variable "lambda_arn_enabled" {
 curl -X GET "${DD_API_URL}/api/v1/integration/aws/logs/services" \
 -H "Accept: application/json" \
 -H "DD-API-KEY: ${DD_API_KEY}" \
--H "DD-APPLICATION-KEY: ${DD_APP_KEY}"
+-H "DD-APPLICATION-KEY: ${DD_APP_KEY}" | jq '.[] | .id'
 **/
 variable "log_collection_services" {
   type        = list(string)

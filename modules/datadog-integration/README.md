@@ -2,9 +2,6 @@
 
 This component is responsible for provisioning Datadog AWS integrations. 
 
-It's required that the DataDog API and APP secret keys are available in the `var.datadog_secrets_source_store_account` account
-in AWS SSM Parameter Store at the `/datadog/%v/datadog_app_key` paths (where `%v` are the corresponding account names).
-
 See Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys) for more information.
 
 ## Usage

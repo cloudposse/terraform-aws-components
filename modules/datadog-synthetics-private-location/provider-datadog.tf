@@ -1,10 +1,3 @@
-# Submodule `datadog_keys`
-
-Useful submodule for other modules to quickly configure the datadog provider
-
-## Usage
-
-```hcl
 module "datadog_configuration" {
   source  = "../datadog-configuration/modules/datadog_keys"
   region  = var.region
@@ -17,5 +10,3 @@ provider "datadog" {
   api_url  = module.datadog_configuration.datadog_api_url
   validate = local.enabled
 }
-```
-

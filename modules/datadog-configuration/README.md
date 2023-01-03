@@ -1,19 +1,29 @@
-# Component: `datadog-integration`
+# Component: `datadog-configuration`
 
 This component is responsible for provisioning SSM or ASM entries for datadog api keys. 
 
 It's required that the DataDog API and APP secret keys are available in the `var.datadog_secrets_source_store_account` account
 in AWS SSM Parameter Store at the `/datadog/%v/datadog_app_key` paths (where `%v` are the corresponding account names).
 
+This component copies keys from the source account (e.g. `auto`) to the destination account where this is being deployed. The purpose of using this formatted copying of keys handles a couple of problems.
+1. The keys are needed in each account where datadog resources will be deployed.
+2. The keys might need to be different per account or tenant, or any subset of accounts.
+3. If the keys need to be rotated they can be rotated from a single management account.
+
+This module also has a submodule which allows other resources to quickly use it to create a datadog provider.
+
 See Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys) for more information.
 
 ## Usage
 
-**Stack Level**: Regional
+**Stack Level**: Global
 
-This component should be deployed to every region where you want to provision datadog resources.
+This component should be deployed to every account where you want to provision datadog resources. This is usually every account except `root` and `identity`
 
 Here's an example snippet for how to use this component. It's suggested to apply this component to all accounts which you want to track AWS metrics with DataDog.
+In this example we use the key paths `/datadog/%v/datadog_api_key` and `/datadog/%v/datadog_app_key` where `%v` is `default`, this can be changed through `datadog_app_secret_key` & `datadog_api_secret_key` variables.
+The output Keys in the deployed account will be `/datadog/datadog_api_key` and `/datadog/datadog_app_key`.
+
 
 ```yaml
 components:
@@ -24,9 +34,27 @@ components:
           workspace_enabled: true
       vars:
         enabled: true
+        name: datadog-configuration
         datadog_secrets_store_type: SSM
         datadog_secrets_source_store_account_stage: auto
-        datadog_secrets_source_store_account_region: "us-west-2"
+        datadog_secrets_source_store_account_region: "us-east-2"
+```
+
+Here is a snippet of using the `datadog_keys` submodule:
+
+```terraform
+module "datadog_configuration" {
+  source  = "../datadog-configuration/modules/datadog_keys"
+  region  = var.region
+  context = module.this.context
+}
+
+provider "datadog" {
+  api_key  = module.datadog_configuration.datadog_api_key
+  app_key  = module.datadog_configuration.datadog_app_key
+  api_url  = module.datadog_configuration.datadog_api_url
+  validate = local.enabled
+}
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -110,6 +138,7 @@ components:
 | <a name="output_datadog_app_key_location"></a> [datadog\_app\_key\_location](#output\_datadog\_app\_key\_location) | The Datadog APP key location in the secrets store |
 | <a name="output_datadog_secrets_store_type"></a> [datadog\_secrets\_store\_type](#output\_datadog\_secrets\_store\_type) | The type of the secrets store to use for Datadog API and APP keys |
 | <a name="output_datadog_site"></a> [datadog\_site](#output\_datadog\_site) | The Datadog site to use |
+| <a name="output_region"></a> [region](#output\_region) | The region where the keys will be created |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
