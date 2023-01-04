@@ -5,7 +5,7 @@ variable "region" {
 
 variable "tfstate_environment_name" {
   type        = string
-  description = "Moniker for environment with tfstate-backend deployed"
+  description = "The name of the environment where `tfstate-backend` is provisioned"
 }
 
 variable "global_environment_name" {
