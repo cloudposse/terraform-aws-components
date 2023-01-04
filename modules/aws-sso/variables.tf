@@ -3,6 +3,11 @@ variable "region" {
   description = "AWS Region"
 }
 
+variable "tfstate_environment_name" {
+  type        = string
+  description = "Moniker for environment with tfstate-backend deployed"
+}
+
 variable "global_environment_name" {
   type        = string
   description = "Global environment name"
