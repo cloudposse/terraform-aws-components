@@ -1,16 +1,6 @@
+
 locals {
   enabled = module.this.enabled
-
-  datadog_api_key = local.enabled ? (var.secrets_store_type == "ASM" ? (
-    data.aws_secretsmanager_secret_version.datadog_api_key[0].secret_string) :
-    data.aws_ssm_parameter.datadog_api_key[0].value
-  ) : null
-
-  datadog_app_key = local.enabled ? (var.secrets_store_type == "ASM" ? (
-    data.aws_secretsmanager_secret_version.datadog_app_key[0].secret_string) :
-    data.aws_ssm_parameter.datadog_app_key[0].value
-  ) : null
-
 
   aws_account_id = join("", data.aws_caller_identity.current.*.account_id)
   aws_partition  = join("", data.aws_partition.current.*.partition)
@@ -105,7 +95,7 @@ data "aws_iam_policy_document" "default" {
   }
 
   # We're using two AWSCloudTrailWrite statements with the only
-  # difference being the principals identifier to avoid a bug 
+  # difference being the principals identifier to avoid a bug
   # where TF frequently wants to reorder multiple principals
   statement {
     sid = "AWSCloudTrailWrite2"
@@ -146,7 +136,7 @@ module "bucket_policy" {
 
   iam_policy_statements = lookup(local.policy, "Statement")
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 data "aws_ssm_parameter" "datadog_aws_role_name" {
@@ -217,7 +207,7 @@ module "archive_bucket" {
     years = null
   }
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 module "cloudtrail_s3_bucket" {
@@ -286,7 +276,7 @@ module "cloudtrail_s3_bucket" {
   # https://github.com/hashicorp/terraform/issues/5613
   allow_ssl_requests_only = false
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 module "cloudtrail" {
@@ -320,7 +310,7 @@ module "cloudtrail" {
     }
   ]
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 resource "datadog_logs_archive_order" "archive_order" {
