@@ -15,9 +15,6 @@ module "utils_example_complete" {
 }
 
 locals {
-  # if we are in the global region, use the
-  environment = module.this.environment == var.global_environment_name ? module.utils_example_complete.region_az_alt_code_maps[var.region_abbreviation_type][var.region] : var.environment
-
   context_tags = {
     for k, v in module.this.tags :
     lower(k) => v
@@ -33,18 +30,22 @@ module "datadog_configuration" {
 
   component = "datadog-configuration"
 
-  environment = local.environment
+  environment = var.global_environment_name
   context     = module.always.context
 }
 
 data "aws_ssm_parameter" "datadog_api_key" {
   count = module.this.enabled ? 1 : 0
 
+  provider = aws.dd_api_keys
+
   name = module.datadog_configuration.outputs.datadog_api_key_location
 }
 
 data "aws_ssm_parameter" "datadog_app_key" {
   count = module.this.enabled ? 1 : 0
+
+  provider = aws.dd_api_keys
 
   name = module.datadog_configuration.outputs.datadog_app_key_location
 }

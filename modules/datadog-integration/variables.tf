@@ -44,3 +44,4 @@ variable "context_host_and_filter_tags" {
   description = "Automatically add host and filter tags for these context keys"
   default     = ["namespace", "tenant", "stage"]
 }
+
