@@ -1,21 +1,26 @@
 output "datadog_api_key" {
-  value = one(data.aws_ssm_parameter.datadog_api_key[*].value)
+  value       = one(data.aws_ssm_parameter.datadog_api_key[*].value)
+  description = "Datadog API Key"
 }
 
 output "datadog_app_key" {
-  value = one(data.aws_ssm_parameter.datadog_app_key[*].value)
+  value       = one(data.aws_ssm_parameter.datadog_app_key[*].value)
+  description = "Datadog APP Key"
 }
 
 output "datadog_api_url" {
-  value = module.datadog_configuration.outputs.datadog_api_url
+  value       = module.datadog_configuration.outputs.datadog_api_url
+  description = "Datadog API URL"
 }
 
 output "datadog_site" {
-  value = module.datadog_configuration.outputs.datadog_site
+  value       = module.datadog_configuration.outputs.datadog_site
+  description = "Datadog Site"
 }
 
 output "api_key_ssm_arn" {
-  value = one(data.aws_ssm_parameter.datadog_api_key[*].arn)
+  value       = one(data.aws_ssm_parameter.datadog_api_key[*].arn)
+  description = "Datadog API Key SSM ARN"
 }
 
 output "datadog_secrets_store_type" {
