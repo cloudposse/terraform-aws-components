@@ -1,10 +1,9 @@
-provider "spacelift" {}
-
 module "spacelift" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift"
-  version = "0.49.5"
+  version = "0.50.2"
 
   context_filters = var.context_filters
+  tag_filters     = var.tag_filters
 
   stack_config_path_template = var.stack_config_path_template
   components_path            = var.spacelift_component_path

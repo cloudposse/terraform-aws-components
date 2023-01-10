@@ -1,5 +1,5 @@
 resource "aws_route53_record" "local_dns_name" {
-  zone_id = "${aws_route53_zone.parent_dns_zone.zone_id}"
+  zone_id = aws_route53_zone.parent_dns_zone.zone_id
   name    = "local"
   type    = "A"
   ttl     = "30"
@@ -7,7 +7,7 @@ resource "aws_route53_record" "local_dns_name" {
 }
 
 resource "aws_route53_record" "local_dns_wildcard" {
-  zone_id = "${aws_route53_zone.parent_dns_zone.zone_id}"
+  zone_id = aws_route53_zone.parent_dns_zone.zone_id
   name    = "*.local"
   type    = "A"
   ttl     = "30"

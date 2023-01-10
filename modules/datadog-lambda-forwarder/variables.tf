@@ -25,50 +25,13 @@ variable "lambda_reserved_concurrent_executions" {
 variable "lambda_runtime" {
   type        = string
   description = "Runtime environment for Datadog Lambda"
-  default     = "python3.7"
+  default     = "python3.8"
 }
 
 variable "tracing_config_mode" {
   type        = string
   description = "Can be either PassThrough or Active. If PassThrough, Lambda will only trace the request from an upstream service if it contains a tracing header with 'sampled=1'. If Active, Lambda will respect any tracing header it receives from an upstream service"
   default     = "PassThrough"
-}
-
-variable "dd_api_key_source" {
-  description = "One of: ARN for AWS Secrets Manager (asm) to retrieve the Datadog (DD) api key, ARN for the KMS (kms) key used to decrypt the ciphertext_blob of the api key, or the name of the SSM (ssm) parameter used to retrieve the Datadog API key"
-  type = object({
-    resource   = string
-    identifier = string
-  })
-
-  default = {
-    resource   = ""
-    identifier = ""
-  }
-
-  # Resource can be one of kms, asm, ssm ("" to disable all lambda resources)
-  validation {
-    condition     = can(regex("(kms|asm|ssm)", var.dd_api_key_source.resource)) || var.dd_api_key_source.resource == ""
-    error_message = "Provide one, and only one, ARN for (kms, asm) or name (ssm) to retrieve or decrypt Datadog api key."
-  }
-
-  # Check KMS ARN format
-  validation {
-    condition     = var.dd_api_key_source.resource == "kms" ? can(regex("arn:.*:kms:.*:key/.*", var.dd_api_key_source.identifier)) : true
-    error_message = "ARN for KMS key does not appear to be valid format (example: arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab)."
-  }
-
-  # Check ASM ARN format
-  validation {
-    condition     = var.dd_api_key_source.resource == "asm" ? can(regex("arn:.*:secretsmanager:.*:secret:.*", var.dd_api_key_source.identifier)) : true
-    error_message = "ARN for AWS Secrets Manager (asm) does not appear to be valid format (example: arn:aws:secretsmanager:us-west-2:111122223333:secret:aes128-1a2b3c)."
-  }
-
-  # Check SSM name format
-  validation {
-    condition     = var.dd_api_key_source.resource == "ssm" ? can(regex("^[a-zA-Z0-9_./-]+$", var.dd_api_key_source.identifier)) : true
-    error_message = "Name for SSM parameter does not appear to be valid format, acceptable characters are `a-zA-Z0-9_.-` and `/` to delineate hierarchies."
-  }
 }
 
 variable "dd_api_key_kms_ciphertext_blob" {
@@ -92,7 +55,7 @@ variable "dd_module_name" {
 variable "dd_forwarder_version" {
   type        = string
   description = "Version tag of Datadog lambdas to use. https://github.com/DataDog/datadog-serverless-functions/releases"
-  default     = "3.40.0"
+  default     = "3.61.0"
 }
 
 variable "forwarder_log_enabled" {
@@ -181,16 +144,6 @@ variable "lambda_policy_source_json" {
   default     = ""
 }
 
-variable "forwarder_lambda_datadog_host" {
-  type        = string
-  description = "Datadog Site to send data to. Possible values are `datadoghq.com`, `datadoghq.eu`, `us3.datadoghq.com` and `ddog-gov.com`"
-  default     = "datadoghq.com"
-  validation {
-    condition     = contains(["datadoghq.com", "datadoghq.eu", "us3.datadoghq.com", "ddog-gov.com"], var.forwarder_lambda_datadog_host)
-    error_message = "Invalid host: possible values are `datadoghq.com`, `datadoghq.eu`, `us3.datadoghq.com` and `ddog-gov.com`."
-  }
-}
-
 variable "forwarder_log_layers" {
   type        = list(string)
   description = "List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog log forwarder lambda function"
@@ -237,4 +190,38 @@ variable "context_tags" {
   type        = set(string)
   description = "List of context tags to add to each monitor"
   default     = ["namespace", "tenant", "environment", "stage"]
+}
+
+variable "lambda_arn_enabled" {
+  type        = bool
+  description = "Enable adding the Lambda Arn to this account integration"
+  default     = true
+}
+
+# No Datasource for this (yet?)
+/**
+curl -X GET "${DD_API_URL}/api/v1/integration/aws/logs/services" \
+-H "Accept: application/json" \
+-H "DD-API-KEY: ${DD_API_KEY}" \
+-H "DD-APPLICATION-KEY: ${DD_APP_KEY}" | jq '.[] | .id'
+**/
+variable "log_collection_services" {
+  type        = list(string)
+  description = "List of log collection services to enable"
+  default = [
+    "apigw-access-logs",
+    "apigw-execution-logs",
+    "elbv2",
+    "elb",
+    "cloudfront",
+    "lambda",
+    "redshift",
+    "s3"
+  ]
+}
+
+variable "datadog_forwarder_lambda_environment_variables" {
+  type        = map(string)
+  default     = {}
+  description = "Map of environment variables to pass to the Lambda Function"
 }
