@@ -20,7 +20,9 @@ resources:
     cpu: 0.5
     memory: 1Gi
 storage: "10Gi"
+pvc_enabled: false
 webhook_driven_scaling_enabled: false
+webhook_startup_timeout: "30m"
 pull_driven_scaling_enabled: false
 labels:
   - "Ubuntu"
