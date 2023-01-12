@@ -39,7 +39,7 @@ module "sso_account_assignments_root" {
 locals {
   enabled = module.this.enabled
 
-  account_map = module.account_map.outputs.full_account_map
+  account_map  = module.account_map.outputs.full_account_map
   root_account = local.account_map[module.account_map.outputs.root_account_account_name]
 
   account_assignments_groups = flatten([
