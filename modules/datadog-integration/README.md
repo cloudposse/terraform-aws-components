@@ -2,9 +2,6 @@
 
 This component is responsible for provisioning Datadog AWS integrations. 
 
-It's required that the DataDog API and APP secret keys are available in the `var.datadog_secrets_source_store_account` account
-in AWS SSM Parameter Store at the `/datadog/%v/datadog_app_key` paths (where `%v` are the corresponding account names).
-
 See Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys) for more information.
 
 ## Usage
@@ -44,6 +41,7 @@ No providers.
 | <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | ../datadog-configuration/modules/datadog_keys | n/a |
 | <a name="module_datadog_integration"></a> [datadog\_integration](#module\_datadog\_integration) | cloudposse/datadog-integration/aws | 1.0.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
+| <a name="module_store_write"></a> [store\_write](#module\_store\_write) | cloudposse/ssm-parameter-store/aws | 0.9.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources

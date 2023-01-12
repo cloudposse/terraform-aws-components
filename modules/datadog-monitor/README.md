@@ -1,4 +1,4 @@
-x# Component: `datadog-monitor`
+# Component: `datadog-monitor`
 
 This component is responsible for provisioning Datadog monitors and assigning Datadog roles to the monitors.
 
@@ -74,7 +74,6 @@ No resources.
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_datadog_api_secret_key"></a> [datadog\_api\_secret\_key](#input\_datadog\_api\_secret\_key) | The key of the Datadog API secret | `string` | `"datadog/datadog_api_key"` | no |
-| <a name="input_datadog_api_url"></a> [datadog\_api\_url](#input\_datadog\_api\_url) | The Datadog API URL | `string` | `null` | no |
 | <a name="input_datadog_app_secret_key"></a> [datadog\_app\_secret\_key](#input\_datadog\_app\_secret\_key) | The key of the Datadog Application secret | `string` | `"datadog/datadog_app_key"` | no |
 | <a name="input_datadog_monitor_context_tags"></a> [datadog\_monitor\_context\_tags](#input\_datadog\_monitor\_context\_tags) | List of context tags to add to each monitor | `set(string)` | <pre>[<br>  "namespace",<br>  "tenant",<br>  "environment",<br>  "stage"<br>]</pre> | no |
 | <a name="input_datadog_monitor_context_tags_enabled"></a> [datadog\_monitor\_context\_tags\_enabled](#input\_datadog\_monitor\_context\_tags\_enabled) | Whether to add context tags to each monitor | `bool` | `true` | no |
