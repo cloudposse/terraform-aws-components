@@ -43,7 +43,7 @@ resource "kubernetes_manifest" "provisioner" {
       ttlSecondsAfterEmpty = each.value.ttl_seconds_after_empty
       }, each.value.ttl_seconds_until_expired == null ? {} : {
       ttlSecondsUntilExpired = each.value.ttl_seconds_until_expired
-      consolidation = each.value.consolidation
+      consolidation          = each.value.consolidation
     })
   }
 
