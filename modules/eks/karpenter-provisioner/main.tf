@@ -32,7 +32,7 @@ resource "kubernetes_manifest" "provisioner" {
       providerRef = {
         name = each.value.name
       }
-      requirements = each.value.requirements
+      requirements  = each.value.requirements
       consolidation = each.value.consolidation
       # Do not include keys with null values, or else Terraform will show a perpetual diff.
       # Use `try(length(),0)` to detect both empty lists and nulls.
