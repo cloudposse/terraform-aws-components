@@ -33,7 +33,6 @@ resource "kubernetes_manifest" "provisioner" {
         name = each.value.name
       }
       requirements  = each.value.requirements
-      consolidation = each.value.consolidation
       # Do not include keys with null values, or else Terraform will show a perpetual diff.
       # Use `try(length(),0)` to detect both empty lists and nulls.
       }, try(length(each.value.taints), 0) == 0 ? {} : {
@@ -44,6 +43,7 @@ resource "kubernetes_manifest" "provisioner" {
       ttlSecondsAfterEmpty = each.value.ttl_seconds_after_empty
       }, each.value.ttl_seconds_until_expired == null ? {} : {
       ttlSecondsUntilExpired = each.value.ttl_seconds_until_expired
+      consolidation = each.value.consolidation
     })
   }
 
