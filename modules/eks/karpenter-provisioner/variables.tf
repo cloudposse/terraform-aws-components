@@ -21,7 +21,7 @@ variable "provisioners" {
     ttl_seconds_until_expired = number
     # Continuously binpack containers into least possible number of nodes. Mutually exclusive with ttl_seconds_after_empty.
     consolidation = object({
-      enabled      = bool
+      enabled = bool
     })
     # Karpenter provisioner total CPU limit for all pods running on the EC2 instances launched by Karpenter
     total_cpu_limit = string
