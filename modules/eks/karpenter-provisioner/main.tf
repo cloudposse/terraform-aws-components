@@ -22,29 +22,29 @@ resource "kubernetes_manifest" "provisioner" {
     metadata = {
       name = each.value.name
     }
-    spec = merge({
-      limits = {
-        resources = {
-          cpu    = each.value.total_cpu_limit
-          memory = each.value.total_memory_limit
+    spec = merge(
+      {
+        limits = {
+          resources = {
+            cpu    = each.value.total_cpu_limit
+            memory = each.value.total_memory_limit
+          }
         }
-      }
-      providerRef = {
-        name = each.value.name
-      }
-      requirements  = each.value.requirements
-      consolidation = each.value.consolidation
-      # Do not include keys with null values, or else Terraform will show a perpetual diff.
-      # Use `try(length(),0)` to detect both empty lists and nulls.
-      }, try(length(each.value.taints), 0) == 0 ? {} : {
-      taints = each.value.taints
-      }, try(length(each.value.startup_taints), 0) == 0 ? {} : {
-      startupTaints = each.value.startup_taints
-      }, each.value.ttl_seconds_after_empty == null ? {} : {
-      ttlSecondsAfterEmpty = each.value.ttl_seconds_after_empty
-      }, each.value.ttl_seconds_until_expired == null ? {} : {
-      ttlSecondsUntilExpired = each.value.ttl_seconds_until_expired
-    })
+        providerRef = {
+          name = each.value.name
+        }
+        requirements  = each.value.requirements
+        consolidation = each.value.consolidation
+        # Do not include keys with null values, or else Terraform will show a perpetual diff.
+        # Use `try(length(),0)` to detect both empty lists and nulls.
+      },
+      try(length(each.value.taints), 0) == 0 ? {} : { taints = each.value.taints },
+      try(length(each.value.startup_taints), 0) == 0 ? {} : { startupTaints = each.value.startup_taints },
+      each.value.ttl_seconds_after_empty == null ? {} : { ttlSecondsAfterEmpty = each.value.ttl_seconds_after_empty },
+      each.value.ttl_seconds_until_expired == null ? {} : {
+        ttlSecondsUntilExpired = each.value.ttl_seconds_until_expired
+      },
+    )
   }
 
   depends_on = [kubernetes_manifest.provider]
