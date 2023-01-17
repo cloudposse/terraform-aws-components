@@ -109,11 +109,13 @@ module "karpenter" {
     }),
     # karpenter-specific values
     yamlencode({
-      aws = {
-        defaultInstanceProfile = one(aws_iam_instance_profile.default[*].name)
+      settings = {
+        aws = {
+          defaultInstanceProfile = one(aws_iam_instance_profile.default[*].name)
+          clusterName            = local.eks_cluster_id
+          clusterEndpoint        = local.eks_cluster_endpoint
+        }
       }
-      clusterName     = local.eks_cluster_id
-      clusterEndpoint = local.eks_cluster_endpoint
     }),
     # additional values
     yamlencode(var.chart_values)
