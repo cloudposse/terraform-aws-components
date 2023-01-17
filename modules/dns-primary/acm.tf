@@ -11,12 +11,12 @@ locals {
 module "acm" {
   for_each = local.domains_set
 
-  source  = "cloudposse/acm-request-certificate/aws"
-  version = "0.17.0"
+  source = "cloudposse/acm-request-certificate/aws"
+  // Note: 0.17.0 is a 'preview' release, so we're using 0.16.2
+  version = "0.16.2"
 
   enabled = local.certificate_enabled
 
-  zone_name                         = each.value
   domain_name                       = each.value
   process_domain_validation_options = true
   ttl                               = 300
