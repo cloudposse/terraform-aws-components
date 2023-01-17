@@ -16,6 +16,7 @@ module "acm" {
 
   enabled = local.certificate_enabled
 
+  zone_name                         = each.value
   domain_name                       = each.value
   process_domain_validation_options = true
   ttl                               = 300
