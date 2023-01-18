@@ -181,13 +181,13 @@ variable "runners" {
     webhook_startup_timeout        = optional(string, null)
     pull_driven_scaling_enabled    = bool
     labels                         = list(string)
-    storage                        = optional(string, false)
+    storage                        = optional(string, null)
     pvc_enabled                    = optional(string, false)
     resources = object({
       limits = object({
         cpu               = string
         memory            = string
-        ephemeral_storage = optional(string, false)
+        ephemeral_storage = optional(string, null)
       })
       requests = object({
         cpu    = string
