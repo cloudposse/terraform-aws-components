@@ -32,11 +32,10 @@ locals {
 
 module "sg" {
   source  = "cloudposse/security-group/aws"
-  version = "1.0.1"
+  version = "2.0.0"
 
-  security_group_description = "Security group for Bastion Hosts"
-  allow_all_egress           = true
-  vpc_id                     = local.vpc_id
+  rules_map = var.security_group_rules
+  vpc_id    = local.vpc_id
 
   context = module.this.context
 }
