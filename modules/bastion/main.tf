@@ -34,8 +34,8 @@ module "sg" {
   source  = "cloudposse/security-group/aws"
   version = "2.0.0"
 
-  rules_map = var.security_group_rules
-  vpc_id    = local.vpc_id
+  rules  = var.security_group_rules
+  vpc_id = local.vpc_id
 
   context = module.this.context
 }
