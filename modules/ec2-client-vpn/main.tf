@@ -31,7 +31,7 @@ locals {
 
 module "ec2_client_vpn" {
   source  = "cloudposse/ec2-client-vpn/aws"
-  version = "0.11.0"
+  version = "0.14.0"
 
   ca_common_name     = var.ca_common_name
   root_common_name   = var.root_common_name
