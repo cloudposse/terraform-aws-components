@@ -100,7 +100,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ec2_client_vpn"></a> [ec2\_client\_vpn](#module\_ec2\_client\_vpn) | cloudposse/ec2-client-vpn/aws | 0.13.0 |
+| <a name="module_ec2_client_vpn"></a> [ec2\_client\_vpn](#module\_ec2\_client\_vpn) | cloudposse/ec2-client-vpn/aws | 0.14.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.3 |
