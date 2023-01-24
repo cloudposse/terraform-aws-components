@@ -157,7 +157,7 @@ variable "stack_destructor_enabled" {
 }
 
 variable "context_filters" {
-  type        = map(any)
+  type        = map(list(string))
   description = "Context filters to create stacks for specific context information. Valid lists are `namespaces`, `environments`, `tenants`, `stages`."
   default     = {}
 }
