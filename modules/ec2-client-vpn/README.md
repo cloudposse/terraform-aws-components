@@ -89,7 +89,7 @@ Successful tests have been seen with MSK and RDS.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 | <a name="requirement_awsutils"></a> [awsutils](#requirement\_awsutils) | >= 0.11.0 |
 
 ## Providers
