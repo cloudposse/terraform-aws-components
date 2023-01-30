@@ -73,7 +73,7 @@ New Cluster Checks can be added to defaults to be applied in every account. Alte
 
 Once they are added, and properly configured, the new checks show up in the network monitor creation under `ssl` and `Http`
 
-**Please note:** the yaml file name doesn't matter, but the root key inside which is `something.yaml` does matter. this is following [datadogs docs](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files) for <integration name>.yaml.
+**Please note:** the yaml file name doesn't matter, but the root key inside which is `something.yaml` does matter. this is following [datadogs docs](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files) for `<integration name>.yaml`.
 
 ## Monitoring Cluster Checks
 
@@ -89,7 +89,7 @@ https-checks:
     HTTPS Check failed on <code>{{instance.name}}</code>
       in Stage: <code>{{stage.name}}</code>
   escalation_message: ""
-  tags: 
+  tags:
     managed-by: Terraform
   notify_no_data: false
   notify_audit: false
