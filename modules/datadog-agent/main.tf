@@ -69,6 +69,19 @@ module "datadog_cluster_check_yaml_config" {
   context = module.this.context
 }
 
+module "values_merge" {
+  source  = "cloudposse/config/yaml//modules/deepmerge"
+  version = "1.0.1"
+
+  # Merge in order: datadog values, var.values
+  maps = [
+    yamldecode(
+      file("${path.module}/values.yaml")
+    ),
+    var.values,
+  ]
+}
+
 resource "kubernetes_namespace" "default" {
   count = local.enabled && var.create_namespace ? 1 : 0
 
@@ -99,7 +112,7 @@ module "datadog_agent" {
   eks_cluster_oidc_issuer_url = module.eks.outputs.eks_cluster_identity_oidc_issuer
 
   values = [
-    file("${path.module}/values.yaml")
+    yamlencode(module.values_merge.merged)
   ]
 
   set_sensitive = [
