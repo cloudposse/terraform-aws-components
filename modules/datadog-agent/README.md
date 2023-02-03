@@ -220,7 +220,7 @@ https-checks:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_cluster_checks"></a> [cluster\_checks](#output\_cluster\_checks) | n/a |
+| <a name="output_cluster_checks"></a> [cluster\_checks](#output\_cluster\_checks) | Cluster Checks for the cluster |
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
