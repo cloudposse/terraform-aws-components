@@ -140,7 +140,7 @@ https-checks:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_datadog_agent"></a> [datadog\_agent](#module\_datadog\_agent) | cloudposse/helm-release/aws | 0.6.0 |
+| <a name="module_datadog_agent"></a> [datadog\_agent](#module\_datadog\_agent) | cloudposse/helm-release/aws | 0.7.0 |
 | <a name="module_datadog_cluster_check_yaml_config"></a> [datadog\_cluster\_check\_yaml\_config](#module\_datadog\_cluster\_check\_yaml\_config) | cloudposse/config/yaml | 1.0.1 |
 | <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | ../datadog-configuration/modules/datadog_keys | n/a |
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
