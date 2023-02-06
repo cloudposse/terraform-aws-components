@@ -146,8 +146,9 @@ variable "reader_dns_name_part" {
 }
 
 variable "additional_databases" {
-  type    = set(string)
-  default = []
+  type        = set(string)
+  default     = []
+  description = "Additional databases to be created with the cluster"
 }
 
 variable "ssm_path_prefix" {

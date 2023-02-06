@@ -64,7 +64,7 @@ components:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_additional_databases"></a> [additional\_databases](#input\_additional\_databases) | n/a | `set(string)` | `[]` | no |
+| <a name="input_additional_databases"></a> [additional\_databases](#input\_additional\_databases) | Additional databases to be created with the cluster | `set(string)` | `[]` | no |
 | <a name="input_additional_grants"></a> [additional\_grants](#input\_additional\_grants) | Create additional database user with specified grants.<br>If `var.ssm_password_source` is set, passwords will be retrieved from SSM parameter store,<br>otherwise, passwords will be generated and stored in SSM parameter store under the service's key. | <pre>map(list(object({<br>    grant : list(string)<br>    db : string<br>  })))</pre> | `{}` | no |
 | <a name="input_additional_schemas"></a> [additional\_schemas](#input\_additional\_schemas) | Create additonal schemas for a given database.<br>If no database is given, the schema will use the database used by the provider configuration | <pre>map(object({<br>    database : string<br>  }))</pre> | `{}` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |

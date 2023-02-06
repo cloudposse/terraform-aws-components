@@ -48,8 +48,9 @@ variable "cluster_enabled" {
 }
 
 variable "additional_databases" {
-  type    = set(string)
-  default = []
+  type        = set(string)
+  default     = []
+  description = "Additional databases to be created with the cluster"
 }
 
 variable "additional_users" {
