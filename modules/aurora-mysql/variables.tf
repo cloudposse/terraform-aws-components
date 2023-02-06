@@ -153,8 +153,9 @@ variable "auto_minor_version_upgrade" {
 }
 
 variable "publicly_accessible" {
-  type    = bool
-  default = false
+  type        = bool
+  default     = false
+  description = "Set to true to create the cluster in a public subnet"
 }
 
 variable "eks_component_names" {
