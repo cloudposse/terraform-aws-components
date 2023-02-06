@@ -133,7 +133,7 @@ components:
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 | <a name="input_timeout"></a> [timeout](#input\_timeout) | Time in seconds to wait for any individual kubernetes operation (like Jobs for hooks). Defaults to `300` seconds | `number` | `null` | no |
-| <a name="input_txt_prefix"></a> [txt\_prefix](#input\_txt\_prefix) | Prefix to create a TXT record with a name following the pattern prefix.<CNAME record>. | `string` | `"external-dns"` | no |
+| <a name="input_txt_prefix"></a> [txt\_prefix](#input\_txt\_prefix) | Prefix to create a TXT record with a name following the pattern prefix.`<CNAME record>`. | `string` | `"external-dns"` | no |
 | <a name="input_wait"></a> [wait](#input\_wait) | Will wait until all resources are in a ready state before marking the release as successful. It will wait for as long as `timeout`. Defaults to `true`. | `bool` | `null` | no |
 
 ## Outputs

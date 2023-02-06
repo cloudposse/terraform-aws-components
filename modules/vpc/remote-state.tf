@@ -1,10 +1,8 @@
-
-
 module "vpc_flow_logs_bucket" {
   count = var.vpc_flow_logs_enabled ? 1 : 0
 
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.0.0"
+  version = "1.3.1"
 
   component   = "vpc-flow-logs-bucket"
   environment = var.vpc_flow_logs_bucket_environment_name
