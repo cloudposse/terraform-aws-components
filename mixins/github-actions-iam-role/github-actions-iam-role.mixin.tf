@@ -48,6 +48,8 @@ module "gha_assume_role" {
   trusted_github_repos = var.github_actions_allowed_repos
 
   context = module.gha_role_name.context
+
+  stage = "auto"
 }
 
 resource "aws_iam_role" "github_actions" {
