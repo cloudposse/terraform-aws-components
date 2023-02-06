@@ -22,7 +22,6 @@ components:
       vars:
         enabled: true
         name: vpc
-        eks_tags_enabled: true
         availability_zones:
           - "a"
           - "b"
