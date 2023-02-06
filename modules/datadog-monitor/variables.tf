@@ -104,14 +104,3 @@ variable "message_postfix" {
   description = "Additional information to put after each monitor message"
   default     = ""
 }
-
-variable "datadog_api_url" {
-  type        = string
-  description = "The Datadog API URL"
-  default     = null
-
-  validation {
-    condition     = var.datadog_api_url == null ? true : contains(["https://api.datadoghq.com/", "https://api.us3.datadoghq.com/", "https://api.us5.datadoghq.com/", "https://api.datadoghq.eu/", "https://api.ddog-gov.com/"], var.datadog_api_url)
-    error_message = "Allowed values: null, `https://api.datadoghq.com/`, `https://api.us3.datadoghq.com/`, `https://api.us5.datadoghq.com/`, `https://api.datadoghq.eu/`, `https://api.ddog-gov.com/`."
-  }
-}

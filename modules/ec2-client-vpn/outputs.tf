@@ -21,4 +21,5 @@ output "client_configuration" {
 output "full_client_configuration" {
   value       = module.ec2_client_vpn.full_client_configuration
   description = "Client configuration including client certificate and private key for mutual authentication"
+  sensitive   = true
 }

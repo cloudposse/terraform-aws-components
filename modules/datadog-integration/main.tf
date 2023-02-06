@@ -20,7 +20,33 @@ locals {
   # Get the context tags and skip tags that we don't want applied to every resource.
   # i.e. we don't want name since each metric would be called something other than this component's name.
   # i.e. we don't want environment since each metric would come from gbl or a region and this component is deployed in gbl.
-  context_tags = [for k, v in module.this.tags : "${lower(k)}:${v}" if contains(var.context_host_and_filter_tags, lower(k))]
-  filter_tags  = distinct(concat(var.filter_tags, local.context_tags))
-  host_tags    = distinct(concat(var.host_tags, local.context_tags))
+  context_tags = [
+    for k, v in module.this.tags : "${lower(k)}:${v}" if contains(var.context_host_and_filter_tags, lower(k))
+  ]
+  filter_tags = distinct(concat(var.filter_tags, local.context_tags))
+  host_tags   = distinct(concat(var.host_tags, local.context_tags))
+}
+
+module "store_write" {
+  count   = local.enabled ? 1 : 0
+  source  = "cloudposse/ssm-parameter-store/aws"
+  version = "0.9.1"
+  parameter_write = [
+    {
+      name        = "/datadog/datadog_external_id"
+      value       = join("", module.datadog_integration[*].datadog_external_id)
+      type        = "String"
+      overwrite   = "true"
+      description = "External identifier for our dd integration"
+    },
+    {
+      name        = "/datadog/aws_role_name"
+      value       = join("", module.datadog_integration[*].aws_role_name)
+      type        = "String"
+      overwrite   = "true"
+      description = "Name of the AWS IAM role used by our dd integration"
+    }
+  ]
+
+  context = module.this.context
 }

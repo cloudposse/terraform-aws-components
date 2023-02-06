@@ -41,9 +41,6 @@ components:
           transfer-sftp:
             name: "/aws/transfer/s-xxxxxxxxxxxx"
             filter_pattern: ""
-        dd_api_key_source:
-          resource: "ssm"
-          identifier: "datadog/datadog_api_key"
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -67,7 +64,7 @@ components:
 |------|--------|---------|
 | <a name="module_datadog-integration"></a> [datadog-integration](#module\_datadog-integration) | cloudposse/stack-config/yaml//modules/remote-state | 1.3.1 |
 | <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | ../datadog-configuration/modules/datadog_keys | n/a |
-| <a name="module_datadog_lambda_forwarder"></a> [datadog\_lambda\_forwarder](#module\_datadog\_lambda\_forwarder) | cloudposse/datadog-lambda-forwarder/aws | 1.0.0 |
+| <a name="module_datadog_lambda_forwarder"></a> [datadog\_lambda\_forwarder](#module\_datadog\_lambda\_forwarder) | cloudposse/datadog-lambda-forwarder/aws | 1.1.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_log_group_prefix"></a> [log\_group\_prefix](#module\_log\_group\_prefix) | cloudposse/label/null | 0.25.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -93,7 +90,6 @@ components:
 | <a name="input_context_tags_enabled"></a> [context\_tags\_enabled](#input\_context\_tags\_enabled) | Whether to add context tags to add to each monitor | `bool` | `true` | no |
 | <a name="input_datadog_forwarder_lambda_environment_variables"></a> [datadog\_forwarder\_lambda\_environment\_variables](#input\_datadog\_forwarder\_lambda\_environment\_variables) | Map of environment variables to pass to the Lambda Function | `map(string)` | `{}` | no |
 | <a name="input_dd_api_key_kms_ciphertext_blob"></a> [dd\_api\_key\_kms\_ciphertext\_blob](#input\_dd\_api\_key\_kms\_ciphertext\_blob) | CiphertextBlob stored in environment variable DD\_KMS\_API\_KEY used by the lambda function, along with the KMS key, to decrypt Datadog API key | `string` | `""` | no |
-| <a name="input_dd_api_key_source"></a> [dd\_api\_key\_source](#input\_dd\_api\_key\_source) | One of: ARN for AWS Secrets Manager (asm) to retrieve the Datadog (DD) api key, ARN for the KMS (kms) key used to decrypt the ciphertext\_blob of the api key, or the name of the SSM (ssm) parameter used to retrieve the Datadog API key | <pre>object({<br>    resource   = string<br>    identifier = string<br>  })</pre> | <pre>{<br>  "identifier": "",<br>  "resource": ""<br>}</pre> | no |
 | <a name="input_dd_artifact_filename"></a> [dd\_artifact\_filename](#input\_dd\_artifact\_filename) | The Datadog artifact filename minus extension | `string` | `"aws-dd-forwarder"` | no |
 | <a name="input_dd_forwarder_version"></a> [dd\_forwarder\_version](#input\_dd\_forwarder\_version) | Version tag of Datadog lambdas to use. https://github.com/DataDog/datadog-serverless-functions/releases | `string` | `"3.61.0"` | no |
 | <a name="input_dd_module_name"></a> [dd\_module\_name](#input\_dd\_module\_name) | The Datadog GitHub repository name | `string` | `"datadog-serverless-functions"` | no |
