@@ -24,17 +24,26 @@ locals {
   # 9. The Lambda@Edge functions created by modules/lambda-edge-preview need to be associated with the CloudFront Distribution.
   #
   # This isn't necessarily the only way to get preview environments to work, but these are the constraints required to achieve the currently tested implementation in modules/lambda-edge-preview.
-  preview_environment_enabled            = local.enabled && var.preview_environment_enabled
-  lambda_edge_redirect_404_enabled       = local.enabled && var.lambda_edge_redirect_404_enabled
-  preview_environment_wildcard_domain    = format("%v.%v", "*", local.site_fqdn)
-  aliases                                = concat([local.site_fqdn], local.preview_environment_enabled ? [local.preview_environment_wildcard_domain] : [])
-  external_aliases                       = local.preview_environment_enabled ? [] : var.external_aliases
-  subject_alternative_names              = local.preview_environment_enabled ? [local.preview_environment_wildcard_domain] : var.external_aliases
-  s3_website_enabled                     = var.s3_website_enabled || local.preview_environment_enabled
-  s3_website_password_enabled            = var.s3_website_password_enabled || local.preview_environment_enabled
-  s3_object_ownership                    = local.preview_environment_enabled ? "BucketOwnerEnforced" : var.s3_object_ownership
-  block_origin_public_access_enabled     = var.block_origin_public_access_enabled && !local.preview_environment_enabled
-  origin_allow_ssl_requests_only         = var.origin_allow_ssl_requests_only && !local.preview_environment_enabled
+  preview_environment_enabled         = local.enabled && var.preview_environment_enabled
+  lambda_edge_redirect_404_enabled    = local.enabled && var.lambda_edge_redirect_404_enabled
+  preview_environment_wildcard_domain = format("%v.%v", "*", local.site_fqdn)
+  aliases                             = concat([local.site_fqdn], local.preview_environment_enabled ? [local.preview_environment_wildcard_domain] : [])
+  external_aliases                    = local.preview_environment_enabled ? [] : var.external_aliases
+  subject_alternative_names           = local.preview_environment_enabled ? [local.preview_environment_wildcard_domain] : var.external_aliases
+  s3_website_enabled                  = var.s3_website_enabled || local.preview_environment_enabled
+  s3_website_password_enabled         = var.s3_website_password_enabled || local.preview_environment_enabled
+  s3_object_ownership                 = local.preview_environment_enabled ? "BucketOwnerEnforced" : var.s3_object_ownership
+  block_origin_public_access_enabled  = var.block_origin_public_access_enabled && !local.preview_environment_enabled
+
+  # SSL Requirements by s3 bucket configuration
+  # | s3 website enabled | preview enabled | SSL Enabled |
+  # |--------------------|-----------------|-------------|
+  # | false              | false           | true        |
+  # | true               | false           | false       |
+  # | true               | true            | false       |
+  # Preview must have website_enabled.
+  origin_allow_ssl_requests_only = var.origin_allow_ssl_requests_only && !local.s3_website_enabled
+
   forward_header_values                  = local.preview_environment_enabled ? concat(var.forward_header_values, ["x-forwarded-host"]) : var.forward_header_values
   cloudfront_default_ttl                 = local.preview_environment_enabled ? 0 : var.cloudfront_default_ttl
   cloudfront_min_ttl                     = local.preview_environment_enabled ? 0 : var.cloudfront_min_ttl
