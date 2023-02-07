@@ -146,23 +146,9 @@ variable "reader_dns_name_part" {
 }
 
 variable "additional_databases" {
-  type    = set(string)
-  default = []
-}
-
-variable "additional_users" {
-  # map key is service name, becomes part of SSM key name
-  type = map(object({
-    db_user : string
-    db_password : string
-    grants : list(object({
-      grant : list(string)
-      db : string
-      schema : string
-      object_type : string
-    }))
-  }))
-  default = {}
+  type        = set(string)
+  default     = []
+  description = "Additional databases to be created with the cluster"
 }
 
 variable "ssm_path_prefix" {
@@ -267,9 +253,43 @@ variable "snapshot_identifier" {
   description = "Specifies whether or not to create this cluster from a snapshot"
 }
 
-variable "vpc_spacelift_stage_name" {
+variable "eks_security_group_enabled" {
+  type        = bool
+  description = "Use the eks default security group"
+  default     = false
+}
+
+variable "eks_component_names" {
+  type        = set(string)
+  description = "The names of the eks components"
+  default     = ["eks/cluster"]
+}
+
+variable "allow_ingress_from_vpc_accounts" {
+  type = list(object({
+    environment = optional(string)
+    stage       = optional(string)
+    tenant      = optional(string)
+  }))
+  default     = []
+  description = <<-EOF
+    List of account contexts to pull VPC ingress CIDR and add to cluster security group.
+    e.g.
+    {
+      environment = "ue2",
+      stage       = "auto",
+      tenant      = "core"
+    }
+  EOF
+}
+
+variable "ssm_password_source" {
   type        = string
-  default     = "auto"
-  description = "The name of the stage of the `vpc` component where `spacelift-worker-pool` is provisioned"
+  default     = ""
+  description = <<-EOT
+    If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved from SSM using 
+    `var.ssm_password_source` and the database username. If this value is not set, 
+    a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster.
+    EOT
 }
 

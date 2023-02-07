@@ -1,9 +1,14 @@
 locals {
   enabled = module.this.enabled
 
-  vpc_id                  = module.vpc.outputs.vpc_id
-  private_subnet_ids      = module.vpc.outputs.private_subnet_ids
-  allowed_security_groups = [module.eks.outputs.eks_cluster_managed_security_group_id]
+  vpc_id             = module.vpc.outputs.vpc_id
+  private_subnet_ids = module.vpc.outputs.private_subnet_ids
+
+  eks_security_group_enabled = local.enabled && var.eks_security_group_enabled
+  allowed_security_groups = [
+    for eks in module.eks :
+    eks.outputs.eks_cluster_managed_security_group_id
+  ]
 
   zone_id = module.dns_gbl_delegated.outputs.default_dns_zone_id
 
@@ -15,8 +20,13 @@ locals {
   cluster_dns_name        = format("%v%v", local.cluster_dns_name_prefix, var.cluster_dns_name_part)
   reader_dns_name         = format("%v%v", local.cluster_dns_name_prefix, var.reader_dns_name_part)
 
-  ssm_path_prefix        = format("/%s/%s", var.ssm_path_prefix, module.cluster.id)
-  ssm_cluster_key_prefix = format("%s/%s", local.ssm_path_prefix, "cluster")
+  allowed_cidr_blocks = concat(
+    var.allowed_cidr_blocks,
+    [
+      for k in keys(module.vpc_ingress) :
+      module.vpc_ingress[k].outputs.vpc_cidr
+    ]
+  )
 }
 
 module "cluster" {
