@@ -3,7 +3,7 @@ variable "relay_email" {
 }
 
 variable "forward_emails" {
-  type = "map"
+  type = map(string)
 
   default = {
     "ops@example.com" = ["example@gmail.com"]
