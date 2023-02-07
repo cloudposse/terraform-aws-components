@@ -22,7 +22,7 @@ locals {
     global_accelerator.outputs.listener_ids[0]
   ]
 
-  ingress_controller_group_name = module.this.name
+  ingress_controller_group_name = coalesce(var.alb_group_name, module.this.name)
 
   kube_tags = join(",", [for k, v in module.this.tags : "${k}=${v}"])
 

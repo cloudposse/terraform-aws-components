@@ -31,5 +31,5 @@ spec:
   - githubEvent:
       workflowJob: {}
     amount: 1
-    duration: "{{ .Values.scale_down_delay_seconds }}s"
+    duration: "{{ .Values.webhook_startup_timeout }}"
   {{- end }}

@@ -1,6 +1,6 @@
 module "kms_key_rds" {
   source  = "cloudposse/kms-key/aws"
-  version = "0.12.0"
+  version = "0.12.1"
 
   description             = "KMS key for Aurora Postgres"
   deletion_window_in_days = 10

@@ -1,8 +1,3 @@
-variable "region" {
-  type        = string
-  description = "AWS Region"
-}
-
 variable "runner_image" {
   type        = string
   description = "Full address & tag of the Spacelift runner image (e.g. on ECR)"
@@ -162,7 +157,7 @@ variable "stack_destructor_enabled" {
 }
 
 variable "context_filters" {
-  type        = map(any)
+  type        = map(list(string))
   description = "Context filters to create stacks for specific context information. Valid lists are `namespaces`, `environments`, `tenants`, `stages`."
   default     = {}
 }
@@ -171,6 +166,12 @@ variable "tag_filters" {
   type        = map(string)
   description = "A map of tags that will filter stack creation by the matching `tags` set in a component `vars` configuration."
   default     = {}
+}
+
+variable "administrative_push_policy_enabled" {
+  type        = bool
+  description = "Flag to enable/disable the global administrative push policy"
+  default     = true
 }
 
 variable "administrative_trigger_policy_enabled" {
@@ -197,8 +198,14 @@ variable "before_init" {
   default     = []
 }
 
-variable "space_id" {
+variable "attachment_space_id" {
   type        = string
-  description = "Place the stack(s) in the specified space_id."
+  description = "Specify the space ID for attachments (e.g. policies, contexts, etc.)"
   default     = "legacy"
+}
+
+variable "stacks_space_id" {
+  type        = string
+  description = "Override the space ID for all stacks (unless the stack config has `dedicated_space` set to true). Otherwise, it will default to the admin stack's space."
+  default     = null
 }

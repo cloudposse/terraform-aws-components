@@ -1,12 +1,15 @@
 module "spacelift" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift"
-  version = "0.50.2"
+  version = "0.51.3"
 
   context_filters = var.context_filters
   tag_filters     = var.tag_filters
 
   stack_config_path_template = var.stack_config_path_template
   components_path            = var.spacelift_component_path
+
+  stacks_space_id     = var.stacks_space_id
+  attachment_space_id = var.attachment_space_id
 
   branch                  = var.git_branch
   repository              = var.git_repository
@@ -30,6 +33,7 @@ module "spacelift" {
   policies_by_name_enabled = var.policies_by_name_enabled
   policies_by_name_path    = format("%s/rego-policies", path.module)
 
+  administrative_push_policy_enabled    = var.administrative_push_policy_enabled
   administrative_trigger_policy_enabled = var.administrative_trigger_policy_enabled
 
   administrative_stack_drift_detection_enabled   = var.administrative_stack_drift_detection_enabled

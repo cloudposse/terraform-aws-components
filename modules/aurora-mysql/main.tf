@@ -37,6 +37,18 @@ locals {
 
   cluster_domain    = trimprefix(module.aurora_mysql.endpoint, "${module.aurora_mysql.cluster_identifier}.cluster-")
   cluster_subdomain = var.mysql_name == "" ? module.this.name : "${var.mysql_name}.${module.this.name}"
+
+  # Join a list of all allowed cidr blocks from:
+  # 1. VPCs from all given accounts
+  # 2. Additionally given CIDR blocks
+  all_allowed_cidr_blocks = concat(
+    var.allowed_cidr_blocks,
+    [
+      for k in keys(module.vpc_ingress) :
+      module.vpc_ingress[k].outputs.vpc_cidr
+    ]
+  )
+  allowed_cidr_blocks = var.publicly_accessible ? coalescelist(local.all_allowed_cidr_blocks, ["0.0.0.0/0"]) : local.all_allowed_cidr_blocks
 }
 
 module "cluster" {

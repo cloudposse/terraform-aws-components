@@ -40,11 +40,14 @@ module "log_group_prefix" {
 
 module "datadog_lambda_forwarder" {
   source  = "cloudposse/datadog-lambda-forwarder/aws"
-  version = "1.0.0"
+  version = "1.1.0"
 
-  cloudwatch_forwarder_log_groups       = local.cloudwatch_forwarder_log_groups
-  dd_api_key_kms_ciphertext_blob        = var.dd_api_key_kms_ciphertext_blob
-  dd_api_key_source                     = var.dd_api_key_source
+  cloudwatch_forwarder_log_groups = local.cloudwatch_forwarder_log_groups
+  dd_api_key_kms_ciphertext_blob  = var.dd_api_key_kms_ciphertext_blob
+  dd_api_key_source = {
+    resource   = lower(module.datadog_configuration.datadog_secrets_store_type)
+    identifier = module.datadog_configuration.datadog_api_key_location
+  }
   dd_artifact_filename                  = var.dd_artifact_filename
   dd_forwarder_version                  = var.dd_forwarder_version
   dd_module_name                        = var.dd_module_name
@@ -75,6 +78,8 @@ module "datadog_lambda_forwarder" {
   vpclogs_cloudwatch_log_group          = var.vpclogs_cloudwatch_log_group
 
   datadog_forwarder_lambda_environment_variables = var.datadog_forwarder_lambda_environment_variables
+
+  api_key_ssm_arn = module.datadog_configuration.api_key_ssm_arn
 
   context = module.this.context
 }

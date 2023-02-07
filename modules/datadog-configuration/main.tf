@@ -7,5 +7,6 @@ locals {
   datadog_api_key = var.datadog_secrets_store_type == "ASM" ? data.aws_secretsmanager_secret_version.datadog_api_key[0].secret_string : data.aws_ssm_parameter.datadog_api_key[0].value
   datadog_app_key = var.datadog_secrets_store_type == "ASM" ? data.aws_secretsmanager_secret_version.datadog_app_key[0].secret_string : data.aws_ssm_parameter.datadog_app_key[0].value
 
-  datadog_api_url = format("https://api.%s", var.datadog_site_url)
+  datadog_site    = coalesce(var.datadog_site_url, "datadoghq.com")
+  datadog_api_url = format("https://api.%s", local.datadog_site)
 }
