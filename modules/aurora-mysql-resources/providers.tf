@@ -27,9 +27,3 @@ variable "import_role_arn" {
   default     = null
   description = "IAM Role ARN to use when importing a resource"
 }
-
-provider "mysql" {
-  endpoint = module.aurora_mysql.outputs.aurora_mysql_endpoint
-  username = module.aurora_mysql.outputs.aurora_mysql_master_username
-  password = local.mysql_admin_password
-}

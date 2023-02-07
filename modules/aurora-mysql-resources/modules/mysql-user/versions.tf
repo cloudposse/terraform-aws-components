@@ -4,11 +4,11 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.0"
+      version = ">= 4.0"
     }
     mysql = {
-      source  = "terraform-providers/mysql"
-      version = ">= 1.9"
+      source  = "petoju/mysql"
+      version = ">= 3.0.22"
     }
     random = {
       source  = "hashicorp/random"
