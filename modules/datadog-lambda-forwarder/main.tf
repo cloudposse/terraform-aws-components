@@ -110,4 +110,6 @@ resource "datadog_integration_aws_log_collection" "main" {
   count      = var.lambda_arn_enabled ? 1 : 0
   account_id = module.datadog-integration.outputs.aws_account_id
   services   = var.log_collection_services
+
+  depends_on = [module.datadog_lambda_forwarder]
 }
