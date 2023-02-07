@@ -2,15 +2,10 @@
 # This means that explicit provider blocks appear only in the root module, and downstream modules can simply
 # declare resources for that provider and have them automatically associated with the root provider configurations
 
-locals {
-  additional_users           = local.enabled ? var.additional_users : {}
-  sanitized_additional_users = { for k, v in module.additional_users : k => { for kk, vv in v : kk => vv if kk != "db_user_password" } }
-}
-
 # https://www.terraform.io/docs/providers/aws/r/rds_cluster.html
 module "aurora_postgres_cluster" {
   source  = "cloudposse/rds-cluster/aws"
-  version = "0.47.2"
+  version = "1.3.2"
 
   cluster_type   = "regional"
   engine         = var.engine
@@ -31,7 +26,7 @@ module "aurora_postgres_cluster" {
   cluster_dns_name                    = local.cluster_dns_name
   reader_dns_name                     = local.reader_dns_name
   security_groups                     = local.allowed_security_groups
-  allowed_cidr_blocks                 = concat(var.allowed_cidr_blocks, [module.vpc_spacelift.outputs.vpc_cidr])
+  allowed_cidr_blocks                 = local.allowed_cidr_blocks
   iam_database_authentication_enabled = var.iam_database_authentication_enabled
   storage_encrypted                   = var.storage_encrypted
   kms_key_arn                         = var.storage_encrypted ? module.kms_key_rds.key_arn : null
@@ -67,23 +62,4 @@ module "aurora_postgres_cluster" {
   ]
 
   context = module.cluster.context
-}
-
-resource "postgresql_database" "additional" {
-  for_each   = module.this.enabled ? var.additional_databases : []
-  name       = each.key
-  depends_on = [module.aurora_postgres_cluster.cluster_identifier]
-}
-
-module "additional_users" {
-  for_each = local.additional_users
-  source   = "./modules/postgresql-user"
-
-  service_name    = each.key
-  db_user         = each.value.db_user
-  db_password     = each.value.db_password
-  grants          = each.value.grants
-  ssm_path_prefix = local.ssm_path_prefix
-
-  depends_on = [module.aurora_postgres_cluster.cluster_identifier]
 }

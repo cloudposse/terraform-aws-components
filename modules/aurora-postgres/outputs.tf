@@ -6,6 +6,7 @@ output "database_name" {
 output "admin_username" {
   value       = module.aurora_postgres_cluster.master_username
   description = "Postgres admin username"
+  sensitive   = true
 }
 
 output "master_hostname" {
@@ -34,13 +35,16 @@ output "config_map" {
     database         = local.database_name
     hostname         = module.aurora_postgres_cluster.master_host
     port             = var.database_port
+    endpoint         = module.aurora_postgres_cluster.endpoint
     username         = module.aurora_postgres_cluster.master_username
-    password_ssm_key = format("%s/%s", local.ssm_cluster_key_prefix, "admin_password")
+    password_ssm_key = local.admin_password_key
   }
   description = "Map containing information pertinent to a PostgreSQL client configuration."
+  sensitive   = true
 }
 
-output "additional_users" {
-  value       = local.sanitized_additional_users
-  description = "Information about additional DB users created by request"
+output "kms_key_arn" {
+  value       = module.kms_key_rds.key_arn
+  description = "KMS key ARN for Aurora Postgres"
 }
+
