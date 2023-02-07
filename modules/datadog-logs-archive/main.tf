@@ -16,20 +16,26 @@ locals {
     }
   ]
 
-  non_catchall_ids = [for x in jsondecode(join("", data.http.current_order.*.body)).data : x.id if x.attributes.name != "catchall"]
-  catchall_id      = [for x in jsondecode(join("", data.http.current_order.*.body)).data : x.id if x.attributes.name == "catchall"]
+  # in case enabled: false and we have no current order to lookup
+  data_current_order_body = one(data.http.current_order.*.response_body) == null ? {} : jsondecode(data.http.current_order[0].response_body)
+  # in case there is no response (valid http request but no existing data)
+  current_order_data = lookup(local.data_current_order_body, "data", null)
+
+  non_catchall_ids = local.enabled ? [for x in local.current_order_data : x.id if x.attributes.name != "catchall"] : []
+  catchall_id      = local.enabled ? [for x in local.current_order_data : x.id if x.attributes.name == "catchall"] : []
   ordered_ids      = concat(local.non_catchall_ids, local.catchall_id)
 
-  policy = jsondecode(data.aws_iam_policy_document.default[0].json)
+  policy = local.enabled ? jsondecode(data.aws_iam_policy_document.default[0].json) : null
 }
 
 # We use the http data source due to lack of a data source for datadog_logs_archive_order
+# While the data source does exist, it doesn't provide useful information, nor how to lookup the id of a log archive order
 # This fetches the current order from DD's api so we can shuffle it around if needed to
 # keep the catchall in last place.
 data "http" "current_order" {
   count = local.enabled ? 1 : 0
 
-  url        = "https://api.datadoghq.com/api/v2/logs/config/archives"
+  url        = format("https://api.%s/api/v2/logs/config/archives", module.datadog_configuration.datadog_site)
   depends_on = [datadog_logs_archive.logs_archive, datadog_logs_archive.catchall_archive]
   request_headers = {
     Accept             = "application/json",
@@ -134,7 +140,7 @@ module "bucket_policy" {
   source  = "cloudposse/iam-policy/aws"
   version = "0.3.0"
 
-  iam_policy_statements = lookup(local.policy, "Statement")
+  iam_policy_statements = try(lookup(local.policy, "Statement"), null)
 
   context = module.this.context
 }

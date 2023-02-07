@@ -9,25 +9,6 @@ variable "additional_query_tags" {
   default     = []
 }
 
-
-variable "secrets_store_type" {
-  type        = string
-  description = "Secret store type for Datadog API and app keys. Valid values: `SSM`, `ASM`"
-  default     = "SSM"
-}
-
-variable "datadog_api_secret_key" {
-  type        = string
-  description = "The key of the Datadog API secret"
-  default     = "datadog/datadog_api_key"
-}
-
-variable "datadog_app_secret_key" {
-  type        = string
-  description = "The key of the Datadog Application secret"
-  default     = "datadog/datadog_app_key"
-}
-
 variable "catchall_enabled" {
   type        = bool
   description = "Set to true to enable a catchall for logs unmatched by any queries. This should only be used in one environment/account"
