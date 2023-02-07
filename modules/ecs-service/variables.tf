@@ -9,18 +9,6 @@ variable "cluster_attributes" {
   default     = []
 }
 
-variable "cluster_name" {
-  type        = string
-  description = "The name of the cluster"
-  default     = "ecs"
-}
-
-variable "cluster_full_name" {
-  type        = string
-  description = "The fully qualified name of the cluster. This will override the `cluster_suffix`."
-  default     = ""
-}
-
 variable "logs" {
   type        = any
   description = "Feed inputs into cloudwatch logs module"
@@ -54,12 +42,6 @@ variable "domain_name" {
   default     = ""
 }
 
-variable "public_lb_enabled" {
-  type        = bool
-  description = "Whether or not to use public LB and public subnets"
-  default     = false
-}
-
 variable "task_enabled" {
   type        = bool
   description = "Whether or not to use the ECS task module"
@@ -76,12 +58,6 @@ variable "ecr_region" {
   type        = string
   description = "The region to use for the fully qualified ECR image URL. Defaults to the current region."
   default     = ""
-}
-
-variable "account_stage" {
-  type        = string
-  description = "The ecr stage (account) name to use for the fully qualified stage parameter store."
-  default     = "auto"
 }
 
 variable "iam_policy_statements" {
@@ -155,8 +131,192 @@ variable "use_rds_client_sg" {
   default     = false
 }
 
-variable "ecs_service_enabled" {
-  default     = true
+variable "chamber_service" {
+  default     = "ecs-service"
+  description = "SSM parameter service name for use with chamber. This is used in chamber_format where /$chamber_service/$name/$container_name/$parameter would be the default."
+}
+
+variable "vanity_domain_enabled" {
+  default     = false
   type        = bool
-  description = "Whether to create the ECS service"
+  description = "Whether to use the vanity domain alias for the service"
+}
+
+variable "alb_configuration" {
+  type        = string
+  description = "The configuration to use for the ALB, specifying which cluster alb configuration to use"
+  default     = "default"
+}
+
+variable "health_check_path" {
+  type        = string
+  description = "The destination for the health check request"
+  default     = "/health"
+}
+
+variable "health_check_port" {
+  type        = string
+  default     = "traffic-port"
+  description = "The port to use to connect with the target. Valid values are either ports 1-65536, or `traffic-port`. Defaults to `traffic-port`"
+}
+
+variable "lb_catch_all" {
+  type        = bool
+  description = "Should this service act as catch all for all subdomain hosts of the vanity domain"
+  default     = false
+}
+
+variable "stickiness_type" {
+  type        = string
+  default     = "lb_cookie"
+  description = "The type of sticky sessions. The only current possible value is `lb_cookie`"
+}
+
+variable "stickiness_cookie_duration" {
+  type        = number
+  default     = 86400
+  description = "The time period, in seconds, during which requests from a client should be routed to the same target. After this time period expires, the load balancer-generated cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds)"
+}
+
+variable "stickiness_enabled" {
+  type        = bool
+  default     = true
+  description = "Boolean to enable / disable `stickiness`. Default is `true`"
+}
+
+variable "autoscaling_enabled" {
+  type        = bool
+  default     = true
+  description = "Should this service autoscale using SNS alarams"
+}
+
+variable "autoscaling_dimension" {
+  type        = string
+  description = "The dimension to use to decide to autoscale"
+  default     = "cpu"
+
+  validation {
+    condition     = contains(["cpu", "memory"], var.autoscaling_dimension)
+    error_message = "Allowed values for autoscaling_dimension are \"cpu\" or \"memory\"."
+  }
+}
+
+variable "cpu_utilization_high_threshold" {
+  type        = number
+  description = "The maximum percentage of CPU utilization average"
+  default     = 80
+}
+
+variable "cpu_utilization_high_evaluation_periods" {
+  type        = number
+  description = "Number of periods to evaluate for the alarm"
+  default     = 1
+}
+
+variable "cpu_utilization_high_period" {
+  type        = number
+  description = "Duration in seconds to evaluate for the alarm"
+  default     = 300
+}
+
+variable "cpu_utilization_high_alarm_actions" {
+  type        = list(string)
+  description = "A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High Alarm action"
+  default     = []
+}
+
+variable "cpu_utilization_high_ok_actions" {
+  type        = list(string)
+  description = "A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High OK action"
+  default     = []
+}
+
+variable "cpu_utilization_low_threshold" {
+  type        = number
+  description = "The minimum percentage of CPU utilization average"
+  default     = 20
+}
+
+variable "cpu_utilization_low_evaluation_periods" {
+  type        = number
+  description = "Number of periods to evaluate for the alarm"
+  default     = 1
+}
+
+variable "cpu_utilization_low_period" {
+  type        = number
+  description = "Duration in seconds to evaluate for the alarm"
+  default     = 300
+}
+
+variable "cpu_utilization_low_alarm_actions" {
+  type        = list(string)
+  description = "A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low Alarm action"
+  default     = []
+}
+
+variable "cpu_utilization_low_ok_actions" {
+  type        = list(string)
+  description = "A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low OK action"
+  default     = []
+}
+
+variable "memory_utilization_high_threshold" {
+  type        = number
+  description = "The maximum percentage of Memory utilization average"
+  default     = 80
+}
+
+variable "memory_utilization_high_evaluation_periods" {
+  type        = number
+  description = "Number of periods to evaluate for the alarm"
+  default     = 1
+}
+
+variable "memory_utilization_high_period" {
+  type        = number
+  description = "Duration in seconds to evaluate for the alarm"
+  default     = 300
+}
+
+variable "memory_utilization_high_alarm_actions" {
+  type        = list(string)
+  description = "A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High Alarm action"
+  default     = []
+}
+
+variable "memory_utilization_high_ok_actions" {
+  type        = list(string)
+  description = "A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High OK action"
+  default     = []
+}
+
+variable "memory_utilization_low_threshold" {
+  type        = number
+  description = "The minimum percentage of Memory utilization average"
+  default     = 20
+}
+
+variable "memory_utilization_low_evaluation_periods" {
+  type        = number
+  description = "Number of periods to evaluate for the alarm"
+  default     = 1
+}
+
+variable "memory_utilization_low_period" {
+  type        = number
+  description = "Duration in seconds to evaluate for the alarm"
+  default     = 300
+}
+
+variable "memory_utilization_low_alarm_actions" {
+  type        = list(string)
+  description = "A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low Alarm action"
+  default     = []
+}
+
+variable "memory_utilization_low_ok_actions" {
+  type        = list(string)
+  description = "A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low OK action"
+  default     = []
 }

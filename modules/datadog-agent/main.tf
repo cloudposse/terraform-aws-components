@@ -1,17 +1,17 @@
+module "datadog_configuration" {
+  source  = "../datadog-configuration/modules/datadog_keys"
+  region  = var.region
+  context = module.this.context
+}
+
+
 locals {
   enabled = module.this.enabled
 
   tags = module.this.tags
 
-  datadog_api_key = local.enabled ? (var.secrets_store_type == "ASM" ? (
-    data.aws_secretsmanager_secret_version.datadog_api_key[0].secret_string) :
-    data.aws_ssm_parameter.datadog_api_key[0].value
-  ) : null
-
-  datadog_app_key = local.enabled ? (var.secrets_store_type == "ASM" ? (
-    data.aws_secretsmanager_secret_version.datadog_app_key[0].secret_string) :
-    data.aws_ssm_parameter.datadog_app_key[0].value
-  ) : null
+  datadog_api_key = module.datadog_configuration.datadog_api_key
+  datadog_app_key = module.datadog_configuration.datadog_app_key
 
   # combine context tags with passed in datadog_tags
   # skip name since that won't be relevant for each metric
@@ -69,6 +69,19 @@ module "datadog_cluster_check_yaml_config" {
   context = module.this.context
 }
 
+module "values_merge" {
+  source  = "cloudposse/config/yaml//modules/deepmerge"
+  version = "1.0.1"
+
+  # Merge in order: datadog values, var.values
+  maps = [
+    yamldecode(
+      file("${path.module}/values.yaml")
+    ),
+    var.values,
+  ]
+}
+
 resource "kubernetes_namespace" "default" {
   count = local.enabled && var.create_namespace ? 1 : 0
 
@@ -81,7 +94,7 @@ resource "kubernetes_namespace" "default" {
 
 module "datadog_agent" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.6.0"
+  version = "0.7.0"
 
   name                 = module.this.name
   chart                = var.chart
@@ -99,7 +112,7 @@ module "datadog_agent" {
   eks_cluster_oidc_issuer_url = module.eks.outputs.eks_cluster_identity_oidc_issuer
 
   values = [
-    file("${path.module}/values.yaml")
+    yamlencode(module.values_merge.merged)
   ]
 
   set_sensitive = [
