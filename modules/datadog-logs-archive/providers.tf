@@ -1,9 +1,3 @@
-provider "datadog" {
-  api_key  = local.datadog_api_key
-  app_key  = local.datadog_app_key
-  validate = local.enabled
-}
-
 provider "aws" {
   region = var.region
 

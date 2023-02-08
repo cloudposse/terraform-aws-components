@@ -1,12 +1,12 @@
 # Component: `datadog-logs-archive`
 
-This component is responsible for provisioning Datadog Log Archives. It creates a single log archive pipeline for each AWS account. If the `catchall` flag is set, it creates a catchall archive within the same S3 bucket. 
+This component is responsible for provisioning Datadog Log Archives. It creates a single log archive pipeline for each AWS account. If the `catchall` flag is set, it creates a catchall archive within the same S3 bucket.
 
 Each log archive filters for the tag `env:$env` where $env is the environment/account name (ie sbx, prd, tools, etc), as well as any tags identified in the additional_tags key. The `catchall` archive, as the name implies, filters for '*'.
 
 A second bucket is created for cloudtrail, and a cloudtrail is configured to monitor the log archive bucket and log activity to the cloudtrail bucket. To forward these cloudtrail logs to datadog, the cloudtrail bucket's id must be added to the s3_buckets key for our datadog-lambda-forwarder component.
 
-Both buckets support object lock, with overrideable defaults of COMPLIANCE mode with a duration of 7 days. 
+Both buckets support object lock, with overrideable defaults of COMPLIANCE mode with a duration of 7 days.
 
 ## Prerequisites
 
@@ -22,8 +22,8 @@ Because of the protections for S3 buckets, if we want to destroy/replace our buc
 #### Two step process to destroy via terraform
 * first set `s3_force_destroy` var to true and apply
 * next set `enabled` to false and apply or use tf destroy
-  
- 
+
+
 ## Usage
 
 **Stack Level**: Global
@@ -39,9 +39,9 @@ components:
           workspace_enabled: true
       vars:
         enabled: true
-        additional_query_tags:
-          - "forwardername:tzl-*-dev-datadog-lambda-forwarder-logs"
-          - "account:852653222113"
+ #       additional_query_tags:
+ #         - "forwardername:*-dev-datadog-lambda-forwarder-logs"
+ #         - "account:123456789012"
 
 ```
 
