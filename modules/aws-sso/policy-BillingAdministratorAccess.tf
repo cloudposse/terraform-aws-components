@@ -10,5 +10,6 @@ locals {
       "arn:${local.aws_partition}:iam::aws:policy/job-function/Billing",
       "arn:${local.aws_partition}:iam::aws:policy/AWSSupportAccess",
     ]
+    customer_managed_policy_attachments = []
   }]
 }

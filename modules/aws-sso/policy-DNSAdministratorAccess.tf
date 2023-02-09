@@ -34,5 +34,6 @@ locals {
     tags               = {},
     inline_policy      = data.aws_iam_policy_document.dns_administrator_access.json,
     policy_attachments = ["arn:${local.aws_partition}:iam::aws:policy/AWSSupportAccess"]
+    customer_managed_policy_attachments = []
   }]
 }

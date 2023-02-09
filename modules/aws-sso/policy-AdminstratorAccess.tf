@@ -7,5 +7,6 @@ locals {
     tags               = {},
     inline_policy      = ""
     policy_attachments = ["arn:${local.aws_partition}:iam::aws:policy/AdministratorAccess"]
+    customer_managed_policy_attachments = []
   }]
 }
