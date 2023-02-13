@@ -13,7 +13,7 @@ variable "policy_version" {
 }
 
 variable "policy" {
-  type        = map(any)
+  type        = any
   description = "The map of required policies to add."
 }
 
