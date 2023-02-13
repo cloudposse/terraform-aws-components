@@ -1,50 +1,50 @@
-# Component: `acm`
+# Component: `platform`
 
-This component is responsible for requesting an ACM certificate for a domain and adding a CNAME record to the DNS zone to complete certificate validation.
+This component maps another components' outputs into SSM parameter store to declare 
+platform context used by CI/CD workflows.
 
 ## Usage
 
-**Stack Level**: Global or Regional
+**Stack Level**: Regional
 
-Here's an example snippet for how to use this component.
+Once the catalog file is created, the file can be imported as follows.
+
+```yaml
+import:
+  - catalog/eks/platform
+  ...
+```
+
+The default catalog values `e.g. stacks/catalog/eks/platform.yaml`
 
 ```yaml
 components:
   terraform:
-    acm:
+    eks/platform:    
+      metadata:
+        component: eks/platform
+      backend:
+        s3:
+          workspace_key_prefix: platform
       settings:
         spacelift:
-          workspace_enabled: true
+          depends_on:
+            - eks/cluster
+            - eks/alb-controller-ingress-group
       vars:
         enabled: true
-        domain_name: acme.com
-        process_domain_validation_options: false
-        validation_method: DNS
-        # NOTE: The following subject alternative name is automatically added by the module.
-        #       Additional entries can be added by providing this input.
-        # subject_alternative_names:
-        #   - "*.acme.com"
+        name: "platform"
+        eks_component_name: eks/cluster
+        ssm_platform_path: /platform/%s/%s
+        platform_environment: default
+        references:
+          default_alb_ingress_group:
+            component: eks/alb-controller-ingress-group
+            output: group_name
 ```
 
-ACM using a private CA
-
-```yaml
-components:
-  terraform:
-    acm:
-      settings:
-        spacelift:
-          workspace_enabled: true
-      vars:
-        enabled: true
-        domain_name: acme.com
-        process_domain_validation_options: false
-        dns_private_zone_enabled: true
-        certificate_authority_component_name: private-ca-subordinate
-        certificate_authority_stage_name: pca
-        certificate_authority_environment_name: use2
-        certificate_authority_component_key: subordinate
-```
+That would read `group_name` from `eks/alb-controller-ingress-group` component outputs and 
+put it into `/platform/{eks cluster name}/default/default_alb_ingress_group` 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -53,6 +53,7 @@ components:
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.0 |
 
 ## Providers
 
@@ -64,17 +65,17 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_acm"></a> [acm](#module\_acm) | cloudposse/acm-request-certificate/aws | 0.16.0 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_private_ca"></a> [private\_ca](#module\_private\_ca) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.3 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
+| <a name="module_remote"></a> [remote](#module\_remote) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_store_write"></a> [store\_write](#module\_store\_write) | cloudposse/ssm-parameter-store/aws | 0.10.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aws_ssm_parameter.acm_arn](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
-| [aws_route53_zone.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
+| [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
 
 ## Inputs
 
@@ -82,16 +83,10 @@ components:
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_certificate_authority_component_key"></a> [certificate\_authority\_component\_key](#input\_certificate\_authority\_component\_key) | Use this component key e.g. `root` or `mgmt` to read from the remote state to get the certificate\_authority\_arn if using an authority type of SUBORDINATE | `string` | `null` | no |
-| <a name="input_certificate_authority_component_name"></a> [certificate\_authority\_component\_name](#input\_certificate\_authority\_component\_name) | Use this component name to read from the remote state to get the certificate\_authority\_arn if using an authority type of SUBORDINATE | `string` | `null` | no |
-| <a name="input_certificate_authority_enabled"></a> [certificate\_authority\_enabled](#input\_certificate\_authority\_enabled) | Whether to use the certificate authority or not | `bool` | `false` | no |
-| <a name="input_certificate_authority_environment_name"></a> [certificate\_authority\_environment\_name](#input\_certificate\_authority\_environment\_name) | Use this environment name to read from the remote state to get the certificate\_authority\_arn if using an authority type of SUBORDINATE | `string` | `null` | no |
-| <a name="input_certificate_authority_stage_name"></a> [certificate\_authority\_stage\_name](#input\_certificate\_authority\_stage\_name) | Use this stage name to read from the remote state to get the certificate\_authority\_arn if using an authority type of SUBORDINATE | `string` | `null` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_dns_private_zone_enabled"></a> [dns\_private\_zone\_enabled](#input\_dns\_private\_zone\_enabled) | Whether to set the zone to public or private | `bool` | `false` | no |
-| <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | Root domain name | `string` | n/a | yes |
+| <a name="input_eks_component_name"></a> [eks\_component\_name](#input\_eks\_component\_name) | The name of the eks component | `string` | `"eks/eks"` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
@@ -103,27 +98,18 @@ components:
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_process_domain_validation_options"></a> [process\_domain\_validation\_options](#input\_process\_domain\_validation\_options) | Flag to enable/disable processing of the record to add to the DNS zone to complete certificate validation | `bool` | `false` | no |
+| <a name="input_platform_environment"></a> [platform\_environment](#input\_platform\_environment) | Platform environment | `string` | `"default"` | no |
+| <a name="input_references"></a> [references](#input\_references) | Platform mapping from remote components outputs | <pre>map(object({<br>    component = string<br>    output    = string<br>  }))</pre> | `{}` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
+| <a name="input_ssm_platform_path"></a> [ssm\_platform\_path](#input\_ssm\_platform\_path) | Format SSM path to store platform configs | `string` | `"/platform/%s/%s"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
-| <a name="input_subject_alternative_names"></a> [subject\_alternative\_names](#input\_subject\_alternative\_names) | A list of domains that should be SANs in the issued certificate | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_validation_method"></a> [validation\_method](#input\_validation\_method) | Method to use for validation, DNS or EMAIL | `string` | `"DNS"` | no |
-| <a name="input_zone_name"></a> [zone\_name](#input\_zone\_name) | Name of the zone in which to place the DNS validation records to validate the certificate.<br>Typically a domain name. Default of `""` actually defaults to `domain_name`. | `string` | `""` | no |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the certificate |
-| <a name="output_domain_name"></a> [domain\_name](#output\_domain\_name) | Certificate domain name |
-| <a name="output_domain_validation_options"></a> [domain\_validation\_options](#output\_domain\_validation\_options) | CNAME records that are added to the DNS zone to complete certificate validation |
-| <a name="output_id"></a> [id](#output\_id) | The ID of the certificate |
+No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
-## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/acm) - Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
