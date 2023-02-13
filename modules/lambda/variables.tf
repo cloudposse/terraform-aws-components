@@ -271,3 +271,13 @@ variable "policy_json" {
   description = "IAM policy to attach to the Lambda IAM role"
   default     = null
 }
+
+variable "zip" {
+  type = object({
+    enabled   = optional(bool, false)
+    output    = optional(string, "output.zip")
+    input_dir = optional(string, null)
+  })
+  description = "Zip Configuration for local file deployments"
+  default     = {}
+}

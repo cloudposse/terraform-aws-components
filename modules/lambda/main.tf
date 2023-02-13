@@ -1,7 +1,7 @@
 locals {
   enabled             = module.this.enabled
   iam_policy_enabled  = local.enabled && var.policy_json != null
-  s3_bucket_full_name = format("%s-%s-%s-%s-%s", module.this.namespace, module.this.tenant, module.this.environment, module.this.stage, var.s3_bucket_name)
+  s3_bucket_full_name = var.s3_bucket_name != null ? format("%s-%s-%s-%s-%s", module.this.namespace, module.this.tenant, module.this.environment, module.this.stage, var.s3_bucket_name) : null
 }
 
 
@@ -31,6 +31,14 @@ resource "aws_iam_role_policy_attachment" "default" {
 
   role       = module.lambda.role_name
   policy_arn = aws_iam_policy.default[0].arn
+}
+
+data "archive_file" "lambdazip" {
+  count       = var.zip.enabled ? 1 : 0
+  type        = "zip"
+  output_path = "${path.module}/lambdas/${var.zip.output}"
+
+  source_dir = "${path.module}/lambdas/${var.zip.input_dir}"
 }
 
 module "lambda" {
