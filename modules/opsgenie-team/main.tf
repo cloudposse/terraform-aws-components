@@ -44,7 +44,7 @@ module "members_merge" {
     local.members,
   ]
 
-  # context = module.introspection.context
+  # context = module.this.context
 }
 
 module "team" {
@@ -59,7 +59,7 @@ module "team" {
     members = try(module.members_merge[0].merged, [])
   }, var.team)
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 module "integration" {
@@ -93,7 +93,7 @@ module "integration" {
   # Allow underscores in the identifier
   regex_replace_chars = "/[^a-zA-Z0-9-_]/"
 
-  context = module.introspection.context
+  context = module.this.context
 
   depends_on = [module.team]
 }
@@ -113,7 +113,7 @@ module "service" {
     description = lookup(each.value, "description", null)
   }
 
-  context = module.introspection.context
+  context = module.this.context
 
   depends_on = [module.team]
 }
@@ -138,7 +138,7 @@ module "schedule" {
     owner_team_id = local.team_id
   }
 
-  context = module.introspection.context
+  context = module.this.context
 
   depends_on = [
     module.team,
@@ -179,7 +179,7 @@ module "routing" {
   # Allow underscores in the name
   regex_replace_chars = "/[^a-zA-Z0-9-_]/"
 
-  context = module.introspection.context
+  context = module.this.context
 
   depends_on = [
     module.team,
@@ -211,7 +211,7 @@ module "escalation" {
     repeat = try(each.value.repeat, null)
   }
 
-  context = module.introspection.context
+  context = module.this.context
 
   team_name          = local.team_name
   team_naming_format = var.team_naming_format

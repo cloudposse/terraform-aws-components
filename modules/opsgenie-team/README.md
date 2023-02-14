@@ -269,7 +269,6 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 | <a name="module_escalation"></a> [escalation](#module\_escalation) | ./modules/escalation | n/a |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_integration"></a> [integration](#module\_integration) | ./modules/integration | n/a |
-| <a name="module_introspection"></a> [introspection](#module\_introspection) | cloudposse/label/null | 0.25.0 |
 | <a name="module_members_merge"></a> [members\_merge](#module\_members\_merge) | cloudposse/config/yaml//modules/deepmerge | 1.0.1 |
 | <a name="module_routing"></a> [routing](#module\_routing) | ./modules/routing | n/a |
 | <a name="module_schedule"></a> [schedule](#module\_schedule) | cloudposse/incident-management/opsgenie//modules/schedule | 0.16.0 |
@@ -325,7 +324,6 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_required_tags"></a> [required\_tags](#input\_required\_tags) | List of required tag names | `list(string)` | `[]` | no |
 | <a name="input_routing_rules"></a> [routing\_rules](#input\_routing\_rules) | Routing Rules for the team | `any` | `null` | no |
 | <a name="input_schedules"></a> [schedules](#input\_schedules) | Schedules to create for the team | `map(any)` | `{}` | no |
 | <a name="input_services"></a> [services](#input\_services) | Services to create and register to the team. | `map(any)` | `{}` | no |
