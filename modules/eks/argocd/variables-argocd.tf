@@ -195,7 +195,7 @@ variable "saml_sso_providers" {
   type = map(object({
     component = string
   }))
-  
+
   default     = {}
   description = "SAML SSO providers components"
 }
