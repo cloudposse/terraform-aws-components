@@ -184,3 +184,18 @@ variable "argocd_rbac_groups" {
   See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more information.
   EOT
 }
+
+variable "eks_component_name" {
+  type    = string
+  default = "eks/cluster"
+  description = "The name of the eks component"
+}
+
+variable "saml_sso_providers" {
+  type = map(object({
+    component = string
+  }))
+  default = {}
+  description = "SAML SSO providers components"
+}
+

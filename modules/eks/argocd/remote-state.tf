@@ -7,11 +7,6 @@ module "eks" {
   context = module.this.context
 }
 
-variable "eks_component_name" {
-  type    = string
-  default = "eks"
-}
-
 module "dns_gbl_delegated" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "1.4.1"
@@ -20,13 +15,6 @@ module "dns_gbl_delegated" {
   component   = "dns-delegated"
 
   context = module.this.context
-}
-
-variable "saml_sso_providers" {
-  type = map(object({
-    component = string
-  }))
-  default = {}
 }
 
 module "saml_sso_providers" {
