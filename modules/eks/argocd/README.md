@@ -51,7 +51,7 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.6.0 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.9.0 |
 
@@ -59,8 +59,8 @@ components:
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
-| <a name="provider_aws.config_secrets"></a> [aws.config\_secrets](#provider\_aws.config\_secrets) | ~> 4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
+| <a name="provider_aws.config_secrets"></a> [aws.config\_secrets](#provider\_aws.config\_secrets) | >= 4.0 |
 
 ## Modules
 
@@ -122,7 +122,7 @@ components:
 | <a name="input_datadog_notifications_enabled"></a> [datadog\_notifications\_enabled](#input\_datadog\_notifications\_enabled) | Whether or not to notify Datadog of deployments via the Datadog Events API. | `bool` | `false` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_eks_component_name"></a> [eks\_component\_name](#input\_eks\_component\_name) | n/a | `string` | `"eks"` | no |
+| <a name="input_eks_component_name"></a> [eks\_component\_name](#input\_eks\_component\_name) | The name of the eks component | `string` | `"eks/cluster"` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_forecastle_enabled"></a> [forecastle\_enabled](#input\_forecastle\_enabled) | Toggles Forecastle integration in the deployed chart | `bool` | `false` | no |
@@ -166,7 +166,7 @@ components:
 | <a name="input_saml_enabled"></a> [saml\_enabled](#input\_saml\_enabled) | Toggles SAML integration in the deployed chart | `bool` | `false` | no |
 | <a name="input_saml_okta_app_name"></a> [saml\_okta\_app\_name](#input\_saml\_okta\_app\_name) | Name of the Okta SAML Integration | `string` | `"ArgoCD"` | no |
 | <a name="input_saml_rbac_scopes"></a> [saml\_rbac\_scopes](#input\_saml\_rbac\_scopes) | SAML RBAC scopes to request | `string` | `"[email,groups]"` | no |
-| <a name="input_saml_sso_providers"></a> [saml\_sso\_providers](#input\_saml\_sso\_providers) | n/a | <pre>map(object({<br>    component = string<br>  }))</pre> | `{}` | no |
+| <a name="input_saml_sso_providers"></a> [saml\_sso\_providers](#input\_saml\_sso\_providers) | SAML SSO providers components | <pre>map(object({<br>    component = string<br>  }))</pre> | `{}` | no |
 | <a name="input_slack_notifications_enabled"></a> [slack\_notifications\_enabled](#input\_slack\_notifications\_enabled) | Whether or not to enable Slack notifications. | `bool` | `false` | no |
 | <a name="input_slack_notifications_icon"></a> [slack\_notifications\_icon](#input\_slack\_notifications\_icon) | URI of custom image to use as the Slack notifications icon. | `string` | `null` | no |
 | <a name="input_slack_notifications_username"></a> [slack\_notifications\_username](#input\_slack\_notifications\_username) | Custom username to use for Slack notifications. | `string` | `null` | no |
