@@ -11,7 +11,7 @@ locals {
   ]))
   lookup_schedules = distinct(flatten([
     for rule in var.escalation.rules :
-    rule.recipient.name
+    format(var.team_naming_format, var.team_name, rule.recipient.name)
     if rule.recipient.type == "schedule"
   ]))
 }
@@ -35,7 +35,7 @@ data "opsgenie_schedule" "recipient" {
 resource "opsgenie_escalation" "this" {
   count = module.this.enabled ? 1 : 0
 
-  name          = var.escalation.name
+  name          = format(var.team_naming_format, var.team_name, var.escalation.name)
   description   = try(var.escalation.description, var.escalation.name)
   owner_team_id = try(var.escalation.owner_team_id, null)
 
@@ -49,7 +49,7 @@ resource "opsgenie_escalation" "this" {
 
       # In spite of the docs, only one recipient can be used per escalation resource with multiple rules
       recipient {
-        id   = rules.value.recipient.type == "team" ? data.opsgenie_team.recipient[rules.value.recipient.name].id : rules.value.recipient.type == "schedule" ? data.opsgenie_schedule.recipient[rules.value.recipient.name].id : data.opsgenie_user.recipient[rules.value.recipient.name].id
+        id   = rules.value.recipient.type == "team" ? data.opsgenie_team.recipient[rules.value.recipient.name].id : rules.value.recipient.type == "schedule" ? data.opsgenie_schedule.recipient[format(var.team_naming_format, var.team_name, rules.value.recipient.name)].id : data.opsgenie_user.recipient[rules.value.recipient.name].id
         type = rules.value.recipient.type
       }
     }

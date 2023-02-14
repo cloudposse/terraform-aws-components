@@ -1,5 +1,7 @@
 ## Integration
 
+This module creates an OpsGenie integrations for a team. By Default, it creates a Datadog integration.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
