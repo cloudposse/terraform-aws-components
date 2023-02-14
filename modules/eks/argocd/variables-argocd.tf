@@ -186,8 +186,8 @@ variable "argocd_rbac_groups" {
 }
 
 variable "eks_component_name" {
-  type    = string
-  default = "eks/cluster"
+  type        = string
+  default     = "eks/cluster"
   description = "The name of the eks component"
 }
 
@@ -195,7 +195,8 @@ variable "saml_sso_providers" {
   type = map(object({
     component = string
   }))
-  default = {}
+  
+  default     = {}
   description = "SAML SSO providers components"
 }
 
