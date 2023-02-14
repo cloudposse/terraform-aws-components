@@ -1,0 +1,39 @@
+# 'opsgenie-team' component vendoring config
+
+# 'component.yaml' in the component folder is processed by the 'atmos' commands
+# 'atmos vendor pull -c opsgenie-team' or 'atmos vendor pull --component opsgenie-team'
+
+apiVersion: atmos/v1
+kind: ComponentVendorConfig
+spec:
+  source:
+    # 'uri' supports all protocols (local files, Git, Mercurial, HTTP, HTTPS, Amazon S3, Google GCP),
+    # and all URL and archive formats as described in https://github.com/hashicorp/go-getter
+    # In 'uri', Golang templates are supported  https://pkg.go.dev/text/template
+    # If 'version' is provided, '{{.Version}}' will be replaced with the 'version' value before pulling the files from 'uri'
+    uri: github.com/cloudposse/terraform-aws-components.git//modules/opsgenie-team?ref={{.Version}}
+    version: 1.71.0
+    # Only include the files that match the 'included_paths' patterns
+    # If 'included_paths' is not specified, all files will be matched except those that match the patterns from 'excluded_paths'
+    # 'included_paths' support POSIX-style Globs for file names/paths (double-star `**` is supported)
+    # https://en.wikipedia.org/wiki/Glob_(programming)
+    # https://github.com/bmatcuk/doublestar#patterns
+    included_paths:
+      - "**/*.tf"
+      - "**/*.tfvars"
+      - "**/*.md"
+      - "**/modules/**"
+
+    # Exclude the files that match any of the 'excluded_paths' patterns
+    # Note that we are excluding 'context.tf' since a newer version of it will be downloaded using 'mixins'
+    # 'excluded_paths' support POSIX-style Globs for file names/paths (double-star `**` is supported)
+    excluded_paths: []
+
+  # mixins override files from 'source' with the same 'filename' (e.g. 'context.tf' will override 'context.tf' from the 'source')
+  # mixins are processed in the order they are declared in the list
+  mixins:
+    # After vendoring the component main.tf must be updated: `sed -i .bak 's,module.this,module.introspection,g' main.tf`
+    # Verify corrections and then remove all *.bak files: `rm *.bak`
+    - uri: https://raw.githubusercontent.com/cloudposse/terraform-aws-components/{{.Version}}/mixins/introspection.mixin.tf
+      version: 1.71.0
+      filename: introspection.mixin.tf

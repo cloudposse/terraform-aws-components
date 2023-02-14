@@ -132,7 +132,7 @@ module "schedule" {
   enabled = local.create_all_enabled
 
   schedule = {
-    name          = try(each.key, null)
+    name          = try(format(var.team_naming_format, local.team_name, each.key), null)
     description   = try(each.value.description, null)
     timezone      = try(each.value.timezone, null)
     owner_team_id = local.team_id
@@ -160,11 +160,12 @@ module "routing" {
   team_name = local.team_name
   name      = each.key
 
-  criteria = try(each.value.criteria, null)
-  type     = try(each.value.type, null)
-  notify   = try(each.value.notify, null)
-  order    = try(each.value.order, null)
-  priority = try(each.value.priority, null)
+  is_default = try(each.value.is_default, null)
+  criteria   = try(each.value.criteria, null)
+  type       = try(each.value.type, null)
+  notify     = try(each.value.notify, null)
+  order      = try(each.value.order, null)
+  priority   = try(each.value.priority, null)
 
   # We send the map of services
   services = var.services
@@ -211,6 +212,9 @@ module "escalation" {
   }
 
   context = module.introspection.context
+
+  team_name          = local.team_name
+  team_naming_format = var.team_naming_format
 
   depends_on = [
     module.team,

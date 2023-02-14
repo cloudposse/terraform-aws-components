@@ -10,5 +10,9 @@ terraform {
       source  = "opsgenie/opsgenie"
       version = ">= 0.6.7"
     }
+    datadog = {
+      source  = "datadog/datadog"
+      version = ">= 3.3.0"
+    }
   }
 }
