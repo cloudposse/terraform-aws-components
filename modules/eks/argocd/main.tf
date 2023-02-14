@@ -154,7 +154,7 @@ module "argocd" {
     }),
     # argocd-specific settings
     templatefile(
-      "${path.module}/resources/argocd-values.tpl.yaml",
+      "${path.module}/resources/argocd-values.yaml.tpl",
       {
         # admin_enabled              = !(local.oidc_enabled || local.saml_enabled)
         admin_enabled              = true
@@ -180,7 +180,7 @@ module "argocd" {
     ),
     # argocd-notifications specific settings
     templatefile(
-      "${path.module}/resources/argocd-notifications-values.tpl.yaml",
+      "${path.module}/resources/argocd-notifications-values.yaml.tpl",
       {
         argocd_host                   = "https://${local.host}"
         slack_notifications_enabled   = var.slack_notifications_enabled
@@ -243,7 +243,7 @@ module "argocd_apps" {
   enabled              = local.enabled && var.argocd_apps_enabled
   values = compact([
     templatefile(
-      "${path.module}/resources/argocd-apps-values.tpl.yaml",
+      "${path.module}/resources/argocd-apps-values.yaml.tpl",
       {
         application_repos = { for k, v in local.argocd_repositories : k => v.clone_url }
         create_namespaces = var.argocd_create_namespaces
