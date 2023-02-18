@@ -1,8 +1,8 @@
 # Component: `datadog-monitor`
 
-This component is responsible for provisioning Datadog monitors and assigning Datadog roles to the monitors. 
+This component is responsible for provisioning Datadog monitors and assigning Datadog roles to the monitors.
 
-It's required that the DataDog API and APP secret keys are available in the consuming account at the `var.datadog_api_secret_key` 
+It's required that the DataDog API and APP secret keys are available in the consuming account at the `var.datadog_api_secret_key`
 and `var.datadog_app_secret_key` paths in the AWS SSM Parameter Store.
 
 ## Usage
@@ -41,36 +41,28 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 | <a name="requirement_datadog"></a> [datadog](#requirement\_datadog) | >= 3.3.0 |
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
+No providers.
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_datadog_monitors"></a> [datadog\_monitors](#module\_datadog\_monitors) | cloudposse/platform/datadog//modules/monitors | 1.0.0 |
-| <a name="module_datadog_monitors_merge"></a> [datadog\_monitors\_merge](#module\_datadog\_monitors\_merge) | cloudposse/config/yaml//modules/deepmerge | 1.0.1 |
+| <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | ../datadog-configuration/modules/datadog_keys | n/a |
+| <a name="module_datadog_monitors"></a> [datadog\_monitors](#module\_datadog\_monitors) | cloudposse/platform/datadog//modules/monitors | 1.0.1 |
+| <a name="module_datadog_monitors_merge"></a> [datadog\_monitors\_merge](#module\_datadog\_monitors\_merge) | cloudposse/config/yaml//modules/deepmerge | 1.0.2 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_local_datadog_monitors_yaml_config"></a> [local\_datadog\_monitors\_yaml\_config](#module\_local\_datadog\_monitors\_yaml\_config) | cloudposse/config/yaml | 1.0.1 |
-| <a name="module_remote_datadog_monitors_yaml_config"></a> [remote\_datadog\_monitors\_yaml\_config](#module\_remote\_datadog\_monitors\_yaml\_config) | cloudposse/config/yaml | 1.0.1 |
+| <a name="module_local_datadog_monitors_yaml_config"></a> [local\_datadog\_monitors\_yaml\_config](#module\_local\_datadog\_monitors\_yaml\_config) | cloudposse/config/yaml | 1.0.2 |
+| <a name="module_remote_datadog_monitors_yaml_config"></a> [remote\_datadog\_monitors\_yaml\_config](#module\_remote\_datadog\_monitors\_yaml\_config) | cloudposse/config/yaml | 1.0.2 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [aws_secretsmanager_secret.datadog_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
-| [aws_secretsmanager_secret.datadog_app_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
-| [aws_secretsmanager_secret_version.datadog_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
-| [aws_secretsmanager_secret_version.datadog_app_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
-| [aws_ssm_parameter.datadog_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameter.datadog_app_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+No resources.
 
 ## Inputs
 

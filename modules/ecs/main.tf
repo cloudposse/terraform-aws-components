@@ -3,7 +3,7 @@ locals {
 
   dns_enabled = local.enabled && var.route53_enabled
 
-  acm_certificate_domain = length(var.acm_certificate_domain_suffix) > 0 ? format("%s.%s.%s", var.acm_certificate_domain_suffix, var.environment, module.dns_delegated.outputs.default_domain_name) : coalesce(var.acm_certificate_domain, module.dns_delegated.outputs.default_domain_name)
+  acm_certificate_domain = try(length(var.acm_certificate_domain_suffix) > 0, false) ? format("%s.%s.%s", var.acm_certificate_domain_suffix, var.environment, module.dns_delegated.outputs.default_domain_name) : coalesce(var.acm_certificate_domain, module.dns_delegated.outputs.default_domain_name)
 
   maintenance_page_fixed_response = {
     content_type = "text/html"
@@ -27,47 +27,118 @@ module "target_group_label" {
   context = module.this.context
 }
 
-resource "aws_ecs_cluster" "default" {
-  count = local.enabled ? 1 : 0
-
-  name = module.this.id
-
-  # TODO: configuration.execute_command_configuration
-  # execute_command_configuration {
-  #   kms_key_id =
-  #   logging = "OVERRIDE" # "DEFAULT"
-  #   # log_configuration is required when logging is set to "OVERRIDE"
-  #   log_configuration {
-  #     cloud_watch_encryption_enabled = var.cloud_watch_encryption_enabled
-  #     cloud_watch_log_group_name     = module.cloudwatch_log_group.name
-  #     s3_bucket_name                 = module.logging_bucket.name
-  #     s3_bucket_encryption_enabled   = true
-  #     s3_key_prefix                  = "/"
-  #   }
-  # }
-
-  setting {
-    name  = "containerInsights"
-    value = var.container_insights_enabled ? "enabled" : "disabled"
-  }
-
-  tags = module.this.tags
+resource "aws_security_group" "default" {
+  count       = local.enabled ? 1 : 0
+  name        = module.this.id
+  description = "ECS cluster EC2 autoscale capacity providers"
+  vpc_id      = module.vpc.outputs.vpc_id
 }
 
-# TODO: setup capacity providers
-# resource "aws_ecs_cluster_capacity_providers" "default" {
-#   count = local.enabled ? 1 : 0
+resource "aws_security_group_rule" "ingress_cidr" {
+  for_each          = local.enabled ? toset(var.allowed_cidr_blocks) : []
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  cidr_blocks       = [each.value]
+  security_group_id = join("", aws_security_group.default.*.id)
+}
+
+resource "aws_security_group_rule" "ingress_security_groups" {
+  for_each                 = local.enabled ? toset(var.allowed_security_groups) : []
+  type                     = "ingress"
+  from_port                = 0
+  to_port                  = 65535
+  protocol                 = "tcp"
+  source_security_group_id = each.value
+  security_group_id        = join("", aws_security_group.default.*.id)
+}
+
+resource "aws_security_group_rule" "egress" {
+  count             = local.enabled ? 1 : 0
+  type              = "egress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = join("", aws_security_group.default.*.id)
+}
+
+module "cluster" {
+  source  = "cloudposse/ecs-cluster/aws"
+  version = "0.2.2"
+
+  context = module.this.context
+
+  container_insights_enabled      = var.container_insights_enabled
+  capacity_providers_fargate      = var.capacity_providers_fargate
+  capacity_providers_fargate_spot = var.capacity_providers_fargate_spot
+  capacity_providers_ec2 = {
+    for name, provider in var.capacity_providers_ec2 :
+    name => merge(
+      provider,
+      {
+        security_group_ids          = concat(aws_security_group.default.*.id, provider.security_group_ids)
+        subnet_ids                  = var.internal_enabled ? module.vpc.outputs.private_subnet_ids : module.vpc.outputs.public_subnet_ids
+        associate_public_ip_address = !var.internal_enabled
+      }
+    )
+  }
+
+  #  external_ec2_capacity_providers = {
+  #    external_default = {
+  #      autoscaling_group_arn          = module.autoscale_group.autoscaling_group_arn
+  #      managed_termination_protection = false
+  #      managed_scaling_status         = false
+  #      instance_warmup_period         = 300
+  #      maximum_scaling_step_size      = 1
+  #      minimum_scaling_step_size      = 1
+  #      target_capacity_utilization    = 100
+  #    }
+  #  }
+
+}
+
+#locals {
+#  user_data = <<EOT
+##!/bin/bash
+#echo ECS_CLUSTER="${module.cluster.name}" >> /etc/ecs/ecs.config
+#echo ECS_ENABLE_CONTAINER_METADATA=true >> /etc/ecs/ecs.config
+#echo ECS_POLL_METRICS=true >> /etc/ecs/ecs.config
+#EOT
 #
-#   cluster_name = join("", aws_ecs_cluster.default[*].name)
+#}
 #
-#   capacity_providers = ["FARGATE"]
+#data "aws_ssm_parameter" "ami" {
+#  name = "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id"
+#}
 #
-#   default_capacity_provider_strategy {
-#     base              = 1
-#     weight            = 100
-#     capacity_provider = "FARGATE"
-#   }
-# }
+#module "autoscale_group" {
+#  source  = "cloudposse/ec2-autoscale-group/aws"
+#  version = "0.31.1"
+#
+#  context = module.this.context
+#
+#  image_id                    = data.aws_ssm_parameter.ami.value
+#  instance_type               = "t3.medium"
+#  security_group_ids          = aws_security_group.default.*.id
+#  subnet_ids                  = var.internal_enabled ? module.vpc.outputs.private_subnet_ids : module.vpc.outputs.public_subnet_ids
+#  health_check_type           = "EC2"
+#  desired_capacity            = 1
+#  min_size                    = 1
+#  max_size                    = 2
+#  wait_for_capacity_timeout   = "5m"
+#  associate_public_ip_address = true
+#  user_data_base64            = base64encode(local.user_data)
+#
+#  # Auto-scaling policies and CloudWatch metric alarms
+#  autoscaling_policies_enabled           = true
+#  cpu_utilization_high_threshold_percent = "70"
+#  cpu_utilization_low_threshold_percent  = "20"
+#
+#  iam_instance_profile_name = module.cluster.role_name
+#}
+
 
 resource "aws_route53_record" "default" {
   for_each = local.dns_enabled ? var.alb_configuration : {}
@@ -91,7 +162,7 @@ data "aws_acm_certificate" "default" {
 
 module "alb" {
   source  = "cloudposse/alb/aws"
-  version = "1.4.0"
+  version = "1.5.0"
 
   for_each = local.enabled ? var.alb_configuration : {}
 

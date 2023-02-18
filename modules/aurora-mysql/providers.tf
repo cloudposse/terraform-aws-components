@@ -27,9 +27,3 @@ variable "import_role_arn" {
   default     = null
   description = "IAM Role ARN to use when importing a resource"
 }
-
-provider "mysql" {
-  endpoint = time_sleep.mysql_cluster_propagation[0].triggers["endpoint"]
-  username = time_sleep.mysql_cluster_propagation[0].triggers["username"]
-  password = local.mysql_admin_password
-}

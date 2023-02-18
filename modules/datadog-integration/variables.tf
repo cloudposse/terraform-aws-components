@@ -39,62 +39,9 @@ variable "account_specific_namespace_rules" {
   default     = {}
 }
 
-variable "datadog_secrets_store_type" {
-  type        = string
-  description = "Secret Store type for Datadog API and app keys. Valid values: `SSM`, `ASM`"
-  default     = "SSM"
-}
-
-variable "datadog_secrets_source_store_account_stage" {
-  type        = string
-  description = "Stage holding Secret Store for Datadog API and app keys."
-  default     = "tools"
-}
-
-variable "datadog_secrets_source_store_account_tenant" {
-  type        = string
-  description = "Tenant holding Secret Store for Datadog API and app keys."
-  default     = "core"
-}
-
-variable "datadog_api_secret_key_source_pattern" {
-  type        = string
-  description = "The format string (%v will be replaced by the var.datadog_api_secret_key) for the key of the Datadog API secret in the source account"
-  default     = "/datadog/%v/datadog_api_key"
-}
-
-variable "datadog_app_secret_key_source_pattern" {
-  type        = string
-  description = "The format string (%v will be replaced by the var.datadog_app_secret_key) for the key of the Datadog APP secret in the source account"
-  default     = "/datadog/%v/datadog_app_key"
-}
-
-variable "datadog_api_secret_key_target_pattern" {
-  type        = string
-  description = "The format string (%v will be replaced by the var.datadog_api_secret_key) for the key of the Datadog API secret in the target account"
-  default     = "/datadog/datadog_api_key"
-}
-
-variable "datadog_app_secret_key_target_pattern" {
-  type        = string
-  description = "The format string (%v will be replaced by the var.datadog_api_secret_key) for the key of the Datadog APP secret in the target account"
-  default     = "/datadog/datadog_app_key"
-}
-
-variable "datadog_api_secret_key" {
-  type        = string
-  description = "The name of the Datadog API secret"
-  default     = "default"
-}
-
-variable "datadog_app_secret_key" {
-  type        = string
-  description = "The name of the Datadog APP secret"
-  default     = "default"
-}
-#
 variable "context_host_and_filter_tags" {
   type        = list(string)
   description = "Automatically add host and filter tags for these context keys"
   default     = ["namespace", "tenant", "stage"]
 }
+

@@ -10,7 +10,7 @@ This parameter should be populated using `chamber`, which is included in the geo
 chamber write zscaler key <value>
 ```
 
-Where <value> is the ZScaler App Connector Provisioning Key. For more information on how to generate this key, see: [ZScaler documentation on Configuring App Connectors](https://help.zscaler.com/zpa/configuring-connectors).
+Where `<value>` is the ZScaler App Connector Provisioning Key. For more information on how to generate this key, see: [ZScaler documentation on Configuring App Connectors](https://help.zscaler.com/zpa/configuring-connectors).
 
 ## Usage
 

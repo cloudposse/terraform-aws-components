@@ -216,7 +216,9 @@ module "actions_runner" {
       min_replicas                   = each.value.min_replicas
       max_replicas                   = each.value.max_replicas
       webhook_driven_scaling_enabled = each.value.webhook_driven_scaling_enabled
+      webhook_startup_timeout        = try(each.value.webhook_startup_timeout, "${each.value.scale_down_delay_seconds}s") # if webhook_startup_timeout isnt defined, use scale_down_delay_seconds
       pull_driven_scaling_enabled    = each.value.pull_driven_scaling_enabled
+      pvc_enabled                    = each.value.pvc_enabled
     }),
     local.busy_metrics_filtered[each.key] == null ? "" : yamlencode(local.busy_metrics_filtered[each.key]),
   ])

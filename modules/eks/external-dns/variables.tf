@@ -99,7 +99,7 @@ variable "chart_values" {
 variable "txt_prefix" {
   type        = string
   default     = "external-dns"
-  description = "Prefix to create a TXT record with a name following the pattern prefix.<CNAME record>."
+  description = "Prefix to create a TXT record with a name following the pattern prefix.`<CNAME record>`."
 }
 
 variable "crd_enabled" {
