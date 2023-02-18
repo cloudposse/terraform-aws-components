@@ -1,31 +1,15 @@
 locals {
-  # Grab only namespace, tenant, environment, stage since those will be the common tags across resources of interest in this account
-  match_tags = {
-    for key, value in module.this.tags :
-    key => value
-    if contains(["namespace", "tenant", "environment", "stage"], lower(key))
-  }
+  vpc_id          = module.vpc.outputs.vpc_id
+  vpc_sg_id       = module.vpc.outputs.vpc_default_security_group_id
+  rds_sg_id       = try(one(module.rds[*].outputs.exports.security_groups.client), null)
+  subnet_ids      = lookup(module.vpc.outputs.subnets, local.assign_public_ip ? "public" : "private", { ids = [] }).ids
+  ecs_cluster_arn = module.ecs_cluster.outputs.cluster_arn
 
-  subnet_match_tags = merge({
-    Attributes = local.assign_public_ip ? "public" : "private"
-  }, var.subnet_match_tags)
-
-  lb_match_tags = merge({
-    # e.g. platform-public
-    Attributes = format("%s-%s", local.cluster_type, local.domain_type)
-  }, var.lb_match_tags)
-
-  vpc_id          = try(one(data.aws_vpc.selected[*].id), null)
-  vpc_sg_id       = try(one(data.aws_security_group.vpc_default[*].id), null)
-  rds_sg_id       = try(one(data.aws_security_group.rds[*].id), null)
-  subnet_ids      = try(one(data.aws_subnets.selected[*].ids), null)
-  ecs_cluster_arn = try(one(data.aws_ecs_cluster.selected[*].arn), null)
-
-  lb_arn                = try(one(data.aws_lb.selected[*].arn), null)
-  lb_name               = try(one(data.aws_lb.selected[*].name), null)
-  lb_listener_https_arn = try(one(data.aws_lb_listener.selected_https[*].arn), null)
-  lb_sg_id              = try(one(data.aws_security_group.lb[*].id), null)
-  lb_zone_id            = try(one(data.aws_lb.selected[*].zone_id), null)
+  lb_arn                = try(module.ecs_cluster.outputs.alb[var.alb_configuration].alb_arn, null)
+  lb_name               = try(module.ecs_cluster.outputs.alb[var.alb_configuration].alb_name, null)
+  lb_listener_https_arn = try(module.ecs_cluster.outputs.alb[var.alb_configuration].https_listener_arn, null)
+  lb_sg_id              = try(module.ecs_cluster.outputs.alb[var.alb_configuration].security_group_id, null)
+  lb_zone_id            = try(module.ecs_cluster.outputs.alb[var.alb_configuration].alb_zone_id, null)
 }
 
 ## Company specific locals for domain convention
@@ -35,11 +19,16 @@ locals {
   }
   zone_domain = format("%s.%s.%s", var.stage, var.tenant, coalesce(var.domain_name, local.domain_name[var.tenant]))
 
-  domain_type  = var.public_lb_enabled ? "public" : "private"
+  domain_type  = var.alb_configuration
   cluster_type = var.cluster_attributes[0]
 
   # e.g. example.public-platform.{environment}.{zone_domain}
-  full_domain = format("%s.%s-%s.%s.%s", var.name, local.domain_type, local.cluster_type, var.environment, local.zone_domain)
+  full_domain = format("%s.%s-%s.%s.%s", join("-", concat([
+    var.name
+  ], var.attributes)), local.domain_type, local.cluster_type, var.environment, local.zone_domain)
+  domain_no_service_name         = format("%s-%s.%s.%s", local.domain_type, local.cluster_type, var.environment, local.zone_domain)
+  public_domain_no_service_name  = format("%s-%s.%s.%s", "public", local.cluster_type, var.environment, local.zone_domain)
+  private_domain_no_service_name = format("%s-%s.%s.%s", "private", local.cluster_type, var.environment, local.zone_domain)
 
   # tenant to domain mapping
   vanity_domain_names = {
@@ -54,108 +43,32 @@ locals {
   vanity_domain_zone_id = try(one(data.aws_route53_zone.selected_vanity[*].zone_id), null)
 }
 
-variable "vpc_match_tags" {
-  type        = map(any)
-  description = "The additional matching tags for the VPC data source. Used with current namespace, tenant, env, and stage tags."
-  default     = {}
-}
+module "vpc" {
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "0.22.4"
 
-variable "subnet_match_tags" {
-  type        = map(string)
-  description = "The additional matching tags for the VPC subnet data source. Used with current namespace, tenant, env, and stage tags."
-  default     = {}
-}
-
-variable "lb_match_tags" {
-  type        = map(string)
-  description = "The additional matching tags for the LB data source. Used with current namespace, tenant, env, and stage tags."
-  default     = {}
-}
-
-data "aws_vpc" "selected" {
-  count = local.enabled ? 1 : 0
-
-  default = false
-
-  tags = merge(local.match_tags, var.vpc_match_tags)
-}
-
-data "aws_security_group" "vpc_default" {
-  count = local.enabled ? 1 : 0
-
-  name = "default"
-
-  vpc_id = local.vpc_id
-
-  tags = local.match_tags
-}
-
-data "aws_subnets" "selected" {
-  count = local.enabled ? 1 : 0
-
-  filter {
-    name   = "vpc-id"
-    values = [local.vpc_id]
-  }
-
-  tags = merge(local.match_tags, local.subnet_match_tags)
-}
-
-module "ecs_label" {
-  source  = "cloudposse/label/null"
-  version = "0.25.0"
-
-  name       = var.cluster_name
-  attributes = var.cluster_attributes
+  component = "vpc"
 
   context = module.this.context
 }
 
-module "rds_sg_label" {
-  source  = "cloudposse/label/null"
-  version = "0.25.0"
+module "rds" {
+  count   = local.enabled && var.use_rds_client_sg ? 1 : 0
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "0.22.4"
 
-  name       = var.kms_key_alias
-  attributes = ["client"]
+  component = "rds"
 
   context = module.this.context
 }
 
-data "aws_security_group" "rds" {
-  count = local.enabled && var.use_rds_client_sg ? 1 : 0
+module "ecs_cluster" {
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "0.22.4"
 
-  vpc_id = local.vpc_id
+  component = "ecs"
 
-  tags = {
-    "Name" = module.rds_sg_label.id
-  }
-}
-
-data "aws_ecs_cluster" "selected" {
-  count = local.enabled ? 1 : 0
-
-  cluster_name = coalesce(var.cluster_full_name, module.ecs_label.id)
-}
-
-data "aws_security_group" "lb" {
-  count = local.enabled ? 1 : 0
-
-  vpc_id = local.vpc_id
-
-  tags = merge(local.match_tags, local.lb_match_tags)
-}
-
-data "aws_lb" "selected" {
-  count = local.enabled ? 1 : 0
-
-  tags = merge(local.match_tags, local.lb_match_tags)
-}
-
-data "aws_lb_listener" "selected_https" {
-  count = local.enabled ? 1 : 0
-
-  load_balancer_arn = local.lb_arn
-  port              = 443
+  context = module.this.context
 }
 
 # This is purely a check to ensure this zone exists
@@ -167,7 +80,7 @@ data "aws_route53_zone" "selected" {
 }
 
 data "aws_route53_zone" "selected_vanity" {
-  count = local.enabled ? 1 : 0
+  count = local.enabled && var.vanity_domain_enabled ? 1 : 0
 
   name         = local.vanity_domain
   private_zone = false

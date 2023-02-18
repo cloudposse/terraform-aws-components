@@ -4,5 +4,6 @@ output "metadata" {
 }
 
 output "cluster_checks" {
-  value = local.datadog_cluster_checks
+  value       = local.datadog_cluster_checks
+  description = "Cluster Checks for the cluster"
 }

@@ -116,3 +116,9 @@ variable "fixed_response_vars" {
     email = "hello@cloudposse.com"
   }
 }
+
+variable "alb_group_name" {
+  type        = string
+  description = "The name of the alb group"
+  default     = null
+}

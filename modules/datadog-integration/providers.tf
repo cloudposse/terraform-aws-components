@@ -2,6 +2,7 @@ provider "aws" {
   region = var.region
 
   profile = module.iam_roles.profiles_enabled ? coalesce(var.import_profile_name, module.iam_roles.terraform_profile_name) : null
+
   dynamic "assume_role" {
     for_each = module.iam_roles.profiles_enabled ? [] : ["role"]
     content {
@@ -25,30 +26,4 @@ variable "import_role_arn" {
   type        = string
   default     = null
   description = "IAM Role ARN to use when importing a resource"
-}
-
-provider "aws" {
-  alias  = "api_keys"
-  region = var.region
-
-  profile = module.iam_roles_datadog_secrets.profiles_enabled ? coalesce(var.import_profile_name, module.iam_roles_datadog_secrets.terraform_profile_name) : null
-  dynamic "assume_role" {
-    for_each = module.iam_roles.profiles_enabled ? [] : ["role"]
-    content {
-      role_arn = coalesce(var.import_role_arn, module.iam_roles_datadog_secrets.terraform_role_arn)
-    }
-  }
-}
-
-module "iam_roles_datadog_secrets" {
-  source  = "../account-map/modules/iam-roles"
-  stage   = var.datadog_secrets_source_store_account_stage
-  tenant  = var.datadog_secrets_source_store_account_tenant
-  context = module.this.context
-}
-
-provider "datadog" {
-  api_key  = local.datadog_api_key
-  app_key  = local.datadog_app_key
-  validate = local.enabled
 }

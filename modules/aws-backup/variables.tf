@@ -75,12 +75,6 @@ variable "plan_name_suffix" {
   default     = null
 }
 
-variable "target_vault_name" {
-  type        = string
-  description = "Override target Vault Name"
-  default     = null
-}
-
 variable "vault_enabled" {
   type        = bool
   description = "Whether or not a new Vault should be created"
@@ -99,8 +93,3 @@ variable "iam_role_enabled" {
   default     = true
 }
 
-variable "target_iam_role_name" {
-  type        = string
-  description = "Override target IAM Name"
-  default     = null
-}

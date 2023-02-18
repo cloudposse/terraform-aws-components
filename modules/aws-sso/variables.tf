@@ -3,6 +3,11 @@ variable "region" {
   description = "AWS Region"
 }
 
+variable "tfstate_environment_name" {
+  type        = string
+  description = "The name of the environment where `tfstate-backend` is provisioned"
+}
+
 variable "global_environment_name" {
   type        = string
   description = "Global environment name"

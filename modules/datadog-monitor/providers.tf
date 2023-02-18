@@ -2,6 +2,7 @@ provider "aws" {
   region = var.region
 
   profile = module.iam_roles.profiles_enabled ? coalesce(var.import_profile_name, module.iam_roles.terraform_profile_name) : null
+
   dynamic "assume_role" {
     for_each = module.iam_roles.profiles_enabled ? [] : ["role"]
     content {
@@ -25,9 +26,4 @@ variable "import_role_arn" {
   type        = string
   default     = null
   description = "IAM Role ARN to use when importing a resource"
-}
-
-provider "datadog" {
-  api_key = local.datadog_api_key
-  app_key = local.datadog_app_key
 }

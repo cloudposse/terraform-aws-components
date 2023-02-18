@@ -4,7 +4,7 @@ name = "metrics-server"
 
 chart            = "metrics-server"
 chart_repository = "https://charts.bitnami.com/bitnami"
-chart_version    = "5.11.4"
+chart_version    = "6.2.6"
 
 create_namespace     = true
 kubernetes_namespace = "metrics-server"

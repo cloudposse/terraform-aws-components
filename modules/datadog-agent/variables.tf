@@ -56,3 +56,9 @@ variable "eks_component_name" {
   description = "The name of the EKS component. Used to get the remote state"
   default     = "eks/eks"
 }
+
+variable "values" {
+  type        = any
+  description = "Additional values to yamlencode as `helm_release` values."
+  default     = {}
+}
