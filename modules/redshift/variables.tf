@@ -98,4 +98,5 @@ variable "custom_sg_rules" {
     description = string
   }))
   default = []
+  description = "An array of custom security groups to create and assign to the cluster."
 }
