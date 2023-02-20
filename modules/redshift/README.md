@@ -90,7 +90,7 @@ components:
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_custom_sg_allow_all_egress"></a> [custom\_sg\_allow\_all\_egress](#input\_custom\_sg\_allow\_all\_egress) | Whether to allow all egress traffic or not | `bool` | `true` | no |
 | <a name="input_custom_sg_enabled"></a> [custom\_sg\_enabled](#input\_custom\_sg\_enabled) | Whether to use custom security group or not | `bool` | `false` | no |
-| <a name="input_custom_sg_rules"></a> [custom\_sg\_rules](#input\_custom\_sg\_rules) | n/a | <pre>list(object({<br>    key         = string<br>    type        = string<br>    from_port   = number<br>    to_port     = number<br>    protocol    = string<br>    cidr_blocks = list(string)<br>    description = string<br>  }))</pre> | `[]` | no |
+| <a name="input_custom_sg_rules"></a> [custom\_sg\_rules](#input\_custom\_sg\_rules) | An array of custom security groups to create and assign to the cluster. | <pre>list(object({<br>    key         = string<br>    type        = string<br>    from_port   = number<br>    to_port     = number<br>    protocol    = string<br>    cidr_blocks = list(string)<br>    description = string<br>  }))</pre> | `[]` | no |
 | <a name="input_database_name"></a> [database\_name](#input\_database\_name) | The name of the first database to be created when the cluster is created | `string` | `null` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
@@ -130,7 +130,16 @@ components:
 
 | Name | Description |
 |------|-------------|
+| <a name="output_arn"></a> [arn](#output\_arn) | Amazon Resource Name (ARN) of cluster |
+| <a name="output_cluster_identifier"></a> [cluster\_identifier](#output\_cluster\_identifier) | The Cluster Identifier |
+| <a name="output_cluster_security_groups"></a> [cluster\_security\_groups](#output\_cluster\_security\_groups) | The security groups associated with the cluster |
+| <a name="output_database_name"></a> [database\_name](#output\_database\_name) | The name of the default database in the Cluster |
+| <a name="output_dns_name"></a> [dns\_name](#output\_dns\_name) | The DNS name of the cluster |
+| <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | The connection endpoint |
+| <a name="output_id"></a> [id](#output\_id) | The Redshift Cluster ID |
+| <a name="output_port"></a> [port](#output\_port) | The Port the cluster responds on |
 | <a name="output_redshift_database_ssm_key_prefix"></a> [redshift\_database\_ssm\_key\_prefix](#output\_redshift\_database\_ssm\_key\_prefix) | SSM prefix |
+| <a name="output_vpc_security_group_ids"></a> [vpc\_security\_group\_ids](#output\_vpc\_security\_group\_ids) | The VPC security group IDs associated with the cluster |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 

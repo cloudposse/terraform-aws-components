@@ -97,6 +97,6 @@ variable "custom_sg_rules" {
     cidr_blocks = list(string)
     description = string
   }))
-  default = []
+  default     = []
   description = "An array of custom security groups to create and assign to the cluster."
 }
