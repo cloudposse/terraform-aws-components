@@ -2,15 +2,6 @@
 
 This component installs the `datadog-agent` for EKS clusters.
 
-Note that pending https://tanzle.atlassian.net/browse/SRE-268 & https://cloudposse.atlassian.net/browse/MEROPE-381 , failed Terraform applies for this component may leave state & live release config inconsistent resulting in out-of-sync configuration but a no-change plan.
-
-If you're getting a "No changes" plan when you know the live release config doesn't match the new values, force a taint/recreate of the Helm release with a Spacelift task for the stack like this: `terraform apply -replace='module.datadog_agent.helm_release.this[0]' -auto-approve`.
-
-Locally this looks like
-```shell
-atmos terraform deploy datadog-agent -s ${region}-${stage} -replace='module.datadog_agent.helm_release.this[0]'
-```
-
 ## Usage
 
 **Stack Level**: Regional
@@ -26,20 +17,47 @@ components:
           workspace_enabled: true
       vars:
         enabled: true
+        eks_component_name: eks/cluster
         name: "datadog"
         description: "Datadog Kubernetes Agent"
         kubernetes_namespace: "monitoring"
         create_namespace: true
         repository: "https://helm.datadoghq.com"
         chart: "datadog"
-        chart_version: "3.0.0"
-        timeout: 600
+        chart_version: "3.0.3"
+        timeout: 1200
         wait: true
         atomic: true
         cleanup_on_fail: true
+        cluster_checks_enabled: false
+        helm_manifest_experiment_enabled: false
+        secrets_store_type: SSM
+        tags:
+          team: sre
+          service: datadog-agent
+          app: monitoring
+        # datadog-agent shouldn't be deployed to the Fargate nodes
+        values:
+          agents:
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                    - matchExpressions:
+                        - key: eks.amazonaws.com/compute-type
+                          operator: NotIn
+                          values:
+                            - fargate
+          datadog:
+            env:
+              - name: DD_EC2_PREFER_IMDSV2 # this merges ec2 instances and the node in the hostmap section
+                value: "true"
+
 ```
 
 Deploy this to a particular environment such as dev, prod, etc.
+
+This will add cluster checks to a specific environment.
 
 ```yaml
 components:
@@ -51,6 +69,7 @@ components:
           - catalog/cluster-checks/defaults/*.yaml
           - catalog/cluster-checks/dev/*.yaml
         datadog_cluster_check_config_parameters: {}
+        # add additional tags to all data coming in from this agent.
         datadog_tags:
           - "env:dev"
           - "region:us-west-2"
