@@ -10,5 +10,6 @@ locals {
       "arn:${local.aws_partition}:iam::aws:policy/ReadOnlyAccess",
       "arn:${local.aws_partition}:iam::aws:policy/AWSSupportAccess",
     ]
+    customer_managed_policy_attachments = []
   }]
 }

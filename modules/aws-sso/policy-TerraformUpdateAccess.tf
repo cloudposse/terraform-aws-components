@@ -26,5 +26,6 @@ locals {
     tags               = {},
     inline_policy      = data.aws_iam_policy_document.TerraformUpdateAccess.json,
     policy_attachments = []
+    customer_managed_policy_attachments = []
   }]
 }
