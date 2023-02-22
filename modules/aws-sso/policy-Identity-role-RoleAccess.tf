@@ -4,7 +4,7 @@
 # plus ViewOnly access because it is difficult to navigate without any access at all.
 
 locals {
-  identity_account = module.account_map.outputs.full_account_map[var.iam_primary_roles_stage_name]
+  identity_account = module.account_map.outputs.full_account_map[var.iam_primary_roles_account_name]
 }
 
 module "role_prefix" {
