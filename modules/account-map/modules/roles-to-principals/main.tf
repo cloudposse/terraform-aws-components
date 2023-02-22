@@ -36,12 +36,12 @@ locals {
     # arn:aws:iam::12345:role/aws-reserved/sso.amazonaws.com/ap-southeast-1/AWSReservedSSO_IdentityAdminRoleAccess_b68e107e9495e2fc
     # AWS SSO Sometimes includes `/region/`, but not always.
     format("arn:%s:iam::%s:role/aws-reserved/sso.amazonaws.com*/AWSReservedSSO_%%s_*", local.aws_partition, module.account_map.outputs.full_account_map[acct]),
-  v),
-  formatlist(
-    # Support assume role from the allowed identity account SSO users
-    # arn:aws:iam::12345:role/aws-reserved/sso.amazonaws.com/ap-southeast-1/AWSReservedSSO_IdentityAdminRoleAccess_b68e107e9495e2fc
-    # AWS SSO Sometimes includes `/region/`, but not always.
-    format("arn:%s:iam::%s:role/aws-reserved/sso.amazonaws.com*/AWSReservedSSO_%%s_*", local.aws_partition, module.account_map.outputs.full_account_map[module.account_map.outputs.identity_account_account_name]),
-  v),
+    v),
+    formatlist(
+      # Support assume role from the allowed identity account SSO users
+      # arn:aws:iam::12345:role/aws-reserved/sso.amazonaws.com/ap-southeast-1/AWSReservedSSO_IdentityAdminRoleAccess_b68e107e9495e2fc
+      # AWS SSO Sometimes includes `/region/`, but not always.
+      format("arn:%s:iam::%s:role/aws-reserved/sso.amazonaws.com*/AWSReservedSSO_%%s_*", local.aws_partition, module.account_map.outputs.full_account_map[module.account_map.outputs.identity_account_account_name]),
+    v),
   )])))
 }

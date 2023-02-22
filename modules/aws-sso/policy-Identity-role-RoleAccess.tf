@@ -54,13 +54,13 @@ data "aws_iam_policy_document" "assume_identity_role" {
 
 locals {
   identity_access_permission_sets = [for role in var.identity_roles_accessible : {
-    name               = format("Identity%sRoleAccess", title(role)),
-    description        = "Allow user to assume %s role in Identity account, which allows access to other accounts",
-    relay_state        = "",
-    session_duration   = "",
-    tags               = {},
-    inline_policy      = data.aws_iam_policy_document.assume_identity_role[role].json
-    policy_attachments = ["arn:${local.aws_partition}:iam::aws:policy/job-function/ViewOnlyAccess"]
+    name                                = format("Identity%sRoleAccess", title(role)),
+    description                         = "Allow user to assume %s role in Identity account, which allows access to other accounts",
+    relay_state                         = "",
+    session_duration                    = "",
+    tags                                = {},
+    inline_policy                       = data.aws_iam_policy_document.assume_identity_role[role].json
+    policy_attachments                  = ["arn:${local.aws_partition}:iam::aws:policy/job-function/ViewOnlyAccess"]
     customer_managed_policy_attachments = []
   }]
 }
