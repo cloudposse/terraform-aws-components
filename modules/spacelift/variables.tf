@@ -86,8 +86,14 @@ variable "policies_by_id_enabled" {
 
 variable "policies_by_name_enabled" {
   type        = list(string)
-  description = "List of custom policy names to attach to all Spacelift stacks. These policies must exist in `components/terraform/spacelift/rego-policies`"
+  description = "List of existing policy names to attach to all Spacelift stacks. These policies must exist at `modules/spacelift/rego-policies` OR `var.policies_by_name_path`."
   default     = []
+}
+
+variable "policies_by_name_path" {
+  type        = string
+  description = "Path to the catalog of external Rego policies. The Rego files must exist in the caller's code at the path. The module will create Spacelift policies from the external Rego definitions"
+  default     = ""
 }
 
 variable "administrative_stack_drift_detection_enabled" {
