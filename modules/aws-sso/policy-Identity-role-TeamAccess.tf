@@ -1,23 +1,23 @@
 
 # This file generates a permission set for each role specified in var.target_identity_roles
-# which is named "Identity<Role>RoleAccess" and grants access to only that role,
+# which is named "Identity<Role>TeamAccess" and grants access to only that role,
 # plus ViewOnly access because it is difficult to navigate without any access at all.
 
 locals {
-  identity_account = module.account_map.outputs.full_account_map[var.iam_primary_roles_stage_name]
+  identity_account = module.account_map.outputs.full_account_map[module.account_map.outputs.identity_account_account_name]
 }
 
 module "role_prefix" {
   source  = "cloudposse/label/null"
   version = "0.25.0"
 
-  stage = var.iam_primary_roles_stage_name
+  stage = var.aws_teams_stage_name
 
   context = module.this.context
 }
 
-data "aws_iam_policy_document" "assume_identity_role" {
-  for_each = local.enabled ? var.identity_roles_accessible : []
+data "aws_iam_policy_document" "assume_aws_team" {
+  for_each = local.enabled ? var.aws_teams_accessible : []
 
   statement {
     sid = "RoleAssumeRole"
@@ -53,13 +53,14 @@ data "aws_iam_policy_document" "assume_identity_role" {
 }
 
 locals {
-  identity_access_permission_sets = [for role in var.identity_roles_accessible : {
-    name               = format("Identity%sRoleAccess", title(role)),
-    description        = "Allow user to assume %s role in Identity account, which allows access to other accounts",
-    relay_state        = "",
-    session_duration   = "",
-    tags               = {},
-    inline_policy      = data.aws_iam_policy_document.assume_identity_role[role].json
-    policy_attachments = ["arn:${local.aws_partition}:iam::aws:policy/job-function/ViewOnlyAccess"]
+  identity_access_permission_sets = [for role in var.aws_teams_accessible : {
+    name                                = format("Identity%sTeamAccess", title(role)),
+    description                         = format("Allow user to assume the %s Team role in the Identity account, which allows access to other accounts", title(role))
+    relay_state                         = "",
+    session_duration                    = "",
+    tags                                = {},
+    inline_policy                       = data.aws_iam_policy_document.assume_aws_team[role].json
+    policy_attachments                  = ["arn:${local.aws_partition}:iam::aws:policy/job-function/ViewOnlyAccess"]
+    customer_managed_policy_attachments = []
   }]
 }
