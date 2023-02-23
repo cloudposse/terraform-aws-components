@@ -13,16 +13,16 @@ components:
   terraform:
     github-runners:
       vars:
-        github_scope: company
-        instance_type: "t3.small"
-        min_size: 1
-        max_size: 10
-        default_cooldown: 300
-        scale_down_cooldown_seconds: 2700
-        wait_for_capacity_timeout: 10m
         cpu_utilization_high_threshold_percent: 5
         cpu_utilization_low_threshold_percent: 1
-        spot_maxprice: 0.02
+        default_cooldown: 300
+        github_scope: company
+        instance_type: "t3.small"
+        max_size: 10
+        min_size: 1
+        runner_group: default
+        scale_down_cooldown_seconds: 2700
+        wait_for_capacity_timeout: 10m
         mixed_instances_policy:
           instances_distribution:
             on_demand_allocation_strategy: "prioritized"
