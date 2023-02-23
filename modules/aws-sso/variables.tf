@@ -13,7 +13,8 @@ variable "global_environment_name" {
   description = "Global environment name"
   default     = "gbl"
 }
-variable "root_account_stage_name" {
+
+variable "global_stage_name" {
   type        = string
   description = "The name of the stage where `account_map` is provisioned"
   default     = "root"
@@ -49,18 +50,18 @@ variable "account_assignments" {
   default     = {}
 }
 
-variable "iam_primary_roles_stage_name" {
+variable "aws_teams_stage_name" {
   type        = string
   description = "The name of the stage where the IAM primary roles are provisioned"
   default     = "identity"
 }
 
-variable "identity_roles_accessible" {
+variable "aws_teams_accessible" {
   type        = set(string)
   description = <<-EOT
     List of IAM roles (e.g. ["admin", "terraform"]) for which to create permission
     sets that allow the user to assume that role. Named like
-    admin -> IdentityAdminRoleAccess
+    admin -> IdentityAdminTeamAccess
     EOT
   default     = []
 }
