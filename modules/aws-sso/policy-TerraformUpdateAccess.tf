@@ -19,12 +19,13 @@ data "aws_iam_policy_document" "TerraformUpdateAccess" {
 
 locals {
   terraform_update_access_permission_set = [{
-    name               = "TerraformUpdateAccess",
-    description        = "Allow access to Terraform state sufficient to make changes",
-    relay_state        = "",
-    session_duration   = "PT1H", # One hour, maximum allowed for chained assumed roles
-    tags               = {},
-    inline_policy      = data.aws_iam_policy_document.TerraformUpdateAccess.json,
-    policy_attachments = []
+    name                                = "TerraformUpdateAccess",
+    description                         = "Allow access to Terraform state sufficient to make changes",
+    relay_state                         = "",
+    session_duration                    = "PT1H", # One hour, maximum allowed for chained assumed roles
+    tags                                = {},
+    inline_policy                       = data.aws_iam_policy_document.TerraformUpdateAccess.json,
+    policy_attachments                  = []
+    customer_managed_policy_attachments = []
   }]
 }
