@@ -4,7 +4,7 @@ locals {
   # Get all policies without a URL
   # { k = { "body": "https://", etc } }
   policies_with_body = {
-    for k, v in var.policy :
+    for k, v in var.policies :
     # merge them with existing data structure
     k => merge(v, {
       # append body_append to each body if one exists
@@ -23,7 +23,7 @@ locals {
   # Get all policies with a URL
   # { k = "https://" }
   policies_with_body_url = {
-    for k, v in var.policy :
+    for k, v in var.policies :
     k => try(
       format(v["body_url"], var.policy_version),
       v["body_url"],
@@ -36,7 +36,7 @@ locals {
   policies_with_body_url_downloaded = {
     for k, v in local.policies_with_body_url :
     # merge them with existing data structure
-    k => merge(var.policy[k], {
+    k => merge(var.policies[k], {
       # append body_append to each body if one exists
       "body" = format(
         join("\n", [
@@ -47,7 +47,7 @@ locals {
         v,
         data.http.default[k]["body"],
       )
-    })
+    }) if local.enabled
   }
 
   # TODO: get local policies
@@ -59,7 +59,7 @@ locals {
   )
 
   # keep the object keys consistent to avoid terraform errors
-  policy = {
+  policies = {
     for k, v in local.all_policies :
     k => merge(
       # remove optional keys
@@ -103,7 +103,7 @@ data "http" "default" {
 }
 
 resource "spacelift_policy" "default" {
-  for_each = local.enabled ? local.policy : {}
+  for_each = local.enabled ? local.policies : {}
 
   name     = lookup(each.value, "name")
   body     = lookup(each.value, "body")

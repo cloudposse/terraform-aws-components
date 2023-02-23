@@ -1,4 +1,4 @@
-output "policy" {
+output "policies" {
   description = "All calculated policies"
-  value       = local.policy
+  value       = local.policies
 }
