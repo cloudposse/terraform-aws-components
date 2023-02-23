@@ -19,12 +19,12 @@ variable "policies" {
 
 variable "labels" {
   type        = list(string)
-  description = "List of global labels to add to each policy. These values can be overriden in `var.policies`'s per policy `labels` key."
+  description = "List of global labels to add to each policy. These values can be overridden in `var.policies`'s per policy `labels` key."
   default     = []
 }
 
 variable "space_id" {
   type        = string
-  description = "The global `space_id` to assign to each policy. This value can be overriden in `var.policies`'s per policy `space_id` key."
+  description = "The global `space_id` to assign to each policy. This value can be overridden in `var.policies`'s per policy `space_id` key."
   default     = "root"
 }
