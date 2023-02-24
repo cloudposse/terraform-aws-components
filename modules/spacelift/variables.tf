@@ -1,3 +1,8 @@
+variable "region" {
+  type        = string
+  description = "AWS Region"
+}
+
 variable "runner_image" {
   type        = string
   description = "Full address & tag of the Spacelift runner image (e.g. on ECR)"
