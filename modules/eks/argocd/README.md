@@ -4,13 +4,8 @@ This component is responsible for provisioning [Argo CD](https://argoproj.github
 
 Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
 
-> :warning::warning::warning: ArgoCD CRDs must be installed separately from this component/helm release. :warning::warning::warning:
-```shell
-kubectl apply -k "https://github.com/argoproj/argo-cd/manifests/crds?ref=<appVersion>"
-
-# Eg. version v2.4.9
-kubectl apply -k "https://github.com/argoproj/argo-cd/manifests/crds?ref=v2.4.9"
-```
+> :warning::warning::warning: Initial install needs run `deploy` two times because first run will create ArgoCD CRDs
+> and second run will finish ArgoCD configuration. :warning::warning::warning:
 
 ## Usage
 
