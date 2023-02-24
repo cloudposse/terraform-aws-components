@@ -8,23 +8,24 @@ metadata:
     argocd-autopilot.argoproj-labs.io/default-dest-server: https://kubernetes.default.svc
     argocd.argoproj.io/sync-options: PruneLast=true
     argocd.argoproj.io/sync-wave: "-2"
+%{if slack_channel != "" && slack_channel != null ~}
     notifications.argoproj.io/subscribe.on-deployed.slack: ${slack_channel}
     notifications.argoproj.io/subscribe.on-health-degraded.slack: ${slack_channel}
     notifications.argoproj.io/subscribe.on-sync-failed.slack: ${slack_channel}
     notifications.argoproj.io/subscribe.on-sync-running.slack: ${slack_channel}
     notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: ${slack_channel}
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: ${slack_channel}
+    notifications.argoproj.io/subscribe.on-deleted.slack: ${slack_channel}
+%{ endif ~}
     notifications.argoproj.io/subscribe.on-deployed.datadog: ""
     notifications.argoproj.io/subscribe.on-health-degraded.datadog: ""
     notifications.argoproj.io/subscribe.on-sync-failed.datadog: ""
     notifications.argoproj.io/subscribe.on-sync-running.datadog: ""
     notifications.argoproj.io/subscribe.on-sync-status-unknown.datadog: ""
     notifications.argoproj.io/subscribe.on-sync-succeeded.datadog: ""
-    notifications.argoproj.io/subscribe.on-deleted.slack: ${slack_channel}
     notifications.argoproj.io/subscribe.on-deployed.github-deployment: ""
     notifications.argoproj.io/subscribe.on-deployed.github-commit-status: ""
     notifications.argoproj.io/subscribe.on-deleted.github-deployment: ""
-  creationTimestamp: null
   name: ${name}
   namespace: ${namespace}
 spec:
@@ -48,7 +49,6 @@ kind: ApplicationSet
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
-  creationTimestamp: null
   name: ${name}
   namespace: ${namespace}
 spec:
