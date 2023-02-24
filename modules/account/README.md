@@ -8,99 +8,139 @@ In addition, it enables [AWS IAM Access Analyzer](https://docs.aws.amazon.com/IA
 
 **Stack Level**: Global
 
-**IMPORTANT**: Account names must not contain dashes. Doing so will lead to unpredictable resource names as a `-` is the default delimiter. Additionally, account names must be lower case alpha-numeric with no special characters.
+**IMPORTANT**: Account Name building blocks (such as tenant, stage, environment) must not contain dashes. Doing so will lead to unpredictable resource names as a `-` is the default delimiter. Additionally, account names must be lower case alpha-numeric with no special characters.
+For example:
+
+| Key              | Value               | Correctness |
+|------------------|---------------------|-------------|
+| **Tenant**       | foo                 | ✅           |
+| **Tenant**       | foo-bar             | ❌           |
+| **Environment**  | use1                | ✅           |
+| **Environment**  | us-east-1           | ❌           |
+| **Account Name** | `core-identity`     | ✅            |
 
 Here is an example snippet for how to use this component. Include this snippet in the stack configuration for the management account
-(typically `root`) in the management tenant/OU (usually something like `mgmt` or `core`) in the global region (`gbl`). You can insert 
+(typically `root`) in the management tenant/OU (usually something like `mgmt` or `core`) in the global region (`gbl`). You can insert
 the content directly, or create a `stacks/catalog/account.yaml` file and import it from there.
 
 ```yaml
 components:
   terraform:
     account:
+      settings:
+        spacelift:
+          workspace_enabled: false
+      backend:
+        s3:
+          role_arn: null
       vars:
+        enabled: true
         account_email_format: aws+%s@example.net
-        account_iam_user_access_to_billing: DENY
+        account_iam_user_access_to_billing: ALLOW
         organization_enabled: true
         aws_service_access_principals:
           - cloudtrail.amazonaws.com
+          - guardduty.amazonaws.com
+          - ipam.amazonaws.com
           - ram.amazonaws.com
+          - securityhub.amazonaws.com
+          - servicequotas.amazonaws.com
+          - sso.amazonaws.com
+          - securityhub.amazonaws.com
+          - auditmanager.amazonaws.com
         enabled_policy_types:
           - SERVICE_CONTROL_POLICY
           - TAG_POLICY
         organization_config:
-          root_account_stage_name: root
+          root_account:
+            name: core-root
+            stage: root
+            tenant: core
+            tags:
+              eks: false
           accounts: []
           organization:
-            service_control_policies: []
+            service_control_policies:
+              - DenyEC2InstancesWithoutEncryptionInTransit
           organizational_units:
-            - name: data
+            - name: core
               accounts:
-                - name: proddata
+                - name: core-artifacts
+                  tenant: core
+                  stage: artifacts
+                  tags:
+                    eks: false
+                - name: core-audit
+                  tenant: core
+                  stage: audit
+                  tags:
+                    eks: false
+                - name: core-auto
+                  tenant: core
+                  stage: auto
                   tags:
                     eks: true
-                - name: devdata
+                - name: core-corp
+                  tenant: core
+                  stage: corp
                   tags:
                     eks: true
-                - name: stagedata
+                - name: core-dns
+                  tenant: core
+                  stage: dns
                   tags:
-                    eks: true
+                    eks: false
+                - name: core-identity
+                  tenant: core
+                  stage: identity
+                  tags:
+                    eks: false
+                - name: core-network
+                  tenant: core
+                  stage: network
+                  tags:
+                    eks: false
+                - name: core-security
+                  tenant: core
+                  stage: security
+                  tags:
+                    eks: false
               service_control_policies:
                 - DenyLeavingOrganization
-            - name: platform
+            - name: plat
               accounts:
-                - name: prodplatform
+                - name: plat-dev
+                  tenant: plat
+                  stage: dev
                   tags:
                     eks: true
-                - name: devplatform
+                - name: plat-sandbox
+                  tenant: plat
+                  stage: sandbox
                   tags:
                     eks: true
-                - name: stageplatform
+                - name: plat-staging
+                  tenant: plat
+                  stage: staging
                   tags:
                     eks: true
-              service_control_policies:
-                - DenyLeavingOrganization
-            - name: mgmt
-              accounts:
-                - name: demo
-                  tags:
-                    eks: true
-                - name: audit
-                  tags:
-                    eks: false
-                - name: corp
-                  tags:
-                    eks: true
-                - name: security
-                  tags:
-                    eks: false
-                - name: identity
-                  tags:
-                    eks: false
-                - name: network
-                  tags:
-                    eks: false
-                - name: dns
-                  tags:
-                    eks: false
-                - name: automation
+                - name: plat-prod
+                  tenant: plat
+                  stage: prod
                   tags:
                     eks: true
               service_control_policies:
                 - DenyLeavingOrganization
         service_control_policies_config_paths:
-        # These paths specify where to find the service control policies identified by SID in the service_control_policies sections above.
-        # The number such as "0.12.0" is the release number/tag of the service control policies repository, and you may want to 
-        # update it to reflect the latest release.
-        - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/organization-policies.yaml"
-        - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/ec2-policies.yaml"
-        - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/cloudwatch-logs-policies.yaml"
-        - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/deny-all-policies.yaml"
-        - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/iam-policies.yaml"
-        - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/kms-policies.yaml"
-        - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/route53-policies.yaml"
-        - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/s3-policies.yaml"
-
+          # These paths specify where to find the service control policies identified by SID in the service_control_policies sections above.
+          - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/cloudwatch-logs-policies.yaml"
+          - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/deny-all-policies.yaml"
+          - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/iam-policies.yaml"
+          - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/kms-policies.yaml"
+          - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/organization-policies.yaml"
+          - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/route53-policies.yaml"
+          - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/s3-policies.yaml"
+          - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/ec2-policies.yaml"
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
