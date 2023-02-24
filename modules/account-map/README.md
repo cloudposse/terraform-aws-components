@@ -18,7 +18,7 @@ components:
         enabled: true
         # Set profiles_enabled to false unless we are using AWS config profiles for Terraform access.
         # When profiles_enabled is false, role_arn must be provided instead of profile in each terraform component provider.
-        # This is automatically handled by the component's `provider.tf` file in conjunction with 
+        # This is automatically handled by the component's `provider.tf` file in conjunction with
         # the `account-map/modules/iam-roles` module.
         profiles_enabled: false
         root_account_aws_name: "aws-root"
@@ -26,16 +26,16 @@ components:
         identity_account_account_name: identity
         dns_account_account_name: dns
         audit_account_account_name: audit
-        
+
         # The following variables contain `format()` strings that take the labels from `null-label`
         # as arguments in the standard order. The default values are shown here, assuming
-        # the `null-label.label_order` is 
+        # the `null-label.label_order` is
         # ["namespace", "tenant", "environment", "stage", "name", "attributes"]
         # Note that you can rearrange the order of the labels in the template by
         # using [explicit argument indexes](https://pkg.go.dev/fmt#hdr-Explicit_argument_indexes) just like in `go`.
 
         #  `iam_role_arn_template_template` is the template for the template [sic] used to render Role ARNs.
-        #  The template is first used to render a template for the account that takes only the role name.                   
+        #  The template is first used to render a template for the account that takes only the role name.
         #  Then that rendered template is used to create the final Role ARN for the account.
         iam_role_arn_template_template: "arn:%s:iam::%s:role/%s-%s-%s-%s-%%s"
         # `profile_template` is the template used to render AWS Profile names.
@@ -50,19 +50,20 @@ components:
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
+| <a name="requirement_local"></a> [local](#requirement\_local) | >= 1.3 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
-| <a name="provider_local"></a> [local](#provider\_local) | n/a |
+| <a name="provider_local"></a> [local](#provider\_local) | >= 1.3 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_accounts"></a> [accounts](#module\_accounts) | cloudposse/stack-config/yaml//modules/remote-state | 1.0.0 |
+| <a name="module_accounts"></a> [accounts](#module\_accounts) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources

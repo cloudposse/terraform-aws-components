@@ -4,13 +4,8 @@ This component is responsible for provisioning [Argo CD](https://argoproj.github
 
 Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
 
-> :warning::warning::warning: ArgoCD CRDs must be installed separately from this component/helm release. :warning::warning::warning:
-```shell
-kubectl apply -k "https://github.com/argoproj/argo-cd/manifests/crds?ref=<appVersion>"
-
-# Eg. version v2.4.9
-kubectl apply -k "https://github.com/argoproj/argo-cd/manifests/crds?ref=v2.4.9"
-```
+> :warning::warning::warning: Initial install needs run `deploy` two times because first run will create ArgoCD CRDs
+> and second run will finish ArgoCD configuration. :warning::warning::warning:
 
 ## Usage
 
@@ -61,6 +56,7 @@ components:
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
 | <a name="provider_aws.config_secrets"></a> [aws.config\_secrets](#provider\_aws.config\_secrets) | >= 4.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.9.0 |
 
 ## Modules
 
@@ -87,6 +83,7 @@ components:
 | [aws_ssm_parameter.oidc_client_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.oidc_client_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameters_by_path.argocd_notifications](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameters_by_path) | data source |
+| [kubernetes_resources.example](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/resources) | data source |
 
 ## Inputs
 

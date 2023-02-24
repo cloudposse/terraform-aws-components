@@ -225,6 +225,12 @@ module "argocd" {
   context = module.this.context
 }
 
+data "kubernetes_resources" "example" {
+  api_version    = "apiextensions.k8s.io/v1"
+  kind           = "CustomResourceDefinition"
+  field_selector = "metadata.name==applications.argoproj.io"
+}
+
 module "argocd_apps" {
   source  = "cloudposse/helm-release/aws"
   version = "0.3.0"
@@ -240,7 +246,7 @@ module "argocd_apps" {
   atomic               = var.atomic
   cleanup_on_fail      = var.cleanup_on_fail
   timeout              = var.timeout
-  enabled              = local.enabled && var.argocd_apps_enabled
+  enabled              = local.enabled && var.argocd_apps_enabled && length(data.kubernetes_resources.example.objects) > 0
   values = compact([
     templatefile(
       "${path.module}/resources/argocd-apps-values.yaml.tpl",
