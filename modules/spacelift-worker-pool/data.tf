@@ -19,7 +19,7 @@ data "aws_ami" "spacelift" {
 
   filter {
     name   = "name"
-    values = ["spacelift-*"]
+    values = ["spacelift-*-x86_64*"]
   }
 
   filter {
