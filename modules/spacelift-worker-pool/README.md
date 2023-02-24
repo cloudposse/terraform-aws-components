@@ -36,10 +36,15 @@ components:
       vars:
         enabled: true
         name: "spacelift-worker-pool"
-        ec2_instance_type: m6i.large
-        ecr_account_name: corp
+        cpu_utilization_high_threshold_percent: 60
+        cpu_utilization_low_threshold_percent: 20
         ecr_repo_name: infrastructure
+        # ecr_tenant_name: core # optional
+        instance_type: m6i.large
+        max_size: 6
+        min_size: 1
         spacelift_api_endpoint: https://<GITHUBORG>.app.spacelift.io
+        wait_for_capacity_timeout: 5m
 ```
 
 ## Configuration
