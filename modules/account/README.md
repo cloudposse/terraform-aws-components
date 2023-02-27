@@ -11,13 +11,13 @@ In addition, it enables [AWS IAM Access Analyzer](https://docs.aws.amazon.com/IA
 **IMPORTANT**: Account Name building blocks (such as tenant, stage, environment) must not contain dashes. Doing so will lead to unpredictable resource names as a `-` is the default delimiter. Additionally, account names must be lower case alpha-numeric with no special characters.
 For example:
 
-| Key              | Value               | Correctness |
-|------------------|---------------------|-------------|
-| **Tenant**       | foo                 | ✅           |
-| **Tenant**       | foo-bar             | ❌           |
-| **Environment**  | use1                | ✅           |
-| **Environment**  | us-east-1           | ❌           |
-| **Account Name** | `core-identity`     | ✅            |
+| Key              | Value           | Correctness |
+|------------------|-----------------|-------------|
+| **Tenant**       | foo             | ✅           |
+| **Tenant**       | foo-bar         | ❌           |
+| **Environment**  | use1            | ✅           |
+| **Environment**  | us-east-1       | ❌           |
+| **Account Name** | `core-identity` | ✅           |
 
 Here is an example snippet for how to use this component. Include this snippet in the stack configuration for the management account
 (typically `root`) in the management tenant/OU (usually something like `mgmt` or `core`) in the global region (`gbl`). You can insert
