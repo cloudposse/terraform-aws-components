@@ -4,7 +4,7 @@
 host-io-wait-times:
   name: "(Host) ${tenant} ${ stage } - I/O Wait Times"
   type: metric alert
-  query: "avg(last_10m):avg:system.cpu.iowait{stage:${ stage }} by {host} > 50"
+  query: "avg(last_10m):avg:system.cpu.iowait{stage:${ stage }} by {host,stage,tenant,environment} > 50"
   message: |-
     The I/O wait time for ({{host.name}} {{host.ip}}) is very high
   escalation_message: ""
@@ -30,7 +30,7 @@ host-io-wait-times:
 host-disk-use:
   name: "(Host) ${tenant} ${ stage } - Host Disk Usage"
   type: metric alert
-  query: "avg(last_30m):(avg:system.disk.total{stage:${ stage }} by {host} - avg:system.disk.free{stage:${ stage }} by {host}) / avg:system.disk.total{stage:${ stage }} by {host} * 100 > 90"
+  query: "avg(last_30m):(avg:system.disk.total{stage:${ stage }} by {host,stage,tenant,environment} - avg:system.disk.free{stage:${ stage }} by {host}) / avg:system.disk.total{stage:${ stage }} by {host} * 100 > 90"
   message: |-
     Disk Usage has been above threshold over 30 minutes on ({{host.name}} {{host.ip}})
   escalation_message: ""
@@ -60,7 +60,7 @@ host-disk-use:
 host-high-mem-use:
   name: "(Host) ${tenant} ${ stage } - Memory Utilization"
   type: query alert
-  query: "avg(last_15m):avg:system.mem.pct_usable{stage:${ stage }} by {host} < 0.1"
+  query: "avg(last_15m):avg:system.mem.pct_usable{stage:${ stage }} by {host,stage,tenant,environment} < 0.1"
   message: |-
     Running out of free memory on ({{host.name}} {{host.ip}})
   escalation_message: ""
@@ -90,9 +90,9 @@ host-high-mem-use:
 host-high-load-avg:
   name: "(Host) ${tenant} ${ stage } - High System Load Average"
   type: metric alert
-  query: "avg(last_30m):avg:system.load.norm.5{stage:${ stage }} by {host} > 0.8"
+  query: "avg(last_30m):avg:system.load.norm.5{stage:${ stage }} by {host,stage,tenant,environment} > 0.8"
   message: |-
-    Load average is high on ({{host.name}} {{host.ip}})
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) Load average is high on ({{host.name}} {{host.ip}})
   escalation_message: ""
   tags:
     managed-by: Terraform

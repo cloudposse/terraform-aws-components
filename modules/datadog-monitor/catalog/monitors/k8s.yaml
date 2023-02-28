@@ -5,9 +5,9 @@ k8s-deployment-replica-pod-down:
   name: "(k8s) ${tenant} ${ stage } - Deployment Replica Pod is down"
   type: query alert
   query: |
-    avg(last_15m):avg:kubernetes_state.deployment.replicas_desired{stage:${ stage }} by {cluster_name,deployment} - avg:kubernetes_state.deployment.replicas_ready{stage:${ stage }} by {cluster_name,deployment} >= 2
+    avg(last_15m):avg:kubernetes_state.deployment.replicas_desired{stage:${ stage }} by {cluster_name,deployment,stage,tenant,environment} - avg:kubernetes_state.deployment.replicas_ready{stage:${ stage }} by {cluster_name,deployment,stage,tenant,environment} >= 2
   message: |
-    ({{cluster_name.name}}) More than one Deployments Replica's pods are down on {{deployment.name}}
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}}] More than one Deployments Replica's pods are down on {{deployment.name}}
   escalation_message: ""
   tags:
     managed-by: Terraform
@@ -31,9 +31,9 @@ k8s-pod-restarting:
   name: "(k8s) ${tenant} ${ stage } - Pods are restarting multiple times"
   type: query alert
   query: |
-    change(sum(last_5m),last_5m):exclude_null(avg:kubernetes.containers.restarts{stage:${ stage }} by {cluster_name,kube_namespace,pod_name}) > 5
+    change(sum(last_5m),last_5m):exclude_null(avg:kubernetes.containers.restarts{stage:${ stage }} by {cluster_name,kube_namespace,pod_name,stage,tenant,environment}) > 5
   message: |
-    ({{cluster_name.name}}) pod {{pod_name.name}} is restarting multiple times on {{kube_namespace.name}}
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}}] pod {{pod_name.name}} is restarting multiple times on {{kube_namespace.name}}
   escalation_message: ""
   tags:
     managed-by: Terraform
@@ -58,9 +58,9 @@ k8s-statefulset-replica-down:
   name: "(k8s) ${tenant} ${ stage } - StatefulSet Replica Pod is down"
   type: query alert
   query: |
-    max(last_15m):sum:kubernetes_state.statefulset.replicas_desired{stage:${ stage }} by {cluster_name,kube_namespace,statefulset} - sum:kubernetes_state.statefulset.replicas_ready{stage:${ stage }} by {cluster_name,kube_namespace,statefulset} >= 2
+    max(last_15m):sum:kubernetes_state.statefulset.replicas_desired{stage:${ stage }} by {cluster_name,kube_namespace,statefulset,stage,tenant,environment} - sum:kubernetes_state.statefulset.replicas_ready{stage:${ stage }} by {cluster_name,kube_namespace,statefulset,stage,tenant,environment} >= 2
   message: |
-    ({{cluster_name.name}} {{statefulset.name}}) More than one StatefulSet Replica's pods are down on {{kube_namespace.name}}
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}} {{statefulset.name}}] More than one StatefulSet Replica's pods are down on {{kube_namespace.name}}
   escalation_message: ""
   tags:
     managed-by: Terraform
@@ -86,9 +86,9 @@ k8s-daemonset-pod-down:
   name: "(k8s) ${tenant} ${ stage } - DaemonSet Pod is down"
   type: query alert
   query: |
-    max(last_15m):sum:kubernetes_state.daemonset.desired{stage:${ stage }} by {cluster_name,kube_namespace,daemonset} - sum:kubernetes_state.daemonset.ready{stage:${ stage }} by {cluster_name,kube_namespace,daemonset} >= 1
+    max(last_15m):sum:kubernetes_state.daemonset.desired{stage:${ stage }} by {cluster_name,kube_namespace,daemonset,stage,tenant,environment} - sum:kubernetes_state.daemonset.ready{stage:${ stage }} by {cluster_name,kube_namespace,daemonset,stage,tenant,environment} >= 1
   message: |
-    ({{cluster_name.name}} {{daemonset.name}}) One or more DaemonSet pods are down on {{kube_namespace.name}}
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}} {{daemonset.name}}] One or more DaemonSet pods are down on {{kube_namespace.name}}
   escalation_message: ""
   tags:
     managed-by: Terraform
@@ -112,9 +112,9 @@ k8s-crashloopBackOff:
   name: "(k8s) ${tenant} ${ stage } - CrashloopBackOff detected"
   type: query alert
   query: |
-    max(last_10m):max:kubernetes_state.container.status_report.count.waiting{stage:${ stage },reason:crashloopbackoff} by {cluster_name,kube_namespace,pod_name} >= 1
+    max(last_10m):max:kubernetes_state.container.status_report.count.waiting{stage:${ stage },reason:crashloopbackoff} by {cluster_name,kube_namespace,pod_name,stage,tenant,environment} >= 1
   message: |
-    ({{cluster_name.name}}) pod {{pod_name.name}} is CrashloopBackOff on {{kube_namespace.name}}
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}}] pod {{pod_name.name}} is CrashloopBackOff on {{kube_namespace.name}}
   escalation_message: ""
   tags:
     managed-by: Terraform
@@ -138,9 +138,9 @@ k8s-multiple-pods-failing:
   name: "(k8s) ${tenant} ${ stage } - Multiple Pods are failing"
   type: query alert
   query: |
-    change(avg(last_5m),last_5m):sum:kubernetes_state.pod.status_phase{stage:${ stage },phase:failed} by {cluster_name,kube_namespace} > 10
+    change(avg(last_5m),last_5m):sum:kubernetes_state.pod.status_phase{stage:${ stage },phase:failed} by {cluster_name,kube_namespace,stage,tenant,environment} > 10
   message: |
-    ({{cluster_name.name}}) More than ten pods are failing on {{kube_namespace.name}}
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}}] More than ten pods are failing on {{kube_namespace.name}}
   escalation_message: ""
   tags:
     managed-by: Terraform
@@ -165,9 +165,9 @@ k8s-unavailable-deployment-replica:
   name: "(k8s) ${tenant} ${ stage } - Unavailable Deployment Replica(s) detected"
   type: metric alert
   query: |
-    max(last_10m):max:kubernetes_state.deployment.replicas_unavailable{stage:${ stage }} by {cluster_name,kube_namespace} > 0
+    max(last_10m):max:kubernetes_state.deployment.replicas_unavailable{stage:${ stage }} by {cluster_name,kube_namespace,stage,tenant,environment} > 0
   message: |
-    ({{cluster_name.name}}) Detected unavailable Deployment replicas for longer than 10 minutes on {{kube_namespace.name}}
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}}] Detected unavailable Deployment replicas for longer than 10 minutes on {{kube_namespace.name}}
   escalation_message: ""
   tags:
     managed-by: Terraform
@@ -196,9 +196,9 @@ k8s-unavailable-statefulset-replica:
   name: "(k8s) ${tenant} ${ stage } - Unavailable Statefulset Replica(s) detected"
   type: metric alert
   query: |
-    max(last_10m):max:kubernetes_state.statefulset.replicas_unavailable{stage:${ stage }} by {cluster_name,kube_namespace} > 0
+    max(last_10m):max:kubernetes_state.statefulset.replicas_unavailable{stage:${ stage }} by {cluster_name,kube_namespace,stage,tenant,environment} > 0
   message: |
-    ({{cluster_name.name}}) Detected unavailable Statefulset replicas for longer than 10 minutes on {{kube_namespace.name}}
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}}] Detected unavailable Statefulset replicas for longer than 10 minutes on {{kube_namespace.name}}
   escalation_message: ""
   tags:
     managed-by: Terraform
@@ -227,9 +227,9 @@ k8s-node-status-unschedulable:
   name: "(k8s) ${tenant} ${ stage } - Detected Unschedulable Node(s)"
   type: query alert
   query: |
-    max(last_15m):sum:kubernetes_state.node.status{stage:${ stage },status:schedulable} by {cluster_name} * 100 / sum:kubernetes_state.node.status{stage:${ stage }} by {cluster_name} < 80
+    max(last_15m):sum:kubernetes_state.node.status{stage:${ stage },status:schedulable} by {cluster_name} * 100 / sum:kubernetes_state.node.status{stage:${ stage }} by {cluster_name,stage,tenant,environment} < 80
   message: |
-    More than 20% of nodes are unschedulable on ({{cluster_name}} cluster). \n Keep in mind that this might be expected based on your infrastructure.
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}}] More than 20% of nodes are unschedulable on the cluster. \n Keep in mind that this might be expected based on your infrastructure.
   escalation_message: ""
   tags:
     managed-by: Terraform
@@ -258,9 +258,9 @@ k8s-imagepullbackoff:
   name: "(k8s) ${tenant} ${ stage } - ImagePullBackOff detected"
   type: "query alert"
   query: |
-    max(last_10m):max:kubernetes_state.container.status_report.count.waiting{reason:imagepullbackoff,stage:${ stage }} by {kube_cluster_name,kube_namespace,pod_name} >= 1
+    max(last_10m):max:kubernetes_state.container.status_report.count.waiting{reason:imagepullbackoff,stage:${ stage }} by {kube_cluster_name,kube_namespace,pod_name,stage,tenant,environment} >= 1
   message: |
-    Pod {{pod_name.name}} is ImagePullBackOff on namespace {{kube_namespace.name}}
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}}] Pod {{pod_name.name}} is ImagePullBackOff on namespace {{kube_namespace.name}}
   escalation_message: ""
   tags:
     managed-by: Terraform
@@ -289,9 +289,9 @@ k8s-high-cpu-usage:
   name: "(k8s) ${tenant} ${ stage } - High CPU Usage Detected"
   type: metric alert
   query: |
-    avg(last_10m):avg:system.cpu.system{stage:${ stage }} by {host} > 90
+    avg(last_10m):avg:system.cpu.system{stage:${ stage }} by {host,stage,tenant,environment} > 90
   message: |
-    ({{host.cluster_name}}) High CPU usage for the last 10 minutes on {{host.name}}
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}} {{host.cluster_name}}] High CPU usage for the last 10 minutes on {{host.name}}
   escalation_message: ""
   tags:
     managed-by: Terraform
@@ -320,9 +320,9 @@ k8s-high-disk-usage:
   name: "(k8s) ${tenant} ${ stage } - High Disk Usage Detected"
   type: metric alert
   query: |
-    min(last_5m):min:system.disk.used{stage:${ stage }} by {host,cluster_name} / avg:system.disk.total{stage:${ stage }} by {host,cluster_name} * 100 > 90
+    min(last_5m):min:system.disk.used{stage:${ stage }} by {host,cluster_name,stage,tenant,environment} / avg:system.disk.total{stage:${ stage }} by {host,cluster_name,stage,tenant,environment} * 100 > 90
   message: |
-    ({{cluster_name.name}}) High disk usage detected on {{host.name}}
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}}] High disk usage detected on {{host.name}}
   escalation_message: ""
   tags:
     managed-by: Terraform
@@ -351,8 +351,9 @@ k8s-high-memory-usage:
   name: "(k8s) ${tenant} ${ stage } - High Memory Usage Detected"
   type: metric alert
   query: |
-    avg(last_10m):avg:kubernetes.memory.usage_pct{stage:${ stage }} by {cluster_name} > 90
+    avg(last_10m):avg:kubernetes.memory.usage_pct{stage:${ stage }} by {cluster_name,stage,tenant,environment} > 90
   message: |
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}}] High memory usage detected on {{host.name}}
     {{#is_warning}}
     {{cluster_name.name}} memory usage greater than 80% for 10 minutes
     {{/is_warning}}
@@ -387,8 +388,9 @@ k8s-high-filesystem-usage:
   name: "(k8s) ${tenant} ${ stage } - High Filesystem Usage Detected"
   type: metric alert
   query: |
-    avg(last_10m):avg:kubernetes.filesystem.usage_pct{stage:${ stage }} by {cluster_name} > 90
+    avg(last_10m):avg:kubernetes.filesystem.usage_pct{stage:${ stage }} by {cluster_name,stage,tenant,environment} > 90
   message: |
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}}]
     {{#is_warning}}
     {{cluster_name.name}} filesystem usage greater than 80% for 10 minutes
     {{/is_warning}}
@@ -423,8 +425,9 @@ k8s-network-tx-errors:
   name: "(k8s) ${tenant} ${ stage } - High Network TX (send) Errors"
   type: metric alert
   query: |
-    avg(last_10m):avg:kubernetes.network.tx_errors{stage:${ stage }} by {cluster_name} > 100
+    avg(last_10m):avg:kubernetes.network.tx_errors{stage:${ stage }} by {cluster_name,stage,tenant,environment} > 100
   message: |
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}}]
     {{#is_warning}}
     {{cluster_name.name}} network TX (send) errors occurring 10 times per second
     {{/is_warning}}
@@ -459,8 +462,9 @@ k8s-network-rx-errors:
   name: "(k8s) ${tenant} ${ stage } - High Network RX (receive) Errors"
   type: metric alert
   query: |
-    avg(last_10m):avg:kubernetes.network.rx_errors{stage:${ stage }} by {cluster_name} > 100
+    avg(last_10m):avg:kubernetes.network.rx_errors{stage:${ stage }} by {cluster_name,stage,tenant,environment} > 100
   message: |
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}}]
     {{#is_warning}}
     {{cluster_name.name}} network RX (receive) errors occurring 10 times per second
     {{/is_warning}}
@@ -495,9 +499,9 @@ k8s-increased-pod-crash:
   name: "(k8s) ${tenant} ${ stage } - Increased Pod Crashes"
   type: query alert
   query: |
-    avg(last_5m):avg:kubernetes_state.container.restarts{stage:${ stage }} by {cluster_name,kube_namespace,pod} - hour_before(avg:kubernetes_state.container.restarts{stage:${ stage }} by {cluster_name,kube_namespace,pod}) > 3
+    avg(last_5m):avg:kubernetes_state.container.restarts{stage:${ stage }} by {cluster_name,kube_namespace,pod,stage,tenant,environment} - hour_before(avg:kubernetes_state.container.restarts{stage:${ stage }} by {cluster_name,kube_namespace,pod,stage,tenant,environment}) > 3
   message: |-
-    ({{cluster_name.name}} {{kube_namespace.name}} {{pod.name}}) has crashed repeatedly over the last hour
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}} {{kube_namespace.name}} {{pod.name}}] has crashed repeatedly over the last hour
   escalation_message: ""
   tags:
     managed-by: Terraform
@@ -526,9 +530,9 @@ k8s-pending-pods:
   name: "(k8s) ${tenant} ${ stage } - Pending Pods"
   type: metric alert
   query: |
-    min(last_30m):sum:kubernetes_state.pod.status_phase{stage:${ stage },phase:running} by {cluster_name} - sum:kubernetes_state.pod.status_phase{stage:${ stage },phase:running} by {cluster_name} + sum:kubernetes_state.pod.status_phase{stage:${ stage },phase:pending} by {cluster_name}.fill(zero) >= 1
+    min(last_30m):sum:kubernetes_state.pod.status_phase{stage:${ stage },phase:running} by {cluster_name,stage,tenant,environment} - sum:kubernetes_state.pod.status_phase{stage:${ stage },phase:running} by {cluster_name,stage,tenant,environment} + sum:kubernetes_state.pod.status_phase{stage:${ stage },phase:pending} by {cluster_name,stage,tenant,environment}.fill(zero) >= 1
   message: |-
-    ({{cluster_name.name}}) There has been at least 1 pod Pending for 30 minutes.
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{cluster_name.name}}] There has been at least 1 pod Pending for 30 minutes.
     There are currently ({{value}}) pods Pending.
   escalation_message: ""
   tags:
