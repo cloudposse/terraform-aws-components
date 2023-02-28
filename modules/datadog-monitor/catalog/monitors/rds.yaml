@@ -5,8 +5,9 @@ rds-cpuutilization:
   name: "(RDS) ${tenant} ${ stage } - CPU Utilization above 90%"
   type: metric alert
   query: |
-    avg(last_15m):avg:aws.rds.cpuutilization{stage:${ stage }} by {dbinstanceidentifier} > 90
+    avg(last_15m):avg:aws.rds.cpuutilization{stage:${ stage }} by {dbinstanceidentifier,stage,tenant,environment} > 90
   message: |
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}})
     {{#is_warning}}
     ({dbinstanceidentifier}) CPU Utilization above 85%
     {{/is_warning}}
@@ -41,8 +42,9 @@ rds-disk-queue-depth:
   name: "(RDS) ${tenant} ${ stage } - Disk queue depth above 64"
   type: metric alert
   query: |
-    avg(last_15m):avg:aws.rds.disk_queue_depth{stage:${ stage }} by {dbinstanceidentifier} > 64
+    avg(last_15m):avg:aws.rds.disk_queue_depth{stage:${ stage }} by {dbinstanceidentifier,stage,tenant,environment} > 64
   message: |
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}})
     {{#is_warning}}
     ({dbinstanceidentifier}) Disk queue depth above 48
     {{/is_warning}}
@@ -79,6 +81,7 @@ rds-freeable-memory:
   query: |
     avg(last_5m):avg:aws.rds.freeable_memory{stage:${ stage }} < 256000000
   message: |
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}})
     {{#is_warning}}
     ({dbinstanceidentifier}) Freeable memory below 512 MB
     {{/is_warning}}
@@ -113,8 +116,9 @@ rds-swap-usage:
   name: "(RDS) ${tenant} ${ stage } - Swap usage above 256 MB"
   type: metric alert
   query: |
-    avg(last_15m):avg:aws.rds.swap_usage{stage:${ stage }} by {dbinstanceidentifier} > 256000000
+    avg(last_15m):avg:aws.rds.swap_usage{stage:${ stage }} by {dbinstanceidentifier,stage,tenant,environment} > 256000000
   message: |
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}})
     {{#is_warning}}
     ({dbinstanceidentifier}) Swap usage above 128 MB
     {{/is_warning}}
@@ -151,6 +155,7 @@ rds-database-connections:
   query: |
     avg(last_4h):anomalies(avg:aws.rds.database_connections{stage:${ stage }}, 'basic', 2, direction='both', alert_window='last_15m', interval=60, count_default_zero='true') >= 1
   message: |
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}})
     {{#is_warning}}
     ({dbinstanceidentifier}) Anomaly of a large variance in RDS connection count
     {{/is_warning}}
