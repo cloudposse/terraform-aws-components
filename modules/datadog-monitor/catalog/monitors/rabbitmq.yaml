@@ -2,8 +2,9 @@ rabbitmq-messages-unacknowledged-rate-too-high:
   name: "[RabbitMQ] ${tenant} ${ stage } - Messages unacknowledged rate is higher than usual on: {{broker.name}}"
   type: "query alert"
   query: |
-    avg(last_4h):anomalies(avg:aws.amazonmq.message_unacknowledged_count{stage:${ stage }} by {broker,queue}, 'agile', 2, direction='above', alert_window='last_15m', interval=60, count_default_zero='true', seasonality='hourly') >= 1
+    avg(last_4h):anomalies(avg:aws.amazonmq.message_unacknowledged_count{stage:${ stage }} by {broker,queue,stage,tenant,environment}, 'agile', 2, direction='above', alert_window='last_15m', interval=60, count_default_zero='true', seasonality='hourly') >= 1
   message: |
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}})
     The rate at which messages are being delivered without receiving acknowledgement is higher than usual.
     There may be errors or performance issues downstream.\n
     Broker: {{broker.name}}\n
@@ -37,8 +38,9 @@ rabbitmq-memory-utilization:
   name: "[RabbitMQ] ${tenant} ${ stage } - Memory Utilization: {{broker.name}}"
   type: "query alert"
   query: |
-    avg(last_10m):avg:aws.amazonmq.rabbit_mqmem_used{stage:${ stage }} by {broker,node} / avg:aws.amazonmq.rabbit_mqmem_limit{stage:${ stage }} by {broker,node} > 0.50
+    avg(last_10m):avg:aws.amazonmq.rabbit_mqmem_used{stage:${ stage }} by {broker,node,stage,tenant,environment} / avg:aws.amazonmq.rabbit_mqmem_limit{stage:${ stage }} by {broker,node,stage,tenant,environment} > 0.50
   message: |
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}})
     Memory Percentage of a node in Rabbit MQ Cluster is high
     Broker: {{broker.name}}
     Node: {{node.name}}
@@ -70,8 +72,9 @@ rabbitmq-disk-utilization:
   name: "[RabbitMQ] ${tenant} ${ stage } - Disk Utilization: {{broker.name}}"
   type: "query alert"
   query: |
-    avg(last_10m):avg:aws.amazonmq.rabbit_mqdisk_free{stage:${ stage }} by {broker,node} < 100000000000
+    avg(last_10m):avg:aws.amazonmq.rabbit_mqdisk_free{stage:${ stage }} by {broker,node,stage,tenant,environment} < 100000000000
   message: |
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}})
     Free Disk Space of a node in Rabbit MQ Cluster is Less than 100 GB
     Broker: {{broker.name}}
     Node: {{node.name}}
