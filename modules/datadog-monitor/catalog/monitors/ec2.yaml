@@ -5,7 +5,7 @@ ec2-failed-status-check:
   name: "(EC2) ${tenant} ${ stage } - Failed Status Check"
   type: metric alert
   query: |
-    avg(last_10m):avg:aws.ec2.status_check_failed{stage:${ stage }} by {instance_id,stage,tenant,environment} > 0
+    avg(last_10m):avg:aws.ec2.status_check_failed{stage:${ stage }} by {instance_id,stage,tenant,environment,team} > 0
   message: |
     ({{tenant.name}}-{{environment.name}}-{{stage.name}}) {{instance_id}} failed a status check
   escalation_message: ""
