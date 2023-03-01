@@ -5,7 +5,7 @@ efs-throughput-utilization-check:
   name: "(EFS) ${tenant} ${ stage } - % Throughput Utilization"
   type: metric alert
   query: |
-    avg(last_1h):(sum:aws.efs.metered_iobytes{stage:${ stage }} by {filesystemid} * 100 / 1048576) / (sum:aws.efs.permitted_throughput{stage:${ stage }} by {filesystemid,stage,tenant,environment} / 1048576) > 75
+    avg(last_1h):(sum:aws.efs.metered_iobytes{stage:${ stage }} by {filesystemid} * 100 / 1048576) / (sum:aws.efs.permitted_throughput{stage:${ stage }} by {filesystemid,stage,tenant,environment,team} / 1048576) > 75
   message: |
     ({{tenant.name}}-{{environment.name}}-{{stage.name}}) {{filesystemid}} Throughput Utilization is too high
   escalation_message: ""
@@ -39,7 +39,7 @@ efs-burst-balance:
   name: "(EFS) ${tenant} ${ stage } - Burst Balance Low (< 100 GB)"
   type: metric alert
   query: |
-    min(last_1h):avg:aws.efs.burst_credit_balance{stage:${ stage }} by {filesystemid,stage,tenant,environment} < 100000000000
+    min(last_1h):avg:aws.efs.burst_credit_balance{stage:${ stage }} by {filesystemid,stage,tenant,environment,team} < 100000000000
   message: |
     ({{tenant.name}}-{{environment.name}}-{{stage.name}}) {{filesystemid}} EFS Burst Balance for {{filesystemid}} dipped below 100 GB.
   escalation_message: ""
@@ -71,7 +71,7 @@ efs-io-percent-limit:
   name: "(EFS) ${tenant} ${ stage } - I/O limit has been reached (> 90%)"
   type: metric alert
   query: |
-    max(last_1h):avg:aws.efs.percent_iolimit{stage:${ stage }} by {filesystemid,stage,tenant,environment} > 90
+    max(last_1h):avg:aws.efs.percent_iolimit{stage:${ stage }} by {filesystemid,stage,tenant,environment,team} > 90
   message: |
     ({{tenant.name}}-{{environment.name}}-{{stage.name}}) {{filesystemid}} EFS I/O limit has been reached for fs {{filesystemid}}.
   escalation_message: ""
@@ -102,7 +102,7 @@ efs-client-connection-anomaly:
   name: "(EFS) ${tenant} ${ stage } - Client Connection Anomaly"
   type: metric alert
   query: |
-    avg(last_4h):anomalies(avg:aws.efs.client_connections{stage:${ stage }} by {aws_account,filesystemid,name,stage,tenant,environment}.as_count(), 'basic', 2, direction='both', alert_window='last_15m', interval=60, count_default_zero='true') >= 1
+    avg(last_4h):anomalies(avg:aws.efs.client_connections{stage:${ stage }} by {aws_account,filesystemid,name,stage,tenant,environment,team}.as_count(), 'basic', 2, direction='both', alert_window='last_15m', interval=60, count_default_zero='true') >= 1
   message: |
     ({{tenant.name}}-{{environment.name}}-{{stage.name}}) [{{name}}] EFS Client Connection Anomoly for filesystem {{filesystemid}}.
   escalation_message: ""

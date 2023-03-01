@@ -5,7 +5,7 @@ aurora-replica-lag:
   name: "(RDS) ${tenant} ${stage} - Aurora Replica Lag Detected"
   type: metric alert
   query: |
-    min(last_15m):min:aws.rds.aurora_replica_lag{stage:${ stage }} by {dbinstanceidentifier,stage,tenant,environment} > 1000
+    min(last_15m):min:aws.rds.aurora_replica_lag{stage:${ stage }} by {dbinstanceidentifier,stage,tenant,environment,team} > 1000
   message: |
     ({{tenant.name}}-{{environment.name}}-{{stage.name}})
     {{#is_warning}}

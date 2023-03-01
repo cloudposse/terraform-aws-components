@@ -2,7 +2,7 @@ elb-lb-httpcode-5xx-notify:
   name: "(ELB) ${tenant} ${ stage } HTTP 5XX client error detected"
   type: query alert
   query: |
-    avg(last_15m):max:aws.elb.httpcode_elb_5xx{${context_dd_tags}} by {env,host,stage,tenant,environment} > 50
+    avg(last_15m):max:aws.elb.httpcode_elb_5xx{${context_dd_tags}} by {env,host,stage,tenant,environment,team} > 50
   message: |
     ({{tenant.name}}-{{environment.name}}-{{stage.name}}) lb:[ {{host}} ]
     {{#is_warning}}

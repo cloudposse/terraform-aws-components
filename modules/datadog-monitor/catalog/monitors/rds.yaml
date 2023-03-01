@@ -5,7 +5,7 @@ rds-cpuutilization:
   name: "(RDS) ${tenant} ${ stage } - CPU Utilization above 90%"
   type: metric alert
   query: |
-    avg(last_15m):avg:aws.rds.cpuutilization{stage:${ stage }} by {dbinstanceidentifier,stage,tenant,environment} > 90
+    avg(last_15m):avg:aws.rds.cpuutilization{stage:${ stage }} by {dbinstanceidentifier,stage,tenant,environment,team} > 90
   message: |
     ({{tenant.name}}-{{environment.name}}-{{stage.name}})
     {{#is_warning}}
@@ -42,7 +42,7 @@ rds-disk-queue-depth:
   name: "(RDS) ${tenant} ${ stage } - Disk queue depth above 64"
   type: metric alert
   query: |
-    avg(last_15m):avg:aws.rds.disk_queue_depth{stage:${ stage }} by {dbinstanceidentifier,stage,tenant,environment} > 64
+    avg(last_15m):avg:aws.rds.disk_queue_depth{stage:${ stage }} by {dbinstanceidentifier,stage,tenant,environment,team} > 64
   message: |
     ({{tenant.name}}-{{environment.name}}-{{stage.name}})
     {{#is_warning}}
@@ -116,7 +116,7 @@ rds-swap-usage:
   name: "(RDS) ${tenant} ${ stage } - Swap usage above 256 MB"
   type: metric alert
   query: |
-    avg(last_15m):avg:aws.rds.swap_usage{stage:${ stage }} by {dbinstanceidentifier,stage,tenant,environment} > 256000000
+    avg(last_15m):avg:aws.rds.swap_usage{stage:${ stage }} by {dbinstanceidentifier,stage,tenant,environment,team} > 256000000
   message: |
     ({{tenant.name}}-{{environment.name}}-{{stage.name}})
     {{#is_warning}}
