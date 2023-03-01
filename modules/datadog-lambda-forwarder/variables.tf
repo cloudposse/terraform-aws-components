@@ -91,7 +91,7 @@ variable "kms_key_id" {
 variable "s3_buckets" {
   type        = list(string)
   description = "The names and ARNs of S3 buckets to forward logs to Datadog"
-  default     = null
+  default     = []
 }
 
 variable "s3_bucket_kms_arns" {
