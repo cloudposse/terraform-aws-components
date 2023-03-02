@@ -153,7 +153,7 @@ rds-database-connections:
   name: "(RDS) ${tenant} ${ stage } - Anomaly of a large variance in RDS connection count"
   type: metric alert
   query: |
-    avg(last_4h):anomalies(avg:aws.rds.database_connections{stage:${ stage }}, 'basic', 2, direction='both', alert_window='last_15m', interval=60, count_default_zero='true') >= 1
+    avg(last_4h):anomalies(avg:aws.rds.database_connections{stage:${ stage }} by {dbinstanceidentifier,stage,tenant,environment,team}, 'basic', 2, direction='both', interval=60, alert_window='last_15m', count_default_zero='true') >= 1
   message: |
     ({{tenant.name}}-{{environment.name}}-{{stage.name}})
     {{#is_warning}}
