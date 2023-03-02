@@ -18,4 +18,3 @@ provider "datadog" {
   validate = local.enabled
 }
 ```
-
