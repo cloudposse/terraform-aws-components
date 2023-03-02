@@ -40,7 +40,7 @@ module "log_group_prefix" {
 
 module "datadog_lambda_forwarder" {
   source  = "cloudposse/datadog-lambda-forwarder/aws"
-  version = "1.1.0"
+  version = "1.2.0"
 
   cloudwatch_forwarder_log_groups = local.cloudwatch_forwarder_log_groups
   dd_api_key_kms_ciphertext_blob  = var.dd_api_key_kms_ciphertext_blob
@@ -72,6 +72,7 @@ module "datadog_lambda_forwarder" {
   lambda_runtime                        = var.lambda_runtime
   s3_bucket_kms_arns                    = var.s3_bucket_kms_arns
   s3_buckets                            = var.s3_buckets
+  s3_buckets_with_prefixes              = var.s3_buckets_with_prefixes
   security_group_ids                    = var.security_group_ids
   subnet_ids                            = var.subnet_ids
   tracing_config_mode                   = var.tracing_config_mode
