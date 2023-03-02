@@ -90,8 +90,14 @@ variable "kms_key_id" {
 
 variable "s3_buckets" {
   type        = list(string)
-  description = "The names and ARNs of S3 buckets to forward logs to Datadog"
-  default     = null
+  description = "The names of S3 buckets to forward logs to Datadog"
+  default     = []
+}
+
+variable "s3_buckets_with_prefixes" {
+  type        = map(object({ bucket_name : string, bucket_prefix : string }))
+  description = "The names S3 buckets and prefix to forward logs to Datadog"
+  default     = {}
 }
 
 variable "s3_bucket_kms_arns" {
