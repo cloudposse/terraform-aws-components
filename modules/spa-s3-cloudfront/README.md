@@ -113,17 +113,17 @@ an extensive explanation for how these preview environments work.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_acm_request_certificate"></a> [acm\_request\_certificate](#module\_acm\_request\_certificate) | cloudposse/acm-request-certificate/aws | 0.17.0 |
-| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_gha_assume_role"></a> [gha\_assume\_role](#module\_gha\_assume\_role) | ../account-map/modules/team-assume-role-policy | n/a |
 | <a name="module_gha_role_name"></a> [gha\_role\_name](#module\_gha\_role\_name) | cloudposse/label/null | 0.25.0 |
-| <a name="module_github_runners"></a> [github\_runners](#module\_github\_runners) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_github_runners"></a> [github\_runners](#module\_github\_runners) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_lambda_edge_preview"></a> [lambda\_edge\_preview](#module\_lambda\_edge\_preview) | ./modules/lambda-edge-preview | n/a |
 | <a name="module_lambda_edge_redirect_404"></a> [lambda\_edge\_redirect\_404](#module\_lambda\_edge\_redirect\_404) | ./modules/lambda_edge_redirect_404 | n/a |
 | <a name="module_spa_web"></a> [spa\_web](#module\_spa\_web) | cloudposse/cloudfront-s3-cdn/aws | 0.83.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 | <a name="module_utils"></a> [utils](#module\_utils) | cloudposse/utils/aws | 0.8.1 |
-| <a name="module_waf"></a> [waf](#module\_waf) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_waf"></a> [waf](#module\_waf) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 
 ## Resources
 

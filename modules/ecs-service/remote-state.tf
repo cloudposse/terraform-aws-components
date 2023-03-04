@@ -45,7 +45,7 @@ locals {
 
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.4"
+  version = "1.4.1"
 
   component = "vpc"
 
@@ -55,7 +55,7 @@ module "vpc" {
 module "rds" {
   count   = local.enabled && var.use_rds_client_sg ? 1 : 0
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.4"
+  version = "1.4.1"
 
   component = "rds"
 
@@ -64,7 +64,7 @@ module "rds" {
 
 module "ecs_cluster" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.4"
+  version = "1.4.1"
 
   component = "ecs"
 
