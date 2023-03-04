@@ -73,6 +73,7 @@ data "cloudinit_config" "config" {
       pre_install            = var.userdata_pre_install
       post_install           = var.userdata_post_install
       runner_version         = var.runner_version
+      runner_group           = var.runner_group
     })
   }
 }

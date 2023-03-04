@@ -106,6 +106,7 @@ module "eks_cluster" {
   public_access_cidrs          = var.public_access_cidrs
   subnet_ids                   = var.cluster_private_subnets_only ? local.private_subnet_ids : concat(local.private_subnet_ids, local.public_subnet_ids)
   vpc_id                       = local.vpc_id
+  addons                       = var.addons
 
   kubernetes_config_map_ignore_role_changes = false
 
