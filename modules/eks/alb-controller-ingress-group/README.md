@@ -53,13 +53,13 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
-| <a name="module_global_accelerator"></a> [global\_accelerator](#module\_global\_accelerator) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_global_accelerator"></a> [global\_accelerator](#module\_global\_accelerator) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_load_balancer_name"></a> [load\_balancer\_name](#module\_load\_balancer\_name) | cloudposse/label/null | 0.25.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_waf"></a> [waf](#module\_waf) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_waf"></a> [waf](#module\_waf) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 
 ## Resources
 
