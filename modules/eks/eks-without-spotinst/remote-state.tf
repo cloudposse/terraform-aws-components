@@ -1,6 +1,6 @@
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.0"
+  version = "1.4.1"
 
   component = "vpc"
 
@@ -9,7 +9,7 @@ module "vpc" {
 
 module "vpc_ingress" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.0"
+  version = "1.4.1"
 
   for_each = toset(var.allow_ingress_from_vpc_stages)
 
@@ -21,7 +21,7 @@ module "vpc_ingress" {
 
 module "primary_roles" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.0"
+  version = "1.4.1"
 
   component = "iam-primary-roles"
 
@@ -34,7 +34,7 @@ module "primary_roles" {
 
 module "delegated_roles" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.0"
+  version = "1.4.1"
 
   component = "iam-delegated-roles"
 
@@ -48,7 +48,7 @@ module "delegated_roles" {
 # to it rather than overwrite it (specifically the aws-auth configMap)
 module "eks" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.0"
+  version = "1.4.1"
 
   component = var.eks_component_name
 

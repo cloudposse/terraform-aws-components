@@ -1,6 +1,6 @@
 module "waf" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.4"
+  version = "1.4.1"
 
   bypass      = !local.aws_waf_enabled
   component   = var.cloudfront_aws_waf_component_name
@@ -18,7 +18,7 @@ module "waf" {
 
 module "dns_delegated" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.4"
+  version = "1.4.1"
 
   component   = "dns-delegated"
   environment = var.dns_delegated_environment_name
@@ -28,7 +28,7 @@ module "dns_delegated" {
 
 module "github_runners" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.4"
+  version = "1.4.1"
 
   count = local.github_runners_enabled ? 1 : 0
 
