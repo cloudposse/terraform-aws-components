@@ -54,12 +54,14 @@ put it into `/platform/{eks cluster name}/default/default_alb_ingress_group`
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.0 |
+| <a name="requirement_jq"></a> [jq](#requirement\_jq) | >= 0.2.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
+| <a name="provider_jq"></a> [jq](#provider\_jq) | >= 0.2.1 |
 
 ## Modules
 
@@ -76,6 +78,7 @@ put it into `/platform/{eks cluster name}/default/default_alb_ingress_group`
 | Name | Type |
 |------|------|
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
+| [jq_query.default](https://registry.terraform.io/providers/massdriver-cloud/jq/latest/docs/data-sources/query) | data source |
 
 ## Inputs
 
@@ -99,7 +102,7 @@ put it into `/platform/{eks cluster name}/default/default_alb_ingress_group`
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_platform_environment"></a> [platform\_environment](#input\_platform\_environment) | Platform environment | `string` | `"default"` | no |
-| <a name="input_references"></a> [references](#input\_references) | Platform mapping from remote components outputs | <pre>map(object({<br>    component = string<br>    output    = string<br>  }))</pre> | `{}` | no |
+| <a name="input_references"></a> [references](#input\_references) | Platform mapping from remote components outputs | <pre>map(object({<br>    component   = string<br>    privileged  = optional(bool)<br>    tenant      = optional(string)<br>    environment = optional(string)<br>    stage       = optional(string)<br>    output      = string<br>  }))</pre> | `{}` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_ssm_platform_path"></a> [ssm\_platform\_path](#input\_ssm\_platform\_path) | Format SSM path to store platform configs | `string` | `"/platform/%s/%s"` | no |
