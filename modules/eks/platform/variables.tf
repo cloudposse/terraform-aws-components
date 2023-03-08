@@ -12,7 +12,7 @@ variable "references" {
     tenant      = optional(string)
     environment = optional(string)
     stage       = optional(string)
-    output    = string
+    output      = string
   }))
 }
 

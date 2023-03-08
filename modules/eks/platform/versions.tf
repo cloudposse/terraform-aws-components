@@ -11,7 +11,7 @@ terraform {
       version = ">= 2.0"
     }
     jq = {
-      source = "massdriver-cloud/jq"
+      source  = "massdriver-cloud/jq"
       version = ">= 0.2.1"
     }
   }
