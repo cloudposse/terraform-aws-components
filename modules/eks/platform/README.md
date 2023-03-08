@@ -112,9 +112,7 @@ put it into `/platform/{eks cluster name}/default/default_alb_ingress_group`
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_test"></a> [test](#output\_test) | n/a |
+No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
