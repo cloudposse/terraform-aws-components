@@ -48,8 +48,3 @@ data "jq_query" "default" {
 locals {
   result = { for k, v in data.jq_query.default : k => jsondecode(v.result) }
 }
-
-
-output "test" {
-  value = local.result
-}
