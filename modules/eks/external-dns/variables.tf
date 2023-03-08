@@ -126,6 +126,12 @@ variable "dns_gbl_delegated_environment_name" {
   default     = "gbl"
 }
 
+variable "dns_gbl_primary_environment_name" {
+  type        = string
+  description = "The name of the environment where global `dns_primary` is provisioned"
+  default     = "gbl"
+}
+
 variable "publish_internal_services" {
   type        = bool
   description = "Allow external-dns to publish DNS records for ClusterIP services"

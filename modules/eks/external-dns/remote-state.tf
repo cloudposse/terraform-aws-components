@@ -20,3 +20,19 @@ module "dns_gbl_delegated" {
     zones = {}
   }
 }
+
+module "dns_gbl_primary" {
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "1.4.1"
+
+  component   = "dns-primary"
+  environment = var.dns_gbl_primary_environment_name
+
+  context = module.this.context
+
+  ignore_errors = true
+
+  defaults = {
+    zones = {}
+  }
+}

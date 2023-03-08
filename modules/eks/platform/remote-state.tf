@@ -13,7 +13,11 @@ module "remote" {
   source   = "cloudposse/stack-config/yaml//modules/remote-state"
   version  = "1.4.1"
 
-  component = each.value["component"]
+  component   = each.value["component"]
+  privileged  = coalesce(try(each.value["privileged"], null), false)
+  tenant      = coalesce(try(each.value["tenant"], null), module.this.context["tenant"], null)
+  environment = coalesce(try(each.value["environment"], null), module.this.context["environment"], null)
+  stage       = coalesce(try(each.value["stage"], null), module.this.context["stage"], null)
 
   context = module.this.context
 }

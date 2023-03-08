@@ -7,7 +7,11 @@ variable "references" {
   description = "Platform mapping from remote components outputs"
   default     = {}
   type = map(object({
-    component = string
+    component   = string
+    privileged  = optional(bool)
+    tenant      = optional(string)
+    environment = optional(string)
+    stage       = optional(string)
     output    = string
   }))
 }
