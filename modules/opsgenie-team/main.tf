@@ -33,7 +33,7 @@ data "opsgenie_user" "team_members" {
 
 module "members_merge" {
   source  = "cloudposse/config/yaml//modules/deepmerge"
-  version = "1.0.1"
+  version = "1.0.2"
 
   # Cannot use context to disable
   # See issue: https://github.com/cloudposse/terraform-yaml-config/issues/18
