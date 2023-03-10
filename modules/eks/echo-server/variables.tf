@@ -15,7 +15,6 @@ variable "alb_controller_ingress_group_component_name" {
   default     = "eks/alb-controller-ingress-group"
 }
 
-
 variable "chart_values" {
   type        = any
   description = "Addition map values to yamlencode as `helm_release` values."

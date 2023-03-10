@@ -7,7 +7,6 @@ module "eks" {
   context = module.this.context
 }
 
-
 module "alb" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "1.4.1"
