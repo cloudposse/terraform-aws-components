@@ -83,13 +83,14 @@ components:
 | [aws_ssm_parameter.oidc_client_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.oidc_client_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameters_by_path.argocd_notifications](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameters_by_path) | data source |
-| [kubernetes_resources.example](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/resources) | data source |
+| [kubernetes_resources.crd](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/resources) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
+| <a name="input_admin_enabled"></a> [admin\_enabled](#input\_admin\_enabled) | Toggles Admin user creation the deployed chart | `bool` | `false` | no |
 | <a name="input_alb_group_name"></a> [alb\_group\_name](#input\_alb\_group\_name) | A name used in annotations to reuse an ALB (e.g. `argocd`) or to generate a new one | `string` | `null` | no |
 | <a name="input_alb_logs_bucket"></a> [alb\_logs\_bucket](#input\_alb\_logs\_bucket) | The name of the bucket for ALB access logs. The bucket must have policy allowing the ELB logging principal | `string` | `""` | no |
 | <a name="input_alb_logs_prefix"></a> [alb\_logs\_prefix](#input\_alb\_logs\_prefix) | `alb_logs_bucket` s3 bucket prefix | `string` | `""` | no |
@@ -102,6 +103,7 @@ components:
 | <a name="input_argocd_apps_chart_version"></a> [argocd\_apps\_chart\_version](#input\_argocd\_apps\_chart\_version) | Specify the exact chart version to install. If this is not specified, the latest version is installed. | `string` | `"0.0.3"` | no |
 | <a name="input_argocd_apps_enabled"></a> [argocd\_apps\_enabled](#input\_argocd\_apps\_enabled) | Enable argocd apps | `bool` | `true` | no |
 | <a name="input_argocd_create_namespaces"></a> [argocd\_create\_namespaces](#input\_argocd\_create\_namespaces) | ArgoCD create namespaces policy | `bool` | `false` | no |
+| <a name="input_argocd_rbac_default_policy"></a> [argocd\_rbac\_default\_policy](#input\_argocd\_rbac\_default\_policy) | Default ArgoCD RBAC default role.<br><br>See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/#basic-built-in-roles for more information. | `string` | `"role:readonly"` | no |
 | <a name="input_argocd_rbac_groups"></a> [argocd\_rbac\_groups](#input\_argocd\_rbac\_groups) | List of ArgoCD Group Role Assignment strings to be added to the argocd-rbac configmap policy.csv item.<br>e.g.<br>[<br>  {<br>    group: idp-group-name,<br>    role: argocd-role-name<br>  },<br>]<br>becomes: `g, idp-group-name, role:argocd-role-name`<br>See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more information. | <pre>list(object({<br>    group = string,<br>    role  = string<br>  }))</pre> | `[]` | no |
 | <a name="input_argocd_rbac_policies"></a> [argocd\_rbac\_policies](#input\_argocd\_rbac\_policies) | List of ArgoCD RBAC Permission strings to be added to the argocd-rbac configmap policy.csv item.<br><br>See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more information. | `list(string)` | `[]` | no |
 | <a name="input_argocd_repositories"></a> [argocd\_repositories](#input\_argocd\_repositories) | Map of objects defining an `argocd_repo` to configure.  The key is the name of the ArgoCD repository. | <pre>map(object({<br>    environment = string # The environment where the `argocd_repo` component is deployed.<br>    stage       = string # The stage where the `argocd_repo` component is deployed.<br>    tenant      = string # The tenant where the `argocd_repo` component is deployed.<br>  }))</pre> | `{}` | no |
