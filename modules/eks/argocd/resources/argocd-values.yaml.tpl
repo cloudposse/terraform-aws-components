@@ -115,6 +115,7 @@ server:
             return hs
 
   rbacConfig:
+    policy.default: ${rbac_default_policy}
     policy.csv: |
 %{ for policy in rbac_policies ~}
       ${policy}
