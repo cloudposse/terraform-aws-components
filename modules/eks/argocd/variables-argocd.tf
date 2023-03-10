@@ -95,6 +95,12 @@ variable "forecastle_enabled" {
   default     = false
 }
 
+variable "admin_enabled" {
+  type        = bool
+  description = "Toggles Admin user creation the deployed chart"
+  default     = false
+}
+
 variable "oidc_enabled" {
   type        = bool
   description = "Toggles OIDC integration in the deployed chart"
@@ -162,6 +168,16 @@ variable "argocd_rbac_policies" {
   List of ArgoCD RBAC Permission strings to be added to the argocd-rbac configmap policy.csv item.
 
   See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more information.
+  EOT
+}
+
+variable "argocd_rbac_default_policy" {
+  type        = string
+  default     = "role:readonly"
+  description = <<-EOT
+  Default ArgoCD RBAC default role.
+
+  See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/#basic-built-in-roles for more information.
   EOT
 }
 
