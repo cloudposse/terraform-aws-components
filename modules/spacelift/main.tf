@@ -1,6 +1,6 @@
 module "spacelift" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift"
-  version = "0.51.3"
+  version = "0.55.0"
 
   context_filters = var.context_filters
   tag_filters     = var.tag_filters
@@ -23,9 +23,10 @@ module "spacelift" {
   terraform_version     = var.terraform_version
   terraform_version_map = var.terraform_version_map
 
-  imports_processing_enabled        = false
-  stack_deps_processing_enabled     = false
-  component_deps_processing_enabled = true
+  imports_processing_enabled         = false
+  stack_deps_processing_enabled      = false
+  component_deps_processing_enabled  = true
+  spacelift_stack_dependency_enabled = var.spacelift_stack_dependency_enabled
 
   policies_available       = var.policies_available
   policies_enabled         = var.policies_enabled
