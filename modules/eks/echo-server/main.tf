@@ -39,6 +39,11 @@ module "echo_server" {
       type  = "auto"
     },
     {
+      name  = "ingress.alb.group_name"
+      value = module.alb.outputs.group_name
+      type  = "auto"
+    },
+    {
       name  = "ingress.alb.enabled"
       value = local.ingress_alb_enabled
       type  = "auto"

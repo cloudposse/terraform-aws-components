@@ -70,8 +70,9 @@ locals {
           caData       = base64encode(format("-----BEGIN CERTIFICATE-----\n%s\n-----END CERTIFICATE-----", module.saml_sso_providers[name].outputs.ca))
           redirectURI  = format("https://%s/api/dex/callback", local.host)
           entityIssuer = format("https://%s/api/dex/callback", local.host)
-          usernameAttr = "name"
-          emailAttr    = "email"
+          usernameAttr = module.saml_sso_providers[name].outputs.usernameAttr
+          emailAttr    = module.saml_sso_providers[name].outputs.emailAttr
+          groupsAttr   = module.saml_sso_providers[name].outputs.groupsAttr
           ssoIssuer    = module.saml_sso_providers[name].outputs.issuer
         }
       }
@@ -156,8 +157,7 @@ module "argocd" {
     templatefile(
       "${path.module}/resources/argocd-values.yaml.tpl",
       {
-        # admin_enabled              = !(local.oidc_enabled || local.saml_enabled)
-        admin_enabled              = true
+        admin_enabled              = var.admin_enabled
         alb_group_name             = var.alb_group_name == null ? "" : var.alb_group_name
         alb_logs_bucket            = var.alb_logs_bucket
         alb_logs_prefix            = var.alb_logs_prefix
@@ -173,6 +173,7 @@ module "argocd" {
         organization               = var.github_organization
         saml_enabled               = local.saml_enabled
         saml_rbac_scopes           = var.saml_rbac_scopes
+        rbac_default_policy        = var.argocd_rbac_default_policy
         rbac_policies              = var.argocd_rbac_policies
         rbac_groups                = var.argocd_rbac_groups
         enable_argo_workflows_auth = local.enable_argo_workflows_auth
@@ -201,7 +202,6 @@ module "argocd" {
       {
         notifications = {
           triggers = { for key, value in var.notifications_triggers :
-            #            replace(key, "_", ".") => merge(yamlencode(value), data.aws_ssm_parameters_by_path.argocd_notifications[0].values)
             replace(key, "_", ".") => yamlencode(value)
           }
         }
@@ -225,7 +225,7 @@ module "argocd" {
   context = module.this.context
 }
 
-data "kubernetes_resources" "example" {
+data "kubernetes_resources" "crd" {
   api_version    = "apiextensions.k8s.io/v1"
   kind           = "CustomResourceDefinition"
   field_selector = "metadata.name==applications.argoproj.io"
@@ -246,7 +246,7 @@ module "argocd_apps" {
   atomic               = var.atomic
   cleanup_on_fail      = var.cleanup_on_fail
   timeout              = var.timeout
-  enabled              = local.enabled && var.argocd_apps_enabled && length(data.kubernetes_resources.example.objects) > 0
+  enabled              = local.enabled && var.argocd_apps_enabled && length(data.kubernetes_resources.crd.objects) > 0
   values = compact([
     templatefile(
       "${path.module}/resources/argocd-apps-values.yaml.tpl",
