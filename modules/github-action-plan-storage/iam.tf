@@ -35,6 +35,7 @@ data "aws_iam_policy_document" "bucket_and_dynamodb_access" {
       "s3:DeleteObject",
     ]
     resources = [
+      module.tfstate_backend.tfstate_backend_s3_bucket_arn,
       "${module.tfstate_backend.tfstate_backend_s3_bucket_arn}/*",
     ]
   }

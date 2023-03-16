@@ -6,8 +6,26 @@ resource "aws_dynamodb_table" "default" {
   read_capacity  = var.billing_mode == "PROVISIONED" ? var.read_capacity : null
   write_capacity = var.billing_mode == "PROVISIONED" ? var.write_capacity : null
 
-  # https://www.terraform.io/docs/backends/types/s3.html#dynamodb_table
   hash_key = "Id"
+
+  attribute {
+    name = "Id"
+    type = "S"
+  }
+
+  attribute {
+    name = "createdAt"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "id-createdAt-index"
+    hash_key        = "Id"
+    range_key       = "createdAt"
+    write_capacity  = var.read_capacity
+    read_capacity   = var.write_capacity
+    projection_type = "ALL"
+  }
 
   server_side_encryption {
     enabled = var.enable_server_side_encryption
@@ -15,11 +33,6 @@ resource "aws_dynamodb_table" "default" {
 
   point_in_time_recovery {
     enabled = var.enable_point_in_time_recovery
-  }
-
-  attribute {
-    name = "Id"
-    type = "S"
   }
 
   tags = module.this.tags
