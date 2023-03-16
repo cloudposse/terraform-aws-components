@@ -43,11 +43,13 @@ data "aws_iam_policy_document" "bucket_and_dynamodb_access" {
       "dynamodb:DescribeTable",
       "dynamodb:GetItem",
       "dynamodb:PutItem",
-      "dynamodb:DeleteItem"
+      "dynamodb:DeleteItem",
+      "dynamodb:Query",
+      "dynamodb:Scan",
     ]
     resources = [
       module.tfstate_backend.tfstate_backend_dynamodb_table_arn,
-      aws_dynamodb_table.default.arn,
+      join("", aws_dynamodb_table.default.*.arn)
     ]
   }
 }

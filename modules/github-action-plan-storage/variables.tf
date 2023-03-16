@@ -3,6 +3,22 @@ variable "region" {
   description = "AWS Region"
 }
 
+variable "billing_mode" {
+  type        = string
+  default     = "PROVISIONED"
+  description = "DynamoDB Billing mode. Can be PROVISIONED or PAY_PER_REQUEST"
+}
+
+variable "read_capacity" {
+  default     = 5
+  description = "DynamoDB read capacity units"
+}
+
+variable "write_capacity" {
+  default     = 5
+  description = "DynamoDB write capacity units"
+}
+
 variable "force_destroy" {
   type        = bool
   description = "A boolean that indicates the terraform state S3 bucket can be destroyed even if it contains objects. These objects are not recoverable."
@@ -55,11 +71,9 @@ variable "trusted_github_repos" {
     in which case "cloudposse" will be used for the "orgName".
     Wildcard ("*") is allowed for "repoName".
     EOT
-  default     = []
 }
 
 variable "trusted_github_org" {
   type        = string
   description = "The GitHub organization unqualified repos are assumed to belong to. Keeps `*` from meaning all orgs and all repos."
-  default     = "cloudposse"
 }

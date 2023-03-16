@@ -9,12 +9,12 @@ output "iam_role_arn" {
 
 output "plan_storage_dynamodb_table_name" {
   description = "Terraform plan storage DynamoDB table name"
-  value       = aws_dynamodb_table.default.name
+  value       = join("", aws_dynamodb_table.default.*.name)
 }
 
 output "plan_storage_dynamodb_table_arn" {
   description = "Terraform plan storage DynamoDB table ARN"
-  value       = aws_dynamodb_table.default.arn
+  value       = join("", aws_dynamodb_table.default.*.arn)
 }
 
 output "tfstate_backend_s3_bucket_arn" {
@@ -27,9 +27,9 @@ output "tfstate_backend_dynamodb_table_arn" {
   value       = module.tfstate_backend.tfstate_backend_dynamodb_table_arn
 }
 
-output "tfstate_backend_s3_bucket_name" {
+output "tfstate_backend_s3_bucket_id" {
   description = "Terraform state S3 bucket name"
-  value       = module.tfstate_backend.tfstate_backend_s3_bucket_name
+  value       = module.tfstate_backend.tfstate_backend_s3_bucket_id
 }
 
 output "tfstate_backend_dynamodb_table_name" {
