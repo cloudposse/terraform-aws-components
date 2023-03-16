@@ -29,6 +29,7 @@ module "tfstate_backend" {
   source  = "../tfstate-backend"
   enabled = var.enabled
   context = module.this.context
+  region  = var.region
 
   enable_server_side_encryption = var.enable_server_side_encryption
   enable_point_in_time_recovery = var.enable_point_in_time_recovery
