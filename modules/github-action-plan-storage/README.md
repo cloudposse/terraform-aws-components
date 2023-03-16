@@ -94,7 +94,16 @@ module "github_action_plan_storage" {
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_iam_role_arn"></a> [iam\_role\_arn](#output\_iam\_role\_arn) | n/a |
+| <a name="output_iam_role_name"></a> [iam\_role\_name](#output\_iam\_role\_name) | n/a |
+| <a name="output_plan_storage_dynamodb_table_arn"></a> [plan\_storage\_dynamodb\_table\_arn](#output\_plan\_storage\_dynamodb\_table\_arn) | Terraform plan storage DynamoDB table ARN |
+| <a name="output_plan_storage_dynamodb_table_name"></a> [plan\_storage\_dynamodb\_table\_name](#output\_plan\_storage\_dynamodb\_table\_name) | Terraform plan storage DynamoDB table name |
+| <a name="output_tfstate_backend_dynamodb_table_arn"></a> [tfstate\_backend\_dynamodb\_table\_arn](#output\_tfstate\_backend\_dynamodb\_table\_arn) | Terraform state DynamoDB table ARN |
+| <a name="output_tfstate_backend_dynamodb_table_name"></a> [tfstate\_backend\_dynamodb\_table\_name](#output\_tfstate\_backend\_dynamodb\_table\_name) | Terraform state DynamoDB table name |
+| <a name="output_tfstate_backend_s3_bucket_arn"></a> [tfstate\_backend\_s3\_bucket\_arn](#output\_tfstate\_backend\_s3\_bucket\_arn) | Terraform state S3 bucket ARN |
+| <a name="output_tfstate_backend_s3_bucket_name"></a> [tfstate\_backend\_s3\_bucket\_name](#output\_tfstate\_backend\_s3\_bucket\_name) | Terraform state S3 bucket name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
