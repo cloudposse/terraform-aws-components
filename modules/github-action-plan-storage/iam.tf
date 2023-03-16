@@ -2,6 +2,7 @@ module "github_action_role" {
   source  = "../account-map/modules/team-assume-role-policy"
   enabled = true
   context = module.this.context
+  stage   = var.oidc_provilder_stage
 
   trusted_github_repos = var.trusted_github_repos
   trusted_github_org   = var.trusted_github_org

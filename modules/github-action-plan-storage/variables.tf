@@ -3,6 +3,12 @@ variable "region" {
   description = "AWS Region"
 }
 
+variable "oidc_provilder_stage" {
+  type        = string
+  description = "OIDC provider stage"
+  default     = "identity"
+}
+
 variable "billing_mode" {
   type        = string
   default     = "PROVISIONED"
