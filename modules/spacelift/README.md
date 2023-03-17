@@ -213,6 +213,18 @@ components:
      not user_collaborators[username]
      not admin_collaborators[username]
    }
+   
+   # Grant spaces read only user access to all members
+   space_read[space.id] {
+     space := input.spaces[_]
+     GITHUBORG
+   }
+
+   # Grant spaces write access to GITHUBORG org members in the Developers group
+   # space_write[space.id] {
+   #   space := input.spaces[_]
+   #   member_of[_] == "Developers"
+   # }
    ```
 
 ## Spacelift Layout
