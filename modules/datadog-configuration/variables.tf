@@ -3,12 +3,6 @@ variable "region" {
   description = "AWS Region"
 }
 
-variable "datadog_aws_account_id" {
-  type        = string
-  description = "The AWS account ID Datadog's integration servers use for all integrations"
-  default     = "464622532012"
-}
-
 variable "datadog_site_url" {
   type        = string
   description = "The Datadog Site URL, https://docs.datadoghq.com/getting_started/site/"
