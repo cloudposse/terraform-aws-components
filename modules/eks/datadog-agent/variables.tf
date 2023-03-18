@@ -3,24 +3,6 @@ variable "region" {
   description = "AWS Region"
 }
 
-variable "secrets_store_type" {
-  type        = string
-  description = "Secret store type for Datadog API and app keys. Valid values: `SSM`, `ASM`"
-  default     = "SSM"
-}
-
-variable "datadog_api_secret_key" {
-  type        = string
-  description = "The key of the Datadog API secret"
-  default     = "datadog/datadog_api_key"
-}
-
-variable "datadog_app_secret_key" {
-  type        = string
-  description = "The key of the Datadog Application secret"
-  default     = "datadog/datadog_app_key"
-}
-
 variable "datadog_tags" {
   type        = set(string)
   description = "List of static tags to attach to every metric, event and service check collected by the agent"
@@ -60,5 +42,17 @@ variable "eks_component_name" {
 variable "values" {
   type        = any
   description = "Additional values to yamlencode as `helm_release` values."
+  default     = {}
+}
+
+variable "iam_role_enabled" {
+  type        = bool
+  description = "Whether to create an IAM role. Setting this to `true` will also replace any occurrences of `{service_account_role_arn}` in `var.values_template_path` with the ARN of the IAM role created by this module."
+  default     = false
+}
+
+variable "iam_policy_statements" {
+  type        = any
+  description = "IAM policy for the service account. Required if `var.iam_role_enabled` is `true`. This will not do variable replacements. Please see `var.iam_policy_statements_template_path`."
   default     = {}
 }

@@ -37,8 +37,26 @@ datadog:
   helmCheck:
     enabled: true
     collectEvents: true
+agents:
+  enabled: true
+  image:
+    repository: "public.ecr.aws/datadog/agent"
+    tag: 7
+  priorityClassName: "system-node-critical"
+  tolerations:
+  - effect: NoSchedule
+    operator: Exists
+  - effect: NoExecute
+    operator: Exists
+  # Per https://github.com/DataDog/helm-charts/blob/main/charts/datadog/README.md#configuration-required-for-amazon-linux-2-based-nodes
+  podSecurity:
+    apparmor:
+      enabled: false
 clusterAgent:
   enabled: true
+  image:
+    repository: "public.ecr.aws/datadog/cluster-agent"
+    tag: "7.43.1"
   replicas: 1
   metricsProvider:
     enabled: false
@@ -49,14 +67,3 @@ clusterAgent:
     limits:
       cpu: 300m
       memory: 512Mi
-agents:
-  priorityClassName: "system-node-critical"
-  tolerations:
-  - effect: NoSchedule
-    operator: Exists
-  - effect: NoExecute
-    operator: Exists
-# Per https://github.com/DataDog/helm-charts/blob/main/charts/datadog/README.md#configuration-required-for-amazon-linux-2-based-nodes
-  podSecurity:
-    apparmor:
-      enabled: false
