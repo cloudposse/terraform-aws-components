@@ -92,9 +92,13 @@ No resources.
 | <a name="input_maintenance_time_of_day"></a> [maintenance\_time\_of\_day](#input\_maintenance\_time\_of\_day) | The maintenance time, in 24-hour format. e.g. 02:00 | `string` | `"03:00"` | no |
 | <a name="input_maintenance_time_zone"></a> [maintenance\_time\_zone](#input\_maintenance\_time\_zone) | The maintenance time zone, in either the Country/City format, or the UTC offset format. e.g. CET | `string` | `"UTC"` | no |
 | <a name="input_mq_admin_password"></a> [mq\_admin\_password](#input\_mq\_admin\_password) | Admin password | `string` | `null` | no |
+| <a name="input_mq_admin_password_ssm_parameter_name"></a> [mq\_admin\_password\_ssm\_parameter\_name](#input\_mq\_admin\_password\_ssm\_parameter\_name) | SSM parameter name for Admin password | `string` | `"mq_admin_password"` | no |
 | <a name="input_mq_admin_user"></a> [mq\_admin\_user](#input\_mq\_admin\_user) | Admin username | `string` | `null` | no |
+| <a name="input_mq_admin_user_ssm_parameter_name"></a> [mq\_admin\_user\_ssm\_parameter\_name](#input\_mq\_admin\_user\_ssm\_parameter\_name) | SSM parameter name for Admin username | `string` | `"mq_admin_username"` | no |
 | <a name="input_mq_application_password"></a> [mq\_application\_password](#input\_mq\_application\_password) | Application password | `string` | `null` | no |
+| <a name="input_mq_application_password_ssm_parameter_name"></a> [mq\_application\_password\_ssm\_parameter\_name](#input\_mq\_application\_password\_ssm\_parameter\_name) | SSM parameter name for Application password | `string` | `"mq_application_password"` | no |
 | <a name="input_mq_application_user"></a> [mq\_application\_user](#input\_mq\_application\_user) | Application username | `string` | `null` | no |
+| <a name="input_mq_application_user_ssm_parameter_name"></a> [mq\_application\_user\_ssm\_parameter\_name](#input\_mq\_application\_user\_ssm\_parameter\_name) | SSM parameter name for Application username | `string` | `"mq_application_username"` | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_overwrite_ssm_parameter"></a> [overwrite\_ssm\_parameter](#input\_overwrite\_ssm\_parameter) | Whether to overwrite an existing SSM parameter | `bool` | `true` | no |
@@ -113,6 +117,8 @@ No resources.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_admin_username"></a> [admin\_username](#output\_admin\_username) | AmazonMQ admin username |
+| <a name="output_application_username"></a> [application\_username](#output\_application\_username) | AmazonMQ application username |
 | <a name="output_broker_arn"></a> [broker\_arn](#output\_broker\_arn) | AmazonMQ broker ARN |
 | <a name="output_broker_id"></a> [broker\_id](#output\_broker\_id) | AmazonMQ broker ID |
 | <a name="output_primary_amqp_ssl_endpoint"></a> [primary\_amqp\_ssl\_endpoint](#output\_primary\_amqp\_ssl\_endpoint) | AmazonMQ primary AMQP+SSL endpoint |
@@ -129,7 +135,9 @@ No resources.
 | <a name="output_secondary_ssl_endpoint"></a> [secondary\_ssl\_endpoint](#output\_secondary\_ssl\_endpoint) | AmazonMQ secondary SSL endpoint |
 | <a name="output_secondary_stomp_ssl_endpoint"></a> [secondary\_stomp\_ssl\_endpoint](#output\_secondary\_stomp\_ssl\_endpoint) | AmazonMQ secondary STOMP+SSL endpoint |
 | <a name="output_secondary_wss_endpoint"></a> [secondary\_wss\_endpoint](#output\_secondary\_wss\_endpoint) | AmazonMQ secondary WSS endpoint |
+| <a name="output_security_group_arn"></a> [security\_group\_arn](#output\_security\_group\_arn) | The ARN of the created security group |
 | <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | AmazonMQ security group id |
+| <a name="output_security_group_name"></a> [security\_group\_name](#output\_security\_group\_name) | The name of the created security group |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
