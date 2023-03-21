@@ -27,6 +27,11 @@ variable "github_actions_iam_role_attributes" {
   default     = []
 }
 
+variable "privileged" {
+  type        = bool
+  description = "True if the default provider already has access to the backend"
+  default     = false
+}
 
 locals {
   github_actions_iam_role_enabled = module.this.enabled && var.github_actions_iam_role_enabled && length(var.github_actions_allowed_repos) > 0
@@ -46,6 +51,7 @@ module "gha_assume_role" {
   source = "../account-map/modules/team-assume-role-policy"
 
   trusted_github_repos = var.github_actions_allowed_repos
+  privileged           = var.privileged
 
   context = module.gha_role_name.context
 }
