@@ -129,6 +129,7 @@ No resources.
 | <a name="output_secondary_ssl_endpoint"></a> [secondary\_ssl\_endpoint](#output\_secondary\_ssl\_endpoint) | AmazonMQ secondary SSL endpoint |
 | <a name="output_secondary_stomp_ssl_endpoint"></a> [secondary\_stomp\_ssl\_endpoint](#output\_secondary\_stomp\_ssl\_endpoint) | AmazonMQ secondary STOMP+SSL endpoint |
 | <a name="output_secondary_wss_endpoint"></a> [secondary\_wss\_endpoint](#output\_secondary\_wss\_endpoint) | AmazonMQ secondary WSS endpoint |
+| <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | AmazonMQ security group id |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
