@@ -13,7 +13,7 @@ locals {
 
 module "mq_broker" {
   source  = "cloudposse/mq-broker/aws"
-  version = "0.14.0"
+  version = "2.0.1"
 
   vpc_id                  = local.vpc_id
   subnet_ids              = local.subnet_ids
@@ -33,6 +33,7 @@ module "mq_broker" {
   encryption_enabled           = var.encryption_enabled
   kms_mq_key_arn               = var.kms_mq_key_arn
   use_aws_owned_key            = var.use_aws_owned_key
+  ssm_path                     = format(var.ssm_parameter_name_format, var.ssm_path, var.ssm_path_key)
 
   context = module.this.context
 }
