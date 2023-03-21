@@ -33,7 +33,8 @@ module "mq_broker" {
   encryption_enabled           = var.encryption_enabled
   kms_mq_key_arn               = var.kms_mq_key_arn
   use_aws_owned_key            = var.use_aws_owned_key
-  ssm_path                     = format(var.ssm_parameter_name_format, var.ssm_path, var.ssm_path_key)
+  ssm_parameter_name_format    = var.ssm_parameter_name_format
+  ssm_path                     = var.ssm_path
 
   context = module.this.context
 }
