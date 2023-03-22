@@ -14,6 +14,7 @@ locals {
     billing_read_only = try(aws_iam_policy.billing_read_only[0].arn, null)
     billing_admin     = try(aws_iam_policy.billing_admin[0].arn, null)
     support           = try(aws_iam_policy.support[0].arn, null)
+    eks_viewer        = try(aws_iam_policy.eks_viewer[0].arn, null)
   }
 
   configured_policies = flatten([for k, v in local.roles_config : v.role_policy_arns])
