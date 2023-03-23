@@ -1,3 +1,9 @@
+# This mixin creates an IAM role that a GitHub Action Runner can assume,
+# with appropriate controls. Usually this file is included in the component
+# that needs to allow the GitHub Action (GHA) to operate with it. For example,
+# the `ecr` component includes this to create a role that will
+# allow the GHA to push images to the ECR it creates.
+
 # This mixin requires that a local variable named `github_actions_iam_policy` be defined
 # and its value to be a JSON IAM Policy Document defining the permissions for the role.
 # It also requires that the `github-oidc-provider` has been previously installed and the
@@ -27,6 +33,11 @@ variable "github_actions_iam_role_attributes" {
   default     = []
 }
 
+variable "privileged" {
+  type        = bool
+  description = "True if the default provider already has access to the backend"
+  default     = false
+}
 
 locals {
   github_actions_iam_role_enabled = module.this.enabled && var.github_actions_iam_role_enabled && length(var.github_actions_allowed_repos) > 0
@@ -46,6 +57,7 @@ module "gha_assume_role" {
   source = "../account-map/modules/team-assume-role-policy"
 
   trusted_github_repos = var.github_actions_allowed_repos
+  privileged           = var.privileged
 
   context = module.gha_role_name.context
 }
