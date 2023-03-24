@@ -26,7 +26,6 @@ components:
         tags:
           Team: sre
           Service: tgw-spoke
-        root_account_tenant_name: core
 
     tgw/spoke:
       metadata:
