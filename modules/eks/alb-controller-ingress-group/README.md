@@ -28,9 +28,6 @@ components:
         enabled: true
         # change the name of the Ingress Group
         name: alb-controller-ingress-group
-        # if this is not set, the expectation is that account-map
-        # is deployed within the same tenant
-        root_account_tenant_name: core
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
