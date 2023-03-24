@@ -12,10 +12,9 @@ provider "aws" {
 }
 
 module "iam_roles" {
-  source             = "../account-map/modules/iam-roles"
-  privileged         = true
-  global_tenant_name = var.root_account_tenant_name
-  context            = module.this.context
+  source     = "../account-map/modules/iam-roles"
+  privileged = true
+  context    = module.this.context
 }
 
 variable "import_profile_name" {
@@ -28,10 +27,4 @@ variable "import_role_arn" {
   type        = string
   default     = null
   description = "IAM Role ARN to use when importing a resource"
-}
-
-variable "root_account_tenant_name" {
-  type        = string
-  description = "The tenant name for the root account"
-  default     = null
 }
