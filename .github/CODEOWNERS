@@ -4,17 +4,17 @@
 # Order is important: the last matching pattern has the highest precedence
 
 # These owners will be the default owners for everything
-*             @cloudposse/engineering @cloudposse/admin
+*             @cloudposse/engineering @cloudposse/admins
 
-# Cloud Posse admin must review any changes to Makefiles
-**/Makefile   @cloudposse/admin
-**/Makefile.* @cloudposse/admin
+# Cloud Posse admins must review any changes to Makefiles
+**/Makefile   @cloudposse/admins
+**/Makefile.* @cloudposse/admins
 
-# Cloud Posse admin must review any changes to GitHub actions
-.github/workflows/*     @cloudposse/admin
+# Cloud Posse admins must review any changes to GitHub actions
+.github/workflows/*     @cloudposse/admins
 
 
-# Cloud Posse Admins must review all changes to CODEOWNERS or the mergify or release configuration
+# Cloud Posse admins must review all changes to CODEOWNERS or the mergify or release configuration
 .github/.github-update-disabled @cloudposse/admins
 .github/auto-release.yml @cloudposse/admins
 .github/mergify.yml @cloudposse/admins
