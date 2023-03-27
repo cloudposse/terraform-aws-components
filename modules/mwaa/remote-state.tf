@@ -1,6 +1,6 @@
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.4"
+  version = "1.4.1"
 
   component = "vpc"
 
@@ -9,7 +9,7 @@ module "vpc" {
 
 module "vpc_ingress" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.4"
+  version = "1.4.1"
 
   for_each = toset(var.allow_ingress_from_vpc_stages)
 

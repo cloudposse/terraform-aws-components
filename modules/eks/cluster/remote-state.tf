@@ -4,7 +4,7 @@ locals {
 
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.3.1"
+  version = "1.4.1"
 
   component = "vpc"
 
@@ -13,7 +13,7 @@ module "vpc" {
 
 module "vpc_ingress" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.3.1"
+  version = "1.4.1"
 
   for_each = local.accounts_with_vpc
 
@@ -27,7 +27,7 @@ module "vpc_ingress" {
 
 module "team_roles" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.3.1"
+  version = "1.4.1"
 
   component = "aws-teams"
 
@@ -40,7 +40,7 @@ module "team_roles" {
 
 module "delegated_roles" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.3.1"
+  version = "1.4.1"
 
   component = "aws-team-roles"
 
@@ -54,7 +54,7 @@ module "delegated_roles" {
 # to it rather than overwrite it (specifically the aws-auth configMap)
 module "eks" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.3.1"
+  version = "1.4.1"
 
   component = var.eks_component_name
 

@@ -112,6 +112,7 @@ resource "local_file" "account_info" {
     account_profiles = local.account_profiles
     account_role_map = local.account_role_map
     namespace        = module.this.namespace
+    source_profile   = coalesce(var.aws_config_identity_profile_name, format("%s-identity", module.this.namespace))
   })
   filename = "${path.module}/account-info/${module.this.id}.sh"
 }

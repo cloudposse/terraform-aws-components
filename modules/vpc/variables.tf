@@ -34,6 +34,42 @@ variable "ipv4_primary_cidr_block" {
   default     = null
 }
 
+variable "ipv4_primary_cidr_block_association" {
+  type = object({
+    ipv4_ipam_pool_id   = string
+    ipv4_netmask_length = number
+  })
+  description = <<-EOT
+    Configuration of the VPC's primary IPv4 CIDR block via IPAM. Conflicts with `ipv4_primary_cidr_block`.
+    One of `ipv4_primary_cidr_block` or `ipv4_primary_cidr_block_association` must be set.
+    Additional CIDR blocks can be set via `ipv4_additional_cidr_block_associations`.
+    EOT
+  default     = null
+}
+
+variable "ipv4_additional_cidr_block_associations" {
+  type = map(object({
+    ipv4_cidr_block     = string
+    ipv4_ipam_pool_id   = string
+    ipv4_netmask_length = number
+  }))
+  description = <<-EOT
+    IPv4 CIDR blocks to assign to the VPC.
+    `ipv4_cidr_block` can be set explicitly, or set to `null` with the CIDR block derived from `ipv4_ipam_pool_id` using `ipv4_netmask_length`.
+    Map keys must be known at `plan` time, and are only used to track changes.
+    EOT
+  default     = {}
+}
+
+variable "ipv4_cidr_block_association_timeouts" {
+  type = object({
+    create = string
+    delete = string
+  })
+  description = "Timeouts (in `go` duration format) for creating and destroying IPv4 CIDR block associations"
+  default     = null
+}
+
 variable "ipv4_cidrs" {
   type = list(object({
     private = list(string)

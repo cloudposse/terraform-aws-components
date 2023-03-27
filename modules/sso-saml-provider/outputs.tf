@@ -16,3 +16,18 @@ output "issuer" {
   sensitive   = true
 }
 
+output "usernameAttr" {
+  value       = local.enabled ? var.usernameAttr : null
+  description = "User name attribute"
+}
+
+output "emailAttr" {
+  value       = local.enabled ? var.emailAttr : null
+  description = "Email attribute"
+}
+
+output "groupsAttr" {
+  value       = local.enabled ? var.groupsAttr : null
+  description = "Groups attribute"
+}
+

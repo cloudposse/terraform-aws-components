@@ -26,7 +26,6 @@ components:
         tags:
           Team: sre
           Service: tgw-spoke
-        root_account_tenant_name: core
 
     tgw/spoke:
       metadata:
@@ -71,7 +70,7 @@ atmos terraform apply tgw/spoke -s <tenant>-<environment>-<stage>
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.1 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.1 |
 
 ## Providers
 
@@ -82,7 +81,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
-| <a name="module_tgw_hub"></a> [tgw\_hub](#module\_tgw\_hub) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_tgw_hub"></a> [tgw\_hub](#module\_tgw\_hub) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_tgw_hub_role"></a> [tgw\_hub\_role](#module\_tgw\_hub\_role) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_tgw_hub_routes"></a> [tgw\_hub\_routes](#module\_tgw\_hub\_routes) | cloudposse/transit-gateway/aws | 0.9.1 |
 | <a name="module_tgw_spoke_vpc_attachment"></a> [tgw\_spoke\_vpc\_attachment](#module\_tgw\_spoke\_vpc\_attachment) | ./modules/standard_vpc_attachment | n/a |

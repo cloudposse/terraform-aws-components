@@ -11,7 +11,7 @@ provider "aws" {
 }
 
 module "iam_roles" {
-  source  = "../account-map/modules/iam-roles"
+  source  = "../../account-map/modules/iam-roles"
   context = module.this.context
 }
 
@@ -38,6 +38,3 @@ data "aws_eks_cluster_auth" "kubernetes" {
 
   name = module.eks.outputs.eks_cluster_id
 }
-
-provider "utils" {}
-

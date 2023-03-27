@@ -385,3 +385,14 @@ variable "fargate_profile_iam_role_permissions_boundary" {
   description = "If provided, all Fargate Profiles IAM roles will be created with this permissions boundary attached"
   default     = null
 }
+
+variable "addons" {
+  type = list(object({
+    addon_name               = string
+    addon_version            = string
+    resolve_conflicts        = string
+    service_account_role_arn = string
+  }))
+  description = "Manages [`aws_eks_addon`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) resources"
+  default     = []
+}

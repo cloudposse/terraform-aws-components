@@ -15,7 +15,6 @@ components:
           workspace_enabled: true
       vars:
         enabled: true
-        root_account_tenant_name: core
         service_linked_roles:
           spot_amazonaws_com:
             aws_service_name: "spot.amazonaws.com"

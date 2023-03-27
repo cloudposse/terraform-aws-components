@@ -90,8 +90,14 @@ variable "kms_key_id" {
 
 variable "s3_buckets" {
   type        = list(string)
-  description = "The names and ARNs of S3 buckets to forward logs to Datadog"
-  default     = null
+  description = "The names of S3 buckets to forward logs to Datadog"
+  default     = []
+}
+
+variable "s3_buckets_with_prefixes" {
+  type        = map(object({ bucket_name : string, bucket_prefix : string }))
+  description = "The names S3 buckets and prefix to forward logs to Datadog"
+  default     = {}
 }
 
 variable "s3_bucket_kms_arns" {
@@ -105,6 +111,40 @@ variable "cloudwatch_forwarder_log_groups" {
   description = <<EOT
     Map of CloudWatch Log Groups with a filter pattern that the Lambda forwarder will send logs from. For example: { mysql1 = { name = "/aws/rds/maincluster", filter_pattern = "" }
     EOT
+  default     = {}
+}
+
+variable "cloudwatch_forwarder_event_patterns" {
+  type = map(object({
+    version     = optional(list(string))
+    id          = optional(list(string))
+    detail-type = optional(list(string))
+    source      = optional(list(string))
+    account     = optional(list(string))
+    time        = optional(list(string))
+    region      = optional(list(string))
+    resources   = optional(list(string))
+    detail      = optional(map(list(string)))
+  }))
+  description = <<-EOF
+    Map of title => CloudWatch Event patterns to forward to Datadog. Event structure from here: <https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html#CloudWatchEventsPatterns>
+    Example:
+    ```hcl
+    cloudwatch_forwarder_event_rules = {
+      "guardduty" = {
+        source = ["aws.guardduty"]
+        detail-type = ["GuardDuty Finding"]
+      }
+      "ec2-terminated" = {
+        source = ["aws.ec2"]
+        detail-type = ["EC2 Instance State-change Notification"]
+        detail = {
+          state = ["terminated"]
+        }
+      }
+    }
+    ```
+  EOF
   default     = {}
 }
 

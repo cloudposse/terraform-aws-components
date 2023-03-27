@@ -12,7 +12,7 @@ locals {
   lookup_schedules = distinct(flatten([
     for rule in var.escalation.rules :
     format(var.team_naming_format, var.team_name, rule.recipient.name)
-    if rule.recipient.type == "schedule"
+    if rule.recipient.type == "schedule" && module.this.enabled
   ]))
 }
 

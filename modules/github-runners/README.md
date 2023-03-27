@@ -13,16 +13,16 @@ components:
   terraform:
     github-runners:
       vars:
-        github_scope: company
-        instance_type: "t3.small"
-        min_size: 1
-        max_size: 10
-        default_cooldown: 300
-        scale_down_cooldown_seconds: 2700
-        wait_for_capacity_timeout: 10m
         cpu_utilization_high_threshold_percent: 5
         cpu_utilization_low_threshold_percent: 1
-        spot_maxprice: 0.02
+        default_cooldown: 300
+        github_scope: company
+        instance_type: "t3.small"
+        max_size: 10
+        min_size: 1
+        runner_group: default
+        scale_down_cooldown_seconds: 2700
+        wait_for_capacity_timeout: 10m
         mixed_instances_policy:
           instances_distribution:
             on_demand_allocation_strategy: "prioritized"
@@ -87,13 +87,13 @@ chamber write github/runners/<github-org> registration-token ghp_secretstring
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.1.1 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_autoscale_group"></a> [autoscale\_group](#module\_autoscale\_group) | cloudposse/ec2-autoscale-group/aws | 0.30.1 |
 | <a name="module_graceful_scale_in"></a> [graceful\_scale\_in](#module\_graceful\_scale\_in) | ./modules/graceful_scale_in | n/a |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_sg"></a> [sg](#module\_sg) | cloudposse/security-group/aws | 1.0.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.1.1 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 
 ## Resources
 
@@ -151,6 +151,7 @@ chamber write github/runners/<github-org> registration-token ghp_secretstring
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
+| <a name="input_runner_group"></a> [runner\_group](#input\_runner\_group) | GitHub runner group | `string` | `"default"` | no |
 | <a name="input_runner_labels"></a> [runner\_labels](#input\_runner\_labels) | List of labels to add to the GitHub Runner (e.g. 'Amazon Linux 2'). | `list(string)` | `[]` | no |
 | <a name="input_runner_role_additional_policy_arns"></a> [runner\_role\_additional\_policy\_arns](#input\_runner\_role\_additional\_policy\_arns) | List of policy ARNs that will be attached to the runners' default role on creation in addition to the defaults | `list(string)` | `[]` | no |
 | <a name="input_runner_version"></a> [runner\_version](#input\_runner\_version) | GitHub runner release version | `string` | `"2.288.1"` | no |

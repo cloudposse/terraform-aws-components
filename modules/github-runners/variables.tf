@@ -137,6 +137,12 @@ variable "runner_labels" {
   description = "List of labels to add to the GitHub Runner (e.g. 'Amazon Linux 2')."
 }
 
+variable "runner_group" {
+  type        = string
+  default     = "default"
+  description = "GitHub runner group"
+}
+
 variable "runner_role_additional_policy_arns" {
   type        = list(string)
   default     = []
