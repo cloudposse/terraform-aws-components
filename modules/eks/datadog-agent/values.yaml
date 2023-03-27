@@ -42,7 +42,6 @@ agents:
   image:
     repository: "public.ecr.aws/datadog/agent"
     tag: 7
-  priorityClassName: "system-node-critical"
   tolerations:
   - effect: NoSchedule
     operator: Exists
