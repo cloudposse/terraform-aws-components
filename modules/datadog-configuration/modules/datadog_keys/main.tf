@@ -24,6 +24,7 @@ locals {
     v != null ? format("%s:%s", k, v) : k
   ]
 }
+
 module "datadog_configuration" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "1.4.1"
