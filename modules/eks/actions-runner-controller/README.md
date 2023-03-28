@@ -20,55 +20,78 @@ The default catalog values `e.g. stacks/catalog/eks/actions-runner-controller.ya
 components:
   terraform:
     eks/actions-runner-controller:
-      settings:
-        spacelift:
-          workspace_enabled: true
       vars:
         enabled: true
         name: "actions-runner" # avoids hitting name length limit on IAM role
         chart: "actions-runner-controller"
         chart_repository: "https://actions-runner-controller.github.io/actions-runner-controller"
-        chart_version: "0.21.0"
+        chart_version: "0.22.0"
         kubernetes_namespace: "actions-runner-system"
         create_namespace: true
+        kubeconfig_exec_auth_api_version: "client.authentication.k8s.io/v1beta1"
+        # helm_manifest_experiment_enabled feature causes inconsistent final plans with charts that have CRDs
+        # see https://github.com/hashicorp/terraform-provider-helm/issues/711#issuecomment-836192991
+        helm_manifest_experiment_enabled: false
+
+        ssm_github_secret_path: "/github_runners/controller_github_app_secret"
+        github_app_id: "REPLACE_ME_GH_APP_ID"
+        github_app_installation_id: "REPLACE_ME_GH_INSTALLATION_ID"
+
+        # ssm_github_webhook_secret_token_path: "/github_runners/github_webhook_secret_token"
+        webhook:
+          enabled: false
+          hostname_template: "gha-webhook.%[3]v.%[2]v.%[1]v.acme.com"
+
+        eks_component_name: "eks/cluster"
         resources:
           limits:
-            cpu: 100m
-            memory: 128Mi
+            cpu: 500m
+            memory: 256Mi
           requests:
-            cpu: 100m
+            cpu: 250m
             memory: 128Mi
-        ssm_github_token_path: "/github_runners/controller_github_app_secret"
-        ssm_github_webhook_secret_token_path: "/github_runners/controller_github_app_secret"
-        github_app_id: "123456"
-        github_app_installation_id: "234567890"
-        webhook:
-          enabled: true
-          # gha-webhook.use1.auto.core.acme.net
-          hostname_template: "gha-webhook.%[3]v.%[2]v.%[1]v.acme.net"
-        timeout: 120
         runners:
-          infrastructure-runner:
+          infra-runner:
+            node_selector:
+              kubernetes.io/os: "linux"
+              kubernetes.io/arch: "arm64"
+            tolerations:
+            - key: "kubernetes.io/arch"
+              operator: "Equal"
+              value: "arm64"
+              effect: "NoSchedule"
             type: "repository" # can be either 'organization' or 'repository'
             dind_enabled: false # If `true`, a Docker sidecar container will be deployed
-            # To run Docker in Docker (dind), change image from summerwind/actions-runner to summerwind/actions-runner-dind
-            image: summerwind/actions-runner
-            scope: "acme/infrastructure"
-            scale_down_delay_seconds: 300
+            # To run Docker in Docker (dind), change image to summerwind/actions-runner-dind
+            # If not running Docker, change image to summerwind/actions-runner use a smaller image
+            image: summerwind/actions-runner-dind
+            # `scope` is org name for Organization runners, repo name for Repository runners
+            scope: "org/infra"
             min_replicas: 1
-            max_replicas: 5
+            max_replicas: 20
+            scale_down_delay_seconds: 100
             resources:
               limits:
                 cpu: 200m
-                memory: 256Mi
+                memory: 512Mi
               requests:
                 cpu: 100m
                 memory: 128Mi
             webhook_driven_scaling_enabled: true
+            webhook_startup_timeout: "2m"
             pull_driven_scaling_enabled: false
             labels:
+              - "Linux"
+              - "linux"
               - "Ubuntu"
-              - "self-hosted"
+              - "ubuntu"
+              - "X64"
+              - "x64"
+              - "x86_64"
+              - "amd64"
+              - "AMD64"
+              - "core-auto"
+              - "common"
 ```
 
 ### Generating Required Secrets
