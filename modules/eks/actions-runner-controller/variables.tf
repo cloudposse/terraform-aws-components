@@ -170,7 +170,7 @@ variable "runners" {
     tolerations = optional(list(object({
       key      = string
       operator = string
-      value    = string
+      value    = optional(string, null)
       effect   = string
     })), [])
     scale_down_delay_seconds = number
