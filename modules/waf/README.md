@@ -12,7 +12,7 @@ Here's an example snippet for how to use this component.
 ```yaml
 components:
   terraform:
-    aws-waf-acl:
+    waf:
       vars:
         enabled: true
         name: waf
