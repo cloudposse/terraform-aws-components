@@ -77,3 +77,9 @@ variable "profiles_enabled" {
   default     = false
   description = "Whether or not to enable profiles instead of roles for the backend. If true, profile must be set. If false, role_arn must be set."
 }
+
+variable "aws_config_identity_profile_name" {
+  type        = string
+  default     = null
+  description = "The AWS config profile name to use as `source_profile` for credentials."
+}

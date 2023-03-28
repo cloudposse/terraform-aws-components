@@ -26,7 +26,6 @@ components:
         tags:
           Team: sre
           Service: tgw-spoke
-        root_account_tenant_name: core
 
     tgw/spoke:
       metadata:
@@ -71,7 +70,7 @@ atmos terraform apply tgw/spoke -s <tenant>-<environment>-<stage>
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.1 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.1 |
 
 ## Providers
 
