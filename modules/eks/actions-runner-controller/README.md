@@ -38,8 +38,9 @@ components:
         github_app_installation_id: "REPLACE_ME_GH_INSTALLATION_ID"
 
         # ssm_github_webhook_secret_token_path: "/github_runners/github_webhook_secret_token"
+        # The webhook based autoscaler is much more efficient than the polling based autoscaler
         webhook:
-          enabled: false
+          enabled: true
           hostname_template: "gha-webhook.%[3]v.%[2]v.%[1]v.acme.com"
 
         eks_component_name: "eks/cluster"
@@ -54,12 +55,7 @@ components:
           infra-runner:
             node_selector:
               kubernetes.io/os: "linux"
-              kubernetes.io/arch: "arm64"
-            tolerations:
-            - key: "kubernetes.io/arch"
-              operator: "Equal"
-              value: "arm64"
-              effect: "NoSchedule"
+              kubernetes.io/arch: "amd64"
             type: "repository" # can be either 'organization' or 'repository'
             dind_enabled: false # If `true`, a Docker sidecar container will be deployed
             # To run Docker in Docker (dind), change image to summerwind/actions-runner-dind
@@ -80,6 +76,9 @@ components:
             webhook_driven_scaling_enabled: true
             webhook_startup_timeout: "2m"
             pull_driven_scaling_enabled: false
+            # Labels are not case-sensitive to GitHub, but *are* case-sensitive
+            # to the webhook based autoscaler, which requires exact matches
+            # between the `runs-on:` label in the workflow and the runner labels.
             labels:
               - "Linux"
               - "linux"
@@ -92,6 +91,55 @@ components:
               - "AMD64"
               - "core-auto"
               - "common"
+          # Uncomment this additional runner if you want to run a second
+          # runner pool for `arm64` architecture
+          #infra-runner-arm64:
+          #  node_selector:
+          #    kubernetes.io/os: "linux"
+          #    kubernetes.io/arch: "arm64"
+          #  # Add the corresponding taint to the Kubernetes nodes running `arm64` architecture
+          #  # to prevent Kubernetes pods without node selectors from being scheduled on them.
+          #  tolerations:
+          #  - key: "kubernetes.io/arch"
+          #    operator: "Equal"
+          #    value: "arm64"
+          #    effect: "NoSchedule"
+          #  type: "repository" # can be either 'organization' or 'repository'
+          #  dind_enabled: false # If `true`, a Docker sidecar container will be deployed
+          #  # To run Docker in Docker (dind), change image to summerwind/actions-runner-dind
+          #  # If not running Docker, change image to summerwind/actions-runner use a smaller image
+          #  image: summerwind/actions-runner-dind
+          #  # `scope` is org name for Organization runners, repo name for Repository runners
+          #  scope: "org/infra"
+          #  min_replicas: 1
+          #  max_replicas: 20
+          #  scale_down_delay_seconds: 100
+          #  resources:
+          #    limits:
+          #      cpu: 200m
+          #      memory: 512Mi
+          #    requests:
+          #      cpu: 100m
+          #      memory: 128Mi
+          #  webhook_driven_scaling_enabled: true
+          #  webhook_startup_timeout: "2m"
+          #  pull_driven_scaling_enabled: false
+          #  # Labels are not case-sensitive to GitHub, but *are* case-sensitive
+          #  # to the webhook based autoscaler, which requires exact matches
+          #  # between the `runs-on:` label in the workflow and the runner labels.
+          #  # Leave "common" off the list so that "common" jobs are always
+          #  # scheduled on the amd64 runners. This is because the webhook
+          #  # based autoscaler will not scale a runner pool if the
+          #  # `runs-on:` labels in the workflow match more than one pool.
+          #  labels:
+          #    - "Linux"
+          #    - "linux"
+          #    - "Ubuntu"
+          #    - "ubuntu"
+          #    - "amd64"
+          #    - "AMD64"
+          #    - "core-auto"
+
 ```
 
 ### Generating Required Secrets
