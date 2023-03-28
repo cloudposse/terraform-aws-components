@@ -2,6 +2,10 @@
 
 This component is responsible for provisioning information only: it simply populates Terraform state with data (account ids, groups, and roles) that other root modules need via outputs.
 
+## Pre-requisites
+
+- [account](/reference-architecture/components/account) must be provisioned before [account-map](/reference-architecture/components/account-map) component
+
 ## Usage
 
 **Stack Level**: Global
