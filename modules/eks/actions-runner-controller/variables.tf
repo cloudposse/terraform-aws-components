@@ -162,10 +162,17 @@ variable "runners" {
   EOT
 
   type = map(object({
-    type                     = string
-    scope                    = string
-    image                    = optional(string, "")
-    dind_enabled             = bool
+    type          = string
+    scope         = string
+    image         = optional(string, "")
+    dind_enabled  = bool
+    node_selector = optional(map(string), {})
+    tolerations = optional(list(object({
+      key      = string
+      operator = string
+      value    = string
+      effect   = string
+    })), [])
     scale_down_delay_seconds = number
     min_replicas             = number
     max_replicas             = number

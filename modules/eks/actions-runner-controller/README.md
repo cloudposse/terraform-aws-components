@@ -20,55 +20,78 @@ The default catalog values `e.g. stacks/catalog/eks/actions-runner-controller.ya
 components:
   terraform:
     eks/actions-runner-controller:
-      settings:
-        spacelift:
-          workspace_enabled: true
       vars:
         enabled: true
         name: "actions-runner" # avoids hitting name length limit on IAM role
         chart: "actions-runner-controller"
         chart_repository: "https://actions-runner-controller.github.io/actions-runner-controller"
-        chart_version: "0.21.0"
+        chart_version: "0.22.0"
         kubernetes_namespace: "actions-runner-system"
         create_namespace: true
+        kubeconfig_exec_auth_api_version: "client.authentication.k8s.io/v1beta1"
+        # helm_manifest_experiment_enabled feature causes inconsistent final plans with charts that have CRDs
+        # see https://github.com/hashicorp/terraform-provider-helm/issues/711#issuecomment-836192991
+        helm_manifest_experiment_enabled: false
+
+        ssm_github_secret_path: "/github_runners/controller_github_app_secret"
+        github_app_id: "REPLACE_ME_GH_APP_ID"
+        github_app_installation_id: "REPLACE_ME_GH_INSTALLATION_ID"
+
+        # ssm_github_webhook_secret_token_path: "/github_runners/github_webhook_secret_token"
+        webhook:
+          enabled: false
+          hostname_template: "gha-webhook.%[3]v.%[2]v.%[1]v.acme.com"
+
+        eks_component_name: "eks/cluster"
         resources:
           limits:
-            cpu: 100m
-            memory: 128Mi
+            cpu: 500m
+            memory: 256Mi
           requests:
-            cpu: 100m
+            cpu: 250m
             memory: 128Mi
-        ssm_github_token_path: "/github_runners/controller_github_app_secret"
-        ssm_github_webhook_secret_token_path: "/github_runners/controller_github_app_secret"
-        github_app_id: "123456"
-        github_app_installation_id: "234567890"
-        webhook:
-          enabled: true
-          # gha-webhook.use1.auto.core.acme.net
-          hostname_template: "gha-webhook.%[3]v.%[2]v.%[1]v.acme.net"
-        timeout: 120
         runners:
-          infrastructure-runner:
+          infra-runner:
+            node_selector:
+              kubernetes.io/os: "linux"
+              kubernetes.io/arch: "arm64"
+            tolerations:
+            - key: "kubernetes.io/arch"
+              operator: "Equal"
+              value: "arm64"
+              effect: "NoSchedule"
             type: "repository" # can be either 'organization' or 'repository'
             dind_enabled: false # If `true`, a Docker sidecar container will be deployed
-            # To run Docker in Docker (dind), change image from summerwind/actions-runner to summerwind/actions-runner-dind
-            image: summerwind/actions-runner
-            scope: "acme/infrastructure"
-            scale_down_delay_seconds: 300
+            # To run Docker in Docker (dind), change image to summerwind/actions-runner-dind
+            # If not running Docker, change image to summerwind/actions-runner use a smaller image
+            image: summerwind/actions-runner-dind
+            # `scope` is org name for Organization runners, repo name for Repository runners
+            scope: "org/infra"
             min_replicas: 1
-            max_replicas: 5
+            max_replicas: 20
+            scale_down_delay_seconds: 100
             resources:
               limits:
                 cpu: 200m
-                memory: 256Mi
+                memory: 512Mi
               requests:
                 cpu: 100m
                 memory: 128Mi
             webhook_driven_scaling_enabled: true
+            webhook_startup_timeout: "2m"
             pull_driven_scaling_enabled: false
             labels:
+              - "Linux"
+              - "linux"
               - "Ubuntu"
-              - "self-hosted"
+              - "ubuntu"
+              - "X64"
+              - "x64"
+              - "x86_64"
+              - "amd64"
+              - "AMD64"
+              - "core-auto"
+              - "common"
 ```
 
 ### Generating Required Secrets
@@ -266,7 +289,7 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region. | `string` | n/a | yes |
 | <a name="input_resources"></a> [resources](#input\_resources) | The cpu and memory of the deployment's limits and requests. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | n/a | yes |
-| <a name="input_runners"></a> [runners](#input\_runners) | Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in<br>kebab-case.<br><br>For example:<pre>hcl<br>organization_runner = {<br>  type = "organization" # can be either 'organization' or 'repository'<br>  dind_enabled: false # A Docker sidecar container will be deployed<br>  image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'<br>  scope = "ACME"  # org name for Organization runners, repo name for Repository runners<br>  scale_down_delay_seconds = 300<br>  min_replicas = 1<br>  max_replicas = 5<br>  busy_metrics = {<br>    scale_up_threshold = 0.75<br>    scale_down_threshold = 0.25<br>    scale_up_factor = 2<br>    scale_down_factor = 0.5<br>  }<br>  labels = [<br>    "Ubuntu",<br>    "core-automation",<br>  ]<br>}</pre> | <pre>map(object({<br>    type                     = string<br>    scope                    = string<br>    image                    = optional(string, "")<br>    dind_enabled             = bool<br>    scale_down_delay_seconds = number<br>    min_replicas             = number<br>    max_replicas             = number<br>    busy_metrics = optional(object({<br>      scale_up_threshold    = string<br>      scale_down_threshold  = string<br>      scale_up_adjustment   = optional(string)<br>      scale_down_adjustment = optional(string)<br>      scale_up_factor       = optional(string)<br>      scale_down_factor     = optional(string)<br>    }))<br>    webhook_driven_scaling_enabled = bool<br>    webhook_startup_timeout        = optional(string, null)<br>    pull_driven_scaling_enabled    = bool<br>    labels                         = list(string)<br>    storage                        = optional(string, null)<br>    pvc_enabled                    = optional(string, false)<br>    resources = object({<br>      limits = object({<br>        cpu               = string<br>        memory            = string<br>        ephemeral_storage = optional(string, null)<br>      })<br>      requests = object({<br>        cpu    = string<br>        memory = string<br>      })<br>    })<br>  }))</pre> | n/a | yes |
+| <a name="input_runners"></a> [runners](#input\_runners) | Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in<br>kebab-case.<br><br>For example:<pre>hcl<br>organization_runner = {<br>  type = "organization" # can be either 'organization' or 'repository'<br>  dind_enabled: false # A Docker sidecar container will be deployed<br>  image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'<br>  scope = "ACME"  # org name for Organization runners, repo name for Repository runners<br>  scale_down_delay_seconds = 300<br>  min_replicas = 1<br>  max_replicas = 5<br>  busy_metrics = {<br>    scale_up_threshold = 0.75<br>    scale_down_threshold = 0.25<br>    scale_up_factor = 2<br>    scale_down_factor = 0.5<br>  }<br>  labels = [<br>    "Ubuntu",<br>    "core-automation",<br>  ]<br>}</pre> | <pre>map(object({<br>    type          = string<br>    scope         = string<br>    image         = optional(string, "")<br>    dind_enabled  = bool<br>    node_selector = optional(map(string), {})<br>    tolerations = optional(list(object({<br>      key      = string<br>      operator = string<br>      value    = string<br>      effect   = string<br>    })), [])<br>    scale_down_delay_seconds = number<br>    min_replicas             = number<br>    max_replicas             = number<br>    busy_metrics = optional(object({<br>      scale_up_threshold    = string<br>      scale_down_threshold  = string<br>      scale_up_adjustment   = optional(string)<br>      scale_down_adjustment = optional(string)<br>      scale_up_factor       = optional(string)<br>      scale_down_factor     = optional(string)<br>    }))<br>    webhook_driven_scaling_enabled = bool<br>    webhook_startup_timeout        = optional(string, null)<br>    pull_driven_scaling_enabled    = bool<br>    labels                         = list(string)<br>    storage                        = optional(string, null)<br>    pvc_enabled                    = optional(string, false)<br>    resources = object({<br>      limits = object({<br>        cpu               = string<br>        memory            = string<br>        ephemeral_storage = optional(string, null)<br>      })<br>      requests = object({<br>        cpu    = string<br>        memory = string<br>      })<br>    })<br>  }))</pre> | n/a | yes |
 | <a name="input_s3_bucket_arns"></a> [s3\_bucket\_arns](#input\_s3\_bucket\_arns) | List of ARNs of S3 Buckets to which the runners will have read-write access to. | `list(string)` | `[]` | no |
 | <a name="input_ssm_github_secret_path"></a> [ssm\_github\_secret\_path](#input\_ssm\_github\_secret\_path) | The path in SSM to the GitHub app private key file contents or GitHub PAT token. | `string` | `""` | no |
 | <a name="input_ssm_github_webhook_secret_token_path"></a> [ssm\_github\_webhook\_secret\_token\_path](#input\_ssm\_github\_webhook\_secret\_token\_path) | The path in SSM to the GitHub Webhook Secret token. | `string` | `""` | no |

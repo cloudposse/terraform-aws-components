@@ -58,6 +58,14 @@ spec:
       {{- range .Values.labels }}
         - {{ . | quote }}
       {{- end }}
+      {{- if gt ( len (index .Values "node_selector") ) 0 }}
+      nodeSelector:
+        {{- toYaml .Values.node_selector | nindent 8 }}
+      {{- end }}
+      {{- if gt ( len (index .Values "tolerations") ) 0 }}
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 8 }}
+      {{- end }}
       # dockerdWithinRunnerContainer = false means access to a Docker daemon is provided by a sidecar container.
       dockerdWithinRunnerContainer: {{ .Values.dind_enabled }}
       image: {{ .Values.image | quote }}
