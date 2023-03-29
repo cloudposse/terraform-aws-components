@@ -4,7 +4,7 @@ locals {
 
 module "aws_waf" {
   source  = "cloudposse/waf/aws"
-  version = "0.0.4"
+  version = "0.2.0"
 
   association_resource_arns                   = var.association_resource_arns
   byte_match_statement_rules                  = var.byte_match_statement_rules
