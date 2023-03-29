@@ -266,10 +266,11 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | ../datadog-configuration/modules/datadog_keys | n/a |
 | <a name="module_escalation"></a> [escalation](#module\_escalation) | ./modules/escalation | n/a |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_integration"></a> [integration](#module\_integration) | ./modules/integration | n/a |
-| <a name="module_members_merge"></a> [members\_merge](#module\_members\_merge) | cloudposse/config/yaml//modules/deepmerge | 1.0.1 |
+| <a name="module_members_merge"></a> [members\_merge](#module\_members\_merge) | cloudposse/config/yaml//modules/deepmerge | 1.0.2 |
 | <a name="module_routing"></a> [routing](#module\_routing) | ./modules/routing | n/a |
 | <a name="module_schedule"></a> [schedule](#module\_schedule) | cloudposse/incident-management/opsgenie//modules/schedule | 0.16.0 |
 | <a name="module_service"></a> [service](#module\_service) | cloudposse/incident-management/opsgenie//modules/service | 0.16.0 |
@@ -281,12 +282,6 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 | Name | Type |
 |------|------|
 | [datadog_integration_opsgenie_service_object.fake_service_name](https://registry.terraform.io/providers/datadog/datadog/latest/docs/resources/integration_opsgenie_service_object) | resource |
-| [aws_secretsmanager_secret.datadog_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
-| [aws_secretsmanager_secret.datadog_app_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
-| [aws_secretsmanager_secret_version.datadog_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
-| [aws_secretsmanager_secret_version.datadog_app_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
-| [aws_ssm_parameter.datadog_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameter.datadog_app_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.opsgenie_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.opsgenie_team_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [opsgenie_team.existing](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/data-sources/team) | data source |
@@ -300,10 +295,7 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_create_only_integrations_enabled"></a> [create\_only\_integrations\_enabled](#input\_create\_only\_integrations\_enabled) | Whether to reuse all existing resources and only create new integrations | `bool` | `false` | no |
-| <a name="input_datadog_api_secret_key"></a> [datadog\_api\_secret\_key](#input\_datadog\_api\_secret\_key) | The key of the Datadog API secret | `string` | `"datadog/datadog_api_key"` | no |
-| <a name="input_datadog_app_secret_key"></a> [datadog\_app\_secret\_key](#input\_datadog\_app\_secret\_key) | The key of the Datadog Application secret | `string` | `"datadog/datadog_app_key"` | no |
 | <a name="input_datadog_integration_enabled"></a> [datadog\_integration\_enabled](#input\_datadog\_integration\_enabled) | Whether to enable Datadog integration with opsgenie (datadog side) | `bool` | `true` | no |
-| <a name="input_datadog_secrets_store_type"></a> [datadog\_secrets\_store\_type](#input\_datadog\_secrets\_store\_type) | Secret Store type for Datadog API and app keys. Valid values: `SSM`, `ASM` | `string` | `"SSM"` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |

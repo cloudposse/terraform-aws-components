@@ -2,6 +2,9 @@ type: "repository" # can be either 'organization' or 'repository'
 dind_enabled: true # If `true`, a Docker sidecar container will be deployed
 # To run Docker in Docker (dind), change image from summerwind/actions-runner to summerwind/actions-runner-dind
 image: summerwind/actions-runner-dind
+node_selector:
+  kubernetes.io/os: "linux"
+  kubernetes.io/arch: "amd64"
 scope: "example/app"
 scale_down_delay_seconds: 300
 min_replicas: 1

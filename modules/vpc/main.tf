@@ -78,6 +78,10 @@ module "vpc" {
   internet_gateway_enabled         = var.public_subnets_enabled
   assign_generated_ipv6_cidr_block = var.assign_generated_ipv6_cidr_block
 
+  ipv4_primary_cidr_block_association     = var.ipv4_primary_cidr_block_association
+  ipv4_additional_cidr_block_associations = var.ipv4_additional_cidr_block_associations
+  ipv4_cidr_block_association_timeouts    = var.ipv4_cidr_block_association_timeouts
+
   # Required for DNS resolution of VPC Endpoint interfaces, and generally harmless
   # See https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-support
   dns_hostnames_enabled = true

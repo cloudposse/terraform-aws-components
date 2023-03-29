@@ -1,14 +1,15 @@
 # Component: `datadog-configuration`
 
-This component is responsible for provisioning SSM or ASM entries for datadog api keys. 
+This component is responsible for provisioning SSM or ASM entries for Datadog API keys.
 
 It's required that the DataDog API and APP secret keys are available in the `var.datadog_secrets_source_store_account` account
 in AWS SSM Parameter Store at the `/datadog/%v/datadog_app_key` paths (where `%v` are the corresponding account names).
 
 This component copies keys from the source account (e.g. `auto`) to the destination account where this is being deployed. The purpose of using this formatted copying of keys handles a couple of problems.
+
 1. The keys are needed in each account where datadog resources will be deployed.
-2. The keys might need to be different per account or tenant, or any subset of accounts.
-3. If the keys need to be rotated they can be rotated from a single management account.
+1. The keys might need to be different per account or tenant, or any subset of accounts.
+1. If the keys need to be rotated they can be rotated from a single management account.
 
 This module also has a submodule which allows other resources to quickly use it to create a datadog provider.
 
@@ -23,7 +24,6 @@ This component should be deployed to every account where you want to provision d
 Here's an example snippet for how to use this component. It's suggested to apply this component to all accounts which you want to track AWS metrics with DataDog.
 In this example we use the key paths `/datadog/%v/datadog_api_key` and `/datadog/%v/datadog_app_key` where `%v` is `default`, this can be changed through `datadog_app_secret_key` & `datadog_api_secret_key` variables.
 The output Keys in the deployed account will be `/datadog/datadog_api_key` and `/datadog/datadog_app_key`.
-
 
 ```yaml
 components:
@@ -45,7 +45,6 @@ Here is a snippet of using the `datadog_keys` submodule:
 ```terraform
 module "datadog_configuration" {
   source  = "../datadog-configuration/modules/datadog_keys"
-  region  = var.region
   context = module.this.context
 }
 
@@ -104,7 +103,6 @@ provider "datadog" {
 | <a name="input_datadog_app_secret_key"></a> [datadog\_app\_secret\_key](#input\_datadog\_app\_secret\_key) | The name of the Datadog APP secret | `string` | `"default"` | no |
 | <a name="input_datadog_app_secret_key_source_pattern"></a> [datadog\_app\_secret\_key\_source\_pattern](#input\_datadog\_app\_secret\_key\_source\_pattern) | The format string (%v will be replaced by the var.datadog\_app\_secret\_key) for the key of the Datadog APP secret in the source account | `string` | `"/datadog/%v/datadog_app_key"` | no |
 | <a name="input_datadog_app_secret_key_target_pattern"></a> [datadog\_app\_secret\_key\_target\_pattern](#input\_datadog\_app\_secret\_key\_target\_pattern) | The format string (%v will be replaced by the var.datadog\_api\_secret\_key) for the key of the Datadog APP secret in the target account | `string` | `"/datadog/datadog_app_key"` | no |
-| <a name="input_datadog_aws_account_id"></a> [datadog\_aws\_account\_id](#input\_datadog\_aws\_account\_id) | The AWS account ID Datadog's integration servers use for all integrations | `string` | `"464622532012"` | no |
 | <a name="input_datadog_secrets_source_store_account_region"></a> [datadog\_secrets\_source\_store\_account\_region](#input\_datadog\_secrets\_source\_store\_account\_region) | Region for holding Secret Store Datadog Keys, leave as null to use the same region as the stack | `string` | `null` | no |
 | <a name="input_datadog_secrets_source_store_account_stage"></a> [datadog\_secrets\_source\_store\_account\_stage](#input\_datadog\_secrets\_source\_store\_account\_stage) | Stage holding Secret Store for Datadog API and app keys. | `string` | `"auto"` | no |
 | <a name="input_datadog_secrets_source_store_account_tenant"></a> [datadog\_secrets\_source\_store\_account\_tenant](#input\_datadog\_secrets\_source\_store\_account\_tenant) | Tenant holding Secret Store for Datadog API and app keys. | `string` | `"core"` | no |
@@ -144,7 +142,7 @@ provider "datadog" {
 
 ## References
 * Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys)
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/datadog-integration) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/datadog-configuration) - Cloud Posse's upstream component
 
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

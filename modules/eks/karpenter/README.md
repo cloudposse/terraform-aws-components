@@ -24,7 +24,6 @@ components:
           workspace_enabled: true
       vars:
         enabled: true
-        root_account_tenant_name: core
         tags:
           Team: sre
           Service: karpenter
