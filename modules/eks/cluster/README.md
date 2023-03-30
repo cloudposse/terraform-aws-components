@@ -12,43 +12,95 @@ Here's an example snippet for how to use this component.
 ```yaml
 components:
   terraform:
-    eks:
+    eks/cluster:
       vars:
         enabled: true
-        cluster_kubernetes_version: "1.21"
-        availability_zones: ["us-west-2a", "us-west-2b", "us-west-2c"]
+        name: eks
+        iam_primary_roles_tenant_name: core
+        cluster_kubernetes_version: "1.25"
+        availability_zones: ["us-east-1a", "us-east-1b", "us-east-1c"]
+        aws_ssm_agent_enabled: true
+        allow_ingress_from_vpc_accounts:
+          - tenant: core
+            stage: auto
+          - tenant: core
+            stage: corp
+          - tenant: core
+            stage: network
+        public_access_cidrs: []
+        allowed_cidr_blocks: []
+        allowed_security_groups: []
+        enabled_cluster_log_types:
+          - api
+          - audit
+          - authenticator
+          - controllerManager
+          - scheduler
         oidc_provider_enabled: true
-        public_access_cidrs: ["72.107.0.0/24"]
-        managed_node_groups_enabled: true
-        node_groups: # null means use default set in defaults.auto.tf.vars
-          main:
-            # values of `null` will be replaced with default values
-            # availability_zones = null will create 1 auto scaling group in
-            # each availability zone in region_availability_zones
-            availability_zones: null
 
-            desired_group_size: 3 # number of instances to start with, must be >= number of AZs
-            min_group_size: 3 # must be  >= number of AZs
-            max_group_size: 6
+        # Allows GitHub OIDC role
+        github_actions_iam_role_enabled: true
+        github_actions_iam_role_attributes: [ "eks" ]
+        github_actions_allowed_repos:
+          - acme/infra
 
-            # Can only set one of ami_release_version or kubernetes_version
-            # Leave both null to use latest AMI for Cluster Kubernetes version
-            kubernetes_version: null # use cluster Kubernetes version
-            ami_release_version: null # use latest AMI for Kubernetes version
+        # We use karpenter to provision nodes
+        managed_node_groups_enabled: false
+        node_groups: {}   
 
-            attributes: []
-            create_before_destroy: true
-            disk_size: 100
-            cluster_autoscaler_enabled: true
-            instance_types:
-              - t3.medium
-            ami_type: AL2_x86_64 # use "AL2_x86_64" for standard instances, "AL2_x86_64_GPU" for GPU instances
-            kubernetes_labels: {}
-            kubernetes_taints: {}
-            resources_to_tag:
-              - instance
-              - volume
-            tags: null
+        # EKS IAM Authentication settings
+        # By default, you can authenticate to EKS cluster only by assuming the role that created the cluster.
+        # After the Auth Config Map is applied, the other IAM roles in
+        # `primary_iam_roles`, `delegated_iam_roles`, and `sso_iam_roles` will be able to authenticate.
+        apply_config_map_aws_auth: true
+        availability_zone_abbreviation_type: fixed
+        cluster_private_subnets_only: true
+        cluster_encryption_config_enabled: true
+        cluster_endpoint_private_access: true
+        cluster_endpoint_public_access: false
+        cluster_log_retention_period: 90
+        # Roles from the primary account to allow access to the cluster
+        # See `aws-teams` component.
+        primary_iam_roles:
+          - groups:
+              - system:masters
+              - idp:ops
+            role: devops
+          - groups:
+              - system:masters
+            role: spacelift
+        # Roles from the account owning the cluster to allow access to the cluster
+        # See `aws-team-roles` component.
+        delegated_iam_roles:
+          - groups:
+              - system:masters
+              - idp:ops
+            role: admin
+          - groups:
+              - idp:poweruser
+            role: poweruser
+          - groups:
+              - idp:observer
+            role: observer
+          - groups:
+              - system:masters
+            role: terraform
+        # Roles from AWS SSO allowing cluster access
+        # See `aws-sso` component.
+        sso_iam_roles:
+          - groups:
+              - idp:observer
+              - idp:observer-extra
+            role: ReadOnlyAccess
+          - groups:
+              - system:masters
+              - idp:ops
+            role: AdministratorAccess
+        fargate_profiles:
+          karpenter:
+            kubernetes_namespace: karpenter
+            kubernetes_labels: null
+        karpenter_iam_role_enabled: true
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
