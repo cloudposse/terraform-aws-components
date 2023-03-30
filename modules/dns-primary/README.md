@@ -33,6 +33,11 @@ components:
               - example.net
 ```
 
+:::info
+Use the [acm](/reference-architecture/components/acm)  component for more advanced certificate requirements.
+
+:::
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

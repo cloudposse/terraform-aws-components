@@ -265,3 +265,7 @@ No resources.
 
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
+
+## Related How-to Guides
+
+- [How to Enable Cross-Region Backups in AWS-Backup](/reference-architecture/how-to-guides/tutorials/how-to-enable-cross-region-backups-in-aws-backup)

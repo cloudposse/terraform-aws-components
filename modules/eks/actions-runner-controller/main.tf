@@ -219,6 +219,8 @@ module "actions_runner" {
       webhook_startup_timeout        = coalesce(each.value.webhook_startup_timeout, "${each.value.scale_down_delay_seconds}s") # if webhook_startup_timeout isnt defined, use scale_down_delay_seconds
       pull_driven_scaling_enabled    = each.value.pull_driven_scaling_enabled
       pvc_enabled                    = each.value.pvc_enabled
+      node_selector                  = each.value.node_selector
+      tolerations                    = each.value.tolerations
     }),
     local.busy_metrics_filtered[each.key] == null ? "" : yamlencode(local.busy_metrics_filtered[each.key]),
   ])

@@ -176,7 +176,6 @@ AWS_PROFILE=foo chamber list opsgenie-team/<team>
 ```
 
 ### ClickOps Work
- - The initial Setup requires ClickOps to setup the datadog integration on the datadog side. This is a limitation because there isn’t a resource for datadog to create an opsgenie integration so this has to be done manually via ClickOps. (See Limitations Below)
  - After deploying the opsgenie-team component the created team will have a schedule named after the team. This is purposely left to be clickOps’d so the UI can be used to set who is on call, as that is the usual way (not through code). Additionally We do not want a re-apply of the terraform to delete or shuffle who is planned to be on call, thus we left who is on-call on a schedule out of the component.
 
 ## Known Issues
@@ -339,6 +338,17 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 | <a name="output_team_members"></a> [team\_members](#output\_team\_members) | Team members |
 | <a name="output_team_name"></a> [team\_name](#output\_team\_name) | Team Name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+## Related How-to Guides
+
+- [How to Add Users to a Team in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-add-users-to-a-team-in-opsgenie)
+- [How to Pass Tags Along to Datadog](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-pass-tags-along-to-datadog)
+- [How to Onboard a New Service with Datadog and OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-onboard-a-new-service-with-datadog-and-opsgenie)
+- [How to Create Escalation Rules in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-create-escalation-rules-in-opsgenie)
+- [How to Setup Rotations in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-setup-rotations-in-opsgenie)
+- [How to Create New Teams in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-create-new-teams-in-opsgenie)
+- [How to Sign Up for OpsGenie?](/reference-architecture/how-to-guides/tutorials/how-to-sign-up-for-opsgenie)
+- [How to Implement Incident Management with OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie)
 
 ## References
 * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/opsgenie-team) - Cloud Posse's upstream component
