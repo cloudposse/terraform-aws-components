@@ -5,6 +5,10 @@ This component is responsible for provisioning an S3 Bucket and DynamoDB table t
 Once the initial S3 backend is configured, this component can create additional backends, allowing you to segregate them and control access to each backend separately. This may be desirable because any secret or sensitive information (such as generated passwords) that Terraform has access to gets stored in the Terraform state backend S3 bucket, so you may wish to restrict who can read the production Terraform state backend S3 bucket.
 However, perhaps counter-intuitively, all Terraform users require read access to the most sensitive accounts, such as `root` and `audit`, in order to read security configuration information, so careful planning is required when architecting backend splits.
 
+:::info
+Part of cold start so it has to initially be run with `SuperAdmin`
+Follow the guide **[here](/reference-architecture/how-to-guides/implementation/enterprise/implement-aws-cold-start/#provision-tfstate-backend-component)** to get started.
+:::
 
 ### Access Control
 

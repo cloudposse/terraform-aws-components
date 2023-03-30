@@ -1,19 +1,20 @@
 # Component: `aws-team-roles`
 
-This component is responsible for provisioning user and system IAM roles outside the `identity` account. 
+This component is responsible for provisioning user and system IAM roles outside the `identity` account.
 It sets them up to be assumed from the "team" roles defined in the `identity` account by
-[the `aws-teams` component](../aws-teams) and/or the AWS SSO permission sets 
+[the `aws-teams` component](../aws-teams) and/or the AWS SSO permission sets
 defined in [the `aws-sso` component](../aws-sso).
 
 ## Usage
 
 **Stack Level**: Global
-**Deployment**: Must be deployed by SuperAdmin using `atmos` CLI
+
+**Deployment**: Must be deployed by _SuperAdmin_ using `atmos` CLI
 
 Here's an example snippet for how to use this component. This specific usage is an example only, and not intended for production use.
 You set the defaults in one YAML file, and import that file into each account's Global stack (except for the `identity` account itself).
 If desired, you can make account-specific changes by overriding settings, for example
-- Disable entire roles in the account by setting `enabled: false` 
+- Disable entire roles in the account by setting `enabled: false`
 - Limit who can access the role by setting a different value for `trusted_teams`
 - Change the permissions available to that role by overriding the `role_policy_arns` (not recommended, limit access to the role or create a different role with the desired set of permissions instead).
 

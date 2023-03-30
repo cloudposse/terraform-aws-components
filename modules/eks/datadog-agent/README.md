@@ -76,7 +76,7 @@ components:
           - "stage:dev"
 ```
 
-# Cluster Checks
+## Cluster Checks
 
 Cluster Checks are configurations that allow us to setup external URLs to be monitored. They can be configured through the datadog agent or annotations on kubernetes services.
 
@@ -84,7 +84,7 @@ Cluster Checks are similar to synthetics checks, they are not as indepth, but si
 
 Public addresses that test endpoints must use the agent configuration, whereas service addresses internal to the cluster can be tested by annotations.
 
-## Adding Cluster Checks
+### Adding Cluster Checks
 
 Cluster Checks can be enabled or disabled via the `cluster_checks_enabled` variable. We recommend this be set to true.
 
@@ -94,7 +94,30 @@ Once they are added, and properly configured, the new checks show up in the netw
 
 **Please note:** the yaml file name doesn't matter, but the root key inside which is `something.yaml` does matter. this is following [datadogs docs](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files) for `<integration name>.yaml`.
 
-## Monitoring Cluster Checks
+#### Sample Yaml
+
+:::caution
+The key of a filename must match datadog docs, which is `<INTEGRATION_NAME>.yaml`
+[Datadog Cluster Checks](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files)
+
+:::
+Cluster Checks **can** be used for external URL testing (loadbalancer endpoints), whereas annotations **must** be used for kubernetes services.
+
+```
+http_check.yaml:
+  cluster_check: true
+  init_config:
+  instances:
+    - name: "[${stage}] Echo Server"
+      url: "https://echo.${stage}.uw2.acme.com"
+    - name: "[${stage}] Portal"
+      url: "https://portal.${stage}.uw2.acme.com"
+    - name: "[${stage}] ArgoCD"
+      url: "https://argocd.${stage}.uw2.acme.com"
+
+```
+
+### Monitoring Cluster Checks
 
 Using Cloudposse's `datadog-monitor` component. The following yaml snippet will monitor all HTTP Cluster Checks, this can be added to each stage (usually via a defaults folder).
 
