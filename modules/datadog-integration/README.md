@@ -1,6 +1,6 @@
 # Component: `datadog-integration`
 
-This component is responsible for provisioning Datadog AWS integrations. 
+This component is responsible for provisioning Datadog AWS integrations.
 
 See Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys) for more information.
 
@@ -90,6 +90,49 @@ No resources.
 | <a name="output_datadog_external_id"></a> [datadog\_external\_id](#output\_datadog\_external\_id) | Datadog integration external ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
+
+## FAQ:
+
+### Stack Errors (Spacelift):
+
+```
+╷
+│ Error: error creating AWS integration from https://api.datadoghq.com/api/v1/integration/aws: 409 Conflict: {"errors": ["Could not update AWS Integration due to conflicting updates"]}
+│
+│   with module.datadog_integration.datadog_integration_aws.integration[0],
+│   on .terraform/modules/datadog_integration/main.tf line 18, in resource "datadog_integration_aws" "integration":
+│   18: resource "datadog_integration_aws" "integration" {
+│
+╵
+```
+
+This can happen when you apply multiple integrations at the same time. Fix is easy though, re-trigger the stack.
+
+## Enabling Security Audits
+
+To enable the Datadog compliance capabilities, AWS integration to must have the `SecurityAudit` policy attached to the Datadog IAM role. This is handled by our [https://github.com/cloudposse/terraform-aws-datadog-integration](https://github.com/cloudposse/terraform-aws-datadog-integration) module used
+
+the by the `datadog-integration` component.
+
+Attaching the `SecurityAudit` policy allows Datadog to collect information about how AWS resources are configured (used in Datadog Cloud Security Posture Management to read security configuration metadata)
+
+- Datadog Cloud Security Posture Management (CSPM) makes it easier to assess and visualize the current and historic security posture of cloud environments, automate audit evidence collection, and catch misconfigurations that leave your organization vulnerable to attacks
+
+- Cloud Security Posture Management (CSPM) can be accessed at [https://app.datadoghq.com/security/compliance/home](https://app.datadoghq.com/security/compliance/home)
+
+- The process to enable Datadog Cloud Security Posture Management (CSPM) consists of two steps (one automated, the other manual):
+
+- Enable `SecurityAudit` policy and provision it with terraform
+
+- In Datadog UI, perform the following manual steps:
+
+```
+Go to the Datadog AWS integration tile
+Click on the AWS account where you wish to enable resource collection
+Go to the Resource collection section for that account and check the box "Route resource data to the Cloud Security Posture Management product"
+At the bottom left of the tile, click Update Configuration
+
+```
 
 ## References
 * Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys)

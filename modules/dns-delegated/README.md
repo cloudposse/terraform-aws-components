@@ -84,6 +84,42 @@ NOTE: With each of these workarounds, you may have an issue connecting to the se
 1. Deploy the new dns-delegated-private component
 1. Move aurora-postgres, msk, external-dns, echo-server, etc to the new hosted zone by re-deploying
 
+
+## Caveats
+
+- Do not create a delegation for subdomain of a domain in a zone for which that zone is not authoritative for the subdomain (usually because you already delegated a parent subdomain). Though Amazon Route 53 will allow you to, you should not do it. For historic reasons, Route 53 Public DNS allows customers to create two NS delegations within a hosted zone which creates a conflict (and can return either set to resolvers depending on the query).
+
+For example, in a single hosted zone with the domain name `example.com`, it is possible to create two NS delegations which are parent and child of each other as follows:
+
+```
+a.example.com. 172800 IN NS ns-1084.awsdns-07.org.
+a.example.com. 172800 IN NS ns-634.awsdns-15.net.
+a.example.com. 172800 IN NS ns-1831.awsdns-36.co.uk.
+a.example.com. 172800 IN NS ns-190.awsdns-23.com.
+
+b.a.example.com. 172800 IN NS ns-1178.awsdns-19.org.
+b.a.example.com. 172800 IN NS ns-614.awsdns-12.net.
+b.a.example.com. 172800 IN NS ns-1575.awsdns-04.co.uk.
+b.a.example.com. 172800 IN NS ns-338.awsdns-42.com.
+```
+
+This configuration creates two discrete possible resolution paths.
+
+1. If a resolver directly queries the `example.com` nameservers for `c.b.a.example.com`, it will receive the second set of nameservers.
+
+2. If a resolver queries `example.com` for `a.example.com`, it will receive the first set of nameservers.
+
+If the resolver then proceeds to query the `a.example.com` nameservers for `c.b.a.example.com`, the response is driven by the contents of the `a.example.com` zone, which may be different than the results returned by the `b.a.example.com` nameservers. `c.b.a.example.com` may not have an entry in the `a.example.com` nameservers, resulting in an error (`NXDOMAIN`) being returned.
+
+From 15th May 2020, Route 53 Resolver has been enabling a modern DNS resolver standard called "QName Minimization"[*]. This change causes the resolver to more strictly use recursion path [2] described above where path [1] was common before. [*] [https://tools.ietf.org/html/rfc7816](https://tools.ietf.org/html/rfc7816)
+
+As of January 2022, you can observe the different query strategies in use by Google DNS at `8.8.8.8` (strategy 1) and Cloudflare DNS at `1.1.1.1` (strategy 2). You should verify that both DNS servers resolve your host records properly.
+
+Takeaway
+
+1. In order to ensure DNS resolution is consistent no matter the resolver, it is important to always create NS delegations only authoritative zones.
+
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
