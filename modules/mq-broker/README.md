@@ -48,7 +48,7 @@ No providers.
 |------|--------|---------|
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_mq_broker"></a> [mq\_broker](#module\_mq\_broker) | cloudposse/mq-broker/aws | 2.0.1 |
+| <a name="module_mq_broker"></a> [mq\_broker](#module\_mq\_broker) | cloudposse/mq-broker/aws | 3.0.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 
