@@ -8,7 +8,7 @@ locals {
     format("arn:%s:iam::%s:root", local.aws_partition, module.account_map.outputs.full_account_map[acct])
   ]
 
-  bucket_policy = var.custom_policy_enabled ? data.aws_iam_policy_document.custom_policy[0].json : data.template_file.bucket_policy.rendered
+  bucket_policy = var.custom_policy_enabled ? data.aws_iam_policy_document.custom_policy[0].json : template(module.bucket_policy.json, "$${id}", module.this.id)
 
   logging = var.logging != null ? {
     bucket_name = var.logging_bucket_name_rendering_enabled ? format(var.logging_bucket_name_rendering_template, var.namespace, var.tenant, var.environment, var.stage, var.logging.bucket_name) : var.logging.bucket_name
@@ -17,14 +17,6 @@ locals {
 }
 
 data "aws_partition" "current" {}
-
-data "template_file" "bucket_policy" {
-  template = module.bucket_policy.json
-
-  vars = {
-    id = module.this.id
-  }
-}
 
 module "bucket_policy" {
   source  = "cloudposse/iam-policy/aws"
