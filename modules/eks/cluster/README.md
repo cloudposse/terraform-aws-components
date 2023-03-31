@@ -125,6 +125,12 @@ components:
 The `eks/cluster` component also supports node groups! In order to add a set list of nodes to 
 provision with the cluster, add values for `var.managed_node_groups_enabled` and `var.node_groups`.
 
+:::info
+You can use manage node groups in conjunction with Karpenter node groups! Simply deploy node groups as demonstrated below,
+and then deploy Karpenter with the necessary components.
+
+:::
+
 For example:
 
 ```yaml
