@@ -1,13 +1,28 @@
-# Component: `eks`
+# Component: `eks/cluster`
 
 This component is responsible for provisioning an end-to-end EKS Cluster, including managed node groups.
-NOTE: This component can only be deployed after logging in to AWS via Federated login with SAML (e.g. GSuite) or assuming an IAM role (e.g. from a CI/CD system). It cannot be deployed if you login to AWS via AWS SSO, the reason being is that on initial deployment, the EKS cluster will be owned by the assumed role that provisioned it. If this were to be the AWS SSO Role, then we risk losing access to the EKS cluster once the ARN of the AWS SSO Role eventually changes.
+
+
+:::info
+This component can only be deployed after logging in to AWS via Federated login with SAML (e.g. GSuite) or assuming an IAM role (e.g. from a CI/CD system). It cannot be deployed if you login to AWS via AWS SSO, the reason being is that on initial deployment, the EKS cluster will be owned by the assumed role that provisioned it. If this were to be the AWS SSO Role, then we risk losing access to the EKS cluster once the ARN of the AWS SSO Role eventually changes.
+
+:::
 
 ## Usage
 
 **Stack Level**: Regional
 
 Here's an example snippet for how to use this component.
+
+This example expects the [Cloud Posse Reference Architecture](https://docs.cloudposse.com/reference-architecture/)
+Identity and Network designs deployed for mapping users to EKS service roles and granting access in a private network. 
+In addition, this example has the GitHub OIDC integration added and makes use of Karpenter to dynamically scale cluster nodes.
+
+For more on these requirements, see 
+[Identity Reference Architecture](https://docs.cloudposse.com/reference-architecture/quickstart/iam-identity/),
+[Network Reference Architecture](https://docs.cloudposse.com/reference-architecture/scaffolding/setup/network/),
+the [Github OIDC component](https://docs.cloudposse.com/components/catalog/aws/github-oidc-provider/),
+and the [Karpenter component](https://docs.cloudposse.com/components/catalog/aws/eks/karpenter/).
 
 ```yaml
 components:
@@ -46,6 +61,7 @@ components:
           - acme/infra
 
         # We use karpenter to provision nodes
+        # See below for using node_groups
         managed_node_groups_enabled: false
         node_groups: {}   
 
@@ -102,6 +118,46 @@ components:
             kubernetes_namespace: karpenter
             kubernetes_labels: null
         karpenter_iam_role_enabled: true
+```
+
+### Usage with Node Groups
+
+The `eks/cluster` component also supports node groups! In order to add a set list of nodes to 
+provision with the cluster, add values for `var.managed_node_groups_enabled` and `var.node_groups`.
+
+For example:
+
+```yaml
+        managed_node_groups_enabled: true
+        node_groups: # null means use default set in defaults.auto.tf.vars
+          main:
+            # values of `null` will be replaced with default values
+            # availability_zones = null will create 1 auto scaling group in
+            # each availability zone in region_availability_zones
+            availability_zones: null
+
+            desired_group_size: 3 # number of instances to start with, must be >= number of AZs
+            min_group_size: 3 # must be  >= number of AZs
+            max_group_size: 6
+
+            # Can only set one of ami_release_version or kubernetes_version
+            # Leave both null to use latest AMI for Cluster Kubernetes version
+            kubernetes_version: null # use cluster Kubernetes version
+            ami_release_version: null # use latest AMI for Kubernetes version
+
+            attributes: []
+            create_before_destroy: true
+            disk_size: 100
+            cluster_autoscaler_enabled: true
+            instance_types:
+              - t3.medium
+            ami_type: AL2_x86_64 # use "AL2_x86_64" for standard instances, "AL2_x86_64_GPU" for GPU instances
+            kubernetes_labels: {}
+            kubernetes_taints: {}
+            resources_to_tag:
+              - instance
+              - volume
+            tags: null
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
