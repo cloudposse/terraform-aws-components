@@ -31,7 +31,8 @@ components:
         allowed_cidr_blocks: []
         allowed_security_groups: []
         enabled_cluster_log_types:
-          - api
+          # Caution: enabling `api` log events may lead to a substantial increase in Cloudwatch Logs expenses.
+          - api  
           - audit
           - authenticator
           - controllerManager
