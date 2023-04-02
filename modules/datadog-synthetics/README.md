@@ -1,6 +1,6 @@
 # Component: `datadog-synthetics`
 
-This component is responsible for provisioning Datadog synthetic tests.
+This component provides the ability to implement [Datadog synthetic tests](https://docs.datadoghq.com/synthetics/guide/).
 
 Synthetic tests allow you to observe how your systems and applications are performing using simulated requests and actions
 from the managed locations around the globe and to monitor internal endpoints from private locations.
