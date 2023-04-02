@@ -19,7 +19,7 @@ components:
   terraform:
     datadog-synthetics:
       metadata:
-        component: "datadog/synthetics"
+        component: "datadog-synthetics"
       settings:
         spacelift:
           workspace_enabled: true
