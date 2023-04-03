@@ -1,0 +1,31 @@
+my-browser-test:
+  name: "Browser Test"
+  message: "Browser Test Failed"
+  type: browser
+  subtype: http
+  device_ids:
+    - "laptop_large"
+  tags:
+    - "managed-by:Terraform"
+  status: "live"
+  request_definition:
+    url: "CHANGEME"
+    method: GET
+  request_headers:
+    Accept-Charset: "utf-8, iso-8859-1;q=0.5"
+    Accept: "text/html"
+  options_list:
+    tick_every: 1800
+    no_screenshot: false
+    follow_redirects: false
+    retry:
+      count: 2
+      interval: 10
+    monitor_options:
+      renotify_interval: 300
+  browser_step:
+    - name: "Check current URL"
+      type: assertCurrentUrl
+      params:
+        check: contains
+        value: "CHANGEME"
