@@ -236,6 +236,18 @@ After the webhook is created, select "edit" for the webhook and go to the "Recen
 (of a "ping" event) with a green check mark. If not, verify all the settings and consult
 the logs of the `actions-runner-controller-github-webhook-server` pod.
 
+### Configuring Scaling
+
+The default [`scaleUpTrigger`](https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#webhook-driven-scaling) duration is 30 minutes. The time should be adjusted with `webhook_startup_timeout`
+to best fit your maximum job duration. You should ensure the duration allows for
+backlog clearance. Project maintainers suggest "30m," but it depends on job lengths and maxReplicas.
+Use "30m" for low-backlog pools, and "2h30m" for high-backlog pools, like package building.
+Previously, "2m" was recommended, but it's insufficient. Update deployments to "30m" or consult with
+customers.
+
+You can read more about
+[scaling runners](https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md)
+in the docs.
 
 ### Updating CRDs
 
