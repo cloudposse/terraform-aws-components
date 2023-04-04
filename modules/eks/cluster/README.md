@@ -1,7 +1,12 @@
-# Component: `eks`
+# Component: `eks/cluster`
 
 This component is responsible for provisioning an end-to-end EKS Cluster, including managed node groups.
-NOTE: This component can only be deployed after logging in to AWS via Federated login with SAML (e.g. GSuite) or assuming an IAM role (e.g. from a CI/CD system). It cannot be deployed if you login to AWS via AWS SSO, the reason being is that on initial deployment, the EKS cluster will be owned by the assumed role that provisioned it. If this were to be the AWS SSO Role, then we risk losing access to the EKS cluster once the ARN of the AWS SSO Role eventually changes.
+
+
+:::warning
+This component should only be deployed after logging into AWS via Federated login with SAML (e.g. GSuite) or assuming an IAM role (e.g. from a CI/CD system). It should not be deployed if you log into AWS via AWS SSO, the reason being that on initial deployment, the EKS cluster will be owned by the assumed role that provisioned it. If this were to be the AWS SSO Role, then we risk losing access to the EKS cluster once the ARN of the AWS SSO Role eventually changes.
+
+:::
 
 ## Usage
 
@@ -9,16 +14,126 @@ NOTE: This component can only be deployed after logging in to AWS via Federated 
 
 Here's an example snippet for how to use this component.
 
+This example expects the [Cloud Posse Reference Architecture](https://docs.cloudposse.com/reference-architecture/)
+Identity and Network designs deployed for mapping users to EKS service roles and granting access in a private network. 
+In addition, this example has the GitHub OIDC integration added and makes use of Karpenter to dynamically scale cluster nodes.
+
+For more on these requirements, see 
+[Identity Reference Architecture](https://docs.cloudposse.com/reference-architecture/quickstart/iam-identity/),
+[Network Reference Architecture](https://docs.cloudposse.com/reference-architecture/scaffolding/setup/network/),
+the [Github OIDC component](https://docs.cloudposse.com/components/catalog/aws/github-oidc-provider/),
+and the [Karpenter component](https://docs.cloudposse.com/components/catalog/aws/eks/karpenter/).
+
 ```yaml
 components:
   terraform:
-    eks:
+    eks/cluster:
       vars:
         enabled: true
-        cluster_kubernetes_version: "1.21"
-        availability_zones: ["us-west-2a", "us-west-2b", "us-west-2c"]
+        name: eks
+        iam_primary_roles_tenant_name: core
+        cluster_kubernetes_version: "1.25"
+        availability_zones: ["us-east-1a", "us-east-1b", "us-east-1c"]
+        aws_ssm_agent_enabled: true
+        allow_ingress_from_vpc_accounts:
+          - tenant: core
+            stage: auto
+          - tenant: core
+            stage: corp
+          - tenant: core
+            stage: network
+        public_access_cidrs: []
+        allowed_cidr_blocks: []
+        allowed_security_groups: []
+        enabled_cluster_log_types:
+          # Caution: enabling `api` log events may lead to a substantial increase in Cloudwatch Logs expenses.
+          - api  
+          - audit
+          - authenticator
+          - controllerManager
+          - scheduler
         oidc_provider_enabled: true
-        public_access_cidrs: ["72.107.0.0/24"]
+
+        # Allows GitHub OIDC role
+        github_actions_iam_role_enabled: true
+        github_actions_iam_role_attributes: [ "eks" ]
+        github_actions_allowed_repos:
+          - acme/infra
+
+        # We use karpenter to provision nodes
+        # See below for using node_groups
+        managed_node_groups_enabled: false
+        node_groups: {}   
+
+        # EKS IAM Authentication settings
+        # By default, you can authenticate to EKS cluster only by assuming the role that created the cluster.
+        # After the Auth Config Map is applied, the other IAM roles in
+        # `primary_iam_roles`, `delegated_iam_roles`, and `sso_iam_roles` will be able to authenticate.
+        apply_config_map_aws_auth: true
+        availability_zone_abbreviation_type: fixed
+        cluster_private_subnets_only: true
+        cluster_encryption_config_enabled: true
+        cluster_endpoint_private_access: true
+        cluster_endpoint_public_access: false
+        cluster_log_retention_period: 90
+        # Roles from the primary account to allow access to the cluster
+        # See `aws-teams` component.
+        primary_iam_roles:
+          - groups:
+              - system:masters
+              - idp:ops
+            role: devops
+          - groups:
+              - system:masters
+            role: spacelift
+        # Roles from the account owning the cluster to allow access to the cluster
+        # See `aws-team-roles` component.
+        delegated_iam_roles:
+          - groups:
+              - system:masters
+              - idp:ops
+            role: admin
+          - groups:
+              - idp:poweruser
+            role: poweruser
+          - groups:
+              - idp:observer
+            role: observer
+          - groups:
+              - system:masters
+            role: terraform
+        # Roles from AWS SSO allowing cluster access
+        # See `aws-sso` component.
+        sso_iam_roles:
+          - groups:
+              - idp:observer
+              - idp:observer-extra
+            role: ReadOnlyAccess
+          - groups:
+              - system:masters
+              - idp:ops
+            role: AdministratorAccess
+        fargate_profiles:
+          karpenter:
+            kubernetes_namespace: karpenter
+            kubernetes_labels: null
+        karpenter_iam_role_enabled: true
+```
+
+### Usage with Node Groups
+
+The `eks/cluster` component also supports node groups! In order to add a set list of nodes to 
+provision with the cluster, add values for `var.managed_node_groups_enabled` and `var.node_groups`.
+
+:::info
+You can use manage node groups in conjunction with Karpenter node groups! Simply deploy node groups as demonstrated below,
+and then deploy Karpenter with the necessary components.
+
+:::
+
+For example:
+
+```yaml
         managed_node_groups_enabled: true
         node_groups: # null means use default set in defaults.auto.tf.vars
           main:
