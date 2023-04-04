@@ -12,7 +12,6 @@ syncPeriod: 120s
 
 githubWebhookServer:
   enabled: false
-  syncPeriod: 120s
   secret:
     # Webhook secret, used to authenticate incoming webhook events from GitHub
     # When using Sops, stored in same SopsSecret as authSecret under key `github_webhook_secret_token`
