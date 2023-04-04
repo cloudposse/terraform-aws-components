@@ -238,11 +238,12 @@ the logs of the `actions-runner-controller-github-webhook-server` pod.
 
 ### Configuring Scaling
 
-The default scaleUpTrigger duration is 30 minutes. The time should be adjusted with `webhook_startup_timeout`
-to best fit your maximum job duration. If this time is too short, it can interrupt work since the autoscaler
-will assume any activity from the webhook has been resolved. Think of this as a way to tidy up jobs that might
-not finish cleanly or could be stuck. No particular time will fit all scenarios so you should expect to
-adjust this once you have a workload to test with.
+The default [`scaleUpTrigger`](https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#webhook-driven-scaling) duration is 30 minutes. The time should be adjusted with `webhook_startup_timeout`
+to best fit your maximum job duration. You should ensure the duration allows for
+backlog clearance. Project maintainers suggest "30m," but it depends on job lengths and maxReplicas.
+Use "30m" for low-backlog pools, and "2h30m" for high-backlog pools, like package building.
+Previously, "2m" was recommended, but it's insufficient. Update deployments to "30m" or consult with
+customers.
 
 You can read more about
 [scaling runners](https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md)
