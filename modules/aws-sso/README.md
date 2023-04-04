@@ -123,10 +123,10 @@ components:
 |------|--------|---------|
 | <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_permission_sets"></a> [permission\_sets](#module\_permission\_sets) | cloudposse/sso/aws//modules/permission-sets | 0.7.1 |
+| <a name="module_permission_sets"></a> [permission\_sets](#module\_permission\_sets) | cloudposse/sso/aws//modules/permission-sets | 1.0.0 |
 | <a name="module_role_prefix"></a> [role\_prefix](#module\_role\_prefix) | cloudposse/label/null | 0.25.0 |
-| <a name="module_sso_account_assignments"></a> [sso\_account\_assignments](#module\_sso\_account\_assignments) | cloudposse/sso/aws//modules/account-assignments | 0.7.1 |
-| <a name="module_sso_account_assignments_root"></a> [sso\_account\_assignments\_root](#module\_sso\_account\_assignments\_root) | cloudposse/sso/aws//modules/account-assignments | 0.7.1 |
+| <a name="module_sso_account_assignments"></a> [sso\_account\_assignments](#module\_sso\_account\_assignments) | cloudposse/sso/aws//modules/account-assignments | 1.0.0 |
+| <a name="module_sso_account_assignments_root"></a> [sso\_account\_assignments\_root](#module\_sso\_account\_assignments\_root) | cloudposse/sso/aws//modules/account-assignments | 1.0.0 |
 | <a name="module_tfstate"></a> [tfstate](#module\_tfstate) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
