@@ -74,7 +74,7 @@ components:
                 cpu: 100m
                 memory: 128Mi
             webhook_driven_scaling_enabled: true
-            webhook_startup_timeout: "2m"
+            webhook_startup_timeout: "30m"
             pull_driven_scaling_enabled: false
             # Labels are not case-sensitive to GitHub, but *are* case-sensitive
             # to the webhook based autoscaler, which requires exact matches
@@ -122,7 +122,7 @@ components:
           #      cpu: 100m
           #      memory: 128Mi
           #  webhook_driven_scaling_enabled: true
-          #  webhook_startup_timeout: "2m"
+          #  webhook_startup_timeout: "30m"
           #  pull_driven_scaling_enabled: false
           #  # Labels are not case-sensitive to GitHub, but *are* case-sensitive
           #  # to the webhook based autoscaler, which requires exact matches
@@ -236,6 +236,17 @@ After the webhook is created, select "edit" for the webhook and go to the "Recen
 (of a "ping" event) with a green check mark. If not, verify all the settings and consult
 the logs of the `actions-runner-controller-github-webhook-server` pod.
 
+### Configuring Scaling
+
+The default scaleUpTrigger duration is 30 minutes. The time should be adjusted with `webhook_startup_timeout`
+to best fit your maximum job duration. If this time is too short, it can interrupt work since the autoscaler
+will assume any activity from the webhook has been resolved. Think of this as a way to tidy up jobs that might
+not finish cleanly or could be stuck. No particular time will fit all scenarios so you should expect to
+adjust this once you have a workload to test with.
+
+You can read more about
+[scaling runners](https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md)
+in the docs.
 
 ### Updating CRDs
 
