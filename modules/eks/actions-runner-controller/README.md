@@ -111,6 +111,7 @@ components:
           #  image: summerwind/actions-runner-dind
           #  # `scope` is org name for Organization runners, repo name for Repository runners
           #  scope: "org/infra"
+          #  group: "ArmRunners"
           #  min_replicas: 1
           #  max_replicas: 20
           #  scale_down_delay_seconds: 100
@@ -196,7 +197,7 @@ github_app_installation_id: "12345"
 OR (obsolete)
 - A PAT with the scope outlined in [this document](https://github.com/actions-runner-controller/actions-runner-controller#deploying-using-pat-authentication).
   Save this to the value specified by `ssm_github_token_path` using the following command, adjusting the
-  AWS_PROFILE to refer to the `admin` role in the account to which you are deploying the runner controller:
+  AWS\_PROFILE to refer to the `admin` role in the account to which you are deploying the runner controller:
 
 ```
 AWS_PROFILE=acme-mgmt-use2-auto-admin chamber write github_runners controller_github_app_secret -- "<PAT>"
@@ -214,10 +215,21 @@ Store this key in AWS SSM under the same path specified by `ssm_github_webhook_s
 ssm_github_webhook_secret_token_path: "/github_runners/github_webhook_secret"
 ```
 
-### Using Webhook Driven Autoscaling
+### Using Runner Groups
 
-To use the Webhook Driven autoscaling, you must also install the GitHub organization-level webhook after deploying the component
-(specifically, the webhook server). The URL for the webhook is determined by the `webhook.hostname_template` and where
+GitHub supports grouping runners into distinct [Runner Groups](https://docs.github.com/en/actions/hosting-your-own-runners/managing-access-to-self-hosted-runners-using-groups), which allow you to have different access controls
+for different runners. Read the linked documentation about creating and configuring Runner Groups, which you must do
+through the GitHub Web UI. If you choose to create Runner Groups, you can assign one or more Runner pools (from the
+`runners` map) to groups (only one group per runner pool) by including `group: <Runner Group Name>` in the runner
+configuration. We recommend including it immediately after `scope`.
+
+### Using Webhook Driven Autoscaling (recommended)
+
+We recommend using Webhook Driven Autoscaling until GitHub releases their own autoscaling solution (said to be "in the works" as of April 2023).
+
+To use the Webhook Driven Autoscaling, in addition to setting `webhook_driven_scaling_enabled` to `true`, you must
+also install the GitHub organization-level webhook after deploying the component (specifically, the webhook server).
+The URL for the webhook is determined by the `webhook.hostname_template` and where
 it is deployed. Recommended URL is `https://gha-webhook.[environment].[stage].[tenant].[service-discovery-domain]`.
 
 As a GitHub organization admin, go to `https://github.com/organizations/[organization]/settings/hooks`, and then:
@@ -236,18 +248,68 @@ After the webhook is created, select "edit" for the webhook and go to the "Recen
 (of a "ping" event) with a green check mark. If not, verify all the settings and consult
 the logs of the `actions-runner-controller-github-webhook-server` pod.
 
-### Configuring Scaling
+### Configuring Webhook Driven Autoscaling
 
-The default [`scaleUpTrigger`](https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#webhook-driven-scaling) duration is 30 minutes. The time should be adjusted with `webhook_startup_timeout`
-to best fit your maximum job duration. You should ensure the duration allows for
-backlog clearance. Project maintainers suggest "30m," but it depends on job lengths and maxReplicas.
-Use "30m" for low-backlog pools, and "2h30m" for high-backlog pools, like package building.
-Previously, "2m" was recommended, but it's insufficient. Update deployments to "30m" or consult with
-customers.
+The `HorizontalRunnerAutoscaler scaleUpTriggers.duration` (see [Webhook Driven Scaling documentation](https://github. com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#webhook-driven-scaling)) is
+controlled by the  `webhook_startup_timeout` setting for each Runner. The purpose of this timeout is to ensure, in
+case a job cancellation or termination event gets missed, that the resulting idle runner eventually gets terminated.
 
-You can read more about
-[scaling runners](https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md)
-in the docs.
+#### How the Autoscaler Determines the Desired Runner Pool Size
+
+When a job is queued, a `capacityReservation` is created for it. The HRA (Horizontal Runner Autoscaler) sums up all
+the capacity reservations to calculate the desired size of the runner pool, subject to the limits of `minReplicas`
+and `maxReplicas`. The idea is that a `capacityReservation` is deleted when a job is completed or canceled, and the
+pool size will be equal to `jobsStarted - jobsFinished`. However, it can happen that a job will finish without the
+HRA being successfully notified about it, so as a safety measure, the `capacityReservation` will expire a
+configurable amount of time before it is deleted without regard to the job being finished. This ensures that
+eventually an idle runner pool will scale down to `minReplicas`.
+
+However, there are some problems with this scheme. In theory, `webhook_startup_timeout` should only need to be long
+enough to cover the delay between the time the HRA starts a scale up request and the time the runner actually starts,
+is allocated to the runner pool, and picks up a job to run. But there are edge cases that seem not to be covered
+properly (see [actions-runner-controller issue #2466](https://github.com/actions/actions-runner-controller/issues/2466)). As a result, we recommend setting `webhook_startup_timeout` to
+a period long enough to cover the full time a job may have to wait between the time it is queued and the time it
+actually starts. Consider this scenario:
+- You set `maxReplicas = 5`
+- Some trigger starts 20 jobs, each of which take 5 minutes to run
+- The replica pool scales up to 5, and the first 5 jobs run.
+- 5 minutes later, the next 5 jobs run, and so on.
+- The last set of 5 jobs will have to wait 15 minutes to start because of the previous jobs.
+
+The HRA is designed to handle this situation by updating the expiration time of the `capacityReservation` of any
+job stuck waiting because the pool has scaled up to `maxReplicas`, but as discussed in issue #2466 linked above,
+that does not seem to be working correctly as of version 0.27.2.
+
+For now, our recommendation is to set `webhook_startup_timeout` to a duration long enough to cover the time the job
+may have to wait in the queue for a runner to become available due to there being more jobs than `maxReplicas`.
+Alternatively, you could set `maxReplicas` to a big enough number that there will always be a runner for every
+queued job, in which case the duration only needs to be long enough to allow for all the scale-up activities (such
+as launching new EKS nodes as well as starting new pods) to finish. Remember, when everything works properly, the
+HRA will scale down the pool as jobs finish, so there is little cost to setting a long duration.
+
+### Recommended `webhook_startup_timeout` Duration
+
+#### Consequences of Too Short of a `webhook_startup_timeout` Duration
+
+If you set `webhook_startup_timeout` to too short a duration, the Horizontal Runner Autoscaler will cancel capacity
+reservations for jobs that have not yet run, and the pool will be too small. This will be most serious if you have
+set `minReplicas = 0` because in this case, jobs will be left in the queue indefinitely. With a higher value of
+`minReplicas`, the pool will eventually make it through all the queued jobs, but not as quickly as intended due to
+the incorrectly reduced capacity.
+
+#### Consequences of Too Long of a `webhook_startup_timeout` Duration
+
+If the Horizontal Runner Autoscaler misses a scale-down event (which can happen because events do not have delivery
+guarantees), a runner may be left running idly for as long as the `webhook_startup_timeout` duration. The only
+problem with this is the added expense of leaving the idle runner running.
+
+#### Recommendation
+
+Therefore we recommend that for lightly used runner pools, set `webhook_startup_timeout` to `"30m"`. For heavily
+used pools, find the typical or maximum length of a job, multiply by the number of jobs likely to be queued in an
+hour, and divide by `maxReplicas`, then round up. As a rule of thumb, we recommend setting `maxReplicas` high enough
+that jobs never wait on the queue more than an hour and setting `webhook_startup_timeout` to `"2h30m"`. Monitor your
+usage and adjust accordingly.
 
 ### Updating CRDs
 
