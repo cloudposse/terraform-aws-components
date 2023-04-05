@@ -142,17 +142,17 @@ variable "runners" {
   organization_runner = {
     type = "organization" # can be either 'organization' or 'repository'
     dind_enabled: false # A Docker sidecar container will be deployed
-    image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'
     scope = "ACME"  # org name for Organization runners, repo name for Repository runners
+    group = "core-automation" # Optional. Assigns the runners to a runner group, for access control.
+    image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'
+    node_selector = {} # optional Kubernetes node selector map for the runner pods
+    tolerations = [] # optional Kubernetes tolerations list for the runner pods
     scale_down_delay_seconds = 300
     min_replicas = 1
     max_replicas = 5
-    busy_metrics = {
-      scale_up_threshold = 0.75
-      scale_down_threshold = 0.25
-      scale_up_factor = 2
-      scale_down_factor = 0.5
-    }
+    webhook_driven_scaling_enabled = bool # Recommended to be true to enable event-based scaling of runner pool
+    webhook_startup_timeout        = optional(string, null) # Duration after which capacity for a queued job will be discarded
+
     labels = [
       "Ubuntu",
       "core-automation",
@@ -164,6 +164,7 @@ variable "runners" {
   type = map(object({
     type          = string
     scope         = string
+    group         = optional(string, null)
     image         = optional(string, "")
     dind_enabled  = bool
     node_selector = optional(map(string), {})
@@ -208,15 +209,19 @@ variable "webhook" {
   type = object({
     enabled           = bool
     hostname_template = string
+    queue_limit       = optional(number, 100)
   })
   description = <<-EOT
     Configuration for the GitHub Webhook Server.
     `hostname_template` is the `format()` string to use to generate the hostname via `format(var.hostname_template, var.tenant, var.stage, var.environment)`"
     Typically something like `"echo.%[3]v.%[2]v.example.com"`.
+    `queue_limit` is the maximum number of webhook events that can be queued up processing by the autoscaler.
+    When the queue gets full, webhook events will be dropped (status 500).
   EOT
   default = {
     enabled           = false
     hostname_template = null
+    queue_limit       = 100
   }
 }
 

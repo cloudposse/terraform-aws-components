@@ -29,6 +29,17 @@ spec:
   # replicas: 1
   template:
     spec:
+      # As of 2023-03-31
+      # Recommended by https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md
+      terminationGracePeriodSeconds: 100
+      env:
+      # RUNNER_GRACEFUL_STOP_TIMEOUT is the time the runner will give itself to try to finish
+      # a job before it gracefully cancels itself in response to a pod termination signal.
+      # It should be less than the terminationGracePeriodSeconds above so that it has time
+      # to report its status and deregister itself from the runner pool.
+      - name: RUNNER_GRACEFUL_STOP_TIMEOUT
+        value: "90"
+
       # You could reserve nodes for runners by labeling and tainting nodes with
       #   node-role.kubernetes.io/actions-runner
       # and then adding the following to this RunnerDeployment
@@ -43,10 +54,13 @@ spec:
 
       {{ if eq .Values.type "organization" }}
       organization: {{ .Values.scope }}
-      {{ end }}
+      {{- end }}
       {{ if eq .Values.type "repository" }}
       repository: {{ .Values.scope }}
-      {{ end }}
+      {{- end }}
+      {{ if index .Values "group" }}
+      group: {{ .Values.group }}
+      {{- end }}
       # You can use labels to create subsets of runners.
       # See https://github.com/summerwind/actions-runner-controller#runner-labels
       # and https://docs.github.com/en/free-pro-team@latest/actions/hosting-your-own-runners/using-self-hosted-runners-in-a-workflow
