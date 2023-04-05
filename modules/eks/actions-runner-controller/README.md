@@ -260,9 +260,9 @@ When a job is queued, a `capacityReservation` is created for it. The HRA (Horizo
 the capacity reservations to calculate the desired size of the runner pool, subject to the limits of `minReplicas`
 and `maxReplicas`. The idea is that a `capacityReservation` is deleted when a job is completed or canceled, and the
 pool size will be equal to `jobsStarted - jobsFinished`. However, it can happen that a job will finish without the
-HRA being successfully notified about it, so as a safety measure, the `capacityReservation` will expire a
-configurable amount of time before it is deleted without regard to the job being finished. This ensures that
-eventually an idle runner pool will scale down to `minReplicas`.
+HRA being successfully notified about it, so as a safety measure, the `capacityReservation` will expire after a
+configurable amount of time, at which point it will be deleted without regard to the job being finished. This
+ensures that eventually an idle runner pool will scale down to `minReplicas`.
 
 However, there are some problems with this scheme. In theory, `webhook_startup_timeout` should only need to be long
 enough to cover the delay between the time the HRA starts a scale up request and the time the runner actually starts,
@@ -272,9 +272,9 @@ a period long enough to cover the full time a job may have to wait between the t
 actually starts. Consider this scenario:
 - You set `maxReplicas = 5`
 - Some trigger starts 20 jobs, each of which take 5 minutes to run
-- The replica pool scales up to 5, and the first 5 jobs run.
-- 5 minutes later, the next 5 jobs run, and so on.
-- The last set of 5 jobs will have to wait 15 minutes to start because of the previous jobs.
+- The replica pool scales up to 5, and the first 5 jobs run
+- 5 minutes later, the next 5 jobs run, and so on
+- The last set of 5 jobs will have to wait 15 minutes to start because of the previous jobs
 
 The HRA is designed to handle this situation by updating the expiration time of the `capacityReservation` of any
 job stuck waiting because the pool has scaled up to `maxReplicas`, but as discussed in issue #2466 linked above,
