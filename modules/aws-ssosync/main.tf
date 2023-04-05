@@ -16,7 +16,7 @@ data "aws_ssm_parameter" "identity_store_id" {
 }
 
 locals {
-  google_credentials         = jsondecode(data.aws_ssm_parameter.google_credentials.value)
+  google_credentials         = data.aws_ssm_parameter.google_credentials.value
   scim_endpoint_url          = data.aws_ssm_parameter.scim_endpoint_url.value
   scim_endpoint_access_token = data.aws_ssm_parameter.scim_endpoint_access_token.value
   identity_store_id          = data.aws_ssm_parameter.identity_store_id.value
@@ -53,7 +53,7 @@ resource "aws_lambda_function" "ssosync" {
     variables = {
       SSOSYNC_LOG_LEVEL          = var.log_level
       SSOSYNC_LOG_FORMAT         = var.log_format
-      SSOSYNC_GOOGLE_CREDENTIALS = jsonencode(local.google_credentials)
+      SSOSYNC_GOOGLE_CREDENTIALS = local.google_credentials
       SSOSYNC_GOOGLE_ADMIN       = var.google_admin_email
       SSOSYNC_SCIM_ENDPOINT      = local.scim_endpoint_url
       SSOSYNC_SCIM_ACCESS_TOKEN  = local.scim_endpoint_access_token
