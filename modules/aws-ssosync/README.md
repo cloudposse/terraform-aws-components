@@ -13,8 +13,7 @@ documentation recommends.
 
 Overview of steps:
 1. Deploy the `aws-sso` component
-1. [Delegate administration](https://docs.aws.amazon.com/singlesignon/latest/userguide/delegated-admin.html)
-from the `root` account to the `identity' account
+1. Configure GSuite
 1. Deploy the `aws-ssosync` component to the `gbl-identity` stack
 
 #### Deploy the `aws-sso` component
@@ -43,7 +42,10 @@ select `Settings`. Under the `Identity Source` section, copy the Identity Store 
 Back in the `identity` account, create a parameter with the name
 `<google_credentials_ssm_path>/identity_store_id`.
 
-#### Delegate administration
+Lastly, go ahead and [Delegate administration](https://docs.aws.amazon.com/singlesignon/latest/userguide/delegated-admin.html)
+from the `root` account to the `identity` account
+
+#### Configure GSuite
 
 _steps taken directly from [ssosync README.md](https://github.com/awslabs/ssosync/blob/master/README.md#google)_
 
