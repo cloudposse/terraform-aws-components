@@ -1,8 +1,9 @@
 locals {
   enabled = module.this.enabled
 
-  webhook_enabled = local.enabled ? try(var.webhook.enabled, false) : false
-  webhook_host    = local.webhook_enabled ? format(var.webhook.hostname_template, var.tenant, var.stage, var.environment) : "example.com"
+  webhook_enabled       = local.enabled ? try(var.webhook.enabled, false) : false
+  webhook_host          = local.webhook_enabled ? format(var.webhook.hostname_template, var.tenant, var.stage, var.environment) : "example.com"
+  runner_groups_enabled = length(compact(values(var.runners)[*].group)) > 0
 
   github_app_enabled = length(var.github_app_id) > 0 && length(var.github_app_installation_id) > 0
   create_secret      = local.enabled && length(var.existing_kubernetes_secret_name) == 0
@@ -139,7 +140,9 @@ module "actions_runner_controller" {
         create = var.rbac_enabled
       }
       githubWebhookServer = {
-        enabled = var.webhook.enabled
+        enabled                   = var.webhook.enabled
+        queueLimit                = var.webhook.queue_limit
+        useRunnerGroupsVisibility = local.runner_groups_enabled
         ingress = {
           enabled = var.webhook.enabled
           hosts = [
@@ -222,6 +225,7 @@ module "actions_runner" {
       node_selector                  = each.value.node_selector
       tolerations                    = each.value.tolerations
     }),
+    each.value.group == null ? "" : yamlencode({ group = each.value.group }),
     local.busy_metrics_filtered[each.key] == null ? "" : yamlencode(local.busy_metrics_filtered[each.key]),
   ])
 

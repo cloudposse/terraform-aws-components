@@ -74,7 +74,7 @@ components:
                 cpu: 100m
                 memory: 128Mi
             webhook_driven_scaling_enabled: true
-            webhook_startup_timeout: "2m"
+            webhook_startup_timeout: "30m"
             pull_driven_scaling_enabled: false
             # Labels are not case-sensitive to GitHub, but *are* case-sensitive
             # to the webhook based autoscaler, which requires exact matches
@@ -111,6 +111,7 @@ components:
           #  image: summerwind/actions-runner-dind
           #  # `scope` is org name for Organization runners, repo name for Repository runners
           #  scope: "org/infra"
+          #  group: "ArmRunners"
           #  min_replicas: 1
           #  max_replicas: 20
           #  scale_down_delay_seconds: 100
@@ -122,7 +123,7 @@ components:
           #      cpu: 100m
           #      memory: 128Mi
           #  webhook_driven_scaling_enabled: true
-          #  webhook_startup_timeout: "2m"
+          #  webhook_startup_timeout: "30m"
           #  pull_driven_scaling_enabled: false
           #  # Labels are not case-sensitive to GitHub, but *are* case-sensitive
           #  # to the webhook based autoscaler, which requires exact matches
@@ -196,7 +197,7 @@ github_app_installation_id: "12345"
 OR (obsolete)
 - A PAT with the scope outlined in [this document](https://github.com/actions-runner-controller/actions-runner-controller#deploying-using-pat-authentication).
   Save this to the value specified by `ssm_github_token_path` using the following command, adjusting the
-  AWS_PROFILE to refer to the `admin` role in the account to which you are deploying the runner controller:
+  AWS\_PROFILE to refer to the `admin` role in the account to which you are deploying the runner controller:
 
 ```
 AWS_PROFILE=acme-mgmt-use2-auto-admin chamber write github_runners controller_github_app_secret -- "<PAT>"
@@ -214,10 +215,21 @@ Store this key in AWS SSM under the same path specified by `ssm_github_webhook_s
 ssm_github_webhook_secret_token_path: "/github_runners/github_webhook_secret"
 ```
 
-### Using Webhook Driven Autoscaling
+### Using Runner Groups
 
-To use the Webhook Driven autoscaling, you must also install the GitHub organization-level webhook after deploying the component
-(specifically, the webhook server). The URL for the webhook is determined by the `webhook.hostname_template` and where
+GitHub supports grouping runners into distinct [Runner Groups](https://docs.github.com/en/actions/hosting-your-own-runners/managing-access-to-self-hosted-runners-using-groups), which allow you to have different access controls
+for different runners. Read the linked documentation about creating and configuring Runner Groups, which you must do
+through the GitHub Web UI. If you choose to create Runner Groups, you can assign one or more Runner pools (from the
+`runners` map) to groups (only one group per runner pool) by including `group: <Runner Group Name>` in the runner
+configuration. We recommend including it immediately after `scope`.
+
+### Using Webhook Driven Autoscaling (recommended)
+
+We recommend using Webhook Driven Autoscaling until GitHub releases their own autoscaling solution (said to be "in the works" as of April 2023).
+
+To use the Webhook Driven Autoscaling, in addition to setting `webhook_driven_scaling_enabled` to `true`, you must
+also install the GitHub organization-level webhook after deploying the component (specifically, the webhook server).
+The URL for the webhook is determined by the `webhook.hostname_template` and where
 it is deployed. Recommended URL is `https://gha-webhook.[environment].[stage].[tenant].[service-discovery-domain]`.
 
 As a GitHub organization admin, go to `https://github.com/organizations/[organization]/settings/hooks`, and then:
@@ -236,6 +248,68 @@ After the webhook is created, select "edit" for the webhook and go to the "Recen
 (of a "ping" event) with a green check mark. If not, verify all the settings and consult
 the logs of the `actions-runner-controller-github-webhook-server` pod.
 
+### Configuring Webhook Driven Autoscaling
+
+The `HorizontalRunnerAutoscaler scaleUpTriggers.duration` (see [Webhook Driven Scaling documentation](https://github. com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#webhook-driven-scaling)) is
+controlled by the  `webhook_startup_timeout` setting for each Runner. The purpose of this timeout is to ensure, in
+case a job cancellation or termination event gets missed, that the resulting idle runner eventually gets terminated.
+
+#### How the Autoscaler Determines the Desired Runner Pool Size
+
+When a job is queued, a `capacityReservation` is created for it. The HRA (Horizontal Runner Autoscaler) sums up all
+the capacity reservations to calculate the desired size of the runner pool, subject to the limits of `minReplicas`
+and `maxReplicas`. The idea is that a `capacityReservation` is deleted when a job is completed or canceled, and the
+pool size will be equal to `jobsStarted - jobsFinished`. However, it can happen that a job will finish without the
+HRA being successfully notified about it, so as a safety measure, the `capacityReservation` will expire after a
+configurable amount of time, at which point it will be deleted without regard to the job being finished. This
+ensures that eventually an idle runner pool will scale down to `minReplicas`.
+
+However, there are some problems with this scheme. In theory, `webhook_startup_timeout` should only need to be long
+enough to cover the delay between the time the HRA starts a scale up request and the time the runner actually starts,
+is allocated to the runner pool, and picks up a job to run. But there are edge cases that seem not to be covered
+properly (see [actions-runner-controller issue #2466](https://github.com/actions/actions-runner-controller/issues/2466)). As a result, we recommend setting `webhook_startup_timeout` to
+a period long enough to cover the full time a job may have to wait between the time it is queued and the time it
+actually starts. Consider this scenario:
+- You set `maxReplicas = 5`
+- Some trigger starts 20 jobs, each of which take 5 minutes to run
+- The replica pool scales up to 5, and the first 5 jobs run
+- 5 minutes later, the next 5 jobs run, and so on
+- The last set of 5 jobs will have to wait 15 minutes to start because of the previous jobs
+
+The HRA is designed to handle this situation by updating the expiration time of the `capacityReservation` of any
+job stuck waiting because the pool has scaled up to `maxReplicas`, but as discussed in issue #2466 linked above,
+that does not seem to be working correctly as of version 0.27.2.
+
+For now, our recommendation is to set `webhook_startup_timeout` to a duration long enough to cover the time the job
+may have to wait in the queue for a runner to become available due to there being more jobs than `maxReplicas`.
+Alternatively, you could set `maxReplicas` to a big enough number that there will always be a runner for every
+queued job, in which case the duration only needs to be long enough to allow for all the scale-up activities (such
+as launching new EKS nodes as well as starting new pods) to finish. Remember, when everything works properly, the
+HRA will scale down the pool as jobs finish, so there is little cost to setting a long duration.
+
+### Recommended `webhook_startup_timeout` Duration
+
+#### Consequences of Too Short of a `webhook_startup_timeout` Duration
+
+If you set `webhook_startup_timeout` to too short a duration, the Horizontal Runner Autoscaler will cancel capacity
+reservations for jobs that have not yet run, and the pool will be too small. This will be most serious if you have
+set `minReplicas = 0` because in this case, jobs will be left in the queue indefinitely. With a higher value of
+`minReplicas`, the pool will eventually make it through all the queued jobs, but not as quickly as intended due to
+the incorrectly reduced capacity.
+
+#### Consequences of Too Long of a `webhook_startup_timeout` Duration
+
+If the Horizontal Runner Autoscaler misses a scale-down event (which can happen because events do not have delivery
+guarantees), a runner may be left running idly for as long as the `webhook_startup_timeout` duration. The only
+problem with this is the added expense of leaving the idle runner running.
+
+#### Recommendation
+
+Therefore we recommend that for lightly used runner pools, set `webhook_startup_timeout` to `"30m"`. For heavily
+used pools, find the typical or maximum length of a job, multiply by the number of jobs likely to be queued in an
+hour, and divide by `maxReplicas`, then round up. As a rule of thumb, we recommend setting `maxReplicas` high enough
+that jobs never wait on the queue more than an hour and setting `webhook_startup_timeout` to `"2h30m"`. Monitor your
+usage and adjust accordingly.
 
 ### Updating CRDs
 
@@ -337,7 +411,7 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region. | `string` | n/a | yes |
 | <a name="input_resources"></a> [resources](#input\_resources) | The cpu and memory of the deployment's limits and requests. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | n/a | yes |
-| <a name="input_runners"></a> [runners](#input\_runners) | Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in<br>kebab-case.<br><br>For example:<pre>hcl<br>organization_runner = {<br>  type = "organization" # can be either 'organization' or 'repository'<br>  dind_enabled: false # A Docker sidecar container will be deployed<br>  image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'<br>  scope = "ACME"  # org name for Organization runners, repo name for Repository runners<br>  scale_down_delay_seconds = 300<br>  min_replicas = 1<br>  max_replicas = 5<br>  busy_metrics = {<br>    scale_up_threshold = 0.75<br>    scale_down_threshold = 0.25<br>    scale_up_factor = 2<br>    scale_down_factor = 0.5<br>  }<br>  labels = [<br>    "Ubuntu",<br>    "core-automation",<br>  ]<br>}</pre> | <pre>map(object({<br>    type          = string<br>    scope         = string<br>    image         = optional(string, "")<br>    dind_enabled  = bool<br>    node_selector = optional(map(string), {})<br>    tolerations = optional(list(object({<br>      key      = string<br>      operator = string<br>      value    = optional(string, null)<br>      effect   = string<br>    })), [])<br>    scale_down_delay_seconds = number<br>    min_replicas             = number<br>    max_replicas             = number<br>    busy_metrics = optional(object({<br>      scale_up_threshold    = string<br>      scale_down_threshold  = string<br>      scale_up_adjustment   = optional(string)<br>      scale_down_adjustment = optional(string)<br>      scale_up_factor       = optional(string)<br>      scale_down_factor     = optional(string)<br>    }))<br>    webhook_driven_scaling_enabled = bool<br>    webhook_startup_timeout        = optional(string, null)<br>    pull_driven_scaling_enabled    = bool<br>    labels                         = list(string)<br>    storage                        = optional(string, null)<br>    pvc_enabled                    = optional(string, false)<br>    resources = object({<br>      limits = object({<br>        cpu               = string<br>        memory            = string<br>        ephemeral_storage = optional(string, null)<br>      })<br>      requests = object({<br>        cpu    = string<br>        memory = string<br>      })<br>    })<br>  }))</pre> | n/a | yes |
+| <a name="input_runners"></a> [runners](#input\_runners) | Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in<br>kebab-case.<br><br>For example:<pre>hcl<br>organization_runner = {<br>  type = "organization" # can be either 'organization' or 'repository'<br>  dind_enabled: false # A Docker sidecar container will be deployed<br>  scope = "ACME"  # org name for Organization runners, repo name for Repository runners<br>  group = "core-automation" # Optional. Assigns the runners to a runner group, for access control.<br>  image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'<br>  node_selector = {} # optional Kubernetes node selector map for the runner pods<br>  tolerations = [] # optional Kubernetes tolerations list for the runner pods<br>  scale_down_delay_seconds = 300<br>  min_replicas = 1<br>  max_replicas = 5<br>  webhook_driven_scaling_enabled = bool # Recommended to be true to enable event-based scaling of runner pool<br>  webhook_startup_timeout        = optional(string, null) # Duration after which capacity for a queued job will be discarded<br><br>  labels = [<br>    "Ubuntu",<br>    "core-automation",<br>  ]<br>}</pre> | <pre>map(object({<br>    type          = string<br>    scope         = string<br>    group         = optional(string, null)<br>    image         = optional(string, "")<br>    dind_enabled  = bool<br>    node_selector = optional(map(string), {})<br>    tolerations = optional(list(object({<br>      key      = string<br>      operator = string<br>      value    = optional(string, null)<br>      effect   = string<br>    })), [])<br>    scale_down_delay_seconds = number<br>    min_replicas             = number<br>    max_replicas             = number<br>    busy_metrics = optional(object({<br>      scale_up_threshold    = string<br>      scale_down_threshold  = string<br>      scale_up_adjustment   = optional(string)<br>      scale_down_adjustment = optional(string)<br>      scale_up_factor       = optional(string)<br>      scale_down_factor     = optional(string)<br>    }))<br>    webhook_driven_scaling_enabled = bool<br>    webhook_startup_timeout        = optional(string, null)<br>    pull_driven_scaling_enabled    = bool<br>    labels                         = list(string)<br>    storage                        = optional(string, null)<br>    pvc_enabled                    = optional(string, false)<br>    resources = object({<br>      limits = object({<br>        cpu               = string<br>        memory            = string<br>        ephemeral_storage = optional(string, null)<br>      })<br>      requests = object({<br>        cpu    = string<br>        memory = string<br>      })<br>    })<br>  }))</pre> | n/a | yes |
 | <a name="input_s3_bucket_arns"></a> [s3\_bucket\_arns](#input\_s3\_bucket\_arns) | List of ARNs of S3 Buckets to which the runners will have read-write access to. | `list(string)` | `[]` | no |
 | <a name="input_ssm_github_secret_path"></a> [ssm\_github\_secret\_path](#input\_ssm\_github\_secret\_path) | The path in SSM to the GitHub app private key file contents or GitHub PAT token. | `string` | `""` | no |
 | <a name="input_ssm_github_webhook_secret_token_path"></a> [ssm\_github\_webhook\_secret\_token\_path](#input\_ssm\_github\_webhook\_secret\_token\_path) | The path in SSM to the GitHub Webhook Secret token. | `string` | `""` | no |
@@ -346,7 +420,7 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 | <a name="input_timeout"></a> [timeout](#input\_timeout) | Time in seconds to wait for any individual kubernetes operation (like Jobs for hooks). Defaults to `300` seconds | `number` | `null` | no |
 | <a name="input_wait"></a> [wait](#input\_wait) | Will wait until all resources are in a ready state before marking the release as successful. It will wait for as long as `timeout`. Defaults to `true`. | `bool` | `null` | no |
-| <a name="input_webhook"></a> [webhook](#input\_webhook) | Configuration for the GitHub Webhook Server.<br>`hostname_template` is the `format()` string to use to generate the hostname via `format(var.hostname_template, var.tenant, var.stage, var.environment)`"<br>Typically something like `"echo.%[3]v.%[2]v.example.com"`. | <pre>object({<br>    enabled           = bool<br>    hostname_template = string<br>  })</pre> | <pre>{<br>  "enabled": false,<br>  "hostname_template": null<br>}</pre> | no |
+| <a name="input_webhook"></a> [webhook](#input\_webhook) | Configuration for the GitHub Webhook Server.<br>`hostname_template` is the `format()` string to use to generate the hostname via `format(var.hostname_template, var.tenant, var.stage, var.environment)`"<br>Typically something like `"echo.%[3]v.%[2]v.example.com"`.<br>`queue_limit` is the maximum number of webhook events that can be queued up processing by the autoscaler.<br>When the queue gets full, webhook events will be dropped (status 500). | <pre>object({<br>    enabled           = bool<br>    hostname_template = string<br>    queue_limit       = optional(number, 100)<br>  })</pre> | <pre>{<br>  "enabled": false,<br>  "hostname_template": null,<br>  "queue_limit": 100<br>}</pre> | no |
 
 ## Outputs
 
