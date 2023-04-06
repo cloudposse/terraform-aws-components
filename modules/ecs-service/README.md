@@ -150,14 +150,15 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | = 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+| <a name="requirement_template"></a> [template](#requirement\_template) | >= 2.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | = 4.0 |
-| <a name="provider_template"></a> [template](#provider\_template) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
+| <a name="provider_template"></a> [template](#provider\_template) | >= 2.2 |
 
 ## Modules
 
@@ -188,16 +189,16 @@ components:
 
 | Name | Type |
 |------|------|
-| [aws_iam_policy.default](https://registry.terraform.io/providers/hashicorp/aws/4.0/docs/resources/iam_policy) | resource |
-| [aws_iam_role.github_actions](https://registry.terraform.io/providers/hashicorp/aws/4.0/docs/resources/iam_role) | resource |
-| [aws_kinesis_stream.default](https://registry.terraform.io/providers/hashicorp/aws/4.0/docs/resources/kinesis_stream) | resource |
-| [aws_iam_policy_document.github_actions_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/4.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.this](https://registry.terraform.io/providers/hashicorp/aws/4.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_kms_alias.selected](https://registry.terraform.io/providers/hashicorp/aws/4.0/docs/data-sources/kms_alias) | data source |
-| [aws_route53_zone.selected](https://registry.terraform.io/providers/hashicorp/aws/4.0/docs/data-sources/route53_zone) | data source |
-| [aws_route53_zone.selected_vanity](https://registry.terraform.io/providers/hashicorp/aws/4.0/docs/data-sources/route53_zone) | data source |
-| [aws_ssm_parameters_by_path.default](https://registry.terraform.io/providers/hashicorp/aws/4.0/docs/data-sources/ssm_parameters_by_path) | data source |
-| [template_file.envs](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data source |
+| [aws_iam_policy.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_role.github_actions](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_kinesis_stream.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kinesis_stream) | resource |
+| [aws_iam_policy_document.github_actions_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_kms_alias.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/kms_alias) | data source |
+| [aws_route53_zone.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
+| [aws_route53_zone.selected_vanity](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
+| [aws_ssm_parameters_by_path.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameters_by_path) | data source |
+| [template_file.envs](https://registry.terraform.io/providers/cloudposse/template/latest/docs/data-sources/file) | data source |
 
 ## Inputs
 
