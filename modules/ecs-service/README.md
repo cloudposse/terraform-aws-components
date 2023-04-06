@@ -151,13 +151,14 @@ components:
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+| <a name="requirement_template"></a> [template](#requirement\_template) | >= 2.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
-| <a name="provider_template"></a> [template](#provider\_template) | n/a |
+| <a name="provider_template"></a> [template](#provider\_template) | >= 2.2 |
 
 ## Modules
 
@@ -197,7 +198,7 @@ components:
 | [aws_route53_zone.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
 | [aws_route53_zone.selected_vanity](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
 | [aws_ssm_parameters_by_path.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameters_by_path) | data source |
-| [template_file.envs](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data source |
+| [template_file.envs](https://registry.terraform.io/providers/cloudposse/template/latest/docs/data-sources/file) | data source |
 
 ## Inputs
 
