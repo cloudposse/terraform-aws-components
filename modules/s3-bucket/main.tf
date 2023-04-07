@@ -11,7 +11,7 @@ locals {
   bucket_policy = var.custom_policy_enabled ? data.aws_iam_policy_document.custom_policy[0].json : data.template_file.bucket_policy.rendered
 
   logging = var.logging != null ? {
-    bucket_name = var.logging_bucket_name_rendering_enabled ? templatefile("${path.module}/logging-bucket-name.tftmpl", {
+    bucket_name = var.logging_bucket_name_rendering_enabled ? templatefile("${path.module}/${var.logging_bucket_name_template_file}", {
       namespace   = var.namespace,
       tenant      = var.tenant,
       environment = var.environment,
@@ -19,7 +19,7 @@ locals {
       bucket_name = var.logging.bucket_name
     }) : var.logging.bucket_name
 
-    prefix = var.logging_bucket_name_rendering_enabled ? templatefile("${path.module}/logging-prefix.tftmpl", {
+    prefix = var.logging_bucket_name_rendering_enabled ? templatefile("${path.module}/${var.logging_prefix_template_file}", {
       prefix = var.logging.prefix,
       name   = var.name
     }) : var.logging.prefix

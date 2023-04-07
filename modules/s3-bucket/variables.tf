@@ -80,6 +80,18 @@ variable "logging_bucket_name_rendering_enabled" {
   description = "Whether to render the logging bucket name, prepending context"
 }
 
+variable "logging_bucket_name_template_file" {
+  type        = string
+  default     = "logging-bucket-name.tftmpl"
+  description = "The file used during the `templatefile` function call for rendering the logging bucket name"
+}
+
+variable "logging_prefix_template_file" {
+  type        =  string
+  default     = "logging-prefix.tftmpl"
+  description = "The file used during the `templatefile` function call for rendering the logging prefix"
+}
+
 variable "logging" {
   type = object({
     bucket_name = string
