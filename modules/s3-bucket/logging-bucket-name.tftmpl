@@ -1,0 +1,1 @@
+${namespace}-${tenant}-${environment}-${stage}-${bucket_name}
