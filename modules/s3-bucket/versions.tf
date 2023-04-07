@@ -7,7 +7,7 @@ terraform {
       version = ">= 4.0"
     }
     template = {
-      source  = "hashicorp/template"
+      source  = "cloudposse/template"
       version = ">= 2.2.0"
     }
   }
