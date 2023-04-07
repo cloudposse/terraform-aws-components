@@ -87,7 +87,7 @@ variable "logging_bucket_name_template_file" {
 }
 
 variable "logging_prefix_template_file" {
-  type        =  string
+  type        = string
   default     = "logging-prefix.tftmpl"
   description = "The file used during the `templatefile` function call for rendering the logging prefix"
 }
