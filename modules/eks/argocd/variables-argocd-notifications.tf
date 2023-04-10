@@ -61,7 +61,7 @@ variable "notifications_notifiers" {
         url = string
         headers = optional(list(
           object({
-            name = string
+            name  = string
             value = string
           })
         ), [])
