@@ -10,6 +10,6 @@ variable "msk_cluster_component" {
 
 variable "kafka_topics" {
   type        = map(any)
-  description = ""
+  description = "A map of Kafka topics"
   default     = {}
 }
