@@ -137,11 +137,6 @@ locals {
   }
 }
 
-output "test" {
-  value     = local.notifications_notifiers_ssm_configs_keys
-  sensitive = false
-}
-
 module "argocd" {
   source  = "cloudposse/helm-release/aws"
   version = "0.3.0"
