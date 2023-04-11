@@ -5,7 +5,7 @@ locals {
   oidc_enabled         = local.enabled && var.oidc_enabled
   oidc_enabled_count   = local.oidc_enabled ? 1 : 0
   saml_enabled         = local.enabled && var.saml_enabled
-  argocd_repositories  = local.enabled ? {
+  argocd_repositories = local.enabled ? {
     for k, v in var.argocd_repositories : k => {
       clone_url         = module.argocd_repo[k].outputs.repository_ssh_clone_url
       github_deploy_key = data.aws_ssm_parameter.github_deploy_key[k].value
@@ -33,9 +33,9 @@ locals {
             value = i
             type  = "string"
           }
+        ]
       ]
-    ]
-    ]))
+  ]))
   regional_service_discovery_domain = "${module.this.environment}.${module.dns_gbl_delegated.outputs.default_domain_name}"
   host                              = var.host != "" ? var.host : format("%s.%s", coalesce(var.alb_name, var.name), local.regional_service_discovery_domain)
   enable_argo_workflows_auth        = local.saml_enabled && var.argo_enable_workflows_auth
@@ -117,7 +117,7 @@ locals {
   }
 
   notifications_notifiers_ssm_configs_keys = { for key, value in data.aws_ssm_parameters_by_path.argocd_notifications :
-  key => zipmap(
+    key => zipmap(
       [for name in value.names : trimprefix(name, local.notifications_notifiers_ssm_path[key])],
       [for name in value.names : format("$%s_%s", key, trimprefix(name, local.notifications_notifiers_ssm_path[key]))]
     )
@@ -126,9 +126,9 @@ locals {
   notifications_notifiers_variables = merge({ for key, value in var.notifications_notifiers :
     key => { for param_name, param_value in value : param_name => param_value if param_value != null }
     if key != "ssm_path_prefix" && key != "service_webhook"
-  },
-  { for key, value in coalesce(var.notifications_notifiers.service_webhook, {}) :
-    format("service_webhook_%s", key) => { for param_name, param_value in value : param_name => param_value if param_value != null }
+    },
+    { for key, value in coalesce(var.notifications_notifiers.service_webhook, {}) :
+      format("service_webhook_%s", key) => { for param_name, param_value in value : param_name => param_value if param_value != null }
   })
 
   notifications_notifiers = {
