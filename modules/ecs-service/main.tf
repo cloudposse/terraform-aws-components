@@ -168,7 +168,7 @@ module "container_definition" {
 }
 
 locals {
-  awslogs_group = var.datadog_log_method_is_firelens ? "" : join("", module.logs.*.log_group_name)
+  awslogs_group = var.datadog_log_method_is_firelens ? "" : join("", module.logs[*].log_group_name)
 }
 
 module "ecs_alb_service_task" {
@@ -315,7 +315,7 @@ data "aws_iam_policy_document" "this" {
 
 resource "aws_iam_policy" "default" {
   count    = local.enabled && var.iam_policy_enabled ? 1 : 0
-  policy   = join("", data.aws_iam_policy_document.this.*.json)
+  policy   = join("", data.aws_iam_policy_document.this[*].json)
   tags_all = module.this.tags
 }
 
