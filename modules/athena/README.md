@@ -57,6 +57,59 @@ components:
           - example_db_2
 ```
 
+### CloudTrail Integration
+
+Using Athena with CloudTrail logs is a powerful way to enhance your analysis of AWS service activity. This component supports creating 
+a CloudTrail table for each account and setting up queries to read CloudTrail logs from a centralized location.
+
+To set up the CloudTrail Integration, first create the `create` and `alter` queries in Athena with this component. When `var.cloudtrail_database`
+is defined, this component will create these queries.
+
+```yaml
+import:
+- catalog/athena/defaults
+
+components:
+  terraform:
+    athena-audit: 
+      metadata:
+        component: athena
+        inherits:
+          - athena/defaults
+      vars:
+        enabled: true
+        name: athena-audit
+        workgroup_description: "Athena Workgroup for Auditing"
+        cloudtrail_database : audit
+        databases:
+          audit:
+            comment: "Auditor database for Athena"
+            properties: {}
+        named_queries:
+          platform_dev:
+            database: audit
+            description: "example query against CloudTrail logs"
+            query: |
+              SELECT
+               useridentity.arn,
+               eventname,
+               sourceipaddress,
+               eventtime
+              FROM %s.platform_dev_cloudtrail_logs
+              LIMIT 100;
+
+```
+
+Once those are created, run the the `create` and then `alter` queries in the AWS Console to create and then fill the tables in Athena.
+
+:::info
+Athena runs queries with the permissions of the user executing the query. In order to be able to query CloudTrail logs in a Cloud Posse environment,
+the `audit` account must have access to the KMS key used to encrypt CloudTrails logs. Set `var.audit_access_enabled` to `true` with the `cloudtrail` 
+component
+
+:::
+
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -145,5 +198,6 @@ components:
 
 ## References
 * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/athena) - Cloud Posse's upstream component
+* [Querying AWS CloudTrail logs with AWS Athena](https://docs.aws.amazon.com/athena/latest/ug/cloudtrail-logs.html)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
