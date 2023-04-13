@@ -1,3 +1,8 @@
+locals {
+  audit_access_enabled = module.this.enabled && var.audit_access_enabled
+  audit_account_id     = module.account_map.outputs.full_account_map[var.audit_account_name]
+}
+
 module "kms_key_cloudtrail" {
   source  = "cloudposse/kms-key/aws"
   version = "0.12.1"
@@ -7,7 +12,7 @@ module "kms_key_cloudtrail" {
   enable_key_rotation     = true
   policy                  = join("", data.aws_iam_policy_document.kms_key_cloudtrail[*].json)
 
-  context = module.this.context
+  context = module.introspection.context
 }
 
 data "aws_caller_identity" "this" {
@@ -70,6 +75,26 @@ data "aws_iam_policy_document" "kms_key_cloudtrail" {
       values = [
         format("arn:${join("", data.aws_partition.current[*].partition)}:cloudtrail:*:%s:trail/*", join("", data.aws_caller_identity.this[*].account_id))
       ]
+    }
+  }
+
+  dynamic "statement" {
+    for_each = local.audit_access_enabled ? [1] : []
+    content {
+      sid    = "Allow Audit to decrypt with the KMS key"
+      effect = "Allow"
+      actions = [
+        "kms:Decrypt*",
+      ]
+      resources = [
+        "*"
+      ]
+      principals {
+        type = "AWS"
+        identifiers = [
+          format("arn:${join("", data.aws_partition.current[*].partition)}:iam::%s:root", local.audit_account_id)
+        ]
+      }
     }
   }
 }
