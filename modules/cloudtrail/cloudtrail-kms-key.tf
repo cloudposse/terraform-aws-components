@@ -12,7 +12,7 @@ module "kms_key_cloudtrail" {
   enable_key_rotation     = true
   policy                  = join("", data.aws_iam_policy_document.kms_key_cloudtrail[*].json)
 
-  context = module.introspection.context
+  context = module.this.context
 }
 
 data "aws_caller_identity" "this" {
