@@ -100,12 +100,14 @@ components:
 
 ```
 
-Once those are created, run the the `create` and then `alter` queries in the AWS Console to create and then fill the tables in Athena.
+Once those are created, run the `create` and then the `alter` queries in the AWS Console to create and then fill the tables in Athena.
 
 :::info
+
 Athena runs queries with the permissions of the user executing the query. In order to be able to query CloudTrail logs in a Cloud Posse environment,
 the `audit` account must have access to the KMS key used to encrypt CloudTrails logs. Set `var.audit_access_enabled` to `true` with the `cloudtrail` 
 component
+
 
 :::
 
