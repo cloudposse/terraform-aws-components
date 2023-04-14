@@ -5,8 +5,10 @@ locals {
 module "ebs_csi_driver_controller" {
   count = local.enabled ? 1 : 0
 
-  source                                     = "DrFaust92/ebs-csi-driver/kubernetes"
-  version                                    = "3.5.0"
+  # https://github.com/DrFaust92/terraform-kubernetes-ebs-csi-driver
+  source  = "DrFaust92/ebs-csi-driver/kubernetes"
+  version = "3.5.0"
+
   ebs_csi_driver_version                     = "v1.6.2"
   ebs_csi_controller_image                   = "k8s.gcr.io/provider-aws/aws-ebs-csi-driver"
   ebs_csi_controller_role_name               = "ebs-csi-${module.eks.outputs.cluster_shortname}"
