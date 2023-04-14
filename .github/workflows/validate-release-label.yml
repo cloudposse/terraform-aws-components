@@ -1,0 +1,16 @@
+name: Validate Release Labels
+
+on:
+  pull_request:
+    types:
+      - labeled
+      - unlabeled
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cloudposse/github-action-release-label-validator@initial

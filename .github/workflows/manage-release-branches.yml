@@ -1,0 +1,14 @@
+name: Manager Release Branch
+
+on:
+  workflow_dispatch:
+
+  release:
+    types:
+      - published
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cloudposse/github-action-release-branch-manager@initial-with-github-script
