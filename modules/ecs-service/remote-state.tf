@@ -72,6 +72,7 @@ module "ecs_cluster" {
 }
 
 # This is purely a check to ensure this zone exists
+# tflint-ignore: terraform_unused_declarations
 data "aws_route53_zone" "selected" {
   count = local.enabled ? 1 : 0
 
