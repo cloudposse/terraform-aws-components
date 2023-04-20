@@ -4,7 +4,13 @@ This component is responsible for provisioning an end-to-end EKS Cluster, includ
 
 
 :::warning
-This component should only be deployed after logging into AWS via Federated login with SAML (e.g. GSuite) or assuming an IAM role (e.g. from a CI/CD system). It should not be deployed if you log into AWS via AWS SSO, the reason being that on initial deployment, the EKS cluster will be owned by the assumed role that provisioned it. If this were to be the AWS SSO Role, then we risk losing access to the EKS cluster once the ARN of the AWS SSO Role eventually changes.
+
+
+This component should only be deployed after logging into AWS via Federated login with SAML (e.g. GSuite) or
+assuming an IAM role (e.g. from a CI/CD system). It should not be deployed if you log into AWS via AWS SSO, the
+reason being that on initial deployment, the EKS cluster will be owned by the assumed role that provisioned it,
+and AWS SSO roles are ephemeral (replaced on every configuration change). If this were to be the AWS SSO Role, then
+we risk losing access to the EKS cluster once the ARN of the AWS SSO Role eventually changes.
 
 :::
 
@@ -15,10 +21,10 @@ This component should only be deployed after logging into AWS via Federated logi
 Here's an example snippet for how to use this component.
 
 This example expects the [Cloud Posse Reference Architecture](https://docs.cloudposse.com/reference-architecture/)
-Identity and Network designs deployed for mapping users to EKS service roles and granting access in a private network. 
+Identity and Network designs deployed for mapping users to EKS service roles and granting access in a private network.
 In addition, this example has the GitHub OIDC integration added and makes use of Karpenter to dynamically scale cluster nodes.
 
-For more on these requirements, see 
+For more on these requirements, see
 [Identity Reference Architecture](https://docs.cloudposse.com/reference-architecture/quickstart/iam-identity/),
 [Network Reference Architecture](https://docs.cloudposse.com/reference-architecture/scaffolding/setup/network/),
 the [Github OIDC component](https://docs.cloudposse.com/components/catalog/aws/github-oidc-provider/),
@@ -33,7 +39,9 @@ components:
         name: eks
         iam_primary_roles_tenant_name: core
         cluster_kubernetes_version: "1.25"
-        availability_zones: ["us-east-1a", "us-east-1b", "us-east-1c"]
+        # Your choice of availability zones or availability zone ids
+        # availability_zones: ["us-east-1a", "us-east-1b", "us-east-1c"]
+        availability_zone_ids: ["use1-az4", "use1-az5", "use1-az6"]
         aws_ssm_agent_enabled: true
         allow_ingress_from_vpc_accounts:
           - tenant: core
@@ -47,7 +55,7 @@ components:
         allowed_security_groups: []
         enabled_cluster_log_types:
           # Caution: enabling `api` log events may lead to a substantial increase in Cloudwatch Logs expenses.
-          - api  
+          - api
           - audit
           - authenticator
           - controllerManager
@@ -63,7 +71,7 @@ components:
         # We use karpenter to provision nodes
         # See below for using node_groups
         managed_node_groups_enabled: false
-        node_groups: {}   
+        node_groups: {}
 
         # EKS IAM Authentication settings
         # By default, you can authenticate to EKS cluster only by assuming the role that created the cluster.
@@ -76,43 +84,47 @@ components:
         cluster_endpoint_private_access: true
         cluster_endpoint_public_access: false
         cluster_log_retention_period: 90
-        # Roles from the primary account to allow access to the cluster
-        # See `aws-teams` component.
-        primary_iam_roles:
-          - groups:
-              - system:masters
-              - idp:ops
-            role: devops
-          - groups:
-              - system:masters
-            role: spacelift
-        # Roles from the account owning the cluster to allow access to the cluster
-        # See `aws-team-roles` component.
-        delegated_iam_roles:
-          - groups:
-              - system:masters
-              - idp:ops
-            role: admin
-          - groups:
-              - idp:poweruser
-            role: poweruser
-          - groups:
-              - idp:observer
-            role: observer
-          - groups:
-              - system:masters
-            role: terraform
+        # List of `aws-teams` to map to Kubernetes RBAC groups.
+        # This gives teams direct access to Kubernetes without having to assume a team-role.
+        # RBAC groups must be created elsewhere. The "system:" groups are predefined by Kubernetes.
+        aws_teams_rbac:
+        - groups:
+          - system:masters
+          aws_team: admin
+        - groups:
+          - idp:poweruser
+          - system:authenticated
+          aws_team: poweruser
+        - groups:
+          - idp:observer
+          - system:authenticated
+          aws_team: observer
+        # List of `aws-teams-roles` (in the account where the EKS cluster is deployed) to map to Kubernetes RBAC groups
+        aws_team_roles_rbac:
+        - groups:
+          - system:masters
+          aws_team_role: admin
+        - groups:
+          - idp:poweruser
+          - system:authenticated
+          aws_team_role: poweruser
+        - groups:
+          - idp:observer
+          - system:authenticated
+          aws_team_role: observer
+        - groups:
+          - system:masters
+          aws_team_role: terraform
+        - groups:
+          - system:masters
+          aws_team_role: helm
         # Roles from AWS SSO allowing cluster access
         # See `aws-sso` component.
-        sso_iam_roles:
-          - groups:
-              - idp:observer
-              - idp:observer-extra
-            role: ReadOnlyAccess
-          - groups:
-              - system:masters
-              - idp:ops
-            role: AdministratorAccess
+        aws_sso_permission_sets_rbac:
+        - aws_sso_permission_set: PowerUserAccess
+          groups:
+          - idp:poweruser
+          - system:authenticated
         fargate_profiles:
           karpenter:
             kubernetes_namespace: karpenter
@@ -122,12 +134,12 @@ components:
 
 ### Usage with Node Groups
 
-The `eks/cluster` component also supports node groups! In order to add a set list of nodes to 
+The `eks/cluster` component also supports managed node groups. In order to add a set list of nodes to
 provision with the cluster, add values for `var.managed_node_groups_enabled` and `var.node_groups`.
 
 :::info
-You can use manage node groups in conjunction with Karpenter node groups! Simply deploy node groups as demonstrated below,
-and then deploy Karpenter with the necessary components.
+You can use managed node groups in conjunction with Karpenter node groups, though in most cases,
+Karpenter is all you need.
 
 :::
 
@@ -135,11 +147,10 @@ For example:
 
 ```yaml
         managed_node_groups_enabled: true
-        node_groups: # null means use default set in defaults.auto.tf.vars
+        node_groups: # for most attributes, setting null here means use setting from node_group_defaults
           main:
-            # values of `null` will be replaced with default values
-            # availability_zones = null will create 1 auto scaling group in
-            # each availability zone in region_availability_zones
+            # availability_zones = null will create one autoscaling group
+            # in every private subnet in the VPC
             availability_zones: null
 
             desired_group_size: 3 # number of instances to start with, must be >= number of AZs

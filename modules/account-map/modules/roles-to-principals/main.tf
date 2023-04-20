@@ -24,24 +24,24 @@ module "account_map" {
 locals {
   aws_partition = module.account_map.outputs.aws_partition
 
-  principals = distinct(compact(flatten([for acct, v in var.role_map : (
-    contains(v, "*") ? [format("arn:%s:iam::%s:root", local.aws_partition, module.account_map.outputs.full_account_map[acct])] :
-    [
-      for role in v : format(module.account_map.outputs.iam_role_arn_templates[acct], role)
-    ]
-  )])))
+  principals_map = { for acct, v in var.role_map : acct => (
+    contains(v, "*") ? {
+      "*" = format("arn:%s:iam::%s:root", local.aws_partition, module.account_map.outputs.full_account_map[acct])
+    } :
+    {
+      for role in v : role => format(module.account_map.outputs.iam_role_arn_templates[acct], role)
+    }
+  ) }
+
+  # This expression could be simplified, but then the order of principals would be different than in earlier versions, causing unnecessary plan changes.
+  principals = distinct(compact(flatten([for acct, v in var.role_map : values(local.principals_map[acct])])))
 
   # Support for AWS SSO Permission Sets
-  permission_set_arn_like = distinct(compact(flatten([for acct, v in var.permission_set_map : concat(formatlist(
-    # arn:aws:iam::12345:role/aws-reserved/sso.amazonaws.com/ap-southeast-1/AWSReservedSSO_IdentityAdminRoleAccess_b68e107e9495e2fc
-    # AWS SSO Sometimes includes `/region/`, but not always.
+  permission_set_arn_like = distinct(compact(flatten([for acct, v in var.permission_set_map : formatlist(
+    # Usually like:
+    # arn:aws:iam::123456789012:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_IdentityAdminRoleAccess_b68e107e9495e2fc
+    # But sometimes AWS SSO ARN includes `/region/`, like:
+    # arn:aws:iam::123456789012:role/aws-reserved/sso.amazonaws.com/ap-southeast-1/AWSReservedSSO_IdentityAdminRoleAccess_b68e107e9495e2fc
     format("arn:%s:iam::%s:role/aws-reserved/sso.amazonaws.com*/AWSReservedSSO_%%s_*", local.aws_partition, module.account_map.outputs.full_account_map[acct]),
-    v),
-    formatlist(
-      # Support assume role from the allowed identity account SSO users
-      # arn:aws:iam::12345:role/aws-reserved/sso.amazonaws.com/ap-southeast-1/AWSReservedSSO_IdentityAdminRoleAccess_b68e107e9495e2fc
-      # AWS SSO Sometimes includes `/region/`, but not always.
-      format("arn:%s:iam::%s:role/aws-reserved/sso.amazonaws.com*/AWSReservedSSO_%%s_*", local.aws_partition, module.account_map.outputs.full_account_map[module.account_map.outputs.identity_account_account_name]),
-    v),
-  )])))
+  v)])))
 }
