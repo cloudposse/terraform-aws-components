@@ -264,35 +264,29 @@ HRA being successfully notified about it, so as a safety measure, the `capacityR
 configurable amount of time, at which point it will be deleted without regard to the job being finished. This
 ensures that eventually an idle runner pool will scale down to `minReplicas`.
 
-However, there are some problems with this scheme. In theory, `webhook_startup_timeout` should only need to be long
-enough to cover the delay between the time the HRA starts a scale up request and the time the runner actually starts,
-is allocated to the runner pool, and picks up a job to run. But there are edge cases that seem not to be covered
-properly (see [actions-runner-controller issue #2466](https://github.com/actions/actions-runner-controller/issues/2466)). As a result, we recommend setting `webhook_startup_timeout` to
-a period long enough to cover the full time a job may have to wait between the time it is queued and the time it
-actually starts. Consider this scenario:
-- You set `maxReplicas = 5`
-- Some trigger starts 20 jobs, each of which take 5 minutes to run
-- The replica pool scales up to 5, and the first 5 jobs run
-- 5 minutes later, the next 5 jobs run, and so on
-- The last set of 5 jobs will have to wait 15 minutes to start because of the previous jobs
+If it happens that the capacity reservation expires before the job is finished, the Horizontal Runner Autoscaler (HRA) will scale down the pool
+by 2 instead of 1: once because the capacity reservation expired, and once because the job finished. This will
+also cause starvation of waiting jobs, because the next in line will have its timeout timer started but will not
+actually start running because no runner is available. And if `minReplicas` is set to zero, the pool will scale down
+to zero before finishing all the jobs, leaving some waiting indefinitely. This is why it is important to set the
+`webhook_startup_timeout` to a time long enough to cover the full time a job may have to wait between the time it is
+queued and the time it finishes, assuming that the HRA scales up the pool by 1 and runs the job on the new runner.
 
-The HRA is designed to handle this situation by updating the expiration time of the `capacityReservation` of any
-job stuck waiting because the pool has scaled up to `maxReplicas`, but as discussed in issue #2466 linked above,
-that does not seem to be working correctly as of version 0.27.2.
+:::info
+If there are more jobs queued than there are runners allowed by `maxReplicas`, the timeout timer does not start on the
+capacity reservation until enough reservations ahead of it are removed for it to be considered as representing
+and active job. Although there are some edge cases regarding `webhook_startup_timeout` that seem not to be covered
+properly (see [actions-runner-controller issue #2466](https://github.com/actions/actions-runner-controller/issues/2466)),
+they only merit adding a few extra minutes to the timeout.
+:::
 
-For now, our recommendation is to set `webhook_startup_timeout` to a duration long enough to cover the time the job
-may have to wait in the queue for a runner to become available due to there being more jobs than `maxReplicas`.
-Alternatively, you could set `maxReplicas` to a big enough number that there will always be a runner for every
-queued job, in which case the duration only needs to be long enough to allow for all the scale-up activities (such
-as launching new EKS nodes as well as starting new pods) to finish. Remember, when everything works properly, the
-HRA will scale down the pool as jobs finish, so there is little cost to setting a long duration.
 
 ### Recommended `webhook_startup_timeout` Duration
 
 #### Consequences of Too Short of a `webhook_startup_timeout` Duration
 
 If you set `webhook_startup_timeout` to too short a duration, the Horizontal Runner Autoscaler will cancel capacity
-reservations for jobs that have not yet run, and the pool will be too small. This will be most serious if you have
+reservations for jobs that have not yet finished, and the pool will become too small. This will be most serious if you have
 set `minReplicas = 0` because in this case, jobs will be left in the queue indefinitely. With a higher value of
 `minReplicas`, the pool will eventually make it through all the queued jobs, but not as quickly as intended due to
 the incorrectly reduced capacity.
@@ -305,11 +299,19 @@ problem with this is the added expense of leaving the idle runner running.
 
 #### Recommendation
 
-Therefore we recommend that for lightly used runner pools, set `webhook_startup_timeout` to `"30m"`. For heavily
-used pools, find the typical or maximum length of a job, multiply by the number of jobs likely to be queued in an
-hour, and divide by `maxReplicas`, then round up. As a rule of thumb, we recommend setting `maxReplicas` high enough
-that jobs never wait on the queue more than an hour and setting `webhook_startup_timeout` to `"2h30m"`. Monitor your
-usage and adjust accordingly.
+As a result, we recommend setting `webhook_startup_timeout` to a period long enough to cover:
+- The time it takes for the HRA to scale up the pool and make a new runner available
+- The time it takes for the runner to pick up the job from GitHub
+- The time it takes for the job to start running on the new runner
+- The maximum time a job might take
+
+Because the consequences of expiring a capacity reservation before the job is finished are so severe, we recommend
+setting `webhook_startup_timeout` to a period at least 30 minutes longer than you expect the longest job to take.
+Remember, when everything works properly, the HRA will scale down the pool as jobs finish, so there is little cost
+to setting a long duration, and the cost looks even smaller by comparison to the cost of having too short a duration.
+
+For lightly used runner pools expecting only short jobs, you can set `webhook_startup_timeout` to `"30m"`.
+As a rule of thumb, we recommend setting `maxReplicas` high enough that jobs never wait on the queue more than an hour.
 
 ### Updating CRDs
 

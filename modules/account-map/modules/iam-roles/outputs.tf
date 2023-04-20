@@ -41,6 +41,14 @@ output "global_stage_name" {
   description = "The `null-label` `stage` value for the organization management account (where the `account-map` state is stored)"
 }
 
+output "current_account_account_name" {
+  value       = local.account_name
+  description = <<-EOT
+    The account name (usually `<tenant>-<stage>`) for the account configured by this module's inputs.
+    Roughly analogous to `data "aws_caller_identity"`, but returning the name of the caller account as used in our configuration.
+    EOT
+}
+
 output "dns_terraform_role_arn" {
   value       = module.account_map.outputs.terraform_roles[module.account_map.outputs.dns_account_account_name]
   description = "The AWS Role ARN for Terraform to use to provision DNS Zone delegations, when Role ARNs are in use"
