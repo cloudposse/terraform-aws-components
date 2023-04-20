@@ -47,7 +47,7 @@ The `account_assignments` setting configures access to permission sets for users
 The `identity_roles_accessible` element provides a list of role names corresponding to roles created in the `iam-primary-roles` component. For each names role, a corresponding permission set will be created which allows the user to assume that role. The permission set name is generated in Terraform from the role name using this statement:
 
 ```
-format("Identity%sTeamAccess", title(role))
+format("Identity%sTeamAccess", replace(title(role), "-", ""))
 ```
 
 #### Example
