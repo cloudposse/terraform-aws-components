@@ -104,10 +104,9 @@ Once those are created, run the `create` and then the `alter` queries in the AWS
 
 :::info
 
-Athena runs queries with the permissions of the user executing the query. In order to be able to query CloudTrail logs in a Cloud Posse environment,
-the `audit` account must have access to the KMS key used to encrypt CloudTrails logs. Set `var.audit_access_enabled` to `true` with the `cloudtrail` 
+Athena runs queries with the permissions of the user executing the query. In order to be able to query CloudTrail logs,
+the `audit` account must have access to the KMS key used to encrypt CloudTrails logs. Set `var.audit_access_enabled` to `true` in the `cloudtrail` 
 component
-
 
 :::
 
