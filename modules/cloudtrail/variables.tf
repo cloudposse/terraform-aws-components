@@ -39,6 +39,12 @@ variable "cloudtrail_cloudwatch_logs_role_max_session_duration" {
   description = "The maximum session duration (in seconds) for the CloudTrail CloudWatch Logs role. Can have a value from 1 hour to 12 hours"
 }
 
+variable "cloudtrail_bucket_component_name" {
+  type        = string
+  description = "The name of the component where the CloudTrail bucket is provisioned"
+  default     = "cloudtrail-bucket"
+}
+
 variable "cloudtrail_bucket_environment_name" {
   type        = string
   description = "The name of the environment where the CloudTrail bucket is provisioned"

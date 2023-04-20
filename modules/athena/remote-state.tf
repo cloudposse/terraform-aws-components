@@ -4,7 +4,7 @@ module "cloudtrail_bucket" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "1.4.1"
 
-  component = "cloudtrail-bucket"
+  component = var.cloudtrail_bucket_component_name
 
   context = module.this.context
 }

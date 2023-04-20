@@ -103,3 +103,10 @@ variable "cloudtrail_database" {
   type        = string
   default     = ""
 }
+
+variable "cloudtrail_bucket_component_name" {
+  type        = string
+  description = "The name of the component where the CloudTrail bucket is provisioned"
+  default     = "cloudtrail-bucket"
+}
+
