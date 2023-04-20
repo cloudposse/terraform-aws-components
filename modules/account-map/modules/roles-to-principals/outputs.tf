@@ -2,6 +2,7 @@ output "principals" {
   value       = local.principals
   description = "Consolidated list of AWS principals corresponding to given input `role_map`"
 }
+
 output "principals_map" {
   value       = local.principals_map
   description = "Map of AWS principals corresponding to given input `role_map`"

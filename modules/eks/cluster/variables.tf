@@ -102,7 +102,7 @@ variable "aws_teams_rbac" {
 }
 
 variable "aws_team_roles_rbac" {
-  description = "List of `aws-team-roles` (in the target AWSS account) to map to Kubernetes RBAC groups."
+  description = "List of `aws-team-roles` (in the target AWS account) to map to Kubernetes RBAC groups."
 
   type = list(object({
     aws_team_role = string

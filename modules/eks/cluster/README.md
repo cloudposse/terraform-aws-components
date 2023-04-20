@@ -118,7 +118,7 @@ components:
         - groups:
           - system:masters
           aws_team_role: helm
-        # Roles from AWS SSO allowing cluster access
+        # Permission sets from AWS SSO allowing cluster access
         # See `aws-sso` component.
         aws_sso_permission_sets_rbac:
         - aws_sso_permission_set: PowerUserAccess

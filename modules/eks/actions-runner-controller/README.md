@@ -264,7 +264,7 @@ HRA being successfully notified about it, so as a safety measure, the `capacityR
 configurable amount of time, at which point it will be deleted without regard to the job being finished. This
 ensures that eventually an idle runner pool will scale down to `minReplicas`.
 
-If it happens that the capacity reservation expires before the job is finished, the HRA will scale down the pool
+If it happens that the capacity reservation expires before the job is finished, the Horizontal Runner Autoscaler (HRA) will scale down the pool
 by 2 instead of 1: once because the capacity reservation expired, and once because the job finished. This will
 also cause starvation of waiting jobs, because the next in line will have its timeout timer started but will not
 actually start running because no runner is available. And if `minReplicas` is set to zero, the pool will scale down
