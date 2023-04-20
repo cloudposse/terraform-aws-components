@@ -45,3 +45,17 @@ variable "access_log_bucket_name" {
   default     = ""
   description = "If var.create_access_log_bucket is false, this is the name of the S3 bucket where s3 access logs will be sent to."
 }
+
+variable "acl" {
+  type        = string
+  description = <<-EOT
+    The canned ACL to apply. We recommend log-delivery-write for
+    compatibility with AWS services. Valid values are private, public-read,
+    public-read-write, aws-exec-read, authenticated-read, bucket-owner-read,
+    bucket-owner-full-control, log-delivery-write.
+
+    Due to https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-faq.html, this
+    will need to be set to 'private' during creation, but you can update normally after.
+    EOT
+  default     = "log-delivery-write"
+}

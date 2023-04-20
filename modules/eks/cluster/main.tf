@@ -1,26 +1,32 @@
 locals {
-  enabled            = module.this.enabled
-  primary_role_map   = module.team_roles.outputs.team_name_role_arn_map
-  delegated_role_map = module.delegated_roles.outputs.role_name_role_arn_map
-  eks_outputs        = module.eks.outputs
-  vpc_outputs        = module.vpc.outputs
+  enabled     = module.this.enabled
+  eks_outputs = module.eks.outputs
+  vpc_outputs = module.vpc.outputs
 
   attributes         = flatten(concat(module.this.attributes, [var.color]))
   public_subnet_ids  = local.vpc_outputs.public_subnet_ids
   private_subnet_ids = local.vpc_outputs.private_subnet_ids
   vpc_id             = local.vpc_outputs.vpc_id
 
-  iam_primary_roles_tenant_name = coalesce(var.iam_primary_roles_tenant_name, module.this.tenant)
+  this_account_name     = module.iam_roles.current_account_account_name
+  identity_account_name = module.iam_roles.identity_account_account_name
 
-  primary_iam_roles = [for role in var.primary_iam_roles : {
-    rolearn  = local.primary_role_map[role.role]
-    username = module.this.context.tenant != null ? format("%s-identity-%s", local.iam_primary_roles_tenant_name, role.role) : format("identity-%s", role.role)
+  role_map = merge({
+    (local.identity_account_name) = var.aws_teams_rbac[*].aws_team
+    }, {
+    (local.this_account_name) = var.aws_team_roles_rbac[*].aws_team_role
+    root                      = ["*"]
+  })
+
+  aws_teams_auth = [for role in var.aws_teams_rbac : {
+    rolearn  = module.iam_arns.principals_map[local.identity_account_name][role.aws_team]
+    username = format("%s-%s", local.identity_account_name, role.aws_team)
     groups   = role.groups
   }]
 
-  delegated_iam_roles = [for role in var.delegated_iam_roles : {
-    rolearn  = local.delegated_role_map[role.role]
-    username = module.this.context.tenant != null ? format("%s-%s-%s", module.this.tenant, module.this.stage, role.role) : format("%s-%s", module.this.stage, role.role)
+  aws_team_roles_auth = [for role in var.aws_team_roles_rbac : {
+    rolearn  = module.iam_arns.principals_map[local.this_account_name][role.aws_team_role]
+    username = format("%s-%s", local.this_account_name, role.aws_team_role)
     groups   = role.groups
   }]
 
@@ -43,8 +49,9 @@ locals {
   ]
 
   map_additional_iam_roles = concat(
-    local.primary_iam_roles,
-    local.delegated_iam_roles,
+    local.aws_teams_auth,
+    local.aws_team_roles_auth,
+    local.aws_sso_iam_roles_auth,
     var.map_additional_iam_roles,
     local.map_fargate_profile_roles,
   )
@@ -74,7 +81,7 @@ locals {
 
 module "eks_cluster" {
   source  = "cloudposse/eks-cluster/aws"
-  version = "2.5.0"
+  version = "2.6.0"
 
   region     = var.region
   attributes = local.attributes
@@ -153,4 +160,3 @@ module "eks_cluster" {
 
   context = module.this.context
 }
-
