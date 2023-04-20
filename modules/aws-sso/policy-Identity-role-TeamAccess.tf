@@ -54,8 +54,8 @@ data "aws_iam_policy_document" "assume_aws_team" {
 
 locals {
   identity_access_permission_sets = [for role in var.aws_teams_accessible : {
-    name                                = format("Identity%sTeamAccess", title(role)),
-    description                         = format("Allow user to assume the %s Team role in the Identity account, which allows access to other accounts", title(role))
+    name                                = format("Identity%sTeamAccess", replace(title(role), "-", "")),
+    description                         = format("Allow user to assume the %s Team role in the Identity account, which allows access to other accounts", replace(title(role), "-", ""))
     relay_state                         = "",
     session_duration                    = "",
     tags                                = {},
