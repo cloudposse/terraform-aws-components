@@ -99,14 +99,14 @@ variable "named_queries" {
 }
 
 variable "cloudtrail_database" {
-  description = "The name of the Athena Database to use for CloudTrail logs. If set, a Athena table will be created with a CloudTrail trail."
+  description = "The name of the Athena Database to use for CloudTrail logs. If set, an Athena table will be created for the CloudTrail trail."
   type        = string
   default     = ""
 }
 
 variable "cloudtrail_bucket_component_name" {
   type        = string
-  description = "The name of the component where the CloudTrail bucket is provisioned"
+  description = "The name of the CloudTrail bucket component"
   default     = "cloudtrail-bucket"
 }
 

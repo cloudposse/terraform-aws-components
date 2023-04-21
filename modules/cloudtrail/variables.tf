@@ -41,7 +41,7 @@ variable "cloudtrail_cloudwatch_logs_role_max_session_duration" {
 
 variable "cloudtrail_bucket_component_name" {
   type        = string
-  description = "The name of the component where the CloudTrail bucket is provisioned"
+  description = "The name of the CloudTrail bucket component"
   default     = "cloudtrail-bucket"
 }
 
