@@ -9,16 +9,16 @@ module "ebs_csi_driver_controller" {
   source  = "DrFaust92/ebs-csi-driver/kubernetes"
   version = "3.5.0"
 
-  ebs_csi_driver_version                     = "v1.6.2"
-  ebs_csi_controller_image                   = "k8s.gcr.io/provider-aws/aws-ebs-csi-driver"
+  ebs_csi_driver_version                     = var.ebs_csi_driver_version
+  ebs_csi_controller_image                   = var.ebs_csi_controller_image
   ebs_csi_controller_role_name               = "ebs-csi-${module.eks.outputs.cluster_shortname}"
   ebs_csi_controller_role_policy_name_prefix = "ebs-csi-${module.eks.outputs.cluster_shortname}"
-  oidc_url                                   = module.eks.outputs.eks_cluster_identity_oidc_issuer
+  oidc_url                                   = replace(module.eks.outputs.eks_cluster_identity_oidc_issuer, "https://", "")
   enable_volume_resizing                     = true
 }
 
 # Remove non encrypted default storage class
-resource "kubernetes_annotations" "default-storageclass" {
+resource "kubernetes_annotations" "default_storage_class" {
   count      = local.enabled ? 1 : 0
   depends_on = [module.ebs_csi_driver_controller]
 
@@ -29,12 +29,13 @@ resource "kubernetes_annotations" "default-storageclass" {
   metadata {
     name = "gp2"
   }
+
   annotations = {
     "storageclass.kubernetes.io/is-default-class" = "false"
   }
 }
 
-# Create the new wanted StorageClass and make it default
+# Create the new StorageClass and make it default
 resource "kubernetes_storage_class" "gp3-enc" {
   count      = local.enabled ? 1 : 0
   depends_on = [module.ebs_csi_driver_controller]
