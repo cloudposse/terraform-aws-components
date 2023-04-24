@@ -36,7 +36,7 @@ resource "kubernetes_annotations" "default_storage_class" {
 }
 
 # Create the new StorageClass and make it default
-resource "kubernetes_storage_class" "gp3-enc" {
+resource "kubernetes_storage_class" "gp3_enc" {
   count      = local.enabled ? 1 : 0
   depends_on = [module.ebs_csi_driver_controller]
   metadata {
