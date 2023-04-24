@@ -33,6 +33,25 @@ the provider's thumbprint may change, at which point you can use
 [scripts/get_github_oidc_thumbprint.sh](./scripts/get_github_oidc_thumbprint.sh) 
 to get the new thumbprint and add it to the list in `var.thumbprint_list`.
 
+## FAQ
+
+### I cannot assume the role from GitHub Actions after deploying
+
+The following error is very common if the GitHub workflow is missing proper permission.
+
+```bash
+Error: User: arn:aws:sts::***:assumed-role/acme-core-use1-auto-actions-runner@actions-runner-system/token-file-web-identity is not authorized to perform: sts:TagSession on resource: arn:aws:iam::999999999999:role/acme-plat-use1-dev-gha
+```
+
+In order to use a web identity, GitHub Action pipelines must have the following permission. 
+See [GitHub Action documentation for more](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services#adding-permissions-settings).
+
+```yaml
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
