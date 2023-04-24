@@ -1,0 +1,20 @@
+name: Feature Branch Tagger and Branch Manager
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cloudposse/github-action-release-branch-manager@v1
+        with:
+          dry-run: 'true'
+
+      - uses: cloudposse/github-action-major-release-tagger@v1
+        with:
+          dry-run: 'true'

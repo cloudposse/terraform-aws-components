@@ -1,0 +1,20 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+  release:
+    types:
+      - published
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cloudposse/github-action-release-branch-manager@v1
+        with:
+          dry-run: 'false'
+
+      - uses: cloudposse/github-action-major-release-tagger@v1
+        with:
+          dry-run: 'false'

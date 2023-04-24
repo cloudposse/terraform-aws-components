@@ -1,4 +1,4 @@
-name: Validate Release Labels
+name: Feature Branch
 
 on:
   pull_request:
@@ -13,4 +13,4 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: cloudposse/github-action-release-label-validator@initial
+      - uses: cloudposse/github-action-release-label-validator@v1
