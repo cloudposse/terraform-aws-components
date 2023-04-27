@@ -70,6 +70,12 @@ components:
         vpc_component_name: vpc
 ```
 
+Execute the following command to provision the `route53-resolver-dns-firewall/example` component using Atmos:
+
+```shell
+atmos terraform apply route53-resolver-dns-firewall/example -s <stack>
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
