@@ -9,6 +9,12 @@ variable "dns_gbl_delegated_environment_name" {
   default     = "gbl"
 }
 
+variable "dns_delegated_component_name" {
+  type        = string
+  description = "The name of the component where `dns_delegated` is provisioned"
+  default     = "dns-delegated"
+}
+
 variable "cluster_name" {
   type        = string
   description = "Short name for this cluster"

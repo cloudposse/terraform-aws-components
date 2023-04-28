@@ -214,3 +214,14 @@ variable "allow_ingress_from_vpc_accounts" {
   EOF
 }
 
+variable "dns_delegated_component_name" {
+  type        = string
+  description = "The name of the component where `dns_delegated` is provisioned"
+  default     = "dns-delegated"
+}
+
+variable "dns_delegated_environment_name" {
+  type        = string
+  description = "The name of the environment where `dns_delegated` is provisioned"
+  default     = "gbl"
+}
