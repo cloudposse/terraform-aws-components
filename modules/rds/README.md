@@ -189,6 +189,7 @@ Example - I want a new instance `rds-example-new` to be provisioned from a snaps
 | <a name="input_timezone"></a> [timezone](#input\_timezone) | Time zone of the DB instance. timezone is currently only supported by Microsoft SQL Server. The timezone can only be set on creation. See [MSSQL User Guide](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.TimeZone) for more information. | `string` | `null` | no |
 | <a name="input_use_dns_delegated"></a> [use\_dns\_delegated](#input\_use\_dns\_delegated) | Use the dns-delegated dns\_zone\_id | `bool` | `false` | no |
 | <a name="input_use_eks_security_group"></a> [use\_eks\_security\_group](#input\_use\_eks\_security\_group) | Use the eks default security group | `bool` | `false` | no |
+| <a name="input_use_private_subnets"></a> [use\_private\_subnets](#input\_use\_private\_subnets) | Use private subnets | `bool` | `true` | no |
 
 ## Outputs
 

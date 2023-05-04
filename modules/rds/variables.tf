@@ -26,3 +26,9 @@ variable "client_security_group_enabled" {
   description = "create a client security group and include in attached default security group"
   default     = true
 }
+
+variable "use_private_subnets" {
+  type        = bool
+  description = "Use private subnets"
+  default     = true
+}
