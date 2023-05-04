@@ -63,6 +63,12 @@ components:
             image: summerwind/actions-runner-dind
             # `scope` is org name for Organization runners, repo name for Repository runners
             scope: "org/infra"
+            # We can trade the fast-start behavior of min_replicas > 0 for the better guarantee
+            # that Karpenter will not terminate the runner while it is running a job.
+            #  # Tell Karpenter not to evict this pod. This is only safe when min_replicas is 0.
+            #  # If we do not set this, Karpenter will feel free to terminate the runner while it is running a job.
+            #  pod_annotations:
+            #    karpenter.sh/do-not-evict: "true"
             min_replicas: 1
             max_replicas: 20
             scale_down_delay_seconds: 100
@@ -112,7 +118,11 @@ components:
           #  # `scope` is org name for Organization runners, repo name for Repository runners
           #  scope: "org/infra"
           #  group: "ArmRunners"
-          #  min_replicas: 1
+          #  # Tell Karpenter not to evict this pod. This is only safe when min_replicas is 0.
+          #  # If we do not set this, Karpenter will feel free to terminate the runner while it is running a job.
+          #  pod_annotations:
+          #    karpenter.sh/do-not-evict: "true"
+          #  min_replicas: 0
           #  max_replicas: 20
           #  scale_down_delay_seconds: 100
           #  resources:
@@ -312,6 +322,44 @@ to setting a long duration, and the cost looks even smaller by comparison to the
 
 For lightly used runner pools expecting only short jobs, you can set `webhook_startup_timeout` to `"30m"`.
 As a rule of thumb, we recommend setting `maxReplicas` high enough that jobs never wait on the queue more than an hour.
+
+### Interaction with Karpenter or other EKS autoscaling solutions
+
+Kubernetes cluster autoscaling solutions generally expect that a Pod runs a service that can be terminated on one
+Node and restarted on another with only a short duration needed to finish processing any in-flight requests. When
+the cluster is resized, the cluster autoscaler will do just that. However, GitHub Action Runner Jobs do not fit this
+model. If a Pod is terminated in the middle of a job, the job is lost. The likelihood of this happening is increased
+by the fact that the Action Runner Controller Autoscaler is expanding and contracting the size of the Runner Pool on
+a regular basis, causing the cluster autoscaler to more frequently want to scale up or scale down the EKS cluster,
+and, consequently, to move Pods around.
+
+To handle these kinds of situations, Karpenter respects an annotation on the Pod:
+
+```yaml
+spec:
+  template:
+    metadata:
+      annotations:
+        karpenter.sh/do-not-evict: "true"
+```
+
+When you set this annotation on the Pod, Karpenter will not evict it. This means that the Pod will stay on the Node
+it is on, and the Node it is on will not be considered for eviction. This is good because it means that the Pod
+will not be terminated in the middle of a job. However, it also means that the Node the Pod is on will not be considered
+for termination, which means that the Node will not be removed from the cluster, which means that the cluster will
+not shrink in size when you would like it to.
+
+Since the Runner Pods terminate at the end of the job, this is not a problem for the Pods actually running jobs.
+However, if you have set `minReplicas > 0`, then you have some Pods that are just idling, waiting for jobs to be
+assigned to them. These Pods are exactly the kind of Pods you want terminated and moved when the cluster is underutilized.
+Therefore, when you set `minReplicas > 0`, you should **NOT** set `karpenter.sh/do-not-evict: "true"` on the Pod.
+
+We have [requested a feature](https://github.com/actions/actions-runner-controller/issues/2562)
+that will allow you to set `karpenter.sh/do-not-evict: "true"` and `minReplicas > 0` at the same time by only
+annotating Pods running jobs. Meanwhile, another option is to set `minReplicas = 0` on a schedule using an ARC
+Autoscaler [scheduled override](https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#scheduled-overrides).
+At present, this component does not support that option, but it could be added in the future if our preferred
+solution is not implemented.
 
 ### Updating CRDs
 
