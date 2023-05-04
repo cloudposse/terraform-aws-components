@@ -81,10 +81,10 @@ Example - I want a new instance `rds-example-new` to be provisioned from a snaps
 | <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_kms_key_rds"></a> [kms\_key\_rds](#module\_kms\_key\_rds) | cloudposse/kms-key/aws | 0.10.0 |
-| <a name="module_rds_client_sg"></a> [rds\_client\_sg](#module\_rds\_client\_sg) | cloudposse/security-group/aws | 0.3.1 |
+| <a name="module_kms_key_rds"></a> [kms\_key\_rds](#module\_kms\_key\_rds) | cloudposse/kms-key/aws | 0.12.1 |
+| <a name="module_rds_client_sg"></a> [rds\_client\_sg](#module\_rds\_client\_sg) | cloudposse/security-group/aws | 2.0.1 |
 | <a name="module_rds_instance"></a> [rds\_instance](#module\_rds\_instance) | cloudposse/rds/aws | 0.38.5 |
-| <a name="module_rds_monitoring_role"></a> [rds\_monitoring\_role](#module\_rds\_monitoring\_role) | cloudposse/iam-role/aws | 0.16.2 |
+| <a name="module_rds_monitoring_role"></a> [rds\_monitoring\_role](#module\_rds\_monitoring\_role) | cloudposse/iam-role/aws | 0.17.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 
@@ -187,6 +187,7 @@ Example - I want a new instance `rds-example-new` to be provisioned from a snaps
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 | <a name="input_timezone"></a> [timezone](#input\_timezone) | Time zone of the DB instance. timezone is currently only supported by Microsoft SQL Server. The timezone can only be set on creation. See [MSSQL User Guide](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.TimeZone) for more information. | `string` | `null` | no |
+| <a name="input_use_dns_delegated"></a> [use\_dns\_delegated](#input\_use\_dns\_delegated) | Use the dns-delegated dns\_zone\_id | `bool` | `false` | no |
 | <a name="input_use_eks_security_group"></a> [use\_eks\_security\_group](#input\_use\_eks\_security\_group) | Use the eks default security group | `bool` | `false` | no |
 
 ## Outputs

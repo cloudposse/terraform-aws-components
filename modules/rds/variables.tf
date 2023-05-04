@@ -3,6 +3,12 @@ variable "region" {
   description = "AWS Region"
 }
 
+variable "use_dns_delegated" {
+  type        = bool
+  description = "Use the dns-delegated dns_zone_id"
+  default     = false
+}
+
 variable "dns_gbl_delegated_environment_name" {
   type        = string
   description = "The name of the environment where global `dns_delegated` is provisioned"
