@@ -163,12 +163,12 @@ variable "runners" {
   EOT
 
   type = map(object({
-    type          = string
-    scope         = string
-    group         = optional(string, null)
-    image         = optional(string, "")
-    dind_enabled  = bool
-    node_selector = optional(map(string), {})
+    type            = string
+    scope           = string
+    group           = optional(string, null)
+    image           = optional(string, "")
+    dind_enabled    = bool
+    node_selector   = optional(map(string), {})
     pod_annotations = optional(map(string), {})
     tolerations = optional(list(object({
       key      = string
