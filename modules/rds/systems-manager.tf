@@ -76,7 +76,7 @@ resource "aws_ssm_parameter" "rds_database_hostname" {
   count = local.ssm_enabled ? 1 : 0
 
   name        = format(var.ssm_key_format, var.ssm_key_prefix, var.name, var.ssm_key_hostname)
-  value       = module.rds_instance.hostname
+  value       = module.rds_instance.hostname == "" ? module.rds_instance.instance_address : module.rds_instance.hostname
   description = "RDS DB hostname"
   type        = "String"
   overwrite   = true
