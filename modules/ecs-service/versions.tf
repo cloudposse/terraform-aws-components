@@ -3,7 +3,7 @@ terraform {
 
   required_providers {
     aws = {
-      source  = "hashicorp/aws"
+      source = "hashicorp/aws"
       ## 4.66.0 version cause error
       ## │ Error: listing tags for Application Auto Scaling Target (): InvalidParameter: 1 validation error(s) found.
       ## │ - minimum field size of 1, ListTagsForResourceInput.ResourceARN.
