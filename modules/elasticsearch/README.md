@@ -14,9 +14,10 @@ components:
     elasticsearch:
       vars:
         enabled: true
+        name: foobar
         instance_type: "t3.medium.elasticsearch"
         elasticsearch_version: "7.9"
-        encrypt_at_rest_enabled: false
+        encrypt_at_rest_enabled: true
         dedicated_master_enabled: false
         elasticsearch_subdomain_name: "es"
         kibana_subdomain_name: "kibana"
