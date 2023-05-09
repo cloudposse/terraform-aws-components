@@ -23,14 +23,17 @@ data "aws_iam_policy_document" "github_actions_iam_policy" {
 
 data "aws_iam_policy_document" "github_actions_iam_platform_policy" {
   # Allows trusted roles to assume this role
-  statement {
-    sid    = "TrustedRoleAccess"
-    effect = "Allow"
-    actions = [
-      "sts:AssumeRole",
-      "sts:TagSession"
-    ]
-    resources = var.github_oidc_trusted_role_arns
+  dynamic "statement" {
+    for_each = length(var.github_oidc_trusted_role_arns) == 0 ? [] : ["enabled"]
+    content {
+      sid    = "TrustedRoleAccess"
+      effect = "Allow"
+      actions = [
+        "sts:AssumeRole",
+        "sts:TagSession"
+      ]
+      resources = var.github_oidc_trusted_role_arns
+    }
   }
 
   # Allow chamber to read secrets
@@ -104,4 +107,16 @@ data "aws_iam_policy_document" "github_actions_iam_ecspresso_policy" {
       join("", module.ecs_alb_service_task.*.task_role_arn),
     ]
   }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "application-autoscaling:DescribeScalableTargets"
+    ]
+    resources = [
+      "*",
+    ]
+  }
+
+
 }
