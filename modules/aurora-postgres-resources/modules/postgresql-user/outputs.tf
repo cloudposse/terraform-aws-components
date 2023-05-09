@@ -8,11 +8,6 @@ output "db_user" {
   description = "DB user name"
 }
 
-output "db_user_ssm_key" {
-  value       = local.db_user_key
-  description = "SSM key under which user name is stored"
-}
-
 output "db_user_password" {
   value       = local.db_password
   description = "DB user password"

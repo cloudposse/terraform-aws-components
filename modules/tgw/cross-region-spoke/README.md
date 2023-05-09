@@ -44,7 +44,7 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 
 ## Providers
 
@@ -54,21 +54,21 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_az_abbreviation"></a> [az\_abbreviation](#module\_az\_abbreviation) | cloudposse/utils/aws | 1.0.0 |
 | <a name="module_iam_role_tgw_home_region"></a> [iam\_role\_tgw\_home\_region](#module\_iam\_role\_tgw\_home\_region) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_iam_role_tgw_this_region"></a> [iam\_role\_tgw\_this\_region](#module\_iam\_role\_tgw\_this\_region) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
-| <a name="module_tgw_cross_region_connector"></a> [tgw\_cross\_region\_connector](#module\_tgw\_cross\_region\_connector) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
-| <a name="module_tgw_home_region"></a> [tgw\_home\_region](#module\_tgw\_home\_region) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_tgw_cross_region_connector"></a> [tgw\_cross\_region\_connector](#module\_tgw\_cross\_region\_connector) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_tgw_home_region"></a> [tgw\_home\_region](#module\_tgw\_home\_region) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_tgw_routes_home_region"></a> [tgw\_routes\_home\_region](#module\_tgw\_routes\_home\_region) | ./modules/tgw_routes | n/a |
 | <a name="module_tgw_routes_this_region"></a> [tgw\_routes\_this\_region](#module\_tgw\_routes\_this\_region) | ./modules/tgw_routes | n/a |
-| <a name="module_tgw_this_region"></a> [tgw\_this\_region](#module\_tgw\_this\_region) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_tgw_this_region"></a> [tgw\_this\_region](#module\_tgw\_this\_region) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 | <a name="module_vpc_routes_home"></a> [vpc\_routes\_home](#module\_vpc\_routes\_home) | ./modules/vpc_routes | n/a |
 | <a name="module_vpc_routes_this"></a> [vpc\_routes\_this](#module\_vpc\_routes\_this) | ./modules/vpc_routes | n/a |
-| <a name="module_vpcs_home_region"></a> [vpcs\_home\_region](#module\_vpcs\_home\_region) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
-| <a name="module_vpcs_this_region"></a> [vpcs\_this\_region](#module\_vpcs\_this\_region) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_vpcs_home_region"></a> [vpcs\_home\_region](#module\_vpcs\_home\_region) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_vpcs_this_region"></a> [vpcs\_this\_region](#module\_vpcs\_this\_region) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 
 ## Resources
 
@@ -108,10 +108,10 @@ No resources.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_tgw_routes_home_region"></a> [tgw\_routes\_home\_region](#output\_tgw\_routes\_home\_region) | n/a |
-| <a name="output_tgw_routes_in_region"></a> [tgw\_routes\_in\_region](#output\_tgw\_routes\_in\_region) | n/a |
-| <a name="output_vpc_routes_home"></a> [vpc\_routes\_home](#output\_vpc\_routes\_home) | n/a |
-| <a name="output_vpc_routes_this"></a> [vpc\_routes\_this](#output\_vpc\_routes\_this) | n/a |
+| <a name="output_tgw_routes_home_region"></a> [tgw\_routes\_home\_region](#output\_tgw\_routes\_home\_region) | TGW Routes to the primary region |
+| <a name="output_tgw_routes_in_region"></a> [tgw\_routes\_in\_region](#output\_tgw\_routes\_in\_region) | TGW reoutes in this region |
+| <a name="output_vpc_routes_home"></a> [vpc\_routes\_home](#output\_vpc\_routes\_home) | VPC routes to the primary VPC |
+| <a name="output_vpc_routes_this"></a> [vpc\_routes\_this](#output\_vpc\_routes\_this) | This modules VPC routes |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References

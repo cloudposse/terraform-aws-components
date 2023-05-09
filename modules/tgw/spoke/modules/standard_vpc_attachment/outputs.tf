@@ -10,4 +10,5 @@ output "tg_config" {
     static_routes                     = null
     transit_gateway_vpc_attachment_id = module.standard_vpc_attachment.transit_gateway_vpc_attachment_ids[var.owning_account]
   }
+  description = "Transit Gateway configuration formatted for handling"
 }

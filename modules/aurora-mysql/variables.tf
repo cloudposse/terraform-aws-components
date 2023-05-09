@@ -153,8 +153,9 @@ variable "auto_minor_version_upgrade" {
 }
 
 variable "publicly_accessible" {
-  type    = bool
-  default = false
+  type        = bool
+  default     = false
+  description = "Set to true to create the cluster in a public subnet"
 }
 
 variable "eks_component_names" {
@@ -195,5 +196,21 @@ variable "primary_cluster_component" {
   type        = string
   description = "If this cluster is a read replica and no replication source is explicitly given, the component name for the primary cluster"
   default     = "aurora-mysql"
+}
+
+variable "allow_ingress_from_vpc_accounts" {
+  type        = any
+  default     = []
+  description = <<-EOF
+    List of account contexts to pull VPC ingress CIDR and add to cluster security group.
+
+    e.g.
+
+    {
+      environment = "ue2",
+      stage       = "auto",
+      tenant      = "core"
+    }
+  EOF
 }
 

@@ -34,6 +34,42 @@ variable "ipv4_primary_cidr_block" {
   default     = null
 }
 
+variable "ipv4_primary_cidr_block_association" {
+  type = object({
+    ipv4_ipam_pool_id   = string
+    ipv4_netmask_length = number
+  })
+  description = <<-EOT
+    Configuration of the VPC's primary IPv4 CIDR block via IPAM. Conflicts with `ipv4_primary_cidr_block`.
+    One of `ipv4_primary_cidr_block` or `ipv4_primary_cidr_block_association` must be set.
+    Additional CIDR blocks can be set via `ipv4_additional_cidr_block_associations`.
+    EOT
+  default     = null
+}
+
+variable "ipv4_additional_cidr_block_associations" {
+  type = map(object({
+    ipv4_cidr_block     = string
+    ipv4_ipam_pool_id   = string
+    ipv4_netmask_length = number
+  }))
+  description = <<-EOT
+    IPv4 CIDR blocks to assign to the VPC.
+    `ipv4_cidr_block` can be set explicitly, or set to `null` with the CIDR block derived from `ipv4_ipam_pool_id` using `ipv4_netmask_length`.
+    Map keys must be known at `plan` time, and are only used to track changes.
+    EOT
+  default     = {}
+}
+
+variable "ipv4_cidr_block_association_timeouts" {
+  type = object({
+    create = string
+    delete = string
+  })
+  description = "Timeouts (in `go` duration format) for creating and destroying IPv4 CIDR block associations"
+  default     = null
+}
+
 variable "ipv4_cidrs" {
   type = list(object({
     private = list(string)
@@ -48,6 +84,12 @@ variable "ipv4_cidrs" {
     condition     = length(var.ipv4_cidrs) < 2
     error_message = "Only 1 ipv4_cidrs object can be provided. Lists of CIDRs are passed via the `public` and `private` attributes of the single object."
   }
+}
+
+variable "assign_generated_ipv6_cidr_block" {
+  type        = bool
+  description = "When `true`, assign AWS generated IPv6 CIDR block to the VPC.  Conflicts with `ipv6_ipam_pool_id`."
+  default     = false
 }
 
 variable "public_subnets_enabled" {
@@ -137,12 +179,6 @@ variable "vpc_flow_logs_bucket_tenant_name" {
 variable "nat_eip_aws_shield_protection_enabled" {
   type        = bool
   description = "Enable or disable AWS Shield Advanced protection for NAT EIPs. If set to 'true', a subscription to AWS Shield Advanced must exist in this account."
-  default     = false
-}
-
-variable "eks_tags_enabled" {
-  type        = bool
-  description = "Whether or not to apply EKS-releated tags to resources"
   default     = false
 }
 

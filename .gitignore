@@ -189,3 +189,7 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+*.backup
+
+default.auto.tfvars

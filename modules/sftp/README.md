@@ -25,7 +25,7 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 | <a name="requirement_awsutils"></a> [awsutils](#requirement\_awsutils) | >= 0.11.0 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | >= 2.0 |
 
@@ -33,7 +33,7 @@ components:
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
 
 ## Modules
 
@@ -44,7 +44,7 @@ components:
 | <a name="module_security_group"></a> [security\_group](#module\_security\_group) | cloudposse/security-group/aws | 1.0.1 |
 | <a name="module_sftp"></a> [sftp](#module\_sftp) | cloudposse/transfer-sftp/aws | 1.2.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 
 ## Resources
 

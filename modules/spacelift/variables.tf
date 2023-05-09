@@ -8,12 +8,6 @@ variable "runner_image" {
   description = "Full address & tag of the Spacelift runner image (e.g. on ECR)"
 }
 
-variable "worker_pool_id" {
-  type        = string
-  description = "DEPRECATED: Use worker_pool_name_id_map instead. Worker pool ID"
-  default     = ""
-}
-
 variable "worker_pool_name_id_map" {
   type        = map(any)
   description = "Map of worker pool names to worker pool IDs"
@@ -97,8 +91,14 @@ variable "policies_by_id_enabled" {
 
 variable "policies_by_name_enabled" {
   type        = list(string)
-  description = "List of existing policy names to attach to all Spacelift stacks. These policies must exist in `modules/spacelift/rego-policies`"
+  description = "List of existing policy names to attach to all Spacelift stacks. These policies must exist at `modules/spacelift/rego-policies` OR `var.policies_by_name_path`."
   default     = []
+}
+
+variable "policies_by_name_path" {
+  type        = string
+  description = "Path to the catalog of external Rego policies. The Rego files must exist in the caller's code at the path. The module will create Spacelift policies from the external Rego definitions"
+  default     = ""
 }
 
 variable "administrative_stack_drift_detection_enabled" {
@@ -173,6 +173,18 @@ variable "context_filters" {
   default     = {}
 }
 
+variable "tag_filters" {
+  type        = map(string)
+  description = "A map of tags that will filter stack creation by the matching `tags` set in a component `vars` configuration."
+  default     = {}
+}
+
+variable "administrative_push_policy_enabled" {
+  type        = bool
+  description = "Flag to enable/disable the global administrative push policy"
+  default     = true
+}
+
 variable "administrative_trigger_policy_enabled" {
   type        = bool
   description = "Flag to enable/disable the global administrative trigger policy"
@@ -195,4 +207,22 @@ variable "before_init" {
   type        = list(string)
   description = "List of before-init scripts"
   default     = []
+}
+
+variable "attachment_space_id" {
+  type        = string
+  description = "Specify the space ID for attachments (e.g. policies, contexts, etc.)"
+  default     = "legacy"
+}
+
+variable "stacks_space_id" {
+  type        = string
+  description = "Override the space ID for all stacks (unless the stack config has `dedicated_space` set to true). Otherwise, it will default to the admin stack's space."
+  default     = null
+}
+
+variable "spacelift_stack_dependency_enabled" {
+  type        = bool
+  description = "If enabled, the `spacelift_stack_dependency` Spacelift resource will be used to create dependencies between stacks instead of using the `depends-on` labels. The `depends-on` labels will be removed from the stacks and the trigger policies for dependencies will be detached"
+  default     = false
 }

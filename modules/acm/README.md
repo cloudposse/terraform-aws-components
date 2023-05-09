@@ -2,6 +2,11 @@
 
 This component is responsible for requesting an ACM certificate for a domain and adding a CNAME record to the DNS zone to complete certificate validation.
 
+The ACM component is to manage an unlimited number of certificates, predominantly for vanity domains. While the [dns-primary](/reference-architecture/components/dns-primary) component has the ability to generate ACM certificates, it is very opinionated and can only manage one zone. In reality, companies have many branded domains associated with a load balancer, so we need to be able to generate more complicated certificates.
+
+We have, as a convenience, the ability to create an ACM certificate as part of creating a DNS zone, whether primary or delegated. That convenience is limited to creating `example.com` and `*.example.com` when creating a zone for `example.com`. For example, Acme has delegated `acct.acme.com` and in addition to `*.acct.acme.com` needed an ACM certificate for `*.usw2.acct.acme.com`, so we use the ACM component to provision that, rather than extend the DNS primary or delegated components to take a list of additional certificates. Both are different views on the Single Responsibility Principle.
+
+
 ## Usage
 
 **Stack Level**: Global or Regional
@@ -52,13 +57,13 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
 
 ## Modules
 
@@ -66,7 +71,7 @@ components:
 |------|--------|---------|
 | <a name="module_acm"></a> [acm](#module\_acm) | cloudposse/acm-request-certificate/aws | 0.16.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_private_ca"></a> [private\_ca](#module\_private\_ca) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.3 |
+| <a name="module_private_ca"></a> [private\_ca](#module\_private\_ca) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -118,6 +123,7 @@ components:
 | Name | Description |
 |------|-------------|
 | <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the certificate |
+| <a name="output_domain_name"></a> [domain\_name](#output\_domain\_name) | Certificate domain name |
 | <a name="output_domain_validation_options"></a> [domain\_validation\_options](#output\_domain\_validation\_options) | CNAME records that are added to the DNS zone to complete certificate validation |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the certificate |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -1,9 +1,6 @@
 # Component: `datadog-integration`
 
-This component is responsible for provisioning Datadog AWS integrations. 
-
-It's required that the DataDog API and APP secret keys are available in the `var.datadog_secrets_source_store_account` account
-in AWS SSM Parameter Store at the `/datadog/%v/datadog_app_key` paths (where `%v` are the corresponding account names).
+This component is responsible for provisioning Datadog AWS integrations.
 
 See Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys) for more information.
 
@@ -21,11 +18,7 @@ components:
         spacelift:
           workspace_enabled: true
       vars:
-        datadog_secrets_store_type: SSM
-        datadog_secrets_source_store_account: "tools"
-        datadog_secrets_source_store_region: "us-west-2"
-        datadog_api_secret_key: "dev"
-        datadog_app_secret_key: "dev"
+        enabled: true
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -34,35 +27,26 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 | <a name="requirement_datadog"></a> [datadog](#requirement\_datadog) | >= 3.3.0 |
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws.api_keys"></a> [aws.api\_keys](#provider\_aws.api\_keys) | ~> 4.0 |
+No providers.
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_datadog_integration"></a> [datadog\_integration](#module\_datadog\_integration) | cloudposse/datadog-integration/aws | 0.18.0 |
+| <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | ../datadog-configuration/modules/datadog_keys | n/a |
+| <a name="module_datadog_integration"></a> [datadog\_integration](#module\_datadog\_integration) | cloudposse/datadog-integration/aws | 1.0.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_iam_roles_datadog_secrets"></a> [iam\_roles\_datadog\_secrets](#module\_iam\_roles\_datadog\_secrets) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_store_write"></a> [store\_write](#module\_store\_write) | cloudposse/ssm-parameter-store/aws | 0.10.0 |
+| <a name="module_store_write"></a> [store\_write](#module\_store\_write) | cloudposse/ssm-parameter-store/aws | 0.9.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [aws_secretsmanager_secret.datadog_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
-| [aws_secretsmanager_secret.datadog_app_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
-| [aws_secretsmanager_secret_version.datadog_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
-| [aws_secretsmanager_secret_version.datadog_app_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
-| [aws_ssm_parameter.datadog_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameter.datadog_app_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+No resources.
 
 ## Inputs
 
@@ -73,16 +57,7 @@ components:
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_context_host_and_filter_tags"></a> [context\_host\_and\_filter\_tags](#input\_context\_host\_and\_filter\_tags) | Automatically add host and filter tags for these context keys | `list(string)` | <pre>[<br>  "namespace",<br>  "tenant",<br>  "stage"<br>]</pre> | no |
-| <a name="input_datadog_api_secret_key"></a> [datadog\_api\_secret\_key](#input\_datadog\_api\_secret\_key) | The name of the Datadog API secret | `string` | `"default"` | no |
-| <a name="input_datadog_api_secret_key_source_pattern"></a> [datadog\_api\_secret\_key\_source\_pattern](#input\_datadog\_api\_secret\_key\_source\_pattern) | The format string (%v will be replaced by the var.datadog\_api\_secret\_key) for the key of the Datadog API secret in the source account | `string` | `"/datadog/%v/datadog_api_key"` | no |
-| <a name="input_datadog_api_secret_key_target_pattern"></a> [datadog\_api\_secret\_key\_target\_pattern](#input\_datadog\_api\_secret\_key\_target\_pattern) | The format string (%v will be replaced by the var.datadog\_api\_secret\_key) for the key of the Datadog API secret in the target account | `string` | `"/datadog/datadog_api_key"` | no |
-| <a name="input_datadog_app_secret_key"></a> [datadog\_app\_secret\_key](#input\_datadog\_app\_secret\_key) | The name of the Datadog APP secret | `string` | `"default"` | no |
-| <a name="input_datadog_app_secret_key_source_pattern"></a> [datadog\_app\_secret\_key\_source\_pattern](#input\_datadog\_app\_secret\_key\_source\_pattern) | The format string (%v will be replaced by the var.datadog\_app\_secret\_key) for the key of the Datadog APP secret in the source account | `string` | `"/datadog/%v/datadog_app_key"` | no |
-| <a name="input_datadog_app_secret_key_target_pattern"></a> [datadog\_app\_secret\_key\_target\_pattern](#input\_datadog\_app\_secret\_key\_target\_pattern) | The format string (%v will be replaced by the var.datadog\_api\_secret\_key) for the key of the Datadog APP secret in the target account | `string` | `"/datadog/datadog_app_key"` | no |
 | <a name="input_datadog_aws_account_id"></a> [datadog\_aws\_account\_id](#input\_datadog\_aws\_account\_id) | The AWS account ID Datadog's integration servers use for all integrations | `string` | `"464622532012"` | no |
-| <a name="input_datadog_secrets_source_store_account_stage"></a> [datadog\_secrets\_source\_store\_account\_stage](#input\_datadog\_secrets\_source\_store\_account\_stage) | Stage holding Secret Store for Datadog API and app keys. | `string` | `"tools"` | no |
-| <a name="input_datadog_secrets_source_store_account_tenant"></a> [datadog\_secrets\_source\_store\_account\_tenant](#input\_datadog\_secrets\_source\_store\_account\_tenant) | Tenant holding Secret Store for Datadog API and app keys. | `string` | `"core"` | no |
-| <a name="input_datadog_secrets_store_type"></a> [datadog\_secrets\_store\_type](#input\_datadog\_secrets\_store\_type) | Secret Store type for Datadog API and app keys. Valid values: `SSM`, `ASM` | `string` | `"SSM"` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
@@ -115,6 +90,49 @@ components:
 | <a name="output_datadog_external_id"></a> [datadog\_external\_id](#output\_datadog\_external\_id) | Datadog integration external ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
+
+## FAQ:
+
+### Stack Errors (Spacelift):
+
+```
+╷
+│ Error: error creating AWS integration from https://api.datadoghq.com/api/v1/integration/aws: 409 Conflict: {"errors": ["Could not update AWS Integration due to conflicting updates"]}
+│
+│   with module.datadog_integration.datadog_integration_aws.integration[0],
+│   on .terraform/modules/datadog_integration/main.tf line 18, in resource "datadog_integration_aws" "integration":
+│   18: resource "datadog_integration_aws" "integration" {
+│
+╵
+```
+
+This can happen when you apply multiple integrations at the same time. Fix is easy though, re-trigger the stack.
+
+## Enabling Security Audits
+
+To enable the Datadog compliance capabilities, AWS integration to must have the `SecurityAudit` policy attached to the Datadog IAM role. This is handled by our [https://github.com/cloudposse/terraform-aws-datadog-integration](https://github.com/cloudposse/terraform-aws-datadog-integration) module used
+
+the by the `datadog-integration` component.
+
+Attaching the `SecurityAudit` policy allows Datadog to collect information about how AWS resources are configured (used in Datadog Cloud Security Posture Management to read security configuration metadata)
+
+- Datadog Cloud Security Posture Management (CSPM) makes it easier to assess and visualize the current and historic security posture of cloud environments, automate audit evidence collection, and catch misconfigurations that leave your organization vulnerable to attacks
+
+- Cloud Security Posture Management (CSPM) can be accessed at [https://app.datadoghq.com/security/compliance/home](https://app.datadoghq.com/security/compliance/home)
+
+- The process to enable Datadog Cloud Security Posture Management (CSPM) consists of two steps (one automated, the other manual):
+
+- Enable `SecurityAudit` policy and provision it with terraform
+
+- In Datadog UI, perform the following manual steps:
+
+```
+Go to the Datadog AWS integration tile
+Click on the AWS account where you wish to enable resource collection
+Go to the Resource collection section for that account and check the box "Route resource data to the Cloud Security Posture Management product"
+At the bottom left of the tile, click Update Configuration
+
+```
 
 ## References
 * Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys)

@@ -8,43 +8,62 @@ This component is responsible for creating a peering connection between two VPCs
 
 Here's an example snippet for how to use this component.
 
-`stacks/catalog/vpc-peering/defaults.yaml` (default VPC peering settings for all accounts):
+Default VPC peering settings for all accounts:
 
 ```yaml
+# stacks/catalog/vpc-peering/defaults.yaml
 components:
   terraform:
-    vpc-peering:
-      backend:
-        s3:
-          workspace_key_prefix: vpc-peering
+    vpc-peering/defaults:
       settings:
         spacelift:
           workspace_enabled: true
+      metadata:
+        component: vpc-peering
+        type: abstract
       vars:
         enabled: true
         requester_allow_remote_vpc_dns_resolution: true
         accepter_allow_remote_vpc_dns_resolution: true
 ```
 
-`stacks/catalogs/vpc-peering/ue1-prod.yaml`:
+Use case: Peering v1 accounts to v2
 
 ```yaml
+# stacks/catalogs/vpc-peering/ue1-prod.yaml
 import:
   - catalog/vpc-peering/defaults
 
 components:
   terraform:
     vpc-peering-use1:
-      component: vpc-peering
-      settings:
-        spacelift:
-          workspace_enabled: true
+      metadata:
+        component: vpc-peering
+        inherits:
+          - vpc-peering/defaults
       vars:
         accepter_region: us-east-1
         accepter_vpc_id: vpc-xyz
         accepter_aws_assume_role_arn: arn:aws:iam::<LEGACY ACCOUNT ID>:role/acme-vpc-peering
 ```
 
+Use case: Peering v2 accounts to v2
+
+```yaml
+    vpc-peering/<stage>-vpc0:
+      metadata:
+        component: vpc-peering
+        inherits:
+          - vpc-peering/defaults
+      vars:
+        requester_vpc_component_name: vpc
+        accepter_region: us-east-1
+        accepter_stage_name: <fill-in-with-accepter-stage-name>
+        accepter_vpc:
+          tags:
+            # Fill in with your own information
+            Name: acme-<tenant>-<environment>-<stage>-<name>
+```
 
 ## Legacy Account Configuration
 
@@ -173,29 +192,34 @@ atmos terraform apply vpc-peering -s ue1-prod
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_aws.accepter"></a> [aws.accepter](#provider\_aws.accepter) | >= 3.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_requester_vpc"></a> [requester\_vpc](#module\_requester\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.3 |
+| <a name="module_requester_vpc"></a> [requester\_vpc](#module\_requester\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc_peering"></a> [vpc\_peering](#module\_vpc\_peering) | cloudposse/vpc-peering-multi-account/aws | 0.17.1 |
+| <a name="module_vpc_peering"></a> [vpc\_peering](#module\_vpc\_peering) | cloudposse/vpc-peering-multi-account/aws | 0.19.1 |
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [aws_vpc.accepter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_accepter_allow_remote_vpc_dns_resolution"></a> [accepter\_allow\_remote\_vpc\_dns\_resolution](#input\_accepter\_allow\_remote\_vpc\_dns\_resolution) | Allow accepter VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the requester VPC | `bool` | `true` | no |
-| <a name="input_accepter_aws_assume_role_arn"></a> [accepter\_aws\_assume\_role\_arn](#input\_accepter\_aws\_assume\_role\_arn) | Accepter AWS assume role ARN | `string` | n/a | yes |
+| <a name="input_accepter_aws_assume_role_arn"></a> [accepter\_aws\_assume\_role\_arn](#input\_accepter\_aws\_assume\_role\_arn) | Accepter AWS assume role ARN | `string` | `null` | no |
 | <a name="input_accepter_region"></a> [accepter\_region](#input\_accepter\_region) | Accepter AWS region | `string` | n/a | yes |
-| <a name="input_accepter_vpc_id"></a> [accepter\_vpc\_id](#input\_accepter\_vpc\_id) | Accepter VPC ID | `string` | n/a | yes |
+| <a name="input_accepter_stage_name"></a> [accepter\_stage\_name](#input\_accepter\_stage\_name) | Accepter stage name if in v1 | `string` | `null` | no |
+| <a name="input_accepter_vpc"></a> [accepter\_vpc](#input\_accepter\_vpc) | Accepter VPC map of id, cidr\_block, or default arguments for the data source | `any` | n/a | yes |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_auto_accept"></a> [auto\_accept](#input\_auto\_accept) | Automatically accept peering request | `bool` | `true` | no |
@@ -205,7 +229,8 @@ No resources.
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile to use when importing a resource | `string` | `null` | no |
+| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
+| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
@@ -215,6 +240,7 @@ No resources.
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_requester_allow_remote_vpc_dns_resolution"></a> [requester\_allow\_remote\_vpc\_dns\_resolution](#input\_requester\_allow\_remote\_vpc\_dns\_resolution) | Allow requester VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the accepter VPC | `bool` | `true` | no |
+| <a name="input_requester_vpc_component_name"></a> [requester\_vpc\_component\_name](#input\_requester\_vpc\_component\_name) | Requestor vpc component name | `string` | `"vpc"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |

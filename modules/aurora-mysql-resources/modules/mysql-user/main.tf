@@ -18,39 +18,11 @@ locals {
 
   parameter_write = (local.create_db_user && local.save_password_in_ssm) ? [local.db_password_ssm] : []
 
-  # You cannot grant "ALL" to an RDS user because "ALL" includes privileges that
-  # Master does not have (because this is a managed database).
+  # You cannot grant "ALL" to an RDS user because "ALL" includes privileges that Master does not have (because this is a managed database). 
+  # Instead, use "ALL PRIVILEGES"
   # See the full list of available options at https://docs.amazonaws.cn/en_us/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Security.html
-  # This is all the privileges an application should need.
-  # Privileges not listed are not available.
-  # Privileges commented out are dangerous or cannot be limited to 1 database and should not be needed by an app
   all_rds_app_grants = [
-    "ALTER",
-    "ALTER ROUTINE",
-    "CREATE",
-    "CREATE ROUTINE",
-    "CREATE TEMPORARY TABLES",
-    # "CREATE USER",
-    "CREATE VIEW",
-    "DELETE",
-    "DROP",
-    "EVENT",
-    "EXECUTE",
-    # "GRANT OPTION",
-    "INDEX",
-    "INSERT",
-    "LOAD FROM S3",
-    "LOCK TABLES",
-    # "PROCESS",
-    "REFERENCES",
-    # "RELOAD",
-    # "REPLICATION CLIENT",
-    # "REPLICATION SLAVE",
-    "SELECT",
-    # "SHOW DATABASES",
-    "SHOW VIEW",
-    "TRIGGER",
-    "UPDATE"
+    "ALL PRIVILEGES"
   ]
   all_rds_other_grants = [
     "CREATE USER",
@@ -79,8 +51,6 @@ resource "mysql_user" "default" {
   user               = local.db_user
   host               = "%"
   plaintext_password = local.db_password
-
-  depends_on = [var.instance_ids]
 }
 
 # Grant the user full access to this specific database
@@ -100,10 +70,6 @@ resource "mysql_grant" "default" {
   )])
 
   depends_on = [mysql_user.default]
-  # Apparently this is needed. See https://github.com/terraform-providers/terraform-provider-mysql/issues/55#issuecomment-615463296
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 module "parameter_store_write" {

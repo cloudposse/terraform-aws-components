@@ -61,24 +61,25 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.0 |
-| <a name="requirement_snowflake"></a> [snowflake](#requirement\_snowflake) | ~> 0.25 |
-| <a name="requirement_tls"></a> [tls](#requirement\_tls) | ~> 3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >= 2.3 |
+| <a name="requirement_snowflake"></a> [snowflake](#requirement\_snowflake) | >= 0.25 |
+| <a name="requirement_tls"></a> [tls](#requirement\_tls) | >= 3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 3.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | n/a |
-| <a name="provider_snowflake"></a> [snowflake](#provider\_snowflake) | ~> 0.25 |
-| <a name="provider_tls"></a> [tls](#provider\_tls) | ~> 3.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | >= 2.3 |
+| <a name="provider_snowflake"></a> [snowflake](#provider\_snowflake) | >= 0.25 |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | >= 3.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account"></a> [account](#module\_account) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.1 |
+| <a name="module_account"></a> [account](#module\_account) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_introspection"></a> [introspection](#module\_introspection) | cloudposse/label/null | 0.25.0 |
 | <a name="module_snowflake_account"></a> [snowflake\_account](#module\_snowflake\_account) | cloudposse/label/null | 0.25.0 |

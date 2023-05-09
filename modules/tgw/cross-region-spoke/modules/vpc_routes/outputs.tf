@@ -1,3 +1,4 @@
 output "aws_routes" {
-  value = aws_route.route
+  value       = aws_route.route
+  description = "AWS Routes"
 }

@@ -5,6 +5,12 @@ This utilizes [the roles-to-principals submodule](https://github.com/cloudposse/
 to assign accounts to various roles. It is also compatible with the
 [GitHub Actions IAM Role mixin](https://github.com/cloudposse/terraform-aws-components/blob/master/mixins/github-actions-iam-role/README-github-action-iam-role.md).
 
+
+:::caution
+Older versions of our reference architecture have an`eks-iam` component that needs to be updated to provide sufficient IAM roles to allow pods to pull from ECR repos
+
+:::
+
 ## Usage
 
 **Stack Level**: Regional
@@ -63,7 +69,7 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ecr"></a> [ecr](#module\_ecr) | cloudposse/ecr/aws | 0.34.0 |
+| <a name="module_ecr"></a> [ecr](#module\_ecr) | cloudposse/ecr/aws | 0.35.0 |
 | <a name="module_full_access"></a> [full\_access](#module\_full\_access) | ../account-map/modules/roles-to-principals | n/a |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_readonly_access"></a> [readonly\_access](#module\_readonly\_access) | ../account-map/modules/roles-to-principals | n/a |
@@ -124,6 +130,11 @@ components:
 | <a name="output_ecr_user_unique_id"></a> [ecr\_user\_unique\_id](#output\_ecr\_user\_unique\_id) | ECR user unique ID assigned by AWS |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
+## Related
+
+- [Decide How to distribute Docker Images](/reference-architecture/design-decisions/foundational-platform/decide-how-to-distribute-docker-images)
+
+- [Decide on ECR Strategy](/reference-architecture/design-decisions/foundational-platform/decide-on-ecr-strategy)
 
 ## References
 * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/ecr) - Cloud Posse's upstream component

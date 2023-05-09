@@ -88,6 +88,7 @@ variable "rbac_enabled" {
 
 # Runner-specific settings
 
+/*
 variable "account_map_environment_name" {
   type        = string
   description = "The name of the environment where `account_map` is provisioned"
@@ -110,6 +111,20 @@ variable "account_map_tenant_name" {
   default     = "core"
 }
 
+*/
+
+variable "existing_kubernetes_secret_name" {
+  type        = string
+  description = <<-EOT
+    If you are going to create the Kubernetes Secret the runner-controller will use
+    by some means (such as SOPS) outside of this component, set the name of the secret
+    here and it will be used. In this case, this component will not create a secret
+    and you can leave the secret-related inputs with their default (empty) values.
+    The same secret will be used by both the runner-controller and the webhook-server.
+    EOT
+  default     = ""
+}
+
 variable "s3_bucket_arns" {
   type        = list(string)
   description = "List of ARNs of S3 Buckets to which the runners will have read-write access to."
@@ -129,6 +144,7 @@ variable "runners" {
     dind_enabled: false # A Docker sidecar container will be deployed
     image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'
     scope = "ACME"  # org name for Organization runners, repo name for Repository runners
+    group = "core-automation" # Optional. Assigns the runners to a runner group, for access control.
     scale_down_delay_seconds = 300
     min_replicas = 1
     max_replicas = 5
@@ -147,23 +163,41 @@ variable "runners" {
   EOT
 
   type = map(object({
-    type                           = string
-    scope                          = string
-    image                          = string
-    dind_enabled                   = bool
-    scale_down_delay_seconds       = number
-    min_replicas                   = number
-    max_replicas                   = number
-    busy_metrics                   = map(string)
+    type            = string
+    scope           = string
+    group           = optional(string, null)
+    image           = optional(string, "")
+    dind_enabled    = bool
+    node_selector   = optional(map(string), {})
+    pod_annotations = optional(map(string), {})
+    tolerations = optional(list(object({
+      key      = string
+      operator = string
+      value    = optional(string, null)
+      effect   = string
+    })), [])
+    scale_down_delay_seconds = number
+    min_replicas             = number
+    max_replicas             = number
+    busy_metrics = optional(object({
+      scale_up_threshold    = string
+      scale_down_threshold  = string
+      scale_up_adjustment   = optional(string)
+      scale_down_adjustment = optional(string)
+      scale_up_factor       = optional(string)
+      scale_down_factor     = optional(string)
+    }))
     webhook_driven_scaling_enabled = bool
+    webhook_startup_timeout        = optional(string, null)
     pull_driven_scaling_enabled    = bool
     labels                         = list(string)
-    storage                        = optional(string, false)
+    storage                        = optional(string, null)
+    pvc_enabled                    = optional(string, false)
     resources = object({
       limits = object({
         cpu               = string
         memory            = string
-        ephemeral_storage = optional(string, false)
+        ephemeral_storage = optional(string, null)
       })
       requests = object({
         cpu    = string
@@ -177,15 +211,19 @@ variable "webhook" {
   type = object({
     enabled           = bool
     hostname_template = string
+    queue_limit       = optional(number, 100)
   })
   description = <<-EOT
     Configuration for the GitHub Webhook Server.
     `hostname_template` is the `format()` string to use to generate the hostname via `format(var.hostname_template, var.tenant, var.stage, var.environment)`"
     Typically something like `"echo.%[3]v.%[2]v.example.com"`.
+    `queue_limit` is the maximum number of webhook events that can be queued up processing by the autoscaler.
+    When the queue gets full, webhook events will be dropped (status 500).
   EOT
   default = {
     enabled           = false
     hostname_template = null
+    queue_limit       = 100
   }
 }
 
@@ -195,9 +233,21 @@ variable "eks_component_name" {
   default     = "eks/cluster"
 }
 
-variable "ssm_github_token_path" {
+variable "github_app_id" {
   type        = string
-  description = "The path in SSM to the GitHub token."
+  description = "The ID of the GitHub App to use for the runner controller."
+  default     = ""
+}
+
+variable "github_app_installation_id" {
+  type        = string
+  description = "The \"Installation ID\" of the GitHub App to use for the runner controller."
+  default     = ""
+}
+
+variable "ssm_github_secret_path" {
+  type        = string
+  description = "The path in SSM to the GitHub app private key file contents or GitHub PAT token."
   default     = ""
 }
 

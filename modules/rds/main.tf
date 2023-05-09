@@ -2,10 +2,10 @@ locals {
   enabled = module.this.enabled
 
   vpc_id     = module.vpc.outputs.vpc_id
-  subnet_ids = module.vpc.outputs.private_subnet_ids
+  subnet_ids = var.use_private_subnets ? module.vpc.outputs.private_subnet_ids : module.vpc.outputs.public_subnet_ids
 
   eks_security_groups = var.use_eks_security_group ? [module.eks[0].outputs.eks_cluster_managed_security_group_id] : []
-  dns_zone_id         = module.dns_gbl_delegated.outputs.default_dns_zone_id
+  dns_zone_id         = one(module.dns_gbl_delegated[*].outputs.default_dns_zone_id)
 
   create_user     = local.enabled && length(var.database_user) == 0
   create_password = local.enabled && length(var.database_password) == 0
@@ -22,7 +22,7 @@ locals {
 
 module "rds_client_sg" {
   source  = "cloudposse/security-group/aws"
-  version = "0.3.1"
+  version = "2.0.1"
 
   name    = "${module.this.name}-client"
   enabled = module.this.enabled && var.client_security_group_enabled
@@ -58,7 +58,7 @@ module "rds_instance" {
   db_parameter_group                    = var.db_parameter_group
   db_subnet_group_name                  = var.db_subnet_group_name
   deletion_protection                   = var.deletion_protection
-  dns_zone_id                           = local.dns_zone_id
+  dns_zone_id                           = local.dns_zone_id != null ? local.dns_zone_id : ""
   enabled_cloudwatch_logs_exports       = var.enabled_cloudwatch_logs_exports
   engine                                = var.engine
   engine_version                        = var.engine_version
@@ -73,7 +73,7 @@ module "rds_instance" {
   major_engine_version                  = var.major_engine_version
   max_allocated_storage                 = var.max_allocated_storage
   monitoring_interval                   = var.monitoring_interval
-  monitoring_role_arn                   = var.monitoring_interval != "0" ? module.rds_monitoring_role.arn : var.monitoring_role_arn
+  monitoring_role_arn                   = var.monitoring_interval != "0" ? module.rds_monitoring_role[0].arn : var.monitoring_role_arn
   multi_az                              = var.multi_az
   option_group_name                     = var.option_group_name
   parameter_group_name                  = var.parameter_group_name
@@ -125,7 +125,9 @@ resource "random_password" "database_password" {
 
 module "rds_monitoring_role" {
   source  = "cloudposse/iam-role/aws"
-  version = "0.16.2"
+  version = "0.17.0"
+
+  count = var.monitoring_interval != "0" ? 1 : 0
 
   name    = "${module.this.name}-rds-enhanced-monitoring-role"
   enabled = module.this.enabled && var.monitoring_interval != 0

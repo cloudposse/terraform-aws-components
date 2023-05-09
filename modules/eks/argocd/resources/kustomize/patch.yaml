@@ -1,0 +1,3 @@
+- op: add
+  path: /metadata/annotations/secret.reloader.stakater.com~1reload
+  value: argo-workflows-sso

@@ -36,25 +36,25 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws.tgw_home_region"></a> [aws.tgw\_home\_region](#provider\_aws.tgw\_home\_region) | ~> 4.0 |
-| <a name="provider_aws.tgw_this_region"></a> [aws.tgw\_this\_region](#provider\_aws.tgw\_this\_region) | ~> 4.0 |
+| <a name="provider_aws.tgw_home_region"></a> [aws.tgw\_home\_region](#provider\_aws.tgw\_home\_region) | >= 4.0 |
+| <a name="provider_aws.tgw_this_region"></a> [aws.tgw\_this\_region](#provider\_aws.tgw\_this\_region) | >= 4.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_iam_role_tgw_home_region"></a> [iam\_role\_tgw\_home\_region](#module\_iam\_role\_tgw\_home\_region) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_iam_role_tgw_this_region"></a> [iam\_role\_tgw\_this\_region](#module\_iam\_role\_tgw\_this\_region) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
-| <a name="module_tgw_home_region"></a> [tgw\_home\_region](#module\_tgw\_home\_region) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
-| <a name="module_tgw_this_region"></a> [tgw\_this\_region](#module\_tgw\_this\_region) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.4 |
+| <a name="module_tgw_home_region"></a> [tgw\_home\_region](#module\_tgw\_home\_region) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_tgw_this_region"></a> [tgw\_this\_region](#module\_tgw\_this\_region) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources

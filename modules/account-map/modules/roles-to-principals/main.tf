@@ -10,7 +10,7 @@ module "always" {
 
 module "account_map" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.3.1"
+  version = "1.4.1"
 
   component   = "account-map"
   privileged  = var.privileged
@@ -24,17 +24,24 @@ module "account_map" {
 locals {
   aws_partition = module.account_map.outputs.aws_partition
 
-  principals = distinct(compact(flatten([for acct, v in var.role_map : (
-    contains(v, "*") ? [format("arn:%s:iam::%s:root", local.aws_partition, module.account_map.outputs.full_account_map[acct])] :
-    [
-      for role in v : format(module.account_map.outputs.iam_role_arn_templates[acct], role)
-    ]
-  )])))
+  principals_map = { for acct, v in var.role_map : acct => (
+    contains(v, "*") ? {
+      "*" = format("arn:%s:iam::%s:root", local.aws_partition, module.account_map.outputs.full_account_map[acct])
+    } :
+    {
+      for role in v : role => format(module.account_map.outputs.iam_role_arn_templates[acct], role)
+    }
+  ) }
+
+  # This expression could be simplified, but then the order of principals would be different than in earlier versions, causing unnecessary plan changes.
+  principals = distinct(compact(flatten([for acct, v in var.role_map : values(local.principals_map[acct])])))
 
   # Support for AWS SSO Permission Sets
   permission_set_arn_like = distinct(compact(flatten([for acct, v in var.permission_set_map : formatlist(
-    # arn:aws:iam::550826706431:role/aws-reserved/sso.amazonaws.com/ap-southeast-1/AWSReservedSSO_IdentityAdminRoleAccess_b68e107e9495e2fc
-    # AWS SSO Sometimes includes `/region/`, but not always.
+    # Usually like:
+    # arn:aws:iam::123456789012:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_IdentityAdminRoleAccess_b68e107e9495e2fc
+    # But sometimes AWS SSO ARN includes `/region/`, like:
+    # arn:aws:iam::123456789012:role/aws-reserved/sso.amazonaws.com/ap-southeast-1/AWSReservedSSO_IdentityAdminRoleAccess_b68e107e9495e2fc
     format("arn:%s:iam::%s:role/aws-reserved/sso.amazonaws.com*/AWSReservedSSO_%%s_*", local.aws_partition, module.account_map.outputs.full_account_map[acct]),
   v)])))
 }

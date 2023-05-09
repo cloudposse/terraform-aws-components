@@ -66,7 +66,7 @@ resource "aws_security_group_rule" "egress" {
 
 module "cluster" {
   source  = "cloudposse/ecs-cluster/aws"
-  version = "0.1.0"
+  version = "0.2.2"
 
   context = module.this.context
 
@@ -84,7 +84,60 @@ module "cluster" {
       }
     )
   }
+
+  #  external_ec2_capacity_providers = {
+  #    external_default = {
+  #      autoscaling_group_arn          = module.autoscale_group.autoscaling_group_arn
+  #      managed_termination_protection = false
+  #      managed_scaling_status         = false
+  #      instance_warmup_period         = 300
+  #      maximum_scaling_step_size      = 1
+  #      minimum_scaling_step_size      = 1
+  #      target_capacity_utilization    = 100
+  #    }
+  #  }
+
 }
+
+#locals {
+#  user_data = <<EOT
+##!/bin/bash
+#echo ECS_CLUSTER="${module.cluster.name}" >> /etc/ecs/ecs.config
+#echo ECS_ENABLE_CONTAINER_METADATA=true >> /etc/ecs/ecs.config
+#echo ECS_POLL_METRICS=true >> /etc/ecs/ecs.config
+#EOT
+#
+#}
+#
+#data "aws_ssm_parameter" "ami" {
+#  name = "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id"
+#}
+#
+#module "autoscale_group" {
+#  source  = "cloudposse/ec2-autoscale-group/aws"
+#  version = "0.31.1"
+#
+#  context = module.this.context
+#
+#  image_id                    = data.aws_ssm_parameter.ami.value
+#  instance_type               = "t3.medium"
+#  security_group_ids          = aws_security_group.default.*.id
+#  subnet_ids                  = var.internal_enabled ? module.vpc.outputs.private_subnet_ids : module.vpc.outputs.public_subnet_ids
+#  health_check_type           = "EC2"
+#  desired_capacity            = 1
+#  min_size                    = 1
+#  max_size                    = 2
+#  wait_for_capacity_timeout   = "5m"
+#  associate_public_ip_address = true
+#  user_data_base64            = base64encode(local.user_data)
+#
+#  # Auto-scaling policies and CloudWatch metric alarms
+#  autoscaling_policies_enabled           = true
+#  cpu_utilization_high_threshold_percent = "70"
+#  cpu_utilization_low_threshold_percent  = "20"
+#
+#  iam_instance_profile_name = module.cluster.role_name
+#}
 
 resource "aws_route53_record" "default" {
   for_each = local.dns_enabled ? var.alb_configuration : {}
@@ -108,7 +161,7 @@ data "aws_acm_certificate" "default" {
 
 module "alb" {
   source  = "cloudposse/alb/aws"
-  version = "1.4.0"
+  version = "1.5.0"
 
   for_each = local.enabled ? var.alb_configuration : {}
 

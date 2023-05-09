@@ -1,3 +1,24 @@
+{{- if .Values.pvc_enabled }}
+---
+# Persistent Volumes can be used for image caching
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.release_name }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  # StorageClassName comes from efs-controller and must be deployed first.
+  storageClassName: efs-sc
+  resources:
+    requests:
+      # EFS is not actually storage constrained, but this storage request is
+      # required. 100Gi is a ballpark for how much we initially request, but this
+      # may grow. We are responsible for docker pruning this periodically to 
+      # save space.
+      storage: 100Gi 
+{{- end }}
+---
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
 metadata:
@@ -7,7 +28,23 @@ spec:
   # See https://github.com/actions-runner-controller/actions-runner-controller/issues/206#issuecomment-748601907
   # replicas: 1
   template:
+    {{- with index .Values "pod_annotations" }}
+    metadata:
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
     spec:
+      # As of 2023-03-31
+      # Recommended by https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md
+      terminationGracePeriodSeconds: 100
+      env:
+      # RUNNER_GRACEFUL_STOP_TIMEOUT is the time the runner will give itself to try to finish
+      # a job before it gracefully cancels itself in response to a pod termination signal.
+      # It should be less than the terminationGracePeriodSeconds above so that it has time
+      # to report its status and deregister itself from the runner pool.
+      - name: RUNNER_GRACEFUL_STOP_TIMEOUT
+        value: "90"
+
       # You could reserve nodes for runners by labeling and tainting nodes with
       #   node-role.kubernetes.io/actions-runner
       # and then adding the following to this RunnerDeployment
@@ -22,10 +59,13 @@ spec:
 
       {{ if eq .Values.type "organization" }}
       organization: {{ .Values.scope }}
-      {{ end }}
+      {{- end }}
       {{ if eq .Values.type "repository" }}
       repository: {{ .Values.scope }}
-      {{ end }}
+      {{- end }}
+      {{ if index .Values "group" }}
+      group: {{ .Values.group }}
+      {{- end }}
       # You can use labels to create subsets of runners.
       # See https://github.com/summerwind/actions-runner-controller#runner-labels
       # and https://docs.github.com/en/free-pro-team@latest/actions/hosting-your-own-runners/using-self-hosted-runners-in-a-workflow
@@ -37,6 +77,14 @@ spec:
       {{- range .Values.labels }}
         - {{ . | quote }}
       {{- end }}
+      {{- if gt ( len (index .Values "node_selector") ) 0 }}
+      nodeSelector:
+        {{- toYaml .Values.node_selector | nindent 8 }}
+      {{- end }}
+      {{- if gt ( len (index .Values "tolerations") ) 0 }}
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 8 }}
+      {{- end }}
       # dockerdWithinRunnerContainer = false means access to a Docker daemon is provided by a sidecar container.
       dockerdWithinRunnerContainer: {{ .Values.dind_enabled }}
       image: {{ .Values.image | quote }}
@@ -46,17 +94,28 @@ spec:
         limits:
           cpu: {{ .Values.resources.limits.cpu }}
           memory: {{ .Values.resources.limits.memory }}
-          {{- if and .Values.dind_enabled .Values.resources.limits.ephemeral_storage }}
+          {{- if index .Values.resources.limits "ephemeral_storage" }}
           ephemeral-storage: {{ .Values.resources.limits.ephemeral_storage }}
           {{- end }}
         requests:
           cpu: {{ .Values.resources.requests.cpu }}
           memory: {{ .Values.resources.requests.memory }}
+          {{- if index .Values.resources.requests "ephemeral_storage" }}
+          ephemeral-storage: {{ .Values.resources.requests.ephemeral_storage }}
+          {{- end }}
       {{- if and .Values.dind_enabled .Values.storage }}
       dockerVolumeMounts:
       - mountPath: /var/lib/docker
         name: docker-volume
+      {{- end }}
+      {{- if .Values.pvc_enabled }}
+      volumeMounts:
+      - mountPath: /home/runner/work/shared
+        name: shared-volume
+      {{- end }}
+      {{- if or (and .Values.dind_enabled .Values.storage) (.Values.pvc_enabled) }}
       volumes:
+      {{- if and .Values.dind_enabled .Values.storage }}
       - name: docker-volume
         ephemeral:
           volumeClaimTemplate:
@@ -65,4 +124,10 @@ spec:
               resources:
                 requests:
                   storage: {{ .Values.storage }}
+      {{- end }}
+      {{- if .Values.pvc_enabled }}
+      - name: shared-volume
+        persistentVolumeClaim:
+          claimName: {{ .Values.release_name }}
+      {{- end }}
       {{- end }}

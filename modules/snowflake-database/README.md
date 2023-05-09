@@ -45,15 +45,15 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.0 |
-| <a name="requirement_snowflake"></a> [snowflake](#requirement\_snowflake) | ~> 0.25 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
+| <a name="requirement_snowflake"></a> [snowflake](#requirement\_snowflake) | >= 0.25 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 3.0 |
-| <a name="provider_snowflake"></a> [snowflake](#provider\_snowflake) | ~> 0.25 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
+| <a name="provider_snowflake"></a> [snowflake](#provider\_snowflake) | >= 0.25 |
 
 ## Modules
 
@@ -61,7 +61,7 @@ components:
 |------|--------|---------|
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_introspection"></a> [introspection](#module\_introspection) | cloudposse/label/null | 0.25.0 |
-| <a name="module_snowflake_account"></a> [snowflake\_account](#module\_snowflake\_account) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.1 |
+| <a name="module_snowflake_account"></a> [snowflake\_account](#module\_snowflake\_account) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_snowflake_database"></a> [snowflake\_database](#module\_snowflake\_database) | cloudposse/label/null | 0.25.0 |
 | <a name="module_snowflake_label"></a> [snowflake\_label](#module\_snowflake\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_snowflake_schema"></a> [snowflake\_schema](#module\_snowflake\_schema) | cloudposse/label/null | 0.25.0 |

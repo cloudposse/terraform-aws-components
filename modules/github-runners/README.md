@@ -2,6 +2,10 @@
 
 This component is responsible for provisioning EC2 instances for GitHub runners.
 
+:::info
+We also have a similar component based on [actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller) for Kubernetes.
+
+:::
 ## Usage
 
 **Stack Level**: Regional
@@ -13,16 +17,16 @@ components:
   terraform:
     github-runners:
       vars:
-        github_scope: company
-        instance_type: "t3.small"
-        min_size: 1
-        max_size: 10
-        default_cooldown: 300
-        scale_down_cooldown_seconds: 2700
-        wait_for_capacity_timeout: 10m
         cpu_utilization_high_threshold_percent: 5
         cpu_utilization_low_threshold_percent: 1
-        spot_maxprice: 0.02
+        default_cooldown: 300
+        github_scope: company
+        instance_type: "t3.small"
+        max_size: 10
+        min_size: 1
+        runner_group: default
+        scale_down_cooldown_seconds: 2700
+        wait_for_capacity_timeout: 10m
         mixed_instances_policy:
           instances_distribution:
             on_demand_allocation_strategy: "prioritized"
@@ -67,6 +71,94 @@ assume-role <automation-admin role>
 chamber write github/runners/<github-org> registration-token ghp_secretstring
 ```
 
+
+## Background
+
+### Registration
+Github Actions Self-Hosted runners can be scoped to the Github Organization, a Single Repository, or a group of Repositories (Github Enterprise-Only). Upon startup, each runner uses a `REGISTRATION_TOKEN` to call the Github API to register itself with the Organization, Repository, or Runner Group (Github Enterprise).
+
+### Running Workflows
+Once a Self-Hosted runner is registered, you will have to update your workflow with the `runs-on` attribute specify it should run on a self-hosted runner:
+
+```
+name: Test Self Hosted Runners
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: [self-hosted]
+```
+
+### Workflow Github Permissions (GITHUB_TOKEN)
+Each run of the Github Actions Workflow is assigned a GITHUB_TOKEN, which allows your workflow to perform actions against Github itself such as cloning a repo, updating the checks API status, etc., and expires at the end of the workflow run. The GITHUB_TOKEN has two permission "modes" it can operate in `Read and write permissions` ("Permissive" or "Full Access") and `Read repository contents permission` ("Restricted" or "Read-Only").  By default, the GITHUB_TOKEN is granted Full Access permissions, but you can change this via the Organization or Repo settings. If you opt for the Read-Only permissions, you can optionally grant or revoke access to specific APIs via the workflow `yaml` file and a full list of APIs that can be accessed can be found in the [documentation](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token) and is shown below in the table. It should be noted that the downside to this permissions model is that any user with write access to the repository can escalate permissions for the workflow by updating the `yaml` file, however, the APIs available via this token are limited. Most notably the GITHUB_TOKEN does not have access to the `users`, `repos`, `apps`, `billing`, or `collaborators` APIs, so the tokens do not have access to modify sensitive settings or add/remove users from the Organization/Repository.
+
+<img src="/assets/refarch/cleanshot-2022-03-01-at-17.14.02-20220301-234351.png" height="664" width="720" /><br/>
+
+> Example of using escalated permissions for the entire workflow
+```
+name: Pull request labeler
+on: [ pull_request_target ]
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/labeler@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+> Example of using escalated permissions for a job
+```
+name: Create issue on commit
+on: [ push ]
+jobs:
+  create_commit:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Create issue using REST API
+        run: |
+          curl --request POST \
+          --url https://api.github.com/repos/${{ github.repository }}/issues \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          --data '{
+            "title": "Automated issue for commit: ${{ github.sha }}",
+            "body": "This issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n The commit hash was: _${{ github.sha }}_."
+            }' \
+          --fail
+```
+
+### Pre-Requisites for Using This Component
+In order to use this component, you will have to obtain the `REGISTRATION_TOKEN` mentioned above from your Github Organization or Repository and store it in SSM Parameter store. In addition, it is recommended that you set the permissions “mode” for Self-hosted runners to Read-Only. The instructions for doing both are below.
+
+#### Workflow Permissions
+1. Browse to [https://github.com/organizations/{Org}/settings/actions](https://github.com/organizations/{Org}/settings/actions) (Organization) or  [https://github.com/{Org}/{Repo}/settings/actions](https://github.com/{Org}/{Repo}/settings/actions) (Repository)
+
+2. Set the default permissions for the GITHUB_TOKEN to Read Only
+
+<img src="/assets/refarch/cleanshot-2022-03-01-at-16.10.02-20220302-005602.png" height="199" width="786" /><br/>
+
+#### Obtain the Runner Registration Token
+1. Browse to [https://github.com/organizations/{Org}/settings/actions/runners](https://github.com/organizations/{Org}/settings/actions/runners) (Organization) or [https://github.com/{Org}/{Repo}/settings/actions/runners](https://github.com/{Org}/{Repo}/settings/actions/runners) (Repository)
+
+2. Click the **New Runner** button (Organization) or **New Self Hosted Runner** button (Repository)
+
+3. Copy the Github Runner token from the next screen. Note that this is the only time you will see this token. Note that if you exit the `New {Self Hosted} Runner` screen and then later return by clicking the `New {Self Hosted} Runner` button again, the registration token will be invalidated and a new token will be generated.
+
+<img src="/assets/refarch/cleanshot-2022-03-01-at-16.12.26-20220302-005927.png" height="1010" width="833" /><br/>
+
+4. Add the `REGISTRATION_TOKEN` to the  `/github/token` SSM parameter in the account where Github runners are hosted (usually `automation`), encrypted with KMS.
+
+```
+chamber write github token <value>
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -87,13 +179,13 @@ chamber write github/runners/<github-org> registration-token ghp_secretstring
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.1.1 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_autoscale_group"></a> [autoscale\_group](#module\_autoscale\_group) | cloudposse/ec2-autoscale-group/aws | 0.30.1 |
 | <a name="module_graceful_scale_in"></a> [graceful\_scale\_in](#module\_graceful\_scale\_in) | ./modules/graceful_scale_in | n/a |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_sg"></a> [sg](#module\_sg) | cloudposse/security-group/aws | 1.0.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.1.1 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 
 ## Resources
 
@@ -151,6 +243,7 @@ chamber write github/runners/<github-org> registration-token ghp_secretstring
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
+| <a name="input_runner_group"></a> [runner\_group](#input\_runner\_group) | GitHub runner group | `string` | `"default"` | no |
 | <a name="input_runner_labels"></a> [runner\_labels](#input\_runner\_labels) | List of labels to add to the GitHub Runner (e.g. 'Amazon Linux 2'). | `list(string)` | `[]` | no |
 | <a name="input_runner_role_additional_policy_arns"></a> [runner\_role\_additional\_policy\_arns](#input\_runner\_role\_additional\_policy\_arns) | List of policy ARNs that will be attached to the runners' default role on creation in addition to the defaults | `list(string)` | `[]` | no |
 | <a name="input_runner_version"></a> [runner\_version](#input\_runner\_version) | GitHub runner release version | `string` | `"2.288.1"` | no |
@@ -178,7 +271,81 @@ chamber write github/runners/<github-org> registration-token ghp_secretstring
 | <a name="output_ssm_document_arn"></a> [ssm\_document\_arn](#output\_ssm\_document\_arn) | The ARN of the SSM document. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
+
+## FAQ
+
+### Can we scope it to a github org with both private and public repos ?
+
+Yes but this requires Github Enterprise Cloud and the usage of runner groups to scope permissions of runners to specific repos. If you set the scope to the entire org without runner groups and if the org has both public and private repos, then the risk of using a self-hosted runner incorrectly is a vulnerability within public repos.
+
+[https://docs.github.com/en/actions/hosting-your-own-runners/managing-access-to-self-hosted-runners-using-groups](https://docs.github.com/en/actions/hosting-your-own-runners/managing-access-to-self-hosted-runners-using-groups)
+
+If you do not have github enterprise cloud and runner groups cannot be utilized, then it’s best to create new github runners per repo or use the summerwind action-runners-controller via a Github App to set the scope to specific repos.
+
+### How can we see the current spot pricing?
+
+Go to [ec2instances.info](http://ec2instances.info/)
+
+### If we don’t use mixed at all does that mean we can’t do spot?
+
+It’s possible to do spot without using mixed instances but you leave yourself open to zero instance availability with a single instance type.
+
+For example, if you wanted to use spot and use `t3.xlarge` in `us-east-2` and for some reason, AWS ran out of `t3.xlarge`, you wouldn't have the option to choose another instance type and so all the GitHub Action runs would stall until availability returned. If you use on-demand pricing, it’s more expensive, but you’re more likely to get scheduling priority. For guaranteed availability, reserved instances are required.
+
+### Do the overrides apply to both the on-demand and the spot instances, or only the spot instances?
+
+Since the overrides affect the launch template, I believe they will affect both spot instances and override since weighted capacity can be set for either or. The override terraform option is on the ASG’s `launch_template`
+
+> List of nested arguments provides the ability to specify multiple instance types. This will override the same parameter in the launch template. For on-demand instances, Auto Scaling considers the order of preference of instance types to launch based on the order specified in the overrides list. Defined below.
+And in the terraform resource for `instances_distribution`
+
+> `spot_max_price` - (Optional) Maximum price per unit hour that the user is willing to pay for the Spot instances. Default: an empty string which means the on-demand price.
+For a `mixed_instances_policy`, this will do purely on-demand
+
+```
+        mixed_instances_policy:
+          instances_distribution:
+            on_demand_allocation_strategy: "prioritized"
+            on_demand_base_capacity: 1
+            on_demand_percentage_above_base_capacity: 0
+            spot_allocation_strategy: "capacity-optimized"
+            spot_instance_pools: null
+            spot_max_price: []
+```
+
+This will always do spot unless instances are unavailable, then switch to on-demand.
+
+```
+        mixed_instances_policy:
+          instances_distribution:
+            # ...
+            spot_max_price: 0.05
+```
+
+If you want a single instance type, you could still use the mixed instances policy to define that like above, or you can use these other inputs and comment out the `mixed_instances_policy`
+
+```
+        instance_type: "t3.xlarge"
+        # the below is optional in order to set the spot max price
+        instance_market_options:
+          market_type = "spot"
+          spot_options:
+            block_duration_minutes: 6000
+            instance_interruption_behavior: terminate
+            max_price: 0.05
+            spot_instance_type = persistent
+            valid_until: null
+```
+
+The `overrides` will override the `instance_type` above.
+
+
+
 ## References
 * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/github-runners) - Cloud Posse's upstream component
+* [AWS: Auto Scaling groups with multiple instance types and purchase options](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-mixed-instances-groups.html)
+* [InstancesDistribution](https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_InstancesDistribution.html)
+- [MixedInstancesPolicy](https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_MixedInstancesPolicy.html)
+- [Terraform ASG `Override` Attribute](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group#override)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

@@ -8,7 +8,8 @@ locals {
   txt_owner       = var.txt_prefix != "" ? format(module.this.tenant != null ? "%[1]s-%[2]s-%[3]s-%[4]s" : "%[1]s-%[2]s-%[4]s", var.txt_prefix, module.this.environment, module.this.tenant, module.this.stage) : ""
   txt_prefix      = var.txt_prefix != "" ? format("%s-", local.txt_owner) : ""
   zone_ids = compact(concat(
-    values(module.dns_gbl_delegated.outputs.zones)[*].zone_id
+    values(module.dns_gbl_delegated.outputs.zones)[*].zone_id,
+    values(module.dns_gbl_primary.outputs.zones)[*].zone_id
   ))
 }
 

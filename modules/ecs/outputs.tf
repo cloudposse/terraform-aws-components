@@ -1,10 +1,10 @@
 output "cluster_arn" {
-  value       = module.cluster.name
+  value       = module.cluster.arn
   description = "ECS cluster ARN"
 }
 
 output "cluster_name" {
-  value       = module.cluster.arn
+  value       = module.cluster.name
   description = "ECS Cluster Name"
 }
 

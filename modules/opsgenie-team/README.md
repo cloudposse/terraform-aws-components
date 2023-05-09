@@ -4,6 +4,13 @@ This component is responsible for provisioning Opsgenie teams and related servic
 
 ## Usage
 
+#### Pre-requisites
+You need an API Key stored in `/opsgenie/opsgenie_api_key` of SSM, this is configurable using the `ssm_parameter_name_format` and `ssm_path` variables.
+
+Generate an API Key by going [here](https://id.atlassian.com/manage-profile/security/api-tokens) and Clicking **Create API Token**.
+
+#### Getting Started
+
 **Stack Level**: Global
 
 Here's an example snippet for how to use this component.
@@ -12,7 +19,7 @@ This component should only be applied once as the resources it creates are regio
 
 ```yaml
 # 9-5 Mon-Fri
-business_hours: &buisness_hours
+business_hours: &business_hours
   type: "weekday-and-time-of-day"
   restrictions:
     - start_hour: 9
@@ -31,6 +38,7 @@ waking_hours: &waking_hours
       end_hour: 17
       end_min: 00
 
+# This is a partial incident mapping, we use this as a base to add P1 & P2 below. This is not a complete mapping as there is no P0
 priority_level_to_incident: &priority_level_to_incident
   enabled: true
   type: incident
@@ -72,7 +80,7 @@ components:
     opsgenie-team-defaults:
       metadata:
         type: abstract
-        component: opsgenie
+        component: opsgenie-team
 
       vars:
         schedules:
@@ -81,6 +89,8 @@ components:
             description: "London Schedule"
             timezone: "Europe/London"
 
+        # Routing Rules determine how alerts are routed to the team,
+        # this includes priority changes, incident mappings, and schedules.
         routing_rules:
           london_schedule:
             enabled: false
@@ -99,6 +109,8 @@ components:
                   expected_value: P2
 
           # Since Incidents require a service, we create a rule for every `routing_rule` type `incident` for every service on the team.
+          # This is done behind the scenes by the `opsgenie-team` component.
+          # These rules below map P1 & P2 to incidents, using yaml anchors from above.
           p1: *p1_is_incident
           p2: *p2_is_incident
 
@@ -124,7 +136,7 @@ components:
             enabled: true
             name: otherteam_escalation
             description: Other team escalation
-            rule:
+            rules:
               condition: if-not-acked
               notify_type: default
               delay: 60
@@ -136,7 +148,7 @@ components:
             enabled: true
             name: yaep_escalation
             description: Yet another escalation policy
-            rule:
+            rules:
               condition: if-not-acked
               notify_type: default
               delay: 90
@@ -148,14 +160,13 @@ components:
             enabled: true
             name: schedule_escalation
             description: Schedule escalation policy
-            rule:
+            rules:
               condition: if-not-acked
               notify_type: default
               delay: 30
               recipients:
               - type: schedule
                 name: secondary_on_call
-
 ```
 
 The API keys relating to the Opsgenie Integrations are stored in SSM Parameter Store and can be accessed via chamber.
@@ -165,7 +176,6 @@ AWS_PROFILE=foo chamber list opsgenie-team/<team>
 ```
 
 ### ClickOps Work
- - The initial Setup requires ClickOps to setup the datadog integration on the datadog side. This is a limitation because there isn’t a resource for datadog to create an opsgenie integration so this has to be done manually via ClickOps. (See Limitations Below)
  - After deploying the opsgenie-team component the created team will have a schedule named after the team. This is purposely left to be clickOps’d so the UI can be used to set who is on call, as that is the usual way (not through code). Additionally We do not want a re-apply of the terraform to delete or shuffle who is planned to be on call, thus we left who is on-call on a schedule out of the component.
 
 ## Known Issues
@@ -187,7 +197,7 @@ The problem is there are 3 different api endpoints in use
 
 ### There isn’t a resource for datadog to create an opsgenie integration so this has to be done manually via ClickOps
 
- - Track the issue: https://github.com/DataDog/terraform-provider-datadog/issues/836
+ - Track the issue: x
 
 ### No Resource to create Slack Integration
 
@@ -239,25 +249,27 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
+| <a name="requirement_datadog"></a> [datadog](#requirement\_datadog) | >= 3.3.0 |
 | <a name="requirement_opsgenie"></a> [opsgenie](#requirement\_opsgenie) | >= 0.6.7 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
+| <a name="provider_datadog"></a> [datadog](#provider\_datadog) | >= 3.3.0 |
 | <a name="provider_opsgenie"></a> [opsgenie](#provider\_opsgenie) | >= 0.6.7 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | ../datadog-configuration/modules/datadog_keys | n/a |
 | <a name="module_escalation"></a> [escalation](#module\_escalation) | ./modules/escalation | n/a |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_integration"></a> [integration](#module\_integration) | ./modules/integration | n/a |
-| <a name="module_introspection"></a> [introspection](#module\_introspection) | cloudposse/label/null | 0.25.0 |
-| <a name="module_members_merge"></a> [members\_merge](#module\_members\_merge) | cloudposse/config/yaml//modules/deepmerge | 1.0.1 |
+| <a name="module_members_merge"></a> [members\_merge](#module\_members\_merge) | cloudposse/config/yaml//modules/deepmerge | 1.0.2 |
 | <a name="module_routing"></a> [routing](#module\_routing) | ./modules/routing | n/a |
 | <a name="module_schedule"></a> [schedule](#module\_schedule) | cloudposse/incident-management/opsgenie//modules/schedule | 0.16.0 |
 | <a name="module_service"></a> [service](#module\_service) | cloudposse/incident-management/opsgenie//modules/service | 0.16.0 |
@@ -268,7 +280,9 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 
 | Name | Type |
 |------|------|
+| [datadog_integration_opsgenie_service_object.fake_service_name](https://registry.terraform.io/providers/datadog/datadog/latest/docs/resources/integration_opsgenie_service_object) | resource |
 | [aws_ssm_parameter.opsgenie_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+| [aws_ssm_parameter.opsgenie_team_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [opsgenie_team.existing](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/data-sources/team) | data source |
 | [opsgenie_user.team_members](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/data-sources/user) | data source |
 
@@ -280,6 +294,7 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_create_only_integrations_enabled"></a> [create\_only\_integrations\_enabled](#input\_create\_only\_integrations\_enabled) | Whether to reuse all existing resources and only create new integrations | `bool` | `false` | no |
+| <a name="input_datadog_integration_enabled"></a> [datadog\_integration\_enabled](#input\_datadog\_integration\_enabled) | Whether to enable Datadog integration with opsgenie (datadog side) | `bool` | `true` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
@@ -300,7 +315,6 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_required_tags"></a> [required\_tags](#input\_required\_tags) | List of required tag names | `list(string)` | `[]` | no |
 | <a name="input_routing_rules"></a> [routing\_rules](#input\_routing\_rules) | Routing Rules for the team | `any` | `null` | no |
 | <a name="input_schedules"></a> [schedules](#input\_schedules) | Schedules to create for the team | `map(any)` | `{}` | no |
 | <a name="input_services"></a> [services](#input\_services) | Services to create and register to the team. | `map(any)` | `{}` | no |
@@ -309,6 +323,8 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_team"></a> [team](#input\_team) | Configure the team inputs | `map(any)` | `{}` | no |
+| <a name="input_team_name"></a> [team\_name](#input\_team\_name) | Current OpsGenie Team Name | `string` | `null` | no |
+| <a name="input_team_naming_format"></a> [team\_naming\_format](#input\_team\_naming\_format) | OpsGenie Team Naming Format | `string` | `"%s_%s"` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 
 ## Outputs
@@ -322,6 +338,17 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 | <a name="output_team_members"></a> [team\_members](#output\_team\_members) | Team members |
 | <a name="output_team_name"></a> [team\_name](#output\_team\_name) | Team Name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+## Related How-to Guides
+
+- [How to Add Users to a Team in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-add-users-to-a-team-in-opsgenie)
+- [How to Pass Tags Along to Datadog](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-pass-tags-along-to-datadog)
+- [How to Onboard a New Service with Datadog and OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-onboard-a-new-service-with-datadog-and-opsgenie)
+- [How to Create Escalation Rules in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-create-escalation-rules-in-opsgenie)
+- [How to Setup Rotations in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-setup-rotations-in-opsgenie)
+- [How to Create New Teams in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-create-new-teams-in-opsgenie)
+- [How to Sign Up for OpsGenie?](/reference-architecture/how-to-guides/tutorials/how-to-sign-up-for-opsgenie)
+- [How to Implement Incident Management with OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie)
 
 ## References
 * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/opsgenie-team) - Cloud Posse's upstream component

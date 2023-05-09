@@ -1,0 +1,6 @@
+http_check.yaml:
+  cluster_check: true
+  init_config:
+  instances:
+    - name: "[${stage}] Echo Server"
+      url: "https://echo.${stage}.acme.com"
