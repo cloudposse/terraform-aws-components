@@ -36,7 +36,6 @@ data "aws_iam_policy_document" "github_actions_iam_platform_policy" {
     }
   }
 
-  # Allow chamber to read secrets
   statement {
     sid    = "AllowKMSAccess"
     effect = "Allow"
@@ -44,6 +43,7 @@ data "aws_iam_policy_document" "github_actions_iam_platform_policy" {
       "kms:Decrypt",
       "kms:DescribeKey"
     ]
+    #bridgecrew:skip=BC_AWS_IAM_57:OK Allow to Decrypt with any key.
     resources = [
       "*"
     ]
@@ -67,6 +67,7 @@ data "aws_iam_policy_document" "github_actions_iam_platform_policy" {
       "ssm:DescribeParameters",
       "ssm:GetParametersByPath"
     ]
+    #bridgecrew:skip=BC_AWS_IAM_57:OK Allow to read from any ssm parameter store for chamber.
     resources = [
       "*"
     ]
