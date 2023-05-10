@@ -1,3 +1,13 @@
+locals {
+  use_include_regions      = length(var.included_regions) > 0
+  all_regions              = data.aws_regions.all.names
+  excluded_list_by_include = setsubtract(local.use_include_regions ? local.all_regions : [], var.included_regions)
+}
+
+data "aws_regions" "all" {
+  all_regions = true
+}
+
 module "datadog_integration" {
   source  = "cloudposse/datadog-integration/aws"
   version = "1.0.0"
@@ -8,7 +18,7 @@ module "datadog_integration" {
   integrations                     = var.integrations
   filter_tags                      = local.filter_tags
   host_tags                        = local.host_tags
-  excluded_regions                 = var.excluded_regions
+  excluded_regions                 = concat(var.excluded_regions, tolist(local.excluded_list_by_include))
   account_specific_namespace_rules = var.account_specific_namespace_rules
 
   context = module.this.context
