@@ -15,7 +15,6 @@ locals {
     (local.identity_account_name) = var.aws_teams_rbac[*].aws_team
     }, {
     (local.this_account_name) = var.aws_team_roles_rbac[*].aws_team_role
-    root                      = ["*"]
   })
 
   aws_teams_auth = [for role in var.aws_teams_rbac : {
