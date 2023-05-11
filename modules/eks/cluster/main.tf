@@ -19,7 +19,9 @@ locals {
 
   aws_teams_auth = [for role in var.aws_teams_rbac : {
     rolearn  = module.iam_arns.principals_map[local.identity_account_name][role.aws_team]
-    username = format("%s-%s", local.identity_account_name, role.aws_team)
+    # Include session name in the username for auditing purposes.
+    # See https://aws.github.io/aws-eks-best-practices/security/docs/iam/#use-iam-roles-when-multiple-users-need-identical-access-to-the-cluster
+    username = format("%s-%s::{{SessionName}}", local.identity_account_name, role.aws_team)
     groups   = role.groups
   }]
 
