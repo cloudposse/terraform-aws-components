@@ -13,6 +13,35 @@ via specific CIDR blocks or security group ids.
 
 Here's an example snippet for how to use this component.
 
+### PostgreSQL
+
+```yaml
+components:
+  terraform:
+    rds/defaults:
+      metadata:
+        type: abstract
+      vars:
+        enabled: true
+        use_fullname: false
+        name: my-postgres-db
+        instance_class: db.t3.micro
+        database_name: my-postgres-db
+        # database_user: admin # enable to specify something specific
+        engine: postgres
+        engine_version: "15.2"
+        database_port: 5432
+        db_parameter_group: "postgres15"
+        allocated_storage: 10 #GBs
+        ssm_enabled: true
+        client_security_group_enabled: true
+        ## The following settings allow the database to be accessed from anywhere
+        # publicly_accessible: true
+        # use_private_subnets: false
+        # allowed_cidr_blocks:
+        #  - 0.0.0.0/0
+```
+
 ### Microsoft SQL
 
 ```yaml
@@ -41,7 +70,7 @@ components:
         deletion_protection: false
 ```
 ### Provisioning from a snapshot
-The snapshot identifier variable can be added to provision an instance from a snapshot HOWEVER- 
+The snapshot identifier variable can be added to provision an instance from a snapshot HOWEVER-
 Keep in mind these instances are provisioned from a unique kms key per rds.
 For clean terraform runs, you must first provision the key for the destination instance, then copy the snapshot using that kms key.
 
