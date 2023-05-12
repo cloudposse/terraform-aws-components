@@ -296,7 +296,7 @@ variable "s3_replication_source_roles" {
 
 variable "bucket_name" {
   type        = string
-  default     = null
+  default     = ""
   description = "Bucket name. If provided, the bucket will be created with this name instead of generating the name from the context"
 }
 

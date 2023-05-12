@@ -44,7 +44,7 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 
 ## Providers
 
@@ -108,10 +108,10 @@ No resources.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_tgw_routes_home_region"></a> [tgw\_routes\_home\_region](#output\_tgw\_routes\_home\_region) | n/a |
-| <a name="output_tgw_routes_in_region"></a> [tgw\_routes\_in\_region](#output\_tgw\_routes\_in\_region) | n/a |
-| <a name="output_vpc_routes_home"></a> [vpc\_routes\_home](#output\_vpc\_routes\_home) | n/a |
-| <a name="output_vpc_routes_this"></a> [vpc\_routes\_this](#output\_vpc\_routes\_this) | n/a |
+| <a name="output_tgw_routes_home_region"></a> [tgw\_routes\_home\_region](#output\_tgw\_routes\_home\_region) | TGW Routes to the primary region |
+| <a name="output_tgw_routes_in_region"></a> [tgw\_routes\_in\_region](#output\_tgw\_routes\_in\_region) | TGW reoutes in this region |
+| <a name="output_vpc_routes_home"></a> [vpc\_routes\_home](#output\_vpc\_routes\_home) | VPC routes to the primary VPC |
+| <a name="output_vpc_routes_this"></a> [vpc\_routes\_this](#output\_vpc\_routes\_this) | This modules VPC routes |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References

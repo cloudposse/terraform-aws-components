@@ -22,7 +22,7 @@ module "acm" {
   domain_name                       = var.domain_name
   process_domain_validation_options = var.process_domain_validation_options
   ttl                               = 300
-  subject_alternative_names         = concat([format("*.%s", var.domain_name)], var.subject_alternative_names)
+  subject_alternative_names         = concat(var.enable_asterisk_subject_alternative_name ? [format("*.%s", var.domain_name)] : [], var.subject_alternative_names)
   zone_id                           = join("", data.aws_route53_zone.default.*.zone_id)
 
   context = module.this.context

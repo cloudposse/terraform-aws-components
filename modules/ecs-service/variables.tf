@@ -86,17 +86,19 @@ variable "kinesis_enabled" {
 
 variable "shard_count" {
   description = "Number of shards that the stream will use"
-  default     = "1"
+  type        = number
+  default     = 1
 }
 
 variable "retention_period" {
   description = "Length of time data records are accessible after they are added to the stream"
-  default     = "48"
+  type        = number
+  default     = 48
 }
 
 variable "shard_level_metrics" {
   description = "List of shard-level CloudWatch metrics which can be enabled for the stream"
-
+  type        = list(string)
   default = [
     "IncomingBytes",
     "IncomingRecords",
@@ -110,6 +112,7 @@ variable "shard_level_metrics" {
 
 variable "kms_key_alias" {
   description = "ID of KMS key"
+  type        = string
   default     = "default"
 }
 
@@ -133,6 +136,7 @@ variable "use_rds_client_sg" {
 
 variable "chamber_service" {
   default     = "ecs-service"
+  type        = string
   description = "SSM parameter service name for use with chamber. This is used in chamber_format where /$chamber_service/$name/$container_name/$parameter would be the default."
 }
 

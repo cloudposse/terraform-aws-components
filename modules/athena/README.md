@@ -43,7 +43,7 @@ import:
 
 components:
   terraform:
-    athena-example: 
+    athena/example: 
       metadata:
         component: athena
         inherits:
@@ -57,29 +57,90 @@ components:
           - example_db_2
 ```
 
+### CloudTrail Integration
+
+Using Athena with CloudTrail logs is a powerful way to enhance your analysis of AWS service activity. This component supports creating 
+a CloudTrail table for each account and setting up queries to read CloudTrail logs from a centralized location.
+
+To set up the CloudTrail Integration, first create the `create` and `alter` queries in Athena with this component. When `var.cloudtrail_database`
+is defined, this component will create these queries.
+
+```yaml
+import:
+- catalog/athena/defaults
+
+components:
+  terraform:
+    athena/audit: 
+      metadata:
+        component: athena
+        inherits:
+          - athena/defaults
+      vars:
+        enabled: true
+        name: athena-audit
+        workgroup_description: "Athena Workgroup for Auditing"
+        cloudtrail_database : audit
+        databases:
+          audit:
+            comment: "Auditor database for Athena"
+            properties: {}
+        named_queries:
+          platform_dev:
+            database: audit
+            description: "example query against CloudTrail logs"
+            query: |
+              SELECT
+               useridentity.arn,
+               eventname,
+               sourceipaddress,
+               eventtime
+              FROM %s.platform_dev_cloudtrail_logs
+              LIMIT 100;
+
+```
+
+Once those are created, run the `create` and then the `alter` queries in the AWS Console to create and then fill the tables in Athena.
+
+:::info
+
+Athena runs queries with the permissions of the user executing the query. In order to be able to query CloudTrail logs,
+the `audit` account must have access to the KMS key used to encrypt CloudTrails logs. Set `var.audit_access_enabled` to `true` in the `cloudtrail` 
+component
+
+:::
+
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_athena"></a> [athena](#module\_athena) | cloudposse/athena/aws | 0.1.0 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_athena"></a> [athena](#module\_athena) | cloudposse/athena/aws | 0.1.1 |
+| <a name="module_cloudtrail_bucket"></a> [cloudtrail\_bucket](#module\_cloudtrail\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [aws_athena_named_query.cloudtrail_query_alter_tables](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/athena_named_query) | resource |
+| [aws_athena_named_query.cloudtrail_query_create_tables](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/athena_named_query) | resource |
 
 ## Inputs
 
@@ -91,6 +152,8 @@ No resources.
 | <a name="input_athena_s3_bucket_id"></a> [athena\_s3\_bucket\_id](#input\_athena\_s3\_bucket\_id) | Use an existing S3 bucket for Athena query results if `create_s3_bucket` is `false`. | `string` | `null` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_bytes_scanned_cutoff_per_query"></a> [bytes\_scanned\_cutoff\_per\_query](#input\_bytes\_scanned\_cutoff\_per\_query) | Integer for the upper data usage limit (cutoff) for the amount of bytes a single query in a workgroup is allowed to scan. Must be at least 10485760. | `number` | `null` | no |
+| <a name="input_cloudtrail_bucket_component_name"></a> [cloudtrail\_bucket\_component\_name](#input\_cloudtrail\_bucket\_component\_name) | The name of the CloudTrail bucket component | `string` | `"cloudtrail-bucket"` | no |
+| <a name="input_cloudtrail_database"></a> [cloudtrail\_database](#input\_cloudtrail\_database) | The name of the Athena Database to use for CloudTrail logs. If set, an Athena table will be created for the CloudTrail trail. | `string` | `""` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_create_kms_key"></a> [create\_kms\_key](#input\_create\_kms\_key) | Enable the creation of a KMS key used by Athena workgroup. | `bool` | `true` | no |
 | <a name="input_create_s3_bucket"></a> [create\_s3\_bucket](#input\_create\_s3\_bucket) | Enable the creation of an S3 bucket to use for Athena query results | `bool` | `true` | no |
@@ -137,5 +200,6 @@ No resources.
 
 ## References
 * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/athena) - Cloud Posse's upstream component
+* [Querying AWS CloudTrail logs with AWS Athena](https://docs.aws.amazon.com/athena/latest/ug/cloudtrail-logs.html)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

@@ -40,7 +40,7 @@ module "log_group_prefix" {
 
 module "datadog_lambda_forwarder" {
   source  = "cloudposse/datadog-lambda-forwarder/aws"
-  version = "1.3.0"
+  version = "1.3.1"
 
   cloudwatch_forwarder_log_groups     = local.cloudwatch_forwarder_log_groups
   cloudwatch_forwarder_event_patterns = var.cloudwatch_forwarder_event_patterns

@@ -5,14 +5,17 @@ AllowEFSDescribeOnAllResources:
   actions:
     - elasticfilesystem:DescribeAccessPoints
     - elasticfilesystem:DescribeFileSystems
+    - elasticfilesystem:DescribeMountTargets
+    - ec2:DescribeAvailabilityZones
   resources: ["*"]
   conditions: []
 
-AllowConditionalEFSCreateAccessPoint:
-  sid: "AllowConditionalEFSCreateAccessPoint"
+AllowConditionalEFSAccess:
+  sid: "AllowConditionalEFSAccess"
   effect: Allow
   actions:
     - elasticfilesystem:CreateAccessPoint
+    - elasticfilesystem:TagResource
   resources: ["*"]
   conditions:
     - test: "StringLike"
