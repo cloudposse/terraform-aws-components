@@ -11,14 +11,9 @@ module "logs_bucket" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "1.4.1"
 
+  count = !local.query_log_enabled || var.logs_bucket_component_name == null || var.logs_bucket_component_name == "" ? 0 : 1
+
   component = var.logs_bucket_component_name
-
-  bypass = !local.query_log_enabled || var.logs_bucket_component_name == null || var.logs_bucket_component_name == ""
-
-  defaults = {
-    bucket_id  = ""
-    bucket_arn = ""
-  }
 
   context = module.this.context
 }
