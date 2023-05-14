@@ -77,3 +77,21 @@ variable "audit_account_name" {
   default     = "core-audit"
   description = "The key used in Account Map to find the Audit account"
 }
+
+variable "account_map_environment_name" {
+  type        = string
+  description = "The name of the environment where `account_map` is provisioned"
+  default     = "gbl"
+}
+
+variable "account_map_stage_name" {
+  type        = string
+  description = "The name of the stage where `account_map` is provisioned"
+  default     = "root"
+}
+
+variable "account_map_privileged" {
+  type        = bool
+  description = "True if the caller already has access to the backend without assuming roles"
+  default     = false
+}
