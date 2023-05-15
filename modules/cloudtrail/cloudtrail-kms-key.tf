@@ -1,6 +1,6 @@
 locals {
   audit_access_enabled = module.this.enabled && var.audit_access_enabled
-  audit_account_id     = module.account_map.outputs.full_account_map[var.audit_account_name]
+  audit_account_id     = module.account_map.outputs.full_account_map[module.account_map.outputs.audit_account_account_name]
 }
 
 module "kms_key_cloudtrail" {
