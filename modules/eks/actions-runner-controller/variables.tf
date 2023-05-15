@@ -192,7 +192,7 @@ variable "runners" {
     pull_driven_scaling_enabled    = bool
     labels                         = list(string)
     storage                        = optional(string, null)
-    pvc_enabled                    = optional(string, false)
+    pvc_enabled                    = optional(bool, false)
     resources = object({
       limits = object({
         cpu               = string
