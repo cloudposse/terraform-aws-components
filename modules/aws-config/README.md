@@ -30,7 +30,7 @@ As part of [CIS AWS Foundations 1.20](https://docs.aws.amazon.com/securityhub/la
 
 At the AWS Organizational level, the Components designate an account to be the `central collection account` and a single region to be the `central collection region` so that compliance information can be aggregated into a central location.
 
-Logs are typically written to the `audit` account and AWS Config into to the `security` account.
+Logs are typically written to the `audit` account and AWS Config deployed into to the `security` account.
 
 ## Prerequisites
 
