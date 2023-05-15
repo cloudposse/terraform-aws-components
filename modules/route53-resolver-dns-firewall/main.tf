@@ -5,7 +5,8 @@ locals {
   vpc_outputs = module.vpc.outputs
   vpc_id      = local.vpc_outputs.vpc_id
 
-  logs_bucket_arn = local.query_log_enabled ? module.logs_bucket.outputs.bucket_arn : null
+  logs_bucket_outputs = module.logs_bucket.outputs
+  logs_bucket_arn     = local.logs_bucket_outputs.bucket_arn
 }
 
 module "route53_resolver_dns_firewall" {
