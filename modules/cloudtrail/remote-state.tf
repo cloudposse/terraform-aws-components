@@ -14,9 +14,8 @@ module "account_map" {
   version = "1.4.2"
 
   component   = "account-map"
-  environment = var.account_map_environment_name
-  stage       = var.account_map_stage_name
-  privileged  = var.account_map_privileged
+  environment = module.iam_roles.global_environment_name
+  stage       = module.iam_roles.global_stage_name
 
   context = module.this.context
 }
