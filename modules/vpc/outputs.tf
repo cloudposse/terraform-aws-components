@@ -128,13 +128,3 @@ output "az_public_subnets_map" {
   description = "Map of AZ names to list of public subnet IDs in the AZs"
   value       = module.subnets.az_public_subnets_map
 }
-
-output "az_private_route_table_ids_map" {
-  description = "Map of AZ names to list of private route table IDs in the AZs"
-  value       = module.subnets.az_private_route_table_ids_map
-}
-
-output "az_public_route_table_ids_map" {
-  description = "Map of AZ names to list of public route table IDs in the AZs"
-  value       = module.subnets.az_public_route_table_ids_map
-}
