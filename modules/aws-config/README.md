@@ -119,7 +119,7 @@ atmos terraform plan aws-config-{each region} --stack {each region}-{each stage}
 | <a name="module_cis_1_2"></a> [cis\_1\_2](#module\_cis\_1\_2) | cloudposse/config/aws//modules/cis-1-2-rules | 0.17.0 |
 | <a name="module_cloudtrail_bucket"></a> [cloudtrail\_bucket](#module\_cloudtrail\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
 | <a name="module_config_bucket"></a> [config\_bucket](#module\_config\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
-| <a name="module_config_global_collector_region"></a> [config\_global\_collector\_region](#module\_config\_global\_collector\_region) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
+| <a name="module_global_collector_region"></a> [global\_collector\_region](#module\_global\_collector\_region) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 | <a name="module_utils"></a> [utils](#module\_utils) | cloudposse/utils/aws | 1.1.0 |

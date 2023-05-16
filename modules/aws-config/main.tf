@@ -6,7 +6,7 @@ locals {
   is_global_collector_region         = data.aws_region.this[0].name == var.global_resource_collector_region
   create_iam_role                    = var.create_iam_role && local.is_global_collector_region
   config_iam_role_template           = "arn:aws:iam::${data.aws_caller_identity.this[0].account_id}:role/${module.aws_config_label.id}"
-  config_iam_role_from_state         = local.create_iam_role ? null : module.config_global_collector_region[0].outputs.aws_config_iam_role
+  config_iam_role_from_state         = local.create_iam_role ? null : module.global_collector_region[0].outputs.aws_config_iam_role
   config_iam_role_external           = var.iam_role_arn != null ? var.iam_role_arn : local.config_iam_role_from_state
   config_iam_role_arn                = local.create_iam_role ? local.config_iam_role_template : local.config_iam_role_external
   cis_1_2_rules                      = module.cis_1_2.rules

@@ -37,7 +37,7 @@ module "cloudtrail_bucket" {
   context = module.this.context
 }
 
-module "config_global_collector_region" {
+module "global_collector_region" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "1.4.2"
 
