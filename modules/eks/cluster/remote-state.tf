@@ -33,7 +33,6 @@ module "vpc_ingress" {
   context = module.this.context
 }
 
-
 # Yes, this is self-referential.
 # It obtains the previous state of the cluster so that we can add
 # to it rather than overwrite it (specifically the aws-auth configMap)

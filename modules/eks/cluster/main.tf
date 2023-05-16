@@ -3,10 +3,7 @@ locals {
   eks_outputs = module.eks.outputs
   vpc_outputs = module.vpc.outputs
 
-  attributes         = flatten(concat(module.this.attributes, [var.color]))
-  public_subnet_ids  = local.vpc_outputs.public_subnet_ids
-  private_subnet_ids = local.vpc_outputs.private_subnet_ids
-  vpc_id             = local.vpc_outputs.vpc_id
+  attributes = flatten(concat(module.this.attributes, [var.color]))
 
   this_account_name     = module.iam_roles.current_account_account_name
   identity_account_name = module.iam_roles.identity_account_account_name
@@ -78,6 +75,16 @@ locals {
       module.vpc_ingress[k].outputs.vpc_cidr
     ]
   )
+
+  vpc_id = local.vpc_outputs.vpc_id
+
+  # Get only the public subnets that correspond to the AZs provided in `var.availability_zones`
+  # `az_public_subnets_map` is a map of AZ names to list of public subnet IDs in the AZs
+  public_subnet_ids = flatten([for k, v in local.vpc_outputs.az_public_subnets_map : v if contains(var.availability_zones, k)])
+
+  # Get only the private subnets that correspond to the AZs provided in `var.availability_zones`
+  # `az_private_subnets_map` is a map of AZ names to list of private subnet IDs in the AZs
+  private_subnet_ids = flatten([for k, v in local.vpc_outputs.az_private_subnets_map : v if contains(var.availability_zones, k)])
 }
 
 module "eks_cluster" {
