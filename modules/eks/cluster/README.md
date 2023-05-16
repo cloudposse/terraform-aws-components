@@ -1,6 +1,6 @@
 # Component: `eks/cluster`
 
-This component is responsible for provisioning an end-to-end EKS Cluster, including managed node groups.
+This component is responsible for provisioning an end-to-end EKS Cluster, including managed node groups and Fargate profiles.
 
 
 :::warning
