@@ -99,7 +99,7 @@ module "endpoint_security_groups" {
   for_each = local.enabled && try(length(var.interface_vpc_endpoints), 0) > 0 ? toset([local.interface_endpoint_security_group_key]) : []
 
   source  = "cloudposse/security-group/aws"
-  version = "2.0.0-rc1"
+  version = "2.0.1"
 
   create_before_destroy      = true
   preserve_security_group_id = false
@@ -124,7 +124,6 @@ module "endpoint_security_groups" {
   context = module.this.context
 }
 
-
 module "vpc_endpoints" {
   source  = "cloudposse/vpc/aws//modules/vpc-endpoints"
   version = "2.0.0"
@@ -140,7 +139,7 @@ module "vpc_endpoints" {
 
 module "subnets" {
   source  = "cloudposse/dynamic-subnets/aws"
-  version = "2.0.4"
+  version = "2.1.0"
 
   availability_zones              = local.availability_zones
   availability_zone_ids           = local.availability_zone_ids
