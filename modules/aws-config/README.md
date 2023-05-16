@@ -1,8 +1,19 @@
 # Component: `aws-config`
 
-_**NOTE**: Since AWS Config is regional AWS service, this component needs to be deployed to all regions._
-
 This component is responsible for configuring AWS Config.
+
+AWS Config service enables you to track changes to your AWS resources over time. It continuously monitors and records configuration changes to your AWS resources and provides you with a detailed view of the relationships between those resources. With AWS Config, you can assess, audit, and evaluate the configurations of your AWS resources for compliance, security, and governance purposes.
+
+Some of the key features of AWS Config include:
+- Configuration history: AWS Config maintains a detailed history of changes to your AWS resources, allowing you to see when changes were made, who made them, and what the changes were.
+- Configuration snapshots: AWS Config can take periodic snapshots of your AWS resources configurations, giving you a point-in-time view of their configuration.
+- Compliance monitoring: AWS Config provides a range of pre-built rules and checks to monitor your resources for compliance with best practices and industry standards.
+- Relationship mapping: AWS Config can map the relationships between your AWS resources, enabling you to see how changes to one resource can impact others.
+- Notifications and alerts: AWS Config can send notifications and alerts when changes are made to your AWS resources that could impact their compliance or security posture.
+
+Overall, AWS Config provides you with a powerful toolset to help you monitor and manage the configurations of your AWS resources, ensuring that they remain compliant, secure, and properly configured over time.
+
+## Prerequisites
 
 As part of [CIS AWS Foundations 1.20](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-cis-controls.html#securityhub-cis-controls-1.20), this component assumes that a designated support IAM role with the following permissions has been deployed to every account in the organization:
 
@@ -28,17 +39,17 @@ As part of [CIS AWS Foundations 1.20](https://docs.aws.amazon.com/securityhub/la
 }
 ```
 
-At the AWS Organizational level, the Components designate an account to be the `central collection account` and a single region to be the `central collection region` so that compliance information can be aggregated into a central location.
-
-Logs are typically written to the `audit` account and AWS Config deployed into to the `security` account.
-
-## Prerequisites
-
 Before deploying this AWS Config component `config-bucket` and `cloudtrail-bucket` should be deployed first.
 
 ## Usage
 
 **Stack Level**: Regional
+
+_**NOTE**: Since AWS Config is regional AWS service, this component needs to be deployed to all regions._
+
+At the AWS Organizational level, the Components designate an account to be the `central collection account` and a single region to be the `central collection region` so that compliance information can be aggregated into a central location.
+
+Logs are typically written to the `audit` account and AWS Config deployed into to the `security` account.
 
 Here's an example snippet for how to use this component:
 
@@ -70,7 +81,7 @@ Apply to your central region security account
 atmos terraform plan aws-config-{central-region} --stack core-{central-region}-security -var=create_iam_role=true
 ```
 
-For example:
+For example when central region is `us-east-1`:
 
 ```sh
 atmos terraform plan aws-config-ue1 --stack core-ue1-security -var=create_iam_role=true
@@ -175,6 +186,7 @@ atmos terraform plan aws-config-{each region} --stack {each region}-{each stage}
 
 
 ## References
+* [AWS Config Documentation](https://docs.aws.amazon.com/config/index.html)
 * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/aws-config) - Cloud Posse's upstream component
 
 
