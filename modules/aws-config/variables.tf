@@ -113,8 +113,9 @@ variable "support_role_arn" {
 }
 
 variable "config_rules_paths" {
-  type    = set(string)
-  default = []
+  type        = set(string)
+  description = "The paths to where config rules are located"
+  default     = []
 }
 
 variable "delegated_accounts" {
