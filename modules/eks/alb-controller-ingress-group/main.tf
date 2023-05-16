@@ -171,7 +171,7 @@ data "aws_lb" "default" {
 
   tags = {
     "ingress.k8s.aws/resource" = "LoadBalancer"
-    "ingress.k8s.aws/stack"    = var.name
+    "ingress.k8s.aws/stack"    = local.ingress_controller_group_name
     "elbv2.k8s.aws/cluster"    = module.eks.outputs.eks_cluster_id
   }
 
