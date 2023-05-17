@@ -24,19 +24,6 @@ module "config_bucket" {
   context = module.this.context
 }
 
-module "cloudtrail_bucket" {
-  source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.2"
-
-  component   = "cloudtrail-bucket"
-  tenant      = (var.cloudtrail_bucket_tenant != "") ? var.cloudtrail_bucket_tenant : module.this.tenant
-  stage       = var.cloudtrail_bucket_stage
-  environment = var.cloudtrail_bucket_env
-  privileged  = false
-
-  context = module.this.context
-}
-
 module "global_collector_region" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "1.4.2"

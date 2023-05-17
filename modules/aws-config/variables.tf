@@ -43,22 +43,6 @@ variable "config_bucket_tenant" {
   description = "(Optional) The tenant of the AWS Config S3 Bucket"
 }
 
-variable "cloudtrail_bucket_stage" {
-  type        = string
-  description = "The stage of the AWS Cloudtrail S3 Bucket"
-}
-
-variable "cloudtrail_bucket_env" {
-  type        = string
-  description = "The environment of the AWS Cloudtrail S3 Bucket"
-}
-
-variable "cloudtrail_bucket_tenant" {
-  type        = string
-  default     = ""
-  description = "(Optional) The tenant of the AWS Cloudtrail S3 Bucket"
-}
-
 variable "global_resource_collector_region" {
   description = "The region that collects AWS Config data for global resources such as IAM"
   type        = string
@@ -98,20 +82,6 @@ variable "iam_role_arn" {
   type        = string
 }
 
-variable "central_logging_account" {
-  description = <<-DOC
-    The name of the account that is the centralized logging account. The config rules associated with logging in the 
-    catalog (loggingAccountOnly: true) will be installed only in this account.
-  DOC
-  type        = string
-}
-
-variable "support_role_arn" {
-  type        = string
-  description = "Used to manually define support role instead of remote-state lookup (used for identity account)."
-  default     = ""
-}
-
 variable "conformance_packs" {
   description = <<-DOC
     List of conformance packs. Each conformance pack is a map with the following keys: name, conformance_pack, parameter_overrides.
@@ -143,22 +113,6 @@ variable "conformance_packs" {
     parameter_overrides = map(string)
   }))
   default = []
-}
-
-variable "rules_paths" {
-  description = <<-DOC
-    Additional rules might be set by specifying path to the rule file.
-
-    For example:
-    rule_paths = [
-      "https://raw.githubusercontent.com/cloudposse/terraform-aws-config/0.17.0/catalog/account.yaml",
-      "https://raw.githubusercontent.com/cloudposse/terraform-aws-config/0.17.0/catalog/acm.yaml",
-      "https://raw.githubusercontent.com/cloudposse/terraform-aws-config/0.17.0/catalog/alb.yaml"
-      ...
-    ]
-  DOC
-  type        = set(string)
-  default     = []
 }
 
 variable "delegated_accounts" {
