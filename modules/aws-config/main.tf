@@ -8,7 +8,6 @@ locals {
   config_iam_role_from_state         = local.create_iam_role ? null : module.global_collector_region[0].outputs.aws_config_iam_role
   config_iam_role_external           = var.iam_role_arn != null ? var.iam_role_arn : local.config_iam_role_from_state
   config_iam_role_arn                = local.create_iam_role ? local.config_iam_role_template : local.config_iam_role_external
-  enabled_rules                      = merge(local.custom_rules)
   central_resource_collector_account = local.account_map[var.central_resource_collector_account]
   delegated_accounts                 = var.delegated_accounts != null ? var.delegated_accounts : toset(values(local.account_map))
 }
