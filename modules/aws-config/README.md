@@ -58,19 +58,34 @@ components:
   terraform:
     aws-config:
       vars:
-        enabled: true
+        enabled: true        
+        account_map_tenant: core
+        az_abbreviation_type: fixed
         config_bucket_env: ue1
         config_bucket_stage: audit
-        config_rules_paths:
+        config_bucket_tenant: core
+        cloudtrail_bucket_env: ue1
+        cloudtrail_bucket_stage: audit
+        cloudtrail_bucket_tenant: core
+        ## The virtual component for this given region will need to have var.create_iam_role set to true, as done below
+        create_iam_role: false
+        central_logging_account: core-audit
+        central_resource_collector_account: core-security
+        global_resource_collector_region: us-east-1
+        conformance_packs:
+          - name: Operational-Best-Practices-for-CIS-AWS-v1.4-Level2
+            conformance_pack: https://raw.githubusercontent.com/awslabs/aws-config-rules/master/aws-config-conformance-packs/Operational-Best-Practices-for-CIS-AWS-v1.4-Level2.yaml
+            parameter_overrides: 
+              AccessKeysRotatedParamMaxAccessKeyAge: '45'
+          - name: Operational-Best-Practices-for-HIPAA-Security.yaml
+            conformance_pack: https://raw.githubusercontent.com/awslabs/aws-config-rules/master/aws-config-conformance-packs/Operational-Best-Practices-for-HIPAA-Security.yaml
+            parameter_overrides:
+          ...
+          (etc)
+        rules_paths:
           - https://raw.githubusercontent.com/cloudposse/terraform-aws-config/0.17.0/catalog/account.yaml
           ...
           (etc)
-        central_logging_account: audit
-        central_resource_collector_account: security
-        cloudtrail_bucket_stage: audit
-        cloudtrail_bucket_env: ue1
-        create_iam_role: false
-        global_resource_collector_region: us-east-1
 ```
 
 ## Deployment
@@ -116,9 +131,10 @@ atmos terraform plan aws-config-{each region} --stack {each region}-{each stage}
 | <a name="module_aws_config"></a> [aws\_config](#module\_aws\_config) | cloudposse/config/aws | 0.17.0 |
 | <a name="module_aws_config_label"></a> [aws\_config\_label](#module\_aws\_config\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_aws_team_roles"></a> [aws\_team\_roles](#module\_aws\_team\_roles) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
-| <a name="module_cis_1_2"></a> [cis\_1\_2](#module\_cis\_1\_2) | cloudposse/config/aws//modules/cis-1-2-rules | 0.17.0 |
 | <a name="module_cloudtrail_bucket"></a> [cloudtrail\_bucket](#module\_cloudtrail\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
 | <a name="module_config_bucket"></a> [config\_bucket](#module\_config\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
+| <a name="module_conformance_pack"></a> [conformance\_pack](#module\_conformance\_pack) | cloudposse/config/aws//modules/conformance-pack | 0.17.0 |
+| <a name="module_custom_rules"></a> [custom\_rules](#module\_custom\_rules) | cloudposse/config/aws//modules/cis-1-2-rules | 0.17.0 |
 | <a name="module_global_collector_region"></a> [global\_collector\_region](#module\_global\_collector\_region) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -147,7 +163,7 @@ atmos terraform plan aws-config-{each region} --stack {each region}-{each stage}
 | <a name="input_config_bucket_env"></a> [config\_bucket\_env](#input\_config\_bucket\_env) | The environment of the AWS Config S3 Bucket | `string` | n/a | yes |
 | <a name="input_config_bucket_stage"></a> [config\_bucket\_stage](#input\_config\_bucket\_stage) | The stage of the AWS Config S3 Bucket | `string` | n/a | yes |
 | <a name="input_config_bucket_tenant"></a> [config\_bucket\_tenant](#input\_config\_bucket\_tenant) | (Optional) The tenant of the AWS Config S3 Bucket | `string` | `""` | no |
-| <a name="input_config_rules_paths"></a> [config\_rules\_paths](#input\_config\_rules\_paths) | The paths to where config rules are located | `set(string)` | `[]` | no |
+| <a name="input_conformance_packs"></a> [conformance\_packs](#input\_conformance\_packs) | List of conformance packs. Each conformance pack is a map with the following keys: name, conformance\_pack, parameter\_overrides.<br><br>For example:<br>conformance\_packs = [<br>  {<br>    name                  = "Operational-Best-Practices-for-CIS-AWS-v1.4-Level1"<br>    conformance\_pack      = "https://raw.githubusercontent.com/awslabs/aws-config-rules/master/aws-config-conformance-packs/Operational-Best-Practices-for-CIS-AWS-v1.4-Level1.yaml"<br>    parameter\_overrides   = {<br>      "AccessKeysRotatedParamMaxAccessKeyAge" = "45"<br>    }<br>  },<br>  {<br>    name                  = "Operational-Best-Practices-for-CIS-AWS-v1.4-Level2"<br>    conformance\_pack      = "https://raw.githubusercontent.com/awslabs/aws-config-rules/master/aws-config-conformance-packs/Operational-Best-Practices-for-CIS-AWS-v1.4-Level2.yaml"<br>    parameter\_overrides   = {<br>      "IamPasswordPolicyParamMaxPasswordAge" = "45"<br>    }<br>  }<br>]<br><br>Complete list of AWS Conformance Packs managed by AWSLabs can be found here:<br>https://github.com/awslabs/aws-config-rules/tree/master/aws-config-conformance-packs | <pre>list(object({<br>    name                = string<br>    conformance_pack    = string<br>    parameter_overrides = map(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_create_iam_role"></a> [create\_iam\_role](#input\_create\_iam\_role) | Flag to indicate whether an IAM Role should be created to grant the proper permissions for AWS Config | `bool` | `false` | no |
 | <a name="input_delegated_accounts"></a> [delegated\_accounts](#input\_delegated\_accounts) | The account IDs of other accounts that will send their AWS Configuration or Security Hub data to this account | `set(string)` | `null` | no |
@@ -172,6 +188,7 @@ atmos terraform plan aws-config-{each region} --stack {each region}-{each stage}
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_root_account_stage"></a> [root\_account\_stage](#input\_root\_account\_stage) | The stage name for the Organization root (master) account | `string` | `"root"` | no |
+| <a name="input_rules_paths"></a> [rules\_paths](#input\_rules\_paths) | Additional rules might be set by specifying path to the rule file.<br><br>For example:<br>rule\_paths = [<br>  "https://raw.githubusercontent.com/cloudposse/terraform-aws-config/0.17.0/catalog/account.yaml",<br>  "https://raw.githubusercontent.com/cloudposse/terraform-aws-config/0.17.0/catalog/acm.yaml",<br>  "https://raw.githubusercontent.com/cloudposse/terraform-aws-config/0.17.0/catalog/alb.yaml"<br>  ...<br>] | `set(string)` | `[]` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_support_role_arn"></a> [support\_role\_arn](#input\_support\_role\_arn) | Used to manually define support role instead of remote-state lookup (used for identity account). | `string` | `""` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
@@ -187,7 +204,9 @@ atmos terraform plan aws-config-{each region} --stack {each region}-{each stage}
 
 ## References
 * [AWS Config Documentation](https://docs.aws.amazon.com/config/index.html)
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/aws-config) - Cloud Posse's upstream component
-
+* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/aws-config)
+* [Conformance Packs documentation](https://docs.aws.amazon.com/config/latest/developerguide/conformance-packs.html)
+* [AWS Managed Sample Conformance Packs](https://github.com/awslabs/aws-config-rules/tree/master/aws-config-conformance-packs)
+* [Custom Rules Paths Managed by Cloud Posse](https://github.com/cloudposse/terraform-aws-config/tree/main/catalog)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

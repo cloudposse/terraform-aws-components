@@ -112,9 +112,52 @@ variable "support_role_arn" {
   default     = ""
 }
 
-variable "config_rules_paths" {
+variable "conformance_packs" {
+  description = <<-DOC
+    List of conformance packs. Each conformance pack is a map with the following keys: name, conformance_pack, parameter_overrides.
+
+    For example:
+    conformance_packs = [
+      {
+        name                  = "Operational-Best-Practices-for-CIS-AWS-v1.4-Level1"
+        conformance_pack      = "https://raw.githubusercontent.com/awslabs/aws-config-rules/master/aws-config-conformance-packs/Operational-Best-Practices-for-CIS-AWS-v1.4-Level1.yaml"
+        parameter_overrides   = {
+          "AccessKeysRotatedParamMaxAccessKeyAge" = "45"
+        }
+      },
+      {
+        name                  = "Operational-Best-Practices-for-CIS-AWS-v1.4-Level2"
+        conformance_pack      = "https://raw.githubusercontent.com/awslabs/aws-config-rules/master/aws-config-conformance-packs/Operational-Best-Practices-for-CIS-AWS-v1.4-Level2.yaml"
+        parameter_overrides   = {
+          "IamPasswordPolicyParamMaxPasswordAge" = "45"
+        }
+      }
+    ]
+
+    Complete list of AWS Conformance Packs managed by AWSLabs can be found here:
+    https://github.com/awslabs/aws-config-rules/tree/master/aws-config-conformance-packs
+  DOC
+  type = list(object({
+    name                = string
+    conformance_pack    = string
+    parameter_overrides = map(string)
+  }))
+  default = []
+}
+
+variable "rules_paths" {
+  description = <<-DOC
+    Additional rules might be set by specifying path to the rule file.
+
+    For example:
+    rule_paths = [
+      "https://raw.githubusercontent.com/cloudposse/terraform-aws-config/0.17.0/catalog/account.yaml",
+      "https://raw.githubusercontent.com/cloudposse/terraform-aws-config/0.17.0/catalog/acm.yaml",
+      "https://raw.githubusercontent.com/cloudposse/terraform-aws-config/0.17.0/catalog/alb.yaml"
+      ...
+    ]
+  DOC
   type        = set(string)
-  description = "The paths to where config rules are located"
   default     = []
 }
 

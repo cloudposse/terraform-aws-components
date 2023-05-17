@@ -9,8 +9,8 @@ locals {
   config_iam_role_from_state         = local.create_iam_role ? null : module.global_collector_region[0].outputs.aws_config_iam_role
   config_iam_role_external           = var.iam_role_arn != null ? var.iam_role_arn : local.config_iam_role_from_state
   config_iam_role_arn                = local.create_iam_role ? local.config_iam_role_template : local.config_iam_role_external
-  cis_1_2_rules                      = module.cis_1_2.rules
-  enabled_rules                      = merge(local.cis_1_2_rules)
+  custom_rules                       = module.custom_rules.rules
+  enabled_rules                      = merge(local.custom_rules)
   central_logging_account            = local.account_map[var.central_logging_account]
   central_resource_collector_account = local.account_map[var.central_resource_collector_account]
   role_map                           = var.support_role_arn != "" ? {} : lookup({ for output in module.aws_team_roles.*.outputs : "role_map" => lookup(output, "role_name_role_arn_map", {}) }, "role_map", {})
@@ -41,7 +41,7 @@ module "utils" {
   context = module.this.context
 }
 
-module "cis_1_2" {
+module "custom_rules" {
   source  = "cloudposse/config/aws//modules/cis-1-2-rules"
   version = "0.17.0"
 
@@ -52,9 +52,24 @@ module "cis_1_2" {
   is_global_resource_region = local.is_global_collector_region
   support_policy_arn        = local.support_role_arn
   cloudtrail_bucket_name    = local.cloudtrail_bucket.cloudtrail_bucket_id
-  config_rules_paths        = var.config_rules_paths
+  config_rules_paths        = var.rules_paths
 
   context = module.this.context
+}
+
+module "conformance_pack" {
+  for_each = { for idx, config in var.conformance_packs : idx => config }
+
+  source  = "cloudposse/config/aws//modules/conformance-pack"
+  version = "0.17.0"
+
+  name                = each.value.name
+  conformance_pack    = each.value.conformance_pack
+  parameter_overrides = each.value.parameter_overrides
+
+  depends_on = [
+    module.aws_config
+  ]
 }
 
 module "aws_config" {
