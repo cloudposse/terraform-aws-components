@@ -28,7 +28,7 @@ module "global_collector_region" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "1.4.2"
 
-  count = local.is_global_collector_region ? 0 : 1
+  count = !local.enabled || local.is_global_collector_region ? 0 : 1
 
   component   = "aws-config-${lookup(module.utils.region_az_alt_code_maps["to_${var.az_abbreviation_type}"], var.global_resource_collector_region)}"
   stage       = module.this.stage
