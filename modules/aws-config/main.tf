@@ -4,12 +4,13 @@ locals {
   s3_bucket                          = module.config_bucket.outputs
   is_global_collector_region         = join("", data.aws_region.this[*].name) == var.global_resource_collector_region
   create_iam_role                    = var.create_iam_role && local.is_global_collector_region
-  config_iam_role_template           = "arn:${var.partition}:iam::${join("", data.aws_caller_identity.this[*].account_id)}:role/${module.aws_config_label.id}"
+  config_iam_role_template           = "arn:${local.partition}:iam::${join("", data.aws_caller_identity.this[*].account_id)}:role/${module.aws_config_label.id}"
   config_iam_role_from_state         = local.create_iam_role ? null : join("", module.global_collector_region[*].outputs.aws_config_iam_role)
   config_iam_role_external           = var.iam_role_arn != null ? var.iam_role_arn : local.config_iam_role_from_state
   config_iam_role_arn                = local.create_iam_role ? local.config_iam_role_template : local.config_iam_role_external
   central_resource_collector_account = local.account_map[var.central_resource_collector_account]
   delegated_accounts                 = var.delegated_accounts != null ? var.delegated_accounts : toset(values(local.account_map))
+  partition                          = join("", data.aws_partition.this[*].partition)
 }
 
 data "aws_caller_identity" "this" {
@@ -17,6 +18,10 @@ data "aws_caller_identity" "this" {
 }
 
 data "aws_region" "this" {
+  count = local.enabled ? 1 : 0
+}
+
+data "aws_partition" "this" {
   count = local.enabled ? 1 : 0
 }
 

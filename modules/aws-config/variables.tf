@@ -3,12 +3,6 @@ variable "region" {
   description = "AWS Region"
 }
 
-variable "partition" {
-  type        = string
-  description = "AWS Partition. E.g. `aws`, `aws-us-gov`, `aws-cn`"
-  default     = "aws"
-}
-
 variable "account_map_tenant" {
   type        = string
   default     = ""
