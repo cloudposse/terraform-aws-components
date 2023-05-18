@@ -69,7 +69,7 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ecr"></a> [ecr](#module\_ecr) | cloudposse/ecr/aws | 0.35.0 |
+| <a name="module_ecr"></a> [ecr](#module\_ecr) | cloudposse/ecr/aws | 0.36.0 |
 | <a name="module_full_access"></a> [full\_access](#module\_full\_access) | ../account-map/modules/roles-to-principals | n/a |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_readonly_access"></a> [readonly\_access](#module\_readonly\_access) | ../account-map/modules/roles-to-principals | n/a |
@@ -109,6 +109,7 @@ components:
 | <a name="input_max_image_count"></a> [max\_image\_count](#input\_max\_image\_count) | Max number of images to store. Old ones will be deleted to make room for new ones. | `number` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
+| <a name="input_principals_lambda"></a> [principals\_lambda](#input\_principals\_lambda) | Principal account IDs of Lambdas allowed to consume ECR | `list(string)` | `[]` | no |
 | <a name="input_protected_tags"></a> [protected\_tags](#input\_protected\_tags) | Tags to refrain from deleting | `list(string)` | `[]` | no |
 | <a name="input_read_only_account_role_map"></a> [read\_only\_account\_role\_map](#input\_read\_only\_account\_role\_map) | Map of `account:[role, role...]` for read-only access. Use `*` for role to grant access to entire account | `map(list(string))` | `{}` | no |
 | <a name="input_read_write_account_role_map"></a> [read\_write\_account\_role\_map](#input\_read\_write\_account\_role\_map) | Map of `account:[role, role...]` for write access. Use `*` for role to grant access to entire account | `map(list(string))` | n/a | yes |
