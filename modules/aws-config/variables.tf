@@ -3,6 +3,12 @@ variable "region" {
   description = "AWS Region"
 }
 
+variable "partition" {
+  type        = string
+  description = "AWS Partition. E.g. `aws`, `aws-us-gov`, `aws-cn`"
+  defdefault  = "aws"
+}
+
 variable "account_map_tenant" {
   type        = string
   default     = ""
@@ -49,9 +55,7 @@ variable "global_resource_collector_region" {
 }
 
 variable "central_resource_collector_account" {
-  description = <<-DOC
-    The name of the account that is the centralized aggregation account.
-  DOC
+  description = "The name of the account that is the centralized aggregation account."
   type        = string
 }
 
@@ -63,7 +67,7 @@ variable "create_iam_role" {
 
 variable "az_abbreviation_type" {
   type        = string
-  description = "Use fixed or short"
+  description = "AZ abbreviation type, `fixed` or `short`"
   default     = "fixed"
 }
 
@@ -71,9 +75,8 @@ variable "iam_role_arn" {
   description = <<-DOC
     The ARN for an IAM Role AWS Config uses to make read or write requests to the delivery channel and to describe the 
     AWS resources associated with the account. This is only used if create_iam_role is false.
-  
-    If you want to use an existing IAM Role, set the value of this to the ARN of the existing topic and set 
-    create_iam_role to false.
+
+    If you want to use an existing IAM Role, set the variable to the ARN of the existing role and set create_iam_role to `false`.
     
     See the AWS Docs for further information: 
     http://docs.aws.amazon.com/config/latest/developerguide/iamrole-permissions.html

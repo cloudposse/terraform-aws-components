@@ -18,7 +18,7 @@ variable "noncurrent_version_expiration_days" {
 variable "noncurrent_version_transition_days" {
   type        = number
   default     = 30
-  description = "Specifies when noncurrent object versions transitions"
+  description = "Specifies when noncurrent object versions transition to a different storage tier"
 }
 
 variable "standard_transition_days" {
@@ -36,7 +36,7 @@ variable "glacier_transition_days" {
 variable "enable_glacier_transition" {
   type        = bool
   default     = true
-  description = "Enables the transition to AWS Glacier which can cause unnecessary costs for huge amount of small files"
+  description = "Enables the transition to AWS Glacier (note that this can incur unnecessary costs for huge amount of small files"
 }
 
 variable "expiration_days" {
