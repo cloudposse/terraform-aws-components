@@ -67,12 +67,12 @@ locals {
 
 module "utils" {
   source  = "cloudposse/utils/aws"
-  version = "1.1.0"
+  version = "1.3.0"
 }
 
 module "vpc" {
   source  = "cloudposse/vpc/aws"
-  version = "2.0.0"
+  version = "2.1.0"
 
   ipv4_primary_cidr_block          = var.ipv4_primary_cidr_block
   internet_gateway_enabled         = var.public_subnets_enabled
@@ -99,7 +99,7 @@ module "endpoint_security_groups" {
   for_each = local.enabled && try(length(var.interface_vpc_endpoints), 0) > 0 ? toset([local.interface_endpoint_security_group_key]) : []
 
   source  = "cloudposse/security-group/aws"
-  version = "2.0.1"
+  version = "2.1.0"
 
   create_before_destroy      = true
   preserve_security_group_id = false
@@ -126,7 +126,7 @@ module "endpoint_security_groups" {
 
 module "vpc_endpoints" {
   source  = "cloudposse/vpc/aws//modules/vpc-endpoints"
-  version = "2.0.0"
+  version = "2.1.0"
 
   enabled = (length(var.interface_vpc_endpoints) + length(var.gateway_vpc_endpoints)) > 0
 
@@ -139,7 +139,7 @@ module "vpc_endpoints" {
 
 module "subnets" {
   source  = "cloudposse/dynamic-subnets/aws"
-  version = "2.1.0"
+  version = "2.3.0"
 
   availability_zones              = local.availability_zones
   availability_zone_ids           = local.availability_zone_ids

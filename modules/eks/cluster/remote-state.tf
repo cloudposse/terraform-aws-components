@@ -12,7 +12,7 @@ module "iam_arns" {
 
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.4.2"
 
   component = "vpc"
 
@@ -21,7 +21,7 @@ module "vpc" {
 
 module "vpc_ingress" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.4.2"
 
   for_each = local.accounts_with_vpc
 
@@ -38,7 +38,7 @@ module "vpc_ingress" {
 # to it rather than overwrite it (specifically the aws-auth configMap)
 module "eks" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.4.2"
 
   component = var.eks_component_name
 
