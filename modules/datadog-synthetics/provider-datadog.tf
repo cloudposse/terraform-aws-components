@@ -1,9 +1,7 @@
 module "datadog_configuration" {
-  source = "../datadog-configuration/modules/datadog_keys"
-
-  region = var.region
-
+  source  = "../datadog-configuration/modules/datadog_keys"
   context = module.this.context
+  enabled = true
 }
 
 provider "datadog" {
