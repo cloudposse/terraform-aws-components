@@ -8,7 +8,9 @@ locals {
 
   # combine context tags with passed in datadog_tags
   # skip name since that won't be relevant for each metric
-  datadog_tags = toset(distinct(concat([for k, v in module.this.tags : "${lower(k)}:${v}" if lower(k) != "name"], tolist(var.datadog_tags))))
+  datadog_tags = toset(distinct(concat([
+    for k, v in module.this.tags : "${lower(k)}:${v}" if lower(k) != "name"
+  ], tolist(var.datadog_tags))))
 
   cluster_checks_enabled = local.enabled && var.cluster_checks_enabled
 
@@ -66,10 +68,7 @@ locals {
 }
 
 module "datadog_configuration" {
-  source = "../../datadog-configuration/modules/datadog_keys"
-
-  global_environment_name = null
-
+  source  = "../../datadog-configuration/modules/datadog_keys"
   context = module.this.context
 }
 
