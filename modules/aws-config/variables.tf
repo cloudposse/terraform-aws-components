@@ -6,7 +6,7 @@ variable "region" {
 variable "partition" {
   type        = string
   description = "AWS Partition. E.g. `aws`, `aws-us-gov`, `aws-cn`"
-  defdefault  = "aws"
+  default     = "aws"
 }
 
 variable "account_map_tenant" {
