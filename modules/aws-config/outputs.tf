@@ -17,18 +17,3 @@ output "storage_bucket_arn" {
   value       = module.aws_config.storage_bucket_arn
   description = "Storage Config bucket ARN"
 }
-
-output "sns_topic_name" {
-  value       = module.aws_config.sns_topic.sns_topic
-  description = "SNS topic name."
-}
-
-output "sns_topic_id" {
-  value       = module.aws_config.sns_topic.sns_topic_name
-  description = "SNS topic ID."
-}
-
-output "sns_topic_arn" {
-  value       = module.aws_config.sns_topic.sns_topic_id
-  description = "SNS topic ARN."
-}
