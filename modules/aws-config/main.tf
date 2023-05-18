@@ -39,7 +39,7 @@ module "conformance_pack" {
   source  = "cloudposse/config/aws//modules/conformance-pack"
   version = "0.17.0"
 
-  count = local.enabled ? length(var.conformance_packs) : 0
+  count = length(var.conformance_packs)
 
   name                = var.conformance_packs[count.index].name
   conformance_pack    = var.conformance_packs[count.index].conformance_pack
