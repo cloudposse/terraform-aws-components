@@ -80,7 +80,7 @@ locals {
 # Convert all Service Control Policy statements from YAML config to Terraform list
 module "service_control_policy_statements_yaml_config" {
   source  = "cloudposse/config/yaml"
-  version = "1.0.1"
+  version = "1.0.2"
 
   list_config_local_base_path = path.module
   list_config_paths           = var.service_control_policies_config_paths

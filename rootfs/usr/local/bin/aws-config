@@ -177,13 +177,13 @@ case $1 in
     shift
     ;;
   -n*)
-    if [[ $x == ${x#*=} ]]; then
+    if [[ $1 == ${1#*=} ]]; then
       # -n namespace
       target_namespace=($2)
       shift 2
     else
       # -n=namespace
-      target_namespace=(${x#*=})
+      target_namespace=(${1#*=})
       shift
     fi
     ;;

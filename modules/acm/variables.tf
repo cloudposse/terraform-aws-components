@@ -70,3 +70,9 @@ variable "certificate_authority_component_key" {
   default     = null
   description = "Use this component key e.g. `root` or `mgmt` to read from the remote state to get the certificate_authority_arn if using an authority type of SUBORDINATE"
 }
+
+variable "enable_asterisk_subject_alternative_name" {
+  type        = bool
+  default     = true
+  description = "Enable or disable the use of a wildcard domain in the subject alternative names"
+}
