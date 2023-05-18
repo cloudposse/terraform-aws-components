@@ -34,7 +34,7 @@ variable "log_format" {
 variable "ssosync_url_prefix" {
   type        = string
   description = "URL prefix for ssosync binary"
-  default     = "https://github.com/awslabs/ssosync/releases/download"
+  default     = "https://github.com/Benbentwo/ssosync/releases/download"
 }
 
 variable "ssosync_version" {
@@ -52,6 +52,7 @@ variable "architecture" {
 variable "google_credentials_ssm_path" {
   type        = string
   description = "SSM Path for `ssosync` secrets"
+  default     = "/ssosync"
 }
 
 variable "google_admin_email" {

@@ -1,3 +1,6 @@
+locals {
+  enabled = module.this.enabled
+}
 
 data "aws_ssm_parameter" "google_credentials" {
   name = "${var.google_credentials_ssm_path}/google_credentials"
@@ -22,29 +25,50 @@ locals {
   identity_store_id          = data.aws_ssm_parameter.identity_store_id.value
 
   ssosync_artifact_url = "${var.ssosync_url_prefix}/${var.ssosync_version}/ssosync_Linux_${var.architecture}.tar.gz"
+
+  download_artifact = "ssosync.tar.gz"
 }
 
 module "ssosync_artifact" {
-  count   = var.enabled ? 1 : 0
+  count   = local.enabled ? 1 : 0
   source  = "cloudposse/module-artifact/external"
-  version = "0.7.2"
+  version = "0.8.0"
 
-  filename      = "ssosync.tar.gz"
-  module_name   = "ssosync"
-  module_path   = path.module
-  url           = local.ssosync_artifact_url
-  architectures = [var.architecture]
+  filename    = local.download_artifact
+  module_name = "ssosync"
+  module_path = path.module
+  url         = local.ssosync_artifact_url
 }
+
+resource "null_resource" "extract_my_tgz" {
+  provisioner "local-exec" {
+    command = "tar -xzf ${local.download_artifact} -C dist"
+  }
+
+  #  provisioner "local-exec" {
+  #    command = "zip -r ssosync.zip dist"
+  #  }
+  depends_on = [module.ssosync_artifact]
+}
+
+data "archive_file" "lambda" {
+  type        = "zip"
+  source_file = "dist/ssosync"
+  output_path = "ssosync.zip"
+
+  depends_on = [null_resource.extract_my_tgz]
+}
+
 
 resource "aws_lambda_function" "ssosync" {
   count = var.enabled ? 1 : 0
 
   function_name    = module.this.id
-  filename         = module.ssosync_artifact[0].file
+  filename         = "ssosync.zip"
   source_code_hash = module.ssosync_artifact[0].base64sha256
   description      = "Syncs Google Workspace users and groups to AWS SSO"
   role             = aws_iam_role.default[0].arn
-  handler          = "dist/ssosync_linux_amd64_v1/ssosync"
+  handler          = "ssosync"
   runtime          = "go1.x"
   timeout          = 300
   memory_size      = 128
@@ -65,8 +89,10 @@ resource "aws_lambda_function" "ssosync" {
       SSOSYNC_IGNORE_GROUPS      = var.ignore_groups
       SSOSYNC_IGNORE_USERS       = var.ignore_users
       SSOSYNC_INCLUDE_GROUPS     = var.include_groups
+      SSOSYNC_LOAD_ASM_SECRETS   = false
     }
   }
+  depends_on = [null_resource.extract_my_tgz, data.archive_file.lambda]
 }
 
 resource "aws_cloudwatch_event_rule" "ssosync" {

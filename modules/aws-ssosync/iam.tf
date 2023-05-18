@@ -23,14 +23,16 @@ data "aws_iam_policy_document" "ssosync_lambda_identity_center" {
       "identitystore:IsMemberInGroups",
       "identitystore:GetGroupMembershipId",
       "identitystore:DeleteGroupMembership",
-      "identitystore:DeleteGroup"
+      "identitystore:DeleteGroup",
+      "secretsmanager:GetSecretValue",
+      "kms:Decrypt"
     ]
     resources = ["*"]
   }
 }
 
 resource "aws_iam_role" "default" {
-  count = var.enabled ? 1 : 0
+  count = local.enabled ? 1 : 0
 
   name               = module.this.id
   assume_role_policy = data.aws_iam_policy_document.ssosync_lambda_assume_role.json

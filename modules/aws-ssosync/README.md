@@ -4,7 +4,40 @@ Deploys [AWS ssosync](https://github.com/awslabs/ssosync) to sync Google Groups 
 
 AWS `ssosync` is a Lambda application that regularly manages Identity Store users.
 
+This component requires SuperAdmin because it deploys a role in the identity account.
+
+You need to have setup AWS SSO in root account and delegated identity as your delegated adminstrator.
+
 ## Usage
+You should be able to deploy the `aws-ssosync` component to the `[core-]gbl-identity` stack
+with `atmos terraform deploy aws-ssosync -s gbl-identity`.
+
+**Stack Level**: Global
+**Deployment**: Must be deployed by super-admin using `atmos` CLI
+
+The following is an example snippet for how to use this component:
+
+(`stacks/catalog/aws-ssosync.yaml`)
+```yaml
+components:
+  terraform:
+    aws-ssosync:
+      backend:
+        s3:
+          role_arn: null
+      settings:
+        spacelift:
+          workspace_enabled: false
+      vars:
+        enabled: true
+        name: aws-ssosync
+        google_admin_email: an-actual-admin@acme.com
+        ssosync_url_prefix: "https://github.com/Benbentwo/ssosync/releases/download"
+        ssosync_version: "2.0.2"
+        google_credentials_ssm_path: "/ssosync"
+        log_format: text
+        log_level: debug
+```
 
 We recommend following a similar process to what the [AWS ssosync](https://github.com/awslabs/ssosync)
 documentation recommends.
@@ -49,7 +82,7 @@ from the `root` account to the `identity` account
 
 _steps taken directly from [ssosync README.md](https://github.com/awslabs/ssosync/blob/master/README.md#google)_
 
-First, you have to setup your API. In the project you want to use go to the 
+First, you have to setup your API. In the project you want to use go to the
 [Console](https://console.developers.google.com/apis) and select *API & Service * >
 *Enable APIs and Services*. Search for *Admin SDK* and *Enable* the API.
 
@@ -69,9 +102,9 @@ following scopes for the user.
 * https://www.googleapis.com/auth/admin.directory.group.member.readonly
 * https://www.googleapis.com/auth/admin.directory.user.readonly
 
-Back in the Console go to the Dashboard for the API & Services and select 
+Back in the Console go to the Dashboard for the API & Services and select
 `Enable API and Services`.
-In the Search box type `Admin` and select the `Admin SDK` option. Click the 
+In the Search box type `Admin` and select the `Admin SDK` option. Click the
 `Enable` button.
 
 #### Deploy the `aws-ssosync` component
@@ -82,29 +115,7 @@ Make sure that all four of the following SSM parameters exist in the `identity` 
 * `<google_credentials_ssm_path>/identity_store_id`
 * `<google_credentials_ssm_path>/google_credentials`
 
-You should be able to deploy the `aws-ssosync` component to the `gbl-identity` stack
-with `atmos terraform deploy aws-ssosync -s gbl-identity`.
 
-### Atmos
-
-**Stack Level**: Global
-**Deployment**: Must be deployed by root-admin using `atmos` CLI
-
-Add catalog to `gbl-identity` root stack.
-
-
-#### Example
-The example snippet below shows how to use this module with various combinations (plain YAML, YAML Anchors and a combination of the two):
-
-```yaml
-components:
-  terraform:
-    aws-ssosync:
-      vars:
-        google_credentials_ssm_path: /ssosync
-        google_admin_email: admin+ssosync@acme.com
-        
-```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -118,16 +129,16 @@ components:
 
 | Name | Version |
 |------|---------|
+| <a name="provider_archive"></a> [archive](#provider\_archive) | n/a |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
+| <a name="provider_null"></a> [null](#provider\_null) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_ssosync_artifact"></a> [ssosync\_artifact](#module\_ssosync\_artifact) | cloudposse/module-artifact/external | 0.7.2 |
-| <a name="module_tfstate"></a> [tfstate](#module\_tfstate) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_ssosync_artifact"></a> [ssosync\_artifact](#module\_ssosync\_artifact) | cloudposse/module-artifact/external | 0.8.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -138,6 +149,8 @@ components:
 | [aws_cloudwatch_event_target.ssosync](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
 | [aws_iam_role.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_lambda_function.ssosync](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function) | resource |
+| [null_resource.extract_my_tgz](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [archive_file.lambda](https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file) | data source |
 | [aws_iam_policy_document.ssosync_lambda_assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.ssosync_lambda_identity_center](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_ssm_parameter.google_credentials](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
@@ -158,13 +171,12 @@ components:
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_google_admin_email"></a> [google\_admin\_email](#input\_google\_admin\_email) | Google Admin email | `string` | n/a | yes |
-| <a name="input_google_credentials_ssm_path"></a> [google\_credentials\_ssm\_path](#input\_google\_credentials\_ssm\_path) | SSM Path for `ssosync` secrets | `string` | n/a | yes |
+| <a name="input_google_credentials_ssm_path"></a> [google\_credentials\_ssm\_path](#input\_google\_credentials\_ssm\_path) | SSM Path for `ssosync` secrets | `string` | `"/ssosync"` | no |
 | <a name="input_google_group_match"></a> [google\_group\_match](#input\_google\_group\_match) | Google Workspace group filter query parameter, example: 'name:Admin* email:aws-*', see: https://developers.google.com/admin-sdk/directory/v1/guides/search-groups | `string` | `""` | no |
 | <a name="input_google_user_match"></a> [google\_user\_match](#input\_google\_user\_match) | Google Workspace user filter query parameter, example: 'name:John* email:admin*', see: https://developers.google.com/admin-sdk/directory/v1/guides/search-users | `string` | `""` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_ignore_groups"></a> [ignore\_groups](#input\_ignore\_groups) | Ignore these Google Workspace groups | `string` | `""` | no |
 | <a name="input_ignore_users"></a> [ignore\_users](#input\_ignore\_users) | Ignore these Google Workspace users | `string` | `""` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
 | <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_include_groups"></a> [include\_groups](#input\_include\_groups) | Include only these Google Workspace groups. (Only applicable for sync\_method user\_groups) | `string` | `""` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
@@ -178,7 +190,7 @@ components:
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region where AWS SSO is enabled | `string` | n/a | yes |
 | <a name="input_schedule_expression"></a> [schedule\_expression](#input\_schedule\_expression) | Schedule for trigger the execution of ssosync (see CloudWatch schedule expressions) | `string` | `"rate(15 minutes)"` | no |
-| <a name="input_ssosync_url_prefix"></a> [ssosync\_url\_prefix](#input\_ssosync\_url\_prefix) | URL prefix for ssosync binary | `string` | `"https://github.com/awslabs/ssosync/releases/download"` | no |
+| <a name="input_ssosync_url_prefix"></a> [ssosync\_url\_prefix](#input\_ssosync\_url\_prefix) | URL prefix for ssosync binary | `string` | `"https://github.com/Benbentwo/ssosync/releases/download"` | no |
 | <a name="input_ssosync_version"></a> [ssosync\_version](#input\_ssosync\_version) | Version of ssosync to use | `string` | `"v2.0.2"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_sync_method"></a> [sync\_method](#input\_sync\_method) | Sync method to use | `string` | `"groups"` | no |
