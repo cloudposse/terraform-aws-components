@@ -33,6 +33,11 @@ variable "excluded_regions" {
   default     = []
 }
 
+variable "included_regions" {
+  type        = list(string)
+  description = "An array of AWS regions to include in metrics collection"
+  default     = []
+}
 variable "account_specific_namespace_rules" {
   type        = map(string)
   description = "An object, (in the form {\"namespace1\":true/false, \"namespace2\":true/false} ), that enables or disables metric collection for specific AWS namespaces for this AWS account only"

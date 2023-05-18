@@ -66,6 +66,7 @@ spec:
         app_commit: '{{app_commit}}'
         app_hostname: 'https://{{app_hostname}}'
         notifications.argoproj.io/subscribe.on-deployed.github: ""
+        notifications.argoproj.io/subscribe.on-deployed.github-commit-status: ""
       name: '{{name}}'
     spec:
       project: ${name}

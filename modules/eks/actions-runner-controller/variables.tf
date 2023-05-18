@@ -144,6 +144,7 @@ variable "runners" {
     dind_enabled: false # A Docker sidecar container will be deployed
     image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'
     scope = "ACME"  # org name for Organization runners, repo name for Repository runners
+    group = "core-automation" # Optional. Assigns the runners to a runner group, for access control.
     scale_down_delay_seconds = 300
     min_replicas = 1
     max_replicas = 5
@@ -162,11 +163,13 @@ variable "runners" {
   EOT
 
   type = map(object({
-    type          = string
-    scope         = string
-    image         = optional(string, "")
-    dind_enabled  = bool
-    node_selector = optional(map(string), {})
+    type            = string
+    scope           = string
+    group           = optional(string, null)
+    image           = optional(string, "")
+    dind_enabled    = bool
+    node_selector   = optional(map(string), {})
+    pod_annotations = optional(map(string), {})
     tolerations = optional(list(object({
       key      = string
       operator = string
@@ -189,7 +192,7 @@ variable "runners" {
     pull_driven_scaling_enabled    = bool
     labels                         = list(string)
     storage                        = optional(string, null)
-    pvc_enabled                    = optional(string, false)
+    pvc_enabled                    = optional(bool, false)
     resources = object({
       limits = object({
         cpu               = string
@@ -208,15 +211,19 @@ variable "webhook" {
   type = object({
     enabled           = bool
     hostname_template = string
+    queue_limit       = optional(number, 100)
   })
   description = <<-EOT
     Configuration for the GitHub Webhook Server.
     `hostname_template` is the `format()` string to use to generate the hostname via `format(var.hostname_template, var.tenant, var.stage, var.environment)`"
     Typically something like `"echo.%[3]v.%[2]v.example.com"`.
+    `queue_limit` is the maximum number of webhook events that can be queued up processing by the autoscaler.
+    When the queue gets full, webhook events will be dropped (status 500).
   EOT
   default = {
     enabled           = false
     hostname_template = null
+    queue_limit       = 100
   }
 }
 

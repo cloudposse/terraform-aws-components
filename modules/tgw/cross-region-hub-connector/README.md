@@ -36,14 +36,14 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws.tgw_home_region"></a> [aws.tgw\_home\_region](#provider\_aws.tgw\_home\_region) | ~> 4.0 |
-| <a name="provider_aws.tgw_this_region"></a> [aws.tgw\_this\_region](#provider\_aws.tgw\_this\_region) | ~> 4.0 |
+| <a name="provider_aws.tgw_home_region"></a> [aws.tgw\_home\_region](#provider\_aws.tgw\_home\_region) | >= 4.0 |
+| <a name="provider_aws.tgw_this_region"></a> [aws.tgw\_this\_region](#provider\_aws.tgw\_this\_region) | >= 4.0 |
 
 ## Modules
 
