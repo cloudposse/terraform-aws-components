@@ -52,3 +52,9 @@ variable "enable_lifecycle_policy" {
   type        = bool
   description = "Enable/disable image lifecycle policy"
 }
+
+variable "principals_lambda" {
+  type        = list(string)
+  description = "Principal account IDs of Lambdas allowed to consume ECR"
+  default     = []
+}
