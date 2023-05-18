@@ -3,26 +3,30 @@ locals {
 }
 
 data "aws_ssm_parameter" "google_credentials" {
-  name = "${var.google_credentials_ssm_path}/google_credentials"
+  count = local.enabled ? 1 : 0
+  name  = "${var.google_credentials_ssm_path}/google_credentials"
 }
 
 data "aws_ssm_parameter" "scim_endpoint_url" {
-  name = "${var.google_credentials_ssm_path}/scim_endpoint_url"
+  count = local.enabled ? 1 : 0
+  name  = "${var.google_credentials_ssm_path}/scim_endpoint_url"
 }
 
 data "aws_ssm_parameter" "scim_endpoint_access_token" {
-  name = "${var.google_credentials_ssm_path}/scim_endpoint_access_token"
+  count = local.enabled ? 1 : 0
+  name  = "${var.google_credentials_ssm_path}/scim_endpoint_access_token"
 }
 
 data "aws_ssm_parameter" "identity_store_id" {
-  name = "${var.google_credentials_ssm_path}/identity_store_id"
+  count = local.enabled ? 1 : 0
+  name  = "${var.google_credentials_ssm_path}/identity_store_id"
 }
 
 locals {
-  google_credentials         = data.aws_ssm_parameter.google_credentials.value
-  scim_endpoint_url          = data.aws_ssm_parameter.scim_endpoint_url.value
-  scim_endpoint_access_token = data.aws_ssm_parameter.scim_endpoint_access_token.value
-  identity_store_id          = data.aws_ssm_parameter.identity_store_id.value
+  google_credentials         = one(data.aws_ssm_parameter.google_credentials[*].value)
+  scim_endpoint_url          = one(data.aws_ssm_parameter.scim_endpoint_url[*].value)
+  scim_endpoint_access_token = one(data.aws_ssm_parameter.scim_endpoint_access_token[*].value)
+  identity_store_id          = one(data.aws_ssm_parameter.identity_store_id[*].value)
 
   ssosync_artifact_url = "${var.ssosync_url_prefix}/${var.ssosync_version}/ssosync_Linux_${var.architecture}.tar.gz"
 
@@ -30,7 +34,8 @@ locals {
 }
 
 module "ssosync_artifact" {
-  count   = local.enabled ? 1 : 0
+  count = local.enabled ? 1 : 0
+
   source  = "cloudposse/module-artifact/external"
   version = "0.8.0"
 
@@ -41,17 +46,18 @@ module "ssosync_artifact" {
 }
 
 resource "null_resource" "extract_my_tgz" {
+  count = local.enabled ? 1 : 0
+
   provisioner "local-exec" {
     command = "tar -xzf ${local.download_artifact} -C dist"
   }
 
-  #  provisioner "local-exec" {
-  #    command = "zip -r ssosync.zip dist"
-  #  }
   depends_on = [module.ssosync_artifact]
 }
 
 data "archive_file" "lambda" {
+  count = local.enabled ? 1 : 0
+
   type        = "zip"
   source_file = "dist/ssosync"
   output_path = "ssosync.zip"
@@ -61,7 +67,7 @@ data "archive_file" "lambda" {
 
 
 resource "aws_lambda_function" "ssosync" {
-  count = var.enabled ? 1 : 0
+  count = local.enabled ? 1 : 0
 
   function_name    = module.this.id
   filename         = "ssosync.zip"
@@ -110,4 +116,15 @@ resource "aws_cloudwatch_event_target" "ssosync" {
   rule      = aws_cloudwatch_event_rule.ssosync[0].name
   target_id = module.this.id
   arn       = aws_lambda_function.ssosync[0].arn
+}
+
+
+resource "aws_lambda_permission" "allow_cloudwatch_execution" {
+  count = local.enabled ? 1 : 0
+
+  statement_id  = "AllowExecutionFromCloudWatch"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.ssosync[0].arn
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.ssosync[0].arn
 }
