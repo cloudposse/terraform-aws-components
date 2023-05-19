@@ -169,7 +169,9 @@ atmos terraform apply securityhub-uw1 -s core-uw1-security
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_enabled_subscriptions"></a> [enabled\_subscriptions](#output\_enabled\_subscriptions) | A list of subscriptions that have been enabled |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
