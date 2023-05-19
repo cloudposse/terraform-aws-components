@@ -10,13 +10,13 @@ lambda-errors:
     ({{tenant.name}}-{{environment.name}}-{{stage.name}})
     has {{value}} errors over the last 5 minutes.
   tags: []
-  options:
-    thresholds:
-      critical: 0
-    notify_audit: false
-    require_full_window: false
-    notify_no_data: false
-    renotify_interval: 0
-    include_tags: true
-    evaluation_delay: 900
-    new_group_delay: 60
+  threshold_windows: { }
+  thresholds:
+    critical: 0
+  notify_audit: false
+  require_full_window: false
+  notify_no_data: false
+  renotify_interval: 0
+  include_tags: true
+  evaluation_delay: 900
+  new_group_delay: 60
