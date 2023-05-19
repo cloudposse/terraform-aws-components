@@ -11,7 +11,7 @@ module "utils" {
 }
 
 resource "aws_guardduty_organization_admin_account" "this" {
-  count = local.enabled && var.administrator_account != null ? 1 : 0
+  count = local.enabled && var.administrator_account != null && var.administrator_account != "" ? 1 : 0
 
   admin_account_id = local.account_map[var.administrator_account]
 }
