@@ -13,7 +13,7 @@ The example snippet below shows how to use this component:
 ```yaml
 components:
   terraform:
-    guardduty-root:
+    guardduty/root:
       metadata:
         component: guardduty-root        
       vars:
