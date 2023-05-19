@@ -7,7 +7,7 @@ locals {
   account_id                         = join("", data.aws_caller_identity.this[*].account_id)
   partition                          = join("", data.aws_partition.this[*].partition)
   mfa_control_arn                    = "arn:${local.partition}:securityhub:${local.region_name}:${local.account_id}:control/cis-aws-foundations-benchmark/v/1.2.0/1.14"
-  disabled_controls                  = toset([for c in module.control_disablements.controls : c if c != local.mfa_control_arn])
+  disabled_controls                  = local.enabled && local.is_global_collector_account ? toset([for c in module.control_disablements[0].controls : c if c != local.mfa_control_arn]) : toset([])
   is_global_collector_account        = local.central_resource_collector_account == local.account_id
   is_global_collector_region         = local.region_name == var.global_resource_collector_region
   opsgenie_integration_enabled       = local.enabled && local.is_global_collector_account && var.opsgenie_sns_topic_subscription_enabled
@@ -57,6 +57,7 @@ resource "awsutils_security_hub_organization_settings" "this" {
 #-----------------------------------------------------------------------------------------------------------------------
 
 module "control_disablements" {
+  count   = local.enabled && local.is_global_collector_account ? 1 : 0
   source  = "cloudposse/security-hub/aws//modules/control-disablements"
   version = "0.9.0"
 
@@ -75,7 +76,7 @@ resource "awsutils_security_hub_control_disablement" "global" {
 }
 
 resource "awsutils_security_hub_control_disablement" "hardware_mfa_cis" {
-  count       = local.is_global_collector_region ? 1 : 0
+  count       = local.enabled && local.is_global_collector_region ? 1 : 0
   control_arn = "arn:${local.partition}:securityhub:${local.region_name}:${local.account_id}:control/cis-aws-foundations-benchmark/v/1.2.0/1.14"
   reason      = "Virtual MFA tokens via 1Password are being used in favor of hardware MFA tokens"
 
@@ -85,7 +86,7 @@ resource "awsutils_security_hub_control_disablement" "hardware_mfa_cis" {
 }
 
 resource "awsutils_security_hub_control_disablement" "hardware_mfa_foundational" {
-  count       = local.is_global_collector_region ? 1 : 0
+  count       = local.enabled && local.is_global_collector_region ? 1 : 0
   control_arn = "arn:${local.partition}:securityhub:${local.region_name}:${local.account_id}:control/aws-foundational-security-best-practices/v/1.0.0/IAM.6"
   reason      = "Virtual MFA tokens via 1Password are being used in favor of hardware MFA tokens"
 
@@ -96,7 +97,7 @@ resource "awsutils_security_hub_control_disablement" "hardware_mfa_foundational"
 
 resource "awsutils_security_hub_control_disablement" "ec2_multiple_enis" {
   # This control is not supported in the AN3 region
-  count       = local.region_name != "ap-northeast-3" ? 1 : 0
+  count       = local.enabled && local.region_name != "ap-northeast-3" ? 1 : 0
   control_arn = "arn:${local.partition}:securityhub:${local.region_name}:${local.account_id}:control/aws-foundational-security-best-practices/v/1.0.0/EC2.17"
   reason      = "EKS Requires using multiple ENIs"
 
