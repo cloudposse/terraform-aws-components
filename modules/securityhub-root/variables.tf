@@ -22,7 +22,7 @@ variable "privileged" {
 }
 
 variable "administrator_account" {
-  description = "The name of the account that is the Security Hub adminstrator account"
+  description = "The name of the account that is the Security Hub administrator account"
   type        = string
   default     = null
 }

@@ -35,7 +35,7 @@ variable "central_resource_collector_account" {
 variable "central_logging_account" {
   description = <<-DOC
     The name of the account that is the centralized logging account. The config rules associated with logging in the 
-    catalog (loggingAccountOnly: true) will be installed only in this account.
+    catalog (loggingAccountOnly: `true`) will be installed only in this account.
   DOC
   type        = string
 }
@@ -69,7 +69,7 @@ variable "admin_delegated" {
 }
 
 variable "opsgenie_sns_topic_subscription_enabled" {
-  description = "Flag to indicate whether OpsGenie should be subscribed to SecurityHub notifications"
+  description = "Flag to indicate whether OpsGenie should be subscribed to Security Hub notifications"
   type        = bool
   default     = false
 }
