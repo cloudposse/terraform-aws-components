@@ -1,6 +1,6 @@
-# Component: `guardduty/detector`
+# Component: `guardduty`
 
-This component is responsible for configuring GuardDuty and it should be used in tandem with the [guardduty/root](../root) component.
+This component is responsible for configuring GuardDuty and it should be used in tandem with the [guardduty-root](../guardduty-root) component.
 
 AWS GuardDuty is a managed threat detection service. It is designed to help protect AWS accounts and workloads by continuously monitoring for malicious activities and unauthorized behaviors. GuardDuty analyzes various data sources within your AWS environment, such as AWS CloudTrail logs, VPC Flow Logs, and DNS logs, to detect potential security threats.
 
@@ -29,9 +29,9 @@ The example snippet below shows how to use this component:
 ```yaml
 components:
   terraform:
-    guardduty/detector:
+    guardduty:
       metadata:
-        component: guardduty/detector
+        component: guardduty
       vars:
         enabled: true
         account_map_tenant: core
@@ -45,29 +45,29 @@ components:
 
 This set of steps assumes that `var.central_resource_collector_account = "core-security"`.
 
-1. Apply `guardduty/detector` to `core-security` with `var.admin_delegated = false`
-2. Apply `guardduty/root` to `core-root`
-3. Apply `guardduty/detector` to `core-security` with `var.admin_delegated = true`
+1. Apply `guardduty` to `core-security` with `var.admin_delegated = false`
+2. Apply `guardduty-root` to `core-root`
+3. Apply `guardduty` to `core-security` with `var.admin_delegated = true`
 
 Example:
 
 ```
-# Apply guardduty/detector to all regions in core-security
-atmos terraform apply guardduty/detector-ue2 -s core-ue2-security -var=admin_delegated=false
-atmos terraform apply guardduty/detector-ue1 -s core-ue1-security -var=admin_delegated=false
-atmos terraform apply guardduty/detector-uw1 -s core-uw1-security -var=admin_delegated=false
+# Apply guardduty to all regions in core-security
+atmos terraform apply guardduty-ue2 -s core-ue2-security -var=admin_delegated=false
+atmos terraform apply guardduty-ue1 -s core-ue1-security -var=admin_delegated=false
+atmos terraform apply guardduty-uw1 -s core-uw1-security -var=admin_delegated=false
 # ... other regions
 
-# Apply guardduty/root to all regions in core-root
-atmos terraform apply guardduty/root-ue2 -s core-ue2-root
-atmos terraform apply guardduty/root-ue1 -s core-ue1-root
-atmos terraform apply guardduty/root-uw1 -s core-uw1-root
+# Apply guardduty-root to all regions in core-root
+atmos terraform apply guardduty-root-ue2 -s core-ue2-root
+atmos terraform apply guardduty-root-ue1 -s core-ue1-root
+atmos terraform apply guardduty-root-uw1 -s core-uw1-root
 # ... other regions
 
-# Apply guardduty/detector to all regions in core-security but with default values for admin_delegated
-atmos terraform apply guardduty/detector-ue2 -s core-ue2-security
-atmos terraform apply guardduty/detector-ue1 -s core-ue1-security
-atmos terraform apply guardduty/detector-uw1 -s core-uw1-security
+# Apply guardduty to all regions in core-security but with default values for admin_delegated
+atmos terraform apply guardduty-ue2 -s core-ue2-security
+atmos terraform apply guardduty-ue1 -s core-ue1-security
+atmos terraform apply guardduty-uw1 -s core-uw1-security
 # ... other regions
 ```
 
@@ -93,7 +93,7 @@ atmos terraform apply guardduty/detector-uw1 -s core-uw1-security
 |------|--------|---------|
 | <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
 | <a name="module_guardduty"></a> [guardduty](#module\_guardduty) | cloudposse/guardduty/aws | 0.5.0 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources

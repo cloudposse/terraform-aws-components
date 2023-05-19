@@ -1,6 +1,6 @@
-# Component: `guardduty/root`
+# Component: `guardduty-root`
 
-This component should be used in tandem with the [guardduty/detector](../detector) component. Please take a look at [detector/README](../detector/README.md) for more information about GuardDuty and deployment steps.
+This component should be used in tandem with the [guardduty](../guardduty) component. Please take a look at [guardduty/README](../guardduty/README.md) for more information about GuardDuty and deployment steps.
 
 This component is responsible for delegating the AWS Security Hub and AWS GuardDuty administrator accounts to the appropriate account(s). It should be deployed to every region for the root account in the AWS Organization.
 
@@ -13,9 +13,9 @@ The example snippet below shows how to use this component:
 ```yaml
 components:
   terraform:
-    guardduty/root:
+    guardduty-root:
       metadata:
-        component: guardduty/root        
+        component: guardduty-root        
       vars:
         enabled: true
         administrator_account: core-security
@@ -23,7 +23,7 @@ components:
 
 ## Deployment
 
-Please see instructions in [detector/README](../detector/README.md) for information on how to deploy both components.
+Please see instructions in [guardduty/README](../guardduty/README.md) for information on how to deploy both components.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -45,7 +45,7 @@ Please see instructions in [detector/README](../detector/README.md) for informat
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 | <a name="module_utils"></a> [utils](#module\_utils) | cloudposse/utils/aws | 1.2.0 |
 
