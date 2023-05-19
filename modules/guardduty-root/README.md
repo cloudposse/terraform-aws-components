@@ -92,7 +92,7 @@ No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
-* [AWS Config Documentation](https://aws.amazon.com/guardduty/)
-* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/guardduty/)
+* [AWS GuardDuty Documentation](https://aws.amazon.com/guardduty/)
+* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/guardduty-root/)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
