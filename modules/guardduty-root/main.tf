@@ -5,7 +5,7 @@ locals {
 
 module "utils" {
   source  = "cloudposse/utils/aws"
-  version = "1.2.0"
+  version = "1.3.0"
 
   context = module.this.context
 }
