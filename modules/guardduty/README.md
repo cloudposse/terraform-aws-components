@@ -59,9 +59,9 @@ atmos terraform apply guardduty-uw1 -s core-uw1-security -var=admin_delegated=fa
 # ... other regions
 
 # Apply guardduty-root to all regions in core-root
-atmos terraform apply guardduty-root-ue2 -s core-ue2-root
-atmos terraform apply guardduty-root-ue1 -s core-ue1-root
-atmos terraform apply guardduty-root-uw1 -s core-uw1-root
+atmos terraform apply guardduty/root-ue2 -s core-ue2-root
+atmos terraform apply guardduty/root-ue1 -s core-ue1-root
+atmos terraform apply guardduty/root-uw1 -s core-uw1-root
 # ... other regions
 
 # Apply guardduty to all regions in core-security but with default values for admin_delegated
