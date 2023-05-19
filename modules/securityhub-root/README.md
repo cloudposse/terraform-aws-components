@@ -13,7 +13,7 @@ The example snippet below shows how to use this component:
 ```yaml
 components:
   terraform:
-    securityhub-root:
+    securityhub/root:
       metadata:
         component: securityhub-root        
       vars:
