@@ -22,7 +22,7 @@ variable "privileged" {
 }
 
 variable "administrator_account" {
-  description = "The name of the account that is the GuardDuty adminstrator account."
+  description = "The name of the account that is the GuardDuty administrator account"
   type        = string
   default     = null
 }

@@ -6,7 +6,7 @@ variable "region" {
 variable "account_map_tenant" {
   type        = string
   default     = ""
-  description = "(Optional) The tenant where the account_map component required by remote-state is deployed."
+  description = "The tenant where the `account_map` component required by remote-state is deployed"
 }
 
 variable "root_account_stage" {
@@ -28,7 +28,7 @@ variable "privileged" {
 }
 
 variable "central_resource_collector_account" {
-  description = "The name of the account that is the centralized aggregation account."
+  description = "The name of the account that is the centralized aggregation account"
   type        = string
 }
 
@@ -36,9 +36,9 @@ variable "admin_delegated" {
   type        = bool
   default     = true
   description = <<DOC
-  A flag to indicate if the GuardDuty Admininstrator account has been designed from the root account.
+  A flag to indicate if the GuardDuty Admininstrator account has been designated from the root account.
 
-  This component should be applied with this variable set to false, then the compliance-root component should be applied
-  to designate the administrator account, then this component should be applied again with this variable set to true. 
+  This component should be applied with this variable set to false, then the guardduty/root component should be applied
+  to designate the administrator account, then this component should be applied again with this variable set to `true`. 
   DOC
 }

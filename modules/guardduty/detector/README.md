@@ -1,6 +1,6 @@
 # Component: `guardduty/detector`
 
-This component is responsible for configuring GuardDuty and it should be used in tandem with the [guardduty-root](../root) component.
+This component is responsible for configuring GuardDuty and it should be used in tandem with the [guardduty/root](../root) component.
 
 AWS GuardDuty is a managed threat detection service. It is designed to help protect AWS accounts and workloads by continuously monitoring for malicious activities and unauthorized behaviors. GuardDuty analyzes various data sources within your AWS environment, such as AWS CloudTrail logs, VPC Flow Logs, and DNS logs, to detect potential security threats.
 
@@ -29,7 +29,7 @@ The example snippet below shows how to use this component:
 ```yaml
 components:
   terraform:
-    guardduty-detector:
+    guardduty/detector:
       metadata:
         component: guardduty/detector
       vars:
@@ -52,22 +52,22 @@ This set of steps assumes that `var.central_resource_collector_account = "core-s
 Example:
 
 ```
-# Apply guardduty-detector to all regions in core-security
-atmos terraform apply guardduty-detector-ue2 -s core-ue2-security -var=admin_delegated=false
-atmos terraform apply guardduty-detector-ue1 -s core-ue1-security -var=admin_delegated=false
-atmos terraform apply guardduty-detector-uw1 -s core-uw1-security -var=admin_delegated=false
+# Apply guardduty/detector to all regions in core-security
+atmos terraform apply guardduty/detector-ue2 -s core-ue2-security -var=admin_delegated=false
+atmos terraform apply guardduty/detector-ue1 -s core-ue1-security -var=admin_delegated=false
+atmos terraform apply guardduty/detector-uw1 -s core-uw1-security -var=admin_delegated=false
 # ... other regions
 
-# Apply guardduty-root to all regions in core-root
-atmos terraform apply guardduty-root-ue2 -s core-ue2-root
-atmos terraform apply guardduty-root-ue1 -s core-ue1-root
-atmos terraform apply guardduty-root-uw1 -s core-uw1-root
+# Apply guardduty/root to all regions in core-root
+atmos terraform apply guardduty/root-ue2 -s core-ue2-root
+atmos terraform apply guardduty/root-ue1 -s core-ue1-root
+atmos terraform apply guardduty/root-uw1 -s core-uw1-root
 # ... other regions
 
-# Apply guardduty-detector to all regions in core-security but with default values for admin_delegated
-atmos terraform apply guardduty-detector-ue2 -s core-ue2-security
-atmos terraform apply guardduty-detector-ue1 -s core-ue1-security
-atmos terraform apply guardduty-detector-uw1 -s core-uw1-security
+# Apply guardduty/detector to all regions in core-security but with default values for admin_delegated
+atmos terraform apply guardduty/detector-ue2 -s core-ue2-security
+atmos terraform apply guardduty/detector-ue1 -s core-ue1-security
+atmos terraform apply guardduty/detector-uw1 -s core-uw1-security
 # ... other regions
 ```
 
@@ -107,11 +107,11 @@ atmos terraform apply guardduty-detector-uw1 -s core-uw1-security
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_account_map_tenant"></a> [account\_map\_tenant](#input\_account\_map\_tenant) | (Optional) The tenant where the account\_map component required by remote-state is deployed. | `string` | `""` | no |
+| <a name="input_account_map_tenant"></a> [account\_map\_tenant](#input\_account\_map\_tenant) | The tenant where the `account_map` component required by remote-state is deployed | `string` | `""` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_admin_delegated"></a> [admin\_delegated](#input\_admin\_delegated) | A flag to indicate if the GuardDuty Admininstrator account has been designed from the root account.<br><br>  This component should be applied with this variable set to false, then the compliance-root component should be applied<br>  to designate the administrator account, then this component should be applied again with this variable set to true. | `bool` | `true` | no |
+| <a name="input_admin_delegated"></a> [admin\_delegated](#input\_admin\_delegated) | A flag to indicate if the GuardDuty Admininstrator account has been designated from the root account.<br><br>  This component should be applied with this variable set to false, then the guardduty/root component should be applied<br>  to designate the administrator account, then this component should be applied again with this variable set to `true`. | `bool` | `true` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_central_resource_collector_account"></a> [central\_resource\_collector\_account](#input\_central\_resource\_collector\_account) | The name of the account that is the centralized aggregation account. | `string` | n/a | yes |
+| <a name="input_central_resource_collector_account"></a> [central\_resource\_collector\_account](#input\_central\_resource\_collector\_account) | The name of the account that is the centralized aggregation account | `string` | n/a | yes |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |

@@ -5,7 +5,7 @@ locals {
 
 module "utils" {
   source  = "cloudposse/utils/aws"
-  version = "1.1.0"
+  version = "1.2.0"
 
   context = module.this.context
 }
@@ -17,7 +17,7 @@ resource "aws_guardduty_organization_admin_account" "this" {
 }
 
 resource "aws_guardduty_detector" "this" {
-  count = local.enabled && var.administrator_account != null ? 1 : 0
+  count = local.enabled && var.administrator_account != null && var.administrator_account != "" ? 1 : 0
 
   enable = true
 
