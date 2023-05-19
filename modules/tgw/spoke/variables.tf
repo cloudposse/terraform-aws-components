@@ -4,8 +4,20 @@ variable "region" {
 }
 
 variable "connections" {
-  type        = list(string)
-  description = "List of accounts to connect to"
+  type = list(object({
+    account = object({
+      stage  = string
+      tenant = optional(string, null)
+    })
+    vpc_component_names = optional(list(string), ["vpc"])
+    eks_component_names = optional(list(string), [])
+  }))
+  description = <<-EOT
+  A list of objects to define each TGW connections. 
+
+  By default, each connection will look for only the default `vpc` component.
+  EOT
+  default     = []
 }
 
 variable "tgw_hub_component_name" {
@@ -20,8 +32,8 @@ variable "expose_eks_sg" {
   default     = true
 }
 
-variable "eks_component_names" {
-  type        = set(string)
-  description = "The names of the eks components"
-  default     = ["eks/cluster"]
+variable "own_vpc_component_name" {
+  type        = string
+  default     = "vpc"
+  description = "The name of the vpc component in the owning account. Defaults to \"vpc\""
 }

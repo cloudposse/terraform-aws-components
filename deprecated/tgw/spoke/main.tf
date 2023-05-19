@@ -38,12 +38,12 @@ module "tgw_hub_routes" {
 module "tgw_spoke_vpc_attachment" {
   source = "./modules/standard_vpc_attachment"
 
-  owning_account         = local.spoke_account
-  own_vpc_component_name = var.own_vpc_component_name
+  owning_account = local.spoke_account
 
-  tgw_config    = module.tgw_hub.outputs.tgw_config
-  connections   = var.connections
-  expose_eks_sg = var.expose_eks_sg
+  tgw_config          = module.tgw_hub.outputs.tgw_config
+  connections         = var.connections
+  expose_eks_sg       = var.expose_eks_sg
+  eks_component_names = var.eks_component_names
 
   context = module.this.context
 }

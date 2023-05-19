@@ -30,5 +30,6 @@ locals {
     vpcs                                    = module.vpc
     eks                                     = module.eks
     expose_eks_sg                           = var.expose_eks_sg
+    eks_component_names                     = var.eks_component_names
   }
 }
