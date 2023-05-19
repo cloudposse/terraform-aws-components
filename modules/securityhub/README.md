@@ -72,9 +72,9 @@ atmos terraform apply securityhub-uw1 -s core-uw1-security -var=admin_delegated=
 # ... other regions
 
 # Apply securityhub-root to all regions in core-root
-atmos terraform apply securityhub-root-ue2 -s core-ue2-root
-atmos terraform apply securityhub-root-ue1 -s core-ue1-root
-atmos terraform apply securityhub-root-uw1 -s core-uw1-root
+atmos terraform apply securityhub/root-ue2 -s core-ue2-root
+atmos terraform apply securityhub/root-ue1 -s core-ue1-root
+atmos terraform apply securityhub/root-uw1 -s core-uw1-root
 # ... other regions
 
 # Apply securityhub to all regions in core-security but with default values for admin_delegated
