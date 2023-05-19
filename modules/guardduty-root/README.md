@@ -2,7 +2,7 @@
 
 This component should be used in tandem with the [guardduty](../guardduty) component. Please take a look at [guardduty/README](../guardduty/README.md) for more information about GuardDuty and deployment steps.
 
-This component is responsible for delegating the AWS Security Hub and AWS GuardDuty administrator accounts to the appropriate account(s). It should be deployed to every region for the root account in the AWS Organization.
+This component is responsible for delegating the AWS GuardDuty administrator accounts to the appropriate account(s). It should be deployed to every region for the root account in the AWS Organization.
 
 ## Usage
 
