@@ -37,3 +37,9 @@ variable "own_vpc_component_name" {
   default     = "vpc"
   description = "The name of the vpc component in the owning account. Defaults to \"vpc\""
 }
+
+variable "own_eks_component_names" {
+  type        = list(string)
+  default     = []
+  description = "The name of the eks components in the owning account."
+}

@@ -52,14 +52,19 @@ locals {
     } if vpc_key != local.own_account_vpc_key && contains(local.connected_vpc_component_keys, vpc_key)
   }
 
-  # Define a list of all EKS clusters allowed for this account's VPC
-  allowed_eks = {
-    for eks_key, eks_remote_state in local.eks :
-    eks_key => {
-      sg_id = eks_remote_state.outputs.eks_cluster_managed_security_group_id
-      cidr  = eks_remote_state.outputs.vpc_cidr
-    } if contains(local.connected_eks_component_keys, eks_key)
-  }
+  # For each EKS cluster in this account, map the EKS SG to the CIDR for each connected cluster
+  allowed_eks = merge([
+    for own_eks_component in var.own_eks_component_names :
+    {
+      for eks_key, eks_remote_state in local.eks :
+      eks_key => {
+        # SG of each EKS component in this account
+        sg_id = local.eks["${var.owning_account}-${own_eks_component}"].outputs.eks_cluster_managed_security_group_id
+        # CIDR of the remote EKS cluster
+        cidr = eks_remote_state.outputs.vpc_cidr
+      } if contains(local.connected_eks_component_keys, eks_key)
+    }
+  ]...)
 
 }
 
@@ -94,7 +99,8 @@ module "standard_vpc_attachment" {
   context = module.this.context
 }
 
-# Define a Security Group Rule in this account for each EKS Security Group
+# Define a Security Group Rule to allow traffic from
+# Expose traffic from EKS VPC CIDRs in other accounts to this accounts EKS cluster SG
 resource "aws_security_group_rule" "ingress_cidr_blocks" {
   for_each = var.expose_eks_sg ? local.allowed_eks : {}
 
@@ -103,6 +109,6 @@ resource "aws_security_group_rule" "ingress_cidr_blocks" {
   from_port         = 0
   to_port           = 65535
   protocol          = "tcp"
-  cidr_blocks       = [each.value.cidr]
-  security_group_id = each.value.sg_id
+  cidr_blocks       = [each.value.cidr] # CIDR of cluster in other accounts
+  security_group_id = each.value.sg_id  # SG of cluster in this account
 }
