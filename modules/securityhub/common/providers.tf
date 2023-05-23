@@ -23,7 +23,7 @@ provider "awsutils" {
 }
 
 module "iam_roles" {
-  source = "../account-map/modules/iam-roles"
+  source = "../../account-map/modules/iam-roles"
 
   context = module.this.context
 }
@@ -52,7 +52,7 @@ provider "aws" {
 module "securityhub_opsgenie_integration_ssm_role" {
   count = local.enabled && local.opsgenie_integration_enabled ? 1 : 0
 
-  source  = "../account-map/modules/iam-roles"
+  source  = "../../account-map/modules/iam-roles"
   stage   = var.opsgenie_integration_uri_ssm_account
   context = module.this.context
 }

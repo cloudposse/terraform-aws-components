@@ -1,6 +1,6 @@
-# Component: `securityhub`
+# Component: `securityhub/common`
 
-This component is responsible for configuring Security Hub and it should be used in tandem with the [securityhub-root](../securityhub-root) component.
+This component is responsible for configuring Security Hub and it should be used in tandem with the [securityhub/root](../../securityhub/root) component.
 
 Amazon Security Hub enables users to centrally manage and monitor the security and compliance of their AWS accounts and resources. It aggregates, organizes, and prioritizes security findings from various AWS services, third-party tools, and integrated partner solutions.
 
@@ -33,9 +33,9 @@ The example snippet below shows how to use this component:
 ```yaml
 components:
   terraform:
-    securityhub:
+    securityhub/common:
       metadata:
-        component: securityhub
+        component: securityhub/common
       vars:
         enabled: true
         region: us-east-2
@@ -58,29 +58,29 @@ components:
 
 This set of steps assumes that `var.central_resource_collector_account = "core-security"`.
 
-1. Apply `securityhub` to `core-security` with `var.admin_delegated = false`
-2. Apply `securityhub-root` to `core-root`
-3. Apply `securityhub` to `core-security` with `var.admin_delegated = true`
+1. Apply `securityhub/common` to `core-security` with `var.admin_delegated = false`
+2. Apply `securityhub/root` to `core-root`
+3. Apply `securityhub/common` to `core-security` with `var.admin_delegated = true`
 
 Example:
 
 ```
-# Apply securityhub to all regions in core-security
-atmos terraform apply securityhub-ue2 -s core-ue2-security -var=admin_delegated=false
-atmos terraform apply securityhub-ue1 -s core-ue1-security -var=admin_delegated=false
-atmos terraform apply securityhub-uw1 -s core-uw1-security -var=admin_delegated=false
+# Apply securityhub/common to all regions in core-security
+atmos terraform apply securityhub/common-ue2 -s core-ue2-security -var=admin_delegated=false
+atmos terraform apply securityhub/common-ue1 -s core-ue1-security -var=admin_delegated=false
+atmos terraform apply securityhub/common-uw1 -s core-uw1-security -var=admin_delegated=false
 # ... other regions
 
-# Apply securityhub-root to all regions in core-root
+# Apply securityhub/root to all regions in core-root
 atmos terraform apply securityhub/root-ue2 -s core-ue2-root
 atmos terraform apply securityhub/root-ue1 -s core-ue1-root
 atmos terraform apply securityhub/root-uw1 -s core-uw1-root
 # ... other regions
 
-# Apply securityhub to all regions in core-security but with default values for admin_delegated
-atmos terraform apply securityhub-ue2 -s core-ue2-security
-atmos terraform apply securityhub-ue1 -s core-ue1-security
-atmos terraform apply securityhub-uw1 -s core-uw1-security
+# Apply securityhub/common to all regions in core-security but with default values for admin_delegated
+atmos terraform apply securityhub/common-ue2 -s core-ue2-security
+atmos terraform apply securityhub/common-ue1 -s core-ue1-security
+atmos terraform apply securityhub/common-uw1 -s core-uw1-security
 # ... other regions
 ```
 
@@ -107,9 +107,9 @@ atmos terraform apply securityhub-uw1 -s core-uw1-security
 |------|--------|---------|
 | <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
 | <a name="module_control_disablements"></a> [control\_disablements](#module\_control\_disablements) | cloudposse/security-hub/aws//modules/control-disablements | 0.9.0 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_security_hub"></a> [security\_hub](#module\_security\_hub) | cloudposse/security-hub/aws | 0.9.0 |
-| <a name="module_securityhub_opsgenie_integration_ssm_role"></a> [securityhub\_opsgenie\_integration\_ssm\_role](#module\_securityhub\_opsgenie\_integration\_ssm\_role) | ../account-map/modules/iam-roles | n/a |
+| <a name="module_securityhub_opsgenie_integration_ssm_role"></a> [securityhub\_opsgenie\_integration\_ssm\_role](#module\_securityhub\_opsgenie\_integration\_ssm\_role) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -176,6 +176,6 @@ atmos terraform apply securityhub-uw1 -s core-uw1-security
 
 ## References
 * [AWS Security Hub Documentation](https://aws.amazon.com/security-hub/)
-* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/securityhub/)
+* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/securityhub/common/)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

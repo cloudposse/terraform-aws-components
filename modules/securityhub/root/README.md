@@ -1,6 +1,6 @@
-# Component: `securityhub-root`
+# Component: `securityhub/root`
 
-This component should be used in tandem with the [securityhub](../securityhub) component. Please take a look at [securityhub/README](../securityhub/README.md) for more information about Security Hub and deployment steps.
+This component should be used in tandem with the [securityhub/common](../../securityhub/common/) component. Please take a look at [securityhub/common/README](../../securityhub/common/README.md) for more information about Security Hub and deployment steps.
 
 This component is responsible for delegating the AWS Security Hub administrator accounts to the appropriate account(s). It should be deployed to every region for the root account in the AWS Organization.
 
@@ -15,7 +15,7 @@ components:
   terraform:
     securityhub/root:
       metadata:
-        component: securityhub-root        
+        component: securityhub/root        
       vars:
         enabled: true
         administrator_account: core-security
@@ -23,7 +23,7 @@ components:
 
 ## Deployment
 
-Please see instructions in [securityhub/README](../securityhub/README.md) for information on how to deploy both components.
+Please see instructions in [securityhub/README](../../securityhub/common/README.md) for information on how to deploy both components.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -45,7 +45,7 @@ Please see instructions in [securityhub/README](../securityhub/README.md) for in
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -92,6 +92,6 @@ No outputs.
 
 ## References
 * [AWS Security Hub Documentation](https://aws.amazon.com/security-hub/)
-* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/securityhub-root/)
+* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/securityhub/root/)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
