@@ -1,4 +1,4 @@
-# Component: `guardduty`
+# Component: `guardduty/common`
 
 This component is responsible for configuring GuardDuty and it should be used in tandem with the [guardduty/root](../guardduty/root) component.
 
@@ -29,9 +29,9 @@ The example snippet below shows how to use this component:
 ```yaml
 components:
   terraform:
-    guardduty/detector:
+    guardduty/common:
       metadata:
-        component: guardduty/detector
+        component: guardduty/common
       vars:
         enabled: true
         account_map_tenant: core
@@ -45,17 +45,17 @@ components:
 
 This set of steps assumes that `var.central_resource_collector_account = "core-security"`.
 
-1. Apply `guardduty/detector` to `core-security` with `var.admin_delegated = false`
+1. Apply `guardduty/common` to `core-security` with `var.admin_delegated = false`
 2. Apply `guardduty/root` to `core-root`
-3. Apply `guardduty/detector` to `core-security` with `var.admin_delegated = true`
+3. Apply `guardduty/common` to `core-security` with `var.admin_delegated = true`
 
 Example:
 
 ```
-# Apply guardduty/detector to all regions in core-security
-atmos terraform apply guardduty/detector-ue2 -s core-ue2-security -var=admin_delegated=false
-atmos terraform apply guardduty/detector-ue1 -s core-ue1-security -var=admin_delegated=false
-atmos terraform apply guardduty/detector-uw1 -s core-uw1-security -var=admin_delegated=false
+# Apply guardduty/common to all regions in core-security
+atmos terraform apply guardduty/common-ue2 -s core-ue2-security -var=admin_delegated=false
+atmos terraform apply guardduty/common-ue1 -s core-ue1-security -var=admin_delegated=false
+atmos terraform apply guardduty/common-uw1 -s core-uw1-security -var=admin_delegated=false
 # ... other regions
 
 # Apply guardduty/root to all regions in core-root
@@ -64,10 +64,10 @@ atmos terraform apply guardduty/root-ue1 -s core-ue1-root
 atmos terraform apply guardduty/root-uw1 -s core-uw1-root
 # ... other regions
 
-# Apply guardduty/detector to all regions in core-security but with default values for admin_delegated
-atmos terraform apply guardduty/detector-ue2 -s core-ue2-security
-atmos terraform apply guardduty/detector-ue1 -s core-ue1-security
-atmos terraform apply guardduty/detector-uw1 -s core-uw1-security
+# Apply guardduty/common to all regions in core-security but with default values for admin_delegated
+atmos terraform apply guardduty/common-ue2 -s core-ue2-security
+atmos terraform apply guardduty/common-ue1 -s core-ue1-security
+atmos terraform apply guardduty/common-uw1 -s core-uw1-security
 # ... other regions
 ```
 
@@ -145,6 +145,6 @@ atmos terraform apply guardduty/detector-uw1 -s core-uw1-security
 
 ## References
 * [AWS GuardDuty Documentation](https://aws.amazon.com/guardduty/)
-* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/guardduty/detector/)
+* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/guardduty/common/)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

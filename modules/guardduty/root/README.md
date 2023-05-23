@@ -1,6 +1,6 @@
 # Component: `guardduty/root`
 
-This component should be used in tandem with the [guardduty/detector](../../guardduty/detector) component. Please take a look at [guardduty/detector/README](../../guardduty/detector/README.md) for more information about GuardDuty and deployment steps.
+This component should be used in tandem with the [guardduty/common](../../guardduty/common) component. Please take a look at [guardduty/common/README](../../guardduty/common/README.md) for more information about GuardDuty and deployment steps.
 
 This component is responsible for delegating the AWS GuardDuty administrator accounts to the appropriate account(s). It should be deployed to every region for the root account in the AWS Organization.
 
@@ -23,7 +23,7 @@ components:
 
 ## Deployment
 
-Please see instructions in [guardduty/detector/README](../guardduty/detector/README.md) for information on how to deploy both components.
+Please see instructions in [guardduty/common/README](../guardduty/common/README.md) for information on how to deploy both components.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
