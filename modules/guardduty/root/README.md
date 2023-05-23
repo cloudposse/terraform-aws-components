@@ -1,24 +1,8 @@
-# Component: `guardduty`
+# Component: `guardduty/root`
 
-This component is responsible for configuring GuardDuty and it should be used in tandem with the [guardduty-root](../guardduty-root) component.
+This component should be used in tandem with the [guardduty/detector](../../guardduty/detector) component. Please take a look at [guardduty/detector/README](../../guardduty/detector/README.md) for more information about GuardDuty and deployment steps.
 
-AWS GuardDuty is a managed threat detection service. It is designed to help protect AWS accounts and workloads by continuously monitoring for malicious activities and unauthorized behaviors. GuardDuty analyzes various data sources within your AWS environment, such as AWS CloudTrail logs, VPC Flow Logs, and DNS logs, to detect potential security threats.
-
-Key features and components of AWS GuardDuty include:
-
-- Threat detection: GuardDuty employs machine learning algorithms, anomaly detection, and integrated threat intelligence to identify suspicious activities, unauthorized access attempts, and potential security threats. It analyzes event logs and network traffic data to detect patterns, anomalies, and known attack techniques.
-
-- Threat intelligence: GuardDuty leverages threat intelligence feeds from AWS, trusted partners, and the global community to enhance its detection capabilities. It uses this intelligence to identify known malicious IP addresses, domains, and other indicators of compromise.
-
-- Real-time alerts: When GuardDuty identifies a potential security issue, it generates real-time alerts that can be delivered through AWS CloudWatch Events. These alerts can be integrated with other AWS services like Amazon SNS or AWS Lambda for immediate action or custom response workflows.
-
-- Multi-account support: GuardDuty can be enabled across multiple AWS accounts, allowing centralized management and monitoring of security across an entire organization's AWS infrastructure. This helps to maintain consistent security policies and practices.
-
-- Automated remediation: GuardDuty integrates with other AWS services, such as AWS Macie, AWS Security Hub, and AWS Systems Manager, to facilitate automated threat response and remediation actions. This helps to minimize the impact of security incidents and reduces the need for manual intervention.
-
-- Security findings and reports: GuardDuty provides detailed security findings and reports that include information about detected threats, affected AWS resources, and recommended remediation actions. These findings can be accessed through the AWS Management Console or retrieved via APIs for further analysis and reporting.
-
-GuardDuty offers a scalable and flexible approach to threat detection within AWS environments, providing organizations with an additional layer of security to proactively identify and respond to potential security risks.
+This component is responsible for delegating the AWS GuardDuty administrator accounts to the appropriate account(s). It should be deployed to every region for the root account in the AWS Organization.
 
 ## Usage
 
@@ -29,47 +13,17 @@ The example snippet below shows how to use this component:
 ```yaml
 components:
   terraform:
-    guardduty:
+    guardduty/root:
       metadata:
-        component: guardduty
+        component: guardduty/root
       vars:
         enabled: true
-        account_map_tenant: core
-        central_resource_collector_account: core-security
-        region: us-east-2
-        environment: ue2
-        admin_delegated: true
+        administrator_account: core-security
 ```
 
 ## Deployment
 
-This set of steps assumes that `var.central_resource_collector_account = "core-security"`.
-
-1. Apply `guardduty` to `core-security` with `var.admin_delegated = false`
-2. Apply `guardduty-root` to `core-root`
-3. Apply `guardduty` to `core-security` with `var.admin_delegated = true`
-
-Example:
-
-```
-# Apply guardduty to all regions in core-security
-atmos terraform apply guardduty-ue2 -s core-ue2-security -var=admin_delegated=false
-atmos terraform apply guardduty-ue1 -s core-ue1-security -var=admin_delegated=false
-atmos terraform apply guardduty-uw1 -s core-uw1-security -var=admin_delegated=false
-# ... other regions
-
-# Apply guardduty-root to all regions in core-root
-atmos terraform apply guardduty/root-ue2 -s core-ue2-root
-atmos terraform apply guardduty/root-ue1 -s core-ue1-root
-atmos terraform apply guardduty/root-uw1 -s core-uw1-root
-# ... other regions
-
-# Apply guardduty to all regions in core-security but with default values for admin_delegated
-atmos terraform apply guardduty-ue2 -s core-ue2-security
-atmos terraform apply guardduty-ue1 -s core-ue1-security
-atmos terraform apply guardduty-uw1 -s core-uw1-security
-# ... other regions
-```
+Please see instructions in [guardduty/detector/README](../guardduty/detector/README.md) for information on how to deploy both components.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -85,33 +39,30 @@ atmos terraform apply guardduty-uw1 -s core-uw1-security
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
-| <a name="provider_awsutils"></a> [awsutils](#provider\_awsutils) | >= 0.16.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
-| <a name="module_guardduty"></a> [guardduty](#module\_guardduty) | cloudposse/guardduty/aws | 0.5.0 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
+| <a name="module_utils"></a> [utils](#module\_utils) | cloudposse/utils/aws | 1.3.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [awsutils_guardduty_organization_settings.this](https://registry.terraform.io/providers/cloudposse/awsutils/latest/docs/resources/guardduty_organization_settings) | resource |
-| [aws_caller_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_guardduty_detector.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector) | resource |
+| [aws_guardduty_organization_admin_account.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_organization_admin_account) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_account_map_tenant"></a> [account\_map\_tenant](#input\_account\_map\_tenant) | The tenant where the `account_map` component required by remote-state is deployed | `string` | `""` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_admin_delegated"></a> [admin\_delegated](#input\_admin\_delegated) | A flag to indicate if the GuardDuty Admininstrator account has been designated from the root account.<br><br>  This component should be applied with this variable set to false, then the guardduty-root component should be applied<br>  to designate the administrator account, then this component should be applied again with this variable set to `true`. | `bool` | `true` | no |
+| <a name="input_administrator_account"></a> [administrator\_account](#input\_administrator\_account) | The name of the account that is the GuardDuty administrator account | `string` | `null` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_central_resource_collector_account"></a> [central\_resource\_collector\_account](#input\_central\_resource\_collector\_account) | The name of the account that is the centralized aggregation account | `string` | n/a | yes |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
@@ -137,14 +88,11 @@ atmos terraform apply guardduty-uw1 -s core-uw1-security
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_guardduty_detector_arn"></a> [guardduty\_detector\_arn](#output\_guardduty\_detector\_arn) | GuardDuty detector ARN |
-| <a name="output_guardduty_detector_id"></a> [guardduty\_detector\_id](#output\_guardduty\_detector\_id) | GuardDuty detector ID |
+No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
 * [AWS GuardDuty Documentation](https://aws.amazon.com/guardduty/)
-* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/guardduty/)
+* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/guardduty/root/)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
