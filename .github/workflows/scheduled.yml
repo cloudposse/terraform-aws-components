@@ -1,0 +1,20 @@
+---
+name: scheduled
+on:
+  workflow_dispatch: { }  # Allows manually trigger this workflow
+  schedule:
+    - cron: "0 3 * * *"
+
+permissions:
+  pull-requests: write
+  id-token: write
+  contents: write
+
+jobs:
+  readme:
+    uses: cloudposse/github-actions-workflows/.github/workflows/scheduled-readme.yml@main
+    with:
+      runs-on: ${{ inputs.runs-on }}
+    secrets:
+      github_access_token: ${{ secrets.REPO_ACCESS_TOKEN }}
+      
