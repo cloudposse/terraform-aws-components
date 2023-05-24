@@ -1,7 +1,6 @@
 # This is split off into a separate file in the hopes we can drop it altogether in the future,
 # or else move it into `roles-to-principals`.
 
-
 locals {
 
   # EKS does not accept the actual role ARN of the permission set,
@@ -20,7 +19,6 @@ locals {
     username = format("%s-%s", local.this_account_name, role.aws_sso_permission_set)
     groups   = role.groups
   }]
-
 }
 
 data "aws_iam_roles" "sso_roles" {

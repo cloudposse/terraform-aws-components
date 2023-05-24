@@ -158,6 +158,6 @@ module "datadog_fluent_bit_container_definition" {
 module "datadog_configuration" {
   count   = var.datadog_agent_sidecar_enabled ? 1 : 0
   source  = "../datadog-configuration/modules/datadog_keys"
-  region  = var.region
+  enabled = true
   context = module.this.context
 }

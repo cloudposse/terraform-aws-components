@@ -1,7 +1,7 @@
 module "datadog_configuration" {
   source  = "../datadog-configuration/modules/datadog_keys"
-  context = module.this.context
   enabled = true
+  context = module.this.context
 }
 
 provider "datadog" {
