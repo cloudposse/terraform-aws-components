@@ -16,6 +16,14 @@ module "permission_sets" {
   context = module.this.context
 }
 
+data "aws_ssoadmin_instances" "org" {}
+resource "aws_identitystore_group" "default" {
+  for_each          = try(var.groups, {})
+  display_name      = each.value.display_name
+  description       = each.value.description
+  identity_store_id = tolist(data.aws_ssoadmin_instances.org.identity_store_ids)[0]
+}
+
 module "sso_account_assignments" {
   source  = "cloudposse/sso/aws//modules/account-assignments"
   version = "1.0.0"

@@ -65,3 +65,25 @@ variable "aws_teams_accessible" {
     EOT
   default     = []
 }
+
+variable "groups" {
+  type = map(object({
+    display_name = string
+    description  = string
+  }))
+  description = "Groups to create in the identity store"
+  default = {
+    BillingAdmin = {
+      display_name = "BillingAdmin"
+      description  = "Billing Administrators"
+    }
+    DevOps = {
+      display_name = "DevOps"
+      description  = "DevOps Team"
+    }
+    Developers = {
+      display_name = "Developers"
+      description  = "Developers Team"
+    }
+  }
+}
