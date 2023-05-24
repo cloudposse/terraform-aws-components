@@ -1,10 +1,8 @@
 locals {
   enabled             = module.this.enabled
-  iam_policy_enabled  = local.enabled && var.policy_json != null
+  iam_policy_enabled  = local.enabled && length(var.custom_iam_policy_statements) > 0
   s3_bucket_full_name = var.s3_bucket_name != null ? format("%s-%s-%s-%s-%s", module.this.namespace, module.this.tenant, module.this.environment, module.this.stage, var.s3_bucket_name) : null
 }
-
-
 
 module "label" {
   source  = "cloudposse/label/null"
@@ -15,13 +13,37 @@ module "label" {
   context = module.this.context
 }
 
+data "aws_iam_policy_document" "default" {
+  count = local.iam_policy_enabled ? 1 : 0
+  dynamic "statement" {
+    for_each = var.custom_iam_policy_statements
+
+    content {
+      sid       = statement.value.sid
+      effect    = statement.value.effect
+      actions   = statement.value.actions
+      resources = statement.value.resources
+
+      dynamic "condition" {
+        for_each = statement.value.conditions
+
+        content {
+          test     = condition.value.test
+          variable = condition.value.variable
+          values   = condition.value.values
+        }
+      }
+    }
+  }
+}
+
 resource "aws_iam_policy" "default" {
   count = local.iam_policy_enabled ? 1 : 0
 
   name        = module.label.id
   path        = "/"
   description = format("%s Lambda policy", module.label.id)
-  policy      = var.policy_json
+  policy      = data.aws_iam_policy_document.default[0].json
 
   tags = module.this.tags
 }
@@ -45,7 +67,7 @@ module "lambda" {
   source  = "cloudposse/lambda-function/aws"
   version = "0.4.1"
 
-  function_name      = module.label.id
+  function_name      = coalesce(var.function_name, module.label.id)
   description        = var.description
   handler            = var.handler
   lambda_environment = var.lambda_environment
@@ -86,4 +108,3 @@ module "lambda" {
 
   context = module.this.context
 }
-

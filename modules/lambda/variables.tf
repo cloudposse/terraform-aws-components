@@ -6,6 +6,7 @@ variable "region" {
 variable "function_name" {
   type        = string
   description = "Unique name for the Lambda Function."
+  default     = null
 }
 
 variable "architectures" {
@@ -266,12 +267,6 @@ variable "iam_policy_description" {
   default     = "Minimum SSM read permissions for Lambda IAM Role"
 }
 
-variable "policy_json" {
-  type        = string
-  description = "IAM policy to attach to the Lambda IAM role"
-  default     = null
-}
-
 variable "zip" {
   type = object({
     enabled   = optional(bool, false)
@@ -280,4 +275,20 @@ variable "zip" {
   })
   description = "Zip Configuration for local file deployments"
   default     = {}
+}
+
+variable "custom_iam_policy_statements" {
+  description = "IAM policy statements to add to the Lambda IAM role."
+  default     = []
+  type = list(object({
+    sid       = optional(string, "")
+    effect    = optional(string, "")
+    actions   = optional(list(string), [])
+    resources = optional(list(string), [])
+    conditions = optional(list(object({
+      test     = string
+      variable = string
+      values   = list(string)
+    })), [])
+  }))
 }
