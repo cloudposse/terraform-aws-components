@@ -32,6 +32,8 @@ module "alb_controller" {
       sid       = "AllowCreateServiceLinkedRole"
       effect    = "Allow"
       resources = ["*"]
+
+      actions = ["iam:CreateServiceLinkedRole"]
       conditions = [
         {
           test     = "StringEquals"
@@ -291,6 +293,8 @@ module "alb_controller" {
           values = [
             "CreateTargetGroup",
             "CreateLoadBalancer",
+            # See https://github.com/kubernetes-sigs/aws-load-balancer-controller/issues/2692#issuecomment-1426242236
+            "CreateListener",
           ]
         },
         {
