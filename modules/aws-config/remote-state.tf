@@ -19,7 +19,7 @@ module "config_bucket" {
   tenant      = (var.config_bucket_tenant != "") ? var.config_bucket_tenant : module.this.tenant
   stage       = var.config_bucket_stage
   environment = var.config_bucket_env
-  privileged  = false
+  privileged  = var.privileged
 
   context = module.this.context
 }
@@ -44,6 +44,7 @@ module "aws_team_roles" {
 
   component   = "aws-team-roles"
   environment = var.iam_roles_environment_name
+  privileged  = var.privileged
 
   context = module.this.context
 }
