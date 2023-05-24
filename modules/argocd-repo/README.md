@@ -62,6 +62,63 @@ import:
 ...
 ```
 
+```yaml
+# stacks/argocd-repo/core.yaml
+import:
+  - catalog/argocd-repo/defaults
+
+components:
+  terraform:
+    argocd-actions-workflows-docker-ecr-eks-helm-argocd:
+      metadata:
+        component: argocd-repo
+        inherits:
+          - argocd-repo-defaults
+      vars:
+        name: github-actions-workflows-docker-ecr-eks-helm-argocd
+        description: ArgoCD desired state repository (Core tenant) applications
+        template_repo:
+          owner: cloudposse
+          repository: github-actions-workflows-docker-ecr-eks-helm-argocd
+          include_all_branches: true
+
+    argocd-actions-workflows:
+      metadata:
+        component: argocd-repo
+        inherits:
+          - argocd-repo-defaults
+      vars:
+        name: github-actions-workflows-docker-ecr-eks-helm-argocd
+        description: ArgoCD desired state repository (Core tenant) applications
+        template_repo:
+          owner: cloudposse
+          repository: github-actions-workflows
+          include_all_branches: true
+
+```
+
+```yaml
+# stacks/argocd-repo/example-app.yaml
+import:
+  - catalog/argocd-repo/defaults
+
+components:
+  terraform:
+    argocd-example-app:
+      metadata:
+        component: argocd-repo
+        inherits:
+          - argocd-repo-defaults
+      vars:
+        name: argocd-example-app
+        description: Sample App for ArgoCD
+        template_repo:
+          owner: cloudposse
+          repository: example-app-on-eks-with-argocd
+          include_all_branches: true
+
+```
+
 If the repository already exists, it will need to be imported (replace names of IAM profile var file accordingly):
 
 ```bash
@@ -158,6 +215,7 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 | <a name="input_ssm_github_deploy_key_format"></a> [ssm\_github\_deploy\_key\_format](#input\_ssm\_github\_deploy\_key\_format) | Format string of the SSM parameter path to which the deploy keys will be written to (%s will be replaced with the environment name) | `string` | `"/argocd/deploy_keys/%s"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
+| <a name="input_template_repo"></a> [template\_repo](#input\_template\_repo) | The template repository to use when creating the repository | <pre>object({<br>    owner                = string<br>    repository           = string<br>    include_all_branches = bool<br>  })</pre> | `null` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 
 ## Outputs

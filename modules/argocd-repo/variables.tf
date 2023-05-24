@@ -109,3 +109,13 @@ variable "slack_channel" {
   description = "The name of the slack channel to configure ArgoCD notifications for"
   default     = null
 }
+
+variable "template_repo" {
+  type = object({
+    owner                = string
+    repository           = string
+    include_all_branches = bool
+  })
+  description = "The template repository to use when creating the repository"
+  default     = null
+}

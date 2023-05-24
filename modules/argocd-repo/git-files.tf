@@ -1,5 +1,5 @@
 resource "github_repository_file" "gitignore" {
-  count = local.enabled ? 1 : 0
+  count = local.enabled && var.template_repo == null ? 1 : 0
 
   repository = join("", github_repository.default.*.name)
   branch     = join("", github_repository.default.*.default_branch)
@@ -14,7 +14,7 @@ resource "github_repository_file" "gitignore" {
 }
 
 resource "github_repository_file" "readme" {
-  count = local.enabled ? 1 : 0
+  count = local.enabled && var.template_repo == null ? 1 : 0
 
   repository = join("", github_repository.default.*.name)
   branch     = join("", github_repository.default.*.default_branch)
@@ -31,7 +31,7 @@ resource "github_repository_file" "readme" {
 }
 
 resource "github_repository_file" "codeowners_file" {
-  count = local.enabled ? 1 : 0
+  count = local.enabled && var.template_repo == null ? 1 : 0
 
   repository = join("", github_repository.default.*.name)
   branch     = join("", github_repository.default.*.default_branch)
@@ -46,7 +46,7 @@ resource "github_repository_file" "codeowners_file" {
 }
 
 resource "github_repository_file" "pull_request_template" {
-  count = local.enabled ? 1 : 0
+  count = local.enabled && var.template_repo == null ? 1 : 0
 
   repository          = join("", github_repository.default.*.name)
   branch              = join("", github_repository.default.*.default_branch)

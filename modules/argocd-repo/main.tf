@@ -34,11 +34,20 @@ resource "github_repository" "default" {
   description = var.description
   auto_init   = true # will create a 'main' branch
 
+  dynamic "template" {
+    for_each = var.template_repo != null ? [var.template_repo] : []
+    content {
+      owner                = template.value.owner
+      repository           = template.value.repository
+      include_all_branches = template.value.include_all_branches
+    }
+  }
+
   visibility = "private"
 }
 
 resource "github_branch_default" "default" {
-  count = local.enabled ? 1 : 0
+  count = local.enabled && var.template_repo == null ? 1 : 0
 
   repository = join("", github_repository.default.*.name)
   branch     = join("", github_repository.default.*.default_branch)
@@ -57,7 +66,7 @@ resource "github_branch_protection" "default" {
 
   repository_id = join("", github_repository.default.*.name)
 
-  pattern          = join("", github_branch_default.default.*.branch)
+  pattern          = join("", github_repository.default.*.default_branch)
   enforce_admins   = false # needs to be false in order to allow automation user to push
   allows_deletions = true
 
