@@ -8,7 +8,9 @@ locals {
     format("arn:%s:iam::%s:root", local.aws_partition, module.account_map.outputs.full_account_map[acct])
   ]
 
-  bucket_policy = var.custom_policy_enabled ? data.aws_iam_policy_document.custom_policy[0].json : data.template_file.bucket_policy.rendered
+  custom_policy       = var.custom_policy_enabled ? data.aws_iam_policy_document.custom_policy[0].json : null
+  log_delivery_policy = var.log_delivery_policy_enabled ? data.aws_iam_policy_document.log_delivery_policy[0].json : null
+  bucket_policy       = var.custom_policy_enabled == var.log_delivery_policy_enabled ? data.template_file.bucket_policy.rendered : coalesce(local.log_delivery_policy, local.custom_policy)
 
   logging = var.logging != null ? {
     bucket_name = var.logging_bucket_name_rendering_enabled ? format(var.logging_bucket_name_rendering_template, var.namespace, var.tenant, var.environment, var.stage, var.logging.bucket_name) : var.logging.bucket_name
@@ -88,23 +90,4 @@ module "s3_bucket" {
   allowed_bucket_actions = var.allowed_bucket_actions
 
   context = module.this.context
-}
-
-data "aws_iam_policy_document" "custom_policy" {
-  count = local.enabled && var.custom_policy_enabled ? 1 : 0
-
-  statement {
-    actions = var.custom_policy_actions
-
-    resources = [
-      format("arn:%s:s3:::%s", local.aws_partition, module.this.id),
-      format("arn:%s:s3:::%s/*", local.aws_partition, module.this.id)
-    ]
-    principals {
-      identifiers = length(local.custom_policy_account_arns) > 0 ? local.custom_policy_account_arns : ["*"]
-      type        = "AWS"
-    }
-
-    effect = "Allow"
-  }
 }

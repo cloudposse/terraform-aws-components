@@ -379,7 +379,13 @@ variable "custom_policy_account_names" {
 }
 
 variable "custom_policy_enabled" {
-  description = "Whether to enable or disable the custom policy. If enabled, the default policy will be ignored"
+  description = "Whether to enable or disable the custom policy. Conflicts with `var.log_delivery_policy_enabled`"
+  type        = bool
+  default     = false
+}
+
+variable "log_delivery_policy_enabled" {
+  description = "Whether to enable or disable the log delivery policy. Conflicts with `var.custom_policy_enabled`"
   type        = bool
   default     = false
 }
