@@ -147,7 +147,7 @@ atmos terraform apply guardduty/common-uw1 -s core-uw1-security
 |------|-------------|
 | <a name="output_guardduty_detector_arn"></a> [guardduty\_detector\_arn](#output\_guardduty\_detector\_arn) | GuardDuty detector ARN |
 | <a name="output_guardduty_detector_id"></a> [guardduty\_detector\_id](#output\_guardduty\_detector\_id) | GuardDuty detector ID |
-| <a name="output_sns_topic"></a> [sns\_topic](#output\_sns\_topic) | SNS topic |
+| <a name="output_sns_topic_name"></a> [sns\_topic\_name](#output\_sns\_topic\_name) | SNS topic name |
 | <a name="output_sns_topic_subscriptions"></a> [sns\_topic\_subscriptions](#output\_sns\_topic\_subscriptions) | SNS topic subscriptions |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

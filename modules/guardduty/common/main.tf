@@ -1,6 +1,6 @@
 locals {
   enabled                            = module.this.enabled
-  create_sns_topic                   = module.this.enabled && var.create_sns_topic
+  create_sns_topic                   = local.enabled && var.create_sns_topic
   account_map                        = module.account_map.outputs.full_account_map
   central_resource_collector_account = local.account_map[var.central_resource_collector_account]
   account_id                         = join("", data.aws_caller_identity.this[*].account_id)
