@@ -398,3 +398,12 @@ variable "addons" {
   description = "Manages [`aws_eks_addon`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) resources"
   default     = []
 }
+
+variable "addons_depends_on" {
+  type        = bool
+  description = <<-EOT
+    If provided, all addons will depend on node groups and therefore not be installed until nodes are finalized.
+    See [issue #170](https://github.com/cloudposse/terraform-aws-eks-cluster/issues/170) for more details.
+    EOT
+  default     = false
+}
