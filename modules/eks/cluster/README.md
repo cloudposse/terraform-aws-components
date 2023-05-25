@@ -198,6 +198,13 @@ addons:
     addon_version: v1.25
 ```
 
+:::warning
+
+Addons may not be suitable for all use-cases! For example, if you are using Karpenter to provision nodes,
+these nodes will never be available before the cluster component is deployed. 
+
+:::
+
 For more on upgrading these EKS Addons, see 
 ["How to Upgrade EKS Cluster Addons"](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons/)
 
