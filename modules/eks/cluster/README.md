@@ -177,6 +177,28 @@ For example:
             tags: null
 ```
 
+### Using Addons
+
+EKS clusters support “Addons” that can be automatically installed on a cluster. Install these addons with the [`var.input_addons` input](https://github.com/cloudposse/terraform-aws-eks-cluster#input_addons).
+
+For example, 
+```yaml
+addons:
+  - addon_name: coredns
+    addon_version: v1.25
+    ...
+```
+
+:::info
+
+You may need to expose the addons input in the module to the component
+
+:::
+
+For more on upgrading these EKS Addons, see 
+["How to Upgrade EKS Cluster Addons"](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons/)
+
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
