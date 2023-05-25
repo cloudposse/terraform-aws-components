@@ -1,5 +1,6 @@
 locals {
   enabled                            = module.this.enabled
+  create_sns_topic                   = module.this.enabled && var.create_sns_topic
   account_map                        = module.account_map.outputs.full_account_map
   central_resource_collector_account = local.account_map[var.central_resource_collector_account]
   account_id                         = join("", data.aws_caller_identity.this[*].account_id)
@@ -11,6 +12,13 @@ module "guardduty" {
   count   = local.enabled && local.is_global_collector_account ? 1 : 0
   source  = "cloudposse/guardduty/aws"
   version = "0.5.0"
+
+  finding_publishing_frequency              = var.finding_publishing_frequency
+  create_sns_topic                          = var.create_sns_topic
+  findings_notification_arn                 = var.findings_notification_arn
+  subscribers                               = var.subscribers
+  enable_cloudwatch                         = var.enable_cloudwatch
+  cloudwatch_event_rule_pattern_detail_type = var.cloudwatch_event_rule_pattern_detail_type
 
   context = module.this.context
 }
