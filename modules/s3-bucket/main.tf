@@ -1,16 +1,16 @@
 locals {
   enabled = module.this.enabled
 
-  aws_partition = data.aws_partition.current.partition
+  aws_partition = one(data.aws_partition.current[*].partition)
 
   custom_policy_account_arns = [
     for acct in var.custom_policy_account_names :
     format("arn:%s:iam::%s:root", local.aws_partition, module.account_map.outputs.full_account_map[acct])
   ]
 
-  custom_policy       = var.custom_policy_enabled ? data.aws_iam_policy_document.custom_policy[0].json : null
-  log_delivery_policy = var.log_delivery_policy_enabled ? data.aws_iam_policy_document.log_delivery_policy[0].json : null
-  bucket_policy       = coalesce(local.custom_policy, local.log_delivery_policy, data.template_file.bucket_policy.rendered)
+  custom_policy       = local.enabled && var.custom_policy_enabled ? data.aws_iam_policy_document.custom_policy[0].json : null
+  log_delivery_policy = local.enabled && var.log_delivery_policy_enabled ? data.aws_iam_policy_document.log_delivery_policy[0].json : null
+  bucket_policy       = try(coalesce(local.custom_policy, local.log_delivery_policy, data.template_file.bucket_policy[0].rendered), "")
 
   logging = var.logging != null ? {
     bucket_name = var.logging_bucket_name_rendering_enabled ? format(var.logging_bucket_name_rendering_template, var.namespace, var.tenant, var.environment, var.stage, var.logging.bucket_name) : var.logging.bucket_name
@@ -18,9 +18,13 @@ locals {
   } : null
 }
 
-data "aws_partition" "current" {}
+data "aws_partition" "current" {
+  count = local.enabled ? 1 : 0
+}
 
 data "template_file" "bucket_policy" {
+  count = local.enabled ? 1 : 0
+
   template = module.bucket_policy.json
 
   vars = {
