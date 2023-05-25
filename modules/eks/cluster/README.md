@@ -177,6 +177,38 @@ For example:
             tags: null
 ```
 
+### Using Addons
+
+EKS clusters support “Addons” that can be automatically installed on a cluster. Install these addons with the [`var.addons` input](https://docs.cloudposse.com/components/library/aws/eks/cluster/#input_addons).
+
+```yaml
+addons:
+  - addon_name: vpc-cni
+    addon_version: v1.12.6-eksbuild.2
+```
+
+Some addons, such as CoreDNS, require at least one node to be fully provisioned first. 
+See [issue #170](https://github.com/cloudposse/terraform-aws-eks-cluster/issues/170) for more details.
+Set `var.addons_depends_on` to `true` to require the Node Groups to be provisioned before addons.
+
+```yaml
+addons_depends_on: true
+addons:
+  - addon_name: coredns
+    addon_version: v1.25
+```
+
+:::warning
+
+Addons may not be suitable for all use-cases! For example, if you are using Karpenter to provision nodes,
+these nodes will never be available before the cluster component is deployed. 
+
+:::
+
+For more on upgrading these EKS Addons, see 
+["How to Upgrade EKS Cluster Addons"](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons/)
+
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -196,7 +228,7 @@ For example:
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
-| <a name="module_eks_cluster"></a> [eks\_cluster](#module\_eks\_cluster) | cloudposse/eks-cluster/aws | 2.7.0 |
+| <a name="module_eks_cluster"></a> [eks\_cluster](#module\_eks\_cluster) | cloudposse/eks-cluster/aws | 2.8.1 |
 | <a name="module_fargate_profile"></a> [fargate\_profile](#module\_fargate\_profile) | cloudposse/eks-fargate-profile/aws | 1.2.0 |
 | <a name="module_iam_arns"></a> [iam\_arns](#module\_iam\_arns) | ../../account-map/modules/roles-to-principals | n/a |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
@@ -227,6 +259,7 @@ For example:
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_addons"></a> [addons](#input\_addons) | Manages [`aws_eks_addon`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) resources | <pre>list(object({<br>    addon_name               = string<br>    addon_version            = string<br>    resolve_conflicts        = string<br>    service_account_role_arn = string<br>  }))</pre> | `[]` | no |
+| <a name="input_addons_depends_on"></a> [addons\_depends\_on](#input\_addons\_depends\_on) | If set `true`, all addons will depend on managed node groups provisioned by this component and therefore not be installed until nodes are provisioned.<br>See [issue #170](https://github.com/cloudposse/terraform-aws-eks-cluster/issues/170) for more details. | `bool` | `false` | no |
 | <a name="input_allow_ingress_from_vpc_accounts"></a> [allow\_ingress\_from\_vpc\_accounts](#input\_allow\_ingress\_from\_vpc\_accounts) | List of account contexts to pull VPC ingress CIDR and add to cluster security group.<br><br>e.g.<br><br>{<br>  environment = "ue2",<br>  stage       = "auto",<br>  tenant      = "core"<br>} | `any` | `[]` | no |
 | <a name="input_allowed_cidr_blocks"></a> [allowed\_cidr\_blocks](#input\_allowed\_cidr\_blocks) | List of CIDR blocks to be allowed to connect to the EKS cluster | `list(string)` | `[]` | no |
 | <a name="input_allowed_security_groups"></a> [allowed\_security\_groups](#input\_allowed\_security\_groups) | List of Security Group IDs to be allowed to connect to the EKS cluster | `list(string)` | `[]` | no |
