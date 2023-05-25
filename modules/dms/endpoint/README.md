@@ -74,12 +74,14 @@ components:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.26.0 |
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.26.0 |
 
 ## Modules
 
@@ -91,7 +93,10 @@ No providers.
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [aws_ssm_parameter.password](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+| [aws_ssm_parameter.username](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 
 ## Inputs
 
@@ -123,7 +128,8 @@ No resources.
 | <a name="input_mongodb_settings"></a> [mongodb\_settings](#input\_mongodb\_settings) | Configuration block for MongoDB settings | `map(any)` | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_password"></a> [password](#input\_password) | Password to be used to login to the endpoint database | `string` | `null` | no |
+| <a name="input_password"></a> [password](#input\_password) | Password to be used to login to the endpoint database | `string` | `""` | no |
+| <a name="input_password_path"></a> [password\_path](#input\_password\_path) | If set, the path in AWS SSM Parameter Store to fetch the password for the DMS admin user | `string` | `""` | no |
 | <a name="input_port"></a> [port](#input\_port) | Port used by the endpoint database | `number` | `null` | no |
 | <a name="input_redshift_settings"></a> [redshift\_settings](#input\_redshift\_settings) | Configuration block for Redshift settings | `map(any)` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
@@ -137,7 +143,8 @@ No resources.
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_username"></a> [username](#input\_username) | User name to be used to login to the endpoint database | `string` | `null` | no |
+| <a name="input_username"></a> [username](#input\_username) | User name to be used to login to the endpoint database | `string` | `""` | no |
+| <a name="input_username_path"></a> [username\_path](#input\_username\_path) | If set, the path in AWS SSM Parameter Store to fetch the username for the DMS admin user | `string` | `""` | no |
 
 ## Outputs
 
