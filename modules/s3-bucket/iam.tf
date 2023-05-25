@@ -5,8 +5,8 @@ data "aws_iam_policy_document" "custom_policy" {
     actions = var.custom_policy_actions
 
     resources = [
-      format("arn:%s:s3:::%s", local.aws_partition, module.this.id),
-      format("arn:%s:s3:::%s/*", local.aws_partition, module.this.id)
+      "${module.s3_bucket.bucket_arn}",
+      "${module.s3_bucket.bucket_arn}/*"
     ]
     principals {
       identifiers = length(local.custom_policy_account_arns) > 0 ? local.custom_policy_account_arns : ["*"]
