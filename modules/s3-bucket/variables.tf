@@ -381,7 +381,7 @@ variable "custom_policy_account_names" {
 variable "custom_policy_enabled" {
   description = <<-EOT
   Whether to enable or disable the log delivery policy. Conflicts with `var.custom_policy_enabled` and `var.iam_policy_statements`".
-  This variable has highest priority and custom policy will be used if set to `true` regardless of other variables.
+  Custom policy will be used if set to `true` regardless of other variables.
   EOT
   type        = bool
   default     = false
