@@ -379,20 +379,28 @@ variable "custom_policy_account_names" {
 }
 
 variable "custom_policy_enabled" {
-  description = "Whether to enable or disable the custom policy. Conflicts with `var.log_delivery_policy_enabled`"
+  description = <<-EOT
+  Whether to enable or disable the log delivery policy. Conflicts with `var.custom_policy_enabled` and `var.iam_policy_statements`".
+  This variable has highest priority and custom policy will be used if set to `true` regardless of other variables.
+  EOT
   type        = bool
   default     = false
 }
 
 variable "log_delivery_policy_enabled" {
-  description = "Whether to enable or disable the log delivery policy. Conflicts with `var.custom_policy_enabled`"
+  description = <<-EOT
+  Whether to enable or disable the log delivery policy. Conflicts with `var.custom_policy_enabled` and `var.iam_policy_statements`".
+  Log delivery policy will be used if set to `true` and `var.custom_policy_enabled` is set to `false`.
+  EOT
   type        = bool
   default     = false
 }
 
 variable "iam_policy_statements" {
   type        = any
-  description = "Map of IAM policy statements to use in the bucket policy."
+  description = <<-EOT
+  Map of IAM policy statements to use in the bucket policy. Conflicts with `var.custom_policy_enabled` and `var.log_delivery_policy_enabled`.
+  It will be used if `var.custom_policy_enabled` and `var.log_delivery_policy_enabled` are set to `false`.
+  EOT
   default     = {}
 }
-

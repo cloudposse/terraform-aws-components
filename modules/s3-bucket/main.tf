@@ -10,7 +10,7 @@ locals {
 
   custom_policy       = var.custom_policy_enabled ? data.aws_iam_policy_document.custom_policy[0].json : null
   log_delivery_policy = var.log_delivery_policy_enabled ? data.aws_iam_policy_document.log_delivery_policy[0].json : null
-  bucket_policy       = var.custom_policy_enabled == var.log_delivery_policy_enabled ? data.template_file.bucket_policy.rendered : coalesce(local.log_delivery_policy, local.custom_policy)
+  bucket_policy       = coalesce(local.custom_policy, local.log_delivery_policy, data.template_file.bucket_policy.rendered)
 
   logging = var.logging != null ? {
     bucket_name = var.logging_bucket_name_rendering_enabled ? format(var.logging_bucket_name_rendering_template, var.namespace, var.tenant, var.environment, var.stage, var.logging.bucket_name) : var.logging.bucket_name
