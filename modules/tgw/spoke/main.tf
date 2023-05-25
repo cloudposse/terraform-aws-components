@@ -12,7 +12,7 @@ locals {
 
 module "tgw_hub_routes" {
   source  = "cloudposse/transit-gateway/aws"
-  version = "0.9.1"
+  version = "0.10.0"
 
   providers = {
     aws = aws.tgw-hub
