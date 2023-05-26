@@ -27,30 +27,34 @@ locals {
   }
 }
 
+data "github_repository" "default" {
+  count = local.enabled && !var.create_repo ? 1 : 0
+  name  = var.name
+}
+
 resource "github_repository" "default" {
-  count = local.enabled ? 1 : 0
+  count = local.enabled && var.create_repo ? 1 : 0
 
   name        = module.this.name
   description = var.description
   auto_init   = true # will create a 'main' branch
 
-  dynamic "template" {
-    for_each = var.template_repo != null ? [var.template_repo] : []
-    content {
-      owner                = template.value.owner
-      repository           = template.value.repository
-      include_all_branches = template.value.include_all_branches
-    }
-  }
-
   visibility = "private"
 }
 
-resource "github_branch_default" "default" {
-  count = local.enabled && var.template_repo == null ? 1 : 0
+locals {
+  empty_repo = {
+    name           = ""
+    default_branch = ""
+  }
+  github_repository = try((var.create_repo ? github_repository.default : data.github_repository.default)[0], local.empty_repo)
+}
 
-  repository = join("", github_repository.default.*.name)
-  branch     = join("", github_repository.default.*.default_branch)
+resource "github_branch_default" "default" {
+  count = local.enabled && var.create_repo ? 1 : 0
+
+  repository = local.github_repository.name
+  branch     = local.github_repository.default_branch
 }
 
 data "github_user" "automation_user" {
@@ -62,11 +66,11 @@ data "github_user" "automation_user" {
 resource "github_branch_protection" "default" {
   # This resource enforces PRs needing to be opened in order for changes to be made, except for automated commits to
   # the main branch. Those commits made by the automation user, which is an admin.
-  count = local.enabled ? 1 : 0
+  count = local.enabled && var.is_automation_repo ? 1 : 0
 
-  repository_id = join("", github_repository.default.*.name)
+  repository_id = local.github_repository.name
 
-  pattern          = join("", github_repository.default.*.default_branch)
+  pattern          = local.github_repository.default_branch
   enforce_admins   = false # needs to be false in order to allow automation user to push
   allows_deletions = true
 
@@ -90,7 +94,7 @@ data "github_team" "default" {
 resource "github_team_repository" "default" {
   for_each = local.team_permissions
 
-  repository = join("", github_repository.default[*].name)
+  repository = local.github_repository.name
   team_id    = each.value.id
   permission = each.value.permission
 }
@@ -105,8 +109,8 @@ resource "tls_private_key" "default" {
 resource "github_repository_deploy_key" "default" {
   for_each = local.environments
 
-  title      = "Deploy key for ArgoCD environment: ${each.key} (${join("", github_repository.default.*.default_branch)} branch)"
-  repository = join("", github_repository.default.*.name)
+  title      = "Deploy key for ArgoCD environment: ${each.key} (${local.github_repository.default_branch} branch)"
+  repository = local.github_repository.name
   key        = tls_private_key.default[each.key].public_key_openssh
   read_only  = true
 }

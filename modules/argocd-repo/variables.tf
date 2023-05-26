@@ -110,12 +110,14 @@ variable "slack_channel" {
   default     = null
 }
 
-variable "template_repo" {
-  type = object({
-    owner                = string
-    repository           = string
-    include_all_branches = bool
-  })
-  description = "The template repository to use when creating the repository"
-  default     = null
+variable "create_repo" {
+  type        = bool
+  description = "Whether or not to create the repository"
+  default     = true
+}
+
+variable "is_automation_repo" {
+  type        = bool
+  description = "Whether or not this is an automation repository. Will configure branch protection for GitHub bot/app."
+  default     = true
 }
