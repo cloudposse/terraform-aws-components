@@ -13,7 +13,8 @@ module "logs_bucket" {
 
   component = var.logs_bucket_component_name
 
-  bypass = !local.query_log_enabled || var.logs_bucket_component_name == null || var.logs_bucket_component_name == ""
+  bypass        = !local.query_log_enabled || var.logs_bucket_component_name == null || var.logs_bucket_component_name == ""
+  ignore_errors = !local.query_log_enabled || var.logs_bucket_component_name == null || var.logs_bucket_component_name == ""
 
   defaults = {
     bucket_id  = ""

@@ -29,17 +29,31 @@ module "alb_controller" {
   # https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.2.1/docs/install/iam_policy.json
   iam_policy_statements = [
     {
+      sid       = "AllowCreateServiceLinkedRole"
+      effect    = "Allow"
+      resources = ["*"]
+
+      actions = ["iam:CreateServiceLinkedRole"]
+      conditions = [
+        {
+          test     = "StringEquals"
+          variable = "AWSServiceName"
+          values   = ["elasticloadbalancing.amazonaws.com"]
+        }
+      ]
+    },
+    {
       sid       = "AllowManageCompute"
       effect    = "Allow"
       resources = ["*"]
 
       actions = [
-        "iam:CreateServiceLinkedRole",
         "ec2:DescribeAccountAttributes",
         "ec2:DescribeAddresses",
         "ec2:DescribeAvailabilityZones",
         "ec2:DescribeInternetGateways",
         "ec2:DescribeVpcs",
+        "ec2:DescribeVpcPeeringConnections",
         "ec2:DescribeSubnets",
         "ec2:DescribeSecurityGroups",
         "ec2:DescribeInstances",
@@ -255,6 +269,37 @@ module "alb_controller" {
         {
           test     = "Null"
           variable = "aws:ResourceTag/elbv2.k8s.aws/cluster"
+          values   = ["false"]
+        }
+      ]
+    },
+    {
+      sid    = "AllowAddTagsOnCreate"
+      effect = "Allow"
+
+      resources = [
+        "arn:aws:elasticloadbalancing:*:*:targetgroup/*/*",
+        "arn:aws:elasticloadbalancing:*:*:loadbalancer/net/*/*",
+        "arn:aws:elasticloadbalancing:*:*:loadbalancer/app/*/*",
+      ]
+
+      actions = ["elasticloadbalancing:AddTags"]
+
+      conditions = [
+        {
+          test     = "StringEquals"
+          variable = "elasticloadbalancing:CreateAction"
+
+          values = [
+            "CreateTargetGroup",
+            "CreateLoadBalancer",
+            # See https://github.com/kubernetes-sigs/aws-load-balancer-controller/issues/2692#issuecomment-1426242236
+            "CreateListener",
+          ]
+        },
+        {
+          test     = "Null"
+          variable = "aws:RequestTag/elbv2.k8s.aws/cluster"
           values   = ["false"]
         }
       ]

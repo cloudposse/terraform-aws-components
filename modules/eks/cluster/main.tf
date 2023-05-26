@@ -3,10 +3,7 @@ locals {
   eks_outputs = module.eks.outputs
   vpc_outputs = module.vpc.outputs
 
-  attributes         = flatten(concat(module.this.attributes, [var.color]))
-  public_subnet_ids  = local.vpc_outputs.public_subnet_ids
-  private_subnet_ids = local.vpc_outputs.private_subnet_ids
-  vpc_id             = local.vpc_outputs.vpc_id
+  attributes = flatten(concat(module.this.attributes, [var.color]))
 
   this_account_name     = module.iam_roles.current_account_account_name
   identity_account_name = module.iam_roles.identity_account_account_name
@@ -21,7 +18,7 @@ locals {
     rolearn = module.iam_arns.principals_map[local.identity_account_name][role.aws_team]
     # Include session name in the username for auditing purposes.
     # See https://aws.github.io/aws-eks-best-practices/security/docs/iam/#use-iam-roles-when-multiple-users-need-identical-access-to-the-cluster
-    username = format("%s-%s::{{SessionName}}", local.identity_account_name, role.aws_team)
+    username = format("%s-%s", local.identity_account_name, role.aws_team)
     groups   = role.groups
   }]
 
@@ -78,11 +75,21 @@ locals {
       module.vpc_ingress[k].outputs.vpc_cidr
     ]
   )
+
+  vpc_id = local.vpc_outputs.vpc_id
+
+  # Get only the public subnets that correspond to the AZs provided in `var.availability_zones`
+  # `az_public_subnets_map` is a map of AZ names to list of public subnet IDs in the AZs
+  public_subnet_ids = flatten([for k, v in local.vpc_outputs.az_public_subnets_map : v if contains(var.availability_zones, k)])
+
+  # Get only the private subnets that correspond to the AZs provided in `var.availability_zones`
+  # `az_private_subnets_map` is a map of AZ names to list of private subnet IDs in the AZs
+  private_subnet_ids = flatten([for k, v in local.vpc_outputs.az_private_subnets_map : v if contains(var.availability_zones, k)])
 }
 
 module "eks_cluster" {
   source  = "cloudposse/eks-cluster/aws"
-  version = "2.6.0"
+  version = "2.8.1"
 
   region     = var.region
   attributes = local.attributes
@@ -115,6 +122,7 @@ module "eks_cluster" {
   subnet_ids                   = var.cluster_private_subnets_only ? local.private_subnet_ids : concat(local.private_subnet_ids, local.public_subnet_ids)
   vpc_id                       = local.vpc_id
   addons                       = var.addons
+  addons_depends_on            = var.addons_depends_on ? [module.region_node_group] : null
 
   kubernetes_config_map_ignore_role_changes = false
 

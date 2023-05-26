@@ -24,7 +24,7 @@ components:
         create_namespace: true
         repository: "https://helm.datadoghq.com"
         chart: "datadog"
-        chart_version: "3.0.3"
+        chart_version: "3.29.2"
         timeout: 1200
         wait: true
         atomic: true

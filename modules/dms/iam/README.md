@@ -29,8 +29,7 @@ components:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_source"></a> [source](#requirement\_source) | hashicorp/aws |
-| <a name="requirement_version"></a> [version](#requirement\_version) | >= 4.26.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.26.0 |
 
 ## Providers
 
