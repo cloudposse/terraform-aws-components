@@ -10,7 +10,7 @@ locals {
     team_role_access = aws_iam_policy.team_role_access.arn
     support          = try(aws_iam_policy.support[0].arn, null)
   }
-  custom_policy_map = merge(local.supplied_custom_policy_map, local.additional_custom_policy_map)
+  custom_policy_map = merge(local.supplied_custom_policy_map, local.overridable_additional_custom_policy_map)
 
   configured_policies = flatten([for k, v in local.roles_config : v.role_policy_arns])
 
