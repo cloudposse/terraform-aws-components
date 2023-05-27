@@ -11,6 +11,7 @@ module "external-dns" {
   context         = module.this.context
 }
 
+
 data "aws_iam_policy_document" "external_dns" {
   statement {
     sid = "GrantChangeResourceRecordSets"

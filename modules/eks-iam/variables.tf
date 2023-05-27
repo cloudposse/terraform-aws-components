@@ -17,9 +17,7 @@ variable "optional_service_accounts" {
 // AWS KMS alias used for encryption/decryption of SSM parameters
 // default is alias used in SSM
 variable "kms_alias_name" {
-  type        = string
-  description = "AWS KMS alias used for encryption/decryption of SSM parameters"
-  default     = "alias/aws/ssm"
+  default = "alias/aws/ssm"
 }
 
 variable "account_map_environment_name" {
