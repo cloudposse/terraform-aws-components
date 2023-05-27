@@ -69,6 +69,20 @@ import:
 
 components:
   terraform:
+    argocd-deploy-core:
+      metadata:
+        component: argocd-repo
+        inherits:
+          - argocd-repo-defaults
+      vars:
+        name: argocd-deploy-core
+        description: ArgoCD desired state repository (Core tenant) applications
+        environments:
+        - tenant: core
+          environment: use2
+          stage: auto
+          auto-sync: true
+
     argocd-actions-workflows-docker-ecr-eks-helm-argocd:
       metadata:
         component: argocd-repo
@@ -76,11 +90,8 @@ components:
           - argocd-repo-defaults
       vars:
         name: github-actions-workflows-docker-ecr-eks-helm-argocd
-        description: ArgoCD desired state repository (Core tenant) applications
-        template_repo:
-          owner: cloudposse
-          repository: github-actions-workflows-docker-ecr-eks-helm-argocd
-          include_all_branches: true
+        create_repo: false
+        is_automation_repo: false
 
     argocd-actions-workflows:
       metadata:
@@ -88,13 +99,19 @@ components:
         inherits:
           - argocd-repo-defaults
       vars:
-        name: github-actions-workflows-docker-ecr-eks-helm-argocd
-        description: ArgoCD desired state repository (Core tenant) applications
-        template_repo:
-          owner: cloudposse
-          repository: github-actions-workflows
-          include_all_branches: true
+        name: github-actions-workflows
+        create_repo: false
+        is_automation_repo: false
 
+    actions-private:
+      metadata:
+        component: argocd-repo
+        inherits:
+          - argocd-repo-defaults
+      vars:
+        name: actions-private
+        create_repo: false
+        is_automation_repo: false
 ```
 
 ```yaml
@@ -104,18 +121,18 @@ import:
 
 components:
   terraform:
-    argocd-example-app:
+    example-eks-app-with-argocd:
       metadata:
         component: argocd-repo
         inherits:
           - argocd-repo-defaults
       vars:
-        name: argocd-example-app
-        description: Sample App for ArgoCD
-        template_repo:
-          owner: cloudposse
-          repository: example-app-on-eks-with-argocd
-          include_all_branches: true
+        name: example-eks-app-with-argocd
+        create_repo: false
+        is_automation_repo: false
+        manage_secrets: true
+        ecr_account: artifacts
+        ecr_region: us-east-2
 
 ```
 
@@ -196,7 +213,6 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_ecr_account"></a> [ecr\_account](#input\_ecr\_account) | The name of the ECR account to use for the ECR registry | `string` | `"artifacts"` | no |
 | <a name="input_ecr_region"></a> [ecr\_region](#input\_ecr\_region) | The name of the ECR region to use for the ECR registry | `string` | `"us-east-2"` | no |
-| <a name="input_ecr_role_name"></a> [ecr\_role\_name](#input\_ecr\_role\_name) | The name of the IAM role to use for the ECR registry | `string` | `"poweruser"` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_environments"></a> [environments](#input\_environments) | Environments to populate `applicationset.yaml` files and repository deploy keys (for ArgoCD) for.<br><br>`auto-sync` determines whether or not the ArgoCD application will be automatically synced. | <pre>list(object({<br>    tenant      = string<br>    environment = string<br>    stage       = string<br>    auto-sync   = bool<br>  }))</pre> | `[]` | no |

@@ -16,12 +16,6 @@ variable "ecr_region" {
   default     = "us-east-2"
 }
 
-variable "ecr_role_name" {
-  type        = string
-  description = "The name of the IAM role to use for the ECR registry"
-  default     = "poweruser"
-}
-
 resource "random_password" "action_passphrase" {
   length = 40
 }
@@ -41,9 +35,9 @@ locals {
   secrets = {
     PRIVATE_REPO_ACCESS_TOKEN    = join("", data.aws_ssm_parameter.github_api_key.*.value)
     GHA_SECRET_OUTPUT_PASSPHRASE = random_password.action_passphrase.result
-    ECR_REGISTRY                 = module.ecr.outputs.ecr_repo_arn_map[lower("${var.github_organization}/${var.name}")]
+    ECR_REGISTRY                 = module.ecr.outputs.repository_host
     ECR_REGION                   = var.ecr_region
-    ECR_IAM_ROLE                 = format(module.iam_roles.iam_role_arn_template, var.ecr_role_name)
+    ECR_IAM_ROLE                 = module.ecr.outputs.github_actions_iam_role_arn
   }
 }
 
