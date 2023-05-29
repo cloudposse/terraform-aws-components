@@ -36,8 +36,6 @@ components:
         enabled: true
         account_map_tenant: core
         central_resource_collector_account: core-security
-        region: us-east-2
-        environment: ue2
         admin_delegated: true
 ```
 
