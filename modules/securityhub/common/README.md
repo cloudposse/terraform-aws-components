@@ -1,6 +1,6 @@
 # Component: `securityhub/common`
 
-This component is responsible for configuring Security Hub and it should be used in tandem with the [securityhub/root](../../securityhub/root) component.
+This component is responsible for configuring Security Hub and it should be used in tandem with the [securityhub/root](../root) component.
 
 Amazon Security Hub enables users to centrally manage and monitor the security and compliance of their AWS accounts and resources. It aggregates, organizes, and prioritizes security findings from various AWS services, third-party tools, and integrated partner solutions.
 
@@ -38,8 +38,6 @@ components:
         component: securityhub/common
       vars:
         enabled: true
-        region: us-east-2
-        environment: ue2
         account_map_tenant: core
         central_resource_collector_account: core-security
         admin_delegated: true
@@ -49,9 +47,6 @@ components:
         enabled_standards:
           - ruleset/cis-aws-foundations-benchmark/v/1.2.0
           - standards/aws-foundational-security-best-practices/v/1.0.0
-        opsgenie_sns_topic_subscription_enabled: false
-        opsgenie_integration_uri_ssm_account: core-corp
-        opsgenie_integration_uri_ssm_region: us-east-2
 ```
 
 ## Deployment
@@ -98,7 +93,6 @@ atmos terraform apply securityhub/common-uw1 -s core-uw1-security
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
-| <a name="provider_aws.ssm"></a> [aws.ssm](#provider\_aws.ssm) | >= 4.0 |
 | <a name="provider_awsutils"></a> [awsutils](#provider\_awsutils) | >= 0.16.0 |
 
 ## Modules
@@ -106,25 +100,16 @@ atmos terraform apply securityhub/common-uw1 -s core-uw1-security
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
-| <a name="module_control_disablements"></a> [control\_disablements](#module\_control\_disablements) | cloudposse/security-hub/aws//modules/control-disablements | 0.9.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_security_hub"></a> [security\_hub](#module\_security\_hub) | cloudposse/security-hub/aws | 0.9.0 |
-| <a name="module_securityhub_opsgenie_integration_ssm_role"></a> [securityhub\_opsgenie\_integration\_ssm\_role](#module\_securityhub\_opsgenie\_integration\_ssm\_role) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [awsutils_security_hub_control_disablement.ec2_multiple_enis](https://registry.terraform.io/providers/cloudposse/awsutils/latest/docs/resources/security_hub_control_disablement) | resource |
-| [awsutils_security_hub_control_disablement.global](https://registry.terraform.io/providers/cloudposse/awsutils/latest/docs/resources/security_hub_control_disablement) | resource |
-| [awsutils_security_hub_control_disablement.hardware_mfa_cis](https://registry.terraform.io/providers/cloudposse/awsutils/latest/docs/resources/security_hub_control_disablement) | resource |
-| [awsutils_security_hub_control_disablement.hardware_mfa_foundational](https://registry.terraform.io/providers/cloudposse/awsutils/latest/docs/resources/security_hub_control_disablement) | resource |
 | [awsutils_security_hub_organization_settings.this](https://registry.terraform.io/providers/cloudposse/awsutils/latest/docs/resources/security_hub_organization_settings) | resource |
 | [aws_caller_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
-| [aws_partition.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
-| [aws_region.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
-| [aws_ssm_parameter.opsgenie_integration_uri](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 
 ## Inputs
 
@@ -134,7 +119,6 @@ atmos terraform apply securityhub/common-uw1 -s core-uw1-security
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_admin_delegated"></a> [admin\_delegated](#input\_admin\_delegated) | A flag to indicate if the Security Hub Admininstrator account has been designated from the root account.<br><br>  This component should be applied with this variable set to false, then the securityhub-root component should be applied<br>  to designate the administrator account, then this component should be applied again with this variable set to `true`. | `bool` | `true` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_central_logging_account"></a> [central\_logging\_account](#input\_central\_logging\_account) | The name of the account that is the centralized logging account. The config rules associated with logging in the <br>catalog (loggingAccountOnly: `true`) will be installed only in this account. | `string` | n/a | yes |
 | <a name="input_central_resource_collector_account"></a> [central\_resource\_collector\_account](#input\_central\_resource\_collector\_account) | The name of the account that is the centralized aggregation account | `string` | n/a | yes |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_create_sns_topic"></a> [create\_sns\_topic](#input\_create\_sns\_topic) | Flag to indicate whether an SNS topic should be created for notifications | `bool` | `false` | no |
@@ -144,7 +128,6 @@ atmos terraform apply securityhub/common-uw1 -s core-uw1-security
 | <a name="input_enabled_standards"></a> [enabled\_standards](#input\_enabled\_standards) | A list of standards to enable in the account | `set(string)` | `[]` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_global_environment"></a> [global\_environment](#input\_global\_environment) | Global environment name | `string` | `"gbl"` | no |
-| <a name="input_global_resource_collector_region"></a> [global\_resource\_collector\_region](#input\_global\_resource\_collector\_region) | The region that collects AWS Config data for global resources such as IAM | `string` | n/a | yes |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
 | <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
@@ -154,15 +137,10 @@ atmos terraform apply securityhub/common-uw1 -s core-uw1-security
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_opsgenie_integration_uri_key"></a> [opsgenie\_integration\_uri\_key](#input\_opsgenie\_integration\_uri\_key) | The key of the SSM Parameter containing the OpsGenie AmazonSecurityHub API Integration Webhook URI.<br>Used if `var.opsgenie_sns_topic_subscription_enabled` is set to `true`. | `string` | `"opsgenie_securityhub_uri"` | no |
-| <a name="input_opsgenie_integration_uri_key_pattern"></a> [opsgenie\_integration\_uri\_key\_pattern](#input\_opsgenie\_integration\_uri\_key\_pattern) | The format string (%v will be replaced by the var.opsgenie\_webhook\_uri\_key) for the<br>key of the SSM Parameter containing the OpsGenie AmazonSecurityHub API Integration Webhook URI.<br>Used if `var.opsgenie_sns_topic_subscription_enabled` is set to `true`. | `string` | `"/opsgenie/%v"` | no |
-| <a name="input_opsgenie_integration_uri_ssm_account"></a> [opsgenie\_integration\_uri\_ssm\_account](#input\_opsgenie\_integration\_uri\_ssm\_account) | Account (stage) holding the SSM Parameter for the OpsGenie AmazonSecurityHub API Integration URI.<br>Used if `var.opsgenie_sns_topic_subscription_enabled` is set to `true`. | `string` | n/a | yes |
-| <a name="input_opsgenie_integration_uri_ssm_region"></a> [opsgenie\_integration\_uri\_ssm\_region](#input\_opsgenie\_integration\_uri\_ssm\_region) | SSM Parameter Store AWS region for the OpsGenie AmazonSecurityHub API Integration URI.<br>Used if `var.opsgenie_sns_topic_subscription_enabled` is set to `true`. | `string` | n/a | yes |
-| <a name="input_opsgenie_sns_topic_subscription_enabled"></a> [opsgenie\_sns\_topic\_subscription\_enabled](#input\_opsgenie\_sns\_topic\_subscription\_enabled) | Flag to indicate whether OpsGenie should be subscribed to Security Hub notifications | `bool` | `false` | no |
 | <a name="input_privileged"></a> [privileged](#input\_privileged) | True if the default provider already has access to the backend | `bool` | `false` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_root_account_stage"></a> [root\_account\_stage](#input\_root\_account\_stage) | The stage name for the Organization root (master) account | `string` | `"root"` | no |
+| <a name="input_root_account_stage"></a> [root\_account\_stage](#input\_root\_account\_stage) | The stage name for the Organization root (management) account | `string` | `"root"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
@@ -172,6 +150,8 @@ atmos terraform apply securityhub/common-uw1 -s core-uw1-security
 | Name | Description |
 |------|-------------|
 | <a name="output_enabled_subscriptions"></a> [enabled\_subscriptions](#output\_enabled\_subscriptions) | A list of subscriptions that have been enabled |
+| <a name="output_sns_topic"></a> [sns\_topic](#output\_sns\_topic) | The SNS topic that was created |
+| <a name="output_sns_topic_subscriptions"></a> [sns\_topic\_subscriptions](#output\_sns\_topic\_subscriptions) | The SNS topic subscriptions |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
