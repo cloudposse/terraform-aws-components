@@ -267,19 +267,20 @@ variable "iam_policy_description" {
   default     = "Minimum SSM read permissions for Lambda IAM Role"
 }
 
-variable "zip" {
-  type = object({
-    enabled   = optional(bool, false)
-    output    = optional(string, "output.zip")
-    input_dir = optional(string, null)
-  })
-  description = "Zip Configuration for local file deployments"
-  default     = {}
+variable "policy_json" {
+  type        = string
+  description = <<EOF
+  IAM policy to attach to the Lambda IAM role.
+  Shouldn't be used together with `policy_statements`, and takes precedence over it.
+  EOF
+  default     = null
 }
 
-variable "custom_iam_policy_statements" {
-  description = "IAM policy statements to add to the Lambda IAM role."
-  default     = []
+variable "policy_statements" {
+  description = <<EOF
+  IAM policy to attach to the Lambda IAM role.
+  Shouldn't be used together with `policy_json` - the latter will take precedence over this variable.
+  EOF
   type = list(object({
     sid       = optional(string, "")
     effect    = optional(string, "")
@@ -291,4 +292,15 @@ variable "custom_iam_policy_statements" {
       values   = list(string)
     })), [])
   }))
+  default = null
+}
+
+variable "zip" {
+  type = object({
+    enabled   = optional(bool, false)
+    output    = optional(string, "output.zip")
+    input_dir = optional(string, null)
+  })
+  description = "Zip Configuration for local file deployments"
+  default     = {}
 }

@@ -1,6 +1,7 @@
 locals {
   enabled             = module.this.enabled
-  iam_policy_enabled  = local.enabled && length(var.custom_iam_policy_statements) > 0
+  iam_policy_enabled  = local.enabled && (var.policy_statements != null || var.policy_json != null)
+  policy              = local.iam_policy_enabled ? coalesce(var.policy_json, data.aws_iam_policy_document.default[0].json) : ""
   s3_bucket_full_name = var.s3_bucket_name != null ? format("%s-%s-%s-%s-%s", module.this.namespace, module.this.tenant, module.this.environment, module.this.stage, var.s3_bucket_name) : null
 }
 
@@ -14,9 +15,9 @@ module "label" {
 }
 
 data "aws_iam_policy_document" "default" {
-  count = local.iam_policy_enabled ? 1 : 0
+  count = local.iam_policy_enabled && var.policy_statements != null ? 1 : 0
   dynamic "statement" {
-    for_each = var.custom_iam_policy_statements
+    for_each = var.policy_statements
 
     content {
       sid       = statement.value.sid
@@ -43,7 +44,7 @@ resource "aws_iam_policy" "default" {
   name        = module.label.id
   path        = "/"
   description = format("%s Lambda policy", module.label.id)
-  policy      = data.aws_iam_policy_document.default[0].json
+  policy      = local.policy
 
   tags = module.this.tags
 }
