@@ -1,5 +1,5 @@
 output "terraform_role_arn" {
-  value       = module.account_map.outputs.terraform_roles[local.account_name]
+  value       = local.profiles_enabled ? null : module.account_map.outputs.terraform_roles[local.account_name]
   description = "The AWS Role ARN for Terraform to use when provisioning resources in the account, when Role ARNs are in use"
 }
 
@@ -9,7 +9,7 @@ output "terraform_role_arns" {
 }
 
 output "terraform_profile_name" {
-  value       = module.account_map.outputs.terraform_profiles[local.account_name]
+  value       = local.profiles_enabled ? module.account_map.outputs.terraform_profiles[local.account_name] : null
   description = "The AWS config profile name for Terraform to use when provisioning resources in the account, when profiles are in use"
 }
 
@@ -27,17 +27,17 @@ output "org_role_arn" {
 }
 
 output "global_tenant_name" {
-  value       = var.global_tenant_name
+  value       = var.overridable_global_tenant_name
   description = "The `null-label` `tenant` value used for organization-wide resources"
 }
 
 output "global_environment_name" {
-  value       = var.global_environment_name
+  value       = var.overridable_global_environment_name
   description = "The `null-label` `environment` value used for regionless (global) resources"
 }
 
 output "global_stage_name" {
-  value       = var.global_stage_name
+  value       = var.overridable_global_stage_name
   description = "The `null-label` `stage` value for the organization management account (where the `account-map` state is stored)"
 }
 
@@ -80,7 +80,7 @@ output "identity_terraform_role_arn" {
 }
 
 output "identity_terraform_profile_name" {
-  value       = module.account_map.outputs.terraform_profiles[module.account_map.outputs.identity_account_account_name]
+  value       = local.profiles_enabled ? module.account_map.outputs.terraform_profiles[module.account_map.outputs.identity_account_account_name] : null
   description = "The AWS config profile name for Terraform to use to provision resources in the \"identity\" role account, when profiles are in use"
 }
 
@@ -95,6 +95,6 @@ output "identity_cicd_profile_name" {
 }
 
 output "profiles_enabled" {
-  value       = module.account_map.outputs.profiles_enabled
+  value       = local.profiles_enabled
   description = "When true, use AWS config profiles in Terraform AWS provider configurations. When false, use Role ARNs."
 }
