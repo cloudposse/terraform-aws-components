@@ -1,19 +1,19 @@
 output "guardduty_detector_arn" {
-  value       = local.enabled ? module.guardduty[0].guardduty_detector.arn : null
+  value       = one(module.guardduty[*].guardduty_detector.arn)
   description = "GuardDuty detector ARN"
 }
 
 output "guardduty_detector_id" {
-  value       = local.enabled ? module.guardduty[0].guardduty_detector.id : null
+  value       = one(module.guardduty[*].guardduty_detector.id)
   description = "GuardDuty detector ID"
 }
 
 output "sns_topic_name" {
   description = "SNS topic name"
-  value       = local.create_sns_topic ? module.guardduty[0].sns_topic.name : null
+  value       = one(module.guardduty[*].sns_topic.name)
 }
 
 output "sns_topic_subscriptions" {
   description = "SNS topic subscriptions"
-  value       = local.create_sns_topic ? module.guardduty[0].sns_topic_subscriptions : null
+  value       = one(module.guardduty[*].sns_topic_subscriptions)
 }

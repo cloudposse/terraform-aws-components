@@ -1,6 +1,6 @@
 # Component: `guardduty/root`
 
-This component should be used in tandem with the [guardduty/common](../../guardduty/common) component. Please take a look at [guardduty/common/README](../../guardduty/common/README.md) for more information about GuardDuty and deployment steps.
+This component should be used in tandem with the [guardduty/common](../common/) component. Please take a look at [guardduty/common/README](../common/README.md) for more information about GuardDuty and deployment steps.
 
 This component is responsible for delegating the AWS GuardDuty administrator accounts to the appropriate account(s). It should be deployed to every region for the root account in the AWS Organization.
 
@@ -23,7 +23,7 @@ components:
 
 ## Deployment
 
-Please see instructions in [guardduty/common/README](../guardduty/common/README.md) for information on how to deploy both components.
+Please see instructions in [guardduty/common/README](../common/README.md) for information on how to deploy both components.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -78,7 +78,7 @@ Please see instructions in [guardduty/common/README](../guardduty/common/README.
 | <a name="input_privileged"></a> [privileged](#input\_privileged) | True if the default provider already has access to the backend | `bool` | `false` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_root_account_stage"></a> [root\_account\_stage](#input\_root\_account\_stage) | The stage name for the Organization root (master) account | `string` | `"root"` | no |
+| <a name="input_root_account_stage"></a> [root\_account\_stage](#input\_root\_account\_stage) | The stage name for the Organization root (management) account | `string` | `"root"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
@@ -90,6 +90,6 @@ No outputs.
 
 ## References
 * [AWS GuardDuty Documentation](https://aws.amazon.com/guardduty/)
-* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/guardduty/root/)
+* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/guardduty/root/)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

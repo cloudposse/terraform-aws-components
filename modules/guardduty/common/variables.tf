@@ -12,7 +12,7 @@ variable "account_map_tenant" {
 variable "root_account_stage" {
   type        = string
   default     = "root"
-  description = "The stage name for the Organization root (master) account"
+  description = "The stage name for the Organization root (management) account"
 }
 
 variable "global_environment" {

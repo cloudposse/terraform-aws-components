@@ -3,7 +3,7 @@ locals {
   create_sns_topic                   = local.enabled && var.create_sns_topic
   account_map                        = module.account_map.outputs.full_account_map
   central_resource_collector_account = local.account_map[var.central_resource_collector_account]
-  account_id                         = join("", data.aws_caller_identity.this[*].account_id)
+  account_id                         = one(data.aws_caller_identity.this[*].account_id)
   is_global_collector_account        = local.account_id == local.central_resource_collector_account
   member_account_list                = [for a in keys(local.account_map) : (local.account_map[a]) if local.account_map[a] != local.account_id]
 }
