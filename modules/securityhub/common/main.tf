@@ -1,5 +1,5 @@
 locals {
-  enabled                            = module.this.enabled
+  enabled                            = var.enabled
   account_map                        = module.account_map.outputs.full_account_map
   central_resource_collector_account = local.account_map[var.central_resource_collector_account]
   account_id                         = one(data.aws_caller_identity.this[*].account_id)

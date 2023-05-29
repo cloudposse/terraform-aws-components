@@ -41,12 +41,10 @@ components:
         account_map_tenant: core
         central_resource_collector_account: core-security
         admin_delegated: true
-        central_logging_account: core-audit
         global_resource_collector_region: us-east-2
-        create_sns_topic: false
+        create_sns_topic: true
         enabled_standards:
-          - ruleset/cis-aws-foundations-benchmark/v/1.2.0
-          - standards/aws-foundational-security-best-practices/v/1.0.0
+          - standards/cis-aws-foundations-benchmark/v/1.4.0
 ```
 
 ## Deployment
@@ -150,7 +148,7 @@ atmos terraform apply securityhub/common-uw1 -s core-uw1-security
 | Name | Description |
 |------|-------------|
 | <a name="output_enabled_subscriptions"></a> [enabled\_subscriptions](#output\_enabled\_subscriptions) | A list of subscriptions that have been enabled |
-| <a name="output_sns_topic"></a> [sns\_topic](#output\_sns\_topic) | The SNS topic that was created |
+| <a name="output_sns_topic_name"></a> [sns\_topic\_name](#output\_sns\_topic\_name) | The SNS topic name that was created |
 | <a name="output_sns_topic_subscriptions"></a> [sns\_topic\_subscriptions](#output\_sns\_topic\_subscriptions) | The SNS topic subscriptions |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
