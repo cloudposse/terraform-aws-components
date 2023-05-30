@@ -23,8 +23,8 @@ module "inspector" {
   source  = "cloudposse/inspector/aws"
   version = "0.2.8"
 
-  context = module.this.context
-
   create_iam_role = true
   enabled_rules   = var.enabled_rules
+
+  context = module.this.context
 }
