@@ -26,3 +26,23 @@ variable "administrator_account" {
   type        = string
   default     = null
 }
+
+variable "enable_default_standards" {
+  description = "Flag to indicate whether default standards should be enabled"
+  type        = bool
+  default     = true
+}
+
+variable "enabled_standards" {
+  description = <<DOC
+  A list of standards to enable in the account.
+  
+  For example:
+  - standards/aws-foundational-security-best-practices/v/1.0.0
+  - ruleset/cis-aws-foundations-benchmark/v/1.2.0
+  - standards/pci-dss/v/3.2.1
+  - standards/cis-aws-foundations-benchmark/v/1.4.0
+  DOC
+  type        = set(string)
+  default     = []
+}
