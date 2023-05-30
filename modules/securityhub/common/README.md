@@ -40,41 +40,55 @@ components:
         enabled: true
         account_map_tenant: core
         central_resource_collector_account: core-security
-        admin_delegated: true
-        global_resource_collector_region: us-east-2
+        admin_delegated: false
+        central_resource_collector_region: us-east-1
+        enable_finding_aggregator: true
         create_sns_topic: true
+        enable_default_standards: false
         enabled_standards:
           - standards/cis-aws-foundations-benchmark/v/1.4.0
 ```
 
 ## Deployment
 
-This set of steps assumes that `var.central_resource_collector_account = "core-security"`.
-
-1. Apply `securityhub/common` to `core-security` with `var.admin_delegated = false`
-2. Apply `securityhub/root` to `core-root`
+1. Apply `securityhub/common` to all accounts
+2. Apply `securityhub/root` to `core-root` account
 3. Apply `securityhub/common` to `core-security` with `var.admin_delegated = true`
 
 Example:
 
 ```
-# Apply securityhub/common to all regions in core-security
-atmos terraform apply securityhub/common-ue2 -s core-ue2-security -var=admin_delegated=false
-atmos terraform apply securityhub/common-ue1 -s core-ue1-security -var=admin_delegated=false
-atmos terraform apply securityhub/common-uw1 -s core-uw1-security -var=admin_delegated=false
-# ... other regions
+export regions="use1 use2 usw1 usw2 aps1 apne3 apne2 apne1 apse1 apse2 cac1 euc1 euw1 euw2 euw3 eun1 sae1"
 
-# Apply securityhub/root to all regions in core-root
-atmos terraform apply securityhub/root-ue2 -s core-ue2-root
-atmos terraform apply securityhub/root-ue1 -s core-ue1-root
-atmos terraform apply securityhub/root-uw1 -s core-uw1-root
-# ... other regions
+# apply to core-*
 
-# Apply securityhub/common to all regions in core-security but with default values for admin_delegated
-atmos terraform apply securityhub/common-ue2 -s core-ue2-security
-atmos terraform apply securityhub/common-ue1 -s core-ue1-security
-atmos terraform apply securityhub/common-uw1 -s core-uw1-security
-# ... other regions
+export stages="artifacts audit auto corp dns identity network security"
+for region in ${regions}; do
+  for stage in ${stages}; do
+    atmos terraform deploy securityhub/common-${region} -s core-${region}-${stage} || echo "core-${region}-${stage}" >> failures;
+  done;
+done
+
+# apply to plat-*
+
+export stages="dev prod sandbox staging"
+for region in ${regions}; do
+  for stage in ${stages}; do
+    atmos terraform deploy securityhub/common-${region} -s plat-${region}-${stage} || echo "plat-${region}-${stage}" >> failures;
+  done;
+done
+
+# apply to "core-root" using "superadmin" privileges
+
+for region in ${regions}; do
+  atmos terraform deploy securityhub/root-${region} -s core-${region}-root || echo "core-${region}-root" >> failures;
+done
+
+# apply to "core-security" again with "var.admin_delegated=true"
+
+for region in ${regions}; do
+  atmos terraform deploy securityhub/common-${region} -s core-${region}-security -var=admin_delegated=true || echo "core-${region}-security" >> failures;
+done
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -119,7 +133,7 @@ atmos terraform apply securityhub/common-uw1 -s core-uw1-security
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_map_tenant"></a> [account\_map\_tenant](#input\_account\_map\_tenant) | The tenant where the `account_map` component required by remote-state is deployed | `string` | `""` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_admin_delegated"></a> [admin\_delegated](#input\_admin\_delegated) | A flag to indicate if the Security Hub Admininstrator account has been designated from the root account.<br><br>  This component should be applied with this variable set to `false`, then the securityhub/root component should be applied<br>  to designate the administrator account, then this component should be applied again with this variable set to `true`. | `bool` | `true` | no |
+| <a name="input_admin_delegated"></a> [admin\_delegated](#input\_admin\_delegated) | A flag to indicate if the Security Hub Admininstrator account has been designated from the root account.<br><br>  This component should be applied with this variable set to `false`, then the securityhub/root component should be applied<br>  to designate the administrator account, then this component should be applied again with this variable set to `true`. | `bool` | `false` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_central_resource_collector_account"></a> [central\_resource\_collector\_account](#input\_central\_resource\_collector\_account) | The name of the account that is the centralized aggregation account | `string` | n/a | yes |
 | <a name="input_central_resource_collector_region"></a> [central\_resource\_collector\_region](#input\_central\_resource\_collector\_region) | The region that collects findings | `string` | n/a | yes |

@@ -19,6 +19,9 @@ components:
       vars:
         enabled: true
         administrator_account: core-security
+        enable_default_standards: false
+        enabled_standards:
+          - standards/cis-aws-foundations-benchmark/v/1.4.0
 ```
 
 ## Deployment

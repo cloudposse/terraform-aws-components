@@ -43,6 +43,12 @@ variable "create_sns_topic" {
   default     = false
 }
 
+variable "enable_default_standards" {
+  description = "Flag to indicate whether default standards should be enabled"
+  type        = bool
+  default     = true
+}
+
 variable "enabled_standards" {
   description = <<DOC
   A list of standards to enable in the account.
@@ -59,7 +65,7 @@ variable "enabled_standards" {
 
 variable "admin_delegated" {
   type        = bool
-  default     = true
+  default     = false
   description = <<DOC
   A flag to indicate if the Security Hub Admininstrator account has been designated from the root account.
 
@@ -103,10 +109,4 @@ variable "finding_aggregator_regions" {
   DOC
   type        = any
   default     = null
-}
-
-variable "enable_default_standards" {
-  description = "Flag to indicate whether default standards should be enabled"
-  type        = bool
-  default     = true
 }
