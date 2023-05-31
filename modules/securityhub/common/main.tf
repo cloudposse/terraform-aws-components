@@ -32,7 +32,7 @@ module "security_hub" {
 
   create_sns_topic                = var.create_sns_topic
   enabled_standards               = var.enabled_standards
-  enable_finding_aggregator       = local.is_collector_region && var.enable_finding_aggregator
+  finding_aggregator_enabled      = local.is_collector_region && var.finding_aggregator_enabled
   finding_aggregator_linking_mode = var.finding_aggregator_linking_mode
   finding_aggregator_regions      = var.finding_aggregator_regions
   enable_default_standards        = var.enable_default_standards

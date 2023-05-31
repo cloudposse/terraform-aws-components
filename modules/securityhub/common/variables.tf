@@ -74,7 +74,7 @@ variable "admin_delegated" {
   DOC
 }
 
-variable "enable_finding_aggregator" {
+variable "finding_aggregator_enabled" {
   description = <<-DOC
   Flag to indicate whether a finding aggregator should be created
 
@@ -105,7 +105,7 @@ variable "finding_aggregator_regions" {
   description = <<-DOC
   A list of regions to aggregate findings from. 
 
-  This is only used if enable_finding_aggregator is `true`.
+  This is only used if `finding_aggregator_enabled` is `true`.
   DOC
   type        = any
   default     = null
