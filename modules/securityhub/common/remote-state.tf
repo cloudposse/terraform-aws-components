@@ -3,7 +3,6 @@ module "account_map" {
   version = "1.4.2"
 
   component   = "account-map"
-  tenant      = (var.account_map_tenant != "") ? var.account_map_tenant : module.this.tenant
   stage       = var.root_account_stage
   environment = var.global_environment
   privileged  = var.privileged
