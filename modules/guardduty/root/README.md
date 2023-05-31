@@ -18,6 +18,7 @@ components:
         component: guardduty/root
       vars:
         enabled: true
+        account_map_tenant: core
         administrator_account: core-security
 ```
 
