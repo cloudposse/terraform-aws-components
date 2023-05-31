@@ -34,7 +34,6 @@ components:
         component: guardduty/common
       vars:
         enabled: true
-        account_map_tenant: core
         central_resource_collector_account: core-security
         admin_delegated: true
 ```
