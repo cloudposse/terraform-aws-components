@@ -3,6 +3,12 @@ variable "region" {
   description = "AWS Region"
 }
 
+variable "account_map_tenant" {
+  type        = string
+  default     = ""
+  description = "The tenant where the `account_map` component required by remote-state is deployed"
+}
+
 variable "root_account_stage" {
   type        = string
   default     = "root"
