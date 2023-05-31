@@ -269,30 +269,14 @@ variable "iam_policy_description" {
 
 variable "policy_json" {
   type        = string
-  description = <<EOF
-  IAM policy to attach to the Lambda IAM role.
-  Shouldn't be used together with `policy_statements`, and takes precedence over it.
-  EOF
+  description = "IAM policy to attach to the Lambda IAM role."
   default     = null
 }
 
-variable "policy_statements" {
-  description = <<EOF
-  IAM policy to attach to the Lambda IAM role.
-  Shouldn't be used together with `policy_json` - the latter will take precedence over this variable.
-  EOF
-  type = list(object({
-    sid       = optional(string, "")
-    effect    = optional(string, "")
-    actions   = optional(list(string), [])
-    resources = optional(list(string), [])
-    conditions = optional(list(object({
-      test     = string
-      variable = string
-      values   = list(string)
-    })), [])
-  }))
-  default = null
+variable "iam_policy_statements" {
+  description = "Map of IAM policy statements to use in the policy."
+  type        = any
+  default     = {}
 }
 
 variable "zip" {

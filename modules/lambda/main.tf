@@ -1,7 +1,6 @@
 locals {
   enabled             = module.this.enabled
-  iam_policy_enabled  = local.enabled && (var.policy_statements != null || var.policy_json != null)
-  policy              = local.iam_policy_enabled ? coalesce(var.policy_json, data.aws_iam_policy_document.default[0].json) : ""
+  iam_policy_enabled  = local.enabled && (length(var.iam_policy_statements) > 0 || var.policy_json != null)
   s3_bucket_full_name = var.s3_bucket_name != null ? format("%s-%s-%s-%s-%s", module.this.namespace, module.this.tenant, module.this.environment, module.this.stage, var.s3_bucket_name) : null
 }
 
@@ -14,54 +13,30 @@ module "label" {
   context = module.this.context
 }
 
-data "aws_iam_policy_document" "default" {
-  count = local.iam_policy_enabled && var.policy_statements != null ? 1 : 0
-  dynamic "statement" {
-    for_each = var.policy_statements
+module "iam_policy" {
+  count   = local.iam_policy_enabled ? 1 : 0
+  source  = "cloudposse/iam-policy/aws"
+  version = "0.4.0"
 
-    content {
-      sid       = statement.value.sid
-      effect    = statement.value.effect
-      actions   = statement.value.actions
-      resources = statement.value.resources
+  iam_policy_enabled          = true
+  iam_policy_statements       = var.iam_policy_statements
+  iam_source_policy_documents = [var.policy_json]
 
-      dynamic "condition" {
-        for_each = statement.value.conditions
-
-        content {
-          test     = condition.value.test
-          variable = condition.value.variable
-          values   = condition.value.values
-        }
-      }
-    }
-  }
-}
-
-resource "aws_iam_policy" "default" {
-  count = local.iam_policy_enabled ? 1 : 0
-
-  name        = module.label.id
-  path        = "/"
-  description = format("%s Lambda policy", module.label.id)
-  policy      = local.policy
-
-  tags = module.this.tags
+  context = module.this.context
 }
 
 resource "aws_iam_role_policy_attachment" "default" {
   count = local.iam_policy_enabled ? 1 : 0
 
   role       = module.lambda.role_name
-  policy_arn = aws_iam_policy.default[0].arn
+  policy_arn = module.iam_policy[0].policy_arn
 }
 
 data "archive_file" "lambdazip" {
   count       = var.zip.enabled ? 1 : 0
   type        = "zip"
   output_path = "${path.module}/lambdas/${var.zip.output}"
-
-  source_dir = "${path.module}/lambdas/${var.zip.input_dir}"
+  source_dir  = "${path.module}/lambdas/${var.zip.input_dir}"
 }
 
 module "lambda" {
