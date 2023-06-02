@@ -1,6 +1,6 @@
-# Component: `guardduty/common`
+# Component: `guardduty`
 
-This component is responsible for configuring GuardDuty and it should be used in tandem with the [guardduty/root](../root) component.
+This component is responsible for configuring GuardDuty component in an organization.
 
 AWS GuardDuty is a managed threat detection service. It is designed to help protect AWS accounts and workloads by continuously monitoring for malicious activities and unauthorized behaviors. GuardDuty analyzes various data sources within your AWS environment, such as AWS CloudTrail logs, VPC Flow Logs, and DNS logs, to detect potential security threats.
 
@@ -26,46 +26,54 @@ GuardDuty offers a scalable and flexible approach to threat detection within AWS
 
 The example snippet below shows how to use this component:
 
+Next example assumes that `core-security` account will be used for cross region findings aggregation and `core-root` is main administrative organization account.
+
 ```yaml
 components:
   terraform:
-    guardduty/common:
+    guardduty:
       metadata:
-        component: guardduty/common
+        component: guardduty
       vars:
         enabled: true
         account_map_tenant: core
         central_resource_collector_account: core-security
-        admin_delegated: true
+        organization_admin_account: core-root
+        admin_delegated: false
 ```
 
 ## Deployment
 
-This set of steps assumes that `var.central_resource_collector_account = "core-security"`.
+In order to deploy GuardDuty to multiple accounts.
 
-1. Apply `guardduty/common` to `core-security` with `var.admin_delegated = false`
-2. Apply `guardduty/root` to `core-root`
-3. Apply `guardduty/common` to `core-security` with `var.admin_delegated = true`
+1. Apply `guardduty` to every account except `core-security` and `core-root`. This will deploy GuardDuty detector.
+2. Apply `guardduty` to `core-security` with `var.admin_delegated = false`. This will deploy GuardDuty detector into `core-security`
+2. Apply `guardduty` to `core-root` (use `superadmin` role). . This will deploy GuardDuty detector into `core-root`.
+3. Apply `guardduty` to `core-security` with `var.admin_delegated = true`. This will make `core-security` as make collector account in particular region so all findings will be reported into it.
 
-Example:
+### Example
 
 ```
-# Apply guardduty/common to all regions in core-security
-atmos terraform apply guardduty/common-ue2 -s core-ue2-security -var=admin_delegated=false
-atmos terraform apply guardduty/common-ue1 -s core-ue1-security -var=admin_delegated=false
-atmos terraform apply guardduty/common-uw1 -s core-uw1-security -var=admin_delegated=false
+# Apply guardduty to all regions/accounts except "core-security" and "core-root"
+atmos terraform apply guardduty-use1 -s core-use1-audit
+atmos terraform apply guardduty-use1 -s core-use1-network
+atmos terraform apply guardduty-use2 -s core-use2-audit
+atmos terraform apply guardduty-use2 -s core-use2-network
+# ... other regions and accounts
+
+# Apply guardduty to "core-security"
+atmos terraform apply guardduty-use1 -s core-use1-security -var=admin_delegated=false
+atmos terraform apply guardduty-use2 -s core-use2-security -var=admin_delegated=false
 # ... other regions
 
-# Apply guardduty/root to all regions in core-root
-atmos terraform apply guardduty/root-ue2 -s core-ue2-root
-atmos terraform apply guardduty/root-ue1 -s core-ue1-root
-atmos terraform apply guardduty/root-uw1 -s core-uw1-root
+# Apply guardduty to "core-root"
+atmos terraform apply guardduty-use1 -s core-use1-root
+atmos terraform apply guardduty-use2 -s core-use2-root
 # ... other regions
 
-# Apply guardduty/common to all regions in core-security but with default values for admin_delegated
-atmos terraform apply guardduty/common-ue2 -s core-ue2-security
-atmos terraform apply guardduty/common-ue1 -s core-ue1-security
-atmos terraform apply guardduty/common-uw1 -s core-uw1-security
+# Apply guardduty to "core-security"
+atmos terraform apply guardduty-use1 -s core-use1-security -var=admin_delegated=true
+atmos terraform apply guardduty-use2 -s core-use2-security -var=admin_delegated=true
 # ... other regions
 ```
 
@@ -110,7 +118,7 @@ atmos terraform apply guardduty/common-uw1 -s core-uw1-security
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_map_tenant"></a> [account\_map\_tenant](#input\_account\_map\_tenant) | The tenant where the `account_map` component required by remote-state is deployed | `string` | `""` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_admin_delegated"></a> [admin\_delegated](#input\_admin\_delegated) | A flag to indicate if the GuardDuty Admininstrator account has been designated from the root account.<br><br>  This component should be applied with this variable set to false, then the guardduty-root component should be applied<br>  to designate the administrator account, then this component should be applied again with this variable set to `true`. | `bool` | `true` | no |
+| <a name="input_admin_delegated"></a> [admin\_delegated](#input\_admin\_delegated) | A flag to indicate if the GuardDuty Admininstrator account has been designated from the root account.<br><br>  This component should be applied with this variable set to false, then the guardduty-root component should be applied<br>  to designate the administrator account, then this component should be applied again with this variable set to `true`. | `bool` | `false` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_auto_enable_organization_members"></a> [auto\_enable\_organization\_members](#input\_auto\_enable\_organization\_members) | Indicates the auto-enablement configuration of GuardDuty for the member accounts in the organization. Valid values are `ALL`, `NEW`, `NONE`.<br><br>For more information, see:<br>https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_organization_configuration#auto_enable_organization_members | `string` | `"NEW"` | no |
 | <a name="input_central_resource_collector_account"></a> [central\_resource\_collector\_account](#input\_central\_resource\_collector\_account) | The name of the account that is the centralized aggregation account | `string` | n/a | yes |
@@ -161,6 +169,6 @@ atmos terraform apply guardduty/common-uw1 -s core-uw1-security
 
 ## References
 * [AWS GuardDuty Documentation](https://aws.amazon.com/guardduty/)
-* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/guardduty/common/)
+* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/guardduty/)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

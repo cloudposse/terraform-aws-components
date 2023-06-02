@@ -39,7 +39,7 @@ variable "organization_admin_account" {
 
 variable "admin_delegated" {
   type        = bool
-  default     = true
+  default     = false
   description = <<DOC
   A flag to indicate if the GuardDuty Admininstrator account has been designated from the root account.
 
