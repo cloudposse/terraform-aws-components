@@ -11,62 +11,28 @@ Here's an example snippet for how to configure and use this component:
 ```yaml
 components:
   terraform:
-    tgw/hub/defaults:
-      metadata:
-        type: abstract
-        component: tgw/hub
+    tgw/hub:
+      settings:
+        spacelift:
+          workspace_enabled: true
       vars:
         enabled: true
         name: tgw-hub
-        expose_eks_sg: false
-        tags:
-          Team: sre
-          Service: tgw-hub
-
-    tgw/hub:
-      metadata:
-        inherits:
-          - tgw/hub/defaults
-        component: tgw/hub
-      vars:
-        connections:
-          - account:
-              tenant: core
-              stage: network
-            vpc_component_names:
-              - vpc-dev
-          - account:
-              tenant: core
-              stage: artifacts
-          - account:
-              tenant: core
-              stage: auto
-            eks_component_names:
-              - eks/cluster
-          - account:
-              tenant: plat
-              stage: dev
-            vpc_component_names:
-              - vpc
-              - vpc/data/1
-            eks_component_names:
-              - eks/cluster
-          - account:
-              tenant: plat
-              stage: staging
-            vpc_component_names:
-              - vpc
-              - vpc/data/1
-            eks_component_names:
-              - eks/cluster
-          - account:
-              tenant: plat
-              stage: prod
-            vpc_component_names:
-              - vpc
-              - vpc/data/1
-            eks_component_names:
-              - eks/cluster
+        eks_component_names:
+          - eks/cluster-blue
+        accounts_with_vpc:
+          - core-auto
+          - core-corp
+          - core-network
+          - plat-dev
+          - plat-staging
+          - plat-prod
+          - plat-sandbox
+        accounts_with_eks:
+          - plat-dev
+          - plat-staging
+          - plat-prod
+          - plat-sandbox
 ```
 
 To provision the Transit Gateway and all related resources, run the following commands:
@@ -110,12 +76,14 @@ No resources.
 | <a name="input_account_map_environment_name"></a> [account\_map\_environment\_name](#input\_account\_map\_environment\_name) | The name of the environment where `account_map` is provisioned | `string` | `"gbl"` | no |
 | <a name="input_account_map_stage_name"></a> [account\_map\_stage\_name](#input\_account\_map\_stage\_name) | The name of the stage where `account_map` is provisioned | `string` | `"root"` | no |
 | <a name="input_account_map_tenant_name"></a> [account\_map\_tenant\_name](#input\_account\_map\_tenant\_name) | The name of the tenant where `account_map` is provisioned.<br><br>If the `tenant` label is not used, leave this as `null`. | `string` | `null` | no |
+| <a name="input_accounts_with_eks"></a> [accounts\_with\_eks](#input\_accounts\_with\_eks) | Set of account names that have EKS | `set(string)` | n/a | yes |
+| <a name="input_accounts_with_vpc"></a> [accounts\_with\_vpc](#input\_accounts\_with\_vpc) | Set of account names that have VPC | `set(string)` | n/a | yes |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_connections"></a> [connections](#input\_connections) | A list of objects to define each TGW connections. <br><br>By default, each connection will look for only the default `vpc` component. | <pre>list(object({<br>    account = object({<br>      stage  = string<br>      tenant = optional(string, "")<br>    })<br>    vpc_component_names = optional(list(string), ["vpc"])<br>    eks_component_names = optional(list(string), [])<br>  }))</pre> | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
+| <a name="input_eks_component_names"></a> [eks\_component\_names](#input\_eks\_component\_names) | The names of the eks components | `set(string)` | <pre>[<br>  "eks/cluster"<br>]</pre> | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_expose_eks_sg"></a> [expose\_eks\_sg](#input\_expose\_eks\_sg) | Set true to allow EKS clusters to accept traffic from source accounts | `bool` | `true` | no |
