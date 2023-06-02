@@ -32,6 +32,11 @@ variable "central_resource_collector_account" {
   type        = string
 }
 
+variable "organization_admin_account" {
+  description = "The name of the organization admin account"
+  type        = string
+}
+
 variable "admin_delegated" {
   type        = bool
   default     = true
@@ -125,4 +130,48 @@ variable "cloudwatch_event_rule_pattern_detail_type" {
   DOC
   type        = string
   default     = "GuardDuty Finding"
+}
+
+variable "auto_enable_organization_members" {
+  description = <<-DOC
+  Indicates the auto-enablement configuration of GuardDuty for the member accounts in the organization. Valid values are `ALL`, `NEW`, `NONE`.
+
+  For more information, see:
+  https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_organization_configuration#auto_enable_organization_members
+  DOC
+  type        = string
+  default     = "NEW"
+}
+
+variable "s3_protection_enabled" {
+  description = <<-DOC
+  If `true`, enables S3 protection.
+
+  For more information, see:
+  https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector#s3-logs
+  DOC
+  type        = bool
+  default     = true
+}
+
+variable "kubernetes_audit_logs_enabled" {
+  description = <<-DOC
+  If `true`, enables Kubernetes audit logs as a data source for Kubernetes protection.
+
+  For more information, see:
+  https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector#audit_logs
+  DOC
+  type        = bool
+  default     = false
+}
+
+variable "malware_protection_scan_ec2_ebs_volumes_enabled" {
+  description = <<-DOC
+  Configure whether Malware Protection is enabled as data source for EC2 instances EBS Volumes in GuardDuty.
+
+  For more information, see:
+  https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector#malware-protection
+  DOC
+  type        = bool
+  default     = false
 }
