@@ -1,6 +1,6 @@
 # Component: `guardduty`
 
-This component is responsible for configuring GuardDuty component in an organization.
+This component is responsible for configuring GuardDuty service in every region and account in an organization. Also, it sets up a designated account and central findings collection account.
 
 AWS GuardDuty is a managed threat detection service. It is designed to help protect AWS accounts and workloads by continuously monitoring for malicious activities and unauthorized behaviors. GuardDuty analyzes various data sources within your AWS environment, such as AWS CloudTrail logs, VPC Flow Logs, and DNS logs, to detect potential security threats.
 
@@ -24,9 +24,9 @@ GuardDuty offers a scalable and flexible approach to threat detection within AWS
 
 **Stack Level**: Regional
 
-The example snippet below shows how to use this component:
+The example snippet below shows how to use this component.
 
-Next example assumes that `core-security` account will be used for cross region findings aggregation and `core-root` is main administrative organization account.
+It assumes that `core-security` account will be used for cross region findings aggregation and `core-root` is main administrative organization account.
 
 ```yaml
 components:
