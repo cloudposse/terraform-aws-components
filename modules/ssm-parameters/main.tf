@@ -26,6 +26,7 @@ resource "aws_ssm_parameter" "destination" {
 
   name        = each.key
   description = each.value.description
+  tier        = each.value.tier
   type        = each.value.type
   key_id      = var.kms_arn
   value       = each.value.value

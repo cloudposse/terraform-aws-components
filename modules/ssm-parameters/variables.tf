@@ -23,7 +23,9 @@ variable "params" {
   type = map(object({
     value       = string
     description = string
-    overwrite   = bool
+    overwrite   = optional(bool, false)
+    tier        = optional(string, "Standard")
     type        = string
   }))
+  description = "A map of parameter values to write to SSM Parameter Store"
 }
