@@ -27,4 +27,5 @@ variable "params" {
     tier        = optional(string, "Standard")
     type        = string
   }))
+  description = "A map of parameter values to write to SSM Parameter Store"
 }
