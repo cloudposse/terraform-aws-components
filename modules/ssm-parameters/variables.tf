@@ -24,6 +24,7 @@ variable "params" {
     value       = string
     description = string
     overwrite   = bool
+    tier        = optional(string, "Standard")
     type        = string
   }))
 }
