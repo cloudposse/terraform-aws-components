@@ -6,7 +6,7 @@ This component implements the hub of a hub-and-spoke account access hierarchy, w
 This allows you to assign each user to a single "team" (implemented as an IAM role) in the `identity` account, which they access
 via a single authentication (login), which then allows them to access a set of roles in a set of accounts.
 
-This component is responsible for provisioning team roles the centralized identity account.
+This component is responsible for provisioning team roles in the centralized identity account.
 This is expected to be used alongside [the `aws-team-roles` component](../aws-team-roles)
 which provisions the roles in the spoke accounts and configures their privileges and which teams can access them.
 
