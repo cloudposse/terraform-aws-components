@@ -48,8 +48,8 @@ In order to deploy GuardDuty to multiple accounts.
 
 1. Deploy `guardduty` to every account except `core-security` and `core-root`. This will deploy GuardDuty detector.
 2. Deploy `guardduty` to `core-security` with `var.admin_delegated = false`. This will deploy GuardDuty detector into `core-security`
-2. Deploy `guardduty` to `core-root` (use `superadmin` role). . This will deploy GuardDuty detector into `core-root`.
-3. Deploy `guardduty` to `core-security` with `var.admin_delegated = true`. This will make `core-security` as make collector account in particular region so all findings will be reported into it.
+2. Deploy `guardduty` to `core-root` (use `SuperAdmin` role). . This will deploy GuardDuty detector into `core-root`.
+3. Deploy `guardduty` to `core-security` with `var.admin_delegated = true`. This will delegate `core-security` as a collector account in particular region so all findings will be reported into it.
 
 ### Example
 
@@ -66,7 +66,7 @@ atmos terraform deploy guardduty-use1 -s core-use1-security -var=admin_delegated
 atmos terraform deploy guardduty-use2 -s core-use2-security -var=admin_delegated=false
 # ... other regions
 
-# Deploy guardduty to "core-root". This action should be performed as "superadmin"
+# Deploy guardduty to "core-root". This action should be performed as "SuperAdmin"
 atmos terraform deploy guardduty-use1 -s core-use1-root
 atmos terraform deploy guardduty-use2 -s core-use2-root
 # ... other regions
