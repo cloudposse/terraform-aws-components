@@ -1,10 +1,10 @@
 # Component: `securityhub/common`
 
-This component is responsible for configuring Security Hub and it should be used in tandem with the [securityhub/root](../root) component.
+The purpose of this component is to facilitate the setup of the AWS Security Hub service across multiple AWS accounts. It also provides the capability to aggregate security findings into a single account (usually referred to as core-security) in each region.
 
-Amazon Security Hub enables users to centrally manage and monitor the security and compliance of their AWS accounts and resources. It aggregates, organizes, and prioritizes security findings from various AWS services, third-party tools, and integrated partner solutions.
+AWS Security Hub enables users to centrally manage and monitor the security and compliance of their AWS accounts and resources. It aggregates, organizes, and prioritizes security findings from various AWS services, third-party tools, and integrated partner solutions.
 
-Here are the key features and capabilities of Amazon Security Hub:
+Here are the key features and capabilities of AWS Security Hub:
 
 - Centralized security management: Security Hub provides a centralized dashboard where users can view and manage security findings from multiple AWS accounts and regions. This allows for a unified view of the security posture across the entire AWS environment.
 
@@ -33,62 +33,55 @@ The example snippet below shows how to use this component:
 ```yaml
 components:
   terraform:
-    securityhub/common:
+    securityhub:
       metadata:
-        component: securityhub/common
+        component: securityhub
       vars:
         enabled: true
         account_map_tenant: core
         central_resource_collector_account: core-security
-        admin_delegated: false
         central_resource_collector_region: us-east-1
-        finding_aggregator_enabled: true
         create_sns_topic: true
         enable_default_standards: false
         enabled_standards:
           - standards/cis-aws-foundations-benchmark/v/1.4.0
+        admin_delegated: false
+        finding_aggregator_enabled: true
 ```
 
 ## Deployment
 
-1. Apply `securityhub/common` to all accounts
-2. Apply `securityhub/root` to `core-root` account
-3. Apply `securityhub/common` to `core-security` with `var.admin_delegated = true`
+In order to deploy AWS Security Hub to multiple accounts with single aggregation region.
+
+1. Deploy `securityhub` to every account except `core-security` and `core-root`. This will deploy Security Hub account resource.
+2. Deploy `securityhub` to `core-security` with `var.admin_delegated = false`. This will deploy Security Hub account resource into `core-security`
+3. Deploy `securityhub` to `core-root` (use `superadmin` role). . This will deploy Security Hub into `core-root`.
+4. Deploy `securityhub` to `core-security` with `var.admin_delegated = true`. This will make `core-security` as make collector account in particular region so all findings will be reported into it.
 
 Example:
 
 ```
-export regions="use1 use2 usw1 usw2 aps1 apne3 apne2 apne1 apse1 apse2 cac1 euc1 euw1 euw2 euw3 eun1 sae1"
+# Deploy securityhub to all regions/accounts except "core-security" and "core-root"
+atmos terraform deploy securityhub-use1 -s core-use1-audit
+atmos terraform deploy securityhub-use1 -s core-use1-network
+atmos terraform deploy securityhub-use2 -s core-use2-audit
+atmos terraform deploy securityhub-use2 -s core-use2-network
+# ... other regions and accounts
 
-# apply to core-*
+# Deploy securityhub to "core-security"
+atmos terraform deploy securityhub-use1 -s core-use1-security -var=admin_delegated=false
+atmos terraform deploy securityhub-use2 -s core-use2-security -var=admin_delegated=false
+# ... other regions
 
-export stages="artifacts audit auto corp dns identity network security"
-for region in ${regions}; do
-  for stage in ${stages}; do
-    atmos terraform deploy securityhub/common-${region} -s core-${region}-${stage} || echo "core-${region}-${stage}" >> failures;
-  done;
-done
+# Deploy securityhub to "core-root". These actions should be performed as "superadmin"
+atmos terraform deploy securityhub-use1 -s core-use1-root
+atmos terraform deploy securityhub-use2 -s core-use2-root
+# ... other regions
 
-# apply to plat-*
-
-export stages="dev prod sandbox staging"
-for region in ${regions}; do
-  for stage in ${stages}; do
-    atmos terraform deploy securityhub/common-${region} -s plat-${region}-${stage} || echo "plat-${region}-${stage}" >> failures;
-  done;
-done
-
-# apply to "core-root" using "superadmin" privileges
-
-for region in ${regions}; do
-  atmos terraform deploy securityhub/root-${region} -s core-${region}-root || echo "core-${region}-root" >> failures;
-done
-
-# apply to "core-security" again with "var.admin_delegated=true"
-
-for region in ${regions}; do
-  atmos terraform deploy securityhub/common-${region} -s core-${region}-security -var=admin_delegated=true || echo "core-${region}-security" >> failures;
-done
+# Deploy securityhub to "core-security" with "admin_delegated" set to "true"
+atmos terraform deploy securityhub-use1 -s core-use1-security -var=admin_delegated=true
+atmos terraform deploy securityhub-use2 -s core-use2-security -var=admin_delegated=true
+# ... other regions
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -112,16 +105,16 @@ done
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_security_hub"></a> [security\_hub](#module\_security\_hub) | cloudposse/security-hub/aws | 0.10.0 |
+| <a name="module_security_hub_primary"></a> [security\_hub\_primary](#module\_security\_hub\_primary) | cloudposse/security-hub/aws | 0.10.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aws_securityhub_account.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/securityhub_account) | resource |
-| [aws_securityhub_standards_subscription.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/securityhub_standards_subscription) | resource |
+| [aws_securityhub_organization_admin_account.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/securityhub_organization_admin_account) | resource |
 | [awsutils_security_hub_organization_settings.this](https://registry.terraform.io/providers/cloudposse/awsutils/latest/docs/resources/security_hub_organization_settings) | resource |
 | [aws_caller_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_partition.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
@@ -177,6 +170,6 @@ done
 
 ## References
 * [AWS Security Hub Documentation](https://aws.amazon.com/security-hub/)
-* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/securityhub/common/)
+* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/securityhub/)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
