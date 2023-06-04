@@ -7,9 +7,9 @@ locals {
 
   role_name_role_arn_map = { for key, value in local.roles_config : key => try(aws_iam_role.default[key].arn, null) }
 
-  # If you want to create custom policies to add to multiple roles by name, create the policy
-  # using an aws_iam_policy resource and then map it to the name you want to use in the
-  # YAML configuration by adding an entry in `custom_policy_map`.
+  # In order to provide a reusable way to configure policy attachments, we use short names rather than full ARNs to refer to them.
+  # The supplied_custom_policy_map is a map of short names to ARNs that are supplied by this component.
+  # It is combined with the overridable_additional_custom_policy_map, which covers user-supplied policies, to create the custom_policy_map.
   supplied_custom_policy_map = {
     billing_read_only = try(aws_iam_policy.billing_read_only[0].arn, null)
     billing_admin     = try(aws_iam_policy.billing_admin[0].arn, null)
