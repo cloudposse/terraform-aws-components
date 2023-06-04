@@ -6,10 +6,11 @@ locals {
   # If you want to create custom policies to add to multiple roles by name, create the policy
   # using an aws_iam_policy resource and then map it to the name you want to use in the
   # YAML configuration by adding an entry in `custom_policy_map`.
-  custom_policy_map = {
+  supplied_custom_policy_map = {
     team_role_access = aws_iam_policy.team_role_access.arn
     support          = try(aws_iam_policy.support[0].arn, null)
   }
+  custom_policy_map = merge(local.supplied_custom_policy_map, local.overridable_additional_custom_policy_map)
 
   configured_policies = flatten([for k, v in local.roles_config : v.role_policy_arns])
 
