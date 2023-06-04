@@ -1,4 +1,4 @@
-# Component: `securityhub/common`
+# Component: `securityhub`
 
 The purpose of this component is to facilitate the setup of the AWS Security Hub service across multiple AWS accounts. It also provides the capability to aggregate security findings into a single account (usually referred to as core-security) in each region.
 
@@ -55,8 +55,8 @@ In order to deploy AWS Security Hub to multiple accounts with single aggregation
 
 1. Deploy `securityhub` to every account except `core-security` and `core-root`. This will deploy Security Hub account resource.
 2. Deploy `securityhub` to `core-security` with `var.admin_delegated = false`. This will deploy Security Hub account resource into `core-security`
-3. Deploy `securityhub` to `core-root` (use `superadmin` role). . This will deploy Security Hub into `core-root`.
-4. Deploy `securityhub` to `core-security` with `var.admin_delegated = true`. This will make `core-security` as make collector account in particular region so all findings will be reported into it.
+3. Deploy `securityhub` to `core-root` (use `SuperAdmin` role). . This will deploy Security Hub into `core-root`.
+4. Deploy `securityhub` to `core-security` with `var.admin_delegated = true`. This will delegate `core-security` as a collector account in particular region so all findings will be reported into it.
 
 Example:
 
@@ -73,7 +73,7 @@ atmos terraform deploy securityhub-use1 -s core-use1-security -var=admin_delegat
 atmos terraform deploy securityhub-use2 -s core-use2-security -var=admin_delegated=false
 # ... other regions
 
-# Deploy securityhub to "core-root". These actions should be performed as "superadmin"
+# Deploy securityhub to "core-root". These actions should be performed as "SuperAdmin"
 atmos terraform deploy securityhub-use1 -s core-use1-root
 atmos terraform deploy securityhub-use2 -s core-use2-root
 # ... other regions
