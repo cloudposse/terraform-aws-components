@@ -1,6 +1,6 @@
 # Component: `guardduty`
 
-This component is responsible for configuring GuardDuty service in every region and account in an organization. Also, it sets up a designated account and central findings collection account.
+The purpose of this component is to facilitate the setup of the AWS GuardDuty service across multiple AWS accounts. It also provides the capability to aggregate security findings into a single account (usually referred to as core-security) in each region.
 
 AWS GuardDuty is a managed threat detection service. It is designed to help protect AWS accounts and workloads by continuously monitoring for malicious activities and unauthorized behaviors. GuardDuty analyzes various data sources within your AWS environment, such as AWS CloudTrail logs, VPC Flow Logs, and DNS logs, to detect potential security threats.
 
@@ -46,34 +46,34 @@ components:
 
 In order to deploy GuardDuty to multiple accounts.
 
-1. Apply `guardduty` to every account except `core-security` and `core-root`. This will deploy GuardDuty detector.
-2. Apply `guardduty` to `core-security` with `var.admin_delegated = false`. This will deploy GuardDuty detector into `core-security`
-2. Apply `guardduty` to `core-root` (use `superadmin` role). . This will deploy GuardDuty detector into `core-root`.
-3. Apply `guardduty` to `core-security` with `var.admin_delegated = true`. This will make `core-security` as make collector account in particular region so all findings will be reported into it.
+1. Deploy `guardduty` to every account except `core-security` and `core-root`. This will deploy GuardDuty detector.
+2. Deploy `guardduty` to `core-security` with `var.admin_delegated = false`. This will deploy GuardDuty detector into `core-security`
+2. Deploy `guardduty` to `core-root` (use `superadmin` role). . This will deploy GuardDuty detector into `core-root`.
+3. Deploy `guardduty` to `core-security` with `var.admin_delegated = true`. This will make `core-security` as make collector account in particular region so all findings will be reported into it.
 
 ### Example
 
 ```
-# Apply guardduty to all regions/accounts except "core-security" and "core-root"
-atmos terraform apply guardduty-use1 -s core-use1-audit
-atmos terraform apply guardduty-use1 -s core-use1-network
-atmos terraform apply guardduty-use2 -s core-use2-audit
-atmos terraform apply guardduty-use2 -s core-use2-network
+# Deploy guardduty to all regions/accounts except "core-security" and "core-root"
+atmos terraform deploy guardduty-use1 -s core-use1-audit
+atmos terraform deploy guardduty-use1 -s core-use1-network
+atmos terraform deploy guardduty-use2 -s core-use2-audit
+atmos terraform deploy guardduty-use2 -s core-use2-network
 # ... other regions and accounts
 
-# Apply guardduty to "core-security"
-atmos terraform apply guardduty-use1 -s core-use1-security -var=admin_delegated=false
-atmos terraform apply guardduty-use2 -s core-use2-security -var=admin_delegated=false
+# Deploy guardduty to "core-security"
+atmos terraform deploy guardduty-use1 -s core-use1-security -var=admin_delegated=false
+atmos terraform deploy guardduty-use2 -s core-use2-security -var=admin_delegated=false
 # ... other regions
 
-# Apply guardduty to "core-root"
-atmos terraform apply guardduty-use1 -s core-use1-root
-atmos terraform apply guardduty-use2 -s core-use2-root
+# Deploy guardduty to "core-root". This action should be performed as "superadmin"
+atmos terraform deploy guardduty-use1 -s core-use1-root
+atmos terraform deploy guardduty-use2 -s core-use2-root
 # ... other regions
 
-# Apply guardduty to "core-security"
-atmos terraform apply guardduty-use1 -s core-use1-security -var=admin_delegated=true
-atmos terraform apply guardduty-use2 -s core-use2-security -var=admin_delegated=true
+# Deploy guardduty to "core-security"
+atmos terraform deploy guardduty-use1 -s core-use1-security -var=admin_delegated=true
+atmos terraform deploy guardduty-use2 -s core-use2-security -var=admin_delegated=true
 # ... other regions
 ```
 
