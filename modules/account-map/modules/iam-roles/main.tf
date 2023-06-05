@@ -22,5 +22,6 @@ module "account_map" {
 }
 
 locals {
-  account_name = lookup(module.always.descriptors, "account_name", module.always.stage)
+  account_name     = lookup(module.always.descriptors, "account_name", module.always.stage)
+  profiles_enabled = module.account_map.outputs.profiles_enabled
 }

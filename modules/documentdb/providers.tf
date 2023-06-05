@@ -2,6 +2,7 @@ provider "aws" {
   region = var.region
 
   profile = module.iam_roles.profiles_enabled ? coalesce(var.import_profile_name, module.iam_roles.terraform_profile_name) : null
+
   dynamic "assume_role" {
     for_each = module.iam_roles.profiles_enabled ? [] : ["role"]
     content {
