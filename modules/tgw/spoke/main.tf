@@ -12,7 +12,7 @@ locals {
 
 module "tgw_hub_routes" {
   source  = "cloudposse/transit-gateway/aws"
-  version = "0.9.1"
+  version = "0.10.0"
 
   providers = {
     aws = aws.tgw-hub
@@ -38,12 +38,13 @@ module "tgw_hub_routes" {
 module "tgw_spoke_vpc_attachment" {
   source = "./modules/standard_vpc_attachment"
 
-  owning_account = local.spoke_account
+  owning_account          = local.spoke_account
+  own_vpc_component_name  = var.own_vpc_component_name
+  own_eks_component_names = var.own_eks_component_names
 
-  tgw_config          = module.tgw_hub.outputs.tgw_config
-  connections         = var.connections
-  expose_eks_sg       = var.expose_eks_sg
-  eks_component_names = var.eks_component_names
+  tgw_config    = module.tgw_hub.outputs.tgw_config
+  connections   = var.connections
+  expose_eks_sg = var.expose_eks_sg
 
   context = module.this.context
 }

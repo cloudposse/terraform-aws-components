@@ -18,14 +18,14 @@ resource "kubernetes_namespace" "default" {
 # https://external-secrets.io/v0.5.9/guides-getting-started/
 module "external_secrets_operator" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.5.0"
+  version = "0.8.1"
 
-  name        = "" # avoids hitting length restrictions on IAM Role names
-  description = "External Secrets Operator is a Kubernetes operator that integrates external secret management systems including AWS SSM, Parameter Store, Hasicorp Vault, 1Password Secrets Automation, etc. It reads values from external vaults and injects values as a Kubernetes Secret"
+  name        = "" # avoid redundant release name in IAM role: ...-ekc-cluster-external-secrets-operator-external-secrets-operator@secrets
+  description = var.chart_description
 
-  repository           = "https://charts.external-secrets.io"
-  chart                = "external-secrets"
-  chart_version        = "0.6.0-rc1" # using RC to address this bug https://github.com/external-secrets/external-secrets/issues/1511
+  repository           = var.chart_repository
+  chart                = var.chart
+  chart_version        = var.chart_version
   kubernetes_namespace = join("", kubernetes_namespace.default.*.id)
   create_namespace     = false
   wait                 = var.wait
@@ -68,7 +68,9 @@ module "external_secrets_operator" {
       rbac = {
         create = var.rbac_enabled
       }
-    })
+    }),
+    # additional values
+    yamlencode(var.chart_values)
   ])
 
   context = module.this.context
@@ -76,9 +78,9 @@ module "external_secrets_operator" {
 
 module "external_ssm_secrets" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.5.0"
+  version = "0.8.1"
 
-  name        = "ssm" # avoids hitting length restrictions on IAM Role names
+  name        = "ssm" # distinguish from external_secrets_operator
   description = "This Chart uses creates a SecretStore and ExternalSecret to pull variables (under a given path) from AWS SSM Parameter Store into a Kubernetes secret."
 
   chart                = "${path.module}/charts/external-ssm-secrets"

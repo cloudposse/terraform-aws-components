@@ -3,15 +3,21 @@ variable "kubernetes_namespace" {
   description = "The namespace to install the release into."
 }
 
-variable "description" {
+variable "chart_description" {
   type        = string
   description = "Set release description attribute (visible in the history)."
   default     = null
 }
 
-variable "repository" {
+variable "chart_repository" {
   type        = string
   description = "Repository URL where to locate the requested chart."
+  default     = null
+}
+
+variable "chart" {
+  type        = string
+  description = "Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended."
   default     = null
 }
 
@@ -21,10 +27,16 @@ variable "chart_version" {
   default     = null
 }
 
+variable "chart_values" {
+  type        = any
+  description = "Additional values to yamlencode as `helm_release` values."
+  default     = {}
+}
+
 variable "create_namespace" {
   type        = bool
   description = "Create the Kubernetes namespace if it does not yet exist"
-  default     = true
+  default     = null
 }
 
 variable "verify" {
