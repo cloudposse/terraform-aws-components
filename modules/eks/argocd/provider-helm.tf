@@ -79,7 +79,7 @@ variable "kubeconfig_exec_auth_api_version" {
 
 variable "helm_manifest_experiment_enabled" {
   type        = bool
-  default     = true
+  default     = false
   description = "Enable storing of the rendered manifest for helm_release so the full diff of what is changing can been seen in the plan"
 }
 
