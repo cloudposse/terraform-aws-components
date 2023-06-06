@@ -55,7 +55,7 @@ In order to deploy AWS Security Hub to multiple accounts with single collection 
 
 1. Deploy `securityhub` to every AWS account/region except organization root account.
 2. Deploy `securityhub` to organization root account (use `SuperAdmin` role).
-4. Update `securityhub` by designating one account as main collector account.
+3. Update `securityhub` by designating one account as main collector account.
 
 Example:
 
@@ -147,7 +147,7 @@ atmos terraform deploy securityhub-use2 -s core-use2-security -var=admin_delegat
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_organization_admin_account"></a> [organization\_admin\_account](#input\_organization\_admin\_account) | The name of the organization admin account | `string` | n/a | yes |
+| <a name="input_organization_admin_account"></a> [organization\_admin\_account](#input\_organization\_admin\_account) | The name of the organization admin account | `string` | `""` | no |
 | <a name="input_privileged"></a> [privileged](#input\_privileged) | True if the default provider already has access to the backend | `bool` | `false` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |

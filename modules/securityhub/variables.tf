@@ -40,6 +40,7 @@ variable "central_resource_collector_region" {
 variable "organization_admin_account" {
   description = "The name of the organization admin account"
   type        = string
+  default     = ""
 }
 
 variable "create_sns_topic" {
