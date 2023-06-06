@@ -44,7 +44,7 @@ module "security_hub_primary" {
 }
 
 module "security_hub" {
-  count   = local.enabled && local.is_global_collector_account ? 1 : 0
+  count   = local.enabled && !local.is_global_collector_account ? 1 : 0
   source  = "cloudposse/security-hub/aws"
   version = "0.10.0"
 
