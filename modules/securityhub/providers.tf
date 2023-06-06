@@ -25,6 +25,8 @@ provider "awsutils" {
 module "iam_roles" {
   source = "../account-map/modules/iam-roles"
 
+  privileged = var.privileged
+
   context = module.this.context
 }
 
