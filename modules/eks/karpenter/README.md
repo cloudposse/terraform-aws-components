@@ -16,7 +16,7 @@ components:
   terraform:
 
     # Base component of all `karpenter` components
-    eks/karpenter/defaults:
+    eks/karpenter:
       metadata:
         component: eks/karpenter
         type: abstract
