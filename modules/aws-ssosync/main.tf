@@ -1,5 +1,13 @@
 locals {
-  enabled = module.this.enabled
+  enabled                    = module.this.enabled
+  google_credentials         = one(data.aws_ssm_parameter.google_credentials[*].value)
+  scim_endpoint_url          = one(data.aws_ssm_parameter.scim_endpoint_url[*].value)
+  scim_endpoint_access_token = one(data.aws_ssm_parameter.scim_endpoint_access_token[*].value)
+  identity_store_id          = one(data.aws_ssm_parameter.identity_store_id[*].value)
+
+  ssosync_artifact_url = "${var.ssosync_url_prefix}/${var.ssosync_version}/ssosync_Linux_${var.architecture}.tar.gz"
+
+  download_artifact = "ssosync.tar.gz"
 }
 
 data "aws_ssm_parameter" "google_credentials" {
@@ -22,16 +30,6 @@ data "aws_ssm_parameter" "identity_store_id" {
   name  = "${var.google_credentials_ssm_path}/identity_store_id"
 }
 
-locals {
-  google_credentials         = one(data.aws_ssm_parameter.google_credentials[*].value)
-  scim_endpoint_url          = one(data.aws_ssm_parameter.scim_endpoint_url[*].value)
-  scim_endpoint_access_token = one(data.aws_ssm_parameter.scim_endpoint_access_token[*].value)
-  identity_store_id          = one(data.aws_ssm_parameter.identity_store_id[*].value)
-
-  ssosync_artifact_url = "${var.ssosync_url_prefix}/${var.ssosync_version}/ssosync_Linux_${var.architecture}.tar.gz"
-
-  download_artifact = "ssosync.tar.gz"
-}
 
 module "ssosync_artifact" {
   count = local.enabled ? 1 : 0
