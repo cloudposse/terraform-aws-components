@@ -64,7 +64,7 @@ resource "awsutils_security_hub_organization_settings" "this" {
 }
 
 resource "aws_securityhub_organization_admin_account" "this" {
-  count = local.enabled && local.organization_admin_account ? 1 : 0
+  count = local.enabled && local.is_organization_admin_account ? 1 : 0
 
   admin_account_id = local.central_resource_collector_account
 }
