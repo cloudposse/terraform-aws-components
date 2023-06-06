@@ -13,7 +13,7 @@ via its `role_policy_arns` list. You can configure AWS managed policies by enter
 directly into the list, or you can create a custom policy as follows:
 
 1. Give the policy a name, e.g. `eks-admin`. We will use `NAME` as a placeholder for the name in the instructions below.
-2. Create a file in the `aws-teams` directory with the name `policy-NAME.tf`.
+2. Create a file in the `aws-team-roles` directory with the name `policy-NAME.tf`.
 3. In that file, create a policy as follows:
 
     ```hcl
