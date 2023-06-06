@@ -76,7 +76,7 @@ select `Settings`. Under the `Identity Source` section, copy the Identity Store 
 Back in the `identity` account, create a parameter with the name
 `<google_credentials_ssm_path>/identity_store_id`.
 
-Lastly, go ahead and [Delegate administration](https://docs.aws.amazon.com/singlesignon/latest/userguide/delegated-admin.html)
+Lastly, go ahead and [delegate administration](https://docs.aws.amazon.com/singlesignon/latest/userguide/delegated-admin.html)
 from the `root` account to the `identity` account
 
 #### Configure GSuite
