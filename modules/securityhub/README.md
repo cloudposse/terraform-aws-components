@@ -53,25 +53,21 @@ components:
 
 In order to deploy AWS Security Hub to multiple accounts with single aggregation region.
 
-1. Deploy `securityhub` to every account except `core-security` and `core-root`. This will deploy Security Hub account resource.
-2. Deploy `securityhub` to `core-security` with `var.admin_delegated = false`. This will deploy Security Hub account resource into `core-security`
-3. Deploy `securityhub` to `core-root` (use `SuperAdmin` role). . This will deploy Security Hub into `core-root`.
-4. Deploy `securityhub` to `core-security` with `var.admin_delegated = true`. This will delegate `core-security` as a collector account in particular region so all findings will be reported into it.
+1. Deploy `securityhub` to every AWS account except organization root account.
+2. Deploy `securityhub` to `core-root` (use `SuperAdmin` role). . This will enable Security Hub service in organization root account.
+4. Update `securityhub` by designating `security` account. This will delegate `core-security` as a collector account in particular region so all findings will be reported into it.
 
 Example:
 
 ```
-# Deploy securityhub to all regions/accounts except "core-security" and "core-root"
+# Deploy securityhub to all regions/accounts organization root
+atmos terraform deploy securityhub-use1 -s core-use1-security
 atmos terraform deploy securityhub-use1 -s core-use1-audit
 atmos terraform deploy securityhub-use1 -s core-use1-network
+atmos terraform deploy securityhub-use1 -s core-use2-security
 atmos terraform deploy securityhub-use2 -s core-use2-audit
 atmos terraform deploy securityhub-use2 -s core-use2-network
 # ... other regions and accounts
-
-# Deploy securityhub to "core-security"
-atmos terraform deploy securityhub-use1 -s core-use1-security -var=admin_delegated=false
-atmos terraform deploy securityhub-use2 -s core-use2-security -var=admin_delegated=false
-# ... other regions
 
 # Deploy securityhub to "core-root". These actions should be performed as "SuperAdmin"
 atmos terraform deploy securityhub-use1 -s core-use1-root
