@@ -45,10 +45,9 @@ data "aws_partition" "current" {}
 resource "aws_sqs_queue" "interruption_handler" {
   count = local.interruption_handler_enabled ? 1 : 0
 
-  name                              = local.interruption_handler_queue_name
-  message_retention_seconds         = var.interruption_queue_message_retention
-  kms_master_key_id                 = var.kms_master_key_id
-  kms_data_key_reuse_period_seconds = var.kms_data_key_reuse_period_seconds
+  name                      = local.interruption_handler_queue_name
+  message_retention_seconds = var.interruption_queue_message_retention
+  sqs_managed_sse_enabled   = true
 
   tags = module.this.tags
 }

@@ -92,6 +92,16 @@ module "karpenter" {
       # Allow Karpenter to read AMI IDs from SSM
       actions   = ["ssm:GetParameter"]
       resources = ["arn:aws:ssm:*:*:parameter/aws/service/*"]
+    },
+    {
+      sid    = "KarpenterControllerClusterAccess"
+      effect = "Allow"
+      actions = [
+        "eks:DescribeCluster"
+      ]
+      resources = [
+        module.eks.outputs.eks_cluster_arn
+      ]
     }
     ],
     local.interruption_handler_enabled ? [
