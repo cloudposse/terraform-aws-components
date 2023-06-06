@@ -37,6 +37,11 @@ variable "central_resource_collector_region" {
   type        = string
 }
 
+variable "organization_admin_account" {
+  description = "The name of the organization admin account"
+  type        = string
+}
+
 variable "create_sns_topic" {
   description = "Flag to indicate whether an SNS topic should be created for notifications"
   type        = bool
