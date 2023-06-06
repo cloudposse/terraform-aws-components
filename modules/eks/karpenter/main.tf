@@ -54,7 +54,7 @@ module "karpenter" {
   # https://github.com/aws/karpenter/issues/2649
   # Apparently the source of truth for the best IAM policy is the `data.aws_iam_policy_document.karpenter_controller` in
   # https://github.com/terraform-aws-modules/terraform-aws-iam/blob/master/modules/iam-role-for-service-accounts-eks/policies.tf
-  iam_policy_statements = [
+  iam_policy_statements = concat([
     {
       sid       = "KarpenterController"
       effect    = "Allow"
@@ -93,7 +93,23 @@ module "karpenter" {
       actions   = ["ssm:GetParameter"]
       resources = ["arn:aws:ssm:*:*:parameter/aws/service/*"]
     }
-  ]
+    ],
+    local.interruption_handler_enabled ? [
+      {
+        sid    = "KarpenterInterruptionHandlerAccess"
+        effect = "Allow"
+        actions = [
+          "sqs:DeleteMessage",
+          "sqs:GetQueueUrl",
+          "sqs:GetQueueAttributes",
+          "sqs:ReceiveMessage",
+        ]
+        resources = [
+          aws_sqs_queue.interruption_handler[0].arn
+        ]
+      }
+    ] : []
+  )
 
   values = compact([
     # standard k8s object settings
@@ -117,6 +133,14 @@ module "karpenter" {
         }
       }
     }),
+    yamlencode(
+      local.interruption_handler_enabled ? {
+        settings = {
+          aws = {
+            interruptionQueueName = local.interruption_handler_queue_name
+          }
+        }
+    } : {}),
     # additional values
     yamlencode(var.chart_values)
   ])

@@ -91,3 +91,32 @@ variable "eks_component_name" {
   description = "The name of the eks component"
   default     = "eks/cluster"
 }
+
+variable "interruption_handler_enabled" {
+  type        = bool
+  default     = false
+  description = <<EOD
+  If `true`, deploy a SQS queue and Event Bridge rules to enable interruption handling by Karpenter. 
+
+  https://karpenter.sh/v0.27.5/concepts/deprovisioning/#interruption
+  EOD
+}
+
+variable "interruption_queue_message_retention" {
+  type        = number
+  default     = 300
+  description = "The message retention in seconds for the interruption handler SQS queue."
+}
+
+variable "kms_master_key_id" {
+  type        = string
+  description = "The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CMK"
+  default     = "alias/aws/sqs"
+}
+
+variable "kms_data_key_reuse_period_seconds" {
+  type        = number
+  description = "The length of time, in seconds, for which Amazon SQS can reuse a data key to encrypt or decrypt messages before calling AWS KMS again. An integer representing seconds, between 60 seconds (1 minute) and 86,400 seconds (24 hours). The default is 300 (5 minutes)."
+  default     = 300
+}
+
