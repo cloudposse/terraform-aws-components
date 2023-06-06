@@ -92,3 +92,8 @@ output "fargate_profile_role_names" {
   description = "Fargate Profile Role names"
   value       = values(module.fargate_profile)[*].eks_fargate_profile_role_name
 }
+
+output "vpc_cidr" {
+  description = "The CIDR of the VPC where this cluster is deployed."
+  value       = local.vpc_outputs.vpc_cidr
+}

@@ -65,6 +65,7 @@ module "aws_config" {
   s3_bucket_arn    = local.s3_bucket.config_bucket_arn
   create_iam_role  = local.create_iam_role
   iam_role_arn     = local.config_iam_role_arn
+  managed_rules    = var.managed_rules
   create_sns_topic = true
 
   global_resource_collector_region   = var.global_resource_collector_region

@@ -123,3 +123,35 @@ variable "iam_roles_environment_name" {
   description = "The name of the environment where the IAM roles are provisioned"
   default     = "gbl"
 }
+
+variable "managed_rules" {
+  description = <<-DOC
+    A list of AWS Managed Rules that should be enabled on the account.
+
+    See the following for a list of possible rules to enable:
+    https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html
+
+    Example:
+    ```
+    managed_rules = {
+      access-keys-rotated = {
+        identifier  = "ACCESS_KEYS_ROTATED"
+        description = "Checks whether the active access keys are rotated within the number of days specified in maxAccessKeyAge. The rule is NON_COMPLIANT if the access keys have not been rotated for more than maxAccessKeyAge number of days."
+        input_parameters = {
+          maxAccessKeyAge : "90"
+        }
+        enabled = true
+        tags = {}
+      }
+    }
+    ```
+  DOC
+  type = map(object({
+    description      = string
+    identifier       = string
+    input_parameters = any
+    tags             = map(string)
+    enabled          = bool
+  }))
+  default = {}
+}

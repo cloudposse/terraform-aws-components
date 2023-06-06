@@ -1,14 +1,23 @@
 # Component: `aws-teams`
 
-This component is responsible for provisioning all primary user and system roles into the centralized identity account.
-This is expected to be use alongside [the `aws-team-roles` component](../aws-team-roles) to provide
-fine grained role delegation across the account hierarchy.
+## Purpose
+
+This component implements the hub of a hub-and-spoke account access hierarchy, where the hub is the `identity` account.
+This allows you to assign each user to a single "team" (implemented as an IAM role) in the `identity` account, which they access
+via a single authentication (login), which then allows them to access a set of roles in a set of accounts.
+
+This component is responsible for provisioning team roles in the centralized identity account.
+This is expected to be used alongside [the `aws-team-roles` component](../aws-team-roles)
+which provisions the roles in the spoke accounts and configures their privileges and which teams can access them.
 
 ### Teams Function Like Groups and are Implemented as Roles
 The "teams" created in the `identity` account by this module can be thought of as access control "groups":
 a user who is allowed access one of these teams gets access to a set of roles (and corresponding permissions)
 across a set of accounts. Generally, there is nothing else provisioned in the `identity` account,
 so the teams have limited access to resources in the `identity` account by design.
+
+Privileges for the users within the identity account itself are generally limited, and are configured
+via the `role_policy_arns` variable, just as with `aws-team-roles`. See the `aws-team-roles` README for more details.
 
 Teams are implemented as IAM Roles in each account. Access to the "teams" in the `identity`
 account is controlled by the `aws-saml` and `aws-sso` components. Access to the roles in all the
