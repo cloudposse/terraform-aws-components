@@ -51,11 +51,11 @@ components:
 
 ## Deployment
 
-In order to deploy AWS Security Hub to multiple accounts with single aggregation region.
+In order to deploy AWS Security Hub to multiple accounts with single collection region.
 
-1. Deploy `securityhub` to every AWS account except organization root account.
-2. Deploy `securityhub` to `core-root` (use `SuperAdmin` role). . This will enable Security Hub service in organization root account.
-4. Update `securityhub` by designating `security` account. This will delegate `core-security` as a collector account in particular region so all findings will be reported into it.
+1. Deploy `securityhub` to every AWS account/region except organization root account.
+2. Deploy `securityhub` to organization root account (use `SuperAdmin` role).
+4. Update `securityhub` by designating one account as main collector account.
 
 Example:
 
@@ -64,7 +64,7 @@ Example:
 atmos terraform deploy securityhub-use1 -s core-use1-security
 atmos terraform deploy securityhub-use1 -s core-use1-audit
 atmos terraform deploy securityhub-use1 -s core-use1-network
-atmos terraform deploy securityhub-use1 -s core-use2-security
+atmos terraform deploy securityhub-use2 -s core-use2-security
 atmos terraform deploy securityhub-use2 -s core-use2-audit
 atmos terraform deploy securityhub-use2 -s core-use2-network
 # ... other regions and accounts
