@@ -1,7 +1,7 @@
 provider "aws" {
   region = var.region
 
-  profile = module.iam_roles.profiles_enabled ? coalesce(var.import_profile_name, module.iam_roles.terraform_profile_name) : null
+  profile = !var.privileged && module.iam_roles.profiles_enabled ? coalesce(var.import_profile_name, module.iam_roles.terraform_profile_name) : null
   dynamic "assume_role" {
     for_each = var.privileged || module.iam_roles.profiles_enabled ? [] : ["role"]
     content {
@@ -13,7 +13,7 @@ provider "aws" {
 provider "awsutils" {
   region = var.region
 
-  profile = module.iam_roles.profiles_enabled ? coalesce(var.import_profile_name, module.iam_roles.terraform_profile_name) : null
+  profile = !var.privileged && module.iam_roles.profiles_enabled ? coalesce(var.import_profile_name, module.iam_roles.terraform_profile_name) : null
   dynamic "assume_role" {
     for_each = var.privileged || module.iam_roles.profiles_enabled ? [] : ["role"]
     content {
