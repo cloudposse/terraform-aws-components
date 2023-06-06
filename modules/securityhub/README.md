@@ -24,6 +24,29 @@ Here are the key features and capabilities of AWS Security Hub:
 
 By utilizing Amazon Security Hub, organizations can improve their security posture, gain insights into security risks, and effectively manage security compliance across their AWS accounts and resources.
 
+## Background
+
+The Security Hub service must be configured in every enabled region in each of your accounts to maximize your security visibility, streamline security operations, and ensure consistent security monitoring and compliance across your entire AWS infrastructure.
+
+Unfortunately, AWS does not support disabling regions that are enabled by default. Regions introduced before March 20, 2019, are enabled by default. Below is the lists of regions that cannot be disabled:
+- ap-northeast-1
+- ap-northeast-2
+- ap-northeast-3
+- ap-south-1
+- ap-southeast-1
+- ap-southeast-2
+- ca-central-1
+- eu-central-1
+- eu-north-1
+- eu-west-1
+- eu-west-2
+- eu-west-3
+- sa-east-1
+- us-east-1
+- us-east-2
+- us-west-1
+- us-west-2
+
 ## Usage
 
 **Stack Level**: Regional
