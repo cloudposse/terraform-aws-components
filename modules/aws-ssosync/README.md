@@ -201,7 +201,11 @@ Make sure that all four of the following SSM parameters exist in the `identity` 
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_arn"></a> [arn](#output\_arn) | ARN of the lambda function |
+| <a name="output_invoke_arn"></a> [invoke\_arn](#output\_invoke\_arn) | Invoke ARN of the lambda function |
+| <a name="output_qualified_arn"></a> [qualified\_arn](#output\_qualified\_arn) | ARN identifying your Lambda Function Version (if versioning is enabled via publish = true) |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
