@@ -77,12 +77,6 @@ variable "kubeconfig_exec_auth_api_version" {
   description = "The Kubernetes API version of the credentials returned by the `exec` auth plugin"
 }
 
-variable "helm_manifest_experiment_enabled" {
-  type        = bool
-  default     = true
-  description = "Enable storing of the rendered manifest for helm_release so the full diff of what is changing can been seen in the plan"
-}
-
 locals {
   kubeconfig_file_enabled = var.kubeconfig_file_enabled
   kube_exec_auth_enabled  = local.kubeconfig_file_enabled ? false : var.kube_exec_auth_enabled
