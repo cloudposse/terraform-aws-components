@@ -1,11 +1,11 @@
 locals {
   enabled                            = module.this.enabled
-  create_sns_topic                   = local.enabled && var.create_sns_topic
   account_map                        = module.account_map.outputs.full_account_map
+  create_sns_topic                   = local.enabled && var.create_sns_topic
   central_resource_collector_account = local.account_map[var.central_resource_collector_account]
-  organization_admin_account         = local.account_map[var.organization_admin_account]
   account_id                         = one(data.aws_caller_identity.this[*].account_id)
-  is_global_collector_account        = local.account_id == local.central_resource_collector_account
+  organization_admin_account         = var.organization_admin_account == null || var.organization_admin_account == "" ? local.account_map[module.account_map.outputs.root_account_account_name] : local.account_map[var.organization_admin_account]
+  is_global_collector_account        = local.central_resource_collector_account == local.account_id
   is_organization_admin_account      = local.account_id == local.organization_admin_account
   member_account_list                = [for a in keys(local.account_map) : (local.account_map[a]) if local.account_map[a] != local.account_id]
 }

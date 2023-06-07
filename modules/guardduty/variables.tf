@@ -32,9 +32,15 @@ variable "central_resource_collector_account" {
   type        = string
 }
 
+variable "central_resource_collector_region" {
+  description = "The region that collects findings"
+  type        = string
+}
+
 variable "organization_admin_account" {
   description = "The name of the organization admin account"
   type        = string
+  default     = ""
 }
 
 variable "admin_delegated" {

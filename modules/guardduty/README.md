@@ -20,6 +20,29 @@ Key features and components of AWS GuardDuty include:
 
 GuardDuty offers a scalable and flexible approach to threat detection within AWS environments, providing organizations with an additional layer of security to proactively identify and respond to potential security risks.
 
+## Background
+
+AWS GuardDuty service must be configured in every enabled region in each of your accounts to maximize your security visibility, streamline security operations, and ensure consistent security monitoring and compliance across your entire AWS infrastructure.
+
+Unfortunately, AWS does not support disabling regions that are enabled by default. Regions introduced before March 20, 2019, are enabled by default. Below is the lists of regions that cannot be disabled:
+- ap-northeast-1
+- ap-northeast-2
+- ap-northeast-3
+- ap-south-1
+- ap-southeast-1
+- ap-southeast-2
+- ca-central-1
+- eu-central-1
+- eu-north-1
+- eu-west-1
+- eu-west-2
+- eu-west-3
+- sa-east-1
+- us-east-1
+- us-east-2
+- us-west-1
+- us-west-2
+
 ## Usage
 
 **Stack Level**: Regional
@@ -38,40 +61,35 @@ components:
         enabled: true
         account_map_tenant: core
         central_resource_collector_account: core-security
-        organization_admin_account: core-root
         admin_delegated: false
 ```
 
 ## Deployment
 
-In order to deploy GuardDuty to multiple accounts.
+In order to deploy AWS GuardDuty to multiple accounts with single collection region.
 
-1. Deploy `guardduty` to every account except `core-security` and `core-root`. This will deploy GuardDuty detector.
-2. Deploy `guardduty` to `core-security` with `var.admin_delegated = false`. This will deploy GuardDuty detector into `core-security`
-2. Deploy `guardduty` to `core-root` (use `SuperAdmin` role). . This will deploy GuardDuty detector into `core-root`.
-3. Deploy `guardduty` to `core-security` with `var.admin_delegated = true`. This will delegate `core-security` as a collector account in particular region so all findings will be reported into it.
+1. Deploy `guardduty` to every AWS account/region except organization root account.
+2. Deploy `guardduty` to organization root account (use `SuperAdmin` role).
+3. Update `guardduty` by designating one account as main collector account.
 
 ### Example
 
 ```
-# Deploy guardduty to all regions/accounts except "core-security" and "core-root"
+# Deploy guardduty to all regions/accounts organization root
+atmos terraform deploy guardduty-use1 -s core-use1-security
 atmos terraform deploy guardduty-use1 -s core-use1-audit
 atmos terraform deploy guardduty-use1 -s core-use1-network
+atmos terraform deploy guardduty-use2 -s core-use2-security
 atmos terraform deploy guardduty-use2 -s core-use2-audit
 atmos terraform deploy guardduty-use2 -s core-use2-network
 # ... other regions and accounts
 
-# Deploy guardduty to "core-security"
-atmos terraform deploy guardduty-use1 -s core-use1-security -var=admin_delegated=false
-atmos terraform deploy guardduty-use2 -s core-use2-security -var=admin_delegated=false
-# ... other regions
-
-# Deploy guardduty to "core-root". This action should be performed as "SuperAdmin"
+# Deploy guardduty to organization root account in all regions. This action should be performed as "SuperAdmin"
 atmos terraform deploy guardduty-use1 -s core-use1-root
 atmos terraform deploy guardduty-use2 -s core-use2-root
 # ... other regions
 
-# Deploy guardduty to "core-security"
+# Deploy guardduty to "core-security" with `admin_delegated` set to `true`
 atmos terraform deploy guardduty-use1 -s core-use1-security -var=admin_delegated=true
 atmos terraform deploy guardduty-use2 -s core-use2-security -var=admin_delegated=true
 # ... other regions
@@ -122,6 +140,7 @@ atmos terraform deploy guardduty-use2 -s core-use2-security -var=admin_delegated
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_auto_enable_organization_members"></a> [auto\_enable\_organization\_members](#input\_auto\_enable\_organization\_members) | Indicates the auto-enablement configuration of GuardDuty for the member accounts in the organization. Valid values are `ALL`, `NEW`, `NONE`.<br><br>For more information, see:<br>https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_organization_configuration#auto_enable_organization_members | `string` | `"NEW"` | no |
 | <a name="input_central_resource_collector_account"></a> [central\_resource\_collector\_account](#input\_central\_resource\_collector\_account) | The name of the account that is the centralized aggregation account | `string` | n/a | yes |
+| <a name="input_central_resource_collector_region"></a> [central\_resource\_collector\_region](#input\_central\_resource\_collector\_region) | The region that collects findings | `string` | n/a | yes |
 | <a name="input_cloudwatch_event_rule_pattern_detail_type"></a> [cloudwatch\_event\_rule\_pattern\_detail\_type](#input\_cloudwatch\_event\_rule\_pattern\_detail\_type) | The detail-type pattern used to match events that will be sent to SNS.<br><br>For more information, see:<br>https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html<br>https://docs.aws.amazon.com/eventbridge/latest/userguide/event-types.html<br>https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_findings_cloudwatch.html | `string` | `"GuardDuty Finding"` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_create_sns_topic"></a> [create\_sns\_topic](#input\_create\_sns\_topic) | Flag to indicate whether an SNS topic should be created for notifications.<br>If you want to send findings to a new SNS topic, set this to true and provide a valid configuration for subscribers. | `bool` | `false` | no |
@@ -144,7 +163,7 @@ atmos terraform deploy guardduty-use2 -s core-use2-security -var=admin_delegated
 | <a name="input_malware_protection_scan_ec2_ebs_volumes_enabled"></a> [malware\_protection\_scan\_ec2\_ebs\_volumes\_enabled](#input\_malware\_protection\_scan\_ec2\_ebs\_volumes\_enabled) | Configure whether Malware Protection is enabled as data source for EC2 instances EBS Volumes in GuardDuty.<br><br>For more information, see:<br>https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector#malware-protection | `bool` | `false` | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_organization_admin_account"></a> [organization\_admin\_account](#input\_organization\_admin\_account) | The name of the organization admin account | `string` | n/a | yes |
+| <a name="input_organization_admin_account"></a> [organization\_admin\_account](#input\_organization\_admin\_account) | The name of the organization admin account | `string` | `""` | no |
 | <a name="input_privileged"></a> [privileged](#input\_privileged) | True if the default provider already has access to the backend | `bool` | `false` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
