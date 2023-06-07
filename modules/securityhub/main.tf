@@ -5,7 +5,7 @@ locals {
   central_resource_collector_account = local.account_map[var.central_resource_collector_account]
   account_id                         = one(data.aws_caller_identity.this[*].account_id)
   region_name                        = one(data.aws_region.this[*].name)
-  organization_admin_account         = var.organization_admin_account == null ? module.account_map.outputs.root_account_account_name : local.account_map[var.organization_admin_account]
+  organization_admin_account         = var.organization_admin_account == null || var.organization_admin_account == "" ? local.account_map[module.account_map.outputs.root_account_account_name] : local.account_map[var.organization_admin_account]
   is_global_collector_account        = local.central_resource_collector_account == local.account_id
   is_collector_region                = local.region_name == var.central_resource_collector_region
   is_organization_admin_account      = local.account_id == local.organization_admin_account
