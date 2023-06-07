@@ -291,6 +291,24 @@ For more details, refer to:
  - https://aws.github.io/aws-eks-best-practices/karpenter
  - https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
 
+## Node Interruption
+
+Karpenter also supports Node Interruption. If interruption-handling is enabled, Karpenter will watch for upcoming involuntary interruption events that would cause disruption to your workloads. These interruption events include:
+
+- Spot Interruption Warnings
+- Scheduled Change Health Events (Maintenance Events)
+- Instance Terminating Events
+- Instance Stopping Events
+
+:::info 
+
+The Node Interruption Handler is not the same as the Node Termination Handler. The latter works fine and cleanly shuts down the node in 2 minutes. The former gets advance notice, so it can have 5-10 minutes to shut down a node.
+
+:::
+
+For more details, see refer to [Karpenter docs](https://karpenter.sh/v0.27.5/concepts/deprovisioning/#interruption)
+
+To enable Node Interruption, set `var.interruption_handler_enabled` to `true`. This will enable a SQS queue and a set of Event Bridge rules to handle interruption with Karpenter.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
