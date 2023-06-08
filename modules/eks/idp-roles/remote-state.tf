@@ -6,4 +6,3 @@ module "eks" {
 
   context = module.this.context
 }
-

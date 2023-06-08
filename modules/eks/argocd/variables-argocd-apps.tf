@@ -27,4 +27,3 @@ variable "argocd_apps_enabled" {
   description = "Enable argocd apps"
   default     = true
 }
-

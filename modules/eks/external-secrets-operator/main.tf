@@ -119,4 +119,3 @@ module "external_ssm_secrets" {
     module.external_secrets_operator,
   ]
 }
-

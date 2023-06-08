@@ -39,7 +39,7 @@ variable "admin_delegated" {
   A flag to indicate if the GuardDuty Admininstrator account has been designated from the root account.
 
   This component should be applied with this variable set to false, then the guardduty-root component should be applied
-  to designate the administrator account, then this component should be applied again with this variable set to `true`. 
+  to designate the administrator account, then this component should be applied again with this variable set to `true`.
   DOC
 }
 

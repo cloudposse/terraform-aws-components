@@ -1,6 +1,6 @@
 # Component: `strongdm`
 
-This component provisions [strongDM](https://www.strongdm.com/) gateway, relay and roles 
+This component provisions [strongDM](https://www.strongdm.com/) gateway, relay and roles
 
 ## Usage
 

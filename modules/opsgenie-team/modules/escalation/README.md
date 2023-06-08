@@ -89,4 +89,3 @@ module "escalation" {
 | <a name="output_escalation_id"></a> [escalation\_id](#output\_escalation\_id) | The ID of the Opsgenie Escalation |
 | <a name="output_escalation_name"></a> [escalation\_name](#output\_escalation\_name) | Name of the Opsgenie Escalation |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-

@@ -215,4 +215,3 @@ variable "saml_sso_providers" {
   default     = {}
   description = "SAML SSO providers components"
 }
-

@@ -67,4 +67,3 @@ output "eks_node_group_statuses" {
   description = "Status of the EKS Node Group"
   value       = compact([for group in local.node_groups : group.eks_node_group_status])
 }
-

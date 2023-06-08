@@ -32,7 +32,7 @@ import:
 
 components:
   terraform:
-    lakeformation-example: 
+    lakeformation-example:
       metadata:
         component: lakeformation
         inherits:

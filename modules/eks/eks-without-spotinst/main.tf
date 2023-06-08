@@ -125,4 +125,3 @@ module "eks_cluster" {
 
   context = module.this.context
 }
-

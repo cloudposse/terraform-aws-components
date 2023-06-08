@@ -15,4 +15,3 @@ output "saml_provider_assume_role_policy" {
   value       = one(data.aws_iam_policy_document.saml_provider_assume[*].json)
   description = "JSON \"assume role\" policy document to use for roles allowed to log in via SAML"
 }
-

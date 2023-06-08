@@ -41,4 +41,3 @@ data "aws_iam_policy_document" "saml_provider_assume" {
     }
   }
 }
-

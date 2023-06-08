@@ -1,6 +1,6 @@
 # Component: `route53-resolver-dns-firewall`
 
-This component is responsible for provisioning [Route 53 Resolver DNS Firewall](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-dns-firewall.html) 
+This component is responsible for provisioning [Route 53 Resolver DNS Firewall](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-dns-firewall.html)
 resources, including Route 53 Resolver DNS Firewall, domain lists, firewall rule groups, firewall rules, and logging configuration.
 
 ## Usage

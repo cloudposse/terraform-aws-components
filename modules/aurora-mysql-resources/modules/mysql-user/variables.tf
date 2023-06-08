@@ -46,4 +46,3 @@ variable "kms_key_id" {
   default     = "alias/aws/rds"
   description = "KMS key ID, ARN, or alias to use for encrypting MySQL database"
 }
-

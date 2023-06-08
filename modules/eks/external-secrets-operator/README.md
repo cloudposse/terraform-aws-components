@@ -7,7 +7,7 @@ In practice, this means apps will define an `ExternalSecret` that pulls all env 
 ```
 # Part of the charts in `/releases
 
-apiVersion: external-secrets.io/v1beta1 
+apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: app-secrets
@@ -72,7 +72,7 @@ components:
           requests:
             cpu: "20m"
             memory: "60Mi"
-        parameter_store_paths: 
+        parameter_store_paths:
           - app
           - rds
         # You can use `chart_values` to set any other chart options. Treat `chart_values` as the root of the doc.
