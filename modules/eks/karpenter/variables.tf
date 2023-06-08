@@ -91,3 +91,19 @@ variable "eks_component_name" {
   description = "The name of the eks component"
   default     = "eks/cluster"
 }
+
+variable "interruption_handler_enabled" {
+  type        = bool
+  default     = false
+  description = <<EOD
+  If `true`, deploy a SQS queue and Event Bridge rules to enable interruption handling by Karpenter. 
+
+  https://karpenter.sh/v0.27.5/concepts/deprovisioning/#interruption
+  EOD
+}
+
+variable "interruption_queue_message_retention" {
+  type        = number
+  default     = 300
+  description = "The message retention in seconds for the interruption handler SQS queue."
+}
