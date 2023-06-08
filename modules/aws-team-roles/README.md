@@ -3,7 +3,57 @@
 This component is responsible for provisioning user and system IAM roles outside the `identity` account.
 It sets them up to be assumed from the "team" roles defined in the `identity` account by
 [the `aws-teams` component](../aws-teams) and/or the AWS SSO permission sets
-defined in [the `aws-sso` component](../aws-sso).
+defined in [the `aws-sso` component](../aws-sso), and/or be directly accessible via SAML logins.
+
+
+### Privileges are Granted to Users via IAM Policies
+
+Each role is granted permissions by attaching a list of IAM policies to the IAM role
+via its `role_policy_arns` list. You can configure AWS managed policies by entering the ARNs of the policies
+directly into the list, or you can create a custom policy as follows:
+
+1. Give the policy a name, e.g. `eks-admin`. We will use `NAME` as a placeholder for the name in the instructions below.
+2. Create a file in the `aws-teams` directory with the name `policy-NAME.tf`.
+3. In that file, create a policy as follows:
+
+    ```hcl
+    data "aws_iam_policy_document" "NAME" {
+      # Define the policy here
+    }
+
+    resource "aws_iam_policy" "NAME" {
+      name   = format("%s-NAME", module.this.id)
+      policy = data.aws_iam_policy_document.NAME.json
+
+      tags = module.this.tags
+    }
+    ```
+
+4. Create a file named `additional-policy-map_override.tf` in the `aws-team-roles` directory (if it does not already exist).
+   This is a [terraform override file](https://developer.hashicorp.com/terraform/language/files/override), meaning its
+   contents will be merged with the main terraform file, and any locals defined in it will override locals defined in other files.
+   Having your code in this separate override file makes it possible for the component to provide a placeholder local variable
+   so that it works without customization, while allowing you to customize the component and still update it without losing your customizations.
+5. In that file, redefine the local variable `overridable_additional_custom_policy_map` map as follows:
+
+    ```hcl
+    locals {
+      overridable_additional_custom_policy_map = {
+        NAME = aws_iam_policy.NAME.arn
+      }
+    }
+    ```
+
+    If you have multiple custom policies, add each one to the map in the form `NAME = aws_iam_policy.NAME.arn`.
+6. With that done, you can now attach that policy by adding the name to the `role_policy_arns` list. For example:
+
+    ```yaml
+    role_policy_arns:
+    - "arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"
+    - "NAME"
+    ```
+
+
 
 ## Usage
 

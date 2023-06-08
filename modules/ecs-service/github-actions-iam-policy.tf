@@ -4,23 +4,38 @@ variable "github_oidc_trusted_role_arns" {
   default     = []
 }
 
+variable "github_actions_ecspresso_enabled" {
+  type        = bool
+  description = "Create IAM policies required for deployments with Ecspresso"
+  default     = false
+}
+
 locals {
   github_actions_iam_policy = data.aws_iam_policy_document.github_actions_iam_policy.json
 }
 
 data "aws_iam_policy_document" "github_actions_iam_policy" {
+  source_policy_documents = compact([
+    data.aws_iam_policy_document.github_actions_iam_platform_policy.json,
+    join("", data.aws_iam_policy_document.github_actions_iam_ecspresso_policy.*.json)
+  ])
+}
+
+data "aws_iam_policy_document" "github_actions_iam_platform_policy" {
   # Allows trusted roles to assume this role
-  statement {
-    sid    = "TrustedRoleAccess"
-    effect = "Allow"
-    actions = [
-      "sts:AssumeRole",
-      "sts:TagSession"
-    ]
-    resources = var.github_oidc_trusted_role_arns
+  dynamic "statement" {
+    for_each = length(var.github_oidc_trusted_role_arns) == 0 ? [] : ["enabled"]
+    content {
+      sid    = "TrustedRoleAccess"
+      effect = "Allow"
+      actions = [
+        "sts:AssumeRole",
+        "sts:TagSession"
+      ]
+      resources = var.github_oidc_trusted_role_arns
+    }
   }
 
-  # Allow chamber to read secrets
   statement {
     sid    = "AllowKMSAccess"
     effect = "Allow"
@@ -28,6 +43,7 @@ data "aws_iam_policy_document" "github_actions_iam_policy" {
       "kms:Decrypt",
       "kms:DescribeKey"
     ]
+    #bridgecrew:skip=BC_AWS_IAM_57:OK Allow to Decrypt with any key.
     resources = [
       "*"
     ]
@@ -51,8 +67,57 @@ data "aws_iam_policy_document" "github_actions_iam_policy" {
       "ssm:DescribeParameters",
       "ssm:GetParametersByPath"
     ]
+    #bridgecrew:skip=BC_AWS_IAM_57:OK Allow to read from any ssm parameter store for chamber.
     resources = [
       "*"
     ]
   }
+}
+
+data "aws_iam_policy_document" "github_actions_iam_ecspresso_policy" {
+  count = var.github_actions_ecspresso_enabled ? 1 : 0
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "ecs:DescribeServices",
+      "ecs:UpdateService"
+    ]
+    resources = [
+      join("", module.ecs_alb_service_task.*.service_arn)
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "ecs:RegisterTaskDefinition"
+    ]
+    resources = [
+      "*"
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "iam:PassRole"
+    ]
+    resources = [
+      join("", module.ecs_alb_service_task.*.task_exec_role_arn),
+      join("", module.ecs_alb_service_task.*.task_role_arn),
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "application-autoscaling:DescribeScalableTargets"
+    ]
+    resources = [
+      "*",
+    ]
+  }
+
+
 }

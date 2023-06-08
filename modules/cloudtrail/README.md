@@ -45,8 +45,9 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
 | <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | cloudposse/cloudtrail/aws | 0.21.0 |
-| <a name="module_cloudtrail_bucket"></a> [cloudtrail\_bucket](#module\_cloudtrail\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_cloudtrail_bucket"></a> [cloudtrail\_bucket](#module\_cloudtrail\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_kms_key_cloudtrail"></a> [kms\_key\_cloudtrail](#module\_kms\_key\_cloudtrail) | cloudposse/kms-key/aws | 0.12.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -71,6 +72,8 @@ components:
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
+| <a name="input_audit_access_enabled"></a> [audit\_access\_enabled](#input\_audit\_access\_enabled) | If `true`, allows the Audit account access to read Cloudtrail logs directly from S3. This is a requirement for running Athena queries in the Audit account. | `bool` | `false` | no |
+| <a name="input_cloudtrail_bucket_component_name"></a> [cloudtrail\_bucket\_component\_name](#input\_cloudtrail\_bucket\_component\_name) | The name of the CloudTrail bucket component | `string` | `"cloudtrail-bucket"` | no |
 | <a name="input_cloudtrail_bucket_environment_name"></a> [cloudtrail\_bucket\_environment\_name](#input\_cloudtrail\_bucket\_environment\_name) | The name of the environment where the CloudTrail bucket is provisioned | `string` | n/a | yes |
 | <a name="input_cloudtrail_bucket_stage_name"></a> [cloudtrail\_bucket\_stage\_name](#input\_cloudtrail\_bucket\_stage\_name) | The stage name where the CloudTrail bucket is provisioned | `string` | n/a | yes |
 | <a name="input_cloudtrail_cloudwatch_logs_role_max_session_duration"></a> [cloudtrail\_cloudwatch\_logs\_role\_max\_session\_duration](#input\_cloudtrail\_cloudwatch\_logs\_role\_max\_session\_duration) | The maximum session duration (in seconds) for the CloudTrail CloudWatch Logs role. Can have a value from 1 hour to 12 hours | `number` | `43200` | no |

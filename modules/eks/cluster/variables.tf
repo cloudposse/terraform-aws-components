@@ -87,23 +87,43 @@ variable "map_additional_worker_roles" {
   default     = []
 }
 
-variable "primary_iam_roles" {
-  description = "Primary IAM roles to add to `aws-auth` ConfigMap"
+variable "aws_teams_rbac" {
+  description = <<-EOT
+    List of `aws-teams` to map to Kubernetes RBAC groups.
+    This gives teams direct access to Kubernetes without having to assume a team-role.
+    EOT
 
   type = list(object({
-    role   = string
-    groups = list(string)
+    aws_team = string
+    groups   = list(string)
   }))
 
   default = []
 }
 
-variable "delegated_iam_roles" {
-  description = "Delegated IAM roles to add to `aws-auth` ConfigMap"
+variable "aws_team_roles_rbac" {
+  description = "List of `aws-team-roles` (in the target AWS account) to map to Kubernetes RBAC groups."
 
   type = list(object({
-    role   = string
-    groups = list(string)
+    aws_team_role = string
+    groups        = list(string)
+  }))
+
+  default = []
+}
+
+variable "aws_sso_permission_sets_rbac" {
+  description = <<-EOT
+    (Not Recommended): AWS SSO (IAM Identity Center) permission sets in the EKS deployment account to add to `aws-auth` ConfigMap.
+    Unfortunately, `aws-auth` ConfigMap does not support SSO permission sets, so we map the generated
+    IAM Role ARN corresponding to the permission set at the time Terraform runs. This is subject to change
+    when any changes are made to the AWS SSO configuration, invalidating the mapping, and requiring a
+    `terraform apply` in this project to update the `aws-auth` ConfigMap and restore access.
+    EOT
+
+  type = list(object({
+    aws_sso_permission_set = string
+    groups                 = list(string)
   }))
 
   default = []
@@ -250,24 +270,6 @@ variable "node_group_defaults" {
   }
 }
 
-variable "iam_roles_environment_name" {
-  type        = string
-  description = "The name of the environment where the IAM roles are provisioned"
-  default     = "gbl"
-}
-
-variable "iam_primary_roles_stage_name" {
-  type        = string
-  description = "The name of the stage where the IAM primary roles are provisioned"
-  default     = "identity"
-}
-
-variable "iam_primary_roles_tenant_name" {
-  type        = string
-  description = "The name of the tenant where the IAM primary roles are provisioned"
-  default     = null
-}
-
 variable "cluster_encryption_config_enabled" {
   type        = bool
   default     = true
@@ -395,4 +397,13 @@ variable "addons" {
   }))
   description = "Manages [`aws_eks_addon`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) resources"
   default     = []
+}
+
+variable "addons_depends_on" {
+  type        = bool
+  description = <<-EOT
+    If set `true`, all addons will depend on managed node groups provisioned by this component and therefore not be installed until nodes are provisioned.
+    See [issue #170](https://github.com/cloudposse/terraform-aws-eks-cluster/issues/170) for more details.
+    EOT
+  default     = false
 }
