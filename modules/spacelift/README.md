@@ -27,7 +27,7 @@ rest of the infrastructure. This section walks through the initial bootstrapping
 1. We can now use the `spacectl` CLI to export an environment variable, allowing Terraform to manage spacelift resources.
 
 ```bash
-  $ export SPACELIFT_API_TOKEN=$(spacectl profile export-token)
+export SPACELIFT_API_TOKEN=$(spacectl profile export-token)
 ```
 
 4. Finally, log in to [AWS using Leapp](https://docs.cloudposse.com/howto/geodesic/authenticate-with-leapp) so that you have access to the Terraform state bucket.
