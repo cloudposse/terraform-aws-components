@@ -34,6 +34,11 @@ configuration, specifying which component the resources belong to.
 It's important to note that all modules and resources within the component then need to use `module.introspection.context`
 and `module.introspection.tags`, respectively, rather than `module.this.context` and `module.this.tags`.
 
+## Mixin: `provider-awsutils.mixin.tf`
+
+This mixin is meant to be added to a terraform module that wants to use the awsutils provider.
+It assumes the standard `providers.tf` file is present in the module.
+
 ## Mixin: `sops.mixin.tf`
 
 This mixin is meant to be added to Terraform EKS components which are used in a cluster where sops-secrets-operator (see: https://github.com/isindir/sops-secrets-operator)
