@@ -50,6 +50,53 @@ The `identity_roles_accessible` element provides a list of role names correspond
 format("Identity%sTeamAccess", replace(title(role), "-", ""))
 ```
 
+### Defining a new permission set
+
+1. Give the permission set a name, capitalized, in CamelCase, e.g. `AuditManager`. We will use `NAME` as a
+   placeholder for the name in the instructions below. In Terraform, convert the name to lowercase snake case, e.g. `audit_manager`.
+2. Create a file in the `aws-sso` directory with the name `policy-NAME.tf`.
+3. In that file, create a policy as follows:
+
+    ```hcl
+    data "aws_iam_policy_document" "TerraformUpdateAccess" {
+      # Define the custom policy here
+    }
+
+    locals {
+      NAME_permission_set = {                         # e.g. audit_manager_permission_set
+        name                                = "NAME",  # e.g. AuditManager
+        description                         = "<description>",
+        relay_state                         = "",
+        session_duration                    = "PT1H", # One hour, maximum allowed for chained assumed roles
+        tags                                = {},
+        inline_policy                       = data.aws_iam_policy_document.NAME.json,
+        policy_attachments                  = []  # ARNs of AWS managed IAM policies to attach, e.g. arn:aws:iam::aws:policy/ReadOnlyAccess
+        customer_managed_policy_attachments = []  # ARNs of customer managed IAM policies to attach
+      }
+    }
+    ```
+4. Create a file named `additional-permission-sets-list_override.tf` in the `aws-sso` directory (if it does not already exist).
+   This is a [terraform override file](https://developer.hashicorp.com/terraform/language/files/override), meaning its
+   contents will be merged with the main terraform file, and any locals defined in it will override locals defined in other files.
+   Having your code in this separate override file makes it possible for the component to provide a placeholder local variable
+   so that it works without customization, while allowing you to customize the component and still update it without losing your customizations.
+5. In that file, redefine the local variable `overridable_additional_permission_sets` as follows:
+
+    ```hcl
+    locals {
+      overridable_additional_permission_sets = [
+        local.NAME_permission_set,
+      ]
+    }
+    ```
+
+   If you have multiple custom policies, add each one to the list.
+6. With that done, the new permission set will be created when the changes are applied.
+   You can then use it just like the others.
+7. If you want the permission set to be able to use Terraform, enable access to the
+   Terraform state read/write (default) role in `tfstate-backend`.
+
+
 #### Example
 The example snippet below shows how to use this module with various combinations (plain YAML, YAML Anchors and a combination of the two):
 
@@ -93,14 +140,10 @@ components:
                   - AdministratorAccess
                   - ReadOnlyAccess
         aws_teams_accessible:
-        - "admin"
-        - "ops"
-        - "poweruser"
-        - "observer"
-        - "reader"
+        - "developers"
+        - "devops"
+        - "managers"
         - "support"
-        - "viewer"
-
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
