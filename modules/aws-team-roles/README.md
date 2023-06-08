@@ -13,7 +13,7 @@ via its `role_policy_arns` list. You can configure AWS managed policies by enter
 directly into the list, or you can create a custom policy as follows:
 
 1. Give the policy a name, e.g. `eks-admin`. We will use `NAME` as a placeholder for the name in the instructions below.
-2. Create a file in the `aws-team-roles` directory with the name `policy-NAME.tf`.
+2. Create a file in the `aws-teams` directory with the name `policy-NAME.tf`.
 3. In that file, create a policy as follows:
 
     ```hcl
@@ -44,7 +44,7 @@ directly into the list, or you can create a custom policy as follows:
     }
     ```
 
-    If you have multiple custom policies, add each one to the map in the form `NAME = aws_iam_policy.NAME.arn`.
+   If you have multiple custom policies, add each one to the map in the form `NAME = aws_iam_policy.NAME.arn`.
 6. With that done, you can now attach that policy by adding the name to the `role_policy_arns` list. For example:
 
     ```yaml
@@ -177,7 +177,7 @@ components:
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_assume_role"></a> [assume\_role](#module\_assume\_role) | ../account-map/modules/team-assume-role-policy | n/a |
-| <a name="module_aws_saml"></a> [aws\_saml](#module\_aws\_saml) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_aws_saml"></a> [aws\_saml](#module\_aws\_saml) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 

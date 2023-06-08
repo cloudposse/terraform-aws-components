@@ -47,7 +47,7 @@ No requirements.
 |------|--------|---------|
 | <a name="module_allowed_role_map"></a> [allowed\_role\_map](#module\_allowed\_role\_map) | ../../../account-map/modules/roles-to-principals | n/a |
 | <a name="module_denied_role_map"></a> [denied\_role\_map](#module\_denied\_role\_map) | ../../../account-map/modules/roles-to-principals | n/a |
-| <a name="module_github_oidc_provider"></a> [github\_oidc\_provider](#module\_github\_oidc\_provider) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_github_oidc_provider"></a> [github\_oidc\_provider](#module\_github\_oidc\_provider) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources

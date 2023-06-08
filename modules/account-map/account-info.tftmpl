@@ -68,9 +68,10 @@ function _account-roles() {
   printf "%s\n" "$${!account_roles[@]}" | sort
 }
 function account-roles() {
-  printf "$${CONFIG_NAMESPACE:+$${CONFIG_NAMESPACE}-}%s\n" $(_account-roles)
+	for role in $(_account-roles); do
+  	printf "$${CONFIG_NAMESPACE:+$${CONFIG_NAMESPACE}: }%s -> $${CONFIG_NAMESPACE:+$${CONFIG_NAMESPACE}-}%s\n" $role "$${account_roles[$role]}"
+	done
 }
-
 
 ########### non-template helpers ###########
 

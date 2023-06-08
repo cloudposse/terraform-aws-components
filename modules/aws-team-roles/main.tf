@@ -11,10 +11,7 @@ locals {
   # using an aws_iam_policy resource and then map it to the name you want to use in the
   # YAML configuration by adding an entry in `custom_policy_map`.
   supplied_custom_policy_map = {
-    billing_read_only = try(aws_iam_policy.billing_read_only[0].arn, null)
-    billing_admin     = try(aws_iam_policy.billing_admin[0].arn, null)
-    support           = try(aws_iam_policy.support[0].arn, null)
-    eks_viewer        = try(aws_iam_policy.eks_viewer[0].arn, null)
+    eks_viewer = try(aws_iam_policy.eks_viewer[0].arn, null)
   }
   custom_policy_map = merge(local.supplied_custom_policy_map, local.overridable_additional_custom_policy_map)
 

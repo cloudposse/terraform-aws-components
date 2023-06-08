@@ -8,7 +8,6 @@ locals {
   # YAML configuration by adding an entry in `custom_policy_map`.
   supplied_custom_policy_map = {
     team_role_access = aws_iam_policy.team_role_access.arn
-    support          = try(aws_iam_policy.support[0].arn, null)
   }
   custom_policy_map = merge(local.supplied_custom_policy_map, local.overridable_additional_custom_policy_map)
 
