@@ -1,8 +1,26 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
+    rev: v4.4.0
     hooks:
-      - id: check-yaml
+      # Git style
+      - id: check-added-large-files # prevents giant files from being committed.
+      - id: forbid-new-submodules # prevents addition of new git submodules.
+      - id: no-commit-to-branch # don't commit to branch
+
+      # Common errors
+      - id: trailing-whitespace # trims trailing whitespace.
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer # ensures that a file is either empty, or ends with one newline.
+      - id: check-merge-conflict # checks for files that contain merge conflict strings.
+      - id: check-executables-have-shebangs # ensures that (non-binary) executables have a shebang.
+
+      # Cross platform
+      - id: check-case-conflict # checks for files that would conflict in case-insensitive filesystems.
+      - id: mixed-line-ending # replaces or checks mixed line ending.
+        args: [--fix=lf]
+
+      # YAML
+      - id: check-yaml  # checks yaml files for parseable syntax.
         exclude: |
           (?x)^(
               deprecated/github-actions-runner/runners/actions-runner/chart/templates/.*.yaml |
@@ -10,8 +28,9 @@ repos:
               modules/strongdm/charts/strongdm/templates/.*.yaml |
               modules/eks/.*/charts/.*/templates/.*.yaml
           )$
+
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.75.0
+    rev: v1.80.0
     hooks:
       - id: terraform_fmt
       - id: terraform_docs
@@ -25,4 +44,3 @@ repos:
         types: ["text"]
         files: (mixins\/.*|bin\/rebuild-mixins-docs\.sh)
         pass_filenames: false
-
