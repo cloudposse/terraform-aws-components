@@ -24,7 +24,7 @@ variable "enable_server_side_encryption" {
 variable "enable_point_in_time_recovery" {
   type        = bool
   description = "Enable DynamoDB point-in-time recovery"
-  default     = false
+  default     = true
 }
 
 variable "access_roles" {

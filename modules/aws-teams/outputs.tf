@@ -25,5 +25,5 @@ resource "local_file" "account_info" {
     role_name_role_arn_map = local.role_name_role_arn_map
     namespace              = module.this.namespace
   })
-  filename = "${path.module}/../aws-team-roles/iam-role-info/${module.this.id}.sh"
+  filename = "${path.module}/../aws-team-roles/iam-role-info/${module.this.id}-teams.sh"
 }

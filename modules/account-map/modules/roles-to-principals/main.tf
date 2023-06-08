@@ -10,13 +10,13 @@ module "always" {
 
 module "account_map" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.4.2"
 
   component   = "account-map"
   privileged  = var.privileged
-  tenant      = var.global_tenant_name
-  environment = var.global_environment_name
-  stage       = var.global_stage_name
+  tenant      = var.overridable_global_tenant_name
+  environment = var.overridable_global_environment_name
+  stage       = var.overridable_global_stage_name
 
   context = module.always.context
 }

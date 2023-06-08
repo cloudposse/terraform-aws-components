@@ -83,3 +83,18 @@ variable "aws_config_identity_profile_name" {
   default     = null
   description = "The AWS config profile name to use as `source_profile` for credentials."
 }
+
+variable "terraform_role_name_map" {
+  type        = map(string)
+  description = "Mapping of Terraform action (plan or apply) to aws-team-role name to assume for that action"
+  default = {
+    plan  = "planner"
+    apply = "terraform"
+  }
+}
+
+variable "terraform_dynamic_role_enabled" {
+  type        = bool
+  description = "If true, the IAM role Terraform will assume will depend on the identity of the user running terraform"
+  default     = false
+}
