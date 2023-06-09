@@ -28,7 +28,7 @@ You can configure who is allowed to assume these roles.
   available via `remote-state`. This means that if you are going to restrict access to some backends, you need to
   carefully orchestrate what is stored there and ensure that you are not storing information a component needs in a
   backend it will not have access to. Typically, information in the most sensitive accounts, such as `root`, `audit`,
-  and `security`, is nevertheless needed by every account, for example to know where to send audit logs, so it is not
+  and `security`, is nevertheless needed by every account, for example, to know where to send audit logs, so it is not
   obvious and can be counter-intuitive which accounts need access to which backends. Plan carefully.
 
 - Atmos provides separate configuration for Terraform state access via the  `backend` and `remote_state_backend`
