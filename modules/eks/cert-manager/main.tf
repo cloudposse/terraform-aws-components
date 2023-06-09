@@ -61,7 +61,8 @@ module "cert_manager" {
       resources = [
         for zone_id in concat(
           [],
-          [for value in module.dns_gbl_delegated.outputs.zones : value.zone_id]
+          [for value in module.dns_gbl_delegated.outputs.zones : value.zone_id],
+          [for value in module.dns_gbl_primary.outputs.zones : value.zone_id]
         ) :
         "arn:${local.partition}:route53:::hostedzone/${zone_id}"
       ]
