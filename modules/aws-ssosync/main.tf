@@ -96,7 +96,7 @@ resource "aws_lambda_function" "ssosync" {
       SSOSYNC_LOAD_ASM_SECRETS   = false
     }
   }
-  depends_on = [null_resource.extract_my_tgz, data.archive_file.lambda]
+  depends_on = [null_resource.extract_my_tgz, data.archive_file.lambda, aws_cloudwatch_log_group.default[0]]
 }
 
 resource "aws_cloudwatch_event_rule" "ssosync" {
@@ -117,7 +117,8 @@ resource "aws_cloudwatch_event_target" "ssosync" {
 }
 
 resource "aws_cloudwatch_log_group" "default" {
-  name = "/aws/lambda/${module.this.id}"
+  count = local.enabled ? 1 : 0
+  name  = "/aws/lambda/${module.this.id}"
 }
 
 resource "aws_lambda_permission" "allow_cloudwatch_execution" {
