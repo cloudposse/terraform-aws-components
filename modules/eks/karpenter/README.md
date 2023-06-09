@@ -300,7 +300,7 @@ Karpenter also supports Node Interruption. If interruption-handling is enabled, 
 - Instance Terminating Events
 - Instance Stopping Events
 
-:::info 
+:::info
 
 The Node Interruption Handler is not the same as the Node Termination Handler. The latter works fine and cleanly shuts down the node in 2 minutes. The former gets advance notice, so it can have 5-10 minutes to shut down a node.
 
@@ -372,7 +372,7 @@ To enable Node Interruption, set `var.interruption_handler_enabled` to `true`. T
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
 | <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
-| <a name="input_interruption_handler_enabled"></a> [interruption\_handler\_enabled](#input\_interruption\_handler\_enabled) | If `true`, deploy a SQS queue and Event Bridge rules to enable interruption handling by Karpenter. <br><br>  https://karpenter.sh/v0.27.5/concepts/deprovisioning/#interruption | `bool` | `false` | no |
+| <a name="input_interruption_handler_enabled"></a> [interruption\_handler\_enabled](#input\_interruption\_handler\_enabled) | If `true`, deploy a SQS queue and Event Bridge rules to enable interruption handling by Karpenter.<br><br>  https://karpenter.sh/v0.27.5/concepts/deprovisioning/#interruption | `bool` | `false` | no |
 | <a name="input_interruption_queue_message_retention"></a> [interruption\_queue\_message\_retention](#input\_interruption\_queue\_message\_retention) | The message retention in seconds for the interruption handler SQS queue. | `number` | `300` | no |
 | <a name="input_kube_data_auth_enabled"></a> [kube\_data\_auth\_enabled](#input\_kube\_data\_auth\_enabled) | If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`. | `bool` | `false` | no |
 | <a name="input_kube_exec_auth_aws_profile"></a> [kube\_exec\_auth\_aws\_profile](#input\_kube\_exec\_auth\_aws\_profile) | The AWS config profile for `aws eks get-token` to use | `string` | `""` | no |

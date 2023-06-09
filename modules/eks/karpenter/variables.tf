@@ -96,7 +96,7 @@ variable "interruption_handler_enabled" {
   type        = bool
   default     = false
   description = <<EOD
-  If `true`, deploy a SQS queue and Event Bridge rules to enable interruption handling by Karpenter. 
+  If `true`, deploy a SQS queue and Event Bridge rules to enable interruption handling by Karpenter.
 
   https://karpenter.sh/v0.27.5/concepts/deprovisioning/#interruption
   EOD
