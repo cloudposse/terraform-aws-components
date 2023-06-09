@@ -116,6 +116,9 @@ resource "aws_cloudwatch_event_target" "ssosync" {
   arn       = aws_lambda_function.ssosync[0].arn
 }
 
+resource "aws_cloudwatch_log_group" "default" {
+  name = "/aws/lambda/${module.this.id}"
+}
 
 resource "aws_lambda_permission" "allow_cloudwatch_execution" {
   count = local.enabled ? 1 : 0

@@ -42,3 +42,10 @@ resource "aws_iam_role" "default" {
     policy = data.aws_iam_policy_document.ssosync_lambda_identity_center.json
   }
 }
+
+resource "aws_iam_role_policy_attachment" "cloudwatch_logs" {
+  count = local.enabled ? 1 : 0
+
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+  role       = aws_iam_role.default[0].name
+}
