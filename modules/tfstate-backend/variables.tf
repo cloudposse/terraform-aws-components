@@ -15,12 +15,6 @@ variable "prevent_unencrypted_uploads" {
   default     = true
 }
 
-variable "enable_server_side_encryption" {
-  type        = bool
-  description = "Enable DynamoDB and S3 server-side encryption"
-  default     = true
-}
-
 variable "enable_point_in_time_recovery" {
   type        = bool
   description = "Enable DynamoDB point-in-time recovery"
