@@ -227,7 +227,6 @@ module "argocd" {
     templatefile(
       "${path.module}/resources/argocd-values.yaml.tpl",
       {
-        # admin_enabled              = !(local.oidc_enabled || local.saml_enabled)
         admin_enabled              = true
         alb_group_name             = var.alb_group_name == null ? "" : var.alb_group_name
         alb_logs_bucket            = var.alb_logs_bucket
@@ -273,7 +272,6 @@ module "argocd" {
         notifications = {
           triggers = {
             for key, value in var.notifications_triggers :
-            #            replace(key, "_", ".") => merge(yamlencode(value), data.aws_ssm_parameters_by_path.argocd_notifications[0].values)
             replace(key, "_", ".") => yamlencode(value)
           }
         }
