@@ -27,7 +27,7 @@ module "dns_gbl_primary" {
   # Ignore errors if component doesnt exist
   ignore_errors = true
 
-  # Set empty zone set if component does exist, but doesnt have any zones
+  # Set empty zone set if component does exist but doesnt have any zones
   defaults = {
     zones = {}
   }
