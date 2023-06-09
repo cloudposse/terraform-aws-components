@@ -2,6 +2,12 @@
 #
 # This file is a drop-in to provide a helm provider.
 #
+# It depends on 2 standard Cloud Posse data source modules to be already
+# defined in the same component:
+#
+#   1. module.iam_roles to provide the AWS profile or Role ARN to use to access the cluster
+#   2. module.eks to provide the EKS cluster information
+#
 # All the following variables are just about configuring the Kubernetes provider
 # to be able to modify EKS cluster. The reason there are so many options is
 # because at various times, each one of them has had problems, so we give you a choice.
@@ -95,14 +101,16 @@ locals {
     "--profile", var.kube_exec_auth_aws_profile
   ] : []
 
-  kube_exec_auth_role_arn = coalesce(var.kube_exec_auth_role_arn, var.import_role_arn, module.iam_roles.terraform_role_arn)
+  kube_exec_auth_role_arn = coalesce(var.kube_exec_auth_role_arn, module.iam_roles.terraform_role_arn)
   exec_role = local.kube_exec_auth_enabled && var.kube_exec_auth_role_arn_enabled ? [
     "--role-arn", local.kube_exec_auth_role_arn
   ] : []
 
-  certificate_authority_data = module.eks.outputs.eks_cluster_certificate_authority_data
-  eks_cluster_id             = module.eks.outputs.eks_cluster_id
-  eks_cluster_endpoint       = module.eks.outputs.eks_cluster_endpoint
+  # Provide dummy configuration for the case where the EKS cluster is not available.
+  certificate_authority_data = try(module.eks.outputs.eks_cluster_certificate_authority_data, "")
+  # Use coalesce+try to handle both the case where the output is missing and the case where it is empty.
+  eks_cluster_id       = coalesce(try(module.eks.outputs.eks_cluster_id, ""), "missing")
+  eks_cluster_endpoint = try(module.eks.outputs.eks_cluster_endpoint, "")
 }
 
 data "aws_eks_cluster_auth" "eks" {
@@ -114,14 +122,14 @@ provider "helm" {
   kubernetes {
     host                   = local.eks_cluster_endpoint
     cluster_ca_certificate = base64decode(local.certificate_authority_data)
-    token                  = local.kube_data_auth_enabled ? data.aws_eks_cluster_auth.eks[0].token : null
+    token                  = local.kube_data_auth_enabled ? one(data.aws_eks_cluster_auth.eks[*].token) : null
     # The Kubernetes provider will use information from KUBECONFIG if it exists, but if the default cluster
     # in KUBECONFIG is some other cluster, this will cause problems, so we override it always.
     config_path    = local.kubeconfig_file_enabled ? var.kubeconfig_file : ""
     config_context = var.kubeconfig_context
 
     dynamic "exec" {
-      for_each = local.kube_exec_auth_enabled ? ["exec"] : []
+      for_each = local.kube_exec_auth_enabled && length(local.certificate_authority_data) > 0 ? ["exec"] : []
       content {
         api_version = local.kubeconfig_exec_auth_api_version
         command     = "aws"
@@ -132,21 +140,21 @@ provider "helm" {
     }
   }
   experiments {
-    manifest = var.helm_manifest_experiment_enabled
+    manifest = var.helm_manifest_experiment_enabled && module.this.enabled
   }
 }
 
 provider "kubernetes" {
   host                   = local.eks_cluster_endpoint
   cluster_ca_certificate = base64decode(local.certificate_authority_data)
-  token                  = local.kube_data_auth_enabled ? data.aws_eks_cluster_auth.eks[0].token : null
+  token                  = local.kube_data_auth_enabled ? one(data.aws_eks_cluster_auth.eks[*].token) : null
   # The Kubernetes provider will use information from KUBECONFIG if it exists, but if the default cluster
   # in KUBECONFIG is some other cluster, this will cause problems, so we override it always.
   config_path    = local.kubeconfig_file_enabled ? var.kubeconfig_file : ""
   config_context = var.kubeconfig_context
 
   dynamic "exec" {
-    for_each = local.kube_exec_auth_enabled ? ["exec"] : []
+    for_each = local.kube_exec_auth_enabled && length(local.certificate_authority_data) > 0 ? ["exec"] : []
     content {
       api_version = local.kubeconfig_exec_auth_api_version
       command     = "aws"

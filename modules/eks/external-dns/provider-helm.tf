@@ -101,7 +101,7 @@ locals {
     "--profile", var.kube_exec_auth_aws_profile
   ] : []
 
-  kube_exec_auth_role_arn = coalesce(var.kube_exec_auth_role_arn, var.import_role_arn, module.iam_roles.terraform_role_arn)
+  kube_exec_auth_role_arn = coalesce(var.kube_exec_auth_role_arn, module.iam_roles.terraform_role_arn)
   exec_role = local.kube_exec_auth_enabled && var.kube_exec_auth_role_arn_enabled ? [
     "--role-arn", local.kube_exec_auth_role_arn
   ] : []
