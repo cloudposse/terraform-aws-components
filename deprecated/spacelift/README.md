@@ -213,7 +213,7 @@ components:
      not user_collaborators[username]
      not admin_collaborators[username]
    }
-   
+
    # Grant spaces read only user access to all members
    space_read[space.id] {
      space := input.spaces[_]
