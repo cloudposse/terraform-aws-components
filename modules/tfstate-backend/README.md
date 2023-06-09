@@ -49,7 +49,7 @@ You can configure who is allowed to assume these roles.
 
 - For convenience, the component automatically grants access to the backend to the user deploying it. This is
   helpful because it allows that user, presumably SuperAdmin, to deploy the normal components that expect
-  the user does not have direct access to Terraform state.
+  the user not having direct access to Terraform state.
 
 ## Usage
 
