@@ -45,6 +45,7 @@ Here is a snippet of using the `datadog_keys` submodule:
 ```terraform
 module "datadog_configuration" {
   source  = "../datadog-configuration/modules/datadog_keys"
+  enabled = true
   context = module.this.context
 }
 

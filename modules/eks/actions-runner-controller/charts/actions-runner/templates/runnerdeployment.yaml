@@ -28,6 +28,11 @@ spec:
   # See https://github.com/actions-runner-controller/actions-runner-controller/issues/206#issuecomment-748601907
   # replicas: 1
   template:
+    {{- with index .Values "pod_annotations" }}
+    metadata:
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
     spec:
       # As of 2023-03-31
       # Recommended by https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md
@@ -89,12 +94,15 @@ spec:
         limits:
           cpu: {{ .Values.resources.limits.cpu }}
           memory: {{ .Values.resources.limits.memory }}
-          {{- if and .Values.dind_enabled .Values.resources.limits.ephemeral_storage }}
+          {{- if index .Values.resources.limits "ephemeral_storage" }}
           ephemeral-storage: {{ .Values.resources.limits.ephemeral_storage }}
           {{- end }}
         requests:
           cpu: {{ .Values.resources.requests.cpu }}
           memory: {{ .Values.resources.requests.memory }}
+          {{- if index .Values.resources.requests "ephemeral_storage" }}
+          ephemeral-storage: {{ .Values.resources.requests.ephemeral_storage }}
+          {{- end }}
       {{- if and .Values.dind_enabled .Values.storage }}
       dockerVolumeMounts:
       - mountPath: /var/lib/docker

@@ -168,7 +168,7 @@ module "container_definition" {
 }
 
 locals {
-  awslogs_group = var.datadog_log_method_is_firelens ? "" : join("", module.logs.*.log_group_name)
+  awslogs_group = var.datadog_log_method_is_firelens ? "" : join("", module.logs[*].log_group_name)
 }
 
 module "ecs_alb_service_task" {
@@ -215,7 +215,7 @@ module "ecs_alb_service_task" {
   wait_for_steady_state              = lookup(var.task, "wait_for_steady_state", true)
   circuit_breaker_deployment_enabled = lookup(var.task, "circuit_breaker_deployment_enabled", true)
   circuit_breaker_rollback_enabled   = lookup(var.task, "circuit_breaker_rollback_enabled  ", true)
-  task_policy_arns                   = var.task_policy_arns
+  task_policy_arns                   = var.iam_policy_enabled ? concat(var.task_policy_arns, formatlist(aws_iam_policy.default[0].arn)) : var.task_policy_arns
   ecs_service_enabled                = lookup(var.task, "ecs_service_enabled", true)
   bind_mount_volumes                 = lookup(var.task, "bind_mount_volumes", [])
   task_role_arn                      = lookup(var.task, "task_role_arn", [])
@@ -315,7 +315,7 @@ data "aws_iam_policy_document" "this" {
 
 resource "aws_iam_policy" "default" {
   count    = local.enabled && var.iam_policy_enabled ? 1 : 0
-  policy   = join("", data.aws_iam_policy_document.this.*.json)
+  policy   = join("", data.aws_iam_policy_document.this[*].json)
   tags_all = module.this.tags
 }
 

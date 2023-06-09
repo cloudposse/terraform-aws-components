@@ -39,6 +39,12 @@ variable "cloudtrail_cloudwatch_logs_role_max_session_duration" {
   description = "The maximum session duration (in seconds) for the CloudTrail CloudWatch Logs role. Can have a value from 1 hour to 12 hours"
 }
 
+variable "cloudtrail_bucket_component_name" {
+  type        = string
+  description = "The name of the CloudTrail bucket component"
+  default     = "cloudtrail-bucket"
+}
+
 variable "cloudtrail_bucket_environment_name" {
   type        = string
   description = "The name of the environment where the CloudTrail bucket is provisioned"
@@ -58,4 +64,10 @@ variable "is_organization_trail" {
   The default is false, and cannot be true unless the call is made on behalf of an AWS account that is the management account
   for an organization in AWS Organizations.
   EOT
+}
+
+variable "audit_access_enabled" {
+  type        = bool
+  default     = false
+  description = "If `true`, allows the Audit account access to read Cloudtrail logs directly from S3. This is a requirement for running Athena queries in the Audit account."
 }

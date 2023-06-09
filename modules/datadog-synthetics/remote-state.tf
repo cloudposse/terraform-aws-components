@@ -1,6 +1,6 @@
 module "datadog_synthetics_private_location" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.4.3"
 
   component = var.synthetics_private_location_component_name
 
