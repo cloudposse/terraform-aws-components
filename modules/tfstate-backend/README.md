@@ -25,7 +25,7 @@ You can configure who is allowed to assume these roles.
   and many other components read this information from the Terraform state backend via the CloudPosse `remote-state`
   module and use it as part of their configuration. For example, the `account-map` component exists solely for the
   purpose of organizing information about the created AWS accounts and storing it in its Terraform state, making it
-  available via `remote-state`. This means that you if you are going to restrict access to some backends, you need to
+  available via `remote-state`. This means that if you are going to restrict access to some backends, you need to
   carefully orchestrate what is stored there and ensure that you are not storing information a component needs in a
   backend it will not have access to. Typically, information in the most sensitive accounts, such as `root`, `audit`,
   and `security`, is nevertheless needed by every account, for example to know where to send audit logs, so it is not
