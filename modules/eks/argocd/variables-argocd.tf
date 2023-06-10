@@ -95,12 +95,6 @@ variable "forecastle_enabled" {
   default     = false
 }
 
-variable "admin_enabled" {
-  type        = bool
-  description = "Toggles Admin user creation the deployed chart"
-  default     = false
-}
-
 variable "oidc_enabled" {
   type        = bool
   description = "Toggles OIDC integration in the deployed chart"
@@ -171,16 +165,6 @@ variable "argocd_rbac_policies" {
   EOT
 }
 
-variable "argocd_rbac_default_policy" {
-  type        = string
-  default     = "role:readonly"
-  description = <<-EOT
-  Default ArgoCD RBAC default role.
-
-  See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/#basic-built-in-roles for more information.
-  EOT
-}
-
 variable "argocd_rbac_groups" {
   type = list(object({
     group = string,
@@ -214,4 +198,10 @@ variable "saml_sso_providers" {
 
   default     = {}
   description = "SAML SSO providers components"
+}
+
+variable "oidc_providers" {
+  type        = any
+  default     = {}
+  description = "OIDC providers components, clientID and clientSecret should be passed as SSM parameters (denoted by leading slash)"
 }
