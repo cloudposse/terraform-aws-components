@@ -7,22 +7,26 @@ In practice, this means apps will define an `ExternalSecret` that pulls all env 
 ```
 # Part of the charts in `/releases
 
-apiVersion: external-secrets.io/v1beta1 
+apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: app-secrets
 spec:
-  refreshInterval: 0
+  refreshInterval: 30s
   secretStoreRef:
-    name: "secret-store-parameter-store" # must match name of our store
-    kind: SecretStore
+    name: "secret-store-parameter-store" # Must match name of the Cluster Secret Store created by this component
+    kind: ClusterSecretStore
   target:
-    creationPolicy: 'Owner'
+    creationPolicy: Owner
     name: app-secrets
   dataFrom:
   - find:
       name:
-        regexp: "^/app"
+        regexp: "^/app/" # Match the path prefix of your service
+    rewrite:
+    - regexp:
+        source: "/app/(.*)" # Remove the path prefix of your service from the name before creating the envars
+        target: "$1"
 ```
 
 This component assumes secrets are prefixed by "service" in parameter store (e.g. `/app/my_secret`). The `SecretStore`. The component is designed to pull secrets from a `path` prefix (defaulting to `"app"`). This should work nicely along `chamber` which uses this same path (called a "service" in Chamber). For example, developers should store keys like so.
@@ -72,7 +76,7 @@ components:
           requests:
             cpu: "20m"
             memory: "60Mi"
-        parameter_store_paths: 
+        parameter_store_paths:
           - app
           - rds
         # You can use `chart_values` to set any other chart options. Treat `chart_values` as the root of the doc.
