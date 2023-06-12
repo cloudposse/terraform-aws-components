@@ -49,7 +49,7 @@ import:
 
 components:
   terraform:
-    sns-topic-example: 
+    sns-topic-example:
       metadata:
         component: sns-topic
         inherits:

@@ -6,7 +6,7 @@ This component assumes that the `global-accelerator` component has already been 
 
 ## Usage
 
-**Stack Level**: Regional 
+**Stack Level**: Regional
 
 Here are some example snippets for how to use this component:
 

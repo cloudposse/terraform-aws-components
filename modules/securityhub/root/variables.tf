@@ -42,7 +42,7 @@ variable "enable_default_standards" {
 variable "enabled_standards" {
   description = <<DOC
   A list of standards to enable in the account.
-  
+
   For example:
   - standards/aws-foundational-security-best-practices/v/1.0.0
   - ruleset/cis-aws-foundations-benchmark/v/1.2.0

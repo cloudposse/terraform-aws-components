@@ -1,7 +1,7 @@
 # Component: `datadog-lambda-forwarder`
 
-This component is responsible for provision all the necessary infrastructure to 
-deploy [Datadog Lambda forwarders](https://github.com/DataDog/datadog-serverless-functions/tree/master/aws/logs_monitoring). 
+This component is responsible for provision all the necessary infrastructure to
+deploy [Datadog Lambda forwarders](https://github.com/DataDog/datadog-serverless-functions/tree/master/aws/logs_monitoring).
 
 
 ## Usage
@@ -33,7 +33,7 @@ components:
             filter_pattern: ""
           eks-cluster:
             # Use either `name` or `name_prefix` with `name_suffix`
-            # If `name_prefix` with `name_suffix` are used, the final `name` will be constructed using `name_prefix` + context + `name_suffix`, 
+            # If `name_prefix` with `name_suffix` are used, the final `name` will be constructed using `name_prefix` + context + `name_suffix`,
             # e.g. "/aws/eks/eg-ue2-prod-eks-cluster/cluster"
             name_prefix: "/aws/eks/"
             name_suffix: "eks-cluster/cluster"

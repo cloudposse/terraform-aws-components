@@ -1,8 +1,8 @@
 # Component: `config-bucket`
 
 This module creates an S3 bucket suitable for storing `AWS Config` data.
-  
-It implements a configurable log retention policy, which allows you to efficiently manage logs across different 
+
+It implements a configurable log retention policy, which allows you to efficiently manage logs across different
 storage classes (_e.g._ `Glacier`) and ultimately expire the data altogether.
 
 It enables server-side encryption by default.

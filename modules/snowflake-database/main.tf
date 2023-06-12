@@ -119,13 +119,13 @@ resource "snowflake_table" "tables" {
     snowflake_table_grant.grant
   ]
 
-  # Ignore changes to column type because of a known issue with the provider. 
+  # Ignore changes to column type because of a known issue with the provider.
   # Terraform will show changes on plan for updating the type, even though there are not any changes.
   # https://github.com/chanzuckerberg/terraform-provider-snowflake/issues/494
   #
   # Furthermore, Terraform doesn't support wildcards or variables in the lifecycle block, so either we can ignore all changes to `column` or need to list out all indices manually.
   # """
-  # A single static variable reference is required: only attribute access and indexing with constant keys. 
+  # A single static variable reference is required: only attribute access and indexing with constant keys.
   # No calculations, function calls, template expressions, etc are allowed here.
   # """
   # https://github.com/hashicorp/terraform/issues/5666

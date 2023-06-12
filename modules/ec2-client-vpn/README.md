@@ -23,7 +23,7 @@ components:
         retention_in_days: 7
         organization_name: acme
         split_tunnel: true
-        availability_zones: 
+        availability_zones:
         - us-west-2a
         - us-west-2b
         - us-west-2c

@@ -52,7 +52,7 @@ variable "enable_default_standards" {
 variable "enabled_standards" {
   description = <<DOC
   A list of standards to enable in the account.
-  
+
   For example:
   - standards/aws-foundational-security-best-practices/v/1.0.0
   - ruleset/cis-aws-foundations-benchmark/v/1.2.0
@@ -90,9 +90,9 @@ variable "finding_aggregator_enabled" {
 
 variable "finding_aggregator_linking_mode" {
   description = <<-DOC
-  Linking mode to use for the finding aggregator. 
+  Linking mode to use for the finding aggregator.
 
-  The possible values are: 
+  The possible values are:
     - `ALL_REGIONS` - Aggregate from all regions
     - `ALL_REGIONS_EXCEPT_SPECIFIED` - Aggregate from all regions except those specified in `var.finding_aggregator_regions`
     - `SPECIFIED_REGIONS` - Aggregate from regions specified in `var.finding_aggregator_regions`
@@ -103,7 +103,7 @@ variable "finding_aggregator_linking_mode" {
 
 variable "finding_aggregator_regions" {
   description = <<-DOC
-  A list of regions to aggregate findings from. 
+  A list of regions to aggregate findings from.
 
   This is only used if `finding_aggregator_enabled` is `true`.
   DOC

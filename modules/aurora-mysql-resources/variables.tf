@@ -77,4 +77,3 @@ variable "additional_grants" {
     otherwise, passwords will be generated and stored in SSM parameter store under the service's key.
     EOT
 }
-

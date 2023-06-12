@@ -15,7 +15,7 @@ components:
   terraform:
     securityhub/root:
       metadata:
-        component: securityhub/root        
+        component: securityhub/root  
       vars:
         enabled: true
         account_map_tenant: core

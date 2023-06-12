@@ -2,7 +2,7 @@
 
 This component is responsible for provisioning an [AWS Inspector](https://docs.aws.amazon.com/inspector/latest/user/what-is-inspector.html) by installing the [Inspector agent](https://repost.aws/knowledge-center/set-up-amazon-inspector) across all EC2 instances and applying the Inspector rules.
 
-AWS Inspector is a security assessment service offered by Amazon Web Services (AWS). It helps you analyze and evaluate the security and compliance of your applications and infrastructure deployed on AWS. AWS Inspector automatically assesses the resources within your AWS environment, such as Amazon EC2 instances, for potential security vulnerabilities and deviations from security best practices. 
+AWS Inspector is a security assessment service offered by Amazon Web Services (AWS). It helps you analyze and evaluate the security and compliance of your applications and infrastructure deployed on AWS. AWS Inspector automatically assesses the resources within your AWS environment, such as Amazon EC2 instances, for potential security vulnerabilities and deviations from security best practices.
 
 Here are some key features and functionalities of AWS Inspector:
 - **Security Assessments:** AWS Inspector performs security assessments by analyzing the behavior of your resources and identifying potential security vulnerabilities. It examines the network configuration, operating system settings, and installed software to detect common security issues.

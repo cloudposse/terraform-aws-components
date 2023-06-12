@@ -33,7 +33,7 @@ import:
 
 components:
   terraform:
-    kinesis-example: 
+    kinesis-example:
       metadata:
         component: kinesis-stream
         inherits:

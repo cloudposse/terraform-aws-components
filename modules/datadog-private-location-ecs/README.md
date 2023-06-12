@@ -50,7 +50,7 @@ components:
             compatibilities:
               - EC2
               - FARGATE
-              - FARGATE_SPOT 
+              - FARGATE_SPOT
             log_configuration:
               logDriver: awslogs
               options: {}

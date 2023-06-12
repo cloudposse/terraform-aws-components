@@ -43,7 +43,7 @@ import:
 
 components:
   terraform:
-    athena/example: 
+    athena/example:
       metadata:
         component: athena
         inherits:
@@ -59,7 +59,7 @@ components:
 
 ### CloudTrail Integration
 
-Using Athena with CloudTrail logs is a powerful way to enhance your analysis of AWS service activity. This component supports creating 
+Using Athena with CloudTrail logs is a powerful way to enhance your analysis of AWS service activity. This component supports creating
 a CloudTrail table for each account and setting up queries to read CloudTrail logs from a centralized location.
 
 To set up the CloudTrail Integration, first create the `create` and `alter` queries in Athena with this component. When `var.cloudtrail_database`
@@ -71,7 +71,7 @@ import:
 
 components:
   terraform:
-    athena/audit: 
+    athena/audit:
       metadata:
         component: athena
         inherits:
@@ -105,7 +105,7 @@ Once those are created, run the `create` and then the `alter` queries in the AWS
 :::info
 
 Athena runs queries with the permissions of the user executing the query. In order to be able to query CloudTrail logs,
-the `audit` account must have access to the KMS key used to encrypt CloudTrails logs. Set `var.audit_access_enabled` to `true` in the `cloudtrail` 
+the `audit` account must have access to the KMS key used to encrypt CloudTrails logs. Set `var.audit_access_enabled` to `true` in the `cloudtrail`
 component
 
 :::

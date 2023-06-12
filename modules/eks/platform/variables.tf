@@ -33,5 +33,3 @@ variable "platform_environment" {
   description = "Platform environment"
   default     = "default"
 }
-
-

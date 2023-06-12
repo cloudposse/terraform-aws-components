@@ -287,9 +287,8 @@ variable "ssm_password_source" {
   type        = string
   default     = ""
   description = <<-EOT
-    If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved from SSM using 
-    `var.ssm_password_source` and the database username. If this value is not set, 
+    If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved from SSM using
+    `var.ssm_password_source` and the database username. If this value is not set,
     a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster.
     EOT
 }
-

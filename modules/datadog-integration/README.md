@@ -1,6 +1,6 @@
 # Component: `datadog-integration`
 
-This component is responsible for provisioning Datadog AWS integrations. 
+This component is responsible for provisioning Datadog AWS integrations.
 
 See Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys) for more information.
 

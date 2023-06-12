@@ -30,4 +30,3 @@ output "groupsAttr" {
   value       = local.enabled ? var.groupsAttr : null
   description = "Groups attribute"
 }
-

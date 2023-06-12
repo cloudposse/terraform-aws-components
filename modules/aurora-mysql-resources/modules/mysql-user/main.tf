@@ -18,7 +18,7 @@ locals {
 
   parameter_write = (local.create_db_user && local.save_password_in_ssm) ? [local.db_password_ssm] : []
 
-  # You cannot grant "ALL" to an RDS user because "ALL" includes privileges that Master does not have (because this is a managed database). 
+  # You cannot grant "ALL" to an RDS user because "ALL" includes privileges that Master does not have (because this is a managed database).
   # Instead, use "ALL PRIVILEGES"
   # See the full list of available options at https://docs.amazonaws.cn/en_us/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Security.html
   all_rds_app_grants = [

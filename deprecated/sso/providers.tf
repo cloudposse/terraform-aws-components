@@ -28,4 +28,3 @@ variable "import_role_arn" {
   default     = null
   description = "IAM Role ARN to use when importing a resource"
 }
-

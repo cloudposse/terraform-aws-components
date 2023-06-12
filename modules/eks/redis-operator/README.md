@@ -156,4 +156,3 @@ components:
 
 ## References
   * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/eks/redis-operator) - Cloud Posse's upstream component
-

@@ -98,4 +98,3 @@ variable "additional_schemas" {
     If no database is given, the schema will use the database used by the provider configuration
   EOT
 }
-

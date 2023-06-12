@@ -26,10 +26,10 @@ useridentity STRUCT<
     attributes:STRUCT<
                mfaauthenticated:STRING,
                creationdate:STRING>,
-    sessionissuer:STRUCT<  
+    sessionissuer:STRUCT<
                type:STRING,
                principalId:STRING,
-               arn:STRING, 
+               arn:STRING,
                accountId:STRING,
                userName:STRING>,
     ec2RoleDelivery:string,
@@ -65,7 +65,7 @@ tlsDetails struct<
   cipherSuite:string,
   clientProvidedHostHeader:string>
 )
-PARTITIONED BY (account string, region string, year string, month string, day string) 
+PARTITIONED BY (account string, region string, year string, month string, day string)
 ROW FORMAT SERDE 'org.apache.hive.hcatalog.data.JsonSerDe'
 STORED AS INPUTFORMAT 'com.amazon.emr.cloudtrail.CloudTrailInputFormat'
 OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
