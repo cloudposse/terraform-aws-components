@@ -53,7 +53,7 @@ variable "kubernetes_namespace" {
 
 variable "dns_zone" {
   type        = string
-  description = ""
+  description = "DNS zone (e.g. example.com) into which to install the web host."
   default     = null
 }
 

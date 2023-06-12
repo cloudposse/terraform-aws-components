@@ -1,23 +1,14 @@
 # Component: `aws-teams`
 
-## Purpose
-
-This component implements the hub of a hub-and-spoke account access hierarchy, where the hub is the `identity` account.
-This allows you to assign each user to a single "team" (implemented as an IAM role) in the `identity` account, which they access
-via a single authentication (login), which then allows them to access a set of roles in a set of accounts.
-
-This component is responsible for provisioning team roles in the centralized identity account.
-This is expected to be used alongside [the `aws-team-roles` component](../aws-team-roles)
-which provisions the roles in the spoke accounts and configures their privileges and which teams can access them.
+This component is responsible for provisioning all primary user and system roles into the centralized identity account.
+This is expected to be used alongside [the `aws-team-roles` component](../aws-team-roles) to provide
+fine-grained role delegation across the account hierarchy.
 
 ### Teams Function Like Groups and are Implemented as Roles
 The "teams" created in the `identity` account by this module can be thought of as access control "groups":
 a user who is allowed access one of these teams gets access to a set of roles (and corresponding permissions)
 across a set of accounts. Generally, there is nothing else provisioned in the `identity` account,
 so the teams have limited access to resources in the `identity` account by design.
-
-Privileges for the users within the identity account itself are generally limited, and are configured
-via the `role_policy_arns` variable, just as with `aws-team-roles`. See the `aws-team-roles` README for more details.
 
 Teams are implemented as IAM Roles in each account. Access to the "teams" in the `identity`
 account is controlled by the `aws-saml` and `aws-sso` components. Access to the roles in all the
@@ -157,9 +148,9 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
 | <a name="module_assume_role"></a> [assume\_role](#module\_assume\_role) | ../account-map/modules/team-assume-role-policy | n/a |
-| <a name="module_aws_saml"></a> [aws\_saml](#module\_aws\_saml) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_aws_saml"></a> [aws\_saml](#module\_aws\_saml) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -167,15 +158,11 @@ components:
 
 | Name | Type |
 |------|------|
-| [aws_iam_policy.support](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.team_role_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy_attachment.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [local_file.account_info](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
-| [aws_iam_policy.aws_support_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy) | data source |
 | [aws_iam_policy_document.assume_role_aggregated](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.support_access_aggregated](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.support_access_trusted_advisor](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.team_role_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
 ## Inputs

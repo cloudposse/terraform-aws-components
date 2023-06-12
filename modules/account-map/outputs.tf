@@ -81,29 +81,28 @@ output "terraform_profiles" {
   description = "A list of all SSO profiles used to run terraform updates"
 }
 
-output "helm_roles" {
-  value       = local.helm_roles
-  description = "A list of all IAM roles used to run helm updates"
-}
-
-output "helm_profiles" {
-  value       = local.helm_profiles
-  description = "A list of all SSO profiles used to run helm updates"
-}
-
-output "cicd_roles" {
-  value       = local.cicd_roles
-  description = "A list of all IAM roles used by cicd platforms"
-}
-
-output "cicd_profiles" {
-  value       = local.cicd_profiles
-  description = "A list of all SSO profiles used by cicd platforms"
-}
-
 output "profiles_enabled" {
   value       = var.profiles_enabled
   description = "Whether or not to enable profiles instead of roles for the backend"
+}
+
+output "terraform_dynamic_role_enabled" {
+  value       = local.dynamic_role_enabled
+  description = "True if dynamic role for Terraform is enabled"
+  precondition {
+    condition     = local.dynamic_role_enabled && var.profiles_enabled ? false : true
+    error_message = "Dynamic role for Terraform cannot be used with profiles. One of `terraform_dynamic_role_enabled` or `profiles_enabled` must be false."
+  }
+}
+
+output "terraform_access_map" {
+  value       = local.dynamic_role_enabled ? local.role_arn_terraform_access : null
+  description = "Mapping of team Role ARN to map of account name to terraform action role ARN to assume"
+}
+
+output "terraform_role_name_map" {
+  value       = local.dynamic_role_enabled ? var.terraform_role_name_map : null
+  description = "Mapping of Terraform action (plan or apply) to aws-team-role name to assume for that action"
 }
 
 resource "local_file" "account_info" {

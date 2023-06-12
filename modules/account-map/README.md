@@ -52,9 +52,10 @@ components:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | >= 1.3 |
+| <a name="requirement_utils"></a> [utils](#requirement\_utils) | >= 1.8.0 |
 
 ## Providers
 
@@ -62,12 +63,14 @@ components:
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
 | <a name="provider_local"></a> [local](#provider\_local) | >= 1.3 |
+| <a name="provider_utils"></a> [utils](#provider\_utils) | >= 1.8.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_accounts"></a> [accounts](#module\_accounts) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_accounts"></a> [accounts](#module\_accounts) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
+| <a name="module_atmos"></a> [atmos](#module\_atmos) | cloudposse/label/null | 0.25.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -77,6 +80,8 @@ components:
 | [local_file.account_info](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 | [aws_organizations_organization.organization](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/organizations_organization) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
+| [utils_describe_stacks.team_roles](https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/describe_stacks) | data source |
+| [utils_describe_stacks.teams](https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/describe_stacks) | data source |
 
 ## Inputs
 
@@ -112,6 +117,8 @@ components:
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
+| <a name="input_terraform_dynamic_role_enabled"></a> [terraform\_dynamic\_role\_enabled](#input\_terraform\_dynamic\_role\_enabled) | If true, the IAM role Terraform will assume will depend on the identity of the user running terraform | `bool` | `false` | no |
+| <a name="input_terraform_role_name_map"></a> [terraform\_role\_name\_map](#input\_terraform\_role\_name\_map) | Mapping of Terraform action (plan or apply) to aws-team-role name to assume for that action | `map(string)` | <pre>{<br>  "apply": "terraform",<br>  "plan": "planner"<br>}</pre> | no |
 
 ## Outputs
 
@@ -122,13 +129,9 @@ components:
 | <a name="output_artifacts_account_account_name"></a> [artifacts\_account\_account\_name](#output\_artifacts\_account\_account\_name) | The short name for the artifacts account |
 | <a name="output_audit_account_account_name"></a> [audit\_account\_account\_name](#output\_audit\_account\_account\_name) | The short name for the audit account |
 | <a name="output_aws_partition"></a> [aws\_partition](#output\_aws\_partition) | The AWS "partition" to use when constructing resource ARNs |
-| <a name="output_cicd_profiles"></a> [cicd\_profiles](#output\_cicd\_profiles) | A list of all SSO profiles used by cicd platforms |
-| <a name="output_cicd_roles"></a> [cicd\_roles](#output\_cicd\_roles) | A list of all IAM roles used by cicd platforms |
 | <a name="output_dns_account_account_name"></a> [dns\_account\_account\_name](#output\_dns\_account\_account\_name) | The short name for the primary DNS account |
 | <a name="output_eks_accounts"></a> [eks\_accounts](#output\_eks\_accounts) | A list of all accounts in the AWS Organization that contain EKS clusters |
 | <a name="output_full_account_map"></a> [full\_account\_map](#output\_full\_account\_map) | The map of account name to account ID (number). |
-| <a name="output_helm_profiles"></a> [helm\_profiles](#output\_helm\_profiles) | A list of all SSO profiles used to run helm updates |
-| <a name="output_helm_roles"></a> [helm\_roles](#output\_helm\_roles) | A list of all IAM roles used to run helm updates |
 | <a name="output_iam_role_arn_templates"></a> [iam\_role\_arn\_templates](#output\_iam\_role\_arn\_templates) | Map of accounts to corresponding IAM Role ARN templates |
 | <a name="output_identity_account_account_name"></a> [identity\_account\_account\_name](#output\_identity\_account\_account\_name) | The short name for the account holding primary IAM roles |
 | <a name="output_non_eks_accounts"></a> [non\_eks\_accounts](#output\_non\_eks\_accounts) | A list of all accounts in the AWS Organization that do not contain EKS clusters |
@@ -136,7 +139,10 @@ components:
 | <a name="output_profiles_enabled"></a> [profiles\_enabled](#output\_profiles\_enabled) | Whether or not to enable profiles instead of roles for the backend |
 | <a name="output_root_account_account_name"></a> [root\_account\_account\_name](#output\_root\_account\_account\_name) | The short name for the root account |
 | <a name="output_root_account_aws_name"></a> [root\_account\_aws\_name](#output\_root\_account\_aws\_name) | The name of the root account as reported by AWS |
+| <a name="output_terraform_access_map"></a> [terraform\_access\_map](#output\_terraform\_access\_map) | Mapping of team Role ARN to map of account name to terraform action role ARN to assume |
+| <a name="output_terraform_dynamic_role_enabled"></a> [terraform\_dynamic\_role\_enabled](#output\_terraform\_dynamic\_role\_enabled) | True if dynamic role for Terraform is enabled |
 | <a name="output_terraform_profiles"></a> [terraform\_profiles](#output\_terraform\_profiles) | A list of all SSO profiles used to run terraform updates |
+| <a name="output_terraform_role_name_map"></a> [terraform\_role\_name\_map](#output\_terraform\_role\_name\_map) | Mapping of Terraform action (plan or apply) to aws-team-role name to assume for that action |
 | <a name="output_terraform_roles"></a> [terraform\_roles](#output\_terraform\_roles) | A list of all IAM roles used to run terraform updates |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

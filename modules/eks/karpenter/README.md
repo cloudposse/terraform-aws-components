@@ -18,19 +18,20 @@ components:
     # Base component of all `karpenter` components
     eks/karpenter:
       metadata:
-        component: eks/karpenter
         type: abstract
+      settings:
+        spacelift:
+          workspace_enabled: true
       vars:
         enabled: true
-        eks_component_name: "eks/cluster"
         tags:
           Team: sre
           Service: karpenter
+        eks_component_name: eks/cluster
         name: "karpenter"
-        # https://github.com/aws/karpenter/tree/main/charts/karpenter
-        chart_repository: "oci://public.ecr.aws/karpenter"
         chart: "karpenter"
-        chart_version: "v0.27.5"
+        chart_repository: "https://charts.karpenter.sh"
+        chart_version: "v0.16.3"
         create_namespace: true
         kubernetes_namespace: "karpenter"
         resources:
@@ -40,17 +41,10 @@ components:
           requests:
             cpu: "100m"
             memory: "512Mi"
-        cleanup_on_fail: false
-        atomic: false
+        cleanup_on_fail: true
+        atomic: true
         wait: true
         rbac_enabled: true
-        interruption_handler_enabled: true
-        chart_values:
-          serviceMonitor:
-            enabled: true
-          replicas: 1
-          aws:
-            enableENILimitedPodDensity: false
 
     # Provision `karpenter` component on the blue EKS cluster
     eks/karpenter-blue:
@@ -291,24 +285,6 @@ For more details, refer to:
  - https://aws.github.io/aws-eks-best-practices/karpenter
  - https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
 
-## Node Interruption
-
-Karpenter also supports Node Interruption. If interruption-handling is enabled, Karpenter will watch for upcoming involuntary interruption events that would cause disruption to your workloads. These interruption events include:
-
-- Spot Interruption Warnings
-- Scheduled Change Health Events (Maintenance Events)
-- Instance Terminating Events
-- Instance Stopping Events
-
-:::info
-
-The Node Interruption Handler is not the same as the Node Termination Handler. The latter works fine and cleanly shuts down the node in 2 minutes. The former gets advance notice, so it can have 5-10 minutes to shut down a node.
-
-:::
-
-For more details, see refer to [Karpenter docs](https://karpenter.sh/v0.27.5/concepts/deprovisioning/#interruption)
-
-To enable Node Interruption, set `var.interruption_handler_enabled` to `true`. This will enable a SQS queue and a set of Event Bridge rules to handle interruption with Karpenter.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -370,8 +346,6 @@ To enable Node Interruption, set `var.interruption_handler_enabled` to `true`. T
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_helm_manifest_experiment_enabled"></a> [helm\_manifest\_experiment\_enabled](#input\_helm\_manifest\_experiment\_enabled) | Enable storing of the rendered manifest for helm\_release so the full diff of what is changing can been seen in the plan | `bool` | `false` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_interruption_handler_enabled"></a> [interruption\_handler\_enabled](#input\_interruption\_handler\_enabled) | If `true`, deploy a SQS queue and Event Bridge rules to enable interruption handling by Karpenter.<br><br>  https://karpenter.sh/v0.27.5/concepts/deprovisioning/#interruption | `bool` | `false` | no |
 | <a name="input_interruption_queue_message_retention"></a> [interruption\_queue\_message\_retention](#input\_interruption\_queue\_message\_retention) | The message retention in seconds for the interruption handler SQS queue. | `number` | `300` | no |
 | <a name="input_kube_data_auth_enabled"></a> [kube\_data\_auth\_enabled](#input\_kube\_data\_auth\_enabled) | If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`. | `bool` | `false` | no |

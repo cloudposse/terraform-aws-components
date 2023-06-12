@@ -327,6 +327,12 @@ variable "kubeconfig_file_enabled" {
     EOF
 }
 
+variable "kube_exec_auth_role_arn" {
+  type        = string
+  default     = null
+  description = "The role ARN for `aws eks get-token` to use. Defaults to the current caller's role."
+}
+
 variable "aws_auth_yaml_strip_quotes" {
   type        = bool
   default     = true
