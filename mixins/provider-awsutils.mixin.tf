@@ -19,4 +19,3 @@ provider "awsutils" {
     }
   }
 }
-

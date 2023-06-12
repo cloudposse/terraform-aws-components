@@ -4,4 +4,3 @@ provider "spacelift" {
   api_key_id       = data.aws_ssm_parameter.spacelift_key_id.value
   api_key_secret   = data.aws_ssm_parameter.spacelift_key_secret.value
 }
-

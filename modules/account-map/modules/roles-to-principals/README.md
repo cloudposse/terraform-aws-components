@@ -1,9 +1,9 @@
 # Submodule `roles-to-principals`
 
-This submodule is used by other modules to map short role names and AWS 
+This submodule is used by other modules to map short role names and AWS
 SSO Permission Set names in accounts designated by short account names
 (for example, `terraform` in the `dev` account) to full IAM Role ARNs and
-other related tasks. 
+other related tasks.
 
 ## Special Configuration Needed
 
