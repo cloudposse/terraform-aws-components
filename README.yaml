@@ -104,7 +104,7 @@ introduction: |-
 
 # How to use this project
 usage: |-
-  See each component's README directory for usage.
+  See each component's README for usage.
 
 include:
   - "docs/targets.md"
