@@ -99,7 +99,7 @@ make rebuild-docs
 
 
 
-See each component's README for usage.
+Please take a look at each [component's README](./modules) for usage.
 
 
 
