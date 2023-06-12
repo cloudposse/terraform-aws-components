@@ -51,6 +51,9 @@ resource "null_resource" "extract_my_tgz" {
   }
 
   depends_on = [module.ssosync_artifact]
+  triggers = {
+    filehash = try(module.ssosync_artifact[0].base64sha256, "")
+  }
 }
 
 data "archive_file" "lambda" {
@@ -96,7 +99,7 @@ resource "aws_lambda_function" "ssosync" {
       SSOSYNC_LOAD_ASM_SECRETS   = false
     }
   }
-  depends_on = [null_resource.extract_my_tgz, data.archive_file.lambda, aws_cloudwatch_log_group.default[0]]
+  depends_on = [null_resource.extract_my_tgz, data.archive_file.lambda]
 }
 
 resource "aws_cloudwatch_event_rule" "ssosync" {
@@ -117,8 +120,7 @@ resource "aws_cloudwatch_event_target" "ssosync" {
 }
 
 resource "aws_cloudwatch_log_group" "default" {
-  count = local.enabled ? 1 : 0
-  name  = "/aws/lambda/${module.this.id}"
+  name = "/aws/lambda/${module.this.id}"
 }
 
 resource "aws_lambda_permission" "allow_cloudwatch_execution" {
