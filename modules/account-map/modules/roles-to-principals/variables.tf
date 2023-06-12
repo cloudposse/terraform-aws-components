@@ -33,6 +33,6 @@ variable "overridable_global_environment_name" {
 
 variable "overridable_global_stage_name" {
   type        = string
-  description = "The stage name for the organization management account (where the `accout-map` state is stored)"
+  description = "The stage name for the organization management account (where the `account-map` state is stored)"
   default     = "root"
 }

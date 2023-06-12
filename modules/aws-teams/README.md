@@ -1,8 +1,8 @@
 # Component: `aws-teams`
 
 This component is responsible for provisioning all primary user and system roles into the centralized identity account.
-This is expected to be use alongside [the `aws-team-roles` component](../aws-team-roles) to provide
-fine grained role delegation across the account hierarchy.
+This is expected to be used alongside [the `aws-team-roles` component](../aws-team-roles) to provide
+fine-grained role delegation across the account hierarchy.
 
 ### Teams Function Like Groups and are Implemented as Roles
 The "teams" created in the `identity` account by this module can be thought of as access control "groups":

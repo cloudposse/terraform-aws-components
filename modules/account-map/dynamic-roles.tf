@@ -7,7 +7,6 @@ data "utils_describe_stacks" "teams" {
   sections        = ["vars"]
 }
 
-
 data "utils_describe_stacks" "team_roles" {
   count = local.dynamic_role_enabled ? 1 : 0
 
