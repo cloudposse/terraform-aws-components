@@ -50,7 +50,7 @@ components:
       component: spa-s3-cloudfront
       vars:
         name: example-spa
-        site_subdomain: example-spa 
+        site_subdomain: example-spa
         cloudfront_allowed_methods:
         - GET
         - HEAD
@@ -72,7 +72,7 @@ Finally, the `spa-s3-cloudfront` component can be instantiated in a stack config
 ```yaml
 import:
   - spa/example-spa
-  
+
 components:
   terraform:
     example-spa:

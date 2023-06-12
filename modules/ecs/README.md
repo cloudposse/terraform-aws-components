@@ -34,7 +34,7 @@ components:
         capacity_providers_ec2:
           default:
             instance_type: t3.medium
-            max_size: 2        
+            max_size: 2  
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

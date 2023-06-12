@@ -187,7 +187,7 @@ addons:
     addon_version: v1.12.6-eksbuild.2
 ```
 
-Some addons, such as CoreDNS, require at least one node to be fully provisioned first. 
+Some addons, such as CoreDNS, require at least one node to be fully provisioned first.
 See [issue #170](https://github.com/cloudposse/terraform-aws-eks-cluster/issues/170) for more details.
 Set `var.addons_depends_on` to `true` to require the Node Groups to be provisioned before addons.
 
@@ -201,11 +201,11 @@ addons:
 :::warning
 
 Addons may not be suitable for all use-cases! For example, if you are using Karpenter to provision nodes,
-these nodes will never be available before the cluster component is deployed. 
+these nodes will never be available before the cluster component is deployed.
 
 :::
 
-For more on upgrading these EKS Addons, see 
+For more on upgrading these EKS Addons, see
 ["How to Upgrade EKS Cluster Addons"](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons/)
 
 

@@ -30,7 +30,7 @@ locals {
     ]
   )
 
-  # Create a list of all EKS component keys. 
+  # Create a list of all EKS component keys.
   # Follows same pattern as vpc_component_names
   connected_eks_component_keys = flatten(
     [

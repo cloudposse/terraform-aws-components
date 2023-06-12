@@ -9,4 +9,3 @@ output "id" {
 output "outputs" {
   value = module.default.outputs
 }
-

@@ -14,9 +14,9 @@ spec:
     requests:
       # EFS is not actually storage constrained, but this storage request is
       # required. 100Gi is a ballpark for how much we initially request, but this
-      # may grow. We are responsible for docker pruning this periodically to 
+      # may grow. We are responsible for docker pruning this periodically to
       # save space.
-      storage: 100Gi 
+      storage: 100Gi
 {{- end }}
 ---
 apiVersion: actions.summerwind.dev/v1alpha1

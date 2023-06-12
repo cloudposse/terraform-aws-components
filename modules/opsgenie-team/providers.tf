@@ -35,4 +35,3 @@ data "aws_ssm_parameter" "opsgenie_api_key" {
 provider "opsgenie" {
   api_key = join("", data.aws_ssm_parameter.opsgenie_api_key[*].value)
 }
-

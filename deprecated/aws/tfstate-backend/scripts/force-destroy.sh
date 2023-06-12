@@ -1,5 +1,5 @@
 #!/bin/bash
- 
+
 # Remove all versions and delete markers for each object
 OBJECT_VERSIONS=$(aws --output text s3api list-object-versions --bucket "$1" | grep -E '^VERSIONS|^DELETEMARKERS')
 
@@ -20,6 +20,6 @@ while read -r OBJECT_VERSION; do
 		aws s3api delete-object --bucket $1 --key $KEY --version-id $VERSION_ID >/dev/null
 	fi
 done <<< "$OBJECT_VERSIONS"
- 
+
 # Remove the bucket with --force option to remove any remaining files without versions.
 aws s3 rb --force s3://$1

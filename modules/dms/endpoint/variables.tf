@@ -132,4 +132,3 @@ variable "password_path" {
   description = "If set, the path in AWS SSM Parameter Store to fetch the password for the DMS admin user"
   default     = ""
 }
-

@@ -1,6 +1,6 @@
 # Component: `aurora-postgres`
 
-This component is responsible for provisioning Aurora Postgres RDS clusters. 
+This component is responsible for provisioning Aurora Postgres RDS clusters.
 It seeds relevant database information (hostnames, username, password, etc.) into AWS SSM Parameter Store.
 
 ## Usage
@@ -184,7 +184,7 @@ components:
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_skip_final_snapshot"></a> [skip\_final\_snapshot](#input\_skip\_final\_snapshot) | Normally AWS makes a snapshot of the database before deleting it. Set this to `true` in order to skip this.<br>NOTE: The final snapshot has a name derived from the cluster name. If you delete a cluster, get a final snapshot,<br>then create a cluster of the same name, its final snapshot will fail with a name collision unless you delete<br>the previous final snapshot first. | `bool` | `false` | no |
 | <a name="input_snapshot_identifier"></a> [snapshot\_identifier](#input\_snapshot\_identifier) | Specifies whether or not to create this cluster from a snapshot | `string` | `null` | no |
-| <a name="input_ssm_password_source"></a> [ssm\_password\_source](#input\_ssm\_password\_source) | If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved from SSM using <br>`var.ssm_password_source` and the database username. If this value is not set, <br>a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster. | `string` | `""` | no |
+| <a name="input_ssm_password_source"></a> [ssm\_password\_source](#input\_ssm\_password\_source) | If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved from SSM using<br>`var.ssm_password_source` and the database username. If this value is not set,<br>a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster. | `string` | `""` | no |
 | <a name="input_ssm_path_prefix"></a> [ssm\_path\_prefix](#input\_ssm\_path\_prefix) | Top level SSM path prefix (without leading or trailing slash) | `string` | `"aurora-postgres"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_storage_encrypted"></a> [storage\_encrypted](#input\_storage\_encrypted) | Specifies whether the DB cluster is encrypted | `bool` | `true` | no |

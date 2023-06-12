@@ -1,6 +1,6 @@
 # Component: `aurora-mysql`
 
-This component is responsible for provisioning Aurora MySQL RDS clusters. 
+This component is responsible for provisioning Aurora MySQL RDS clusters.
 It seeds relevant database information (hostnames, username, password, etc.) into AWS SSM Parameter Store.
 
 ## Usage
@@ -106,7 +106,7 @@ components:
         allowed_cidr_blocks:
           # all automation in primary region (where Spacelift is deployed)
           - 10.128.0.0/22
-          # all corp in the same region as this cluster 
+          # all corp in the same region as this cluster
           - 10.132.16.0/22
         mysql_instance_type: "db.t3.medium"
         mysql_name: "replica"
@@ -243,8 +243,8 @@ Reploying the component should show no changes. For example, `atmos terraform ap
 | <a name="input_publicly_accessible"></a> [publicly\_accessible](#input\_publicly\_accessible) | Set to true to create the cluster in a public subnet | `bool` | `false` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_replication_source_identifier"></a> [replication\_source\_identifier](#input\_replication\_source\_identifier) | ARN of a source DB cluster or DB instance if this DB cluster is to be created as a Read Replica. <br>If this value is empty and replication is enabled, remote state will attempt to find <br>a matching cluster in the Primary DB Cluster's region | `string` | `""` | no |
-| <a name="input_ssm_password_source"></a> [ssm\_password\_source](#input\_ssm\_password\_source) | If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved from SSM using <br>`var.ssm_password_source` and the database username. If this value is not set, <br>a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster. | `string` | `""` | no |
+| <a name="input_replication_source_identifier"></a> [replication\_source\_identifier](#input\_replication\_source\_identifier) | ARN of a source DB cluster or DB instance if this DB cluster is to be created as a Read Replica.<br>If this value is empty and replication is enabled, remote state will attempt to find<br>a matching cluster in the Primary DB Cluster's region | `string` | `""` | no |
+| <a name="input_ssm_password_source"></a> [ssm\_password\_source](#input\_ssm\_password\_source) | If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved from SSM using<br>`var.ssm_password_source` and the database username. If this value is not set,<br>a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster. | `string` | `""` | no |
 | <a name="input_ssm_path_prefix"></a> [ssm\_path\_prefix](#input\_ssm\_path\_prefix) | SSM path prefix | `string` | `"rds"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |

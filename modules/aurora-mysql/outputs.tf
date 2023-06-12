@@ -59,4 +59,3 @@ output "kms_key_arn" {
   value       = module.kms_key_rds.key_arn
   description = "KMS key ARN for Aurora MySQL"
 }
-

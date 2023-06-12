@@ -13,8 +13,8 @@ variable "ssm_password_source" {
   type        = string
   default     = ""
   description = <<-EOT
-    If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved from SSM using 
-    `var.ssm_password_source` and the database username. If this value is not set, 
+    If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved from SSM using
+    `var.ssm_password_source` and the database username. If this value is not set,
     a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster.
     EOT
 }
@@ -167,8 +167,8 @@ variable "eks_component_names" {
 variable "replication_source_identifier" {
   type        = string
   description = <<-EOT
-    ARN of a source DB cluster or DB instance if this DB cluster is to be created as a Read Replica. 
-    If this value is empty and replication is enabled, remote state will attempt to find 
+    ARN of a source DB cluster or DB instance if this DB cluster is to be created as a Read Replica.
+    If this value is empty and replication is enabled, remote state will attempt to find
     a matching cluster in the Primary DB Cluster's region
     EOT
   default     = ""
@@ -213,4 +213,3 @@ variable "allow_ingress_from_vpc_accounts" {
     }
   EOF
 }
-

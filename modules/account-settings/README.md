@@ -6,7 +6,7 @@ This component is responsible for provisioning account level settings: IAM passw
 
 **Stack Level**: Global
 
-Here's an example snippet for how to use this component. It's suggested to apply this component to all accounts, 
+Here's an example snippet for how to use this component. It's suggested to apply this component to all accounts,
 so create a file `stacks/catalog/account-settings.yaml` with the following content and then import
 that file in each account's global stack (overriding any parameters as needed):
 

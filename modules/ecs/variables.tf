@@ -275,4 +275,3 @@ variable "default_capacity_strategy" {
     weights = {}
   }
 }
-

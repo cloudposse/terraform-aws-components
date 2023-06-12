@@ -209,4 +209,3 @@ variable "stickiness" {
   description = "Target group sticky configuration"
   default     = null
 }
-

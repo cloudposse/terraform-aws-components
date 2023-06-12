@@ -86,4 +86,3 @@ module "lambda" {
 
   context = module.this.context
 }
-
