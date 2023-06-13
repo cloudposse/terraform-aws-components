@@ -94,7 +94,7 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_iam_policy"></a> [iam\_policy](#module\_iam\_policy) | cloudposse/iam-policy/aws | 0.4.0 |
+| <a name="module_iam_policy"></a> [iam\_policy](#module\_iam\_policy) | cloudposse/iam-policy/aws | 1.0.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_label"></a> [label](#module\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_lambda"></a> [lambda](#module\_lambda) | cloudposse/lambda-function/aws | 0.4.1 |
@@ -131,8 +131,8 @@ components:
 | <a name="input_filename"></a> [filename](#input\_filename) | The path to the function's deployment package within the local filesystem. If defined, The s3\_-prefixed options and image\_uri cannot be used. | `string` | `null` | no |
 | <a name="input_function_name"></a> [function\_name](#input\_function\_name) | Unique name for the Lambda Function. | `string` | `null` | no |
 | <a name="input_handler"></a> [handler](#input\_handler) | The function entrypoint in your code. | `string` | `null` | no |
+| <a name="input_iam_policy"></a> [iam\_policy](#input\_iam\_policy) | IAM policy as Terraform object. This can be used with or instead of the `var.policy_json`. | <pre>object({<br>    policy_id = optional(string, null)<br>    version   = optional(string, null)<br>    statements = list(object({<br>      sid           = optional(string, null)<br>      effect        = optional(string, null)<br>      actions       = optional(list(string), null)<br>      not_actions   = optional(list(string), null)<br>      resources     = optional(list(string), null)<br>      not_resources = optional(list(string), null)<br>      conditions = optional(list(object({<br>        test     = string<br>        variable = string<br>        values   = list(string)<br>      })), [])<br>      principals = optional(list(object({<br>        type        = string<br>        identifiers = list(string)<br>      })), [])<br>      not_principals = optional(list(object({<br>        type        = string<br>        identifiers = list(string)<br>      })), [])<br>    }))<br>  })</pre> | `null` | no |
 | <a name="input_iam_policy_description"></a> [iam\_policy\_description](#input\_iam\_policy\_description) | Description of the IAM policy for the Lambda IAM role | `string` | `"Minimum SSM read permissions for Lambda IAM Role"` | no |
-| <a name="input_iam_policy_statements"></a> [iam\_policy\_statements](#input\_iam\_policy\_statements) | Map of IAM policy statements to use in the policy. | `any` | `{}` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_ignore_external_function_updates"></a> [ignore\_external\_function\_updates](#input\_ignore\_external\_function\_updates) | Ignore updates to the Lambda Function executed externally to the Terraform lifecycle. Set this to `true` if you're<br>  using CodeDeploy, aws CLI or other external tools to update the Lambda Function code." | `bool` | `false` | no |
 | <a name="input_image_config"></a> [image\_config](#input\_image\_config) | The Lambda OCI [image configurations](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#image_config)<br>  block with three (optional) arguments:<br>  - *entry\_point* - The ENTRYPOINT for the docker image (type `list(string)`).<br>  - *command* - The CMD for the docker image (type `list(string)`).<br>  - *working\_directory* - The working directory for the docker image (type `string`). | `any` | `{}` | no |
@@ -150,7 +150,7 @@ components:
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_package_type"></a> [package\_type](#input\_package\_type) | The Lambda deployment package type. Valid values are `Zip` and `Image`. | `string` | `"Zip"` | no |
 | <a name="input_permissions_boundary"></a> [permissions\_boundary](#input\_permissions\_boundary) | ARN of the policy that is used to set the permissions boundary for the role | `string` | `""` | no |
-| <a name="input_policy_json"></a> [policy\_json](#input\_policy\_json) | IAM policy to attach to the Lambda IAM role. | `string` | `null` | no |
+| <a name="input_policy_json"></a> [policy\_json](#input\_policy\_json) | IAM policy to attach to the Lambda IAM role. This can be used with or instead of the `var.iam_policy`. | `string` | `null` | no |
 | <a name="input_publish"></a> [publish](#input\_publish) | Whether to publish creation/change as new Lambda Function Version. | `bool` | `false` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |

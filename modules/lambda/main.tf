@@ -1,6 +1,6 @@
 locals {
   enabled             = module.this.enabled
-  iam_policy_enabled  = local.enabled && (length(var.iam_policy_statements) > 0 || var.policy_json != null)
+  iam_policy_enabled  = local.enabled && (try(length(var.iam_policy), 0) > 0 || var.policy_json != null)
   s3_bucket_full_name = var.s3_bucket_name != null ? format("%s-%s-%s-%s-%s", module.this.namespace, module.this.tenant, module.this.environment, module.this.stage, var.s3_bucket_name) : null
 }
 
@@ -16,10 +16,10 @@ module "label" {
 module "iam_policy" {
   count   = local.iam_policy_enabled ? 1 : 0
   source  = "cloudposse/iam-policy/aws"
-  version = "0.4.0"
+  version = "1.0.1"
 
   iam_policy_enabled          = true
-  iam_policy_statements       = var.iam_policy_statements
+  iam_policy                  = var.iam_policy
   iam_source_policy_documents = [var.policy_json]
 
   context = module.this.context

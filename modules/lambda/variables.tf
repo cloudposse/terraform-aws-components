@@ -269,14 +269,38 @@ variable "iam_policy_description" {
 
 variable "policy_json" {
   type        = string
-  description = "IAM policy to attach to the Lambda IAM role."
+  description = "IAM policy to attach to the Lambda IAM role. This can be used with or instead of the `var.iam_policy`."
   default     = null
 }
 
-variable "iam_policy_statements" {
-  description = "Map of IAM policy statements to use in the policy."
-  type        = any
-  default     = {}
+variable "iam_policy" {
+  type = object({
+    policy_id = optional(string, null)
+    version   = optional(string, null)
+    statements = list(object({
+      sid           = optional(string, null)
+      effect        = optional(string, null)
+      actions       = optional(list(string), null)
+      not_actions   = optional(list(string), null)
+      resources     = optional(list(string), null)
+      not_resources = optional(list(string), null)
+      conditions = optional(list(object({
+        test     = string
+        variable = string
+        values   = list(string)
+      })), [])
+      principals = optional(list(object({
+        type        = string
+        identifiers = list(string)
+      })), [])
+      not_principals = optional(list(object({
+        type        = string
+        identifiers = list(string)
+      })), [])
+    }))
+  })
+  description = "IAM policy as Terraform object. This can be used with or instead of the `var.policy_json`."
+  default     = null
 }
 
 variable "zip" {
