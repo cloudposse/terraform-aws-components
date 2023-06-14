@@ -29,7 +29,7 @@ module "vpc_ingress" {
 
   component   = var.vpc_component_name
   environment = try(each.value.environment, module.this.environment)
-  stage       = try(each.value.stage, module.this.environment)
+  stage       = try(each.value.stage, module.this.stage)
   tenant      = try(each.value.tenant, module.this.tenant)
 
   context = module.this.context
