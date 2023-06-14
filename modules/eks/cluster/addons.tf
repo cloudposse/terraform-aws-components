@@ -1,9 +1,10 @@
 # https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html
+# https://docs.aws.amazon.com/eks/latest/userguide/managing-add-ons.html#creating-an-add-on
 
 locals {
   eks_cluster_oidc_issuer_url = replace(local.eks_outputs.eks_cluster_identity_oidc_issuer, "https://", "")
 
-  addon_names                = keys(var.addons)
+  addon_names                = var.addons != null ? keys(var.addons) : []
   vpc_cni_addon_enabled      = local.enabled && contains(local.addon_names, "vpc-cni")
   aws_ebs_csi_driver_enabled = local.enabled && contains(local.addon_names, "aws-ebs-csi-driver")
 

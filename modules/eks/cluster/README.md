@@ -140,13 +140,13 @@ components:
         # https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html
         addons:
           vpc-cni:
-            addon_version: "v1.12.1-eksbuild.1" 
+            addon_version: "v1.12.2-eksbuild.1" 
           kube-proxy:
-            addon_version: "v1.22.11-eksbuild.2"
+            addon_version: "v1.25.6-eksbuild.1"
           coredns:
-            addon_version: "v1.8.7-eksbuild.1"
+            addon_version: "v1.9.3-eksbuild.2"
           aws-ebs-csi-driver:
-            addon_version: "v1.18.0-eksbuild.1"
+            addon_version: "v1.19.0-eksbuild.2"
 ```
 
 ### Usage with Node Groups
@@ -199,27 +199,64 @@ node_groups: # for most attributes, setting null here means use setting from nod
 EKS clusters support “Addons” that can be automatically installed on a cluster. 
 Install these addons with the [`var.addons` input](https://docs.cloudposse.com/components/library/aws/eks/cluster/#input_addons).
 
+:::info
+
+Run the following command to see all available addons, their type, and their publisher. 
+You can also see the URL for addons that are available through the AWS Marketplace. Replace 1.25 with the version of your cluster.
+See [Creating an addon](https://docs.aws.amazon.com/eks/latest/userguide/managing-add-ons.html#creating-an-add-on) for more details.
+
+:::
+
+```shell
+aws eks describe-addon-versions --kubernetes-version 1.25 \
+  --query 'addons[].{MarketplaceProductUrl: marketplaceInformation.productUrl, Name: addonName, Owner: owner Publisher: publisher, Type: type}' --output table
+```
+
+:::info
+
+You can see which versions are available for each addon by executing the following commands. 
+Replace 1.25 with the version of your cluster.
+
+:::
+
+```shell
+aws eks describe-addon-versions --kubernetes-version 1.25 --addon-name vpc-cni \
+  --query 'addons[].addonVersions[].{Version: addonVersion, Defaultversion: compatibilities[0].defaultVersion}' --output table
+
+aws eks describe-addon-versions --kubernetes-version 1.25 --addon-name kube-proxy \
+  --query 'addons[].addonVersions[].{Version: addonVersion, Defaultversion: compatibilities[0].defaultVersion}' --output table
+
+aws eks describe-addon-versions --kubernetes-version 1.25 --addon-name coredns \
+  --query 'addons[].addonVersions[].{Version: addonVersion, Defaultversion: compatibilities[0].defaultVersion}' --output table
+
+aws eks describe-addon-versions --kubernetes-version 1.25 --addon-name aws-ebs-csi-driver \
+  --query 'addons[].addonVersions[].{Version: addonVersion, Defaultversion: compatibilities[0].defaultVersion}' --output table
+```
+
+Configure the addons like the following example:
+
 ```yaml
 # https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html
+# https://docs.aws.amazon.com/eks/latest/userguide/managing-add-ons.html#creating-an-add-on
 addons:
   # https://docs.aws.amazon.com/eks/latest/userguide/cni-iam-role.html
   # https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html
   # https://docs.aws.amazon.com/eks/latest/userguide/cni-iam-role.html#cni-iam-role-create-role
   # https://aws.github.io/aws-eks-best-practices/networking/vpc-cni/#deploy-vpc-cni-managed-add-on
   vpc-cni:
-    addon_version: "v1.12.1-eksbuild.1"  # set `addon_version` to `null` to use the latest version
+    addon_version: "v1.12.2-eksbuild.1"  # set `addon_version` to `null` to use the latest version
   # https://docs.aws.amazon.com/eks/latest/userguide/managing-kube-proxy.html
   kube-proxy:
-    addon_version: "v1.22.11-eksbuild.2"  # set `addon_version` to `null` to use the latest version
+    addon_version: "v1.25.6-eksbuild.1"  # set `addon_version` to `null` to use the latest version
   # https://docs.aws.amazon.com/eks/latest/userguide/managing-coredns.html
   coredns:
-    addon_version: "v1.8.7-eksbuild.1"  # set `addon_version` to `null` to use the latest version
+    addon_version: "v1.9.3-eksbuild.2"  # set `addon_version` to `null` to use the latest version
   # https://docs.aws.amazon.com/eks/latest/userguide/csi-iam-role.html
   # https://aws.amazon.com/blogs/containers/amazon-ebs-csi-driver-is-now-generally-available-in-amazon-eks-add-ons
   # https://docs.aws.amazon.com/eks/latest/userguide/managing-ebs-csi.html#csi-iam-role
   # https://github.com/kubernetes-sigs/aws-ebs-csi-driver
   aws-ebs-csi-driver:
-    addon_version: "v1.18.0-eksbuild.1"  # set `addon_version` to `null` to use the latest version
+    addon_version: "v1.19.0-eksbuild.2"  # set `addon_version` to `null` to use the latest version
 ```
 
 Some addons, such as CoreDNS, require at least one node to be fully provisioned first.
