@@ -78,6 +78,7 @@ variable "cluster_log_retention_period" {
   type        = number
   description = "Number of days to retain cluster logs. Requires `enabled_cluster_log_types` to be set. See https://docs.aws.amazon.com/en_us/eks/latest/userguide/control-plane-logs.html."
   default     = 0
+  nullable    = false
 }
 
 variable "apply_config_map_aws_auth" {
