@@ -1,7 +1,6 @@
 variable "region" {
   type        = string
   description = "AWS Region"
-  nullable    = false
 }
 
 variable "availability_zones" {
