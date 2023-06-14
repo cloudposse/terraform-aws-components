@@ -2,9 +2,7 @@
 
 This component is responsible for provisioning an end-to-end EKS Cluster, including managed node groups and Fargate profiles.
 
-
 :::warning
-
 
 This component should only be deployed after logging into AWS via Federated login with SAML (e.g. GSuite) or
 assuming an IAM role (e.g. from a CI/CD system). It should not be deployed if you log into AWS via AWS SSO, the
@@ -39,6 +37,10 @@ components:
         name: eks
         iam_primary_roles_tenant_name: core
         cluster_kubernetes_version: "1.25"
+
+        vpc_component_name: "vpc"
+        eks_component_name: "eks/cluster"
+
         # Your choice of availability zones or availability zone ids
         # availability_zones: ["us-east-1a", "us-east-1b", "us-east-1c"]
         availability_zone_ids: ["use1-az4", "use1-az5", "use1-az6"]
@@ -50,9 +52,11 @@ components:
             stage: corp
           - tenant: core
             stage: network
+
         public_access_cidrs: []
         allowed_cidr_blocks: []
         allowed_security_groups: []
+
         enabled_cluster_log_types:
           # Caution: enabling `api` log events may lead to a substantial increase in Cloudwatch Logs expenses.
           - api
@@ -60,6 +64,7 @@ components:
           - authenticator
           - controllerManager
           - scheduler
+
         oidc_provider_enabled: true
 
         # Allows GitHub OIDC role
@@ -300,7 +305,7 @@ For more on upgrading these EKS Addons, see
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_aws_ebs_csi_driver_eks_iam_role"></a> [aws\_ebs\_csi\_driver\_eks\_iam\_role](#module\_aws\_ebs\_csi\_driver\_eks\_iam\_role) | cloudposse/eks-iam-role/aws | 2.1.0 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_eks_cluster"></a> [eks\_cluster](#module\_eks\_cluster) | cloudposse/eks-cluster/aws | 2.8.1 |
 | <a name="module_fargate_profile"></a> [fargate\_profile](#module\_fargate\_profile) | cloudposse/eks-fargate-profile/aws | 1.2.0 |
 | <a name="module_iam_arns"></a> [iam\_arns](#module\_iam\_arns) | ../../account-map/modules/roles-to-principals | n/a |
@@ -308,9 +313,9 @@ For more on upgrading these EKS Addons, see
 | <a name="module_karpenter_label"></a> [karpenter\_label](#module\_karpenter\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_region_node_group"></a> [region\_node\_group](#module\_region\_node\_group) | ./modules/node_group_by_region | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_vpc_cni_eks_iam_role"></a> [vpc\_cni\_eks\_iam\_role](#module\_vpc\_cni\_eks\_iam\_role) | cloudposse/eks-iam-role/aws | 2.1.0 |
-| <a name="module_vpc_ingress"></a> [vpc\_ingress](#module\_vpc\_ingress) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
+| <a name="module_vpc_ingress"></a> [vpc\_ingress](#module\_vpc\_ingress) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 
 ## Resources
 
@@ -396,6 +401,7 @@ For more on upgrading these EKS Addons, see
 | <a name="input_subnet_type_tag_key"></a> [subnet\_type\_tag\_key](#input\_subnet\_type\_tag\_key) | The tag used to find the private subnets to find by availability zone. If null, will be looked up in vpc outputs. | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
+| <a name="input_vpc_component_name"></a> [vpc\_component\_name](#input\_vpc\_component\_name) | The name of the vpc component | `string` | `"vpc"` | no |
 
 ## Outputs
 

@@ -1,5 +1,7 @@
 locals {
-  accounts_with_vpc = { for i, account in var.allow_ingress_from_vpc_accounts : try(account.tenant, module.this.tenant) != null ? format("%s-%s", account.tenant, account.stage) : account.stage => account }
+  accounts_with_vpc = {
+    for i, account in var.allow_ingress_from_vpc_accounts : try(account.tenant, module.this.tenant) != null ? format("%s-%s", account.tenant, account.stage) : account.stage => account
+  }
 }
 
 module "iam_arns" {
@@ -12,20 +14,20 @@ module "iam_arns" {
 
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.2"
+  version = "1.4.3"
 
-  component = "vpc"
+  component = var.vpc_component_name
 
   context = module.this.context
 }
 
 module "vpc_ingress" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.2"
+  version = "1.4.3"
 
   for_each = local.accounts_with_vpc
 
-  component   = "vpc"
+  component   = var.vpc_component_name
   environment = try(each.value.environment, module.this.environment)
   stage       = try(each.value.stage, module.this.environment)
   tenant      = try(each.value.tenant, module.this.tenant)
@@ -38,7 +40,7 @@ module "vpc_ingress" {
 # to it rather than overwrite it (specifically the aws-auth configMap)
 module "eks" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.2"
+  version = "1.4.3"
 
   component = var.eks_component_name
 

@@ -367,6 +367,12 @@ variable "eks_component_name" {
   default     = "eks/cluster"
 }
 
+variable "vpc_component_name" {
+  type        = string
+  description = "The name of the vpc component"
+  default     = "vpc"
+}
+
 variable "karpenter_iam_role_enabled" {
   type        = bool
   description = "Flag to enable/disable creation of IAM role for EC2 Instance Profile that is attached to the nodes launched by Karpenter"
