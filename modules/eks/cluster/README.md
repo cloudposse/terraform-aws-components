@@ -145,7 +145,7 @@ components:
         # https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html
         addons:
           vpc-cni:
-            addon_version: "v1.12.2-eksbuild.1" 
+            addon_version: "v1.12.2-eksbuild.1"
           kube-proxy:
             addon_version: "v1.25.6-eksbuild.1"
           coredns:
@@ -201,12 +201,12 @@ node_groups: # for most attributes, setting null here means use setting from nod
 
 ### Using Addons
 
-EKS clusters support “Addons” that can be automatically installed on a cluster. 
+EKS clusters support “Addons” that can be automatically installed on a cluster.
 Install these addons with the [`var.addons` input](https://docs.cloudposse.com/components/library/aws/eks/cluster/#input_addons).
 
 :::info
 
-Run the following command to see all available addons, their type, and their publisher. 
+Run the following command to see all available addons, their type, and their publisher.
 You can also see the URL for addons that are available through the AWS Marketplace. Replace 1.25 with the version of your cluster.
 See [Creating an addon](https://docs.aws.amazon.com/eks/latest/userguide/managing-add-ons.html#creating-an-add-on) for more details.
 
@@ -219,7 +219,7 @@ aws eks describe-addon-versions --kubernetes-version 1.25 \
 
 :::info
 
-You can see which versions are available for each addon by executing the following commands. 
+You can see which versions are available for each addon by executing the following commands.
 Replace 1.25 with the version of your cluster.
 
 :::
