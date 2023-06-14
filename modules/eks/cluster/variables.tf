@@ -319,6 +319,7 @@ variable "cluster_encryption_config_kms_key_deletion_window_in_days" {
   type        = number
   description = "Cluster Encryption Config KMS Key Resource argument - key deletion windows in days post destruction"
   default     = 10
+  nullable    = false
 }
 
 variable "cluster_encryption_config_kms_key_policy" {
