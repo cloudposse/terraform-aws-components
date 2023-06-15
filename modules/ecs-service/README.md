@@ -183,6 +183,7 @@ components:
 | <a name="module_rds"></a> [rds](#module\_rds) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_roles_to_principals"></a> [roles\_to\_principals](#module\_roles\_to\_principals) | ../account-map/modules/roles-to-principals | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
+| <a name="module_vanity_alias"></a> [vanity\_alias](#module\_vanity\_alias) | cloudposse/route53-alias/aws | 0.13.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 
 ## Resources
