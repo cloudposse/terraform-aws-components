@@ -62,7 +62,7 @@ data "aws_s3_object" "task_definition" {
 module "logs" {
   source  = "cloudposse/cloudwatch-logs/aws"
   version = "0.6.6"
-
+  # if we are using datadog firelens we don't need to create a log group
   count = local.enabled && !var.datadog_log_method_is_firelens ? 1 : 0
 
   stream_names      = lookup(var.logs, "stream_names", [])
@@ -175,11 +175,11 @@ module "container_definition" {
     { "RUNTIME_ENV" = format("%s-%s-%s", var.namespace, var.tenant, var.stage) },
     { "CLUSTER_NAME" = module.ecs_cluster.outputs.cluster.name },
     var.datadog_agent_sidecar_enabled ? {
-      "DD_DOGSTATSD_PORT"      = 8125,
-      "DD_TRACING_ENABLED"     = "true",
-      "DD_SERVICE_NAME"        = var.name,
-      "DD_ENV"                 = var.stage,
-      "DD_PROFILING_EXPORTERS" = "agent"
+      DD_DOGSTATSD_PORT      = 8125,
+      DD_TRACING_ENABLED     = "true",
+      DD_SERVICE_NAME        = var.name,
+      DD_ENV                 = var.stage,
+      DD_PROFILING_EXPORTERS = "agent"
     } : {}
   ) : null
 
@@ -381,6 +381,18 @@ resource "aws_iam_policy" "default" {
   name     = format("%s-task-access", module.this.id)
   policy   = join("", data.aws_iam_policy_document.this.*.json)
   tags_all = module.this.tags
+}
+
+module "vanity_alias" {
+  source  = "cloudposse/route53-alias/aws"
+  version = "0.13.0"
+
+  count = local.enabled ? 1 : 0
+
+  aliases         = var.vanity_alias
+  parent_zone_id  = local.vanity_domain_zone_id
+  target_dns_name = local.lb_name
+  target_zone_id  = local.lb_zone_id
 }
 
 module "ecs_cloudwatch_autoscaling" {
