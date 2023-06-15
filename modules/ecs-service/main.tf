@@ -174,7 +174,7 @@ module "container_definition" {
     {for k, v in local.env_map_subst : split(",", k)[1] => v if split(",", k)[0] == each.key},
     { "APP_ENV" = format("%s-%s-%s-%s", var.namespace, var.tenant, var.environment, var.stage) },
     { "RUNTIME_ENV" = format("%s-%s-%s", var.namespace, var.tenant, var.stage) },
-    { "CLUSTER_NAME" = module.ecs_cluster.outputs.cluster_name },
+    { "CLUSTER_NAME" = module.ecs_cluster.outputs.cluster.name },
     var.datadog_agent_sidecar_enabled ? {
       DD_DOGSTATSD_PORT      = 8125,
       DD_TRACING_ENABLED     = "true",
