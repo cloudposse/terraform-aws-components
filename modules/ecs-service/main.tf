@@ -4,21 +4,21 @@ locals {
 
   service_container = lookup(var.containers, "service")
   # Get the first containerPort in var.container["service"]["port_mappings"]
-  container_port = try(lookup(local.service_container, "port_mappings")[0].containerPort, null)
+  container_port    = try(lookup(local.service_container, "port_mappings")[0].containerPort, null)
 
   assign_public_ip = lookup(local.task, "assign_public_ip", false)
 
   container_definition = concat([
-    for container in module.container_definition :
+  for container in module.container_definition :
+  container.json_map_object
+  ],
+    [
+    for container in module.datadog_container_definition :
     container.json_map_object
     ],
-    [
-      for container in module.datadog_container_definition :
-      container.json_map_object
-    ],
     var.datadog_log_method_is_firelens ? [
-      for container in module.datadog_fluent_bit_container_definition :
-      container.json_map_object
+    for container in module.datadog_fluent_bit_container_definition :
+    container.json_map_object
     ] : [],
   )
 
@@ -28,7 +28,7 @@ locals {
 
   use_alb_security_group = local.is_alb ? lookup(local.task, "use_alb_security_group", true) : false
 
-  s3_mirroring_enabled = local.enabled && var.s3_mirroring_enabled && lookup(module.ecs_cluster.outputs, "bucket_id", null) != null
+  s3_mirroring_enabled       = local.enabled && var.s3_mirroring_enabled && lookup(module.ecs_cluster.outputs, "bucket_id", null) != null
   # if we are using datadog firelens we don't need to create a log group
   task_definition_s3_key     = format("%s/task-definition.json", module.this.id)
   task_definition_use_s3     = local.enabled && var.s3_mirroring_enabled && contains(flatten(data.aws_s3_objects.mirror[*].keys), local.task_definition_s3_key)
@@ -62,6 +62,7 @@ data "aws_s3_object" "task_definition" {
 module "logs" {
   source  = "cloudposse/cloudwatch-logs/aws"
   version = "0.6.6"
+
   # if we are using datadog firelens we don't need to create a log group
   count = local.enabled && !var.datadog_log_method_is_firelens ? 1 : 0
 
@@ -88,51 +89,51 @@ module "roles_to_principals" {
 
 locals {
   container_chamber = {
-    for name, result in data.aws_ssm_parameters_by_path.default :
-    name => { for key, value in zipmap(result.names, result.values) : element(reverse(split("/", key)), 0) => value }
+  for name, result in data.aws_ssm_parameters_by_path.default :
+  name => {for key, value in zipmap(result.names, result.values) : element(reverse(split("/", key)), 0) => value}
   }
 
   container_aliases = {
-    for name, settings in var.containers :
-    settings["name"] => name if local.enabled
+  for name, settings in var.containers :
+  settings["name"] => name if local.enabled
   }
 
   container_s3 = {
-    for item in lookup(local.task_definition_s3, "containerDefinitions", []) :
-    local.container_aliases[item.name] => { container_definition = item }
+  for item in lookup(local.task_definition_s3, "containerDefinitions", []) :
+  local.container_aliases[item.name] => { container_definition = item }
   }
 
   containers = {
-    for name, settings in var.containers :
-    name => merge(settings, local.container_chamber[name], lookup(local.container_s3, name, {}))
-    if local.enabled
+  for name, settings in var.containers :
+  name => merge(settings, local.container_chamber[name], lookup(local.container_s3, name, {}))
+  if local.enabled
   }
 }
 
 data "aws_ssm_parameters_by_path" "default" {
-  for_each = { for k, v in var.containers : k => v if local.enabled }
+  for_each = {for k, v in var.containers : k => v if local.enabled}
   path     = format("/%s/%s/%s", var.chamber_service, var.name, each.key)
 }
 
 locals {
   containers_envs = merge([
-    for name, settings in var.containers :
-    { for k, v in lookup(settings, "map_environment", {}) : "${name},${k}" => v if local.enabled }
+  for name, settings in var.containers :
+  {for k, v in lookup(settings, "map_environment", {}) : "${name},${k}" => v if local.enabled}
   ]...)
 }
 
 
 data "template_file" "envs" {
-  for_each = { for k, v in local.containers_envs : k => v if local.enabled }
+  for_each = {for k, v in local.containers_envs : k => v if local.enabled}
 
   template = replace(each.value, "$$", "$")
 
   vars = {
-    stage         = module.this.stage
-    namespace     = module.this.namespace
-    name          = module.this.name
-    full_domain   = local.full_domain
-    vanity_domain = local.vanity_domain
+    stage                  = module.this.stage
+    namespace              = module.this.namespace
+    name                   = module.this.name
+    full_domain            = local.full_domain
+    vanity_domain          = local.vanity_domain
     # `service_domain` uses whatever the current service is (public/private)
     service_domain         = local.domain_no_service_name
     service_domain_public  = local.public_domain_no_service_name
@@ -142,8 +143,8 @@ data "template_file" "envs" {
 
 locals {
   env_map_subst = {
-    for k, v in data.template_file.envs :
-    k => v.rendered
+  for k, v in data.template_file.envs :
+  k => v.rendered
   }
 }
 
@@ -151,7 +152,7 @@ module "container_definition" {
   source  = "cloudposse/ecs-container-definition/aws"
   version = "0.60.0"
 
-  for_each = { for k, v in local.containers : k => v if local.enabled }
+  for_each = {for k, v in local.containers : k => v if local.enabled}
 
   container_name = lookup(each.value, "name")
 
@@ -170,7 +171,7 @@ module "container_definition" {
   mount_points                 = lookup(each.value, "mount_points", [])
 
   map_environment = lookup(each.value, "map_environment", null) != null ? merge(
-    { for k, v in local.env_map_subst : split(",", k)[1] => v if split(",", k)[0] == each.key },
+    {for k, v in local.env_map_subst : split(",", k)[1] => v if split(",", k)[0] == each.key},
     { "APP_ENV" = format("%s-%s-%s-%s", var.namespace, var.tenant, var.environment, var.stage) },
     { "RUNTIME_ENV" = format("%s-%s-%s", var.namespace, var.tenant, var.stage) },
     { "CLUSTER_NAME" = module.ecs_cluster.outputs.cluster.name },
@@ -186,7 +187,7 @@ module "container_definition" {
   map_secrets = lookup(each.value, "map_secrets", null) != null ? zipmap(
     keys(lookup(each.value, "map_secrets", null)),
     formatlist("%s/%s", format("arn:aws:ssm:%s:%s:parameter", var.region, module.roles_to_principals.full_account_map[format("%s-%s", var.tenant, var.stage)]),
-    values(lookup(each.value, "map_secrets", null)))
+      values(lookup(each.value, "map_secrets", null)))
   ) : null
   port_mappings        = lookup(each.value, "port_mappings", [])
   command              = lookup(each.value, "command", null)
@@ -199,7 +200,7 @@ module "container_definition" {
 
   log_configuration = lookup(lookup(each.value, "log_configuration", {}), "logDriver", {}) == "awslogs" ? merge(lookup(each.value, "log_configuration", {}), {
     logDriver = "awslogs"
-    options = tomap({
+    options   = tomap({
       awslogs-region          = var.region,
       awslogs-group           = local.awslogs_group,
       awslogs-stream-prefix   = var.name,
@@ -248,7 +249,7 @@ module "ecs_alb_service_task" {
       container_port   = local.container_port,
       target_group_arn = local.is_alb ? module.alb_ingress[0].target_group_arn : local.nlb.default_target_group_arn
       # not required since elb is unused but must be set to null
-      elb_name = null
+      elb_name         = null
     },
   ] : []
 
@@ -300,14 +301,14 @@ module "alb_ingress" {
 
   target_group_name = module.alb_ecs_label.id
 
-  vpc_id = local.vpc_id
+  vpc_id                        = local.vpc_id
   # Tie this to https if http is a redirect
   unauthenticated_listener_arns = [local.lb_listener_arn]
   // if we're using host-based routing, ignore the domain
-  unauthenticated_hosts = length(var.unauthenticated_paths) > 0 ? [] : (var.lb_catch_all ? [
+  unauthenticated_hosts         = length(var.unauthenticated_paths) > 0 ? [] : (var.lb_catch_all ? [
     format("*.%s", local.lb_fqdn), local.lb_fqdn
   ] : [local.lb_fqdn])
-  unauthenticated_paths = flatten(var.unauthenticated_paths)
+  unauthenticated_paths        = flatten(var.unauthenticated_paths)
   # When set to catch-all, make priority super high to make sure last to match
   unauthenticated_priority     = var.lb_catch_all ? 99 : var.unauthenticated_priority
   default_target_group_enabled = true
@@ -376,8 +377,7 @@ data "aws_iam_policy_document" "this" {
 }
 
 resource "aws_iam_policy" "default" {
-  count = local.enabled && var.iam_policy_enabled ? 1 : 0
-
+  count    = local.enabled && var.iam_policy_enabled ? 1 : 0
   name     = format("%s-task-access", module.this.id)
   policy   = join("", data.aws_iam_policy_document.this.*.json)
   tags_all = module.this.tags
@@ -393,6 +393,8 @@ module "vanity_alias" {
   parent_zone_id  = local.vanity_domain_zone_id
   target_dns_name = local.lb_name
   target_zone_id  = local.lb_zone_id
+
+  context = module.this.context
 }
 
 module "ecs_cloudwatch_autoscaling" {
