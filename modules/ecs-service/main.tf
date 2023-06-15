@@ -394,7 +394,8 @@ module "vanity_alias" {
   target_dns_name = local.lb_name
   target_zone_id  = local.lb_zone_id
 
-  context = module.this.context
+  
+  context = module.this.contex
 }
 
 module "ecs_cloudwatch_autoscaling" {
