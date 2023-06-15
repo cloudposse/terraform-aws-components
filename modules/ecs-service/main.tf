@@ -394,7 +394,6 @@ module "vanity_alias" {
   target_dns_name = local.lb_name
   target_zone_id  = local.lb_zone_id
 
-  
   context = module.this.contex
 }
 
