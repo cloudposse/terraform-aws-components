@@ -109,15 +109,3 @@ variable "slack_channel" {
   description = "The name of the slack channel to configure ArgoCD notifications for"
   default     = null
 }
-
-variable "create_repo" {
-  type        = bool
-  description = "Whether or not to create the repository"
-  default     = true
-}
-
-variable "is_automation_repo" {
-  type        = bool
-  description = "Whether or not this is an automation repository. Will configure branch protection for GitHub bot/app."
-  default     = true
-}
