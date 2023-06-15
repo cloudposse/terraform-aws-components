@@ -94,37 +94,33 @@ components:
         # This gives teams direct access to Kubernetes without having to assume a team-role.
         # RBAC groups must be created elsewhere. The "system:" groups are predefined by Kubernetes.
         aws_teams_rbac:
-        - groups:
-          - system:masters
-          aws_team: admin
-        - groups:
-          - idp:poweruser
-          - system:authenticated
-          aws_team: poweruser
-        - groups:
-          - idp:observer
-          - system:authenticated
-          aws_team: observer
+          - aws_team: managers
+            groups:
+              - system:masters
+          - aws_team: devops
+            groups:
+              - system:masters
 
         # List of `aws-teams-roles` (in the account where the EKS cluster is deployed) to map to Kubernetes RBAC groups
         aws_team_roles_rbac:
-        - groups:
-          - system:masters
-          aws_team_role: admin
-        - groups:
-          - idp:poweruser
-          - system:authenticated
-          aws_team_role: poweruser
-        - groups:
-          - idp:observer
-          - system:authenticated
-          aws_team_role: observer
-        - groups:
-          - system:masters
-          aws_team_role: terraform
-        - groups:
-          - system:masters
-          aws_team_role: helm
+          - aws_team: admin
+            groups:
+              - system:masters
+          - aws_team_role: poweruser
+            groups:
+              - idp:poweruser
+              - system:authenticated
+          - aws_team_role: observer
+            groups:
+              - idp:observer
+              - system:authenticated
+          - aws_team_role: planner
+            groups:
+              - idp:observer
+              - system:authenticated
+          - aws_team: terraform
+            groups:
+              - system:masters
 
         # Permission sets from AWS SSO allowing cluster access
         # See `aws-sso` component.
