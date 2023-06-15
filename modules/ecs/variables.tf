@@ -75,12 +75,6 @@ variable "dns_delegated_environment_name" {
   description = "Use this environment name to read from the remote state to get the dns_delegated zone ID"
 }
 
-variable "dns_delegated_component_name" {
-  type        = string
-  default     = "dns-delegated"
-  description = "Use this component name to read from the remote state to get the dns_delegated zone ID"
-}
-
 variable "allowed_security_groups" {
   type        = list(string)
   default     = []
@@ -275,4 +269,3 @@ variable "default_capacity_strategy" {
     weights = {}
   }
 }
-

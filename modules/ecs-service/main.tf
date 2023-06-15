@@ -4,31 +4,64 @@ locals {
 
   service_container = lookup(var.containers, "service")
   # Get the first containerPort in var.container["service"]["port_mappings"]
-  container_port = lookup(local.service_container, "port_mappings")[0].containerPort
+  container_port = try(lookup(local.service_container, "port_mappings")[0].containerPort, null)
 
-  assign_public_ip = lookup(var.task, "assign_public_ip", false)
+  assign_public_ip = lookup(local.task, "assign_public_ip", false)
 
   container_definition = concat([
     for container in module.container_definition :
     container.json_map_object
     ],
-    [for container in module.datadog_container_definition :
-      container.json_map_object
-    ],
-    var.datadog_log_method_is_firelens ? [for container in module.datadog_fluent_bit_container_definition :
-      container.json_map_object
-    ] : [],
+    # [for container in module.datadog_container_definition :
+    #   container.json_map_object
+    # ],
+    # var.datadog_log_method_is_firelens ? [for container in module.datadog_fluent_bit_container_definition :
+    #   container.json_map_object
+    # ] : [],
   )
 
   kinesis_kms_id = try(one(data.aws_kms_alias.selected[*].id), null)
+
+  awslogs_group = join("", module.logs.*.log_group_name)
+
+  use_alb_security_group = local.is_alb ? lookup(local.task, "use_alb_security_group", true) : false
+
+  s3_mirroring_enabled = local.enabled && var.s3_mirroring_enabled && lookup(module.ecs_cluster.outputs, "bucket_id", null) != null
+
+  task_definition_s3_key     = format("%s/task-definition.json", module.this.id)
+  task_definition_use_s3     = local.enabled && var.s3_mirroring_enabled && contains(flatten(data.aws_s3_objects.mirror[*].keys), local.task_definition_s3_key)
+  task_definition_s3_objects = flatten(data.aws_s3_objects.mirror[*].keys)
+
+  task_definition_s3 = try(jsondecode(data.aws_s3_object.task_definition[0].body), {})
+
+  task_s3 = local.task_definition_use_s3 ? {
+    launch_type  = try(local.task_definition_s3.requiresCompatibilities[0], null)
+    network_mode = lookup(local.task_definition_s3, "networkMode", null)
+    task_memory  = try(tonumber(lookup(local.task_definition_s3, "memory")), null)
+    task_cpu     = try(tonumber(lookup(local.task_definition_s3, "cpu")), null)
+  } : {}
+
+  task = merge(var.task, local.task_s3)
 }
+
+data "aws_s3_objects" "mirror" {
+  count  = local.s3_mirroring_enabled ? 1 : 0
+  bucket = lookup(module.ecs_cluster.outputs, "bucket_id", null)
+  prefix = module.this.id
+}
+
+data "aws_s3_object" "task_definition" {
+  count  = local.task_definition_use_s3 ? 1 : 0
+  bucket = lookup(module.ecs_cluster.outputs, "bucket_id", null)
+  key    = try(element(local.task_definition_s3_objects, index(local.task_definition_s3_objects, local.task_definition_s3_key)), null)
+}
+
 
 module "logs" {
   source  = "cloudposse/cloudwatch-logs/aws"
   version = "0.6.6"
 
-  # if we are using datadog firelens we don't need to create a log group
-  count = local.enabled && !var.datadog_log_method_is_firelens ? 1 : 0
+  count = local.enabled ? 1 : 0
 
   stream_names      = lookup(var.logs, "stream_names", [])
   retention_in_days = lookup(var.logs, "retention_in_days", 90)
@@ -56,8 +89,16 @@ locals {
     name => { for key, value in zipmap(result.names, result.values) : element(reverse(split("/", key)), 0) => value }
   }
 
+  container_aliases = { for name, settings in var.containers :
+    settings["name"] => name if local.enabled
+  }
+
+  container_s3 = { for item in lookup(local.task_definition_s3, "containerDefinitions", []) :
+    local.container_aliases[item.name] => { container_definition = item }
+  }
+
   containers = { for name, settings in var.containers :
-    name => merge(settings, local.container_chamber[name])
+    name => merge(settings, local.container_chamber[name], lookup(local.container_s3, name, {}))
     if local.enabled
   }
 }
@@ -81,15 +122,15 @@ data "template_file" "envs" {
   template = replace(each.value, "$$", "$")
 
   vars = {
-    stage         = module.this.stage
-    namespace     = module.this.namespace
-    name          = module.this.name
-    full_domain   = local.full_domain
-    vanity_domain = local.vanity_domain
+    stage       = module.this.stage
+    namespace   = module.this.namespace
+    name        = module.this.name
+    full_domain = local.full_domain
+    # vanity_domain = local.vanity_domain
     # `service_domain` uses whatever the current service is (public/private)
-    service_domain         = local.domain_no_service_name
-    service_domain_public  = local.public_domain_no_service_name
-    service_domain_private = local.private_domain_no_service_name
+    # service_domain         = local.domain_no_service_name
+    # service_domain_public  = local.public_domain_no_service_name
+    # service_domain_private = local.private_domain_no_service_name
   }
 }
 
@@ -102,7 +143,7 @@ locals {
 
 module "container_definition" {
   source  = "cloudposse/ecs-container-definition/aws"
-  version = "0.58.1"
+  version = "0.60.0"
 
   for_each = { for k, v in local.containers : k => v if local.enabled }
 
@@ -125,15 +166,11 @@ module "container_definition" {
   map_environment = lookup(each.value, "map_environment", null) != null ? merge(
     { for k, v in local.env_map_subst : split(",", k)[1] => v if split(",", k)[0] == each.key },
     { "APP_ENV" = format("%s-%s-%s-%s", var.namespace, var.tenant, var.environment, var.stage) },
+    # The legacy env var is AWS_ENV so we still support it as well.
+    { "AWS_ENV" = var.stage },
+    { "APP_STAGE" = var.stage },
+    { "CLUSTER_NAME" = module.ecs_cluster.outputs.cluster.name },
     { "RUNTIME_ENV" = format("%s-%s-%s", var.namespace, var.tenant, var.stage) },
-    { "CLUSTER_NAME" = module.ecs_cluster.outputs.cluster_name },
-    var.datadog_agent_sidecar_enabled ? {
-      "DD_DOGSTATSD_PORT"      = 8125,
-      "DD_TRACING_ENABLED"     = "true",
-      "DD_SERVICE_NAME"        = var.name,
-      "DD_ENV"                 = var.stage,
-      "DD_PROFILING_EXPORTERS" = "agent"
-    } : {}
   ) : null
 
   map_secrets = lookup(each.value, "map_secrets", null) != null ? zipmap(
@@ -153,12 +190,13 @@ module "container_definition" {
   log_configuration = lookup(lookup(each.value, "log_configuration", {}), "logDriver", {}) == "awslogs" ? merge(lookup(each.value, "log_configuration", {}), {
     logDriver = "awslogs"
     options = tomap({
-      awslogs-region        = var.region,
-      awslogs-group         = local.awslogs_group,
-      awslogs-stream-prefix = var.name,
+      awslogs-region          = var.region,
+      awslogs-group           = local.awslogs_group,
+      awslogs-stream-prefix   = var.name,
+      awslogs-datetime-format = "^%Y-%m-%d",
     })
     # if we are not using awslogs, we execute this line, which if we have dd enabled, means we are using firelens, so merge that config in.
-  }) : merge(lookup(each.value, "log_configuration", {}), local.datadog_logconfiguration_firelens)
+  }) : null # merge(lookup(each.value, "log_configuration", {}), local.datadog_logconfiguration_firelens)
 
   firelens_configuration = lookup(each.value, "firelens_configuration", null)
 
@@ -167,13 +205,9 @@ module "container_definition" {
   container_definition = lookup(each.value, "container_definition", {})
 }
 
-locals {
-  awslogs_group = var.datadog_log_method_is_firelens ? "" : join("", module.logs[*].log_group_name)
-}
-
 module "ecs_alb_service_task" {
   source  = "cloudposse/ecs-alb-service-task/aws"
-  version = "0.66.4"
+  version = "0.67.1"
 
   count = local.enabled ? 1 : 0
 
@@ -184,48 +218,56 @@ module "ecs_alb_service_task" {
   container_definition_json = jsonencode(local.container_definition)
 
   # This is set to true to allow ingress from the ALB sg
-  use_alb_security_group = lookup(var.task, "use_alb_security_group", true)
+  use_alb_security_group = local.use_alb_security_group
   container_port         = local.container_port
   alb_security_group     = local.lb_sg_id
   security_group_ids     = compact([local.vpc_sg_id, local.rds_sg_id])
 
+  nlb_cidr_blocks     = local.is_nlb ? [module.vpc.outputs.vpc_cidr] : []
+  nlb_container_port  = local.is_nlb ? local.container_port : 80
+  use_nlb_cidr_blocks = local.is_nlb
+
   # See https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#load_balancer
-  ecs_load_balancers = var.use_lb ? [
+  ecs_load_balancers = local.use_lb ? [
     {
       container_name   = lookup(local.service_container, "name"),
       container_port   = local.container_port,
-      target_group_arn = module.alb_ingress[0].target_group_arn
+      target_group_arn = local.is_alb ? module.alb_ingress[0].target_group_arn : local.nlb.default_target_group_arn
       # not required since elb is unused but must be set to null
       elb_name = null
     },
   ] : []
 
   assign_public_ip                   = local.assign_public_ip
-  ignore_changes_task_definition     = lookup(var.task, "ignore_changes_task_definition", false)
-  ignore_changes_desired_count       = lookup(var.task, "ignore_changes_desired_count", true)
-  launch_type                        = lookup(var.task, "launch_type", "FARGATE")
-  network_mode                       = lookup(var.task, "network_mode", "awsvpc")
-  propagate_tags                     = lookup(var.task, "propagate_tags", "SERVICE")
-  deployment_minimum_healthy_percent = lookup(var.task, "deployment_minimum_healthy_percent", null)
-  deployment_maximum_percent         = lookup(var.task, "deployment_maximum_percent", null)
-  deployment_controller_type         = lookup(var.task, "deployment_controller_type", null)
-  desired_count                      = lookup(var.task, "desired_count", 0)
-  task_memory                        = lookup(var.task, "task_memory", null)
-  task_cpu                           = lookup(var.task, "task_cpu", null)
-  wait_for_steady_state              = lookup(var.task, "wait_for_steady_state", true)
-  circuit_breaker_deployment_enabled = lookup(var.task, "circuit_breaker_deployment_enabled", true)
-  circuit_breaker_rollback_enabled   = lookup(var.task, "circuit_breaker_rollback_enabled  ", true)
-  task_policy_arns                   = var.task_policy_arns
-  ecs_service_enabled                = lookup(var.task, "ecs_service_enabled", true)
-  bind_mount_volumes                 = lookup(var.task, "bind_mount_volumes", [])
-  task_role_arn                      = lookup(var.task, "task_role_arn", [])
-  capacity_provider_strategies       = lookup(var.task, "capacity_provider_strategies", [])
+  ignore_changes_task_definition     = lookup(local.task, "ignore_changes_task_definition", false)
+  ignore_changes_desired_count       = lookup(local.task, "ignore_changes_desired_count", true)
+  launch_type                        = lookup(local.task, "launch_type", "FARGATE")
+  network_mode                       = lookup(local.task, "network_mode", "awsvpc")
+  propagate_tags                     = lookup(local.task, "propagate_tags", "SERVICE")
+  deployment_minimum_healthy_percent = lookup(local.task, "deployment_minimum_healthy_percent", null)
+  deployment_maximum_percent         = lookup(local.task, "deployment_maximum_percent", null)
+  deployment_controller_type         = lookup(local.task, "deployment_controller_type", null)
+  desired_count                      = lookup(local.task, "desired_count", 0)
+  task_memory                        = lookup(local.task, "task_memory", null)
+  task_cpu                           = lookup(local.task, "task_cpu", null)
+  wait_for_steady_state              = lookup(local.task, "wait_for_steady_state", true)
+  circuit_breaker_deployment_enabled = lookup(local.task, "circuit_breaker_deployment_enabled", true)
+  circuit_breaker_rollback_enabled   = lookup(local.task, "circuit_breaker_rollback_enabled  ", true)
+  task_policy_arns                   = var.iam_policy_enabled ? concat(var.task_policy_arns, aws_iam_policy.default[*].arn) : var.task_policy_arns
+  ecs_service_enabled                = lookup(local.task, "ecs_service_enabled", true)
+  bind_mount_volumes                 = lookup(local.task, "bind_mount_volumes", [])
+  task_role_arn                      = lookup(local.task, "task_role_arn", [])
+  capacity_provider_strategies       = lookup(local.task, "capacity_provider_strategies", [])
 
   depends_on = [
     module.alb_ingress
   ]
 
   context = module.this.context
+}
+
+output "test" {
+  value = module.ecs_alb_service_task[*].task_role_arn
 }
 
 module "alb_ecs_label" {
@@ -242,21 +284,29 @@ module "alb_ecs_label" {
 
 module "alb_ingress" {
   source  = "cloudposse/alb-ingress/aws"
-  version = "0.24.3"
+  version = "0.25.1"
 
-  count = local.enabled && var.use_lb ? 1 : 0
+  count = local.is_alb ? 1 : 0
 
   target_group_name = module.alb_ecs_label.id
 
-  vpc_id                        = local.vpc_id
-  unauthenticated_listener_arns = [local.lb_listener_https_arn]
-  unauthenticated_hosts         = var.lb_catch_all ? [format("*.%s", local.vanity_domain), local.full_domain] : [local.full_domain]
+  vpc_id = local.vpc_id
+  # Tie this to https if http is a redirect
+  unauthenticated_listener_arns = [local.lb_listener_arn]
+  // if we're using host-based routing, ignore the domain
+  unauthenticated_hosts = length(var.unauthenticated_paths) > 0 ? [] : (var.lb_catch_all ? [format("*.%s", local.lb_fqdn), local.lb_fqdn] : [local.lb_fqdn])
+  unauthenticated_paths = flatten(var.unauthenticated_paths)
   # When set to catch-all, make priority super high to make sure last to match
-  unauthenticated_priority     = var.lb_catch_all ? 99 : 0
+  unauthenticated_priority     = var.lb_catch_all ? 99 : var.unauthenticated_priority
   default_target_group_enabled = true
-  health_check_matcher         = "200-404"
-  health_check_path            = var.health_check_path
-  health_check_port            = var.health_check_port
+
+  health_check_matcher             = var.health_check_matcher
+  health_check_path                = var.health_check_path
+  health_check_port                = var.health_check_port
+  health_check_healthy_threshold   = var.health_check_healthy_threshold
+  health_check_unhealthy_threshold = var.health_check_unhealthy_threshold
+  health_check_interval            = var.health_check_interval
+  health_check_timeout             = var.health_check_timeout
 
   stickiness_enabled         = var.stickiness_enabled
   stickiness_type            = var.stickiness_type
@@ -314,23 +364,11 @@ data "aws_iam_policy_document" "this" {
 }
 
 resource "aws_iam_policy" "default" {
-  count    = local.enabled && var.iam_policy_enabled ? 1 : 0
-  policy   = join("", data.aws_iam_policy_document.this[*].json)
+  count = local.enabled && var.iam_policy_enabled ? 1 : 0
+
+  name     = format("%s-task-access", module.this.id)
+  policy   = join("", data.aws_iam_policy_document.this.*.json)
   tags_all = module.this.tags
-}
-
-module "vanity_alias" {
-  source  = "cloudposse/route53-alias/aws"
-  version = "0.13.0"
-
-  count = local.enabled ? 1 : 0
-
-  aliases         = var.vanity_alias
-  parent_zone_id  = local.vanity_domain_zone_id
-  target_dns_name = local.lb_name
-  target_zone_id  = local.lb_zone_id
-
-  context = module.this.context
 }
 
 module "ecs_cloudwatch_autoscaling" {
@@ -339,10 +377,10 @@ module "ecs_cloudwatch_autoscaling" {
 
   count = local.enabled && var.task_enabled ? 1 : 0
 
-  service_name          = module.ecs_alb_service_task[0].service_name
-  cluster_name          = module.ecs_cluster.outputs.cluster_name
-  min_capacity          = lookup(var.task, "min_capacity", 1)
-  max_capacity          = lookup(var.task, "max_capacity", 2)
+  service_name          = local.service_name
+  cluster_name          = module.ecs_cluster.outputs.cluster.name
+  min_capacity          = lookup(local.task, "min_capacity", 1)
+  max_capacity          = lookup(local.task, "max_capacity", 2)
   scale_up_adjustment   = 1
   scale_up_cooldown     = 60
   scale_down_adjustment = -1
@@ -356,18 +394,22 @@ module "ecs_cloudwatch_autoscaling" {
 }
 
 locals {
-  cpu_utilization_high_alarm_actions    = var.autoscaling_enabled && var.autoscaling_dimension == "cpu" ? module.ecs_cloudwatch_autoscaling[0].scale_up_policy_arn : ""
-  cpu_utilization_low_alarm_actions     = var.autoscaling_enabled && var.autoscaling_dimension == "cpu" ? module.ecs_cloudwatch_autoscaling[0].scale_down_policy_arn : ""
-  memory_utilization_high_alarm_actions = var.autoscaling_enabled && var.autoscaling_dimension == "memory" ? module.ecs_cloudwatch_autoscaling[0].scale_up_policy_arn : ""
-  memory_utilization_low_alarm_actions  = var.autoscaling_enabled && var.autoscaling_dimension == "memory" ? module.ecs_cloudwatch_autoscaling[0].scale_down_policy_arn : ""
+  service_name          = try(module.ecs_alb_service_task[0].service_name, "")
+  scale_up_policy_arn   = try(module.ecs_cloudwatch_autoscaling[0].scale_up_policy_arn, "")
+  scale_down_policy_arn = try(module.ecs_cloudwatch_autoscaling[0].scale_down_policy_arn, "")
+
+  cpu_utilization_high_alarm_actions    = var.autoscaling_enabled && var.autoscaling_dimension == "cpu" ? local.scale_up_policy_arn : ""
+  cpu_utilization_low_alarm_actions     = var.autoscaling_enabled && var.autoscaling_dimension == "cpu" ? local.scale_down_policy_arn : ""
+  memory_utilization_high_alarm_actions = var.autoscaling_enabled && var.autoscaling_dimension == "memory" ? local.scale_up_policy_arn : ""
+  memory_utilization_low_alarm_actions  = var.autoscaling_enabled && var.autoscaling_dimension == "memory" ? local.scale_down_policy_arn : ""
 }
 
 module "ecs_cloudwatch_sns_alarms" {
   source  = "cloudposse/ecs-cloudwatch-sns-alarms/aws"
   version = "0.12.3"
 
-  cluster_name = module.ecs_cluster.outputs.cluster_name
-  service_name = module.ecs_alb_service_task[0].service_name
+  cluster_name = module.ecs_cluster.outputs.cluster.name
+  service_name = local.service_name
 
   cpu_utilization_high_threshold          = var.cpu_utilization_high_threshold
   cpu_utilization_high_evaluation_periods = var.cpu_utilization_high_evaluation_periods
@@ -447,4 +489,15 @@ resource "aws_kinesis_stream" "default" {
       stream_mode_details
     ]
   }
+}
+
+resource "aws_security_group_rule" "allow_rds_access" {
+  count                    = local.use_alb_security_group && try(length(local.rds_sg_id) > 0, false) ? 1 : 0
+  description              = "Allow access from ${var.name} ECS Service"
+  type                     = "ingress"
+  security_group_id        = local.rds_sg_id
+  source_security_group_id = one(module.ecs_alb_service_task[*].service_security_group_id)
+  from_port                = local.rds_port
+  to_port                  = local.rds_port
+  protocol                 = "tcp"
 }

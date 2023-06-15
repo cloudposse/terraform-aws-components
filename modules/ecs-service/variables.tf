@@ -15,6 +15,29 @@ variable "logs" {
   default     = {}
 }
 
+variable "ecs_cluster_name" {
+  type        = any
+  description = "The name of the ECS Cluster this belongs to"
+}
+
+variable "alb_name" {
+  type        = string
+  description = "The name of the ALB this service should attach to"
+  default     = null
+}
+
+variable "nlb_name" {
+  type        = string
+  description = "The name of the NLB this service should attach to"
+  default     = null
+}
+
+variable "rds_name" {
+  type        = any
+  description = "The name of the RDS database this service should allow access to"
+  default     = null
+}
+
 variable "containers" {
   type        = any
   description = "Feed inputs into container definition module"
@@ -36,10 +59,16 @@ variable "task_policy_arns" {
   ]
 }
 
-variable "domain_name" {
+variable "unauthenticated_paths" {
+  type        = list(string)
+  description = "Unauthenticated path pattern to match"
+  default     = []
+}
+
+variable "unauthenticated_priority" {
   type        = string
-  description = "The domain name to use as the host header suffix"
-  default     = ""
+  description = "The priority for the rules without authentication, between 1 and 50000 (1 being highest priority). Must be different from `authenticated_priority` since a listener can't have multiple rules with the same priority	"
+  default     = 0
 }
 
 variable "task_enabled" {
@@ -72,12 +101,6 @@ variable "iam_policy_enabled" {
   default     = false
 }
 
-variable "vanity_alias" {
-  type        = list(string)
-  description = "The vanity aliases to use for the public LB."
-  default     = []
-}
-
 variable "kinesis_enabled" {
   type        = bool
   description = "Enable Kinesis"
@@ -86,19 +109,17 @@ variable "kinesis_enabled" {
 
 variable "shard_count" {
   description = "Number of shards that the stream will use"
-  type        = number
-  default     = 1
+  default     = "1"
 }
 
 variable "retention_period" {
   description = "Length of time data records are accessible after they are added to the stream"
-  type        = number
-  default     = 48
+  default     = "48"
 }
 
 variable "shard_level_metrics" {
   description = "List of shard-level CloudWatch metrics which can be enabled for the stream"
-  type        = list(string)
+
   default = [
     "IncomingBytes",
     "IncomingRecords",
@@ -112,7 +133,6 @@ variable "shard_level_metrics" {
 
 variable "kms_key_alias" {
   description = "ID of KMS key"
-  type        = string
   default     = "default"
 }
 
@@ -136,20 +156,7 @@ variable "use_rds_client_sg" {
 
 variable "chamber_service" {
   default     = "ecs-service"
-  type        = string
   description = "SSM parameter service name for use with chamber. This is used in chamber_format where /$chamber_service/$name/$container_name/$parameter would be the default."
-}
-
-variable "vanity_domain_enabled" {
-  default     = false
-  type        = bool
-  description = "Whether to use the vanity domain alias for the service"
-}
-
-variable "alb_configuration" {
-  type        = string
-  description = "The configuration to use for the ALB, specifying which cluster alb configuration to use"
-  default     = "default"
 }
 
 variable "health_check_path" {
@@ -162,6 +169,42 @@ variable "health_check_port" {
   type        = string
   default     = "traffic-port"
   description = "The port to use to connect with the target. Valid values are either ports 1-65536, or `traffic-port`. Defaults to `traffic-port`"
+}
+
+variable "health_check_protocol" {
+  type        = string
+  default     = "HTTP"
+  description = "The protocol to use to connect with the target. Defaults to `HTTP`. Not applicable when `target_type` is `lambda`"
+}
+
+variable "health_check_timeout" {
+  type        = number
+  default     = 10
+  description = "The amount of time to wait in seconds before failing a health check request"
+}
+
+variable "health_check_healthy_threshold" {
+  type        = number
+  default     = 2
+  description = "The number of consecutive health checks successes required before healthy"
+}
+
+variable "health_check_unhealthy_threshold" {
+  type        = number
+  default     = 2
+  description = "The number of consecutive health check failures required before unhealthy"
+}
+
+variable "health_check_interval" {
+  type        = number
+  default     = 15
+  description = "The duration in seconds in between health checks"
+}
+
+variable "health_check_matcher" {
+  type        = string
+  default     = "200-399"
+  description = "The HTTP response codes to indicate a healthy check"
 }
 
 variable "lb_catch_all" {
@@ -323,4 +366,10 @@ variable "memory_utilization_low_ok_actions" {
   type        = list(string)
   description = "A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low OK action"
   default     = []
+}
+
+variable "s3_mirroring_enabled" {
+  description = "Use task definition stored on s3. The task definition created by CI/CD"
+  type        = bool
+  default     = false
 }
