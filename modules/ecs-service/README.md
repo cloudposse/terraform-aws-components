@@ -167,6 +167,10 @@ components:
 | <a name="module_alb_ecs_label"></a> [alb\_ecs\_label](#module\_alb\_ecs\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_alb_ingress"></a> [alb\_ingress](#module\_alb\_ingress) | cloudposse/alb-ingress/aws | 0.25.1 |
 | <a name="module_container_definition"></a> [container\_definition](#module\_container\_definition) | cloudposse/ecs-container-definition/aws | 0.60.0 |
+| <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | ../datadog-configuration/modules/datadog_keys | n/a |
+| <a name="module_datadog_container_definition"></a> [datadog\_container\_definition](#module\_datadog\_container\_definition) | cloudposse/ecs-container-definition/aws | 0.58.1 |
+| <a name="module_datadog_fluent_bit_container_definition"></a> [datadog\_fluent\_bit\_container\_definition](#module\_datadog\_fluent\_bit\_container\_definition) | cloudposse/ecs-container-definition/aws | 0.58.1 |
+| <a name="module_datadog_sidecar_logs"></a> [datadog\_sidecar\_logs](#module\_datadog\_sidecar\_logs) | cloudposse/cloudwatch-logs/aws | 0.6.6 |
 | <a name="module_ecs_alb_service_task"></a> [ecs\_alb\_service\_task](#module\_ecs\_alb\_service\_task) | cloudposse/ecs-alb-service-task/aws | 0.67.1 |
 | <a name="module_ecs_cloudwatch_autoscaling"></a> [ecs\_cloudwatch\_autoscaling](#module\_ecs\_cloudwatch\_autoscaling) | cloudposse/ecs-cloudwatch-autoscaling/aws | 0.7.3 |
 | <a name="module_ecs_cloudwatch_sns_alarms"></a> [ecs\_cloudwatch\_sns\_alarms](#module\_ecs\_cloudwatch\_sns\_alarms) | cloudposse/ecs-cloudwatch-sns-alarms/aws | 0.12.3 |
@@ -174,7 +178,6 @@ components:
 | <a name="module_gha_assume_role"></a> [gha\_assume\_role](#module\_gha\_assume\_role) | ../account-map/modules/team-assume-role-policy | n/a |
 | <a name="module_gha_role_name"></a> [gha\_role\_name](#module\_gha\_role\_name) | cloudposse/label/null | 0.25.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_introspection"></a> [introspection](#module\_introspection) | cloudposse/label/null | 0.25.0 |
 | <a name="module_logs"></a> [logs](#module\_logs) | cloudposse/cloudwatch-logs/aws | 0.6.6 |
 | <a name="module_nlb"></a> [nlb](#module\_nlb) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_rds"></a> [rds](#module\_rds) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
@@ -280,7 +283,6 @@ components:
 | <a name="input_rds_name"></a> [rds\_name](#input\_rds\_name) | The name of the RDS database this service should allow access to | `any` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_required_tags"></a> [required\_tags](#input\_required\_tags) | List of required tag names | `list(string)` | `[]` | no |
 | <a name="input_retention_period"></a> [retention\_period](#input\_retention\_period) | Length of time data records are accessible after they are added to the stream | `string` | `"48"` | no |
 | <a name="input_s3_mirroring_enabled"></a> [s3\_mirroring\_enabled](#input\_s3\_mirroring\_enabled) | Use task definition stored on s3. The task definition created by CI/CD | `bool` | `false` | no |
 | <a name="input_shard_count"></a> [shard\_count](#input\_shard\_count) | Number of shards that the stream will use | `string` | `"1"` | no |
