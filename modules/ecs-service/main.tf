@@ -12,12 +12,12 @@ locals {
     for container in module.container_definition :
     container.json_map_object
     ],
-    # [for container in module.datadog_container_definition :
-    #   container.json_map_object
-    # ],
-    # var.datadog_log_method_is_firelens ? [for container in module.datadog_fluent_bit_container_definition :
-    #   container.json_map_object
-    # ] : [],
+    [for container in module.datadog_container_definition :
+    container.json_map_object
+    ],
+    var.datadog_log_method_is_firelens ? [for container in module.datadog_fluent_bit_container_definition :
+    container.json_map_object
+    ] : [],
   )
 
   kinesis_kms_id = try(one(data.aws_kms_alias.selected[*].id), null)
@@ -61,7 +61,7 @@ module "logs" {
   source  = "cloudposse/cloudwatch-logs/aws"
   version = "0.6.6"
 
-  count = local.enabled ? 1 : 0
+  count = local.enabled && !var.datadog_log_method_is_firelens ? 1 : 0
 
   stream_names      = lookup(var.logs, "stream_names", [])
   retention_in_days = lookup(var.logs, "retention_in_days", 90)
@@ -126,11 +126,11 @@ data "template_file" "envs" {
     namespace   = module.this.namespace
     name        = module.this.name
     full_domain = local.full_domain
-    # vanity_domain = local.vanity_domain
+    vanity_domain = local.vanity_domain
     # `service_domain` uses whatever the current service is (public/private)
-    # service_domain         = local.domain_no_service_name
-    # service_domain_public  = local.public_domain_no_service_name
-    # service_domain_private = local.private_domain_no_service_name
+    service_domain         = local.domain_no_service_name
+    service_domain_public  = local.public_domain_no_service_name
+    service_domain_private = local.private_domain_no_service_name
   }
 }
 
@@ -166,11 +166,15 @@ module "container_definition" {
   map_environment = lookup(each.value, "map_environment", null) != null ? merge(
     { for k, v in local.env_map_subst : split(",", k)[1] => v if split(",", k)[0] == each.key },
     { "APP_ENV" = format("%s-%s-%s-%s", var.namespace, var.tenant, var.environment, var.stage) },
-    # The legacy env var is AWS_ENV so we still support it as well.
-    { "AWS_ENV" = var.stage },
-    { "APP_STAGE" = var.stage },
-    { "CLUSTER_NAME" = module.ecs_cluster.outputs.cluster.name },
     { "RUNTIME_ENV" = format("%s-%s-%s", var.namespace, var.tenant, var.stage) },
+    { "CLUSTER_NAME" = module.ecs_cluster.outputs.cluster.name },
+    var.datadog_agent_sidecar_enabled ? {
+      "DD_DOGSTATSD_PORT"      = 8125,
+      "DD_TRACING_ENABLED"     = "true",
+      "DD_SERVICE_NAME"        = var.name,
+      "DD_ENV"                 = var.stage,
+      "DD_PROFILING_EXPORTERS" = "agent"
+    } : {}
   ) : null
 
   map_secrets = lookup(each.value, "map_secrets", null) != null ? zipmap(
@@ -196,13 +200,17 @@ module "container_definition" {
       awslogs-datetime-format = "^%Y-%m-%d",
     })
     # if we are not using awslogs, we execute this line, which if we have dd enabled, means we are using firelens, so merge that config in.
-  }) : null # merge(lookup(each.value, "log_configuration", {}), local.datadog_logconfiguration_firelens)
+  }) : merge(lookup(each.value, "log_configuration", {}), local.datadog_logconfiguration_firelens)
 
   firelens_configuration = lookup(each.value, "firelens_configuration", null)
 
 
   # escape hatch for anything not specifically described above or unsupported by the upstream module
   container_definition = lookup(each.value, "container_definition", {})
+}
+
+locals {
+  awslogs_group = var.datadog_log_method_is_firelens ? "" : join("", module.logs[*].log_group_name)
 }
 
 module "ecs_alb_service_task" {
@@ -264,10 +272,6 @@ module "ecs_alb_service_task" {
   ]
 
   context = module.this.context
-}
-
-output "test" {
-  value = module.ecs_alb_service_task[*].task_role_arn
 }
 
 module "alb_ecs_label" {
