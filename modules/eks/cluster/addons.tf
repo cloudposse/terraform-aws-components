@@ -15,12 +15,14 @@ locals {
     aws-ebs-csi-driver = module.aws_ebs_csi_driver_eks_iam_role.service_account_role_arn
   }
 
+  final_addon_service_account_role_arn_map = merge(local.addon_service_account_role_arn_map, local.overridable_additional_addon_service_account_role_arn_map)
+
   addons = [
     for k, v in var.addons : {
       addon_name               = k
       addon_version            = lookup(v, "addon_version", null)
       resolve_conflicts        = lookup(v, "resolve_conflicts", null)
-      service_account_role_arn = try(coalesce(lookup(v, "service_account_role_arn", null), lookup(local.addon_service_account_role_arn_map, k, null)), null)
+      service_account_role_arn = try(coalesce(lookup(v, "service_account_role_arn", null), lookup(local.final_addon_service_account_role_arn_map, k, null)), null)
     }
   ]
 }
