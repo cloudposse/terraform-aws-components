@@ -11,6 +11,7 @@ module "alb" {
   https_enabled                           = var.https_enabled
   http2_enabled                           = var.http2_enabled
   http_redirect                           = var.http_redirect
+  https_ssl_policy                        = var.https_ssl_policy
   access_logs_enabled                     = var.access_logs_enabled
   alb_access_logs_s3_bucket_force_destroy = var.alb_access_logs_s3_bucket_force_destroy
   cross_zone_load_balancing_enabled       = var.cross_zone_load_balancing_enabled
