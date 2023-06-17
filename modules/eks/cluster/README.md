@@ -278,10 +278,73 @@ these nodes will never be available before the cluster component is deployed.
 
 :::
 
+For more information on upgrading EKS Addons, see
+["How to Upgrade EKS Cluster Addons"](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons/)
+
+
 ### Adding and Configuring a new EKS Addon
 
-For more on upgrading these EKS Addons, see
-["How to Upgrade EKS Cluster Addons"](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons/)
+Add a new EKS addon to the `addons` map (`addons` variable):
+
+```yaml
+addons:
+  my-addon:
+    addon_version: "..."
+```
+
+If the new addon requires an EKS IAM Role for Kubernetes Service Account, perform the following steps:
+
+- Add a file `addons-custom.tf` to the `eks/cluster` folder
+
+- In the file, add an IAM policy document with the permissions required for the addon, 
+  and use the `eks-iam-role` module to provision an IAM Role for Kubernetes Service Account for the addon:
+
+  ```hcl
+    data "aws_iam_policy_document" "my_addon" {    
+      statement {
+        sid       = "..."
+        effect    = "Allow"
+        resources = ["..."]
+    
+        actions = [
+          "...",
+          "..."
+        ]
+      }
+    }
+
+    module "my_addon_eks_iam_role" {
+      source  = "cloudposse/eks-iam-role/aws"
+      version = "2.1.0"
+
+      eks_cluster_oidc_issuer_url = local.eks_cluster_oidc_issuer_url
+
+      service_account_name      = "..."
+      service_account_namespace = "..."
+
+      aws_iam_policy_document = [one(data.aws_iam_policy_document.my_addon[*].json)]
+
+      context = module.this.context
+    }
+  ```
+
+  For reference on how to configure the IAM role and IAM permissions for EKS addons, see [addons.tf](addons.tf).
+
+- Add a file `additional-addon-irsa-map_override.tf` to the `eks/cluster` folder
+
+- In the file, add the IAM Role for Kubernetes Service Account for the addon to the `overridable_additional_addon_service_account_role_arn_map` map:
+
+  ```hcl
+    locals {
+      overridable_additional_addon_service_account_role_arn_map = {
+        my-addon = module.my_addon_eks_iam_role.service_account_role_arn
+      }
+    }
+  ```
+
+- This map will override the default map in the [additional-addon-irsa-map.tf](additional-addon-irsa-map.tf) file, 
+  and will be merged into the final map together with the default EKS addons `vpc-cni` and `aws-ebs-csi-driver` 
+  (which this component configures and creates IAM Roles for Kubernetes Service Accounts)
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
