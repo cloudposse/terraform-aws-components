@@ -121,10 +121,17 @@ module "eks_cluster" {
   public_access_cidrs          = var.public_access_cidrs
   subnet_ids                   = var.cluster_private_subnets_only ? local.private_subnet_ids : concat(local.private_subnet_ids, local.public_subnet_ids)
   vpc_id                       = local.vpc_id
-  addons                       = local.addons
-  addons_depends_on            = var.addons_depends_on ? [module.region_node_group] : null
 
   kubernetes_config_map_ignore_role_changes = false
+
+  # EKS addons
+  addons = local.addons
+
+  addons_depends_on = var.addons_depends_on ? [
+    module.region_node_group,
+    aws_iam_role_policy_attachment.vpc_cni,
+    aws_iam_role_policy_attachment.aws_ebs_csi_driver
+  ] : null
 
   # Managed Node Groups do not expose nor accept any Security Groups.
   # Instead, EKS creates a Security Group and applies it to ENI that is attached to EKS Control Plane master nodes and to any managed workloads.

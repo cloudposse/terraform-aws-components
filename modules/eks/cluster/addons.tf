@@ -27,13 +27,42 @@ locals {
   ]
 }
 
+# `vpc-cni` EKS addon
 # https://docs.aws.amazon.com/eks/latest/userguide/cni-iam-role.html
 # https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html
 # https://docs.aws.amazon.com/eks/latest/userguide/cni-iam-role.html#cni-iam-role-create-role
 # https://aws.github.io/aws-eks-best-practices/networking/vpc-cni/#deploy-vpc-cni-managed-add-on
-data "aws_iam_policy" "vpc_cni" {
+data "aws_iam_policy_document" "vpc_cni_ipv6" {
   count = local.vpc_cni_addon_enabled ? 1 : 0
-  arn   = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+
+  # See https://docs.aws.amazon.com/eks/latest/userguide/cni-iam-role.html#cni-iam-role-create-ipv6-policy
+  statement {
+    sid       = ""
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      "ec2:AssignIpv6Addresses",
+      "ec2:DescribeInstances",
+      "ec2:DescribeTags",
+      "ec2:DescribeNetworkInterfaces",
+      "ec2:DescribeInstanceTypes"
+    ]
+  }
+
+  statement {
+    sid       = ""
+    effect    = "Allow"
+    resources = ["arn:aws:ec2:*:*:network-interface/*"]
+    actions   = ["ec2:CreateTags"]
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "vpc_cni" {
+  count = local.vpc_cni_addon_enabled ? 1 : 0
+
+  role       = module.vpc_cni_eks_iam_role.service_account_role_arn
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
 }
 
 module "vpc_cni_eks_iam_role" {
@@ -47,18 +76,21 @@ module "vpc_cni_eks_iam_role" {
   service_account_name      = "aws-node"
   service_account_namespace = "kube-system"
 
-  aws_iam_policy_document = [one(data.aws_iam_policy.vpc_cni[*].policy)]
+  aws_iam_policy_document = [one(data.aws_iam_policy_document.vpc_cni_ipv6[*].json)]
 
   context = module.this.context
 }
 
+# `aws-ebs-csi-driver` EKS addon
 # https://docs.aws.amazon.com/eks/latest/userguide/csi-iam-role.html
 # https://aws.amazon.com/blogs/containers/amazon-ebs-csi-driver-is-now-generally-available-in-amazon-eks-add-ons
 # https://docs.aws.amazon.com/eks/latest/userguide/managing-ebs-csi.html#csi-iam-role
 # https://github.com/kubernetes-sigs/aws-ebs-csi-driver
-data "aws_iam_policy" "aws_ebs_csi_driver" {
+resource "aws_iam_role_policy_attachment" "aws_ebs_csi_driver" {
   count = local.aws_ebs_csi_driver_enabled ? 1 : 0
-  arn   = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+
+  role       = module.aws_ebs_csi_driver_eks_iam_role.service_account_role_arn
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
 }
 
 module "aws_ebs_csi_driver_eks_iam_role" {
@@ -71,8 +103,6 @@ module "aws_ebs_csi_driver_eks_iam_role" {
 
   service_account_name      = "ebs-csi-controller-sa"
   service_account_namespace = "kube-system"
-
-  aws_iam_policy_document = [one(data.aws_iam_policy.aws_ebs_csi_driver[*].policy)]
 
   context = module.this.context
 }

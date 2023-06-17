@@ -5,6 +5,6 @@ locals {
   # See the README for more details.
   overridable_additional_addon_service_account_role_arn_map = {
     # Example:
-    # my_addon = module.my_addon.service_account_role_arn
+    # my-addon = module.my_addon.service_account_role_arn
   }
 }
