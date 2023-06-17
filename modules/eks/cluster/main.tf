@@ -127,11 +127,9 @@ module "eks_cluster" {
   # EKS addons
   addons = local.addons
 
-  addons_depends_on = var.addons_depends_on ? [
-    module.region_node_group,
-    aws_iam_role_policy_attachment.vpc_cni,
-    aws_iam_role_policy_attachment.aws_ebs_csi_driver
-  ] : null
+  addons_depends_on = var.addons_depends_on ? concat([
+    module.region_node_group],
+    values(final_addon_service_account_role_arn_map)) : null
 
   # Managed Node Groups do not expose nor accept any Security Groups.
   # Instead, EKS creates a Security Group and applies it to ENI that is attached to EKS Control Plane master nodes and to any managed workloads.
