@@ -296,16 +296,16 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 
 - Add a file `addons-custom.tf` to the `eks/cluster` folder
 
-- In the file, add an IAM policy document with the permissions required for the addon, 
+- In the file, add an IAM policy document with the permissions required for the addon,
   and use the `eks-iam-role` module to provision an IAM Role for Kubernetes Service Account for the addon:
 
   ```hcl
-    data "aws_iam_policy_document" "my_addon" {    
+    data "aws_iam_policy_document" "my_addon" {  
       statement {
         sid       = "..."
         effect    = "Allow"
         resources = ["..."]
-    
+
         actions = [
           "...",
           "..."
@@ -342,8 +342,8 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
     }
   ```
 
-- This map will override the default map in the [additional-addon-irsa-map.tf](additional-addon-irsa-map.tf) file, 
-  and will be merged into the final map together with the default EKS addons `vpc-cni` and `aws-ebs-csi-driver` 
+- This map will override the default map in the [additional-addon-irsa-map.tf](additional-addon-irsa-map.tf) file,
+  and will be merged into the final map together with the default EKS addons `vpc-cni` and `aws-ebs-csi-driver`
   (which this component configures and creates IAM Roles for Kubernetes Service Accounts)
 
 
