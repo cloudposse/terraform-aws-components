@@ -80,4 +80,3 @@ module "parameter_store_write" {
 
   context = module.this.context
 }
-

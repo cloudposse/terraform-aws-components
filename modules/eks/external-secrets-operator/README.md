@@ -7,22 +7,26 @@ In practice, this means apps will define an `ExternalSecret` that pulls all env 
 ```
 # Part of the charts in `/releases
 
-apiVersion: external-secrets.io/v1beta1 
+apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: app-secrets
 spec:
-  refreshInterval: 0
+  refreshInterval: 30s
   secretStoreRef:
-    name: "secret-store-parameter-store" # must match name of our store
-    kind: SecretStore
+    name: "secret-store-parameter-store" # Must match name of the Cluster Secret Store created by this component
+    kind: ClusterSecretStore
   target:
-    creationPolicy: 'Owner'
+    creationPolicy: Owner
     name: app-secrets
   dataFrom:
   - find:
       name:
-        regexp: "^/app"
+        regexp: "^/app/" # Match the path prefix of your service
+    rewrite:
+    - regexp:
+        source: "/app/(.*)" # Remove the path prefix of your service from the name before creating the envars
+        target: "$1"
 ```
 
 This component assumes secrets are prefixed by "service" in parameter store (e.g. `/app/my_secret`). The `SecretStore`. The component is designed to pull secrets from a `path` prefix (defaulting to `"app"`). This should work nicely along `chamber` which uses this same path (called a "service" in Chamber). For example, developers should store keys like so.
@@ -72,7 +76,7 @@ components:
           requests:
             cpu: "20m"
             memory: "60Mi"
-        parameter_store_paths: 
+        parameter_store_paths:
           - app
           - rds
         # You can use `chart_values` to set any other chart options. Treat `chart_values` as the root of the doc.
@@ -92,14 +96,14 @@ components:
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.0 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.7.1, != 2.21.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.7.1, != 2.21.0, != 2.21.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.7.1, != 2.21.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.7.1, != 2.21.0, != 2.21.0 |
 
 ## Modules
 
@@ -117,9 +121,7 @@ components:
 | Name | Type |
 |------|------|
 | [kubernetes_namespace.default](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
-| [aws_eks_cluster.kubernetes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
 | [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
-| [aws_eks_cluster_auth.kubernetes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 
 ## Inputs
 
@@ -143,8 +145,6 @@ components:
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_helm_manifest_experiment_enabled"></a> [helm\_manifest\_experiment\_enabled](#input\_helm\_manifest\_experiment\_enabled) | Enable storing of the rendered manifest for helm\_release so the full diff of what is changing can been seen in the plan | `bool` | `false` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_kube_data_auth_enabled"></a> [kube\_data\_auth\_enabled](#input\_kube\_data\_auth\_enabled) | If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`. | `bool` | `false` | no |
 | <a name="input_kube_exec_auth_aws_profile"></a> [kube\_exec\_auth\_aws\_profile](#input\_kube\_exec\_auth\_aws\_profile) | The AWS config profile for `aws eks get-token` to use | `string` | `""` | no |
 | <a name="input_kube_exec_auth_aws_profile_enabled"></a> [kube\_exec\_auth\_aws\_profile\_enabled](#input\_kube\_exec\_auth\_aws\_profile\_enabled) | If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-token` | `bool` | `false` | no |

@@ -51,7 +51,7 @@ resource "postgresql_grant" "default" {
   schema      = var.grants[count.index].schema
   object_type = var.grants[count.index].object_type
 
-  # Conditionally set the privileges to either the explicit list of database privileges 
+  # Conditionally set the privileges to either the explicit list of database privileges
   # or schema privileges if this is a db grant or a schema grant respectively.
   # We can determine this is a schema grant if a schema is given
   privileges = contains(var.grants[count.index].grant, "ALL") ? ((length(var.grants[count.index].schema) > 0) ? local.all_privileges_schema : local.all_privileges_database) : var.grants[count.index].grant

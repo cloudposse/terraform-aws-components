@@ -19,4 +19,3 @@ components:
         enabled: true
         ssm_path_prefix: "/sso/saml/google"
 ```
-

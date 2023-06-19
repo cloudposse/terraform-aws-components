@@ -4,8 +4,13 @@ This component is responsible for provisioning [Argo CD](https://argoproj.github
 
 Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
 
-> :warning::warning::warning: Initial install needs run `deploy` two times because first run will create ArgoCD CRDs
-> and second run will finish ArgoCD configuration. :warning::warning::warning:
+> :warning::warning::warning: ArgoCD CRDs must be installed separately from this component/helm release. :warning::warning::warning:
+```shell
+kubectl apply -k "https://github.com/argoproj/argo-cd/manifests/crds?ref=<appVersion>"
+
+# Eg. version v2.4.9
+kubectl apply -k "https://github.com/argoproj/argo-cd/manifests/crds?ref=v2.4.9"
+```
 
 ## Usage
 
@@ -40,6 +45,30 @@ components:
         chart_values: {}
 ```
 
+to use google OIDC:
+
+```yaml
+        oidc_enabled: true
+        saml_enabled: false
+        oidc_providers:
+          google:
+            uses_dex: true
+            type: google
+            id: google
+            name: Google
+            serviceAccountAccess:
+              enabled: true
+              key: googleAuth.json
+              value: /sso/oidc/google/serviceaccount
+              admin_email: an_actual_user@acme.com
+            config:
+              # This filters emails when signing in with Google to only this domain. helpful for picking the right one.
+              hostedDomains:
+                - acme.com
+              clientID: /sso/saml/google/clientid
+              clientSecret: /sso/saml/google/clientsecret
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -48,7 +77,7 @@ components:
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.6.0 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.9.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.9.0, != 2.21.0 |
 
 ## Providers
 
@@ -56,7 +85,7 @@ components:
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
 | <a name="provider_aws.config_secrets"></a> [aws.config\_secrets](#provider\_aws.config\_secrets) | >= 4.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.9.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.9.0, != 2.21.0 |
 
 ## Modules
 
@@ -69,6 +98,8 @@ components:
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_iam_roles_config_secrets"></a> [iam\_roles\_config\_secrets](#module\_iam\_roles\_config\_secrets) | ../../account-map/modules/iam-roles | n/a |
+| <a name="module_oidc_gsuite_service_providers_providers_store_read"></a> [oidc\_gsuite\_service\_providers\_providers\_store\_read](#module\_oidc\_gsuite\_service\_providers\_providers\_store\_read) | cloudposse/ssm-parameter-store/aws | 0.10.0 |
+| <a name="module_oidc_providers_store_read"></a> [oidc\_providers\_store\_read](#module\_oidc\_providers\_store\_read) | cloudposse/ssm-parameter-store/aws | 0.10.0 |
 | <a name="module_saml_sso_providers"></a> [saml\_sso\_providers](#module\_saml\_sso\_providers) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -76,6 +107,7 @@ components:
 
 | Name | Type |
 |------|------|
+| [kubernetes_secret.oidc_gsuite_service_account](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) | resource |
 | [aws_eks_cluster.kubernetes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
 | [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 | [aws_eks_cluster_auth.kubernetes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
@@ -83,14 +115,12 @@ components:
 | [aws_ssm_parameter.oidc_client_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.oidc_client_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameters_by_path.argocd_notifications](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameters_by_path) | data source |
-| [kubernetes_resources.crd](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/resources) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_admin_enabled"></a> [admin\_enabled](#input\_admin\_enabled) | Toggles Admin user creation the deployed chart | `bool` | `false` | no |
 | <a name="input_alb_group_name"></a> [alb\_group\_name](#input\_alb\_group\_name) | A name used in annotations to reuse an ALB (e.g. `argocd`) or to generate a new one | `string` | `null` | no |
 | <a name="input_alb_logs_bucket"></a> [alb\_logs\_bucket](#input\_alb\_logs\_bucket) | The name of the bucket for ALB access logs. The bucket must have policy allowing the ELB logging principal | `string` | `""` | no |
 | <a name="input_alb_logs_prefix"></a> [alb\_logs\_prefix](#input\_alb\_logs\_prefix) | `alb_logs_bucket` s3 bucket prefix | `string` | `""` | no |
@@ -103,7 +133,6 @@ components:
 | <a name="input_argocd_apps_chart_version"></a> [argocd\_apps\_chart\_version](#input\_argocd\_apps\_chart\_version) | Specify the exact chart version to install. If this is not specified, the latest version is installed. | `string` | `"0.0.3"` | no |
 | <a name="input_argocd_apps_enabled"></a> [argocd\_apps\_enabled](#input\_argocd\_apps\_enabled) | Enable argocd apps | `bool` | `true` | no |
 | <a name="input_argocd_create_namespaces"></a> [argocd\_create\_namespaces](#input\_argocd\_create\_namespaces) | ArgoCD create namespaces policy | `bool` | `false` | no |
-| <a name="input_argocd_rbac_default_policy"></a> [argocd\_rbac\_default\_policy](#input\_argocd\_rbac\_default\_policy) | Default ArgoCD RBAC default role.<br><br>See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/#basic-built-in-roles for more information. | `string` | `"role:readonly"` | no |
 | <a name="input_argocd_rbac_groups"></a> [argocd\_rbac\_groups](#input\_argocd\_rbac\_groups) | List of ArgoCD Group Role Assignment strings to be added to the argocd-rbac configmap policy.csv item.<br>e.g.<br>[<br>  {<br>    group: idp-group-name,<br>    role: argocd-role-name<br>  },<br>]<br>becomes: `g, idp-group-name, role:argocd-role-name`<br>See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more information. | <pre>list(object({<br>    group = string,<br>    role  = string<br>  }))</pre> | `[]` | no |
 | <a name="input_argocd_rbac_policies"></a> [argocd\_rbac\_policies](#input\_argocd\_rbac\_policies) | List of ArgoCD RBAC Permission strings to be added to the argocd-rbac configmap policy.csv item.<br><br>See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more information. | `list(string)` | `[]` | no |
 | <a name="input_argocd_repositories"></a> [argocd\_repositories](#input\_argocd\_repositories) | Map of objects defining an `argocd_repo` to configure.  The key is the name of the ArgoCD repository. | <pre>map(object({<br>    environment = string # The environment where the `argocd_repo` component is deployed.<br>    stage       = string # The stage where the `argocd_repo` component is deployed.<br>    tenant      = string # The tenant where the `argocd_repo` component is deployed.<br>  }))</pre> | `{}` | no |
@@ -127,11 +156,9 @@ components:
 | <a name="input_forecastle_enabled"></a> [forecastle\_enabled](#input\_forecastle\_enabled) | Toggles Forecastle integration in the deployed chart | `bool` | `false` | no |
 | <a name="input_github_notifications_enabled"></a> [github\_notifications\_enabled](#input\_github\_notifications\_enabled) | Whether or not to enable GitHub deployment and commit status notifications. | `bool` | `false` | no |
 | <a name="input_github_organization"></a> [github\_organization](#input\_github\_organization) | GitHub Organization | `string` | n/a | yes |
-| <a name="input_helm_manifest_experiment_enabled"></a> [helm\_manifest\_experiment\_enabled](#input\_helm\_manifest\_experiment\_enabled) | Enable storing of the rendered manifest for helm\_release so the full diff of what is changing can been seen in the plan | `bool` | `true` | no |
+| <a name="input_helm_manifest_experiment_enabled"></a> [helm\_manifest\_experiment\_enabled](#input\_helm\_manifest\_experiment\_enabled) | Enable storing of the rendered manifest for helm\_release so the full diff of what is changing can been seen in the plan | `bool` | `false` | no |
 | <a name="input_host"></a> [host](#input\_host) | Host name to use for ingress and ALB | `string` | `""` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_kube_data_auth_enabled"></a> [kube\_data\_auth\_enabled](#input\_kube\_data\_auth\_enabled) | If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`. | `bool` | `false` | no |
 | <a name="input_kube_exec_auth_aws_profile"></a> [kube\_exec\_auth\_aws\_profile](#input\_kube\_exec\_auth\_aws\_profile) | The AWS config profile for `aws eks get-token` to use | `string` | `""` | no |
 | <a name="input_kube_exec_auth_aws_profile_enabled"></a> [kube\_exec\_auth\_aws\_profile\_enabled](#input\_kube\_exec\_auth\_aws\_profile\_enabled) | If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-token` | `bool` | `false` | no |
@@ -150,12 +177,13 @@ components:
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_notifications_default_triggers"></a> [notifications\_default\_triggers](#input\_notifications\_default\_triggers) | Default notification Triggers to configure.<br><br>See: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/triggers/#default-triggers<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/790438efebf423c2d56cb4b93471f4adb3fcd448/charts/argo-cd/values.yaml#L2841) | `map(list(string))` | `{}` | no |
-| <a name="input_notifications_notifiers"></a> [notifications\_notifiers](#input\_notifications\_notifiers) | Notification Triggers to configure.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/triggers/<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L352) | <pre>object({<br>    ssm_path_prefix = optional(string, "/argocd/notifications/notifiers")<br>    service_github = optional(object({<br>      appID          = number<br>      installationID = number<br>      privateKey     = optional(string)<br>    }))<br>    # service.webhook.<webhook-name>:<br>    service_webhook = optional(map(<br>      object({<br>        url = string<br>        headers = optional(list(<br>          object({<br>            name  = string<br>            value = string<br>          })<br>        ), [])<br>        basicAuth = optional(object({<br>          username = string<br>          password = string<br>        }))<br>        insecureSkipVerify = optional(bool, false)<br>      })<br>    ))<br>  })</pre> | `{}` | no |
-| <a name="input_notifications_templates"></a> [notifications\_templates](#input\_notifications\_templates) | Notification Templates to configure.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/templates/<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L158) | <pre>map(object({<br>    message = string<br>    alertmanager = optional(object({<br>      labels       = map(string)<br>      annotations  = map(string)<br>      generatorURL = string<br>    }))<br>    github = optional(object({<br>      status = object({<br>        state     = string<br>        label     = string<br>        targetURL = string<br>      })<br>    }))<br>    webhook = optional(map(<br>      object({<br>        method = optional(string)<br>        path   = optional(string)<br>        body   = optional(string)<br>      })<br>    ))<br>  }))</pre> | `{}` | no |
+| <a name="input_notifications_notifiers"></a> [notifications\_notifiers](#input\_notifications\_notifiers) | Notification Triggers to configure.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/triggers/<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L352) | <pre>object({<br>    ssm_path_prefix = optional(string, "/argocd/notifications/notifiers")<br>    service_github = optional(object({<br>      appID          = optional(number)<br>      installationID = optional(number)<br>      privateKey     = optional(string)<br>    }))<br>  })</pre> | `null` | no |
+| <a name="input_notifications_templates"></a> [notifications\_templates](#input\_notifications\_templates) | Notification Templates to configure.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/templates/<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L158) | <pre>map(object({<br>    message = string<br>    alertmanager = optional(object({<br>      labels       = map(string)<br>      annotations  = map(string)<br>      generatorURL = string<br>    }))<br>    github = optional(object({<br>      status = object({<br>        state     = string<br>        label     = string<br>        targetURL = string<br>      })<br>    }))<br>  }))</pre> | `{}` | no |
 | <a name="input_notifications_triggers"></a> [notifications\_triggers](#input\_notifications\_triggers) | Notification Triggers to configure.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/triggers/<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L352) | <pre>map(list(<br>    object({<br>      oncePer = optional(string)<br>      send    = list(string)<br>      when    = string<br>    })<br>  ))</pre> | `{}` | no |
 | <a name="input_oidc_enabled"></a> [oidc\_enabled](#input\_oidc\_enabled) | Toggles OIDC integration in the deployed chart | `bool` | `false` | no |
 | <a name="input_oidc_issuer"></a> [oidc\_issuer](#input\_oidc\_issuer) | OIDC issuer URL | `string` | `""` | no |
 | <a name="input_oidc_name"></a> [oidc\_name](#input\_oidc\_name) | Name of the OIDC resource | `string` | `""` | no |
+| <a name="input_oidc_providers"></a> [oidc\_providers](#input\_oidc\_providers) | OIDC providers components, clientID and clientSecret should be passed as SSM parameters (denoted by leading slash) | `any` | `{}` | no |
 | <a name="input_oidc_rbac_scopes"></a> [oidc\_rbac\_scopes](#input\_oidc\_rbac\_scopes) | OIDC RBAC scopes to request | `string` | `"[argocd_realm_access]"` | no |
 | <a name="input_oidc_requested_scopes"></a> [oidc\_requested\_scopes](#input\_oidc\_requested\_scopes) | Set of OIDC scopes to request | `string` | `"[\"openid\", \"profile\", \"email\", \"groups\"]"` | no |
 | <a name="input_rbac_enabled"></a> [rbac\_enabled](#input\_rbac\_enabled) | Enable Service Account for pods. | `bool` | `true` | no |

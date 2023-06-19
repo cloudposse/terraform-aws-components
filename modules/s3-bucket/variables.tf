@@ -389,4 +389,3 @@ variable "iam_policy_statements" {
   description = "Map of IAM policy statements to use in the bucket policy."
   default     = {}
 }
-

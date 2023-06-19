@@ -67,12 +67,12 @@ variable "az_abbreviation_type" {
 
 variable "iam_role_arn" {
   description = <<-DOC
-    The ARN for an IAM Role AWS Config uses to make read or write requests to the delivery channel and to describe the 
+    The ARN for an IAM Role AWS Config uses to make read or write requests to the delivery channel and to describe the
     AWS resources associated with the account. This is only used if create_iam_role is false.
 
     If you want to use an existing IAM Role, set the variable to the ARN of the existing role and set create_iam_role to `false`.
-    
-    See the AWS Docs for further information: 
+
+    See the AWS Docs for further information:
     http://docs.aws.amazon.com/config/latest/developerguide/iamrole-permissions.html
   DOC
   default     = null

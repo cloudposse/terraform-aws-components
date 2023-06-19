@@ -109,4 +109,3 @@ variable "cloudtrail_bucket_component_name" {
   description = "The name of the CloudTrail bucket component"
   default     = "cloudtrail-bucket"
 }
-

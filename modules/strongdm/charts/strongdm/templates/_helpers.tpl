@@ -81,4 +81,3 @@ Create the name of the controller service account to use
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
-

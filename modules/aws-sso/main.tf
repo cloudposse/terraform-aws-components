@@ -3,6 +3,7 @@ module "permission_sets" {
   version = "1.0.0"
 
   permission_sets = concat(
+    local.overridable_additional_permission_sets,
     local.administrator_access_permission_set,
     local.billing_administrator_access_permission_set,
     local.billing_read_only_access_permission_set,

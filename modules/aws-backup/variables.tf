@@ -92,4 +92,3 @@ variable "iam_role_enabled" {
   description = "Whether or not to create a new IAM Role and Policy Attachment"
   default     = true
 }
-

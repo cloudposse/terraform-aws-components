@@ -57,15 +57,10 @@ locals {
 
 
   terraform_roles = {
-    for name, info in local.account_info_map : name =>
-    format(local.iam_role_arn_templates[name],
-      (contains([
-        var.root_account_account_name,
-        var.identity_account_account_name
-      ], name) ? "admin" : "terraform")
-    )
+    for name, info in local.account_info_map : name => format(local.iam_role_arn_templates[name], "terraform")
   }
 
+  // legacy support for `aws` config profiles, where root and identity accounts' terraform profiles are not for Terraforming
   terraform_profiles = {
     for name, info in local.account_info_map : name => format(var.profile_template, compact(
       [
@@ -77,55 +72,6 @@ locals {
           var.root_account_account_name,
           var.identity_account_account_name
         ], name) ? "admin" : "terraform")
-      ]
-    )...)
-  }
-
-  helm_roles = {
-    for name, info in local.account_info_map : name =>
-    format(local.iam_role_arn_templates[name],
-      (contains([
-        var.root_account_account_name,
-        var.identity_account_account_name
-      ], name) ? "admin" : "helm")
-    )
-
-  }
-
-  helm_profiles = {
-    for name, info in local.account_info_map : name => format(var.profile_template, compact(
-      [
-        module.this.namespace,
-        lookup(info, "tenant", ""),
-        module.this.environment,
-        info.stage,
-        (contains([
-          var.root_account_account_name,
-          var.identity_account_account_name
-        ], name) ? "admin" : "helm")
-      ]
-    )...)
-  }
-
-  cicd_roles = {
-    for name, info in local.account_info_map : name =>
-    format(local.iam_role_arn_templates[name],
-      (contains([
-        var.root_account_account_name
-      ], name) ? "admin" : "cicd")
-    )
-  }
-
-  cicd_profiles = {
-    for name, info in local.account_info_map : name => format(var.profile_template, compact(
-      [
-        module.this.namespace,
-        lookup(info, "tenant", ""),
-        var.global_environment_name,
-        info.stage,
-        (contains([
-          var.root_account_account_name
-        ], name) ? "admin" : "cicd")
       ]
     )...)
   }

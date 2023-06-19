@@ -14,15 +14,15 @@ locals {
   is_read_replica             = local.enabled && var.is_read_replica
   remote_read_replica_enabled = local.is_read_replica && !(length(var.replication_source_identifier) > 0) && length(var.primary_cluster_region) > 0
 
-  # Removing the replicate source attribute from an existing RDS Replicate database managed by Terraform 
-  # should promote the database to a fully standalone database but currently is not supported by Terraform. 
+  # Removing the replicate source attribute from an existing RDS Replicate database managed by Terraform
+  # should promote the database to a fully standalone database but currently is not supported by Terraform.
   # Instead, first manually promote with the AWS CLI or console, and then remove the replication source identitier from the Terrafrom state
   # See https://github.com/hashicorp/terraform-provider-aws/issues/6749
   replication_source_identifier = local.remote_read_replica_enabled && !var.is_promoted_read_replica ? module.primary_cluster[0].outputs.aurora_mysql_cluster_arn : var.replication_source_identifier
 
   # For encrypted cross-region replica, kmsKeyId should be explicitly specified
   # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html
-  # A read replica of an Amazon RDS encrypted instance must be encrypted using the same KMS key as the primary DB instance when both are in the same AWS Region. 
+  # A read replica of an Amazon RDS encrypted instance must be encrypted using the same KMS key as the primary DB instance when both are in the same AWS Region.
   # If the primary DB instance and read replica are in different AWS Regions, you encrypt the read replica using a KMS key in that AWS Region.
   kms_key_arn = module.kms_key_rds.key_arn
 
@@ -82,5 +82,3 @@ resource "random_pet" "mysql_db_name" {
     db_name      = var.mysql_db_name
   }
 }
-
-

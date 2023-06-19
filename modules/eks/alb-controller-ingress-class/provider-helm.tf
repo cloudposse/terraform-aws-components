@@ -85,7 +85,7 @@ variable "kubeconfig_exec_auth_api_version" {
 
 variable "helm_manifest_experiment_enabled" {
   type        = bool
-  default     = true
+  default     = false
   description = "Enable storing of the rendered manifest for helm_release so the full diff of what is changing can been seen in the plan"
 }
 
@@ -101,7 +101,7 @@ locals {
     "--profile", var.kube_exec_auth_aws_profile
   ] : []
 
-  kube_exec_auth_role_arn = coalesce(var.kube_exec_auth_role_arn, var.import_role_arn, module.iam_roles.terraform_role_arn)
+  kube_exec_auth_role_arn = coalesce(var.kube_exec_auth_role_arn, module.iam_roles.terraform_role_arn)
   exec_role = local.kube_exec_auth_enabled && var.kube_exec_auth_role_arn_enabled ? [
     "--role-arn", local.kube_exec_auth_role_arn
   ] : []

@@ -13,7 +13,7 @@ variable "connections" {
     eks_component_names = optional(list(string), [])
   }))
   description = <<-EOT
-  A list of objects to define each TGW connections. 
+  A list of objects to define each TGW connections.
 
   By default, each connection will look for only the default `vpc` component.
   EOT
