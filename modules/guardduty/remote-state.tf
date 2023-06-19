@@ -27,4 +27,3 @@ module "guardduty_delegated_detector" {
 
   context = module.this.context
 }
-
