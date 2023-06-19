@@ -121,7 +121,7 @@ Finally, the component is deployed to the AWS Organization Management Account ag
 organization-wide configuration for the AWS Organization, but with `var.admin_delegated` set to `true`.
 
 ```yaml
-# core-ue1-root
+# core-ue1-security
 components:
   terraform:
     guardduty/org-settings/ue1:
