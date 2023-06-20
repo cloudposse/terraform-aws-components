@@ -57,7 +57,7 @@ variable "delegated_admininstrator_component_name" {
 variable "delegated_administrator_account_name" {
   type        = string
   default     = "core-security"
-  description = "The name of the account that is the AWS Organization delegated administrator account"
+  description = "The name of the account that is the AWS Organization Delegated Administrator account"
 }
 
 variable "enable_cloudwatch" {
