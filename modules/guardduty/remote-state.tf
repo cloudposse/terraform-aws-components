@@ -3,7 +3,7 @@ module "account_map" {
   version = "1.4.3"
 
   component   = "account-map"
-  tenant      = (var.account_map_tenant != "") ? var.account_map_tenant : module.this.tenant
+  tenant      = var.account_map_tenant != "" ? var.account_map_tenant : module.this.tenant
   stage       = var.root_account_stage
   environment = var.global_environment
   privileged  = var.privileged
@@ -22,7 +22,6 @@ module "guardduty_delegated_detector" {
   component   = "${var.delegated_admininstrator_component_name}/${module.this.environment}"
   tenant      = module.this.tenant
   stage       = replace(var.delegated_administrator_account_name, "${module.this.tenant}-", "")
-  environment = module.this.environment
   privileged  = var.privileged
 
   context = module.this.context
