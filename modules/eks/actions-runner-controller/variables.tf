@@ -131,6 +131,18 @@ variable "s3_bucket_arns" {
   default     = []
 }
 
+variable "docker_config_json_enabled" {
+  type        = bool
+  description = "Whether the Docker config JSON is enabled"
+  default     = false
+}
+
+variable "ssm_docker_config_json_path" {
+  type        = string
+  description = "SSM path to the Docker config JSON"
+  default     = null
+}
+
 variable "runners" {
   description = <<-EOT
   Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in
