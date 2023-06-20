@@ -19,10 +19,10 @@ module "guardduty_delegated_detector" {
   # the delegated detector ID from remote state
   count = local.create_guardduty_collector ? 0 : 1
 
-  component   = "${var.delegated_admininstrator_component_name}/${module.this.environment}"
-  tenant      = module.this.tenant
-  stage       = replace(var.delegated_administrator_account_name, "${module.this.tenant}-", "")
-  privileged  = var.privileged
+  component  = "${var.delegated_admininstrator_component_name}/${module.this.environment}"
+  tenant     = module.this.tenant
+  stage      = replace(var.delegated_administrator_account_name, "${module.this.tenant}-", "")
+  privileged = var.privileged
 
   context = module.this.context
 }
