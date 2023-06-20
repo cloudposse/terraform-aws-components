@@ -64,7 +64,7 @@ variable "enable_cloudwatch" {
   type        = bool
   default     = false
   description = <<-DOC
-  Flag to indicate whether an CloudWatch logging should be enabled for GuardDuty
+  Flag to indicate whether CloudWatch logging should be enabled for GuardDuty
   DOC
 }
 
