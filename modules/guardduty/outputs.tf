@@ -1,3 +1,8 @@
+output "delegated_administrator_account_id" {
+  value       = local.org_delegated_administrator_account_id
+  description = "The AWS Account ID of the AWS Organization delegated administrator account"
+}
+
 output "guardduty_detector_arn" {
   value       = local.create_guardduty_collector ? try(module.guardduty[0].guardduty_detector.arn, null) : null
   description = "The ARN of the GuardDuty detector created by the component"
