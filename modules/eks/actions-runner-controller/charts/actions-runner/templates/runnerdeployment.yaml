@@ -18,6 +18,16 @@ spec:
       # save space.
       storage: 100Gi
 {{- end }}
+{{- if .Values.docker_config_json_enabled }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: regcred
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: {{ .Values.docker_config_json }}
+{{- end }}
 ---
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
@@ -34,16 +44,32 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
     spec:
+      {{- if  .Values.docker_config_json_enabled }}
+      # secrets volumeMount are always mounted readOnly so config.json has to be copied to the correct directory
+      # https://github.com/kubernetes/kubernetes/issues/62099
+      # https://github.com/actions/actions-runner-controller/issues/2123#issuecomment-1527077517
+
+      initContainers:
+        - name: docker-config-writer
+          image: {{ .Values.image | quote }}
+          command: [ "sh", "-c", "cat /home/.docker/config.json > /home/runner/.docker/config.json" ]
+          volumeMounts:
+            - mountPath: /home/.docker/
+              name: docker-secret
+            - mountPath: /home/runner/.docker
+              name: docker-config-volume
+      {{- end }}
+
       # As of 2023-03-31
       # Recommended by https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md
       terminationGracePeriodSeconds: 100
       env:
-      # RUNNER_GRACEFUL_STOP_TIMEOUT is the time the runner will give itself to try to finish
-      # a job before it gracefully cancels itself in response to a pod termination signal.
-      # It should be less than the terminationGracePeriodSeconds above so that it has time
-      # to report its status and deregister itself from the runner pool.
-      - name: RUNNER_GRACEFUL_STOP_TIMEOUT
-        value: "90"
+        # RUNNER_GRACEFUL_STOP_TIMEOUT is the time the runner will give itself to try to finish
+        # a job before it gracefully cancels itself in response to a pod termination signal.
+        # It should be less than the terminationGracePeriodSeconds above so that it has time
+        # to report its status and deregister itself from the runner pool.
+        - name: RUNNER_GRACEFUL_STOP_TIMEOUT
+          value: "90"
 
       # You could reserve nodes for runners by labeling and tainting nodes with
       #   node-role.kubernetes.io/actions-runner
@@ -89,6 +115,10 @@ spec:
       dockerdWithinRunnerContainer: {{ .Values.dind_enabled }}
       image: {{ .Values.image | quote }}
       imagePullPolicy: IfNotPresent
+      {{- if  .Values.docker_config_json_enabled }}
+      imagePullSecrets:
+        - name: regcred
+      {{- end }}
       serviceAccountName: {{ .Values.service_account_name }}
       resources:
         limits:
@@ -105,29 +135,47 @@ spec:
           {{- end }}
       {{- if and .Values.dind_enabled .Values.storage }}
       dockerVolumeMounts:
-      - mountPath: /var/lib/docker
-        name: docker-volume
+        - mountPath: /var/lib/docker
+          name: docker-volume
       {{- end }}
-      {{- if .Values.pvc_enabled }}
+      {{- if  or (.Values.pvc_enabled) (.Values.docker_config_json_enabled) }}
       volumeMounts:
-      - mountPath: /home/runner/work/shared
-        name: shared-volume
+        {{- if .Values.pvc_enabled }}
+        - mountPath: /home/runner/work/shared
+          name: shared-volume
+        {{- end }}
+        {{- if .Values.docker_config_json_enabled }}
+        - mountPath: /home/.docker/
+          name: docker-secret
+        - mountPath: /home/runner/.docker
+          name: docker-config-volume
+        {{- end }}
       {{- end }}
-      {{- if or (and .Values.dind_enabled .Values.storage) (.Values.pvc_enabled) }}
+      {{- if or (and .Values.dind_enabled .Values.storage) (.Values.pvc_enabled) (.Values.docker_config_json_enabled) }}
       volumes:
       {{- if and .Values.dind_enabled .Values.storage }}
-      - name: docker-volume
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ] # Only 1 pod can connect at a time
-              resources:
-                requests:
-                  storage: {{ .Values.storage }}
+        - name: docker-volume
+          ephemeral:
+            volumeClaimTemplate:
+              spec:
+                accessModes: [ "ReadWriteOnce" ] # Only 1 pod can connect at a time
+                resources:
+                  requests:
+                    storage: {{ .Values.storage }}
       {{- end }}
       {{- if .Values.pvc_enabled }}
-      - name: shared-volume
-        persistentVolumeClaim:
-          claimName: {{ .Values.release_name }}
+        - name: shared-volume
+          persistentVolumeClaim:
+            claimName: {{ .Values.release_name }}
       {{- end }}
+        {{- if .Values.docker_config_json_enabled }}
+        - name: docker-secret
+          secret:
+            secretName: regcred
+            items:
+              - key: .dockerconfigjson
+                path: config.json
+        - name: docker-config-volume
+          emptyDir:
+        {{- end }}
       {{- end }}
