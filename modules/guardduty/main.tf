@@ -38,7 +38,7 @@ module "guardduty" {
   create_sns_topic                          = var.create_sns_topic
   findings_notification_arn                 = var.findings_notification_arn
   subscribers                               = var.subscribers
-  enable_cloudwatch                         = var.enable_cloudwatch
+  enable_cloudwatch                         = var.cloudwatch_enabled
   cloudwatch_event_rule_pattern_detail_type = var.cloudwatch_event_rule_pattern_detail_type
   s3_protection_enabled                     = var.s3_protection_enabled
 

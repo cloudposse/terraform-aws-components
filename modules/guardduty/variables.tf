@@ -60,7 +60,7 @@ variable "delegated_administrator_account_name" {
   description = "The name of the account that is the AWS Organization Delegated Administrator account"
 }
 
-variable "enable_cloudwatch" {
+variable "cloudwatch_enabled" {
   type        = bool
   default     = false
   description = <<-DOC
