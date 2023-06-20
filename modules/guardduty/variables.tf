@@ -88,7 +88,7 @@ variable "findings_notification_arn" {
   type        = string
   description = <<-DOC
   The ARN for an SNS topic to send findings notifications to. This is only used if create_sns_topic is false.
-  If you want to send findings to an existing SNS topic, set the value of this to the ARN of the existing topic and set
+  If you want to send findings to an existing SNS topic, set this to the ARN of the existing topic and set
   create_sns_topic to false.
   DOC
 }
