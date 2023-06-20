@@ -51,7 +51,7 @@ variable "create_sns_topic" {
 variable "delegated_admininstrator_component_name" {
   type        = string
   default     = "guardduty/delegated-administrator"
-  description = "The name of the component that created the guardduty detector."
+  description = "The name of the component that created the GuardDuty detector."
 }
 
 variable "delegated_administrator_account_name" {
