@@ -45,49 +45,48 @@ with an additional layer of security to proactively identify and respond to pote
 This component is complex in that it must be deployed multiple times with different variables set to configure the AWS
 Organization successfully.
 
-It is further complicated by the fact that you must deploy each of the the component instances descibed below to
+It is further complicated by the fact that you must deploy each of the the component instances described below to
 every region that existed before March 2019 and to any regions that have been opted-in as described in the [AWS
 Documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-regions).
 
 In the examples below, we assume that the AWS Organization Management account is `root` and the AWS Organization
-Designated Administrator account is `security`, both in the `core` tenant.
+Delegated Administrator account is `security`, both in the `core` tenant.
 
-### Deploy to Designated Admininstrator
+### Deploy to Delegated Admininstrator Account
 
-First, the component is deployed to the [Designated
+First, the component is deployed to the [Delegated
 Admininstrator](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_organizations.html) account in each region in
-order to configure the central Guard Duty.
+order to configure the central GuardDuty detector that each account will send its findings to.
 
 ```yaml
 # core-ue1-security
 components:
   terraform:
-    guardduty/designated-administrator/ue1:
+    guardduty/delegated-administrator/ue1:
       metadata:
         component: guardduty
       vars:
         enabled: true
-        account_map_tenant: core
-        central_resource_collector_account: core-security
-        environment: use1
+        delegated_administrator_account_name: core-security
+        environment: ue1
         region: us-east-1
 ```
 
 ```bash
-atmos terraform apply guardduty/designated-administrator/ue1 -s core-ue1-security
-atmos terraform apply guardduty/designated-administrator/ue2 -s core-ue2-security
-atmos terraform apply guardduty/designated-administrator/uw1 -s core-uw2-security
+atmos terraform apply guardduty/delegated-administrator/ue1 -s core-ue1-security
+atmos terraform apply guardduty/delegated-administrator/ue2 -s core-ue2-security
+atmos terraform apply guardduty/delegated-administrator/uw1 -s core-uw1-security
 # ... other regions
 ```
 
-### Deploy to Organization Management Account
+### Deploy to Organization Management (root) Account
 
-Next, the component is deployed to the AWS Organization Management Account in order to set the AWS Organization
-Designated Admininstrator account.
+Next, the component is deployed to the AWS Organization Management, a/k/a `root`, Account in order to set the AWS
+Organization Designated Admininstrator account.
 
-Note that you must use the `SuperAdmin` account as we are deploying to the AWS Organization Managment, aka `root`,
-account. Since we are using the `SuperAdmin` account, it will already have access to the state bucket, we we set the
-`role_arn` of the backend config to null and set `var.privileged` to `true`.
+Note that you must use the `SuperAdmin` permissions as we are deploying to the AWS Organization Managment account. Since
+we are using the `SuperAdmin` user, it will already have access to the state bucket, so we set the `role_arn` of the
+backend config to null and set `var.privileged` to `true`.
 
 ```yaml
 # core-ue1-root
@@ -101,9 +100,8 @@ components:
         role_arn: null
       vars:
         enabled: true
-        account_map_tenant: core
-        central_resource_collector_account: core-security
-        environment: use1
+        delegated_administrator_account_name: core-security
+        environment: ue1
         region: us-east-1
         privileged: true
 ```
@@ -111,14 +109,15 @@ components:
 ```bash
 atmos terraform apply guardduty/root/ue1 -s core-ue1-root
 atmos terraform apply guardduty/root/ue2 -s core-ue2-root
-atmos terraform apply guardduty/root/uw1 -s core-uw2-root
+atmos terraform apply guardduty/root/uw1 -s core-uw1-root
 # ... other regions
 ```
 
-### Deploy Organization Settings in Organization Management Account
+### Deploy Organization Settings in Delegated Administrator Account
 
-Finally, the component is deployed to the AWS Organization Management Account again in order to create the
-organization-wide configuration for the AWS Organization, but with `var.admin_delegated` set to `true`.
+Finally, the component is deployed to the Delegated Administrator Account again in order to create the
+organization-wide configuration for the AWS Organization, but with `var.admin_delegated` set to `true` to indicate that
+the delegation has already been performed from the Organization Management account.
 
 ```yaml
 # core-ue1-security
@@ -129,8 +128,7 @@ components:
         component: guardduty
       vars:
         enabled: true
-        account_map_tenant: core
-        central_resource_collector_account: core-security
+        delegated_administrator_account_name: core-security
         environment: use1
         region: us-east-1
         admin_delegated: true
