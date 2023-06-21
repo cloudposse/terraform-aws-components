@@ -3,7 +3,8 @@ data "aws_organizations_organization" "organization" {}
 data "aws_partition" "current" {}
 
 locals {
-  aws_partition = data.aws_partition.current.partition
+  aws_partition               = data.aws_partition.current.partition
+  legacy_terraform_uses_admin = coalesce(var.legacy_terraform_uses_admin, !var.terraform_dynamic_role_enabled)
 
   full_account_map = {
     for acct in data.aws_organizations_organization.organization.accounts
@@ -57,10 +58,16 @@ locals {
 
 
   terraform_roles = {
-    for name, info in local.account_info_map : name => format(local.iam_role_arn_templates[name], "terraform")
+    for name, info in local.account_info_map : name => format(local.iam_role_arn_templates[name],
+      (local.legacy_terraform_uses_admin &&
+        contains([
+          var.root_account_account_name,
+          var.identity_account_account_name
+        ], name)
+    ) ? "admin" : "terraform")
   }
 
-  // legacy support for `aws` config profiles, where root and identity accounts' terraform profiles are not for Terraforming
+  // legacy support for `aws` config profiles
   terraform_profiles = {
     for name, info in local.account_info_map : name => format(var.profile_template, compact(
       [
@@ -68,10 +75,12 @@ locals {
         lookup(info, "tenant", ""),
         module.this.environment,
         info.stage,
-        (contains([
-          var.root_account_account_name,
-          var.identity_account_account_name
-        ], name) ? "admin" : "terraform")
+        ((local.legacy_terraform_uses_admin &&
+          contains([
+            var.root_account_account_name,
+            var.identity_account_account_name
+          ], name)
+        ) ? "admin" : "terraform"),
       ]
     )...)
   }

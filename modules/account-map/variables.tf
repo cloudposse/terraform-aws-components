@@ -93,6 +93,16 @@ variable "terraform_role_name_map" {
   }
 }
 
+variable "legacy_terraform_uses_admin" {
+  type        = bool
+  description = <<-EOT
+    If `true`, the legacy behavior of using the `admin` role rather than the `terraform` role in the
+    `root` and identity accounts will be preserved.
+    The default is to use the negations of the value of `terraform_dynamic_role_enabled`.
+    EOT
+  default     = null
+}
+
 variable "terraform_dynamic_role_enabled" {
   type        = bool
   description = "If true, the IAM role Terraform will assume will depend on the identity of the user running terraform"
