@@ -247,7 +247,7 @@ variable "vpc_config" {
 
 variable "custom_iam_policy_arns" {
   type        = set(string)
-  description = "ARNs of custom policies to be attached to the lambda role"
+  description = "ARNs of IAM policies to be attached to the Lambda role"
   default     = []
 }
 
@@ -269,7 +269,7 @@ variable "iam_policy_description" {
 
 variable "policy_json" {
   type        = string
-  description = "IAM policy to attach to the Lambda IAM role. This can be used with or instead of the `var.iam_policy`."
+  description = "IAM policy to attach to the Lambda role, specified as JSON. This can be used with or instead of `var.iam_policy`."
   default     = null
 }
 
@@ -299,7 +299,7 @@ variable "iam_policy" {
       })), [])
     }))
   })
-  description = "IAM policy as Terraform object. This can be used with or instead of the `var.policy_json`."
+  description = "IAM policy to attach to the Lambda role, specified as a Terraform object. This can be used with or instead of `var.policy_json`."
   default     = null
 }
 

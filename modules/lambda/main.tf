@@ -20,7 +20,7 @@ module "iam_policy" {
 
   iam_policy_enabled          = true
   iam_policy                  = var.iam_policy
-  iam_source_policy_documents = [var.policy_json]
+  iam_source_policy_documents = var.policy_json != null ? [var.policy_json] : []
 
   context = module.this.context
 }
