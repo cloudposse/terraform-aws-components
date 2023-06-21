@@ -1,10 +1,8 @@
 locals {
   enabled             = module.this.enabled
-  iam_policy_enabled  = local.enabled && var.policy_json != null
+  iam_policy_enabled  = local.enabled && (try(length(var.iam_policy), 0) > 0 || var.policy_json != null)
   s3_bucket_full_name = var.s3_bucket_name != null ? format("%s-%s-%s-%s-%s", module.this.namespace, module.this.tenant, module.this.environment, module.this.stage, var.s3_bucket_name) : null
 }
-
-
 
 module "label" {
   source  = "cloudposse/label/null"
@@ -15,37 +13,37 @@ module "label" {
   context = module.this.context
 }
 
-resource "aws_iam_policy" "default" {
-  count = local.iam_policy_enabled ? 1 : 0
+module "iam_policy" {
+  count   = local.iam_policy_enabled ? 1 : 0
+  source  = "cloudposse/iam-policy/aws"
+  version = "1.0.1"
 
-  name        = module.label.id
-  path        = "/"
-  description = format("%s Lambda policy", module.label.id)
-  policy      = var.policy_json
+  iam_policy_enabled          = true
+  iam_policy                  = var.iam_policy
+  iam_source_policy_documents = var.policy_json != null ? [var.policy_json] : []
 
-  tags = module.this.tags
+  context = module.this.context
 }
 
 resource "aws_iam_role_policy_attachment" "default" {
   count = local.iam_policy_enabled ? 1 : 0
 
   role       = module.lambda.role_name
-  policy_arn = aws_iam_policy.default[0].arn
+  policy_arn = module.iam_policy[0].policy_arn
 }
 
 data "archive_file" "lambdazip" {
   count       = var.zip.enabled ? 1 : 0
   type        = "zip"
   output_path = "${path.module}/lambdas/${var.zip.output}"
-
-  source_dir = "${path.module}/lambdas/${var.zip.input_dir}"
+  source_dir  = "${path.module}/lambdas/${var.zip.input_dir}"
 }
 
 module "lambda" {
   source  = "cloudposse/lambda-function/aws"
   version = "0.4.1"
 
-  function_name      = module.label.id
+  function_name      = coalesce(var.function_name, module.label.id)
   description        = var.description
   handler            = var.handler
   lambda_environment = var.lambda_environment
