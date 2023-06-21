@@ -15,7 +15,7 @@ variable "admin_delegated" {
 }
 
 variable "auto_enable_organization_members" {
-  type        =bool
+  type        = bool
   default     = true
   description = <<-DOC
   Flag to toggle auto-enablement of Security Hub for new member accounts in the organization.
@@ -77,7 +77,7 @@ variable "enabled_standards" {
 variable "finding_aggregation_region" {
   description = "If finding aggreation is enabled, the region that collects findings"
   type        = string
-  default = null
+  default     = null
 }
 
 variable "finding_aggregator_enabled" {
