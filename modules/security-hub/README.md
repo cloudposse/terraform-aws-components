@@ -1,40 +1,47 @@
 # Component: `security-hub`
 
-This component is responsible for configuring GuardDuty within an AWS Organization.
+This component is responsible for configuring Security Hub within an AWS Organization.
 
-AWS GuardDuty is a managed threat detection service. It is designed to help protect AWS accounts and workloads by
-continuously monitoring for malicious activities and unauthorized behaviors. To detect potential security threats,
-GuardDuty analyzes various data sources within your AWS environment, such as AWS CloudTrail logs, VPC Flow Logs, and DNS
-logs.
+Amazon Security Hub enables users to centrally manage and monitor the security and compliance of their AWS accounts and
+resources. It aggregates, organizes, and prioritizes security findings from various AWS services, third-party tools, and
+integrated partner solutions.
 
-Key features and components of AWS GuardDuty include:
+Here are the key features and capabilities of Amazon Security Hub:
 
-- Threat detection: GuardDuty employs machine learning algorithms, anomaly detection, and integrated threat intelligence
-  to identify suspicious activities, unauthorized access attempts, and potential security threats. It analyzes event
-  logs and network traffic data to detect patterns, anomalies, and known attack techniques.
+- Centralized security management: Security Hub provides a centralized dashboard where users can view and manage
+  security findings from multiple AWS accounts and regions. This allows for a unified view of the security posture
+  across the entire AWS environment.
 
-- Threat intelligence: GuardDuty leverages threat intelligence feeds from AWS, trusted partners, and the global
-  community to enhance its detection capabilities. It uses this intelligence to identify known malicious IP addresses,
-  domains, and other indicators of compromise.
+- Automated security checks: Security Hub automatically performs continuous security checks on AWS resources,
+  configurations, and security best practices. It leverages industry standards and compliance frameworks, such as AWS
+  CIS Foundations Benchmark, to identify potential security issues.
 
-- Real-time alerts: When GuardDuty identifies a potential security issue, it generates real-time alerts that can be
-  delivered through AWS CloudWatch Events. These alerts can be integrated with other AWS services like Amazon SNS or AWS
-  Lambda for immediate action or custom response workflows.
+- Integrated partner solutions: Security Hub integrates with a wide range of AWS native services, as well as third-party
+  security products and solutions. This integration enables the ingestion and analysis of security findings from diverse
+  sources, offering a comprehensive security view.
 
-- Multi-account support: GuardDuty can be enabled across multiple AWS accounts, allowing centralized management and
-  monitoring of security across an entire organization's AWS infrastructure. This helps to maintain consistent security
-  policies and practices.
+- Security standards and compliance: Security Hub provides compliance checks against industry standards and regulatory
+  frameworks, such as PCI DSS, HIPAA, and GDPR. It identifies non-compliant resources and provides guidance on
+  remediation actions to ensure adherence to security best practices.
 
-- Automated remediation: GuardDuty integrates with other AWS services, such as AWS Macie, AWS Security Hub, and AWS
-  Systems Manager, to facilitate automated threat response and remediation actions. This helps to minimize the impact of
-  security incidents and reduces the need for manual intervention.
+- Prioritized security findings: Security Hub analyzes and prioritizes security findings based on severity, enabling
+  users to focus on the most critical issues. It assigns severity levels and generates a consolidated view of security
+  alerts, allowing for efficient threat response and remediation.
 
-- Security findings and reports: GuardDuty provides detailed security findings and reports that include information
-  about detected threats, affected AWS resources, and recommended remediation actions. These findings can be accessed
-  through the AWS Management Console or retrieved via APIs for further analysis and reporting.
+- Custom insights and event aggregation: Security Hub supports custom insights, allowing users to create their own rules
+  and filters to focus on specific security criteria or requirements. It also provides event aggregation and correlation
+  capabilities to identify related security findings and potential attack patterns.
 
-GuardDuty offers a scalable and flexible approach to threat detection within AWS environments, providing organizations
-with an additional layer of security to proactively identify and respond to potential security risks.
+- Integration with other AWS services: Security Hub seamlessly integrates with other AWS services, such as AWS
+  CloudTrail, Amazon GuardDuty, AWS Config, and AWS IAM Access Analyzer. This integration allows for enhanced
+  visibility, automated remediation, and streamlined security operations.
+
+- Alert notifications and automation: Security Hub supports alert notifications through Amazon SNS, enabling users to
+  receive real-time notifications of security findings. It also facilitates automation and response through integration
+  with AWS Lambda, allowing for automated remediation actions.
+
+By utilizing Amazon Security Hub, organizations can improve their security posture, gain insights into security risks,
+and effectively manage security compliance across their AWS accounts and resources.
 
 ## Usage
 

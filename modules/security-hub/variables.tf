@@ -8,8 +8,8 @@ variable "admin_delegated" {
   type        = bool
   default     = false
   description = <<DOC
-  A flag to indicate if the AWS Organization-wide settings should be created. This can only be done after the GuardDuty
-  Admininstrator account has already been delegated from the AWS Org Management account (usually 'root'). See the
+  A flag to indicate if the AWS Organization-wide settings should be created. This can only be done after the Security
+  Hub Admininstrator account has already been delegated from the AWS Org Management account (usually 'root'). See the
   Deployment section of the README for more information.
   DOC
 }
@@ -28,14 +28,13 @@ variable "auto_enable_organization_members" {
 
 variable "cloudwatch_event_rule_pattern_detail_type" {
   type        = string
-  default     = "GuardDuty Finding"
+  default     = "ecurity Hub Findings - Imported"
   description = <<-DOC
   The detail-type pattern used to match events that will be sent to SNS.
 
   For more information, see:
   https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html
   https://docs.aws.amazon.com/eventbridge/latest/userguide/event-types.html
-  https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_findings_cloudwatch.html
   DOC
 }
 
