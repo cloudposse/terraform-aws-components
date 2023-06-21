@@ -45,7 +45,7 @@ module "guardduty" {
   context = module.this.context
 }
 
-# If we are are in the AWS Org designated administrator account, set the AWS Org-wide Guard Duty configuration by
+# If we are are in the AWS Org designated administrator account, set the AWS Org-wide GuardDuty configuration by
 # configuring all other accounts to send their Guard Duty findings to the detector in this account.
 #
 # This also configures the various Data Sources.
