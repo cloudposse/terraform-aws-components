@@ -1,34 +1,5 @@
 locals {
-<<<<<<< HEAD
-  enabled              = module.this.enabled
-=======
   enabled = module.this.enabled
-}
-
-module "oidc_providers_store_read" {
-  for_each = local.enabled ? var.oidc_providers : {}
-  source   = "cloudposse/ssm-parameter-store/aws"
-  version  = "0.11.0"
-
-  parameter_read = [for k, v in each.value.config : v if try(startswith(v, "/"), false)]
-}
-
-locals {
-  param_store_values = [for k, v in module.oidc_providers_store_read : module.oidc_providers_store_read[k].map]
-  vals               = flatten([for k, v in local.param_store_values : [for k2, v2 in v : v2]])
-  keys               = flatten([for k, v in local.param_store_values : [for k2, v2 in v : k2]])
-  map                = zipmap(local.keys, local.vals)
-  oidc_providers_merged = {
-    for name, values in var.oidc_providers : name => merge(values, {
-      config = {
-        for k, v in values.config : k => try(startswith(v, "/"), false) ? local.map[v] : v
-      }
-    })
-  }
-}
-
-locals {
->>>>>>> 1c68ff7b (updates)
   kubernetes_namespace = var.kubernetes_namespace
   oidc_enabled         = local.enabled && var.oidc_enabled
   oidc_enabled_count   = local.oidc_enabled ? 1 : 0
@@ -168,11 +139,7 @@ locals {
 
 module "argocd" {
   source  = "cloudposse/helm-release/aws"
-<<<<<<< HEAD
-  version = "0.9.1"
-=======
   version = "0.11.0"
->>>>>>> 1c68ff7b (updates)
 
   name                   = "argocd" # avoids hitting length restrictions on IAM Role names
   chart                  = var.chart
@@ -286,7 +253,7 @@ data "kubernetes_resources" "crd" {
 
 module "argocd_apps" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.11.0"
+  version = "0.9.1"
 
   name                        = "" # avoids hitting length restrictions on IAM Role names
   chart                       = var.argocd_apps_chart
