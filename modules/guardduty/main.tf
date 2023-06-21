@@ -19,7 +19,7 @@ data "aws_caller_identity" "this" {
   count = local.enabled ? 1 : 0
 }
 
-# If we are are in the AWS Org management account, delegate Guard Duty to the org administrator account
+# If we are are in the AWS Org management account, delegate GuardDuty to the org administrator account
 # (usually the security account)
 resource "aws_guardduty_organization_admin_account" "this" {
   count = local.create_org_delegation ? 1 : 0
