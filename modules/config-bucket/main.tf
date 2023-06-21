@@ -1,6 +1,6 @@
 module "config_bucket" {
   source  = "cloudposse/config-storage/aws"
-  version = "0.8.1"
+  version = "1.0.0"
 
   expiration_days                    = var.expiration_days
   force_destroy                      = false
