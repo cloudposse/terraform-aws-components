@@ -27,7 +27,7 @@ resource "aws_guardduty_organization_admin_account" "this" {
   admin_account_id = local.org_delegated_administrator_account_id
 }
 
-# If we are are in the AWS Org designated administrator account, enable the Guard Duty detector and optionally create an
+# If we are are in the AWS Org designated administrator account, enable the GuardDuty detector and optionally create an
 # SNS topic for notifications and CloudWatch event rules for findings
 module "guardduty" {
   count   = local.create_guardduty_collector ? 1 : 0
@@ -46,7 +46,7 @@ module "guardduty" {
 }
 
 # If we are are in the AWS Org designated administrator account, set the AWS Org-wide GuardDuty configuration by
-# configuring all other accounts to send their Guard Duty findings to the detector in this account.
+# configuring all other accounts to send their GuardDuty findings to the detector in this account.
 #
 # This also configures the various Data Sources.
 resource "awsutils_guardduty_organization_settings" "this" {
