@@ -6,9 +6,7 @@ Spacelift is a specialized, Terraform-compatible continuous integration and depl
 
 ## Stack Configuration
 
-Spacelift admininstrator stack and Space components are unique to our standard stack organization. Spaces are required before tenant-specific stacks are created in Spacelift, so we must define
-unique stack configuration outside of the standard `core` or `plat` stacks. Similiarly, the root administrator stack, referred to as `spacelift/root`, is also outside the scope of tenants
-`core` and `plat`. This root administrator stack is responsible for creating the tenant-specific administrator stacks, `spacelift/core` and `spacelift/plat`.
+Spacelift admininstrator stack and Space components are unique to our standard stack organization. Spaces are required before tenant-specific stacks are created in Spacelift, so we must define unique stack configuration outside of the standard `core` or `plat` stacks. Similiarly, the root administrator stack, referred to as `spacelift/root`, is also outside the scope of tenants `core` and `plat`. This root administrator stack is responsible for creating the tenant-specific administrator stacks, `spacelift/core` and `spacelift/plat`.
 
 Our solution is to define a spacelift-specific configuration file per Spacelift Space. Typically our Spaces would be `root`, `core`, and `plat`, so we add three files:
 
@@ -60,8 +58,7 @@ terraform:
 
 ### Spacelift `root` Space
 
-The `root` Space in Spacelift is responsible for deploying the root adminstrator stack, `spacelift/root`, and the Spaces component, `spacelift/spaces`. This Spaces component also includes
-Spacelift policies. Since the root adminstrator stack is unique to tenants, we modify the stack configuration to create a unique stack slug, `NAMESPACE-gbl-root`.
+The `root` Space in Spacelift is responsible for deploying the root adminstrator stack, `spacelift/root`, and the Spaces component, `spacelift/spaces`. This Spaces component also includes Spacelift policies. Since the root adminstrator stack is unique to tenants, we modify the stack configuration to create a unique stack slug, `NAMESPACE-gbl-root`.
 
 `stacks/orgs/NAMESPACE/root-spacelift.yaml`:
 ```yaml
@@ -151,9 +148,7 @@ atmos terraform apply spacelift/worker-pool -s core-ue1-auto
 
 ### Spacelift Tenant-Specific Spaces
 
-A tenant-specific Space in Spacelift, such as `core` or `plat`, includes the administrator stack for that specific Space and _all_ components in the given tenant.
-This administrator stack uses `var.context_filters` to select all components in the given tenant and create Spacelift stacks for each. Similar to the root adminstrator stack,
-we again create a unique stack slug for each tenant. For example `NAMESPACE-gbl-core`
+A tenant-specific Space in Spacelift, such as `core` or `plat`, includes the administrator stack for that specific Space and _all_ components in the given tenant. This administrator stack uses `var.context_filters` to select all components in the given tenant and create Spacelift stacks for each. Similar to the root adminstrator stack, we again create a unique stack slug for each tenant. For example `NAMESPACE-gbl-core`
 
 For example, configure a `core` administrator stack with `stacks/orgs/NAMESPACE/core/core-spacelift.yaml`.
 
@@ -218,8 +213,7 @@ Attach these policies to stacks and Spacelift will trigger them on the respectiv
 
 ### Triggering with GitHub Comments (Preferred)
 
-Atmos support for `atmos describe affected` made it possible to greatly improve Spacelift's triggering workflow. Now we can add a GitHub Action to collect all affected components for a given Pull Request and add a GitHub comment to the given PR
-with a formatted list of each. Then Spacelift can watch for a GitHub comment event, and then trigger stacks based on that comment.
+Atmos support for `atmos describe affected` made it possible to greatly improve Spacelift's triggering workflow. Now we can add a GitHub Action to collect all affected components for a given Pull Request and add a GitHub comment to the given PR with a formatted list of each. Then Spacelift can watch for a GitHub comment event, and then trigger stacks based on that comment.
 
 ![CleanShot 2023-06-01 at 17 45 37](https://github.com/cloudposse/github-action-atmos-affected-trigger-spacelift/assets/930247/5ff21d9d-be51-482a-a1b0-f3d6b7027e3a)
 
