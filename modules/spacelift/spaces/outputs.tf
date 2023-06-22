@@ -1,7 +1,9 @@
 output "spaces" {
-  value = local.enabled ? local.spaces : {}
+  value       = local.enabled ? local.spaces : {}
+  description = "The spaces created by this component"
 }
 
 output "policies" {
-  value = local.enabled ? local.policies : {}
+  value       = local.enabled ? local.policies : {}
+  description = "The policies created by this component"
 }
