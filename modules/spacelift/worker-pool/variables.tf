@@ -290,3 +290,9 @@ variable "spacelift_aws_account_id" {
   description = "AWS Account ID owned by Spacelift"
   default     = "643313122712"
 }
+
+variable "space_name" {
+  type        = string
+  description = "The name of the Space to create worker pools"
+  default     = "root"
+}
