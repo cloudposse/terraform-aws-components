@@ -228,9 +228,9 @@ stateDiagram-v2
     comment --> spacelift
     spacelift --> trigger : 6
 
-    state "Pull Request opened/synced/merged" as pr
+    state "Pull request opened/synced/merged" as pr
     state "GitHub" as gh
-    state "atmos describe affected" as affected
+    state "`atmos describe affected`" as affected
     state "Add PR comment with list of affected stack" as pr_comment
     state "Send commented event to Spacelift" as comment
     state "Spacelift" as spacelift
