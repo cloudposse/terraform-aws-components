@@ -230,9 +230,9 @@ stateDiagram-v2
 
     state "Pull request opened/synced/merged" as pr
     state "GitHub" as gh
-    state "`atmos describe affected`" as affected
+    state "atmos describe affected" as affected
     state "Add PR comment with list of affected stack" as pr_comment
-    state "Send commented event to Spacelift" as comment
+    state "Send comment event to Spacelift" as comment
     state "Spacelift" as spacelift
     state "Push policy triggers proposed or tracked run based on comment" as trigger
 ```
