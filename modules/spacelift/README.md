@@ -215,8 +215,6 @@ Attach these policies to stacks and Spacelift will trigger them on the respectiv
 
 Atmos support for `atmos describe affected` made it possible to greatly improve Spacelift's triggering workflow. Now we can add a GitHub Action to collect all affected components for a given Pull Request and add a GitHub comment to the given PR with a formatted list of each. Then Spacelift can watch for a GitHub comment event, and then trigger stacks based on that comment.
 
-![CleanShot 2023-06-01 at 17 45 37](https://github.com/cloudposse/github-action-atmos-affected-trigger-spacelift/assets/930247/5ff21d9d-be51-482a-a1b0-f3d6b7027e3a)
-
 ```mermaid
 ---
 title: Triggering Spacelift with GitHub Comments
@@ -225,10 +223,10 @@ stateDiagram-v2
     pr --> gh : 1
     gh --> affected : 2
     affected --> pr_comment : 3
-    pr_comment --> gh
-    gh --> comment : 4
+    pr_comment --> gh : 4
+    gh --> comment : 5
     comment --> spacelift
-    spacelift --> trigger : 5
+    spacelift --> trigger : 6
 
     state "Pull Request opened/synced/merged" as pr
     state "GitHub" as gh
