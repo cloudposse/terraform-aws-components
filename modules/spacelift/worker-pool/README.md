@@ -103,7 +103,7 @@ role. This is done by adding `iam_role_arn` from the output to the `trusted_role
 | <a name="module_autoscale_group"></a> [autoscale\_group](#module\_autoscale\_group) | cloudposse/ec2-autoscale-group/aws | 0.34.2 |
 | <a name="module_ecr"></a> [ecr](#module\_ecr) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_iam_label"></a> [iam\_label](#module\_iam\_label) | cloudposse/label/null | 0.25.0 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_security_group"></a> [security\_group](#module\_security\_group) | cloudposse/security-group/aws | 2.0.0-rc1 |
 | <a name="module_spaces"></a> [spaces](#module\_spaces) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -160,8 +160,6 @@ role. This is done by adding `iam_role_arn` from the output to the `trusted_role
 | <a name="input_health_check_type"></a> [health\_check\_type](#input\_health\_check\_type) | Controls how health checking is done. Valid values are `EC2` or `ELB` | `string` | `"EC2"` | no |
 | <a name="input_iam_attributes"></a> [iam\_attributes](#input\_iam\_attributes) | Additional attributes to add to the IDs of the IAM role and policy | `list(string)` | `[]` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_infracost_api_token_ssm_path"></a> [infracost\_api\_token\_ssm\_path](#input\_infracost\_api\_token\_ssm\_path) | This is the SSM path to retrieve and set the INFRACOST\_API\_TOKEN environment variable | `string` | `"/infracost/token"` | no |
 | <a name="input_infracost_cli_args"></a> [infracost\_cli\_args](#input\_infracost\_cli\_args) | These are the CLI args passed to infracost | `string` | `""` | no |
 | <a name="input_infracost_enabled"></a> [infracost\_enabled](#input\_infracost\_enabled) | Whether to enable infracost for Spacelift stacks | `bool` | `false` | no |
