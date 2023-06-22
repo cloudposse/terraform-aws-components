@@ -1,5 +1,9 @@
 # Spacelift
 
+These component are responsible for setting up Spacelift and includes three components: `spacelift/admin-stack`, `spacelift/spaces`, and `spacelift/worker-pool`.
+
+Spacelift is a specialized, Terraform-compatible continuous integration and deployment (CI/CD) platform for infrastructure-as-code. It's designed and implemented by long-time DevOps practitioners based on previous experience with large-scale installations - dozens of teams, hundreds of engineers and tens of thousands of cloud resources.
+
 ## Stack Configuration
 
 Spacelift admininstrator stack and Space components are unique to our standard stack organization. Spaces are required before tenant-specific stacks are created in Spacelift, so we must define
