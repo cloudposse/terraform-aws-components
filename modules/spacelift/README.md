@@ -1,6 +1,5 @@
 # Spacelift
 
-
 ## Stack Configuration
 
 Spacelift admininstrator stack and Space components are unique to our standard stack organization. Spaces are required before tenant-specific stacks are created in Spacelift, so we must define
@@ -17,7 +16,7 @@ Our solution is to define a spacelift-specific configuration file per Spacelift 
 
 ### Global Configuration
 
-In order for the administrator stack to properly select child stacks, we need to set a few global Spacelift settings.
+In order to apply common Spacelift configuration to all stacks, we need to set a few global Spacelift settings. The `pr-comment-triggered` label will be required to triggered stacks with GitHub comments but is not required otherwise. More on triggering Spacelift stacks to follow.
 
 Add the following to `stacks/orgs/NAMESPACE/_defaults.yaml`:
 ```yaml
@@ -57,8 +56,8 @@ terraform:
 
 ### Spacelift `root` Space
 
-The `root` Space in Spacelift is responsible for deploying the Root Adminstrator stack, `spacelift/root`, and the Spaces component, `spacelift/spaces`. This Spaces component also includes
-Spacelift policies. Since the Root Adminstrator stack is unique to tenants, we modify the stack configuration to create a unique stack slug, `NAMESPACE-gbl-root`.
+The `root` Space in Spacelift is responsible for deploying the root adminstrator stack, `spacelift/root`, and the Spaces component, `spacelift/spaces`. This Spaces component also includes
+Spacelift policies. Since the root adminstrator stack is unique to tenants, we modify the stack configuration to create a unique stack slug, `NAMESPACE-gbl-root`.
 
 `stacks/orgs/NAMESPACE/root-spacelift.yaml`:
 ```yaml
@@ -98,10 +97,10 @@ components:
           - admin
         # attachments only on the root stack
         root_stack_policy_attachments:
-          - TRIGGER Global Administrator
+          - TRIGGER Global administrator
         # this creates policies for the children (admin) stacks
         child_policy_attachments:
-          - TRIGGER Global Administrator
+          - TRIGGER Global administrator
 
 ```
 
@@ -137,7 +136,7 @@ Now in the Spacelift UI, you should see the administrator stacks created (https:
 
 :::info
 
-The `spacelift/worker-pool` component is deployed to a specific tenant, stage, and region but is still deployed by the Root Administrator stack. Verify the administrator stack by checking the `managed-by:` label.
+The `spacelift/worker-pool` component is deployed to a specific tenant, stage, and region but is still deployed by the root administrator stack. Verify the administrator stack by checking the `managed-by:` label.
 
 :::
 
@@ -149,7 +148,7 @@ atmos terraform apply spacelift/worker-pool -s core-ue1-auto
 ### Spacelift Tenant-Specific Spaces
 
 A tenant-specific Space in Spacelift, such as `core` or `plat`, includes the administrator stack for that specific Space and _all_ components in the given tenant.
-This administrator stack uses `var.context_filters` to select all components in the given tenant and create Spacelift stacks for each. Similar to the Root Adminstrator stack,
+This administrator stack uses `var.context_filters` to select all components in the given tenant and create Spacelift stacks for each. Similar to the root adminstrator stack,
 we again create a unique stack slug for each tenant. For example `NAMESPACE-gbl-core`
 
 For example, configure a `core` administrator stack with `stacks/orgs/NAMESPACE/core/core-spacelift.yaml`.
@@ -195,3 +194,25 @@ Create the same for the `plat` tenant in `stacks/orgs/NAMESPACE/plat/plat-spacel
 ```bash
 atmos terraform apply spacelift/plat -s NAMESPACE-gbl-plat
 ```
+
+## Triggering Spacelift Runs
+
+Cloud Posse recommends two options to trigger Spacelift stacks.
+
+### Triggering with Policy Attachments
+
+Historically, all stacks were triggered with three `GIT_PUSH` policies:
+
+  1. [GIT_PUSH Global Administrator](https://github.com/cloudposse/terraform-spacelift-cloud-infrastructure-automation/blob/main/catalog/policies/git_push.administrative.rego) triggers admin stacks
+  2. [GIT_PUSH Proposed Run](https://github.com/cloudposse/terraform-spacelift-cloud-infrastructure-automation/blob/main/catalog/policies/git_push.proposed-run.rego) triggers Proposed runs (typically Terraform Plan) all non-admin stacks on Pull Requests
+  3. [GIT_PUSH Tracked Run](https://github.com/cloudposse/terraform-spacelift-cloud-infrastructure-automation/blob/main/catalog/policies/git_push.tracked-run.rego) triggers Tracked runs (typically Terraform Apply) all non-admin stacks on merges into `main`
+
+Attach these policies to stacks and Spacelift will trigger them on the respective git push.
+
+
+### Triggering with GitHub Comments (Preferred)
+
+Atmos support for `atmos describe affected` made it possible to greatly improve Spacelift's triggering workflow. Now we can add a GitHub Action to collect all affected components for a given Pull Request, and add a GitHub comment to the given PR
+with a formatted list of each. Then Spacelift can watch for a GitHub comment event, and then trigger stacks based on that comment.
+
+![CleanShot 2023-06-01 at 17 45 37](https://github.com/cloudposse/github-action-atmos-affected-trigger-spacelift/assets/930247/5ff21d9d-be51-482a-a1b0-f3d6b7027e3a)
