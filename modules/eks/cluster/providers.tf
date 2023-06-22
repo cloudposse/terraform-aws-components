@@ -15,6 +15,9 @@ provider "aws" {
 }
 
 module "iam_roles" {
-  source  = "../../account-map/modules/iam-roles"
+  source = "../../account-map/modules/iam-roles"
+
+  profiles_enabled = false
+
   context = module.this.context
 }
