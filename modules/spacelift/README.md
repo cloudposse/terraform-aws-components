@@ -24,7 +24,6 @@ Add the following to `stacks/orgs/NAMESPACE/_defaults.yaml`:
   settings:
     spacelift:
       workspace_enabled: true # enable spacelift by default
-      administrative: false # by default all stacks
       before_apply:
         - spacelift-configure-paths
       before_init:
@@ -77,7 +76,7 @@ vars:
 
 components:
   terraform:
-    # This admin stack creates other "admin" stacks: spacelift, spacelift/spaces, spacelift/worker-pool
+    # This admin stack creates other "admin" stacks: spacelift/core, spacelift/plat, spacelift/spaces, spacelift/worker-pool
     spacelift/root:
       metadata:
         component: spacelift/admin-stack
@@ -108,12 +107,18 @@ components:
 
 #### Deployment
 
+:::info
+
+The following steps assume that you've already authenticated with Spacelift locally.
+
+:::
+
 First deploy Spaces and policies with the `spaces` component:
 ```bash
 atmos terraform apply spacelift/spaces -s NAMESPACE-gbl-root
 ```
 
-In the Spacelift UI, you should see each Space (https://example.app.spacelift.io/spaces) and each policy (https://savvymoney.app.spacelift.io/policies).
+In the Spacelift UI, you should see each Space (https://example.app.spacelift.io/spaces) and each policy (https://example.app.spacelift.io/policies).
 
 Next, deploy `spacelift/root` with the following:
 ```bash
@@ -135,6 +140,11 @@ Now in the Spacelift UI, you should see the administrator stacks created (https:
 The `spacelift/worker-pool` component is deployed to a specific tenant, stage, and region but is still deployed by the Root Administrator stack. Verify the administrator stack by checking the `managed-by:` label.
 
 :::
+
+Finally, deploy the Spacelift Worker Pool (change the stack-slug to match your configuration):
+```bash
+atmos terraform apply spacelift/worker-pool -s core-ue1-auto
+```
 
 ### Spacelift Tenant-Specific Spaces
 
@@ -169,18 +179,19 @@ components:
       vars:
         enabled: true
         context_filters:
-          administrative: false # This stack is managing all the nonadmin stacks
           tenants: ["core"]
-        labels:
-          - admin-stack-name:core # the name of this component, gets added to all children
-          - child
+        labels: # Additional labels added to all children
+          - admin-stack-name:core # will be used to automatically create the `managed-by:stack-name` label
         child_policy_attachments:
           - TRIGGER Dependencies
 ```
 
-Deploy `spacelift/core` with the following
+Deploy `spacelift/core` with the following:
 ```bash
 atmos terraform apply spacelift/core -s NAMESPACE-gbl-core
 ```
 
-### Spaces
+Create the same for the `plat` tenant in `stacks/orgs/NAMESPACE/plat/plat-spacelift.yaml` and deploy with the following:
+```bash
+atmos terraform apply spacelift/plat -s NAMESPACE-gbl-plat
+```
