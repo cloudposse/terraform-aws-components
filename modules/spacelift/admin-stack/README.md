@@ -140,13 +140,14 @@ components:
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+| <a name="requirement_null"></a> [null](#requirement\_null) | >= 3.0 |
 | <a name="requirement_spacelift"></a> [spacelift](#requirement\_spacelift) | >= 0.1.31 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_null"></a> [null](#provider\_null) | n/a |
+| <a name="provider_null"></a> [null](#provider\_null) | >= 3.0 |
 | <a name="provider_spacelift"></a> [spacelift](#provider\_spacelift) | >= 0.1.31 |
 
 ## Modules
@@ -258,7 +259,7 @@ components:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_child_stacks"></a> [child\_stacks](#output\_child\_stacks) | n/a |
-| <a name="output_root_stack"></a> [root\_stack](#output\_root\_stack) | n/a |
+| <a name="output_child_stacks"></a> [child\_stacks](#output\_child\_stacks) | All children stacks managed by this component |
+| <a name="output_root_stack"></a> [root\_stack](#output\_root\_stack) | The root stack, if enabled and created by this component |
 | <a name="output_root_stack_id"></a> [root\_stack\_id](#output\_root\_stack\_id) | The stack id |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
