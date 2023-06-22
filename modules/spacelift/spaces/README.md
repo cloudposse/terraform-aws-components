@@ -10,16 +10,7 @@ spacelift organization.
 The following are example snippets of how to use this component:
 
 ```yaml
-# stacks/orgs/acme/spacelift.yaml
-import:
-  - mixins/region/global-region
-  - orgs/acme/_defaults
-
-vars:
-  tenant: infra
-  environment: gbl
-  stage: root
-
+# stacks/catalog/spacelift/spaces.yaml
 components:
   terraform:
     spacelift/spaces:

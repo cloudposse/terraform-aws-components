@@ -25,19 +25,52 @@ aws ssm start-session --target <instance-id>
 Here's an example snippet for how to use this component.
 
 ```yaml
+# stacks/catalog/spacelift/worker-pool.yaml
 components:
   terraform:
-    spacelift-worker-pool:
+    spacelift/worker-pool:
       settings:
         spacelift:
-          workspace_enabled: true
+          administrative: true
+          space_name: root
       vars:
         enabled: true
-        name: "spacelift-worker-pool"
-        ec2_instance_type: m6i.large
-        ecr_account_name: corp
-        ecr_repo_name: infrastructure
         spacelift_api_endpoint: https://<GITHUBORG>.app.spacelift.io
+        spacelift_spaces_tenant_name: "acme"
+        spacelift_spaces_environment_name: "gbl"
+        spacelift_spaces_stage_name: "root"
+        account_map_tenant_name: core
+        ecr_environment_name: ue1
+        ecr_repo_name: infrastructure
+        ecr_stage_name: artifacts
+        ecr_tenant_name: core
+        # Set a low scaling threshold to ensure new workers are launched as soon as the current one(s) are busy
+        cpu_utilization_high_threshold_percent: 10
+        cpu_utilization_low_threshold_percent: 5
+        default_cooldown: 300
+        desired_capacity: null
+        health_check_grace_period: 300
+        health_check_type: EC2
+        infracost_enabled: true
+        instance_type: m6i.large
+        max_size: 3
+        min_size: 1
+        name: spacelift-worker-pool
+        scale_down_cooldown_seconds: 2700
+        spacelift_agents_per_node: 3
+        wait_for_capacity_timeout: 5m
+        block_device_mappings:
+          - device_name: "/dev/xvda"
+            no_device: null
+            virtual_name: null
+            ebs:
+              delete_on_termination: null
+              encrypted: false
+              iops: null
+              kms_key_id: null
+              snapshot_id: null
+              volume_size: 100
+              volume_type: "gp2"
 ```
 
 ## Configuration

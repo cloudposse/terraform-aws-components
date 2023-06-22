@@ -156,7 +156,7 @@ For example, configure a `core` administrator stack with `stacks/orgs/NAMESPACE/
 import:
   - mixins/region/global-region
   - orgs/NAMESPACE/core/_defaults
-  - catalog/terraform/spacelift/spacelift
+  - catalog/terraform/spacelift/admin-stack
 
 vars:
   tenant: NAMESPACE

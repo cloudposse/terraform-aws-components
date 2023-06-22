@@ -9,23 +9,17 @@ The component uses a series of `context_fiters` to select atmos component instan
 
 **Stack Level**: Global
 
-The following are example snippets of how to use this component:
+The following are example snippets of how to use this component. For more on Spacelift admin stack usage, see the [Spacelift README](https://docs.cloudposse.com/components/library/aws/spacelift/)
 
+First define the default configuration for any admin stack:
 ```yaml
-# stacks/orgs/acme/spacelift.yaml
-import:
-  - mixins/region/global-region
-  - orgs/acme/_defaults
-
-vars:
-  tenant: infra
-  environment: gbl
-  stage: root
-
+# stacks/catalog/spacelift/admin-stack.yaml
 components:
   terraform:
-    spacelift/admin-stack:
+    spacelift/default:
       metadata:
+        type: abstract
+        component: spacelift/admin-stack
       settings:
         spacelift:
           administrative: true
@@ -42,39 +36,101 @@ components:
           drift_detection_reconcile: true
           drift_detection_schedule:
             - 0 4 * * *
-          labels:
-            - admin
-            - folder:admin
           manage_state: false
+          policies: {}
+      vars:
+        # Organization specific configuration
+        branch: main
+        repository: infrastructure
+        worker_pool_name: "acme-core-ue1-auto-spacelift-worker-pool"
+        runner_image: 111111111111.dkr.ecr.us-east-1.amazonaws.com/infrastructure:latest
+        spacelift_spaces_stage_name: "root"
+        # These values need to be manually updated as external configuration changes
+        # This should match the version set in the Dockerfile and be updated when the version changes.
+        terraform_version: "1.3.6"
+        # Common configuration
+        administrative: true # Whether this stack can manage other stacks
+        component_root: components/terraform
+```
+
+Then define the root-admin stack:
+```yaml
+# stacks/orgs/acme/root-spacelift.yaml
+import:
+  - mixins/region/global-region
+  - orgs/acme/_defaults
+  - catalog/terraform/spacelift/admin-stack
+  - catalog/terraform/spacelift/spaces
+
+# These intentionally overwrite the default values
+vars:
+  tenant: acme
+  environment: gbl
+  stage: root
+
+components:
+  terraform:
+    # This admin stack creates other "admin" stacks: spacelift/core, spacelift/plat, spacelift/spaces, spacelift/worker-pool
+    spacelift/root:
+      metadata:
+        component: spacelift/admin-stack
+        inherits:
+          - spacelift/default
+      settings:
+        spacelift:
           root_administrative: true
           labels:
             - root-admin
             - admin
-          policies: {}
       vars:
-        administrative: true
-        branch: main
-        child_policy_attachments:
-          - GIT_PUSH Global Administrator
-          - TRIGGER Global Administrator
-        context_filters:
-          administrative: true        # This stack is managing all the other admin stacks
-          root_administrative: false  # We don't want this stack to also find itself in the config and add itself a second time
-        component_root: components/terraform
         enabled: true
+        root_admin_stack: true # This stack will be created in the root space and will create all the other admin stacks as children.
+        context_filters: # context_filters determine which child stacks to manage with this admin stack
+          administrative: true # This stack is managing all the other admin stacks
+          root_administrative: false # We don't want this stack to also find itself in the config and add itself a second time
         labels:
-         - admin-stack-name:root
-        repository: infra-live
-        root_admin_stack: true
+          - admin
+        # attachments only on the root stack
         root_stack_policy_attachments:
-          - GIT_PUSH Global Administrator
-          - TRIGGER Global Administrator
-        runner_image: 000000000000.dkr.ecr.us-east-2.amazonaws.com/acme/infra-live:latest
-        spacelift_spaces_environment_name: gbl
-        spacelift_spaces_stage_name: root
-        spacelift_spaces_tenant_name: infra
-        terraform_version: "1.3.9"
-        worker_pool_name: acme-core-ue2-auto-spacelift-default-worker-pool
+          - TRIGGER Global administrator
+        # this creates policies for the children (admin) stacks
+        child_policy_attachments:
+          - TRIGGER Global administrator
+
+```
+
+And the finally define any tenant-specific stacks:
+```yaml
+# stacks/orgs/acme/core/core-spacelift.yaml
+import:
+  - mixins/region/global-region
+  - orgs/acme/core/_defaults
+  - catalog/terraform/spacelift/admin-stack
+
+vars:
+  tenant: acme
+  environment: gbl
+  stage: core
+
+components:
+  terraform:
+    spacelift/core:
+      metadata:
+        component: spacelift/admin-stack
+        inherits:
+          - spacelift/default
+      settings:
+        spacelift:
+          labels: # Additional labels for this stack
+            - admin-stack-name:core
+      vars:
+        enabled: true
+        context_filters:
+          tenants: ["core"]
+        labels: # Additional labels added to all children
+          - admin-stack-name:core # will be used to automatically create the `managed-by:stack-name` label
+        child_policy_attachments:
+          - TRIGGER Dependencies
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
