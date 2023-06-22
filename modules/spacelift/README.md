@@ -222,7 +222,6 @@ Atmos support for `atmos describe affected` made it possible to greatly improve 
 title: Triggering Spacelift with GitHub Comments
 ---
 stateDiagram-v2
-    [*] --> pr
     pr --> gh : 1
     gh --> affected : 2
     affected --> pr_comment : 3
