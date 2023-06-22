@@ -217,6 +217,29 @@ Atmos support for `atmos describe affected` made it possible to greatly improve 
 
 ![CleanShot 2023-06-01 at 17 45 37](https://github.com/cloudposse/github-action-atmos-affected-trigger-spacelift/assets/930247/5ff21d9d-be51-482a-a1b0-f3d6b7027e3a)
 
+```mermaid
+---
+title: Triggering Spacelift with GitHub Comments
+---
+stateDiagram-v2
+    [*] --> pr
+    pr --> gh : 1
+    gh --> affected : 2
+    affected --> pr_comment : 3
+    pr_comment --> gh
+    gh --> comment : 4
+    comment --> spacelift
+    spacelift --> trigger : 5
+
+    state "Pull Request opened/synced/merged" as pr
+    state "GitHub" as gh
+    state "atmos describe affected" as affected
+    state "Add PR comment with list of affected stack" as pr_comment
+    state "Send commented event to Spacelift" as comment
+    state "Spacelift" as spacelift
+    state "Push policy triggers proposed or tracked run based on comment" as trigger
+```
+
 In order to set up GitHub Comment triggers, first add the following `GIT_PUSH Plan Affected` policy to the `spaces` component.
 
 For example, `stacks/catalog/spacelift/spaces.yaml`
