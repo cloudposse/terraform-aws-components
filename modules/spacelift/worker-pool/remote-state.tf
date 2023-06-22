@@ -42,21 +42,3 @@ module "spaces" {
 
   context = module.this.context
 }
-
-variable "spacelift_spaces_environment_name" {
-  type        = string
-  description = "The environment name of the spacelift spaces component"
-  default     = null
-}
-
-variable "spacelift_spaces_stage_name" {
-  type        = string
-  description = "The stage name of the spacelift spaces component"
-  default     = null
-}
-
-variable "spacelift_spaces_tenant_name" {
-  type        = string
-  description = "The tenant name of the spacelift spaces component"
-  default     = null
-}
