@@ -99,7 +99,7 @@ components:
 
 ```
 
-And the finally define any tenant-specific stacks:
+Finally define any tenant-specific stacks:
 ```yaml
 # stacks/orgs/acme/core/core-spacelift.yaml
 import:
