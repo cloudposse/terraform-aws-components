@@ -126,12 +126,12 @@ atmos terraform apply spacelift/root -s NAMESPACE-gbl-root
 
 Now in the Spacelift UI, you should see the administrator stacks created (https://example.app.spacelift.io/). Typically should look similiar to the following:
 
-```
-- NAMESPACE-gbl-root-spacelift-root
-- NAMESPACE-gbl-root-spacelift-spaces
-- NAMESPACE-gbl-core-spacelift-core
-- NAMESPACE-gbl-plat-spacelift-plat
-- NAMESPACE-ue1-auto-spacelift-worker-pool
+```diff
++ NAMESPACE-gbl-root-spacelift-root
++ NAMESPACE-gbl-root-spacelift-spaces
++ NAMESPACE-gbl-core-spacelift-core
++ NAMESPACE-gbl-plat-spacelift-plat
++ NAMESPACE-ue1-auto-spacelift-worker-pool
 ```
 
 :::info
@@ -195,6 +195,8 @@ Create the same for the `plat` tenant in `stacks/orgs/NAMESPACE/plat/plat-spacel
 atmos terraform apply spacelift/plat -s NAMESPACE-gbl-plat
 ```
 
+Now all stacks for all components should be created in the Spacelift UI.
+
 ## Triggering Spacelift Runs
 
 Cloud Posse recommends two options to trigger Spacelift stacks.
@@ -204,15 +206,168 @@ Cloud Posse recommends two options to trigger Spacelift stacks.
 Historically, all stacks were triggered with three `GIT_PUSH` policies:
 
   1. [GIT_PUSH Global Administrator](https://github.com/cloudposse/terraform-spacelift-cloud-infrastructure-automation/blob/main/catalog/policies/git_push.administrative.rego) triggers admin stacks
-  2. [GIT_PUSH Proposed Run](https://github.com/cloudposse/terraform-spacelift-cloud-infrastructure-automation/blob/main/catalog/policies/git_push.proposed-run.rego) triggers Proposed runs (typically Terraform Plan) all non-admin stacks on Pull Requests
-  3. [GIT_PUSH Tracked Run](https://github.com/cloudposse/terraform-spacelift-cloud-infrastructure-automation/blob/main/catalog/policies/git_push.tracked-run.rego) triggers Tracked runs (typically Terraform Apply) all non-admin stacks on merges into `main`
+  2. [GIT_PUSH Proposed Run](https://github.com/cloudposse/terraform-spacelift-cloud-infrastructure-automation/blob/main/catalog/policies/git_push.proposed-run.rego) triggers Proposed runs (typically Terraform Plan) for all non-admin stacks on Pull Requests
+  3. [GIT_PUSH Tracked Run](https://github.com/cloudposse/terraform-spacelift-cloud-infrastructure-automation/blob/main/catalog/policies/git_push.tracked-run.rego) triggers Tracked runs (typically Terraform Apply) for all non-admin stacks on merges into `main`
 
 Attach these policies to stacks and Spacelift will trigger them on the respective git push.
 
 
 ### Triggering with GitHub Comments (Preferred)
 
-Atmos support for `atmos describe affected` made it possible to greatly improve Spacelift's triggering workflow. Now we can add a GitHub Action to collect all affected components for a given Pull Request, and add a GitHub comment to the given PR
+Atmos support for `atmos describe affected` made it possible to greatly improve Spacelift's triggering workflow. Now we can add a GitHub Action to collect all affected components for a given Pull Request and add a GitHub comment to the given PR
 with a formatted list of each. Then Spacelift can watch for a GitHub comment event, and then trigger stacks based on that comment.
 
 ![CleanShot 2023-06-01 at 17 45 37](https://github.com/cloudposse/github-action-atmos-affected-trigger-spacelift/assets/930247/5ff21d9d-be51-482a-a1b0-f3d6b7027e3a)
+
+In order to set up GitHub Comment triggers, first add the following `GIT_PUSH Plan Affected` policy to the `spaces` component.
+
+For example, `stacks/catalog/spacelift/spaces.yaml`
+```yaml
+components:
+  terraform:
+    spacelift/spaces:
+      settings:
+        spacelift:
+          administrative: true
+          space_name: root
+      vars:
+        spaces:
+          root:
+            policies:
+...
+              # This policy will automatically assign itself to stacks and is used to trigger stacks directly from the cloudposse/github-action-atmos-affected-trigger-spacelift action
+              # This is only used if said github action is set to trigger on "comments"
+              "GIT_PUSH Plan Affected":
+                type: GIT_PUSH
+                labels:
+                  - autoattach:pr-comment-triggered
+                body: |
+                  package spacelift
+
+                  # This policy runs whenever a comment is added to a pull request. It looks for the comment body to contain either:
+                  # /spacelift preview input.stack.id
+                  # /spacelift deploy input.stack.id
+                  #
+                  # If the comment matches those patterns it will queue a tracked run (deploy) or a proposed run (preview). In the case of
+                  # a proposed run, it will also cancel all of the other pending runs for the same branch.
+                  #
+                  # This is being used on conjunction with the GitHub actions `atmos-trigger-spacelift-feature-branch.yaml` and
+                  # `atmos-trigger-spacelift-main-branch.yaml` in .github/workflows to automatically trigger a preview or deploy run based
+                  # on the `atmos describe affected` output.
+
+                  track {
+                  	commented
+                  	contains(input.pull_request.comment, concat(" ", ["/spacelift", "deploy", input.stack.id]))
+                  }
+
+                  propose {
+                  	commented
+                  	contains(input.pull_request.comment, concat(" ", ["/spacelift", "preview", input.stack.id]))
+                  }
+
+                  # Ignore if the event is not a comment
+                  ignore {
+                  	not commented
+                  }
+
+                  # Ignore if the PR has a `spacelift-no-trigger` label
+                  ignore {
+                  	input.pull_request.labels[_] = "spacelift-no-trigger"
+                  }
+
+                  # Ignore if the PR is a draft and deesnt have a `spacelift-trigger` label
+                  ignore {
+                  	input.pull_request.draft
+                  	not has_spacelift_trigger_label
+                  }
+
+                  has_spacelift_trigger_label {
+                  	input.pull_request.labels[_] == "spacelift-trigger"
+                  }
+
+                  commented {
+                  	input.pull_request.action == "commented"
+                  }
+
+                  cancel[run.id] {
+                  	run := input.in_progress[_]
+                  	run.type == "PROPOSED"
+                  	run.state == "QUEUED"
+                  	run.branch == input.pull_request.head.branch
+                  }
+
+                  # This is a random sample of 10% of the runs
+                  sample {
+                    millis := round(input.request.timestamp_ns / 1e6)
+                    millis % 100 <= 10
+                  }
+```
+
+This policy will automatically attach itself to _all_ components that have the `pr-comment-triggered` label, already defined in `stacks/orgs/NAMESPACE/_defaults.yaml` under `settings.spacelift.labels`.
+
+Next, create two new GitHub Action workflows:
+
+```diff
++ .github/workflows/atmos-trigger-spacelift-feature-branch.yaml
++ .github/workflows/atmos-trigger-spacelift-main-branch.yaml
+```
+
+The feature branch workflow will create a comment event in Spacelift to run a Proposed run for a given stack. Whereas the main branch workflow will create a comment event in Spacelift to run a Deploy run for those same stacks.
+
+#### Feature Branch
+```yaml
+name: "Plan Affected Spacelift Stacks"
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches:
+      - main
+
+jobs:
+  context:
+    runs-on: ["self-hosted"]
+    steps:
+      - name: Atmos Affected Stacks Trigger Spacelift
+        uses: cloudposse/github-action-atmos-affected-trigger-spacelift@1.0.1
+        with:
+          atmos-config-path: ./rootfs/usr/local/etc/atmos
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+This will add a GitHub comment such as:
+```
+/spacelift preview plat-ue1-sandbox-foobar
+```
+
+#### Main Branch
+```yaml
+name: "Deploy Affected Spacelift Stacks"
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  run:
+    if: github.event.pull_request.merged == true
+    runs-on: ["self-hosted"]
+    steps:
+      - name: Atmos Affected Stacks Trigger Spacelift
+        uses: cloudposse/github-action-atmos-affected-trigger-spacelift@1.0.1
+        with:
+          atmos-config-path: ./rootfs/usr/local/etc/atmos
+          deploy: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          head-ref: ${{ github.sha }}~1
+```
+
+This will add a GitHub comment such as:
+```
+/spacelift deploy plat-ue1-sandbox-foobar
+```
