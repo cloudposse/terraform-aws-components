@@ -293,7 +293,7 @@ variable "spacelift_aws_account_id" {
 
 variable "space_name" {
   type        = string
-  description = "The name of the Space to create worker pools"
+  description = "The name of the Space to create the worker pool in"
   default     = "root"
 }
 
