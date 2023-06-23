@@ -33,7 +33,7 @@ module "vpc" {
 
 module "spaces" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.4.3"
 
   component   = "spacelift/spaces"
   environment = try(var.spacelift_spaces_environment_name, module.this.environment)
