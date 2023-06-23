@@ -132,15 +132,15 @@ role. This is done by adding `iam_role_arn` from the output to the `trusted_role
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_autoscale_group"></a> [autoscale\_group](#module\_autoscale\_group) | cloudposse/ec2-autoscale-group/aws | 0.34.2 |
-| <a name="module_ecr"></a> [ecr](#module\_ecr) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_ecr"></a> [ecr](#module\_ecr) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_iam_label"></a> [iam\_label](#module\_iam\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_security_group"></a> [security\_group](#module\_security\_group) | cloudposse/security-group/aws | 2.0.0-rc1 |
 | <a name="module_spaces"></a> [spaces](#module\_spaces) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 
 ## Resources
 
@@ -218,6 +218,7 @@ role. This is done by adding `iam_role_arn` from the output to the `trusted_role
 | <a name="input_spacelift_aws_account_id"></a> [spacelift\_aws\_account\_id](#input\_spacelift\_aws\_account\_id) | AWS Account ID owned by Spacelift | `string` | `"643313122712"` | no |
 | <a name="input_spacelift_domain_name"></a> [spacelift\_domain\_name](#input\_spacelift\_domain\_name) | Top-level domain name to use for pulling the launcher binary | `string` | `"spacelift.io"` | no |
 | <a name="input_spacelift_runner_image"></a> [spacelift\_runner\_image](#input\_spacelift\_runner\_image) | URL of ECR image to use for Spacelift | `string` | `""` | no |
+| <a name="input_spacelift_spaces_component_name"></a> [spacelift\_spaces\_component\_name](#input\_spacelift\_spaces\_component\_name) | The name of the spacelift spaces component | `string` | `"spacelift/spaces"` | no |
 | <a name="input_spacelift_spaces_environment_name"></a> [spacelift\_spaces\_environment\_name](#input\_spacelift\_spaces\_environment\_name) | The environment name of the spacelift spaces component | `string` | `null` | no |
 | <a name="input_spacelift_spaces_stage_name"></a> [spacelift\_spaces\_stage\_name](#input\_spacelift\_spaces\_stage\_name) | The stage name of the spacelift spaces component | `string` | `null` | no |
 | <a name="input_spacelift_spaces_tenant_name"></a> [spacelift\_spaces\_tenant\_name](#input\_spacelift\_spaces\_tenant\_name) | The tenant name of the spacelift spaces component | `string` | `null` | no |

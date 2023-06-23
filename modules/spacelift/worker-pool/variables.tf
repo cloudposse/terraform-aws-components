@@ -297,6 +297,12 @@ variable "space_name" {
   default     = "root"
 }
 
+variable "spacelift_spaces_component_name" {
+  type        = string
+  description = "The name of the spacelift spaces component"
+  default     = "spacelift/spaces"
+}
+
 variable "spacelift_spaces_environment_name" {
   type        = string
   description = "The environment name of the spacelift spaces component"

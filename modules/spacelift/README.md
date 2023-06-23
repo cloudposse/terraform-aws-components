@@ -125,7 +125,7 @@ Next, deploy `spacelift/root` with the following:
 atmos terraform apply spacelift/root -s NAMESPACE-gbl-root
 ```
 
-Now in the Spacelift UI, you should see the administrator stacks created (https://example.app.spacelift.io/). Typically should look similiar to the following:
+Now in the Spacelift UI, you should see the administrator stacks created. Typically should look similiar to the following:
 
 ```diff
 + NAMESPACE-gbl-root-spacelift-root
