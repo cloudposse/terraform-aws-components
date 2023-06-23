@@ -18,7 +18,7 @@ Our solution is to define a spacelift-specific configuration file per Spacelift 
 
 ### Global Configuration
 
-In order to apply common Spacelift configuration to all stacks, we need to set a few global Spacelift settings. The `pr-comment-triggered` label will be required to triggered stacks with GitHub comments but is not required otherwise. More on triggering Spacelift stacks to follow.
+In order to apply common Spacelift configuration to all stacks, we need to set a few global Spacelift settings. The `pr-comment-triggered` label will be required to trigger stacks with GitHub comments but is not required otherwise. More on triggering Spacelift stacks to follow.
 
 Add the following to `stacks/orgs/NAMESPACE/_defaults.yaml`:
 ```yaml
@@ -213,7 +213,7 @@ Attach these policies to stacks and Spacelift will trigger them on the respectiv
 
 ### Triggering with GitHub Comments (Preferred)
 
-Atmos support for `atmos describe affected` made it possible to greatly improve Spacelift's triggering workflow. Now we can add a GitHub Action to collect all affected components for a given Pull Request and add a GitHub comment to the given PR with a formatted list of each. Then Spacelift can watch for a GitHub comment event, and then trigger stacks based on that comment.
+Atmos support for `atmos describe affected` made it possible to greatly improve Spacelift's triggering workflow. Now we can add a GitHub Action to collect all affected components for a given Pull Request and add a GitHub comment to the given PR with a formatted list of the affected stacks. Then Spacelift can watch for a GitHub comment event, and then trigger stacks based on that comment.
 
 ```mermaid
 ---
@@ -253,8 +253,8 @@ components:
           root:
             policies:
 ...
-              # This policy will automatically assign itself to stacks and is used to trigger stacks directly from the cloudposse/github-action-atmos-affected-trigger-spacelift action
-              # This is only used if said github action is set to trigger on "comments"
+              # This policy will automatically assign itself to stacks and is used to trigger stacks directly from the `cloudposse/github-action-atmos-affected-trigger-spacelift` GitHub action
+              # This is only used if said GitHub action is set to trigger on "comments"
               "GIT_PUSH Plan Affected":
                 type: GIT_PUSH
                 labels:
