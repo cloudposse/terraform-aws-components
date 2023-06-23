@@ -98,8 +98,3 @@ output "profiles_enabled" {
   value       = module.account_map.outputs.profiles_enabled
   description = "When true, use AWS config profiles in Terraform AWS provider configurations. When false, use Role ARNs."
 }
-
-output "iam_role_arn_template" {
-  value       = module.account_map.outputs.iam_role_arn_templates[local.account_name]
-  description = "A string formatter for turning an iam role name into an iam role arn for specified account"
-}
