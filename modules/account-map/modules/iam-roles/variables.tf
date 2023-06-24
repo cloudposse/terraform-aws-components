@@ -1,8 +1,15 @@
 variable "privileged" {
   type        = bool
-  description = "True if the default provider already has access to the backend"
+  description = "True if the Terraform user already has access to the backend"
   default     = false
 }
+
+variable "profiles_enabled" {
+  type        = bool
+  description = "Whether or not to use profiles instead of roles for Terraform. Default (null) means to use global settings."
+  default     = null
+}
+
 
 ## The overridable_* variables in this file provide Cloud Posse defaults.
 ## Because this module is used in bootstrapping Terraform, we do not configure

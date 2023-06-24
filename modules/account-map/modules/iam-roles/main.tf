@@ -28,7 +28,7 @@ module "account_map" {
 }
 
 locals {
-  profiles_enabled = local.account_map.profiles_enabled
+  profiles_enabled = coalesce(var.profiles_enabled, local.account_map.profiles_enabled)
 
   account_map  = module.account_map.outputs
   account_name = lookup(module.always.descriptors, "account_name", module.always.stage)
