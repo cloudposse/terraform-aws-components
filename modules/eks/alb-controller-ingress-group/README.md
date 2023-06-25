@@ -15,7 +15,7 @@ import:
   - catalog/eks/alb-controller-ingress-group
 ```
 
-The default catalog values `e.g. stacks/catalog/eks/alb-controller-ingress-group.yaml` 
+The default catalog values `e.g. stacks/catalog/eks/alb-controller-ingress-group.yaml`
 will create a Kubernetes Service in the `default` namespace with an [IngressGroup] named `alb-controller-ingress-group`.
 
 ```yaml
