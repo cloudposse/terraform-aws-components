@@ -49,7 +49,7 @@ module "echo_server" {
     },
     {
       name  = "ingress.alb.scheme"
-      value = try(module.alb.outputs.annotations["alb.ingress.kubernetes.io/scheme"], "internet-facing")
+      value = module.alb.outputs.load_balancer_scheme
       type  = "auto"
     },
   ]
