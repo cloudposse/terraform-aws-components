@@ -5,12 +5,13 @@ This is copied from [cloudposse/terraform-aws-components](https://github.com/clo
 This component installs the [Ealenn/Echo-Server](https://github.com/Ealenn/Echo-Server) to EKS clusters.
 The echo server is a server that sends it back to the client a JSON representation of all the data
 the server received, which is a combination of information sent by the client and information sent
-by the web server infrastructure. For further details, please consult the [Echo-Server documentation](https://ealenn.github.io/Echo-Server/).
+by the web server infrastructure. For further details, please see [Echo-Server documentation](https://ealenn.github.io/Echo-Server/).
 
 ## Prerequisites
 
 Echo server is intended to provide end-to-end testing of everything needed to deploy an application or service with a public HTTPS endpoint.
 Therefore, it requires several other components.
+
 At the moment, it supports 2 configurations:
 
 1. ALB with ACM Certificate
@@ -45,7 +46,9 @@ Use this in the catalog or use these variables to overwrite the catalog values.
 ```yaml
 components:
   terraform:
-    echo-server:
+    eks/echo-server:
+      metadata:
+        component: eks/echo-server
       settings:
         spacelift:
           workspace_enabled: true
@@ -85,9 +88,9 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_alb"></a> [alb](#module\_alb) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
-| <a name="module_echo_server"></a> [echo\_server](#module\_echo\_server) | cloudposse/helm-release/aws | 0.7.0 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_alb"></a> [alb](#module\_alb) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_echo_server"></a> [echo\_server](#module\_echo\_server) | cloudposse/helm-release/aws | 0.9.1 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
