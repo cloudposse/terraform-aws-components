@@ -33,6 +33,13 @@ the provider's thumbprint may change, at which point you can use
 [scripts/get_github_oidc_thumbprint.sh](./scripts/get_github_oidc_thumbprint.sh)
 to get the new thumbprint and add it to the list in `var.thumbprint_list`.
 
+This script will pull one of two thumbprints. There are two possible intermediary certificates for the Actions SSL
+certificate and either can be returned by the GitHub servers, requiring customers to trust both. This is a known
+behavior when the intermediary certificates are cross-signed by the CA. Therefore, run this script until both values
+are retrieved. Add both to `var.thumbprint_list`.
+
+For more, see https://github.blog/changelog/2023-06-27-github-actions-update-on-oidc-integration-with-aws/
+
 ## FAQ
 
 ### I cannot assume the role from GitHub Actions after deploying
@@ -102,7 +109,7 @@ permissions:
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_thumbprint_list"></a> [thumbprint\_list](#input\_thumbprint\_list) | List of OIDC provider certificate thumbprints | `list(string)` | <pre>[<br>  "6938fd4d98bab03faadb97b34396831e3780aea1"<br>]</pre> | no |
+| <a name="input_thumbprint_list"></a> [thumbprint\_list](#input\_thumbprint\_list) | List of OIDC provider certificate thumbprints | `list(string)` | <pre>[<br>  "6938fd4d98bab03faadb97b34396831e3780aea1",<br>  "1c58a3a8518e8759bf075b76b750d4f2df264fcd"<br>]</pre> | no |
 
 ## Outputs
 
