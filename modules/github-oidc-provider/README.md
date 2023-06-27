@@ -33,6 +33,13 @@ the provider's thumbprint may change, at which point you can use
 [scripts/get_github_oidc_thumbprint.sh](./scripts/get_github_oidc_thumbprint.sh)
 to get the new thumbprint and add it to the list in `var.thumbprint_list`.
 
+This script will pull one of two thumbprints. There are two possible intermediary certificates for the Actions SSL
+certificate and either can be returned by the GitHub servers, requiring customers to trust both. This is a known
+behavior when the intermediary certificates are cross-signed by the CA. Therefore, run this script until both values
+are retrieved. Add both to `var.thumbprint_list`.
+
+For more, see https://github.blog/changelog/2023-06-27-github-actions-update-on-oidc-integration-with-aws/
+
 ## FAQ
 
 ### I cannot assume the role from GitHub Actions after deploying
