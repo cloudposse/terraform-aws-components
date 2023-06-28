@@ -1,4 +1,4 @@
-# This policy adds additional permission required to apply a limit set of Terraform
+# This policy adds additional permission required to apply a limited set of Terraform
 # resources in the `core-identity` account. We do not want to grant the full
 # admin access to `core-identity` so that we do not allow users to lock themselves out.
 
