@@ -12,6 +12,7 @@ data "aws_iam_policy_document" "assume_aws_team" {
     effect = "Allow"
     actions = [
       "sts:AssumeRole",
+      "sts:SetSourceIdentity",
       "sts:TagSession",
     ]
 
