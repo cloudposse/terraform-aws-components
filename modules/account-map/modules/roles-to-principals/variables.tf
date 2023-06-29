@@ -56,7 +56,7 @@ variable "overridable_team_permission_sets_enabled" {
     When true, any roles (teams or team-roles) in the identity account references in `role_map`
     will cause corresponding AWS SSO PermissionSets to be included in the `permission_set_arn_like` output.
     This has the effect of treating those PermissionSets as if they were teams.
-    The main reason to set this `false` is if IAM trust policies are exceeding size limits are you not using AWS SSO.
+    The main reason to set this `false` is if IAM trust policies are exceeding size limits and you are not using AWS SSO.
     EOT
   default     = true
 }
