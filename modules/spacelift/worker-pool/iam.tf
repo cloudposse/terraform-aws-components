@@ -13,6 +13,7 @@ data "aws_iam_policy_document" "assume_role_policy" {
   statement {
     actions = [
       "sts:AssumeRole",
+      "sts:SetSourceIdentity",
       "sts:TagSession",
     ]
 
@@ -33,6 +34,7 @@ data "aws_iam_policy_document" "default" {
   statement {
     actions = [
       "sts:AssumeRole",
+      "sts:SetSourceIdentity",
       "sts:TagSession",
     ]
     resources = formatlist(local.role_arn_template, ["spacelift"])

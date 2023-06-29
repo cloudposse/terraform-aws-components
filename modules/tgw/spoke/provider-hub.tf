@@ -9,7 +9,7 @@ provider "aws" {
     # module.tgw_hub_role.terraform_role_arn may be null, in which case do not assume a role.
     for_each = compact([module.tgw_hub_role.terraform_role_arn])
     content {
-      role_arn = module.tgw_hub_role.terraform_role_arn
+      role_arn = assume_role.value
     }
   }
 }

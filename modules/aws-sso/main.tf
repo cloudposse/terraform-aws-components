@@ -19,7 +19,7 @@ module "permission_sets" {
 
 module "sso_account_assignments" {
   source  = "cloudposse/sso/aws//modules/account-assignments"
-  version = "1.0.0"
+  version = "1.1.0"
 
   account_assignments = local.account_assignments
   context             = module.this.context
