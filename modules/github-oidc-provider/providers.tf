@@ -30,7 +30,7 @@ provider "aws" {
       !var.superadmin && module.iam_roles.profiles_enabled ? null : (
         var.superadmin ? {
           role_arn = module.iam_roles.org_role_arn
-        } : {
+          } : {
           role_arn = module.iam_roles.terraform_role_arn
         }
       )
