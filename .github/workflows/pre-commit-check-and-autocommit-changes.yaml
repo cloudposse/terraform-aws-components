@@ -73,6 +73,21 @@ jobs:
         with:
           terraform_version: ${{ steps.get-terraform-version.outputs.terraform_semver }}
 
+      # Install TFLint for pre-commit hook
+      - name: TFLint cache plugin dir
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
+        with:
+          path: ~/.tflint.d/plugins
+          key: ubuntu-latest-tflint-${{ hashFiles('.tflint.hcl') }}
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@ba6bb2989f94daf58a4cc6eac2c1ca7398a678bf # v3
+        with:
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Init TFLint
+        run: tflint --init
+
       # Install terraform-docs for pre-commit hook
       - name: Install terraform-docs
         shell: bash
