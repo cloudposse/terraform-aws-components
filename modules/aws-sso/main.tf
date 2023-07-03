@@ -25,6 +25,18 @@ module "sso_account_assignments" {
   context             = module.this.context
 }
 
+module "sso_account_assignments_root" {
+  source  = "cloudposse/sso/aws//modules/account-assignments"
+  version = "1.1.1"
+
+  providers = {
+    aws = aws.root
+  }
+
+  account_assignments = local.account_assignments_root
+  context             = module.this.context
+}
+
 locals {
   enabled = module.this.enabled
 
