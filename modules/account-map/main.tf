@@ -67,7 +67,7 @@ locals {
     ) ? "admin" : "terraform")
   }
 
-  // legacy support for `aws` config profiles
+  # legacy support for `aws` config profiles
   terraform_profiles = {
     for name, info in local.account_info_map : name => format(var.profile_template, compact(
       [
