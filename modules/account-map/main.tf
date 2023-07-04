@@ -30,6 +30,11 @@ locals {
   all_accounts     = concat(local.eks_accounts, local.non_eks_accounts)
   account_info_map = module.accounts.outputs.account_info_map
 
+  # Provide empty lists for deprecated outputs, to avoid breaking old code
+  # before it can be replaced.
+  empty_account_map = merge({ for name, info in local.account_info_map : name => "" }, { _OBSOLETE = "DUMMY RESULTS for backwards compatibility" })
+
+
   # We should move this to be specified by tags on the accounts,
   # like we do with EKS, but for now....
   account_role_map = {
