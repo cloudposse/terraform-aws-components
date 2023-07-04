@@ -26,17 +26,11 @@ provider "aws" {
 
   profile = !var.superadmin && module.iam_roles.profiles_enabled ? module.iam_roles.terraform_profile_name : null
   dynamic "assume_role" {
-    for_each = [
-      !var.superadmin && module.iam_roles.profiles_enabled ? null : (
-        var.superadmin ? {
-          role_arn = module.iam_roles.org_role_arn
-          } : {
-          role_arn = module.iam_roles.terraform_role_arn
-        }
-      )
-    ]
+    for_each = !var.superadmin && module.iam_roles.profiles_enabled ? [] : (
+      var.superadmin ? compact([module.iam_roles.org_role_arn]) : compact([module.iam_roles.terraform_role_arn])
+    )
     content {
-      role_arn = module.iam_roles.terraform_role_arn
+      role_arn = assume_role.value
     }
   }
 }

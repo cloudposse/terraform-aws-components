@@ -5,8 +5,8 @@ variable "region" {
 
 variable "privileged" {
   type        = bool
-  description = "True if the default provider already has access to the backend"
-  default     = true
+  description = "True if the user running the Terraform command already has access to the Terraform backend"
+  default     = false
 }
 
 variable "account_assignments" {
