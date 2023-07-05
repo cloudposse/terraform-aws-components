@@ -10,10 +10,3 @@ module "account_map" {
 
   context = module.this.context
 }
-
-# Module "iam_roles" is usually in providers.tf, but not so for this component
-
-module "iam_roles" {
-  source  = "../account-map/modules/iam-roles"
-  context = module.this.context
-}

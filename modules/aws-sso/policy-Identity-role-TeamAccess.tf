@@ -12,7 +12,6 @@ data "aws_iam_policy_document" "assume_aws_team" {
     effect = "Allow"
     actions = [
       "sts:AssumeRole",
-      "sts:SetSourceIdentity",
       "sts:TagSession",
     ]
 
@@ -41,7 +40,8 @@ data "aws_iam_policy_document" "assume_aws_team" {
 module "role_map" {
   source = "../account-map/modules/roles-to-principals"
 
-  teams = var.aws_teams_accessible
+  teams      = var.aws_teams_accessible
+  privileged = var.privileged
 
   context = module.this.context
 }

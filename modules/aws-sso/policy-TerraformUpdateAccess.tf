@@ -22,7 +22,7 @@ module "tfstate" {
   context = module.this.context
 }
 
-data "aws_iam_policy_document" "TerraformUpdateAccess" {
+data "aws_iam_policy_document" "terraform_update_access" {
   count = local.tf_update_access_enabled ? 1 : 0
 
   statement {
@@ -49,7 +49,7 @@ locals {
     relay_state                         = "",
     session_duration                    = "PT1H", # One hour, maximum allowed for chained assumed roles
     tags                                = {},
-    inline_policy                       = one(data.aws_iam_policy_document.TerraformUpdateAccess[*].json),
+    inline_policy                       = one(data.aws_iam_policy_document.terraform_update_access[*].json),
     policy_attachments                  = []
     customer_managed_policy_attachments = []
   }] : []
