@@ -345,7 +345,7 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 - [How to Create Escalation Rules in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-create-escalation-rules-in-opsgenie)
 - [How to Setup Rotations in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-setup-rotations-in-opsgenie)
 - [How to Create New Teams in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-create-new-teams-in-opsgenie)
-- [How to Sign Up for OpsGenie?](/reference-architecture/how-to-guides/tutorials/how-to-sign-up-for-opsgenie)
+- [How to Sign Up for OpsGenie?](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-sign-up-for-opsgenie/)
 - [How to Implement Incident Management with OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie)
 
 ## References

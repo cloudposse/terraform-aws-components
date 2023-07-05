@@ -109,7 +109,7 @@ my-api-test:
         jsonpath: foo.bar
 ```
 
-These configuration examples are defined in the YAML files in the [catalog/synthetics/examples](catalog/synthetics/examples) folder.
+These configuration examples are defined in the YAML files in the [catalog/synthetics/examples](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/datadog-synthetics/catalog/synthetics/examples) folder.
 
 You can use different subfolders for your use-case.
 For example, you can have `dev` and `prod` subfolders to define different synthetic tests for the `dev` and `prod` environments.

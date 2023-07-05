@@ -4,7 +4,7 @@ This component is responsible for provisioning information only: it simply popul
 
 ## Pre-requisites
 
-- [account](/reference-architecture/components/account) must be provisioned before [account-map](/reference-architecture/components/account-map) component
+- [account](/components/library/aws/account) must be provisioned before [account-map](/components/library/aws/account-map) component
 
 ## Usage
 

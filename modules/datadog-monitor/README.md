@@ -36,7 +36,7 @@ components:
 ```
 
 ## Conventions
-- Treat datadog like a separate cloud provider with integrations ([datadog-integration](/reference-architecture/components/datadog-integration)) into your accounts.
+- Treat datadog like a separate cloud provider with integrations ([datadog-integration](/components/library/aws/datadog-integration)) into your accounts.
 
 - Use the `catalog` convention to define a step of alerts. You can use ours or define your own.
   [https://github.com/cloudposse/terraform-datadog-platform/tree/master/catalog/monitors](https://github.com/cloudposse/terraform-datadog-platform/tree/master/catalog/monitors)
