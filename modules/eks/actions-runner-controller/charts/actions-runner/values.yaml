@@ -32,3 +32,10 @@ pull_driven_scaling_enabled: false
 #labels:
 #  - "Ubuntu"
 #  - "core-example"
+#scheduledOverrides:
+## Override minReplicas to 100 only between 2023-07-03T07:00:00+03:00 and 2023-07-07T19:00:00+03:00
+#- startTime: "2023-07-03T07:00:00+03:00"
+#  endTime: "2023-07-07T19:00:00+03:00"
+#  recurrenceRule:
+#    frequency: Weekly
+#  minReplicas: 10
