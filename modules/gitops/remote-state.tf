@@ -1,6 +1,6 @@
 module "s3_bucket" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.2"
+  version = "1.4.3"
 
   component   = var.s3_bucket_component_name
   environment = try(var.s3_bucket_environment_name, module.this.environment)
@@ -10,7 +10,7 @@ module "s3_bucket" {
 
 module "dynamodb" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.2"
+  version = "1.4.3"
 
   component   = var.dynamodb_component_name
   environment = try(var.dynamodb_environment_name, module.this.environment)
