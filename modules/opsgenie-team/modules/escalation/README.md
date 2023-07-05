@@ -5,7 +5,7 @@ Terraform module to configure [Opsgenie Escalation](https://registry.terraform.i
 
 ## Usage
 
-[Create Opsgenie Escalation example](../../examples/escalation)
+[Create Opsgenie Escalation example](https://github.com/cloudposse/terraform-opsgenie-incident-management/tree/main/examples/escalation)
 
 ```hcl
 module "escalation" {
