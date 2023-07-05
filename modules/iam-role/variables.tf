@@ -67,7 +67,7 @@ variable "policy_description" {
 
 variable "assume_role_actions" {
   type        = list(string)
-  default     = ["sts:AssumeRole", "sts:TagSession"]
+  default     = ["sts:AssumeRole", "sts:SetSourceIdentity", "sts:TagSession"]
   description = "The IAM action to be granted by the AssumeRole policy"
 }
 

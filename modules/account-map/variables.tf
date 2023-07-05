@@ -66,12 +66,6 @@ variable "profile_template" {
   EOT
 }
 
-variable "global_environment_name" {
-  type        = string
-  default     = "gbl"
-  description = "Global environment name"
-}
-
 variable "profiles_enabled" {
   type        = bool
   default     = false
