@@ -236,10 +236,10 @@ It is required for Spacelift to work with `atmos`.
 
 ### Create Spacelift helper scripts
 
-[/rootfs/usr/local/bin/spacelift-tf-workspace](/rootfs/usr/local/bin/spacelift-tf-workspace) manages selecting or creating a Terraform workspace; similar to how `atmos` manages workspaces
+[/rootfs/usr/local/bin/spacelift-tf-workspace](https://github.com/cloudposse/terraform-aws-components/blob/main/modules/spacelift/bin/spacelift-tf-workspace) manages selecting or creating a Terraform workspace; similar to how `atmos` manages workspaces
 during a Terraform run.
 
-[/rootfs/usr/local/bin/spacelift-write-vars](/rootfs/usr/local/bin/spacelift-write-vars) writes the component config using `atmos` to the `spacelift.auto.tfvars.json` file.
+[/rootfs/usr/local/bin/spacelift-write-vars](https://github.com/cloudposse/terraform-aws-components/blob/main/modules/spacelift/bin/spacelift-write-vars) writes the component config using `atmos` to the `spacelift.auto.tfvars.json` file.
 
 **NOTE**: make sure they are all executable:
 
@@ -252,9 +252,9 @@ chmod +x rootfs/usr/local/bin/spacelift*
 After creating & linking Spacelift to this repo (see the
 [docs](https://docs.spacelift.io/integrations/github)), follow these steps...
 
-### Deploy the [`spacelift-worker-pool`](../spacelift-worker-pool) Component
+### Deploy the [`spacelift-worker-pool`](/components/library/aws/spacelift/worker-pool/) Component
 
-See [`spacelift-worker-pool` README](../spacelift-worker-pool/README.md) for the configuration and deployment needs.
+See [`spacelift-worker-pool` README](/components/library/aws/spacelift/worker-pool/) for the configuration and deployment needs.
 
 ### Update the `spacelift` catalog
 

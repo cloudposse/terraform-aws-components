@@ -258,7 +258,7 @@ No resources.
 - [How to Implement SRE with Datadog](/reference-architecture/how-to-guides/tutorials/how-to-implement-sre-with-datadog)
 
 ## Component Dependencies
-- [datadog-integration](/reference-architecture/components/datadog-integration)
+- [datadog-integration](/components/library/aws/datadog-integration)
 
 ## References
 * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/datadog-monitor) - Cloud Posse's upstream component
