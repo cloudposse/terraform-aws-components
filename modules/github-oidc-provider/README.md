@@ -30,7 +30,7 @@ This component was created to add the Github OIDC provider so that Github Action
 without the need to store static credentials in the environment.
 The details of the GitHub OIDC provider are hard coded in the component, however at some point
 the provider's thumbprint may change, at which point you can use
-[scripts/get_github_oidc_thumbprint.sh](./scripts/get_github_oidc_thumbprint.sh)
+[get_github_oidc_thumbprint.sh](https://github.com/cloudposse/terraform-aws-components/blob/main/modules/github-oidc-provider/scripts/get_github_oidc_thumbprint.sh)
 to get the new thumbprint and add it to the list in `var.thumbprint_list`.
 
 This script will pull one of two thumbprints. There are two possible intermediary certificates for the Actions SSL
