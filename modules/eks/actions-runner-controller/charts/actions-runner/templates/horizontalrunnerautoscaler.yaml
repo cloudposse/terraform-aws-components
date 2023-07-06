@@ -35,13 +35,7 @@ spec:
     duration: "{{ .Values.webhook_startup_timeout }}"
     {{- end }}
   {{- end }}
-  {{- if .Values.scheduled_overrides.enabled }}
+  {{- if .Values.scheduled_overrides }}
   scheduledOverrides:
-    - startTime: {{ .Values.scheduled_overrides.startTime | quote }}
-      endTime: {{ .Values.scheduled_overrides.endTime | quote }}
-      {{- if .Values.scheduled_overrides.recurrenceRule }}
-      recurrenceRule:
-        frequency: {{ .Values.scheduled_overrides.recurrenceRule.frequency | quote }}
-      {{- end }}
-      minReplicas: {{ .Values.scheduled_overrides.minReplicas }}
+  {{- with $.Values.scheduled_overrides }}{{ toYaml . | trim | nindent 8 }}{{- end }}
   {{- end }}
