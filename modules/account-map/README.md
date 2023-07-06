@@ -129,9 +129,13 @@ components:
 | <a name="output_artifacts_account_account_name"></a> [artifacts\_account\_account\_name](#output\_artifacts\_account\_account\_name) | The short name for the artifacts account |
 | <a name="output_audit_account_account_name"></a> [audit\_account\_account\_name](#output\_audit\_account\_account\_name) | The short name for the audit account |
 | <a name="output_aws_partition"></a> [aws\_partition](#output\_aws\_partition) | The AWS "partition" to use when constructing resource ARNs |
+| <a name="output_cicd_profiles"></a> [cicd\_profiles](#output\_cicd\_profiles) | OBSOLETE: dummy results returned to avoid breaking code that depends on this output |
+| <a name="output_cicd_roles"></a> [cicd\_roles](#output\_cicd\_roles) | OBSOLETE: dummy results returned to avoid breaking code that depends on this output |
 | <a name="output_dns_account_account_name"></a> [dns\_account\_account\_name](#output\_dns\_account\_account\_name) | The short name for the primary DNS account |
 | <a name="output_eks_accounts"></a> [eks\_accounts](#output\_eks\_accounts) | A list of all accounts in the AWS Organization that contain EKS clusters |
 | <a name="output_full_account_map"></a> [full\_account\_map](#output\_full\_account\_map) | The map of account name to account ID (number). |
+| <a name="output_helm_profiles"></a> [helm\_profiles](#output\_helm\_profiles) | OBSOLETE: dummy results returned to avoid breaking code that depends on this output |
+| <a name="output_helm_roles"></a> [helm\_roles](#output\_helm\_roles) | OBSOLETE: dummy results returned to avoid breaking code that depends on this output |
 | <a name="output_iam_role_arn_templates"></a> [iam\_role\_arn\_templates](#output\_iam\_role\_arn\_templates) | Map of accounts to corresponding IAM Role ARN templates |
 | <a name="output_identity_account_account_name"></a> [identity\_account\_account\_name](#output\_identity\_account\_account\_name) | The short name for the account holding primary IAM roles |
 | <a name="output_non_eks_accounts"></a> [non\_eks\_accounts](#output\_non\_eks\_accounts) | A list of all accounts in the AWS Organization that do not contain EKS clusters |

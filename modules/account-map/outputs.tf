@@ -115,3 +115,37 @@ resource "local_file" "account_info" {
   })
   filename = "${path.module}/account-info/${module.this.id}.sh"
 }
+
+
+######################
+## Deprecated outputs
+## These outputs are deprecated and will be removed in a future release
+## As of this release, they return empty lists so as not to break old
+## versions of account-map/modules/iam-roles and imposing an order
+## on deploying new code vs applying the updated account-map
+######################
+
+output "helm_roles" {
+  value       = local.empty_account_map
+  description = "OBSOLETE: dummy results returned to avoid breaking code that depends on this output"
+}
+
+output "helm_profiles" {
+  value       = local.empty_account_map
+  description = "OBSOLETE: dummy results returned to avoid breaking code that depends on this output"
+}
+
+output "cicd_roles" {
+  value       = local.empty_account_map
+  description = "OBSOLETE: dummy results returned to avoid breaking code that depends on this output"
+}
+
+output "cicd_profiles" {
+  value       = local.empty_account_map
+  description = "OBSOLETE: dummy results returned to avoid breaking code that depends on this output"
+}
+
+######################
+## End of Deprecated outputs
+## Please add new outputs above this section
+######################
