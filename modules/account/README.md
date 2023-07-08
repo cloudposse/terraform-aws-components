@@ -3,7 +3,7 @@
 This component is responsible for provisioning the full account hierarchy along with Organizational Units (OUs). It includes the ability to associate Service Control Policies (SCPs) to the Organization, each Organizational Unit and account.
 
 :::info
-Part of a [cold start](/reference-architecture/how-to-guides/implementation/enterprise/implement-aws-cold-start) so it has to be initially run with `SuperAdmin` role.
+Part of a [cold start](https://docs.cloudposse.com/reference-architecture/how-to-guides/implementation/enterprise/implement-aws-cold-start) so it has to be initially run with `SuperAdmin` role.
 
 :::
 
@@ -161,7 +161,7 @@ Unfortunately, there are some tasks that need to be done via the console. Log in
 #### Request an increase in the maximum number of accounts allowed
 
 :::caution
-Make sure your support plan for the _root_ account was upgraded to the "Business" level (or Higher). This is necessary to expedite the quota increase requests, which could take several days on a basic support plan. Without it, AWS support will claim that since we’re not currently utilizing any of the resources, so they do not want to approve the requests. AWS support is not aware of your other organization. If AWS still gives you problems, please escalate to your AWS TAM. See [AWS](/reference-architecture/reference/aws).
+Make sure your support plan for the _root_ account was upgraded to the "Business" level (or Higher). This is necessary to expedite the quota increase requests, which could take several days on a basic support plan. Without it, AWS support will claim that since we’re not currently utilizing any of the resources, so they do not want to approve the requests. AWS support is not aware of your other organization. If AWS still gives you problems, please escalate to your AWS TAM. See [AWS](https://docs.cloudposse.com/reference-architecture/reference/aws).
 
 :::
 
@@ -280,7 +280,7 @@ AWS accounts and organizational units are generated dynamically by the `terrafor
 
 :::info
 _**Special note:**_ **** In the rare case where you will need to be enabling non-default AWS Regions, temporarily comment out the `DenyRootAccountAccess` service control policy setting in `gbl-root.yaml`. You will restore it later, after enabling the optional Regions.
-See related: [Decide on Opting Into Non-default Regions](/reference-architecture/design-decisions/cold-start/decide-on-opting-into-non-default-regions)
+See related: [Decide on Opting Into Non-default Regions](https://docs.cloudposse.com/reference-architecture/design-decisions/cold-start/decide-on-opting-into-non-default-regions)
 
 :::
 

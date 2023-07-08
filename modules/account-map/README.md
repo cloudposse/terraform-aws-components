@@ -4,7 +4,7 @@ This component is responsible for provisioning information only: it simply popul
 
 ## Pre-requisites
 
-- [account](/components/library/aws/account) must be provisioned before [account-map](/components/library/aws/account-map) component
+- [account](https://docs.cloudposse.com/components/library/aws/account) must be provisioned before [account-map](https://docs.cloudposse.com/components/library/aws/account-map) component
 
 ## Usage
 
