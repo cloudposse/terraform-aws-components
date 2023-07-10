@@ -56,7 +56,7 @@ locals {
   enable_argo_workflows_auth_count  = local.enable_argo_workflows_auth ? 1 : 0
   argo_workflows_host               = "${var.argo_workflows_name}.${local.regional_service_discovery_domain}"
 
-  oidc_values = values(local.oidc_providers_merged)[0]
+  oidc_values = local.oidc_enabled ? values(local.oidc_providers_merged)[0] : {}
 
   oidc_config_map = local.oidc_enabled && !lookup(local.oidc_values, "uses_dex", true) ? {
     server : {
@@ -189,7 +189,7 @@ resource "kubernetes_secret" "oidc_gsuite_service_account" {
 
 module "argocd" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.3.0"
+  version = "0.9.1"
 
   name                   = "argocd" # avoids hitting length restrictions on IAM Role names
   chart                  = var.chart
@@ -303,20 +303,21 @@ module "argocd_apps" {
   count = local.enabled && var.argocd_apps_enabled ? 1 : 0
 
   source  = "cloudposse/helm-release/aws"
-  version = "0.3.0"
+  version = "0.9.1"
 
-  name                 = "" # avoids hitting length restrictions on IAM Role names
-  chart                = var.argocd_apps_chart
-  repository           = var.argocd_apps_chart_repository
-  description          = var.argocd_apps_chart_description
-  chart_version        = var.argocd_apps_chart_version
-  kubernetes_namespace = var.kubernetes_namespace
-  create_namespace     = var.create_namespace
-  wait                 = var.wait
-  atomic               = var.atomic
-  cleanup_on_fail      = var.cleanup_on_fail
-  timeout              = var.timeout
-  enabled              = local.enabled && var.argocd_apps_enabled
+  name                        = "" # avoids hitting length restrictions on IAM Role names
+  chart                       = var.argocd_apps_chart
+  repository                  = var.argocd_apps_chart_repository
+  description                 = var.argocd_apps_chart_description
+  chart_version               = var.argocd_apps_chart_version
+  kubernetes_namespace        = var.kubernetes_namespace
+  create_namespace            = var.create_namespace
+  wait                        = var.wait
+  atomic                      = var.atomic
+  cleanup_on_fail             = var.cleanup_on_fail
+  timeout                     = var.timeout
+  enabled                     = local.enabled && var.argocd_apps_enabled
+  eks_cluster_oidc_issuer_url = module.eks.outputs.eks_cluster_identity_oidc_issuer
   values = compact([
     templatefile(
       "${path.module}/resources/argocd-apps-values.yaml.tpl",
