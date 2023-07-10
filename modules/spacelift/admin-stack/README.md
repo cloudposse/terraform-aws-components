@@ -55,7 +55,7 @@ components:
 
 Then define the root-admin stack:
 ```yaml
-# stacks/orgs/acme/root-spacelift.yaml
+# stacks/orgs/acme/spacelift.yaml
 import:
   - mixins/region/global-region
   - orgs/acme/_defaults
@@ -101,7 +101,7 @@ components:
 
 Finally define any tenant-specific stacks:
 ```yaml
-# stacks/orgs/acme/core/core-spacelift.yaml
+# stacks/orgs/acme/core/spacelift.yaml
 import:
   - mixins/region/global-region
   - orgs/acme/core/_defaults
