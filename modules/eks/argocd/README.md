@@ -14,9 +14,13 @@ kubectl apply -k "https://github.com/argoproj/argo-cd/manifests/crds?ref=v2.4.9"
 
 ## Usage
 
+### Preparing AppProject repos:
+
 First, make sure you have a github repo ready to go. We have a component for this
 called the `argocd-repo` component. It will create a github repo and adds
-some secrets and code owners.
+some secrets and code owners. Most importantly, it configures an `applicationset.yaml`
+that includes all the details for helm to create ArgoCD CRD's. These CRD's
+let ArgoCD know how to fulfill changes to its repo.
 
 ```yaml
 components:
@@ -49,9 +53,12 @@ components:
             permission: push
 ```
 
+### Injecting infrastructure details into applications
 Second, your application repos could use values to best configure their
 helm releases. We have an `eks/platform` component for exposing various
-infra outputs:
+infra outputs. It takes remote state lookups and stores them into SSM.
+We demonstrate how to pull the platform SSM parameters later. Here's an
+example `eks/platform` config:
 
 ```yaml
 components:
@@ -120,8 +127,13 @@ components:
         certificate_authority_enabled: false
 ```
 
-**Stack Level**: Regional
+In the previous sample we create platform settings for a `dev` platform and a
+`qa2` platform. Understand that these are arbitrary titles that are used to separate
+the SSM parameters so that if, say, a particular hostname is needed, we can safely
+select the right hostname using a moniker such as `qa2`. These otherwise are meaningless
+and do not need to align with any particular stage or tenant.
 
+### ArgoCD on SAML / AWS Identity Center (formerly aws-sso)
 Here's an example snippet for how to use this component:
 
 ```yaml
@@ -170,15 +182,17 @@ kubectl delete pod <dex-pod-name> -n argocd
 ```
 
 The configuration above will work for AWS Identity Center if you have
-the following attributes in a Custom SAML 2.0 application:
+the following attributes in a
+[Custom SAML 2.0 application](https://docs.aws.amazon.com/singlesignon/latest/userguide/samlapps.html):
 | attribute name | value           | type        |
 |:---------------|:----------------|:------------|
 | Subject        | ${user:subject} | persistent  |
 | email          | ${user:email}   | unspecified |
 | groups         | ${user:groups}  | unspecified |
 
+### Google Workspace OIDC
 
-to use google OIDC:
+To use google OIDC:
 
 ```yaml
         oidc_enabled: true
@@ -202,17 +216,134 @@ to use google OIDC:
               clientSecret: /sso/saml/google/clientsecret
 ```
 
-#### Working with argocd and github
+### Working with ArgoCD and github
 
-Here's a simple action that will trigger a deploy in argocd:
+Here's a simple github action that will trigger a deploy in ArgoCD:
 ```yaml
-TODO
-NOTE: Example will show dev, and qa2
+# NOTE: Example will show dev, and qa2
+name: argocd-deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2.1.0
+        with:
+          aws-region: us-east-2
+          role-to-assume: arn:aws:iam::123456789012:role/github-action-worker
+      - name: Build
+        shell: bash
+        run: docker build -t some.docker.repo/acme/app . & docker push some.docker.repo/acmo/app
+      - name: Checkout Argo Configuration
+        uses: actions/checkout@v3
+        with:
+          repository: acme/argocd-deploy-non-prod
+          ref: main
+          path: argocd-deploy-non-prod
+      - name: Deploy to dev
+        shell: bash
+        run: |
+          echo Rendering helmfile:
+          helmfile \
+            --namespace acme-app \
+            --environment dev \
+            --file deploy/app/release.yaml \
+            --state-values-file <(aws ssm get-parameter --name /platform/dev),<(docker image inspect some.docker.repo/acme/app) \
+            template > argocd-deploy-non-prod/plat/use2-dev/apps/my-preview-acme-app/manifests/resources.yaml
+          echo Updating sha for app:
+          yq e '' -i argocd-deploy-non-prod/plat/use2-dev/apps/my-preview-acme-app/config.yaml
+          echo Committing new helmfile
+          pushd argocd-deploy-non-prod
+          git add --all
+          git commit --message 'Updating acme-app'
+          git push
+          popd
 ```
+
+In the above example, we make a few assumptions:
+- You've already made the app in argocd by creating a yaml file
+  in your non-prod argocd repo at the path
+  `plat/use2-dev/apps/my-preview-acme-app/config.yaml` with contents:
+```yaml
+app_repository: acme/app
+app_commit: deadbeefdeadbeef
+app_hostname: https://some.app.endpoint/landing_page
+name: my-feature-branch.acme-app
+namespace: my-feature-branch
+manifests: plat/use2-dev/apps/my-preview-acme-app/manifests
+```
+- you have set up `ecr` with permissions for github to push docker images to it
+- you already have your `ApplicationSet` and `AppProject` crd's in
+  `plat/use2-dev/argocd/applicationset.yaml`, which should be generated by our `argocd-repo`
+  component.
+- your app has a [helmfile template](https://helmfile.readthedocs.io/en/latest/#templating)
+  in `deploy/app/release.yaml`
+- that helmfile template can accept both the `eks/platform` config which is pulled from
+  ssm at the path configured in `eks/platform/defaults`
+- the helmfile template can update container resources using the output of `docker image inspect`
+
+### Notifications
 
 Here's a config for letting argocd send notifications back to github:
 ```yaml
-TODO
+components:
+  terraform:
+    eks/argocd/notifications:
+      metadata:
+        type: abstract
+        component: eks/argocd
+      vars:
+        notifications_triggers:
+          trigger_on-deployed:
+            - when: app.status.operationState.phase in ['Succeeded']
+              oncePer: app.status.sync.revision
+              send: [app-deployed, github-commit-status]
+
+        notifications_templates:
+          template_app-deployed:
+            message: |
+              Application {{ .app.metadata.name }} is now running new version of deployments manifests.
+            github:
+              status:
+                state: success
+                label: "continuous-delivery/{{ .app.metadata.name }}"
+                targetURL: "{{ .context.argocdUrl }}/applications/{{ .app.metadata.name }}?operation=true"
+
+          template_github-commit-status:
+            message: |
+              Application {{ .app.metadata.name }} is now running new version of deployments manifests.
+            webhook:
+              github-commit-status:
+                method: POST
+                path: /repos/{{call .repo.FullNameByRepoURL .app.metadata.annotations.app_repository}}/statuses/{{.app.metadata.annotations.app_commit}}
+                body: |
+                  {
+                    {{if eq .app.status.operationState.phase "Running"}} "state": "pending"{{end}}
+                    {{if eq .app.status.operationState.phase "Succeeded"}} "state": "success"{{end}}
+                    {{if eq .app.status.operationState.phase "Error"}} "state": "error"{{end}}
+                    {{if eq .app.status.operationState.phase "Failed"}} "state": "error"{{end}},
+                    "description": "ArgoCD",
+                    "target_url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+                    "context": "continuous-delivery/{{.app.metadata.name}}"
+                  }
+
+        notifications_notifiers:
+          service_github:
+            appID: 123456
+            installationID: 12345678
+          service_webhook:
+            github-commit-status:
+              url: https://api.github.com
+              headers:
+                - name: Authorization
+                  value: token $service_webhook_github-commit-status_github-token
+
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
