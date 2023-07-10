@@ -6,14 +6,14 @@ Spacelift is a specialized, Terraform-compatible continuous integration and depl
 
 ## Stack Configuration
 
-Spacelift admininstrator stack and Space components are unique to our standard stack organization. Spaces are required before tenant-specific stacks are created in Spacelift, so we must define unique stack configuration outside of the standard `core` or `plat` stacks. Similiarly, the root administrator stack, referred to as `spacelift/root`, is also outside the scope of tenants `core` and `plat`. This root administrator stack is responsible for creating the tenant-specific administrator stacks, `spacelift/core` and `spacelift/plat`.
+Spacelift exists outside of the AWS ecosystem, so we define these components as unique to our standard stack organization. Spacelift Spaces are required before tenant-specific stacks are created in Spacelift, and the root administrator stack, referred to as `root-gbl-spacelift-admin-stack`, also does not belong to a specific tenant. Therefore, we define both outside of the standard `core` or `plat` stacks directories. That root administrator stack is responsible for creating the tenant-specific administrator stacks, `core-gbl-spacelift-admin-stack` and `plat-gbl-spacelift-admin-stack`.
 
 Our solution is to define a spacelift-specific configuration file per Spacelift Space. Typically our Spaces would be `root`, `core`, and `plat`, so we add three files:
 
 ```diff
-+ stacks/orgs/NAMESPACE/root-spacelift.yaml
-+ stacks/orgs/NAMESPACE/core/core-spacelift.yaml
-+ stacks/orgs/NAMESPACE/plat/plat-spacelift.yaml
++ stacks/orgs/NAMESPACE/spacelift.yaml
++ stacks/orgs/NAMESPACE/core/spacelift.yaml
++ stacks/orgs/NAMESPACE/plat/spacelift.yaml
 ```
 
 ### Global Configuration
@@ -58,9 +58,9 @@ terraform:
 
 ### Spacelift `root` Space
 
-The `root` Space in Spacelift is responsible for deploying the root adminstrator stack, `spacelift/root`, and the Spaces component, `spacelift/spaces`. This Spaces component also includes Spacelift policies. Since the root adminstrator stack is unique to tenants, we modify the stack configuration to create a unique stack slug, `NAMESPACE-gbl-root`.
+The `root` Space in Spacelift is responsible for deploying the root adminstrator stack, `admin-stack`, and the Spaces component, `spaces`. This Spaces component also includes Spacelift policies. Since the root adminstrator stack is unique to tenants, we modify the stack configuration to create a unique stack slug, `root-gbl-spacelift`.
 
-`stacks/orgs/NAMESPACE/root-spacelift.yaml`:
+`stacks/orgs/NAMESPACE/spacelift.yaml`:
 ```yaml
 import:
   - mixins/region/global-region
@@ -70,14 +70,14 @@ import:
 
 # These intentionally overwrite the default values
 vars:
-  tenant: NAMESPACE
+  tenant: root
   environment: gbl
-  stage: root
+  stage: spacelift
 
 components:
   terraform:
-    # This admin stack creates other "admin" stacks: spacelift/core, spacelift/plat, spacelift/spaces, spacelift/worker-pool
-    spacelift/root:
+    # This admin stack creates other "admin" stacks
+    admin-stack:
       metadata:
         component: spacelift/admin-stack
         inherits:
@@ -115,24 +115,24 @@ The following steps assume that you've already authenticated with Spacelift loca
 
 First deploy Spaces and policies with the `spaces` component:
 ```bash
-atmos terraform apply spacelift/spaces -s NAMESPACE-gbl-root
+atmos terraform apply spaces -s root-gbl-spacelift
 ```
 
 In the Spacelift UI, you should see each Space (https://example.app.spacelift.io/spaces) and each policy (https://example.app.spacelift.io/policies).
 
-Next, deploy `spacelift/root` with the following:
+Next, deploy the `root` `admin-stack` with the following:
 ```bash
-atmos terraform apply spacelift/root -s NAMESPACE-gbl-root
+atmos terraform apply admin-stack -s root-gbl-spacelift
 ```
 
-Now in the Spacelift UI, you should see the administrator stacks created. Typically should look similiar to the following:
+Now in the Spacelift UI, you should see the administrator stacks created. Typically these should look similiar to the following:
 
 ```diff
-+ NAMESPACE-gbl-root-spacelift-root
-+ NAMESPACE-gbl-root-spacelift-spaces
-+ NAMESPACE-gbl-core-spacelift-core
-+ NAMESPACE-gbl-plat-spacelift-plat
-+ NAMESPACE-ue1-auto-spacelift-worker-pool
++ root-gbl-spacelift-admin-stack
++ root-gbl-spacelift-spaces
++ core-gbl-spacelift-admin-stack
++ plat-gbl-spacelift-admin-stack
++ core-ue1-auto-spacelift-worker-pool
 ```
 
 :::info
@@ -148,9 +148,9 @@ atmos terraform apply spacelift/worker-pool -s core-ue1-auto
 
 ### Spacelift Tenant-Specific Spaces
 
-A tenant-specific Space in Spacelift, such as `core` or `plat`, includes the administrator stack for that specific Space and _all_ components in the given tenant. This administrator stack uses `var.context_filters` to select all components in the given tenant and create Spacelift stacks for each. Similar to the root adminstrator stack, we again create a unique stack slug for each tenant. For example `NAMESPACE-gbl-core`
+A tenant-specific Space in Spacelift, such as `core` or `plat`, includes the administrator stack for that specific Space and _all_ components in the given tenant. This administrator stack uses `var.context_filters` to select all components in the given tenant and create Spacelift stacks for each. Similar to the root adminstrator stack, we again create a unique stack slug for each tenant. For example `core-gbl-spacelift` or `plat-gbl-spacelift`.
 
-For example, configure a `core` administrator stack with `stacks/orgs/NAMESPACE/core/core-spacelift.yaml`.
+For example, configure a `core` administrator stack with `stacks/orgs/NAMESPACE/core/spacelift.yaml`.
 
 ```yaml
 import:
@@ -159,13 +159,13 @@ import:
   - catalog/terraform/spacelift/admin-stack
 
 vars:
-  tenant: NAMESPACE
+  tenant: core
   environment: gbl
-  stage: core
+  stage: spacelift
 
 components:
   terraform:
-    spacelift/core:
+    admin-stack:
       metadata:
         component: spacelift/admin-stack
         inherits:
@@ -184,14 +184,14 @@ components:
           - TRIGGER Dependencies
 ```
 
-Deploy `spacelift/core` with the following:
+Deploy the `core` `admin-stack` with the following:
 ```bash
-atmos terraform apply spacelift/core -s NAMESPACE-gbl-core
+atmos terraform apply admin-stack -s core-gbl-spacelift
 ```
 
-Create the same for the `plat` tenant in `stacks/orgs/NAMESPACE/plat/plat-spacelift.yaml` and deploy with the following:
+Create the same for the `plat` tenant in `stacks/orgs/NAMESPACE/plat/spacelift.yaml`, update the tenant and configuration as necessary, and deploy with the following:
 ```bash
-atmos terraform apply spacelift/plat -s NAMESPACE-gbl-plat
+atmos terraform apply admin-stack -s plat-gbl-spacelift
 ```
 
 Now all stacks for all components should be created in the Spacelift UI.
@@ -215,35 +215,15 @@ Attach these policies to stacks and Spacelift will trigger them on the respectiv
 
 Atmos support for `atmos describe affected` made it possible to greatly improve Spacelift's triggering workflow. Now we can add a GitHub Action to collect all affected components for a given Pull Request and add a GitHub comment to the given PR with a formatted list of the affected stacks. Then Spacelift can watch for a GitHub comment event, and then trigger stacks based on that comment.
 
-```mermaid
----
-title: Triggering Spacelift with GitHub Comments
----
-stateDiagram-v2
-    pr --> gh : 1
-    gh --> affected : 2
-    affected --> pr_comment : 3
-    pr_comment --> gh : 4
-    gh --> comment : 5
-    comment --> spacelift
-    spacelift --> trigger : 6
-
-    state "Pull request opened/synced/merged" as pr
-    state "GitHub" as gh
-    state "atmos describe affected" as affected
-    state "Add PR comment with list of affected stack" as pr_comment
-    state "Send comment event to Spacelift" as comment
-    state "Spacelift" as spacelift
-    state "Push policy triggers proposed or tracked run based on comment" as trigger
-```
-
 In order to set up GitHub Comment triggers, first add the following `GIT_PUSH Plan Affected` policy to the `spaces` component.
 
 For example, `stacks/catalog/spacelift/spaces.yaml`
 ```yaml
 components:
   terraform:
-    spacelift/spaces:
+    spaces:
+      metadata:
+        component: spacelift/spaces
       settings:
         spacelift:
           administrative: true
