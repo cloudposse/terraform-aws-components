@@ -42,7 +42,7 @@ module "store_write" {
 data "jq_query" "default" {
   for_each = var.references
   data     = jsonencode(module.remote[each.key].outputs)
-  query    = ".${each.value.output}"
+  query    = each.value.output
 }
 
 locals {

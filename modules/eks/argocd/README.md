@@ -49,6 +49,77 @@ components:
             permission: push
 ```
 
+Second, your application repos could use values to best configure their
+helm releases. We have an `eks/platform` component for exposing various
+infra outputs:
+
+```yaml
+components:
+  terraform:
+    eks/platform:
+      metadata:
+        type: abstract
+        component: eks/platform
+      backend:
+        s3:
+          workspace_key_prefix: platform
+      deps:
+        - catalog/eks/cluster
+        - catalog/eks/alb-controller-ingress-group
+        - catalog/acm
+      vars:
+        enabled: true
+        name: "platform"
+        eks_component_name: eks/cluster
+        ssm_platform_path: /platform/%s/%s
+        references:
+          default_alb_ingress_group:
+            component: eks/alb-controller-ingress-group
+            output: .group_name
+          default_ingress_domain:
+            component: dns-delegated
+            environment: gbl
+            output: "[.zones[].name][-1]"
+
+    eks/platform/acm:
+      metadata:
+        component: eks/platform
+        inherits:
+          - eks/platform
+      vars:
+        eks_component_name: eks/cluster
+        references:
+          default_ingress_domain:
+            component: acm
+            environment: use2
+            output: .domain_name
+
+    eks/platform/dev:
+      metadata:
+        component: eks/platform
+        inherits:
+          - eks/platform
+      vars:
+        platform_environment: dev
+
+    acm/qa2:
+      settings:
+        spacelift:
+          workspace_enabled: true
+      metadata:
+        component: acm
+      vars:
+        enabled: true
+        name: acm-qa2
+        tags:
+          Team: sre
+          Service: acm
+        process_domain_validation_options: true
+        validation_method: DNS
+        dns_private_zone_enabled: false
+        certificate_authority_enabled: false
+```
+
 **Stack Level**: Regional
 
 Here's an example snippet for how to use this component:
@@ -129,6 +200,19 @@ to use google OIDC:
                 - acme.com
               clientID: /sso/saml/google/clientid
               clientSecret: /sso/saml/google/clientsecret
+```
+
+#### Working with argocd and github
+
+Here's a simple action that will trigger a deploy in argocd:
+```yaml
+TODO
+NOTE: Example will show dev, and qa2
+```
+
+Here's a config for letting argocd send notifications back to github:
+```yaml
+TODO
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
