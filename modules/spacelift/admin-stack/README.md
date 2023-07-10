@@ -16,7 +16,7 @@ First define the default configuration for any admin stack:
 # stacks/catalog/spacelift/admin-stack.yaml
 components:
   terraform:
-    spacelift/default:
+    admin-stack/default:
       metadata:
         type: abstract
         component: spacelift/admin-stack
@@ -64,18 +64,18 @@ import:
 
 # These intentionally overwrite the default values
 vars:
-  tenant: acme
+  tenant: root
   environment: gbl
-  stage: root
+  stage: spacelift
 
 components:
   terraform:
-    # This admin stack creates other "admin" stacks: spacelift/core, spacelift/plat, spacelift/spaces, spacelift/worker-pool
-    spacelift/root:
+    # This admin stack creates other "admin" stacks
+    admin-stack:
       metadata:
         component: spacelift/admin-stack
         inherits:
-          - spacelift/default
+          - admin-stack/default
       settings:
         spacelift:
           root_administrative: true
@@ -108,17 +108,17 @@ import:
   - catalog/terraform/spacelift/admin-stack
 
 vars:
-  tenant: acme
+  tenant: core
   environment: gbl
-  stage: core
+  stage: spacelift
 
 components:
   terraform:
-    spacelift/core:
+    admin-stack:
       metadata:
         component: spacelift/admin-stack
         inherits:
-          - spacelift/default
+          - admin-stack/default
       settings:
         spacelift:
           labels: # Additional labels for this stack

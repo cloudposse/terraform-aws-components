@@ -81,7 +81,7 @@ components:
       metadata:
         component: spacelift/admin-stack
         inherits:
-          - spacelift/default
+          - admin-stack/default
       settings:
         spacelift:
           root_administrative: true
@@ -169,7 +169,7 @@ components:
       metadata:
         component: spacelift/admin-stack
         inherits:
-          - spacelift/default
+          - admin-stack/default
       settings:
         spacelift:
           labels: # Additional labels for this stack

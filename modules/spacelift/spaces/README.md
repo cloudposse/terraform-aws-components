@@ -13,7 +13,9 @@ The following are example snippets of how to use this component:
 # stacks/catalog/spacelift/spaces.yaml
 components:
   terraform:
-    spacelift/spaces:
+    spaces:
+      metadata:
+        component: spacelift/spaces
       settings:
         spacelift:
           administrative: true
