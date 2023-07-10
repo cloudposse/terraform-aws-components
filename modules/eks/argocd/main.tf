@@ -26,9 +26,7 @@ locals {
 
 locals {
   kubernetes_namespace = var.kubernetes_namespace
-  count_enabled        = local.enabled ? 1 : 0
   oidc_enabled         = local.enabled && var.oidc_enabled
-  oidc_enabled_count   = local.oidc_enabled ? 1 : 0
   saml_enabled         = local.enabled && var.saml_enabled
   argocd_repositories = local.enabled ? {
     for k, v in var.argocd_repositories : k => {
@@ -53,8 +51,7 @@ locals {
   regional_service_discovery_domain = "${module.this.environment}.${module.dns_gbl_delegated.outputs.default_domain_name}"
   host                              = var.host != "" ? var.host : format("%s.%s", coalesce(var.alb_name, var.name), local.regional_service_discovery_domain)
   enable_argo_workflows_auth        = local.saml_enabled && var.argo_enable_workflows_auth
-  enable_argo_workflows_auth_count  = local.enable_argo_workflows_auth ? 1 : 0
-  argo_workflows_host               = "${var.argo_workflows_name}.${local.regional_service_discovery_domain}"
+  # argo_workflows_host               = "${var.argo_workflows_name}.${local.regional_service_discovery_domain}"
 
   oidc_values = local.oidc_enabled ? values(local.oidc_providers_merged)[0] : {}
 
@@ -164,7 +161,7 @@ locals {
   }
 }
 
-#https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/google/#configure-dex
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/google/#configure-dex
 module "oidc_gsuite_service_providers_providers_store_read" {
   for_each = { for k, v in var.oidc_providers : k => v if lookup(v.serviceAccountAccess, "enabled", false) }
   source   = "cloudposse/ssm-parameter-store/aws"
@@ -175,6 +172,7 @@ module "oidc_gsuite_service_providers_providers_store_read" {
     if v.id == "google" && lookup(v.serviceAccountAccess, "enabled", false)
   ]
 }
+
 resource "kubernetes_secret" "oidc_gsuite_service_account" {
   for_each = { for k, v in var.oidc_providers : k => v if lookup(v.serviceAccountAccess, "enabled", false) }
   metadata {

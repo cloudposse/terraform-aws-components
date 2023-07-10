@@ -1,16 +1,10 @@
 locals {
-  enabled   = module.this.enabled
-  partition = join("", data.aws_partition.current[*].partition)
   metadata = {
     kube_version = {
       component = var.eks_component_name
       output    = "eks_cluster_version"
     }
   }
-}
-
-data "aws_partition" "current" {
-  count = local.enabled ? 1 : 0
 }
 
 module "store_write" {
@@ -36,6 +30,7 @@ module "store_write" {
         description = "Platform metadata for ${module.eks.outputs.eks_cluster_id} cluster"
       }
   ])
+
   context = module.this.context
 }
 

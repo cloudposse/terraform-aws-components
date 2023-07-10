@@ -58,18 +58,16 @@ variable "notifications_notifiers" {
   EOT
 }
 
-
-variable "notifications_default_triggers" {
-  type        = map(list(string))
-  default     = {}
-  description = <<-EOT
-  Default notification Triggers to configure.
-
-  See: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/triggers/#default-triggers
-  See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/790438efebf423c2d56cb4b93471f4adb3fcd448/charts/argo-cd/values.yaml#L2841)
-  EOT
-}
-
+#variable "notifications_default_triggers" {
+#  type        = map(list(string))
+#  default     = {}
+#  description = <<-EOT
+#  Default notification Triggers to configure.
+#
+#  See: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/triggers/#default-triggers
+#  See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/790438efebf423c2d56cb4b93471f4adb3fcd448/charts/argo-cd/values.yaml#L2841)
+#  EOT
+#}
 
 variable "slack_notifications_enabled" {
   type        = bool
