@@ -51,6 +51,7 @@ data "aws_ssm_parameter" "github_deploy_key" {
       module.this.stage
     )
   ) : null
+
   with_decryption = true
 
   provider = aws.config_secrets
