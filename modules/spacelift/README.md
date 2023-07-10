@@ -58,7 +58,7 @@ terraform:
 
 ### Spacelift `root` Space
 
-The `root` Space in Spacelift is responsible for deploying the root adminstrator stack, `admin-stack`, and the Spaces component, `spaces`. This Spaces component also includes Spacelift policies. Since the root adminstrator stack is unique to tenants, we modify the stack configuration to create a unique stack slug, `root-gbl-spacelift`.
+The `root` Space in Spacelift is responsible for deploying the root adminstrator stack, `admin-stack`, and the Spaces component, `spaces`. This Spaces component also includes Spacelift policies. Since the root adminstrator stack is unique to tenants, we modify the stack context to create a unique stack slug, `root-gbl-spacelift`.
 
 `stacks/orgs/NAMESPACE/spacelift.yaml`:
 ```yaml
@@ -118,7 +118,7 @@ First deploy Spaces and policies with the `spaces` component:
 atmos terraform apply spaces -s root-gbl-spacelift
 ```
 
-In the Spacelift UI, you should see each Space (https://example.app.spacelift.io/spaces) and each policy (https://example.app.spacelift.io/policies).
+In the Spacelift UI, you should see each Space and each policy.
 
 Next, deploy the `root` `admin-stack` with the following:
 ```bash
@@ -213,7 +213,7 @@ Attach these policies to stacks and Spacelift will trigger them on the respectiv
 
 ### Triggering with GitHub Comments (Preferred)
 
-Atmos support for `atmos describe affected` made it possible to greatly improve Spacelift's triggering workflow. Now we can add a GitHub Action to collect all affected components for a given Pull Request and add a GitHub comment to the given PR with a formatted list of the affected stacks. Then Spacelift can watch for a GitHub comment event, and then trigger stacks based on that comment.
+Atmos support for `atmos describe affected` made it possible to greatly improve Spacelift's triggering workflow. Now we can add a GitHub Action to collect all affected components for a given Pull Request and add a GitHub comment to the given PR with a formatted list of the affected stacks. Then Spacelift can watch for a GitHub comment event and then trigger stacks based on that comment.
 
 In order to set up GitHub Comment triggers, first add the following `GIT_PUSH Plan Affected` policy to the `spaces` component.
 
@@ -330,7 +330,7 @@ jobs:
     runs-on: ["self-hosted"]
     steps:
       - name: Atmos Affected Stacks Trigger Spacelift
-        uses: cloudposse/github-action-atmos-affected-trigger-spacelift@1.0.1
+        uses: cloudposse/github-action-atmos-affected-trigger-spacelift@v1
         with:
           atmos-config-path: ./rootfs/usr/local/etc/atmos
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -357,7 +357,7 @@ jobs:
     runs-on: ["self-hosted"]
     steps:
       - name: Atmos Affected Stacks Trigger Spacelift
-        uses: cloudposse/github-action-atmos-affected-trigger-spacelift@1.0.1
+        uses: cloudposse/github-action-atmos-affected-trigger-spacelift@v1
         with:
           atmos-config-path: ./rootfs/usr/local/etc/atmos
           deploy: true
