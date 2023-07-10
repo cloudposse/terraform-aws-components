@@ -1,4 +1,4 @@
-# Component: `eks/argocd`
+# Component: `argocd`
 
 This component is responsible for provisioning [Argo CD](https://argoproj.github.io/cd/).
 
@@ -146,6 +146,7 @@ components:
         spacelift:
           workspace_enabled: true
           depends_on:
+            - argocd-applicationset
             - tenant-gbl-corp-argocd-depoy-non-prod
       vars:
         enabled: true
@@ -195,7 +196,7 @@ the following attributes in a
 
 ### Google Workspace OIDC
 
-To use google OIDC:
+To use Google OIDC:
 
 ```yaml
   oidc_enabled: true
@@ -271,8 +272,8 @@ jobs:
 ```
 
 In the above example, we make a few assumptions:
-- You've already made the app in argocd by creating a yaml file
-  in your non-prod argocd repo at the path
+- You've already made the app in ArgoCD by creating a YAML file
+  in your non-prod ArgoCD repo at the path
   `plat/use2-dev/apps/my-preview-acme-app/config.yaml` with contents:
 
 ```yaml
@@ -296,7 +297,7 @@ manifests: plat/use2-dev/apps/my-preview-acme-app/manifests
 
 ### Notifications
 
-Here's a config for letting argocd send notifications back to GitHub:
+Here's a configuration for letting argocd send notifications back to GitHub:
 
 ```yaml
 components:
@@ -377,14 +378,14 @@ components:
 |------|--------|---------|
 | <a name="module_argocd"></a> [argocd](#module\_argocd) | cloudposse/helm-release/aws | 0.9.1 |
 | <a name="module_argocd_apps"></a> [argocd\_apps](#module\_argocd\_apps) | cloudposse/helm-release/aws | 0.9.1 |
-| <a name="module_argocd_repo"></a> [argocd\_repo](#module\_argocd\_repo) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
-| <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_argocd_repo"></a> [argocd\_repo](#module\_argocd\_repo) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_iam_roles_config_secrets"></a> [iam\_roles\_config\_secrets](#module\_iam\_roles\_config\_secrets) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_oidc_gsuite_service_providers_providers_store_read"></a> [oidc\_gsuite\_service\_providers\_providers\_store\_read](#module\_oidc\_gsuite\_service\_providers\_providers\_store\_read) | cloudposse/ssm-parameter-store/aws | 0.10.0 |
 | <a name="module_oidc_providers_store_read"></a> [oidc\_providers\_store\_read](#module\_oidc\_providers\_store\_read) | cloudposse/ssm-parameter-store/aws | 0.10.0 |
-| <a name="module_saml_sso_providers"></a> [saml\_sso\_providers](#module\_saml\_sso\_providers) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_saml_sso_providers"></a> [saml\_sso\_providers](#module\_saml\_sso\_providers) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -392,8 +393,12 @@ components:
 | Name | Type |
 |------|------|
 | [kubernetes_secret.oidc_gsuite_service_account](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) | resource |
+| [aws_eks_cluster.kubernetes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
 | [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
+| [aws_eks_cluster_auth.kubernetes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 | [aws_ssm_parameter.github_deploy_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+| [aws_ssm_parameter.oidc_client_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+| [aws_ssm_parameter.oidc_client_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameters_by_path.argocd_notifications](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameters_by_path) | data source |
 
 ## Inputs
@@ -456,10 +461,13 @@ components:
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
+| <a name="input_notifications_default_triggers"></a> [notifications\_default\_triggers](#input\_notifications\_default\_triggers) | Default notification Triggers to configure.<br><br>See: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/triggers/#default-triggers<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/790438efebf423c2d56cb4b93471f4adb3fcd448/charts/argo-cd/values.yaml#L2841) | `map(list(string))` | `{}` | no |
 | <a name="input_notifications_notifiers"></a> [notifications\_notifiers](#input\_notifications\_notifiers) | Notification Triggers to configure.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/triggers/<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L352) | <pre>object({<br>    ssm_path_prefix = optional(string, "/argocd/notifications/notifiers")<br>    service_github = optional(object({<br>      appID          = optional(number)<br>      installationID = optional(number)<br>      privateKey     = optional(string)<br>    }))<br>  })</pre> | `null` | no |
 | <a name="input_notifications_templates"></a> [notifications\_templates](#input\_notifications\_templates) | Notification Templates to configure.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/templates/<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L158) | <pre>map(object({<br>    message = string<br>    alertmanager = optional(object({<br>      labels       = map(string)<br>      annotations  = map(string)<br>      generatorURL = string<br>    }))<br>    github = optional(object({<br>      status = object({<br>        state     = string<br>        label     = string<br>        targetURL = string<br>      })<br>    }))<br>  }))</pre> | `{}` | no |
 | <a name="input_notifications_triggers"></a> [notifications\_triggers](#input\_notifications\_triggers) | Notification Triggers to configure.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/triggers/<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L352) | <pre>map(list(<br>    object({<br>      oncePer = optional(string)<br>      send    = list(string)<br>      when    = string<br>    })<br>  ))</pre> | `{}` | no |
 | <a name="input_oidc_enabled"></a> [oidc\_enabled](#input\_oidc\_enabled) | Toggles OIDC integration in the deployed chart | `bool` | `false` | no |
+| <a name="input_oidc_issuer"></a> [oidc\_issuer](#input\_oidc\_issuer) | OIDC issuer URL | `string` | `""` | no |
+| <a name="input_oidc_name"></a> [oidc\_name](#input\_oidc\_name) | Name of the OIDC resource | `string` | `""` | no |
 | <a name="input_oidc_providers"></a> [oidc\_providers](#input\_oidc\_providers) | OIDC providers components, clientID and clientSecret should be passed as SSM parameters (denoted by leading slash) | `any` | `{}` | no |
 | <a name="input_oidc_rbac_scopes"></a> [oidc\_rbac\_scopes](#input\_oidc\_rbac\_scopes) | OIDC RBAC scopes to request | `string` | `"[argocd_realm_access]"` | no |
 | <a name="input_oidc_requested_scopes"></a> [oidc\_requested\_scopes](#input\_oidc\_requested\_scopes) | Set of OIDC scopes to request | `string` | `"[\"openid\", \"profile\", \"email\", \"groups\"]"` | no |
@@ -468,6 +476,7 @@ components:
 | <a name="input_region"></a> [region](#input\_region) | AWS Region. | `string` | n/a | yes |
 | <a name="input_resources"></a> [resources](#input\_resources) | The cpu and memory of the deployment's limits and requests. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | `null` | no |
 | <a name="input_saml_enabled"></a> [saml\_enabled](#input\_saml\_enabled) | Toggles SAML integration in the deployed chart | `bool` | `false` | no |
+| <a name="input_saml_okta_app_name"></a> [saml\_okta\_app\_name](#input\_saml\_okta\_app\_name) | Name of the Okta SAML Integration | `string` | `"ArgoCD"` | no |
 | <a name="input_saml_rbac_scopes"></a> [saml\_rbac\_scopes](#input\_saml\_rbac\_scopes) | SAML RBAC scopes to request | `string` | `"[email,groups]"` | no |
 | <a name="input_saml_sso_providers"></a> [saml\_sso\_providers](#input\_saml\_sso\_providers) | SAML SSO providers components | <pre>map(object({<br>    component = string<br>  }))</pre> | `{}` | no |
 | <a name="input_slack_notifications_enabled"></a> [slack\_notifications\_enabled](#input\_slack\_notifications\_enabled) | Whether or not to enable Slack notifications. | `bool` | `false` | no |
@@ -488,8 +497,7 @@ components:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_argocd_apps_metadata"></a> [argocd\_apps\_metadata](#output\_argocd\_apps\_metadata) | Block status of the deployed ArgoCD apps release |
-| <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed ArgoCD release |
+| <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
