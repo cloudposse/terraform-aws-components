@@ -14,6 +14,41 @@ kubectl apply -k "https://github.com/argoproj/argo-cd/manifests/crds?ref=v2.4.9"
 
 ## Usage
 
+First, make sure you have a github repo ready to go. We have a component for this
+called the `argocd-repo` component. It will create a github repo and adds
+some secrets and code owners.
+
+```yaml
+components:
+  terraform:
+    argocd-repo-defaults:
+      metadata:
+        type: abstract
+      vars:
+        enabled: true
+        github_user: acme_admin
+        github_user_email: infra@acme.com
+        github_organization: ACME
+        github_codeowner_teams:
+        - "@ACME/acme-admins"
+        - "@ACME/CloudPosse"
+        - "@ACME/developers"
+        gitignore_entries:
+          - "**/.DS_Store"
+          - ".DS_Store"
+          - "**/.vscode"
+          - "./vscode"
+          - ".idea/"
+          - ".vscode/"
+        permissions:
+          - team_slug: acme-admins
+            permission: admin
+          - team_slug: CloudPosse
+            permission: admin
+          - team_slug: developers
+            permission: push
+```
+
 **Stack Level**: Regional
 
 Here's an example snippet for how to use this component:
@@ -43,7 +78,34 @@ components:
         saml_readonly_role: ArgoCD-non-prod-observer
         argocd_repo_name: argocd-deploy-non-prod
         chart_values: {}
+
+    sso-saml/aws-sso:
+      settings:
+        spacelift:
+          workspace_enabled: true
+      component: sso-saml-provider
+      vars:
+        enabled: true
+        ssm_path_prefix: "/sso/saml/aws-sso"
+        usernameAttr: email
+        emailAttr: email
+        groupsAttr: groups
 ```
+
+Note, if you set up sso-saml-provider, you will need to restart DEX on your eks cluster
+manually:
+```bash
+kubectl delete pod <dex-pod-name> -n argocd
+```
+
+The configuration above will work for AWS Identity Center if you have
+the following attributes in a Custom SAML 2.0 application:
+| attribute name | value           | type        |
+|:---------------|:----------------|:------------|
+| Subject        | ${user:subject} | persistent  |
+| email          | ${user:email}   | unspecified |
+| groups         | ${user:groups}  | unspecified |
+
 
 to use google OIDC:
 
