@@ -30,8 +30,15 @@ This component was created to add the Github OIDC provider so that Github Action
 without the need to store static credentials in the environment.
 The details of the GitHub OIDC provider are hard coded in the component, however at some point
 the provider's thumbprint may change, at which point you can use
-[scripts/get_github_oidc_thumbprint.sh](./scripts/get_github_oidc_thumbprint.sh)
+[get_github_oidc_thumbprint.sh](https://github.com/cloudposse/terraform-aws-components/blob/main/modules/github-oidc-provider/scripts/get_github_oidc_thumbprint.sh)
 to get the new thumbprint and add it to the list in `var.thumbprint_list`.
+
+This script will pull one of two thumbprints. There are two possible intermediary certificates for the Actions SSL
+certificate and either can be returned by the GitHub servers, requiring customers to trust both. This is a known
+behavior when the intermediary certificates are cross-signed by the CA. Therefore, run this script until both values
+are retrieved. Add both to `var.thumbprint_list`.
+
+For more, see https://github.blog/changelog/2023-06-27-github-actions-update-on-oidc-integration-with-aws/
 
 ## FAQ
 
@@ -100,9 +107,10 @@ permissions:
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
+| <a name="input_superadmin"></a> [superadmin](#input\_superadmin) | Set `true` if running as the SuperAdmin user | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_thumbprint_list"></a> [thumbprint\_list](#input\_thumbprint\_list) | List of OIDC provider certificate thumbprints | `list(string)` | <pre>[<br>  "6938fd4d98bab03faadb97b34396831e3780aea1"<br>]</pre> | no |
+| <a name="input_thumbprint_list"></a> [thumbprint\_list](#input\_thumbprint\_list) | List of OIDC provider certificate thumbprints | `list(string)` | <pre>[<br>  "6938fd4d98bab03faadb97b34396831e3780aea1",<br>  "1c58a3a8518e8759bf075b76b750d4f2df264fcd"<br>]</pre> | no |
 
 ## Outputs
 

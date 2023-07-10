@@ -4,7 +4,7 @@ This component is responsible for provisioning information only: it simply popul
 
 ## Pre-requisites
 
-- [account](/reference-architecture/components/account) must be provisioned before [account-map](/reference-architecture/components/account-map) component
+- [account](/components/library/aws/account) must be provisioned before [account-map](/components/library/aws/account-map) component
 
 ## Usage
 
@@ -98,7 +98,6 @@ components:
 | <a name="input_dns_account_account_name"></a> [dns\_account\_account\_name](#input\_dns\_account\_account\_name) | The stage name for the primary DNS account | `string` | `"dns"` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_global_environment_name"></a> [global\_environment\_name](#input\_global\_environment\_name) | Global environment name | `string` | `"gbl"` | no |
 | <a name="input_iam_role_arn_template_template"></a> [iam\_role\_arn\_template\_template](#input\_iam\_role\_arn\_template\_template) | The template for the template used to render Role ARNs.<br>The template is first used to render a template for the account that takes only the role name.<br>Then that rendered template is used to create the final Role ARN for the account.<br>Default is appropriate when using `tenant` and default label order with `null-label`.<br>Use `"arn:%s:iam::%s:role/%s-%s-%s-%%s"` when not using `tenant`.<br><br>Note that if the `null-label` variable `label_order` is truncated or extended with additional labels, this template will<br>need to be updated to reflect the new number of labels. | `string` | `"arn:%s:iam::%s:role/%s-%s-%s-%s-%%s"` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_identity_account_account_name"></a> [identity\_account\_account\_name](#input\_identity\_account\_account\_name) | The stage name for the account holding primary IAM roles | `string` | `"identity"` | no |
@@ -130,9 +129,13 @@ components:
 | <a name="output_artifacts_account_account_name"></a> [artifacts\_account\_account\_name](#output\_artifacts\_account\_account\_name) | The short name for the artifacts account |
 | <a name="output_audit_account_account_name"></a> [audit\_account\_account\_name](#output\_audit\_account\_account\_name) | The short name for the audit account |
 | <a name="output_aws_partition"></a> [aws\_partition](#output\_aws\_partition) | The AWS "partition" to use when constructing resource ARNs |
+| <a name="output_cicd_profiles"></a> [cicd\_profiles](#output\_cicd\_profiles) | OBSOLETE: dummy results returned to avoid breaking code that depends on this output |
+| <a name="output_cicd_roles"></a> [cicd\_roles](#output\_cicd\_roles) | OBSOLETE: dummy results returned to avoid breaking code that depends on this output |
 | <a name="output_dns_account_account_name"></a> [dns\_account\_account\_name](#output\_dns\_account\_account\_name) | The short name for the primary DNS account |
 | <a name="output_eks_accounts"></a> [eks\_accounts](#output\_eks\_accounts) | A list of all accounts in the AWS Organization that contain EKS clusters |
 | <a name="output_full_account_map"></a> [full\_account\_map](#output\_full\_account\_map) | The map of account name to account ID (number). |
+| <a name="output_helm_profiles"></a> [helm\_profiles](#output\_helm\_profiles) | OBSOLETE: dummy results returned to avoid breaking code that depends on this output |
+| <a name="output_helm_roles"></a> [helm\_roles](#output\_helm\_roles) | OBSOLETE: dummy results returned to avoid breaking code that depends on this output |
 | <a name="output_iam_role_arn_templates"></a> [iam\_role\_arn\_templates](#output\_iam\_role\_arn\_templates) | Map of accounts to corresponding IAM Role ARN templates |
 | <a name="output_identity_account_account_name"></a> [identity\_account\_account\_name](#output\_identity\_account\_account\_name) | The short name for the account holding primary IAM roles |
 | <a name="output_non_eks_accounts"></a> [non\_eks\_accounts](#output\_non\_eks\_accounts) | A list of all accounts in the AWS Organization that do not contain EKS clusters |

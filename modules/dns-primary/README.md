@@ -56,7 +56,7 @@ components:
 ```
 
 :::info
-Use the [acm](/reference-architecture/components/acm)  component for more advanced certificate requirements.
+Use the [acm](/components/library/aws/acm)  component for more advanced certificate requirements.
 
 :::
 

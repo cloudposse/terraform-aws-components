@@ -1,6 +1,6 @@
-# alb-controller-ingress-group
+# Component `eks/alb-controller-ingress-group`
 
-This component creates a Kubernetes Service that creates an ALB for a specific [IngressGroup].
+This component provisions a Kubernetes Service that creates an ALB for a specific [IngressGroup].
 
 An [IngressGroup] is a feature of the [alb-controller] which allows multiple Kubernetes Ingresses to share the same Application Load Balancer.
 
@@ -15,12 +15,15 @@ import:
   - catalog/eks/alb-controller-ingress-group
 ```
 
-The default catalog values `e.g. stacks/catalog/eks/alb-controller-ingress-group.yaml` will create a Kubernetes Service in the `default` namespace with an [IngressGroup] named `alb-controller-ingress-group`.
+The default catalog values `e.g. stacks/catalog/eks/alb-controller-ingress-group.yaml`
+will create a Kubernetes Service in the `default` namespace with an [IngressGroup] named `alb-controller-ingress-group`.
 
 ```yaml
 components:
   terraform:
     eks/alb-controller-ingress-group:
+      metadata:
+        component: eks/alb-controller-ingress-group
       settings:
         spacelift:
           workspace_enabled: true
@@ -50,13 +53,13 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
-| <a name="module_global_accelerator"></a> [global\_accelerator](#module\_global\_accelerator) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_global_accelerator"></a> [global\_accelerator](#module\_global\_accelerator) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_load_balancer_name"></a> [load\_balancer\_name](#module\_load\_balancer\_name) | cloudposse/label/null | 0.25.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_waf"></a> [waf](#module\_waf) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_waf"></a> [waf](#module\_waf) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 
 ## Resources
 
@@ -128,7 +131,9 @@ components:
 | <a name="output_annotations"></a> [annotations](#output\_annotations) | The annotations of the Ingress |
 | <a name="output_group_name"></a> [group\_name](#output\_group\_name) | The value of `alb.ingress.kubernetes.io/group.name` of the Ingress |
 | <a name="output_host"></a> [host](#output\_host) | The name of the host used by the Ingress |
+| <a name="output_ingress_class"></a> [ingress\_class](#output\_ingress\_class) | The value of the `kubernetes.io/ingress.class` annotation of the Kubernetes Ingress |
 | <a name="output_load_balancer_name"></a> [load\_balancer\_name](#output\_load\_balancer\_name) | The name of the load balancer created by the Ingress |
+| <a name="output_load_balancer_scheme"></a> [load\_balancer\_scheme](#output\_load\_balancer\_scheme) | The value of the `alb.ingress.kubernetes.io/scheme` annotation of the Kubernetes Ingress |
 | <a name="output_message_body_length"></a> [message\_body\_length](#output\_message\_body\_length) | The length of the message body to ensure it's lower than the maximum limit |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

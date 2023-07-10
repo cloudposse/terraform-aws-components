@@ -6,10 +6,10 @@ NOTE: This component can only be deployed after logging in to AWS via Federated 
 If Spotinst is going to be used, the following course of action needs to be followed:
 
 1. Create Spotinst account and subscribe to a Business Plan.
-1. Provision [spotinst-integration](../spotinst-integration), as documented in the component.
+1. Provision [spotinst-integration](https://spot.io/), as documented in the component.
 1. Provision EKS with Spotinst Ocean pool only.
-1. Deploy core K8s components, including [metrics-server](../metrics-server), [external-dns](../external-dns), etc.
-1. Deploy Spotinst [ocean-controller](../ocean-controller).
+1. Deploy core K8s components, including [metrics-server](/components/library/aws/eks/metrics-server), [external-dns](/components/library/aws/eks/external-dns), etc.
+1. Deploy Spotinst [ocean-controller](https://docs.spot.io/ocean/tutorials/spot-kubernetes-controller/).
 
 ## Usage
 

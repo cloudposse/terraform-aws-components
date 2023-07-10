@@ -1,5 +1,6 @@
 
 data "awsutils_caller_identity" "current" {
+  count = local.dynamic_terraform_role_enabled ? 1 : 0
   # Avoid conflict with caller's provider which is using this module's output to assume a role.
   provider = awsutils.iam-roles
 }
@@ -42,10 +43,10 @@ locals {
   static_terraform_role  = local.account_map.terraform_roles[local.account_name]
   dynamic_terraform_role = try(local.dynamic_terraform_role_map[local.dynamic_terraform_role_type], null)
 
-  current_user_role_arn       = coalesce(data.awsutils_caller_identity.current.eks_role_arn, data.awsutils_caller_identity.current.arn)
+  current_user_role_arn       = coalesce(one(data.awsutils_caller_identity.current[*].eks_role_arn), one(data.awsutils_caller_identity.current[*].arn), "disabled")
   dynamic_terraform_role_type = try(local.account_map.terraform_access_map[local.current_user_role_arn][local.account_name], "none")
 
-  current_identity_account = split(":", local.current_user_role_arn)[4]
+  current_identity_account = local.dynamic_terraform_role_enabled ? split(":", local.current_user_role_arn)[4] : ""
   is_root_user             = local.current_identity_account == local.account_map.full_account_map[local.account_map.root_account_account_name]
   is_target_user           = local.current_identity_account == local.account_map.full_account_map[local.account_name]
 
