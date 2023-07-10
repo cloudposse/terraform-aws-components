@@ -218,7 +218,7 @@ To use Google OIDC:
 
 ### Working with ArgoCD and GitHub
 
-Here's a simple GitHub action that will trigger a deploy in ArgoCD:
+Here's a simple GitHub Action workflow that will trigger a deployment in ArgoCD:
 ```yaml
 # NOTE: Example will show dev, and qa2
 name: argocd-deploy
