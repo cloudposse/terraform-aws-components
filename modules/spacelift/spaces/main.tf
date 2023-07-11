@@ -24,7 +24,7 @@ locals {
         body             = p.body
         body_url         = p.body_url
         body_url_version = p.body_url_version
-        labels           = toset(v.labels)
+        labels           = setunion(toset(v.labels), toset(p.labels))
         name             = pn
         space_id         = k == "root" ? "root" : module.space[k].space_id
         type             = p.type

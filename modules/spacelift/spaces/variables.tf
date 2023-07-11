@@ -12,6 +12,7 @@ variable "spaces" {
       labels           = optional(set(string), []),
     })), {}),
   }))
+  description = "A map of all Spaces to create in Spacelift"
 }
 
 variable "ssm_params_enabled" {

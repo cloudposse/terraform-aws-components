@@ -10,19 +10,12 @@ spacelift organization.
 The following are example snippets of how to use this component:
 
 ```yaml
-# stacks/orgs/acme/spacelift.yaml
-import:
-  - mixins/region/global-region
-  - orgs/acme/_defaults
-
-vars:
-  tenant: infra
-  environment: gbl
-  stage: root
-
+# stacks/catalog/spacelift/spaces.yaml
 components:
   terraform:
-    spacelift/spaces:
+    spaces:
+      metadata:
+        component: spacelift/spaces
       settings:
         spacelift:
           administrative: true
@@ -115,7 +108,7 @@ No resources.
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
-| <a name="input_spaces"></a> [spaces](#input\_spaces) | n/a | <pre>map(object({<br>    parent_space_id  = string,<br>    description      = optional(string),<br>    inherit_entities = optional(bool, false),<br>    labels           = optional(set(string), []),<br>    policies = optional(map(object({<br>      body             = optional(string),<br>      body_url         = optional(string),<br>      body_url_version = optional(string, "master"),<br>      type             = optional(string),<br>      labels           = optional(set(string), []),<br>    })), {}),<br>  }))</pre> | n/a | yes |
+| <a name="input_spaces"></a> [spaces](#input\_spaces) | A map of all Spaces to create in Spacelift | <pre>map(object({<br>    parent_space_id  = string,<br>    description      = optional(string),<br>    inherit_entities = optional(bool, false),<br>    labels           = optional(set(string), []),<br>    policies = optional(map(object({<br>      body             = optional(string),<br>      body_url         = optional(string),<br>      body_url_version = optional(string, "master"),<br>      type             = optional(string),<br>      labels           = optional(set(string), []),<br>    })), {}),<br>  }))</pre> | n/a | yes |
 | <a name="input_ssm_params_enabled"></a> [ssm\_params\_enabled](#input\_ssm\_params\_enabled) | Whether to write the IDs of the created spaces to SSM parameters | `bool` | `true` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
@@ -125,6 +118,6 @@ No resources.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_policies"></a> [policies](#output\_policies) | n/a |
-| <a name="output_spaces"></a> [spaces](#output\_spaces) | n/a |
+| <a name="output_policies"></a> [policies](#output\_policies) | The policies created by this component |
+| <a name="output_spaces"></a> [spaces](#output\_spaces) | The spaces created by this component |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
