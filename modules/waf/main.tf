@@ -3,6 +3,7 @@ locals {
 
   association_resource_component_selectors_arns = [
     for i, v in var.association_resource_component_selectors : module.association_resource_components[i].outputs[v.component_arn_output]
+    if local.enabled
   ]
 
   association_resource_arns = concat(var.association_resource_arns, local.association_resource_component_selectors_arns)
