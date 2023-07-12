@@ -32,16 +32,34 @@ variable "default_annotations" {
   }
 }
 
+variable "eks_component_name" {
+  type        = string
+  description = "The name of the `eks` component"
+  default     = "eks/cluster"
+}
+
+variable "global_accelerator_component_name" {
+  type        = string
+  description = "The name of the `global_accelerator` component"
+  default     = "global-accelerator"
+}
+
+variable "dns_delegated_component_name" {
+  type        = string
+  description = "The name of the `dns_delegated` component"
+  default     = "dns-delegated"
+}
+
+variable "waf_component_name" {
+  type        = string
+  description = "The name of the `waf` component"
+  default     = "waf"
+}
+
 variable "dns_delegated_environment_name" {
   type        = string
   description = "Global environment name"
   default     = "gbl"
-}
-
-variable "eks_component_name" {
-  type        = string
-  description = "The name of the eks component"
-  default     = "eks/cluster"
 }
 
 variable "global_accelerator_enabled" {

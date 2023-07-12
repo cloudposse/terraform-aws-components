@@ -209,3 +209,15 @@ variable "stickiness" {
   description = "Target group sticky configuration"
   default     = null
 }
+
+variable "vpc_component_name" {
+  type        = string
+  default     = "vpc"
+  description = "Atmos `vpc` component name"
+}
+
+variable "dns_delegated_component_name" {
+  type        = string
+  default     = "dns-delegated"
+  description = "Atmos `dns-delegated` component name"
+}
