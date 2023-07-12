@@ -6,7 +6,6 @@ The ACM component is to manage an unlimited number of certificates, predominantl
 
 We have, as a convenience, the ability to create an ACM certificate as part of creating a DNS zone, whether primary or delegated. That convenience is limited to creating `example.com` and `*.example.com` when creating a zone for `example.com`. For example, Acme has delegated `acct.acme.com` and in addition to `*.acct.acme.com` needed an ACM certificate for `*.usw2.acct.acme.com`, so we use the ACM component to provision that, rather than extend the DNS primary or delegated components to take a list of additional certificates. Both are different views on the Single Responsibility Principle.
 
-
 ## Usage
 
 **Stack Level**: Global or Regional
@@ -70,8 +69,9 @@ components:
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_acm"></a> [acm](#module\_acm) | cloudposse/acm-request-certificate/aws | 0.16.0 |
+| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_private_ca"></a> [private\_ca](#module\_private\_ca) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_private_ca"></a> [private\_ca](#module\_private\_ca) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -95,9 +95,12 @@ components:
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
+| <a name="input_dns_delegated_component_name"></a> [dns\_delegated\_component\_name](#input\_dns\_delegated\_component\_name) | Use this component name to read from the remote state to get the dns\_delegated zone ID | `string` | `"dns-delegated"` | no |
+| <a name="input_dns_delegated_environment_name"></a> [dns\_delegated\_environment\_name](#input\_dns\_delegated\_environment\_name) | Use this environment name to read from the remote state to get the dns\_delegated zone ID | `string` | `"gbl"` | no |
+| <a name="input_dns_delegated_stage_name"></a> [dns\_delegated\_stage\_name](#input\_dns\_delegated\_stage\_name) | Use this stage name to read from the remote state to get the dns\_delegated zone ID | `string` | `null` | no |
 | <a name="input_dns_private_zone_enabled"></a> [dns\_private\_zone\_enabled](#input\_dns\_private\_zone\_enabled) | Whether to set the zone to public or private | `bool` | `false` | no |
-| <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | Root domain name | `string` | n/a | yes |
-| <a name="input_enable_asterisk_subject_alternative_name"></a> [enable\_asterisk\_subject\_alternative\_name](#input\_enable\_asterisk\_subject\_alternative\_name) | Enable or disable the use of a wildcard domain in the subject alternative names | `bool` | `true` | no |
+| <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | Root domain name | `string` | `""` | no |
+| <a name="input_domain_name_prefix"></a> [domain\_name\_prefix](#input\_domain\_name\_prefix) | Root domain name prefix to use with DNS delegated remote state | `string` | `""` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
@@ -112,6 +115,7 @@ components:
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_subject_alternative_names"></a> [subject\_alternative\_names](#input\_subject\_alternative\_names) | A list of domains that should be SANs in the issued certificate | `list(string)` | `[]` | no |
+| <a name="input_subject_alternative_names_prefixes"></a> [subject\_alternative\_names\_prefixes](#input\_subject\_alternative\_names\_prefixes) | A list of domain prefixes to use with DNS delegated remote state that should be SANs in the issued certificate | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 | <a name="input_validation_method"></a> [validation\_method](#input\_validation\_method) | Method to use for validation, DNS or EMAIL | `string` | `"DNS"` | no |
