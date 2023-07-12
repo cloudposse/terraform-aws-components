@@ -95,8 +95,9 @@ locals {
           caData       = base64encode(format("-----BEGIN CERTIFICATE-----\n%s\n-----END CERTIFICATE-----", module.saml_sso_providers[name].outputs.ca))
           redirectURI  = format("https://%s/api/dex/callback", local.host)
           entityIssuer = format("https://%s/api/dex/callback", local.host)
-          usernameAttr = "name"
-          emailAttr    = "email"
+          usernameAttr = module.saml_sso_providers[name].outputs.usernameAttr
+          emailAttr    = module.saml_sso_providers[name].outputs.emailAttr
+          groupsAttr   = module.saml_sso_providers[name].outputs.groupsAttr
           ssoIssuer    = module.saml_sso_providers[name].outputs.issuer
         }
       }
