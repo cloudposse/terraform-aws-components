@@ -34,10 +34,10 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_alb"></a> [alb](#module\_alb) | cloudposse/alb/aws | 1.4.0 |
+| <a name="module_alb"></a> [alb](#module\_alb) | cloudposse/alb/aws | 1.10.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_remote_dns"></a> [remote\_dns](#module\_remote\_dns) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
-| <a name="module_remote_vpc"></a> [remote\_vpc](#module\_remote\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_remote_dns"></a> [remote\_dns](#module\_remote\_dns) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_remote_vpc"></a> [remote\_vpc](#module\_remote\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -60,6 +60,7 @@ No resources.
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_deregistration_delay"></a> [deregistration\_delay](#input\_deregistration\_delay) | The amount of time to wait in seconds before changing the state of a deregistering target to unused | `number` | `15` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
+| <a name="input_dns_delegated_component_name"></a> [dns\_delegated\_component\_name](#input\_dns\_delegated\_component\_name) | Atmos `dns-delegated` component name | `string` | `"dns-delegated"` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_health_check_healthy_threshold"></a> [health\_check\_healthy\_threshold](#input\_health\_check\_healthy\_threshold) | The number of consecutive health checks successes required before considering an unhealthy target healthy | `number` | `2` | no |
@@ -101,6 +102,7 @@ No resources.
 | <a name="input_target_group_protocol"></a> [target\_group\_protocol](#input\_target\_group\_protocol) | The protocol for the default target group HTTP or HTTPS | `string` | `"HTTP"` | no |
 | <a name="input_target_group_target_type"></a> [target\_group\_target\_type](#input\_target\_group\_target\_type) | The type (`instance`, `ip` or `lambda`) of targets that can be registered with the target group | `string` | `"ip"` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
+| <a name="input_vpc_component_name"></a> [vpc\_component\_name](#input\_vpc\_component\_name) | Atmos `vpc` component name | `string` | `"vpc"` | no |
 
 ## Outputs
 
