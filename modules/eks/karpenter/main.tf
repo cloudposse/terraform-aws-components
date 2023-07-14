@@ -136,10 +136,13 @@ module "karpenter" {
     # karpenter-specific values
     yamlencode({
       settings = {
+        # This configuration of settings requires Karpenter chart v0.19.0 or later
         aws = {
           defaultInstanceProfile = one(aws_iam_instance_profile.default[*].name)
           clusterName            = local.eks_cluster_id
-          clusterEndpoint        = local.eks_cluster_endpoint
+          # clusterEndpoint not needed as of v0.25.0
+          clusterEndpoint = local.eks_cluster_endpoint
+          tags            = module.this.tags
         }
       }
     }),
