@@ -7,7 +7,7 @@ variable "availability_zones" {
   type        = list(string)
   description = <<-EOT
     AWS Availability Zones in which to deploy multi-AZ resources.
-    If not provided, resources will be provisioned in every private subnet in the VPC.
+    If not provided, resources will be provisioned in every zone with a private subnet in the VPC.
     EOT
   default     = []
   nullable    = false
@@ -206,6 +206,7 @@ variable "node_groups" {
     # Additional attributes (e.g. `1`) for the node group
     attributes = list(string)
     # will create 1 auto scaling group in each specified availability zone
+    # or all AZs with subnets if none are specified anywhere
     availability_zones = list(string)
     # Whether to enable Node Group to scale its AutoScaling Group
     cluster_autoscaler_enabled = bool
@@ -446,13 +447,27 @@ variable "fargate_profile_iam_role_permissions_boundary" {
 
 variable "addons" {
   type = map(object({
-    addon_version            = optional(string, null)
-    resolve_conflicts        = optional(string, null)
+    addon_version        = optional(string, null)
+    configuration_values = optional(string, null)
+    # Set default resolve_conflicts to OVERWRITE because it is required on initial installation of
+    # add-ons that have self-managed versions installed by default (e.g. vpc-cni, coredns), and
+    # because any custom configuration that you would want to preserve should be managed by Terraform.
+    resolve_conflicts        = optional(string, "OVERWRITE")
     service_account_role_arn = optional(string, null)
+    create_timeout           = optional(string, null)
+    update_timeout           = optional(string, null)
+    delete_timeout           = optional(string, null)
   }))
 
   description = "Manages [EKS addons](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) resources"
   default     = {}
+  nullable    = false
+}
+
+variable "deploy_addons_to_fargate" {
+  type        = bool
+  description = "Set to `true` to deploy addons to Fargate instead of initial node pool"
+  default     = true
   nullable    = false
 }
 
@@ -466,4 +481,15 @@ variable "addons_depends_on" {
 
   default  = false
   nullable = false
+}
+
+variable "legacy_fargate_1_role_per_profile_enabled" {
+  type        = bool
+  description = <<-EOT
+    Set to `false` for new clusters to create a single Fargate Pod Execution role for the cluster.
+    Set to `true` for existing clusters to preserve the old behavior of creating
+    a Fargate Pod Execution role for each Fargate Profile.
+    EOT
+  default     = true
+  nullable    = false
 }
