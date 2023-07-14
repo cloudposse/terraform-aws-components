@@ -51,7 +51,7 @@ variable "provisioners" {
       httpEndpoint            = optional(string, "enabled"),  # valid values: enabled, disabled
       httpProtocolIPv6        = optional(string, "disabled"), # valid values: enabled, disabled
       httpPutResponseHopLimit = optional(number, 2),          # limit of 1 discouraged because it keeps Pods from reaching metadata service
-      httpTokens : optional(string, "required")               # valid values: required, optional
+      httpTokens              = optional(string, "required")  # valid values: required, optional
     })),
     # The AMI used by Karpenter provisioner when provisioning nodes. Based on the value set for amiFamily, Karpenter will automatically query for the appropriate EKS optimized AMI via AWS Systems Manager (SSM)
     ami_family = string
