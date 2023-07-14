@@ -67,6 +67,7 @@ data "aws_iam_policy_document" "assume_role" {
       effect = "Allow"
       actions = [
         "sts:AssumeRole",
+        "sts:SetSourceIdentity",
         "sts:TagSession",
       ]
 
@@ -99,6 +100,7 @@ data "aws_iam_policy_document" "assume_role" {
       effect = "Allow"
       actions = [
         "sts:AssumeRole",
+        "sts:SetSourceIdentity",
         "sts:TagSession",
       ]
 
@@ -124,6 +126,7 @@ data "aws_iam_policy_document" "assume_role" {
     effect = "Deny"
     actions = [
       "sts:AssumeRole",
+      "sts:SetSourceIdentity",
       "sts:TagSession",
     ]
 

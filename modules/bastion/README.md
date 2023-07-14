@@ -71,7 +71,7 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_bastion_autoscale_group"></a> [bastion\_autoscale\_group](#module\_bastion\_autoscale\_group) | cloudposse/ec2-autoscale-group/aws | 0.30.1 |
+| <a name="module_bastion_autoscale_group"></a> [bastion\_autoscale\_group](#module\_bastion\_autoscale\_group) | cloudposse/ec2-autoscale-group/aws | 0.35.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_sg"></a> [sg](#module\_sg) | cloudposse/security-group/aws | 2.0.0 |
 | <a name="module_ssm_tls_ssh_key_pair"></a> [ssm\_tls\_ssh\_key\_pair](#module\_ssm\_tls\_ssh\_key\_pair) | cloudposse/ssm-tls-ssh-key-pair/aws | 0.10.2 |

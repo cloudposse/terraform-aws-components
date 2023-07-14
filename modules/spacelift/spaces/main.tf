@@ -24,7 +24,7 @@ locals {
         body             = p.body
         body_url         = p.body_url
         body_url_version = p.body_url_version
-        labels           = toset(v.labels)
+        labels           = setunion(toset(v.labels), toset(p.labels))
         name             = pn
         space_id         = k == "root" ? "root" : module.space[k].space_id
         type             = p.type
@@ -36,7 +36,7 @@ locals {
 
 module "space" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-space"
-  version = "1.0.0"
+  version = "1.1.0"
 
   # Create a space for each entry in the `spaces` variable, except for the root space which already exists by default
   # and cannot be deleted.
@@ -51,7 +51,7 @@ module "space" {
 
 module "policy" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-policy"
-  version = "1.0.0"
+  version = "1.1.0"
 
   for_each = local.all_policies_inputs
 
