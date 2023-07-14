@@ -16,7 +16,7 @@ locals {
 
   aws_teams_auth = [for role in var.aws_teams_rbac : {
     rolearn = module.iam_arns.principals_map[local.identity_account_name][role.aws_team]
-    # Include session name in the username for auditing purposes.
+    # Session name included in audit trail automatically starting with Kubernetes v1.20.
     # See https://aws.github.io/aws-eks-best-practices/security/docs/iam/#use-iam-roles-when-multiple-users-need-identical-access-to-the-cluster
     username = format("%s-%s", local.identity_account_name, role.aws_team)
     groups   = role.groups
@@ -80,16 +80,19 @@ locals {
 
   # Get only the public subnets that correspond to the AZs provided in `var.availability_zones`
   # `az_public_subnets_map` is a map of AZ names to list of public subnet IDs in the AZs
-  public_subnet_ids = flatten([for k, v in local.vpc_outputs.az_public_subnets_map : v if contains(var.availability_zones, k)])
+  public_subnet_ids = flatten([for k, v in local.vpc_outputs.az_public_subnets_map : v if contains(var.availability_zones, k) || length(var.availability_zones) == 0])
 
   # Get only the private subnets that correspond to the AZs provided in `var.availability_zones`
   # `az_private_subnets_map` is a map of AZ names to list of private subnet IDs in the AZs
-  private_subnet_ids = flatten([for k, v in local.vpc_outputs.az_private_subnets_map : v if contains(var.availability_zones, k)])
+  private_subnet_ids = flatten([for k, v in local.vpc_outputs.az_private_subnets_map : v if contains(var.availability_zones, k) || length(var.availability_zones) == 0])
+
+  # Infer the availability zones from the private subnets if var.availability_zones is empty:
+  availability_zones = length(var.availability_zones) == 0 ? keys(local.vpc_outputs.az_private_subnets_map) : var.availability_zones
 }
 
 module "eks_cluster" {
   source  = "cloudposse/eks-cluster/aws"
-  version = "2.8.1"
+  version = "2.9.0"
 
   region     = var.region
   attributes = local.attributes
@@ -121,10 +124,16 @@ module "eks_cluster" {
   public_access_cidrs          = var.public_access_cidrs
   subnet_ids                   = var.cluster_private_subnets_only ? local.private_subnet_ids : concat(local.private_subnet_ids, local.public_subnet_ids)
   vpc_id                       = local.vpc_id
-  addons                       = var.addons
-  addons_depends_on            = var.addons_depends_on ? [module.region_node_group] : null
 
   kubernetes_config_map_ignore_role_changes = false
+
+  # EKS addons
+  addons = local.addons
+
+  addons_depends_on = var.addons_depends_on ? concat(
+    [module.region_node_group], local.addons_depends_on,
+    values(local.final_addon_service_account_role_arn_map)
+  ) : null
 
   # Managed Node Groups do not expose nor accept any Security Groups.
   # Instead, EKS creates a Security Group and applies it to ENI that is attached to EKS Control Plane master nodes and to any managed workloads.
