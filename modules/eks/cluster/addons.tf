@@ -45,6 +45,7 @@ locals {
     (local.coredns_enabled && var.deploy_addons_to_fargate ? {
       coredns = one(module.coredns_fargate_profile[*])
     } : {}),
+    local.overridable_additional_addon_fargate_profiles
   )
 }
 

@@ -331,7 +331,7 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 
   For reference on how to configure the IAM role and IAM permissions for EKS addons, see [addons.tf](addons.tf).
 
-- Add a file `additional-addon-irsa-map_override.tf` to the `eks/cluster` folder
+- Add a file `additional-addon-support_override.tf` to the `eks/cluster` folder
 
 - In the file, add the IAM Role for Kubernetes Service Account for the addon to the `overridable_additional_addon_service_account_role_arn_map` map:
 
@@ -343,10 +343,12 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
     }
   ```
 
-- This map will override the default map in the [additional-addon-irsa-map.tf](additional-addon-irsa-map.tf) file,
+- This map will override the default map in the [additional-addon-support.tf](additional-addon-support.tf) file,
   and will be merged into the final map together with the default EKS addons `vpc-cni` and `aws-ebs-csi-driver`
   (which this component configures and creates IAM Roles for Kubernetes Service Accounts)
 
+- Follow the instructions in the [additional-addon-support.tf](additional-addon-support.tf) file
+  if the addon may need to be deployed to Fargate, or has dependencies that Terraform cannot detect automatically.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
