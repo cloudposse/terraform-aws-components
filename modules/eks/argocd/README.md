@@ -140,8 +140,6 @@ Here's an example snippet for how to use this component:
 components:
   terraform:
     eks/argocd:
-      metadata:
-        component: eks/argocd
       settings:
         spacelift:
           workspace_enabled: true
@@ -162,7 +160,17 @@ components:
         saml_admin_role: ArgoCD-non-prod-admin
         saml_readonly_role: ArgoCD-non-prod-observer
         argocd_repo_name: argocd-deploy-non-prod
-        chart_values: {}
+        # Note: the IDs for AWS Identity Center groups will change if you alter/replace them:
+        argocd_rbac_groups:
+          - group: deadbeef-dead-beef-dead-beefdeadbeef
+            role: admin
+          - group: badca7sb-add0-65ba-dca7-sbadd065badc
+            role: reader
+        chart_values:
+          global:
+            logging:
+              format: json
+              level: warn
 
     sso-saml/aws-sso:
       settings:
@@ -178,7 +186,7 @@ components:
         groupsAttr: groups
 ```
 
-Note, if you set up sso-saml-provider, you will need to restart DEX on your eks cluster
+Note, if you set up `sso-saml-provider`, you will need to restart DEX on your EKS cluster
 manually:
 ```bash
 kubectl delete pod <dex-pod-name> -n argocd
@@ -193,6 +201,10 @@ the following attributes in a
 | Subject        | ${user:subject} | persistent  |
 | email          | ${user:email}   | unspecified |
 | groups         | ${user:groups}  | unspecified |
+
+You will also need to assign AWS Identity Center groups to your Custom SAML 2.0
+application. Make a note of each group and replace the IDs in the `argocd_rbac_groups`
+var accordingly.
 
 ### Google Workspace OIDC
 

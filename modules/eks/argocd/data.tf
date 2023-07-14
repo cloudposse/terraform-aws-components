@@ -13,6 +13,10 @@ locals {
 
 # NOTE: OIDC parameters are global, hence why they use a separate AWS provider
 
+#
+# These variables are depreciated but should not yet be removed. Future iterations of this component will delete these variables
+#
+
 #data "aws_ssm_parameter" "oidc_client_id" {
 #  count           = local.oidc_enabled_count
 #  name            = var.ssm_oidc_client_id
