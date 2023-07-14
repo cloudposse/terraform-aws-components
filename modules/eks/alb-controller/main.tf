@@ -350,9 +350,8 @@ module "alb_controller" {
       createIngressClassResource = var.default_ingress_enabled
       ingressClass               = var.default_ingress_class_name
       ingressClassParams = {
-        name    = var.default_ingress_class_name
-        create  = var.default_ingress_enabled
-        default = true
+        name   = var.default_ingress_class_name
+        create = var.default_ingress_enabled
         spec = {
           group = {
             name = var.default_ingress_group
@@ -362,6 +361,9 @@ module "alb_controller" {
           tags                   = [for k, v in merge(module.this.tags, var.default_ingress_additional_tags) : { key = k, value = v }]
           loadBalancerAttributes = var.default_ingress_load_balancer_attributes
         }
+      }
+      ingressClassConfig = {
+        default = var.default_ingress_enabled
       }
       defaultTags = module.this.tags
     }),
