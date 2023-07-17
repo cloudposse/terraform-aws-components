@@ -19,6 +19,10 @@ components:
         acl_name: default
         default_action: allow
         description: Default web ACL
+        visibility_config:
+          cloudwatch_metrics_enabled: false
+          metric_name: "default"
+          sampled_requests_enabled: false
         managed_rule_group_statement_rules:
         - name: "OWASP-10"
           # Rules are processed in order based on the value of priority, lowest number first
