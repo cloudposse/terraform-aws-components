@@ -1,6 +1,8 @@
 # Component: `eks/karpenter`
 
 This component provisions [Karpenter](https://karpenter.sh) on an EKS cluster.
+It requires at least version 0.19.0 of Karpenter, though you are encouraged to
+use the latest version.
 
 ## Usage
 
@@ -85,7 +87,6 @@ Service role name AWSServiceRoleForEC2Spot has been taken in this account, pleas
 ```
 
 For more details, see:
- - https://karpenter.sh/v0.18.0/getting-started/getting-started-with-terraform/
  - https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
  - https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html
 
@@ -279,8 +280,8 @@ For your cluster, you will need to review the following configurations for the K
 
 For more details, refer to:
 
- - https://karpenter.sh/v0.18.0/provisioner/#specrequirements
- - https://karpenter.sh/v0.18.0/aws/provisioning
+ - https://karpenter.sh/v0.28.0/provisioner/#specrequirements
+ - https://karpenter.sh/v0.28.0/aws/provisioning
  - https://aws.github.io/aws-eks-best-practices/karpenter/#creating-provisioners
  - https://aws.github.io/aws-eks-best-practices/karpenter
  - https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
