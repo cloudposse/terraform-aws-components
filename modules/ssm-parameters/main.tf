@@ -1,6 +1,9 @@
 locals {
-  sops_yaml     = yamldecode(data.sops_file.source.raw)
-  secret_params = nonsensitive(local.sops_yaml[var.sops_source_key])
+  enabled      = module.this.enabled
+  sops_enabled = local.enabled && length(var.sops_source_file) > 0
+
+  sops_yaml     = local.sops_enabled ? yamldecode(data.sops_file.source[0].raw) : ""
+  secret_params = local.sops_enabled ? nonsensitive(local.sops_yaml[var.sops_source_key]) : {}
 
   secret_params_normalized = {
     for key, value in local.secret_params :
@@ -13,11 +16,12 @@ locals {
     }
   }
 
-  params     = var.enabled ? merge(var.params, local.secret_params_normalized) : {}
+  params     = local.enabled ? merge(var.params, local.secret_params_normalized) : {}
   param_keys = keys(local.params)
 }
 
 data "sops_file" "source" {
+  count       = local.sops_enabled ? 1 : 0
   source_file = "${path.root}/${var.sops_source_file}"
 }
 
