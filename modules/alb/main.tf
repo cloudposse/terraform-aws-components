@@ -4,7 +4,7 @@ module "alb" {
 
   vpc_id          = module.remote_vpc.outputs.vpc_id
   subnet_ids      = module.remote_vpc.outputs.public_subnet_ids
-  certificate_arn = module.remote_dns.outputs.certificate.arn
+  certificate_arn = var.dns_acm_enabled ? module.remote_dns.outputs.certificate.arn : module.remote_acm.outputs.arn
 
   internal                                = var.internal
   http_port                               = var.http_port
