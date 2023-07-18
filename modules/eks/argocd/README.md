@@ -395,12 +395,12 @@ components:
 |------|--------|---------|
 | <a name="module_argocd"></a> [argocd](#module\_argocd) | cloudposse/helm-release/aws | 0.9.1 |
 | <a name="module_argocd_apps"></a> [argocd\_apps](#module\_argocd\_apps) | cloudposse/helm-release/aws | 0.9.1 |
-| <a name="module_argocd_repo"></a> [argocd\_repo](#module\_argocd\_repo) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
-| <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_argocd_repo"></a> [argocd\_repo](#module\_argocd\_repo) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_iam_roles_config_secrets"></a> [iam\_roles\_config\_secrets](#module\_iam\_roles\_config\_secrets) | ../../account-map/modules/iam-roles | n/a |
-| <a name="module_saml_sso_providers"></a> [saml\_sso\_providers](#module\_saml\_sso\_providers) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_saml_sso_providers"></a> [saml\_sso\_providers](#module\_saml\_sso\_providers) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -508,7 +508,8 @@ components:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
+| <a name="output_argocd_apps_metadata"></a> [argocd\_apps\_metadata](#output\_argocd\_apps\_metadata) | Block status of the deployed ArgoCD apps release |
+| <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed ArgoCD release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
