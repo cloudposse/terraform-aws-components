@@ -290,3 +290,33 @@ variable "spacelift_aws_account_id" {
   description = "AWS Account ID owned by Spacelift"
   default     = "643313122712"
 }
+
+variable "space_name" {
+  type        = string
+  description = "The name of the Space to create the worker pool in"
+  default     = "root"
+}
+
+variable "spacelift_spaces_component_name" {
+  type        = string
+  description = "The name of the spacelift spaces component"
+  default     = "spacelift/spaces"
+}
+
+variable "spacelift_spaces_environment_name" {
+  type        = string
+  description = "The environment name of the spacelift spaces component"
+  default     = null
+}
+
+variable "spacelift_spaces_stage_name" {
+  type        = string
+  description = "The stage name of the spacelift spaces component"
+  default     = null
+}
+
+variable "spacelift_spaces_tenant_name" {
+  type        = string
+  description = "The tenant name of the spacelift spaces component"
+  default     = null
+}

@@ -14,6 +14,6 @@ output "domain_validation_options" {
 }
 
 output "domain_name" {
-  value       = local.enabled ? var.domain_name : null
+  value       = local.enabled ? local.domain_name : null
   description = "Certificate domain name"
 }

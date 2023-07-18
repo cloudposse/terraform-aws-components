@@ -1,7 +1,7 @@
 locals {
   node_groups_enabled = local.enabled && var.managed_node_groups_enabled
 
-  node_group_default_availability_zones = var.node_group_defaults.availability_zones == null ? var.availability_zones : var.node_group_defaults.availability_zones
+  node_group_default_availability_zones = var.node_group_defaults.availability_zones == null ? local.availability_zones : var.node_group_defaults.availability_zones
   node_group_default_kubernetes_version = var.node_group_defaults.kubernetes_version == null ? var.cluster_kubernetes_version : var.node_group_defaults.kubernetes_version
 
   # values(module.region_node_group) is an array of `region_node_group` objects

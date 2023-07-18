@@ -25,19 +25,52 @@ aws ssm start-session --target <instance-id>
 Here's an example snippet for how to use this component.
 
 ```yaml
+# stacks/catalog/spacelift/worker-pool.yaml
 components:
   terraform:
-    spacelift-worker-pool:
+    spacelift/worker-pool:
       settings:
         spacelift:
-          workspace_enabled: true
+          administrative: true
+          space_name: root
       vars:
         enabled: true
-        name: "spacelift-worker-pool"
-        ec2_instance_type: m6i.large
-        ecr_account_name: corp
-        ecr_repo_name: infrastructure
         spacelift_api_endpoint: https://<GITHUBORG>.app.spacelift.io
+        spacelift_spaces_tenant_name: "acme"
+        spacelift_spaces_environment_name: "gbl"
+        spacelift_spaces_stage_name: "root"
+        account_map_tenant_name: core
+        ecr_environment_name: ue1
+        ecr_repo_name: infrastructure
+        ecr_stage_name: artifacts
+        ecr_tenant_name: core
+        # Set a low scaling threshold to ensure new workers are launched as soon as the current one(s) are busy
+        cpu_utilization_high_threshold_percent: 10
+        cpu_utilization_low_threshold_percent: 5
+        default_cooldown: 300
+        desired_capacity: null
+        health_check_grace_period: 300
+        health_check_type: EC2
+        infracost_enabled: true
+        instance_type: m6i.large
+        max_size: 3
+        min_size: 1
+        name: spacelift-worker-pool
+        scale_down_cooldown_seconds: 2700
+        spacelift_agents_per_node: 3
+        wait_for_capacity_timeout: 5m
+        block_device_mappings:
+          - device_name: "/dev/xvda"
+            no_device: null
+            virtual_name: null
+            ebs:
+              delete_on_termination: null
+              encrypted: false
+              iops: null
+              kms_key_id: null
+              snapshot_id: null
+              volume_size: 100
+              volume_type: "gp2"
 ```
 
 ## Configuration
@@ -99,14 +132,15 @@ role. This is done by adding `iam_role_arn` from the output to the `trusted_role
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
-| <a name="module_autoscale_group"></a> [autoscale\_group](#module\_autoscale\_group) | cloudposse/ec2-autoscale-group/aws | 0.30.1 |
-| <a name="module_ecr"></a> [ecr](#module\_ecr) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_autoscale_group"></a> [autoscale\_group](#module\_autoscale\_group) | cloudposse/ec2-autoscale-group/aws | 0.34.2 |
+| <a name="module_ecr"></a> [ecr](#module\_ecr) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_iam_label"></a> [iam\_label](#module\_iam\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_security_group"></a> [security\_group](#module\_security\_group) | cloudposse/security-group/aws | 2.0.0-rc1 |
+| <a name="module_spaces"></a> [spaces](#module\_spaces) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 
 ## Resources
 
@@ -177,12 +211,17 @@ role. This is done by adding `iam_role_arn` from the output to the `trusted_role
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_scale_down_cooldown_seconds"></a> [scale\_down\_cooldown\_seconds](#input\_scale\_down\_cooldown\_seconds) | The amount of time, in seconds, after a scaling activity completes and before the next scaling activity can start | `number` | `300` | no |
+| <a name="input_space_name"></a> [space\_name](#input\_space\_name) | The name of the Space to create the worker pool in | `string` | `"root"` | no |
 | <a name="input_spacelift_agents_per_node"></a> [spacelift\_agents\_per\_node](#input\_spacelift\_agents\_per\_node) | Number of Spacelift agents to run on one worker node | `number` | `1` | no |
 | <a name="input_spacelift_ami_id"></a> [spacelift\_ami\_id](#input\_spacelift\_ami\_id) | AMI ID of Spacelift worker pool image | `string` | `null` | no |
 | <a name="input_spacelift_api_endpoint"></a> [spacelift\_api\_endpoint](#input\_spacelift\_api\_endpoint) | The Spacelift API endpoint URL (e.g. https://example.app.spacelift.io) | `string` | n/a | yes |
 | <a name="input_spacelift_aws_account_id"></a> [spacelift\_aws\_account\_id](#input\_spacelift\_aws\_account\_id) | AWS Account ID owned by Spacelift | `string` | `"643313122712"` | no |
 | <a name="input_spacelift_domain_name"></a> [spacelift\_domain\_name](#input\_spacelift\_domain\_name) | Top-level domain name to use for pulling the launcher binary | `string` | `"spacelift.io"` | no |
 | <a name="input_spacelift_runner_image"></a> [spacelift\_runner\_image](#input\_spacelift\_runner\_image) | URL of ECR image to use for Spacelift | `string` | `""` | no |
+| <a name="input_spacelift_spaces_component_name"></a> [spacelift\_spaces\_component\_name](#input\_spacelift\_spaces\_component\_name) | The name of the spacelift spaces component | `string` | `"spacelift/spaces"` | no |
+| <a name="input_spacelift_spaces_environment_name"></a> [spacelift\_spaces\_environment\_name](#input\_spacelift\_spaces\_environment\_name) | The environment name of the spacelift spaces component | `string` | `null` | no |
+| <a name="input_spacelift_spaces_stage_name"></a> [spacelift\_spaces\_stage\_name](#input\_spacelift\_spaces\_stage\_name) | The stage name of the spacelift spaces component | `string` | `null` | no |
+| <a name="input_spacelift_spaces_tenant_name"></a> [spacelift\_spaces\_tenant\_name](#input\_spacelift\_spaces\_tenant\_name) | The tenant name of the spacelift spaces component | `string` | `null` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
