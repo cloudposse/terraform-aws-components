@@ -6,6 +6,7 @@ variable "region" {
 variable "aurora_mysql_component_name" {
   type        = string
   description = "Aurora MySQL component name to read the remote state from"
+  default     = "aurora-mysql"
 }
 
 variable "read_passwords_from_ssm" {
