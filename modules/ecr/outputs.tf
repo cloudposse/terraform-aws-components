@@ -4,7 +4,7 @@ output "ecr_repo_arn_map" {
 }
 
 output "repository_host" {
-  value       = try(split("/", module.ecr.repository_url)[0], "")
+  value       = try(split("/", module.ecr.repository_url)[0], null)
   description = "ECR repository name"
 }
 
