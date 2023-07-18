@@ -13,7 +13,7 @@ module "remote_dns" {
 
   component = var.dns_delegated_component_name
 
-  # Ignore errors if component doesnt exist
+  # Ignore errors if component doesn't exist
   ignore_errors = true
 
   context = module.this.context
@@ -25,7 +25,7 @@ module "remote_acm" {
 
   component = var.acm_component_name
 
-  # Ignore errors if component doesnt exist
+  # Ignore errors if component doesn't exist
   ignore_errors = true
 
   context = module.this.context
