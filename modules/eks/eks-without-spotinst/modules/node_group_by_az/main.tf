@@ -1,15 +1,18 @@
-data "aws_subnet_ids" "private" {
+data "aws_subnets" "private" {
   count = local.enabled ? 1 : 0
 
-  vpc_id = var.cluster_context.vpc_id
-
-  tags = {
-    (var.cluster_context.subnet_type_tag_key) = "private"
+  filter {
+    name   = "vpc-id"
+    values = [var.cluster_context.vpc_id]
   }
 
   filter {
     name   = "availability-zone"
     values = [var.availability_zone]
+  }
+
+  tags = {
+    (var.cluster_context.subnet_type_tag_key) = "private"
   }
 }
 
@@ -21,7 +24,7 @@ module "az_abbreviation" {
 locals {
   enabled         = module.this.enabled && length(var.availability_zone) > 0
   sentinel        = "~~"
-  subnet_ids_test = coalescelist(flatten(data.aws_subnet_ids.private[*].ids), [local.sentinel])
+  subnet_ids_test = coalescelist(flatten(data.aws_subnets.private[*].ids), [local.sentinel])
   subnet_ids      = local.subnet_ids_test[0] == local.sentinel ? null : local.subnet_ids_test
   az_map          = var.cluster_context.az_abbreviation_type == "short" ? module.az_abbreviation.region_az_alt_code_maps.to_short : module.az_abbreviation.region_az_alt_code_maps.to_fixed
   az_attribute    = local.az_map[var.availability_zone]

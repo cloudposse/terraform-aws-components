@@ -14,14 +14,132 @@ kubectl apply -k "https://github.com/argoproj/argo-cd/manifests/crds?ref=v2.4.9"
 
 ## Usage
 
-**Stack Level**: Regional
+### Preparing AppProject repos:
 
+First, make sure you have a GitHub repo ready to go. We have a component for this
+called the `argocd-repo` component. It will create a GitHub repo and adds
+some secrets and code owners. Most importantly, it configures an `applicationset.yaml`
+that includes all the details for helm to create ArgoCD CRDs. These CRDs
+let ArgoCD know how to fulfill changes to its repo.
+
+```yaml
+components:
+  terraform:
+    argocd-repo-defaults:
+      metadata:
+        type: abstract
+      vars:
+        enabled: true
+        github_user: acme_admin
+        github_user_email: infra@acme.com
+        github_organization: ACME
+        github_codeowner_teams:
+        - "@ACME/acme-admins"
+        - "@ACME/CloudPosse"
+        - "@ACME/developers"
+        gitignore_entries:
+          - "**/.DS_Store"
+          - ".DS_Store"
+          - "**/.vscode"
+          - "./vscode"
+          - ".idea/"
+          - ".vscode/"
+        permissions:
+          - team_slug: acme-admins
+            permission: admin
+          - team_slug: CloudPosse
+            permission: admin
+          - team_slug: developers
+            permission: push
+```
+
+### Injecting infrastructure details into applications
+Second, your application repos could use values to best configure their
+helm releases. We have an `eks/platform` component for exposing various
+infra outputs. It takes remote state lookups and stores them into SSM.
+We demonstrate how to pull the platform SSM parameters later. Here's an
+example `eks/platform` config:
+
+```yaml
+components:
+  terraform:
+    eks/platform:
+      metadata:
+        type: abstract
+        component: eks/platform
+      backend:
+        s3:
+          workspace_key_prefix: platform
+      deps:
+        - catalog/eks/cluster
+        - catalog/eks/alb-controller-ingress-group
+        - catalog/acm
+      vars:
+        enabled: true
+        name: "platform"
+        eks_component_name: eks/cluster
+        ssm_platform_path: /platform/%s/%s
+        references:
+          default_alb_ingress_group:
+            component: eks/alb-controller-ingress-group
+            output: .group_name
+          default_ingress_domain:
+            component: dns-delegated
+            environment: gbl
+            output: "[.zones[].name][-1]"
+
+    eks/platform/acm:
+      metadata:
+        component: eks/platform
+        inherits:
+          - eks/platform
+      vars:
+        eks_component_name: eks/cluster
+        references:
+          default_ingress_domain:
+            component: acm
+            environment: use2
+            output: .domain_name
+
+    eks/platform/dev:
+      metadata:
+        component: eks/platform
+        inherits:
+          - eks/platform
+      vars:
+        platform_environment: dev
+
+    acm/qa2:
+      settings:
+        spacelift:
+          workspace_enabled: true
+      metadata:
+        component: acm
+      vars:
+        enabled: true
+        name: acm-qa2
+        tags:
+          Team: sre
+          Service: acm
+        process_domain_validation_options: true
+        validation_method: DNS
+        dns_private_zone_enabled: false
+        certificate_authority_enabled: false
+```
+
+In the previous sample we create platform settings for a `dev` platform and a
+`qa2` platform. Understand that these are arbitrary titles that are used to separate
+the SSM parameters so that if, say, a particular hostname is needed, we can safely
+select the right hostname using a moniker such as `qa2`. These otherwise are meaningless
+and do not need to align with any particular stage or tenant.
+
+### ArgoCD on SAML / AWS Identity Center (formerly aws-sso)
 Here's an example snippet for how to use this component:
 
 ```yaml
 components:
   terraform:
-    argocd:
+    eks/argocd:
       settings:
         spacelift:
           workspace_enabled: true
@@ -42,31 +160,210 @@ components:
         saml_admin_role: ArgoCD-non-prod-admin
         saml_readonly_role: ArgoCD-non-prod-observer
         argocd_repo_name: argocd-deploy-non-prod
-        chart_values: {}
+        # Note: the IDs for AWS Identity Center groups will change if you alter/replace them:
+        argocd_rbac_groups:
+          - group: deadbeef-dead-beef-dead-beefdeadbeef
+            role: admin
+          - group: badca7sb-add0-65ba-dca7-sbadd065badc
+            role: reader
+        chart_values:
+          global:
+            logging:
+              format: json
+              level: warn
+
+    sso-saml/aws-sso:
+      settings:
+        spacelift:
+          workspace_enabled: true
+      metadata:
+        component: sso-saml-provider
+      vars:
+        enabled: true
+        ssm_path_prefix: "/sso/saml/aws-sso"
+        usernameAttr: email
+        emailAttr: email
+        groupsAttr: groups
 ```
 
-to use google OIDC:
+Note, if you set up `sso-saml-provider`, you will need to restart DEX on your EKS cluster
+manually:
+```bash
+kubectl delete pod <dex-pod-name> -n argocd
+```
+
+The configuration above will work for AWS Identity Center if you have
+the following attributes in a
+[Custom SAML 2.0 application](https://docs.aws.amazon.com/singlesignon/latest/userguide/samlapps.html):
+
+| attribute name | value           | type        |
+|:---------------|:----------------|:------------|
+| Subject        | ${user:subject} | persistent  |
+| email          | ${user:email}   | unspecified |
+| groups         | ${user:groups}  | unspecified |
+
+You will also need to assign AWS Identity Center groups to your Custom SAML 2.0
+application. Make a note of each group and replace the IDs in the `argocd_rbac_groups`
+var accordingly.
+
+### Google Workspace OIDC
+
+To use Google OIDC:
 
 ```yaml
-        oidc_enabled: true
-        saml_enabled: false
-        oidc_providers:
-          google:
-            uses_dex: true
-            type: google
-            id: google
-            name: Google
-            serviceAccountAccess:
-              enabled: true
-              key: googleAuth.json
-              value: /sso/oidc/google/serviceaccount
-              admin_email: an_actual_user@acme.com
-            config:
-              # This filters emails when signing in with Google to only this domain. helpful for picking the right one.
-              hostedDomains:
-                - acme.com
-              clientID: /sso/saml/google/clientid
-              clientSecret: /sso/saml/google/clientsecret
+  oidc_enabled: true
+  saml_enabled: false
+  oidc_providers:
+    google:
+      uses_dex: true
+      type: google
+      id: google
+      name: Google
+      serviceAccountAccess:
+        enabled: true
+        key: googleAuth.json
+        value: /sso/oidc/google/serviceaccount
+        admin_email: an_actual_user@acme.com
+      config:
+        # This filters emails when signing in with Google to only this domain. helpful for picking the right one.
+        hostedDomains:
+          - acme.com
+        clientID: /sso/saml/google/clientid
+        clientSecret: /sso/saml/google/clientsecret
+```
+
+### Working with ArgoCD and GitHub
+
+Here's a simple GitHub action that will trigger a deployment in ArgoCD:
+
+```yaml
+# NOTE: Example will show dev, and qa2
+name: argocd-deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2.1.0
+        with:
+          aws-region: us-east-2
+          role-to-assume: arn:aws:iam::123456789012:role/github-action-worker
+      - name: Build
+        shell: bash
+        run: docker build -t some.docker.repo/acme/app . & docker push some.docker.repo/acmo/app
+      - name: Checkout Argo Configuration
+        uses: actions/checkout@v3
+        with:
+          repository: acme/argocd-deploy-non-prod
+          ref: main
+          path: argocd-deploy-non-prod
+      - name: Deploy to dev
+        shell: bash
+        run: |
+          echo Rendering helmfile:
+          helmfile \
+            --namespace acme-app \
+            --environment dev \
+            --file deploy/app/release.yaml \
+            --state-values-file <(aws ssm get-parameter --name /platform/dev),<(docker image inspect some.docker.repo/acme/app) \
+            template > argocd-deploy-non-prod/plat/use2-dev/apps/my-preview-acme-app/manifests/resources.yaml
+          echo Updating sha for app:
+          yq e '' -i argocd-deploy-non-prod/plat/use2-dev/apps/my-preview-acme-app/config.yaml
+          echo Committing new helmfile
+          pushd argocd-deploy-non-prod
+          git add --all
+          git commit --message 'Updating acme-app'
+          git push
+          popd
+```
+
+In the above example, we make a few assumptions:
+- You've already made the app in ArgoCD by creating a YAML file
+  in your non-prod ArgoCD repo at the path
+  `plat/use2-dev/apps/my-preview-acme-app/config.yaml` with contents:
+
+```yaml
+app_repository: acme/app
+app_commit: deadbeefdeadbeef
+app_hostname: https://some.app.endpoint/landing_page
+name: my-feature-branch.acme-app
+namespace: my-feature-branch
+manifests: plat/use2-dev/apps/my-preview-acme-app/manifests
+```
+
+- you have set up `ecr` with permissions for github to push docker images to it
+- you already have your `ApplicationSet` and `AppProject` crd's in
+  `plat/use2-dev/argocd/applicationset.yaml`, which should be generated by our `argocd-repo`
+  component.
+- your app has a [helmfile template](https://helmfile.readthedocs.io/en/latest/#templating)
+  in `deploy/app/release.yaml`
+- that helmfile template can accept both the `eks/platform` config which is pulled from
+  ssm at the path configured in `eks/platform/defaults`
+- the helmfile template can update container resources using the output of `docker image inspect`
+
+### Notifications
+
+Here's a configuration for letting argocd send notifications back to GitHub:
+
+```yaml
+components:
+  terraform:
+    eks/argocd/notifications:
+      metadata:
+        type: abstract
+        component: eks/argocd
+      vars:
+        notifications_triggers:
+          trigger_on-deployed:
+            - when: app.status.operationState.phase in ['Succeeded']
+              oncePer: app.status.sync.revision
+              send: [app-deployed, github-commit-status]
+
+        notifications_templates:
+          template_app-deployed:
+            message: |
+              Application {{ .app.metadata.name }} is now running new version of deployments manifests.
+            github:
+              status:
+                state: success
+                label: "continuous-delivery/{{ .app.metadata.name }}"
+                targetURL: "{{ .context.argocdUrl }}/applications/{{ .app.metadata.name }}?operation=true"
+
+          template_github-commit-status:
+            message: |
+              Application {{ .app.metadata.name }} is now running new version of deployments manifests.
+            webhook:
+              github-commit-status:
+                method: POST
+                path: /repos/{{call .repo.FullNameByRepoURL .app.metadata.annotations.app_repository}}/statuses/{{.app.metadata.annotations.app_commit}}
+                body: |
+                  {
+                    {{if eq .app.status.operationState.phase "Running"}} "state": "pending"{{end}}
+                    {{if eq .app.status.operationState.phase "Succeeded"}} "state": "success"{{end}}
+                    {{if eq .app.status.operationState.phase "Error"}} "state": "error"{{end}}
+                    {{if eq .app.status.operationState.phase "Failed"}} "state": "error"{{end}},
+                    "description": "ArgoCD",
+                    "target_url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+                    "context": "continuous-delivery/{{.app.metadata.name}}"
+                  }
+
+        notifications_notifiers:
+          service_github:
+            appID: 123456
+            installationID: 12345678
+          service_webhook:
+            github-commit-status:
+              url: https://api.github.com
+              headers:
+                - name: Authorization
+                  value: token $service_webhook_github-commit-status_github-token
+
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -91,16 +388,16 @@ to use google OIDC:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_argocd"></a> [argocd](#module\_argocd) | cloudposse/helm-release/aws | 0.3.0 |
-| <a name="module_argocd_apps"></a> [argocd\_apps](#module\_argocd\_apps) | cloudposse/helm-release/aws | 0.3.0 |
-| <a name="module_argocd_repo"></a> [argocd\_repo](#module\_argocd\_repo) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
-| <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_argocd"></a> [argocd](#module\_argocd) | cloudposse/helm-release/aws | 0.9.1 |
+| <a name="module_argocd_apps"></a> [argocd\_apps](#module\_argocd\_apps) | cloudposse/helm-release/aws | 0.9.1 |
+| <a name="module_argocd_repo"></a> [argocd\_repo](#module\_argocd\_repo) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_iam_roles_config_secrets"></a> [iam\_roles\_config\_secrets](#module\_iam\_roles\_config\_secrets) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_oidc_gsuite_service_providers_providers_store_read"></a> [oidc\_gsuite\_service\_providers\_providers\_store\_read](#module\_oidc\_gsuite\_service\_providers\_providers\_store\_read) | cloudposse/ssm-parameter-store/aws | 0.10.0 |
 | <a name="module_oidc_providers_store_read"></a> [oidc\_providers\_store\_read](#module\_oidc\_providers\_store\_read) | cloudposse/ssm-parameter-store/aws | 0.10.0 |
-| <a name="module_saml_sso_providers"></a> [saml\_sso\_providers](#module\_saml\_sso\_providers) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_saml_sso_providers"></a> [saml\_sso\_providers](#module\_saml\_sso\_providers) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -108,12 +405,8 @@ to use google OIDC:
 | Name | Type |
 |------|------|
 | [kubernetes_secret.oidc_gsuite_service_account](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) | resource |
-| [aws_eks_cluster.kubernetes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
 | [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
-| [aws_eks_cluster_auth.kubernetes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 | [aws_ssm_parameter.github_deploy_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameter.oidc_client_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameter.oidc_client_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameters_by_path.argocd_notifications](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameters_by_path) | data source |
 
 ## Inputs
@@ -176,13 +469,10 @@ to use google OIDC:
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_notifications_default_triggers"></a> [notifications\_default\_triggers](#input\_notifications\_default\_triggers) | Default notification Triggers to configure.<br><br>See: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/triggers/#default-triggers<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/790438efebf423c2d56cb4b93471f4adb3fcd448/charts/argo-cd/values.yaml#L2841) | `map(list(string))` | `{}` | no |
 | <a name="input_notifications_notifiers"></a> [notifications\_notifiers](#input\_notifications\_notifiers) | Notification Triggers to configure.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/triggers/<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L352) | <pre>object({<br>    ssm_path_prefix = optional(string, "/argocd/notifications/notifiers")<br>    service_github = optional(object({<br>      appID          = optional(number)<br>      installationID = optional(number)<br>      privateKey     = optional(string)<br>    }))<br>  })</pre> | `null` | no |
 | <a name="input_notifications_templates"></a> [notifications\_templates](#input\_notifications\_templates) | Notification Templates to configure.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/templates/<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L158) | <pre>map(object({<br>    message = string<br>    alertmanager = optional(object({<br>      labels       = map(string)<br>      annotations  = map(string)<br>      generatorURL = string<br>    }))<br>    github = optional(object({<br>      status = object({<br>        state     = string<br>        label     = string<br>        targetURL = string<br>      })<br>    }))<br>  }))</pre> | `{}` | no |
 | <a name="input_notifications_triggers"></a> [notifications\_triggers](#input\_notifications\_triggers) | Notification Triggers to configure.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/triggers/<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L352) | <pre>map(list(<br>    object({<br>      oncePer = optional(string)<br>      send    = list(string)<br>      when    = string<br>    })<br>  ))</pre> | `{}` | no |
 | <a name="input_oidc_enabled"></a> [oidc\_enabled](#input\_oidc\_enabled) | Toggles OIDC integration in the deployed chart | `bool` | `false` | no |
-| <a name="input_oidc_issuer"></a> [oidc\_issuer](#input\_oidc\_issuer) | OIDC issuer URL | `string` | `""` | no |
-| <a name="input_oidc_name"></a> [oidc\_name](#input\_oidc\_name) | Name of the OIDC resource | `string` | `""` | no |
 | <a name="input_oidc_providers"></a> [oidc\_providers](#input\_oidc\_providers) | OIDC providers components, clientID and clientSecret should be passed as SSM parameters (denoted by leading slash) | `any` | `{}` | no |
 | <a name="input_oidc_rbac_scopes"></a> [oidc\_rbac\_scopes](#input\_oidc\_rbac\_scopes) | OIDC RBAC scopes to request | `string` | `"[argocd_realm_access]"` | no |
 | <a name="input_oidc_requested_scopes"></a> [oidc\_requested\_scopes](#input\_oidc\_requested\_scopes) | Set of OIDC scopes to request | `string` | `"[\"openid\", \"profile\", \"email\", \"groups\"]"` | no |
@@ -191,7 +481,6 @@ to use google OIDC:
 | <a name="input_region"></a> [region](#input\_region) | AWS Region. | `string` | n/a | yes |
 | <a name="input_resources"></a> [resources](#input\_resources) | The cpu and memory of the deployment's limits and requests. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | `null` | no |
 | <a name="input_saml_enabled"></a> [saml\_enabled](#input\_saml\_enabled) | Toggles SAML integration in the deployed chart | `bool` | `false` | no |
-| <a name="input_saml_okta_app_name"></a> [saml\_okta\_app\_name](#input\_saml\_okta\_app\_name) | Name of the Okta SAML Integration | `string` | `"ArgoCD"` | no |
 | <a name="input_saml_rbac_scopes"></a> [saml\_rbac\_scopes](#input\_saml\_rbac\_scopes) | SAML RBAC scopes to request | `string` | `"[email,groups]"` | no |
 | <a name="input_saml_sso_providers"></a> [saml\_sso\_providers](#input\_saml\_sso\_providers) | SAML SSO providers components | <pre>map(object({<br>    component = string<br>  }))</pre> | `{}` | no |
 | <a name="input_slack_notifications_enabled"></a> [slack\_notifications\_enabled](#input\_slack\_notifications\_enabled) | Whether or not to enable Slack notifications. | `bool` | `false` | no |
@@ -212,7 +501,8 @@ to use google OIDC:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
+| <a name="output_argocd_apps_metadata"></a> [argocd\_apps\_metadata](#output\_argocd\_apps\_metadata) | Block status of the deployed ArgoCD apps release |
+| <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed ArgoCD release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References

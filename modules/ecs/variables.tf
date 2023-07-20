@@ -160,16 +160,16 @@ variable "capacity_providers_ec2" {
         kms_key_id            = string
         snapshot_id           = string
         volume_size           = number
-        volume_               = string
+        volume_type           = string
       })
     })), [])
     instance_market_options = optional(object({
-      market_ = string
+      market_type = string
       spot_options = object({
         block_duration_minutes         = number
         instance_interruption_behavior = string
         max_price                      = number
-        spot_instance_                 = string
+        spot_instance_type             = string
         valid_until                    = string
       })
     }))

@@ -26,6 +26,8 @@ locals {
   )
 })}
 END
+
+space_id = lookup(module.spaces.outputs, var.space_name, "root")
 }
 
 resource "spacelift_worker_pool" "primary" {
@@ -33,6 +35,8 @@ resource "spacelift_worker_pool" "primary" {
 
   name        = module.this.id
   description = "Deployed to ${var.region} within '${join("-", compact([module.this.tenant, module.this.stage]))}' AWS account"
+
+  space_id = local.space_id
 }
 
 data "cloudinit_config" "config" {
@@ -86,7 +90,7 @@ module "security_group" {
 
 module "autoscale_group" {
   source  = "cloudposse/ec2-autoscale-group/aws"
-  version = "0.30.1"
+  version = "0.34.2"
 
   image_id                    = var.spacelift_ami_id == null ? join("", data.aws_ami.spacelift.*.image_id) : var.spacelift_ami_id
   instance_type               = var.instance_type

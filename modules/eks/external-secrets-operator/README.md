@@ -182,6 +182,6 @@ components:
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
-* [ADR-0067](../../../../docs/adr/0067-secrets-manager-strategy.md)
+* [Secrets Management Strategy](https://docs.cloudposse.com/reference-architecture/design-decisions/cold-start/decide-on-secrets-management-strategy-for-terraform/)
 * https://external-secrets.io/v0.5.9/
 * https://external-secrets.io/v0.5.9/provider-aws-parameter-store/

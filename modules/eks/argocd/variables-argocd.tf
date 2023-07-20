@@ -101,17 +101,17 @@ variable "oidc_enabled" {
   default     = false
 }
 
-variable "oidc_issuer" {
-  type        = string
-  description = "OIDC issuer URL"
-  default     = ""
-}
+#variable "oidc_issuer" {
+#  type        = string
+#  description = "OIDC issuer URL"
+#  default     = ""
+#}
 
-variable "oidc_name" {
-  type        = string
-  description = "Name of the OIDC resource"
-  default     = ""
-}
+#variable "oidc_name" {
+#  type        = string
+#  description = "Name of the OIDC resource"
+#  default     = ""
+#}
 
 variable "oidc_rbac_scopes" {
   type        = string
@@ -131,11 +131,11 @@ variable "saml_enabled" {
   default     = false
 }
 
-variable "saml_okta_app_name" {
-  type        = string
-  description = "Name of the Okta SAML Integration"
-  default     = "ArgoCD"
-}
+#variable "saml_okta_app_name" {
+#  type        = string
+#  description = "Name of the Okta SAML Integration"
+#  default     = "ArgoCD"
+#}
 
 variable "saml_rbac_scopes" {
   type        = string

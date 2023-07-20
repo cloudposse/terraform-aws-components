@@ -10,7 +10,7 @@ locals {
 
 module "redis" {
   source  = "cloudposse/elasticache-redis/aws"
-  version = "0.44.0"
+  version = "0.52.0"
 
   name = var.cluster_name
 

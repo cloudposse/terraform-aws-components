@@ -209,3 +209,27 @@ variable "stickiness" {
   description = "Target group sticky configuration"
   default     = null
 }
+
+variable "vpc_component_name" {
+  type        = string
+  default     = "vpc"
+  description = "Atmos `vpc` component name"
+}
+
+variable "dns_delegated_component_name" {
+  type        = string
+  default     = "dns-delegated"
+  description = "Atmos `dns-delegated` component name"
+}
+
+variable "acm_component_name" {
+  type        = string
+  default     = "acm"
+  description = "Atmos `acm` component name"
+}
+
+variable "dns_acm_enabled" {
+  type        = bool
+  default     = false
+  description = "If `true`, use the ACM ARN created by the given `dns-delegated` component. Otherwise, use the ACM ARN created by the given `acm` component."
+}
