@@ -1,4 +1,4 @@
-# Upgrading to `v1.238.0`
+## Upgrading to `v1.238.0`
 
 Our AWS Teams architecture is going through some changes that will ultimately improve, enhance, and simplify our identity design. As a result, several components have major updates - including `account-map`, `tfstate-backend`, `aws-teams`, and `aws-team-roles`. Part of this update involves an updated `providers.tf` that is already included with every component upstream. In order to use the new `providers.tf`, simply pull in the latest version of `account-map` greater than or equal to `1.227`. This update is backwards compatible with previous `providers.tf` versions, so you do not need to update every other component.
 
@@ -10,9 +10,9 @@ Finally, once `account-map`, `tfstate-backend`, `aws-teams`, and `aws-team-roles
 
 We know this is an extensive upgrade for a single change, but these upgrades will ultimately improve the experience across all components and simplify the authentication process going forward. Please reach out if you have questions.
 
-## Tips
+### Tips
 
-### Spacelift
+#### Spacelift
 
 Customers using Spacelift with drift detection enabled should take additional steps to prevent Spacelift from triggering invalid stacks.
 
@@ -25,6 +25,6 @@ In order to avoid Spacelift stack failures, follow these steps in order:
 3. Bulk "Sync Commit" every single Spacelift stack after updating and merging the `account-map` component
 4. Finally after `account-map` is merged and synced across all Spacelift stacks, apply the component
 
-#### Bulk Actions in Spacelift UI
+##### Bulk Actions in Spacelift UI
 
 You can only select the number of stacks on your screen. Meaning that when you load 50 stacks, you can only select 50 of them. Simply scroll down on the page until all stacks are load (400+). Then you can select them all with 1 Bulk Action
