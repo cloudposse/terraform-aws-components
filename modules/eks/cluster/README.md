@@ -477,6 +477,7 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 
 | Name | Description |
 |------|-------------|
+| <a name="output_availability_zones"></a> [availability\_zones](#output\_availability\_zones) | Availability Zones in which the cluster is provisioned |
 | <a name="output_eks_auth_worker_roles"></a> [eks\_auth\_worker\_roles](#output\_eks\_auth\_worker\_roles) | List of worker IAM roles that were included in the `auth-map` ConfigMap. |
 | <a name="output_eks_cluster_arn"></a> [eks\_cluster\_arn](#output\_eks\_cluster\_arn) | The Amazon Resource Name (ARN) of the cluster |
 | <a name="output_eks_cluster_certificate_authority_data"></a> [eks\_cluster\_certificate\_authority\_data](#output\_eks\_cluster\_certificate\_authority\_data) | The Kubernetes cluster certificate authority data |
