@@ -1,10 +1,20 @@
+locals {
+  dns_delegated_outputs             = module.dns_delegated.outputs
+  dns_delegated_default_domain_name = local.dns_delegated_outputs.default_domain_name
+  dns_delegated_certificate         = local.dns_delegated_outputs.certificate
+  dns_delegated_certificate_obj     = lookup(local.dns_delegated_certificate, local.dns_delegated_default_domain_name, {})
+  dns_delegated_certificate_arn     = lookup(local.dns_delegated_certificate_obj, "arn", "")
+
+  certificate_arn = var.dns_acm_enabled ? module.acm.outputs.arn : local.dns_delegated_certificate_arn
+}
+
 module "alb" {
   source  = "cloudposse/alb/aws"
   version = "1.10.0"
 
-  vpc_id          = module.remote_vpc.outputs.vpc_id
-  subnet_ids      = module.remote_vpc.outputs.public_subnet_ids
-  certificate_arn = var.dns_acm_enabled ? module.remote_dns.outputs.certificate.arn : module.remote_acm.outputs.arn
+  vpc_id          = module.vpc.outputs.vpc_id
+  subnet_ids      = module.vpc.outputs.public_subnet_ids
+  certificate_arn = local.certificate_arn
 
   internal                                = var.internal
   http_port                               = var.http_port

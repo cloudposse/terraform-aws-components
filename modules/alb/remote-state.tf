@@ -1,4 +1,4 @@
-module "remote_vpc" {
+module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "1.4.3"
 
@@ -7,26 +7,40 @@ module "remote_vpc" {
   context = module.this.context
 }
 
-module "remote_dns" {
+module "dns_delegated" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "1.4.3"
 
-  component = var.dns_delegated_component_name
+  component   = var.dns_delegated_component_name
+  environment = coalesce(var.dns_delegated_environment_name, module.iam_roles.global_environment_name)
+
+  bypass = var.dns_acm_enabled
 
   # Ignore errors if component doesn't exist
   ignore_errors = true
 
+  defaults = {
+    default_domain_name = ""
+    certificate         = {}
+  }
+
   context = module.this.context
 }
 
-module "remote_acm" {
+module "acm" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "1.4.3"
 
   component = var.acm_component_name
 
+  bypass = !var.dns_acm_enabled
+
   # Ignore errors if component doesn't exist
   ignore_errors = true
+
+  defaults = {
+    arn = ""
+  }
 
   context = module.this.context
 }
