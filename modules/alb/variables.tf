@@ -224,7 +224,7 @@ variable "dns_delegated_component_name" {
 
 variable "dns_delegated_environment_name" {
   type        = string
-  default     = "gbl"
+  default     = null
   description = "`dns-delegated` component environment name"
 }
 

@@ -12,7 +12,7 @@ module "dns_delegated" {
   version = "1.4.3"
 
   component   = var.dns_delegated_component_name
-  environment = var.dns_delegated_environment_name
+  environment = coalesce(var.dns_delegated_environment_name, module.iam_roles.global_environment_name)
 
   bypass = var.dns_acm_enabled
 
