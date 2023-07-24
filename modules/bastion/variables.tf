@@ -99,3 +99,9 @@ variable "image_container" {
   default     = ""
   description = "The image container to use in `container.sh`."
 }
+
+variable "capacity_timeout" {
+  type        = string
+  default     = "10m"
+  description = "The maximum duration to wait before timing out"
+}

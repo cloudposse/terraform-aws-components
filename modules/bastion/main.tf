@@ -101,7 +101,7 @@ module "bastion_autoscale_group" {
   max_size                    = 2
   default_cooldown            = 300
   scale_down_cooldown_seconds = 300
-  wait_for_capacity_timeout   = "10m"
+  wait_for_capacity_timeout   = var.capacity_timeout
   user_data_base64            = join("", data.cloudinit_config.config[0].*.rendered)
   tags                        = module.this.tags
   security_group_ids          = [module.sg.id]
