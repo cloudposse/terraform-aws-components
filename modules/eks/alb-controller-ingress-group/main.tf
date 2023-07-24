@@ -106,7 +106,7 @@ resource "kubernetes_ingress_v1" "default" {
           Type = "redirect"
           RedirectConfig = {
             Protocol   = "HTTPS"
-            Port       = "443"
+            Port       = var.redirection_port
             StatusCode = "HTTP_301"
           }
         })

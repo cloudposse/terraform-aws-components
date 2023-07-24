@@ -140,3 +140,9 @@ variable "alb_group_name" {
   description = "The name of the alb group"
   default     = null
 }
+
+variable "redirection_port" {
+  type        = string
+  description = "The port for HTTPS redirection"
+  default     = "443"
+}
