@@ -5,7 +5,6 @@ locals {
   db_password = length(var.db_password) > 0 ? var.db_password : join("", random_password.db_password.*.result)
 
   save_password_in_ssm = local.enabled && var.save_password_in_ssm
-  create_db_user       = local.enabled && var.service_name != local.db_user
 
   db_password_key = format("%s/%s/passwords/%s", var.ssm_path_prefix, var.service_name, local.db_user)
   db_password_ssm = local.save_password_in_ssm ? {
@@ -16,7 +15,7 @@ locals {
     overwrite   = true
   } : null
 
-  parameter_write = (local.create_db_user && local.save_password_in_ssm) ? [local.db_password_ssm] : []
+  parameter_write = local.save_password_in_ssm ? [local.db_password_ssm] : []
 
   # ALL grant always shows Terraform drift:
   # https://github.com/cyrilgdn/terraform-provider-postgresql/issues/32
