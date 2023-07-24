@@ -42,7 +42,7 @@ module "elasticsearch" {
   node_to_node_encryption_enabled                          = true
   advanced_security_options_enabled                        = true
   advanced_security_options_internal_user_database_enabled = true
-  advanced_security_options_master_user_name               = "admin"
+  advanced_security_options_master_user_name               = var.elasticsearch_master_username
   advanced_security_options_master_user_password           = local.elasticsearch_password
 
   allowed_cidr_blocks = [module.vpc.outputs.vpc_cidr]

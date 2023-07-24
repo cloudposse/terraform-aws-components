@@ -70,6 +70,12 @@ variable "elasticsearch_iam_role_arns" {
   description = "List of additional IAM role ARNs to permit access to the Elasticsearch domain"
 }
 
+variable "elasticsearch_master_username" {
+  type        = string
+  default     = "admin"
+  description = "Master user username"
+}
+
 variable "elasticsearch_password" {
   type        = string
   description = "Password for the elasticsearch user"
