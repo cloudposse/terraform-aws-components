@@ -127,6 +127,7 @@ components:
 | <a name="output_ecr_user_arn"></a> [ecr\_user\_arn](#output\_ecr\_user\_arn) | ECR user ARN |
 | <a name="output_ecr_user_name"></a> [ecr\_user\_name](#output\_ecr\_user\_name) | ECR user name |
 | <a name="output_ecr_user_unique_id"></a> [ecr\_user\_unique\_id](#output\_ecr\_user\_unique\_id) | ECR user unique ID assigned by AWS |
+| <a name="output_repository_host"></a> [repository\_host](#output\_repository\_host) | ECR repository name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Related

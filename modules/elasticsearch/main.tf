@@ -99,7 +99,7 @@ resource "aws_ssm_parameter" "elasticsearch_kibana_endpoint" {
 
 module "elasticsearch_log_cleanup" {
   source  = "cloudposse/lambda-elasticsearch-cleanup/aws"
-  version = "0.13.0"
+  version = "0.14.0"
 
   es_endpoint          = module.elasticsearch.domain_endpoint
   es_domain_arn        = module.elasticsearch.domain_arn

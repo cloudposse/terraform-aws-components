@@ -14,7 +14,7 @@ locals {
 }
 
 data "aws_route53_zone" "default" {
-  count        = local.enabled ? 1 : 0
+  count        = local.enabled && var.process_domain_validation_options ? 1 : 0
   name         = length(var.zone_name) > 0 ? var.zone_name : module.dns_delegated.outputs.default_domain_name
   private_zone = local.private_enabled
 }

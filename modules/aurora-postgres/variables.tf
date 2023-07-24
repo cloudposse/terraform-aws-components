@@ -193,6 +193,12 @@ variable "enhanced_monitoring_role_enabled" {
   default     = true
 }
 
+variable "enhanced_monitoring_attributes" {
+  type        = list(string)
+  description = "Attributes used to format the Enhanced Monitoring IAM role. If this role hits IAM role length restrictions (max 64 characters), consider shortening these strings."
+  default     = ["enhanced-monitoring"]
+}
+
 variable "rds_monitoring_interval" {
   type        = number
   description = "The interval, in seconds, between points when enhanced monitoring metrics are collected for the DB instance. To disable collecting Enhanced Monitoring metrics, specify 0. The default is 0. Valid Values: 0, 1, 5, 10, 15, 30, 60"

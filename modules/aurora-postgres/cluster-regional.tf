@@ -34,6 +34,7 @@ module "aurora_postgres_cluster" {
   maintenance_window                  = var.maintenance_window
   enabled_cloudwatch_logs_exports     = var.enabled_cloudwatch_logs_exports
   enhanced_monitoring_role_enabled    = var.enhanced_monitoring_role_enabled
+  enhanced_monitoring_attributes      = var.enhanced_monitoring_attributes
   performance_insights_enabled        = var.performance_insights_enabled
   rds_monitoring_interval             = var.rds_monitoring_interval
   autoscaling_enabled                 = var.autoscaling_enabled

@@ -26,9 +26,7 @@ locals {
 
 locals {
   kubernetes_namespace = var.kubernetes_namespace
-  count_enabled        = local.enabled ? 1 : 0
   oidc_enabled         = local.enabled && var.oidc_enabled
-  oidc_enabled_count   = local.oidc_enabled ? 1 : 0
   saml_enabled         = local.enabled && var.saml_enabled
   argocd_repositories = local.enabled ? {
     for k, v in var.argocd_repositories : k => {
@@ -53,10 +51,9 @@ locals {
   regional_service_discovery_domain = "${module.this.environment}.${module.dns_gbl_delegated.outputs.default_domain_name}"
   host                              = var.host != "" ? var.host : format("%s.%s", coalesce(var.alb_name, var.name), local.regional_service_discovery_domain)
   enable_argo_workflows_auth        = local.saml_enabled && var.argo_enable_workflows_auth
-  enable_argo_workflows_auth_count  = local.enable_argo_workflows_auth ? 1 : 0
-  argo_workflows_host               = "${var.argo_workflows_name}.${local.regional_service_discovery_domain}"
+  # argo_workflows_host               = "${var.argo_workflows_name}.${local.regional_service_discovery_domain}"
 
-  oidc_values = values(local.oidc_providers_merged)[0]
+  oidc_values = local.oidc_enabled ? values(local.oidc_providers_merged)[0] : {}
 
   oidc_config_map = local.oidc_enabled && !lookup(local.oidc_values, "uses_dex", true) ? {
     server : {
@@ -98,8 +95,9 @@ locals {
           caData       = base64encode(format("-----BEGIN CERTIFICATE-----\n%s\n-----END CERTIFICATE-----", module.saml_sso_providers[name].outputs.ca))
           redirectURI  = format("https://%s/api/dex/callback", local.host)
           entityIssuer = format("https://%s/api/dex/callback", local.host)
-          usernameAttr = "name"
-          emailAttr    = "email"
+          usernameAttr = module.saml_sso_providers[name].outputs.usernameAttr
+          emailAttr    = module.saml_sso_providers[name].outputs.emailAttr
+          groupsAttr   = module.saml_sso_providers[name].outputs.groupsAttr
           ssoIssuer    = module.saml_sso_providers[name].outputs.issuer
         }
       }
@@ -164,7 +162,7 @@ locals {
   }
 }
 
-#https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/google/#configure-dex
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/google/#configure-dex
 module "oidc_gsuite_service_providers_providers_store_read" {
   for_each = { for k, v in var.oidc_providers : k => v if lookup(v.serviceAccountAccess, "enabled", false) }
   source   = "cloudposse/ssm-parameter-store/aws"
@@ -175,6 +173,7 @@ module "oidc_gsuite_service_providers_providers_store_read" {
     if v.id == "google" && lookup(v.serviceAccountAccess, "enabled", false)
   ]
 }
+
 resource "kubernetes_secret" "oidc_gsuite_service_account" {
   for_each = { for k, v in var.oidc_providers : k => v if lookup(v.serviceAccountAccess, "enabled", false) }
   metadata {
@@ -189,7 +188,7 @@ resource "kubernetes_secret" "oidc_gsuite_service_account" {
 
 module "argocd" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.3.0"
+  version = "0.9.1"
 
   name                   = "argocd" # avoids hitting length restrictions on IAM Role names
   chart                  = var.chart
@@ -303,20 +302,21 @@ module "argocd_apps" {
   count = local.enabled && var.argocd_apps_enabled ? 1 : 0
 
   source  = "cloudposse/helm-release/aws"
-  version = "0.3.0"
+  version = "0.9.1"
 
-  name                 = "" # avoids hitting length restrictions on IAM Role names
-  chart                = var.argocd_apps_chart
-  repository           = var.argocd_apps_chart_repository
-  description          = var.argocd_apps_chart_description
-  chart_version        = var.argocd_apps_chart_version
-  kubernetes_namespace = var.kubernetes_namespace
-  create_namespace     = var.create_namespace
-  wait                 = var.wait
-  atomic               = var.atomic
-  cleanup_on_fail      = var.cleanup_on_fail
-  timeout              = var.timeout
-  enabled              = local.enabled && var.argocd_apps_enabled
+  name                        = "" # avoids hitting length restrictions on IAM Role names
+  chart                       = var.argocd_apps_chart
+  repository                  = var.argocd_apps_chart_repository
+  description                 = var.argocd_apps_chart_description
+  chart_version               = var.argocd_apps_chart_version
+  kubernetes_namespace        = var.kubernetes_namespace
+  create_namespace            = var.create_namespace
+  wait                        = var.wait
+  atomic                      = var.atomic
+  cleanup_on_fail             = var.cleanup_on_fail
+  timeout                     = var.timeout
+  enabled                     = local.enabled && var.argocd_apps_enabled
+  eks_cluster_oidc_issuer_url = module.eks.outputs.eks_cluster_identity_oidc_issuer
   values = compact([
     templatefile(
       "${path.module}/resources/argocd-apps-values.yaml.tpl",

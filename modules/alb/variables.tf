@@ -221,3 +221,21 @@ variable "dns_delegated_component_name" {
   default     = "dns-delegated"
   description = "Atmos `dns-delegated` component name"
 }
+
+variable "dns_delegated_environment_name" {
+  type        = string
+  default     = null
+  description = "`dns-delegated` component environment name"
+}
+
+variable "acm_component_name" {
+  type        = string
+  default     = "acm"
+  description = "Atmos `acm` component name"
+}
+
+variable "dns_acm_enabled" {
+  type        = bool
+  default     = false
+  description = "If `true`, use the ACM ARN created by the given `dns-delegated` component. Otherwise, use the ACM ARN created by the given `acm` component."
+}

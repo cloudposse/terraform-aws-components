@@ -87,3 +87,9 @@ variable "elasticsearch_password" {
     error_message = "Password must be between 8 and 128 characters. If null is provided then a random password will be used."
   }
 }
+
+variable "dns_delegated_environment_name" {
+  type        = string
+  description = "The name of the environment where the `dns-delegated` component is deployed"
+  default     = "gbl"
+}
