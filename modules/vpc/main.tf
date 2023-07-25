@@ -128,7 +128,7 @@ module "vpc_endpoints" {
   source  = "cloudposse/vpc/aws//modules/vpc-endpoints"
   version = "2.1.0"
 
-  enabled = (length(var.interface_vpc_endpoints) + length(var.gateway_vpc_endpoints)) > 0
+  enabled = local.enabled && (length(var.interface_vpc_endpoints) + length(var.gateway_vpc_endpoints)) > 0
 
   vpc_id                  = module.vpc.vpc_id
   gateway_vpc_endpoints   = local.gateway_endpoint_map
