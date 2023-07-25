@@ -68,6 +68,7 @@ variable "cluster_family" {
 
 # AWS KMS alias used for encryption/decryption of SSM secure strings
 variable "kms_alias_name_ssm" {
+  type        = string
   default     = "alias/aws/ssm"
   description = "KMS alias name for SSM"
 }
