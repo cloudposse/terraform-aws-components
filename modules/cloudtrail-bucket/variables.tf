@@ -11,32 +11,32 @@ variable "lifecycle_rule_enabled" {
 
 variable "noncurrent_version_expiration_days" {
   type        = number
-  description = "Specifies when noncurrent object versions expire"
   default     = 90
+  description = "Specifies when noncurrent object versions expire"
 }
 
 variable "noncurrent_version_transition_days" {
   type        = number
-  description = "Specifies when noncurrent object versions transitions"
   default     = 30
+  description = "Specifies when noncurrent object versions transition to a different storage tier"
 }
 
 variable "standard_transition_days" {
   type        = number
-  description = "Number of days to persist in the standard storage tier before moving to the infrequent access tier"
   default     = 30
+  description = "Number of days to persist in the standard storage tier before moving to the infrequent access tier"
 }
 
 variable "glacier_transition_days" {
   type        = number
-  description = "Number of days after which to move the data to the glacier storage tier"
   default     = 60
+  description = "Number of days after which to move the data to the glacier storage tier"
 }
 
 variable "expiration_days" {
   type        = number
-  description = "Number of days after which to expunge the objects"
   default     = 90
+  description = "Number of days after which to expunge the objects"
 }
 
 variable "create_access_log_bucket" {
