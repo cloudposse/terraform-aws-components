@@ -58,9 +58,9 @@ module "eks_node_group" {
   subnet_ids                 = local.enabled ? local.subnet_ids : null
 
   block_device_mappings = local.enabled ? [{
-    device_name           = "/dev/xvda"
+    device_name           = var.block_device_name
     volume_size           = var.cluster_context.disk_size
-    volume_type           = "gp2"
+    volume_type           = var.block_device_volume_type
     encrypted             = var.cluster_context.disk_encryption_enabled
     delete_on_termination = true
   }] : []

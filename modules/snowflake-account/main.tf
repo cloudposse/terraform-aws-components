@@ -123,7 +123,7 @@ resource "snowflake_role" "terraform" {
 resource "snowflake_role_grants" "grant_system_roles" {
   count = local.enabled ? 1 : 0
 
-  role_name = "ACCOUNTADMIN"
+  role_name = var.snowflake_role_name
 
   # Snowflake resource names are enclosed in quotes intentionally per Idenitier Requirements:
   # https://docs.snowflake.com/en/sql-reference/identifiers-syntax.html#identifier-requirements

@@ -31,6 +31,12 @@ variable "snowflake_admin_username" {
   description = "Snowflake admin username created with the initial account subscription."
 }
 
+variable "snowflake_role_name" {
+  type        = string
+  default     = "ACCOUNTADMIN"
+  description = "The name of the role being granted"
+}
+
 variable "default_warehouse_size" {
   type        = string
   default     = "xsmall"

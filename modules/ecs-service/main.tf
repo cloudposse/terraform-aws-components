@@ -129,7 +129,7 @@ module "container_definition" {
     { "CLUSTER_NAME" = module.ecs_cluster.outputs.cluster_name },
     var.datadog_agent_sidecar_enabled ? {
       "DD_DOGSTATSD_PORT"      = 8125,
-      "DD_TRACING_ENABLED"     = "true",
+      "DD_TRACING_ENABLED"     = var.trace_enabled,
       "DD_SERVICE_NAME"        = var.name,
       "DD_ENV"                 = var.stage,
       "DD_PROFILING_EXPORTERS" = "agent"
