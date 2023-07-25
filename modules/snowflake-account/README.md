@@ -132,6 +132,7 @@ components:
 | <a name="input_snowflake_account_region"></a> [snowflake\_account\_region](#input\_snowflake\_account\_region) | AWS Region with the Snowflake subscription | `string` | n/a | yes |
 | <a name="input_snowflake_admin_username"></a> [snowflake\_admin\_username](#input\_snowflake\_admin\_username) | Snowflake admin username created with the initial account subscription. | `string` | `"admin"` | no |
 | <a name="input_snowflake_role_description"></a> [snowflake\_role\_description](#input\_snowflake\_role\_description) | Comment to attach to the Snowflake Role. | `string` | `"Terraform service user role."` | no |
+| <a name="input_snowflake_role_name"></a> [snowflake\_role\_name](#input\_snowflake\_role\_name) | The name of the role being granted | `string` | `"ACCOUNTADMIN"` | no |
 | <a name="input_snowflake_username_format"></a> [snowflake\_username\_format](#input\_snowflake\_username\_format) | Snowflake username format | `string` | `"%s-%s"` | no |
 | <a name="input_ssm_path_snowflake_user_format"></a> [ssm\_path\_snowflake\_user\_format](#input\_ssm\_path\_snowflake\_user\_format) | SSM parameter path format for a Snowflake user. For example, /snowflake/{{ account }}/users/{{ username }}/ | `string` | `"/%s/%s/%s/%s/%s"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
