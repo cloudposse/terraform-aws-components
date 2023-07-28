@@ -3,6 +3,15 @@ variable "region" {
   description = "AWS region"
 }
 
+variable "availability_zones" {
+  type        = list(string)
+  description = <<-EOT
+    AWS Availability Zones in which to deploy multi-AZ resources.
+    If not provided, resources will be provisioned in every private subnet in the VPC.
+    EOT
+  default     = []
+}
+
 variable "instance_type" {
   type        = string
   default     = "t2.micro"
