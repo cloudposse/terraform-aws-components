@@ -13,6 +13,13 @@ variable "notifications_templates" {
         targetURL = string
       })
     }))
+    webhook = optional(map(
+      object({
+        method = optional(string)
+        path   = optional(string)
+        body   = optional(string)
+      })
+    ))
   }))
   default     = {}
   description = <<-EOT
@@ -44,12 +51,29 @@ variable "notifications_notifiers" {
   type = object({
     ssm_path_prefix = optional(string, "/argocd/notifications/notifiers")
     service_github = optional(object({
-      appID          = optional(number)
-      installationID = optional(number)
+      appID          = number
+      installationID = number
       privateKey     = optional(string)
     }))
+    # service.webhook.<webhook-name>:
+    service_webhook = optional(map(
+      object({
+        url = string
+        headers = optional(list(
+          object({
+            name  = string
+            value = string
+          })
+        ), [])
+        basicAuth = optional(object({
+          username = string
+          password = string
+        }))
+        insecureSkipVerify = optional(bool, false)
+      })
+    ))
   })
-  default     = null
+  default     = {}
   description = <<-EOT
   Notification Triggers to configure.
 
