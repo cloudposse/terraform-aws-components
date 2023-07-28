@@ -9,8 +9,6 @@ locals {
   vpc_public_subnet_ids  = length(var.availability_zones) == 0 ? module.vpc.outputs.public_subnet_ids : flatten([for k, v in local.vpc_outputs.az_public_subnets_map : v if contains(var.availability_zones, k)])
   vpc_subnet_ids         = var.associate_public_ip_address ? local.vpc_public_subnet_ids : local.vpc_private_subnet_ids
 
-  route52_enabled = var.associate_public_ip_address && var.custom_bastion_hostname != null && var.vanity_domain != null
-
   userdata_template             = "${path.module}/templates/user-data.sh"
   container_template            = "${path.module}/templates/container.sh"
   container_cloud_init_template = "${path.module}/templates/container-cloud-init.sh"
@@ -96,7 +94,7 @@ data "aws_ami" "bastion_image" {
 
 module "bastion_autoscale_group" {
   source  = "cloudposse/ec2-autoscale-group/aws"
-  version = "0.30.1"
+  version = "0.35.0"
 
   image_id                    = join("", data.aws_ami.bastion_image.*.id)
   instance_type               = var.instance_type
