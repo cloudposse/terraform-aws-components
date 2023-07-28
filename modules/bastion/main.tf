@@ -96,7 +96,7 @@ module "bastion_autoscale_group" {
   source  = "cloudposse/ec2-autoscale-group/aws"
   version = "0.35.0"
 
-  image_id                    = join("", data.aws_ami.bastion_image.*.id)
+  image_id                    = join("", data.aws_ami.bastion_image[*].id)
   instance_type               = var.instance_type
   subnet_ids                  = local.vpc_subnet_ids
   health_check_type           = "EC2"
@@ -105,10 +105,10 @@ module "bastion_autoscale_group" {
   default_cooldown            = 300
   scale_down_cooldown_seconds = 300
   wait_for_capacity_timeout   = "10m"
-  user_data_base64            = join("", data.cloudinit_config.config[0].*.rendered)
+  user_data_base64            = join("", data.cloudinit_config.config[0][*].rendered)
   tags                        = module.this.tags
   security_group_ids          = [module.sg.id]
-  iam_instance_profile_name   = join("", aws_iam_instance_profile.default.*.name)
+  iam_instance_profile_name   = join("", aws_iam_instance_profile.default[*].name)
   block_device_mappings       = []
   associate_public_ip_address = var.associate_public_ip_address
 
