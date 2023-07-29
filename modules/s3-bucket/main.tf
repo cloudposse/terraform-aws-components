@@ -44,6 +44,7 @@ module "s3_bucket" {
   # Object access and permissions
   acl                          = var.acl
   grants                       = var.grants
+  s3_object_ownership          = var.s3_object_ownership
   allow_encrypted_uploads_only = var.allow_encrypted_uploads_only
   allow_ssl_requests_only      = var.allow_ssl_requests_only
   block_public_acls            = var.block_public_acls
