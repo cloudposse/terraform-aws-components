@@ -1,5 +1,6 @@
 variable "availability_zone" {
-  type = string
+  type        = string
+  description = "The name of the availability zone"
 }
 
 variable "node_group_size" {
@@ -8,6 +9,7 @@ variable "node_group_size" {
     min_size     = number
     max_size     = number
   })
+  description = "Desired number of worker nodes"
 }
 
 variable "cluster_context" {
@@ -34,6 +36,7 @@ variable "cluster_context" {
     aws_ssm_agent_enabled = bool
     vpc_id                = string
   })
+  description = "Cluster context of the kube config"
 }
 
 variable "block_device_name" {
