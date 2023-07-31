@@ -151,7 +151,6 @@ resource "aws_cognito_user_pool" "pool" {
   sms_verification_message   = var.sms_verification_message
   deletion_protection        = var.deletion_protection
 
-
   dynamic "username_configuration" {
     for_each = local.username_configuration
     content {
