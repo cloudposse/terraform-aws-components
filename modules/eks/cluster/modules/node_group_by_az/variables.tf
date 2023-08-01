@@ -38,15 +38,3 @@ variable "cluster_context" {
   })
   description = "The common settings for all node groups."
 }
-
-variable "block_device_name" {
-  type        = string
-  default     = "/dev/xvda"
-  description = "The name of the device to mount"
-}
-
-variable "block_device_volume_type" {
-  type        = string
-  default     = "gp2"
-  description = "The volume type. Can be one of standard, gp2, gp3, io1, io2, sc1 or st1"
-}
