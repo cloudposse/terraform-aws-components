@@ -88,7 +88,7 @@ module "child_stack" {
   component_root                          = try(join("/", [var.component_root, try(each.value.metadata.component, each.value.component)]))
   component_vars                          = try(each.value.vars, null)
   context_attachments                     = try(each.value.context_attachments, [])
-  description                             = try(each.value.description, null)
+  description                             = try(each.value.description, var.description)
   drift_detection_enabled                 = try(each.value.settings.spacelift.drift_detection_enabled, var.drift_detection_enabled)
   drift_detection_reconcile               = try(each.value.settings.spacelift.drift_detection_reconcile, var.drift_detection_reconcile)
   drift_detection_schedule                = try(each.value.settings.spacelift.drift_detection_schedule, var.drift_detection_schedule)

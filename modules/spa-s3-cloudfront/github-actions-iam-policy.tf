@@ -26,4 +26,15 @@ data "aws_iam_policy_document" "github_actions_iam_policy" {
     ]
     resources = [format("%s/*", module.spa_web.s3_bucket_arn)]
   }
+
+  statement {
+    sid    = "CloudfrontActions"
+    effect = "Allow"
+    actions = [
+      "cloudfront:CreateInvalidation"
+    ]
+    resources = [
+      module.spa_web.cf_arn
+    ]
+  }
 }
