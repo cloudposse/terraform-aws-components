@@ -76,6 +76,5 @@ variable "image_container" {
 
 variable "capacity_timeout" {
   type        = string
-  default     = "10m"
-  description = "The maximum duration to wait before timing out"
+  description = "The maximum duration to wait for the bastion autoscaling group to become healthy"
 }
