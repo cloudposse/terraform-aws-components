@@ -182,12 +182,6 @@ variable "stickiness_cookie_duration" {
   description = "The time period, in seconds, during which requests from a client should be routed to the same target. After this time period expires, the load balancer-generated cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds)"
 }
 
-variable "trace_enabled" {
-  type        = string
-  default     = "true"
-  description = "Enable sending of spans to the agent"
-}
-
 variable "stickiness_enabled" {
   type        = bool
   default     = true
