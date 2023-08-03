@@ -278,6 +278,12 @@ For your cluster, you will need to review the following configurations for the K
       ttl_seconds_until_expired: 2592000
     ```
 
+## Troubleshooting
+
+For Karpenter issues, checkout the [Karpenter Troubleshooting Guide](https://karpenter.sh/docs/troubleshooting/)
+
+### References
+
 For more details, refer to:
 
  - https://karpenter.sh/v0.28.0/provisioner/#specrequirements
@@ -285,12 +291,6 @@ For more details, refer to:
  - https://aws.github.io/aws-eks-best-practices/karpenter/#creating-provisioners
  - https://aws.github.io/aws-eks-best-practices/karpenter
  - https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
-
-## Troubleshooting
-
-
-
-<iframe src="https://karpenter.sh/docs/troubleshooting/#controller" style="border: none;"></iframe>
 
 
 
