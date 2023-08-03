@@ -286,6 +286,9 @@ For more details, refer to:
  - https://aws.github.io/aws-eks-best-practices/karpenter
  - https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
 
+## Troubleshooting
+
+<iframe src="https://karpenter.sh/docs/troubleshooting/#controller" style="border: none;"></iframe>
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
