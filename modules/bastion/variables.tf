@@ -74,7 +74,7 @@ variable "image_container" {
   description = "The image container to use in `container.sh`."
 }
 
-variable "capacity_timeout" {
+variable "wait_for_capacity_timeout" {
   type        = string
   description = "The maximum duration to wait for the bastion autoscaling group to become healthy"
 }
