@@ -7,9 +7,10 @@ locals {
 }
 
 module "api_gateway_rest_api" {
-  count   = local.enabled ? 1 : 0
   source  = "cloudposse/api-gateway/aws"
   version = "0.3.1"
+
+  enabled = local.enabled
 
   openapi_config           = var.openapi_config
   endpoint_type            = var.endpoint_type
@@ -49,7 +50,7 @@ resource "aws_api_gateway_domain_name" "this" {
 
 resource "aws_api_gateway_base_path_mapping" "this" {
   count       = local.enabled ? 1 : 0
-  api_id      = module.api_gateway_rest_api[0].id
+  api_id      = module.api_gateway_rest_api.id
   domain_name = aws_api_gateway_domain_name.this[0].domain_name
   stage_name  = module.this.stage
 
