@@ -289,7 +289,9 @@ For more details, refer to:
 ## Troubleshooting
 
 
+
 <iframe src="https://karpenter.sh/docs/troubleshooting/#controller" style="border: none;"></iframe>
+
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
