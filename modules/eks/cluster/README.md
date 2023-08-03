@@ -150,6 +150,12 @@ components:
             addon_version: "v1.19.0-eksbuild.2"
 ```
 
+### Picking a Kubernetes Cluster Version
+
+When picking a Kubernetes version, you should consider the following:
+
+* When the end of life is. See [Amazon EKS End of Life Dates](https://endoflife.date/amazon-eks)
+
 ### Usage with Node Groups
 
 The `eks/cluster` component also supports managed Node Groups. In order to add a set of nodes to
