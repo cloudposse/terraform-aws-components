@@ -2,7 +2,7 @@ module "nlb" {
   source  = "cloudposse/nlb/aws"
   version = "0.12.0"
 
-  count = local.enabled ? 1 : 0
+  enabled = local.enabled
 
   vpc_id                                  = module.vpc.outputs.vpc.id
   subnet_ids                              = module.vpc.outputs.private_subnet_ids

@@ -1,8 +1,10 @@
 locals {
   enabled = module.this.enabled
 
-  sub_domain  = var.name
-  root_domain = coalesce(module.acm.outputs.domain_name, join(".", [module.this.environment, module.dns_delegated.outputs.default_domain_name]), module.dns_delegated.outputs.default_domain_name)
+  sub_domain = var.name
+  root_domain = coalesce(module.acm.outputs.domain_name, join(".", [
+    module.this.environment, module.dns_delegated.outputs.default_domain_name
+  ]), module.dns_delegated.outputs.default_domain_name)
   domain_name = join(".", [local.sub_domain, local.root_domain])
 }
 
