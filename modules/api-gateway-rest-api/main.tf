@@ -19,7 +19,7 @@ module "api_gateway_rest_api" {
   xray_tracing_enabled     = var.xray_tracing_enabled
   access_log_format        = var.access_log_format
   rest_api_policy          = var.rest_api_policy
-  private_link_target_arns = [module.nlb[0].nlb_arn]
+  private_link_target_arns = module.nlb[*].nlb_arn
 
   context = module.this.context
 }
