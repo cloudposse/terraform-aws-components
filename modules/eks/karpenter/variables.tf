@@ -115,7 +115,7 @@ variable "legacy_create_karpenter_instance_profile" {
     for nodes launched by Karpenter, to preserve the legacy behavior.
     Set to `false` to disable creation of the IAM Instance Profile, which
     avoids conflict with having `eks/cluster` create it.
-    Use in conjunction with `eks/karpenter` component `legacy_do_not_create_karpenter_instance_profile`,
+    Use in conjunction with `eks/cluster` component `legacy_do_not_create_karpenter_instance_profile`,
     which see for further details.
     EOT
   default     = true

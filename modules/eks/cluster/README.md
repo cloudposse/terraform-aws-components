@@ -135,15 +135,21 @@ components:
         # EKS addons
         # https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html
         addons:
+          # https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html
           vpc-cni:
-            addon_version: "v1.12.2-eksbuild.1"
+            addon_version: "v1.12.6-eksbuild.2"  # set `addon_version` to `null` to use the latest version
+          # https://docs.aws.amazon.com/eks/latest/userguide/managing-kube-proxy.html
           kube-proxy:
-            addon_version: "v1.25.6-eksbuild.1"
+            addon_version: "v1.27.1-eksbuild.1"  # set `addon_version` to `null` to use the latest version
+          # https://docs.aws.amazon.com/eks/latest/userguide/managing-coredns.html
           coredns:
-            addon_version: "v1.9.3-eksbuild.2"
+            addon_version: "v1.10.1-eksbuild.1"  # set `addon_version` to `null` to use the latest version
+          # https://aws.amazon.com/blogs/containers/amazon-ebs-csi-driver-is-now-generally-available-in-amazon-eks-add-ons
+          # https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html
+          # https://github.com/kubernetes-sigs/aws-ebs-csi-driver
           aws-ebs-csi-driver:
-            addon_version: "v1.19.0-eksbuild.2"
-          # Only install the EFS driver if you are using EFS and have already created an EFS file system.
+            addon_version: "v1.20.0-eksbuild.1"  # set `addon_version` to `null` to use the latest version          # Only install the EFS driver if you are using EFS and have already created an EFS file system.
+          # https://docs.aws.amazon.com/eks/latest/userguide/efs-csi.html
           aws-efs-csi-driver:
             addon_version: "v1.5.8-eksbuild.1"
             # Set a short timeout in case of conflict with an existing efs-controller deployment
@@ -387,13 +393,14 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | >= 3.0 |
 
 ## Modules
 

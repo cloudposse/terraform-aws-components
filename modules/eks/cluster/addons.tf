@@ -116,7 +116,6 @@ module "coredns_fargate_profile" {
   source  = "cloudposse/eks-fargate-profile/aws"
   version = "1.3.0"
 
-
   subnet_ids                              = local.private_subnet_ids
   cluster_name                            = module.eks_cluster.eks_cluster_id
   kubernetes_namespace                    = "kube-system"
