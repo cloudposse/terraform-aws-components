@@ -48,7 +48,7 @@ module "eks" {
     eks_managed_node_workers_role_arns = []
     fargate_profile_role_arns          = []
     fargate_profile_role_names         = []
-    eks_cluster_identity_oidc_issuer   = ""
+    eks_cluster_identity_oidc_issuer   = "https://placeholder.example.com/id/ABCDEF00000000000000000000000000"
   }
 
   context = module.this.context
