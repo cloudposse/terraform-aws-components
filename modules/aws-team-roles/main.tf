@@ -69,7 +69,7 @@ resource "aws_iam_role" "default" {
   description          = each.value["role_description"]
   assume_role_policy   = data.aws_iam_policy_document.assume_role_aggregated[each.key].json
   max_session_duration = each.value["max_session_duration"]
-  tags                 = merge(module.this.tags, { Name = local.role_name_map[each.key] })
+  tags                 = merge(module.this.tags, { Name = local.role_name_map[each.key], name = null })
 }
 
 resource "aws_iam_role_policy_attachment" "default" {

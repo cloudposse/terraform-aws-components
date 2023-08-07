@@ -75,7 +75,7 @@ resource "aws_iam_role" "default" {
   name               = each.key
   description        = "${each.value.write_enabled ? "Access" : "Read-only access"} role for ${module.this.id}"
   assume_role_policy = module.assume_role[each.key].policy_document
-  tags               = merge(module.this.tags, { Name = each.key })
+  tags               = merge(module.this.tags, { Name = each.key, name = null })
 
   inline_policy {
     name   = each.key
