@@ -32,7 +32,7 @@ locals {
 
 module "sg" {
   source  = "cloudposse/security-group/aws"
-  version = "2.0.0"
+  version = "2.2.0"
 
   rules  = var.security_group_rules
   vpc_id = local.vpc_id
