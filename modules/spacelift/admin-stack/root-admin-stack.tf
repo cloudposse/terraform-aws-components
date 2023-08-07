@@ -55,7 +55,7 @@ module "root_admin_stack" {
   component_root                          = try(join("/", [var.component_root, local.root_admin_stack_config.metadata.component]), null)
   component_vars                          = try(local.root_admin_stack_config.vars, null)
   context_attachments                     = try(local.root_admin_stack_config.context_attachments, [])
-  description                             = try(local.root_admin_stack_config.description, null)
+  description                             = try(local.root_admin_stack_config.description, var.description)
   drift_detection_enabled                 = try(local.root_admin_stack_config.settings.spacelift.drift_detection_enabled, var.drift_detection_enabled)
   drift_detection_reconcile               = try(local.root_admin_stack_config.settings.spacelift.drift_detection_reconcile, var.drift_detection_reconcile)
   drift_detection_schedule                = try(local.root_admin_stack_config.settings.spacelift.drift_detection_schedule, var.drift_detection_schedule)
