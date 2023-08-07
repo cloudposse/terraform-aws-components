@@ -47,10 +47,6 @@ resource "kubernetes_storage_class_v1" "ebs" {
   volume_binding_mode = each.value.volume_binding_mode
   mount_options       = each.value.mount_options
 
-  # Unfortunately, the provider always sets allow_volume_expansion whether you provide it or not.
-  # There is no way to omit it.
-  allow_volume_expansion = each.value.allow_volume_expansion
-
   # Allowed topologies are poorly documented, and poorly implemented.
   # According to the API spec https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#storageclass-v1-storage-k8s-io
   # it should be a list of objects with a `matchLabelExpressions` key, which is a list of objects with `key` and `values` keys.
@@ -67,7 +63,9 @@ resource "kubernetes_storage_class_v1" "ebs" {
     }
   }
 
-
+  # Unfortunately, the provider always sets allow_volume_expansion to something whether you provide it or not.
+  # There is no way to omit it.
+  allow_volume_expansion = each.value.allow_volume_expansion
 }
 
 resource "kubernetes_storage_class_v1" "efs" {
