@@ -169,7 +169,7 @@ When picking a Kubernetes version, you should consider the following:
 | 1.19  | 2021-02-16 | 1.19-eks-11 |   2022-08-15   | 2022-08-01 |
 | 1.18  | 2020-10-13 | 1.18-eks-13 |   2022-08-15   | 2022-08-15 |
 
-*This Chart was updated as of 08/04/2023
+*This Chart was updated as of 08/04/2023 and is generated with [the `eol` tool](https://github.com/hugovk/norwegianblue). Check the latest updates by running `eol amazon-eks` locally or [on the website directly]((https://endoflife.date/amazon-eks)). 
 
 ### Usage with Node Groups
 
