@@ -150,11 +150,9 @@ components:
             addon_version: "v1.19.0-eksbuild.2"
 ```
 
-### Picking a Kubernetes Cluster Version
+### Amazon EKS End-of-Life Dates
 
-When picking a Kubernetes version, you should consider the following:
-
-* When the end of life is. See [Amazon EKS End of Life Dates](https://endoflife.date/amazon-eks)
+When picking a Kubernetes version, be sure to review the [end-of-life dates for Amazon EKS](https://endoflife.date/amazon-eks). Refer to the chart below:
 
 | cycle |  release   | latest      | latest release |    eol     |
 |:------|:----------:|:------------|:--------------:|:----------:|
