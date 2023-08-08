@@ -1,4 +1,4 @@
-# Transit Gateway `tgw`
+# Transit Gateway: `tgw`
 
 AWS Transit Gateway connects your Amazon Virtual Private Clouds (VPCs) and on-premises networks through a central hub. This connection simplifies your network and puts an end to complex peering relationships. Transit Gateway acts as a highly scalable cloud router—each new connection is made only once.
 
@@ -29,6 +29,7 @@ Next we deploy `tgw/spoke` to the network account and then to every connected ac
 1. Deploy `tgw/hub` to the network account. List every allowed connection:
 
 ```yaml
+# stacks/catalog/tgw/hub
 components:
   terraform:
     tgw/hub/defaults:
@@ -166,7 +167,7 @@ Furthermore, since this Transit Gateway hub for the alternate region is now peer
 
 #### Cross Region Deployment
 
-1. Deploy `tgw/hub` and `tgw/spoke` into the primary region as described in [Implemention](#Implemention)
+1. Deploy `tgw/hub` and `tgw/spoke` into the primary region as described in [Implementation](#implementation)
 
 2. Deploy `tgw/hub` and `tgw/cross-region-hub` into the new region in the network account. See the following configuration:
 
