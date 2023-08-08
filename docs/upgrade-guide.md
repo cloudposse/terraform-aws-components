@@ -8,7 +8,7 @@
 
 ### Steps
 
-This change to the Transit Gateway, [PR #804](https://github.com/cloudposse/terraform-aws-components/pull/804), added support for cross-region connections.
+This change to the Transit Gateway components, [PR #804](https://github.com/cloudposse/terraform-aws-components/pull/804), added support for cross-region connections.
 
 As part of that change, we've added `environment` to the component identifier used in the Terraform Output created by `tgw/hub`. Because of that map key change, all resources in Terraform now have a new resource identifier and therefore must be recreated with Terraform or removed from state and imported into the new resource ID.
 
