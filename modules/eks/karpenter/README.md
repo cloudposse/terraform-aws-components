@@ -47,6 +47,9 @@ components:
         atomic: true
         wait: true
         rbac_enabled: true
+        # Set `legacy_create_karpenter_instance_profile` to `false` to allow the `eks/cluster` component
+        # to manage the instance profile for the nodes launched by Karpenter (recommended for all new clusters).
+        legacy_create_karpenter_instance_profile: false
 
     # Provision `karpenter` component on the blue EKS cluster
     eks/karpenter-blue:
@@ -364,6 +367,7 @@ For more details, refer to:
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
+| <a name="input_legacy_create_karpenter_instance_profile"></a> [legacy\_create\_karpenter\_instance\_profile](#input\_legacy\_create\_karpenter\_instance\_profile) | When `true` (the default), this component creates an IAM Instance Profile<br>for nodes launched by Karpenter, to preserve the legacy behavior.<br>Set to `false` to disable creation of the IAM Instance Profile, which<br>avoids conflict with having `eks/cluster` create it.<br>Use in conjunction with `eks/cluster` component `legacy_do_not_create_karpenter_instance_profile`,<br>which see for further details. | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_rbac_enabled"></a> [rbac\_enabled](#input\_rbac\_enabled) | Enable/disable RBAC | `bool` | `true` | no |
