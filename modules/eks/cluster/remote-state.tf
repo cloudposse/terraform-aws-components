@@ -48,9 +48,9 @@ module "eks" {
     eks_managed_node_workers_role_arns = []
     fargate_profile_role_arns          = []
     fargate_profile_role_names         = []
-    # eks_cluster_identity_oidc_issuer will never exist on the first deployment because the component itself creates the OIDC provider, 
+    # eks_cluster_identity_oidc_issuer will never exist on the first deployment because the component itself creates the OIDC provider,
     # yet the value must not be empty when passed to the aws-ebs-csi-driver and vpc-cni addons
-    eks_cluster_identity_oidc_issuer   = "https://placeholder.example.com/id/ABCDEF00000000000000000000000000" 
+    eks_cluster_identity_oidc_issuer = "https://placeholder.example.com/id/ABCDEF00000000000000000000000000"
   }
 
   context = module.this.context
