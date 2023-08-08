@@ -35,8 +35,7 @@ components:
       vars:
         enabled: true
         name: eks
-        iam_primary_roles_tenant_name: core
-        cluster_kubernetes_version: "1.25"
+        cluster_kubernetes_version: "1.27"
 
         vpc_component_name: "vpc"
         eks_component_name: "eks/cluster"
@@ -90,17 +89,6 @@ components:
         cluster_endpoint_public_access: false
         cluster_log_retention_period: 90
 
-        # List of `aws-teams` to map to Kubernetes RBAC groups.
-        # This gives teams direct access to Kubernetes without having to assume a team-role.
-        # RBAC groups must be created elsewhere. The "system:" groups are predefined by Kubernetes.
-        aws_teams_rbac:
-          - aws_team: managers
-            groups:
-              - system:masters
-          - aws_team: devops
-            groups:
-              - system:masters
-
         # List of `aws-teams-roles` (in the account where the EKS cluster is deployed) to map to Kubernetes RBAC groups
         aws_team_roles_rbac:
           - aws_team: admin
@@ -130,24 +118,42 @@ components:
           - idp:poweruser
           - system:authenticated
 
-        # Fargate Profiles
+        # Fargate Profiles for Karpenter
         fargate_profiles:
           karpenter:
             kubernetes_namespace: karpenter
             kubernetes_labels: null
         karpenter_iam_role_enabled: true
+        # If you are using Karpenter, disable the legacy instance profile created by the eks/karpenter component
+        # and use the one created by this component instead by setting the legacy flags to false in both components.
+        # This is recommended for all new clusters.
+        legacy_do_not_create_karpenter_instance_profile: false
+        # All Fargate Profiles will use the same IAM Role when `legacy_fargate_1_role_per_profile_enabled` is set to false.
+        # Recommended for all new clusters, but will damage existing clusters provisioned with the legacy component.
+        legacy_fargate_1_role_per_profile_enabled: false
 
         # EKS addons
         # https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html
         addons:
+          # https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html
           vpc-cni:
-            addon_version: "v1.12.2-eksbuild.1"
+            addon_version: "v1.12.6-eksbuild.2"  # set `addon_version` to `null` to use the latest version
+          # https://docs.aws.amazon.com/eks/latest/userguide/managing-kube-proxy.html
           kube-proxy:
-            addon_version: "v1.25.6-eksbuild.1"
+            addon_version: "v1.27.1-eksbuild.1"  # set `addon_version` to `null` to use the latest version
+          # https://docs.aws.amazon.com/eks/latest/userguide/managing-coredns.html
           coredns:
-            addon_version: "v1.9.3-eksbuild.2"
+            addon_version: "v1.10.1-eksbuild.1"  # set `addon_version` to `null` to use the latest version
+          # https://aws.amazon.com/blogs/containers/amazon-ebs-csi-driver-is-now-generally-available-in-amazon-eks-add-ons
+          # https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html
+          # https://github.com/kubernetes-sigs/aws-ebs-csi-driver
           aws-ebs-csi-driver:
-            addon_version: "v1.19.0-eksbuild.2"
+            addon_version: "v1.20.0-eksbuild.1"  # set `addon_version` to `null` to use the latest version          # Only install the EFS driver if you are using EFS and have already created an EFS file system.
+          # https://docs.aws.amazon.com/eks/latest/userguide/efs-csi.html
+          aws-efs-csi-driver:
+            addon_version: "v1.5.8-eksbuild.1"
+            # Set a short timeout in case of conflict with an existing efs-controller deployment
+            create_timeout: "7m"
 ```
 
 ### Amazon EKS End-of-Life Dates
@@ -176,7 +182,10 @@ provision with the cluster, provide values for `var.managed_node_groups_enabled`
 
 :::info
 
-You can use managed Node Groups in conjunction with Karpenter, though in most cases, Karpenter is all you need.
+You can use managed Node Groups in conjunction with Karpenter. We recommend provisioning a
+managed node group with as many nodes as Availability Zones used by your cluster (typically 3), to ensure a
+minimum support for a high-availability set of daemons, and then using Karpenter to provision additional nodes
+as needed.
 
 :::
 
@@ -201,11 +210,18 @@ node_groups: # for most attributes, setting null here means use setting from nod
 
     attributes: []
     create_before_destroy: true
-    disk_size: 100
     cluster_autoscaler_enabled: true
     instance_types:
       - t3.medium
     ami_type: AL2_x86_64 # use "AL2_x86_64" for standard instances, "AL2_x86_64_GPU" for GPU instances
+    block_device_map:
+      # EBS volume for local ephemeral storage
+      # IGNORED if legacy `disk_encryption_enabled` or `disk_size` are set!
+      # "/dev/xvda" most of the instances (without local NVMe) and most of the Linuxes, "/dev/xvdb" BottleRocket
+      "/dev/xvda":
+        ebs:
+          volume_size: 100 # number of GB
+          volume_type: gp3
     kubernetes_labels: {}
     kubernetes_taints: {}
     resources_to_tag:
@@ -222,25 +238,26 @@ Install these addons with the [`var.addons` input](https://docs.cloudposse.com/c
 :::info
 
 Run the following command to see all available addons, their type, and their publisher.
-You can also see the URL for addons that are available through the AWS Marketplace. Replace 1.25 with the version of your cluster.
+You can also see the URL for addons that are available through the AWS Marketplace. Replace 1.27 with the version of your cluster.
 See [Creating an addon](https://docs.aws.amazon.com/eks/latest/userguide/managing-add-ons.html#creating-an-add-on) for more details.
 
 :::
 
 ```shell
-aws eks describe-addon-versions --kubernetes-version 1.25 \
+EKS_K8S_VERSION=1.27 # replace with your cluster version
+aws eks describe-addon-versions --kubernetes-version $EKS_K8S_VERSION \
   --query 'addons[].{MarketplaceProductUrl: marketplaceInformation.productUrl, Name: addonName, Owner: owner Publisher: publisher, Type: type}' --output table
 ```
 
 :::info
 
 You can see which versions are available for each addon by executing the following commands.
-Replace 1.25 with the version of your cluster.
+Replace 1.27 with the version of your cluster.
 
 :::
 
 ```shell
-EKS_K8S_VERSION=1.24 # replace with your cluster version
+EKS_K8S_VERSION=1.27 # replace with your cluster version
 echo "vpc-cni:" && aws eks describe-addon-versions --kubernetes-version $EKS_K8S_VERSION --addon-name vpc-cni \
   --query 'addons[].addonVersions[].{Version: addonVersion, Defaultversion: compatibilities[0].defaultVersion}' --output table
 
@@ -252,6 +269,25 @@ echo "coredns:" && aws eks describe-addon-versions --kubernetes-version $EKS_K8S
 
 echo "aws-ebs-csi-driver:" && aws eks describe-addon-versions --kubernetes-version $EKS_K8S_VERSION --addon-name aws-ebs-csi-driver \
   --query 'addons[].addonVersions[].{Version: addonVersion, Defaultversion: compatibilities[0].defaultVersion}' --output table
+
+echo "aws-efs-csi-driver:" && aws eks describe-addon-versions --kubernetes-version $EKS_K8S_VERSION --addon-name aws-efs-csi-driver \
+  --query 'addons[].addonVersions[].{Version: addonVersion, Defaultversion: compatibilities[0].defaultVersion}' --output table
+```
+
+Some add-ons accept additional configuration. For example, the `vpc-cni` addon accepts a `disableNetworking` parameter.
+View the available configuration options (as JSON Schema) via the `aws eks describe-addon-configuration` command. For example:
+
+```shell
+aws eks describe-addon-configuration \
+  --addon-name aws-ebs-csi-driver \
+  --addon-version v1.20.0-eksbuild.1 | jq '.configurationSchema | fromjson'
+```
+
+You can then configure the add-on via the `configuration_values` input. For example:
+
+```yaml
+aws-ebs-csi-driver:
+  configuration_values: '{"node": {"loggingFormat": "json"}}'
 ```
 
 Configure the addons like the following example:
@@ -376,12 +412,14 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | >= 3.0 |
 
 ## Modules
 
@@ -389,6 +427,8 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 |------|--------|---------|
 | <a name="module_aws_ebs_csi_driver_eks_iam_role"></a> [aws\_ebs\_csi\_driver\_eks\_iam\_role](#module\_aws\_ebs\_csi\_driver\_eks\_iam\_role) | cloudposse/eks-iam-role/aws | 2.1.0 |
 | <a name="module_aws_ebs_csi_driver_fargate_profile"></a> [aws\_ebs\_csi\_driver\_fargate\_profile](#module\_aws\_ebs\_csi\_driver\_fargate\_profile) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
+| <a name="module_aws_efs_csi_driver_eks_iam_role"></a> [aws\_efs\_csi\_driver\_eks\_iam\_role](#module\_aws\_efs\_csi\_driver\_eks\_iam\_role) | cloudposse/eks-iam-role/aws | 2.1.0 |
+| <a name="module_aws_efs_csi_driver_fargate_profile"></a> [aws\_efs\_csi\_driver\_fargate\_profile](#module\_aws\_efs\_csi\_driver\_fargate\_profile) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
 | <a name="module_coredns_fargate_profile"></a> [coredns\_fargate\_profile](#module\_coredns\_fargate\_profile) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_eks_cluster"></a> [eks\_cluster](#module\_eks\_cluster) | cloudposse/eks-cluster/aws | 2.9.0 |
@@ -399,6 +439,7 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 | <a name="module_karpenter_label"></a> [karpenter\_label](#module\_karpenter\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_region_node_group"></a> [region\_node\_group](#module\_region\_node\_group) | ./modules/node_group_by_region | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
+| <a name="module_utils"></a> [utils](#module\_utils) | cloudposse/utils/aws | 1.3.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
 | <a name="module_vpc_cni_eks_iam_role"></a> [vpc\_cni\_eks\_iam\_role](#module\_vpc\_cni\_eks\_iam\_role) | cloudposse/eks-iam-role/aws | 2.1.0 |
 | <a name="module_vpc_ingress"></a> [vpc\_ingress](#module\_vpc\_ingress) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
@@ -407,14 +448,18 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 
 | Name | Type |
 |------|------|
+| [aws_iam_instance_profile.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
 | [aws_iam_policy.ipv6_eks_cni_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.karpenter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy_attachment.amazon_ec2_container_registry_readonly](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.amazon_eks_worker_node_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.amazon_ssm_managed_instance_core](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.aws_ebs_csi_driver](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.aws_efs_csi_driver](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.ipv6_eks_cni_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [random_pet.camel_case_warning](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) | resource |
+| [aws_availability_zones.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
 | [aws_iam_policy_document.assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.ipv6_eks_cni_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.vpc_cni_ipv6](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -426,7 +471,7 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_addons"></a> [addons](#input\_addons) | Manages [EKS addons](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) resources | <pre>map(object({<br>    addon_version        = optional(string, null)<br>    configuration_values = optional(string, null)<br>    # Set default resolve_conflicts to OVERWRITE because it is required on initial installation of<br>    # add-ons that have self-managed versions installed by default (e.g. vpc-cni, coredns), and<br>    # because any custom configuration that you would want to preserve should be managed by Terraform.<br>    resolve_conflicts        = optional(string, "OVERWRITE")<br>    service_account_role_arn = optional(string, null)<br>    create_timeout           = optional(string, null)<br>    update_timeout           = optional(string, null)<br>    delete_timeout           = optional(string, null)<br>  }))</pre> | `{}` | no |
+| <a name="input_addons"></a> [addons](#input\_addons) | Manages [EKS addons](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) resources | <pre>map(object({<br>    addon_version = optional(string, null)<br>    # configuration_values is a JSON string, such as '{"computeType": "Fargate"}'.<br>    configuration_values = optional(string, null)<br>    # Set default resolve_conflicts to OVERWRITE because it is required on initial installation of<br>    # add-ons that have self-managed versions installed by default (e.g. vpc-cni, coredns), and<br>    # because any custom configuration that you would want to preserve should be managed by Terraform.<br>    resolve_conflicts        = optional(string, "OVERWRITE")<br>    service_account_role_arn = optional(string, null)<br>    create_timeout           = optional(string, null)<br>    update_timeout           = optional(string, null)<br>    delete_timeout           = optional(string, null)<br>  }))</pre> | `{}` | no |
 | <a name="input_addons_depends_on"></a> [addons\_depends\_on](#input\_addons\_depends\_on) | If set `true`, all addons will depend on managed node groups provisioned by this component and therefore not be installed until nodes are provisioned.<br>See [issue #170](https://github.com/cloudposse/terraform-aws-eks-cluster/issues/170) for more details. | `bool` | `false` | no |
 | <a name="input_allow_ingress_from_vpc_accounts"></a> [allow\_ingress\_from\_vpc\_accounts](#input\_allow\_ingress\_from\_vpc\_accounts) | List of account contexts to pull VPC ingress CIDR and add to cluster security group.<br><br>e.g.<br><br>{<br>  environment = "ue2",<br>  stage       = "auto",<br>  tenant      = "core"<br>} | `any` | `[]` | no |
 | <a name="input_allowed_cidr_blocks"></a> [allowed\_cidr\_blocks](#input\_allowed\_cidr\_blocks) | List of CIDR blocks to be allowed to connect to the EKS cluster | `list(string)` | `[]` | no |
@@ -434,12 +479,13 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 | <a name="input_apply_config_map_aws_auth"></a> [apply\_config\_map\_aws\_auth](#input\_apply\_config\_map\_aws\_auth) | Whether to execute `kubectl apply` to apply the ConfigMap to allow worker nodes to join the EKS cluster | `bool` | `true` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_availability_zone_abbreviation_type"></a> [availability\_zone\_abbreviation\_type](#input\_availability\_zone\_abbreviation\_type) | Type of Availability Zone abbreviation (either `fixed` or `short`) to use in names. See https://github.com/cloudposse/terraform-aws-utils for details. | `string` | `"fixed"` | no |
-| <a name="input_availability_zones"></a> [availability\_zones](#input\_availability\_zones) | AWS Availability Zones in which to deploy multi-AZ resources.<br>If not provided, resources will be provisioned in every zone with a private subnet in the VPC. | `list(string)` | `[]` | no |
+| <a name="input_availability_zone_ids"></a> [availability\_zone\_ids](#input\_availability\_zone\_ids) | List of Availability Zones IDs where subnets will be created. Overrides `availability_zones`.<br>Can be the full name, e.g. `use1-az1`, or just the part after the AZ ID region code, e.g. `-az1`,<br>to allow reusable values across regions. Consider contention for resources and spot pricing in each AZ when selecting.<br>Useful in some regions when using only some AZs and you want to use the same ones across multiple accounts. | `list(string)` | `[]` | no |
+| <a name="input_availability_zones"></a> [availability\_zones](#input\_availability\_zones) | AWS Availability Zones in which to deploy multi-AZ resources.<br>Ignored if `availability_zone_ids` is set.<br>Can be the full name, e.g. `us-east-1a`, or just the part after the region, e.g. `a` to allow reusable values across regions.<br>If not provided, resources will be provisioned in every zone with a private subnet in the VPC. | `list(string)` | `[]` | no |
 | <a name="input_aws_auth_yaml_strip_quotes"></a> [aws\_auth\_yaml\_strip\_quotes](#input\_aws\_auth\_yaml\_strip\_quotes) | If true, remove double quotes from the generated aws-auth ConfigMap YAML to reduce spurious diffs in plans | `bool` | `true` | no |
 | <a name="input_aws_ssm_agent_enabled"></a> [aws\_ssm\_agent\_enabled](#input\_aws\_ssm\_agent\_enabled) | Set true to attach the required IAM policy for AWS SSM agent to each EC2 instance's IAM Role | `bool` | `false` | no |
 | <a name="input_aws_sso_permission_sets_rbac"></a> [aws\_sso\_permission\_sets\_rbac](#input\_aws\_sso\_permission\_sets\_rbac) | (Not Recommended): AWS SSO (IAM Identity Center) permission sets in the EKS deployment account to add to `aws-auth` ConfigMap.<br>Unfortunately, `aws-auth` ConfigMap does not support SSO permission sets, so we map the generated<br>IAM Role ARN corresponding to the permission set at the time Terraform runs. This is subject to change<br>when any changes are made to the AWS SSO configuration, invalidating the mapping, and requiring a<br>`terraform apply` in this project to update the `aws-auth` ConfigMap and restore access. | <pre>list(object({<br>    aws_sso_permission_set = string<br>    groups                 = list(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_aws_team_roles_rbac"></a> [aws\_team\_roles\_rbac](#input\_aws\_team\_roles\_rbac) | List of `aws-team-roles` (in the target AWS account) to map to Kubernetes RBAC groups. | <pre>list(object({<br>    aws_team_role = string<br>    groups        = list(string)<br>  }))</pre> | `[]` | no |
-| <a name="input_aws_teams_rbac"></a> [aws\_teams\_rbac](#input\_aws\_teams\_rbac) | List of `aws-teams` to map to Kubernetes RBAC groups.<br>This gives teams direct access to Kubernetes without having to assume a team-role. | <pre>list(object({<br>    aws_team = string<br>    groups   = list(string)<br>  }))</pre> | `[]` | no |
+| <a name="input_aws_teams_rbac"></a> [aws\_teams\_rbac](#input\_aws\_teams\_rbac) | OBSOLETE: This feature never worked as intended, and this input is now ignored.<br>List of `aws-teams` to map to Kubernetes RBAC groups.<br>This gives teams direct access to Kubernetes without having to assume a team-role. | <pre>list(object({<br>    aws_team = string<br>    groups   = list(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_cluster_encryption_config_enabled"></a> [cluster\_encryption\_config\_enabled](#input\_cluster\_encryption\_config\_enabled) | Set to `true` to enable Cluster Encryption Configuration | `bool` | `true` | no |
 | <a name="input_cluster_encryption_config_kms_key_deletion_window_in_days"></a> [cluster\_encryption\_config\_kms\_key\_deletion\_window\_in\_days](#input\_cluster\_encryption\_config\_kms\_key\_deletion\_window\_in\_days) | Cluster Encryption Config KMS Key Resource argument - key deletion windows in days post destruction | `number` | `10` | no |
 | <a name="input_cluster_encryption_config_kms_key_enable_key_rotation"></a> [cluster\_encryption\_config\_kms\_key\_enable\_key\_rotation](#input\_cluster\_encryption\_config\_kms\_key\_enable\_key\_rotation) | Cluster Encryption Config KMS Key Resource argument - enable kms key rotation | `bool` | `true` | no |
@@ -472,6 +518,7 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
+| <a name="input_legacy_do_not_create_karpenter_instance_profile"></a> [legacy\_do\_not\_create\_karpenter\_instance\_profile](#input\_legacy\_do\_not\_create\_karpenter\_instance\_profile) | When `true` (the default), suppresses creation of the IAM Instance Profile<br>for nodes launched by Karpenter, to preserve the legacy behavior of<br>the `eks/karpenter` component creating it.<br>Set to `false` to enable creation of the IAM Instance Profile, which<br>ensures that both the role and the instance profile have the same lifecycle,<br>and avoids AWS Provider issue [#32671](https://github.com/hashicorp/terraform-provider-aws/issues/32671).<br>Use in conjunction with `eks/karpenter` component `legacy_create_karpenter_instance_profile`. | `bool` | `true` | no |
 | <a name="input_legacy_fargate_1_role_per_profile_enabled"></a> [legacy\_fargate\_1\_role\_per\_profile\_enabled](#input\_legacy\_fargate\_1\_role\_per\_profile\_enabled) | Set to `false` for new clusters to create a single Fargate Pod Execution role for the cluster.<br>Set to `true` for existing clusters to preserve the old behavior of creating<br>a Fargate Pod Execution role for each Fargate Profile. | `bool` | `true` | no |
 | <a name="input_managed_node_groups_enabled"></a> [managed\_node\_groups\_enabled](#input\_managed\_node\_groups\_enabled) | Set false to prevent the creation of EKS managed node groups. | `bool` | `true` | no |
 | <a name="input_map_additional_aws_accounts"></a> [map\_additional\_aws\_accounts](#input\_map\_additional\_aws\_accounts) | Additional AWS account numbers to add to `aws-auth` ConfigMap | `list(string)` | `[]` | no |
@@ -480,8 +527,8 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 | <a name="input_map_additional_worker_roles"></a> [map\_additional\_worker\_roles](#input\_map\_additional\_worker\_roles) | AWS IAM Role ARNs of worker nodes to add to `aws-auth` ConfigMap | `list(string)` | `[]` | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_node_group_defaults"></a> [node\_group\_defaults](#input\_node\_group\_defaults) | Defaults for node groups in the cluster | <pre>object({<br>    ami_release_version        = string<br>    ami_type                   = string<br>    attributes                 = list(string)<br>    availability_zones         = list(string) # set to null to use var.availability_zones<br>    cluster_autoscaler_enabled = bool<br>    create_before_destroy      = bool<br>    desired_group_size         = number<br>    disk_encryption_enabled    = bool<br>    disk_size                  = number<br>    instance_types             = list(string)<br>    kubernetes_labels          = map(string)<br>    kubernetes_taints = list(object({<br>      key    = string<br>      value  = string<br>      effect = string<br>    }))<br>    kubernetes_version = string # set to null to use cluster_kubernetes_version<br>    max_group_size     = number<br>    min_group_size     = number<br>    resources_to_tag   = list(string)<br>    tags               = map(string)<br>  })</pre> | <pre>{<br>  "ami_release_version": null,<br>  "ami_type": null,<br>  "attributes": null,<br>  "availability_zones": null,<br>  "cluster_autoscaler_enabled": true,<br>  "create_before_destroy": true,<br>  "desired_group_size": 1,<br>  "disk_encryption_enabled": true,<br>  "disk_size": 20,<br>  "instance_types": [<br>    "t3.medium"<br>  ],<br>  "kubernetes_labels": null,<br>  "kubernetes_taints": null,<br>  "kubernetes_version": null,<br>  "max_group_size": 100,<br>  "min_group_size": null,<br>  "resources_to_tag": null,<br>  "tags": null<br>}</pre> | no |
-| <a name="input_node_groups"></a> [node\_groups](#input\_node\_groups) | List of objects defining a node group for the cluster | <pre>map(object({<br>    # EKS AMI version to use, e.g. "1.16.13-20200821" (no "v").<br>    ami_release_version = string<br>    # Type of Amazon Machine Image (AMI) associated with the EKS Node Group<br>    ami_type = string<br>    # Additional attributes (e.g. `1`) for the node group<br>    attributes = list(string)<br>    # will create 1 auto scaling group in each specified availability zone<br>    # or all AZs with subnets if none are specified anywhere<br>    availability_zones = list(string)<br>    # Whether to enable Node Group to scale its AutoScaling Group<br>    cluster_autoscaler_enabled = bool<br>    # True to create new node_groups before deleting old ones, avoiding a temporary outage<br>    create_before_destroy = bool<br>    # Desired number of worker nodes when initially provisioned<br>    desired_group_size = number<br>    # Enable disk encryption for the created launch template (if we aren't provided with an existing launch template)<br>    disk_encryption_enabled = bool<br>    # Disk size in GiB for worker nodes. Terraform will only perform drift detection if a configuration value is provided.<br>    disk_size = number<br>    # Set of instance types associated with the EKS Node Group. Terraform will only perform drift detection if a configuration value is provided.<br>    instance_types = list(string)<br>    # Key-value mapping of Kubernetes labels. Only labels that are applied with the EKS API are managed by this argument. Other Kubernetes labels applied to the EKS Node Group will not be managed<br>    kubernetes_labels = map(string)<br>    # List of objects describing Kubernetes taints.<br>    kubernetes_taints = list(object({<br>      key    = string<br>      value  = string<br>      effect = string<br>    }))<br>    # Desired Kubernetes master version. If you do not specify a value, the latest available version is used<br>    kubernetes_version = string<br>    # The maximum size of the AutoScaling Group<br>    max_group_size = number<br>    # The minimum size of the AutoScaling Group<br>    min_group_size = number<br>    # List of auto-launched resource types to tag<br>    resources_to_tag = list(string)<br>    tags             = map(string)<br>  }))</pre> | `{}` | no |
+| <a name="input_node_group_defaults"></a> [node\_group\_defaults](#input\_node\_group\_defaults) | Defaults for node groups in the cluster | <pre>object({<br>    ami_release_version        = optional(string, null)<br>    ami_type                   = optional(string, null)<br>    attributes                 = optional(list(string), null)<br>    availability_zones         = optional(list(string)) # set to null to use var.availability_zones<br>    cluster_autoscaler_enabled = optional(bool, null)<br>    create_before_destroy      = optional(bool, null)<br>    desired_group_size         = optional(number, null)<br>    instance_types             = optional(list(string), null)<br>    kubernetes_labels          = optional(map(string), null)<br>    kubernetes_taints = optional(list(object({<br>      key    = string<br>      value  = string<br>      effect = string<br>    })), null)<br>    kubernetes_version = optional(string, null) # set to null to use cluster_kubernetes_version<br>    max_group_size     = optional(number, null)<br>    min_group_size     = optional(number, null)<br>    resources_to_tag   = optional(list(string), null)<br>    tags               = optional(map(string), null)<br><br>    # block_device_map copied from cloudposse/terraform-aws-eks-node-group<br>    # Keep in sync via copy and paste, but make optional<br>    # Most of the time you want "/dev/xvda". For BottleRocket, use "/dev/xvdb".<br>    block_device_map = optional(map(object({<br>      no_device    = optional(bool, null)<br>      virtual_name = optional(string, null)<br>      ebs = optional(object({<br>        delete_on_termination = optional(bool, true)<br>        encrypted             = optional(bool, true)<br>        iops                  = optional(number, null)<br>        kms_key_id            = optional(string, null)<br>        snapshot_id           = optional(string, null)<br>        throughput            = optional(number, null) # for gp3, MiB/s, up to 1000<br>        volume_size           = optional(number, 20)   # disk  size in GB<br>        volume_type           = optional(string, "gp3")<br><br>        # Catch common camel case typos. These have no effect, they just generate better errors.<br>        # It would be nice to actually use these, but volumeSize in particular is a number here<br>        # and in most places it is a string with a unit suffix (e.g. 20Gi)<br>        # Without these defined, they would be silently ignored and the default values would be used instead,<br>        # which is difficult to debug.<br>        deleteOnTermination = optional(any, null)<br>        kmsKeyId            = optional(any, null)<br>        snapshotId          = optional(any, null)<br>        volumeSize          = optional(any, null)<br>        volumeType          = optional(any, null)<br>      }))<br>    })), null)<br><br>    # DEPRECATED: disk_encryption_enabled is DEPRECATED, use `block_device_map` instead.<br>    disk_encryption_enabled = optional(bool, null)<br>    # DEPRECATED: disk_size is DEPRECATED, use `block_device_map` instead.<br>    disk_size = optional(number, null)<br>  })</pre> | <pre>{<br>  "block_device_map": {<br>    "/dev/xvda": {<br>      "ebs": {<br>        "encrypted": true,<br>        "volume_size": 20,<br>        "volume_type": "gp2"<br>      }<br>    }<br>  },<br>  "desired_group_size": 1,<br>  "instance_types": [<br>    "t3.medium"<br>  ],<br>  "kubernetes_version": null,<br>  "max_group_size": 100<br>}</pre> | no |
+| <a name="input_node_groups"></a> [node\_groups](#input\_node\_groups) | List of objects defining a node group for the cluster | <pre>map(object({<br>    # EKS AMI version to use, e.g. "1.16.13-20200821" (no "v").<br>    ami_release_version = optional(string, null)<br>    # Type of Amazon Machine Image (AMI) associated with the EKS Node Group<br>    ami_type = optional(string, null)<br>    # Additional attributes (e.g. `1`) for the node group<br>    attributes = optional(list(string), null)<br>    # will create 1 auto scaling group in each specified availability zone<br>    # or all AZs with subnets if none are specified anywhere<br>    availability_zones = optional(list(string), null)<br>    # Whether to enable Node Group to scale its AutoScaling Group<br>    cluster_autoscaler_enabled = optional(bool, null)<br>    # True to create new node_groups before deleting old ones, avoiding a temporary outage<br>    create_before_destroy = optional(bool, null)<br>    # Desired number of worker nodes when initially provisioned<br>    desired_group_size = optional(number, null)<br>    # Set of instance types associated with the EKS Node Group. Terraform will only perform drift detection if a configuration value is provided.<br>    instance_types = optional(list(string), null)<br>    # Key-value mapping of Kubernetes labels. Only labels that are applied with the EKS API are managed by this argument. Other Kubernetes labels applied to the EKS Node Group will not be managed<br>    kubernetes_labels = optional(map(string), null)<br>    # List of objects describing Kubernetes taints.<br>    kubernetes_taints = optional(list(object({<br>      key    = string<br>      value  = string<br>      effect = string<br>    })), null)<br>    # Desired Kubernetes master version. If you do not specify a value, the latest available version is used<br>    kubernetes_version = optional(string, null)<br>    # The maximum size of the AutoScaling Group<br>    max_group_size = optional(number, null)<br>    # The minimum size of the AutoScaling Group<br>    min_group_size = optional(number, null)<br>    # List of auto-launched resource types to tag<br>    resources_to_tag = optional(list(string), null)<br>    tags             = optional(map(string), null)<br><br>    # block_device_map copied from cloudposse/terraform-aws-eks-node-group<br>    # Keep in sync via copy and paste, but make optional.<br>    # Most of the time you want "/dev/xvda". For BottleRocket, use "/dev/xvdb".<br>    block_device_map = optional(map(object({<br>      no_device    = optional(bool, null)<br>      virtual_name = optional(string, null)<br>      ebs = optional(object({<br>        delete_on_termination = optional(bool, true)<br>        encrypted             = optional(bool, true)<br>        iops                  = optional(number, null)<br>        kms_key_id            = optional(string, null)<br>        snapshot_id           = optional(string, null)<br>        throughput            = optional(number, null) # for gp3, MiB/s, up to 1000<br>        volume_size           = optional(number, 20)   # Disk size in GB<br>        volume_type           = optional(string, "gp3")<br><br>        # Catch common camel case typos. These have no effect, they just generate better errors.<br>        # It would be nice to actually use these, but volumeSize in particular is a number here<br>        # and in most places it is a string with a unit suffix (e.g. 20Gi)<br>        # Without these defined, they would be silently ignored and the default values would be used instead,<br>        # which is difficult to debug.<br>        deleteOnTermination = optional(any, null)<br>        kmsKeyId            = optional(any, null)<br>        snapshotId          = optional(any, null)<br>        volumeSize          = optional(any, null)<br>        volumeType          = optional(any, null)<br>      }))<br>    })), null)<br><br>    # DEPRECATED:<br>    # Enable disk encryption for the created launch template (if we aren't provided with an existing launch template)<br>    # DEPRECATED: disk_encryption_enabled is DEPRECATED, use `block_device_map` instead.<br>    disk_encryption_enabled = optional(bool, null)<br>    # Disk size in GiB for worker nodes. Terraform will only perform drift detection if a configuration value is provided.<br>    # DEPRECATED: disk_size is DEPRECATED, use `block_device_map` instead.<br>    disk_size = optional(number, null)<br><br>  }))</pre> | `{}` | no |
 | <a name="input_oidc_provider_enabled"></a> [oidc\_provider\_enabled](#input\_oidc\_provider\_enabled) | Create an IAM OIDC identity provider for the cluster, then you can create IAM roles to associate with a service account in the cluster, instead of using kiam or kube2iam. For more information, see https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html | `bool` | `true` | no |
 | <a name="input_public_access_cidrs"></a> [public\_access\_cidrs](#input\_public\_access\_cidrs) | Indicates which CIDR blocks can access the Amazon EKS public API server endpoint when enabled. EKS defaults this to a list with 0.0.0.0/0. | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
@@ -526,6 +573,7 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 - [How to Keep Everything Up to Date](/reference-architecture/how-to-guides/upgrades/how-to-keep-everything-up-to-date)
 - [How to Tune SpotInst Parameters for EKS](/reference-architecture/how-to-guides/tutorials/how-to-tune-spotinst-parameters-for-eks)
 - [How to Upgrade EKS Cluster Addons](/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons)
+- [EBS CSI Migration FAQ](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi-migration-faq.html)
 - [How to Upgrade EKS](/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks)
 
 ## References
