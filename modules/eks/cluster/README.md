@@ -42,7 +42,6 @@ components:
 
         # Your choice of availability zones or availability zone ids
         # availability_zones: ["us-east-1a", "us-east-1b", "us-east-1c"]
-        availability_zone_ids: ["use1-az4", "use1-az5", "use1-az6"]
         aws_ssm_agent_enabled: true
         allow_ingress_from_vpc_accounts:
           - tenant: core
@@ -91,7 +90,7 @@ components:
 
         # List of `aws-teams-roles` (in the account where the EKS cluster is deployed) to map to Kubernetes RBAC groups
         aws_team_roles_rbac:
-          - aws_team: admin
+          - aws_team_role: admin
             groups:
               - system:masters
           - aws_team_role: poweruser
@@ -113,10 +112,10 @@ components:
         # Permission sets from AWS SSO allowing cluster access
         # See `aws-sso` component.
         aws_sso_permission_sets_rbac:
-        - aws_sso_permission_set: PowerUserAccess
-          groups:
-          - idp:poweruser
-          - system:authenticated
+          - aws_sso_permission_set: PowerUserAccess
+            groups:
+            - idp:poweruser
+            - system:authenticated
 
         # Fargate Profiles for Karpenter
         fargate_profiles:
@@ -137,7 +136,7 @@ components:
         addons:
           # https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html
           vpc-cni:
-            addon_version: "v1.12.6-eksbuild.2"  # set `addon_version` to `null` to use the latest version
+            addon_version: v1.13.4-eksbuild.1  # set `addon_version` to `null` to use the latest version
           # https://docs.aws.amazon.com/eks/latest/userguide/managing-kube-proxy.html
           kube-proxy:
             addon_version: "v1.27.1-eksbuild.1"  # set `addon_version` to `null` to use the latest version
