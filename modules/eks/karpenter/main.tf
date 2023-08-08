@@ -13,11 +13,12 @@ locals {
 
   eks_cluster_identity_oidc_issuer = try(module.eks.outputs.eks_cluster_identity_oidc_issuer, "")
   karpenter_iam_role_name          = try(module.eks.outputs.karpenter_iam_role_name, "")
-  karpenter_role_enabled           = local.enabled && length(local.karpenter_iam_role_name) > 0
+
+  karpenter_instance_profile_enabled = local.enabled && var.legacy_create_karpenter_instance_profile && length(local.karpenter_iam_role_name) > 0
 }
 
 resource "aws_iam_instance_profile" "default" {
-  count = local.karpenter_role_enabled ? 1 : 0
+  count = local.karpenter_instance_profile_enabled ? 1 : 0
 
   name = local.karpenter_iam_role_name
   role = local.karpenter_iam_role_name
@@ -47,7 +48,7 @@ module "karpenter" {
   service_account_name      = module.this.name
   service_account_namespace = var.kubernetes_namespace
 
-  iam_role_enabled = local.karpenter_role_enabled
+  iam_role_enabled = true
 
   # https://karpenter.sh/v0.6.1/getting-started/cloudformation.yaml
   # https://karpenter.sh/v0.10.1/getting-started/getting-started-with-terraform
