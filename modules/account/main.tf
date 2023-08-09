@@ -13,7 +13,7 @@ locals {
   # Organizational Units' Accounts list and map configuration
   organizational_units_accounts = flatten([
     for ou in local.organizational_units : [
-      for account in lookup(ou, "accounts", []) : merge(account, { "ou" = ou.name, "account_email_format" = lookup(account, "account_email_format", lookup(ou, "account_email_format", var.account_email_format)) })
+      for account in lookup(ou, "accounts", []) : merge({ "ou" = ou.name, "account_email_format" = lookup(ou, "account_email_format", var.account_email_format) }, account)
     ]
   ])
   organizational_units_accounts_map = { for acc in local.organizational_units_accounts : acc.name => acc }
