@@ -105,7 +105,7 @@ locals {
   local.vpc_outputs.private_subnet_ids)
 
   # Infer the availability zones from the private subnets if var.availability_zones is empty:
-  availability_zones = length(local.availability_zones_normalized) == 0 ? keys(local.vpc_outputs.az_private_subnets_map) : local.availability_zones_normalized
+  availability_zones = local.enabled ? (length(local.availability_zones_normalized) == 0 ? keys(local.vpc_outputs.az_private_subnets_map) : local.availability_zones_normalized) : []
 }
 
 data "aws_availability_zones" "default" {
@@ -151,7 +151,7 @@ module "eks_cluster" {
 
   allowed_security_groups      = var.allowed_security_groups
   allowed_cidr_blocks          = local.allowed_cidr_blocks
-  apply_config_map_aws_auth    = var.apply_config_map_aws_auth
+  apply_config_map_aws_auth    = local.enabled && var.apply_config_map_aws_auth
   cluster_log_retention_period = var.cluster_log_retention_period
   enabled_cluster_log_types    = var.enabled_cluster_log_types
   endpoint_private_access      = var.cluster_endpoint_private_access

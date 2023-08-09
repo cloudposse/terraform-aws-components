@@ -40,7 +40,7 @@ module "region_node_group" {
     ami_type                   = each.value.ami_type == null ? var.node_group_defaults.ami_type : each.value.ami_type
     az_abbreviation_type       = var.availability_zone_abbreviation_type
     cluster_autoscaler_enabled = each.value.cluster_autoscaler_enabled == null ? var.node_group_defaults.cluster_autoscaler_enabled : each.value.cluster_autoscaler_enabled
-    cluster_name               = module.eks_cluster.eks_cluster_id
+    cluster_name               = local.eks_cluster_id
     create_before_destroy      = each.value.create_before_destroy == null ? var.node_group_defaults.create_before_destroy : each.value.create_before_destroy
     instance_types             = each.value.instance_types == null ? var.node_group_defaults.instance_types : each.value.instance_types
     kubernetes_labels          = each.value.kubernetes_labels == null ? var.node_group_defaults.kubernetes_labels : each.value.kubernetes_labels
