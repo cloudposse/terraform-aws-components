@@ -2,7 +2,8 @@
 # https://docs.aws.amazon.com/eks/latest/userguide/managing-add-ons.html#creating-an-add-on
 
 locals {
-  eks_cluster_oidc_issuer_url = replace(local.eks_outputs.eks_cluster_identity_oidc_issuer, "https://", "")
+  eks_cluster_oidc_issuer_url = local.enabled ? replace(module.eks_cluster.eks_cluster_identity_oidc_issuer, "https://", "") : ""
+  eks_cluster_id              = local.enabled ? module.eks_cluster.eks_cluster_id : ""
 
   addon_names                = keys(var.addons)
   vpc_cni_addon_enabled      = local.enabled && contains(local.addon_names, "vpc-cni")
@@ -96,7 +97,7 @@ resource "aws_iam_role_policy_attachment" "vpc_cni" {
 
 module "vpc_cni_eks_iam_role" {
   source  = "cloudposse/eks-iam-role/aws"
-  version = "2.1.0"
+  version = "2.1.1"
 
   enabled = local.vpc_cni_addon_enabled
 
@@ -117,13 +118,13 @@ module "coredns_fargate_profile" {
   version = "1.3.0"
 
   subnet_ids                              = local.private_subnet_ids
-  cluster_name                            = module.eks_cluster.eks_cluster_id
+  cluster_name                            = local.eks_cluster_id
   kubernetes_namespace                    = "kube-system"
   kubernetes_labels                       = { k8s-app = "kube-dns" }
   permissions_boundary                    = var.fargate_profile_iam_role_permissions_boundary
   iam_role_kubernetes_namespace_delimiter = var.fargate_profile_iam_role_kubernetes_namespace_delimiter
 
-  fargate_profile_name               = "${module.eks_cluster.eks_cluster_id}-coredns"
+  fargate_profile_name               = "${local.eks_cluster_id}-coredns"
   fargate_pod_execution_role_enabled = false
   fargate_pod_execution_role_arn     = one(module.fargate_pod_execution_role[*].eks_fargate_pod_execution_role_arn)
 
@@ -145,7 +146,7 @@ resource "aws_iam_role_policy_attachment" "aws_ebs_csi_driver" {
 
 module "aws_ebs_csi_driver_eks_iam_role" {
   source  = "cloudposse/eks-iam-role/aws"
-  version = "2.1.0"
+  version = "2.1.1"
 
   enabled = local.aws_ebs_csi_driver_enabled
 
@@ -164,14 +165,14 @@ module "aws_ebs_csi_driver_fargate_profile" {
   version = "1.3.0"
 
   subnet_ids           = local.private_subnet_ids
-  cluster_name         = module.eks_cluster.eks_cluster_id
+  cluster_name         = local.eks_cluster_id
   kubernetes_namespace = "kube-system"
   kubernetes_labels    = { app = "ebs-csi-controller" } # Only deploy the controller to Fargate, not the node driver
   permissions_boundary = var.fargate_profile_iam_role_permissions_boundary
 
   iam_role_kubernetes_namespace_delimiter = var.fargate_profile_iam_role_kubernetes_namespace_delimiter
 
-  fargate_profile_name               = "${module.eks_cluster.eks_cluster_id}-ebs-csi"
+  fargate_profile_name               = "${local.eks_cluster_id}-ebs-csi"
   fargate_pod_execution_role_enabled = false
   fargate_pod_execution_role_arn     = one(module.fargate_pod_execution_role[*].eks_fargate_pod_execution_role_arn)
 
@@ -191,7 +192,7 @@ resource "aws_iam_role_policy_attachment" "aws_efs_csi_driver" {
 
 module "aws_efs_csi_driver_eks_iam_role" {
   source  = "cloudposse/eks-iam-role/aws"
-  version = "2.1.0"
+  version = "2.1.1"
 
   enabled = local.aws_efs_csi_driver_enabled
 
@@ -212,14 +213,14 @@ module "aws_efs_csi_driver_fargate_profile" {
   version = "1.3.0"
 
   subnet_ids           = local.private_subnet_ids
-  cluster_name         = module.eks_cluster.eks_cluster_id
+  cluster_name         = local.eks_cluster_id
   kubernetes_namespace = "kube-system"
   kubernetes_labels    = { app = "efs-csi-controller" } # Only deploy the controller to Fargate, not the node driver
   permissions_boundary = var.fargate_profile_iam_role_permissions_boundary
 
   iam_role_kubernetes_namespace_delimiter = var.fargate_profile_iam_role_kubernetes_namespace_delimiter
 
-  fargate_profile_name               = "${module.eks_cluster.eks_cluster_id}-efs-csi"
+  fargate_profile_name               = "${local.eks_cluster_id}-efs-csi"
   fargate_pod_execution_role_enabled = false
   fargate_pod_execution_role_arn     = one(module.fargate_pod_execution_role[*].eks_fargate_pod_execution_role_arn)
 
