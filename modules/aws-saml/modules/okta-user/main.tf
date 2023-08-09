@@ -1,4 +1,10 @@
+locals {
+  enabled = module.this.enabled
+}
+
 resource "aws_iam_user" "default" {
+  count = local.enabled ? 1 : 0
+
   name          = module.this.id
   tags          = module.this.tags
   force_destroy = true
