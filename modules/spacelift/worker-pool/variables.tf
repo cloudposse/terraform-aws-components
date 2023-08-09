@@ -215,6 +215,8 @@ variable "instance_refresh" {
     preferences = object({
       instance_warmup        = number
       min_healthy_percentage = number
+      skip_matching          = bool
+      auto_rollback          = bool
     })
     triggers = list(string)
   })
