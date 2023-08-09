@@ -1,4 +1,4 @@
-## Upgrading to `v1.275.0`
+## Upgrading to `v1.276.0`
 
 ### Affected Components
 
