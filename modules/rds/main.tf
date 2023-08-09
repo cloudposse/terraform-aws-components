@@ -22,7 +22,7 @@ locals {
 
 module "rds_client_sg" {
   source  = "cloudposse/security-group/aws"
-  version = "2.0.1"
+  version = "2.2.0"
 
   name    = "${module.this.name}-client"
   enabled = module.this.enabled && var.client_security_group_enabled
