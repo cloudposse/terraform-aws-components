@@ -68,6 +68,7 @@ variable "cluster_family" {
 
 # AWS KMS alias used for encryption/decryption of SSM secure strings
 variable "kms_alias_name_ssm" {
+  type        = string
   default     = "alias/aws/ssm"
   description = "KMS alias name for SSM"
 }
@@ -191,6 +192,12 @@ variable "enhanced_monitoring_role_enabled" {
   type        = bool
   description = "A boolean flag to enable/disable the creation of the enhanced monitoring IAM role. If set to `false`, the module will not create a new role and will use `rds_monitoring_role_arn` for enhanced monitoring"
   default     = true
+}
+
+variable "enhanced_monitoring_attributes" {
+  type        = list(string)
+  description = "Attributes used to format the Enhanced Monitoring IAM role. If this role hits IAM role length restrictions (max 64 characters), consider shortening these strings."
+  default     = ["enhanced-monitoring"]
 }
 
 variable "rds_monitoring_interval" {

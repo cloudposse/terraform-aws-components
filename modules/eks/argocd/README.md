@@ -508,8 +508,7 @@ components:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_argocd_apps_metadata"></a> [argocd\_apps\_metadata](#output\_argocd\_apps\_metadata) | Block status of the deployed ArgoCD apps release |
-| <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed ArgoCD release |
+| <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References

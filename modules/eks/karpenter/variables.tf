@@ -107,3 +107,16 @@ variable "interruption_queue_message_retention" {
   default     = 300
   description = "The message retention in seconds for the interruption handler SQS queue."
 }
+
+variable "legacy_create_karpenter_instance_profile" {
+  type        = bool
+  description = <<-EOT
+    When `true` (the default), this component creates an IAM Instance Profile
+    for nodes launched by Karpenter, to preserve the legacy behavior.
+    Set to `false` to disable creation of the IAM Instance Profile, which
+    avoids conflict with having `eks/cluster` create it.
+    Use in conjunction with `eks/cluster` component `legacy_do_not_create_karpenter_instance_profile`,
+    which see for further details.
+    EOT
+  default     = true
+}

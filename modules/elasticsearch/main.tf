@@ -30,6 +30,8 @@ module "elasticsearch" {
   availability_zone_count        = length(local.vpc_private_subnet_ids)
   encrypt_at_rest_enabled        = var.encrypt_at_rest_enabled
   dedicated_master_enabled       = var.dedicated_master_enabled
+  dedicated_master_count         = var.dedicated_master_enabled ? var.dedicated_master_count : null
+  dedicated_master_type          = var.dedicated_master_enabled ? var.dedicated_master_type : null
   create_iam_service_linked_role = var.create_iam_service_linked_role
   kibana_subdomain_name          = module.this.environment
   ebs_volume_size                = var.ebs_volume_size
@@ -99,7 +101,7 @@ resource "aws_ssm_parameter" "elasticsearch_kibana_endpoint" {
 
 module "elasticsearch_log_cleanup" {
   source  = "cloudposse/lambda-elasticsearch-cleanup/aws"
-  version = "0.13.0"
+  version = "0.14.0"
 
   es_endpoint          = module.elasticsearch.domain_endpoint
   es_domain_arn        = module.elasticsearch.domain_arn

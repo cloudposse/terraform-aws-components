@@ -102,3 +102,8 @@ output "vpc_cidr" {
   description = "The CIDR of the VPC where this cluster is deployed."
   value       = local.vpc_outputs.vpc_cidr
 }
+
+output "availability_zones" {
+  description = "Availability Zones in which the cluster is provisioned"
+  value       = local.availability_zones
+}

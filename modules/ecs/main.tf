@@ -66,7 +66,7 @@ resource "aws_security_group_rule" "egress" {
 
 module "cluster" {
   source  = "cloudposse/ecs-cluster/aws"
-  version = "0.2.2"
+  version = "0.4.1"
 
   context = module.this.context
 
