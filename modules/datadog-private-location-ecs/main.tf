@@ -17,6 +17,8 @@ module "roles_to_principals" {
 }
 
 resource "datadog_synthetics_private_location" "private_location" {
+  count = local.enabled ? 1 : 0
+
   name        = module.this.id
   description = coalesce(var.private_location_description, format("Private location for %s", module.this.id))
   tags        = module.datadog_configuration.datadog_tags

@@ -26,11 +26,18 @@ variable "tgw_config" {
   description = "Object to pass common data from root module to this submodule. See root module for details"
 }
 
+variable "tgw_connector_config" {
+  type        = map(any)
+  description = "Map of output from all `tgw/cross-region-hub-connector` components. See root module for details"
+  default     = {}
+}
+
 variable "connections" {
   type = list(object({
     account = object({
-      stage  = string
-      tenant = optional(string, "")
+      stage       = string
+      environment = optional(string, "")
+      tenant      = optional(string, "")
     })
     vpc_component_names = optional(list(string), ["vpc"])
     eks_component_names = optional(list(string), [])
@@ -47,4 +54,16 @@ variable "expose_eks_sg" {
   type        = bool
   description = "Set true to allow EKS clusters to accept traffic from source accounts"
   default     = true
+}
+
+variable "peered_region" {
+  type        = bool
+  description = "Set `true` if this region is not the primary region"
+  default     = false
+}
+
+variable "network_account_stage_name" {
+  type        = string
+  description = "The name of the stage designated as the network hub"
+  default     = "network"
 }
