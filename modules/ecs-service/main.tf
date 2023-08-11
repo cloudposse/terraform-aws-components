@@ -208,7 +208,7 @@ module "container_definition" {
 }
 
 locals {
-  awslogs_group = var.datadog_log_method_is_firelens ? "" : join("", module.logs[*].log_group_name)
+  awslogs_group           = var.datadog_log_method_is_firelens ? "" : join("", module.logs[*].log_group_name)
   external_security_group = try(module.security_group[*].outputs.security_group_id, [])
 }
 
