@@ -6,7 +6,7 @@
 - `tgw/spoke`
 - `tgw/cross-region-hub-connector`
 
-### Steps
+### Summary
 
 This change to the Transit Gateway components, [PR #804](https://github.com/cloudposse/terraform-aws-components/pull/804), added support for cross-region connections.
 
@@ -51,5 +51,4 @@ workflows:
       - command: terraform deploy tgw/spoke -s plat-use1-dev
       - command: terraform deploy tgw/spoke -s plat-use1-staging
       - command: terraform deploy tgw/spoke -s plat-use1-prod
-
 ```

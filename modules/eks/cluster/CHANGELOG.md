@@ -1,4 +1,6 @@
-## Components PR [#795](https://github.com/cloudposse/terraform-aws-components/pull/723)
+## Upgrading to `v1.250.0`
+
+Components PR [#795](https://github.com/cloudposse/terraform-aws-components/pull/723)
 
 ### Removed `identity` roles from cluster RBAC (`aws-auth` ConfigMap)
 
