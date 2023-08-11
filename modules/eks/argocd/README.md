@@ -157,9 +157,14 @@ components:
         saml_enabled: true
         ssm_store_account: corp
         ssm_store_account_region: us-west-2
-        saml_admin_role: ArgoCD-non-prod-admin
-        saml_readonly_role: ArgoCD-non-prod-observer
         argocd_repo_name: argocd-deploy-non-prod
+        argocd_rbac_policies:
+          - "p, role:org-admin, applications, *, */*, allow"
+          - "p, role:org-admin, clusters, get, *, allow"
+          - "p, role:org-admin, repositories, get, *, allow"
+          - "p, role:org-admin, repositories, create, *, allow"
+          - "p, role:org-admin, repositories, update, *, allow"
+          - "p, role:org-admin, repositories, delete, *, allow"
         # Note: the IDs for AWS Identity Center groups will change if you alter/replace them:
         argocd_rbac_groups:
           - group: deadbeef-dead-beef-dead-beefdeadbeef
