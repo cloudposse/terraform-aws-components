@@ -40,7 +40,7 @@ locals {
 module "store_write" {
   count   = local.enabled ? 1 : 0
   source  = "cloudposse/ssm-parameter-store/aws"
-  version = "0.9.1"
+  version = "0.11.0"
   parameter_write = [
     {
       name        = "/datadog/datadog_external_id"
