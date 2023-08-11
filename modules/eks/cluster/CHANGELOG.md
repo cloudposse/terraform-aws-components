@@ -1,6 +1,6 @@
-## Upgrading to `v1.250.0`
+## Upgrading to `v1.270.0`
 
-Components PR [#795](https://github.com/cloudposse/terraform-aws-components/pull/723)
+Components PR [#795](https://github.com/cloudposse/terraform-aws-components/pull/795)
 
 ### Removed `identity` roles from cluster RBAC (`aws-auth` ConfigMap)
 
@@ -88,8 +88,9 @@ Because this is disruptive to existing clusters, this is not enabled by default.
 To enable it, set the `legacy_do_not_create_karpenter_instance_profile` input to `false`,
 and also set the `eks/karpenter` input `legacy_create_karpenter_instance_profile` to `false`.
 
-## Components PR [#723](https://github.com/cloudposse/terraform-aws-components/pull/723)
+## Upgrading to `v1.250.0`
 
+Components PR [#723](https://github.com/cloudposse/terraform-aws-components/pull/723)
 
 ### Improved support for EKS Add-Ons
 
