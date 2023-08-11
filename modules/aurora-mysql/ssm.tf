@@ -71,7 +71,7 @@ data "aws_ssm_parameter" "password" {
 
 module "parameter_store_write" {
   source  = "cloudposse/ssm-parameter-store/aws"
-  version = "0.10.0"
+  version = "0.11.0"
 
   # kms_arn will only be used for SecureString parameters
   kms_arn = module.kms_key_rds.key_arn

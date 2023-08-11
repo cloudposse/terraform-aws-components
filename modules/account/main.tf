@@ -13,7 +13,7 @@ locals {
   # Organizational Units' Accounts list and map configuration
   organizational_units_accounts = flatten([
     for ou in local.organizational_units : [
-      for account in lookup(ou, "accounts", []) : merge(account, { "ou" = ou.name, "account_email_format" = lookup(ou, "account_email_format", var.account_email_format) })
+      for account in lookup(ou, "accounts", []) : merge({ "ou" = ou.name, "account_email_format" = lookup(ou, "account_email_format", var.account_email_format) }, account)
     ]
   ])
   organizational_units_accounts_map = { for acc in local.organizational_units_accounts : acc.name => acc }
@@ -139,7 +139,7 @@ resource "aws_organizations_account" "organizational_units_accounts" {
   for_each                   = local.organizational_units_accounts_map
   name                       = each.value.name
   parent_id                  = aws_organizations_organizational_unit.this[local.account_names_organizational_unit_names_map[each.value.name]].id
-  email                      = format(each.value.account_email_format, each.value.name)
+  email                      = try(format(each.value.account_email_format, each.value.name), each.value.account_email_format)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
   tags                       = merge(module.this.tags, try(each.value.tags, {}), { Name : each.value.name })
 

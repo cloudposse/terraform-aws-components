@@ -20,10 +20,11 @@ variable "cluster_context" {
     cluster_autoscaler_enabled = bool
     cluster_name               = string
     create_before_destroy      = bool
-    disk_encryption_enabled    = bool
-    disk_size                  = number
-    instance_types             = list(string)
-    kubernetes_labels          = map(string)
+    # Obsolete, replaced by block_device_map
+    #  disk_encryption_enabled    = bool
+    #  disk_size                  = number
+    instance_types    = list(string)
+    kubernetes_labels = map(string)
     kubernetes_taints = list(object({
       key    = string
       value  = string
@@ -35,6 +36,23 @@ variable "cluster_context" {
     subnet_type_tag_key   = string
     aws_ssm_agent_enabled = bool
     vpc_id                = string
+
+    # block_device_map copied from cloudposse/terraform-aws-eks-node-group
+    # Really, nothing is optional, but easier to keep in sync via copy and paste
+    block_device_map = map(object({
+      no_device    = optional(bool, null)
+      virtual_name = optional(string, null)
+      ebs = optional(object({
+        delete_on_termination = optional(bool, true)
+        encrypted             = optional(bool, true)
+        iops                  = optional(number, null)
+        kms_key_id            = optional(string, null)
+        snapshot_id           = optional(string, null)
+        throughput            = optional(number, null)
+        volume_size           = optional(number, 20)
+        volume_type           = optional(string, "gp3")
+      }))
+    }))
   })
   description = "The common settings for all node groups."
 }

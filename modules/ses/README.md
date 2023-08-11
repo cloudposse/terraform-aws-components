@@ -49,7 +49,7 @@ components:
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_kms_key_ses"></a> [kms\_key\_ses](#module\_kms\_key\_ses) | cloudposse/kms-key/aws | 0.12.1 |
 | <a name="module_ses"></a> [ses](#module\_ses) | cloudposse/ses/aws | 0.22.3 |
-| <a name="module_ssm_parameter_store"></a> [ssm\_parameter\_store](#module\_ssm\_parameter\_store) | cloudposse/ssm-parameter-store/aws | 0.10.0 |
+| <a name="module_ssm_parameter_store"></a> [ssm\_parameter\_store](#module\_ssm\_parameter\_store) | cloudposse/ssm-parameter-store/aws | 0.11.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
