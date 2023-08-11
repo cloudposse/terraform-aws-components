@@ -1,5 +1,7 @@
 ## Upgrading to `v1.276.0`
 
+Components PR [#804](https://github.com/cloudposse/terraform-aws-components/pull/804)
+
 ### Affected Components
 
 - `tgw/hub`
