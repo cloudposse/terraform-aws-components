@@ -11,7 +11,7 @@ module "always" {
 
 module "utils_example_complete" {
   source  = "cloudposse/utils/aws"
-  version = "1.1.0"
+  version = "1.3.0"
 }
 
 locals {
