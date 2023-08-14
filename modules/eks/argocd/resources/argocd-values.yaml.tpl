@@ -115,6 +115,7 @@ server:
             return hs
 
   rbacConfig:
+    policy.default: ${rbac_default_policy}
     policy.csv: |
 %{ for policy in rbac_policies ~}
       ${policy}
@@ -130,7 +131,7 @@ server:
     scopes: '${saml_rbac_scopes}'
 %{ endif ~}
 
-    policy.default: role:none
+    policy.default: role:readonly
 
 repoServer:
   replicas: 2

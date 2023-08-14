@@ -12,8 +12,9 @@ variable "expose_eks_sg" {
 variable "connections" {
   type = list(object({
     account = object({
-      stage  = string
-      tenant = optional(string, "")
+      stage       = string
+      environment = optional(string, "")
+      tenant      = optional(string, "")
     })
     vpc_component_names = optional(list(string), ["vpc"])
     eks_component_names = optional(list(string), [])

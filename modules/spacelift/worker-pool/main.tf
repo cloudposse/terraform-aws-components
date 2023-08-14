@@ -78,7 +78,7 @@ data "cloudinit_config" "config" {
 
 module "security_group" {
   source  = "cloudposse/security-group/aws"
-  version = "2.0.0-rc1"
+  version = "2.2.0"
 
   security_group_description = "Security Group for Spacelift worker pool"
   allow_all_egress           = true
