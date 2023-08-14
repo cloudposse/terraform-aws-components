@@ -147,7 +147,7 @@ No providers.
 | <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | ../datadog-configuration/modules/datadog_keys | n/a |
 | <a name="module_datadog_synthetics"></a> [datadog\_synthetics](#module\_datadog\_synthetics) | cloudposse/platform/datadog//modules/synthetics | 1.0.1 |
 | <a name="module_datadog_synthetics_merge"></a> [datadog\_synthetics\_merge](#module\_datadog\_synthetics\_merge) | cloudposse/config/yaml//modules/deepmerge | 1.0.2 |
-| <a name="module_datadog_synthetics_private_location"></a> [datadog\_synthetics\_private\_location](#module\_datadog\_synthetics\_private\_location) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_datadog_synthetics_private_location"></a> [datadog\_synthetics\_private\_location](#module\_datadog\_synthetics\_private\_location) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_datadog_synthetics_yaml_config"></a> [datadog\_synthetics\_yaml\_config](#module\_datadog\_synthetics\_yaml\_config) | cloudposse/config/yaml | 1.0.2 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
