@@ -304,12 +304,12 @@ variable "node_group_defaults" {
     create_before_destroy      = optional(bool, null)
     desired_group_size         = optional(number, null)
     instance_types             = optional(list(string), null)
-    kubernetes_labels          = optional(map(string), null)
+    kubernetes_labels          = optional(map(string), {})
     kubernetes_taints = optional(list(object({
       key    = string
       value  = string
       effect = string
-    })), null)
+    })), [])
     kubernetes_version = optional(string, null) # set to null to use cluster_kubernetes_version
     max_group_size     = optional(number, null)
     min_group_size     = optional(number, null)
@@ -329,7 +329,7 @@ variable "node_group_defaults" {
         kms_key_id            = optional(string, null)
         snapshot_id           = optional(string, null)
         throughput            = optional(number, null) # for gp3, MiB/s, up to 1000
-        volume_size           = optional(number, 20)   # disk  size in GB
+        volume_size           = optional(number, 50)   # disk  size in GB
         volume_type           = optional(string, "gp3")
 
         # Catch common camel case typos. These have no effect, they just generate better errors.
