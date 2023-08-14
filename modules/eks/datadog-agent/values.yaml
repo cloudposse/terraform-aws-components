@@ -1,5 +1,6 @@
 datadog:
   logLevel: INFO
+  # See https://github.com/DataDog/helm-charts/issues/415#issuecomment-943117608
   kubeStateMetricsEnabled: false
   kubeStateMetricsCore:
     enabled: true
