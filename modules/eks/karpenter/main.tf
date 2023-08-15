@@ -139,7 +139,7 @@ module "karpenter" {
       settings = {
         # This configuration of settings requires Karpenter chart v0.19.0 or later
         aws = {
-          defaultInstanceProfile = one(aws_iam_instance_profile.default[*].name)
+          defaultInstanceProfile = local.karpenter_iam_role_name # instance profile name === role name
           clusterName            = local.eks_cluster_id
           # clusterEndpoint not needed as of v0.25.0
           clusterEndpoint = local.eks_cluster_endpoint
