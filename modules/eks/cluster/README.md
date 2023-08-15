@@ -130,6 +130,8 @@ components:
         # All Fargate Profiles will use the same IAM Role when `legacy_fargate_1_role_per_profile_enabled` is set to false.
         # Recommended for all new clusters, but will damage existing clusters provisioned with the legacy component.
         legacy_fargate_1_role_per_profile_enabled: false
+        # While it is possible to deploy add-ons to Fargate Profiles, it is not recommended. Use a managed node group instead.
+        deploy_addons_to_fargate: false
 
         # EKS addons
         # https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html
@@ -147,7 +149,10 @@ components:
           # https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html
           # https://github.com/kubernetes-sigs/aws-ebs-csi-driver
           aws-ebs-csi-driver:
-            addon_version: "v1.20.0-eksbuild.1"  # set `addon_version` to `null` to use the latest version          # Only install the EFS driver if you are using EFS and have already created an EFS file system.
+            addon_version: "v1.20.0-eksbuild.1"  # set `addon_version` to `null` to use the latest version
+          # Only install the EFS driver if you are using EFS.
+          # Create an EFS file system with the `efs` component.
+          # Create an EFS StorageClass with the `eks/storage-class` component.
           # https://docs.aws.amazon.com/eks/latest/userguide/efs-csi.html
           aws-efs-csi-driver:
             addon_version: "v1.5.8-eksbuild.1"
