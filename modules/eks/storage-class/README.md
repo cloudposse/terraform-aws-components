@@ -15,7 +15,7 @@ do not propagate to existing PersistentVolumeClaims.
 This component can create storage classes backed by EBS or EFS, and is intended to be used
 with the corresponding EKS add-ons `aws-ebs-csi-driver` and `aws-efs-csi-driver` respectively.
 In the case of EFS, this component also requires that you have provisioned an EFS filesystem
-in the same region as your cluster, and expects you have used the `eks/efs` component to do so.
+in the same region as your cluster, and expects you have used the `efs` component to do so.
 The EFS storage classes will get the file system ID from the EFS component's output.
 
 ### Note: Default Storage Class
