@@ -59,7 +59,7 @@ variable "efs_storage_classes" {
   type = map(object({
     make_default_storage_class = optional(bool, false)
     labels                     = optional(map(string), null)
-    efs_component_name         = optional(string, "eks/efs")
+    efs_component_name         = optional(string, "efs")
     reclaim_policy             = optional(string, "Delete")
     volume_binding_mode        = optional(string, "Immediate")
     # Mount options are poorly documented.
