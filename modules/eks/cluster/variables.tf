@@ -288,12 +288,12 @@ variable "node_group_defaults" {
     create_before_destroy      = optional(bool, null)
     desired_group_size         = optional(number, null)
     instance_types             = optional(list(string), null)
-    kubernetes_labels          = optional(map(string), null)
+    kubernetes_labels          = optional(map(string), {})
     kubernetes_taints = optional(list(object({
       key    = string
       value  = string
       effect = string
-    })), null)
+    })), [])
     kubernetes_version = optional(string, null) # set to null to use cluster_kubernetes_version
     max_group_size     = optional(number, null)
     min_group_size     = optional(number, null)
@@ -313,7 +313,7 @@ variable "node_group_defaults" {
         kms_key_id            = optional(string, null)
         snapshot_id           = optional(string, null)
         throughput            = optional(number, null) # for gp3, MiB/s, up to 1000
-        volume_size           = optional(number, 20)   # disk  size in GB
+        volume_size           = optional(number, 50)   # disk  size in GB
         volume_type           = optional(string, "gp3")
 
         # Catch common camel case typos. These have no effect, they just generate better errors.
@@ -339,6 +339,8 @@ variable "node_group_defaults" {
 
   default = {
     desired_group_size = 1
+    # t3.medium is kept as the default for backward compatibility.
+    # Recommendation as of 2023-08-08 is c6a.large to provide reserve HA capacity regardless of Karpenter behavoir.
     instance_types     = ["t3.medium"]
     kubernetes_version = null # set to null to use cluster_kubernetes_version
     max_group_size     = 100
@@ -528,8 +530,8 @@ variable "addons" {
 
 variable "deploy_addons_to_fargate" {
   type        = bool
-  description = "Set to `true` to deploy addons to Fargate instead of initial node pool"
-  default     = true
+  description = "Set to `true` (not recommended) to deploy addons to Fargate instead of initial node pool"
+  default     = false
   nullable    = false
 }
 
@@ -537,11 +539,11 @@ variable "addons_depends_on" {
   type = bool
 
   description = <<-EOT
-    If set `true`, all addons will depend on managed node groups provisioned by this component and therefore not be installed until nodes are provisioned.
+    If set `true` (recommended), all addons will depend on managed node groups provisioned by this component and therefore not be installed until nodes are provisioned.
     See [issue #170](https://github.com/cloudposse/terraform-aws-eks-cluster/issues/170) for more details.
     EOT
 
-  default  = false
+  default  = true
   nullable = false
 }
 
