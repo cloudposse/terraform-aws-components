@@ -94,7 +94,7 @@ data "aws_ami" "bastion_image" {
 
 module "bastion_autoscale_group" {
   source  = "cloudposse/ec2-autoscale-group/aws"
-  version = "0.35.0"
+  version = "0.35.1"
 
   image_id                    = join("", data.aws_ami.bastion_image[*].id)
   instance_type               = var.instance_type
