@@ -1,4 +1,4 @@
-# Component: `api-gateway-account-settings`
+# Component: `api-gateway-rest-api`
 
 This component is responsible for deploying an API Gateway REST API.
 ## Usage
