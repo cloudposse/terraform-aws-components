@@ -546,8 +546,8 @@ variable "addons" {
 
 variable "deploy_addons_to_fargate" {
   type        = bool
-  description = "Set to `true` to deploy addons to Fargate instead of initial node pool"
-  default     = true
+  description = "Set to `true` (not recommended) to deploy addons to Fargate instead of initial node pool"
+  default     = false
   nullable    = false
 }
 
@@ -555,11 +555,11 @@ variable "addons_depends_on" {
   type = bool
 
   description = <<-EOT
-    If set `true`, all addons will depend on managed node groups provisioned by this component and therefore not be installed until nodes are provisioned.
+    If set `true` (recommended), all addons will depend on managed node groups provisioned by this component and therefore not be installed until nodes are provisioned.
     See [issue #170](https://github.com/cloudposse/terraform-aws-eks-cluster/issues/170) for more details.
     EOT
 
-  default  = false
+  default  = true
   nullable = false
 }
 
