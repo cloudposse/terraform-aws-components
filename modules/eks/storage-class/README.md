@@ -15,7 +15,7 @@ do not propagate to existing PersistentVolumeClaims.
 This component can create storage classes backed by EBS or EFS, and is intended to be used
 with the corresponding EKS add-ons `aws-ebs-csi-driver` and `aws-efs-csi-driver` respectively.
 In the case of EFS, this component also requires that you have provisioned an EFS filesystem
-in the same region as your cluster, and expects you have used the `efs` component to do so.
+in the same region as your cluster, and expects you have used the `efs` (previously `eks/efs`) component to do so.
 The EFS storage classes will get the file system ID from the EFS component's output.
 
 ### Note: Default Storage Class
@@ -26,12 +26,15 @@ This default StorageClass is then used by PersistentVolumeClaims that do not spe
 Prior to Kubernetes 1.26, if more than one StorageClass is marked as default,
 a PersistentVolumeClaim without `storageClassName` explicitly specified cannot be created.
 In Kubernetes 1.26 and later, if more than one StorageClass is marked as default,
-the last one created will be used.
+the last one created will be used, which means you can get by with just ignoring
+the default "gp2" StorageClass that EKS creates for you.
 
 EKS always creates a default storage class for the cluster, typically an EBS backed class named `gp2`. Find out
 what the default storage class is for your cluster by running this command:
 
 ```bash
+# You only need to run `set-cluster` when you are changing target clusters
+set-cluster <cluster-name> admin # replace admin with other role name if desired
 kubectl get storageclass
 ```
 
@@ -41,6 +44,8 @@ If you want to change the default, you can unset the existing default manually, 
 
 ```bash
 SC_NAME=gp2 # Replace with the name of the storage class you want to unset as default
+# You only need to run `set-cluster` when you are changing target clusters
+set-cluster <cluster-name> admin # replace admin with other role name if desired
 kubectl patch storageclass $SC_NAME -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
 ```
 
@@ -55,6 +60,8 @@ View the parameters of a storage class by running this command:
 
 ```bash
 SC_NAME=gp2 # Replace with the name of the storage class you want to view
+# You only need to run `set-cluster` when you are changing target clusters
+set-cluster <cluster-name> admin # replace admin with other role name if desired
 kubectl get storageclass $SC_NAME -o yaml
 ```
 
@@ -95,6 +102,7 @@ Here's an example snippet for how to use this component.
         efs_storage_classes:
           efs-sc:
             make_default_storage_class: false
+            efs_component_name: "efs" # Replace with the name of the EFS component, previously "eks/efs"
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
