@@ -4,6 +4,6 @@ module "datadog-integration" {
 
   component = "datadog-integration"
 
-  environment = "gbl"
+  environment = module.iam_roles.global_environment_name
   context     = module.this.context
 }
