@@ -55,7 +55,7 @@ variable "dd_module_name" {
 variable "dd_forwarder_version" {
   type        = string
   description = "Version tag of Datadog lambdas to use. https://github.com/DataDog/datadog-serverless-functions/releases"
-  default     = "3.61.0"
+  default     = "3.66.0"
 }
 
 variable "forwarder_log_enabled" {
