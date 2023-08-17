@@ -10,7 +10,7 @@ locals {
   is_org_management_account              = local.current_account_id == local.org_management_account_id
 
   create_sns_topic           = local.enabled && var.create_sns_topic
-  create_guardduty_collector = local.enabled && (local.is_org_delegated_administrator_account && !var.admin_delegated) || local.is_org_management_account
+  create_guardduty_collector = local.enabled && ((local.is_org_delegated_administrator_account && !var.admin_delegated) || local.is_org_management_account)
   create_org_delegation      = local.enabled && local.is_org_management_account
   create_org_configuration   = local.enabled && local.is_org_delegated_administrator_account && var.admin_delegated
 }
