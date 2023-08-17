@@ -152,7 +152,7 @@ atmos terraform apply amplify/example -s <stack>
 |------|--------|---------|
 | <a name="module_amplify_app"></a> [amplify\_app](#module\_amplify\_app) | cloudposse/amplify-app/aws | 0.2.1 |
 | <a name="module_certificate_verification_dns_record"></a> [certificate\_verification\_dns\_record](#module\_certificate\_verification\_dns\_record) | cloudposse/route53-cluster-hostname/aws | 0.12.3 |
-| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_subdomains_dns_record"></a> [subdomains\_dns\_record](#module\_subdomains\_dns\_record) | cloudposse/route53-cluster-hostname/aws | 0.12.3 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
