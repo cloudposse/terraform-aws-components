@@ -38,7 +38,7 @@ provider "datadog" {
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_always"></a> [always](#module\_always) | cloudposse/label/null | 0.25.0 |
-| <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 | <a name="module_utils_example_complete"></a> [utils\_example\_complete](#module\_utils\_example\_complete) | cloudposse/utils/aws | 1.3.0 |
