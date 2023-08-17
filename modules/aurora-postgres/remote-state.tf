@@ -1,6 +1,6 @@
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   component = "vpc"
 
@@ -9,7 +9,7 @@ module "vpc" {
 
 module "vpc_ingress" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   for_each = {
     for i, account in var.allow_ingress_from_vpc_accounts :
@@ -27,7 +27,7 @@ module "vpc_ingress" {
 
 module "eks" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   for_each  = local.eks_security_group_enabled ? var.eks_component_names : toset([])
   component = each.value
@@ -38,7 +38,7 @@ module "eks" {
 
 module "dns_gbl_delegated" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   component   = "dns-delegated"
   environment = var.dns_gbl_delegated_environment_name
