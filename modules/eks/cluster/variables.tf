@@ -114,22 +114,6 @@ variable "map_additional_worker_roles" {
   nullable    = false
 }
 
-variable "aws_teams_rbac" {
-  type = list(object({
-    aws_team = string
-    groups   = list(string)
-  }))
-
-  description = <<-EOT
-    OBSOLETE: This feature never worked as intended, and this input is now ignored.
-    List of `aws-teams` to map to Kubernetes RBAC groups.
-    This gives teams direct access to Kubernetes without having to assume a team-role.
-    EOT
-
-  default  = []
-  nullable = false
-}
-
 variable "aws_team_roles_rbac" {
   type = list(object({
     aws_team_role = string
