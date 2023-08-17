@@ -35,7 +35,7 @@ module "aws_config_label" {
 
 module "utils" {
   source  = "cloudposse/utils/aws"
-  version = "1.1.0"
+  version = "1.3.0"
 
   context = module.this.context
 }
