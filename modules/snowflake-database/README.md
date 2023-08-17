@@ -61,7 +61,7 @@ components:
 |------|--------|---------|
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_introspection"></a> [introspection](#module\_introspection) | cloudposse/label/null | 0.25.0 |
-| <a name="module_snowflake_account"></a> [snowflake\_account](#module\_snowflake\_account) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_snowflake_account"></a> [snowflake\_account](#module\_snowflake\_account) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_snowflake_database"></a> [snowflake\_database](#module\_snowflake\_database) | cloudposse/label/null | 0.25.0 |
 | <a name="module_snowflake_label"></a> [snowflake\_label](#module\_snowflake\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_snowflake_schema"></a> [snowflake\_schema](#module\_snowflake\_schema) | cloudposse/label/null | 0.25.0 |

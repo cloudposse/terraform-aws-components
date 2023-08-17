@@ -57,7 +57,7 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_association_resource_components"></a> [association\_resource\_components](#module\_association\_resource\_components) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_association_resource_components"></a> [association\_resource\_components](#module\_association\_resource\_components) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_aws_waf"></a> [aws\_waf](#module\_aws\_waf) | cloudposse/waf/aws | 1.0.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
