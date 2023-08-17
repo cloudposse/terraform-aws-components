@@ -1,6 +1,6 @@
 module "association_resource_components" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.3"
+  version = "1.5.0"
 
   count = local.enabled ? length(var.association_resource_component_selectors) : 0
 
