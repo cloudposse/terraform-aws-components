@@ -5,8 +5,10 @@
 # See https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.6/deploy/installation/#option-a-recommended-iam-roles-for-service-accounts-irsa for details.
 
 # We could directly use the URL to download and install the policy at runtime,
-# but that lacks transparency and auditability. It also does not give us a change
-# to make changes in response to bugs, such as https://github.com/kubernetes-sigs/aws-load-balancer-controller/issues/2692#issuecomment-1426242236
+# via the cloudposse/helm-release/aws module's ` iam_source_json_url` input,
+# but that lacks transparency and auditability. It also does not give us a chance
+# to make changes in response to bugs, such as
+# https://github.com/kubernetes-sigs/aws-load-balancer-controller/issues/2692#issuecomment-1426242236
 #
 # So we download the policy and insert it here as a local variable.
 
@@ -14,7 +16,8 @@ locals {
   # To update, just replace everything between the two "EOT"s with the contents of the downloaded JSON file.
   # Below is the policy as of version 2.6.0, downloaded from
   # https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.6.0/docs/install/iam_policy.json
-  distributed_iam_policy = <<EOT
+  # This policy is for the `aws` partition. Override distributed_iam_policy_overridable for other partitions.
+  distributed_iam_policy_overridable = <<EOT
 {
     "Version": "2012-10-17",
     "Statement": [
