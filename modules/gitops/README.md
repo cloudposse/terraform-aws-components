@@ -70,11 +70,11 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_dynamodb"></a> [dynamodb](#module\_dynamodb) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_dynamodb"></a> [dynamodb](#module\_dynamodb) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_gha_assume_role"></a> [gha\_assume\_role](#module\_gha\_assume\_role) | ../account-map/modules/team-assume-role-policy | n/a |
 | <a name="module_gha_role_name"></a> [gha\_role\_name](#module\_gha\_role\_name) | cloudposse/label/null | 0.25.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_s3_bucket"></a> [s3\_bucket](#module\_s3\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_s3_bucket"></a> [s3\_bucket](#module\_s3\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
