@@ -20,5 +20,5 @@ Actually, the project releases 3 policy documents, one for each of the
 three AWS partitions: `aws`, `aws-cn`, and `aws-us-gov`. For simplicity,
 this module only uses the `aws` partition policy. If you are in another
 partition, you can create a `distributed-iam-policy_override.tf` file in your
-directory and override the `distributed_iam_policy_overridable` local
+directory and override the `overridable_distributed_iam_policy` local
 variable with the policy document for your partition.

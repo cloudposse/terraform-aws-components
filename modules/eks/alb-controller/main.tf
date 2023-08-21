@@ -22,7 +22,7 @@ module "alb_controller" {
 
   iam_role_enabled = true
   # See distributed-iam-policy.tf
-  iam_source_policy_documents = [local.distributed_iam_policy_overridable]
+  iam_source_policy_documents = [local.overridable_distributed_iam_policy]
 
   values = compact([
     # standard k8s object settings
