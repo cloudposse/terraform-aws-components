@@ -172,3 +172,5 @@ jobs:
           title: 'Upgrade Guide for `${{ steps.current-release.outputs.tag }}`'
           body: 'Updates for Upgrade Guide for `${{ steps.current-release.outputs.tag }}`'
           base: main
+          labels: |
+            no-release
