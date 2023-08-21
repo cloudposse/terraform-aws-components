@@ -16,8 +16,8 @@ locals {
   # To update, just replace everything between the two "EOT"s with the contents of the downloaded JSON file.
   # Below is the policy as of version 2.6.0, downloaded from
   # https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.6.0/docs/install/iam_policy.json
-  # This policy is for the `aws` partition. Override distributed_iam_policy_overridable for other partitions.
-  distributed_iam_policy_overridable = <<EOT
+  # This policy is for the `aws` partition. Override overridable_distributed_iam_policy for other partitions.
+  overridable_distributed_iam_policy = <<EOT
 {
     "Version": "2012-10-17",
     "Statement": [
