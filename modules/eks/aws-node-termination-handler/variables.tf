@@ -12,17 +12,19 @@ variable "chart_description" {
 variable "chart" {
   type        = string
   description = "Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended."
+  default     = "aws-node-termination-handler"
 }
 
 variable "chart_repository" {
   type        = string
   description = "Repository URL where to locate the requested chart."
+  default     = "https://aws.github.io/eks-charts"
 }
 
 variable "chart_version" {
   type        = string
   description = "Specify the exact chart version to install. If this is not specified, the latest version is installed."
-  default     = null
+  default     = "0.15.3"
 }
 
 variable "resources" {
@@ -37,6 +39,16 @@ variable "resources" {
     })
   })
   description = "The cpu and memory of the deployment's limits and requests."
+  default = {
+    limits = {
+      cpu    = "100m"
+      memory = "128Mi"
+    }
+    requests = {
+      cpu    = "50m"
+      memory = "64Mi"
+    }
+  }
 }
 
 variable "create_namespace" {
