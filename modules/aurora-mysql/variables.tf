@@ -199,17 +199,29 @@ variable "primary_cluster_component" {
 }
 
 variable "allow_ingress_from_vpc_accounts" {
-  type        = any
+  type = list(object({
+    vpc         = optional(string)
+    environment = optional(string)
+    stage       = optional(string)
+    tenant      = optional(string)
+  }))
   default     = []
   description = <<-EOF
     List of account contexts to pull VPC ingress CIDR and add to cluster security group.
 
     e.g.
-
     {
       environment = "ue2",
       stage       = "auto",
       tenant      = "core"
     }
+
+    Defaults to the "vpc" component in the given account
   EOF
+}
+
+variable "vpc_component_name" {
+  type        = string
+  default     = "vpc"
+  description = "The name of the VPC component"
 }

@@ -2,7 +2,7 @@ module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "1.5.0"
 
-  component = "vpc"
+  component = var.vpc_component_name
 
   context = module.cluster.context
 }
@@ -17,7 +17,7 @@ module "vpc_ingress" {
     format("%s-%s", account.tenant, account.stage) : account.stage => account
   }
 
-  component   = "vpc"
+  component   = try(each.value.vpc, "vpc")
   tenant      = try(each.value.tenant, module.this.tenant)
   environment = try(each.value.environment, module.this.environment)
   stage       = try(each.value.stage, module.this.stage)
