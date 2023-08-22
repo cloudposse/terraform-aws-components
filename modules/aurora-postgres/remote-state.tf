@@ -17,7 +17,7 @@ module "vpc_ingress" {
     format("%s-%s", account.tenant, account.stage) : account.stage => account
   }
 
-  component   = try(each.value.vpc, "vpc")
+  component   = each.value.vpc
   tenant      = try(each.value.tenant, module.this.tenant)
   environment = try(each.value.environment, module.this.environment)
   stage       = try(each.value.stage, module.this.stage)

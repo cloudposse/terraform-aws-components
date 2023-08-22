@@ -38,7 +38,7 @@ module "vpc_ingress" {
 
   for_each = local.accounts_with_vpc
 
-  component   = try(each.value.vpc, "vpc")
+  component   = each.value.vpc
   environment = try(each.value.environment, module.this.environment)
   stage       = try(each.value.stage, module.this.environment)
   tenant      = try(each.value.tenant, module.this.tenant)

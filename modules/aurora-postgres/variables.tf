@@ -274,7 +274,7 @@ variable "eks_component_names" {
 
 variable "allow_ingress_from_vpc_accounts" {
   type = list(object({
-    vpc         = optional(string)
+    vpc         = optional(string, "vpc")
     environment = optional(string)
     stage       = optional(string)
     tenant      = optional(string)
