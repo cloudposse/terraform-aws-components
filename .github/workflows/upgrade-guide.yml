@@ -1,4 +1,4 @@
-name: "Generate Upgrade Guide"
+name: "Generate Release Notes"
 
 on:
   release:
@@ -11,7 +11,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  generate-upgrade-guide:
+  generate-release-notes:
     runs-on:
       - "self-hosted"
 
@@ -127,9 +127,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Generate Upgrade Guide Update
+      - name: Generate Release Notes Update
         uses: actions/github-script@v6
-        id: generated-upgrade-guide-update
         with:
           script: |
             const fs = require('fs');
@@ -146,7 +145,7 @@ jobs:
 
               for (let i = 0; i < updatedComponents.length; i++) {
                 const relativePath = updatedComponents[i];
-                affectedComponents += `- [${relativePath}](/components/library/aws/${relativePath})\n`
+                affectedComponents += `- [${relativePath}](/components/library/aws/${relativePath}#changelog)\n`
               }
 
               affectedComponents += "\n\n";
@@ -169,8 +168,11 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
-          title: 'Upgrade Guide for `${{ steps.current-release.outputs.tag }}`'
-          body: 'Updates for Upgrade Guide for `${{ steps.current-release.outputs.tag }}`'
+          title: 'Release Notes for `${{ steps.current-release.outputs.tag }}`'
+          body: 'Update Release Notes for `${{ steps.current-release.outputs.tag }}`'
           base: main
+          branch: "release-notes/${{ steps.current-release.outputs.tag }}"
+          delete-branch: "true"
+          commit-message: "Update Release Notes for ${{ steps.current-release.outputs.tag }}"
           labels: |
             no-release
