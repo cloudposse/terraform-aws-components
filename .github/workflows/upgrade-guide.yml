@@ -169,7 +169,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           title: 'Release Notes for `${{ steps.current-release.outputs.tag }}`'
-          body: 'Update Release Notes for `${{ steps.current-release.outputs.tag }}`'
+          body: 'Update Release Notes for [`${{ steps.current-release.outputs.tag }}`](${{ github.event.release.html_url }})'
           base: main
           branch: "release-notes/${{ steps.current-release.outputs.tag }}"
           delete-branch: "true"
