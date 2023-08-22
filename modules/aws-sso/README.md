@@ -12,17 +12,26 @@ This component assumes that AWS SSO has already been enabled via the AWS Console
 1. Select primary region
 1. Go to AWS SSO
 1. Enable AWS SSO
-1. Click Settings > Management
-1. Delegate Identity as an administrator
 
-Once identity is delegated, it will take up to 20 to 30 minutes for the identity account to understand its delegation.
+#### Delegation no longer recommended
+
+Previously, Cloud Posse recommended delegating SSO to the identity account by following the next 2 steps:
+1. Click Settings > Management
+1. Delegate Identity as an administrator. This can take up to 30 minutes to take effect.
+
+However, this is no longer recommended. Because the delegated SSO administrator cannot make changes in the `root` account
+and this component needs to be able to make changes in the `root` account, any purported security advantage achieved by
+delegating SSO to the `identity` account is lost.
+
+Nevertheless, it is also not worth the effort to remove the delegation. If you have already delegated SSO to the `identity`,
+continue on, leaving the stack configuration in the `gbl-identity` stack rather than the currently recommended `gbl-root` stack.
 
 ### Atmos
 
 **Stack Level**: Global
 **Deployment**: Must be deployed by root-admin using `atmos` CLI
 
-Add catalog to `gbl-identity` root stack.
+Add catalog to `gbl-root` root stack.
 
 #### `account_assignments`
 The `account_assignments` setting configures access to permission sets for users and groups in accounts, in the following structure:
