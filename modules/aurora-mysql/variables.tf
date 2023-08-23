@@ -200,7 +200,7 @@ variable "primary_cluster_component" {
 
 variable "allow_ingress_from_vpc_accounts" {
   type = list(object({
-    vpc         = optional(string)
+    vpc         = optional(string, "vpc")
     environment = optional(string)
     stage       = optional(string)
     tenant      = optional(string)
