@@ -340,3 +340,23 @@ tgw/spoke:
           stage: prod
           environment: usw2
 ```
+
+# FAQ
+
+## `tgw/spoke` Fails to Recreate VPC Attachment with `DuplicateTransitGatewayAttachment` Error
+
+```bash
+╷
+│ Error: creating EC2 Transit Gateway VPC Attachment: DuplicateTransitGatewayAttachment: tgw-0xxxxxxxxxxxxxxxx has non-deleted Transit Gateway Attachments with same VPC ID.
+│ 	status code: 400, request id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+│
+│   with module.tgw_spoke_vpc_attachment.module.standard_vpc_attachment.aws_ec2_transit_gateway_vpc_attachment.default["core-use2-network"],
+│   on .terraform/modules/tgw_spoke_vpc_attachment.standard_vpc_attachment/main.tf line 43, in resource "aws_ec2_transit_gateway_vpc_attachment" "default":
+│   43: resource "aws_ec2_transit_gateway_vpc_attachment" "default" {
+│
+╵
+Releasing state lock. This may take a few moments...
+exit status 1
+```
+
+This is caused by Terraform attempting to create the replacement VPC attachment before the original is completed destroyed. Simply retry the apply. Now you should see only "create" actions.
