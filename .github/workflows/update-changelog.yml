@@ -1,4 +1,4 @@
-name: "Update Release Notes"
+name: "Update Changelog"
 
 on:
   release:
@@ -11,7 +11,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  update-release-notes:
+  update-changelog:
     runs-on:
       - "self-hosted"
 
@@ -100,7 +100,7 @@ jobs:
                 .replace('/CHANGELOG.md', '');
             }
 
-            const currentChangeLogFiles = findChangelogs('./current');
+            const currentChangeLogFiles = findChangelogs('./current/components');
             const components = [];
 
             for (let i = 0; i < currentChangeLogFiles.length; i++) {
@@ -127,7 +127,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Generate Release Notes Update
+      - name: Generate Changelog
         uses: actions/github-script@v6
         with:
           script: |
@@ -151,16 +151,15 @@ jobs:
               affectedComponents += "\n\n";
             }
 
-            const content = `## ${tag}\n\n${affectedComponents}\n\n${body}`
+            const content = `\n## ${tag}\n\n${affectedComponents}\n\n${body}\n`
 
             console.log(content);
 
-            const filePath = 'docs/upgrade-guide.md'
+            const filePath = 'CHANGELOG.md'
             const fileContent = fs.readFileSync(filePath, 'utf-8');
             const lines = fileContent.split('\n');
 
-            const insertIndex = lines.indexOf('# Upgrade Guide') + 1;
-            lines.splice(insertIndex, 0, content.trim());
+            lines.splice(1, 0, content);
 
             const updatedContent = lines.join('\n');
             fs.writeFileSync(filePath, updatedContent, 'utf-8');
@@ -168,11 +167,11 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
-          title: 'Release Notes for `${{ steps.current-release.outputs.tag }}`'
-          body: 'Update Release Notes for [`${{ steps.current-release.outputs.tag }}`](${{ github.event.release.html_url }})'
+          title: 'Update Changelog for `${{ steps.current-release.outputs.tag }}`'
+          body: 'Update Changelog for [`${{ steps.current-release.outputs.tag }}`](${{ github.event.release.html_url }})'
           base: main
-          branch: "release-notes/${{ steps.current-release.outputs.tag }}"
+          branch: "changelog/${{ steps.current-release.outputs.tag }}"
           delete-branch: "true"
-          commit-message: "Update Release Notes for ${{ steps.current-release.outputs.tag }}"
+          commit-message: "Update Changelog for ${{ steps.current-release.outputs.tag }}"
           labels: |
             no-release
