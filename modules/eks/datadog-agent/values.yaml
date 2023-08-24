@@ -1,17 +1,17 @@
 registry: public.ecr.aws/datadog
 datadog:
   logLevel: INFO
-  # If running on Bottlerocket OS, uncomment the following lines.
-  # See https://docs.datadoghq.com/containers/kubernetes/distributions/?tab=helm#EKS
+  ## If running on Bottlerocket OS, uncomment the following lines.
+  ## See https://docs.datadoghq.com/containers/kubernetes/distributions/?tab=helm#EKS
   #  criSocketPath: /run/dockershim.sock         # Bottlerocket Only
   #  env:                                        # Bottlerocket Only
   #    - name: DD_AUTOCONFIG_INCLUDE_FEATURES    # Bottlerocket Only
   #      value: "containerd"                     # Bottlerocket Only
 
-  # kubeStateMetricsEnabled is false because the feature is obsolete (replaced by kubeStateMetricsCore).
-  # See https://github.com/DataDog/helm-charts/issues/415#issuecomment-943117608
-  # https://docs.datadoghq.com/integrations/kubernetes_state_core/?tab=helm
-  # https://www.datadoghq.com/blog/kube-state-metrics-v2-monitoring-datadog/
+  ## kubeStateMetricsEnabled is false because the feature is obsolete (replaced by kubeStateMetricsCore).
+  ## See https://github.com/DataDog/helm-charts/issues/415#issuecomment-943117608
+  ## https://docs.datadoghq.com/integrations/kubernetes_state_core/?tab=helm
+  ## https://www.datadoghq.com/blog/kube-state-metrics-v2-monitoring-datadog/
   kubeStateMetricsEnabled: false
   kubeStateMetricsCore:
     enabled: true
@@ -27,6 +27,10 @@ datadog:
     containerCollectUsingFiles: true
   apm:
     enabled: true
+    socketEnabled: true
+    useSocketVolume: true
+  serviceMonitoring:
+    enabled: true
   processAgent:
     enabled: true
     processCollection: true
@@ -40,6 +44,8 @@ datadog:
     enabled: true
   networkMonitoring:
     enabled: false
+  clusterTagger:
+    collectKubernetesTags: true
   clusterChecksRunner:
     enabled: false
   clusterChecks:
@@ -56,6 +62,11 @@ datadog:
     enabled: true
     collectEvents: true
 clusterAgent:
+  admissionController:
+    enabled: true
+    mutateUnlabelled: false
+    configMode: "hostip"
+
   enabled: true
   # Maintain 2 cluster agents so that there is no interruption in metrics collection
   # when the cluster agents' node is being deprovisioned.
@@ -78,6 +89,7 @@ clusterAgent:
       cpu: 300m
       memory: 512Mi
 agents:
+  enabled: true
   priorityClassName: "system-node-critical"
   ## ref: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config
   ## without ndots: 2, DNS will try to resolve a DNS lookup 5 different ways
@@ -89,3 +101,17 @@ agents:
   podSecurity:
     apparmor:
       enabled: false
+  tolerations:
+    - effect: NoSchedule
+      operator: Exists
+    - effect: NoExecute
+      operator: Exists
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+            - matchExpressions:
+              - key: eks.amazonaws.com/compute-type
+                operator: NotIn
+                values:
+                  - fargate
