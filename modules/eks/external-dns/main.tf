@@ -17,9 +17,37 @@ data "aws_partition" "current" {
   count = local.enabled ? 1 : 0
 }
 
+data "aws_iam_policy_document" "GrantChangeResourceRecordSets" {
+  statement {
+    sid = "GrantChangeResourceRecordSets"
+
+    actions = [
+      "route53:ChangeResourceRecordSets"
+    ]
+
+    effect    = "Allow"
+    resources = formatlist("arn:${join("", data.aws_partition.current.*.partition)}:route53:::hostedzone/%s", local.zone_ids)
+  }
+}
+
+data "aws_iam_policy_document" "GrantListHostedZonesListResourceRecordSets" {
+  statement {
+    sid = "GrantListHostedZonesListResourceRecordSets"
+
+    actions = [
+      "route53:ListHostedZones",
+      "route53:ListHostedZonesByName",
+      "route53:ListResourceRecordSets"
+    ]
+
+    effect    = "Allow"
+    resources = ["*"]
+  }
+}
+
 module "external_dns" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.7.0"
+  version = "0.9.3"
 
   name            = module.this.name
   chart           = var.chart
@@ -42,29 +70,9 @@ module "external_dns" {
   service_account_namespace = var.kubernetes_namespace
 
   iam_role_enabled = true
-  iam_policy_statements = [
-    {
-      sid = "GrantChangeResourceRecordSets"
-
-      actions = [
-        "route53:ChangeResourceRecordSets"
-      ]
-
-      effect    = "Allow"
-      resources = formatlist("arn:${join("", data.aws_partition.current.*.partition)}:route53:::hostedzone/%s", local.zone_ids)
-    },
-    {
-      sid = "GrantListHostedZonesListResourceRecordSets"
-
-      actions = [
-        "route53:ListHostedZones",
-        "route53:ListHostedZonesByName",
-        "route53:ListResourceRecordSets"
-      ]
-
-      effect    = "Allow"
-      resources = ["*"]
-    },
+  iam_source_policy_documents = [
+    data.aws_iam_policy_document.GrantChangeResourceRecordSets.json,
+    data.aws_iam_policy_document.GrantListHostedZonesListResourceRecordSets.json
   ]
 
   values = compact([
