@@ -359,4 +359,4 @@ Releasing state lock. This may take a few moments...
 exit status 1
 ```
 
-This is caused by Terraform attempting to create the replacement VPC attachment before the original is completed destroyed. Simply retry the apply. Now you should see only "create" actions.
+This is caused by Terraform attempting to create the replacement VPC attachment before the original is completely destroyed. Retry the apply. Now you should see only "create" actions.
