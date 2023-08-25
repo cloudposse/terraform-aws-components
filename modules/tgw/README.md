@@ -341,6 +341,12 @@ tgw/spoke:
           environment: usw2
 ```
 
+## Destruction
+
+When destroying Transit Gateway components, order of operations matters. Always destroy any removed `tgw/spoke` components before removing a connection from the `tgw/hub` component.
+
+The `tgw/hub` component creates map of VPC resources that each `tgw/spoke` component references. If the required reference is removed before the `tgw/spoke` is destroyed, Terraform will fail to destroy the given `tgw/spoke` component.
+
 # FAQ
 
 ## `tgw/spoke` Fails to Recreate VPC Attachment with `DuplicateTransitGatewayAttachment` Error
