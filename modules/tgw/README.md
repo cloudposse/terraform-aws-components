@@ -347,6 +347,34 @@ When destroying Transit Gateway components, order of operations matters. Always 
 
 The `tgw/hub` component creates map of VPC resources that each `tgw/spoke` component references. If the required reference is removed before the `tgw/spoke` is destroyed, Terraform will fail to destroy the given `tgw/spoke` component.
 
+:::info Pro Tip!
+
+[Atmos Workflows](https://atmos.tools/core-concepts/workflows/) make applying and destroying Transit Gateway much easier! For example, to destroy components in the correct order, use a workflow similiar to the following:
+
+```yaml
+# stacks/workflows/network.yaml
+workflows:
+  destroy/tgw:
+    description: Destroy the Transit Gateway "hub" and "spokes" for connecting VPCs.
+    steps:
+      - command: echo 'Destroying platform spokes for Transit Gateway'
+        type: shell
+        name: plat-spokes
+      - command: terraform destroy tgw/spoke -s plat-use1-sandbox --auto-approve
+      - command: terraform destroy tgw/spoke -s plat-use1-dev --auto-approve
+      - command: terraform destroy tgw/spoke -s plat-use1-staging --auto-approve
+      - command: terraform destroy tgw/spoke -s plat-use1-prod --auto-approve
+      - command: echo 'Destroying core spokes for Transit Gateway'
+        type: shell
+        name: core-spokes
+      - command: terraform destroy tgw/spoke -s core-use1-auto --auto-approve
+      - command: terraform destroy tgw/spoke -s core-use1-network --auto-approve
+      - command: terraform destroy tgw/hub -s core-use1-network --auto-approve
+        name: hub
+```
+
+:::
+
 # FAQ
 
 ## `tgw/spoke` Fails to Recreate VPC Attachment with `DuplicateTransitGatewayAttachment` Error
