@@ -66,3 +66,9 @@ variable "peered_region" {
   description = "Set `true` if this region is not the primary region"
   default     = false
 }
+
+variable "primary_vpc" {
+  type        = bool
+  description = "Set `false` if this region is not the primary VPC in this region"
+  default     = true
+}

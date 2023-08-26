@@ -340,3 +340,59 @@ tgw/spoke:
           stage: prod
           environment: usw2
 ```
+
+## Destruction
+
+When destroying Transit Gateway components, order of operations matters. Always destroy any removed `tgw/spoke` components before removing a connection from the `tgw/hub` component.
+
+The `tgw/hub` component creates map of VPC resources that each `tgw/spoke` component references. If the required reference is removed before the `tgw/spoke` is destroyed, Terraform will fail to destroy the given `tgw/spoke` component.
+
+:::info Pro Tip!
+
+[Atmos Workflows](https://atmos.tools/core-concepts/workflows/) make applying and destroying Transit Gateway much easier! For example, to destroy components in the correct order, use a workflow similiar to the following:
+
+```yaml
+# stacks/workflows/network.yaml
+workflows:
+  destroy/tgw:
+    description: Destroy the Transit Gateway "hub" and "spokes" for connecting VPCs.
+    steps:
+      - command: echo 'Destroying platform spokes for Transit Gateway'
+        type: shell
+        name: plat-spokes
+      - command: terraform destroy tgw/spoke -s plat-use1-sandbox --auto-approve
+      - command: terraform destroy tgw/spoke -s plat-use1-dev --auto-approve
+      - command: terraform destroy tgw/spoke -s plat-use1-staging --auto-approve
+      - command: terraform destroy tgw/spoke -s plat-use1-prod --auto-approve
+      - command: echo 'Destroying core spokes for Transit Gateway'
+        type: shell
+        name: core-spokes
+      - command: terraform destroy tgw/spoke -s core-use1-auto --auto-approve
+      - command: terraform destroy tgw/spoke -s core-use1-network --auto-approve
+      - command: echo 'Destroying Transit Gateway Hub'
+        type: shell
+        name: hub
+      - command: terraform destroy tgw/hub -s core-use1-network --auto-approve
+```
+
+:::
+
+# FAQ
+
+## `tgw/spoke` Fails to Recreate VPC Attachment with `DuplicateTransitGatewayAttachment` Error
+
+```bash
+╷
+│ Error: creating EC2 Transit Gateway VPC Attachment: DuplicateTransitGatewayAttachment: tgw-0xxxxxxxxxxxxxxxx has non-deleted Transit Gateway Attachments with same VPC ID.
+│ 	status code: 400, request id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+│
+│   with module.tgw_spoke_vpc_attachment.module.standard_vpc_attachment.aws_ec2_transit_gateway_vpc_attachment.default["core-use2-network"],
+│   on .terraform/modules/tgw_spoke_vpc_attachment.standard_vpc_attachment/main.tf line 43, in resource "aws_ec2_transit_gateway_vpc_attachment" "default":
+│   43: resource "aws_ec2_transit_gateway_vpc_attachment" "default" {
+│
+╵
+Releasing state lock. This may take a few moments...
+exit status 1
+```
+
+This is caused by Terraform attempting to create the replacement VPC attachment before the original is completely destroyed. Retry the apply. Now you should see only "create" actions.
