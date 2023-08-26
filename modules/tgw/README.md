@@ -369,8 +369,10 @@ workflows:
         name: core-spokes
       - command: terraform destroy tgw/spoke -s core-use1-auto --auto-approve
       - command: terraform destroy tgw/spoke -s core-use1-network --auto-approve
+      - command: echo 'Destroying Transit Gateway Hub'
+         type: shell
+         name: hub
       - command: terraform destroy tgw/hub -s core-use1-network --auto-approve
-        name: hub
 ```
 
 :::
