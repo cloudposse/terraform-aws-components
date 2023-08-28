@@ -1,5 +1,5 @@
 locals {
-  enabled = module.this.enabled
+  enabled              = module.this.enabled
   kubernetes_namespace = var.kubernetes_namespace
   oidc_enabled         = local.enabled && var.oidc_enabled
   oidc_enabled_count   = local.oidc_enabled ? 1 : 0
