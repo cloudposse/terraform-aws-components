@@ -27,25 +27,20 @@ components:
         deletion_protection: false
         storage_encrypted: true
         engine: aurora-postgresql
+
+        # Provisioned configuration
         engine_mode: provisioned
-        # https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraPostgreSQL.Updates.20180305.html
-        # https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.PostgreSQL.html
-        # aws rds describe-db-engine-versions --engine aurora-postgresql --query 'DBEngineVersions[].EngineVersion'
-        engine_version: "13.4"
-        # engine and cluster family are notoriously hard to find.
-        # If you know the engine version (example here is "12.4"), use Engine and DBParameterGroupFamily from:
-        #    aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[]" | \
-        #    jq '.[] | select(.EngineVersion == "12.4") |
-        #       { Engine: .Engine, EngineVersion: .EngineVersion, DBParameterGroupFamily: .DBParameterGroupFamily }'
-        cluster_family: aurora-postgresql13
+        engine_version: "15.3"
+        cluster_family: aurora-postgresql15
         # 1 writer, 1 reader
-        cluster_size: 1
+        cluster_size: 2
+        # https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.DBInstanceClass.html
+        instance_type: db.t3.medium
+
         admin_user: postgres
         admin_password: "" # generate random password
         database_name: postgres
         database_port: 5432
-        # https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.DBInstanceClass.html
-        instance_type: db.t3.medium
         skip_final_snapshot: false
         # Enhanced Monitoring
         # A boolean flag to enable/disable the creation of the enhanced monitoring IAM role.
@@ -78,6 +73,161 @@ components:
       vars:
         enabled: true
 
+```
+
+### Finding Aurora Engine Version
+
+Use the following to query the AWS API by `engine-mode`. Both provisioned and Serverless v2 use the `privisoned` engine mode, whereas only Serverless v1 uses the `serverless` engine mode.
+
+```bash
+aws rds describe-db-engine-versions \
+  --engine aurora-postgresql \
+  --query 'DBEngineVersions[].EngineVersion' \
+  --filters 'Name=engine-mode,Values=serverless'
+```
+
+Use the following to query AWS API by `db-instance-class`. Use this query to find supported versions for a specific instance class, such as `db.serverless` with Serverless v2.
+
+```bash
+aws rds describe-orderable-db-instance-options \
+  --engine aurora-postgresql \
+  --db-instance-class db.serverless \
+  --query 'OrderableDBInstanceOptions[].[EngineVersion]'
+```
+
+Once a version has been selected, use the following to find the cluster family.
+
+```bash
+aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[]" | \
+jq '.[] | select(.EngineVersion == "15.3") |
+   { Engine: .Engine, EngineVersion: .EngineVersion, DBParameterGroupFamily: .DBParameterGroupFamily }'
+```
+
+## Examples
+
+Generally there are three different engine configurations for Aurora: provisioned, Serverless v1, and Serverless v2.
+
+### Provisioned Aurora Postgres
+
+[See the default usage example above](#Usage)
+
+### Serverless v1 Aurora Postgres
+
+Serverless v1 requires `engine-mode` set to `serverless` uses `scaling_configuration` to configure scaling options.
+
+For valid values, see [ModifyCurrentDBClusterCapacity](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_ModifyCurrentDBClusterCapacity.html).
+
+```yaml
+components:
+  terraform:
+    aurora-postgres:
+      vars:
+        enabled: true
+        name: aurora-postgres
+        eks_component_names:
+          - eks/cluster
+        allow_ingress_from_vpc_accounts:
+          # Allows Spacelift
+          - tenant: core
+            stage: auto
+            environment: use2
+          # Allows VPN
+          - tenant: core
+            stage: network
+            environment: use2
+        cluster_name: shared
+        engine: aurora-postgresql
+
+        # Serverless v1 configuration
+        engine_mode: serverless
+        instance_type: "" # serverless engine_mode ignores `var.instance_type`
+        engine_version: "13.9" # Latest supported version as of 08/28/2023
+        cluster_family: aurora-postgresql13
+        cluster_size: 0 # serverless
+        scaling_configuration:
+          - auto_pause: true
+            max_capacity: 5
+            min_capacity: 2
+            seconds_until_auto_pause: 300
+            timeout_action: null
+
+        admin_user: postgres
+        admin_password: "" # generate random password
+        database_name: postgres
+        database_port: 5432
+        storage_encrypted: true
+        deletion_protection: true
+        skip_final_snapshot: false
+        # Creating read-only users or additional databases requires Spacelift
+        read_only_users_enabled: false
+        # Enhanced Monitoring
+        # A boolean flag to enable/disable the creation of the enhanced monitoring IAM role.
+        # If set to false, the module will not create a new role and will use rds_monitoring_role_arn for enhanced monitoring
+        enhanced_monitoring_role_enabled: true
+        enhanced_monitoring_attributes: ["monitoring"]
+        # The interval, in seconds, between points when enhanced monitoring metrics are collected for the DB instance.
+        # To disable collecting Enhanced Monitoring metrics, specify 0. The default is 0. Valid Values: 0, 1, 5, 10, 15, 30, 60
+        rds_monitoring_interval: 15
+        iam_database_authentication_enabled: false
+        additional_users: {}
+```
+
+### Serverless v2 Aurora Postgres
+
+Aurora Postgres Serverless v2 uses the `provisioned` engine mode with `db.serverless` instances. In order to configure scaling with Serverless v2, use `var.serverlessv2_scaling_configuration`.
+
+For more on valid scaling configurations, see [Performance and scaling for Aurora Serverless v2](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.setting-capacity.html).
+
+```yaml
+components:
+  terraform:
+    aurora-postgres:
+      vars:
+        enabled: true
+        name: aurora-postgres
+        eks_component_names:
+          - eks/cluster
+        allow_ingress_from_vpc_accounts:
+          # Allows Spacelift
+          - tenant: core
+            stage: auto
+            environment: use2
+          # Allows VPN
+          - tenant: core
+            stage: network
+            environment: use2
+        cluster_name: shared
+        engine: aurora-postgresql
+
+        # Serverless v2 configuration
+        engine_mode: provisioned
+        instance_type: "db.serverless"
+        engine_version: "15.3"
+        cluster_family: aurora-postgresql15
+        cluster_size: 2
+        serverlessv2_scaling_configuration:
+          min_capacity: 2
+          max_capacity: 64
+
+        admin_user: postgres
+        admin_password: "" # generate random password
+        database_name: postgres
+        database_port: 5432
+        storage_encrypted: true
+        deletion_protection: true
+        skip_final_snapshot: false
+        # Creating read-only users or additional databases requires Spacelift
+        read_only_users_enabled: false
+        # Enhanced Monitoring
+        # A boolean flag to enable/disable the creation of the enhanced monitoring IAM role.
+        # If set to false, the module will not create a new role and will use rds_monitoring_role_arn for enhanced monitoring
+        enhanced_monitoring_role_enabled: true
+        enhanced_monitoring_attributes: ["monitoring"]
+        # The interval, in seconds, between points when enhanced monitoring metrics are collected for the DB instance.
+        # To disable collecting Enhanced Monitoring metrics, specify 0. The default is 0. Valid Values: 0, 1, 5, 10, 15, 30, 60
+        rds_monitoring_interval: 15
+        iam_database_authentication_enabled: false
+        additional_users: {}
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -181,6 +331,8 @@ components:
 | <a name="input_reader_dns_name_part"></a> [reader\_dns\_name\_part](#input\_reader\_dns\_name\_part) | Part of DNS name added to module and cluster name for DNS for cluster reader | `string` | `"reader"` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
+| <a name="input_scaling_configuration"></a> [scaling\_configuration](#input\_scaling\_configuration) | List of nested attributes with scaling properties. Only valid when `engine_mode` is set to `serverless`. This is required for Serverless v1 | <pre>list(object({<br>    auto_pause               = bool<br>    max_capacity             = number<br>    min_capacity             = number<br>    seconds_until_auto_pause = number<br>    timeout_action           = string<br>  }))</pre> | `[]` | no |
+| <a name="input_serverlessv2_scaling_configuration"></a> [serverlessv2\_scaling\_configuration](#input\_serverlessv2\_scaling\_configuration) | Nested attribute with scaling properties for ServerlessV2. Only valid when `engine_mode` is set to `provisioned.` This is required for Serverless v2 | <pre>object({<br>    min_capacity = number<br>    max_capacity = number<br>  })</pre> | `null` | no |
 | <a name="input_skip_final_snapshot"></a> [skip\_final\_snapshot](#input\_skip\_final\_snapshot) | Normally AWS makes a snapshot of the database before deleting it. Set this to `true` in order to skip this.<br>NOTE: The final snapshot has a name derived from the cluster name. If you delete a cluster, get a final snapshot,<br>then create a cluster of the same name, its final snapshot will fail with a name collision unless you delete<br>the previous final snapshot first. | `bool` | `false` | no |
 | <a name="input_snapshot_identifier"></a> [snapshot\_identifier](#input\_snapshot\_identifier) | Specifies whether or not to create this cluster from a snapshot | `string` | `null` | no |
 | <a name="input_ssm_password_source"></a> [ssm\_password\_source](#input\_ssm\_password\_source) | If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved from SSM using<br>`var.ssm_password_source` and the database username. If this value is not set,<br>a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster. | `string` | `""` | no |
