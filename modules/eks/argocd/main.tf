@@ -139,7 +139,7 @@ locals {
 
 module "argocd" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.9.1"
+  version = "0.11.0"
 
   name                   = "argocd" # avoids hitting length restrictions on IAM Role names
   chart                  = var.chart

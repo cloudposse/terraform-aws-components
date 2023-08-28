@@ -319,7 +319,7 @@ For more details, refer to:
 |------|--------|---------|
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
-| <a name="module_karpenter"></a> [karpenter](#module\_karpenter) | cloudposse/helm-release/aws | 0.7.0 |
+| <a name="module_karpenter"></a> [karpenter](#module\_karpenter) | cloudposse/helm-release/aws | 0.9.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources

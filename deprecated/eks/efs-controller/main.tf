@@ -14,7 +14,7 @@ resource "kubernetes_namespace" "default" {
 
 module "efs_controller" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.5.0"
+  version = "0.9.1"
 
   name                 = var.name
   chart                = var.chart

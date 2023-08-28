@@ -14,7 +14,7 @@ resource "kubernetes_namespace" "default" {
 
 module "metrics_server" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.5.0"
+  version = "0.9.1"
 
   name                 = "" # avoids hitting length restrictions on IAM Role names
   chart                = var.chart
