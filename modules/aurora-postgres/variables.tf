@@ -308,3 +308,24 @@ variable "vpc_component_name" {
   default     = "vpc"
   description = "The name of the VPC component"
 }
+
+variable "scaling_configuration" {
+  type = list(object({
+    auto_pause               = bool
+    max_capacity             = number
+    min_capacity             = number
+    seconds_until_auto_pause = number
+    timeout_action           = string
+  }))
+  default     = []
+  description = "List of nested attributes with scaling properties. Only valid when `engine_mode` is set to `serverless`. This is required for Serverless v1"
+}
+
+variable "serverlessv2_scaling_configuration" {
+  type = object({
+    min_capacity = number
+    max_capacity = number
+  })
+  default     = null
+  description = "Nested attribute with scaling properties for ServerlessV2. Only valid when `engine_mode` is set to `provisioned.` This is required for Serverless v2"
+}
