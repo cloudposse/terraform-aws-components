@@ -138,7 +138,7 @@ data "aws_iam_policy_document" "default" {
 
 module "bucket_policy" {
   source  = "cloudposse/iam-policy/aws"
-  version = "0.3.0"
+  version = "v1.0.1"
 
   iam_policy_statements = try(lookup(local.policy, "Statement"), null)
 
