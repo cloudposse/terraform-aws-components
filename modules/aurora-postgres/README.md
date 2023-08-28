@@ -168,7 +168,6 @@ components:
         # The interval, in seconds, between points when enhanced monitoring metrics are collected for the DB instance.
         # To disable collecting Enhanced Monitoring metrics, specify 0. The default is 0. Valid Values: 0, 1, 5, 10, 15, 30, 60
         rds_monitoring_interval: 15
-        # teleport access enabled
         iam_database_authentication_enabled: false
         additional_users: {}
 ```
@@ -227,7 +226,6 @@ components:
         # The interval, in seconds, between points when enhanced monitoring metrics are collected for the DB instance.
         # To disable collecting Enhanced Monitoring metrics, specify 0. The default is 0. Valid Values: 0, 1, 5, 10, 15, 30, 60
         rds_monitoring_interval: 15
-        # teleport access enabled
         iam_database_authentication_enabled: false
         additional_users: {}
 ```
