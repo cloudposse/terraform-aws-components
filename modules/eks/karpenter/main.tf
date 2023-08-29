@@ -25,10 +25,88 @@ resource "aws_iam_instance_profile" "default" {
   tags = module.this.tags
 }
 
+data "aws_iam_policy_document" "KarpenterController" {
+  statement {
+    sid       = "KarpenterController"
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      # https://github.com/terraform-aws-modules/terraform-aws-iam/blob/99c69ad54d985f67acf211885aa214a3a6cc931c/modules/iam-role-for-service-accounts-eks/policies.tf#L511-L581
+      # The reference policy is broken up into multiple statements with different resource restrictions based on tags.
+      # This list has breaks where statements are separated in the reference policy for easier comparison and maintenance.
+      # Further,  the official version of the policy is in the Cloud Formation Template at https://github.com/aws/karpenter/blob/61cc8f75049eafbff4011147f8e272fe18c91157/website/content/en/preview/getting-started/getting-started-with-karpenter/cloudformation.yaml#L41-L221
+      # but cannot be used directly because it includes Cloud Formation variables that need to be substituted.
+      "ec2:CreateLaunchTemplate",
+      "ec2:CreateFleet",
+      "ec2:CreateTags",
+      "ec2:DescribeLaunchTemplates",
+      "ec2:DescribeImages",
+      "ec2:DescribeInstances",
+      "ec2:DescribeSecurityGroups",
+      "ec2:DescribeSubnets",
+      "ec2:DescribeInstanceTypes",
+      "ec2:DescribeInstanceTypeOfferings",
+      "ec2:DescribeAvailabilityZones",
+      "ec2:DescribeSpotPriceHistory",
+      "pricing:GetProducts",
+
+      "ec2:TerminateInstances",
+      "ec2:DeleteLaunchTemplate",
+
+      "ec2:RunInstances",
+
+      "iam:PassRole",
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "KarpenterControllerSSM" {
+  statement {
+    sid    = "KarpenterControllerSSM"
+    effect = "Allow"
+    # Allow Karpenter to read AMI IDs from SSM
+    actions   = ["ssm:GetParameter"]
+    resources = ["arn:aws:ssm:*:*:parameter/aws/service/*"]
+  }
+}
+
+data "aws_iam_policy_document" "KarpenterControllerClusterAccess" {
+  statement {
+    sid    = "KarpenterControllerClusterAccess"
+    effect = "Allow"
+    actions = [
+      "eks:DescribeCluster"
+    ]
+    resources = [
+      module.eks.outputs.eks_cluster_arn
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "KarpenterInterruptionHandlerAccess" {
+  count = local.interruption_handler_enabled ? 1 : 0
+  statement {
+    sid    = "KarpenterInterruptionHandlerAccess"
+    effect = "Allow"
+    actions = [
+      "sqs:DeleteMessage",
+      "sqs:GetQueueUrl",
+      "sqs:GetQueueAttributes",
+      "sqs:ReceiveMessage",
+    ]
+
+    resources = [
+      aws_sqs_queue.interruption_handler[0].arn
+    ]
+  }
+}
+
+
 # Deploy Karpenter helm chart
 module "karpenter" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.7.0"
+  version = "0.9.3"
 
   chart           = var.chart
   repository      = var.chart_repository
@@ -55,73 +133,12 @@ module "karpenter" {
   # https://github.com/aws/karpenter/issues/2649
   # Apparently the source of truth for the best IAM policy is the `data.aws_iam_policy_document.karpenter_controller` in
   # https://github.com/terraform-aws-modules/terraform-aws-iam/blob/master/modules/iam-role-for-service-accounts-eks/policies.tf
-  iam_policy_statements = concat([
-    {
-      sid       = "KarpenterController"
-      effect    = "Allow"
-      resources = ["*"]
-
-      actions = [
-        # https://github.com/terraform-aws-modules/terraform-aws-iam/blob/99c69ad54d985f67acf211885aa214a3a6cc931c/modules/iam-role-for-service-accounts-eks/policies.tf#L511-L581
-        # The reference policy is broken up into multiple statements with different resource restrictions based on tags.
-        # This list has breaks where statements are separated in the reference policy for easier comparison and maintenance.
-        "ec2:CreateLaunchTemplate",
-        "ec2:CreateFleet",
-        "ec2:CreateTags",
-        "ec2:DescribeLaunchTemplates",
-        "ec2:DescribeImages",
-        "ec2:DescribeInstances",
-        "ec2:DescribeSecurityGroups",
-        "ec2:DescribeSubnets",
-        "ec2:DescribeInstanceTypes",
-        "ec2:DescribeInstanceTypeOfferings",
-        "ec2:DescribeAvailabilityZones",
-        "ec2:DescribeSpotPriceHistory",
-        "pricing:GetProducts",
-
-        "ec2:TerminateInstances",
-        "ec2:DeleteLaunchTemplate",
-
-        "ec2:RunInstances",
-
-        "iam:PassRole",
-      ]
-    },
-    {
-      sid    = "KarpenterControllerSSM"
-      effect = "Allow"
-      # Allow Karpenter to read AMI IDs from SSM
-      actions   = ["ssm:GetParameter"]
-      resources = ["arn:aws:ssm:*:*:parameter/aws/service/*"]
-    },
-    {
-      sid    = "KarpenterControllerClusterAccess"
-      effect = "Allow"
-      actions = [
-        "eks:DescribeCluster"
-      ]
-      resources = [
-        module.eks.outputs.eks_cluster_arn
-      ]
-    }
-    ],
-    local.interruption_handler_enabled ? [
-      {
-        sid    = "KarpenterInterruptionHandlerAccess"
-        effect = "Allow"
-        actions = [
-          "sqs:DeleteMessage",
-          "sqs:GetQueueUrl",
-          "sqs:GetQueueAttributes",
-          "sqs:ReceiveMessage",
-        ]
-        resources = [
-          aws_sqs_queue.interruption_handler[0].arn
-        ]
-      }
-    ] : []
-  )
-
+  iam_source_policy_documents = [
+    data.aws_iam_policy_document.KarpenterController.json,
+    data.aws_iam_policy_document.KarpenterControllerSSM.json,
+    data.aws_iam_policy_document.KarpenterControllerClusterAccess.json,
+    one(data.aws_iam_policy_document.KarpenterInterruptionHandlerAccess[*].json)
+  ]
   values = compact([
     # standard k8s object settings
     yamlencode({
