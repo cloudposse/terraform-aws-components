@@ -19,7 +19,7 @@ data "aws_partition" "current" {
 
 module "external_dns" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.7.0"
+  version = "0.9.1"
 
   name            = module.this.name
   chart           = var.chart
