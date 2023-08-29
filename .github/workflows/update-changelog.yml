@@ -140,7 +140,7 @@ jobs:
             let affectedComponents = "";
             if (updatedComponents.length > 0) {
               affectedComponents += "\n\n";
-              affectedComponents += "#### Affected Components\n";
+              affectedComponents += "## Affected Components\n";
 
               for (let i = 0; i < updatedComponents.length; i++) {
                 const relativePath = updatedComponents[i];
