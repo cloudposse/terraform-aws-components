@@ -135,7 +135,6 @@ jobs:
 
             const tag = "${{ steps.current-release.outputs.tag }}";
             let body = Buffer.from("${{ steps.current-release.outputs.body }}", 'base64').toString('utf-8');
-            body = body.replace(/^(\s*)##/gm, '$1#####');
             const updatedComponents = JSON.parse(`${{ steps.updated.outputs.components }}`);
 
             let affectedComponents = "";
@@ -145,7 +144,7 @@ jobs:
 
               for (let i = 0; i < updatedComponents.length; i++) {
                 const relativePath = updatedComponents[i];
-                affectedComponents += `- [${relativePath}](/components/library/aws/${relativePath}#changelog)\n`
+                affectedComponents += `- [${relativePath}](https://docs.cloudposse.com/components/library/aws/${relativePath}#changelog)\n`
               }
 
               affectedComponents += "\n\n";
