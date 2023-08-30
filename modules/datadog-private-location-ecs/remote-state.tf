@@ -11,7 +11,7 @@ locals {
 
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   component = "vpc"
 
@@ -20,7 +20,7 @@ module "vpc" {
 
 module "ecs_cluster" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   component = "ecs"
 

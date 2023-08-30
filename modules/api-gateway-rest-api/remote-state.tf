@@ -1,6 +1,6 @@
 module "dns_delegated" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   component   = "dns-delegated"
   environment = module.iam_roles.global_environment_name
@@ -10,7 +10,7 @@ module "dns_delegated" {
 
 module "acm" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   component     = "acm"
   ignore_errors = true
@@ -20,7 +20,7 @@ module "acm" {
 
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   component = "vpc"
 

@@ -122,7 +122,7 @@ an extensive explanation for how these preview environments work.
 | <a name="module_lambda_edge_redirect_404"></a> [lambda\_edge\_redirect\_404](#module\_lambda\_edge\_redirect\_404) | ./modules/lambda_edge_redirect_404 | n/a |
 | <a name="module_spa_web"></a> [spa\_web](#module\_spa\_web) | cloudposse/cloudfront-s3-cdn/aws | 0.92.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_utils"></a> [utils](#module\_utils) | cloudposse/utils/aws | 0.8.1 |
+| <a name="module_utils"></a> [utils](#module\_utils) | cloudposse/utils/aws | 1.3.0 |
 | <a name="module_waf"></a> [waf](#module\_waf) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 
 ## Resources

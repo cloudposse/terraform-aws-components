@@ -1,4 +1,4 @@
-# Component: `api-gateway-account-settings`
+# Component: `api-gateway-rest-api`
 
 This component is responsible for deploying an API Gateway REST API.
 ## Usage
@@ -54,13 +54,13 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_acm"></a> [acm](#module\_acm) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_acm"></a> [acm](#module\_acm) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_api_gateway_rest_api"></a> [api\_gateway\_rest\_api](#module\_api\_gateway\_rest\_api) | cloudposse/api-gateway/aws | 0.3.1 |
-| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_nlb"></a> [nlb](#module\_nlb) | cloudposse/nlb/aws | 0.12.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 
 ## Resources
 

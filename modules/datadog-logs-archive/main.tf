@@ -138,7 +138,7 @@ data "aws_iam_policy_document" "default" {
 
 module "bucket_policy" {
   source  = "cloudposse/iam-policy/aws"
-  version = "0.3.0"
+  version = "1.0.1"
 
   iam_policy_statements = try(lookup(local.policy, "Statement"), null)
 
@@ -159,7 +159,7 @@ data "aws_partition" "current" {
 
 module "archive_bucket" {
   source  = "cloudposse/s3-bucket/aws"
-  version = "2.0.1"
+  version = "3.1.2"
 
   count = local.enabled ? 1 : 0
 
@@ -218,7 +218,7 @@ module "archive_bucket" {
 
 module "cloudtrail_s3_bucket" {
   source  = "cloudposse/s3-bucket/aws"
-  version = "2.0.1"
+  version = "3.1.2"
 
   depends_on = [data.aws_iam_policy_document.default]
 
