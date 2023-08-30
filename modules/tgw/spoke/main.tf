@@ -21,13 +21,10 @@ module "tgw_hub_routes" {
   ram_resource_share_enabled = false
   route_keys_enabled         = false
 
-  create_transit_gateway                = false
-  create_transit_gateway_route_table    = false
-  create_transit_gateway_vpc_attachment = false
-
-  # Only create transit gateway route table association and propogation
-  # if this is the primary VPC in this given region
-  create_transit_gateway_route_table_association_and_propagation = var.primary_vpc
+  create_transit_gateway                                         = false
+  create_transit_gateway_route_table                             = false
+  create_transit_gateway_vpc_attachment                          = false
+  create_transit_gateway_route_table_association_and_propagation = true
 
   config = {
     (local.spoke_account) = module.tgw_spoke_vpc_attachment.tg_config,
