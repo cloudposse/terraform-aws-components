@@ -44,6 +44,8 @@ components:
               - comparison_operator: GREATER_THAN
                 notification_type: FORECASTED
                 threshold_type: PERCENTAGE
+                # We generate two forecast notifications. This makes sure that notice is taken,
+                #   and hopefully action can be taken to prevent going over budget.
                 threshold: 100
                 subscribers:
                   - slack
