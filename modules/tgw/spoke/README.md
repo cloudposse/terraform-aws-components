@@ -139,7 +139,6 @@ No resources.
 | <a name="input_own_eks_component_names"></a> [own\_eks\_component\_names](#input\_own\_eks\_component\_names) | The name of the eks components in the owning account. | `list(string)` | `[]` | no |
 | <a name="input_own_vpc_component_name"></a> [own\_vpc\_component\_name](#input\_own\_vpc\_component\_name) | The name of the vpc component in the owning account. Defaults to "vpc" | `string` | `"vpc"` | no |
 | <a name="input_peered_region"></a> [peered\_region](#input\_peered\_region) | Set `true` if this region is not the primary region | `bool` | `false` | no |
-| <a name="input_primary_vpc"></a> [primary\_vpc](#input\_primary\_vpc) | Set `false` if this region is not the primary VPC in this region | `bool` | `true` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
