@@ -68,7 +68,7 @@ components:
 | <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_dns_gbl_primary"></a> [dns\_gbl\_primary](#module\_dns\_gbl\_primary) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_external_dns"></a> [external\_dns](#module\_external\_dns) | cloudposse/helm-release/aws | 0.9.1 |
+| <a name="module_external_dns"></a> [external\_dns](#module\_external\_dns) | cloudposse/helm-release/aws | 0.10.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 

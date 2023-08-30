@@ -28,7 +28,7 @@ resource "aws_iam_instance_profile" "default" {
 # Deploy Karpenter helm chart
 module "karpenter" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.9.1"
+  version = "0.10.0"
 
   chart           = var.chart
   repository      = var.chart_repository
