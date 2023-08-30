@@ -4,7 +4,7 @@ module "iam_label" {
 
   attributes = var.iam_attributes
 
-  context = module.this.context
+  context = merge(module.this.context, var.iam_context)
 }
 
 data "aws_iam_policy_document" "assume_role_policy" {
@@ -64,7 +64,7 @@ resource "aws_iam_policy" "default" {
 }
 
 resource "aws_iam_role" "default" {
-  count = local.enabled ? 1 : 0
+  count = local.enabled && var.create_role ? 1 : 0
 
   name               = module.iam_label.id
   assume_role_policy = join("", data.aws_iam_policy_document.assume_role_policy.*.json)
@@ -83,7 +83,7 @@ resource "aws_iam_instance_profile" "default" {
   count = local.enabled ? 1 : 0
 
   name = module.iam_label.id
-  role = join("", aws_iam_role.default.*.name)
+  role = module.iam_label.id
 
   tags = module.iam_label.tags
 }

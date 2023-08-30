@@ -202,14 +202,49 @@ variable "spacelift_domain_name" {
   default     = "spacelift.io"
 }
 
+variable "create_role" {
+  type        = bool
+  description = "Whether to create an IAM role for the worker pool"
+  default     = true
+}
+
 variable "iam_attributes" {
   type        = list(string)
   description = "Additional attributes to add to the IDs of the IAM role and policy"
   default     = []
 }
 
+variable "iam_context" {
+  type = object({
+    name        = optional(string)
+    namespace   = optional(string)
+    tenant      = optional(string)
+    environment = optional(string)
+    stage       = optional(string)
+    delimiter   = optional(string)
+  })
+  description = <<-EOT
+    Context variables for naming IAM resources. Note, changing these will cause
+    a dependency cycle. If you run terraform with `-var enabled=false`, you can
+    safely drop the ASG and the worker pool. If pool is in use, it will not be destroyed.
+    EOT
+  default     = {}
+}
+
+variable "launch_template_version" {
+  type        = string
+  description = "Launch template version to use for workers"
+  default     = "$Latest"
+}
+
 variable "instance_refresh" {
-  description = "The instance refresh definition. If this block is configured, an Instance Refresh will be started when the Auto Scaling Group is updated"
+  description = <<-EOT
+    The instance refresh definition. If this block is configured, an Instance
+    Refresh will be started when the Auto Scaling Group is updated. Note
+    that you must also set the launch_template_version to empty string (`""`)
+    if you want launch template changes to rolling update. Otherwise, set
+    triggers to a property of the launch template that should cause the update.
+    EOT
   type = object({
     strategy = string
     preferences = object({
