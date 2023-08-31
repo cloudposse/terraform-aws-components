@@ -110,7 +110,7 @@ data "aws_ssm_parameter" "docker_config_json" {
 
 module "actions_runner_controller" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.9.1"
+  version = "0.10.0"
 
   name            = "" # avoids hitting length restrictions on IAM Role names
   chart           = var.chart
@@ -200,7 +200,7 @@ module "actions_runner" {
   for_each = local.enabled ? var.runners : {}
 
   source  = "cloudposse/helm-release/aws"
-  version = "0.9.1"
+  version = "0.10.0"
 
   name  = each.key
   chart = "${path.module}/charts/actions-runner"

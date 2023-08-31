@@ -14,7 +14,7 @@ resource "kubernetes_namespace" "default" {
 
 module "aws_node_termination_handler" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.9.1"
+  version = "0.10.0"
 
   name                 = "" # avoids hitting length restrictions on IAM Role names
   chart                = var.chart
