@@ -2,7 +2,15 @@
 
 ***NOTE***: This file is manually generated and is a work-in-progress.
 
-### PR 740
+### PR 830
+
+- Fix `providers.tf` to properly assign roles for `root` account when deploying to `identity` account.
+- Restore the `sts:SetSourceIdentity` permission for Identity-role-TeamAccess
+permission sets added in PR 738 and inadvertently removed in PR 740.
+- Update comments and documentation to reflect Cloud Posse's current
+  recommendation that SSO ***not*** be delegated to the `identity` account.
+
+### Version 1.240.1, PR 740
 
 This PR restores compatibility with `account-map` prior to version 1.227.0
 and fixes bugs that made versions 1.227.0 up to this release unusable.

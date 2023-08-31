@@ -5,8 +5,7 @@ locals {
 
   attributes = flatten(concat(module.this.attributes, [var.color]))
 
-  this_account_name     = module.iam_roles.current_account_account_name
-  identity_account_name = module.iam_roles.identity_account_account_name
+  this_account_name = module.iam_roles.current_account_account_name
 
   role_map = { (local.this_account_name) = var.aws_team_roles_rbac[*].aws_team_role }
 

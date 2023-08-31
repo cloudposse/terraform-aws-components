@@ -139,7 +139,7 @@ locals {
 
 module "argocd" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.9.1"
+  version = "0.10.0"
 
   name                   = "argocd" # avoids hitting length restrictions on IAM Role names
   chart                  = var.chart
@@ -253,7 +253,7 @@ data "kubernetes_resources" "crd" {
 
 module "argocd_apps" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.9.1"
+  version = "0.10.0"
 
   name                        = "" # avoids hitting length restrictions on IAM Role names
   chart                       = var.argocd_apps_chart

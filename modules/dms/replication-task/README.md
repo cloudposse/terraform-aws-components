@@ -53,9 +53,9 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_dms_endpoint_source"></a> [dms\_endpoint\_source](#module\_dms\_endpoint\_source) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
-| <a name="module_dms_endpoint_target"></a> [dms\_endpoint\_target](#module\_dms\_endpoint\_target) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
-| <a name="module_dms_replication_instance"></a> [dms\_replication\_instance](#module\_dms\_replication\_instance) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_dms_endpoint_source"></a> [dms\_endpoint\_source](#module\_dms\_endpoint\_source) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+| <a name="module_dms_endpoint_target"></a> [dms\_endpoint\_target](#module\_dms\_endpoint\_target) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+| <a name="module_dms_replication_instance"></a> [dms\_replication\_instance](#module\_dms\_replication\_instance) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_dms_replication_task"></a> [dms\_replication\_task](#module\_dms\_replication\_task) | cloudposse/dms/aws//modules/dms-replication-task | 0.1.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |

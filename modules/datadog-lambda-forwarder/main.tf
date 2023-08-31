@@ -1,5 +1,6 @@
 locals {
-  enabled = module.this.enabled
+  enabled            = module.this.enabled
+  lambda_arn_enabled = local.enabled && var.lambda_arn_enabled
 
   # If any keys contain name_suffix, then use a null label to get the label prefix, and create
   # the appropriate input for the upstream module.
@@ -40,7 +41,7 @@ module "log_group_prefix" {
 
 module "datadog_lambda_forwarder" {
   source  = "cloudposse/datadog-lambda-forwarder/aws"
-  version = "1.3.1"
+  version = "1.5.3"
 
   cloudwatch_forwarder_log_groups     = local.cloudwatch_forwarder_log_groups
   cloudwatch_forwarder_event_patterns = var.cloudwatch_forwarder_event_patterns
@@ -88,28 +89,28 @@ module "datadog_lambda_forwarder" {
 
 # Create a new Datadog - Amazon Web Services integration Lambda ARN
 resource "datadog_integration_aws_lambda_arn" "rds_collector" {
-  count = var.lambda_arn_enabled && var.forwarder_rds_enabled ? 1 : 0
+  count = local.lambda_arn_enabled && var.forwarder_rds_enabled ? 1 : 0
 
   account_id = module.datadog-integration.outputs.aws_account_id
   lambda_arn = module.datadog_lambda_forwarder.lambda_forwarder_rds_function_arn
 }
 
 resource "datadog_integration_aws_lambda_arn" "vpc_logs_collector" {
-  count = var.lambda_arn_enabled && var.forwarder_vpc_logs_enabled ? 1 : 0
+  count = local.lambda_arn_enabled && var.forwarder_vpc_logs_enabled ? 1 : 0
 
   account_id = module.datadog-integration.outputs.aws_account_id
   lambda_arn = module.datadog_lambda_forwarder.lambda_forwarder_vpc_log_function_arn
 }
 
 resource "datadog_integration_aws_lambda_arn" "log_collector" {
-  count = var.lambda_arn_enabled && var.forwarder_log_enabled ? 1 : 0
+  count = local.lambda_arn_enabled && var.forwarder_log_enabled ? 1 : 0
 
   account_id = module.datadog-integration.outputs.aws_account_id
   lambda_arn = module.datadog_lambda_forwarder.lambda_forwarder_log_function_arn
 }
 
 resource "datadog_integration_aws_log_collection" "main" {
-  count      = var.lambda_arn_enabled ? 1 : 0
+  count      = local.lambda_arn_enabled ? 1 : 0
   account_id = module.datadog-integration.outputs.aws_account_id
   services   = var.log_collection_services
 

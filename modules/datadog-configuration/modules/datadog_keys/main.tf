@@ -11,7 +11,7 @@ module "always" {
 
 module "utils_example_complete" {
   source  = "cloudposse/utils/aws"
-  version = "1.1.0"
+  version = "1.3.0"
 }
 
 locals {
@@ -27,7 +27,7 @@ locals {
 
 module "datadog_configuration" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   component = "datadog-configuration"
 
