@@ -69,8 +69,8 @@ The default catalog values `e.g. stacks/catalog/eks/cert-manager.yaml`
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cert_manager"></a> [cert\_manager](#module\_cert\_manager) | cloudposse/helm-release/aws | 0.9.1 |
-| <a name="module_cert_manager_issuer"></a> [cert\_manager\_issuer](#module\_cert\_manager\_issuer) | cloudposse/helm-release/aws | 0.9.1 |
+| <a name="module_cert_manager"></a> [cert\_manager](#module\_cert\_manager) | cloudposse/helm-release/aws | 0.10.0 |
+| <a name="module_cert_manager_issuer"></a> [cert\_manager\_issuer](#module\_cert\_manager\_issuer) | cloudposse/helm-release/aws | 0.10.0 |
 | <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |

@@ -16,7 +16,7 @@ resource "datadog_synthetics_private_location" "this" {
 
 module "datadog_synthetics_private_location" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.9.3"
+  version = "0.10.0"
 
   name          = module.this.name
   chart         = var.chart
