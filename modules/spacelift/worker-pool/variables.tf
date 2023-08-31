@@ -215,14 +215,7 @@ variable "iam_attributes" {
 }
 
 variable "iam_context" {
-  type = object({
-    name        = optional(string)
-    namespace   = optional(string)
-    tenant      = optional(string)
-    environment = optional(string)
-    stage       = optional(string)
-    delimiter   = optional(string)
-  })
+  type        = any
   description = <<-EOT
     Context variables for naming IAM resources. Note, changing these will cause
     a dependency cycle. If you run terraform with `-var enabled=false`, you can
