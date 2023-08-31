@@ -168,7 +168,7 @@ atmos terraform apply security-hub/org-settings/uw1 -s core-uw1-security
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_security_hub"></a> [security\_hub](#module\_security\_hub) | cloudposse/security-hub/aws | 0.10.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |

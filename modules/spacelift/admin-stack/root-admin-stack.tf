@@ -55,7 +55,7 @@ module "root_admin_stack" {
   component_root                          = try(join("/", [var.component_root, local.root_admin_stack_config.metadata.component]), null)
   component_vars                          = try(local.root_admin_stack_config.vars, null)
   context_attachments                     = try(local.root_admin_stack_config.context_attachments, [])
-  description                             = try(local.root_admin_stack_config.description, null)
+  description                             = try(local.root_admin_stack_config.description, var.description)
   drift_detection_enabled                 = try(local.root_admin_stack_config.settings.spacelift.drift_detection_enabled, var.drift_detection_enabled)
   drift_detection_reconcile               = try(local.root_admin_stack_config.settings.spacelift.drift_detection_reconcile, var.drift_detection_reconcile)
   drift_detection_schedule                = try(local.root_admin_stack_config.settings.spacelift.drift_detection_schedule, var.drift_detection_schedule)
@@ -78,14 +78,14 @@ module "root_admin_stack" {
   webhook_secret                          = try(local.root_admin_stack_config.webhook_secret, var.webhook_secret)
   worker_pool_id                          = local.worker_pools[var.worker_pool_name]
 
-  azure_devops         = try(local.root_admin_stack_config.azure_devops, null)
-  bitbucket_cloud      = try(local.root_admin_stack_config.bitbucket_cloud, null)
-  bitbucket_datacenter = try(local.root_admin_stack_config.bitbucket_datacenter, null)
-  cloudformation       = try(local.root_admin_stack_config.cloudformation, null)
-  github_enterprise    = try(local.root_admin_stack_config.github_enterprise, null)
-  gitlab               = try(local.root_admin_stack_config.gitlab, null)
-  pulumi               = try(local.root_admin_stack_config.pulumi, null)
-  showcase             = try(local.root_admin_stack_config.showcase, null)
+  azure_devops         = try(local.root_admin_stack_config.settings.spacelift.azure_devops, null)
+  bitbucket_cloud      = try(local.root_admin_stack_config.settings.spacelift.bitbucket_cloud, null)
+  bitbucket_datacenter = try(local.root_admin_stack_config.settings.spacelift.bitbucket_datacenter, null)
+  cloudformation       = try(local.root_admin_stack_config.settings.spacelift.cloudformation, null)
+  github_enterprise    = try(local.root_admin_stack_config.settings.spacelift.github_enterprise, null)
+  gitlab               = try(local.root_admin_stack_config.settings.spacelift.gitlab, null)
+  pulumi               = try(local.root_admin_stack_config.settings.spacelift.pulumi, null)
+  showcase             = try(local.root_admin_stack_config.settings.spacelift.showcase, null)
 }
 
 resource "spacelift_policy_attachment" "root" {

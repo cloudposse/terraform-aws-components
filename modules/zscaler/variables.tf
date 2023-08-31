@@ -22,8 +22,11 @@ variable "aws_ssm_enabled" {
 }
 
 variable "instance_type" {
-  type        = string
-  default     = "r5n.medium"
+  type = string
+  # We default to m5n.large because it is cheapest instance that satisfies
+  #   DenyInstancesWithoutEncryptionInTransit SCP
+  #   (see: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/data-protection.html#encryption-transit )
+  default     = "m5n.large"
   description = "The instance family to use for the ZScaler EC2 instances."
 }
 variable "secrets_store_type" {

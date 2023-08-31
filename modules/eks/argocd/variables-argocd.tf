@@ -95,23 +95,29 @@ variable "forecastle_enabled" {
   default     = false
 }
 
+variable "admin_enabled" {
+  type        = bool
+  description = "Toggles Admin user creation the deployed chart"
+  default     = false
+}
+
 variable "oidc_enabled" {
   type        = bool
   description = "Toggles OIDC integration in the deployed chart"
   default     = false
 }
 
-#variable "oidc_issuer" {
-#  type        = string
-#  description = "OIDC issuer URL"
-#  default     = ""
-#}
+variable "oidc_issuer" {
+  type        = string
+  description = "OIDC issuer URL"
+  default     = ""
+}
 
-#variable "oidc_name" {
-#  type        = string
-#  description = "Name of the OIDC resource"
-#  default     = ""
-#}
+variable "oidc_name" {
+  type        = string
+  description = "Name of the OIDC resource"
+  default     = ""
+}
 
 variable "oidc_rbac_scopes" {
   type        = string
@@ -149,11 +155,11 @@ variable "argo_enable_workflows_auth" {
   description = "Allow argo-workflows to use Dex instance for SAML auth"
 }
 
-variable "argo_workflows_name" {
-  type        = string
-  default     = "argo-workflows"
-  description = "Name of argo-workflows instance"
-}
+# variable "argo_workflows_name" {
+#   type        = string
+#   default     = "argo-workflows"
+#   description = "Name of argo-workflows instance"
+# }
 
 variable "argocd_rbac_policies" {
   type        = list(string)
@@ -162,6 +168,16 @@ variable "argocd_rbac_policies" {
   List of ArgoCD RBAC Permission strings to be added to the argocd-rbac configmap policy.csv item.
 
   See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more information.
+  EOT
+}
+
+variable "argocd_rbac_default_policy" {
+  type        = string
+  default     = "role:readonly"
+  description = <<-EOT
+  Default ArgoCD RBAC default role.
+
+  See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/#basic-built-in-roles for more information.
   EOT
 }
 
@@ -198,10 +214,4 @@ variable "saml_sso_providers" {
 
   default     = {}
   description = "SAML SSO providers components"
-}
-
-variable "oidc_providers" {
-  type        = any
-  default     = {}
-  description = "OIDC providers components, clientID and clientSecret should be passed as SSM parameters (denoted by leading slash)"
 }
