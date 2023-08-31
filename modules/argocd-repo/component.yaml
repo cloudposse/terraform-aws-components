@@ -1,0 +1,26 @@
+# 'eks/argocd' component vendoring config
+
+# 'component.yaml' in the component folder is processed by the 'atmos' commands
+# 'atmos vendor pull -c eks/argocd/repo' or 'atmos vendor pull --component eks/argocd/repo'
+
+apiVersion: atmos/v1
+kind: ComponentVendorConfig
+spec:
+  source:
+    # 'uri' supports all protocols (local files, Git, Mercurial, HTTP, HTTPS, Amazon S3, Google GCP),
+    # and all URL and archive formats as described in https://github.com/hashicorp/go-getter
+    # In 'uri', Golang templates are supported  https://pkg.go.dev/text/template
+    # If 'version' is provided, {{ .Version }} will be replaced with the 'version' value before pulling the files from 'uri'
+    uri: github.com/cloudposse/terraform-aws-components.git//modules/eks/argocd/repo?ref={{ .Version }}
+    version: 1.289.2
+    # Only include the files that match the 'included_paths' patterns
+    # If 'included_paths' is not specified, all files will be matched except those that match the patterns from 'excluded_paths'
+    # 'included_paths' support POSIX-style Globs for file names/paths (double-star `**` is supported)
+    # https://en.wikipedia.org/wiki/Glob_(programming)
+    # https://github.com/bmatcuk/doublestar#patterns
+    included_paths:
+      - "**/**"
+    # Exclude the files that match any of the 'excluded_paths' patterns
+    # Note that we are excluding 'context.tf' since a newer version of it will be downloaded using 'mixins'
+    # 'excluded_paths' support POSIX-style Globs for file names/paths (double-star `**` is supported)
+    excluded_paths: []

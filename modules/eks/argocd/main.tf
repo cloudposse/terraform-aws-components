@@ -1,16 +1,18 @@
 locals {
-  enabled              = module.this.enabled
-  kubernetes_namespace = var.kubernetes_namespace
-  oidc_enabled         = local.enabled && var.oidc_enabled
-  oidc_enabled_count   = local.oidc_enabled ? 1 : 0
-  saml_enabled         = local.enabled && var.saml_enabled
-  argocd_repositories = local.enabled ? {
+  enabled                = module.this.enabled
+  github_webhook_enabled = local.enabled && var.github_webhook_enabled
+  kubernetes_namespace   = var.kubernetes_namespace
+  oidc_enabled           = local.enabled && var.oidc_enabled
+  oidc_enabled_count     = local.oidc_enabled ? 1 : 0
+  saml_enabled           = local.enabled && var.saml_enabled
+  argocd_repositories    = local.enabled ? {
     for k, v in var.argocd_repositories : k => {
       clone_url         = module.argocd_repo[k].outputs.repository_ssh_clone_url
       github_deploy_key = data.aws_ssm_parameter.github_deploy_key[k].value
     }
   } : {}
-  credential_templates = flatten(concat([
+  webhook_github_secret = try(random_password.webhook["github"].result, null)
+  credential_templates  = flatten(concat([
     for k, v in local.argocd_repositories : [
       {
         name  = "configs.credentialTemplates.${k}.url"
@@ -23,23 +25,29 @@ locals {
         type  = "string"
       },
     ]
-    ],
+  ],
     [
       for s, v in local.notifications_notifiers_ssm_configs : [
-        for k, i in v : [
-          {
-            name  = "notifications.secret.items.${s}_${k}"
-            value = i
-            type  = "string"
-          }
-        ]
+      for k, i in v : [
+        {
+          name  = "notifications.secret.items.${s}_${k}"
+          value = i
+          type  = "string"
+        }
       ]
-  ]))
+    ]
+    ],
+    local.github_webhook_enabled ? [
+      {
+        name  = "configs.secret.githubSecret"
+        value = nonsensitive(local.webhook_github_secret)
+        type  = "string"
+      }
+    ] : []
+  ))
   regional_service_discovery_domain = "${module.this.environment}.${module.dns_gbl_delegated.outputs.default_domain_name}"
   host                              = var.host != "" ? var.host : format("%s.%s", coalesce(var.alb_name, var.name), local.regional_service_discovery_domain)
-  enable_argo_workflows_auth        = local.saml_enabled && var.argo_enable_workflows_auth
-  # enable_argo_workflows_auth_count  = local.enable_argo_workflows_auth ? 1 : 0
-  # argo_workflows_host               = "${var.argo_workflows_name}.${local.regional_service_discovery_domain}"
+  url                               = format("https://%s", local.host)
 
   oidc_config_map = local.oidc_enabled ? {
     server : {
@@ -61,7 +69,7 @@ locals {
         "dexserver.disable.tls" = true
       }
       cm : {
-        "url" = "https://${local.host}"
+        "url"        = local.url
         "dex.config" = join("\n", [
           local.dex_config_connectors
         ])
@@ -70,11 +78,12 @@ locals {
   } : {}
 
   dex_config_connectors = yamlencode({
-    connectors = [for name, config in(local.enabled ? var.saml_sso_providers : {}) :
+    connectors = [
+      for name, config in(local.enabled ? var.saml_sso_providers : {}) :
       {
-        type = "saml"
-        id   = "saml"
-        name = name
+        type   = "saml"
+        id     = "saml"
+        name   = name
         config = {
           ssoURL       = module.saml_sso_providers[name].outputs.url
           caData       = base64encode(format("-----BEGIN CERTIFICATE-----\n%s\n-----END CERTIFICATE-----", module.saml_sso_providers[name].outputs.ca))
@@ -87,59 +96,13 @@ locals {
         }
       }
     ]
-    }
+  }
   )
-
-  post_render_script = local.enable_argo_workflows_auth ? "./resources/kustomize/post-render.sh" : null
-  kustomize_files_values = local.enable_argo_workflows_auth ? {
-    __ignore = {
-      kustomize_files = { for f in fileset("./resources/kustomize", "[^_]*.{sh,yaml}") : f => filesha256("./resources/kustomize/${f}") }
-    }
-  } : {}
-}
-
-data "aws_ssm_parameters_by_path" "argocd_notifications" {
-  for_each        = local.notifications_notifiers_ssm_path
-  path            = each.value
-  with_decryption = true
-}
-
-locals {
-  notifications_notifiers_ssm_path = { for key, value in local.notifications_notifiers_variables :
-    key => format("%s/%s/", var.notifications_notifiers.ssm_path_prefix, key)
-  }
-
-  notifications_notifiers_ssm_configs = { for key, value in data.aws_ssm_parameters_by_path.argocd_notifications :
-    key => zipmap(
-      [for name in value.names : trimprefix(name, local.notifications_notifiers_ssm_path[key])],
-      value.values
-    )
-  }
-
-  notifications_notifiers_ssm_configs_keys = { for key, value in data.aws_ssm_parameters_by_path.argocd_notifications :
-    key => zipmap(
-      [for name in value.names : trimprefix(name, local.notifications_notifiers_ssm_path[key])],
-      [for name in value.names : format("$%s_%s", key, trimprefix(name, local.notifications_notifiers_ssm_path[key]))]
-    )
-  }
-
-  notifications_notifiers_variables = merge({ for key, value in var.notifications_notifiers :
-    key => { for param_name, param_value in value : param_name => param_value if param_value != null }
-    if key != "ssm_path_prefix" && key != "service_webhook"
-    },
-    { for key, value in coalesce(var.notifications_notifiers.service_webhook, {}) :
-      format("service_webhook_%s", key) => { for param_name, param_value in value : param_name => param_value if param_value != null }
-  })
-
-  notifications_notifiers = {
-    for key, value in local.notifications_notifiers_variables :
-    replace(key, "_", ".") => yamlencode(merge(local.notifications_notifiers_ssm_configs_keys[key], value))
-  }
 }
 
 module "argocd" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.10.0"
+  version = "0.9.1"
 
   name                   = "argocd" # avoids hitting length restrictions on IAM Role names
   chart                  = var.chart
@@ -152,24 +115,23 @@ module "argocd" {
   atomic                 = var.atomic
   cleanup_on_fail        = var.cleanup_on_fail
   timeout                = var.timeout
-  postrender_binary_path = local.post_render_script
 
   eks_cluster_oidc_issuer_url = replace(module.eks.outputs.eks_cluster_identity_oidc_issuer, "https://", "")
 
   service_account_name      = module.this.name
   service_account_namespace = var.kubernetes_namespace
 
-  set_sensitive = nonsensitive(local.credential_templates)
+  set_sensitive = local.credential_templates
 
   values = compact([
     # standard k8s object settings
     yamlencode({
       fullnameOverride = module.this.name,
-      serviceAccount = {
+      serviceAccount   = {
         name = module.this.name
       },
       resources = var.resources
-      rbac = {
+      rbac      = {
         create = var.rbac_enabled
       }
     }),
@@ -182,7 +144,7 @@ module "argocd" {
         alb_logs_bucket            = var.alb_logs_bucket
         alb_logs_prefix            = var.alb_logs_prefix
         alb_name                   = var.alb_name == null ? "" : var.alb_name
-        application_repos          = { for k, v in local.argocd_repositories : k => v.clone_url }
+        application_repos          = {for k, v in local.argocd_repositories : k => v.clone_url}
         argocd_host                = local.host
         cert_issuer                = var.certificate_issuer
         forecastle_enabled         = var.forecastle_enabled
@@ -196,49 +158,22 @@ module "argocd" {
         rbac_default_policy        = var.argocd_rbac_default_policy
         rbac_policies              = var.argocd_rbac_policies
         rbac_groups                = var.argocd_rbac_groups
-        enable_argo_workflows_auth = local.enable_argo_workflows_auth
       }
     ),
     # argocd-notifications specific settings
     templatefile(
       "${path.module}/resources/argocd-notifications-values.yaml.tpl",
       {
-        argocd_host                   = "https://${local.host}"
-        slack_notifications_enabled   = var.slack_notifications_enabled
-        slack_notifications_username  = var.slack_notifications_username
-        slack_notifications_icon      = var.slack_notifications_icon
-        github_notifications_enabled  = var.github_notifications_enabled
-        datadog_notifications_enabled = var.datadog_notifications_enabled
+        argocd_host  = "https://${local.host}"
+        configs-hash = md5(jsonencode(local.notifications))
+        secrets-hash = md5(jsonencode(local.notifications_notifiers_ssm_configs))
       }
     ),
-    yamlencode(
-      {
-        notifications = {
-          templates = { for key, value in var.notifications_templates : replace(key, "_", ".") => yamlencode(value) }
-        }
-      }
-    ),
-    yamlencode(
-      {
-        notifications = {
-          triggers = { for key, value in var.notifications_triggers :
-            replace(key, "_", ".") => yamlencode(value)
-          }
-        }
-      }
-    ),
-    yamlencode(
-      {
-        notifications = {
-          notifiers = local.notifications_notifiers
-        }
-      }
-    ),
+    yamlencode(local.notifications),
     yamlencode(merge(
       local.oidc_config_map,
       local.saml_config_map,
     )),
-    yamlencode(local.kustomize_files_values),
     yamlencode(var.chart_values)
   ])
 
@@ -253,7 +188,7 @@ data "kubernetes_resources" "crd" {
 
 module "argocd_apps" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.10.0"
+  version = "0.9.1"
 
   name                        = "" # avoids hitting length restrictions on IAM Role names
   chart                       = var.argocd_apps_chart
@@ -268,11 +203,11 @@ module "argocd_apps" {
   timeout                     = var.timeout
   enabled                     = local.enabled && var.argocd_apps_enabled && length(data.kubernetes_resources.crd.objects) > 0
   eks_cluster_oidc_issuer_url = replace(module.eks.outputs.eks_cluster_identity_oidc_issuer, "https://", "")
-  values = compact([
+  values                      = compact([
     templatefile(
       "${path.module}/resources/argocd-apps-values.yaml.tpl",
       {
-        application_repos = { for k, v in local.argocd_repositories : k => v.clone_url }
+        application_repos = {for k, v in local.argocd_repositories : k => v.clone_url}
         create_namespaces = var.argocd_create_namespaces
         namespace         = local.kubernetes_namespace
         tenant            = module.this.tenant
@@ -286,3 +221,33 @@ module "argocd_apps" {
     module.argocd
   ]
 }
+
+resource "random_password" "webhook" {
+  for_each = toset(local.github_webhook_enabled ? ["github"] : [])
+
+  # min 16, max 128
+  length  = 128
+  special = true
+
+  min_upper   = 3
+  min_lower   = 3
+  min_numeric = 3
+  min_special = 3
+}
+
+resource "github_repository_webhook" "default" {
+  for_each   = local.github_webhook_enabled ? local.argocd_repositories : {}
+  repository = each.key
+
+  configuration {
+    url          = format("%s/api/webhook", local.url)
+    content_type = "json"
+    secret       = local.webhook_github_secret
+    insecure_ssl = false
+  }
+
+  active = true
+
+  events = ["push"]
+}
+

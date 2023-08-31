@@ -137,12 +137,6 @@ variable "saml_enabled" {
   default     = false
 }
 
-#variable "saml_okta_app_name" {
-#  type        = string
-#  description = "Name of the Okta SAML Integration"
-#  default     = "ArgoCD"
-#}
-
 variable "saml_rbac_scopes" {
   type        = string
   description = "SAML RBAC scopes to request"
@@ -154,12 +148,6 @@ variable "argo_enable_workflows_auth" {
   default     = false
   description = "Allow argo-workflows to use Dex instance for SAML auth"
 }
-
-# variable "argo_workflows_name" {
-#   type        = string
-#   default     = "argo-workflows"
-#   description = "Name of argo-workflows instance"
-# }
 
 variable "argocd_rbac_policies" {
   type        = list(string)
@@ -214,4 +202,10 @@ variable "saml_sso_providers" {
 
   default     = {}
   description = "SAML SSO providers components"
+}
+
+variable "github_webhook_enabled" {
+  type        = bool
+  default     = true
+  description = "Enable github webhook integration"
 }

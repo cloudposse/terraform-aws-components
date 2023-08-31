@@ -10,7 +10,7 @@ data "aws_ssm_parameter" "github_api_key" {
 
 module "store_write" {
   source  = "cloudposse/ssm-parameter-store/aws"
-  version = "0.11.0"
+  version = "0.8.3"
 
   parameter_write = [for k, v in local.environments :
     {
@@ -22,5 +22,5 @@ module "store_write" {
     }
   ]
 
-  context = module.this.context
+  context = module.introspection.context
 }
