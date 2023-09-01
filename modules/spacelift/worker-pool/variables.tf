@@ -208,6 +208,12 @@ variable "iam_attributes" {
   default     = []
 }
 
+variable "launch_template_version" {
+  type        = string
+  description = "Launch template version to use for workers"
+  default     = "$Latest"
+}
+
 variable "instance_refresh" {
   description = "The instance refresh definition. If this block is configured, an Instance Refresh will be started when the Auto Scaling Group is updated"
   type = object({
@@ -283,7 +289,7 @@ variable "aws_profile" {
 
 variable "spacelift_agents_per_node" {
   type        = number
-  description = "Number of Spacelift agents to run on one worker node"
+  description = "Number of Spacelift agents to run on one worker node. NOTE: This affects billable units. Spacelift charges per agent."
   default     = 1
 }
 
