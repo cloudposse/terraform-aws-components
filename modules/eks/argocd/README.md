@@ -358,6 +358,7 @@ components:
 | <a name="requirement_github"></a> [github](#requirement\_github) | >= 4.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.6.0 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.9.0, != 2.21.0 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.5 |
 
 ## Providers
 
@@ -367,7 +368,7 @@ components:
 | <a name="provider_aws.config_secrets"></a> [aws.config\_secrets](#provider\_aws.config\_secrets) | >= 4.0 |
 | <a name="provider_github"></a> [github](#provider\_github) | >= 4.0 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.9.0, != 2.21.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | >= 3.5 |
 
 ## Modules
 
