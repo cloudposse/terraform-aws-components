@@ -22,5 +22,5 @@ module "store_write" {
     }
   ]
 
-  context = module.introspection.context
+  context = module.this.context
 }
