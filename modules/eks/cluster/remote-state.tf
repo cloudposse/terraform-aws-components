@@ -4,10 +4,22 @@ locals {
   } : {}
 }
 
-module "iam_arns" {
-  source = "../../account-map/modules/roles-to-principals"
+# LEGACY PATCH: legacy account-map does not have `principals_map` output
+# replace with legacy delegated_roles module
+#module "iam_arns" {
+#  source = "../../account-map/modules/roles-to-principals"
+#
+#  role_map = local.role_map
+#
+#  context = module.this.context
+#}
+module "delegated_roles" {
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "1.4.1"
 
-  role_map = local.role_map
+  component = "aws-team-roles"
+
+  environment = module.iam_roles.global_environment_name
 
   context = module.this.context
 }
@@ -20,10 +32,8 @@ module "vpc" {
   component = var.vpc_component_name
 
   defaults = {
-    az_public_subnets_map  = {}
-    az_private_subnets_map = {}
-    public_subnet_ids      = []
-    private_subnet_ids     = []
+    public_subnet_ids  = []
+    private_subnet_ids = []
     vpc = {
       subnet_type_tag_key = ""
     }
