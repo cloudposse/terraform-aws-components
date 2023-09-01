@@ -1,7 +1,7 @@
 variable "github_default_notifications_enabled" {
   type        = bool
   default     = true
-  description = "Enable default github commit statuses notifications (required for CD sync mode)"
+  description = "Enable default GitHub commit statuses notifications (required for CD sync mode)"
 }
 
 variable "notifications_templates" {
