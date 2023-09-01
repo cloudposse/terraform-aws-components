@@ -1,3 +1,26 @@
+## Components PR [#852](https://github.com/cloudposse/terraform-aws-components/pull/852)
+
+This is a bug fix and feature enhancement update. No action is necessary to upgrade.
+
+### Bug Fixes
+
+- Timeouts for Add-Ons are now honored (they were being ignored)
+- If you supply a service account role ARN for an Add-On, it will be used, and
+  no new role will be created. Previously it was used, but the component created
+  a new role anyway.
+- The EKS EFS controller add-on cannot be deployed to Fargate, and enabling it
+  along with `deploy_addons_to_fargate` will no longer attempt to deploy EFS
+  to Fargate. Note that this means to use the EFS Add-On, you must create
+  a managed node group. Track the status of this feature with [this issue](https://github.com/kubernetes-sigs/aws-efs-csi-driver/issues/1100).
+- If you are using an old VPC component that does not supply `az_private_subnets_map`,
+  this module will now use the older the `private_subnet_ids` output.
+
+### Add-Ons have `enabled` option
+
+The EKS Add-Ons now have an optional "enabled" flag (defaults to `true`) so
+that you can selectively disable them in a stack where the inherited configuration
+has them enabled.
+
 ## Upgrading to `v1.270.0`
 
 Components PR [#795](https://github.com/cloudposse/terraform-aws-components/pull/795)
