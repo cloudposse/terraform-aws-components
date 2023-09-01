@@ -28,7 +28,7 @@ variable "notifications_templates" {
     ))
   }))
 
-  default     = {}
+  default = {}
 }
 
 variable "notifications_triggers" {

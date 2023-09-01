@@ -31,5 +31,5 @@ data "aws_ssm_parameter" "github_api_key" {
 provider "github" {
   base_url = local.github_webhook_enabled ? var.github_base_url : null
   owner    = local.github_webhook_enabled ? var.github_organization : null
-  token    = local.github_webhook_enabled ?  local.github_token : null
+  token    = local.github_webhook_enabled ? local.github_token : null
 }

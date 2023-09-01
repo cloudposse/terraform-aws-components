@@ -8,7 +8,7 @@ locals {
   github_default_notifications_enabled = local.enabled && var.github_default_notifications_enabled
 
   notification_default_notifier_github_commot_status = {
-    url     = "https://api.github.com"
+    url = "https://api.github.com"
     headers = [
       {
         name  = "Authorization"
@@ -17,7 +17,7 @@ locals {
     ]
   }
 
-  notification_default_notifiers = local.github_default_notifications_enabled ?  {
+  notification_default_notifiers = local.github_default_notifications_enabled ? {
     webhook = {
       app-repo-github-commit-status    = local.notification_default_notifier_github_commot_status
       argocd-repo-github-commit-status = local.notification_default_notifier_github_commot_status
@@ -30,13 +30,13 @@ locals {
   notifications_notifiers_variables = merge(
     {
       for key, value in local.notifications_notifiers :
-      key => {for param_name, param_value in value : param_name => param_value if param_value != null}
+      key => { for param_name, param_value in value : param_name => param_value if param_value != null }
       if key != "ssm_path_prefix" && key != "webhook"
     },
     {
       for key, value in coalesce(local.notifications_notifiers.webhook, {}) :
       format("webhook_%s", key) =>
-      {for param_name, param_value in value : param_name => param_value if param_value != null}
+      { for param_name, param_value in value : param_name => param_value if param_value != null }
     }
   )
 
@@ -73,7 +73,7 @@ locals {
 locals {
   notifications_template_github_commit_status = {
     method = "POST"
-    body   = {
+    body = {
       description = "ArgoCD"
       target_url  = "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}"
       context     = "continuous-delivery/{{.app.metadata.name}}"
@@ -164,8 +164,8 @@ locals {
 locals {
   notifications = {
     notifications = {
-      templates = {for key, value in local.notifications_templates : format("template.%s", key) => yamlencode(value)}
-      triggers  = {for key, value in local.notifications_triggers : format("trigger.%s", key) => yamlencode(value)}
+      templates = { for key, value in local.notifications_templates : format("template.%s", key) => yamlencode(value) }
+      triggers  = { for key, value in local.notifications_triggers : format("trigger.%s", key) => yamlencode(value) }
       notifiers = {
         for key, value in local.notifications_notifiers_variables :
         format("service.%s", replace(key, "_", ".")) =>
@@ -174,4 +174,3 @@ locals {
     }
   }
 }
-

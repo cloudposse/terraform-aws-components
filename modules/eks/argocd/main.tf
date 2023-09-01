@@ -5,14 +5,14 @@ locals {
   oidc_enabled           = local.enabled && var.oidc_enabled
   oidc_enabled_count     = local.oidc_enabled ? 1 : 0
   saml_enabled           = local.enabled && var.saml_enabled
-  argocd_repositories    = local.enabled ? {
+  argocd_repositories = local.enabled ? {
     for k, v in var.argocd_repositories : k => {
       clone_url         = module.argocd_repo[k].outputs.repository_ssh_clone_url
       github_deploy_key = data.aws_ssm_parameter.github_deploy_key[k].value
     }
   } : {}
   webhook_github_secret = try(random_password.webhook["github"].result, null)
-  credential_templates  = flatten(concat([
+  credential_templates = flatten(concat([
     for k, v in local.argocd_repositories : [
       {
         name  = "configs.credentialTemplates.${k}.url"
@@ -25,17 +25,17 @@ locals {
         type  = "string"
       },
     ]
-  ],
+    ],
     [
       for s, v in local.notifications_notifiers_ssm_configs : [
-      for k, i in v : [
-        {
-          name  = "notifications.secret.items.${s}_${k}"
-          value = i
-          type  = "string"
-        }
+        for k, i in v : [
+          {
+            name  = "notifications.secret.items.${s}_${k}"
+            value = i
+            type  = "string"
+          }
+        ]
       ]
-    ]
     ],
     local.github_webhook_enabled ? [
       {
@@ -69,7 +69,7 @@ locals {
         "dexserver.disable.tls" = true
       }
       cm : {
-        "url"        = local.url
+        "url" = local.url
         "dex.config" = join("\n", [
           local.dex_config_connectors
         ])
@@ -81,9 +81,9 @@ locals {
     connectors = [
       for name, config in(local.enabled ? var.saml_sso_providers : {}) :
       {
-        type   = "saml"
-        id     = "saml"
-        name   = name
+        type = "saml"
+        id   = "saml"
+        name = name
         config = {
           ssoURL       = module.saml_sso_providers[name].outputs.url
           caData       = base64encode(format("-----BEGIN CERTIFICATE-----\n%s\n-----END CERTIFICATE-----", module.saml_sso_providers[name].outputs.ca))
@@ -96,7 +96,7 @@ locals {
         }
       }
     ]
-  }
+    }
   )
 }
 
@@ -127,11 +127,11 @@ module "argocd" {
     # standard k8s object settings
     yamlencode({
       fullnameOverride = module.this.name,
-      serviceAccount   = {
+      serviceAccount = {
         name = module.this.name
       },
       resources = var.resources
-      rbac      = {
+      rbac = {
         create = var.rbac_enabled
       }
     }),
@@ -144,7 +144,7 @@ module "argocd" {
         alb_logs_bucket     = var.alb_logs_bucket
         alb_logs_prefix     = var.alb_logs_prefix
         alb_name            = var.alb_name == null ? "" : var.alb_name
-        application_repos   = {for k, v in local.argocd_repositories : k => v.clone_url}
+        application_repos   = { for k, v in local.argocd_repositories : k => v.clone_url }
         argocd_host         = local.host
         cert_issuer         = var.certificate_issuer
         forecastle_enabled  = var.forecastle_enabled
@@ -203,11 +203,11 @@ module "argocd_apps" {
   timeout                     = var.timeout
   enabled                     = local.enabled && var.argocd_apps_enabled && length(data.kubernetes_resources.crd.objects) > 0
   eks_cluster_oidc_issuer_url = replace(module.eks.outputs.eks_cluster_identity_oidc_issuer, "https://", "")
-  values                      = compact([
+  values = compact([
     templatefile(
       "${path.module}/resources/argocd-apps-values.yaml.tpl",
       {
-        application_repos = {for k, v in local.argocd_repositories : k => v.clone_url}
+        application_repos = { for k, v in local.argocd_repositories : k => v.clone_url }
         create_namespaces = var.argocd_create_namespaces
         namespace         = local.kubernetes_namespace
         tenant            = module.this.tenant
@@ -250,4 +250,3 @@ resource "github_repository_webhook" "default" {
 
   events = ["push"]
 }
-
