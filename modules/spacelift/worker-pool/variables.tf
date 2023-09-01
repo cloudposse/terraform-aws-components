@@ -289,7 +289,7 @@ variable "aws_profile" {
 
 variable "spacelift_agents_per_node" {
   type        = number
-  description = "Number of Spacelift agents to run on one worker node"
+  description = "Number of Spacelift agents to run on one worker node. NOTE: This affects billable units. Spacelift charges per agent."
   default     = 1
 }
 

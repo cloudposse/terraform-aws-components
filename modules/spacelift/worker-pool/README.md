@@ -52,12 +52,12 @@ components:
         health_check_grace_period: 300
         health_check_type: EC2
         infracost_enabled: true
-        instance_type: m6i.large
+        instance_type: t3.small
         max_size: 3
         min_size: 1
         name: spacelift-worker-pool
         scale_down_cooldown_seconds: 2700
-        spacelift_agents_per_node: 3
+        spacelift_agents_per_node: 1
         wait_for_capacity_timeout: 5m
         block_device_mappings:
           - device_name: "/dev/xvda"
@@ -72,6 +72,14 @@ components:
               volume_size: 100
               volume_type: "gp2"
 ```
+
+### Impacts on billing
+
+While scaling the workload for Spacelift, keep in mind that each agent connection counts
+against your quota of self-hosted workers. The number of EC2 instances you have running is _not_
+going to affect your Spacelift bill. As an example, if you had 3 EC2 instances in your Spacelift
+worker pool, and you configured `spacelift_agents_per_node` to be `3`, you would see your Spacelift
+bill report 9 agents being run. Take care while configuring the worker pool for your Spacelift infrastructure.
 
 ## Configuration
 
@@ -97,7 +105,7 @@ Spacelift worker pool will reside.
 _HINT_: The API key ID is displayed as an upper-case, 16-character alphanumeric value next to the key name in the API
 key list.
 
-Save the keys using `chamber` using the correct profile for where spacelift worker pool is provisioned
+Save the keys using `chamber` using the correct profile for where Spacelift worker pool is provisioned
 
 ```
 AWS_PROFILE=acme-gbl-auto-admin chamber write spacelift key_id 1234567890123456
@@ -213,7 +221,7 @@ role. This is done by adding `iam_role_arn` from the output to the `trusted_role
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_scale_down_cooldown_seconds"></a> [scale\_down\_cooldown\_seconds](#input\_scale\_down\_cooldown\_seconds) | The amount of time, in seconds, after a scaling activity completes and before the next scaling activity can start | `number` | `300` | no |
 | <a name="input_space_name"></a> [space\_name](#input\_space\_name) | The name of the Space to create the worker pool in | `string` | `"root"` | no |
-| <a name="input_spacelift_agents_per_node"></a> [spacelift\_agents\_per\_node](#input\_spacelift\_agents\_per\_node) | Number of Spacelift agents to run on one worker node | `number` | `1` | no |
+| <a name="input_spacelift_agents_per_node"></a> [spacelift\_agents\_per\_node](#input\_spacelift\_agents\_per\_node) | Number of Spacelift agents to run on one worker node. NOTE: This affects billable units. Spacelift charges per agent. | `number` | `1` | no |
 | <a name="input_spacelift_ami_id"></a> [spacelift\_ami\_id](#input\_spacelift\_ami\_id) | AMI ID of Spacelift worker pool image | `string` | `null` | no |
 | <a name="input_spacelift_api_endpoint"></a> [spacelift\_api\_endpoint](#input\_spacelift\_api\_endpoint) | The Spacelift API endpoint URL (e.g. https://example.app.spacelift.io) | `string` | n/a | yes |
 | <a name="input_spacelift_aws_account_id"></a> [spacelift\_aws\_account\_id](#input\_spacelift\_aws\_account\_id) | AWS Account ID owned by Spacelift | `string` | `"643313122712"` | no |
