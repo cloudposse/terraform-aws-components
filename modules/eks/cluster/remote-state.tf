@@ -20,10 +20,8 @@ module "vpc" {
   component = var.vpc_component_name
 
   defaults = {
-    az_public_subnets_map  = {}
-    az_private_subnets_map = {}
-    public_subnet_ids      = []
-    private_subnet_ids     = []
+    public_subnet_ids  = []
+    private_subnet_ids = []
     vpc = {
       subnet_type_tag_key = ""
     }
