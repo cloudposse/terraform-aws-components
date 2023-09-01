@@ -316,59 +316,36 @@ manifests: plat/use2-dev/apps/my-preview-acme-app/manifests
 
 Here's a configuration for letting argocd send notifications back to GitHub:
 
+1. [Create GitHub PAT](https://docs.github.com/en/enterprise-server@3.6/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token) with scope `repo:status`
+2. Save the PAT to SSM `/argocd/notifications/notifiers/common/github-token`
+3. Use this atmos stack configuration
+
 ```yaml
 components:
   terraform:
     eks/argocd/notifications:
       metadata:
-        type: abstract
         component: eks/argocd
       vars:
-        notifications_triggers:
-          trigger_on-deployed:
-            - when: app.status.operationState.phase in ['Succeeded']
-              oncePer: app.status.sync.revision
-              send: [app-deployed, github-commit-status]
+        github_default_notifications_enabled: true
+```
 
-        notifications_templates:
-          template_app-deployed:
-            message: |
-              Application {{ .app.metadata.name }} is now running new version of deployments manifests.
-            github:
-              status:
-                state: success
-                label: "continuous-delivery/{{ .app.metadata.name }}"
-                targetURL: "{{ .context.argocdUrl }}/applications/{{ .app.metadata.name }}?operation=true"
+### Webhook
 
-          template_github-commit-status:
-            message: |
-              Application {{ .app.metadata.name }} is now running new version of deployments manifests.
-            webhook:
-              github-commit-status:
-                method: POST
-                path: /repos/{{call .repo.FullNameByRepoURL .app.metadata.annotations.app_repository}}/statuses/{{.app.metadata.annotations.app_commit}}
-                body: |
-                  {
-                    {{if eq .app.status.operationState.phase "Running"}} "state": "pending"{{end}}
-                    {{if eq .app.status.operationState.phase "Succeeded"}} "state": "success"{{end}}
-                    {{if eq .app.status.operationState.phase "Error"}} "state": "error"{{end}}
-                    {{if eq .app.status.operationState.phase "Failed"}} "state": "error"{{end}},
-                    "description": "ArgoCD",
-                    "target_url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
-                    "context": "continuous-delivery/{{.app.metadata.name}}"
-                  }
+Here's a configuration Github notify ArgoCD on commit:
 
-        notifications_notifiers:
-          service_github:
-            appID: 123456
-            installationID: 12345678
-          service_webhook:
-            github-commit-status:
-              url: https://api.github.com
-              headers:
-                - name: Authorization
-                  value: token $service_webhook_github-commit-status_github-token
+1. [Create GitHub PAT](https://docs.github.com/en/enterprise-server@3.6/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token) with scope `admin:repo_hook`
+2. Save the PAT to SSM `/argocd/github/api_key`
+3. Use this atmos stack configuration
 
+```yaml
+components:
+  terraform:
+    eks/argocd/notifications:
+      metadata:
+        component: eks/argocd
+      vars:
+        github_webhook_enabled: true
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

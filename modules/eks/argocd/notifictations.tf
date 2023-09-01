@@ -30,13 +30,13 @@ locals {
   notifications_notifiers_variables = merge(
     {
       for key, value in local.notifications_notifiers :
-      key => { for param_name, param_value in value : param_name => param_value if param_value != null }
+      key => {for param_name, param_value in value : param_name => param_value if param_value != null}
       if key != "ssm_path_prefix" && key != "webhook"
     },
     {
       for key, value in coalesce(local.notifications_notifiers.webhook, {}) :
       format("webhook_%s", key) =>
-      { for param_name, param_value in value : param_name => param_value if param_value != null }
+      {for param_name, param_value in value : param_name => param_value if param_value != null}
     }
   )
 
@@ -73,7 +73,7 @@ locals {
 locals {
   notifications_template_github_commit_status = {
     method = "POST"
-    body = {
+    body   = {
       description = "ArgoCD"
       target_url  = "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}"
       context     = "continuous-delivery/{{.app.metadata.name}}"

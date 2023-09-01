@@ -104,17 +104,17 @@ module "argocd" {
   source  = "cloudposse/helm-release/aws"
   version = "0.9.1"
 
-  name                   = "argocd" # avoids hitting length restrictions on IAM Role names
-  chart                  = var.chart
-  repository             = var.chart_repository
-  description            = var.chart_description
-  chart_version          = var.chart_version
-  kubernetes_namespace   = local.kubernetes_namespace
-  create_namespace       = var.create_namespace
-  wait                   = var.wait
-  atomic                 = var.atomic
-  cleanup_on_fail        = var.cleanup_on_fail
-  timeout                = var.timeout
+  name                 = "argocd" # avoids hitting length restrictions on IAM Role names
+  chart                = var.chart
+  repository           = var.chart_repository
+  description          = var.chart_description
+  chart_version        = var.chart_version
+  kubernetes_namespace = local.kubernetes_namespace
+  create_namespace     = var.create_namespace
+  wait                 = var.wait
+  atomic               = var.atomic
+  cleanup_on_fail      = var.cleanup_on_fail
+  timeout              = var.timeout
 
   eks_cluster_oidc_issuer_url = replace(module.eks.outputs.eks_cluster_identity_oidc_issuer, "https://", "")
 
@@ -139,25 +139,25 @@ module "argocd" {
     templatefile(
       "${path.module}/resources/argocd-values.yaml.tpl",
       {
-        admin_enabled              = var.admin_enabled
-        alb_group_name             = var.alb_group_name == null ? "" : var.alb_group_name
-        alb_logs_bucket            = var.alb_logs_bucket
-        alb_logs_prefix            = var.alb_logs_prefix
-        alb_name                   = var.alb_name == null ? "" : var.alb_name
-        application_repos          = {for k, v in local.argocd_repositories : k => v.clone_url}
-        argocd_host                = local.host
-        cert_issuer                = var.certificate_issuer
-        forecastle_enabled         = var.forecastle_enabled
-        ingress_host               = local.host
-        name                       = module.this.name
-        oidc_enabled               = local.oidc_enabled
-        oidc_rbac_scopes           = var.oidc_rbac_scopes
-        organization               = var.github_organization
-        saml_enabled               = local.saml_enabled
-        saml_rbac_scopes           = var.saml_rbac_scopes
-        rbac_default_policy        = var.argocd_rbac_default_policy
-        rbac_policies              = var.argocd_rbac_policies
-        rbac_groups                = var.argocd_rbac_groups
+        admin_enabled       = var.admin_enabled
+        alb_group_name      = var.alb_group_name == null ? "" : var.alb_group_name
+        alb_logs_bucket     = var.alb_logs_bucket
+        alb_logs_prefix     = var.alb_logs_prefix
+        alb_name            = var.alb_name == null ? "" : var.alb_name
+        application_repos   = {for k, v in local.argocd_repositories : k => v.clone_url}
+        argocd_host         = local.host
+        cert_issuer         = var.certificate_issuer
+        forecastle_enabled  = var.forecastle_enabled
+        ingress_host        = local.host
+        name                = module.this.name
+        oidc_enabled        = local.oidc_enabled
+        oidc_rbac_scopes    = var.oidc_rbac_scopes
+        organization        = var.github_organization
+        saml_enabled        = local.saml_enabled
+        saml_rbac_scopes    = var.saml_rbac_scopes
+        rbac_default_policy = var.argocd_rbac_default_policy
+        rbac_policies       = var.argocd_rbac_policies
+        rbac_groups         = var.argocd_rbac_groups
       }
     ),
     # argocd-notifications specific settings
