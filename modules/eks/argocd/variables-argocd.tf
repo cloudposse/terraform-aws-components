@@ -207,5 +207,5 @@ variable "saml_sso_providers" {
 variable "github_webhook_enabled" {
   type        = bool
   default     = true
-  description = "Enable github webhook integration"
+  description = "Enable GitHub webhook integration"
 }
