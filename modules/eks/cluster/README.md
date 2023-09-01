@@ -135,6 +135,7 @@ components:
 
         # EKS addons
         # https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html
+        # Configuring EKS addons: https://aws.amazon.com/blogs/containers/amazon-eks-add-ons-advanced-configuration/
         addons:
           # https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html
           vpc-cni:
@@ -151,7 +152,7 @@ components:
           aws-ebs-csi-driver:
             addon_version: "v1.20.0-eksbuild.1"  # set `addon_version` to `null` to use the latest version
             # If you are not using [volume snapshots](https://kubernetes.io/blog/2020/12/10/kubernetes-1.20-volume-snapshot-moves-to-ga/#how-to-use-volume-snapshots)
-            # (and you probably are not), disable it the EBS Snapshotter with:
+            # (and you probably are not), disable the EBS Snapshotter with:
             configuration_values: '{"sidecars":{"snapshotter":{"forceEnable":false}}}'
           # Only install the EFS driver if you are using EFS.
           # Create an EFS file system with the `efs` component.
@@ -302,6 +303,7 @@ Configure the addons like the following example:
 ```yaml
 # https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html
 # https://docs.aws.amazon.com/eks/latest/userguide/managing-add-ons.html#creating-an-add-on
+# https://aws.amazon.com/blogs/containers/amazon-eks-add-ons-advanced-configuration/
 addons:
   # https://docs.aws.amazon.com/eks/latest/userguide/cni-iam-role.html
   # https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html
@@ -315,6 +317,8 @@ addons:
   # https://docs.aws.amazon.com/eks/latest/userguide/managing-coredns.html
   coredns:
     addon_version: "v1.9.3-eksbuild.2"  # set `addon_version` to `null` to use the latest version
+    # Uncomment to override default replica count of 2
+    # configuration_values: '{"replicaCount": 3}'
   # https://docs.aws.amazon.com/eks/latest/userguide/csi-iam-role.html
   # https://aws.amazon.com/blogs/containers/amazon-ebs-csi-driver-is-now-generally-available-in-amazon-eks-add-ons
   # https://docs.aws.amazon.com/eks/latest/userguide/managing-ebs-csi.html#csi-iam-role
@@ -322,7 +326,7 @@ addons:
   aws-ebs-csi-driver:
     addon_version: "v1.19.0-eksbuild.2"  # set `addon_version` to `null` to use the latest version
     # If you are not using [volume snapshots](https://kubernetes.io/blog/2020/12/10/kubernetes-1.20-volume-snapshot-moves-to-ga/#how-to-use-volume-snapshots)
-    # (and you probably are not), disable it the EBS Snapshotter with:
+    # (and you probably are not), disable the EBS Snapshotter with:
     configuration_values: '{"sidecars":{"snapshotter":{"forceEnable":false}}}'
 ```
 
@@ -439,11 +443,11 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 | <a name="module_aws_ebs_csi_driver_fargate_profile"></a> [aws\_ebs\_csi\_driver\_fargate\_profile](#module\_aws\_ebs\_csi\_driver\_fargate\_profile) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
 | <a name="module_aws_efs_csi_driver_eks_iam_role"></a> [aws\_efs\_csi\_driver\_eks\_iam\_role](#module\_aws\_efs\_csi\_driver\_eks\_iam\_role) | cloudposse/eks-iam-role/aws | 2.1.1 |
 | <a name="module_coredns_fargate_profile"></a> [coredns\_fargate\_profile](#module\_coredns\_fargate\_profile) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
-| <a name="module_delegated_roles"></a> [delegated\_roles](#module\_delegated\_roles) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_eks_cluster"></a> [eks\_cluster](#module\_eks\_cluster) | cloudposse/eks-cluster/aws | 2.9.0 |
 | <a name="module_fargate_pod_execution_role"></a> [fargate\_pod\_execution\_role](#module\_fargate\_pod\_execution\_role) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
 | <a name="module_fargate_profile"></a> [fargate\_profile](#module\_fargate\_profile) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
+| <a name="module_iam_arns"></a> [iam\_arns](#module\_iam\_arns) | ../../account-map/modules/roles-to-principals | n/a |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_karpenter_label"></a> [karpenter\_label](#module\_karpenter\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_region_node_group"></a> [region\_node\_group](#module\_region\_node\_group) | ./modules/node_group_by_region | n/a |

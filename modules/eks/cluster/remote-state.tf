@@ -4,22 +4,10 @@ locals {
   } : {}
 }
 
-# LEGACY PATCH: legacy account-map does not have `principals_map` output
-# replace with legacy delegated_roles module
-#module "iam_arns" {
-#  source = "../../account-map/modules/roles-to-principals"
-#
-#  role_map = local.role_map
-#
-#  context = module.this.context
-#}
-module "delegated_roles" {
-  source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+module "iam_arns" {
+  source = "../../account-map/modules/roles-to-principals"
 
-  component = "aws-team-roles"
-
-  environment = module.iam_roles.global_environment_name
+  role_map = local.role_map
 
   context = module.this.context
 }
