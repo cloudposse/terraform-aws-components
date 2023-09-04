@@ -100,7 +100,23 @@ variable "token_domains" {
 
 # Rules
 variable "byte_match_statement_rules" {
-  type        = list(any)
+  type = list(object({
+    name     = string
+    priority = number
+    action   = string
+    captcha_config = optional(object({
+      immunity_time_property = object({
+        immunity_time = number
+      })
+    }), null)
+    rule_label = optional(list(string), null)
+    statement  = any
+    visibility_config = optional(object({
+      cloudwatch_metrics_enabled = optional(bool)
+      metric_name                = string
+      sampled_requests_enabled   = optional(bool)
+    }), null)
+  }))
   default     = null
   description = <<-DOC
     A rule statement that defines a string match search for AWS WAF to apply to web requests.
@@ -127,6 +143,10 @@ variable "byte_match_statement_rules" {
        A List of labels to apply to web requests that match the rule match statement
 
     statement:
+      positional_constraint:
+        Area within the portion of a web request that you want AWS WAF to search for search_string. Valid values include the following: EXACTLY, STARTS_WITH, ENDS_WITH, CONTAINS, CONTAINS_WORD.
+      search_string
+        String value that you want AWS WAF to search for. AWS WAF searches only in the part of web requests that you designate for inspection in field_to_match.
       field_to_match:
         The part of a web request that you want AWS WAF to inspect.
         See https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl#field-to-match
@@ -147,7 +167,22 @@ variable "byte_match_statement_rules" {
 }
 
 variable "geo_allowlist_statement_rules" {
-  type        = list(any)
+  type = list(object({
+    name     = string
+    priority = number
+    captcha_config = optional(object({
+      immunity_time_property = object({
+        immunity_time = number
+      })
+    }), null)
+    rule_label = optional(list(string), null)
+    statement  = any
+    visibility_config = optional(object({
+      cloudwatch_metrics_enabled = optional(bool)
+      metric_name                = string
+      sampled_requests_enabled   = optional(bool)
+    }), null)
+  }))
   default     = null
   description = <<-DOC
     A rule statement used to identify a list of allowed countries which should not be blocked by the WAF.
@@ -194,7 +229,23 @@ variable "geo_allowlist_statement_rules" {
 }
 
 variable "geo_match_statement_rules" {
-  type        = list(any)
+  type = list(object({
+    name     = string
+    priority = number
+    action   = string
+    captcha_config = optional(object({
+      immunity_time_property = object({
+        immunity_time = number
+      })
+    }), null)
+    rule_label = optional(list(string), null)
+    statement  = any
+    visibility_config = optional(object({
+      cloudwatch_metrics_enabled = optional(bool)
+      metric_name                = string
+      sampled_requests_enabled   = optional(bool)
+    }), null)
+  }))
   default     = null
   description = <<-DOC
     A rule statement used to identify web requests based on country of origin.
@@ -243,7 +294,23 @@ variable "geo_match_statement_rules" {
 }
 
 variable "ip_set_reference_statement_rules" {
-  type        = list(any)
+  type = list(object({
+    name     = string
+    priority = number
+    action   = string
+    captcha_config = optional(object({
+      immunity_time_property = object({
+        immunity_time = number
+      })
+    }), null)
+    rule_label = optional(list(string), null)
+    statement  = any
+    visibility_config = optional(object({
+      cloudwatch_metrics_enabled = optional(bool)
+      metric_name                = string
+      sampled_requests_enabled   = optional(bool)
+    }), null)
+  }))
   default     = null
   description = <<-DOC
     A rule statement used to detect web requests coming from particular IP addresses or address ranges.
@@ -305,7 +372,82 @@ variable "ip_set_reference_statement_rules" {
 }
 
 variable "managed_rule_group_statement_rules" {
-  type        = list(any)
+  type = list(object({
+    name            = string
+    priority        = number
+    override_action = optional(string)
+    captcha_config = optional(object({
+      immunity_time_property = object({
+        immunity_time = number
+      })
+    }), null)
+    rule_label = optional(list(string), null)
+    statement = object({
+      name        = string
+      vendor_name = string
+      version     = optional(string)
+      rule_action_override = optional(map(object({
+        action = string
+        custom_request_handling = optional(object({
+          insert_header = object({
+            name  = string
+            value = string
+          })
+        }), null)
+        custom_response = optional(object({
+          response_code = string
+          response_header = optional(object({
+            name  = string
+            value = string
+          }), null)
+        }), null)
+      })), null)
+      managed_rule_group_configs = optional(list(object({
+        aws_managed_rules_bot_control_rule_set = optional(object({
+          inspection_level = string
+        }), null)
+        aws_managed_rules_atp_rule_set = optional(object({
+          enable_regex_in_path = optional(bool)
+          login_path           = string
+          request_inspection = optional(object({
+            payload_type = string
+            password_field = object({
+              identifier = string
+            })
+            username_field = object({
+              identifier = string
+            })
+          }), null)
+          response_inspection = optional(object({
+            body_contains = optional(object({
+              success_strings = list(string)
+              failure_strings = list(string)
+            }), null)
+            header = optional(object({
+              name           = string
+              success_values = list(string)
+              failure_values = list(string)
+            }), null)
+            json = optional(object({
+
+              identifier      = string
+              success_strings = list(string)
+              failure_strings = list(string)
+            }), null)
+            status_code = optional(object({
+              success_codes = list(string)
+              failure_codes = list(string)
+            }), null)
+          }), null)
+        }), null)
+      })), null)
+    })
+    visibility_config = optional(object({
+      cloudwatch_metrics_enabled = optional(bool)
+      metric_name                = string
+      sampled_requests_enabled   = optional(bool)
+    }), null)
+  }))
   default     = null
   description = <<-DOC
     A rule statement used to run the rules that are defined in a managed rule group.
@@ -361,7 +503,23 @@ variable "managed_rule_group_statement_rules" {
 }
 
 variable "rate_based_statement_rules" {
-  type        = list(any)
+  type = list(object({
+    name     = string
+    priority = number
+    action   = string
+    captcha_config = optional(object({
+      immunity_time_property = object({
+        immunity_time = number
+      })
+    }), null)
+    rule_label = optional(list(string), null)
+    statement  = any
+    visibility_config = optional(object({
+      cloudwatch_metrics_enabled = optional(bool)
+      metric_name                = string
+      sampled_requests_enabled   = optional(bool)
+    }), null)
+  }))
   default     = null
   description = <<-DOC
     A rate-based rule tracks the rate of requests for each originating IP address,
@@ -414,7 +572,23 @@ variable "rate_based_statement_rules" {
 }
 
 variable "regex_pattern_set_reference_statement_rules" {
-  type        = list(any)
+  type = list(object({
+    name     = string
+    priority = number
+    action   = string
+    captcha_config = optional(object({
+      immunity_time_property = object({
+        immunity_time = number
+      })
+    }), null)
+    rule_label = optional(list(string), null)
+    statement  = any
+    visibility_config = optional(object({
+      cloudwatch_metrics_enabled = optional(bool)
+      metric_name                = string
+      sampled_requests_enabled   = optional(bool)
+    }), null)
+  }))
   default     = null
   description = <<-DOC
     A rule statement used to search web request components for matches with regular expressions.
@@ -463,7 +637,23 @@ variable "regex_pattern_set_reference_statement_rules" {
 }
 
 variable "regex_match_statement_rules" {
-  type        = list(any)
+  type = list(object({
+    name     = string
+    priority = number
+    action   = string
+    captcha_config = optional(object({
+      immunity_time_property = object({
+        immunity_time = number
+      })
+    }), null)
+    rule_label = optional(list(string), null)
+    statement  = any
+    visibility_config = optional(object({
+      cloudwatch_metrics_enabled = optional(bool)
+      metric_name                = string
+      sampled_requests_enabled   = optional(bool)
+    }), null)
+  }))
   default     = null
   description = <<-DOC
     A rule statement used to search web request components for a match against a single regular expression.
@@ -512,7 +702,41 @@ variable "regex_match_statement_rules" {
 }
 
 variable "rule_group_reference_statement_rules" {
-  type        = list(any)
+  type = list(object({
+    name            = string
+    priority        = number
+    override_action = optional(string)
+    captcha_config = optional(object({
+      immunity_time_property = object({
+        immunity_time = number
+      })
+    }), null)
+    rule_label = optional(list(string), null)
+    statement = object({
+      arn = string
+      rule_action_override = optional(map(object({
+        action = string
+        custom_request_handling = optional(object({
+          insert_header = object({
+            name  = string
+            value = string
+          })
+        }), null)
+        custom_response = optional(object({
+          response_code = string
+          response_header = optional(object({
+            name  = string
+            value = string
+          }), null)
+        }), null)
+      })), null)
+    })
+    visibility_config = optional(object({
+      cloudwatch_metrics_enabled = optional(bool)
+      metric_name                = string
+      sampled_requests_enabled   = optional(bool)
+    }), null)
+  }))
   default     = null
   description = <<-DOC
     A rule statement used to run the rules that are defined in an WAFv2 Rule Group.
@@ -560,7 +784,23 @@ variable "rule_group_reference_statement_rules" {
 }
 
 variable "size_constraint_statement_rules" {
-  type        = list(any)
+  type = list(object({
+    name     = string
+    priority = number
+    action   = string
+    captcha_config = optional(object({
+      immunity_time_property = object({
+        immunity_time = number
+      })
+    }), null)
+    rule_label = optional(list(string), null)
+    statement  = any
+    visibility_config = optional(object({
+      cloudwatch_metrics_enabled = optional(bool)
+      metric_name                = string
+      sampled_requests_enabled   = optional(bool)
+    }), null)
+  }))
   default     = null
   description = <<-DOC
     A rule statement that uses a comparison operator to compare a number of bytes against the size of a request component.
@@ -613,7 +853,23 @@ variable "size_constraint_statement_rules" {
 }
 
 variable "sqli_match_statement_rules" {
-  type        = list(any)
+  type = list(object({
+    name     = string
+    priority = number
+    action   = string
+    captcha_config = optional(object({
+      immunity_time_property = object({
+        immunity_time = number
+      })
+    }), null)
+    rule_label = optional(list(string), null)
+    statement  = any
+    visibility_config = optional(object({
+      cloudwatch_metrics_enabled = optional(bool)
+      metric_name                = string
+      sampled_requests_enabled   = optional(bool)
+    }), null)
+  }))
   default     = null
   description = <<-DOC
     An SQL injection match condition identifies the part of web requests,
@@ -661,7 +917,23 @@ variable "sqli_match_statement_rules" {
 }
 
 variable "xss_match_statement_rules" {
-  type        = list(any)
+  type = list(object({
+    name     = string
+    priority = number
+    action   = string
+    captcha_config = optional(object({
+      immunity_time_property = object({
+        immunity_time = number
+      })
+    }), null)
+    rule_label = optional(list(string), null)
+    statement  = any
+    visibility_config = optional(object({
+      cloudwatch_metrics_enabled = optional(bool)
+      metric_name                = string
+      sampled_requests_enabled   = optional(bool)
+    }), null)
+  }))
   default     = null
   description = <<-DOC
     A rule statement that defines a cross-site scripting (XSS) match search for AWS WAF to apply to web requests.
