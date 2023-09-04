@@ -6,7 +6,7 @@ locals {
     if local.enabled
   ]
 
-  association_resource_arns = concat(var.association_resource_arns, local.association_resource_component_selectors_arns)
+  association_resource_arns = toset(concat(var.association_resource_arns, local.association_resource_component_selectors_arns, local.alb_arns))
 }
 
 module "aws_waf" {

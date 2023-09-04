@@ -171,6 +171,20 @@ variable "association_resource_arns" {
   nullable    = false
 }
 
+variable "alb_names" {
+  description = "list of ALB names to associate with the web ACL."
+  type        = list(string)
+  default     = []
+  nullable    = false
+}
+
+variable "alb_tags" {
+  description = "list of tags to match one or more ALBs to associate with the web ACL."
+  type        = list(map(string))
+  default     = []
+  nullable    = false
+}
+
 variable "association_resource_component_selectors" {
   type = list(object({
     component            = string
