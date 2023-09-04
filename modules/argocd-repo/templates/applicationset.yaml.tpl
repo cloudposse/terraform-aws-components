@@ -8,24 +8,6 @@ metadata:
     argocd-autopilot.argoproj-labs.io/default-dest-server: https://kubernetes.default.svc
     argocd.argoproj.io/sync-options: PruneLast=true
     argocd.argoproj.io/sync-wave: "-2"
-%{if slack_channel != "" && slack_channel != null ~}
-    notifications.argoproj.io/subscribe.on-deployed.slack: ${slack_channel}
-    notifications.argoproj.io/subscribe.on-health-degraded.slack: ${slack_channel}
-    notifications.argoproj.io/subscribe.on-sync-failed.slack: ${slack_channel}
-    notifications.argoproj.io/subscribe.on-sync-running.slack: ${slack_channel}
-    notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: ${slack_channel}
-    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: ${slack_channel}
-    notifications.argoproj.io/subscribe.on-deleted.slack: ${slack_channel}
-%{ endif ~}
-    notifications.argoproj.io/subscribe.on-deployed.datadog: ""
-    notifications.argoproj.io/subscribe.on-health-degraded.datadog: ""
-    notifications.argoproj.io/subscribe.on-sync-failed.datadog: ""
-    notifications.argoproj.io/subscribe.on-sync-running.datadog: ""
-    notifications.argoproj.io/subscribe.on-sync-status-unknown.datadog: ""
-    notifications.argoproj.io/subscribe.on-sync-succeeded.datadog: ""
-    notifications.argoproj.io/subscribe.on-deployed.github-deployment: ""
-    notifications.argoproj.io/subscribe.on-deployed.github-commit-status: ""
-    notifications.argoproj.io/subscribe.on-deleted.github-deployment: ""
   name: ${name}
   namespace: ${namespace}
 spec:
@@ -49,6 +31,7 @@ kind: ApplicationSet
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
+  creationTimestamp: null
   name: ${name}
   namespace: ${namespace}
 spec:
@@ -61,11 +44,18 @@ spec:
   template:
     metadata:
       annotations:
+        deployment_id: '{{deployment_id}}'
         app_repository: '{{app_repository}}'
         app_commit: '{{app_commit}}'
-        app_hostname: '{{app_hostname}}'
-        notifications.argoproj.io/subscribe.on-deployed.github: ""
-        notifications.argoproj.io/subscribe.on-deployed.github-commit-status: ""
+        app_hostname: 'https://{{app_hostname}}'
+%{if notifications ~}
+        notifications.argoproj.io/subscribe.on-deploy-started.app-repo-github-commit-status: ""
+        notifications.argoproj.io/subscribe.on-deploy-started.argocd-repo-github-commit-status: ""
+        notifications.argoproj.io/subscribe.on-deploy-succeded.app-repo-github-commit-status: ""
+        notifications.argoproj.io/subscribe.on-deploy-succeded.argocd-repo-github-commit-status: ""
+        notifications.argoproj.io/subscribe.on-deploy-failed.app-repo-github-commit-status: ""
+        notifications.argoproj.io/subscribe.on-deploy-failed.argocd-repo-github-commit-status: ""
+%{ endif ~}
       name: '{{name}}'
     spec:
       project: ${name}
@@ -84,15 +74,3 @@ spec:
 %{ endif ~}
         syncOptions:
           - CreateNamespace=true
-%{if length(ignore-differences) > 0 ~}
-          - RespectIgnoreDifferences=true
-      ignoreDifferences:
-%{for item in ignore-differences ~}
-        - group: "${item.group}"
-          kind: "${item.kind}"
-          jsonPointers:
-%{for pointer in item.json-pointers ~}
-            - ${pointer}
-%{ endfor ~}
-%{ endfor ~}
-%{ endif ~}
