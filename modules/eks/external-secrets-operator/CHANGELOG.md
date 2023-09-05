@@ -4,7 +4,7 @@ This is a bug fix and feature enhancement update.
 No actions necessary to upgrade.
 
 ## Notes
-* Cold start needs apply twice
+* Cold start needs to apply twice
 
 ## Fixes
-* Fix cold start bug because CRD is not exists
+* Fix cold start bug because the CRD does not exist yet
