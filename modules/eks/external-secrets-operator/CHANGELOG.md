@@ -7,4 +7,4 @@ No actions necessary to upgrade.
 * Cold start needs apply twice
 
 ## Fixes
-* Fix cold start bug because CRD is not exists
+* Fix cold start bug because the CRD does not exist yet
