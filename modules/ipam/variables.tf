@@ -116,4 +116,3 @@ variable "ipam_scope_type" {
     error_message = "Scope type must be either public or private."
   }
 }
-
