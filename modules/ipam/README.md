@@ -117,7 +117,7 @@ components:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_pool_configurations"></a> [pool\_configurations](#output\_pool\_configurations) | n/a |
+| <a name="output_pool_configurations"></a> [pool\_configurations](#output\_pool\_configurations) | Pool configurations |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
