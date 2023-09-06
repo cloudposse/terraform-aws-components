@@ -4,4 +4,4 @@ This is a bug fix and feature enhancement update.
 No actions necessary to upgrade.
 
 ## Fixes
-* Set default chart 
+* Set default chart
