@@ -510,6 +510,7 @@ variable "fargate_profile_iam_role_permissions_boundary" {
 
 variable "addons" {
   type = map(object({
+    enabled       = optional(bool, true)
     addon_version = optional(string, null)
     # configuration_values is a JSON string, such as '{"computeType": "Fargate"}'.
     configuration_values = optional(string, null)
