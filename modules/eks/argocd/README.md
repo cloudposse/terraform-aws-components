@@ -368,7 +368,7 @@ If you provision a new version of the `eks/argocd` component, and some Helm Char
 
 ```shell
 # Download `kubeconfig` and set EKS cluster
-set-eks-cluster e98d-soc-usu2-clip
+set-eks-cluster cluster-name
 
 # Restart the `argocd-server` Pods
 kubectl rollout restart deploy/argocd-server -n argocd
