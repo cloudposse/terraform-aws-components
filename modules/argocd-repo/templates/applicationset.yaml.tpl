@@ -74,3 +74,15 @@ spec:
 %{ endif ~}
         syncOptions:
           - CreateNamespace=true
+%{if length(ignore-differences) > 0 ~}
+          - RespectIgnoreDifferences=true
+      ignoreDifferences:
+%{for item in ignore-differences ~}
+        - group: "${item.group}"
+          kind: "${item.kind}"
+          jsonPointers:
+%{for pointer in item.json-pointers ~}
+            - ${pointer}
+%{ endfor ~}
+%{ endfor ~}
+%{ endif ~}
