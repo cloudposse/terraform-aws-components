@@ -26,8 +26,8 @@ variable "environments" {
 
   `auto-sync` determines whether or not the ArgoCD application will be automatically synced.
 
-  `ignore-differences` determines whether or not the ArgoCD application will ignore the number of 
-  replicas in the deployment. Read more on ignore differences here: 
+  `ignore-differences` determines whether or not the ArgoCD application will ignore the number of
+  replicas in the deployment. Read more on ignore differences here:
   https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/#respect-ignore-difference-configs
   Example:
   ```
