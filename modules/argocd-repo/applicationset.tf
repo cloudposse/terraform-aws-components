@@ -7,6 +7,7 @@ resource "github_repository_file" "application_set" {
   content = templatefile("${path.module}/templates/applicationset.yaml.tpl", {
     environment   = each.key
     auto-sync     = each.value.auto-sync
+    ignore-differences = each.value.ignore-differences
     name          = module.this.namespace
     namespace     = local.manifest_kubernetes_namespace
     ssh_url       = join("", github_repository.default.*.ssh_clone_url)
