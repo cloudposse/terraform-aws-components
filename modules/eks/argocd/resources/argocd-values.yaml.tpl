@@ -9,14 +9,6 @@ dex:
   image:
     imagePullPolicy: IfNotPresent
     tag: v2.30.2
-%{ if enable_argo_workflows_auth ~}
-  env:
-      - name: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: argo-workflows-sso
-            key: client-secret
-%{ endif ~}
 
 controller:
   replicas: 1
@@ -76,6 +68,9 @@ server:
   service:
     type: NodePort
 
+  secret:
+    create: true
+
   config:
     url: https://${argocd_host}
     admin.enabled: "${admin_enabled}"
@@ -115,6 +110,7 @@ server:
             return hs
 
   rbacConfig:
+    policy.default: ${rbac_default_policy}
     policy.csv: |
 %{ for policy in rbac_policies ~}
       ${policy}
@@ -130,7 +126,7 @@ server:
     scopes: '${saml_rbac_scopes}'
 %{ endif ~}
 
-    policy.default: role:none
+    policy.default: role:readonly
 
 repoServer:
   replicas: 2

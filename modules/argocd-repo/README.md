@@ -99,7 +99,7 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_store_write"></a> [store\_write](#module\_store\_write) | cloudposse/ssm-parameter-store/aws | 0.10.0 |
+| <a name="module_store_write"></a> [store\_write](#module\_store\_write) | cloudposse/ssm-parameter-store/aws | 0.11.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -136,6 +136,7 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 | <a name="input_environments"></a> [environments](#input\_environments) | Environments to populate `applicationset.yaml` files and repository deploy keys (for ArgoCD) for.<br><br>`auto-sync` determines whether or not the ArgoCD application will be automatically synced. | <pre>list(object({<br>    tenant      = string<br>    environment = string<br>    stage       = string<br>    auto-sync   = bool<br>  }))</pre> | `[]` | no |
 | <a name="input_github_base_url"></a> [github\_base\_url](#input\_github\_base\_url) | This is the target GitHub base API endpoint. Providing a value is a requirement when working with GitHub Enterprise. It is optional to provide this value and it can also be sourced from the `GITHUB_BASE_URL` environment variable. The value must end with a slash, for example: `https://terraformtesting-ghe.westus.cloudapp.azure.com/` | `string` | `null` | no |
 | <a name="input_github_codeowner_teams"></a> [github\_codeowner\_teams](#input\_github\_codeowner\_teams) | List of teams to use when populating the CODEOWNERS file.<br><br>For example: `["@ACME/cloud-admins", "@ACME/cloud-developers"]`. | `list(string)` | n/a | yes |
+| <a name="input_github_default_notifications_enabled"></a> [github\_default\_notifications\_enabled](#input\_github\_default\_notifications\_enabled) | Enable default GitHub commit statuses notifications (required for CD sync mode) | `bool` | `true` | no |
 | <a name="input_github_organization"></a> [github\_organization](#input\_github\_organization) | GitHub Organization | `string` | n/a | yes |
 | <a name="input_github_token_override"></a> [github\_token\_override](#input\_github\_token\_override) | Use the value of this variable as the GitHub token instead of reading it from SSM | `string` | `null` | no |
 | <a name="input_github_user"></a> [github\_user](#input\_github\_user) | Github user | `string` | n/a | yes |
@@ -151,7 +152,6 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 | <a name="input_permissions"></a> [permissions](#input\_permissions) | A list of Repository Permission objects used to configure the team permissions of the repository<br><br>`team_slug` should be the name of the team without the `@{org}` e.g. `@cloudposse/team` => `team`<br>`permission` is just one of the available values listed below | <pre>list(object({<br>    team_slug  = string,<br>    permission = string<br>  }))</pre> | `[]` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_slack_channel"></a> [slack\_channel](#input\_slack\_channel) | The name of the slack channel to configure ArgoCD notifications for | `string` | `null` | no |
 | <a name="input_ssm_github_api_key"></a> [ssm\_github\_api\_key](#input\_ssm\_github\_api\_key) | SSM path to the GitHub API key | `string` | `"/argocd/github/api_key"` | no |
 | <a name="input_ssm_github_deploy_key_format"></a> [ssm\_github\_deploy\_key\_format](#input\_ssm\_github\_deploy\_key\_format) | Format string of the SSM parameter path to which the deploy keys will be written to (%s will be replaced with the environment name) | `string` | `"/argocd/deploy_keys/%s"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
@@ -173,7 +173,7 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/argocd-repo) - Cloud Posse's upstream component
+  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/TODO) - Cloud Posse's upstream component
 
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

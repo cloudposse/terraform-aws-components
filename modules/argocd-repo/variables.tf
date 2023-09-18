@@ -104,8 +104,8 @@ variable "permissions" {
   }
 }
 
-variable "slack_channel" {
-  type        = string
-  description = "The name of the slack channel to configure ArgoCD notifications for"
-  default     = null
+variable "github_default_notifications_enabled" {
+  type        = bool
+  default     = true
+  description = "Enable default GitHub commit statuses notifications (required for CD sync mode)"
 }

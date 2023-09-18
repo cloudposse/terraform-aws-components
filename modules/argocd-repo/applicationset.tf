@@ -10,7 +10,7 @@ resource "github_repository_file" "application_set" {
     name          = module.this.namespace
     namespace     = local.manifest_kubernetes_namespace
     ssh_url       = join("", github_repository.default.*.ssh_clone_url)
-    slack_channel = var.slack_channel
+    notifications = var.github_default_notifications_enabled
   })
   commit_message      = "Initialize environment: `${each.key}`."
   commit_author       = var.github_user

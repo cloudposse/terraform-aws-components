@@ -78,7 +78,7 @@ data "cloudinit_config" "config" {
 
 module "security_group" {
   source  = "cloudposse/security-group/aws"
-  version = "2.0.0-rc1"
+  version = "2.2.0"
 
   security_group_description = "Security Group for Spacelift worker pool"
   allow_all_egress           = true
@@ -90,7 +90,7 @@ module "security_group" {
 
 module "autoscale_group" {
   source  = "cloudposse/ec2-autoscale-group/aws"
-  version = "0.34.2"
+  version = "0.35.1"
 
   image_id                    = var.spacelift_ami_id == null ? join("", data.aws_ami.spacelift.*.image_id) : var.spacelift_ami_id
   instance_type               = var.instance_type
@@ -120,7 +120,8 @@ module "autoscale_group" {
 
   # The instance refresh definition
   # If this block is configured, an Instance Refresh will be started when the Auto Scaling Group is updated
-  instance_refresh = var.instance_refresh
+  instance_refresh        = var.instance_refresh
+  launch_template_version = var.launch_template_version # this has to be empty for the instance refresh to work
 
   context = module.this.context
 }

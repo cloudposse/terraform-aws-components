@@ -9,6 +9,29 @@ You need an API Key stored in `/opsgenie/opsgenie_api_key` of SSM, this is confi
 
 Generate an API Key by going [here](https://id.atlassian.com/manage-profile/security/api-tokens) and Clicking **Create API Token**.
 
+Once you have the key, you'll need to test it with a curl to verify that you are at least
+on a Standard plan with OpsGenie:
+```
+curl -X GET 'https://api.opsgenie.com/v2/account'
+    --header "Authorization: GenieKey $API_KEY"
+```
+
+The result should be something similar to below:
+```
+{
+    "data": {
+        "name": "opsgenie",
+        "plan": {
+            "maxUserCount": 1500,
+            "name": "Enterprise",
+     ...
+}
+```
+
+If you see anything other than `Standard` or `Enterprise` in the plan, then you won't be able
+to use this component. You can see more details here:
+[OpsGenie pricing/features](https://www.atlassian.com/software/opsgenie/pricing#)
+
 #### Getting Started
 
 **Stack Level**: Global

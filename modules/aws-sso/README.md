@@ -12,17 +12,26 @@ This component assumes that AWS SSO has already been enabled via the AWS Console
 1. Select primary region
 1. Go to AWS SSO
 1. Enable AWS SSO
-1. Click Settings > Management
-1. Delegate Identity as an administrator
 
-Once identity is delegated, it will take up to 20 to 30 minutes for the identity account to understand its delegation.
+#### Delegation no longer recommended
+
+Previously, Cloud Posse recommended delegating SSO to the identity account by following the next 2 steps:
+1. Click Settings > Management
+1. Delegate Identity as an administrator. This can take up to 30 minutes to take effect.
+
+However, this is no longer recommended. Because the delegated SSO administrator cannot make changes in the `root` account
+and this component needs to be able to make changes in the `root` account, any purported security advantage achieved by
+delegating SSO to the `identity` account is lost.
+
+Nevertheless, it is also not worth the effort to remove the delegation. If you have already delegated SSO to the `identity`,
+continue on, leaving the stack configuration in the `gbl-identity` stack rather than the currently recommended `gbl-root` stack.
 
 ### Atmos
 
 **Stack Level**: Global
 **Deployment**: Must be deployed by root-admin using `atmos` CLI
 
-Add catalog to `gbl-identity` root stack.
+Add catalog to `gbl-root` root stack.
 
 #### `account_assignments`
 The `account_assignments` setting configures access to permission sets for users and groups in accounts, in the following structure:
@@ -164,14 +173,14 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_iam_roles_root"></a> [iam\_roles\_root](#module\_iam\_roles\_root) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_permission_sets"></a> [permission\_sets](#module\_permission\_sets) | cloudposse/sso/aws//modules/permission-sets | 1.1.1 |
 | <a name="module_role_map"></a> [role\_map](#module\_role\_map) | ../account-map/modules/roles-to-principals | n/a |
 | <a name="module_sso_account_assignments"></a> [sso\_account\_assignments](#module\_sso\_account\_assignments) | cloudposse/sso/aws//modules/account-assignments | 1.1.1 |
 | <a name="module_sso_account_assignments_root"></a> [sso\_account\_assignments\_root](#module\_sso\_account\_assignments\_root) | cloudposse/sso/aws//modules/account-assignments | 1.1.1 |
-| <a name="module_tfstate"></a> [tfstate](#module\_tfstate) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_tfstate"></a> [tfstate](#module\_tfstate) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
