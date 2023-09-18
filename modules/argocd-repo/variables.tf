@@ -15,11 +15,32 @@ variable "environments" {
     environment = string
     stage       = string
     auto-sync   = bool
+    ignore-differences = list(object({
+      group         = string,
+      kind          = string,
+      json-pointers = list(string)
+    }))
   }))
   description = <<-EOT
   Environments to populate `applicationset.yaml` files and repository deploy keys (for ArgoCD) for.
 
   `auto-sync` determines whether or not the ArgoCD application will be automatically synced.
+
+  `ignore-differences` determines whether or not the ArgoCD application will ignore the number of
+  replicas in the deployment. Read more on ignore differences here:
+  https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/#respect-ignore-difference-configs
+  Example:
+  ```
+  tenant: plat
+  environment: use1
+  stage: sandbox
+  auto-sync: true
+  ignore-differences:
+    - group: apps
+      kind: Deployment
+      json-pointers:
+        - /spec/replicas
+  ```
   EOT
   default     = []
 }
