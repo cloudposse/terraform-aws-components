@@ -4,16 +4,28 @@ variable "manage_secrets" {
   default     = true
 }
 
-variable "ecr_account" {
+variable "ecr_component_name" {
   type        = string
-  description = "The name of the ECR account to use for the ECR registry"
+  description = "The name of the ECR component"
+  default     = "ecr"
+}
+
+variable "ecr_stage_name" {
+  type        = string
+  description = "The name of the stage where the ECR component is deployed"
   default     = "artifacts"
+}
+
+variable "ecr_environment_name" {
+  type        = string
+  description = "The name of the environment where the ECR component is deployed. Defaults to `module.this.environment`"
+  default     = null
 }
 
 variable "ecr_region" {
   type        = string
-  description = "The name of the ECR region to use for the ECR registry"
-  default     = "us-east-2"
+  description = "The name of the ECR region to use for the ECR registry. Defaults to `var.region`"
+  default     = null
 }
 
 resource "random_password" "action_passphrase" {
@@ -24,11 +36,11 @@ module "ecr" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "1.5.0"
 
-  component = "ecr"
+  component   = var.ecr_component_name
+  stage       = var.ecr_stage_name
+  environment = var.ecr_environment_name
 
-  context     = module.this.context
-  stage       = var.ecr_account
-  environment = "use2"
+  context = module.this.context
 }
 
 locals {
@@ -36,7 +48,7 @@ locals {
     PRIVATE_REPO_ACCESS_TOKEN    = join("", data.aws_ssm_parameter.github_api_key.*.value)
     GHA_SECRET_OUTPUT_PASSPHRASE = random_password.action_passphrase.result
     ECR_REGISTRY                 = module.ecr.outputs.repository_host
-    ECR_REGION                   = var.ecr_region
+    ECR_REGION                   = length(var.ecr_region) > 0 ? var.ecr_region : var.region
     ECR_IAM_ROLE                 = module.ecr.outputs.github_actions_iam_role_arn
   }
 }
