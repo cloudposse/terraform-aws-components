@@ -23,7 +23,7 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: regcred
+  name: {{ .Values.release_name }}-regcred
 type: kubernetes.io/dockerconfigjson
 data:
   .dockerconfigjson: {{ .Values.docker_config_json }}
@@ -117,7 +117,7 @@ spec:
       imagePullPolicy: IfNotPresent
       {{- if  .Values.docker_config_json_enabled }}
       imagePullSecrets:
-        - name: regcred
+        - name: {{ .Values.release_name }}-regcred
       {{- end }}
       serviceAccountName: {{ .Values.service_account_name }}
       resources:
@@ -171,7 +171,7 @@ spec:
         {{- if .Values.docker_config_json_enabled }}
         - name: docker-secret
           secret:
-            secretName: regcred
+            secretName: {{ .Values.release_name }}-regcred
             items:
               - key: .dockerconfigjson
                 path: config.json
