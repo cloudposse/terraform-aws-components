@@ -47,12 +47,28 @@ components:
             ttl: 60
             records:
               - 53.229.170.215
+          # using a period at the end of a name
           - root_zone: example.net
-            name: www
+            name: www.
             type: CNAME
             ttl: 60
             records:
               - example.net
+          # using numbers as name requires quotes
+          - root_zone: example.net
+            name: "123456."
+            type: CNAME
+            ttl: 60
+            records:
+              - example.net
+          # strings that are very long, this could be a DKIM key
+          - root_zone: example.net
+            name: service._domainkey.
+            type: CNAME
+            ttl: 60
+            records:
+              - !!str |-
+                YourVeryLongStringGoesHere
 ```
 
 :::info
