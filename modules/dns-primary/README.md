@@ -61,7 +61,7 @@ components:
             ttl: 60
             records:
               - example.net
-          # strings that are very long, this could be a DKIM key 
+          # strings that are very long, this could be a DKIM key
           - root_zone: example.net
             name: service._domainkey.
             type: CNAME
