@@ -29,6 +29,7 @@ variable "ecr_region" {
 }
 
 resource "random_password" "action_passphrase" {
+  count  = local.enabled ? 1 : 0
   length = 40
 }
 
@@ -46,7 +47,7 @@ module "ecr" {
 locals {
   secrets = {
     PRIVATE_REPO_ACCESS_TOKEN    = join("", data.aws_ssm_parameter.github_api_key.*.value)
-    GHA_SECRET_OUTPUT_PASSPHRASE = random_password.action_passphrase.result
+    GHA_SECRET_OUTPUT_PASSPHRASE = one(random_password.action_passphrase[*].result)
     ECR_REGISTRY                 = module.ecr.outputs.repository_host
     ECR_REGION                   = length(var.ecr_region) > 0 ? var.ecr_region : var.region
     ECR_IAM_ROLE                 = module.ecr.outputs.github_actions_iam_role_arn
