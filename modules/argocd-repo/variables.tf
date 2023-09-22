@@ -135,6 +135,6 @@ variable "github_default_notifications_enabled" {
 
 variable "create_repo" {
   type        = bool
-  description = "Whether or not to create the repository"
+  description = "Whether or not to create the repository or use an existing one"
   default     = true
 }
