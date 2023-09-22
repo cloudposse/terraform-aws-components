@@ -213,6 +213,7 @@ module "argocd_apps" {
         tenant            = module.this.tenant
         environment       = var.environment
         stage             = var.stage
+        attributes        = var.attributes
       }
     ),
   ])
