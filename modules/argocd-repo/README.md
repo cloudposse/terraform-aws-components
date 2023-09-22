@@ -93,14 +93,12 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
 | <a name="provider_github"></a> [github](#provider\_github) | >= 4.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | >= 2.3 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | >= 3.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ecr"></a> [ecr](#module\_ecr) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_store_write"></a> [store\_write](#module\_store\_write) | cloudposse/ssm-parameter-store/aws | 0.11.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -109,7 +107,6 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 
 | Name | Type |
 |------|------|
-| [github_actions_secret.default](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
 | [github_branch_default.default](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default) | resource |
 | [github_branch_protection.default](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_protection) | resource |
 | [github_repository.default](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository) | resource |
@@ -120,7 +117,6 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 | [github_repository_file.pull_request_template](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_file) | resource |
 | [github_repository_file.readme](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_file) | resource |
 | [github_team_repository.default](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_repository) | resource |
-| [random_password.action_passphrase](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 | [tls_private_key.default](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) | resource |
 | [aws_ssm_parameter.github_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [github_repository.default](https://registry.terraform.io/providers/integrations/github/latest/docs/data-sources/repository) | data source |
@@ -138,10 +134,6 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_description"></a> [description](#input\_description) | The description of the repository | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_ecr_component_name"></a> [ecr\_component\_name](#input\_ecr\_component\_name) | The name of the ECR component | `string` | `"ecr"` | no |
-| <a name="input_ecr_environment_name"></a> [ecr\_environment\_name](#input\_ecr\_environment\_name) | The name of the environment where the ECR component is deployed. Defaults to `module.this.environment` | `string` | `null` | no |
-| <a name="input_ecr_region"></a> [ecr\_region](#input\_ecr\_region) | The name of the ECR region to use for the ECR registry. Defaults to `var.region` | `string` | `null` | no |
-| <a name="input_ecr_stage_name"></a> [ecr\_stage\_name](#input\_ecr\_stage\_name) | The name of the stage where the ECR component is deployed | `string` | `"artifacts"` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_environments"></a> [environments](#input\_environments) | Environments to populate `applicationset.yaml` files and repository deploy keys (for ArgoCD) for.<br><br>`auto-sync` determines whether or not the ArgoCD application will be automatically synced.<br><br>`ignore-differences` determines whether or not the ArgoCD application will ignore the number of<br>replicas in the deployment. Read more on ignore differences here:<br>https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/#respect-ignore-difference-configs<br><br>Example:<pre>tenant: plat<br>environment: use1<br>stage: sandbox<br>auto-sync: true<br>ignore-differences:<br>  - group: apps<br>    kind: Deployment<br>    json-pointers:<br>      - /spec/replicas</pre> | <pre>list(object({<br>    tenant      = optional(string, null)<br>    environment = string<br>    stage       = string<br>    attributes  = optional(list(string), [])<br>    auto-sync   = bool<br>    ignore-differences = optional(list(object({<br>      group         = string,<br>      kind          = string,<br>      json-pointers = list(string)<br>    })), [])<br>  }))</pre> | `[]` | no |
@@ -158,7 +150,6 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_manage_secrets"></a> [manage\_secrets](#input\_manage\_secrets) | Whether to manage secrets or not | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_permissions"></a> [permissions](#input\_permissions) | A list of Repository Permission objects used to configure the team permissions of the repository<br><br>`team_slug` should be the name of the team without the `@{org}` e.g. `@cloudposse/team` => `team`<br>`permission` is just one of the available values listed below | <pre>list(object({<br>    team_slug  = string,<br>    permission = string<br>  }))</pre> | `[]` | no |
