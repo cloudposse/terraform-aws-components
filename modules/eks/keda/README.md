@@ -14,22 +14,19 @@ Use this in the catalog or use these variables to overwrite the catalog values.
 components:
   terraform:
     eks/keda:
+      settings:
+        spacelift:
+          workspace_enabled: true
       vars:
         enabled: true
-        name: "keda"
-        kubernetes_namespace: "keda"
+        name: keda
         create_namespace: true
-        timeout: 90
-        wait: true
-        atomic: true
-        cleanup_on_fail: true
-        resources:
-          requests:
-            cpu: 200m
-            memory: 256Mi
-          limits:
-            cpu: 1000m
-            memory: 1024Mi
+        kubernetes_namespace: "keda"
+        chart_repository: "https://kedacore.github.io/charts"
+        chart: "keda"
+        chart_version: "2.11.2" 
+        chart_values: {}
+        timeout: 180
 
 ```
 
