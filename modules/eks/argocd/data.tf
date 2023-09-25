@@ -31,10 +31,11 @@ data "aws_ssm_parameter" "github_deploy_key" {
   name = local.enabled ? format(
     module.argocd_repo[each.key].outputs.deploy_keys_ssm_path_format,
     format(
-      "${module.this.tenant != null ? "%[1]s/" : ""}%[2]s-%[3]s",
+      "${module.this.tenant != null ? "%[1]s/" : ""}%[2]s-%[3]s${length(module.this.attributes) > 0 ? "-%[4]s" : "%[4]s"}",
       module.this.tenant,
       module.this.environment,
-      module.this.stage
+      module.this.stage,
+      "${join("-", module.this.attributes)}"
     )
   ) : null
 

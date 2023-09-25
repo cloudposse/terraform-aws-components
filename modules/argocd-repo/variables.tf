@@ -11,15 +11,16 @@ variable "description" {
 
 variable "environments" {
   type = list(object({
-    tenant      = string
+    tenant      = optional(string, null)
     environment = string
     stage       = string
+    attributes  = optional(list(string), [])
     auto-sync   = bool
-    ignore-differences = list(object({
+    ignore-differences = optional(list(object({
       group         = string,
       kind          = string,
       json-pointers = list(string)
-    }))
+    })), [])
   }))
   description = <<-EOT
   Environments to populate `applicationset.yaml` files and repository deploy keys (for ArgoCD) for.
@@ -29,6 +30,7 @@ variable "environments" {
   `ignore-differences` determines whether or not the ArgoCD application will ignore the number of
   replicas in the deployment. Read more on ignore differences here:
   https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/#respect-ignore-difference-configs
+
   Example:
   ```
   tenant: plat
@@ -126,7 +128,13 @@ variable "permissions" {
 }
 
 variable "github_default_notifications_enabled" {
-  type        = bool
-  default     = true
+  type        = string
   description = "Enable default GitHub commit statuses notifications (required for CD sync mode)"
+  default     = true
+}
+
+variable "create_repo" {
+  type        = bool
+  description = "Whether or not to create the repository or use an existing one"
+  default     = true
 }
