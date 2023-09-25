@@ -14,9 +14,6 @@ Use this in the catalog or use these variables to overwrite the catalog values.
 components:
   terraform:
     eks/keda:
-      settings:
-        spacelift:
-          workspace_enabled: true
       vars:
         enabled: true
         name: keda
