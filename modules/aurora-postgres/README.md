@@ -158,8 +158,6 @@ components:
         storage_encrypted: true
         deletion_protection: true
         skip_final_snapshot: false
-        # Creating read-only users or additional databases requires Spacelift
-        read_only_users_enabled: false
         # Enhanced Monitoring
         # A boolean flag to enable/disable the creation of the enhanced monitoring IAM role.
         # If set to false, the module will not create a new role and will use rds_monitoring_role_arn for enhanced monitoring
@@ -216,8 +214,6 @@ components:
         storage_encrypted: true
         deletion_protection: true
         skip_final_snapshot: false
-        # Creating read-only users or additional databases requires Spacelift
-        read_only_users_enabled: false
         # Enhanced Monitoring
         # A boolean flag to enable/disable the creation of the enhanced monitoring IAM role.
         # If set to false, the module will not create a new role and will use rds_monitoring_role_arn for enhanced monitoring
