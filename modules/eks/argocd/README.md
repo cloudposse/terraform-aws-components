@@ -348,6 +348,36 @@ components:
         github_webhook_enabled: true
 ```
 
+## Troubleshooting
+
+## Login to ArgoCD admin UI
+
+For ArgoCD v1.9 and later, the initial admin password is available from a Kubernetes secret named `argocd-initial-admin-secret`.
+To get the initial password, execute the following command:
+
+```shell
+kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 --decode
+```
+
+Then open the ArgoCD admin UI and use the username `admin` and the password obtained in the previous step to log in to the ArgoCD admin.
+
+## Error "server.secretkey is missing"
+
+If you provision a new version of the `eks/argocd` component, and some Helm Chart values get updated, you might encounter the error
+"server.secretkey is missing" in the ArgoCD admin UI. To fix the error, execute the following commands:
+
+```shell
+# Download `kubeconfig` and set EKS cluster
+set-eks-cluster cluster-name
+
+# Restart the `argocd-server` Pods
+kubectl rollout restart deploy/argocd-server -n argocd
+
+# Get the new admin password from the Kubernetes secret
+kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 --decode
+```
+Reference: https://stackoverflow.com/questions/75046330/argo-cd-error-server-secretkey-is-missing
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
