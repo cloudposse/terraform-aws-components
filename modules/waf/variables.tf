@@ -31,6 +31,15 @@ variable "default_action" {
   }
 }
 
+variable "default_block_response" {
+  type        = string
+  default     = null
+  description = <<-DOC
+    A HTTP response code that is sent when default action is used. Only takes effect if default_action is set to `block`.
+  DOC
+  nullable    = true
+}
+
 variable "custom_response_body" {
   type = map(object({
     content      = string

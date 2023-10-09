@@ -18,7 +18,7 @@ locals {
 
 module "aws_waf" {
   source  = "cloudposse/waf/aws"
-  version = "1.2.0"
+  version = "1.3.0"
 
   description          = var.description
   default_action       = var.default_action
@@ -48,6 +48,7 @@ module "aws_waf" {
   size_constraint_statement_rules             = var.size_constraint_statement_rules
   sqli_match_statement_rules                  = var.sqli_match_statement_rules
   xss_match_statement_rules                   = var.xss_match_statement_rules
+  default_block_response                      = var.default_block_response
 
   context = module.this.context
 }
