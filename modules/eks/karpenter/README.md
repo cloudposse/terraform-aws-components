@@ -38,7 +38,7 @@ components:
           requests:
             cpu: "100m"
             memory: "512Mi"
-        cleanup_on_fail: false
+        cleanup_on_fail: true
         atomic: true
         wait: true
         rbac_enabled: true
