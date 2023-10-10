@@ -25,10 +25,54 @@ resource "aws_iam_instance_profile" "default" {
   tags = module.this.tags
 }
 
+# Deploy karpenter-crd helm chart
+# "karpenter-crd" can be installed as an independent helm chart to manage the lifecycle of Karpenter CRDs
+module "karpenter_crd" {
+  enabled = local.enabled && var.crd_chart_enabled
+
+  source  = "cloudposse/helm-release/aws"
+  version = "0.10.1"
+
+  name            = var.crd_chart
+  chart           = var.crd_chart
+  repository      = var.chart_repository
+  description     = var.chart_description
+  chart_version   = var.chart_version
+  wait            = var.wait
+  atomic          = var.atomic
+  cleanup_on_fail = var.cleanup_on_fail
+  timeout         = var.timeout
+
+  create_namespace_with_kubernetes = var.create_namespace
+  kubernetes_namespace             = var.kubernetes_namespace
+  kubernetes_namespace_labels      = merge(module.this.tags, { name = var.kubernetes_namespace })
+
+  eks_cluster_oidc_issuer_url = coalesce(replace(local.eks_cluster_identity_oidc_issuer, "https://", ""), "deleted")
+
+  service_account_name      = module.this.name
+  service_account_namespace = var.kubernetes_namespace
+
+  values = compact([
+    # standard k8s object settings
+    yamlencode({
+      fullnameOverride = module.this.name
+      serviceAccount = {
+        name = module.this.name
+      }
+      resources = var.resources
+      rbac = {
+        create = var.rbac_enabled
+      }
+    }),
+  ])
+
+  context = module.this.context
+}
+
 # Deploy Karpenter helm chart
 module "karpenter" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.10.0"
+  version = "0.10.1"
 
   chart           = var.chart
   repository      = var.chart_repository
@@ -39,7 +83,8 @@ module "karpenter" {
   cleanup_on_fail = var.cleanup_on_fail
   timeout         = var.timeout
 
-  create_namespace_with_kubernetes = var.create_namespace
+  # If crd chart is enabled, the namespace will be created with the crd chart first
+  create_namespace_with_kubernetes = (var.create_namespace && !var.crd_chart_enabled)
   kubernetes_namespace             = var.kubernetes_namespace
   kubernetes_namespace_labels      = merge(module.this.tags, { name = var.kubernetes_namespace })
 
@@ -161,5 +206,8 @@ module "karpenter" {
 
   context = module.this.context
 
-  depends_on = [aws_iam_instance_profile.default]
+  depends_on = [
+    aws_iam_instance_profile.default,
+    module.karpenter_crd
+  ]
 }
