@@ -24,8 +24,8 @@ locals {
   } : {}
   context_dd_tags = {
     context_dd_tags = join(",", [
-      for k, v in local.context_tags :
-      v != null ? format("%s:%s", k, v) : k
+      for k, v in local.context_tags : (
+      v != null ? format("%s:%s", k, v) : k)
     ])
   }
 
@@ -41,7 +41,6 @@ locals {
       message = format("%s%s%s", var.message_prefix, lookup(v.merged, "message", ""), var.message_postfix)
     })
   }
-
 }
 
 # Convert all Datadog Monitors from YAML config to Terraform map with token replacement using `parameters`
@@ -82,10 +81,12 @@ module "datadog_monitors_merge" {
   version = "1.0.2"
 
   # for_each = { for k, v in local.datadog_monitors_yaml_config_map_configs : k => v if local.datadog_monitors_enabled }
-  for_each = { for k, v in merge(
-    module.local_datadog_monitors_yaml_config.map_configs,
-    module.remote_datadog_monitors_yaml_config.map_configs
-  ) : k => v if local.datadog_monitors_enabled }
+  for_each = {
+    for k, v in merge(
+      module.local_datadog_monitors_yaml_config.map_configs,
+      module.remote_datadog_monitors_yaml_config.map_configs
+    ) : k => v if local.datadog_monitors_enabled
+  }
 
   # Merge in order: datadog monitor, datadog monitor globals, context tags
   maps = [

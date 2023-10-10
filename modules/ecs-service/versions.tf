@@ -18,5 +18,9 @@ terraform {
       source  = "cloudposse/template"
       version = ">= 2.2"
     }
+    jq = {
+      source  = "massdriver-cloud/jq"
+      version = ">=0.2.0"
+    }
   }
 }

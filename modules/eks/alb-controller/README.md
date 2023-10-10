@@ -6,6 +6,14 @@ This component creates a Helm release for [alb-controller](https://github.com/ku
 in the context of AWS, provisions and manages ALBs and NLBs based on Service and Ingress annotations.
 This module also can (and is recommended to) provision a default IngressClass.
 
+### Special note about upgrading
+
+When upgrading the chart version, check to see if the IAM policy for the service account needs to be updated.
+If it does, update the policy in the `distributed-iam-policy.tf` file.
+Probably the easiest way to check if it needs updating is to simply download the policy from
+https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
+and compare it to the policy in `distributed-iam-policy.tf`.
+
 ## Usage
 
 **Stack Level**: Regional
@@ -27,7 +35,9 @@ components:
       vars:
         chart: aws-load-balancer-controller
         chart_repository: https://aws.github.io/eks-charts
-        chart_version: "1.4.5"
+        # IMPORTANT: When updating the chart version, check to see if the IAM policy for the service account.
+        # needs to be updated, and if it does, update the policy in the `distributed-iam-policy.tf` file.
+        chart_version: "1.6.0"
         create_namespace: true
         kubernetes_namespace: alb-controller
         # this feature causes inconsistent final plans
@@ -67,8 +77,8 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_alb_controller"></a> [alb\_controller](#module\_alb\_controller) | cloudposse/helm-release/aws | 0.9.1 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_alb_controller"></a> [alb\_controller](#module\_alb\_controller) | cloudposse/helm-release/aws | 0.10.0 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 

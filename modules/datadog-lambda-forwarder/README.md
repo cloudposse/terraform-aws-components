@@ -1,7 +1,8 @@
 # Component: `datadog-lambda-forwarder`
 
 This component is responsible for provision all the necessary infrastructure to
-deploy [Datadog Lambda forwarders](https://github.com/DataDog/datadog-serverless-functions/tree/master/aws/logs_monitoring).
+deploy [Datadog Lambda forwarders](https://github.com/DataDog/datadog-serverless-functions/tree/master/aws/logs_monitoring).  It depends on
+the `datadog-configuration` component to get the Datadog API keys.
 
 
 ## Usage
@@ -62,9 +63,9 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_datadog-integration"></a> [datadog-integration](#module\_datadog-integration) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_datadog-integration"></a> [datadog-integration](#module\_datadog-integration) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | ../datadog-configuration/modules/datadog_keys | n/a |
-| <a name="module_datadog_lambda_forwarder"></a> [datadog\_lambda\_forwarder](#module\_datadog\_lambda\_forwarder) | cloudposse/datadog-lambda-forwarder/aws | 1.3.1 |
+| <a name="module_datadog_lambda_forwarder"></a> [datadog\_lambda\_forwarder](#module\_datadog\_lambda\_forwarder) | cloudposse/datadog-lambda-forwarder/aws | 1.5.3 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_log_group_prefix"></a> [log\_group\_prefix](#module\_log\_group\_prefix) | cloudposse/label/null | 0.25.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -92,7 +93,7 @@ components:
 | <a name="input_datadog_forwarder_lambda_environment_variables"></a> [datadog\_forwarder\_lambda\_environment\_variables](#input\_datadog\_forwarder\_lambda\_environment\_variables) | Map of environment variables to pass to the Lambda Function | `map(string)` | `{}` | no |
 | <a name="input_dd_api_key_kms_ciphertext_blob"></a> [dd\_api\_key\_kms\_ciphertext\_blob](#input\_dd\_api\_key\_kms\_ciphertext\_blob) | CiphertextBlob stored in environment variable DD\_KMS\_API\_KEY used by the lambda function, along with the KMS key, to decrypt Datadog API key | `string` | `""` | no |
 | <a name="input_dd_artifact_filename"></a> [dd\_artifact\_filename](#input\_dd\_artifact\_filename) | The Datadog artifact filename minus extension | `string` | `"aws-dd-forwarder"` | no |
-| <a name="input_dd_forwarder_version"></a> [dd\_forwarder\_version](#input\_dd\_forwarder\_version) | Version tag of Datadog lambdas to use. https://github.com/DataDog/datadog-serverless-functions/releases | `string` | `"3.61.0"` | no |
+| <a name="input_dd_forwarder_version"></a> [dd\_forwarder\_version](#input\_dd\_forwarder\_version) | Version tag of Datadog lambdas to use. https://github.com/DataDog/datadog-serverless-functions/releases | `string` | `"3.66.0"` | no |
 | <a name="input_dd_module_name"></a> [dd\_module\_name](#input\_dd\_module\_name) | The Datadog GitHub repository name | `string` | `"datadog-serverless-functions"` | no |
 | <a name="input_dd_tags_map"></a> [dd\_tags\_map](#input\_dd\_tags\_map) | A map of Datadog tags to apply to all logs forwarded to Datadog | `map(string)` | `{}` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |

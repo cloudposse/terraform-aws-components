@@ -6,25 +6,26 @@ variable "kubernetes_namespace" {
 variable "chart_description" {
   type        = string
   description = "Set release description attribute (visible in the history)."
-  default     = null
+  default     = "External Secrets Operator is a Kubernetes operator that integrates external secret management systems including AWS SSM, Parameter Store, Hasicorp Vault, 1Password Secrets Automation, etc. It reads values from external vaults and injects values as a Kubernetes Secret"
 }
 
 variable "chart_repository" {
   type        = string
   description = "Repository URL where to locate the requested chart."
-  default     = null
+  default     = "https://charts.external-secrets.io"
 }
 
 variable "chart" {
   type        = string
   description = "Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended."
-  default     = null
+  default     = "external-secrets"
 }
 
 variable "chart_version" {
   type        = string
   description = "Specify the exact chart version to install. If this is not specified, the latest version is installed."
-  default     = null
+  default     = "0.6.0-rc1"
+  # using RC to address this bug https://github.com/external-secrets/external-secrets/issues/1511
 }
 
 variable "chart_values" {

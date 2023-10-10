@@ -5,22 +5,9 @@ locals {
 
   attributes = flatten(concat(module.this.attributes, [var.color]))
 
-  this_account_name     = module.iam_roles.current_account_account_name
-  identity_account_name = module.iam_roles.identity_account_account_name
+  this_account_name = module.iam_roles.current_account_account_name
 
-  role_map = merge({
-    (local.identity_account_name) = var.aws_teams_rbac[*].aws_team
-    }, {
-    (local.this_account_name) = var.aws_team_roles_rbac[*].aws_team_role
-  })
-
-  aws_teams_auth = [for role in var.aws_teams_rbac : {
-    rolearn = module.iam_arns.principals_map[local.identity_account_name][role.aws_team]
-    # Session name included in audit trail automatically starting with Kubernetes v1.20.
-    # See https://aws.github.io/aws-eks-best-practices/security/docs/iam/#use-iam-roles-when-multiple-users-need-identical-access-to-the-cluster
-    username = format("%s-%s", local.identity_account_name, role.aws_team)
-    groups   = role.groups
-  }]
+  role_map = { (local.this_account_name) = var.aws_team_roles_rbac[*].aws_team_role }
 
   aws_team_roles_auth = [for role in var.aws_team_roles_rbac : {
     rolearn  = module.iam_arns.principals_map[local.this_account_name][role.aws_team_role]
@@ -47,7 +34,6 @@ locals {
   ]
 
   map_additional_iam_roles = concat(
-    local.aws_teams_auth,
     local.aws_team_roles_auth,
     local.aws_sso_iam_roles_auth,
     var.map_additional_iam_roles,
@@ -78,16 +64,67 @@ locals {
 
   vpc_id = local.vpc_outputs.vpc_id
 
+  availability_zones_expanded = local.enabled && length(var.availability_zones) > 0 && length(var.availability_zone_ids) == 0 ? (
+    (substr(
+      var.availability_zones[0],
+      0,
+      length(var.region)
+    ) == var.region) ? var.availability_zones : formatlist("${var.region}%s", var.availability_zones)
+  ) : []
+
+  short_region = module.utils.region_az_alt_code_maps["to_short"][var.region]
+
+  availability_zone_ids_expanded = local.enabled && length(var.availability_zone_ids) > 0 ? (
+    (substr(
+      var.availability_zone_ids[0],
+      0,
+      length(local.short_region)
+    ) == local.short_region) ? var.availability_zone_ids : formatlist("${local.short_region}%s", var.availability_zone_ids)
+  ) : []
+
+  # Create a map of AZ IDs to AZ names (and the reverse),
+  # but fail safely, because AZ IDs are not always available.
+  az_id_map = length(local.availability_zone_ids_expanded) > 0 ? try(zipmap(data.aws_availability_zones.default[0].zone_ids, data.aws_availability_zones.default[0].names), {}) : {}
+
+  availability_zones_normalized = length(local.availability_zone_ids_expanded) > 0 ? [
+  for v in local.availability_zone_ids_expanded : local.az_id_map[v]] : local.availability_zones_expanded
+
   # Get only the public subnets that correspond to the AZs provided in `var.availability_zones`
   # `az_public_subnets_map` is a map of AZ names to list of public subnet IDs in the AZs
-  public_subnet_ids = flatten([for k, v in local.vpc_outputs.az_public_subnets_map : v if contains(var.availability_zones, k) || length(var.availability_zones) == 0])
+  # LEGACY SUPPORT for legacy VPC with no az_public_subnets_map
+  public_subnet_ids = try(flatten([for k, v in local.vpc_outputs.az_public_subnets_map : v if contains(var.availability_zones, k) || length(var.availability_zones) == 0]),
+  local.vpc_outputs.public_subnet_ids)
 
   # Get only the private subnets that correspond to the AZs provided in `var.availability_zones`
   # `az_private_subnets_map` is a map of AZ names to list of private subnet IDs in the AZs
-  private_subnet_ids = flatten([for k, v in local.vpc_outputs.az_private_subnets_map : v if contains(var.availability_zones, k) || length(var.availability_zones) == 0])
+  # LEGACY SUPPORT for legacy VPC with no az_public_subnets_map
+  private_subnet_ids = try(flatten([for k, v in local.vpc_outputs.az_private_subnets_map : v if contains(var.availability_zones, k) || length(var.availability_zones) == 0]),
+  local.vpc_outputs.private_subnet_ids)
 
   # Infer the availability zones from the private subnets if var.availability_zones is empty:
-  availability_zones = length(var.availability_zones) == 0 ? keys(local.vpc_outputs.az_private_subnets_map) : var.availability_zones
+  availability_zones = local.enabled ? (length(local.availability_zones_normalized) == 0 ? keys(local.vpc_outputs.az_private_subnets_map) : local.availability_zones_normalized) : []
+}
+
+data "aws_availability_zones" "default" {
+  count = length(local.availability_zone_ids_expanded) > 0 ? 1 : 0
+
+  # Filter out Local Zones. See https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones#by-filter
+  filter {
+    name   = "opt-in-status"
+    values = ["opt-in-not-required"]
+  }
+
+  lifecycle {
+    postcondition {
+      condition     = length(self.zone_ids) > 0
+      error_message = "No availability zones IDs found in region ${var.region}. You must specify availability zones instead."
+    }
+  }
+}
+
+module "utils" {
+  source  = "cloudposse/utils/aws"
+  version = "1.3.0"
 }
 
 module "eks_cluster" {
@@ -111,7 +148,7 @@ module "eks_cluster" {
 
   allowed_security_groups      = var.allowed_security_groups
   allowed_cidr_blocks          = local.allowed_cidr_blocks
-  apply_config_map_aws_auth    = var.apply_config_map_aws_auth
+  apply_config_map_aws_auth    = local.enabled && var.apply_config_map_aws_auth
   cluster_log_retention_period = var.cluster_log_retention_period
   enabled_cluster_log_types    = var.enabled_cluster_log_types
   endpoint_private_access      = var.cluster_endpoint_private_access

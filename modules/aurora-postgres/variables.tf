@@ -274,6 +274,7 @@ variable "eks_component_names" {
 
 variable "allow_ingress_from_vpc_accounts" {
   type = list(object({
+    vpc         = optional(string, "vpc")
     environment = optional(string)
     stage       = optional(string)
     tenant      = optional(string)
@@ -287,6 +288,8 @@ variable "allow_ingress_from_vpc_accounts" {
       stage       = "auto",
       tenant      = "core"
     }
+
+    Defaults to the "vpc" component in the given account
   EOF
 }
 
@@ -298,4 +301,31 @@ variable "ssm_password_source" {
     `var.ssm_password_source` and the database username. If this value is not set,
     a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster.
     EOT
+}
+
+variable "vpc_component_name" {
+  type        = string
+  default     = "vpc"
+  description = "The name of the VPC component"
+}
+
+variable "scaling_configuration" {
+  type = list(object({
+    auto_pause               = bool
+    max_capacity             = number
+    min_capacity             = number
+    seconds_until_auto_pause = number
+    timeout_action           = string
+  }))
+  default     = []
+  description = "List of nested attributes with scaling properties. Only valid when `engine_mode` is set to `serverless`. This is required for Serverless v1"
+}
+
+variable "serverlessv2_scaling_configuration" {
+  type = object({
+    min_capacity = number
+    max_capacity = number
+  })
+  default     = null
+  description = "Nested attribute with scaling properties for ServerlessV2. Only valid when `engine_mode` is set to `provisioned.` This is required for Serverless v2"
 }

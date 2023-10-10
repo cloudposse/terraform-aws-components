@@ -18,7 +18,7 @@ resource "kubernetes_namespace" "default" {
 # https://external-secrets.io/v0.5.9/guides-getting-started/
 module "external_secrets_operator" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.8.1"
+  version = "0.10.0"
 
   name        = "" # avoid redundant release name in IAM role: ...-ekc-cluster-external-secrets-operator-external-secrets-operator@secrets
   description = var.chart_description
@@ -76,9 +76,17 @@ module "external_secrets_operator" {
   context = module.this.context
 }
 
+data "kubernetes_resources" "crd" {
+  api_version    = "apiextensions.k8s.io/v1"
+  kind           = "CustomResourceDefinition"
+  field_selector = "metadata.name==externalsecrets.external-secrets.io"
+}
+
 module "external_ssm_secrets" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.8.1"
+  version = "0.10.0"
+
+  enabled = local.enabled && length(data.kubernetes_resources.crd.objects) > 0
 
   name        = "ssm" # distinguish from external_secrets_operator
   description = "This Chart uses creates a SecretStore and ExternalSecret to pull variables (under a given path) from AWS SSM Parameter Store into a Kubernetes secret."

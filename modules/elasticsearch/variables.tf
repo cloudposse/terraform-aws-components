@@ -23,6 +23,18 @@ variable "dedicated_master_enabled" {
   description = "Indicates whether dedicated master nodes are enabled for the cluster"
 }
 
+variable "dedicated_master_count" {
+  type        = number
+  description = "Number of dedicated master nodes in the cluster"
+  default     = 0
+}
+
+variable "dedicated_master_type" {
+  type        = string
+  default     = "t2.small.elasticsearch"
+  description = "Instance type of the dedicated master nodes in the cluster"
+}
+
 variable "elasticsearch_subdomain_name" {
   type        = string
   description = "The name of the subdomain for Elasticsearch in the DNS zone (_e.g._ `elasticsearch`, `ui`, `ui-es`, `search-ui`)"

@@ -1,6 +1,6 @@
 module "requester_vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   component = var.requester_vpc_component_name
 

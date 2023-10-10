@@ -30,6 +30,8 @@ module "elasticsearch" {
   availability_zone_count        = length(local.vpc_private_subnet_ids)
   encrypt_at_rest_enabled        = var.encrypt_at_rest_enabled
   dedicated_master_enabled       = var.dedicated_master_enabled
+  dedicated_master_count         = var.dedicated_master_enabled ? var.dedicated_master_count : null
+  dedicated_master_type          = var.dedicated_master_enabled ? var.dedicated_master_type : null
   create_iam_service_linked_role = var.create_iam_service_linked_role
   kibana_subdomain_name          = module.this.environment
   ebs_volume_size                = var.ebs_volume_size
