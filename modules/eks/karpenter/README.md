@@ -286,7 +286,7 @@ For your cluster, you will need to review the following configurations for the K
 
 ## Node Interruption
 
-Karpenter also supports Node Interruption. If interruption-handling is enabled, Karpenter will watch for upcoming involuntary interruption events that would cause disruption to your workloads. These interruption events include:
+Karpenter also supports listening for and responding to Node Interruption events. If interruption handling is enabled, Karpenter will watch for upcoming involuntary interruption events that would cause disruption to your workloads. These interruption events include:
 
 - Spot Interruption Warnings
 - Scheduled Change Health Events (Maintenance Events)
@@ -295,13 +295,13 @@ Karpenter also supports Node Interruption. If interruption-handling is enabled, 
 
 :::info
 
-The Node Interruption Handler is not the same as the Node Termination Handler. The latter works fine and cleanly shuts down the node in 2 minutes. The former gets advance notice, so it can have 5-10 minutes to shut down a node.
+The Node Interruption Handler is not the same as the Node Termination Handler. The latter is always enabled and cleanly shuts down the node in 2 minutes in response to a Node Termination event. The former gets advance notice that a node will soon be terminated, so it can have 5-10 minutes to shut down a node.
 
 :::
 
 For more details, see refer to [Karpenter docs](https://karpenter.sh/v0.27.5/concepts/deprovisioning/#interruption)
 
-To enable Node Interruption, set `var.interruption_handler_enabled` to `true`. This will enable a SQS queue and a set of Event Bridge rules to handle interruption with Karpenter.
+To enable Node Interruption handling, set `var.interruption_handler_enabled` to `true`. This will create an SQS queue and a set of Event Bridge rules to deliver interruption events to Karpenter.
 
 ## Custom Resource Definition (CRD) Management
 
