@@ -25,6 +25,11 @@ resource "aws_iam_instance_profile" "default" {
   tags = module.this.tags
 }
 
+moved {
+  from = module.karpenter.kubernetes_namespace.default[0]
+  to   = kubernetes_namespace.default
+}
+
 resource "kubernetes_namespace" "default" {
   count = local.enabled && var.create_namespace ? 1 : 0
 
@@ -71,6 +76,10 @@ module "karpenter_crd" {
   ])
 
   context = module.this.context
+
+  depends_on = [
+    kubernetes_namespace.default
+  ]
 }
 
 # Deploy Karpenter helm chart
@@ -211,6 +220,7 @@ module "karpenter" {
 
   depends_on = [
     aws_iam_instance_profile.default,
-    module.karpenter_crd
+    module.karpenter_crd,
+    kubernetes_namespace.default
   ]
 }
