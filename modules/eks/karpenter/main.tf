@@ -25,6 +25,16 @@ resource "aws_iam_instance_profile" "default" {
   tags = module.this.tags
 }
 
+resource "kubernetes_namespace" "default" {
+  count = local.enabled && var.create_namespace ? 1 : 0
+
+  metadata {
+    name        = var.kubernetes_namespace
+    annotations = {}
+    labels      = module.this.tags
+  }
+}
+
 # Deploy karpenter-crd helm chart
 # "karpenter-crd" can be installed as an independent helm chart to manage the lifecycle of Karpenter CRDs
 module "karpenter_crd" {
@@ -43,9 +53,9 @@ module "karpenter_crd" {
   cleanup_on_fail = var.cleanup_on_fail
   timeout         = var.timeout
 
-  create_namespace_with_kubernetes = var.create_namespace
-  kubernetes_namespace             = var.kubernetes_namespace
-  kubernetes_namespace_labels      = merge(module.this.tags, { name = var.kubernetes_namespace })
+  create_namespace_with_kubernetes = false # Namespace is created with kubernetes_namespace resources to be shared between charts
+  kubernetes_namespace             = join("", kubernetes_namespace.default[*].id)
+  kubernetes_namespace_labels      = merge(module.this.tags, { name = join("", kubernetes_namespace.default[*].id) })
 
   eks_cluster_oidc_issuer_url = coalesce(replace(local.eks_cluster_identity_oidc_issuer, "https://", ""), "deleted")
 
@@ -77,15 +87,14 @@ module "karpenter" {
   cleanup_on_fail = var.cleanup_on_fail
   timeout         = var.timeout
 
-  # If crd chart is enabled, the namespace will be created with the crd chart first
-  create_namespace_with_kubernetes = (var.create_namespace && !var.crd_chart_enabled)
-  kubernetes_namespace             = var.kubernetes_namespace
-  kubernetes_namespace_labels      = merge(module.this.tags, { name = var.kubernetes_namespace })
+  create_namespace_with_kubernetes = false # Namespace is created with kubernetes_namespace resources to be shared between charts
+  kubernetes_namespace             = join("", kubernetes_namespace.default[*].id)
+  kubernetes_namespace_labels      = merge(module.this.tags, { name = join("", kubernetes_namespace.default[*].id) })
 
   eks_cluster_oidc_issuer_url = coalesce(replace(local.eks_cluster_identity_oidc_issuer, "https://", ""), "deleted")
 
   service_account_name      = module.this.name
-  service_account_namespace = var.kubernetes_namespace
+  service_account_namespace = join("", kubernetes_namespace.default[*].id)
 
   iam_role_enabled = true
 
