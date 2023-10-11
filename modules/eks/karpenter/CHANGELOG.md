@@ -18,7 +18,7 @@ terraform import 'kubernetes_namespace.default[0]' 'karpenter'
 Or if using Atmos supported Terraform, use the following as reference. Change `plat-use2-dev` to the given stack name:
 
 ```bash
-atmos terraform state eks/karpenter rm 'module.karpenter_crd.kubernetes_namespace.default[0]' -s plat-use2-dev
+atmos terraform state eks/karpenter rm 'module.karpenter.kubernetes_namespace.default[0]' -s plat-use2-dev
 atmos terraform import eks/karpenter 'kubernetes_namespace.default[0]' 'karpenter' -s plat-use2-dev
 ```
 
