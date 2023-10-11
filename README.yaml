@@ -46,34 +46,29 @@ references:
   - name: "Cloud Posse Documentation"
     description: "Complete documentation for the Cloud Posse solution"
     url: "https://docs.cloudposse.com"
-
-related:
   - name: "reference-architectures"
     description: "Get up and running quickly with one of our reference architecture using our fully automated cold-start process."
-    url: "https://github.com/cloudposse/reference-architectures"
-  - name: "audit.cloudposse.co"
-    description: "Example Terraform Reference Architecture of a Geodesic Module for an Audit Logs Organization in AWS."
-    url: "https://github.com/cloudposse/audit.cloudposse.co"
-  - name: "prod.cloudposse.co"
-    description: "Example Terraform Reference Architecture of a Geodesic Module for a Production Organization in AWS."
-    url: "https://github.com/cloudposse/prod.cloudposse.co"
-  - name: "staging.cloudposse.co"
-    description: "Example Terraform Reference Architecture of a Geodesic Module for a Staging Organization in AWS."
-    url: "https://github.com/cloudposse/staging.cloudposse.co"
-  - name: "dev.cloudposse.co"
-    description: "Example Terraform Reference Architecture of a Geodesic Module for a Development Sandbox Organization in AWS."
-    url: "https://github.com/cloudposse/dev.cloudposse.co"
+    url: "https://cloudposse.com/"
+
+related:
+- name: "Cloud Posse Terraform Modules"
+  description: Our collection of reusable Terraform modules used by our reference architectures.
+  url: "https://docs.cloudposse.com/modules/"
+- name: "Atmos"
+  description: "Atmos is like docker-compose but for your infrastructure"
+  url: "https://atmos.tools"
+
 
 # Short description of this project
 description: |-
-  This is a collection of reusable Terraform components and blueprints for provisioning reference architectures.
+  This is a collection of reusable Terraform components for provisioning infrastructure used by the Cloud Posse [reference architectures](https://cloudposse.com).
 
 introduction: |-
   In this repo you'll find real-world examples of how we've implemented various common patterns using our [terraform modules](https://cpco.io/terraform-modules) for our customers.
 
-  The component catalog captures the business logic, opinions, best practices and non-functional requirements.
+  The [component library](https://docs.cloudposse.com/components/) captures the business logic, opinions, best practices and non-functional requirements.
 
-  It's from this catalog that other developers in your organization will pick and choose from anytime they need to deploy some new capability.
+  It's from this library that other developers in your organization will pick and choose from anytime they need to deploy some new capability.
 
   These components make a lot of assumptions about how we've configured our environments. That said, they can still serve as an excellent reference for others.
 
@@ -104,7 +99,7 @@ introduction: |-
 
 # How to use this project
 usage: |-
-  Please take a look at each [component's README](./modules) for usage.
+  Please take a look at each [component's README](https://docs.cloudposse.com/components/) for usage.
 
 include:
   - "docs/targets.md"
