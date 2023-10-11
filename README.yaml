@@ -46,8 +46,8 @@ references:
   - name: "Cloud Posse Documentation"
     description: "Complete documentation for the Cloud Posse solution"
     url: "https://docs.cloudposse.com"
-  - name: "reference-architectures"
-    description: "Get up and running quickly with one of our reference architecture using our fully automated cold-start process."
+  - name: "Reference Architectures"
+    description: "Launch effortlessly with our turnkey reference architectures, built either by your team or ours."
     url: "https://cloudposse.com/"
 
 related:
