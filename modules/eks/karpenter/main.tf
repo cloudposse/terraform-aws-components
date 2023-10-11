@@ -31,7 +31,7 @@ resource "kubernetes_namespace" "default" {
   metadata {
     name        = var.kubernetes_namespace
     annotations = {}
-    labels      = module.this.tags
+    labels      = merge(module.this.tags, { name = var.kubernetes_namespace })
   }
 }
 
