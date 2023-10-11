@@ -47,6 +47,7 @@ components:
             enableENILimitedPodDensity: false
         # "karpenter-crd" can be installed as an independent helm chart to manage the lifecycle of Karpenter CRDs
         crd_chart_enabled: true
+        crd_chart: "karpenter-crd"
         # Set `legacy_create_karpenter_instance_profile` to `false` to allow the `eks/cluster` component
         # to manage the instance profile for the nodes launched by Karpenter (recommended for all new clusters).
         legacy_create_karpenter_instance_profile: false

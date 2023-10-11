@@ -49,17 +49,11 @@ module "karpenter_crd" {
 
   eks_cluster_oidc_issuer_url = coalesce(replace(local.eks_cluster_identity_oidc_issuer, "https://", ""), "deleted")
 
-  service_account_name      = module.this.name
-  service_account_namespace = var.kubernetes_namespace
-
   values = compact([
     # standard k8s object settings
     yamlencode({
       fullnameOverride = module.this.name
-      serviceAccount = {
-        name = module.this.name
-      }
-      resources = var.resources
+      resources        = var.resources
       rbac = {
         create = var.rbac_enabled
       }
