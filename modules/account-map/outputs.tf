@@ -98,7 +98,7 @@ output "terraform_dynamic_role_enabled" {
 output "terraform_access_map" {
   value       = local.dynamic_role_enabled ? local.role_arn_terraform_access : null
   description = <<-EOT
-  Mapping of team Role ARN to map of account name to terraform action role ARN to assume"
+  Mapping of team Role ARN to map of account name to terraform action role ARN to assume
 
   For each team in `aws-teams`, look at every account and see if that team has access to the designated "apply" role.
     If so, add an entry `<account-name> = "apply"` to the `terraform_access_map` entry for that team.
