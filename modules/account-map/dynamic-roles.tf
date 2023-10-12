@@ -1,17 +1,20 @@
 # The `utils_describe_stacks` data resources use the Cloud Posse Utils provider to describe Atmos stacks, and then
-# we merge the results into `local.all_team_vars`
-# This is the same as running the following locally:
+# we merge the results into `local.all_team_vars`. This is the same as running the following locally:
 # ```
 # atmos describe stacks --components=aws-teams,aws-team-roles --component-types=terraform --sections=vars
 # ```
 # The result of these stack descriptions includes all metadata for the given components. For example, we now
-# can filter the result to find all stacks where either aws-teams or aws-team-roles are deployed.
+# can filter the result to find all stacks where either `aws-teams` or `aws-team-roles` are deployed.
 #
-# In particular, we can use this data to find the account names where team roles are deployed,
-# defined by `descriptor_formats.account_name` and the descriptors defined there, typically `tenant` and `stage`,
-# which roles are provisioned, and which teams can access them.
+# In particular, we can use this data to find the name of the account (defined by `descriptor_formats.account_name`)
+# where team roles are deployed and the values for those descriptors (typically `tenant` and `stage`).
+# We then determine which roles are provisioned and which teams can access any given role in any particular account.
+#
 # `descriptor_formats.account_name` is typically defined in `stacks/orgs/NAMESPACE/_defaults.yaml`, and if not
-# defined, the stack name will default to `stage`.`
+# defined, the stack name will default to `stage`.` 
+#
+# If `namespace` is included in `descriptor_formats.account_name`, then we additionally filter to only stacks with
+# the same `namespace` as `module.this.namespace`. See `local.stack_namespace_index` and `local.stack_namespace_index` 
 #
 # https://atmos.tools/cli/commands/describe/stacks/
 # https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/describe_stacks
