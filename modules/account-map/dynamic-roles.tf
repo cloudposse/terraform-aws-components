@@ -33,8 +33,7 @@ data "utils_describe_stacks" "team_roles" {
 locals {
   dynamic_role_enabled = module.this.enabled && var.terraform_dynamic_role_enabled
 
-  all_team_vars = merge(local.teams_vars, local.team_roles_vars)
-
+  # If a namespace is included with the stack name, only loop through stacks in the same namespace
   # zero-based index showing position of the namespace in the stack name
   stack_namespace_index = try(index(module.this.normalized_context.descriptor_formats.stack.labels, "namespace"), -1)
   stack_has_namespace   = local.stack_namespace_index >= 0
@@ -66,6 +65,8 @@ locals {
   } : local.empty
 
   team_roles_vars = { for k, v in local.team_roles_stacks : k => v.components.terraform.aws-team-roles.vars }
+
+  all_team_vars = merge(local.teams_vars, local.team_roles_vars)
 
   # `var.terraform_role_name_map` maps some team role in the `aws-team-roles` configuration to "plan" and some other team to "apply".
   apply_role = var.terraform_role_name_map.apply
