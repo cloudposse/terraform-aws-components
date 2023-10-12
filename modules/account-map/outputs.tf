@@ -100,8 +100,8 @@ output "terraform_access_map" {
   description = <<-EOT
   Mapping of team Role ARN to map of account name to terraform action role ARN to assume"
 
-  For each team in aws-teams, look at every account and see if that team has access to the designated "apply" role.
-    If so, add an entry <account-name> = "apply" to the terraform_access_map entry for that team.
+  For each team in `aws-teams`, look at every account and see if that team has access to the designated "apply" role.
+    If so, add an entry `<account-name> = "apply"` to the `terraform_access_map` entry for that team.
     If not, see if it has access to the "plan" role, and if so, add a "plan" entry.
     Otherwise, no entry is added.
   EOT
