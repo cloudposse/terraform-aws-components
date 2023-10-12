@@ -1,4 +1,19 @@
-
+# The `utils_describe_stacks` data resources use the Cloud Posse Utils provider to describe Atmos stacks, and then
+# we merge the results into `local.all_team_vars`
+# This is the same as running the following locally:
+# ```
+# atmos describe stacks --components=aws-teams,aws-team-roles --component-types=terraform --sections=vars
+# ```
+# The result of these stack descriptions includes all metadata for the given components. For example, we now
+# can filter the result to find all stacks where either aws-teams or aws-team-roles are deployed.
+#
+# In particular, we can use this data to find a stack name for a deployment of either component using the pattern
+# defined by `descriptor_formats.account_name` and the descriptors defined there, typically `tenant` and `stage`.
+# `descriptor_formats.account_name` is typically defined in `stacks/orgs/NAMESPACE/_defaults.yaml`, and if not
+# defined, the stack name will default to `stage`.`
+#
+# https://atmos.tools/cli/commands/describe/stacks/
+# https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/describe_stacks
 data "utils_describe_stacks" "teams" {
   count = local.dynamic_role_enabled ? 1 : 0
 
@@ -18,8 +33,7 @@ data "utils_describe_stacks" "team_roles" {
 locals {
   dynamic_role_enabled = module.this.enabled && var.terraform_dynamic_role_enabled
 
-  apply_role = var.terraform_role_name_map.apply
-  plan_role  = var.terraform_role_name_map.plan
+  all_team_vars = merge(local.teams_vars, local.team_roles_vars)
 
   # zero-based index showing position of the namespace in the stack name
   stack_namespace_index = try(index(module.this.normalized_context.descriptor_formats.stack.labels, "namespace"), -1)
@@ -53,11 +67,24 @@ locals {
 
   team_roles_vars = { for k, v in local.team_roles_stacks : k => v.components.terraform.aws-team-roles.vars }
 
+  # `var.terraform_role_name_map` maps some team role in the `aws-team-roles` configuration to "plan" and some other team to "apply".
+  apply_role = var.terraform_role_name_map.apply
+  plan_role  = var.terraform_role_name_map.plan
+
+  # `stack_planners` and `stack_terraformers` read through aws-teams-roles stack configuration to collect the designated "plan" and "apply" team roles.
+  # For example, if "apply" = "terraform", `stack_terraformers` will include any enabled team that has access to the "terraform" team role
   stack_planners     = { for k, v in local.team_roles_vars : k => v.roles[local.plan_role].trusted_teams if try(length(v.roles[local.plan_role].trusted_teams), 0) > 0 && try(v.roles[local.plan_role].enabled, true) }
   stack_terraformers = { for k, v in local.team_roles_vars : k => v.roles[local.apply_role].trusted_teams if try(length(v.roles[local.apply_role].trusted_teams), 0) > 0 && try(v.roles[local.apply_role].enabled, true) }
 
-  all_team_vars = merge(local.teams_vars, local.team_roles_vars)
-
+  # `team_planners` and `team_terraformers` read through aws-teams stack configuration to collect teams that have access to the designated "plan" and "apply"
+  # team roles, using the `stack_planners` and `stack_terraformers` values defined above.
+  #
+  # For example, if `managers` has access to `terraform` in `core-root` and `terraform` is the designated "apply" role, `team_terraformers` will include the following:
+  # ```
+  #   "managers" = {
+  #     "core-root" = "apply"
+  #   }
+  # ```
   team_planners = { for team in local.team_names : team => {
     for stack, trusted in local.stack_planners : local.stack_account_map[stack] => "plan" if contains(trusted, team)
   } }
@@ -65,6 +92,7 @@ locals {
     for stack, trusted in local.stack_terraformers : local.stack_account_map[stack] => "apply" if contains(trusted, team)
   } }
 
+  # Return the merged map of planners and terraforms using the ARN for the given team role as the key for each team
   role_arn_terraform_access = { for team in local.team_names : local.team_arns[team] => merge(local.team_planners[team], local.team_terraformers[team]) }
 }
 
