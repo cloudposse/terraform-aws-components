@@ -178,7 +178,8 @@ module "karpenter" {
           "sqs:ReceiveMessage",
         ]
         resources = [
-          aws_sqs_queue.interruption_handler[0].arn
+          #arn:aws:sqs:region:account_id:queue_name
+          format("arn:%s:sqs:%s:%s:%s", local.partition, var.region, local.account_id, local.interruption_handler_queue_name)
         ]
       }
     ] : []
