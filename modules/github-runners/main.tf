@@ -136,6 +136,12 @@ module "autoscale_group" {
   cpu_utilization_low_period_seconds      = var.cpu_utilization_low_period_seconds
   cpu_utilization_low_evaluation_periods  = var.cpu_utilization_low_evaluation_periods
 
+  # The instance refresh definition
+  # If this block is configured, an Instance Refresh will be started when the Auto Scaling Group is updated
+  instance_refresh = var.instance_refresh
+
+  launch_template_version = var.instance_refresh != null ? "" : var.launch_template_version
+
   context = module.this.context
 }
 

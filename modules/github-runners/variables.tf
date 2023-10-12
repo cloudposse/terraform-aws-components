@@ -221,3 +221,23 @@ variable "max_instance_lifetime" {
   default     = null
   description = "The maximum amount of time, in seconds, that an instance can be in service, values must be either equal to 0 or between 604800 and 31536000 seconds"
 }
+
+variable "launch_template_version" {
+  type        = string
+  description = "Launch template version to use for workers. Note, gets overridden if you set `instance_refresh`. [See docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group#triggers)"
+  default     = "$Latest"
+}
+
+variable "instance_refresh" {
+  description = "The instance refresh definition. If this block is configured, an Instance Refresh will be started when the Auto Scaling Group is updated"
+  type = object({
+    strategy = string
+    preferences = object({
+      instance_warmup        = number
+      min_healthy_percentage = number
+    })
+    triggers = list(string)
+  })
+
+  default = null
+}
