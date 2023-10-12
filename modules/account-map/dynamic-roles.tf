@@ -6,8 +6,8 @@
 # The result of these stack descriptions includes all metadata for the given components. For example, we now
 # can filter the result to find all stacks where either `aws-teams` or `aws-team-roles` are deployed.
 #
-# In particular, we can use this data to find the name of the account (defined by `descriptor_formats.account_name`)
-# where team roles are deployed and the values for those descriptors (typically `tenant` and `stage`).
+# In particular, we can use this data to find the name of the account via `null-label` (defined by
+# `null-label.descriptor_formats.account_name`, typically `<tenant>-<stage>`) where team roles are deployed.
 # We then determine which roles are provisioned and which teams can access any given role in any particular account.
 #
 # `descriptor_formats.account_name` is typically defined in `stacks/orgs/NAMESPACE/_defaults.yaml`, and if not
