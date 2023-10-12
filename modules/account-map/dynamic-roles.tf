@@ -1,4 +1,23 @@
-
+# The `utils_describe_stacks` data resources use the Cloud Posse Utils provider to describe Atmos stacks, and then
+# we merge the results into `local.all_team_vars`. This is the same as running the following locally:
+# ```
+# atmos describe stacks --components=aws-teams,aws-team-roles --component-types=terraform --sections=vars
+# ```
+# The result of these stack descriptions includes all metadata for the given components. For example, we now
+# can filter the result to find all stacks where either `aws-teams` or `aws-team-roles` are deployed.
+#
+# In particular, we can use this data to find the name of the account via `null-label` (defined by
+# `null-label.descriptor_formats.account_name`, typically `<tenant>-<stage>`) where team roles are deployed.
+# We then determine which roles are provisioned and which teams can access any given role in any particular account.
+#
+# `descriptor_formats.account_name` is typically defined in `stacks/orgs/NAMESPACE/_defaults.yaml`, and if not
+# defined, the stack name will default to `stage`.`
+#
+# If `namespace` is included in `descriptor_formats.account_name`, then we additionally filter to only stacks with
+# the same `namespace` as `module.this.namespace`. See `local.stack_namespace_index` and `local.stack_namespace_index`
+#
+# https://atmos.tools/cli/commands/describe/stacks/
+# https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/describe_stacks
 data "utils_describe_stacks" "teams" {
   count = local.dynamic_role_enabled ? 1 : 0
 
@@ -18,9 +37,11 @@ data "utils_describe_stacks" "team_roles" {
 locals {
   dynamic_role_enabled = module.this.enabled && var.terraform_dynamic_role_enabled
 
+  # `var.terraform_role_name_map` maps some team role in the `aws-team-roles` configuration to "plan" and some other team to "apply".
   apply_role = var.terraform_role_name_map.apply
   plan_role  = var.terraform_role_name_map.plan
 
+  # If a namespace is included with the stack name, only loop through stacks in the same namespace
   # zero-based index showing position of the namespace in the stack name
   stack_namespace_index = try(index(module.this.normalized_context.descriptor_formats.stack.labels, "namespace"), -1)
   stack_has_namespace   = local.stack_namespace_index >= 0
@@ -53,10 +74,10 @@ locals {
 
   team_roles_vars = { for k, v in local.team_roles_stacks : k => v.components.terraform.aws-team-roles.vars }
 
+  all_team_vars = merge(local.teams_vars, local.team_roles_vars)
+
   stack_planners     = { for k, v in local.team_roles_vars : k => v.roles[local.plan_role].trusted_teams if try(length(v.roles[local.plan_role].trusted_teams), 0) > 0 && try(v.roles[local.plan_role].enabled, true) }
   stack_terraformers = { for k, v in local.team_roles_vars : k => v.roles[local.apply_role].trusted_teams if try(length(v.roles[local.apply_role].trusted_teams), 0) > 0 && try(v.roles[local.apply_role].enabled, true) }
-
-  all_team_vars = merge(local.teams_vars, local.team_roles_vars)
 
   team_planners = { for team in local.team_names : team => {
     for stack, trusted in local.stack_planners : local.stack_account_map[stack] => "plan" if contains(trusted, team)
