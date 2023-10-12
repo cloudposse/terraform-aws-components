@@ -33,6 +33,10 @@ data "utils_describe_stacks" "team_roles" {
 locals {
   dynamic_role_enabled = module.this.enabled && var.terraform_dynamic_role_enabled
 
+  # `var.terraform_role_name_map` maps some team role in the `aws-team-roles` configuration to "plan" and some other team to "apply".
+  apply_role = var.terraform_role_name_map.apply
+  plan_role  = var.terraform_role_name_map.plan
+
   # If a namespace is included with the stack name, only loop through stacks in the same namespace
   # zero-based index showing position of the namespace in the stack name
   stack_namespace_index = try(index(module.this.normalized_context.descriptor_formats.stack.labels, "namespace"), -1)
@@ -68,24 +72,9 @@ locals {
 
   all_team_vars = merge(local.teams_vars, local.team_roles_vars)
 
-  # `var.terraform_role_name_map` maps some team role in the `aws-team-roles` configuration to "plan" and some other team to "apply".
-  apply_role = var.terraform_role_name_map.apply
-  plan_role  = var.terraform_role_name_map.plan
-
-  # `stack_planners` and `stack_terraformers` read through aws-teams-roles stack configuration to collect the designated "plan" and "apply" team roles.
-  # For example, if "apply" = "terraform", `stack_terraformers` will include any enabled team that has access to the "terraform" team role
   stack_planners     = { for k, v in local.team_roles_vars : k => v.roles[local.plan_role].trusted_teams if try(length(v.roles[local.plan_role].trusted_teams), 0) > 0 && try(v.roles[local.plan_role].enabled, true) }
   stack_terraformers = { for k, v in local.team_roles_vars : k => v.roles[local.apply_role].trusted_teams if try(length(v.roles[local.apply_role].trusted_teams), 0) > 0 && try(v.roles[local.apply_role].enabled, true) }
 
-  # `team_planners` and `team_terraformers` read through aws-teams stack configuration to collect teams that have access to the designated "plan" and "apply"
-  # team roles, using the `stack_planners` and `stack_terraformers` values defined above.
-  #
-  # For example, if `managers` has access to `terraform` in `core-root` and `terraform` is the designated "apply" role, `team_terraformers` will include the following:
-  # ```
-  #   "managers" = {
-  #     "core-root" = "apply"
-  #   }
-  # ```
   team_planners = { for team in local.team_names : team => {
     for stack, trusted in local.stack_planners : local.stack_account_map[stack] => "plan" if contains(trusted, team)
   } }
@@ -93,7 +82,6 @@ locals {
     for stack, trusted in local.stack_terraformers : local.stack_account_map[stack] => "apply" if contains(trusted, team)
   } }
 
-  # Return the merged map of planners and terraforms using the ARN for the given team role as the key for each team
   role_arn_terraform_access = { for team in local.team_names : local.team_arns[team] => merge(local.team_planners[team], local.team_terraformers[team]) }
 }
 
