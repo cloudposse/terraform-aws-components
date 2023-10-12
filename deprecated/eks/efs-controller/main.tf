@@ -50,7 +50,7 @@ module "efs_controller" {
         # annotations:
         #   storageclass.kubernetes.io/is-default-class: "true"
         parameters = {
-          fileSystemId     = module.efs.outputs.efs_id
+          fileSystemId     = local.enabled ? module.efs.outputs.efs_id : ""
           provisioningMode = "efs-ap"
           directoryPerms   = "700"
           basePath         = "/efs_controller"
