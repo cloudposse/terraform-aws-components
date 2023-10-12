@@ -109,7 +109,7 @@ Generally there are three different engine configurations for Aurora: provisione
 
 ### Provisioned Aurora Postgres
 
-[See the default usage example above](#Usage)
+[See the default usage example above](#usage)
 
 ### Serverless v1 Aurora Postgres
 
