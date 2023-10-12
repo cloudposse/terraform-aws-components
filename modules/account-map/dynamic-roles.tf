@@ -11,10 +11,10 @@
 # We then determine which roles are provisioned and which teams can access any given role in any particular account.
 #
 # `descriptor_formats.account_name` is typically defined in `stacks/orgs/NAMESPACE/_defaults.yaml`, and if not
-# defined, the stack name will default to `stage`.` 
+# defined, the stack name will default to `stage`.`
 #
 # If `namespace` is included in `descriptor_formats.account_name`, then we additionally filter to only stacks with
-# the same `namespace` as `module.this.namespace`. See `local.stack_namespace_index` and `local.stack_namespace_index` 
+# the same `namespace` as `module.this.namespace`. See `local.stack_namespace_index` and `local.stack_namespace_index`
 #
 # https://atmos.tools/cli/commands/describe/stacks/
 # https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/describe_stacks
