@@ -28,7 +28,7 @@
 
 -->
 
-This is a collection of reusable Terraform components and blueprints for provisioning reference architectures.
+This is a collection of reusable Terraform components for provisioning infrastructure used by the Cloud Posse [reference architectures](https://cloudposse.com).
 
 ---
 
@@ -60,9 +60,9 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 In this repo you'll find real-world examples of how we've implemented various common patterns using our [terraform modules](https://cpco.io/terraform-modules) for our customers.
 
-The component catalog captures the business logic, opinions, best practices and non-functional requirements.
+The [component library](https://docs.cloudposse.com/components/) captures the business logic, opinions, best practices and non-functional requirements.
 
-It's from this catalog that other developers in your organization will pick and choose from anytime they need to deploy some new capability.
+It's from this library that other developers in your organization will pick and choose from anytime they need to deploy some new capability.
 
 These components make a lot of assumptions about how we've configured our environments. That said, they can still serve as an excellent reference for others.
 
@@ -99,7 +99,7 @@ make rebuild-docs
 
 
 
-Please take a look at each [component's README](./modules) for usage.
+Please take a look at each [component's README](https://docs.cloudposse.com/components/) for usage.
 
 
 
@@ -120,31 +120,6 @@ Available targets:
 
 ```
 <!-- markdownlint-restore -->
-<!-- markdownlint-disable -->
-## Requirements
-
-No requirements.
-
-## Providers
-
-No providers.
-
-## Modules
-
-No modules.
-
-## Resources
-
-No resources.
-
-## Inputs
-
-No inputs.
-
-## Outputs
-
-No outputs.
-<!-- markdownlint-restore -->
 
 
 
@@ -160,11 +135,8 @@ Are you using this project or any of our other projects? Consider [leaving a tes
 
 Check out these related projects.
 
-- [reference-architectures](https://github.com/cloudposse/reference-architectures) - Get up and running quickly with one of our reference architecture using our fully automated cold-start process.
-- [audit.cloudposse.co](https://github.com/cloudposse/audit.cloudposse.co) - Example Terraform Reference Architecture of a Geodesic Module for an Audit Logs Organization in AWS.
-- [prod.cloudposse.co](https://github.com/cloudposse/prod.cloudposse.co) - Example Terraform Reference Architecture of a Geodesic Module for a Production Organization in AWS.
-- [staging.cloudposse.co](https://github.com/cloudposse/staging.cloudposse.co) - Example Terraform Reference Architecture of a Geodesic Module for a Staging Organization in AWS.
-- [dev.cloudposse.co](https://github.com/cloudposse/dev.cloudposse.co) - Example Terraform Reference Architecture of a Geodesic Module for a Development Sandbox Organization in AWS.
+- [Cloud Posse Terraform Modules](https://docs.cloudposse.com/modules/) - Our collection of reusable Terraform modules used by our reference architectures.
+- [Atmos](https://atmos.tools) - Atmos is like docker-compose but for your infrastructure
 
 
 ## References
@@ -172,6 +144,7 @@ Check out these related projects.
 For additional context, refer to some of these links.
 
 - [Cloud Posse Documentation](https://docs.cloudposse.com) - Complete documentation for the Cloud Posse solution
+- [reference-architectures](https://cloudposse.com/) - Get up and running quickly with one of our reference architecture using our fully automated cold-start process.
 
 
 ## Help
@@ -322,7 +295,7 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
-<!-- markdownlint-disable -->
+
   [logo]: https://cloudposse.com/logo-300x69.svg
   [docs]: https://cpco.io/docs?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=docs
   [website]: https://cpco.io/homepage?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=website
@@ -353,4 +326,3 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [share_googleplus]: https://plus.google.com/share?url=https://github.com/cloudposse/terraform-aws-components
   [share_email]: mailto:?subject=terraform-aws-components&body=https://github.com/cloudposse/terraform-aws-components
   [beacon]: https://ga-beacon.cloudposse.com/UA-76589703-4/cloudposse/terraform-aws-components?pixel&cs=github&cm=readme&an=terraform-aws-components
-<!-- markdownlint-restore -->
