@@ -25,9 +25,14 @@ resource "aws_iam_instance_profile" "default" {
   tags = module.this.tags
 }
 
+# See CHANGELOG for PR #868:
+# https://github.com/cloudposse/terraform-aws-components/pull/868
+#
+# Namespace was moved from the karpenter module to an independent resource in order to be
+# shared between both the karpenter and karpenter-crd modules.
 moved {
   from = module.karpenter.kubernetes_namespace.default[0]
-  to   = kubernetes_namespace.default
+  to   = kubernetes_namespace.default[0]
 }
 
 resource "kubernetes_namespace" "default" {
