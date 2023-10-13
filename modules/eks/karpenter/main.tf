@@ -117,73 +117,75 @@ module "karpenter" {
   # https://github.com/aws/karpenter/issues/2649
   # Apparently the source of truth for the best IAM policy is the `data.aws_iam_policy_document.karpenter_controller` in
   # https://github.com/terraform-aws-modules/terraform-aws-iam/blob/master/modules/iam-role-for-service-accounts-eks/policies.tf
-  iam_policy_statements = concat([
-    {
-      sid       = "KarpenterController"
-      effect    = "Allow"
-      resources = ["*"]
-
-      actions = [
-        # https://github.com/terraform-aws-modules/terraform-aws-iam/blob/99c69ad54d985f67acf211885aa214a3a6cc931c/modules/iam-role-for-service-accounts-eks/policies.tf#L511-L581
-        # The reference policy is broken up into multiple statements with different resource restrictions based on tags.
-        # This list has breaks where statements are separated in the reference policy for easier comparison and maintenance.
-        "ec2:CreateLaunchTemplate",
-        "ec2:CreateFleet",
-        "ec2:CreateTags",
-        "ec2:DescribeLaunchTemplates",
-        "ec2:DescribeImages",
-        "ec2:DescribeInstances",
-        "ec2:DescribeSecurityGroups",
-        "ec2:DescribeSubnets",
-        "ec2:DescribeInstanceTypes",
-        "ec2:DescribeInstanceTypeOfferings",
-        "ec2:DescribeAvailabilityZones",
-        "ec2:DescribeSpotPriceHistory",
-        "pricing:GetProducts",
-
-        "ec2:TerminateInstances",
-        "ec2:DeleteLaunchTemplate",
-
-        "ec2:RunInstances",
-
-        "iam:PassRole",
-      ]
-    },
-    {
-      sid    = "KarpenterControllerSSM"
-      effect = "Allow"
-      # Allow Karpenter to read AMI IDs from SSM
-      actions   = ["ssm:GetParameter"]
-      resources = ["arn:aws:ssm:*:*:parameter/aws/service/*"]
-    },
-    {
-      sid    = "KarpenterControllerClusterAccess"
-      effect = "Allow"
-      actions = [
-        "eks:DescribeCluster"
-      ]
-      resources = [
-        module.eks.outputs.eks_cluster_arn
-      ]
-    }
-    ],
-    local.interruption_handler_enabled ? [
+  iam_policy = [{
+    statements = concat([
       {
-        sid    = "KarpenterInterruptionHandlerAccess"
+        sid       = "KarpenterController"
+        effect    = "Allow"
+        resources = ["*"]
+
+        actions = [
+          # https://github.com/terraform-aws-modules/terraform-aws-iam/blob/99c69ad54d985f67acf211885aa214a3a6cc931c/modules/iam-role-for-service-accounts-eks/policies.tf#L511-L581
+          # The reference policy is broken up into multiple statements with different resource restrictions based on tags.
+          # This list has breaks where statements are separated in the reference policy for easier comparison and maintenance.
+          "ec2:CreateLaunchTemplate",
+          "ec2:CreateFleet",
+          "ec2:CreateTags",
+          "ec2:DescribeLaunchTemplates",
+          "ec2:DescribeImages",
+          "ec2:DescribeInstances",
+          "ec2:DescribeSecurityGroups",
+          "ec2:DescribeSubnets",
+          "ec2:DescribeInstanceTypes",
+          "ec2:DescribeInstanceTypeOfferings",
+          "ec2:DescribeAvailabilityZones",
+          "ec2:DescribeSpotPriceHistory",
+          "pricing:GetProducts",
+
+          "ec2:TerminateInstances",
+          "ec2:DeleteLaunchTemplate",
+
+          "ec2:RunInstances",
+
+          "iam:PassRole",
+        ]
+      },
+      {
+        sid    = "KarpenterControllerSSM"
+        effect = "Allow"
+        # Allow Karpenter to read AMI IDs from SSM
+        actions   = ["ssm:GetParameter"]
+        resources = ["arn:aws:ssm:*:*:parameter/aws/service/*"]
+      },
+      {
+        sid    = "KarpenterControllerClusterAccess"
         effect = "Allow"
         actions = [
-          "sqs:DeleteMessage",
-          "sqs:GetQueueUrl",
-          "sqs:GetQueueAttributes",
-          "sqs:ReceiveMessage",
+          "eks:DescribeCluster"
         ]
         resources = [
-          #arn:aws:sqs:region:account_id:queue_name
-          format("arn:%s:sqs:%s:%s:%s", local.partition, var.region, local.account_id, local.interruption_handler_queue_name)
+          module.eks.outputs.eks_cluster_arn
         ]
       }
-    ] : []
-  )
+      ],
+      local.interruption_handler_enabled ? [
+        {
+          sid    = "KarpenterInterruptionHandlerAccess"
+          effect = "Allow"
+          actions = [
+            "sqs:DeleteMessage",
+            "sqs:GetQueueUrl",
+            "sqs:GetQueueAttributes",
+            "sqs:ReceiveMessage",
+          ]
+          resources = [
+            one(aws_sqs_queue.interruption_handler[*].arn)
+          ]
+        }
+      ] : []
+    )
+  }]
+
 
   values = compact([
     # standard k8s object settings
