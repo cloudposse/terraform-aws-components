@@ -73,9 +73,9 @@ components:
           - aurora-mysql/defaults
       vars:
         instance_type: db.r5.large
-        cluster_size: 1
-        cluster_name: main
-        database_name: main
+        mysql_cluster_size: 1
+        mysql_name: main
+        mysql_db_name: main
 ```
 
 Example deployment with primary cluster deployed to us-east-1 in a `platform-dev` account: `atmos terraform apply aurora-mysql/dev -s platform-use1-dev`
