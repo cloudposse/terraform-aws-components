@@ -224,7 +224,7 @@ variable "max_instance_lifetime" {
 
 variable "launch_template_version" {
   type        = string
-  description = "Launch template version to use for workers. Note, gets overridden if you set `instance_refresh`. [See docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group#triggers)"
+  description = "Launch template version to use for workers. Note: This interacts strangely with `instance_refresh`. [See docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group#triggers)"
   default     = "$Latest"
 }
 
@@ -233,10 +233,16 @@ variable "instance_refresh" {
   type = object({
     strategy = string
     preferences = object({
-      instance_warmup        = number
-      min_healthy_percentage = number
+      checkpoint_delay             = optional(number, 3600)
+      checkpoint_percentages       = list(number)
+      instance_warmup              = optional(number, null)
+      min_healthy_percentage       = optional(number, 90)
+      skip_matching                = bool
+      auto_rollback                = bool
+      scale_in_protected_instances = optional(string, "Ignore") # Can be set to Refresh or Wait
+      standby_instances            = optional(string, "Ignore") # Can be set to Terminate or Wait
     })
-    triggers = list(string)
+    triggers = optional(list(string))
   })
 
   default = null

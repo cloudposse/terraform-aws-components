@@ -140,7 +140,7 @@ module "autoscale_group" {
   # If this block is configured, an Instance Refresh will be started when the Auto Scaling Group is updated
   instance_refresh = var.instance_refresh
 
-  launch_template_version = var.instance_refresh != null ? "" : var.launch_template_version
+  launch_template_version = var.launch_template_version
 
   context = module.this.context
 }
