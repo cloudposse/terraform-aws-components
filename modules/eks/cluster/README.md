@@ -170,18 +170,21 @@ When picking a Kubernetes version, be sure to review the [end-of-life dates for 
 
 | cycle |  release   | latest      | latest release |    eol     |
 |:------|:----------:|:------------|:--------------:|:----------:|
-| 1.27  | 2023-05-24 | 1.27-eks-3  |   2023-06-30   | 2024-07-01 |
-| 1.26  | 2023-04-11 | 1.26-eks-4  |   2023-06-30   | 2024-06-01 |
-| 1.25  | 2023-02-21 | 1.25-eks-5  |   2023-06-30   | 2024-05-01 |
-| 1.24  | 2022-11-15 | 1.24-eks-8  |   2023-06-30   | 2024-01-01 |
-| 1.23  | 2022-08-11 | 1.23-eks-10 |   2023-06-30   | 2023-10-11 |
+| 1.28  | 2023-09-26 | 1.28-eks-1  |   2023-09-26   | 2024-11-01 |
+| 1.27  | 2023-05-24 | 1.27-eks-5  |   2023-08-30   | 2024-07-01 |
+| 1.26  | 2023-04-11 | 1.26-eks-6  |   2023-08-30   | 2024-06-01 |
+| 1.25  | 2023-02-21 | 1.25-eks-7  |   2023-08-30   | 2024-05-01 |
+| 1.24  | 2022-11-15 | 1.24-eks-10 |   2023-08-30   | 2024-01-31 |
+| 1.23  | 2022-08-11 | 1.23-eks-12 |   2023-08-30   | 2023-10-11 |
 | 1.22  | 2022-04-04 | 1.22-eks-14 |   2023-06-30   | 2023-06-04 |
 | 1.21  | 2021-07-19 | 1.21-eks-18 |   2023-06-09   | 2023-02-15 |
 | 1.20  | 2021-05-18 | 1.20-eks-14 |   2023-05-05   | 2022-11-01 |
 | 1.19  | 2021-02-16 | 1.19-eks-11 |   2022-08-15   | 2022-08-01 |
 | 1.18  | 2020-10-13 | 1.18-eks-13 |   2022-08-15   | 2022-08-15 |
 
-*This Chart was updated as of 08/04/2023 and is generated with [the `eol` tool](https://github.com/hugovk/norwegianblue). Check the latest updates by running `eol amazon-eks` locally or [on the website directly](https://endoflife.date/amazon-eks).
+*This Chart was updated as of 10/16/2023 and is generated with [the `eol` tool](https://github.com/hugovk/norwegianblue). Check the latest updates by running `eol amazon-eks` locally or [on the website directly](https://endoflife.date/amazon-eks).
+
+You can also view the release and support timeline for [the Kubernetes project itself](https://endoflife.date/kubernetes).
 
 ### Usage with Node Groups
 
