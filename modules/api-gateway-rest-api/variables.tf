@@ -126,3 +126,9 @@ variable "deregistration_delay" {
   default     = 15
   description = "The amount of time to wait in seconds before changing the state of a deregistering target to unused"
 }
+
+variable "enable_private_link_nlb" {
+  description = "A flag to indicate whether to enable private link."
+  type        = bool
+  default     = false
+}
