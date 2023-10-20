@@ -4,13 +4,10 @@ exec > >(tee /var/log/user-data.log | logger -t user-data -s 2>/dev/console) 2>&
 ${pre_install}
 
 # Install docker
-amazon-linux-extras install docker
-amazon-linux-extras enable docker
+dnf -y install docker
 
-# Install docker-compose
-# Note: runner PATH=/sbin:/bin:/usr/sbin:/usr/bin so we put it in /usr/bin
-curl -sL "https://github.com/docker/compose/releases/download/${docker_compose_version}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
-chmod +x /usr/bin/docker-compose
+# Enable docker unit
+systemctl enable docker
 
 mkdir -p /root/.docker
 echo '{ "credsStore": "ecr-login" }' >/root/.docker/config.json
@@ -22,22 +19,10 @@ usermod -a -G docker ec2-user
 
 echo "Installing required packages..."
 yum install -y \
-	curl \
-	jq \
 	git \
+	libicu \
 	amazon-ecr-credential-helper \
 	amazon-cloudwatch-agent
-
-echo "Installing AWS cli..."
-# Install awscli v2 following https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
-curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip -o awscliv2.zip
-# Installs to /usr/local/bin/aws
-sudo ./aws/install
-# The github runner still sees /bin/aws as the default so we overwrite the existing binary
-sudo ln -sf /usr/local/bin/aws /bin/aws
-# Clean up
-rm -rf ./aws
 
 echo "Configuring CloudWatch Agent..."
 # Configure cloudwatch agent

@@ -8,7 +8,9 @@ variable "ami_filter" {
   type        = map(list(string))
 
   default = {
-    name = ["amzn2-ami-hvm-2.*-x86_64-ebs"]
+    name                = ["al2023-ami-2023.*-x86_64"]
+    root-device-type    = ["ebs"]
+    virtualization-type = ["hvm"]
   }
 }
 
