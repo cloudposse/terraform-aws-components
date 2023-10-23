@@ -9,13 +9,7 @@ dnf -y install docker
 # Enable docker unit
 systemctl enable docker
 
-mkdir -p /root/.docker
-echo '{ "credsStore": "ecr-login" }' >/root/.docker/config.json
-mkdir -p /home/ec2-user/.docker
-echo '{ "credsStore": "ecr-login" }' >/home/ec2-user/.docker/config.json
-
 service docker start
-usermod -a -G docker ec2-user
 
 echo "Installing required packages..."
 yum install -y \

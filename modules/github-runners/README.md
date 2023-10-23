@@ -159,6 +159,61 @@ In order to use this component, you will have to obtain the `REGISTRATION_TOKEN`
 chamber write github token <value>
 ```
 
+## Using in conjunction with ECR
+
+You'll notice that `ecr-login` is no longer configured with this component. That's because there are two main ways to configure ECR access for your runners:
+- Store the credentials with Docker
+- Get the credentials from the AWS SDK
+
+There is [a long standing issue](https://github.com/awslabs/amazon-ecr-credential-helper/issues/181) with `amazon-ecr-credential-helper`
+which prevents it from being configured to use `credential_source = Environment`. As such, using the AWS SDK for storage
+leans on either:
+- giving the instance an IAM role with ECR access
+- assuming a role with ECR access
+  - Can be done with the action [aws-actions/configure-aws-credentials](https://github.com/aws-actions/configure-aws-credentials) which uses env variables.
+  - Can be configured with the `awscli` via `$HOME/.aws/config` and `$HOME/.aws/credentials`
+
+When issue 181 gets resolved, we should be able to have one configuration/user-data that supports almost all methods.
+Until then, since [amazon-ecr-credential-helper does not support storage](https://github.com/awslabs/amazon-ecr-credential-helper/pull/315)
+`Add` and `Delete`, we've opted to best support the [aws-actions/amazon-ecr-login](https://github.com/aws-actions/amazon-ecr-login),
+which can be easily configured to use the AWS SDK or base Docker credential storage.
+
+The following is a quick example of a docker-build workflow that uses both the `configure-aws-credentials` action and the `amazon-ecr-login` action.
+
+```yaml
+name: Build and Push Docker Image
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials for ECR
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.GHA_IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: ${{ steps.ecr.outputs.registry }}/user/app:latest
+```
+
+We've found that this basic example can work with OIDC roles, instance roles, and cross-account roles
+without having to reconfigure the github-runners.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
