@@ -278,6 +278,12 @@ variable "spacelift_spaces_tenant_name" {
   default     = null
 }
 
+variable "spacelift_spaces_component_name" {
+  type        = string
+  description = "The component name of the spacelift spaces component"
+  default     = "spacelift/spaces"
+}
+
 variable "spacelift_stack_dependency_enabled" {
   type        = bool
   description = "If enabled, the `spacelift_stack_dependency` Spacelift resource will be used to create dependencies between stacks instead of using the `depends-on` labels. The `depends-on` labels will be removed from the stacks and the trigger policies for dependencies will be detached"

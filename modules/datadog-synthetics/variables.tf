@@ -34,7 +34,7 @@ variable "context_tags" {
 
 variable "config_parameters" {
   type        = map(any)
-  description = "Map of parameters to Datadog Synthetic configurations"
+  description = "Map of parameter values to interpolate into Datadog Synthetic configurations"
   default     = {}
 }
 
@@ -47,7 +47,7 @@ variable "datadog_synthetics_globals" {
 variable "locations" {
   type        = list(string)
   description = "Array of locations used to run synthetic tests"
-  default     = ["all"]
+  default     = []
 }
 
 variable "private_location_test_enabled" {

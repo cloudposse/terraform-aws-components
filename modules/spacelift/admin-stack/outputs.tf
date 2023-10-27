@@ -5,7 +5,7 @@ output "root_stack_id" {
 
 output "root_stack" {
   description = "The root stack, if enabled and created by this component"
-  value       = local.enabled && local.create_root_admin_stack ? module.root_admin_stack : ""
+  value       = local.enabled && local.create_root_admin_stack ? module.root_admin_stack : null
   sensitive   = true
 }
 

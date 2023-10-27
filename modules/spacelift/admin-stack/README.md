@@ -237,6 +237,7 @@ components:
 | <a name="input_showcase"></a> [showcase](#input\_showcase) | Showcase settings | `map(any)` | `null` | no |
 | <a name="input_space_id"></a> [space\_id](#input\_space\_id) | Place the stack in the specified space\_id. | `string` | `"root"` | no |
 | <a name="input_spacelift_run_enabled"></a> [spacelift\_run\_enabled](#input\_spacelift\_run\_enabled) | Enable/disable creation of the `spacelift_run` resource | `bool` | `false` | no |
+| <a name="input_spacelift_spaces_component_name"></a> [spacelift\_spaces\_component\_name](#input\_spacelift\_spaces\_component\_name) | The component name of the spacelift spaces component | `string` | `"spacelift/spaces"` | no |
 | <a name="input_spacelift_spaces_environment_name"></a> [spacelift\_spaces\_environment\_name](#input\_spacelift\_spaces\_environment\_name) | The environment name of the spacelift spaces component | `string` | `null` | no |
 | <a name="input_spacelift_spaces_stage_name"></a> [spacelift\_spaces\_stage\_name](#input\_spacelift\_spaces\_stage\_name) | The stage name of the spacelift spaces component | `string` | `null` | no |
 | <a name="input_spacelift_spaces_tenant_name"></a> [spacelift\_spaces\_tenant\_name](#input\_spacelift\_spaces\_tenant\_name) | The tenant name of the spacelift spaces component | `string` | `null` | no |

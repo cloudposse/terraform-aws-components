@@ -66,7 +66,7 @@ variable "https_ingress_prefix_list_ids" {
 variable "https_ssl_policy" {
   type        = string
   description = "The name of the SSL Policy for the listener"
-  default     = "ELBSecurityPolicy-TLS-1-1-2017-01"
+  default     = "ELBSecurityPolicy-TLS13-1-2-2021-06"
 }
 
 variable "access_logs_prefix" {

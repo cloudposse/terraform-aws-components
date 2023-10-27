@@ -10,25 +10,25 @@ output "deploy_keys_ssm_path_format" {
 
 output "repository_description" {
   description = "Repository description"
-  value       = join("", github_repository.default.*.description)
+  value       = local.github_repository.description
 }
 
 output "repository_default_branch" {
   description = "Repository default branch"
-  value       = join("", github_repository.default.*.default_branch)
+  value       = local.github_repository.default_branch
 }
 
 output "repository_url" {
   description = "Repository URL"
-  value       = join("", github_repository.default.*.html_url)
+  value       = local.github_repository.html_url
 }
 
 output "repository_git_clone_url" {
   description = "Repository git clone URL"
-  value       = join("", github_repository.default.*.git_clone_url)
+  value       = local.github_repository.git_clone_url
 }
 
 output "repository_ssh_clone_url" {
   description = "Repository SSH clone URL"
-  value       = join("", github_repository.default.*.ssh_clone_url)
+  value       = local.github_repository.ssh_clone_url
 }

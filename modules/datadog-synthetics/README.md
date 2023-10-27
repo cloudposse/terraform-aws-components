@@ -39,41 +39,56 @@ components:
 
 Below are examples of Datadog browser and API synthetic tests.
 
-The synthetic tests are defined in YAML using the [Datadog Terraform provider](https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/synthetics_test) schema.
+The synthetic tests are defined in YAML using either the [Datadog Terraform provider](https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/synthetics_test) schema
+or the [Datadog Synthetics API](https://docs.datadoghq.com/api/latest/synthetics) schema.
+See the `terraform-datadog-platform` Terraform module [README](https://github.com/cloudposse/terraform-datadog-platform/blob/main/modules/synthetics/README.md) for more details.
+We recommend using the API schema so you can more create and edit tests using the Datadog
+web API and then import them into this module by downloading the test using
+the Datadog REST API. (See the Datadog API documentation for the appropriate
+`curl` commands to use.)
 
 ```yaml
+# API schema
 my-browser-test:
-  name: "Browser Test"
-  message: "Browser Test Failed"
+  name: My Browser Test
+  status: live
   type: browser
-  subtype: http
-  device_ids:
-    - "laptop_large"
-  tags:
-    - "managed-by:Terraform"
-  status: "live"
-  request_definition:
-    url: "CHANGEME"
-    method: GET
-  request_headers:
-    Accept-Charset: "utf-8, iso-8859-1;q=0.5"
-    Accept: "text/html"
-  options_list:
-    tick_every: 1800
-    no_screenshot: false
-    follow_redirects: false
+  config:
+    request:
+      method: GET
+      headers: {}
+      url: https://example.com/login
+    setCookie: |-
+      DatadogTest=true
+  message: "My Browser Test Failed"
+  options:
+    device_ids:
+      - chrome.laptop_large
+      - edge.tablet
+      - firefox.mobile_small
+    ignoreServerCertificateError: false
+    disableCors: false
+    disableCsp: false
+    noScreenshot: false
+    tick_every: 86400
+    min_failure_duration: 0
+    min_location_failed: 1
     retry:
-      count: 2
-      interval: 10
+      count: 0
+      interval: 300
     monitor_options:
-      renotify_interval: 300
-  browser_step:
-    - name: "Check current URL"
-      type: assertCurrentUrl
-      params:
-        check: contains
-        value: "CHANGEME"
+      renotify_interval: 0
+    ci:
+      executionRule: non_blocking
+    rumSettings:
+      isEnabled: false
+    enableProfiling: false
+    enableSecurityTesting: false
+  locations:
+    - aws:us-east-1
+    - aws:us-west-2
 
+# Terraform schema
 my-api-test:
   name: "API Test"
   message: "API Test Failed"
@@ -145,7 +160,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | ../datadog-configuration/modules/datadog_keys | n/a |
-| <a name="module_datadog_synthetics"></a> [datadog\_synthetics](#module\_datadog\_synthetics) | cloudposse/platform/datadog//modules/synthetics | 1.0.1 |
+| <a name="module_datadog_synthetics"></a> [datadog\_synthetics](#module\_datadog\_synthetics) | cloudposse/platform/datadog//modules/synthetics | 1.3.0 |
 | <a name="module_datadog_synthetics_merge"></a> [datadog\_synthetics\_merge](#module\_datadog\_synthetics\_merge) | cloudposse/config/yaml//modules/deepmerge | 1.0.2 |
 | <a name="module_datadog_synthetics_private_location"></a> [datadog\_synthetics\_private\_location](#module\_datadog\_synthetics\_private\_location) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_datadog_synthetics_yaml_config"></a> [datadog\_synthetics\_yaml\_config](#module\_datadog\_synthetics\_yaml\_config) | cloudposse/config/yaml | 1.0.2 |
@@ -164,7 +179,7 @@ No resources.
 | <a name="input_alert_tags"></a> [alert\_tags](#input\_alert\_tags) | List of alert tags to add to all alert messages, e.g. `["@opsgenie"]` or `["@devops", "@opsgenie"]` | `list(string)` | `null` | no |
 | <a name="input_alert_tags_separator"></a> [alert\_tags\_separator](#input\_alert\_tags\_separator) | Separator for the alert tags. All strings from the `alert_tags` variable will be joined into one string using the separator and then added to the alert message | `string` | `"\n"` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_config_parameters"></a> [config\_parameters](#input\_config\_parameters) | Map of parameters to Datadog Synthetic configurations | `map(any)` | `{}` | no |
+| <a name="input_config_parameters"></a> [config\_parameters](#input\_config\_parameters) | Map of parameter values to interpolate into Datadog Synthetic configurations | `map(any)` | `{}` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_context_tags"></a> [context\_tags](#input\_context\_tags) | List of context tags to add to each synthetic check | `set(string)` | <pre>[<br>  "namespace",<br>  "tenant",<br>  "environment",<br>  "stage"<br>]</pre> | no |
 | <a name="input_context_tags_enabled"></a> [context\_tags\_enabled](#input\_context\_tags\_enabled) | Whether to add context tags to add to each synthetic check | `bool` | `true` | no |
@@ -178,7 +193,7 @@ No resources.
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_locations"></a> [locations](#input\_locations) | Array of locations used to run synthetic tests | `list(string)` | <pre>[<br>  "all"<br>]</pre> | no |
+| <a name="input_locations"></a> [locations](#input\_locations) | Array of locations used to run synthetic tests | `list(string)` | `[]` | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_private_location_test_enabled"></a> [private\_location\_test\_enabled](#input\_private\_location\_test\_enabled) | Use private locations or the public locations provided by datadog | `bool` | `false` | no |
@@ -195,9 +210,9 @@ No resources.
 | Name | Description |
 |------|-------------|
 | <a name="output_datadog_synthetics_test_ids"></a> [datadog\_synthetics\_test\_ids](#output\_datadog\_synthetics\_test\_ids) | IDs of the created Datadog synthetic tests |
+| <a name="output_datadog_synthetics_test_maps"></a> [datadog\_synthetics\_test\_maps](#output\_datadog\_synthetics\_test\_maps) | Map (name: id) of the created Datadog synthetic tests |
 | <a name="output_datadog_synthetics_test_monitor_ids"></a> [datadog\_synthetics\_test\_monitor\_ids](#output\_datadog\_synthetics\_test\_monitor\_ids) | IDs of the monitors associated with the Datadog synthetics tests |
 | <a name="output_datadog_synthetics_test_names"></a> [datadog\_synthetics\_test\_names](#output\_datadog\_synthetics\_test\_names) | Names of the created Datadog synthetic tests |
-| <a name="output_datadog_synthetics_tests"></a> [datadog\_synthetics\_tests](#output\_datadog\_synthetics\_tests) | The synthetic tests created in Datadog |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References

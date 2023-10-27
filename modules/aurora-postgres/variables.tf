@@ -66,13 +66,6 @@ variable "cluster_family" {
   default     = "aurora-postgresql13"
 }
 
-# AWS KMS alias used for encryption/decryption of SSM secure strings
-variable "kms_alias_name_ssm" {
-  type        = string
-  default     = "alias/aws/ssm"
-  description = "KMS alias name for SSM"
-}
-
 variable "database_port" {
   type        = number
   description = "Database port"
@@ -144,12 +137,6 @@ variable "reader_dns_name_part" {
   type        = string
   description = "Part of DNS name added to module and cluster name for DNS for cluster reader"
   default     = "reader"
-}
-
-variable "additional_databases" {
-  type        = set(string)
-  default     = []
-  description = "Additional databases to be created with the cluster"
 }
 
 variable "ssm_path_prefix" {
@@ -293,18 +280,35 @@ variable "allow_ingress_from_vpc_accounts" {
   EOF
 }
 
-variable "ssm_password_source" {
-  type        = string
-  default     = ""
-  description = <<-EOT
-    If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved from SSM using
-    `var.ssm_password_source` and the database username. If this value is not set,
-    a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster.
-    EOT
-}
-
 variable "vpc_component_name" {
   type        = string
   default     = "vpc"
   description = "The name of the VPC component"
+}
+
+variable "scaling_configuration" {
+  type = list(object({
+    auto_pause               = bool
+    max_capacity             = number
+    min_capacity             = number
+    seconds_until_auto_pause = number
+    timeout_action           = string
+  }))
+  default     = []
+  description = "List of nested attributes with scaling properties. Only valid when `engine_mode` is set to `serverless`. This is required for Serverless v1"
+}
+
+variable "serverlessv2_scaling_configuration" {
+  type = object({
+    min_capacity = number
+    max_capacity = number
+  })
+  default     = null
+  description = "Nested attribute with scaling properties for ServerlessV2. Only valid when `engine_mode` is set to `provisioned.` This is required for Serverless v2"
+}
+
+variable "intra_security_group_traffic_enabled" {
+  type        = bool
+  default     = false
+  description = "Whether to allow traffic between resources inside the database's security group."
 }

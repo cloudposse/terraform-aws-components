@@ -94,7 +94,7 @@ components:
 |------|--------|---------|
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
-| <a name="module_redis"></a> [redis](#module\_redis) | cloudposse/helm-release/aws | 0.5.0 |
+| <a name="module_redis"></a> [redis](#module\_redis) | cloudposse/helm-release/aws | 0.10.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources

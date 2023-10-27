@@ -16,20 +16,14 @@ components:
     eks/keda:
       vars:
         enabled: true
-        name: "keda"
-        kubernetes_namespace: "keda"
+        name: keda
         create_namespace: true
-        timeout: 90
-        wait: true
-        atomic: true
-        cleanup_on_fail: true
-        resources:
-          requests:
-            cpu: 200m
-            memory: 256Mi
-          limits:
-            cpu: 1000m
-            memory: 1024Mi
+        kubernetes_namespace: "keda"
+        chart_repository: "https://kedacore.github.io/charts"
+        chart: "keda"
+        chart_version: "2.11.2"
+        chart_values: {}
+        timeout: 180
 
 ```
 
@@ -55,7 +49,7 @@ components:
 |------|--------|---------|
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
-| <a name="module_keda"></a> [keda](#module\_keda) | cloudposse/helm-release/aws | 0.9.3 |
+| <a name="module_keda"></a> [keda](#module\_keda) | cloudposse/helm-release/aws | 0.10.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -116,7 +110,15 @@ components:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
+| <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release. |
+| <a name="output_service_account_name"></a> [service\_account\_name](#output\_service\_account\_name) | Kubernetes Service Account name |
+| <a name="output_service_account_namespace"></a> [service\_account\_namespace](#output\_service\_account\_namespace) | Kubernetes Service Account namespace |
+| <a name="output_service_account_policy_arn"></a> [service\_account\_policy\_arn](#output\_service\_account\_policy\_arn) | IAM policy ARN |
+| <a name="output_service_account_policy_id"></a> [service\_account\_policy\_id](#output\_service\_account\_policy\_id) | IAM policy ID |
+| <a name="output_service_account_policy_name"></a> [service\_account\_policy\_name](#output\_service\_account\_policy\_name) | IAM policy name |
+| <a name="output_service_account_role_arn"></a> [service\_account\_role\_arn](#output\_service\_account\_role\_arn) | IAM role ARN |
+| <a name="output_service_account_role_name"></a> [service\_account\_role\_name](#output\_service\_account\_role\_name) | IAM role name |
+| <a name="output_service_account_role_unique_id"></a> [service\_account\_role\_unique\_id](#output\_service\_account\_role\_unique\_id) | IAM role unique ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References

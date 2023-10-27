@@ -11,15 +11,16 @@ variable "description" {
 
 variable "environments" {
   type = list(object({
-    tenant      = string
+    tenant      = optional(string, null)
     environment = string
     stage       = string
+    attributes  = optional(list(string), [])
     auto-sync   = bool
-    ignore-differences = list(object({
+    ignore-differences = optional(list(object({
       group         = string,
       kind          = string,
       json-pointers = list(string)
-    }))
+    })), [])
   }))
   description = <<-EOT
   Environments to populate `applicationset.yaml` files and repository deploy keys (for ArgoCD) for.
@@ -126,8 +127,14 @@ variable "permissions" {
   }
 }
 
-variable "slack_channel" {
+variable "github_default_notifications_enabled" {
   type        = string
-  description = "The name of the slack channel to configure ArgoCD notifications for"
-  default     = null
+  description = "Enable default GitHub commit statuses notifications (required for CD sync mode)"
+  default     = true
+}
+
+variable "create_repo" {
+  type        = bool
+  description = "Whether or not to create the repository or use an existing one"
+  default     = true
 }

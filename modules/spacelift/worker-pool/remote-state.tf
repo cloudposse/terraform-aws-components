@@ -3,9 +3,9 @@ module "account_map" {
   version = "1.5.0"
 
   component   = "account-map"
-  environment = coalesce(var.account_map_environment_name, module.this.environment)
+  environment = try(coalesce(var.account_map_environment_name, module.this.environment), null)
   stage       = var.account_map_stage_name
-  tenant      = coalesce(var.account_map_tenant_name, module.this.tenant)
+  tenant      = try(coalesce(var.account_map_tenant_name, module.this.tenant), null)
 
   context = module.this.context
 }
@@ -15,9 +15,9 @@ module "ecr" {
   version = "1.5.0"
 
   component   = "ecr"
-  environment = coalesce(var.ecr_environment_name, module.this.environment)
+  environment = try(coalesce(var.ecr_environment_name, module.this.environment), null)
   stage       = var.ecr_stage_name
-  tenant      = coalesce(var.ecr_tenant_name, module.this.tenant)
+  tenant      = try(coalesce(var.ecr_tenant_name, module.this.tenant), null)
 
   context = module.this.context
 }
@@ -36,9 +36,9 @@ module "spaces" {
   version = "1.5.0"
 
   component   = var.spacelift_spaces_component_name
-  environment = try(var.spacelift_spaces_environment_name, module.this.environment)
-  stage       = try(var.spacelift_spaces_stage_name, module.this.stage)
-  tenant      = try(var.spacelift_spaces_tenant_name, module.this.tenant)
+  environment = try(coalesce(var.spacelift_spaces_environment_name, module.this.environment), null)
+  stage       = try(coalesce(var.spacelift_spaces_stage_name, module.this.stage), null)
+  tenant      = try(coalesce(var.spacelift_spaces_tenant_name, module.this.tenant), null)
 
   context = module.this.context
 }
