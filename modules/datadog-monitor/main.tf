@@ -100,7 +100,7 @@ module "datadog_monitors" {
   count = local.datadog_monitors_enabled ? 1 : 0
 
   source  = "cloudposse/platform/datadog//modules/monitors"
-  version = "1.0.1"
+  version = "1.2.0"
 
   datadog_monitors = local.datadog_monitors
 
