@@ -2,7 +2,7 @@
 # https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor
 
 datadog-lambda-forwarder-config-modification:
-  name: "(Lambda) ${ stage } - Datadog Lambda Forwarder Config Changed"
+  name: "(Lambda) ${tenant} ${ stage } -  - Datadog Lambda Forwarder Config Changed"
   type: event-v2 alert
   query: |
     events("source:amazon_lambda functionname:${tenant}-${environment}-${ stage }-datadog-lambda-forwarder-logs").rollup("count").last("15m") >= 1
