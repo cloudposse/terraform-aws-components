@@ -47,7 +47,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_config_bucket"></a> [config\_bucket](#module\_config\_bucket) | cloudposse/config-storage/aws | 1.0.0 |
+| <a name="module_config_bucket"></a> [config\_bucket](#module\_config\_bucket) | cloudposse/config-storage/aws | 1.0.2 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
