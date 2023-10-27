@@ -5,7 +5,11 @@ locals {
     ) => v
   } : {}
   access_roles_enabled = module.this.enabled && length(keys(local.access_roles)) > 0
+
+  caller_arn = coalesce(data.awsutils_caller_identity.current.eks_role_arn, data.awsutils_caller_identity.current.arn)
 }
+
+data "awsutils_caller_identity" "current" {}
 
 
 module "label" {
@@ -27,9 +31,11 @@ module "assume_role" {
   for_each = local.access_roles
   source   = "../account-map/modules/team-assume-role-policy"
 
-  allowed_roles          = each.value.allowed_roles
-  denied_roles           = each.value.denied_roles
-  allowed_principal_arns = each.value.allowed_principal_arns
+  allowed_roles = each.value.allowed_roles
+  denied_roles  = each.value.denied_roles
+
+  # Allow whatever user or role is running Terraform to manage the backend to assume any backend access role
+  allowed_principal_arns = concat(each.value.allowed_principal_arns, [local.caller_arn])
   denied_principal_arns  = each.value.denied_principal_arns
   # Permission sets are for AWS SSO, which is optional
   allowed_permission_sets = try(each.value.allowed_permission_sets, {})

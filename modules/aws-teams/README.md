@@ -1,8 +1,8 @@
 # Component: `aws-teams`
 
 This component is responsible for provisioning all primary user and system roles into the centralized identity account.
-This is expected to be use alongside [the `aws-team-roles` component](../aws-team-roles) to provide
-fine grained role delegation across the account hierarchy.
+This is expected to be used alongside [the `aws-team-roles` component](../aws-team-roles) to provide
+fine-grained role delegation across the account hierarchy.
 
 ### Teams Function Like Groups and are Implemented as Roles
 The "teams" created in the `identity` account by this module can be thought of as access control "groups":
@@ -148,9 +148,9 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_assume_role"></a> [assume\_role](#module\_assume\_role) | ../account-map/modules/team-assume-role-policy | n/a |
-| <a name="module_aws_saml"></a> [aws\_saml](#module\_aws\_saml) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_aws_saml"></a> [aws\_saml](#module\_aws\_saml) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -158,15 +158,11 @@ components:
 
 | Name | Type |
 |------|------|
-| [aws_iam_policy.support](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.team_role_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy_attachment.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [local_file.account_info](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
-| [aws_iam_policy.aws_support_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy) | data source |
 | [aws_iam_policy_document.assume_role_aggregated](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.support_access_aggregated](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.support_access_trusted_advisor](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.team_role_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
 ## Inputs
@@ -196,7 +192,7 @@ components:
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
-| <a name="input_teams_config"></a> [teams\_config](#input\_teams\_config) | A roles map to configure the accounts. | <pre>map(object({<br>    denied_teams            = list(string)<br>    denied_permission_sets  = list(string)<br>    denied_role_arns        = list(string)<br>    max_session_duration    = number # in seconds 3600 <= max <= 43200 (12 hours)<br>    role_description        = string<br>    role_policy_arns        = list(string)<br>    aws_saml_login_enabled  = bool<br>    trusted_teams           = list(string)<br>    trusted_permission_sets = list(string)<br>    trusted_role_arns       = list(string)<br>  }))</pre> | n/a | yes |
+| <a name="input_teams_config"></a> [teams\_config](#input\_teams\_config) | A roles map to configure the accounts. | <pre>map(object({<br>    denied_teams            = list(string)<br>    denied_permission_sets  = list(string)<br>    denied_role_arns        = list(string)<br>    max_session_duration    = number # in seconds 3600 <= max <= 43200 (12 hours)<br>    role_description        = string<br>    role_policy_arns        = list(string)<br>    aws_saml_login_enabled  = bool<br>    allowed_roles           = optional(map(list(string)), {})<br>    trusted_teams           = list(string)<br>    trusted_permission_sets = list(string)<br>    trusted_role_arns       = list(string)<br>  }))</pre> | n/a | yes |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 | <a name="input_trusted_github_repos"></a> [trusted\_github\_repos](#input\_trusted\_github\_repos) | Map where keys are role names (same keys as `teams_config`) and values are lists of<br>GitHub repositories allowed to assume those roles. See `account-map/modules/github-assume-role-policy.mixin.tf`<br>for specifics about repository designations. | `map(list(string))` | `{}` | no |
 

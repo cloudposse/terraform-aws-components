@@ -13,11 +13,12 @@ locals {
 
   eks_cluster_identity_oidc_issuer = try(module.eks.outputs.eks_cluster_identity_oidc_issuer, "")
   karpenter_iam_role_name          = try(module.eks.outputs.karpenter_iam_role_name, "")
-  karpenter_role_enabled           = local.enabled && length(local.karpenter_iam_role_name) > 0
+
+  karpenter_instance_profile_enabled = local.enabled && var.legacy_create_karpenter_instance_profile && length(local.karpenter_iam_role_name) > 0
 }
 
 resource "aws_iam_instance_profile" "default" {
-  count = local.karpenter_role_enabled ? 1 : 0
+  count = local.karpenter_instance_profile_enabled ? 1 : 0
 
   name = local.karpenter_iam_role_name
   role = local.karpenter_iam_role_name
@@ -27,7 +28,7 @@ resource "aws_iam_instance_profile" "default" {
 # Deploy Karpenter helm chart
 module "karpenter" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.7.0"
+  version = "0.10.0"
 
   chart           = var.chart
   repository      = var.chart_repository
@@ -47,14 +48,14 @@ module "karpenter" {
   service_account_name      = module.this.name
   service_account_namespace = var.kubernetes_namespace
 
-  iam_role_enabled = local.karpenter_role_enabled
+  iam_role_enabled = true
 
   # https://karpenter.sh/v0.6.1/getting-started/cloudformation.yaml
   # https://karpenter.sh/v0.10.1/getting-started/getting-started-with-terraform
   # https://github.com/aws/karpenter/issues/2649
   # Apparently the source of truth for the best IAM policy is the `data.aws_iam_policy_document.karpenter_controller` in
   # https://github.com/terraform-aws-modules/terraform-aws-iam/blob/master/modules/iam-role-for-service-accounts-eks/policies.tf
-  iam_policy_statements = [
+  iam_policy_statements = concat([
     {
       sid       = "KarpenterController"
       effect    = "Allow"
@@ -92,8 +93,34 @@ module "karpenter" {
       # Allow Karpenter to read AMI IDs from SSM
       actions   = ["ssm:GetParameter"]
       resources = ["arn:aws:ssm:*:*:parameter/aws/service/*"]
+    },
+    {
+      sid    = "KarpenterControllerClusterAccess"
+      effect = "Allow"
+      actions = [
+        "eks:DescribeCluster"
+      ]
+      resources = [
+        module.eks.outputs.eks_cluster_arn
+      ]
     }
-  ]
+    ],
+    local.interruption_handler_enabled ? [
+      {
+        sid    = "KarpenterInterruptionHandlerAccess"
+        effect = "Allow"
+        actions = [
+          "sqs:DeleteMessage",
+          "sqs:GetQueueUrl",
+          "sqs:GetQueueAttributes",
+          "sqs:ReceiveMessage",
+        ]
+        resources = [
+          aws_sqs_queue.interruption_handler[0].arn
+        ]
+      }
+    ] : []
+  )
 
   values = compact([
     # standard k8s object settings
@@ -110,13 +137,24 @@ module "karpenter" {
     # karpenter-specific values
     yamlencode({
       settings = {
+        # This configuration of settings requires Karpenter chart v0.19.0 or later
         aws = {
-          defaultInstanceProfile = one(aws_iam_instance_profile.default[*].name)
+          defaultInstanceProfile = local.karpenter_iam_role_name # instance profile name === role name
           clusterName            = local.eks_cluster_id
-          clusterEndpoint        = local.eks_cluster_endpoint
+          # clusterEndpoint not needed as of v0.25.0
+          clusterEndpoint = local.eks_cluster_endpoint
+          tags            = module.this.tags
         }
       }
     }),
+    yamlencode(
+      local.interruption_handler_enabled ? {
+        settings = {
+          aws = {
+            interruptionQueueName = local.interruption_handler_queue_name
+          }
+        }
+    } : {}),
     # additional values
     yamlencode(var.chart_values)
   ])

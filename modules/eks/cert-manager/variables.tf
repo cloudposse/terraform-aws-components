@@ -163,4 +163,3 @@ variable "eks_component_name" {
   description = "The name of the eks component"
   default     = "eks/cluster"
 }
-

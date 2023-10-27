@@ -15,4 +15,3 @@ variable "ssm_path" {
   default     = "opsgenie"
   description = "SSM path"
 }
-

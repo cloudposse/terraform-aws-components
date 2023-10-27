@@ -1,9 +1,11 @@
 locals {
   enabled = module.this.enabled
 
-  webhook_enabled       = local.enabled ? try(var.webhook.enabled, false) : false
-  webhook_host          = local.webhook_enabled ? format(var.webhook.hostname_template, var.tenant, var.stage, var.environment) : "example.com"
-  runner_groups_enabled = length(compact(values(var.runners)[*].group)) > 0
+  webhook_enabled            = local.enabled ? try(var.webhook.enabled, false) : false
+  webhook_host               = local.webhook_enabled ? format(var.webhook.hostname_template, var.tenant, var.stage, var.environment) : "example.com"
+  runner_groups_enabled      = length(compact(values(var.runners)[*].group)) > 0
+  docker_config_json_enabled = local.enabled && var.docker_config_json_enabled
+  docker_config_json         = one(data.aws_ssm_parameter.docker_config_json[*].value)
 
   github_app_enabled = length(var.github_app_id) > 0 && length(var.github_app_installation_id) > 0
   create_secret      = local.enabled && length(var.existing_kubernetes_secret_name) == 0
@@ -100,9 +102,15 @@ data "aws_ssm_parameter" "github_webhook_secret_token" {
   with_decryption = true
 }
 
+data "aws_ssm_parameter" "docker_config_json" {
+  count           = local.docker_config_json_enabled ? 1 : 0
+  name            = var.ssm_docker_config_json_path
+  with_decryption = true
+}
+
 module "actions_runner_controller" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.7.0"
+  version = "0.10.0"
 
   name            = "" # avoids hitting length restrictions on IAM Role names
   chart           = var.chart
@@ -192,7 +200,7 @@ module "actions_runner" {
   for_each = local.enabled ? var.runners : {}
 
   source  = "cloudposse/helm-release/aws"
-  version = "0.7.0"
+  version = "0.10.0"
 
   name  = each.key
   chart = "${path.module}/charts/actions-runner"
@@ -225,6 +233,8 @@ module "actions_runner" {
       pvc_enabled                    = each.value.pvc_enabled
       node_selector                  = each.value.node_selector
       tolerations                    = each.value.tolerations
+      docker_config_json_enabled     = local.docker_config_json_enabled
+      docker_config_json             = local.docker_config_json
     }),
     each.value.group == null ? "" : yamlencode({ group = each.value.group }),
     local.busy_metrics_filtered[each.key] == null ? "" : yamlencode(local.busy_metrics_filtered[each.key]),
@@ -232,4 +242,3 @@ module "actions_runner" {
 
   depends_on = [module.actions_runner_controller]
 }
-

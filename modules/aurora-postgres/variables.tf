@@ -66,12 +66,6 @@ variable "cluster_family" {
   default     = "aurora-postgresql13"
 }
 
-# AWS KMS alias used for encryption/decryption of SSM secure strings
-variable "kms_alias_name_ssm" {
-  default     = "alias/aws/ssm"
-  description = "KMS alias name for SSM"
-}
-
 variable "database_port" {
   type        = number
   description = "Database port"
@@ -145,12 +139,6 @@ variable "reader_dns_name_part" {
   default     = "reader"
 }
 
-variable "additional_databases" {
-  type        = set(string)
-  default     = []
-  description = "Additional databases to be created with the cluster"
-}
-
 variable "ssm_path_prefix" {
   type        = string
   default     = "aurora-postgres"
@@ -191,6 +179,12 @@ variable "enhanced_monitoring_role_enabled" {
   type        = bool
   description = "A boolean flag to enable/disable the creation of the enhanced monitoring IAM role. If set to `false`, the module will not create a new role and will use `rds_monitoring_role_arn` for enhanced monitoring"
   default     = true
+}
+
+variable "enhanced_monitoring_attributes" {
+  type        = list(string)
+  description = "Attributes used to format the Enhanced Monitoring IAM role. If this role hits IAM role length restrictions (max 64 characters), consider shortening these strings."
+  default     = ["enhanced-monitoring"]
 }
 
 variable "rds_monitoring_interval" {
@@ -267,6 +261,7 @@ variable "eks_component_names" {
 
 variable "allow_ingress_from_vpc_accounts" {
   type = list(object({
+    vpc         = optional(string, "vpc")
     environment = optional(string)
     stage       = optional(string)
     tenant      = optional(string)
@@ -280,16 +275,40 @@ variable "allow_ingress_from_vpc_accounts" {
       stage       = "auto",
       tenant      = "core"
     }
+
+    Defaults to the "vpc" component in the given account
   EOF
 }
 
-variable "ssm_password_source" {
+variable "vpc_component_name" {
   type        = string
-  default     = ""
-  description = <<-EOT
-    If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved from SSM using 
-    `var.ssm_password_source` and the database username. If this value is not set, 
-    a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster.
-    EOT
+  default     = "vpc"
+  description = "The name of the VPC component"
 }
 
+variable "scaling_configuration" {
+  type = list(object({
+    auto_pause               = bool
+    max_capacity             = number
+    min_capacity             = number
+    seconds_until_auto_pause = number
+    timeout_action           = string
+  }))
+  default     = []
+  description = "List of nested attributes with scaling properties. Only valid when `engine_mode` is set to `serverless`. This is required for Serverless v1"
+}
+
+variable "serverlessv2_scaling_configuration" {
+  type = object({
+    min_capacity = number
+    max_capacity = number
+  })
+  default     = null
+  description = "Nested attribute with scaling properties for ServerlessV2. Only valid when `engine_mode` is set to `provisioned.` This is required for Serverless v2"
+}
+
+variable "intra_security_group_traffic_enabled" {
+  type        = bool
+  default     = false
+  description = "Whether to allow traffic between resources inside the database's security group."
+}

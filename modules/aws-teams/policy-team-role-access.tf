@@ -8,6 +8,7 @@ data "aws_iam_policy_document" "team_role_access" {
     effect = "Allow"
     actions = [
       "sts:AssumeRole",
+      "sts:SetSourceIdentity",
       "sts:TagSession",
     ]
     resources = [
@@ -20,15 +21,6 @@ data "aws_iam_policy_document" "team_role_access" {
     effect    = "Allow"
     actions   = ["sts:GetCallerIdentity"]
     resources = ["*"]
-  }
-
-  statement {
-    sid     = "DenyIdentityAssumeRole"
-    effect  = "Deny"
-    actions = ["sts:AssumeRole"]
-    resources = [
-      format("arn:%s:iam::%s:role/*", local.aws_partition, local.identity_account_id),
-    ]
   }
 }
 

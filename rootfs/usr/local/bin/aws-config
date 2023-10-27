@@ -163,7 +163,7 @@ function spacelift() {
 
   echo
   _no_source_profile=skip
-  saml admin terraform
+  saml admin terraform planner
 }
 
 functions+=(accounts)
@@ -187,17 +187,18 @@ case $1 in
       shift
     fi
     ;;
-  account*)
+  *)
     if [[ -n $NAMESPACE ]]; then
       target_namespace=($NAMESPACE)
-    elif [[ ${#namespaces[@]} == 1 ]]; then
-      target_namespace=("${namespaces[0]}")
     else
-      echo "ERROR: NAMESPACE not set. Please set NAMESPACE or use -n <namespace> to specify the namespace to use."
-      exit 1
+      target_namespace=("${namespaces[@]}")
     fi
     ;;
-  *)
+esac
+
+case $1 in
+  # These commands automatically use all namespaces, so we don't need to loop over them.
+  spacelift|switch-roles|teams|saml)
     target_namespace=("${namespaces[0]}")
     ;;
 esac

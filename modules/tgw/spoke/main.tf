@@ -7,12 +7,12 @@
 # https://docs.aws.amazon.com/ram/latest/userguide/getting-started-sharing.html
 
 locals {
-  spoke_account = module.this.tenant != null ? format("%s-%s", module.this.tenant, module.this.stage) : module.this.stage
+  spoke_account = module.this.tenant != null ? format("%s-%s-%s", module.this.tenant, module.this.environment, module.this.stage) : format("%s-%s", module.this.environment, module.this.stage)
 }
 
 module "tgw_hub_routes" {
   source  = "cloudposse/transit-gateway/aws"
-  version = "0.9.1"
+  version = "0.10.0"
 
   providers = {
     aws = aws.tgw-hub
@@ -38,12 +38,16 @@ module "tgw_hub_routes" {
 module "tgw_spoke_vpc_attachment" {
   source = "./modules/standard_vpc_attachment"
 
-  owning_account = local.spoke_account
+  owning_account          = local.spoke_account
+  own_vpc_component_name  = var.own_vpc_component_name
+  own_eks_component_names = var.own_eks_component_names
 
-  tgw_config          = module.tgw_hub.outputs.tgw_config
-  connections         = var.connections
-  expose_eks_sg       = var.expose_eks_sg
-  eks_component_names = var.eks_component_names
+  tgw_config           = module.tgw_hub.outputs.tgw_config
+  tgw_connector_config = module.cross_region_hub_connector
+  connections          = var.connections
+  expose_eks_sg        = var.expose_eks_sg
+  peered_region        = var.peered_region
+
 
   context = module.this.context
 }

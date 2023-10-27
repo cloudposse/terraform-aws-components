@@ -3,31 +3,42 @@ variable "region" {
   description = "AWS Region"
 }
 
-variable "this_region" {
-  type = object({
-    tgw_stage_name  = string
-    tgw_tenant_name = string
-  })
-  description = "Initiators region config. Describe the transit gateway that should originate the peering"
-}
-
-variable "home_region" {
-  type = object({
-    tgw_name_format = string
-    tgw_stage_name  = string
-    tgw_tenant_name = string
-    region          = string
-    environment     = string
-  })
-  description = "Acceptors region config. Describe the transit gateway that should accept the peering"
-}
-
-variable "account_map_tenant_name" {
+variable "env_naming_convention" {
   type        = string
-  description = <<-EOT
-  The name of the tenant where `account_map` is provisioned.
+  description = "The cloudposse/utils naming convention used to translate environment name to AWS region name. Options are `to_short` and `to_fixed`"
+  default     = "to_short"
 
-  If the `tenant` label is not used, leave this as `null`.
-  EOT
-  default     = null
+  validation {
+    condition     = var.env_naming_convention != "to_short" || var.env_naming_convention != "to_fixed:"
+    error_message = "`var.env_naming_convention` must be either `to_short` or `to_fixed`."
+  }
+}
+
+variable "primary_tgw_hub_tenant" {
+  type        = string
+  description = "The name of the tenant where the primary Transit Gateway hub is deployed. Only used if tenants are deployed and defaults to `module.this.tenant`"
+  default     = ""
+}
+
+variable "primary_tgw_hub_stage" {
+  type        = string
+  description = "The name of the stage where the primary Transit Gateway hub is deployed. Defaults to `module.this.stage`"
+  default     = ""
+}
+
+variable "primary_tgw_hub_region" {
+  type        = string
+  description = "The name of the AWS region where the primary Transit Gateway hub is deployed. This value is used with `var.env_naming_convention` to determine the primary Transit Gateway hub's environment name."
+}
+
+variable "account_map_environment_name" {
+  type        = string
+  description = "The name of the environment where `account_map` is provisioned"
+  default     = "gbl"
+}
+
+variable "account_map_stage_name" {
+  type        = string
+  description = "The name of the stage where `account_map` is provisioned"
+  default     = "root"
 }

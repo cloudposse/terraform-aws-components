@@ -34,7 +34,7 @@ variable "database_name" {
 variable "password" {
   type        = string
   description = "Password to be used to login to the endpoint database"
-  default     = null
+  default     = ""
 }
 
 variable "port" {
@@ -82,7 +82,7 @@ variable "ssl_mode" {
 variable "username" {
   type        = string
   description = "User name to be used to login to the endpoint database"
-  default     = null
+  default     = ""
 }
 
 variable "elasticsearch_settings" {
@@ -119,4 +119,16 @@ variable "s3_settings" {
   type        = map(any)
   description = "Configuration block for S3 settings"
   default     = null
+}
+
+variable "username_path" {
+  type        = string
+  description = "If set, the path in AWS SSM Parameter Store to fetch the username for the DMS admin user"
+  default     = ""
+}
+
+variable "password_path" {
+  type        = string
+  description = "If set, the path in AWS SSM Parameter Store to fetch the password for the DMS admin user"
+  default     = ""
 }

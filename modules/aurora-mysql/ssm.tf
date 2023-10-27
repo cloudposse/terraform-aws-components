@@ -27,13 +27,6 @@ locals {
       overwrite   = true
     },
     {
-      name        = format("%s/%s", local.ssm_path_prefix, "replicas_hostname")
-      value       = module.aurora_mysql.replicas_host
-      description = "Aurora MySQL DB Replicas hostname"
-      type        = "String"
-      overwrite   = true
-    },
-    {
       name        = format("%s/%s", local.ssm_path_prefix, "cluster_name")
       value       = module.aurora_mysql.cluster_identifier
       description = "Aurora MySQL DB Cluster Identifier"
@@ -41,6 +34,15 @@ locals {
       overwrite   = true
     }
   ]
+  cluster_parameters = var.mysql_cluster_size > 0 ? [
+    {
+      name        = format("%s/%s", local.ssm_path_prefix, "replicas_hostname")
+      value       = module.aurora_mysql.replicas_host
+      description = "Aurora MySQL DB Replicas hostname"
+      type        = "String"
+      overwrite   = true
+    },
+  ] : []
   admin_user_parameters = [
     {
       name        = local.mysql_admin_user_key
@@ -58,7 +60,7 @@ locals {
     }
   ]
 
-  parameter_write = local.mysql_db_enabled ? concat(local.default_parameters, local.admin_user_parameters) : local.default_parameters
+  parameter_write = local.mysql_db_enabled ? concat(local.default_parameters, local.cluster_parameters, local.admin_user_parameters) : concat(local.default_parameters, local.cluster_parameters)
 }
 
 data "aws_ssm_parameter" "password" {
@@ -71,13 +73,12 @@ data "aws_ssm_parameter" "password" {
 
 module "parameter_store_write" {
   source  = "cloudposse/ssm-parameter-store/aws"
-  version = "0.10.0"
+  version = "0.11.0"
 
   # kms_arn will only be used for SecureString parameters
   kms_arn = module.kms_key_rds.key_arn
 
   parameter_write = local.parameter_write
 
-  context = module.this.context
+  context = module.cluster.context
 }
-

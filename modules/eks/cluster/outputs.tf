@@ -80,15 +80,30 @@ output "karpenter_iam_role_name" {
 
 output "fargate_profiles" {
   description = "Fargate Profiles"
-  value       = module.fargate_profile
+  value       = merge(module.fargate_profile, local.addon_fargate_profiles)
 }
 
 output "fargate_profile_role_arns" {
   description = "Fargate Profile Role ARNs"
-  value       = values(module.fargate_profile)[*].eks_fargate_profile_role_arn
+  value = distinct(compact(concat(values(module.fargate_profile)[*].eks_fargate_profile_role_arn,
+    [one(module.fargate_pod_execution_role[*].eks_fargate_pod_execution_role_arn)]
+  )))
+
 }
 
 output "fargate_profile_role_names" {
   description = "Fargate Profile Role names"
-  value       = values(module.fargate_profile)[*].eks_fargate_profile_role_name
+  value = distinct(compact(concat(values(module.fargate_profile)[*].eks_fargate_profile_role_name,
+    [one(module.fargate_pod_execution_role[*].eks_fargate_pod_execution_role_name)]
+  )))
+}
+
+output "vpc_cidr" {
+  description = "The CIDR of the VPC where this cluster is deployed."
+  value       = local.vpc_outputs.vpc_cidr
+}
+
+output "availability_zones" {
+  description = "Availability Zones in which the cluster is provisioned"
+  value       = local.availability_zones
 }

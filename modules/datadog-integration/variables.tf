@@ -50,3 +50,31 @@ variable "context_host_and_filter_tags" {
   default     = ["namespace", "tenant", "stage"]
 }
 
+variable "cspm_resource_collection_enabled" {
+  type        = bool
+  default     = null
+  description = <<-EOT
+    Enable Datadog Cloud Security Posture Management scanning of your AWS account.
+    See [announcement](https://www.datadoghq.com/product/cloud-security-management/cloud-security-posture-management/) for details.
+    EOT
+}
+
+variable "metrics_collection_enabled" {
+  type        = bool
+  default     = null
+  description = <<-EOT
+    When enabled, a metric-by-metric crawl of the CloudWatch API pulls data and sends it
+    to Datadog. New metrics are pulled every ten minutes, on average.
+    EOT
+}
+
+variable "resource_collection_enabled" {
+  type        = bool
+  default     = null
+  description = <<-EOT
+    Some Datadog products leverage information about how your AWS resources
+    (such as S3 Buckets, RDS snapshots, and CloudFront distributions) are configured.
+    When `resource_collection_enabled` is `true`, Datadog collects this information
+    by making read-only API calls into your AWS account.
+    EOT
+}

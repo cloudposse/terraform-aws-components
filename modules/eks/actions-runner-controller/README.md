@@ -37,6 +37,21 @@ components:
         github_app_id: "REPLACE_ME_GH_APP_ID"
         github_app_installation_id: "REPLACE_ME_GH_INSTALLATION_ID"
 
+        # use to enable docker config json secret, which can login to dockerhub for your GHA Runners
+        docker_config_json_enabled: true
+        # The content of this param should look like:
+        # {
+        #  "auths": {
+        #    "https://index.docker.io/v1/": {
+        #      "username": "your_username",
+        #      "password": "your_password
+        #      "email": "your_email",
+        #      "auth": "$(echo "your_username:your_password" | base64)"
+        #    }
+        #  }
+        # } | base64
+        ssm_docker_config_json_path: "/github_runners/docker/config-json"
+
         # ssm_github_webhook_secret_token_path: "/github_runners/github_webhook_secret_token"
         # The webhook based autoscaler is much more efficient than the polling based autoscaler
         webhook:
@@ -387,7 +402,7 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.0 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.0, != 2.21.0 |
 
 ## Providers
 
@@ -399,9 +414,9 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_actions_runner"></a> [actions\_runner](#module\_actions\_runner) | cloudposse/helm-release/aws | 0.7.0 |
-| <a name="module_actions_runner_controller"></a> [actions\_runner\_controller](#module\_actions\_runner\_controller) | cloudposse/helm-release/aws | 0.7.0 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_actions_runner"></a> [actions\_runner](#module\_actions\_runner) | cloudposse/helm-release/aws | 0.10.0 |
+| <a name="module_actions_runner_controller"></a> [actions\_runner\_controller](#module\_actions\_runner\_controller) | cloudposse/helm-release/aws | 0.10.0 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -410,6 +425,7 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 | Name | Type |
 |------|------|
 | [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
+| [aws_ssm_parameter.docker_config_json](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.github_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.github_webhook_secret_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 
@@ -430,16 +446,15 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 | <a name="input_create_namespace"></a> [create\_namespace](#input\_create\_namespace) | Create the namespace if it does not yet exist. Defaults to `false`. | `bool` | `null` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
+| <a name="input_docker_config_json_enabled"></a> [docker\_config\_json\_enabled](#input\_docker\_config\_json\_enabled) | Whether the Docker config JSON is enabled | `bool` | `false` | no |
 | <a name="input_eks_component_name"></a> [eks\_component\_name](#input\_eks\_component\_name) | The name of the eks component | `string` | `"eks/cluster"` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_existing_kubernetes_secret_name"></a> [existing\_kubernetes\_secret\_name](#input\_existing\_kubernetes\_secret\_name) | If you are going to create the Kubernetes Secret the runner-controller will use<br>by some means (such as SOPS) outside of this component, set the name of the secret<br>here and it will be used. In this case, this component will not create a secret<br>and you can leave the secret-related inputs with their default (empty) values.<br>The same secret will be used by both the runner-controller and the webhook-server. | `string` | `""` | no |
 | <a name="input_github_app_id"></a> [github\_app\_id](#input\_github\_app\_id) | The ID of the GitHub App to use for the runner controller. | `string` | `""` | no |
 | <a name="input_github_app_installation_id"></a> [github\_app\_installation\_id](#input\_github\_app\_installation\_id) | The "Installation ID" of the GitHub App to use for the runner controller. | `string` | `""` | no |
-| <a name="input_helm_manifest_experiment_enabled"></a> [helm\_manifest\_experiment\_enabled](#input\_helm\_manifest\_experiment\_enabled) | Enable storing of the rendered manifest for helm\_release so the full diff of what is changing can been seen in the plan | `bool` | `true` | no |
+| <a name="input_helm_manifest_experiment_enabled"></a> [helm\_manifest\_experiment\_enabled](#input\_helm\_manifest\_experiment\_enabled) | Enable storing of the rendered manifest for helm\_release so the full diff of what is changing can been seen in the plan | `bool` | `false` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_kube_data_auth_enabled"></a> [kube\_data\_auth\_enabled](#input\_kube\_data\_auth\_enabled) | If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`. | `bool` | `false` | no |
 | <a name="input_kube_exec_auth_aws_profile"></a> [kube\_exec\_auth\_aws\_profile](#input\_kube\_exec\_auth\_aws\_profile) | The AWS config profile for `aws eks get-token` to use | `string` | `""` | no |
 | <a name="input_kube_exec_auth_aws_profile_enabled"></a> [kube\_exec\_auth\_aws\_profile\_enabled](#input\_kube\_exec\_auth\_aws\_profile\_enabled) | If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-token` | `bool` | `false` | no |
@@ -463,6 +478,7 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 | <a name="input_resources"></a> [resources](#input\_resources) | The cpu and memory of the deployment's limits and requests. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | n/a | yes |
 | <a name="input_runners"></a> [runners](#input\_runners) | Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in<br>kebab-case.<br><br>For example:<pre>hcl<br>organization_runner = {<br>  type = "organization" # can be either 'organization' or 'repository'<br>  dind_enabled: false # A Docker sidecar container will be deployed<br>  image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'<br>  scope = "ACME"  # org name for Organization runners, repo name for Repository runners<br>  group = "core-automation" # Optional. Assigns the runners to a runner group, for access control.<br>  scale_down_delay_seconds = 300<br>  min_replicas = 1<br>  max_replicas = 5<br>  busy_metrics = {<br>    scale_up_threshold = 0.75<br>    scale_down_threshold = 0.25<br>    scale_up_factor = 2<br>    scale_down_factor = 0.5<br>  }<br>  labels = [<br>    "Ubuntu",<br>    "core-automation",<br>  ]<br>}</pre> | <pre>map(object({<br>    type            = string<br>    scope           = string<br>    group           = optional(string, null)<br>    image           = optional(string, "")<br>    dind_enabled    = bool<br>    node_selector   = optional(map(string), {})<br>    pod_annotations = optional(map(string), {})<br>    tolerations = optional(list(object({<br>      key      = string<br>      operator = string<br>      value    = optional(string, null)<br>      effect   = string<br>    })), [])<br>    scale_down_delay_seconds = number<br>    min_replicas             = number<br>    max_replicas             = number<br>    busy_metrics = optional(object({<br>      scale_up_threshold    = string<br>      scale_down_threshold  = string<br>      scale_up_adjustment   = optional(string)<br>      scale_down_adjustment = optional(string)<br>      scale_up_factor       = optional(string)<br>      scale_down_factor     = optional(string)<br>    }))<br>    webhook_driven_scaling_enabled = bool<br>    webhook_startup_timeout        = optional(string, null)<br>    pull_driven_scaling_enabled    = bool<br>    labels                         = list(string)<br>    storage                        = optional(string, null)<br>    pvc_enabled                    = optional(bool, false)<br>    resources = object({<br>      limits = object({<br>        cpu               = string<br>        memory            = string<br>        ephemeral_storage = optional(string, null)<br>      })<br>      requests = object({<br>        cpu    = string<br>        memory = string<br>      })<br>    })<br>  }))</pre> | n/a | yes |
 | <a name="input_s3_bucket_arns"></a> [s3\_bucket\_arns](#input\_s3\_bucket\_arns) | List of ARNs of S3 Buckets to which the runners will have read-write access to. | `list(string)` | `[]` | no |
+| <a name="input_ssm_docker_config_json_path"></a> [ssm\_docker\_config\_json\_path](#input\_ssm\_docker\_config\_json\_path) | SSM path to the Docker config JSON | `string` | `null` | no |
 | <a name="input_ssm_github_secret_path"></a> [ssm\_github\_secret\_path](#input\_ssm\_github\_secret\_path) | The path in SSM to the GitHub app private key file contents or GitHub PAT token. | `string` | `""` | no |
 | <a name="input_ssm_github_webhook_secret_token_path"></a> [ssm\_github\_webhook\_secret\_token\_path](#input\_ssm\_github\_webhook\_secret\_token\_path) | The path in SSM to the GitHub Webhook Secret token. | `string` | `""` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |

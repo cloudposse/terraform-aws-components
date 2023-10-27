@@ -6,6 +6,7 @@ variable "region" {
 variable "function_name" {
   type        = string
   description = "Unique name for the Lambda Function."
+  default     = null
 }
 
 variable "architectures" {
@@ -246,7 +247,7 @@ variable "vpc_config" {
 
 variable "custom_iam_policy_arns" {
   type        = set(string)
-  description = "ARNs of custom policies to be attached to the lambda role"
+  description = "ARNs of IAM policies to be attached to the Lambda role"
   default     = []
 }
 
@@ -268,7 +269,37 @@ variable "iam_policy_description" {
 
 variable "policy_json" {
   type        = string
-  description = "IAM policy to attach to the Lambda IAM role"
+  description = "IAM policy to attach to the Lambda role, specified as JSON. This can be used with or instead of `var.iam_policy`."
+  default     = null
+}
+
+variable "iam_policy" {
+  type = object({
+    policy_id = optional(string, null)
+    version   = optional(string, null)
+    statements = list(object({
+      sid           = optional(string, null)
+      effect        = optional(string, null)
+      actions       = optional(list(string), null)
+      not_actions   = optional(list(string), null)
+      resources     = optional(list(string), null)
+      not_resources = optional(list(string), null)
+      conditions = optional(list(object({
+        test     = string
+        variable = string
+        values   = list(string)
+      })), [])
+      principals = optional(list(object({
+        type        = string
+        identifiers = list(string)
+      })), [])
+      not_principals = optional(list(object({
+        type        = string
+        identifiers = list(string)
+      })), [])
+    }))
+  })
+  description = "IAM policy to attach to the Lambda role, specified as a Terraform object. This can be used with or instead of `var.policy_json`."
   default     = null
 }
 

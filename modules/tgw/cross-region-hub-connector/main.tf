@@ -1,40 +1,50 @@
 locals {
   enabled = module.this.enabled
+
+  primary_tgw_hub_tenant     = length(var.primary_tgw_hub_tenant) > 0 ? var.primary_tgw_hub_tenant : module.this.tenant
+  primary_tgw_hub_stage      = length(var.primary_tgw_hub_stage) > 0 ? var.primary_tgw_hub_stage : module.this.stage
+  primary_tgw_hub_account    = module.this.tenant != null ? format("%s-%s", local.primary_tgw_hub_tenant, local.primary_tgw_hub_stage) : local.primary_tgw_hub_stage
+  primary_tgw_hub_account_id = module.account_map.outputs.full_account_map[local.primary_tgw_hub_account]
 }
 
-# connects two transit gateways that are cross region
-resource "aws_ec2_transit_gateway_peering_attachment" "tgw_peering" {
-  count                   = local.enabled ? 1 : 0
-  provider                = aws.tgw_this_region
-  peer_account_id         = module.account_map.outputs.full_account_map[format(var.home_region.tgw_name_format, var.home_region.tgw_tenant_name, var.home_region.tgw_stage_name)]
-  peer_region             = var.home_region.region
-  peer_transit_gateway_id = module.tgw_home_region.outputs.transit_gateway_id
-  transit_gateway_id      = module.tgw_this_region.outputs.transit_gateway_id
-  tags                    = module.this.tags
+# Connect two Transit Gateway Hubs across regions
+resource "aws_ec2_transit_gateway_peering_attachment" "this" {
+  count = local.enabled ? 1 : 0
+
+  peer_account_id         = local.primary_tgw_hub_account_id
+  peer_region             = var.primary_tgw_hub_region
+  peer_transit_gateway_id = module.tgw_hub_primary_region.outputs.transit_gateway_id
+  transit_gateway_id      = module.tgw_hub_this_region.outputs.transit_gateway_id
+
+  tags = module.this.tags
 }
 
-# accepts the above
-resource "aws_ec2_transit_gateway_peering_attachment_accepter" "tgw_peering_accepter" {
-  count                         = local.enabled ? 1 : 0
-  provider                      = aws.tgw_home_region
-  transit_gateway_attachment_id = join("", aws_ec2_transit_gateway_peering_attachment.tgw_peering.*.id)
+# Accept the peering attachment in the primary region
+resource "aws_ec2_transit_gateway_peering_attachment_accepter" "primary_region" {
+  count = local.enabled ? 1 : 0
+
+  provider = aws.primary_tgw_hub_region
+
+  transit_gateway_attachment_id = join("", aws_ec2_transit_gateway_peering_attachment.this[*].id)
   tags                          = module.this.tags
 }
 
-resource "aws_ec2_transit_gateway_route_table_association" "tgw_rt_associate_peering_in_region" {
-  count      = local.enabled ? 1 : 0
-  depends_on = [aws_ec2_transit_gateway_peering_attachment_accepter.tgw_peering_accepter]
+resource "aws_ec2_transit_gateway_route_table_association" "this_region" {
+  count = local.enabled ? 1 : 0
 
-  provider                       = aws.tgw_this_region
-  transit_gateway_attachment_id  = join("", aws_ec2_transit_gateway_peering_attachment.tgw_peering.*.id)
-  transit_gateway_route_table_id = module.tgw_this_region.outputs.transit_gateway_route_table_id
+  transit_gateway_attachment_id  = join("", aws_ec2_transit_gateway_peering_attachment.this[*].id)
+  transit_gateway_route_table_id = module.tgw_hub_this_region.outputs.transit_gateway_route_table_id
+
+  depends_on = [aws_ec2_transit_gateway_peering_attachment_accepter.primary_region]
 }
 
-resource "aws_ec2_transit_gateway_route_table_association" "tgw_rt_associate_peering_cross_region" {
-  count      = local.enabled ? 1 : 0
-  depends_on = [aws_ec2_transit_gateway_peering_attachment_accepter.tgw_peering_accepter]
+resource "aws_ec2_transit_gateway_route_table_association" "primary_region" {
+  count = local.enabled ? 1 : 0
 
-  provider                       = aws.tgw_home_region
-  transit_gateway_attachment_id  = join("", aws_ec2_transit_gateway_peering_attachment.tgw_peering.*.id)
-  transit_gateway_route_table_id = module.tgw_home_region.outputs.transit_gateway_route_table_id
+  provider = aws.primary_tgw_hub_region
+
+  transit_gateway_attachment_id  = join("", aws_ec2_transit_gateway_peering_attachment.this[*].id)
+  transit_gateway_route_table_id = module.tgw_hub_primary_region.outputs.transit_gateway_route_table_id
+
+  depends_on = [aws_ec2_transit_gateway_peering_attachment_accepter.primary_region]
 }

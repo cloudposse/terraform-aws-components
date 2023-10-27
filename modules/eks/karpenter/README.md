@@ -1,6 +1,8 @@
 # Component: `eks/karpenter`
 
 This component provisions [Karpenter](https://karpenter.sh) on an EKS cluster.
+It requires at least version 0.19.0 of Karpenter, though you are encouraged to
+use the latest version.
 
 ## Usage
 
@@ -45,6 +47,9 @@ components:
         atomic: true
         wait: true
         rbac_enabled: true
+        # Set `legacy_create_karpenter_instance_profile` to `false` to allow the `eks/cluster` component
+        # to manage the instance profile for the nodes launched by Karpenter (recommended for all new clusters).
+        legacy_create_karpenter_instance_profile: false
 
     # Provision `karpenter` component on the blue EKS cluster
     eks/karpenter-blue:
@@ -85,7 +90,6 @@ Service role name AWSServiceRoleForEC2Spot has been taken in this account, pleas
 ```
 
 For more details, see:
- - https://karpenter.sh/v0.18.0/getting-started/getting-started-with-terraform/
  - https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
  - https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html
 
@@ -277,13 +281,20 @@ For your cluster, you will need to review the following configurations for the K
       ttl_seconds_until_expired: 2592000
     ```
 
+## Troubleshooting
+
+For Karpenter issues, checkout the [Karpenter Troubleshooting Guide](https://karpenter.sh/docs/troubleshooting/)
+
+### References
+
 For more details, refer to:
 
- - https://karpenter.sh/v0.18.0/provisioner/#specrequirements
- - https://karpenter.sh/v0.18.0/aws/provisioning
+ - https://karpenter.sh/v0.28.0/provisioner/#specrequirements
+ - https://karpenter.sh/v0.28.0/aws/provisioning
  - https://aws.github.io/aws-eks-best-practices/karpenter/#creating-provisioners
  - https://aws.github.io/aws-eks-best-practices/karpenter
  - https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
+
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -294,7 +305,7 @@ For more details, refer to:
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.0 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.7.1 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.7.1, != 2.21.0 |
 
 ## Providers
 
@@ -306,17 +317,23 @@ For more details, refer to:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
-| <a name="module_karpenter"></a> [karpenter](#module\_karpenter) | cloudposse/helm-release/aws | 0.7.0 |
+| <a name="module_karpenter"></a> [karpenter](#module\_karpenter) | cloudposse/helm-release/aws | 0.10.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [aws_cloudwatch_event_rule.interruption_handler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_rule) | resource |
+| [aws_cloudwatch_event_target.interruption_handler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
 | [aws_iam_instance_profile.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
+| [aws_sqs_queue.interruption_handler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue) | resource |
+| [aws_sqs_queue_policy.interruption_handler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue_policy) | resource |
 | [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
+| [aws_iam_policy_document.interruption_handler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
 
 ## Inputs
 
@@ -338,10 +355,10 @@ For more details, refer to:
 | <a name="input_eks_component_name"></a> [eks\_component\_name](#input\_eks\_component\_name) | The name of the eks component | `string` | `"eks/cluster"` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_helm_manifest_experiment_enabled"></a> [helm\_manifest\_experiment\_enabled](#input\_helm\_manifest\_experiment\_enabled) | Enable storing of the rendered manifest for helm\_release so the full diff of what is changing can been seen in the plan | `bool` | `true` | no |
+| <a name="input_helm_manifest_experiment_enabled"></a> [helm\_manifest\_experiment\_enabled](#input\_helm\_manifest\_experiment\_enabled) | Enable storing of the rendered manifest for helm\_release so the full diff of what is changing can been seen in the plan | `bool` | `false` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
+| <a name="input_interruption_handler_enabled"></a> [interruption\_handler\_enabled](#input\_interruption\_handler\_enabled) | If `true`, deploy a SQS queue and Event Bridge rules to enable interruption handling by Karpenter.<br><br>  https://karpenter.sh/v0.27.5/concepts/deprovisioning/#interruption | `bool` | `false` | no |
+| <a name="input_interruption_queue_message_retention"></a> [interruption\_queue\_message\_retention](#input\_interruption\_queue\_message\_retention) | The message retention in seconds for the interruption handler SQS queue. | `number` | `300` | no |
 | <a name="input_kube_data_auth_enabled"></a> [kube\_data\_auth\_enabled](#input\_kube\_data\_auth\_enabled) | If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`. | `bool` | `false` | no |
 | <a name="input_kube_exec_auth_aws_profile"></a> [kube\_exec\_auth\_aws\_profile](#input\_kube\_exec\_auth\_aws\_profile) | The AWS config profile for `aws eks get-token` to use | `string` | `""` | no |
 | <a name="input_kube_exec_auth_aws_profile_enabled"></a> [kube\_exec\_auth\_aws\_profile\_enabled](#input\_kube\_exec\_auth\_aws\_profile\_enabled) | If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-token` | `bool` | `false` | no |
@@ -357,6 +374,7 @@ For more details, refer to:
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
+| <a name="input_legacy_create_karpenter_instance_profile"></a> [legacy\_create\_karpenter\_instance\_profile](#input\_legacy\_create\_karpenter\_instance\_profile) | When `true` (the default), this component creates an IAM Instance Profile<br>for nodes launched by Karpenter, to preserve the legacy behavior.<br>Set to `false` to disable creation of the IAM Instance Profile, which<br>avoids conflict with having `eks/cluster` create it.<br>Use in conjunction with `eks/cluster` component `legacy_do_not_create_karpenter_instance_profile`,<br>which see for further details. | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_rbac_enabled"></a> [rbac\_enabled](#input\_rbac\_enabled) | Enable/disable RBAC | `bool` | `true` | no |

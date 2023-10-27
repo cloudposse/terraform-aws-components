@@ -1,6 +1,6 @@
 # Kubernetes Ops (kops)
 
-This project provisions dependencies for `kops` clusters including the DNS zone, S3 bucket for state storage, SSH keypair. 
+This project provisions dependencies for `kops` clusters including the DNS zone, S3 bucket for state storage, SSH keypair.
 
 It also writes the computed settings to SSM for usage by other modules or tools.
 
@@ -32,7 +32,7 @@ This is roughly the process to get up and running. These instructions assume you
 9. Run `make kops/apply` to build the cluster
 10. Run `make kops/validate` to view cluster status. Note, it will take ~10 minutes to come online (depending on cluster size)
 
-Once the cluster is online, you can interact with it using `kubectl`. 
+Once the cluster is online, you can interact with it using `kubectl`.
 
 To start, first run this to export `kubecfg` from the `kops` state store (required to access the cluster):
 ```
@@ -40,4 +40,3 @@ make kops/export
 ```
 
 Then all the standard `kubectl` commands will work (e.g. `kubectl get nodes`).
-

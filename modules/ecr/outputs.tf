@@ -3,6 +3,11 @@ output "ecr_repo_arn_map" {
   description = "Map of image names to ARNs"
 }
 
+output "repository_host" {
+  value       = try(split("/", module.ecr.repository_url)[0], null)
+  description = "ECR repository name"
+}
+
 output "ecr_repo_url_map" {
   value       = module.ecr.repository_url_map
   description = "Map of image names to URLs"

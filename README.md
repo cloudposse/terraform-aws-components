@@ -28,17 +28,11 @@
 
 -->
 
-This is a collection of reusable Terraform components and blueprints for provisioning reference architectures.
+This is a collection of reusable Terraform components for provisioning infrastructure used by the Cloud Posse [reference architectures](https://cloudposse.com).
 
 ---
 
 This project is part of our comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
-[<img align="right" title="Share via Email" src="https://docs.cloudposse.com/images/ionicons/ios-email-outline-2.0.1-16x16-999999.svg"/>][share_email]
-[<img align="right" title="Share on Google+" src="https://docs.cloudposse.com/images/ionicons/social-googleplus-outline-2.0.1-16x16-999999.svg" />][share_googleplus]
-[<img align="right" title="Share on Facebook" src="https://docs.cloudposse.com/images/ionicons/social-facebook-outline-2.0.1-16x16-999999.svg" />][share_facebook]
-[<img align="right" title="Share on Reddit" src="https://docs.cloudposse.com/images/ionicons/social-reddit-outline-2.0.1-16x16-999999.svg" />][share_reddit]
-[<img align="right" title="Share on LinkedIn" src="https://docs.cloudposse.com/images/ionicons/social-linkedin-outline-2.0.1-16x16-999999.svg" />][share_linkedin]
-[<img align="right" title="Share on Twitter" src="https://docs.cloudposse.com/images/ionicons/social-twitter-outline-2.0.1-16x16-999999.svg" />][share_twitter]
 
 
 
@@ -60,9 +54,9 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 In this repo you'll find real-world examples of how we've implemented various common patterns using our [terraform modules](https://cpco.io/terraform-modules) for our customers.
 
-The component catalog captures the business logic, opinions, best practices and non-functional requirements.
+The [component library](https://docs.cloudposse.com/components/) captures the business logic, opinions, best practices and non-functional requirements.
 
-It's from this catalog that other developers in your organization will pick and choose from anytime they need to deploy some new capability.
+It's from this library that other developers in your organization will pick and choose from anytime they need to deploy some new capability.
 
 These components make a lot of assumptions about how we've configured our environments. That said, they can still serve as an excellent reference for others.
 
@@ -99,30 +93,7 @@ make rebuild-docs
 
 
 
-See each component's README directory for usage.
-
-| Component | Description |
-|-----------|-------------|
-|[account](./modules/account) | Provisions the full account hierarchy along with Organizational Units (OUs). |
-|[account-map](./modules/account-map) | Provisions information only: it simply populates Terraform state with data (account ids, groups, and roles) that other root modules need via outputs. |
-|[account-settings](./modules/account-settings) | Provisions account level settings: IAM password policy, AWS Account Alias, and EBS encryption. |
-|[cloudtrail](./modules/cloudtrail) | Provisions cloudtrail auditing in an individual account. |
-|[cloudtrail-bucket](./modules/cloudtrail-bucket) | Provisions a bucket for storing cloudtrail logs for auditing purposes. |
-|[datadog-integration](./modules/datadog-integration) | Provisions a DataDog <=> AWS integration. |
-|[datadog-monitor](./modules/datadog-monitor) | Provisions global DataDog monitors. |
-|[dms](./modules/dms) | Provisions AWS DMS resources: DMS IAM roles, DMS endpoints, DMS replication instances, DMS replication tasks. |
-|[dns-delegated](./modules/dns-delegated) | Provisions a DNS zone which delegates nameservers to the DNS zone in the primary DNS account. |
-|[dns-primary](./modules/dns-primary) | Provisions the primary DNS zones into an AWS account. |
-|[ecr](./modules/ecr) | Provisions repositories, lifecycle rules, and permissions for streamlined ECR usage. |
-|[efs](./modules/efs) | Provisions an [EFS](https://aws.amazon.com/efs/) Network File System with KMS encryption-at-rest. |
-|[eks](./modules/eks) | Provisions an end-to-end EKS Cluster, including managed node groups and [spotinst ocean](https://spot.io/products/ocean/) node pools. |
-|[eks-iam](./modules/eks-iam) | Provisions specific [IAM roles for Kubernetes Service Accounts](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html). |
-|[iam-delegated-roles](./modules/iam-delegated-roles) | Provisions all delegated user and system IAM roles. |
-|[iam-primary-roles](./modules/iam-primary-roles) | Provisions all primary user and system roles into the centralized identity account. |
-|[sso](./modules/sso) | Provisions SAML metadata into AWS IAM as new SAML providers. |
-|[tfstate-backend](./modules/tfstate-backend) | Provisions an S3 Bucket and DynamoDB table that follow security best practices for usage as a Terraform backend. |
-|[transit-gateway](./modules/transit-gateway) | Provisions an AWS Transit Gateway to connect various account separated VPCs through a central hub. |
-|[vpc](./modules/vpc) | Provisions a VPC and corresponing Subnets. |
+Please take a look at each [component's README](https://docs.cloudposse.com/components/) for usage.
 
 
 
@@ -143,31 +114,6 @@ Available targets:
 
 ```
 <!-- markdownlint-restore -->
-<!-- markdownlint-disable -->
-## Requirements
-
-No requirements.
-
-## Providers
-
-No providers.
-
-## Modules
-
-No modules.
-
-## Resources
-
-No resources.
-
-## Inputs
-
-No inputs.
-
-## Outputs
-
-No outputs.
-<!-- markdownlint-restore -->
 
 
 
@@ -175,19 +121,14 @@ No outputs.
 
 Like this project? Please give it a ★ on [our GitHub](https://github.com/cloudposse/terraform-aws-components)! (it helps us **a lot**)
 
-Are you using this project or any of our other projects? Consider [leaving a testimonial][testimonial]. =)
-
 
 
 ## Related Projects
 
 Check out these related projects.
 
-- [reference-architectures](https://github.com/cloudposse/reference-architectures) - Get up and running quickly with one of our reference architecture using our fully automated cold-start process.
-- [audit.cloudposse.co](https://github.com/cloudposse/audit.cloudposse.co) - Example Terraform Reference Architecture of a Geodesic Module for an Audit Logs Organization in AWS.
-- [prod.cloudposse.co](https://github.com/cloudposse/prod.cloudposse.co) - Example Terraform Reference Architecture of a Geodesic Module for a Production Organization in AWS.
-- [staging.cloudposse.co](https://github.com/cloudposse/staging.cloudposse.co) - Example Terraform Reference Architecture of a Geodesic Module for a Staging Organization in AWS.
-- [dev.cloudposse.co](https://github.com/cloudposse/dev.cloudposse.co) - Example Terraform Reference Architecture of a Geodesic Module for a Development Sandbox Organization in AWS.
+- [Cloud Posse Terraform Modules](https://docs.cloudposse.com/modules/) - Our collection of reusable Terraform modules used by our reference architectures.
+- [Atmos](https://atmos.tools) - Atmos is like docker-compose but for your infrastructure
 
 
 ## References
@@ -195,6 +136,7 @@ Check out these related projects.
 For additional context, refer to some of these links.
 
 - [Cloud Posse Documentation](https://docs.cloudposse.com) - Complete documentation for the Cloud Posse solution
+- [Reference Architectures](https://cloudposse.com/) - Launch effortlessly with our turnkey reference architectures, built either by your team or ours.
 
 
 ## Help
@@ -231,10 +173,6 @@ We deliver 10x the value for a fraction of the cost of a full-time engineer. Our
 
 Join our [Open Source Community][slack] on Slack. It's **FREE** for everyone! Our "SweetOps" community is where you get to talk with others who share a similar vision for how to rollout and manage infrastructure. This is the best place to talk shop, ask questions, solicit feedback, and work together as a community to build totally *sweet* infrastructure.
 
-## Discourse Forums
-
-Participate in our [Discourse Forums][discourse]. Here you'll find answers to commonly asked questions. Most questions will be related to the enormous number of projects we support on our GitHub. Come here to collaborate on answers, find solutions, and get ideas about the products and services we value. It only takes a minute to get started! Just sign in with SSO using your GitHub account.
-
 ## Newsletter
 
 Sign up for [our newsletter][newsletter] that covers everything on our technology radar.  Receive updates on what we're up to on GitHub as well as awesome new projects we discover.
@@ -245,7 +183,18 @@ Sign up for [our newsletter][newsletter] that covers everything on our technolog
 
 [![zoom](https://img.cloudposse.com/fit-in/200x200/https://cloudposse.com/wp-content/uploads/2019/08/Powered-by-Zoom.png")][office_hours]
 
-## Contributing
+## ✨ Contributing
+
+
+
+This project is under active development, and we encourage contributions from our community.
+Many thanks to our outstanding contributors:
+
+<a href="https://github.com/cloudposse/terraform-aws-components/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=cloudposse/terraform-aws-components&max=24" />
+</a>
+
+
 
 ### Bug Reports & Feature Requests
 
@@ -319,29 +268,7 @@ We're a [DevOps Professional Services][hire] company based in Los Angeles, CA. W
 
 We offer [paid support][commercial_support] on all of our projects.
 
-Check out [our other projects][github], [follow us on twitter][twitter], [apply for a job][jobs], or [hire us][hire] to help with your cloud strategy and implementation.
-
-
-
-### Contributors
-
-<!-- markdownlint-disable -->
-|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] | [![Matt Gowie][Gowiem_avatar]][Gowiem_homepage]<br/>[Matt Gowie][Gowiem_homepage] | [![Yonatan Koren][korenyoni_avatar]][korenyoni_homepage]<br/>[Yonatan Koren][korenyoni_homepage] |
-|---|---|---|---|---|
-<!-- markdownlint-restore -->
-
-  [osterman_homepage]: https://github.com/osterman
-  [osterman_avatar]: https://img.cloudposse.com/150x150/https://github.com/osterman.png
-  [goruha_homepage]: https://github.com/goruha
-  [goruha_avatar]: https://img.cloudposse.com/150x150/https://github.com/goruha.png
-  [aknysh_homepage]: https://github.com/aknysh
-  [aknysh_avatar]: https://img.cloudposse.com/150x150/https://github.com/aknysh.png
-  [Gowiem_homepage]: https://github.com/Gowiem
-  [Gowiem_avatar]: https://img.cloudposse.com/150x150/https://github.com/Gowiem.png
-  [korenyoni_homepage]: https://github.com/korenyoni
-  [korenyoni_avatar]: https://img.cloudposse.com/150x150/https://github.com/korenyoni.png
-
-[![README Footer][readme_footer_img]][readme_footer_link]
+Check out [our other projects][github], [follow us on twitter][twitter], [apply for a job][jobs], or [hire us][hire] to help with your cloud strategy and implementation.[![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
 <!-- markdownlint-disable -->
   [logo]: https://cloudposse.com/logo-300x69.svg
@@ -351,12 +278,10 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [jobs]: https://cpco.io/jobs?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=jobs
   [hire]: https://cpco.io/hire?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=hire
   [slack]: https://cpco.io/slack?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=slack
-  [linkedin]: https://cpco.io/linkedin?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=linkedin
   [twitter]: https://cpco.io/twitter?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=twitter
   [testimonial]: https://cpco.io/leave-testimonial?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=testimonial
   [office_hours]: https://cloudposse.com/office-hours?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=office_hours
   [newsletter]: https://cpco.io/newsletter?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=newsletter
-  [discourse]: https://ask.sweetops.com/?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=discourse
   [email]: https://cpco.io/email?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=email
   [commercial_support]: https://cpco.io/commercial-support?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=commercial_support
   [we_love_open_source]: https://cpco.io/we-love-open-source?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=we_love_open_source
@@ -367,11 +292,5 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [readme_footer_link]: https://cloudposse.com/readme/footer/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=readme_footer_link
   [readme_commercial_support_img]: https://cloudposse.com/readme/commercial-support/img
   [readme_commercial_support_link]: https://cloudposse.com/readme/commercial-support/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=readme_commercial_support_link
-  [share_twitter]: https://twitter.com/intent/tweet/?text=terraform-aws-components&url=https://github.com/cloudposse/terraform-aws-components
-  [share_linkedin]: https://www.linkedin.com/shareArticle?mini=true&title=terraform-aws-components&url=https://github.com/cloudposse/terraform-aws-components
-  [share_reddit]: https://reddit.com/submit/?url=https://github.com/cloudposse/terraform-aws-components
-  [share_facebook]: https://facebook.com/sharer/sharer.php?u=https://github.com/cloudposse/terraform-aws-components
-  [share_googleplus]: https://plus.google.com/share?url=https://github.com/cloudposse/terraform-aws-components
-  [share_email]: mailto:?subject=terraform-aws-components&body=https://github.com/cloudposse/terraform-aws-components
   [beacon]: https://ga-beacon.cloudposse.com/UA-76589703-4/cloudposse/terraform-aws-components?pixel&cs=github&cm=readme&an=terraform-aws-components
 <!-- markdownlint-restore -->

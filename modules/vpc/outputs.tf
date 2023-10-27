@@ -118,3 +118,13 @@ output "availability_zones" {
   description = "List of Availability Zones where subnets were created"
   value       = module.subnets.availability_zones
 }
+
+output "az_private_subnets_map" {
+  description = "Map of AZ names to list of private subnet IDs in the AZs"
+  value       = module.subnets.az_private_subnets_map
+}
+
+output "az_public_subnets_map" {
+  description = "Map of AZ names to list of public subnet IDs in the AZs"
+  value       = module.subnets.az_public_subnets_map
+}

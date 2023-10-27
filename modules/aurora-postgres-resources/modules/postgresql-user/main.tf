@@ -5,7 +5,6 @@ locals {
   db_password = length(var.db_password) > 0 ? var.db_password : join("", random_password.db_password.*.result)
 
   save_password_in_ssm = local.enabled && var.save_password_in_ssm
-  create_db_user       = local.enabled && var.service_name != local.db_user
 
   db_password_key = format("%s/%s/passwords/%s", var.ssm_path_prefix, var.service_name, local.db_user)
   db_password_ssm = local.save_password_in_ssm ? {
@@ -16,7 +15,7 @@ locals {
     overwrite   = true
   } : null
 
-  parameter_write = (local.create_db_user && local.save_password_in_ssm) ? [local.db_password_ssm] : []
+  parameter_write = local.save_password_in_ssm ? [local.db_password_ssm] : []
 
   # ALL grant always shows Terraform drift:
   # https://github.com/cyrilgdn/terraform-provider-postgresql/issues/32
@@ -51,7 +50,7 @@ resource "postgresql_grant" "default" {
   schema      = var.grants[count.index].schema
   object_type = var.grants[count.index].object_type
 
-  # Conditionally set the privileges to either the explicit list of database privileges 
+  # Conditionally set the privileges to either the explicit list of database privileges
   # or schema privileges if this is a db grant or a schema grant respectively.
   # We can determine this is a schema grant if a schema is given
   privileges = contains(var.grants[count.index].grant, "ALL") ? ((length(var.grants[count.index].schema) > 0) ? local.all_privileges_schema : local.all_privileges_database) : var.grants[count.index].grant

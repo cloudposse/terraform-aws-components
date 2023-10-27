@@ -1,31 +1,42 @@
+locals {
+  primary_tgw_hub_environment = module.utils.region_az_alt_code_maps[var.env_naming_convention][var.primary_tgw_hub_region]
+}
+
+# Used to translate region to environment
+module "utils" {
+  source  = "cloudposse/utils/aws"
+  version = "1.3.0"
+  enabled = local.enabled
+}
+
 module "account_map" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   component   = "account-map"
-  stage       = "root"
-  environment = "gbl"
-  tenant      = var.account_map_tenant_name
-  context     = module.this.context
+  environment = var.account_map_environment_name
+  stage       = var.account_map_stage_name
+
+  context = module.this.context
 }
 
-module "tgw_this_region" {
+module "tgw_hub_this_region" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   component = "tgw/hub"
-  stage     = var.this_region["tgw_stage_name"]
-  tenant    = var.this_region["tgw_tenant_name"]
-  context   = module.this.context
+
+  context = module.this.context
 }
 
-module "tgw_home_region" {
+module "tgw_hub_primary_region" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   component   = "tgw/hub"
-  stage       = var.home_region["tgw_stage_name"]
-  environment = var.home_region["environment"]
-  tenant      = var.home_region["tgw_tenant_name"]
-  context     = module.this.context
+  stage       = local.primary_tgw_hub_stage
+  environment = local.primary_tgw_hub_environment
+  tenant      = local.primary_tgw_hub_tenant
+
+  context = module.this.context
 }

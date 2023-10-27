@@ -53,7 +53,17 @@ resource "kubernetes_manifest" "provisioner" {
     )
   }
 
+  # spec.requirements counts as a computed field because defaults may be added by the admission webhook.
+  computed_fields = ["spec.requirements"]
+
   depends_on = [kubernetes_manifest.provider]
+
+  lifecycle {
+    precondition {
+      condition     = each.value.consolidation.enabled == false || each.value.ttl_seconds_after_empty == null
+      error_message = "Consolidation and TTL Seconds After Empty are mutually exclusive."
+    }
+  }
 }
 
 locals {
@@ -87,8 +97,9 @@ resource "kubernetes_manifest" "provider" {
         "aws:eks:cluster-name" = local.eks_cluster_id
       }
       # https://karpenter.sh/v0.18.0/aws/provisioning/#amazon-machine-image-ami-family
-      amiFamily = each.value.ami_family
-      tags      = module.this.tags
+      amiFamily       = each.value.ami_family
+      metadataOptions = each.value.metadata_options
+      tags            = module.this.tags
       }, try(length(local.provisioner_block_device_mappings[each.key]), 0) == 0 ? {} : {
       blockDeviceMappings = local.provisioner_block_device_mappings[each.key]
     })

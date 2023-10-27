@@ -25,6 +25,7 @@ data "aws_iam_policy_document" "saml_provider_assume" {
     sid = "SamlProviderAssume"
     actions = [
       "sts:AssumeRoleWithSAML",
+      "sts:SetSourceIdentity",
       "sts:TagSession",
     ]
 
@@ -35,10 +36,20 @@ data "aws_iam_policy_document" "saml_provider_assume" {
     }
 
     condition {
-      test     = "StringEquals"
+      # Use StringLike rather than StringEquals to avoid having to list every region's endpoint
+      test     = "StringLike"
       variable = "SAML:aud"
-      values   = ["https://signin.aws.amazon.com/saml"]
+      # Allow sign in from any valid AWS SAML endpoint
+      # See https://docs.aws.amazon.com/general/latest/gr/signin-service.html
+      # and https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html#condition-keys-saml
+      # Note: The value for this key comes from the SAML Recipient field in the assertion, not the Audience field,
+      # and is thus not the actual SAML:aud in the SAML assertion.
+      values = [
+        "https://signin.aws.amazon.com/saml",
+        "https://*.signin.aws.amazon.com/saml",
+        "https://signin.amazonaws-us-gov.com/saml",
+        "https://us-gov-east-1.signin.amazonaws-us-gov.com/saml",
+      ]
     }
   }
 }
-

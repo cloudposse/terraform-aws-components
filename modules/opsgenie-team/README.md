@@ -9,6 +9,29 @@ You need an API Key stored in `/opsgenie/opsgenie_api_key` of SSM, this is confi
 
 Generate an API Key by going [here](https://id.atlassian.com/manage-profile/security/api-tokens) and Clicking **Create API Token**.
 
+Once you have the key, you'll need to test it with a curl to verify that you are at least
+on a Standard plan with OpsGenie:
+```
+curl -X GET 'https://api.opsgenie.com/v2/account'
+    --header "Authorization: GenieKey $API_KEY"
+```
+
+The result should be something similar to below:
+```
+{
+    "data": {
+        "name": "opsgenie",
+        "plan": {
+            "maxUserCount": 1500,
+            "name": "Enterprise",
+     ...
+}
+```
+
+If you see anything other than `Standard` or `Enterprise` in the plan, then you won't be able
+to use this component. You can see more details here:
+[OpsGenie pricing/features](https://www.atlassian.com/software/opsgenie/pricing#)
+
 #### Getting Started
 
 **Stack Level**: Global
@@ -301,8 +324,6 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_escalations"></a> [escalations](#input\_escalations) | Escalations to configure and create for the team. | `map(any)` | `{}` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_integrations"></a> [integrations](#input\_integrations) | API Integrations for the team. If not specified, `datadog` is assumed. | `map(any)` | `{}` | no |
 | <a name="input_integrations_enabled"></a> [integrations\_enabled](#input\_integrations\_enabled) | Whether to enable the integrations submodule or not | `bool` | `true` | no |
 | <a name="input_kms_key_arn"></a> [kms\_key\_arn](#input\_kms\_key\_arn) | AWS KMS key used for writing to SSM | `string` | `"alias/aws/ssm"` | no |
@@ -347,7 +368,7 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 - [How to Create Escalation Rules in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-create-escalation-rules-in-opsgenie)
 - [How to Setup Rotations in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-setup-rotations-in-opsgenie)
 - [How to Create New Teams in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-create-new-teams-in-opsgenie)
-- [How to Sign Up for OpsGenie?](/reference-architecture/how-to-guides/tutorials/how-to-sign-up-for-opsgenie)
+- [How to Sign Up for OpsGenie?](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-sign-up-for-opsgenie/)
 - [How to Implement Incident Management with OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie)
 
 ## References

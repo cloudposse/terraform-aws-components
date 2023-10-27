@@ -3,6 +3,7 @@ build-harness/
 aws-assumed-role/
 .idea/
 *.iml
+docs/terraform.md
 
 vendir.lock.yml
 

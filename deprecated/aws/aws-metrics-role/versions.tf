@@ -6,4 +6,3 @@ terraform {
     kubernetes = "~> 1.8"
   }
 }
-

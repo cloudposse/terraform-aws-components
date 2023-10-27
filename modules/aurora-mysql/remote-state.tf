@@ -4,7 +4,7 @@ locals {
 
 module "dns-delegated" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   component   = "dns-delegated"
   environment = "gbl"
@@ -14,7 +14,7 @@ module "dns-delegated" {
 
 module "eks" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   for_each = var.eks_component_names
 
@@ -25,20 +25,20 @@ module "eks" {
 
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
-  component = "vpc"
+  component = var.vpc_component_name
 
   context = module.this.context
 }
 
 module "vpc_ingress" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   for_each = local.accounts_with_vpc
 
-  component   = "vpc"
+  component   = each.value.vpc
   environment = try(each.value.environment, module.this.environment)
   stage       = try(each.value.stage, module.this.environment)
   tenant      = try(each.value.tenant, module.this.tenant)
@@ -49,7 +49,7 @@ module "vpc_ingress" {
 
 module "primary_cluster" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   count = local.remote_read_replica_enabled ? 1 : 0
 
