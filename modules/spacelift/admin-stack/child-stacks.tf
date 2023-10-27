@@ -121,10 +121,10 @@ module "child_stack" {
   bitbucket_cloud      = try(each.value.bitbucket_cloud, null)
   bitbucket_datacenter = try(each.value.bitbucket_datacenter, null)
   cloudformation       = try(each.value.cloudformation, null)
-  github_enterprise    = try(local.root_admin_stack_config.github_enterprise, null)
-  gitlab               = try(local.root_admin_stack_config.gitlab, null)
-  pulumi               = try(local.root_admin_stack_config.pulumi, null)
-  showcase             = try(local.root_admin_stack_config.showcase, null)
+  github_enterprise    = try(local.root_admin_stack_config.settings.spacelift.github_enterprise, null)
+  gitlab               = try(local.root_admin_stack_config.settings.spacelift.gitlab, null)
+  pulumi               = try(local.root_admin_stack_config.settings.spacelift.pulumi, null)
+  showcase             = try(local.root_admin_stack_config.settings.spacelift.showcase, null)
 
   context = module.this.context
 }

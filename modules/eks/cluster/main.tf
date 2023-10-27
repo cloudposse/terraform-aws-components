@@ -91,15 +91,13 @@ locals {
 
   # Get only the public subnets that correspond to the AZs provided in `var.availability_zones`
   # `az_public_subnets_map` is a map of AZ names to list of public subnet IDs in the AZs
-  # LEGACY PATCH: for legacy VPC with no az_public_subnets_map
-  # public_subnet_ids = flatten([for k, v in local.vpc_outputs.az_public_subnets_map : v if contains(var.availability_zones, k) || length(var.availability_zones) == 0])
+  # LEGACY SUPPORT for legacy VPC with no az_public_subnets_map
   public_subnet_ids = try(flatten([for k, v in local.vpc_outputs.az_public_subnets_map : v if contains(var.availability_zones, k) || length(var.availability_zones) == 0]),
   local.vpc_outputs.public_subnet_ids)
 
   # Get only the private subnets that correspond to the AZs provided in `var.availability_zones`
   # `az_private_subnets_map` is a map of AZ names to list of private subnet IDs in the AZs
-  # LEGACY PATCH: for legacy VPC with no az_public_subnets_map
-  # private_subnet_ids = flatten([for k, v in local.vpc_outputs.az_private_subnets_map : v if contains(var.availability_zones, k) || length(var.availability_zones) == 0])
+  # LEGACY SUPPORT for legacy VPC with no az_public_subnets_map
   private_subnet_ids = try(flatten([for k, v in local.vpc_outputs.az_private_subnets_map : v if contains(var.availability_zones, k) || length(var.availability_zones) == 0]),
   local.vpc_outputs.private_subnet_ids)
 

@@ -14,7 +14,7 @@ resource "kubernetes_namespace" "default" {
 
 module "efs_controller" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.5.0"
+  version = "0.9.1"
 
   name                 = var.name
   chart                = var.chart
@@ -50,7 +50,7 @@ module "efs_controller" {
         # annotations:
         #   storageclass.kubernetes.io/is-default-class: "true"
         parameters = {
-          fileSystemId     = module.efs.outputs.efs_id
+          fileSystemId     = local.enabled ? module.efs.outputs.efs_id : ""
           provisioningMode = "efs-ap"
           directoryPerms   = "700"
           basePath         = "/efs_controller"

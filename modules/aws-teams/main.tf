@@ -36,7 +36,7 @@ module "assume_role" {
   for_each = local.roles_config
   source   = "../account-map/modules/team-assume-role-policy"
 
-  allowed_roles           = { (local.identity_account_account_name) = each.value.trusted_teams }
+  allowed_roles           = merge(each.value.allowed_roles, { (local.identity_account_account_name) = each.value.trusted_teams })
   denied_roles            = { (local.identity_account_account_name) = each.value.denied_teams }
   allowed_principal_arns  = each.value.trusted_role_arns
   denied_principal_arns   = each.value.denied_role_arns

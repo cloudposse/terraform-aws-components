@@ -1,6 +1,6 @@
 module "keda" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.9.3"
+  version = "0.10.0"
 
   name        = module.this.name
   description = var.description
@@ -21,8 +21,16 @@ module "keda" {
   service_account_name      = module.this.name
   service_account_namespace = var.kubernetes_namespace
 
-  iam_role_enabled      = false
-  iam_policy_statements = {}
+  iam_role_enabled = true
+
+  iam_policy_statements = [
+    {
+      sid       = "KedaOperatorSQS"
+      effect    = "Allow"
+      actions   = ["SQS:GetQueueAttributes"]
+      resources = ["*"]
+    }
+  ]
 
   values = compact([
     yamlencode({

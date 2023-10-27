@@ -12,9 +12,9 @@ locals {
 
   zone_id = module.dns_gbl_delegated.outputs.default_dns_zone_id
 
-  admin_user     = length(var.admin_user) > 0 ? var.admin_user : join("", random_pet.admin_user.*.id)
-  admin_password = length(var.admin_password) > 0 ? var.admin_password : join("", random_password.admin_password.*.result)
-  database_name  = length(var.database_name) > 0 ? var.database_name : join("", random_pet.database_name.*.id)
+  admin_user     = length(var.admin_user) > 0 ? var.admin_user : join("", random_pet.admin_user[*].id)
+  admin_password = length(var.admin_password) > 0 ? var.admin_password : join("", random_password.admin_password[*].result)
+  database_name  = length(var.database_name) > 0 ? var.database_name : join("", random_pet.database_name[*].id)
 
   cluster_dns_name_prefix = format("%v%v%v%v", module.this.name, module.this.delimiter, var.cluster_name, module.this.delimiter)
   cluster_dns_name        = format("%v%v", local.cluster_dns_name_prefix, var.cluster_dns_name_part)
