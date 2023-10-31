@@ -7,7 +7,18 @@ This component is responsible for provisioning Opsgenie teams and related servic
 #### Pre-requisites
 You need an API Key stored in `/opsgenie/opsgenie_api_key` of SSM, this is configurable using the `ssm_parameter_name_format` and `ssm_path` variables.
 
-Generate an API Key by going [here](https://1898andco.app.opsgenie.com/settings/api-key-management) and Clicking **Create API Token**.
+Opsgenie is now part of Atlassian, so you need to make sure you are creating
+an Opsgenie API Key, which looks like `abcdef12-3456-7890-abcd-ef0123456789`
+and not an Atlassian API key, which looks like
+
+```shell
+ATAfT3xFfGF0VFXAfl8EmQNPVv1Hlazp3wsJgTmM8Ph7iP-RtQyiEfw-fkDS2LvymlyUOOhc5XiSx46vQWnznCJolq-GMX4KzdvOSPhEWr-BF6LEkJQC4CSjDJv0N7d91-0gVekNmCD2kXY9haUHUSpO4H7X6QxyImUb9VmOKIWTbQi8rf4CF28=63CB21B9
+```
+
+Generate an API Key by going to Settings -> API key management on your Opsgenie
+control panel, which will have an address like `https://<your-org>.app.opsgenie.com/settings/api-key-management`,
+and click the "Add new API key" button. For more information, see the
+[Opsgenie API key management documentation](https://support.atlassian.com/opsgenie/docs/api-key-management/).
 
 Once you have the key, you'll need to test it with a curl to verify that you are at least
 on a Standard plan with OpsGenie:
