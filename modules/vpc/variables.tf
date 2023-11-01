@@ -124,7 +124,7 @@ variable "nat_instance_type" {
 
 variable "nat_instance_ami_id" {
   type        = list(string)
- description = <<-EOT
+  description = <<-EOT
     A list optionally containing the ID of the AMI to use for the NAT instance.
     If the list is empty (the default), the latest official AWS NAT instance AMI
     will be used. NOTE: The Official NAT instance AMI is being phased out and
