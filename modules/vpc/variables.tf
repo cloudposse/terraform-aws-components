@@ -122,6 +122,12 @@ variable "nat_instance_type" {
   default     = "t3.micro"
 }
 
+variable "nat_instance_ami_id" {
+  type        = list(string)
+  description = "AMI Ids of the nat router"
+  default     = []
+}
+
 variable "map_public_ip_on_launch" {
   type        = bool
   default     = true
