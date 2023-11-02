@@ -8,8 +8,8 @@ image:
   # image.repository -- https://hub.docker.com/r/ealen/echo-server
   repository: ealen/echo-server
   # image.tag -- https://github.com/Ealenn/Echo-Server/releases
-  tag: 0.8.12
-  pullPolicy: IfNotPresent
+  tag: 0.4.2
+  pullPolicy: Always
 
 #imagePullSecrets: []
 nameOverride: ""
@@ -44,23 +44,31 @@ service:
 tlsEnabled: true
 
 ingress:
-  ## Allow class to be specified, but use default class (not class named "default") by default
-  # class: default
-
-  # Use deprecated `kubernetes.io/ingress.class` annotation
-  use_ingress_class_annotation: false
   nginx:
     # ingress.nginx.enabled -- Enable NGiNX ingress
-    enabled: true
+    enabled: false
+    # annotation values
+    ## kubernetes.io/ingress.class:
+    class: "nginx"
+    ## cert-manager.io/cluster-issuer:
     tls_certificate_cluster_issuer: "letsencrypt-prod"
   alb:
-    enabled: false
-    ## Allow group to be specified, but use default by default
-    # group: common
-
-    # Do NOT allow SSL redirect to be specified, because that affects other ingresses.
-    # "Once defined on a single Ingress, it impacts every Ingress within IngressGroup."
-    # See https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.6/guide/ingress/annotations/#ssl-redirect
+    enabled: true
+    # annotation values
+    ## kubernetes.io/ingress.class:
+    class: "alb"
+    ## alb.ingress.kubernetes.io/load-balancer-name:
+    ### load_balancer_name: "k8s-common"
+    ## alb.ingress.kubernetes.io/group.name:
+    ### group_name: "common"
+    ssl_redirect:
+      enabled: true
+    ## alb.ingress.kubernetes.io/ssl-redirect:
+      port: 443
+    access_logs:
+      enabled: false
+      ## s3_bucket_name: "acme-ue2-prod-eks-cluster-alb-access-logs"
+      s3_bucket_prefix: "echo-server"
 
 #resources: {}
 #  # We usually recommend not to specify default resources and to leave this as a conscious
