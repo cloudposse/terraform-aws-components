@@ -15,6 +15,7 @@ metadata:
     cert-manager.io/cluster-issuer: {{ . }}
     {{- end }}
     {{- if eq (printf "%v" .Values.ingress.alb.enabled) "true" }}
+    alb.ingress.kubernetes.io/healthcheck-path: /ping
       {{- with index .Values.ingress.alb "group_name" }}
     alb.ingress.kubernetes.io/group.name: {{ . }}
       {{- end }}
