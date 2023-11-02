@@ -32,12 +32,12 @@ ingress:
   use_ingress_class_annotation: false
   nginx:
     # ingress.nginx.enabled -- Enable NGiNX ingress
-    enabled: true
+    enabled: false
     tls_certificate_cluster_issuer: "letsencrypt-prod"
   alb:
     enabled: false
     ## Allow group to be specified, but use default by default
-    # group: common
+    # group_name: common
 
     # Do NOT allow SSL redirect to be specified, because that affects other ingresses.
     # "Once defined on a single Ingress, it impacts every Ingress within IngressGroup."
@@ -47,9 +47,9 @@ resources:
   limits:
     cpu: 50m
     memory: 128Mi
-  requests:
-    cpu: 5m
-    memory: 32Mi
+#  requests:
+#    cpu: 50m
+#    memory: 128Mi
 
 autoscaling:
   enabled: false

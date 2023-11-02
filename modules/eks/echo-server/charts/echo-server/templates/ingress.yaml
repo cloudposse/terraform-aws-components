@@ -31,6 +31,11 @@ metadata:
   labels:
     {{- include "echo-server.labels" . | nindent 4 }}
 spec:
+  # If not specified, the Ingress controller will insert the ingressClassName field
+  # when creating the Ingress resource, setting ingressClassName to the name of the then-default IngressClass.
+  {{- with and (ne (printf "%v" .Values.ingress.use_ingress_class_annotation) "true") (index .Values.ingress "class") }}
+  ingressClassName: {{ . }}
+  {{- end }}
   # ALB controller will auto-discover the ACM certificate based on rules[].host
   # Nginx needs explicit configuration of location of cert-manager TLS certificate
   {{- if $nginxTlsEnabled }}

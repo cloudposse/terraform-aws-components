@@ -33,6 +33,7 @@ Therefore, it requires several other components. At the moment, it supports 2 co
     (by default, named `letsEncrypt-prod`).
 
 In both configurations, it has these common requirements:
+- EKS component deployed, with component name specified in `eks_component_name` (defaults to "eks/cluster")
 - Kubernetes version 1.19 or later
 - Ingress API version `networking.k8s.io/v1`
 - [kubernetes-sigs/external-dns](https://github.com/kubernetes-sigs/external-dns)
@@ -52,6 +53,27 @@ a "plan" file.
 
 Use this in the catalog or use these variables to overwrite the catalog values.
 
+Set `ingress_type` to "alb" if using `alb-controller` or "nginx" if using `ingress-nginx`.
+
+Normally, you should not set the IngressClass or IngressGroup, as this component is intended to test the defaults.
+However, if you need to, set them in `chart_values`:
+```yaml
+chart_values:
+  ingress:
+    class: "other-ingress-class"
+    alb:
+      # IngressGroup is specific to alb-controller
+      group_name: "other-ingress-group"
+```
+
+Note that if you follow recommendations and do not set the ingress class name,
+the deployed Ingress will have the ingressClassName setting injected by the
+Ingress controller, set to the then-current default. This means that if later
+you change the default IngressClass, the Ingress will be NOT be updated to use
+the new default. Furthermore, because of limitations in the Helm provider, this
+will not be detected as drift. You will need to destroy and re-deploy the
+echo server to update the Ingress to the new default.
+
 ```yaml
 components:
   terraform:
@@ -70,10 +92,14 @@ components:
         atomic: true
         cleanup_on_fail: true
 
-        ingress_type: "alb"
+        ingress_type: "alb" # or "nginx"
         # %[1]v is the tenant name, %[2]v is the stage name, %[3]v is the region name
         hostname_template: "echo.%[3]v.%[2]v.%[1]v.sample-domain.net"
 ```
+
+In rare cases where some ingress controllers do not support the `ingressClassName` field,
+you can restore the old `kubernetes.io/ingress.class` annotation by setting
+`ingress.use_ingress_class_annotation: true` in `chart_values`.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
