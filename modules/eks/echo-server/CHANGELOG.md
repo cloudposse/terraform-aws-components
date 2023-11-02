@@ -1,5 +1,8 @@
 ## Changes in PR #893, components version ~v1.337.0
 
+- Moved `eks/echo-server` v1.147.0 to `/deprecated/eks/echo-server` for those
+who still need it and do not want to switch. It may later become the basis
+for an example app or something similar.
 - Removed dependency on and connection to the `eks/alb-controller-ingress-group` component
 - Added liveness probe, and disabled logging of probe requests. Probe request
 logging can be restored by setting `livenessProbeLogging: true` in `chart_values`
