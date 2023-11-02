@@ -55,6 +55,18 @@ variable "engine_version" {
   default     = "13.4"
 }
 
+variable "allow_major_version_upgrade" {
+  type        = bool
+  default     = false
+  description = "Enable to allow major engine version upgrades when changing engine versions. Defaults to false."
+}
+
+variable "ca_cert_identifier" {
+  description = "The identifier of the CA certificate for the DB instance"
+  type        = string
+  default     = null
+}
+
 variable "engine_mode" {
   type        = string
   description = "The database engine mode. Valid values: `global`, `multimaster`, `parallelquery`, `provisioned`, `serverless`"
