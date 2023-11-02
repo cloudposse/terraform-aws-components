@@ -185,6 +185,7 @@ you can restore the old `kubernetes.io/ingress.class` annotation by setting
 
 | Name | Description |
 |------|-------------|
+| <a name="output_hostname"></a> [hostname](#output\_hostname) | Hostname of the deployed echo server |
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
