@@ -102,6 +102,7 @@ This leads to more simplified inter-component dependencies and minimizes the nee
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_alb"></a> [alb](#module\_alb) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -125,6 +126,7 @@ This leads to more simplified inter-component dependencies and minimizes the nee
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
+| <a name="input_alb_name_from_eks_cluster"></a> [alb\_name\_from\_eks\_cluster](#input\_alb\_name\_from\_eks\_cluster) | Get ALB name from EKS cluster ALB control group | `bool` | `false` | no |
 | <a name="input_alb_names"></a> [alb\_names](#input\_alb\_names) | list of ALB names which will be protected with AWS Shield Advanced | `list(string)` | `[]` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_cloudfront_distribution_ids"></a> [cloudfront\_distribution\_ids](#input\_cloudfront\_distribution\_ids) | list of CloudFront Distribution IDs which will be protected with AWS Shield Advanced | `list(string)` | `[]` | no |
