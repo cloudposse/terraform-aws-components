@@ -9,8 +9,8 @@ variable "alb_names" {
   default     = []
 }
 
-variable "alb_name_from_eks_cluster" {
-  description = "Get ALB name from EKS cluster ALB control group"
+variable "alb_protection_enabled" {
+  description = "Enable ALB protection. By default, ALB names are read from the EKS cluster ALB control group"
   type        = bool
   default     = false
 }
