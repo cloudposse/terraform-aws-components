@@ -9,6 +9,12 @@ variable "alb_names" {
   default     = []
 }
 
+variable "alb_name_from_eks_cluster" {
+  description = "Get ALB name from EKS cluster ALB control group"
+  type        = bool
+  default     = false
+}
+
 variable "cloudfront_distribution_ids" {
   description = "list of CloudFront Distribution IDs which will be protected with AWS Shield Advanced"
   type        = list(string)
