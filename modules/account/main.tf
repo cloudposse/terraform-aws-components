@@ -3,7 +3,7 @@ locals {
   organization = lookup(var.organization_config, "organization", {})
 
   # Organizational Units list and map configuration
-  organizational_units     = lookup(var.organization_config, "organizational_units", [])
+  organizational_units = lookup(var.organization_config, "organizational_units", [])
   organizational_units_map = { for ou in local.organizational_units : ou.name => merge(ou, {
     parent_ou = contains(keys(ou), "parent_ou") ? ou.parent_ou : "none"
   }) }
@@ -15,7 +15,7 @@ locals {
   # Organizational Units' Accounts list and map configuration
   organizational_units_accounts = flatten([
     for ou in local.organizational_units : [
-      for account in lookup(ou, "accounts", []) : merge({ "ou" = ou.name, "account_email_format" = lookup(ou, "account_email_format", var.account_email_format), parent_ou = contains(keys(ou), "parent_ou") ? ou.parent_ou : "none"}, account)
+      for account in lookup(ou, "accounts", []) : merge({ "ou" = ou.name, "account_email_format" = lookup(ou, "account_email_format", var.account_email_format), parent_ou = contains(keys(ou), "parent_ou") ? ou.parent_ou : "none" }, account)
     ]
   ])
   organizational_units_accounts_map = { for acc in local.organizational_units_accounts : acc.name => acc }
