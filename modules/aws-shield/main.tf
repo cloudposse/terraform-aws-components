@@ -7,7 +7,7 @@ locals {
   # Used to determine correct partition (i.e. - `aws`, `aws-gov`, `aws-cn`, etc.)
   partition = one(data.aws_partition.current[*].partition)
 
-  alb_protection_enabled                     = local.enabled && length(var.alb_names) > 0
+  alb_protection_enabled                     = local.enabled && local.alb_protection_enabled
   cloudfront_distribution_protection_enabled = local.enabled && length(var.cloudfront_distribution_ids) > 0
   eip_protection_enabled                     = local.enabled && length(var.eips) > 0
   route53_protection_enabled                 = local.enabled && length(var.route53_zone_names) > 0
