@@ -47,7 +47,25 @@ module "tgw_spoke_vpc_attachment" {
   connections          = var.connections
   expose_eks_sg        = var.expose_eks_sg
   peered_region        = var.peered_region
-
+  static_routes        = var.static_routes
 
   context = module.this.context
+}
+
+resource "aws_route" "default_route" {
+  count = length(module.vpc.outputs.nat_gateway_ids) == 0 && length(module.vpc.outputs.nat_instance_ids) == 0 && var.default_route ? length(module.vpc.outputs.private_route_table_ids) : 0
+
+  route_table_id         = module.vpc.outputs.private_route_table_ids[count.index]
+  destination_cidr_block = "0.0.0.0/0"
+  transit_gateway_id     = module.tgw_hub.outputs.transit_gateway_id
+}
+
+resource "aws_route" "back_route" {
+  provider = aws.tgw-hub
+
+  count = length(module.vpc.outputs.nat_gateway_ids) == 0 && length(module.vpc.outputs.nat_instance_ids) == 0 && var.default_route ? length(module.tgw_hub.outputs.vpcs.core-ue2-network-vpc.outputs.public_route_table_ids) : 0
+
+  route_table_id         = module.tgw_hub.outputs.vpcs.core-ue2-network-vpc.outputs.public_route_table_ids[count.index]
+  destination_cidr_block = module.vpc.outputs.vpc_cidr
+  transit_gateway_id     = module.tgw_hub.outputs.transit_gateway_id
 }
