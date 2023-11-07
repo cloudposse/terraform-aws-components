@@ -308,7 +308,7 @@ To enable Node Interruption handling, set `var.interruption_handler_enabled` to 
 Karpenter ships with a few Custom Resource Definitions (CRDs). In earlier versions
 of this component, when installing a new version of the `karpenter` helm chart, CRDs
 were not be upgraded at the same time, requiring manual steps to upgrade CRDs after deploying the latest chart.
-However Karpenter now supports an additional, independent helm chart for CRD management. 
+However Karpenter now supports an additional, independent helm chart for CRD management.
 This helm chart, `karpenter-crd`, can be installed alongside the `karpenter` helm chart to automatically manage the lifecycle of these CRDs.
 
 To deploy the `karpenter-crd` helm chart, set `var.crd_chart_enabled` to `true`.
