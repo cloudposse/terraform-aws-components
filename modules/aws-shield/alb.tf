@@ -1,5 +1,5 @@
 data "aws_alb" "alb" {
-  for_each = local.alb_protection_enabled == false ? [] : length(var.alb_names) > 0 ? toset(var.alb_names) : toset([module.alb[0].outputs.load_balancer_name])
+  for_each = local.alb_protection_enabled == false ? toset([]) : length(var.alb_names) > 0 ? toset(var.alb_names) : toset([module.alb[0].outputs.load_balancer_name])
 
   name = each.key
 }
