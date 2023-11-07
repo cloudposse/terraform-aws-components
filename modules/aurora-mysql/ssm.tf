@@ -34,7 +34,7 @@ locals {
       overwrite   = true
     }
   ]
-  cluster_parameters = var.cluster_size > 0 ? [
+  cluster_parameters = var.mysql_cluster_size > 0 ? [
     {
       name        = format("%s/%s", local.ssm_path_prefix, "replicas_hostname")
       value       = module.aurora_mysql.replicas_host
