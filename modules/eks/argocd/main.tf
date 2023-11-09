@@ -43,10 +43,17 @@ locals {
         value = nonsensitive(local.webhook_github_secret)
         type  = "string"
       }
+    ] : [],
+    local.slack_notifications_enabled ? [
+      {
+        name  = "notifications.secret.items.slack-token"
+        value = nonsensitive(data.aws_ssm_parameter.slack_notifications[0].value)
+        type  = "string"
+      }
     ] : []
   ))
   regional_service_discovery_domain = "${module.this.environment}.${module.dns_gbl_delegated.outputs.default_domain_name}"
-  host                              = var.host != "" ? var.host : format("%s.%s", var.name, local.regional_service_discovery_domain)
+  host                              = var.host != "" ? var.host : format("%s.%s", coalesce(var.alb_name, var.name), local.regional_service_discovery_domain)
   url                               = format("https://%s", local.host)
 
   oidc_config_map = local.oidc_enabled ? {
@@ -102,7 +109,7 @@ locals {
 
 module "argocd" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.10.0"
+  version = "0.10.1"
 
   name                 = "argocd" # avoids hitting length restrictions on IAM Role names
   chart                = var.chart
@@ -188,7 +195,7 @@ data "kubernetes_resources" "crd" {
 
 module "argocd_apps" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.10.0"
+  version = "0.10.1"
 
   name                        = "" # avoids hitting length restrictions on IAM Role names
   chart                       = var.argocd_apps_chart
@@ -214,8 +221,10 @@ module "argocd_apps" {
         environment       = var.environment
         stage             = var.stage
         attributes        = var.attributes
+        slack_enabled     = local.slack_notifications_enabled
+        slack_channel     = var.slack_notifications.channel
       }
-    ),
+    )
   ])
 
   depends_on = [

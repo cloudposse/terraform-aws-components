@@ -79,3 +79,28 @@ variable "notifications_notifiers" {
   EOT
   default     = {}
 }
+
+variable "slack_notifications_enabled" {
+  type        = bool
+  default     = false
+  description = "Whether or not to enable Slack notifications. See `var.slack_notifications."
+}
+
+variable "slack_notifications" {
+  type = object({
+    channel        = string
+    token_ssm_path = optional(string, "/argocd/notifications/notifiers/slack/token")
+    api_url        = optional(string, null)
+    username       = optional(string, "ArgoCD")
+    icon           = optional(string, ":white_check_mark:")
+  })
+  description = <<-EOT
+  ArgoCD Slack notification configuration. Requires Slack Bot created with token stored at the given SSM Parameter path.
+
+  See: https://argocd-notifications.readthedocs.io/en/stable/services/slack/
+  EOT
+
+  default = {
+    channel = ""
+  }
+}

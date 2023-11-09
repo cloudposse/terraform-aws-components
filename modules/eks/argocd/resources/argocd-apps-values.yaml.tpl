@@ -3,7 +3,8 @@ applications:
 - name: ${name}
   namespace: ${namespace}
   additionalLabels: {}
-  additionalAnnotations: {}
+  additionalAnnotations: %{if slack_enabled }
+    "notifications.argoproj.io/subscribe.on-sync-succeeded.slack": ${ slack_channel }%{ else ~}{}%{ endif }
   project: default
   source:
     repoURL: ${url}

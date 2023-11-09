@@ -404,8 +404,8 @@ Reference: https://stackoverflow.com/questions/75046330/argo-cd-error-server-sec
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_argocd"></a> [argocd](#module\_argocd) | cloudposse/helm-release/aws | 0.10.0 |
-| <a name="module_argocd_apps"></a> [argocd\_apps](#module\_argocd\_apps) | cloudposse/helm-release/aws | 0.10.0 |
+| <a name="module_argocd"></a> [argocd](#module\_argocd) | cloudposse/helm-release/aws | 0.10.1 |
+| <a name="module_argocd_apps"></a> [argocd\_apps](#module\_argocd\_apps) | cloudposse/helm-release/aws | 0.10.1 |
 | <a name="module_argocd_repo"></a> [argocd\_repo](#module\_argocd\_repo) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
@@ -425,6 +425,7 @@ Reference: https://stackoverflow.com/questions/75046330/argo-cd-error-server-sec
 | [aws_ssm_parameter.github_deploy_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.oidc_client_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.oidc_client_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+| [aws_ssm_parameter.slack_notifications](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameters_by_path.argocd_notifications](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameters_by_path) | data source |
 | [kubernetes_resources.crd](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/resources) | data source |
 
@@ -438,7 +439,6 @@ Reference: https://stackoverflow.com/questions/75046330/argo-cd-error-server-sec
 | <a name="input_alb_logs_bucket"></a> [alb\_logs\_bucket](#input\_alb\_logs\_bucket) | The name of the bucket for ALB access logs. The bucket must have policy allowing the ELB logging principal | `string` | `""` | no |
 | <a name="input_alb_logs_prefix"></a> [alb\_logs\_prefix](#input\_alb\_logs\_prefix) | `alb_logs_bucket` s3 bucket prefix | `string` | `""` | no |
 | <a name="input_alb_name"></a> [alb\_name](#input\_alb\_name) | The name of the ALB (e.g. `argocd`) provisioned by `alb-controller`. Works together with `var.alb_group_name` | `string` | `null` | no |
-| <a name="input_argo_enable_workflows_auth"></a> [argo\_enable\_workflows\_auth](#input\_argo\_enable\_workflows\_auth) | Allow argo-workflows to use Dex instance for SAML auth | `bool` | `false` | no |
 | <a name="input_argocd_apps_chart"></a> [argocd\_apps\_chart](#input\_argocd\_apps\_chart) | Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended. | `string` | `"argocd-apps"` | no |
 | <a name="input_argocd_apps_chart_description"></a> [argocd\_apps\_chart\_description](#input\_argocd\_apps\_chart\_description) | Set release description attribute (visible in the history). | `string` | `"A Helm chart for managing additional Argo CD Applications and Projects"` | no |
 | <a name="input_argocd_apps_chart_repository"></a> [argocd\_apps\_chart\_repository](#input\_argocd\_apps\_chart\_repository) | Repository URL where to locate the requested chart. | `string` | `"https://argoproj.github.io/argo-helm"` | no |
@@ -506,6 +506,8 @@ Reference: https://stackoverflow.com/questions/75046330/argo-cd-error-server-sec
 | <a name="input_saml_enabled"></a> [saml\_enabled](#input\_saml\_enabled) | Toggles SAML integration in the deployed chart | `bool` | `false` | no |
 | <a name="input_saml_rbac_scopes"></a> [saml\_rbac\_scopes](#input\_saml\_rbac\_scopes) | SAML RBAC scopes to request | `string` | `"[email,groups]"` | no |
 | <a name="input_saml_sso_providers"></a> [saml\_sso\_providers](#input\_saml\_sso\_providers) | SAML SSO providers components | <pre>map(object({<br>    component   = string<br>    environment = optional(string, null)<br>  }))</pre> | `{}` | no |
+| <a name="input_slack_notifications"></a> [slack\_notifications](#input\_slack\_notifications) | ArgoCD Slack notification configuration. Requires Slack Bot created with token stored at the given SSM Parameter path.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/services/slack/ | <pre>object({<br>    channel        = string<br>    token_ssm_path = optional(string, "/argocd/notifications/notifiers/slack/token")<br>    api_url        = optional(string, null)<br>    username       = optional(string, "ArgoCD")<br>    icon           = optional(string, ":white_check_mark:")<br>  })</pre> | <pre>{<br>  "channel": ""<br>}</pre> | no |
+| <a name="input_slack_notifications_enabled"></a> [slack\_notifications\_enabled](#input\_slack\_notifications\_enabled) | Whether or not to enable Slack notifications. See `var.slack_notifications.` | `bool` | `false` | no |
 | <a name="input_ssm_github_api_key"></a> [ssm\_github\_api\_key](#input\_ssm\_github\_api\_key) | SSM path to the GitHub API key | `string` | `"/argocd/github/api_key"` | no |
 | <a name="input_ssm_oidc_client_id"></a> [ssm\_oidc\_client\_id](#input\_ssm\_oidc\_client\_id) | The SSM Parameter Store path for the ID of the IdP client | `string` | `"/argocd/oidc/client_id"` | no |
 | <a name="input_ssm_oidc_client_secret"></a> [ssm\_oidc\_client\_secret](#input\_ssm\_oidc\_client\_secret) | The SSM Parameter Store path for the secret of the IdP client | `string` | `"/argocd/oidc/client_secret"` | no |
