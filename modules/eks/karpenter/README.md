@@ -42,9 +42,6 @@ components:
         atomic: true
         wait: true
         rbac_enabled: true
-        chart_values:
-          aws:
-            enableENILimitedPodDensity: false
         # "karpenter-crd" can be installed as an independent helm chart to manage the lifecycle of Karpenter CRDs
         crd_chart_enabled: true
         crd_chart: "karpenter-crd"
