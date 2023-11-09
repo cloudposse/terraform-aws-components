@@ -296,15 +296,21 @@ The Node Interruption Handler is not the same as the Node Termination Handler. T
 
 :::
 
-For more details, see refer to [Karpenter docs](https://karpenter.sh/v0.27.5/concepts/deprovisioning/#interruption)
+For more details, see refer to the [Karpenter docs](https://karpenter.sh/v0.32/concepts/disruption/#interruption) and [FAQ](https://karpenter.sh/v0.32/faq/#interruption-handling)
 
 To enable Node Interruption handling, set `var.interruption_handler_enabled` to `true`. This will create an SQS queue and a set of Event Bridge rules to deliver interruption events to Karpenter.
 
 ## Custom Resource Definition (CRD) Management
 
-Karpenter ships with a few Custom Resource Definitions (CRDs). If you bump the version of the `karpenter` helm chart, CRDs may not be upgraded at the same time, requiring manual steps to upgrade CRDs after deploying the latest chart. However Karpenter now supports an additional, independent helm chart for CRD management. This helm chart, `karpenter-crd`, can be installed alongside the `karpenter` helm chart to automatically manage the lifecycle of these CRDs.
+Karpenter ships with a few Custom Resource Definitions (CRDs). In earlier versions
+of this component, when installing a new version of the `karpenter` helm chart, CRDs
+were not be upgraded at the same time, requiring manual steps to upgrade CRDs after deploying the latest chart.
+However Karpenter now supports an additional, independent helm chart for CRD management.
+This helm chart, `karpenter-crd`, can be installed alongside the `karpenter` helm chart to automatically manage the lifecycle of these CRDs.
 
 To deploy the `karpenter-crd` helm chart, set `var.crd_chart_enabled` to `true`.
+(Installing the `karpenter-crd` chart is recommended. `var.crd_chart_enabled` defaults
+to `false` to preserve backward compatibility with older versions of this component.)
 
 ## Troubleshooting
 
