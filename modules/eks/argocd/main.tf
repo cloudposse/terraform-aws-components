@@ -221,8 +221,6 @@ module "argocd_apps" {
         environment       = var.environment
         stage             = var.stage
         attributes        = var.attributes
-        slack_enabled     = local.slack_notifications_enabled
-        slack_channel     = var.slack_notifications.channel
       }
     )
   ])

@@ -138,3 +138,9 @@ variable "create_repo" {
   description = "Whether or not to create the repository or use an existing one"
   default     = true
 }
+
+variable "slack_notifications_channel" {
+  type        = string
+  description = "If given, the Slack channel for deployment notifications. If not given, Slack notifications will not be enabled."
+  default     = ""
+}
