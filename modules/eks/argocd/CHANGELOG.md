@@ -1,4 +1,4 @@
-## Components PR []()
+## Components PR [#905](https://github.com/cloudposse/terraform-aws-components/pull/905)
 
 The `notifictations.tf` file has been renamed to `notifications.tf`. Delete `notifictations.tf` after vendoring these changes.
 
