@@ -24,13 +24,22 @@ locals {
   all_accounts = concat(local.organization_accounts, local.organizational_units_accounts)
 
   # List of Organizational Unit names
-  organizational_unit_names = values(aws_organizations_organizational_unit.this)[*]["name"]
+  organizational_unit_names = concat(
+    values(aws_organizations_organizational_unit.this)[*]["name"],
+    values(aws_organizations_organizational_unit.child)[*]["name"]
+  )
 
   # List of Organizational Unit ARNs
-  organizational_unit_arns = values(aws_organizations_organizational_unit.this)[*]["arn"]
+  organizational_unit_arns = concat(
+    values(aws_organizations_organizational_unit.this)[*]["arn"],
+    values(aws_organizations_organizational_unit.child)[*]["arn"]
+  )
 
   # List of Organizational Unit IDs
-  organizational_unit_ids = values(aws_organizations_organizational_unit.this)[*]["id"]
+  organizational_unit_ids = concat(
+    values(aws_organizations_organizational_unit.this)[*]["id"],
+    values(aws_organizations_organizational_unit.child)[*]["id"]
+  )
 
   # Map of account names to OU names (used for lookup `parent_id` for each account under an OU)
   account_names_organizational_unit_names_map = length(local.organizational_units) > 0 ? merge(
