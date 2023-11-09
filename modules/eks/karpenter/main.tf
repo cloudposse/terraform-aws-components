@@ -194,7 +194,9 @@ module "karpenter" {
       serviceAccount = {
         name = module.this.name
       }
-      resources = var.resources
+      controller = {
+        resources = var.resources
+      }
       rbac = {
         create = var.rbac_enabled
       }

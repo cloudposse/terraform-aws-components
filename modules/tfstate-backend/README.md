@@ -51,6 +51,16 @@ You can configure who is allowed to assume these roles.
   helpful because it allows that user, presumably SuperAdmin, to deploy the normal components that expect
   the user does not have direct access to Terraform state.
 
+### Quotas
+
+When allowing access to both SAML and AWS SSO users, the trust policy for the IAM roles created by this component
+can exceed the default 2048 character limit. If you encounter this error, you can increase the limit by
+requesting a quota increase [here](https://us-east-1.console.aws.amazon.com/servicequotas/home/services/iam/quotas/L-C07B4B0D).
+Note that this is the IAM limit on "The maximum number of characters in an IAM role trust policy" and it must be
+configured in the `us-east-1` region, regardless of what region you are deploying to. Normally 3072 characters
+is sufficient, and is recommended so that you still have room to expand the trust policy in the future while
+perhaps considering how to reduce its size.
+
 ## Usage
 
 **Stack Level**: Regional (because DynamoDB is region-specific), but deploy only in a single region and only in the `root` account
