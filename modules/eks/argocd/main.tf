@@ -53,7 +53,7 @@ locals {
     ] : []
   ))
   regional_service_discovery_domain = "${module.this.environment}.${module.dns_gbl_delegated.outputs.default_domain_name}"
-  host                              = var.host != "" ? var.host : format("%s.%s", coalesce(var.alb_name, var.name), local.regional_service_discovery_domain)
+  host                              = var.host != "" ? var.host : format("%s.%s", var.name, local.regional_service_discovery_domain)
   url                               = format("https://%s", local.host)
 
   oidc_config_map = local.oidc_enabled ? {
