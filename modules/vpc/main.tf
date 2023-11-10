@@ -152,6 +152,7 @@ module "subnets" {
   nat_gateway_enabled             = var.nat_gateway_enabled
   nat_instance_enabled            = var.nat_instance_enabled
   nat_instance_type               = var.nat_instance_type
+  nat_instance_ami_id             = var.nat_instance_ami_id
   public_subnets_enabled          = var.public_subnets_enabled
   public_subnets_additional_tags  = local.public_subnets_additional_tags
   private_subnets_additional_tags = local.private_subnets_additional_tags

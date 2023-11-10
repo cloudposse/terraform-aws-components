@@ -197,7 +197,8 @@ variable "eks_component_name" {
 
 variable "saml_sso_providers" {
   type = map(object({
-    component = string
+    component   = string
+    environment = optional(string, null)
   }))
 
   default     = {}
