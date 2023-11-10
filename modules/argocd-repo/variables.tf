@@ -139,8 +139,20 @@ variable "create_repo" {
   default     = true
 }
 
+variable "required_pull_request_reviews" {
+  type        = bool
+  description = "Enforce restrictions for pull request reviews"
+  default     = true
+}
+
+variable "push_restrictions_enabled" {
+  type        = bool
+  description = "Enforce who can push to the main branch"
+  default     = true
+}
+
 variable "slack_notifications_channel" {
   type        = string
-  description = "If given, the Slack channel for deployment notifications. If not given, Slack notifications will not be enabled."
   default     = ""
+  description = "If given, the Slack channel to for deployment notifications."
 }
