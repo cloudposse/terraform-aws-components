@@ -57,9 +57,9 @@ spec:
         notifications.argoproj.io/subscribe.on-deploy-failed.argocd-repo-github-commit-status: ""
 %{ endif ~}
 %%{if length(slack_notifications_channel) > 0 ~}
-        notifications.argoproj.io/subscribe.on-deploy-started.app-repo-github-commit-status: ${slack_notifications_channel}
-        notifications.argoproj.io/subscribe.on-deploy-succeded.app-repo-github-commit-status: ${slack_notifications_channel}
-        notifications.argoproj.io/subscribe.on-deploy-failed.app-repo-github-commit-status: ${slack_notifications_channel}
+        notifications.argoproj.io/subscribe.on-deploy-started.slack: ${slack_notifications_channel}
+        notifications.argoproj.io/subscribe.on-deploy-succeded.slack: ${slack_notifications_channel}
+        notifications.argoproj.io/subscribe.on-deploy-failed.slack: ${slack_notifications_channel}
 %{ endif ~}
       name: '{{name}}'
     spec:
