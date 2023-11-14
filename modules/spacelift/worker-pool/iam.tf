@@ -58,7 +58,7 @@ resource "aws_iam_policy" "default" {
   count = local.enabled ? 1 : 0
 
   name   = module.iam_label.id
-  policy = join("", data.aws_iam_policy_document.default.*.json)
+  policy = join("", data.aws_iam_policy_document.default[*].json)
 
   tags = module.iam_label.tags
 }
@@ -67,13 +67,13 @@ resource "aws_iam_role" "default" {
   count = local.enabled ? 1 : 0
 
   name               = module.iam_label.id
-  assume_role_policy = join("", data.aws_iam_policy_document.assume_role_policy.*.json)
+  assume_role_policy = join("", data.aws_iam_policy_document.assume_role_policy[*].json)
   managed_policy_arns = [
-    join("", aws_iam_policy.default.*.arn),
-    "arn:${join("", data.aws_partition.current.*.partition)}:iam::aws:policy/AutoScalingReadOnlyAccess",
-    "arn:${join("", data.aws_partition.current.*.partition)}:iam::aws:policy/CloudWatchAgentServerPolicy",
-    "arn:${join("", data.aws_partition.current.*.partition)}:iam::aws:policy/AmazonSSMManagedInstanceCore",
-    "arn:${join("", data.aws_partition.current.*.partition)}:iam::aws:policy/AWSXRayDaemonWriteAccess"
+    join("", aws_iam_policy.default[*].arn),
+    "arn:${join("", data.aws_partition.current[*].partition)}:iam::aws:policy/AutoScalingReadOnlyAccess",
+    "arn:${join("", data.aws_partition.current[*].partition)}:iam::aws:policy/CloudWatchAgentServerPolicy",
+    "arn:${join("", data.aws_partition.current[*].partition)}:iam::aws:policy/AmazonSSMManagedInstanceCore",
+    "arn:${join("", data.aws_partition.current[*].partition)}:iam::aws:policy/AWSXRayDaemonWriteAccess"
   ]
 
   tags = module.iam_label.tags
@@ -83,7 +83,7 @@ resource "aws_iam_instance_profile" "default" {
   count = local.enabled ? 1 : 0
 
   name = module.iam_label.id
-  role = join("", aws_iam_role.default.*.name)
+  role = join("", aws_iam_role.default[*].name)
 
   tags = module.iam_label.tags
 }
