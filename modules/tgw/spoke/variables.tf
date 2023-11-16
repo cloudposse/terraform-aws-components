@@ -87,3 +87,8 @@ variable "default_route" {
     error_message = "When default routing via transit gateway is enabled, both nat gateway and nat instance must be disabled"
   }
 }
+variable "default_route_outgoing_account_name" {
+  type        = string
+  description = "The account name which is used for outgoing traffic, when using the transit gateway as default route."
+  default     = "core-ue2-network"
+}

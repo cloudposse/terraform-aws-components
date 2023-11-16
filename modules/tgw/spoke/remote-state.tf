@@ -19,7 +19,7 @@ module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "1.5.0"
 
-  component = "vpc"
+  component = var.own_vpc_component_name
 
   context = module.this.context
 }
