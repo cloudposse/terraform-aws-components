@@ -16,6 +16,14 @@ This component is responsible for provisioning the surrounding infrastructure fo
 
 Here's an example snippet for how to use this component.
 
+```yaml
+components:
+  terraform:
+    philips-labs-github-runners:
+      vars:
+        enabled: true
+```
+
 The following will create
 
 - An API Gateway
@@ -27,14 +35,6 @@ The API Gateway is registered as a webhook within the GitHub app. Which scales u
 by the number of messages in the SQS queue.
 
 ![Architecture](https://github.com/philips-labs/terraform-aws-github-runner/blob/main/docs/component-overview.svg)
-
-```yaml
-components:
-  terraform:
-    philips-labs-github-runners:
-      vars:
-        enabled: true
-```
 
 ## Modules
 
