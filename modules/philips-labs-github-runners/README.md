@@ -134,9 +134,9 @@ This is output by the component, and available via the `webhook` output under `e
 
 | Name | Description |
 |------|-------------|
-| <a name="output_github_runners"></a> [github\_runners](#output\_github\_runners) | n/a |
-| <a name="output_queues"></a> [queues](#output\_queues) | n/a |
-| <a name="output_ssm_parameters"></a> [ssm\_parameters](#output\_ssm\_parameters) | n/a |
+| <a name="output_github_runners"></a> [github\_runners](#output\_github\_runners) | Information about the GitHub runners. |
+| <a name="output_queues"></a> [queues](#output\_queues) | Information about the GitHub runner queues. Such as `build_queue_arn` the ARN of the SQS queue to use for the build queue. |
+| <a name="output_ssm_parameters"></a> [ssm\_parameters](#output\_ssm\_parameters) | Information about the SSM parameters to use to register the runner. |
 | <a name="output_webhook"></a> [webhook](#output\_webhook) | Information about the webhook to use to register the runner. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
