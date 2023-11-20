@@ -57,7 +57,12 @@ RUN apt-get update && apt-get install -y --allow-downgrades \
     gh="${GH_CLI_VERSION}-*"
 ```
 
-You can disable this module with `enable_update_github_app_webhook` set to `false`. This means you must manually
+By default, we leave this disabled, as it requires a github token to be set. You can enable it by setting `var.enable_update_github_app_webhook` to `true`.
+When enabled, it will update the github app webhook to point to the API Gateway. This can occur if the API Gateway is deleted and recreated.
+
+When disabled, you will need to manually update the github app webhook to point to the API Gateway.
+This is output by the component, and available via the `webhook` output under `endpoint`.
+
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
