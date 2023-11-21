@@ -25,10 +25,72 @@ resource "aws_iam_instance_profile" "default" {
   tags = module.this.tags
 }
 
+# See CHANGELOG for PR #868:
+# https://github.com/cloudposse/terraform-aws-components/pull/868
+#
+# Namespace was moved from the karpenter module to an independent resource in order to be
+# shared between both the karpenter and karpenter-crd modules.
+moved {
+  from = module.karpenter.kubernetes_namespace.default[0]
+  to   = kubernetes_namespace.default[0]
+}
+
+resource "kubernetes_namespace" "default" {
+  count = local.enabled && var.create_namespace ? 1 : 0
+
+  metadata {
+    name        = var.kubernetes_namespace
+    annotations = {}
+    labels      = merge(module.this.tags, { name = var.kubernetes_namespace })
+  }
+}
+
+# Deploy karpenter-crd helm chart
+# "karpenter-crd" can be installed as an independent helm chart to manage the lifecycle of Karpenter CRDs
+module "karpenter_crd" {
+  enabled = local.enabled && var.crd_chart_enabled
+
+  source  = "cloudposse/helm-release/aws"
+  version = "0.10.1"
+
+  name            = var.crd_chart
+  chart           = var.crd_chart
+  repository      = var.chart_repository
+  description     = var.chart_description
+  chart_version   = var.chart_version
+  wait            = var.wait
+  atomic          = var.atomic
+  cleanup_on_fail = var.cleanup_on_fail
+  timeout         = var.timeout
+
+  create_namespace_with_kubernetes = false # Namespace is created with kubernetes_namespace resources to be shared between charts
+  kubernetes_namespace             = join("", kubernetes_namespace.default[*].id)
+  kubernetes_namespace_labels      = merge(module.this.tags, { name = join("", kubernetes_namespace.default[*].id) })
+
+  eks_cluster_oidc_issuer_url = coalesce(replace(local.eks_cluster_identity_oidc_issuer, "https://", ""), "deleted")
+
+  values = compact([
+    # standard k8s object settings
+    yamlencode({
+      fullnameOverride = module.this.name
+      resources        = var.resources
+      rbac = {
+        create = var.rbac_enabled
+      }
+    }),
+  ])
+
+  context = module.this.context
+
+  depends_on = [
+    kubernetes_namespace.default
+  ]
+}
+
 # Deploy Karpenter helm chart
 module "karpenter" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.10.0"
+  version = "0.10.1"
 
   chart           = var.chart
   repository      = var.chart_repository
@@ -39,14 +101,14 @@ module "karpenter" {
   cleanup_on_fail = var.cleanup_on_fail
   timeout         = var.timeout
 
-  create_namespace_with_kubernetes = var.create_namespace
-  kubernetes_namespace             = var.kubernetes_namespace
-  kubernetes_namespace_labels      = merge(module.this.tags, { name = var.kubernetes_namespace })
+  create_namespace_with_kubernetes = false # Namespace is created with kubernetes_namespace resources to be shared between charts
+  kubernetes_namespace             = join("", kubernetes_namespace.default[*].id)
+  kubernetes_namespace_labels      = merge(module.this.tags, { name = join("", kubernetes_namespace.default[*].id) })
 
   eks_cluster_oidc_issuer_url = coalesce(replace(local.eks_cluster_identity_oidc_issuer, "https://", ""), "deleted")
 
   service_account_name      = module.this.name
-  service_account_namespace = var.kubernetes_namespace
+  service_account_namespace = join("", kubernetes_namespace.default[*].id)
 
   iam_role_enabled = true
 
@@ -55,72 +117,75 @@ module "karpenter" {
   # https://github.com/aws/karpenter/issues/2649
   # Apparently the source of truth for the best IAM policy is the `data.aws_iam_policy_document.karpenter_controller` in
   # https://github.com/terraform-aws-modules/terraform-aws-iam/blob/master/modules/iam-role-for-service-accounts-eks/policies.tf
-  iam_policy_statements = concat([
-    {
-      sid       = "KarpenterController"
-      effect    = "Allow"
-      resources = ["*"]
-
-      actions = [
-        # https://github.com/terraform-aws-modules/terraform-aws-iam/blob/99c69ad54d985f67acf211885aa214a3a6cc931c/modules/iam-role-for-service-accounts-eks/policies.tf#L511-L581
-        # The reference policy is broken up into multiple statements with different resource restrictions based on tags.
-        # This list has breaks where statements are separated in the reference policy for easier comparison and maintenance.
-        "ec2:CreateLaunchTemplate",
-        "ec2:CreateFleet",
-        "ec2:CreateTags",
-        "ec2:DescribeLaunchTemplates",
-        "ec2:DescribeImages",
-        "ec2:DescribeInstances",
-        "ec2:DescribeSecurityGroups",
-        "ec2:DescribeSubnets",
-        "ec2:DescribeInstanceTypes",
-        "ec2:DescribeInstanceTypeOfferings",
-        "ec2:DescribeAvailabilityZones",
-        "ec2:DescribeSpotPriceHistory",
-        "pricing:GetProducts",
-
-        "ec2:TerminateInstances",
-        "ec2:DeleteLaunchTemplate",
-
-        "ec2:RunInstances",
-
-        "iam:PassRole",
-      ]
-    },
-    {
-      sid    = "KarpenterControllerSSM"
-      effect = "Allow"
-      # Allow Karpenter to read AMI IDs from SSM
-      actions   = ["ssm:GetParameter"]
-      resources = ["arn:aws:ssm:*:*:parameter/aws/service/*"]
-    },
-    {
-      sid    = "KarpenterControllerClusterAccess"
-      effect = "Allow"
-      actions = [
-        "eks:DescribeCluster"
-      ]
-      resources = [
-        module.eks.outputs.eks_cluster_arn
-      ]
-    }
-    ],
-    local.interruption_handler_enabled ? [
+  iam_policy = [{
+    statements = concat([
       {
-        sid    = "KarpenterInterruptionHandlerAccess"
+        sid       = "KarpenterController"
+        effect    = "Allow"
+        resources = ["*"]
+
+        actions = [
+          # https://github.com/terraform-aws-modules/terraform-aws-iam/blob/99c69ad54d985f67acf211885aa214a3a6cc931c/modules/iam-role-for-service-accounts-eks/policies.tf#L511-L581
+          # The reference policy is broken up into multiple statements with different resource restrictions based on tags.
+          # This list has breaks where statements are separated in the reference policy for easier comparison and maintenance.
+          "ec2:CreateLaunchTemplate",
+          "ec2:CreateFleet",
+          "ec2:CreateTags",
+          "ec2:DescribeLaunchTemplates",
+          "ec2:DescribeImages",
+          "ec2:DescribeInstances",
+          "ec2:DescribeSecurityGroups",
+          "ec2:DescribeSubnets",
+          "ec2:DescribeInstanceTypes",
+          "ec2:DescribeInstanceTypeOfferings",
+          "ec2:DescribeAvailabilityZones",
+          "ec2:DescribeSpotPriceHistory",
+          "pricing:GetProducts",
+
+          "ec2:TerminateInstances",
+          "ec2:DeleteLaunchTemplate",
+
+          "ec2:RunInstances",
+
+          "iam:PassRole",
+        ]
+      },
+      {
+        sid    = "KarpenterControllerSSM"
+        effect = "Allow"
+        # Allow Karpenter to read AMI IDs from SSM
+        actions   = ["ssm:GetParameter"]
+        resources = ["arn:aws:ssm:*:*:parameter/aws/service/*"]
+      },
+      {
+        sid    = "KarpenterControllerClusterAccess"
         effect = "Allow"
         actions = [
-          "sqs:DeleteMessage",
-          "sqs:GetQueueUrl",
-          "sqs:GetQueueAttributes",
-          "sqs:ReceiveMessage",
+          "eks:DescribeCluster"
         ]
         resources = [
-          aws_sqs_queue.interruption_handler[0].arn
+          module.eks.outputs.eks_cluster_arn
         ]
       }
-    ] : []
-  )
+      ],
+      local.interruption_handler_enabled ? [
+        {
+          sid    = "KarpenterInterruptionHandlerAccess"
+          effect = "Allow"
+          actions = [
+            "sqs:DeleteMessage",
+            "sqs:GetQueueUrl",
+            "sqs:GetQueueAttributes",
+            "sqs:ReceiveMessage",
+          ]
+          resources = [
+            one(aws_sqs_queue.interruption_handler[*].arn)
+          ]
+        }
+      ] : []
+    )
+  }]
+
 
   values = compact([
     # standard k8s object settings
@@ -163,5 +228,9 @@ module "karpenter" {
 
   context = module.this.context
 
-  depends_on = [aws_iam_instance_profile.default]
+  depends_on = [
+    aws_iam_instance_profile.default,
+    module.karpenter_crd,
+    kubernetes_namespace.default
+  ]
 }

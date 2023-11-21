@@ -2,7 +2,7 @@ locals {
   interruption_handler_enabled    = local.enabled && var.interruption_handler_enabled
   interruption_handler_queue_name = module.this.id
 
-  dns_suffix = data.aws_partition.current.dns_suffix
+  dns_suffix = join("", data.aws_partition.current[*].dns_suffix)
 
   events = {
     health_event = {
@@ -40,7 +40,9 @@ locals {
   }
 }
 
-data "aws_partition" "current" {}
+data "aws_partition" "current" {
+  count = local.interruption_handler_enabled ? 1 : 0
+}
 
 resource "aws_sqs_queue" "interruption_handler" {
   count = local.interruption_handler_enabled ? 1 : 0
