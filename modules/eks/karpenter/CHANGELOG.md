@@ -10,11 +10,19 @@ If you currently have `eks/karpenter` deployed to an EKS cluster and have upgrad
 
 ### Upgrading an existing `eks/karpenter` deployment and deploying the `karpenter-crd` chart
 
-If you currently have `eks/karpenter` deployed to an EKS cluster, have upgraded to this version of the component, do not currently have the `karpenter-crd` chart installed, and want to now deploy the `karpenter-crd` helm chart, a few addtional steps are required!
+If you currently have `eks/karpenter` deployed to an EKS cluster, have upgraded to this version of the component, do not currently have the `karpenter-crd` chart installed, and want to now deploy the `karpenter-crd` helm chart, a few additional steps are required!
 
 First, set `var.crd_chart_enabled` to `true`.
 
 Next, update the installed Karpenter CRDs in order for Helm to automatically take over their management when the `karpenter-crd` chart is deployed. We have included a script to run that upgrade. Run the `./karpenter-crd-upgrade` script or run the following commands on the given cluster before deploying the chart. Please note that this script or commands will only need to be run on first use of the CRD chart.
+
+Before running the script, ensure that the `kubectl` context is set to the cluster where the `karpenter` helm chart is deployed. In Geodesic, you can usually do this with the `set-cluster` command, though your configuration may vary.
+
+```bash
+set-cluster <tenant>-<region>-<stage> terraform
+```
+
+Then run the script or commands:
 
 ```bash
 kubectl label crd awsnodetemplates.karpenter.k8s.aws provisioners.karpenter.sh app.kubernetes.io/managed-by=Helm --overwrite
@@ -34,6 +42,18 @@ helm upgrade --install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-cr
 :::
 
 Now that the CRDs are upgraded, the component is ready to be applied. Apply the `eks/karpenter` component and then apply `eks/karpenter-provisioner`.
+
+#### Note for upgrading Karpenter from before v0.27.3 to v0.27.3 or later
+
+If you are upgrading Karpenter from before v0.27.3 to v0.27.3 or later,
+you may need to run the following command to remove an obsolete webhook:
+
+```bash
+kubectl delete mutatingwebhookconfigurations defaulting.webhook.karpenter.sh
+```
+
+See [the Karpenter upgrade guide](https://karpenter.sh/v0.32/upgrading/upgrade-guide/#upgrading-to-v0273)
+for more details.
 
 ### Upgrading an existing `eks/karpenter` deployment where the `karpenter-crd` chart is already deployed
 
