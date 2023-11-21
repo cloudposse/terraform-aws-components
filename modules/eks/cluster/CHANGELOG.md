@@ -30,7 +30,7 @@ remove the need to deploy Karpenter to Fargate.
 **NOTE about instance type**: The `c6a.large` instance type is relatively
 new. If you have deployed an old version of our ServiceControlPolicy
 `DenyEC2NonNitroInstances`, `DenyNonNitroInstances` (obsolete, replaced by
-`DenyEC2NonNitroInstances`), and/or`DenyEC2InstancesWithoutEncryptionInTransit`,
+`DenyEC2NonNitroInstances`), and/or `DenyEC2InstancesWithoutEncryptionInTransit`,
 you will want to update them to v0.12.0 or choose a difference instance type.
 
 ### Migration procedure
@@ -100,7 +100,7 @@ by adding:
 
 #### 2.a Optional: Move Karpenter instance profile to `eks/cluster` component
 
-If you have the patience to manually import and rm a Terraform
+If you have the patience to manually import and remove a Terraform
 resource, you should move the Karpenter instance profile to the `eks/cluster`
 component. This fixes an issue where the Karpenter instance profile
 could be broken by certain sequences of Terraform operations.
