@@ -47,12 +47,28 @@ components:
             ttl: 60
             records:
               - 53.229.170.215
+          # using a period at the end of a name
           - root_zone: example.net
-            name: www
+            name: www.
             type: CNAME
             ttl: 60
             records:
               - example.net
+          # using numbers as name requires quotes
+          - root_zone: example.net
+            name: "123456."
+            type: CNAME
+            ttl: 60
+            records:
+              - example.net
+          # strings that are very long, this could be a DKIM key
+          - root_zone: example.net
+            name: service._domainkey.
+            type: CNAME
+            ttl: 60
+            records:
+              - !!str |-
+                YourVeryLongStringGoesHere
 ```
 
 :::info
@@ -78,7 +94,7 @@ Use the [acm](https://docs.cloudposse.com/components/library/aws/acm)  component
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_acm"></a> [acm](#module\_acm) | cloudposse/acm-request-certificate/aws | 0.16.2 |
+| <a name="module_acm"></a> [acm](#module\_acm) | cloudposse/acm-request-certificate/aws | 0.16.3 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 

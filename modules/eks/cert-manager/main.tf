@@ -9,7 +9,7 @@ data "aws_partition" "current" {
 
 module "cert_manager" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.7.0"
+  version = "0.10.0"
 
   name            = "" # avoids hitting length restrictions on IAM Role names
   chart           = var.cert_manager_chart
@@ -108,7 +108,7 @@ module "cert_manager" {
 
 module "cert_manager_issuer" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.7.0"
+  version = "0.10.0"
 
   # Only install the issuer if either letsencrypt_installed or selfsigned_installed is true
   enabled = local.enabled && (var.letsencrypt_enabled || var.cert_manager_issuer_selfsigned_enabled)

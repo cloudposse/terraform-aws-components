@@ -1,6 +1,6 @@
 module "account_map" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.2"
+  version = "1.5.0"
 
   component   = "account-map"
   tenant      = (var.account_map_tenant != "") ? var.account_map_tenant : module.this.tenant
@@ -13,7 +13,7 @@ module "account_map" {
 
 module "config_bucket" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.2"
+  version = "1.5.0"
 
   component   = "config-bucket"
   tenant      = (var.config_bucket_tenant != "") ? var.config_bucket_tenant : module.this.tenant
@@ -26,7 +26,7 @@ module "config_bucket" {
 
 module "global_collector_region" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.2"
+  version = "1.5.0"
 
   count = !local.enabled || local.is_global_collector_region ? 0 : 1
 
@@ -40,7 +40,7 @@ module "global_collector_region" {
 
 module "aws_team_roles" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.2"
+  version = "1.5.0"
 
   component   = "aws-team-roles"
   environment = var.iam_roles_environment_name

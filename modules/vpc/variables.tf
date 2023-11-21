@@ -7,6 +7,7 @@ variable "availability_zones" {
   type        = list(string)
   description = <<-EOT
     List of Availability Zones (AZs) where subnets will be created. Ignored when `availability_zone_ids` is set.
+    Can be the full name, e.g. `us-east-1a`, or just the part after the region, e.g. `a` to allow reusable values across regions.
     The order of zones in the list ***must be stable*** or else Terraform will continually make changes.
     If no AZs are specified, then `max_subnet_count` AZs will be selected in alphabetical order.
     If `max_subnet_count > 0` and `length(var.availability_zones) > max_subnet_count`, the list
@@ -20,6 +21,8 @@ variable "availability_zone_ids" {
   type        = list(string)
   description = <<-EOT
     List of Availability Zones IDs where subnets will be created. Overrides `availability_zones`.
+    Can be the full name, e.g. `use1-az1`, or just the part after the AZ ID region code, e.g. `-az1`,
+    to allow reusable values across regions. Consider contention for resources and spot pricing in each AZ when selecting.
     Useful in some regions when using only some AZs and you want to use the same ones across multiple accounts.
     EOT
   default     = []
@@ -117,6 +120,17 @@ variable "nat_instance_type" {
   type        = string
   description = "NAT Instance type"
   default     = "t3.micro"
+}
+
+variable "nat_instance_ami_id" {
+  type        = list(string)
+  description = <<-EOT
+    A list optionally containing the ID of the AMI to use for the NAT instance.
+    If the list is empty (the default), the latest official AWS NAT instance AMI
+    will be used. NOTE: The Official NAT instance AMI is being phased out and
+    does not support NAT64. Use of a NAT gateway is recommended instead.
+    EOT
+  default     = []
 }
 
 variable "map_public_ip_on_launch" {

@@ -2,7 +2,7 @@
 # https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor
 
 lambda-errors:
-  name: AWS Lambda [{{functionname.name}}] has errors
+  name: "(Lambda) ${tenant} ${ stage } - Lambda [{{functionname.name}}] has errors"
   type: query alert
   query: sum(last_5m):sum:aws.lambda.errors{*} by {stage,tenant,environment,functionname}.as_count() > 0
   message: |

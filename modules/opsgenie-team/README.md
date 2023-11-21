@@ -7,7 +7,41 @@ This component is responsible for provisioning Opsgenie teams and related servic
 #### Pre-requisites
 You need an API Key stored in `/opsgenie/opsgenie_api_key` of SSM, this is configurable using the `ssm_parameter_name_format` and `ssm_path` variables.
 
-Generate an API Key by going [here](https://id.atlassian.com/manage-profile/security/api-tokens) and Clicking **Create API Token**.
+Opsgenie is now part of Atlassian, so you need to make sure you are creating
+an Opsgenie API Key, which looks like `abcdef12-3456-7890-abcd-ef0123456789`
+and not an Atlassian API key, which looks like
+
+```shell
+ATAfT3xFfGF0VFXAfl8EmQNPVv1Hlazp3wsJgTmM8Ph7iP-RtQyiEfw-fkDS2LvymlyUOOhc5XiSx46vQWnznCJolq-GMX4KzdvOSPhEWr-BF6LEkJQC4CSjDJv0N7d91-0gVekNmCD2kXY9haUHUSpO4H7X6QxyImUb9VmOKIWTbQi8rf4CF28=63CB21B9
+```
+
+Generate an API Key by going to Settings -> API key management on your Opsgenie
+control panel, which will have an address like `https://<your-org>.app.opsgenie.com/settings/api-key-management`,
+and click the "Add new API key" button. For more information, see the
+[Opsgenie API key management documentation](https://support.atlassian.com/opsgenie/docs/api-key-management/).
+
+Once you have the key, you'll need to test it with a curl to verify that you are at least
+on a Standard plan with OpsGenie:
+```
+curl -X GET 'https://api.opsgenie.com/v2/account' \
+    --header "Authorization: GenieKey $API_KEY"
+```
+
+The result should be something similar to below:
+```
+{
+    "data": {
+        "name": "opsgenie",
+        "plan": {
+            "maxUserCount": 1500,
+            "name": "Enterprise",
+     ...
+}
+```
+
+If you see `Free` or `Essentials` in the plan, then you won't be able
+to use this component. You can see more details here:
+[OpsGenie pricing/features](https://www.atlassian.com/software/opsgenie/pricing#)
 
 #### Getting Started
 
@@ -176,7 +210,7 @@ AWS_PROFILE=foo chamber list opsgenie-team/<team>
 ```
 
 ### ClickOps Work
- - After deploying the opsgenie-team component the created team will have a schedule named after the team. This is purposely left to be clickOps’d so the UI can be used to set who is on call, as that is the usual way (not through code). Additionally We do not want a re-apply of the terraform to delete or shuffle who is planned to be on call, thus we left who is on-call on a schedule out of the component.
+ - After deploying the opsgenie-team component the created team will have a schedule named after the team. This is purposely left to be clickOps’d so the UI can be used to set who is on call, as that is the usual way (not through code). Additionally, we do not want a re-apply of the Terraform to delete or shuffle who is planned to be on call, thus we left who is on-call on a schedule out of the component.
 
 ## Known Issues
 
@@ -187,6 +221,10 @@ The problem is there are 3 different api endpoints in use
 - `/v2/` - robust with some differences from `webapp`
 - `/v1/` - the oldest and furthest from the live UI.
 
+### Cannot create users
+
+This module does not create users. Users must have already been created to be added to a team.
+
 ### Cannot Add dependent Services
 
 - Api Currently doesn't support Multiple ServiceIds for incident Rules
@@ -194,10 +232,6 @@ The problem is there are 3 different api endpoints in use
 ### Cannot Add Stakeholders
 
  - Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/278
-
-### There isn’t a resource for datadog to create an opsgenie integration so this has to be done manually via ClickOps
-
- - Track the issue: x
 
 ### No Resource to create Slack Integration
 
@@ -248,7 +282,7 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 | <a name="requirement_datadog"></a> [datadog](#requirement\_datadog) | >= 3.3.0 |
 | <a name="requirement_opsgenie"></a> [opsgenie](#requirement\_opsgenie) | >= 0.6.7 |
@@ -320,9 +354,9 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 | <a name="input_ssm_path"></a> [ssm\_path](#input\_ssm\_path) | SSM path | `string` | `"opsgenie"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
-| <a name="input_team"></a> [team](#input\_team) | Configure the team inputs | `map(any)` | `{}` | no |
 | <a name="input_team_name"></a> [team\_name](#input\_team\_name) | Current OpsGenie Team Name | `string` | `null` | no |
 | <a name="input_team_naming_format"></a> [team\_naming\_format](#input\_team\_naming\_format) | OpsGenie Team Naming Format | `string` | `"%s_%s"` | no |
+| <a name="input_team_options"></a> [team\_options](#input\_team\_options) | Configure the team options.<br>See `opsgenie_team` Terraform resource [documentation](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/resources/team#argument-reference) for more details. | <pre>object({<br>    description              = optional(string)<br>    ignore_members           = optional(bool, false)<br>    delete_default_resources = optional(bool, false)<br>  })</pre> | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 
 ## Outputs
