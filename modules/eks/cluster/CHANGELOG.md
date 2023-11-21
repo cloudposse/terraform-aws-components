@@ -54,6 +54,7 @@ according to the `ami_family` in your Karpenter provisioner configuration.
       # EKS AMI version to use, e.g. "1.16.13-20200821" (no "v").
       ami_release_version: null
       # Type of Amazon Machine Image (AMI) associated with the EKS Node Group
+      # Typically AL2_x86_64 or BOTTLEROCKET_x86_64
       ami_type: BOTTLEROCKET_x86_64
       # Additional name attributes (e.g. `1`) for the node group
       attributes: []
@@ -65,6 +66,7 @@ according to the `ami_family` in your Karpenter provisioner configuration.
       # True (recommended) to create new node_groups before deleting old ones, avoiding a temporary outage
       create_before_destroy: true
       # Configure storage for the root block device for instances in the Auto Scaling Group
+      # For Bottlerocket, use /dev/xvdb. For all others, use /dev/xvda.
       block_device_map:
         "/dev/xvdb":
           ebs:
