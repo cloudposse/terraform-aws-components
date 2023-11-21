@@ -1,4 +1,6 @@
-## Components PR [#868](https://github.com/cloudposse/terraform-aws-components/pull/868)
+## Version 1.348.0
+
+Components PR [#868](https://github.com/cloudposse/terraform-aws-components/pull/868)
 
 The `karpenter-crd` helm chart can now be installed alongside the `karpenter` helm chart to automatically manage the lifecycle of Karpenter CRDs. However since this chart must be installed before the `karpenter` helm chart, the Kubernetes namespace must be available before either chart is deployed. Furthermore, this namespace should persist whether or not the `karpenter-crd` chart is deployed, so it should not be installed with that given `helm-release` resource. Therefore, we've moved namespace creation to a separate resource that runs before both charts. Terraform will handle that namespace state migration with the `moved` block.
 
