@@ -4,12 +4,6 @@ variable "admin_stack_label" {
   default     = "admin-stack-name"
 }
 
-variable "administrative" {
-  type        = bool
-  description = "Whether this stack can manage other stacks"
-  default     = false
-}
-
 variable "allow_public_workers" {
   type        = bool
   description = "Whether to allow public workers to be used for this stack"
@@ -129,6 +123,18 @@ variable "context_filters" {
   })
 }
 
+variable "excluded_context_filters" {
+  description = "Context filters to exclude from stacks matching specific criteria of `var.context_filters`."
+  default     = {}
+  type = object({
+    namespaces   = optional(list(string), [])
+    environments = optional(list(string), [])
+    tenants      = optional(list(string), [])
+    stages       = optional(list(string), [])
+    tags         = optional(map(string), {})
+  })
+}
+
 variable "description" {
   type        = string
   description = "Specify description of stack"
@@ -189,18 +195,6 @@ variable "manage_state" {
   default     = false
 }
 
-variable "parent_space_id" {
-  type        = string
-  description = "If creating a dedicated space for this stack, specify the ID of the parent space in Spacelift."
-  default     = null
-}
-
-variable "policy_ids" {
-  type        = set(string)
-  default     = []
-  description = "Set of Rego policy IDs to attach to this stack"
-}
-
 variable "protect_from_deletion" {
   type        = bool
   description = "Flag to enable/disable deletion protection."
@@ -211,12 +205,6 @@ variable "pulumi" {
   type        = map(any)
   description = "Pulumi-specific configuration. Presence means this Stack is a Pulumi Stack."
   default     = null
-}
-
-variable "region" {
-  type        = string
-  description = "The AWS region to use"
-  default     = "us-east-1"
 }
 
 variable "repository" {

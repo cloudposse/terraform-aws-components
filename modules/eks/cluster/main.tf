@@ -41,7 +41,7 @@ locals {
   )
 
   # Existing managed worker role ARNs
-  managed_worker_role_arns = local.eks_outputs.eks_managed_node_workers_role_arns
+  managed_worker_role_arns = coalesce(local.eks_outputs.eks_managed_node_workers_role_arns, [])
 
   # If Karpenter IAM role is enabled, add it to the `aws-auth` ConfigMap to allow the nodes launched by Karpenter to join the EKS cluster
   karpenter_role_arn = one(aws_iam_role.karpenter[*].arn)

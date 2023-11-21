@@ -167,7 +167,7 @@ module "alb" {
   for_each = local.enabled ? var.alb_configuration : {}
 
   vpc_id          = module.vpc.outputs.vpc_id
-  subnet_ids      = var.internal_enabled ? module.vpc.outputs.private_subnet_ids : module.vpc.outputs.public_subnet_ids
+  subnet_ids      = lookup(each.value, "internal_enabled", var.internal_enabled) ? module.vpc.outputs.private_subnet_ids : module.vpc.outputs.public_subnet_ids
   ip_address_type = lookup(each.value, "ip_address_type", "ipv4")
 
   internal = lookup(each.value, "internal_enabled", var.internal_enabled)
