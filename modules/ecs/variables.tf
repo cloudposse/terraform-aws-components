@@ -175,11 +175,13 @@ variable "capacity_providers_ec2" {
     }))
     instance_refresh = optional(object({
       strategy = string
-      preferences = object({
-        instance_warmup        = number
-        min_healthy_percentage = number
-      })
-      triggers = list(string)
+      preferences = optional(object({
+        instance_warmup        = optional(number, null)
+        min_healthy_percentage = optional(number, null)
+        skip_matching          = optional(bool, null)
+        auto_rollback          = optional(bool, null)
+      }), null)
+      triggers = optional(list(string), [])
     }))
     mixed_instances_policy = optional(object({
       instances_distribution = object({
