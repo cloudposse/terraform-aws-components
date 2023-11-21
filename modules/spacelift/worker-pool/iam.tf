@@ -25,7 +25,8 @@ data "aws_iam_policy_document" "assume_role_policy" {
 }
 
 locals {
-  role_arn_template = module.account_map.outputs.iam_role_arn_templates[local.identity_account_name]
+  identity_account_name = module.account_map.outputs.identity_account_account_name
+  role_arn_template     = module.account_map.outputs.iam_role_arn_templates[local.identity_account_name]
 }
 
 data "aws_iam_policy_document" "default" {
