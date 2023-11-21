@@ -84,9 +84,9 @@ This is output by the component, and available via the `webhook` output under `e
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_fetch_lambdas"></a> [fetch\_lambdas](#module\_fetch\_lambdas) | philips-labs/github-runner/aws//modules/download-lambda | 5.4.0 |
 | <a name="module_github_runner"></a> [github\_runner](#module\_github\_runner) | philips-labs/github-runner/aws | 5.4.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
+| <a name="module_module-artifact"></a> [module-artifact](#module\_module-artifact) | cloudposse/module-artifact/external | 0.8.0 |
 | <a name="module_store_read"></a> [store\_read](#module\_store\_read) | cloudposse/ssm-parameter-store/aws | 0.11.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
