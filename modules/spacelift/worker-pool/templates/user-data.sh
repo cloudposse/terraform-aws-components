@@ -3,8 +3,8 @@
 spacelift() { (
   set -e
 
-	aws ecr get-login-password --region ${ecr_region} \
-		| docker login --username AWS --password-stdin ${ecr_account_id}.dkr.ecr.${ecr_region}.amazonaws.com
+  aws ecr get-login-password --region ${ecr_region} \
+    | docker login --username AWS --password-stdin ${ecr_account_id}.dkr.ecr.${ecr_region}.amazonaws.com
 
   docker pull ${spacelift_runner_image}
 
