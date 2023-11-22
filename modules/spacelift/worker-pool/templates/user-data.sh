@@ -3,7 +3,9 @@
 spacelift() { (
   set -e
 
-  $(aws --region ${ecr_region} ecr get-login --registry-ids ${ecr_account_id} --no-include-email)
+	aws ecr get-login-password --region ${ecr_region} \
+		| docker login --username AWS --password-stdin ${ecr_account_id}.dkr.ecr.${ecr_region}.amazonaws.com
+
   docker pull ${spacelift_runner_image}
 
   echo "Updating packages (security)" | tee -a /var/log/spacelift/info.log
