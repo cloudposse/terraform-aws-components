@@ -3,20 +3,20 @@ locals {
   version     = var.enabled ? var.release_version : null
   lambda_repo = "https://github.com/philips-labs/terraform-aws-github-runner"
 
-  lambdas = var.enabled ? [
-    {
-      name = "webhook"
+  lambdas = var.enabled ? {
+    webhook = {
+      name = "webhook.zip"
       tag  = local.version
     },
-    {
-      name = "runners"
+    runners = {
+      name = "runners.zip"
       tag  = local.version
     },
-    {
-      name = "runner-binaries-syncer"
+    runner-binaries-syncer = {
+      name = "runner-binaries-syncer.zip"
       tag  = local.version
     }
-  ] : []
+  } : {}
 }
 
 module "store_read" {
@@ -35,13 +35,20 @@ resource "random_id" "webhook_secret" {
   byte_length = 20
 }
 
-module "fetch_lambdas" {
-  count = local.enabled ? 1 : 0
+module "module_artifact" {
+  for_each = local.lambdas
 
-  source  = "philips-labs/github-runner/aws//modules/download-lambda"
-  version = "5.4.0"
+  source  = "cloudposse/module-artifact/external"
+  version = "0.8.0"
 
-  lambdas = local.lambdas
+  filename       = each.value.name
+  module_name    = module.this.name
+  url            = "https://github.com/philips-labs/terraform-aws-github-runner/releases/download/${each.value.tag}/${each.key}.zip"
+  curl_arguments = ["-fsSL"]
+
+  module_path = path.module
+
+  context = module.this.context
 }
 
 module "github_runner" {
@@ -49,6 +56,8 @@ module "github_runner" {
 
   source  = "philips-labs/github-runner/aws"
   version = "5.4.0"
+
+  depends_on = [module.module_artifact]
 
   aws_region = var.region
   vpc_id     = module.vpc.outputs.vpc_id
