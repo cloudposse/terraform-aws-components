@@ -35,7 +35,7 @@ resource "random_id" "webhook_secret" {
   byte_length = 20
 }
 
-module "module-artifact" {
+module "module_artifact" {
   for_each = local.lambdas
 
   source  = "cloudposse/module-artifact/external"
@@ -57,7 +57,7 @@ module "github_runner" {
   source  = "philips-labs/github-runner/aws"
   version = "5.4.0"
 
-  depends_on = [module.module-artifact]
+  depends_on = [module.module_artifact]
 
   aws_region = var.region
   vpc_id     = module.vpc.outputs.vpc_id
