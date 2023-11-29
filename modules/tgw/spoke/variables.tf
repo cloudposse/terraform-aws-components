@@ -82,10 +82,6 @@ variable "default_route_enabled" {
   type        = bool
   description = "Enable default routing via transit gateway, requires also nat gateway and instance to be disabled in vpc component. Default is disabled."
   default     = false
-  validation {
-    condition     = var.default_route_enabled ? (length(module.vpc.outputs.nat_gateway_ids) == 0 && length(module.vpc.outputs.nat_instance_ids) == 0 ? true : false) : true
-    error_message = "When default routing via transit gateway is enabled, both nat gateway and nat instance must be disabled"
-  }
 }
 
 variable "default_route_outgoing_account_name" {
