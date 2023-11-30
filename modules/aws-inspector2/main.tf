@@ -40,7 +40,7 @@ resource "aws_inspector2_enabler" "delegated_admin" {
 resource "aws_inspector2_organization_configuration" "default" {
   count = local.create_org_configuration ? 1 : 0
 
-  depends_on = [ aws_inspector2_enabler.delegated_admin ]
+  depends_on = [aws_inspector2_enabler.delegated_admin]
   auto_enable {
     ec2    = var.auto_enable_ec2
     ecr    = var.auto_enable_ecr
@@ -51,7 +51,7 @@ resource "aws_inspector2_organization_configuration" "default" {
 resource "aws_inspector2_enabler" "member_accounts" {
   count = local.create_org_configuration ? 1 : 0
 
-  depends_on = [ aws_inspector2_member_association.default ]
+  depends_on = [aws_inspector2_member_association.default]
 
   account_ids    = local.member_account_ids
   resource_types = local.resource_types
