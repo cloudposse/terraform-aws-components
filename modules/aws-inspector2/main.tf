@@ -13,6 +13,8 @@ locals {
 
   create_org_delegation    = local.enabled && local.is_org_management_account
   create_org_configuration = local.enabled && local.is_org_delegated_administrator_account && var.admin_delegated
+
+  resource_types = compact([var.auto_enable_ec2 ? "EC2" : null, var.auto_enable_ecr ? "ECR" : null, var.auto_enable_lambda ? "Lambda" : null])
 }
 
 data "aws_caller_identity" "this" {
@@ -26,15 +28,33 @@ resource "aws_inspector2_delegated_admin_account" "default" {
   account_id = local.org_delegated_administrator_account_id
 }
 
+resource "aws_inspector2_enabler" "delegated_admin" {
+  count = local.create_org_configuration ? 1 : 0
+
+  account_ids    = [local.org_delegated_administrator_account_id]
+  resource_types = local.resource_types
+}
+
 # If we are are in the AWS Organization designated administrator account,
 # configure all other accounts to send their Inspector2 findings.
 resource "aws_inspector2_organization_configuration" "default" {
   count = local.create_org_configuration ? 1 : 0
+
+  depends_on = [aws_inspector2_enabler.delegated_admin]
   auto_enable {
     ec2    = var.auto_enable_ec2
     ecr    = var.auto_enable_ecr
     lambda = var.auto_enable_lambda
   }
+}
+
+resource "aws_inspector2_enabler" "member_accounts" {
+  count = local.create_org_configuration ? 1 : 0
+
+  depends_on = [aws_inspector2_member_association.default]
+
+  account_ids    = local.member_account_ids
+  resource_types = local.resource_types
 }
 
 resource "aws_inspector2_member_association" "default" {
