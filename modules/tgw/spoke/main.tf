@@ -9,7 +9,7 @@
 locals {
   spoke_account = module.this.tenant != null ? format("%s-%s-%s", module.this.tenant, module.this.environment, module.this.stage) : format("%s-%s", module.this.environment, module.this.stage)
   // "When default routing via transit gateway is enabled, both nat gateway and nat instance must be disabled"
-  default_route_enabled_and_nat_disabled       = var.default_route_enabled  && (length(module.vpc.outputs.nat_gateway_ids) == 0 && length(module.vpc.outputs.nat_instance_ids) == 0 
+  default_route_enabled_and_nat_disabled = var.default_route_enabled && length(module.vpc.outputs.nat_gateway_ids) == 0 && length(module.vpc.outputs.nat_instance_ids) == 0
 }
 
 module "tgw_hub_routes" {
@@ -63,8 +63,8 @@ resource "aws_route" "default_route" {
 }
 
 locals {
-  outgoing_network_account_name            = format("%s-%s", var.default_route_outgoing_account_name, var.own_vpc_component_name)
-  default_route_vpc_public_route_table_ids = module.tgw_hub.outputs.vpcs[local.outgoing_network_account_name].outputs.default_route_vpc_public_route_table_ids
+  outgoing_network_account_name            = local.default_route_enabled_and_nat_disabled ? format("%s-%s", var.default_route_outgoing_account_name, var.own_vpc_component_name) : ""
+  default_route_vpc_public_route_table_ids = local.default_route_enabled_and_nat_disabled ? module.tgw_hub.outputs.vpcs[local.outgoing_network_account_name].outputs.default_route_vpc_public_route_table_ids : []
 }
 
 resource "aws_route" "back_route" {
