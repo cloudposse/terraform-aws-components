@@ -41,6 +41,7 @@ module "root_admin_stack" {
   component_root      = try(join("/", [var.component_root, local.root_admin_stack_config.metadata.component]), null)
   component_vars      = try(local.root_admin_stack_config.vars, var.component_vars)
   terraform_workspace = try(local.root_admin_stack_config.workspace, var.terraform_workspace)
+  labels              = concat(try(local.root_admin_stack_config.labels, []), try(var.labels, []))
 
   administrative                          = true
   after_apply                             = try(local.root_admin_stack_config.settings.spacelift.after_apply, [])
@@ -67,7 +68,6 @@ module "root_admin_stack" {
   drift_detection_reconcile               = try(local.root_admin_stack_config.settings.spacelift.drift_detection_reconcile, var.drift_detection_reconcile)
   drift_detection_schedule                = try(local.root_admin_stack_config.settings.spacelift.drift_detection_schedule, var.drift_detection_schedule)
   drift_detection_timezone                = try(local.root_admin_stack_config.settings.spacelift.drift_detection_timezone, var.drift_detection_timezone)
-  labels                                  = concat(try(local.root_admin_stack_config.settings.spacelift.labels, []), try(var.labels, []))
   local_preview_enabled                   = try(local.root_admin_stack_config.settings.spacelift.local_preview_enabled, var.local_preview_enabled)
   manage_state                            = try(local.root_admin_stack_config.settings.spacelift.manage_state, var.manage_state)
   protect_from_deletion                   = try(local.root_admin_stack_config.settings.spacelift.protect_from_deletion, var.protect_from_deletion)

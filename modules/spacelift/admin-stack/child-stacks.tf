@@ -70,6 +70,13 @@ module "child_stack" {
   component_vars      = try(each.value.vars, var.component_vars)
   terraform_workspace = try(each.value.workspace, var.terraform_workspace)
 
+  labels = concat(
+    try(each.value.labels, []),
+    try(each.value.vars.labels, []),
+    ["managed-by:${local.managed_by}"],
+    local.create_root_admin_stack ? ["depends-on:${local.root_admin_stack_name}", ""] : []
+  )
+
   administrative                          = try(each.value.settings.spacelift.administrative, false)
   after_apply                             = try(each.value.settings.spacelift.after_apply, [])
   after_destroy                           = try(each.value.settings.spacelift.after_destroy, [])
@@ -121,13 +128,6 @@ module "child_stack" {
   gitlab               = try(each.value.settings.spacelift.gitlab, var.gitlab)
   pulumi               = try(each.value.settings.spacelift.pulumi, var.pulumi)
   showcase             = try(each.value.settings.spacelift.showcase, var.showcase)
-
-  labels = concat(
-    try(each.value.settings.spacelift.labels, []),
-    try(each.value.vars.labels, []),
-    ["managed-by:${local.managed_by}"],
-    local.create_root_admin_stack ? ["depends-on:${local.root_admin_stack_name}", ""] : []
-  )
 
   depends_on = [
     null_resource.spaces_precondition,
