@@ -9,7 +9,7 @@
 locals {
   spoke_account = module.this.tenant != null ? format("%s-%s-%s", module.this.tenant, module.this.environment, module.this.stage) : format("%s-%s", module.this.environment, module.this.stage)
   // "When default routing via transit gateway is enabled, both nat gateway and nat instance must be disabled"
-  default_route_enabled_and_nat_disabled       = var.default_route_enabled  ? (length(module.vpc.outputs.nat_gateway_ids) == 0 && length(module.vpc.outputs.nat_instance_ids) == 0 ? true : false) : true
+  default_route_enabled_and_nat_disabled       = var.default_route_enabled  && (length(module.vpc.outputs.nat_gateway_ids) == 0 && length(module.vpc.outputs.nat_instance_ids) == 0 
 }
 
 module "tgw_hub_routes" {
@@ -55,7 +55,7 @@ module "tgw_spoke_vpc_attachment" {
 }
 
 resource "aws_route" "default_route" {
-  count = length(module.vpc.outputs.nat_gateway_ids) == 0 && length(module.vpc.outputs.nat_instance_ids) == 0 && local.default_route_enabled_and_nat_disabled ? length(module.vpc.outputs.private_route_table_ids) : 0
+  count = local.default_route_enabled_and_nat_disabled ? length(module.vpc.outputs.private_route_table_ids) : 0
 
   route_table_id         = module.vpc.outputs.private_route_table_ids[count.index]
   destination_cidr_block = "0.0.0.0/0"
@@ -70,7 +70,7 @@ locals {
 resource "aws_route" "back_route" {
   provider = aws.tgw-hub
 
-  count = length(module.vpc.outputs.nat_gateway_ids) == 0 && length(module.vpc.outputs.nat_instance_ids) == 0 && local.default_route_enabled_and_nat_disabled ? length(local.default_route_vpc_public_route_table_ids) : 0
+  count = local.default_route_enabled_and_nat_disabled ? length(module.vpc.outputs.private_route_table_ids) : 0
 
   route_table_id         = local.default_route_vpc_public_route_table_ids[count.index]
   destination_cidr_block = module.vpc.outputs.vpc_cidr
