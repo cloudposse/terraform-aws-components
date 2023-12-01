@@ -124,7 +124,7 @@ module "child_stack" {
 
   labels = concat(
     try(each.value.settings.spacelift.labels, []),
-    try(var.labels, []),
+    try(each.value.vars.labels, []),
     ["managed-by:${local.managed_by}"],
     local.create_root_admin_stack ? ["depends-on:${local.root_admin_stack_name}", ""] : []
   )
