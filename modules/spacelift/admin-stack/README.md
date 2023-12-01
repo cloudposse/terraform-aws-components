@@ -1,9 +1,9 @@
 # Component: `spacelift/admin-stack`
 
 This component is responsible for creating an administrative [stack](https://docs.spacelift.io/concepts/stack/) and its
-corresponding child stacks in the spacelift organization.
+corresponding child stacks in the Spacelift organization.
 
-The component uses a series of `context_fiters` to select atmos component instances to manage as child stacks.
+The component uses a series of `context_filters` to select atmos component instances to manage as child stacks.
 
 ## Usage
 
@@ -12,6 +12,7 @@ The component uses a series of `context_fiters` to select atmos component instan
 The following are example snippets of how to use this component. For more on Spacelift admin stack usage, see the [Spacelift README](https://docs.cloudposse.com/components/library/aws/spacelift/)
 
 First define the default configuration for any admin stack:
+
 ```yaml
 # stacks/catalog/spacelift/admin-stack.yaml
 components:
@@ -54,6 +55,7 @@ components:
 ```
 
 Then define the root-admin stack:
+
 ```yaml
 # stacks/orgs/acme/spacelift.yaml
 import:
@@ -96,10 +98,10 @@ components:
         # this creates policies for the children (admin) stacks
         child_policy_attachments:
           - TRIGGER Global administrator
-
 ```
 
-Finally define any tenant-specific stacks:
+Finally, define any tenant-specific stacks:
+
 ```yaml
 # stacks/orgs/acme/core/spacelift.yaml
 import:
@@ -142,7 +144,6 @@ components:
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | >= 3.0 |
 | <a name="requirement_spacelift"></a> [spacelift](#requirement\_spacelift) | >= 0.1.31 |
-| <a name="requirement_utils"></a> [utils](#requirement\_utils) | >= 1.14.0 |
 
 ## Providers
 

@@ -14,9 +14,5 @@ terraform {
       source  = "hashicorp/null"
       version = ">= 3.0"
     }
-    utils = {
-      source  = "cloudposse/utils"
-      version = ">= 1.14.0"
-    }
   }
 }
