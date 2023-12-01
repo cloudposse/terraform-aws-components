@@ -1,5 +1,6 @@
 locals {
   enabled = module.this.enabled
+
   spaces = local.enabled ? { for item in values(module.space)[*].space : item.name => {
     description      = item.description
     id               = item.id
@@ -31,6 +32,7 @@ locals {
       }
     }
   } : {}
+
   all_policies_inputs = merge([for k, v in local.policy_inputs : v if length(keys(v)) > 0]...)
 }
 
