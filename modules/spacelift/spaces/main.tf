@@ -1,5 +1,6 @@
 locals {
   enabled = module.this.enabled
+
   spaces = local.enabled ? { for item in values(module.space)[*].space : item.name => {
     description      = item.description
     id               = item.id
@@ -31,12 +32,13 @@ locals {
       }
     }
   } : {}
+
   all_policies_inputs = merge([for k, v in local.policy_inputs : v if length(keys(v)) > 0]...)
 }
 
 module "space" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-space"
-  version = "1.1.0"
+  version = "1.4.0"
 
   # Create a space for each entry in the `spaces` variable, except for the root space which already exists by default
   # and cannot be deleted.
@@ -51,7 +53,7 @@ module "space" {
 
 module "policy" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-policy"
-  version = "1.1.0"
+  version = "1.4.0"
 
   for_each = local.all_policies_inputs
 

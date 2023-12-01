@@ -9,6 +9,7 @@ variable "allow_public_workers" {
   description = "Whether to allow public workers to be used for this stack"
   default     = false
 }
+
 variable "autodeploy" {
   type        = bool
   description = "Controls the Spacelift 'autodeploy' option for a stack"
