@@ -8,7 +8,9 @@ variable "ami_filter" {
   type        = map(list(string))
 
   default = {
-    name = ["amzn2-ami-hvm-2.*-x86_64-ebs"]
+    name                = ["al2023-ami-2023.*-x86_64"]
+    root-device-type    = ["ebs"]
+    virtualization-type = ["hvm"]
   }
 }
 
@@ -220,4 +222,28 @@ variable "max_instance_lifetime" {
   type        = number
   default     = null
   description = "The maximum amount of time, in seconds, that an instance can be in service, values must be either equal to 0 or between 604800 and 31536000 seconds"
+}
+
+variable "launch_template_version" {
+  type        = string
+  description = "Launch template version to use for workers. Note: This interacts strangely with `instance_refresh`. [See docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group#triggers)"
+  default     = "$Latest"
+}
+
+variable "instance_refresh" {
+  description = "The instance refresh definition. If this block is configured, an Instance Refresh will be started when the Auto Scaling Group is updated"
+  type = object({
+    strategy = string
+    preferences = object({
+      instance_warmup              = optional(number, null)
+      min_healthy_percentage       = optional(number, null)
+      skip_matching                = optional(bool, null)
+      auto_rollback                = optional(bool, null)
+      scale_in_protected_instances = optional(string, null)
+      standby_instances            = optional(string, null)
+    })
+    triggers = optional(list(string))
+  })
+
+  default = null
 }

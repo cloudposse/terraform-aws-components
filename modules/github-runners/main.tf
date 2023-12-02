@@ -107,7 +107,7 @@ module "sg" {
 
 module "autoscale_group" {
   source  = "cloudposse/ec2-autoscale-group/aws"
-  version = "0.35.1"
+  version = "0.36.0"
 
   image_id                    = join("", data.aws_ami.runner.*.id)
   instance_type               = var.instance_type
@@ -135,6 +135,12 @@ module "autoscale_group" {
   cpu_utilization_low_threshold_percent   = var.cpu_utilization_low_threshold_percent
   cpu_utilization_low_period_seconds      = var.cpu_utilization_low_period_seconds
   cpu_utilization_low_evaluation_periods  = var.cpu_utilization_low_evaluation_periods
+
+  # The instance refresh definition
+  # If this block is configured, an Instance Refresh will be started when the Auto Scaling Group is updated
+  instance_refresh = var.instance_refresh
+
+  launch_template_version = var.launch_template_version
 
   context = module.this.context
 }
