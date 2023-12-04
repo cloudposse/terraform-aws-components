@@ -6,6 +6,46 @@ This component is responsible for provisioning EC2 instances for GitHub runners.
 We also have a similar component based on [actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller) for Kubernetes.
 
 :::
+
+
+## Requirements
+
+### GitHub Application
+
+Follow the quickstart with the upstream module, [cloudposse/terraform-aws-github-action-token-rotator](https://github.com/cloudposse/terraform-aws-github-action-token-rotator#quick-start), or follow the steps below.
+
+1. Create a new GitHub App
+1. Add the following permission:
+```diff
+# Required Permissions for Repository Runners:
+## Repository Permissions
++ Actions (read)
++ Administration (read / write)
++ Metadata (read)
+
+# Required Permissions for Organization Runners:
+## Repository Permissions
++ Actions (read)
++ Metadata (read)
+
+## Organization Permissions
++ Self-hosted runners (read / write)
+```
+3. Generate a Private Key
+
+If you are working with Cloud Posse, upload this Private Key, GitHub App ID, and Github App Installation ID to 1Password and skip the rest. Otherwise, complete the private key setup in `core-<default-region>-auto`.
+
+1. Convert the private key to a PEM file using the following command: `openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in {DOWNLOADED_FILE_NAME}.pem -out private-key-pkcs8.key`
+1. Upload PEM file key to the specified ssm path: `/github/runners/acme/private-key` in `core-<default-region>-auto`
+1. Create another sensitive SSM parameter `/github/runners/acme/registration-token` in `core-<default-region>-auto` with any basic value, such as "foo". This will be overwritten by the rotator.
+1. Update the GitHub App ID and Installation ID in the `github-action-token-rotator` catalog.
+
+:::info
+
+If you change the Private Key saved in SSM, redeploy `github-action-token-rotator`
+
+:::
+
 ## Usage
 
 **Stack Level**: Regional
@@ -158,6 +198,45 @@ In order to use this component, you will have to obtain the `REGISTRATION_TOKEN`
 ```
 chamber write github token <value>
 ```
+
+
+# FAQ
+
+## The GitHub Registration Token is not updated in SSM
+
+The `github-action-token-rotator` runs an AWS Lambda function every 30 minutes. This lambda will attempt to use a private key in its environment configuration to generate a GitHub Registration Token, and then store that token to AWS SSM Parameter Store.
+
+If the GitHub Registration Token parameter, `/github/runners/acme/registration-token`, is not updated, read through the following tips:
+
+1. The private key is stored at the given parameter path: `parameter_store_private_key_path: /github/runners/acme/private-key`
+1. The private key is Base 64 encoded. If you pull the key from SSM and decode it, it should begin with `-----BEGIN PRIVATE KEY-----`
+1. If the private key has changed, you must _redeploy_ `github-action-token-rotator`. Run a plan against the component to make sure there are not changes required.
+
+## The GitHub Registration Token is valid, but the Runners are not registering with GitHub
+
+If you first deployed the `github-action-token-rotator` component initally with an invalid configuration and then deployed the `github-runners` component, the instance runners will have failed to register with GitHub.
+
+After you correct `github-action-token-rotator` and have a valid GitHub Registration Token in SSM, _destroy and recreate_ the `github-runners` component.
+
+If you cannot see the runners registered in GitHub, check the system logs on one of EC2 Instances in AWS in `core-<default-region>-auto`.
+
+## I cannot assume the role from GitHub Actions after deploying
+
+The following error is very common if the GitHub workflow is missing proper permission.
+
+```bash
+Error: User: arn:aws:sts::***:assumed-role/acme-core-use1-auto-actions-runner@actions-runner-system/token-file-web-identity is not authorized to perform: sts:TagSession on resource: arn:aws:iam::999999999999:role/acme-plat-use1-dev-gha
+```
+
+In order to use a web identity, GitHub Action pipelines must have the following permission.
+See [GitHub Action documentation for more](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services#adding-permissions-settings).
+
+```yaml
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+```
+
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
