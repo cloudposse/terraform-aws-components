@@ -10,42 +10,6 @@ We also have a similar component based on [actions-runner-controller](https://gi
 
 ## Requirements
 
-### GitHub Application
-
-Follow the quickstart with the upstream module, [cloudposse/terraform-aws-github-action-token-rotator](https://github.com/cloudposse/terraform-aws-github-action-token-rotator#quick-start), or follow the steps below.
-
-1. Create a new GitHub App
-1. Add the following permission:
-```diff
-# Required Permissions for Repository Runners:
-## Repository Permissions
-+ Actions (read)
-+ Administration (read / write)
-+ Metadata (read)
-
-# Required Permissions for Organization Runners:
-## Repository Permissions
-+ Actions (read)
-+ Metadata (read)
-
-## Organization Permissions
-+ Self-hosted runners (read / write)
-```
-3. Generate a Private Key
-
-If you are working with Cloud Posse, upload this Private Key, GitHub App ID, and Github App Installation ID to 1Password and skip the rest. Otherwise, complete the private key setup in `core-<default-region>-auto`.
-
-1. Convert the private key to a PEM file using the following command: `openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in {DOWNLOADED_FILE_NAME}.pem -out private-key-pkcs8.key`
-1. Upload PEM file key to the specified ssm path: `/github/runners/acme/private-key` in `core-<default-region>-auto`
-1. Create another sensitive SSM parameter `/github/runners/acme/registration-token` in `core-<default-region>-auto` with any basic value, such as "foo". This will be overwritten by the rotator.
-1. Update the GitHub App ID and Installation ID in the `github-action-token-rotator` catalog.
-
-:::info
-
-If you change the Private Key saved in SSM, redeploy `github-action-token-rotator`
-
-:::
-
 ## Usage
 
 **Stack Level**: Regional
@@ -184,7 +148,49 @@ In order to use this component, you will have to obtain the `REGISTRATION_TOKEN`
 
 <img src="/assets/refarch/cleanshot-2022-03-01-at-16.10.02-20220302-005602.png" height="199" width="786" /><br/>
 
-#### Obtain the Runner Registration Token
+### Creating Registration Token
+
+:::info
+We highly recommend using a GitHub Application with the github-action-token-rotator module to generate the Registration Token. This will ensure that the token is rotated and that the token is stored in SSM Parameter Store encrypted with KMS.
+:::
+
+#### GitHub Application
+
+Follow the quickstart with the upstream module, [cloudposse/terraform-aws-github-action-token-rotator](https://github.com/cloudposse/terraform-aws-github-action-token-rotator#quick-start), or follow the steps below.
+
+1. Create a new GitHub App
+1. Add the following permission:
+```diff
+# Required Permissions for Repository Runners:
+## Repository Permissions
++ Actions (read)
++ Administration (read / write)
++ Metadata (read)
+
+# Required Permissions for Organization Runners:
+## Repository Permissions
++ Actions (read)
++ Metadata (read)
+
+## Organization Permissions
++ Self-hosted runners (read / write)
+```
+1. Generate a Private Key
+
+If you are working with Cloud Posse, upload this Private Key, GitHub App ID, and Github App Installation ID to 1Password and skip the rest. Otherwise, complete the private key setup in `core-<default-region>-auto`.
+
+1. Convert the private key to a PEM file using the following command: `openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in {DOWNLOADED_FILE_NAME}.pem -out private-key-pkcs8.key`
+1. Upload PEM file key to the specified ssm path: `/github/runners/acme/private-key` in `core-<default-region>-auto`
+1. Create another sensitive SSM parameter `/github/runners/acme/registration-token` in `core-<default-region>-auto` with any basic value, such as "foo". This will be overwritten by the rotator.
+1. Update the GitHub App ID and Installation ID in the `github-action-token-rotator` catalog.
+
+:::info
+
+If you change the Private Key saved in SSM, redeploy `github-action-token-rotator`
+
+:::
+
+#### (ClickOps) Obtain the Runner Registration Token
 1. Browse to [https://github.com/organizations/{Org}/settings/actions/runners](https://github.com/organizations/{Org}/settings/actions/runners) (Organization) or [https://github.com/{Org}/{Repo}/settings/actions/runners](https://github.com/{Org}/{Repo}/settings/actions/runners) (Repository)
 
 2. Click the **New Runner** button (Organization) or **New Self Hosted Runner** button (Repository)
