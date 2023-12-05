@@ -15,6 +15,15 @@ module "tgw_hub" {
   context = module.this.context
 }
 
+module "vpc" {
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "1.5.0"
+
+  component = var.own_vpc_component_name
+
+  context = module.this.context
+}
+
 module "cross_region_hub_connector" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "1.5.0"

@@ -66,3 +66,26 @@ variable "peered_region" {
   description = "Set `true` if this region is not the primary region"
   default     = false
 }
+
+variable "static_routes" {
+  type = set(object({
+    blackhole              = bool
+    destination_cidr_block = string
+  }))
+  description = <<-EOT
+  A list of static routes.
+  EOT
+  default     = []
+}
+
+variable "default_route_enabled" {
+  type        = bool
+  description = "Enable default routing via transit gateway, requires also nat gateway and instance to be disabled in vpc component. Default is disabled."
+  default     = false
+}
+
+variable "default_route_outgoing_account_name" {
+  type        = string
+  description = "The account name which is used for outgoing traffic, when using the transit gateway as default route."
+  default     = null
+}
