@@ -136,7 +136,7 @@ module "standard_vpc_attachment" {
       subnet_ids                        = local.own_vpc.private_subnet_ids
       subnet_route_table_ids            = local.own_vpc.private_route_table_ids
       route_to                          = null
-      static_routes                     = null
+      static_routes                     = var.static_routes
       transit_gateway_vpc_attachment_id = null
       route_to_cidr_blocks              = [for vpc in local.allowed_vpcs : vpc.cidr if !vpc.cross_region]
     }
