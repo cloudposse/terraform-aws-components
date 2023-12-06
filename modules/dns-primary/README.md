@@ -72,7 +72,7 @@ components:
 ```
 
 :::info
-Use the [acm](/components/library/aws/acm)  component for more advanced certificate requirements.
+Use the [acm](https://docs.cloudposse.com/components/library/aws/acm)  component for more advanced certificate requirements.
 
 :::
 

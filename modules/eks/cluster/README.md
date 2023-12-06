@@ -583,13 +583,13 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 
 ## Related How-to Guides
 
-- [How to Load Test in AWS](/reference-architecture/how-to-guides/tutorials/how-to-load-test-in-aws)
-- [How to Tune EKS with AWS Managed Node Groups](/reference-architecture/how-to-guides/tutorials/how-to-tune-eks-with-aws-managed-node-groups)
-- [How to Keep Everything Up to Date](/reference-architecture/how-to-guides/upgrades/how-to-keep-everything-up-to-date)
-- [How to Tune SpotInst Parameters for EKS](/reference-architecture/how-to-guides/tutorials/how-to-tune-spotinst-parameters-for-eks)
-- [How to Upgrade EKS Cluster Addons](/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons)
+- [How to Load Test in AWS](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-load-test-in-aws)
+- [How to Tune EKS with AWS Managed Node Groups](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-tune-eks-with-aws-managed-node-groups)
+- [How to Keep Everything Up to Date](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-keep-everything-up-to-date)
+- [How to Tune SpotInst Parameters for EKS](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-tune-spotinst-parameters-for-eks)
+- [How to Upgrade EKS Cluster Addons](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons)
+- [How to Upgrade EKS](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks)
 - [EBS CSI Migration FAQ](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi-migration-faq.html)
-- [How to Upgrade EKS](/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks)
 
 ## References
 

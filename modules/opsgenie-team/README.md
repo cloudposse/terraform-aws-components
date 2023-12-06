@@ -373,14 +373,14 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 
 ## Related How-to Guides
 
-- [How to Add Users to a Team in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-add-users-to-a-team-in-opsgenie)
-- [How to Pass Tags Along to Datadog](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-pass-tags-along-to-datadog)
-- [How to Onboard a New Service with Datadog and OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-onboard-a-new-service-with-datadog-and-opsgenie)
-- [How to Create Escalation Rules in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-create-escalation-rules-in-opsgenie)
-- [How to Setup Rotations in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-setup-rotations-in-opsgenie)
-- [How to Create New Teams in OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-create-new-teams-in-opsgenie)
-- [How to Sign Up for OpsGenie?](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-sign-up-for-opsgenie/)
-- [How to Implement Incident Management with OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie)
+- [How to Add Users to a Team in OpsGenie](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-add-users-to-a-team-in-opsgenie)
+- [How to Pass Tags Along to Datadog](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-pass-tags-along-to-datadog)
+- [How to Onboard a New Service with Datadog and OpsGenie](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-onboard-a-new-service-with-datadog-and-opsgenie)
+- [How to Create Escalation Rules in OpsGenie](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-create-escalation-rules-in-opsgenie)
+- [How to Setup Rotations in OpsGenie](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-setup-rotations-in-opsgenie)
+- [How to Create New Teams in OpsGenie](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-create-new-teams-in-opsgenie)
+- [How to Sign Up for OpsGenie?](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-sign-up-for-opsgenie/)
+- [How to Implement Incident Management with OpsGenie](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie)
 
 ## References
 * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/opsgenie-team) - Cloud Posse's upstream component
