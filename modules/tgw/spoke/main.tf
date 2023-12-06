@@ -64,7 +64,7 @@ resource "aws_route" "default_route" {
 
 locals {
   outgoing_network_account_name            = local.default_route_enabled_and_nat_disabled ? format("%s-%s", var.default_route_outgoing_account_name, var.own_vpc_component_name) : ""
-  default_route_vpc_public_route_table_ids = local.default_route_enabled_and_nat_disabled ? module.tgw_hub.outputs.vpcs[local.outgoing_network_account_name].outputs.default_route_vpc_public_route_table_ids : []
+  default_route_vpc_public_route_table_ids = local.default_route_enabled_and_nat_disabled ? module.tgw_hub.outputs.vpcs[local.outgoing_network_account_name].outputs.public_route_table_ids : []
 }
 
 resource "aws_route" "back_route" {
