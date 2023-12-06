@@ -47,7 +47,7 @@ locals {
     local.slack_notifications_enabled ? [
       {
         name  = "notifications.secret.items.slack-token"
-        value = nonsensitive(data.aws_ssm_parameter.slack_notifications[0].value)
+        value = data.aws_ssm_parameter.slack_notifications[0].value
         type  = "string"
       }
     ] : []
