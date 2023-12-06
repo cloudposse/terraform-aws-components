@@ -86,6 +86,7 @@ module "github_runner" {
   # this variable is substituted in the user-data.sh startup script. It cannot point to another script if using a base ami.
   # instead this will just run after the runner is installed. Hence we use `file` to read the contents of the file which is injected into the user-data.sh
   userdata_post_install = file("${path.module}/templates/userdata_post_install.sh")
+  userdata_pre_install = file("${path.module}/templates/userdata_pre_install.sh")
 
   runner_extra_labels = var.runner_extra_labels
 
