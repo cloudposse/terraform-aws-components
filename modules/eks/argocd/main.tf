@@ -43,6 +43,13 @@ locals {
         value = nonsensitive(local.webhook_github_secret)
         type  = "string"
       }
+    ] : [],
+    local.slack_notifications_enabled ? [
+      {
+        name  = "notifications.secret.items.slack-token"
+        value = data.aws_ssm_parameter.slack_notifications[0].value
+        type  = "string"
+      }
     ] : []
   ))
   regional_service_discovery_domain = "${module.this.environment}.${module.dns_gbl_delegated.outputs.default_domain_name}"
@@ -102,7 +109,7 @@ locals {
 
 module "argocd" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.10.0"
+  version = "0.10.1"
 
   name                 = "argocd" # avoids hitting length restrictions on IAM Role names
   chart                = var.chart
@@ -188,7 +195,7 @@ data "kubernetes_resources" "crd" {
 
 module "argocd_apps" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.10.0"
+  version = "0.10.1"
 
   name                        = "" # avoids hitting length restrictions on IAM Role names
   chart                       = var.argocd_apps_chart
@@ -215,7 +222,7 @@ module "argocd_apps" {
         stage             = var.stage
         attributes        = var.attributes
       }
-    ),
+    )
   ])
 
   depends_on = [

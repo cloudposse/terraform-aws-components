@@ -143,12 +143,6 @@ variable "saml_rbac_scopes" {
   default     = "[email,groups]"
 }
 
-variable "argo_enable_workflows_auth" {
-  type        = bool
-  default     = false
-  description = "Allow argo-workflows to use Dex instance for SAML auth"
-}
-
 variable "argocd_rbac_policies" {
   type        = list(string)
   default     = []

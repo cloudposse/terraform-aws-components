@@ -8,7 +8,7 @@ locals {
       env.tenant,
       env.environment,
       env.stage,
-      "${join("-", env.attributes)}"
+      join("-", env.attributes)
     )) => env
   } : {}
 
@@ -72,19 +72,22 @@ resource "github_branch_protection" "default" {
 
   repository_id = local.github_repository.name
 
-  pattern          = join("", github_branch_default.default.*.branch)
+  pattern          = join("", github_branch_default.default[*].branch)
   enforce_admins   = false # needs to be false in order to allow automation user to push
   allows_deletions = true
 
-  required_pull_request_reviews {
-    dismiss_stale_reviews      = true
-    restrict_dismissals        = true
-    require_code_owner_reviews = true
+  dynamic "required_pull_request_reviews" {
+    for_each = var.required_pull_request_reviews ? [0] : []
+    content {
+      dismiss_stale_reviews      = true
+      restrict_dismissals        = true
+      require_code_owner_reviews = true
+    }
   }
 
-  push_restrictions = [
-    join("", data.github_user.automation_user.*.node_id),
-  ]
+  push_restrictions = var.push_restrictions_enabled ? [
+    join("", data.github_user.automation_user[*].node_id),
+  ] : []
 }
 
 data "github_team" "default" {
@@ -112,7 +115,7 @@ resource "github_repository_deploy_key" "default" {
   for_each = local.environments
 
   title      = "Deploy key for ArgoCD environment: ${each.key} (${local.github_repository.default_branch} branch)"
-  repository = join("", github_repository.default.*.name)
+  repository = join("", github_repository.default[*].name)
   key        = tls_private_key.default[each.key].public_key_openssh
   read_only  = true
 }
