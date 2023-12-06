@@ -35,7 +35,7 @@ data "aws_ssm_parameter" "github_deploy_key" {
       module.this.tenant,
       module.this.environment,
       module.this.stage,
-      "${join("-", module.this.attributes)}"
+      join("-", module.this.attributes)
     )
   ) : null
 

@@ -1,5 +1,6 @@
 locals {
-  enabled = module.this.enabled
+  enabled        = module.this.enabled
+  context_labels = var.context_tags_enabled ? values(module.this.tags) : []
 
   webhook_enabled            = local.enabled ? try(var.webhook.enabled, false) : false
   webhook_host               = local.webhook_enabled ? format(var.webhook.hostname_template, var.tenant, var.stage, var.environment) : "example.com"
@@ -223,7 +224,7 @@ module "actions_runner" {
       service_account_role_arn       = module.actions_runner_controller.service_account_role_arn
       resources                      = each.value.resources
       storage                        = each.value.storage
-      labels                         = each.value.labels
+      labels                         = concat(each.value.labels, local.context_labels)
       scale_down_delay_seconds       = each.value.scale_down_delay_seconds
       min_replicas                   = each.value.min_replicas
       max_replicas                   = each.value.max_replicas
