@@ -356,13 +356,15 @@ ArgoCD supports Slack notifications on application deployments.
 1. Create an OAuth token for the new Slack App
 1. Save the OAuth token to AWS SSM Parameter Store in the same account and region as Github tokens. For example, `core-use2-auto`
 1. Add the app to the chosen Slack channel. _If not added, notifications will not work_
-1. Finally for this component, enable Slack integrations for each Application with `var.slack_notifications_enabled` and `var.slack_notifications`:
+1. For this component, enable Slack integrations for each Application with `var.slack_notifications_enabled` and `var.slack_notifications`:
 
 ```yaml
         slack_notifications_enabled: true
         slack_notifications:
           channel: argocd-updates
 ```
+
+6. In the `argocd-repo` component, set `var.slack_notifications_channel` to the name of the Slack notification channel to add the relevant ApplicationSet annotations
 
 ## Troubleshooting
 
