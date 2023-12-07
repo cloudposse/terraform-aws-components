@@ -24,7 +24,7 @@ module "cross_region_hub_connector" {
 
   for_each = var.cross_region_hub_connector_components
 
-  component   = "tgw/cross-region-hub-connector"
+  component   = each.value.component
   tenant      = length(var.tgw_hub_tenant_name) > 0 ? var.tgw_hub_tenant_name : module.this.tenant
   stage       = length(var.tgw_hub_stage_name) > 0 ? var.tgw_hub_stage_name : module.this.stage
   environment = each.value
