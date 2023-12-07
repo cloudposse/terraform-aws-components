@@ -93,3 +93,23 @@ variable "default_route_outgoing_account_name" {
   description = "The account name which is used for outgoing traffic, when using the transit gateway as default route."
   default     = null
 }
+
+variable "cross_region_hub_connector_components" {
+  type        = map(object({ component = string, environment = string }))
+  description = <<-EOT
+  A map of cross-region hub connector components that provide this spoke with the appropriate Transit Gateway attachments IDs.
+  - The key should be the environment that the remote VPC is located in.
+  - The component is the name of the compoent in the remote region (e.g. `tgw/cross-region-hub-connector`)
+  - The environment is the region that the cross-region-hub-connector is deployed in.
+  e.g. the following would configure a component called `tgw/cross-region-hub-connector/use1` that is deployed in the
+  If use2 is the primary region, the following would be its configuration:
+  use1:
+    component: "tgw/cross-region-hub-connector"
+    environment: "use1" (the remote region)
+  and in the alternate region, the following would be its configuration:
+  use2:
+    component: "tgw/cross-region-hub-connector"
+    environment: "use1" (our own region)
+  EOT
+  default     = {}
+}
