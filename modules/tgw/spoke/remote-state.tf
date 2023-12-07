@@ -27,7 +27,7 @@ module "cross_region_hub_connector" {
   component   = each.value.component
   tenant      = length(var.tgw_hub_tenant_name) > 0 ? var.tgw_hub_tenant_name : module.this.tenant
   stage       = length(var.tgw_hub_stage_name) > 0 ? var.tgw_hub_stage_name : module.this.stage
-  environment = each.value
+  environment = each.value.environment
 
   # Ignore if hub connector doesnt exist (it doesnt exist in primary region)
   ignore_errors = true
