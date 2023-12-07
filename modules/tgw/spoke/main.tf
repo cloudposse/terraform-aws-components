@@ -50,6 +50,7 @@ module "tgw_spoke_vpc_attachment" {
   expose_eks_sg        = var.expose_eks_sg
   peered_region        = var.peered_region
   static_routes        = var.static_routes
+  static_tgw_routes    = var.static_tgw_routes
 
   context = module.this.context
 }

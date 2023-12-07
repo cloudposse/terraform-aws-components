@@ -72,9 +72,13 @@ variable "static_routes" {
     blackhole              = bool
     destination_cidr_block = string
   }))
-  description = <<-EOT
-  A list of static routes.
-  EOT
+  description = "A list of static routes to add to the transit gateway, pointing at this VPC as a destination."
+  default     = []
+}
+
+variable "static_tgw_routes" {
+  type        = list(string)
+  description = "A list of static routes to add to the local routing table with the transit gateway as a destination."
   default     = []
 }
 
