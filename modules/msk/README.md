@@ -1,6 +1,6 @@
 # Component: `msk/cluster`
 
-This component is responsible for provisioning [Amazon Managed Streaming](https://aws.amazon.com/msk/) 
+This component is responsible for provisioning [Amazon Managed Streaming](https://aws.amazon.com/msk/)
 clusters for [Apache Kafka](https://aws.amazon.com/msk/what-is-kafka/).
 
 ## Usage
