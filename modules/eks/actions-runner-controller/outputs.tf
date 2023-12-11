@@ -12,3 +12,8 @@ output "webhook_payload_url" {
   value       = local.webhook_enabled ? format("https://${var.webhook.hostname_template}", var.tenant, var.stage, var.environment) : null
   description = "Payload URL for GitHub webhook"
 }
+
+output "iam_role_arn" {
+  value       = one(resource.aws_iam_role.default[*].arn)
+  description = "Arn of the created iam role"
+}

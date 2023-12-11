@@ -493,6 +493,7 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 
 | Name | Description |
 |------|-------------|
+| <a name="output_iam_role_arn"></a> [iam\_role\_arn](#output\_iam\_role\_arn) | Arn of the created iam role |
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 | <a name="output_metadata_action_runner_releases"></a> [metadata\_action\_runner\_releases](#output\_metadata\_action\_runner\_releases) | Block statuses of the deployed actions-runner chart releases |
 | <a name="output_webhook_payload_url"></a> [webhook\_payload\_url](#output\_webhook\_payload\_url) | Payload URL for GitHub webhook |
