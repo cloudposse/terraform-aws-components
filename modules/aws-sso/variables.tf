@@ -48,7 +48,7 @@ variable "groups" {
   description = <<-EOT
     List of AWS Identity Center Groups to be created with the AWS API.
 
-    When provisioning the GSuite Integration with AWS, Groups need to be created with API in order for automatic provisioing to work as intended.
+    When provisioning the Google Workspace Integration with AWS, Groups need to be created with API in order for automatic provisioning to work as intended.
     EOT
   default     = []
 }
