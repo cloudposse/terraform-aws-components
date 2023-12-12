@@ -250,7 +250,7 @@ components:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_group_ids"></a> [group\_ids](#output\_group\_ids) | Group IDs for created in Identity Center |
+| <a name="output_group_ids"></a> [group\_ids](#output\_group\_ids) | Group IDs created for Identity Center |
 | <a name="output_permission_sets"></a> [permission\_sets](#output\_permission\_sets) | Permission sets |
 | <a name="output_sso_account_assignments"></a> [sso\_account\_assignments](#output\_sso\_account\_assignments) | SSO account assignments |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
