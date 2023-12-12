@@ -10,5 +10,5 @@ output "sso_account_assignments" {
 
 output "group_ids" {
   value       = { for group_key, group_output in aws_identitystore_group.manual : group_key => group_output.group_id }
-  description = "Group IDs for created in Identity Center"
+  description = "Group IDs created for Identity Center"
 }
