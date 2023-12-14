@@ -258,7 +258,7 @@ No resources.
 | <a name="output_backup_selection_id"></a> [backup\_selection\_id](#output\_backup\_selection\_id) | Backup Selection ID |
 | <a name="output_backup_vault_arn"></a> [backup\_vault\_arn](#output\_backup\_vault\_arn) | Backup Vault ARN |
 | <a name="output_backup_vault_id"></a> [backup\_vault\_id](#output\_backup\_vault\_id) | Backup Vault ID |
-| <a name="output_copy_destination_backup_vault_arn"></a> [copy\_destination\_backup\_vault\_arn](#output\_copy\_destination\_backup\_vault\_arn) | n/a |
+| <a name="output_copy_destination_backup_vault_arn"></a> [copy\_destination\_backup\_vault\_arn](#output\_copy\_destination\_backup\_vault\_arn) | ARN of the destination Backup Vault copy |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 

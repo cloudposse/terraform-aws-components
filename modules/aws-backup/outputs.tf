@@ -24,5 +24,6 @@ output "backup_selection_id" {
 }
 
 output "copy_destination_backup_vault_arn" {
-  value = local.copy_destination_arn
+  value       = local.copy_destination_arn
+  description = "ARN of the destination Backup Vault copy"
 }
