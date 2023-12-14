@@ -45,6 +45,18 @@ variable "destination_vault_arn" {
   default     = null
 }
 
+variable "destination_vault_component_name" {
+  type        = string
+  description = "The name of the component to be used to look up the destination vault"
+  default     = "aws-backup/common"
+}
+
+variable "destination_vault_region" {
+  type        = string
+  description = "The short region of the destination backup vault"
+  default     = null
+}
+
 variable "copy_action_cold_storage_after" {
   type        = number
   description = "For copy operation, specifies the number of days after creation that a recovery point is moved to cold storage"

@@ -22,3 +22,7 @@ output "backup_selection_id" {
   value       = module.backup.backup_selection_id
   description = "Backup Selection ID"
 }
+
+output "copy_destination_backup_vault_arn" {
+  value = local.copy_destination_arn
+}
