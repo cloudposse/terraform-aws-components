@@ -21,16 +21,18 @@ you remove the old ones. You can then migrate your workflows to use the new
 runners sets and have zero downtime.
 
 Major differences:
-- Self-hosted runners, such as are deployed with the `actions-runner-controller`
+- Self-hosted runners, such as those deployed with the `actions-runner-controller`
   component, are targeted by a set of labels indicated by a workflow's `runs-on`
   array, of which the first must be "self-hosted". Runner Sets, such as are
   deployed with this component, are targeted by a single label, which is the
   name of the Runner Set. This means that you will need to update your workflows
   to target the new Runner Set label. See [here](https://github.com/actions/actions-runner-controller/discussions/2921#discussioncomment-7501051)
   for the reasoning behind GitHub's decision to use a single label instead of a set.
-- The `actions-runner-controller` component includes a custom Helm chart for
-  the runners, whereas this component uses the official Helm chart. This means
-  that this component requires configuration of 2 charts, although both should be
+- The `actions-runner-controller` component uses the published Helm chart for the
+  controller, but there is none for the runners, so it includes a custom Helm chart
+  for them. However, for Runner Sets, GitHub has published 2 charts, one for the controller
+  and one for the runners (runner sets). This means that this component requires
+  configuration (e.g. version numbers) of 2 charts, although both should be
   kept at the same version.
 - The `actions-runner-controller` component has a `resources/values.yaml` file
   that provided defaults for the controller Helm chart. This component does not have
@@ -70,18 +72,15 @@ components:
         name: "gha-runner-controller"
         charts:
           controller:
-            chart: "gha-runner-scale-set-controller"
-            chart_repository: "oci://ghcr.io/actions/actions-runner-controller-charts"
             # As of the time of the creation of this component, 0.7.0 is the latest version
             # of the chart. If you use a newer version, check for breaking changes
             # and any updates to this component that may be required.
             # Find the latest version at https://github.com/actions/actions-runner-controller/blob/master/charts/gha-runner-scale-set-controller/Chart.yaml#L18
             chart_version: "0.7.0"
           runner_sets:
-            chart: "gha-runner-scale-set"
-            chart_repository:
             # We expect that the runner set chart will always be at the same version as the controller chart,
             # but the charts are still in pre-release so that may change.
+            # Find the latest version at https://github.com/actions/actions-runner-controller/blob/master/charts/gha-runner-scale-set/Chart.yaml#L18
             chart_version: "0.7.0"
         controller:
           # These inputs from `actions-runner-controller` are now parts of the controller configuration input

@@ -1,7 +1,7 @@
 # Component: `github-actions-runner`
 
 This component deploys self-hosted GitHub Actions Runners and a [Controller](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/quickstart-for-actions-runner-controller#introduction)
-on an EKS cluster, using "[runner scale sets](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#runner-scale-set)", on an EKS cluster.
+on an EKS cluster, using "[runner scale sets](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#runner-scale-set)".
 
 This solution is supported by GitHub and supersedes the [actions-runner-controller](https://github.com/actions/actions-runner-controller/blob/master/docs/about-arc.md) developed
 by Summerwind and deployed by Cloud Posse's [actions-runner-controller](https://docs.cloudposse.com/components/library/aws/eks/actions-runner-controller/) component.
@@ -310,6 +310,9 @@ or `gha-runner-scale-set-controller` itself.
 
 
 ### Useful Reference
+
+- Runner Scale Set Controller's Helm chart [values.yaml](https://github.com/actions/actions-runner-controller/blob/master/charts/gha-runner-scale-set-controller/values.yaml)
+- Runner Scale Set's Helm chart [values.yaml](https://github.com/actions/actions-runner-controller/blob/master/charts/gha-runner-scale-set/values.yaml)
 
 When reviewing documentation, code, issues, etc. for self-hosted GitHub action runners
 or the Actions Runner Controller (ARC), keep in mind that there are 2 implementations

@@ -29,7 +29,7 @@ components:
 
 GRANTS can be on database, schema, role, table, and other database objects (e.g. columns in a table for fine control). Database and schema do not have much to grant. The `object_type` field in the input determines which kind of object the grant is being applied to. The `db` field is always required. The `schema` field is required unless the `object_type` is `db`, in which case it should be set to the empty string (`""`).
 
-The key word PUBLIC indicates that the privileges are to be granted to all roles, including those that might be created later. PUBLIC can be thought of as an implicitly defined group that always includes all roles. Any particular role will have the sum of privileges granted directly to it, privileges granted to any role it is presently a member of, and privileges granted to PUBLIC.
+The keyword PUBLIC indicates that the privileges are to be granted to all roles, including those that might be created later. PUBLIC can be thought of as an implicitly defined group that always includes all roles. Any particular role will have the sum of privileges granted directly to it, privileges granted to any role it is presently a member of, and privileges granted to PUBLIC.
 
 When an object is created, it is assigned an owner. The owner is normally the role that executed the creation statement. For most kinds of objects, the initial state is that only the owner (or a superuser) can do anything with the object. To allow other roles to use it, privileges must be granted. (When using AWS managed RDS, you cannot have access to any superuser roles; superuser is reserved for AWS to use to manage the cluster.)
 
