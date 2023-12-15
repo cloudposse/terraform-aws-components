@@ -169,8 +169,8 @@ things as register runners and pickup jobs. You can authenticate using either
 a [GitHub App](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/authenticating-to-the-github-api#authenticating-arc-with-a-github-app)
 or a [Personal Access Token (classic)](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/authenticating-to-the-github-api#authenticating-arc-with-a-personal-access-token-classic).
 The preferred way to authenticate is by _creating_ and _installing_ a GitHub
-App. This is the recommended approach as it allows for more much more restricted
-access than using a Personal Access Token (classic), and the Action Runners to
+App. This is the recommended approach as it allows for much more restricted
+access than using a Personal Access Token (classic), and the Action Runners do
 not currently support using a fine-grained Personal Access Token.
 
 
@@ -191,12 +191,13 @@ you have 2 choices:
    parameters in a new region.
 
 Alternatively, you can create Kubernetes secrets outside of this component
-(perhaps using [SOPS]()) and reference them by name. We describe here how to save the secrets
-to SSM, but you can save the secrets wherever and however you want to, as long
-as you deploy them as Kubernetes secret the runners can reference. If you store
-them in SSM, this component will take care of the rest, but the standard
-Terraform caveat applies: any secrets referenced by Terraform will be stored
-unencrypted in the Terraform state file.
+(perhaps using [SOPS](https://github.com/getsops/sops)) and reference them by
+name. We describe here how to save the secrets to SSM, but you can save the
+secrets wherever and however you want to, as long as you deploy them as
+Kubernetes secret the runners can reference. If you store them in SSM, this
+component will take care of the rest, but the standard Terraform caveat applies:
+any secrets referenced by Terraform will be stored unencrypted in the Terraform
+state file.
 
 #### Creating and Using a GitHub App
 
