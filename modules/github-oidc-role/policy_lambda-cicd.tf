@@ -1,5 +1,5 @@
 variable "lambda_cicd_policy_configuration" {
-  type     = object({
+  type = object({
     enable_kms_access          = optional(bool, false)
     enable_ssm_access          = optional(bool, false)
     enable_s3_access           = optional(bool, false)
@@ -8,9 +8,9 @@ variable "lambda_cicd_policy_configuration" {
     s3_bucket_tenant_name      = optional(string)
     s3_bucket_stage_name       = optional(string)
     enable_lambda_update       = optional(bool, false)
-  }
-  default  = {}
-  nullable = false
+  })
+  default     = {}
+  nullable    = false
   description = <<-EOT
     Configuration for the lambda-cicd policy. The following keys are supported:
       - `enable_kms_access` - (bool) - Whether to allow access to KMS. Defaults to false.
