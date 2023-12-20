@@ -9,7 +9,8 @@ locals {
   }
   custom_policy_map = merge(local.policy_document_map, local.overridable_additional_custom_policy_map)
 
-  active_policy_map = { for k, v in local.custom_policy_map : k => v if v != null }
+  # Ignore empty policies of the form `"{}"` as well as null policies
+  active_policy_map = { for k, v in local.custom_policy_map : k => v if try(length(v), 0) > 3 }
 }
 
 module "iam_policy" {
