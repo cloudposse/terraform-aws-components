@@ -4,8 +4,9 @@ variable "region" {
 }
 
 variable "aws_iam_policies" {
-  type    = list(string)
-  default = []
+  type        = list(string)
+  description = "List of policies to attach to the IAM role, should be either an ARN of an AWS Managed Policy or a name of a custom policy e.g. `gitops`"
+  default     = []
 }
 
 variable "iam_policy" {
