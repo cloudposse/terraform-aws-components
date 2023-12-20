@@ -11,7 +11,7 @@ by Summerwind and deployed by Cloud Posse's [actions-runner-controller](https://
 The runner image used by Runner Sets contains [no more packages than are necessary](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#about-the-runner-container-image)
 to run the runner. This is in contrast to the Summerwind implementation, which
 contains some commonly needed packages like `build-essential`, `curl`, `wget`,
-`git`, and `jq`, and the GitHub hosted images which contain a roubst set of tools.
+`git`, and `jq`, and the GitHub hosted images which contain a robust set of tools.
 (This is a limitation of the official Runner Sets implementation, not this
 component per se.) You will need to
 install any tools you need in your workflows, either as part of your workflow
