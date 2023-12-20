@@ -4,7 +4,7 @@ This component is responsible for creating IAM roles for GitHub Actions to assum
 
 ## Usage
 
-**Stack Level**: Regional
+**Stack Level**: Global
 
 Here's an example snippet for how to use this component.
 
@@ -17,7 +17,7 @@ components:
         type: abstract
       vars:
         enabled: true
-        name: github-oidc-role
+        name: gha-iam
         github_actions_allowed_repos:
           - MyOrg/* ## allow all repos in MyOrg
 ```
