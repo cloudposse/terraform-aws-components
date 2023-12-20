@@ -23,6 +23,7 @@ components:
 ```
 
 Example using for gitops (predefined policy):
+
 ```yaml
 # stacks/catalog/github-oidc-role/gitops.yaml
 import:
@@ -48,6 +49,7 @@ components:
 ```
 
 Example using for lambda-cicd (predefined policy):
+
 ```yaml
 # stacks/catalog/github-oidc-role/lambda-cicd.yaml
 import:
@@ -76,8 +78,8 @@ components:
           s3_bucket_tenant_name: core
 ```
 
-
 Example Using an AWS Managed role and a custom inline role:
+
 ```yaml
 # stacks/catalog/github-oidc-role/custom.yaml
 import:
@@ -106,6 +108,22 @@ components:
                 resources:
                   - "*"
 ```
+
+### Adding Custom Policies
+
+There are two methods for adding custom policies to the IAM role.
+
+1. Through the `iam_policy` input which you can use to add inline policies to the IAM role.
+2. Through terraform customization by adding an additional-policy-map_override.tf file to the component, this needs to define a local var `overridable_additional_custom_policy_map` which is a map of policy names to policy json.
+   This local is then merged with the policy map in `main.tf` to create the final policy map.
+   ```hcl
+   locals {
+     overridable_additional_custom_policy_map = {
+       "gitops" = one(data.aws_iam_policy_document.my_custom_gitops_policy.*.json)
+     }
+   }
+   ```
+
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
