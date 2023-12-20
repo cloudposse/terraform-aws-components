@@ -129,10 +129,10 @@ There are two methods for adding custom policies to the IAM role.
       NAME_policy_enabled = contains(var.iam_policies, "NAME")
       NAME_policy         = local.NAME_policy_enabled ? one(data.aws_iam_policy_document.NAME.*.json) : null
     }
-    
+
     data "aws_iam_policy_document" "NAME" {
       count = local.NAME_policy_enabled ? 1 : 0
-    
+
       # Define the policy here
     }
     ```
