@@ -1,5 +1,5 @@
 locals {
-  enabled             = module.this.enabled
+  enabled         = module.this.enabled
   canned_policies = [for arn in var.iam_policies : arn if can(regex("^arn:aws[^:]*:iam::aws:policy/", arn))]
   policies        = length(local.canned_policies) > 0 ? local.canned_policies : null
   policy_document_map = {
