@@ -22,7 +22,7 @@ module "s3_bucket" {
   count = local.gitops_policy_enabled ? 1 : 0
 
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.3"
+  version = "1.5.0"
 
   component   = lookup(var.gitops_policy_configuration, "s3_bucket_component_name", "gitops/s3-bucket")
   environment = lookup(var.gitops_policy_configuration, "s3_bucket_environment_name", module.this.environment)
@@ -34,7 +34,7 @@ module "dynamodb" {
   count = local.gitops_policy_enabled ? 1 : 0
 
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.3"
+  version = "1.5.0"
 
   component   = lookup(var.gitops_policy_configuration, "dynamodb_component_name", module.this.environment)
   environment = lookup(var.gitops_policy_configuration, "dynamodb_environment_name", module.this.environment)

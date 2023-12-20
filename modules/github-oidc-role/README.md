@@ -9,7 +9,7 @@ This component is responsible for creating IAM roles for GitHub Actions to assum
 Here's an example snippet for how to use this component.
 
 ```yaml
-# stacks/catalog/gha-service-roles/defaults.yaml
+# stacks/catalog/github-oidc-role/defaults.yaml
 components:
   terraform:
     github-oidc-role/defaults:
@@ -24,7 +24,7 @@ components:
 
 Example using for gitops (predefined policy):
 ```yaml
-# stacks/catalog/gha-service-roles/gitops.yaml
+# stacks/catalog/github-oidc-role/gitops.yaml
 import:
   - catalog/github-oidc-role/defaults
 
@@ -49,7 +49,7 @@ components:
 
 Example using for lambda-cicd (predefined policy):
 ```yaml
-# stacks/catalog/gha-service-roles/lambda-cicd.yaml
+# stacks/catalog/github-oidc-role/lambda-cicd.yaml
 import:
   - catalog/github-oidc-role/defaults
 
@@ -79,10 +79,10 @@ components:
 
 Example Using an AWS Managed role and a custom inline role:
 ```yaml
-# stacks/catalog/gha-service-roles/custom.yaml
+# stacks/catalog/github-oidc-role/custom.yaml
 
 import:
-  - catalog/gha-service-roles/defaults
+  - catalog/github-oidc-role/defaults
 
 components:
   terraform:
@@ -126,13 +126,13 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_dynamodb"></a> [dynamodb](#module\_dynamodb) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_dynamodb"></a> [dynamodb](#module\_dynamodb) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_gha_assume_role"></a> [gha\_assume\_role](#module\_gha\_assume\_role) | ../account-map/modules/team-assume-role-policy | n/a |
 | <a name="module_gha_role_name"></a> [gha\_role\_name](#module\_gha\_role\_name) | cloudposse/label/null | 0.25.0 |
 | <a name="module_iam_policy"></a> [iam\_policy](#module\_iam\_policy) | cloudposse/iam-policy/aws | 2.0.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_s3_artifacts_bucket"></a> [s3\_artifacts\_bucket](#module\_s3\_artifacts\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
-| <a name="module_s3_bucket"></a> [s3\_bucket](#module\_s3\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_s3_artifacts_bucket"></a> [s3\_artifacts\_bucket](#module\_s3\_artifacts\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+| <a name="module_s3_bucket"></a> [s3\_bucket](#module\_s3\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -161,8 +161,6 @@ components:
 | <a name="input_gitops_policy_configuration"></a> [gitops\_policy\_configuration](#input\_gitops\_policy\_configuration) | Configuration for the GitOps IAM Policy, valid keys are<br> - `s3_bucket_component_name` - Component Name of where to store the TF Plans in S3, defaults to `gitops/s3-bucket`<br> - `dynamodb_component_name` - Component Name of where to store the TF Plans in Dynamodb, defaults to `gitops/dynamodb`<br> - `s3_bucket_environment_name` - Environment name for the S3 Bucket, defaults to current environment<br> - `dynamodb_environment_name` - Environment name for the Dynamodb Table, defaults to current environment | `map(string)` | `{}` | no |
 | <a name="input_iam_policy"></a> [iam\_policy](#input\_iam\_policy) | IAM policy as list of Terraform objects, compatible with Terraform `aws_iam_policy_document` data source<br>except that `source_policy_documents` and `override_policy_documents` are not included.<br>Use inputs `iam_source_policy_documents` and `iam_override_policy_documents` for that. | <pre>list(object({<br>    policy_id = optional(string, null)<br>    version   = optional(string, null)<br>    statements = list(object({<br>      sid           = optional(string, null)<br>      effect        = optional(string, null)<br>      actions       = optional(list(string), null)<br>      not_actions   = optional(list(string), null)<br>      resources     = optional(list(string), null)<br>      not_resources = optional(list(string), null)<br>      conditions = optional(list(object({<br>        test     = string<br>        variable = string<br>        values   = list(string)<br>      })), [])<br>      principals = optional(list(object({<br>        type        = string<br>        identifiers = list(string)<br>      })), [])<br>      not_principals = optional(list(object({<br>        type        = string<br>        identifiers = list(string)<br>      })), [])<br>    }))<br>  }))</pre> | `[]` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
@@ -185,6 +183,6 @@ components:
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/gha-service-roles) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/github-oidc-role) - Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

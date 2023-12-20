@@ -24,7 +24,7 @@ module "s3_artifacts_bucket" {
   count = lookup(var.lambda_cicd_policy_configuration, "enable_s3_access", false) ? 1 : 0
 
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.3"
+  version = "1.5.0"
 
   component   = lookup(var.lambda_cicd_policy_configuration, "s3_bucket_component_name", "s3-bucket/github-action-artifacts")
   environment = lookup(var.lambda_cicd_policy_configuration, "s3_bucket_environment_name", module.this.environment)
