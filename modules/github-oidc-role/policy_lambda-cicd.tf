@@ -1,6 +1,15 @@
 variable "lambda_cicd_policy_configuration" {
-  type        = map(string)
-  default     = {}
+  type = map(string)
+  default = {
+    enable_kms_access          = "false"
+    enable_ssm_access          = "false"
+    enable_s3_access           = "false"
+    s3_bucket_component_name   = "s3-bucket/github-action-artifacts"
+    s3_bucket_environment_name = module.this.environment
+    s3_bucket_tenant_name      = module.this.tenant
+    s3_bucket_stage_name       = module.this.stage
+    enable_lambda_update       = "false"
+  }
   description = <<-EOT
     Configuration for the lambda-cicd policy. The following keys are supported:
       - `enable_kms_access` - (bool) - Whether to allow access to KMS. Defaults to false.
@@ -15,9 +24,10 @@ variable "lambda_cicd_policy_configuration" {
 }
 
 locals {
-  lambda_cicd_policy_enabled = contains(var.aws_iam_policies, "lambda-cicd")
+  lambda_cicd_policy_enabled = contains(var.iam_policies, "lambda-cicd")
   lambda_cicd_policy         = local.lambda_cicd_policy_enabled ? one(data.aws_iam_policy_document.lambda_cicd_policy.*.json) : null
 
+  lambda_bucket_arn = try(module.s3_artifacts_bucket[0].outputs.bucket_arn, null)
 }
 
 module "s3_artifacts_bucket" {
@@ -70,7 +80,7 @@ data "aws_iam_policy_document" "lambda_cicd_policy" {
   }
 
   dynamic "statement" {
-    for_each = lookup(var.lambda_cicd_policy_configuration, "enable_s3_access", false) ? [1] : []
+    for_each = lookup(var.lambda_cicd_policy_configuration, "enable_s3_access", false) && local.lambda_bucket_arn != null ? [1] : []
     content {
       effect = "Allow"
       actions = [
@@ -81,7 +91,7 @@ data "aws_iam_policy_document" "lambda_cicd_policy" {
         "s3:GetBucketLocation"
       ]
       resources = [
-        module.s3_artifacts_bucket[0].outputs.bucket_arn,
+        local.lambda_bucket_arn,
       ]
     }
   }

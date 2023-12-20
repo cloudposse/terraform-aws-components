@@ -54,9 +54,3 @@ variable "github_actions_allowed_repos" {
   EOF
   default     = []
 }
-
-variable "github_actions_iam_role_attributes" {
-  type        = list(string)
-  description = "Additional attributes to add to the role name"
-  default     = []
-}

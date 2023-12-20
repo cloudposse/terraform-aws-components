@@ -1,6 +1,11 @@
 variable "gitops_policy_configuration" {
-  type        = map(string)
-  default     = {}
+  type = map(string)
+  default = {
+    s3_bucket_component_name   = "gitops/s3-bucket"
+    dynamodb_component_name    = "gitops/dynamodb"
+    s3_bucket_environment_name = module.this.environment
+    dynamodb_environment_name  = module.this.environment
+  }
   description = <<-EOT
     Configuration for the GitOps IAM Policy, valid keys are
      - `s3_bucket_component_name` - Component Name of where to store the TF Plans in S3, defaults to `gitops/s3-bucket`
@@ -11,7 +16,7 @@ variable "gitops_policy_configuration" {
 }
 
 locals {
-  gitops_policy_enabled = contains(var.aws_iam_policies, "gitops")
+  gitops_policy_enabled = contains(var.iam_policies, "gitops")
   gitops_policy         = local.gitops_policy_enabled ? one(data.aws_iam_policy_document.gitops_iam_policy.*.json) : null
 
   s3_bucket_arn      = one(module.s3_bucket[*].outputs.bucket_arn)
