@@ -1,7 +1,7 @@
 locals {
   enabled             = module.this.enabled
-  aws_canned_policies = [for arn in var.aws_iam_policies : arn if can(regex("^arn:aws:iam::aws:policy/", arn))]
-  aws_policies        = length(local.aws_canned_policies) > 0 ? local.aws_canned_policies : null
+  canned_policies = [for arn in var.iam_policies : arn if can(regex("^arn:aws[^:]*:iam::aws:policy/", arn))]
+  policies        = length(local.canned_policies) > 0 ? local.canned_policies : null
   policy_document_map = {
     "gitops"        = local.gitops_policy
     "lambda_cicd"   = local.lambda_cicd_policy
@@ -17,13 +17,15 @@ module "iam_policy" {
   version = "2.0.1"
 
   iam_policy = var.iam_policy
+
+  context = module.this.context
 }
 
 module "gha_role_name" {
   source  = "cloudposse/label/null"
   version = "0.25.0"
 
-  attributes = compact(concat(var.github_actions_iam_role_attributes, ["gha"]))
+  attributes = var.github_actions_iam_role_attributes
 
   context = module.this.context
 }

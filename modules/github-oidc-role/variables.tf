@@ -3,7 +3,7 @@ variable "region" {
   description = "AWS Region"
 }
 
-variable "aws_iam_policies" {
+variable "iam_policies" {
   type        = list(string)
   description = "List of policies to attach to the IAM role, should be either an ARN of an AWS Managed Policy or a name of a custom policy e.g. `gitops`"
   default     = []
@@ -44,14 +44,6 @@ variable "iam_policy" {
   nullable    = false
 }
 
-
-variable "github_actions_iam_role_enabled" {
-  type        = bool
-  description = <<-EOF
-  Flag to toggle creation of an IAM Role that GitHub Actions can assume to access AWS resources
-  EOF
-  default     = false
-}
 
 variable "github_actions_allowed_repos" {
   type        = list(string)
