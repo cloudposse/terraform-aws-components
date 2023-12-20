@@ -15,7 +15,7 @@ contains some commonly needed packages like `build-essential`, `curl`, `wget`,
 (This is a limitation of the official Runner Sets implementation, not this
 component per se.) You will need to
 install any tools you need in your workflows, either as part of your workflow
-(recommended) or by maintaining a [custom runner image](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#creating-your-own-runner-image), or by running
+(recommended), by maintaining a [custom runner image](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#creating-your-own-runner-image), or by running
 such steps in a [separate container](https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container)
 that has the tools pre-installed. Many tools have publicly available actions
 to install them, such as `actions/setup-node` to install NodeJS or `dcarbone/install-jq-action`
@@ -23,6 +23,16 @@ to install `jq`. You can also install packages using `awalsh128/cache-apt-pkgs-a
 which has the advantage of being able to skip the installation if the package
 is already installed, so you can more efficiently run the same workflow on
 GitHub hosted as well as self-hosted runners.
+
+:::info
+There are (as of this writing) open feature requests to add some
+commonly needed packages to the official Runner Sets runner image. You can
+upvote these
+requests [here](https://github.com/actions/actions-runner-controller/discussions/3168)
+and [here](https://github.com/orgs/community/discussions/80868) to help get them
+implemented.
+
+:::
 
 In the current version of this component, only "dind" (Docker in Docker) mode has been tested.
 Support for "kubernetes" mode is provided, but has not been validated.
@@ -176,8 +186,6 @@ components:
 
 ```
 
-## TODO pick up from here
-
 ### Authentication and Secrets
 
 The GitHub Action Runners need to authenticate to GitHub in order to do such
@@ -241,8 +249,6 @@ You can verify the file was correctly written to SSM by matching the private key
 ```
 AWS_PROFILE=acme-core-gbl-auto-terraform AWS_REGION=us-west-2 chamber read -q github-action-runners github-auth-secret | openssl rsa -in - -pubout -outform DER | openssl sha256 -binary | openssl base64
 ```
-
-## TODO pick up from here
 
 At this stage, record the Application ID and the private key fingerprint in your secrets manager (e.g. 1Password).
 You may want to record the private key as well, or you may consider it sufficient to have it in SSM.
