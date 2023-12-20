@@ -37,14 +37,17 @@ components:
           - github-oidc-role/defaults
       vars:
         enabled: true
-        github_actions_iam_role_attributes: [ "gitops" ]
         github_actions_allowed_repos:
           - "MyOrg/infrastructure"
-        aws_iam_policies:
+        attributes: [ "gitops" ]
+        iam_policies:
           - gitops
         gitops_policy_configuration:
           s3_bucket_component_name: gitops/s3-bucket
           dynamodb_component_name: gitops/dynamodb
+          s3_bucket_environment_name: use2 # replace with your environment
+          dynamodb_environment_name: use2 # replace with your environment
+
 ```
 
 Example using for lambda-cicd (predefined policy):
@@ -64,8 +67,8 @@ components:
         enabled: true
         github_actions_allowed_repos:
           - MyOrg/example-app-on-lambda-with-gha
-        github_actions_iam_role_attributes: [ "lambda-cicd" ]
-        aws_iam_policies:
+        attributes: [ "lambda-cicd" ]
+        iam_policies:
           - lambda-cicd
         lambda_cicd_policy_configuration:
           enable_ssm_access: true
@@ -80,7 +83,6 @@ components:
 Example Using an AWS Managed role and a custom inline role:
 ```yaml
 # stacks/catalog/github-oidc-role/custom.yaml
-
 import:
   - catalog/github-oidc-role/defaults
 
@@ -95,8 +97,8 @@ components:
         enabled: true
         github_actions_allowed_repos:
           - MyOrg/example-app-on-lambda-with-gha
-        github_actions_iam_role_attributes: [ "custom" ]
-        aws_iam_policies:
+        attributes: [ "custom" ]
+        iam_policies:
           - arn:aws:iam::aws:policy/AdministratorAccess
         iam_policy:
           - version: "2012-10-17"
