@@ -3,8 +3,8 @@ variable "gitops_policy_configuration" {
   default = {
     s3_bucket_component_name   = "gitops/s3-bucket"
     dynamodb_component_name    = "gitops/dynamodb"
-    s3_bucket_environment_name = module.this.environment
-    dynamodb_environment_name  = module.this.environment
+    s3_bucket_environment_name = null
+    dynamodb_environment_name  = null
   }
   description = <<-EOT
     Configuration for the GitOps IAM Policy, valid keys are

@@ -5,9 +5,9 @@ variable "lambda_cicd_policy_configuration" {
     enable_ssm_access          = "false"
     enable_s3_access           = "false"
     s3_bucket_component_name   = "s3-bucket/github-action-artifacts"
-    s3_bucket_environment_name = module.this.environment
-    s3_bucket_tenant_name      = module.this.tenant
-    s3_bucket_stage_name       = module.this.stage
+    s3_bucket_environment_name = null
+    s3_bucket_tenant_name      = null
+    s3_bucket_stage_name       = null
     enable_lambda_update       = "false"
   }
   description = <<-EOT
