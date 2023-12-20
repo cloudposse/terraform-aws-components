@@ -1,15 +1,16 @@
 variable "lambda_cicd_policy_configuration" {
-  type = map(string)
-  default = {
-    enable_kms_access          = "false"
-    enable_ssm_access          = "false"
-    enable_s3_access           = "false"
-    s3_bucket_component_name   = "s3-bucket/github-action-artifacts"
-    s3_bucket_environment_name = null
-    s3_bucket_tenant_name      = null
-    s3_bucket_stage_name       = null
-    enable_lambda_update       = "false"
+  type     = object({
+    enable_kms_access          = optional(bool, false)
+    enable_ssm_access          = optional(bool, false)
+    enable_s3_access           = optional(bool, false)
+    s3_bucket_component_name   = optional(string, "s3-bucket/github-action-artifacts")
+    s3_bucket_environment_name = optional(string)
+    s3_bucket_tenant_name      = optional(string)
+    s3_bucket_stage_name       = optional(string)
+    enable_lambda_update       = optional(bool, false)
   }
+  default  = {}
+  nullable = false
   description = <<-EOT
     Configuration for the lambda-cicd policy. The following keys are supported:
       - `enable_kms_access` - (bool) - Whether to allow access to KMS. Defaults to false.

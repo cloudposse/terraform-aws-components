@@ -1,11 +1,12 @@
 variable "gitops_policy_configuration" {
-  type = map(string)
-  default = {
-    s3_bucket_component_name   = "gitops/s3-bucket"
-    dynamodb_component_name    = "gitops/dynamodb"
-    s3_bucket_environment_name = null
-    dynamodb_environment_name  = null
+  type     = object({
+    s3_bucket_component_name   = optional(string, "gitops/s3-bucket")
+    dynamodb_component_name    = optional(string, "gitops/dynamodb")
+    s3_bucket_environment_name = optional(string)
+    dynamodb_environment_name  = optional(string)
   }
+  default  = {}
+  nullable = false
   description = <<-EOT
     Configuration for the GitOps IAM Policy, valid keys are
      - `s3_bucket_component_name` - Component Name of where to store the TF Plans in S3, defaults to `gitops/s3-bucket`
