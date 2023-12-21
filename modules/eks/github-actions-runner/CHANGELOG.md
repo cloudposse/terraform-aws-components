@@ -21,6 +21,17 @@ you remove the old ones. You can then migrate your workflows to use the new
 runners sets and have zero downtime.
 
 Major differences:
+- The official GitHub runners deployed are different from the GitHub hosted
+  runners and the Summerwind self-hosted runners in that [they have very few tools installed](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#about-the-runner-container-image). You will need to
+  install any tools you need in your workflows, either as part of your workflow
+  (recommended) or by maintaining a [custom runner image](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#creating-your-own-runner-image), or by running
+  such steps in a [separate container](https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container)
+  that has the tools pre-installed. Many tools have publicly available actions
+  to install them, such as `actions/setup-node` to install NodeJS or `dcarbone/install-jq-action`
+  to install `jq`. You can also install packages using `awalsh128/cache-apt-pkgs-action`,
+  which has the advantage of being able to skip the installation if the package
+  is already installed, so you can more efficiently run the same workflow on
+  GitHub hosted as well as self-hosted runners.
 - Self-hosted runners, such as those deployed with the `actions-runner-controller`
   component, are targeted by a set of labels indicated by a workflow's `runs-on`
   array, of which the first must be "self-hosted". Runner Sets, such as are
