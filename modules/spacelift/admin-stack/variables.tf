@@ -106,7 +106,7 @@ variable "component_vars" {
 }
 
 variable "context_attachments" {
-  type        = set(string)
+  type        = list(string)
   description = "A list of context IDs to attach to this stack"
   default     = []
 }
