@@ -3,7 +3,7 @@
 # such stack is allowed in the Spacelift organization.
 module "root_admin_stack_config" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config"
-  version = "1.4.0"
+  version = "1.5.0"
 
   enabled = local.create_root_admin_stack
 
@@ -15,7 +15,7 @@ module "root_admin_stack_config" {
 # This gets the atmos stack config for all of the administrative stacks
 module "all_admin_stacks_config" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config"
-  version = "1.4.0"
+  version = "1.5.0"
 
   enabled = local.create_root_admin_stack
 
@@ -26,7 +26,7 @@ module "all_admin_stacks_config" {
 
 module "root_admin_stack" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack"
-  version = "1.4.0"
+  version = "1.5.0"
 
   enabled = local.create_root_admin_stack
 

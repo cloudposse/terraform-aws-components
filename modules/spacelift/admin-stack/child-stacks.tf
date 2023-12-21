@@ -44,7 +44,7 @@ resource "null_resource" "child_stack_parent_precondition" {
 # for each one.
 module "child_stacks_config" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config"
-  version = "1.4.0"
+  version = "1.5.0"
 
   context_filters          = var.context_filters
   excluded_context_filters = var.excluded_context_filters
@@ -54,7 +54,7 @@ module "child_stacks_config" {
 
 module "child_stack" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack"
-  version = "1.4.0"
+  version = "1.5.0"
 
   for_each = local.child_stacks
 
