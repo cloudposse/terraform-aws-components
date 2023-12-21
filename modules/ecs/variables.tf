@@ -84,40 +84,13 @@ variable "dns_delegated_component_name" {
 variable "allowed_security_groups" {
   type        = list(string)
   default     = []
-  description = "List of Security Group IDs to be allowed to connect to the EKS cluster"
+  description = "List of Security Group IDs to be allowed to connect to the ECS cluster"
 }
 
 variable "allowed_cidr_blocks" {
   type        = list(string)
   default     = []
-  description = "List of CIDR blocks to be allowed to connect to the EKS cluster"
-}
-
-variable "kms_key_id" {
-  description = "The AWS Key Management Service key ID to encrypt the data between the local client and the container."
-  type        = string
-  default     = null
-}
-
-variable "logging" {
-  description = "The AWS Key Management Service key ID to encrypt the data between the local client and the container. (Valid values: 'NONE', 'DEFAULT', 'OVERRIDE')"
-  type        = string
-  default     = "DEFAULT"
-  validation {
-    condition     = contains(["NONE", "DEFAULT", "OVERRIDE"], var.logging)
-    error_message = "The 'logging' value must be one of 'NONE', 'DEFAULT', 'OVERRIDE'"
-  }
-}
-
-variable "log_configuration" {
-  description = "The log configuration for the results of the execute command actions Required when logging is OVERRIDE"
-  type = object({
-    cloud_watch_encryption_enabled = string
-    cloud_watch_log_group_name     = string
-    s3_bucket_name                 = string
-    s3_key_prefix                  = string
-  })
-  default = null
+  description = "List of CIDR blocks to be allowed to connect to the ECS cluster"
 }
 
 variable "capacity_providers_fargate" {
