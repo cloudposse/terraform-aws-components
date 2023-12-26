@@ -72,12 +72,24 @@ In the same account used for AWS SSO, create the following parameter:
 Within the Google Cloud console, we need to create a new Google Project and Service Account and enable the Admin SDK API.
 Follow these steps:
 
-1. Open Google Cloud console
-1. Create a new project. Give the project a descriptive name such as `AWS SSO Sync`
-1. Enable Admin SDK in APIs
-1. Create Service Account. `IAM & Admin > Service Accounts > Create Service Account`. [(ref)](https://cloud.google.com/iam/docs/service-accounts-create)
-1. Download credentials for the new Service Account: `IAM & Admin > Service Accounts > select Service Account > Credentials > ??`
-1. Save the JSON credentials as a new `SecureString` AWS SSM parameter in the same account used for AWS SSO.
+1. Open the Google Cloud console: https://console.cloud.google.com
+2. Create a new project. Give the project a descriptive name such as `AWS SSO Sync`
+
+![Create Google Project](./docs/img/google_new_project.png)
+
+3. Enable Admin SDK in APIs: `APIs & Services > Enabled APIs & Services > + ENABLE APIS AND SERVICES`
+
+![Enable Admin SDK](./docs/img/admin_sdk.png)
+
+4. Create Service Account: `IAM & Admin > Service Accounts > Create Service Account` [(ref)](https://cloud.google.com/iam/docs/service-accounts-create).
+
+![Create Service Account](./docs/img/create_service_account.png)
+
+5. Download credentials for the new Service Account: `IAM & Admin > Service Accounts > select Service Account > Keys > ADD KEY > Create new key > JSON`
+
+![Download Credentials](./docs/img/dl_service_account_creds.png)
+
+6. Save the JSON credentials as a new `SecureString` AWS SSM parameter in the same account used for AWS SSO. Use the full JSON string as the value for the parameter.
 
 ```
 /ssosync/google_credentials
