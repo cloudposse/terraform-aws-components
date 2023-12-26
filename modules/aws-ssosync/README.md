@@ -46,76 +46,125 @@ documentation recommends.
 ### Clickops
 
 Overview of steps:
+
+1. Configure AWS IAM Identity Center
+1. Configure Google Cloud console
+1. Configure Google Admin console
+1. Deploy the `aws-ssosync` component
 1. Deploy the `aws-sso` component
-1. Configure GSuite
-1. Deploy the `aws-ssosync` component to the `gbl-identity` stack
 
-#### Deploy the `aws-sso` component
 
-Follow the [aws-sso](../aws-sso/) component documentation to deploy the `aws-sso` component.
-Once this is done, you'll want to grab a few pieces of information.
+#### 1. Configure AWS IAM Identity Center (AWS SSO)
 
-Go to the AWS Single Sign-On console in the region you have set up AWS SSO and
-select `Settings`. Click `Enable automatic provisioning`.
+Follow [AWS documentation to configure SAML and SCIM with Google Workspace and IAM Identity Center](https://docs.aws.amazon.com/singlesignon/latest/userguide/gs-gwp.html).
 
-A pop up will appear with URL and the Access Token. The Access Token will only
-appear at this stage. You want to copy both of these as a parameter to the ssosync command.
+As part of this process, save the SCIM endpoint token and URL. Then in AWS SSM Parameter Store,
+create two `SecureString` parameters in the same account used for AWS SSO.
+This is usually the root account in the primary region.
 
-To pass parameters to the `ssosync` command, you'll need to decide on a path
-in SSM Parameter Store, `google_credentials_ssm_path`.
-
-In SSM Parameter Store on your `identity` account, create a parameter with the
-name `<google_credentials_ssm_path>/scim_endpoint_url` and the value of the
-URL from the previous step. Also create a parameter with the name
-`<google_credentials_ssm_path>/scim_endpoint_access_token` and the value of the
-Access Token from the previous step.
+```
+/ssosync/scim_endpoint_access_token
+/ssosync/scim_endpoint_url
+```
 
 One more parameter you'll need is your Identity Store ID.
 To obtain your Identity store ID, go to the AWS Identity Center console and
 select `Settings`. Under the `Identity Source` section, copy the Identity Store ID.
-Back in the `identity` account, create a parameter with the name
-`<google_credentials_ssm_path>/identity_store_id`.
+In the same account used for AWS SSO, create the following parameter:
+
+```
+/ssosync/identity_store_id
+```
 
 Lastly, go ahead and [delegate administration](https://docs.aws.amazon.com/singlesignon/latest/userguide/delegated-admin.html)
 from the `root` account to the `identity` account
 
-#### Configure GSuite
 
-_steps taken directly from [ssosync README.md](https://github.com/awslabs/ssosync/blob/master/README.md#google)_
+#### 2. Configure Google Cloud console
 
-First, you have to setup your API. In the project you want to use go to the
-[Console](https://console.developers.google.com/apis) and select *API & Service * >
-*Enable APIs and Services*. Search for *Admin SDK* and *Enable* the API.
+Within the Google Cloud console, we need to create a new Google Project and Service Account and enable the Admin SDK API.
+Follow these steps:
 
-You have to perform this
-[tutorial](https://developers.google.com/admin-sdk/directory/v1/guides/delegation)
-to create a service account that you use to sync your users. Save
-the `JSON file` you create during the process and rename it to `google_credentials.json`.
+1. Open Google Cloud console
+1. Create a new project. Give the project a descriptive name such as `AWS SSO Sync`
+1. Enable Admin SDK in APIs
+1. Create Service Account. `IAM & Admin > Service Accounts > Create Service Account`. [REF](https://cloud.google.com/iam/docs/service-accounts-create)
+1. Download credentials for the new Service Account: `IAM & Admin > Service Accounts > select Service Account > Credentials > ??`
+1. Save the JSON credentials as a new `SecureString` AWS SSM parameter in the same account used for AWS SSO.
 
-Head back in to your `identity` account in AWS and create a parameter in SSM
-Parameter Store with the name `<google_credentials_ssm_path>/google_credentials` and
-give it the contents of the `google_credentials.json` file.
+```
+/ssosync/google_credentials
+```
 
-In the domain-wide delegation for the Admin API, you have to specify the
-following scopes for the user.
+#### 3. Configure Google Admin console
 
-* https://www.googleapis.com/auth/admin.directory.group.readonly
-* https://www.googleapis.com/auth/admin.directory.group.member.readonly
-* https://www.googleapis.com/auth/admin.directory.user.readonly
+- Open the Google Admin console
+- From your domain’s Admin console, go to `Main menu menu > Security > Access and data control > API controls` [REF](https://developers.google.com/cloud-search/docs/guides/delegation)
+- In the Domain wide delegation pane, select `Manage Domain Wide Delegation`.
+- Click `Add new`.
+- Select Admin API
+- Add the following permission: [REF](https://github.com/awslabs/ssosync?tab=readme-ov-file#google)
 
-Back in the Console go to the Dashboard for the API & Services and select
-`Enable API and Services`.
-In the Search box type `Admin` and select the `Admin SDK` option. Click the
-`Enable` button.
+```console
+https://www.googleapis.com/auth/admin.directory.group.readonly
+https://www.googleapis.com/auth/admin.directory.group.member.readonly
+https://www.googleapis.com/auth/admin.directory.user.readonly
+```
 
-#### Deploy the `aws-ssosync` component
+#### 4. Deploy the `aws-ssosync` component
 
-Make sure that all four of the following SSM parameters exist in the `identity` account:
-* `<google_credentials_ssm_path>/scim_endpoint_url`
-* `<google_credentials_ssm_path>/scim_endpoint_access_token`
-* `<google_credentials_ssm_path>/identity_store_id`
-* `<google_credentials_ssm_path>/google_credentials`
+Make sure that all four of the following SSM parameters exist in the target account and region:
 
+* `/ssosync/scim_endpoint_url`
+* `/ssosync/scim_endpoint_access_token`
+* `/ssosync/identity_store_id`
+* `/ssosync/google_credentials`
+
+If deployed successfully, Groups and Users should be programmatically copied from the Google Workspace into AWS IAM Identity Center on the given schedule.
+
+If these Groups are not showing up, check the CloudWatch logs for the new Lambda function and refer the [FAQs](#FAQ) included below.
+
+#### 5. Deploy the `aws-sso` component
+
+Use the names of the Groups now provisioned programmatically in the `aws-sso` component catalog. Follow the [aws-sso](../aws-sso/) component documentation to deploy the `aws-sso` component.
+
+### FAQ
+
+#### Why is the tool forked by `Benbentwo`?
+
+The `awslabs` tool requires AWS Secrets Managers for the Google Credentials. However, we would prefer to use AWS SSM to store all credentials consistency and not require AWS Secrets Manager. Therefore we've created a Pull Request and will point to a fork until the PR is merged.
+
+Ref:
+- https://github.com/awslabs/ssosync/pull/133
+- https://github.com/awslabs/ssosync/issues/93
+
+#### What should I use for the Google Admin Email Address?
+
+The Service Account created will assume the User given by `--google-admin` / `SSOSYNC_GOOGLE_ADMIN` / `var.google_admin_email`. Therefore, this user email must be a valid Google admin user in your organization.
+
+This is not the same email as the Service Account.
+
+If Google fails to query Groups, you may see the following error:
+
+```console
+Notifying Lambda and mark this execution as Failure: googleapi: Error 404: Domain not found., notFound
+```
+
+#### Common Group Name Query Error
+
+If filtering group names using query strings, make sure the provided string is valid. For example, `google_group_match: "name:aws*"` is incorrect. Instead use `google_group_match: "Name:aws*"`
+
+If not, you may again see the same error message:
+
+```console
+Notifying Lambda and mark this execution as Failure: googleapi: Error 404: Domain not found., notFound
+```
+
+Ref:
+
+> The specific error you are seeing is because the google api doesn't like the query string you provided for the -g parameter. try -g "Name:Fuel*"
+
+https://github.com/awslabs/ssosync/issues/91
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
