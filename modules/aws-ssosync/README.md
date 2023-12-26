@@ -4,13 +4,10 @@ Deploys [AWS ssosync](https://github.com/awslabs/ssosync) to sync Google Groups 
 
 AWS `ssosync` is a Lambda application that regularly manages Identity Store users.
 
-This component requires manual deployment by a privileged user because it deploys a role in the identity account.
-
-You need to have set up AWS SSO in root account and delegated to the identity account as your SSO administrator.
+This component requires manual deployment by a privileged user because it deploys a role in the root or identity management account.
 
 ## Usage
-You should be able to deploy the `aws-ssosync` component to the `[core-]gbl-identity` stack
-with `atmos terraform deploy aws-ssosync -s gbl-identity`.
+You should be able to deploy the `aws-ssosync` component to the same account as `aws-sso`. Typically that is the `[core-]gbl-root` stack.
 
 **Stack Level**: Global
 **Deployment**: Must be deployed by `managers` or SuperAdmin using `atmos` CLI
@@ -22,12 +19,6 @@ The following is an example snippet for how to use this component:
 components:
   terraform:
     aws-ssosync:
-      backend:
-        s3:
-          role_arn: null
-      settings:
-        spacelift:
-          workspace_enabled: false
       vars:
         enabled: true
         name: aws-ssosync
@@ -258,47 +249,6 @@ https://github.com/awslabs/ssosync/issues/91
 
 ## References
 
-- [cloudposse/terraform-aws-sso][39]
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/aws-ssosync) - Cloud Posse's upstream component
 
-[<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>][40]
-
-[1]:	https://docs.aws.amazon.com/singlesignon/latest/userguide/permissionsetsconcept.html
-[2]:	#requirement%5C_terraform
-[3]:	#requirement%5C_aws
-[4]:	#requirement%5C_external
-[5]:	#requirement%5C_local
-[6]:	#requirement%5C_template
-[7]:	#requirement%5C_utils
-[8]:	#provider%5C_aws
-[9]:	#module%5C_account%5C_map
-[10]:	#module%5C_permission%5C_sets
-[11]:	#module%5C_role%5C_prefix
-[12]:	#module%5C_sso%5C_account%5C_assignments
-[13]:	#module%5C_this
-[14]:	https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document
-[15]:	https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document
-[16]:	https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document
-[17]:	#input%5C_account%5C_assignments
-[18]:	#input%5C_additional%5C_tag%5C_map
-[19]:	#input%5C_attributes
-[20]:	#input%5C_context
-[21]:	#input%5C_delimiter
-[22]:	#input%5C_enabled
-[23]:	#input%5C_environment
-[24]:	#input%5C_global%5C_environment%5C_name
-[25]:	#input%5C_iam%5C_primary%5C_roles%5C_stage%5C_name
-[26]:	#input%5C_id%5C_length%5C_limit
-[27]:	#input%5C_identity%5C_roles%5C_accessible
-[28]:	#input%5C_label%5C_key%5C_case
-[29]:	#input%5C_label%5C_order
-[30]:	#input%5C_label%5C_value%5C_case
-[31]:	#input%5C_name
-[32]:	#input%5C_namespace
-[33]:	#input%5C_privileged
-[34]:	#input%5C_regex%5C_replace%5C_chars
-[35]:	#input%5C_region
-[36]:	#input%5C_root%5C_account%5C_stage%5C_name
-[37]:	#input%5C_stage
-[38]:	#input%5C_tags
-[39]:	https://github.com/cloudposse/terraform-aws-sso
-[40]:	https://cpco.io/component
+[<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
