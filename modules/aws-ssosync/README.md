@@ -43,7 +43,7 @@ components:
 We recommend following a similar process to what the [AWS ssosync](https://github.com/awslabs/ssosync)
 documentation recommends.
 
-### Clickops
+### Deployment
 
 Overview of steps:
 
@@ -68,17 +68,13 @@ This is usually the root account in the primary region.
 ```
 
 One more parameter you'll need is your Identity Store ID.
-To obtain your Identity store ID, go to the AWS Identity Center console and
+To obtain your Identity Store ID, go to the AWS Identity Center console and
 select `Settings`. Under the `Identity Source` section, copy the Identity Store ID.
 In the same account used for AWS SSO, create the following parameter:
 
 ```
 /ssosync/identity_store_id
 ```
-
-Lastly, go ahead and [delegate administration](https://docs.aws.amazon.com/singlesignon/latest/userguide/delegated-admin.html)
-from the `root` account to the `identity` account
-
 
 #### 2. Configure Google Cloud console
 
@@ -88,7 +84,7 @@ Follow these steps:
 1. Open Google Cloud console
 1. Create a new project. Give the project a descriptive name such as `AWS SSO Sync`
 1. Enable Admin SDK in APIs
-1. Create Service Account. `IAM & Admin > Service Accounts > Create Service Account`. [REF](https://cloud.google.com/iam/docs/service-accounts-create)
+1. Create Service Account. `IAM & Admin > Service Accounts > Create Service Account`. [(ref)](https://cloud.google.com/iam/docs/service-accounts-create)
 1. Download credentials for the new Service Account: `IAM & Admin > Service Accounts > select Service Account > Credentials > ??`
 1. Save the JSON credentials as a new `SecureString` AWS SSM parameter in the same account used for AWS SSO.
 
@@ -99,11 +95,11 @@ Follow these steps:
 #### 3. Configure Google Admin console
 
 - Open the Google Admin console
-- From your domain’s Admin console, go to `Main menu menu > Security > Access and data control > API controls` [REF](https://developers.google.com/cloud-search/docs/guides/delegation)
+- From your domain’s Admin console, go to `Main menu menu > Security > Access and data control > API controls` [(ref)](https://developers.google.com/cloud-search/docs/guides/delegation)
 - In the Domain wide delegation pane, select `Manage Domain Wide Delegation`.
 - Click `Add new`.
 - Select Admin API
-- Add the following permission: [REF](https://github.com/awslabs/ssosync?tab=readme-ov-file#google)
+- Add the following permission: [(ref)](https://github.com/awslabs/ssosync?tab=readme-ov-file#google)
 
 ```console
 https://www.googleapis.com/auth/admin.directory.group.readonly
