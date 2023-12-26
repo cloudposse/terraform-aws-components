@@ -98,7 +98,8 @@ Follow these steps:
 - From your domain’s Admin console, go to `Main menu menu > Security > Access and data control > API controls` [(ref)](https://developers.google.com/cloud-search/docs/guides/delegation)
 - In the Domain wide delegation pane, select `Manage Domain Wide Delegation`.
 - Click `Add new`.
-- Select Admin API
+- In the Client ID field, enter the client ID obtained from the service account creation steps above.
+- In the OAuth Scopes field, enter a comma-delimited list of the scopes required for your application. Use the scope `https://www.googleapis.com/auth/cloud_search.query` for search applications using the Query API.
 - Add the following permission: [(ref)](https://github.com/awslabs/ssosync?tab=readme-ov-file#google)
 
 ```console
@@ -106,6 +107,7 @@ https://www.googleapis.com/auth/admin.directory.group.readonly
 https://www.googleapis.com/auth/admin.directory.group.member.readonly
 https://www.googleapis.com/auth/admin.directory.user.readonly
 ```
+
 
 #### 4. Deploy the `aws-ssosync` component
 
