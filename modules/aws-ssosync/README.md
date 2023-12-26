@@ -74,9 +74,6 @@ Follow these steps:
 
 1. Open the Google Cloud console: https://console.cloud.google.com
 2. Create a new project. Give the project a descriptive name such as `AWS SSO Sync`
-
-![Create Google Project](./docs/img/google_new_project.png)
-
 3. Enable Admin SDK in APIs: `APIs & Services > Enabled APIs & Services > + ENABLE APIS AND SERVICES`
 
 ![Enable Admin SDK](./docs/img/admin_sdk.png)
