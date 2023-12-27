@@ -7,7 +7,7 @@ AWS `ssosync` is a Lambda application that regularly manages Identity Store user
 This component requires manual deployment by a privileged user because it deploys a role in the root or identity management account.
 
 ## Usage
-You should be able to deploy the `aws-ssosync` component to the same account as `aws-sso`. Typically that is the `[core-]gbl-root` stack.
+You should be able to deploy the `aws-ssosync` component to the same account as `aws-sso`. Typically that is the `core-gbl-root` or `gbl-root` stack.
 
 **Stack Level**: Global
 **Deployment**: Must be deployed by `managers` or SuperAdmin using `atmos` CLI
@@ -257,6 +257,6 @@ https://github.com/awslabs/ssosync/issues/91
 
 ## References
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/aws-ssosync) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aws-ssosync) - Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
