@@ -76,15 +76,15 @@ Follow these steps:
 2. Create a new project. Give the project a descriptive name such as `AWS SSO Sync`
 3. Enable Admin SDK in APIs: `APIs & Services > Enabled APIs & Services > + ENABLE APIS AND SERVICES`
 
-![Enable Admin SDK](./docs/img/admin_sdk.png)
+![Enable Admin SDK](https://raw.githubusercontent.com/cloudposse/terraform-aws-components/main/modules/aws-ssosync/docs/img/admin_sdk.png) # use raw URL so that this works in both GitHub and docusaurus
 
 4. Create Service Account: `IAM & Admin > Service Accounts > Create Service Account` [(ref)](https://cloud.google.com/iam/docs/service-accounts-create).
 
-![Create Service Account](./docs/img/create_service_account.png)
+![Create Service Account](https://raw.githubusercontent.com/cloudposse/terraform-aws-components/main/modules/aws-ssosync/docs/img/create_service_account.png) # use raw URL so that this works in both GitHub and docusaurus
 
 5. Download credentials for the new Service Account: `IAM & Admin > Service Accounts > select Service Account > Keys > ADD KEY > Create new key > JSON`
 
-![Download Credentials](./docs/img/dl_service_account_creds.png)
+![Download Credentials](https://raw.githubusercontent.com/cloudposse/terraform-aws-components/main/modules/aws-ssosync/docs/img/dl_service_account_creds.png) # use raw URL so that this works in both GitHub and docusaurus
 
 6. Save the JSON credentials as a new `SecureString` AWS SSM parameter in the same account used for AWS SSO. Use the full JSON string as the value for the parameter.
 
