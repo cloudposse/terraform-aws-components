@@ -10,7 +10,7 @@ locals {
 
   # Organization's Accounts list and map configuration
   organization_accounts     = lookup(var.organization_config, "accounts", [])
-  organization_accounts_map = { for acc in local.organization_accounts : acc.name => acc }
+  organization_accounts_map = { for acc in local.organization_accounts : acc.name => acc if lookup(acc, "create", var.accounts_enabled) == true }
 
   # Organizational Units' Accounts list and map configuration
   organizational_units_accounts = flatten([
@@ -18,27 +18,44 @@ locals {
       for account in lookup(ou, "accounts", []) : merge({ "ou" = ou.name, "account_email_format" = lookup(ou, "account_email_format", var.account_email_format), parent_ou = contains(keys(ou), "parent_ou") ? ou.parent_ou : "none" }, account)
     ]
   ])
-  organizational_units_accounts_map = { for acc in local.organizational_units_accounts : acc.name => acc }
+  organizational_units_accounts_map = { for acc in local.organizational_units_accounts : acc.name => acc if lookup(acc, "create", var.accounts_enabled) == true }
+
+  # If we are creating a new organization, there are no existing accounts
+  existing_account_names = var.organization_enabled ? {} : {
+    for account in data.aws_organizations_organization.existing[0].accounts :
+    (account.name) => replace(lower(account.name), var.account_name_replace_substring, "")
+  }
+
+  existing_accounts_without_root = var.organizational_units_enabled && var.accounts_enabled ? [] : [
+    for account in data.aws_organizations_organization.existing[0].accounts :
+    merge(account, {
+      name = local.existing_account_names[account.name]
+    })
+    if local.existing_account_names[account.name] != local.root_account_name
+  ]
 
   # All Accounts configuration
   all_accounts = concat(local.organization_accounts, local.organizational_units_accounts)
 
   # List of Organizational Unit names
   organizational_unit_names = concat(
+    var.organizational_units_enabled ? [] : data.aws_organizations_organizational_units.this[0].children[*]["name"],
     values(aws_organizations_organizational_unit.this)[*]["name"],
-    values(aws_organizations_organizational_unit.child)[*]["name"]
+    values(aws_organizations_organizational_unit.child)[*]["name"],
   )
 
   # List of Organizational Unit ARNs
   organizational_unit_arns = concat(
+    var.organizational_units_enabled ? [] : data.aws_organizations_organizational_units.this[0].children[*]["arn"],
     values(aws_organizations_organizational_unit.this)[*]["arn"],
-    values(aws_organizations_organizational_unit.child)[*]["arn"]
+    values(aws_organizations_organizational_unit.child)[*]["arn"],
   )
 
   # List of Organizational Unit IDs
   organizational_unit_ids = concat(
+    var.organizational_units_enabled ? [] : data.aws_organizations_organizational_units.this[0].children[*]["id"],
     values(aws_organizations_organizational_unit.this)[*]["id"],
-    values(aws_organizations_organizational_unit.child)[*]["id"]
+    values(aws_organizations_organizational_unit.child)[*]["id"],
   )
 
   # Map of account names to OU names (used for lookup `parent_id` for each account under an OU)
@@ -140,23 +157,34 @@ resource "aws_organizations_account" "organization_accounts" {
 
 # Provision Organizational Units w/o Child Orgs
 resource "aws_organizations_organizational_unit" "this" {
-  for_each  = { for key, value in local.organizational_units_map : key => value if value.parent_ou == "none" }
+  for_each  = var.organizational_units_enabled ? { for key, value in local.organizational_units_map : key => value if value.parent_ou == "none" } : {}
   name      = each.value.name
   parent_id = local.organization_root_account_id
 }
 
 # Provision Child Organizational Units
 resource "aws_organizations_organizational_unit" "child" {
-  for_each  = { for key, value in local.organizational_units_map : key => value if value.parent_ou != "none" }
+  for_each  = var.organizational_units_enabled ? { for key, value in local.organizational_units_map : key => value if value.parent_ou != "none" } : {}
   name      = each.value.name
   parent_id = aws_organizations_organizational_unit.this[each.value.parent_ou].id
 }
 
+data "aws_organizations_organizational_units" "this" {
+  count     = var.organizational_units_enabled ? 0 : 1
+  parent_id = data.aws_organizations_organization.existing[0].roots[0].id
+}
+
 # Provision Accounts connected to Organizational Units
 resource "aws_organizations_account" "organizational_units_accounts" {
-  for_each                   = local.organizational_units_accounts_map
-  name                       = each.value.name
-  parent_id                  = each.value.parent_ou != "none" ? aws_organizations_organizational_unit.child[each.value.ou].id : aws_organizations_organizational_unit.this[local.account_names_organizational_unit_names_map[each.value.name]].id
+  for_each = local.organizational_units_accounts_map
+  name     = each.value.name
+
+  parent_id = each.value.parent_ou != "none" ? aws_organizations_organizational_unit.child[each.value.ou].id : (
+    var.organizational_units_enabled ? aws_organizations_organizational_unit.this[local.account_names_organizational_unit_names_map[each.value.name]].id : one(
+      [for k, v in data.aws_organizations_organizational_units.this[0].children : v.id if v.name == each.value.ou]
+    )
+  )
+
   email                      = try(format(each.value.account_email_format, each.value.name), each.value.account_email_format)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
   tags                       = merge(module.this.tags, try(each.value.tags, {}), { Name : each.value.name })
@@ -216,20 +244,23 @@ module "organizational_units_service_control_policies" {
 locals {
   # List of names of all accounts (belonging to Organization and Organizational Units)
   all_account_names = concat(
+    var.organizational_units_enabled ? [] : local.existing_accounts_without_root[*]["name"],
     values(aws_organizations_account.organization_accounts)[*]["name"],
-    values(aws_organizations_account.organizational_units_accounts)[*]["name"]
+    values(aws_organizations_account.organizational_units_accounts)[*]["name"],
   )
 
   # List of ARNs of all accounts (belonging to Organization and Organizational Units)
   all_account_arns = concat(
+    var.organizational_units_enabled ? [] : local.existing_accounts_without_root[*]["arn"],
     values(aws_organizations_account.organization_accounts)[*]["arn"],
-    values(aws_organizations_account.organizational_units_accounts)[*]["arn"]
+    values(aws_organizations_account.organizational_units_accounts)[*]["arn"],
   )
 
   # List of IDs of all accounts (belonging to Organization and Organizational Units)
   all_account_ids = concat(
+    var.organizational_units_enabled ? [] : local.existing_accounts_without_root[*]["id"],
     values(aws_organizations_account.organization_accounts)[*]["id"],
-    values(aws_organizations_account.organizational_units_accounts)[*]["id"]
+    values(aws_organizations_account.organizational_units_accounts)[*]["id"],
   )
 
   # Map of account names to account ARNs
@@ -244,16 +275,21 @@ locals {
   # Map of OU names to OU IDs
   organizational_unit_names_organizational_unit_ids = zipmap(local.organizational_unit_names, local.organizational_unit_ids)
 
+  root_account_name = lookup(var.organization_config.root_account, "name", "root")
+
   # Names of the accounts with EKS cluster
   eks_account_names = [
     for acc in local.all_accounts : acc.name if lookup(try(acc.tags, {}), "eks", false) == true
   ]
 
   # Names of the non-EKS accounts
-  non_eks_account_names = concat(
-    [lookup(var.organization_config.root_account, "name", "root")],
-    [for acc in local.all_accounts : acc.name if lookup(try(acc.tags, {}), "eks", false) == false]
-  )
+  non_eks_account_names = tolist(setsubtract(
+    toset(concat(
+      [local.root_account_name],
+      local.all_account_names,
+    )),
+    toset(local.eks_account_names),
+  ))
 
   # Map of account names to SCP IDs
   account_names_account_scp_ids = {
@@ -275,20 +311,41 @@ locals {
     for k, v in local.organizational_unit_names_service_control_policy_statements_map : k => module.organizational_units_service_control_policies[k].organizations_policy_arn
   }
 
-  account_info_map = merge({ for acc in local.all_accounts : acc.name => merge({ for k, v in acc : k => v if k != "name" },
+  account_info_map = merge(
     {
-      eks    = tobool(lookup(try(acc.tags, {}), "eks", false))
-      id     = local.account_names_account_ids[acc.name]
-      tenant = try(acc.tenant, var.tenant)
-      stage  = try(acc.stage, acc.name)
-    }) },
+      for acc in local.existing_accounts_without_root :
+      (acc.name) => merge(
+        { for k, v in acc : k => v if !contains(["name", "arn", "email", "status"], k) },
+        {
+          eks    = false
+          id     = local.account_names_account_ids[acc.name]
+          tenant = try(acc.tenant, var.tenant)
+          stage  = lower(try(acc.stage, acc.name))
+        }
+      )
+    },
     {
-      (var.organization_config.root_account.name) = merge({ for k, v in var.organization_config.root_account : k => v if k != "name" }, {
-        id     = local.organization_master_account_id
-        eks    = tobool(lookup(try(var.organization_config.root_account.tags, {}), "eks", false))
-        tenant = var.tenant
-        stage  = try(var.organization_config.root_account.stage, var.organization_config.root_account.name)
-      })
-  })
-
+      for acc in local.all_accounts :
+      (acc.name) => merge(
+        { for k, v in acc : k => v if k != "name" },
+        {
+          eks    = tobool(lookup(try(acc.tags, {}), "eks", false))
+          id     = local.account_names_account_ids[acc.name]
+          tenant = try(acc.tenant, var.tenant)
+          stage  = lower(try(acc.stage, acc.name))
+        }
+      )
+    },
+    {
+      (var.organization_config.root_account.name) = merge(
+        { for k, v in var.organization_config.root_account : k => v if k != "name" },
+        {
+          id     = local.organization_master_account_id
+          eks    = tobool(lookup(try(var.organization_config.root_account.tags, {}), "eks", false))
+          tenant = var.tenant
+          stage  = try(var.organization_config.root_account.stage, var.organization_config.root_account.name)
+        }
+      )
+    },
+  )
 }

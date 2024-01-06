@@ -39,3 +39,21 @@ variable "organization_enabled" {
   description = "A boolean flag indicating whether to create an Organization or use the existing one"
   default     = true
 }
+
+variable "organizational_units_enabled" {
+  type        = bool
+  description = "A boolean flag indicating whether to create Organizational Units"
+  default     = true
+}
+
+variable "accounts_enabled" {
+  type        = bool
+  description = "A boolean flag indicating whether to create accounts"
+  default     = true
+}
+
+variable "account_name_replace_substring" {
+  type        = string
+  default     = "/[ ,.]+/"
+  description = "Conform existing account names to a consistent format"
+}

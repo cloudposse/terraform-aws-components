@@ -43,6 +43,8 @@ components:
         account_email_format: aws+%s@example.net
         account_iam_user_access_to_billing: ALLOW
         organization_enabled: true
+        organizational_units_enabled: true
+        accounts_enabled: true
         aws_service_access_principals:
           - cloudtrail.amazonaws.com
           - guardduty.amazonaws.com
@@ -148,11 +150,45 @@ components:
           - "https://raw.githubusercontent.com/cloudposse/terraform-aws-service-control-policies/0.12.0/catalog/ec2-policies.yaml"
 ```
 
-## First Time Organization Setup
+## Setup
+
+### First Time Organization Setup (greenfield)
 
 Your AWS Organization is managed by the `account` component, along with accounts and organizational units.
 
 However, because the AWS defaults for an Organization and its accounts are not exactly what we want, and there is no way to change them via Terraform, we have to first provision the AWS Organization, then take some steps on the AWS console, and then we can provision the rest.
+
+### Setup in existing organization (brownfield)
+
+Set the following to `false` and the `account` component will not create anything and will fill its output from data sources.
+
+```yaml
+        organization_enabled: false
+        organizational_units_enabled: false
+        accounts_enabled: false
+```
+
+If some account information needs to be updated, this can be done in the `organization_config` to override certain items such as enabling eks in a specific account.
+
+```yaml
+        organization_config:
+          root_account:
+            name: root
+            tags:
+              eks: false
+          organization:
+            service_control_policies: []
+          organizational_units:
+            - name: ExistingOUPlatform
+              accounts: []
+            - name: ExistingOUCorp
+              accounts:
+                - name: SomeExistingAccount
+                  # This key "create" is optional. It defaults to var.accounts_enabled.
+                  create: false
+                  tags:
+                    eks: true
+```
 
 ### Use AWS Console to create and set up the Organization
 
@@ -166,20 +202,13 @@ Make sure your support plan for the _root_ account was upgraded to the "Business
 :::
 
 1. From the region list, select "US East (N. Virginia) us-east-1".
-
-2. From the account dropdown menu, select "My Service Quotas".
-
-3. From the Sidebar, select "AWS Services".
-
-4. Type "org" in the search field under "AWS services"
-
-5. Click on "AWS Organizations" in the "Service" list
-
-6. Click on "Default maximum number of accounts", which should take you to a new view
-
-7. Click on "Request quota increase" on the right side of the view, which should pop us a request form
-
-8. At the bottom of the form, under "Change quota value", enter the number you decided on in the previous step (probably "20") and click "Request"
+1. From the account dropdown menu, select "My Service Quotas".
+1. From the Sidebar, select "AWS Services".
+1. Type "org" in the search field under "AWS services"
+1. Click on "AWS Organizations" in the "Service" list
+1. Click on "Default maximum number of accounts", which should take you to a new view
+1. Click on "Request quota increase" on the right side of the view, which should pop us a request form
+1. At the bottom of the form, under "Change quota value", enter the number you decided on in the previous step (probably "20") and click "Request"
 
 #### (Optional) Create templates to request other quota increases
 
@@ -190,24 +219,15 @@ Create a [Quota request template](https://docs.aws.amazon.com/servicequotas/late
 Add each EC2 quota increase request you want to make:
 
 1. Click "Add Quota" on the right side of the view
-
-2. Under "Region", select your default region (repeat with the backup region if you are using one)
-
-3. Under "Service", type "EC2" and select "Amazon Elastic Compute Cloud (Amazon EC2)"
-
-4. Under "Quota", find the quota you want to increase. The likely candidates are:
-
-5. type "stand" and select "Running On-Demand Standard (A, C, D, H, I, M, R, T, Z) Instances"
-
-6. type "stand" and select "All Standard (A, C, D, H, I, M, R, T, Z) Spot Instance Request"
-
-7. type "g i" and select "Running On-Demand G Instances"
-
-8. type "all g" and select "All G Spot Instance Requests"
-
-9. Under "Desired quota value" enter your desired default quota
-
-10. Click "Add"
+1. Under "Region", select your default region (repeat with the backup region if you are using one)
+1. Under "Service", type "EC2" and select "Amazon Elastic Compute Cloud (Amazon EC2)"
+1. Under "Quota", find the quota you want to increase. The likely candidates are:
+1. type "stand" and select "Running On-Demand Standard (A, C, D, H, I, M, R, T, Z) Instances"
+1. type "stand" and select "All Standard (A, C, D, H, I, M, R, T, Z) Spot Instance Request"
+1. type "g i" and select "Running On-Demand G Instances"
+1. type "all g" and select "All G Spot Instance Requests"
+1. Under "Desired quota value" enter your desired default quota
+1. Click "Add"
 
 After you have added all the templates, click "Enable" on the Quota request template screen to enable the templates.
 
@@ -231,7 +251,7 @@ To enable resource sharing with AWS Organization via AWS Management Console
 
 To enable resource sharing with AWS Organization via AWS CLI
 
-```
+```bash
  √ . [xamp-SuperAdmin] (HOST) infra ⨠ aws ram enable-sharing-with-aws-organization
 {
     "returnValue": true
@@ -252,25 +272,27 @@ After we are done with the above ClickOps and the Service Quota Increase for max
 
 In the Geodesic shell, as SuperAdmin, execute the following command to get the AWS Organization ID that will be used to import the organization:
 
-```
+```bash
 aws organizations describe-organization
 ```
 
 From the output, identify the _organization-id_:
 
-```
+```json
 {
     "Organization": {
         "Id": "o-7qcakq6zxw",
-        "Arn": "arn:aws:organizations::
-        ...
+        "Arn": "arn:aws:organizations::...",
+        "...": "..."
+    }
+}
 ```
 
-Using the example above, the _organization-id_ is o-7qcakq6zxw.
+Using the example above, the _organization-id_ is `o-7qcakq6zxw`.
 
 In the Geodesic shell, as SuperAdmin, execute the following command to import the AWS Organization, changing the stack name `core-gbl-root` if needed, to reflect the stack where the organization management account is defined, and changing the last argument to reflect the _organization-id_ from the output of the previous command.
 
-```
+```bash
 atmos terraform import account --stack core-gbl-root 'aws_organizations_organization.this[0]' 'o-7qcakq6zxw'
 ```
 
@@ -291,7 +313,7 @@ See related: [Decide on Opting Into Non-default Regions](https://docs.cloudposse
 
 In the Geodesic shell, execute the following commands to provision AWS Organizational Units and AWS accounts:
 
-```
+```bash
 atmos terraform apply account --stack gbl-root
 ```
 
@@ -304,28 +326,23 @@ Note: unless you need to enable non-default AWS regions (see next step), this st
 **For** _**each**_ **new account:**
 
 1. Perform a password reset by attempting to [log in to the AWS console](https://signin.aws.amazon.com/signin) as a "root user", using that account's email address, and then clicking the "Forgot password?" link. You will receive a password reset link via email, which should be forwarded to the shared Slack channel for automated messages. Click the link and enter a new password. (Use 1Password or [Random.org](https://www.random.org/passwords) to create a password 26-38 characters long, including at least 3 of each class of character: lower case, uppercase, digit, and symbol. You may need to manually combine or add to the generated password to ensure 3 symbols and digits are present.) Save the email address and generated password as web login credentials in 1Password. While you are at it, save the account number in a separate field.
-
-2. Log in using the new password, choose "My Security Credentials" from the account dropdown menu and set up Multi-Factor Authentication (MFA) to use a Virutal MFA device. Save the MFA TOTP key in 1Password by using 1Password's TOTP field and built-in screen scanner. Also, save the Virutal MFA ARN (sometimes shown as "serial number").
-
-3. While logged in, enable optional regions as described in the next step, if needed.
-
-4. (Optional, but highly recommended): [Unsubscribe](https://pages.awscloud.com/communication-preferences.html) the account's email address from all marketing emails.
+1. Log in using the new password, choose "My Security Credentials" from the account dropdown menu and set up Multi-Factor Authentication (MFA) to use a Virutal MFA device. Save the MFA TOTP key in 1Password by using 1Password's TOTP field and built-in screen scanner. Also, save the Virutal MFA ARN (sometimes shown as "serial number").
+1. While logged in, enable optional regions as described in the next step, if needed.
+1. (Optional, but highly recommended): [Unsubscribe](https://pages.awscloud.com/communication-preferences.html) the account's email address from all marketing emails.
 
 ### (Optional) Enable regions
 
 Most AWS regions are enabled by default. If you are using a region that is not enabled by default (such as Middle East/Bahrain), you need to take extra steps.
 
 1. While logged in using root credentials (see the previous step), in the account dropdown menu, select "My Account" to get to the [Billing home page](https://console.aws.amazon.com/billing/home?#/account).
-
-2. In the "AWS Regions" section, enable the regions you want to enable.
-
-3. Go to the IAM [account settings page](https://console.aws.amazon.com/iam/home?#/account_settings) and edit the STS Global endpoint to create session tokens valid in all AWS regions.
+1. In the "AWS Regions" section, enable the regions you want to enable.
+1. Go to the IAM [account settings page](https://console.aws.amazon.com/iam/home?#/account_settings) and edit the STS Global endpoint to create session tokens valid in all AWS regions.
 
 You will need to wait a few minutes for the regions to be enabled before you can proceed to the next step. Until they are enabled, you may get what look like AWS authentication or permissions errors.
 
 After enabling the regions in all accounts, re-enable the `DenyRootAccountAccess` service control policy setting in `gbl-root.yaml` and rerun
 
-```
+```bash
 atmos terraform apply account --stack gbl-root
 ```
 
@@ -363,6 +380,7 @@ atmos terraform apply account --stack gbl-root
 | [aws_organizations_organizational_unit.child](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_organizational_unit) | resource |
 | [aws_organizations_organizational_unit.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_organizational_unit) | resource |
 | [aws_organizations_organization.existing](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/organizations_organization) | data source |
+| [aws_organizations_organizational_units.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/organizations_organizational_units) | data source |
 
 ## Inputs
 
@@ -370,6 +388,8 @@ atmos terraform apply account --stack gbl-root
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_email_format"></a> [account\_email\_format](#input\_account\_email\_format) | Email address format for the accounts (e.g. `aws+%s@example.com`) | `string` | n/a | yes |
 | <a name="input_account_iam_user_access_to_billing"></a> [account\_iam\_user\_access\_to\_billing](#input\_account\_iam\_user\_access\_to\_billing) | If set to `ALLOW`, the new account enables IAM users to access account billing information if they have the required permissions. If set to `DENY`, then only the root user of the new account can access account billing information | `string` | `"DENY"` | no |
+| <a name="input_account_name_replace_substring"></a> [account\_name\_replace\_substring](#input\_account\_name\_replace\_substring) | Conform existing account names to a consistent format | `string` | `"/[ ,.]+/"` | no |
+| <a name="input_accounts_enabled"></a> [accounts\_enabled](#input\_accounts\_enabled) | A boolean flag indicating whether to create accounts | `bool` | `true` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_aws_service_access_principals"></a> [aws\_service\_access\_principals](#input\_aws\_service\_access\_principals) | List of AWS service principal names for which you want to enable integration with your organization. This is typically in the form of a URL, such as service-abbreviation.amazonaws.com. Organization must have `feature_set` set to ALL. For additional information, see the [AWS Organizations User Guide](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html) | `list(string)` | n/a | yes |
@@ -388,6 +408,7 @@ atmos terraform apply account --stack gbl-root
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_organization_config"></a> [organization\_config](#input\_organization\_config) | Organization, Organizational Units and Accounts configuration | `any` | n/a | yes |
 | <a name="input_organization_enabled"></a> [organization\_enabled](#input\_organization\_enabled) | A boolean flag indicating whether to create an Organization or use the existing one | `bool` | `true` | no |
+| <a name="input_organizational_units_enabled"></a> [organizational\_units\_enabled](#input\_organizational\_units\_enabled) | A boolean flag indicating whether to create Organizational Units | `bool` | `true` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_service_control_policies_config_paths"></a> [service\_control\_policies\_config\_paths](#input\_service\_control\_policies\_config\_paths) | List of paths to Service Control Policy configurations | `list(string)` | n/a | yes |

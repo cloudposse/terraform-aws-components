@@ -85,12 +85,12 @@ output "non_eks_accounts" {
 }
 
 output "organization_scp_id" {
-  value       = join("", module.organization_service_control_policies.*.organizations_policy_id)
+  value       = join("", module.organization_service_control_policies[*].organizations_policy_id)
   description = "Organization Service Control Policy ID"
 }
 
 output "organization_scp_arn" {
-  value       = join("", module.organization_service_control_policies.*.organizations_policy_arn)
+  value       = join("", module.organization_service_control_policies[*].organizations_policy_arn)
   description = "Organization Service Control Policy ARN"
 }
 
