@@ -496,5 +496,5 @@ variable "lambda_runtime" {
   Identifier of the function's runtime. See Runtimes for valid values.
   https://docs.aws.amazon.com/lambda/latest/dg/API_CreateFunction.html#SSS-CreateFunction-request-Runtime
   EOT
-  default     = "nodejs16.x"
+  default     = "nodejs20.x"
 }

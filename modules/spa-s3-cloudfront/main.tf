@@ -8,7 +8,7 @@ locals {
   s3_access_log_bucket_name         = var.origin_s3_access_log_bucket_name_rendering_enabled ? format("%[1]v-${module.this.tenant != null ? "%[2]v-" : ""}%[3]v-%[4]v-%[5]v", var.namespace, var.tenant, var.environment, var.stage, var.origin_s3_access_log_bucket_name) : var.origin_s3_access_log_bucket_name
   cloudfront_access_log_bucket_name = var.cloudfront_access_log_bucket_name_rendering_enabled ? format("%[1]v-${module.this.tenant != null ? "%[2]v-" : ""}%[3]v-%[4]v-%[5]v", var.namespace, var.tenant, var.environment, var.stage, var.cloudfront_access_log_bucket_name) : var.cloudfront_access_log_bucket_name
   cloudfront_access_log_prefix      = var.cloudfront_access_log_prefix_rendering_enabled ? "${var.cloudfront_access_log_prefix}${module.this.id}" : var.cloudfront_access_log_prefix
-  origin_deployment_principal_arns  = local.github_runners_enabled ? concat(var.origin_deployment_principal_arns, [module.github_runners[0].outputs.iam_role_arn]) : var.origin_deployment_principal_arns
+  origin_deployment_principal_arns  = local.github_runners_enabled ? concat(var.origin_deployment_principal_arns, try([module.github_runners.outputs.iam_role_arn], [])) : var.origin_deployment_principal_arns
 
   # Variables affected by SPA Preview Environments
   #
@@ -76,7 +76,7 @@ module "spa_web" {
   encryption_enabled                 = var.origin_encryption_enabled
   origin_force_destroy               = var.origin_force_destroy
   versioning_enabled                 = var.origin_versioning_enabled
-  web_acl_id                         = local.aws_waf_enabled ? module.waf[0].outputs.acl.arn : null
+  web_acl_id                         = local.aws_waf_enabled ? module.waf.outputs.acl.arn : null
 
   cloudfront_access_log_create_bucket = var.cloudfront_access_log_create_bucket
   cloudfront_access_log_bucket_name   = local.cloudfront_access_log_bucket_name

@@ -2,7 +2,7 @@
 
 const http = require('https');
 
-const indexPage = 'index.html';
+const page404 = '404.html';
 
 exports.handler = async (event, context, callback) => {
     const cf = event.Records[0].cf;
@@ -16,7 +16,7 @@ exports.handler = async (event, context, callback) => {
                     && (statusCode == '403' || statusCode == '404');
 
     const result = doReplace
-        ? await generateResponseAndLog(cf, request, indexPage)
+        ? await generateResponseAndLog(cf, request, page404)
         : response;
 
     response.status = result.status;
@@ -26,10 +26,12 @@ exports.handler = async (event, context, callback) => {
     callback(null, response);
 };
 
-async function generateResponseAndLog(cf, request, indexPage){
-
-    const domain = cf.config.distributionDomainName;
-    const indexPath = `/${indexPage}`;
+async function generateResponseAndLog(cf, request, page404) {
+    const forwardedHost = request.headers['x-forwarded-host'];
+    const domain = forwardedHost && forwardedHost.length > 0
+        ? forwardedHost[0].value
+        : cf.config.distributionDomainName;
+    const indexPath = `/${page404}`;
 
     const response = await generateResponse(domain, indexPath);
     console.log('response: ' + JSON.stringify(response));
