@@ -112,7 +112,7 @@ Example - I want a new instance `rds-example-new` to be provisioned from a snaps
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_kms_key_rds"></a> [kms\_key\_rds](#module\_kms\_key\_rds) | cloudposse/kms-key/aws | 0.12.1 |
 | <a name="module_rds_client_sg"></a> [rds\_client\_sg](#module\_rds\_client\_sg) | cloudposse/security-group/aws | 2.2.0 |
-| <a name="module_rds_instance"></a> [rds\_instance](#module\_rds\_instance) | cloudposse/rds/aws | 0.38.5 |
+| <a name="module_rds_instance"></a> [rds\_instance](#module\_rds\_instance) | cloudposse/rds/aws | 1.1.0 |
 | <a name="module_rds_monitoring_role"></a> [rds\_monitoring\_role](#module\_rds\_monitoring\_role) | cloudposse/iam-role/aws | 0.17.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
