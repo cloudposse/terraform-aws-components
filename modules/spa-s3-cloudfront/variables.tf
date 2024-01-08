@@ -489,3 +489,12 @@ variable "github_runners_tenant_name" {
   description = "The tenant name where the GitHub Runners are provisioned"
   default     = null
 }
+
+variable "lambda_runtime" {
+  type        = string
+  description = <<-EOT
+  Identifier of the function's runtime. See Runtimes for valid values.
+  https://docs.aws.amazon.com/lambda/latest/dg/API_CreateFunction.html#SSS-CreateFunction-request-Runtime
+  EOT
+  default     = "nodejs16.x"
+}
