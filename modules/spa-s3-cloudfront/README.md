@@ -114,6 +114,8 @@ an extensive explanation for how these preview environments work.
 |------|--------|---------|
 | <a name="module_acm_request_certificate"></a> [acm\_request\_certificate](#module\_acm\_request\_certificate) | cloudposse/acm-request-certificate/aws | 0.16.3 |
 | <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+| <a name="module_gha_assume_role"></a> [gha\_assume\_role](#module\_gha\_assume\_role) | ../account-map/modules/team-assume-role-policy | n/a |
+| <a name="module_gha_role_name"></a> [gha\_role\_name](#module\_gha\_role\_name) | cloudposse/label/null | 0.25.0 |
 | <a name="module_github_runners"></a> [github\_runners](#module\_github\_runners) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_lambda_edge_preview"></a> [lambda\_edge\_preview](#module\_lambda\_edge\_preview) | ./modules/lambda-edge-preview | n/a |
@@ -127,7 +129,9 @@ an extensive explanation for how these preview environments work.
 
 | Name | Type |
 |------|------|
+| [aws_iam_role.github_actions](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_shield_protection.shield_protection](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/shield_protection) | resource |
+| [aws_iam_policy_document.github_actions_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_s3_bucket.failover_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_bucket) | data source |
 
 ## Inputs
@@ -171,6 +175,9 @@ an extensive explanation for how these preview environments work.
 | <a name="input_failover_s3_origin_format"></a> [failover\_s3\_origin\_format](#input\_failover\_s3\_origin\_format) | If `var.failover_s3_origin_environment` is supplied, this is the format to use for the failover S3 origin bucket name when<br>building the name via `format([format], var.namespace, var.failover_s3_origin_environment, var.stage, var.name)`<br>and then looking it up via the `aws_s3_bucket` Data Source.<br><br>For example, if this component creates an origin of name `eg-ue1-devplatform-example` and `var.failover_s3_origin_environment`<br>is set to `uw1`, then it is expected that a bucket with the name `eg-uw1-devplatform-example-failover` exists in `us-west-1`. | `string` | `"%v-%v-%v-%v-failover"` | no |
 | <a name="input_forward_cookies"></a> [forward\_cookies](#input\_forward\_cookies) | Specifies whether you want CloudFront to forward all or no cookies to the origin. Can be 'all' or 'none' | `string` | `"none"` | no |
 | <a name="input_forward_header_values"></a> [forward\_header\_values](#input\_forward\_header\_values) | A list of whitelisted header values to forward to the origin (incompatible with `cache_policy_id`) | `list(string)` | <pre>[<br>  "Access-Control-Request-Headers",<br>  "Access-Control-Request-Method",<br>  "Origin"<br>]</pre> | no |
+| <a name="input_github_actions_allowed_repos"></a> [github\_actions\_allowed\_repos](#input\_github\_actions\_allowed\_repos) | A list of the GitHub repositories that are allowed to assume this role from GitHub Actions. For example,<br>  ["cloudposse/infra-live"]. Can contain "*" as wildcard.<br>  If org part of repo name is omitted, "cloudposse" will be assumed. | `list(string)` | `[]` | no |
+| <a name="input_github_actions_iam_role_attributes"></a> [github\_actions\_iam\_role\_attributes](#input\_github\_actions\_iam\_role\_attributes) | Additional attributes to add to the role name | `list(string)` | `[]` | no |
+| <a name="input_github_actions_iam_role_enabled"></a> [github\_actions\_iam\_role\_enabled](#input\_github\_actions\_iam\_role\_enabled) | Flag to toggle creation of an IAM Role that GitHub Actions can assume to access AWS resources | `bool` | `false` | no |
 | <a name="input_github_runners_component_name"></a> [github\_runners\_component\_name](#input\_github\_runners\_component\_name) | The name of the component that deploys GitHub Runners, used in remote-state lookup | `string` | `"github-runners"` | no |
 | <a name="input_github_runners_deployment_principal_arn_enabled"></a> [github\_runners\_deployment\_principal\_arn\_enabled](#input\_github\_runners\_deployment\_principal\_arn\_enabled) | A flag that is used to decide whether or not to include the GitHub Runner's IAM role in origin\_deployment\_principal\_arns list | `bool` | `true` | no |
 | <a name="input_github_runners_environment_name"></a> [github\_runners\_environment\_name](#input\_github\_runners\_environment\_name) | The name of the environment where the CloudTrail bucket is provisioned | `string` | `"ue2"` | no |
@@ -217,6 +224,8 @@ an extensive explanation for how these preview environments work.
 | <a name="output_cloudfront_distribution_alias"></a> [cloudfront\_distribution\_alias](#output\_cloudfront\_distribution\_alias) | Cloudfront Distribution Alias Record. |
 | <a name="output_cloudfront_distribution_domain_name"></a> [cloudfront\_distribution\_domain\_name](#output\_cloudfront\_distribution\_domain\_name) | Cloudfront Distribution Domain Name. |
 | <a name="output_failover_s3_bucket_name"></a> [failover\_s3\_bucket\_name](#output\_failover\_s3\_bucket\_name) | Failover Origin bucket name, if enabled. |
+| <a name="output_github_actions_iam_role_arn"></a> [github\_actions\_iam\_role\_arn](#output\_github\_actions\_iam\_role\_arn) | ARN of IAM role for GitHub Actions |
+| <a name="output_github_actions_iam_role_name"></a> [github\_actions\_iam\_role\_name](#output\_github\_actions\_iam\_role\_name) | Name of IAM role for GitHub Actions |
 | <a name="output_origin_s3_bucket_arn"></a> [origin\_s3\_bucket\_arn](#output\_origin\_s3\_bucket\_arn) | Origin bucket ARN. |
 | <a name="output_origin_s3_bucket_name"></a> [origin\_s3\_bucket\_name](#output\_origin\_s3\_bucket\_name) | Origin bucket name. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
