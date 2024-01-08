@@ -53,7 +53,7 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cloudwatch_event"></a> [cloudwatch\_event](#module\_cloudwatch\_event) | cloudposse/cloudwatch-events/aws | 0.6.1 |
+| <a name="module_cloudwatch_event"></a> [cloudwatch\_event](#module\_cloudwatch\_event) | cloudposse/cloudwatch-events/aws | 0.7.0 |
 | <a name="module_cloudwatch_logs"></a> [cloudwatch\_logs](#module\_cloudwatch\_logs) | cloudposse/cloudwatch-logs/aws | 0.6.8 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
