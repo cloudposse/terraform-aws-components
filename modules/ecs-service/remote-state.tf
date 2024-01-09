@@ -20,7 +20,7 @@ locals {
   http_protocol      = coalesce(local.requested_protocol, local.lb_protocol)
 
   lb_arn                       = try(coalesce(local.nlb.nlb_arn, ""), coalesce(local.alb.alb_arn, ""), null)
-  lb_name                      = try(coalesce(local.nlb.nlb_name, ""), coalesce(local.alb.alb_name, ""), null)
+  lb_name                      = try(coalesce(local.nlb.nlb_name, ""), coalesce(local.alb.alb_dns_name, ""), null)
   lb_listener_http_is_redirect = try(length(local.is_nlb ? "" : local.alb.http_redirect_listener_arn) > 0, false)
   lb_listener_https_arn        = try(coalesce(local.nlb.default_listener_arn, ""), coalesce(local.alb.https_listener_arn, ""), null)
   lb_sg_id                     = try(local.is_nlb ? null : local.alb.security_group_id, null)

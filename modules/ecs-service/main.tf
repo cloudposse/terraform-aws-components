@@ -284,7 +284,7 @@ module "alb_ingress" {
 
   vpc_id                        = local.vpc_id
   unauthenticated_listener_arns = [local.lb_listener_https_arn]
-  unauthenticated_hosts         = var.lb_catch_all ? [format("*.%s", var.vanity_domain), local.full_domain] : [local.full_domain]
+  unauthenticated_hosts         = var.lb_catch_all ? [format("*.%s", var.vanity_domain), local.full_domain] : concat([local.full_domain], var.vanity_alias)
   unauthenticated_paths         = flatten(var.unauthenticated_paths)
   # When set to catch-all, make priority super high to make sure last to match
   unauthenticated_priority     = var.lb_catch_all ? 99 : var.unauthenticated_priority
