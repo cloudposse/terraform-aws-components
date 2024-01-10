@@ -26,7 +26,7 @@ module "all_admin_stacks_config" {
 
 module "root_admin_stack" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack"
-  version = "1.5.0"
+  version = "1.6.0"
 
   enabled = local.create_root_admin_stack
 
