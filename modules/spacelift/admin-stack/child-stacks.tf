@@ -54,7 +54,7 @@ module "child_stacks_config" {
 
 module "child_stack" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack"
-  version = "1.5.0"
+  version = "1.6.0"
 
   for_each = local.child_stacks
 
