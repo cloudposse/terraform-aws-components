@@ -309,6 +309,17 @@ variable "terraform_version_map" {
   default     = {}
 }
 
+variable "terraform_workflow_tool" {
+  type        = string
+  description = "Defines the tool that will be used to execute the workflow. This can be one of OPEN_TOFU, TERRAFORM_FOSS or CUSTOM. Defaults to TERRAFORM_FOSS."
+  default     = "TERRAFORM_FOSS"
+
+  validation {
+    condition     = contains(["OPEN_TOFU", "TERRAFORM_FOSS", "CUSTOM"], var.terraform_workflow_tool)
+    error_message = "Valid values for terraform_workflow_tool are (OPEN_TOFU, TERRAFORM_FOSS, CUSTOM)."
+  }
+}
+
 variable "terraform_workspace" {
   type        = string
   description = "Specify the Terraform workspace to use for the stack"
