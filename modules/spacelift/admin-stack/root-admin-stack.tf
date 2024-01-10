@@ -80,6 +80,7 @@ module "root_admin_stack" {
   stack_name                              = var.stack_name != null ? var.stack_name : local.root_admin_stack_name
   terraform_smart_sanitization            = try(local.root_admin_stack_config.settings.spacelift.terraform_smart_sanitization, var.terraform_smart_sanitization)
   terraform_version                       = lookup(var.terraform_version_map, try(local.root_admin_stack_config.settings.spacelift.terraform_version, ""), var.terraform_version)
+  terraform_workflow_tool                 = try(local.root_admin_stack_config.settings.spacelift.terraform_workflow_tool, var.terraform_workflow_tool)
   webhook_enabled                         = try(local.root_admin_stack_config.settings.spacelift.webhook_enabled, var.webhook_enabled)
   webhook_endpoint                        = try(local.root_admin_stack_config.settings.spacelift.webhook_endpoint, var.webhook_endpoint)
   webhook_secret                          = try(local.root_admin_stack_config.settings.spacelift.webhook_secret, var.webhook_secret)

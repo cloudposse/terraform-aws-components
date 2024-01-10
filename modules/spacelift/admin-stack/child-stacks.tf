@@ -115,6 +115,7 @@ module "child_stack" {
   stack_name                              = try(each.value.settings.spacelift.stack_name, each.key)
   terraform_smart_sanitization            = try(each.value.settings.spacelift.terraform_smart_sanitization, var.terraform_smart_sanitization)
   terraform_version                       = lookup(var.terraform_version_map, try(each.value.settings.spacelift.terraform_version, ""), var.terraform_version)
+  terraform_workflow_tool                 = try(each.value.settings.spacelift.terraform_workflow_tool, var.terraform_workflow_tool)
   webhook_enabled                         = try(each.value.settings.spacelift.webhook_enabled, var.webhook_enabled)
   webhook_endpoint                        = try(each.value.settings.spacelift.webhook_endpoint, var.webhook_endpoint)
   webhook_secret                          = try(each.value.settings.spacelift.webhook_secret, var.webhook_secret)
