@@ -14,9 +14,3 @@ variable "spaces" {
   }))
   description = "A map of all Spaces to create in Spacelift"
 }
-
-variable "ssm_params_enabled" {
-  type        = bool
-  description = "Whether to write the IDs of the created spaces to SSM parameters"
-  default     = true
-}

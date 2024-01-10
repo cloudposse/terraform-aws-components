@@ -51,6 +51,8 @@ module "aurora_postgres_cluster" {
   skip_final_snapshot                  = var.skip_final_snapshot
   deletion_protection                  = var.deletion_protection
   snapshot_identifier                  = var.snapshot_identifier
+  allow_major_version_upgrade          = var.allow_major_version_upgrade
+  ca_cert_identifier                   = var.ca_cert_identifier
 
   cluster_parameters = [
     {

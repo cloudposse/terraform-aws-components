@@ -132,9 +132,9 @@ components:
 
 ## Related
 
-- [Decide How to distribute Docker Images](/reference-architecture/design-decisions/foundational-platform/decide-how-to-distribute-docker-images)
+- [Decide How to distribute Docker Images](https://docs.cloudposse.com/reference-architecture/design-decisions/foundational-platform/decide-how-to-distribute-docker-images)
 
-- [Decide on ECR Strategy](/reference-architecture/design-decisions/foundational-platform/decide-on-ecr-strategy)
+- [Decide on ECR Strategy](https://docs.cloudposse.com/reference-architecture/design-decisions/foundational-platform/decide-on-ecr-strategy)
 
 ## References
 * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/ecr) - Cloud Posse's upstream component

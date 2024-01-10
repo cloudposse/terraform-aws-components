@@ -17,3 +17,12 @@ variable "site_fqdn" {
   type        = string
   description = "The fully qualified alias for the CloudFront Distribution."
 }
+
+variable "runtime" {
+  type        = string
+  description = <<-EOT
+  Identifier of the function's runtime. See Runtimes for valid values.
+  https://docs.aws.amazon.com/lambda/latest/dg/API_CreateFunction.html#SSS-CreateFunction-request-Runtime
+  EOT
+  default     = "nodejs16.x"
+}

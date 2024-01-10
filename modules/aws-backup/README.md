@@ -200,6 +200,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_backup"></a> [backup](#module\_backup) | cloudposse/backup/aws | 0.14.0 |
+| <a name="module_copy_destination_vault"></a> [copy\_destination\_vault](#module\_copy\_destination\_vault) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -223,6 +224,8 @@ No resources.
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_destination_vault_arn"></a> [destination\_vault\_arn](#input\_destination\_vault\_arn) | An Amazon Resource Name (ARN) that uniquely identifies the destination backup vault for the copied backup | `string` | `null` | no |
+| <a name="input_destination_vault_component_name"></a> [destination\_vault\_component\_name](#input\_destination\_vault\_component\_name) | The name of the component to be used to look up the destination vault | `string` | `"aws-backup/common"` | no |
+| <a name="input_destination_vault_region"></a> [destination\_vault\_region](#input\_destination\_vault\_region) | The short region of the destination backup vault | `string` | `null` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_iam_role_enabled"></a> [iam\_role\_enabled](#input\_iam\_role\_enabled) | Whether or not to create a new IAM Role and Policy Attachment | `bool` | `true` | no |
@@ -255,6 +258,7 @@ No resources.
 | <a name="output_backup_selection_id"></a> [backup\_selection\_id](#output\_backup\_selection\_id) | Backup Selection ID |
 | <a name="output_backup_vault_arn"></a> [backup\_vault\_arn](#output\_backup\_vault\_arn) | Backup Vault ARN |
 | <a name="output_backup_vault_id"></a> [backup\_vault\_id](#output\_backup\_vault\_id) | Backup Vault ID |
+| <a name="output_copy_destination_backup_vault_arn"></a> [copy\_destination\_backup\_vault\_arn](#output\_copy\_destination\_backup\_vault\_arn) | ARN of the destination Backup Vault copy |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
@@ -266,4 +270,4 @@ No resources.
 
 ## Related How-to Guides
 
-- [How to Enable Cross-Region Backups in AWS-Backup](/reference-architecture/how-to-guides/tutorials/how-to-enable-cross-region-backups-in-aws-backup)
+- [How to Enable Cross-Region Backups in AWS-Backup](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-enable-cross-region-backups-in-aws-backup)

@@ -30,13 +30,13 @@ resource "aws_iam_policy" "default" {
 }
 
 resource "aws_iam_user_policy_attachment" "default" {
-  user       = aws_iam_user.default.name
+  user       = one(aws_iam_user.default[*].name)
   policy_arn = aws_iam_policy.default.arn
 }
 
 # Generate API credentials
 resource "aws_iam_access_key" "default" {
-  user = aws_iam_user.default.name
+  user = one(aws_iam_user.default[*].name)
 }
 
 resource "aws_ssm_parameter" "okta_user_access_key_id" {

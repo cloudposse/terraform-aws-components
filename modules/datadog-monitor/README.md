@@ -24,7 +24,7 @@ components:
 ```
 
 ## Conventions
-- Treat datadog like a separate cloud provider with integrations ([datadog-integration](/components/library/aws/datadog-integration)) into your accounts.
+- Treat datadog like a separate cloud provider with integrations ([datadog-integration](https://docs.cloudposse.com/components/library/aws/datadog-integration)) into your accounts.
 
 - Use the `catalog` convention to define a step of alerts. You can use ours or define your own.
   [https://github.com/cloudposse/terraform-datadog-platform/tree/master/catalog/monitors](https://github.com/cloudposse/terraform-datadog-platform/tree/master/catalog/monitors)
@@ -234,13 +234,13 @@ No resources.
 
 ## Related How-to Guides
 
-- [How to Onboard a New Service with Datadog and OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-onboard-a-new-service-with-datadog-and-opsgenie)
-- [How to Sign Up for Datadog?](/reference-architecture/how-to-guides/tutorials/how-to-sign-up-for-datadog)
-- [How to use Datadog Metrics for Horizontal Pod Autoscaling (HPA)](/reference-architecture/how-to-guides/tutorials/how-to-use-datadog-metrics-for-horizontal-pod-autoscaling-hpa)
-- [How to Implement SRE with Datadog](/reference-architecture/how-to-guides/tutorials/how-to-implement-sre-with-datadog)
+- [How to Onboard a New Service with Datadog and OpsGenie](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-onboard-a-new-service-with-datadog-and-opsgenie)
+- [How to Sign Up for Datadog?](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-sign-up-for-datadog)
+- [How to use Datadog Metrics for Horizontal Pod Autoscaling (HPA)](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-use-datadog-metrics-for-horizontal-pod-autoscaling-hpa)
+- [How to Implement SRE with Datadog](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-implement-sre-with-datadog)
 
 ## Component Dependencies
-- [datadog-integration](/reference-architecture/components/datadog-integration)
+- [datadog-integration](https://docs.cloudposse.com/components/library/aws/datadog-integration/)
 
 ## References
 * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/datadog-monitor) - Cloud Posse's upstream component

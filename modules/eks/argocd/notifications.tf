@@ -4,10 +4,19 @@ data "aws_ssm_parameters_by_path" "argocd_notifications" {
   with_decryption = true
 }
 
+data "aws_ssm_parameter" "slack_notifications" {
+  provider = aws.config_secrets
+  count    = local.slack_notifications_enabled ? 1 : 0
+
+  name            = var.slack_notifications.token_ssm_path
+  with_decryption = true
+}
+
 locals {
   github_default_notifications_enabled = local.enabled && var.github_default_notifications_enabled
+  slack_notifications_enabled          = local.enabled && var.slack_notifications_enabled
 
-  notification_default_notifier_github_commot_status = {
+  notification_default_notifier_github_commit_status = {
     url = "https://api.github.com"
     headers = [
       {
@@ -17,14 +26,25 @@ locals {
     ]
   }
 
-  notification_default_notifiers = local.github_default_notifications_enabled ? {
-    webhook = {
-      app-repo-github-commit-status    = local.notification_default_notifier_github_commot_status
-      argocd-repo-github-commit-status = local.notification_default_notifier_github_commot_status
-    }
-  } : {}
+  notification_slack_service = {
+    apiURL   = var.slack_notifications.api_url
+    token    = "$slack-token"
+    username = var.slack_notifications.username
+    icon     = var.slack_notifications.icon
+  }
 
-  notifications_notifiers = merge(var.notifications_notifiers, local.notification_default_notifiers)
+  notifications_notifiers = merge(
+    var.notifications_notifiers,
+    local.github_default_notifications_enabled ? {
+      webhook = {
+        app-repo-github-commit-status    = local.notification_default_notifier_github_commit_status
+        argocd-repo-github-commit-status = local.notification_default_notifier_github_commit_status
+      }
+    } : {},
+    local.slack_notifications_enabled ? {
+      slack = local.notification_slack_service
+    } : {}
+  )
 
   ## Get list of notifiers services
   notifications_notifiers_variables = merge(
@@ -68,9 +88,7 @@ locals {
       [for name in value.names : format("$%s_%s", key, trimprefix(name, local.notifications_notifiers_ssm_path[key]))]
     )
   }
-}
 
-locals {
   notifications_template_github_commit_status = {
     method = "POST"
     body = {
@@ -88,7 +106,7 @@ locals {
     path = "/repos/{{call .repo.FullNameByRepoURL .app.spec.source.repoURL}}/statuses/{{.app.status.operationState.operation.sync.revision}}"
   })
 
-  notifications_default_templates = local.github_default_notifications_enabled ? {
+  notifications_default_templates = merge(local.github_default_notifications_enabled ? {
     app-deploy-succeded = {
       message = "Application {{ .app.metadata.name }} is now running new version of deployments manifests."
       webhook = {
@@ -128,13 +146,74 @@ locals {
         }
       }
     }
-  } : {}
+    } : {},
+    local.slack_notifications_enabled ? {
+      app-created = {
+        message = "Application {{ .app.metadata.name }} has been created."
+        slack = {
+          attachments = templatefile("${path.module}/resources/argocd-slack-message.tpl",
+            {
+              color = "#00ff00"
+            }
+          )
+        }
+      },
+      app-deleted = {
+        message = "Application {{ .app.metadata.name }} was deleted."
+        slack = {
+          attachments = templatefile("${path.module}/resources/argocd-slack-message.tpl",
+            {
+              color = "#FFA500"
+            }
+          )
+        }
+      },
+      app-success = {
+        message = "Application {{ .app.metadata.name }} deployment was successful!"
+        slack = {
+          attachments = templatefile("${path.module}/resources/argocd-slack-message.tpl",
+            {
+              color = "#00ff00"
+            }
+          )
+        }
+      },
+      app-failure = {
+        message = "Application {{ .app.metadata.name }} deployment failed!"
+        slack = {
+          attachments = templatefile("${path.module}/resources/argocd-slack-message.tpl",
+            {
+              color = "#FF0000"
+            }
+          )
+        }
+      },
+      app-started = {
+        message = "Application {{ .app.metadata.name }} started deployment..."
+        slack = {
+          attachments = templatefile("${path.module}/resources/argocd-slack-message.tpl",
+            {
+              color = "#0000ff"
+            }
+          )
+        }
+      },
+      app-health-degraded = {
+        message = "Application {{ .app.metadata.name }} health has degraded!"
+        slack = {
+          attachments = templatefile("${path.module}/resources/argocd-slack-message.tpl",
+            {
+              color = "#FF0000"
+            }
+          )
+        }
+      }
+    } : {}
+  )
 
   notifications_templates = merge(var.notifications_templates, local.notifications_default_templates)
-}
 
-locals {
-  notifications_default_triggers = local.github_default_notifications_enabled ? {
+  notifications_default_triggers = merge(local.github_default_notifications_enabled ? {
     on-deploy-started = [
       {
         when    = "app.status.operationState.phase in ['Running'] or ( app.status.operationState.phase == 'Succeeded' and app.status.health.status == 'Progressing' )"
@@ -156,12 +235,57 @@ locals {
         send    = ["app-deploy-failed"]
       }
     ]
-  } : {}
+    } : {},
+    local.slack_notifications_enabled ? {
+      # Full catalog of notification triggers as default
+      # https://github.com/argoproj/argo-cd/tree/master/notifications_catalog/triggers
+      on-created = [
+        {
+          when    = "true"
+          send    = ["app-created"]
+          oncePer = "app.metadata.name"
+        }
+      ],
+      on-deleted = [
+        {
+          when    = "app.metadata.deletionTimestamp != nil"
+          send    = ["app-deleted"]
+          oncePer = "app.metadata.deletionTimestamp"
+        }
+      ],
+      on-success = [
+        {
+          when    = "app.status.operationState != nil and app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'"
+          send    = ["app-success"]
+          oncePer = "app.status.operationState?.syncResult?.revision"
+        }
+      ],
+      on-failure = [
+        {
+          when    = "app.status.operationState != nil and (app.status.operationState.phase in ['Error', 'Failed'] or app.status.sync.status == 'Unknown')"
+          send    = ["app-failure"]
+          oncePer = "app.status.operationState?.syncResult?.revision"
+        }
+      ],
+      on-health-degraded = [
+        {
+          when    = "app.status.health.status == 'Degraded'"
+          send    = ["app-health-degraded"]
+          oncePer = "app.status.operationState?.syncResult?.revision"
+        }
+      ],
+      on-started = [
+        {
+          when    = "app.status.operationState != nil and app.status.operationState.phase in ['Running']"
+          send    = ["app-started"]
+          oncePer = "app.status.operationState?.syncResult?.revision"
+        }
+      ]
+    } : {}
+  )
 
   notifications_triggers = merge(var.notifications_triggers, local.notifications_default_triggers)
-}
 
-locals {
   notifications = {
     notifications = {
       templates = { for key, value in local.notifications_templates : format("template.%s", key) => yamlencode(value) }
