@@ -227,12 +227,12 @@ module "alb" {
 }
 
 locals {
-  # formats the loadbalancer configuration data to be:
+  # formats the load-balancer configuration data to be:
   # { "${alb_configuration key}_${additional_cert_entry}" => "additional_cert_entry" }
   certificate_domains = merge([
     for config_key, config in var.alb_configuration :
     { for domain in config.additional_certs :
-    "${config_key}_${domain}" => domain }
+    "${config_key}_${domain}" => domain } if lookup(config, "additional_certs", []) != []
   ]...)
 }
 
