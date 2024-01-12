@@ -84,7 +84,7 @@ module "root_admin_stack" {
   webhook_enabled                         = try(local.root_admin_stack_config.settings.spacelift.webhook_enabled, var.webhook_enabled)
   webhook_endpoint                        = try(local.root_admin_stack_config.settings.spacelift.webhook_endpoint, var.webhook_endpoint)
   webhook_secret                          = try(local.root_admin_stack_config.settings.spacelift.webhook_secret, var.webhook_secret)
-  worker_pool_id                          = local.worker_pools[var.worker_pool_name]
+  worker_pool_id                          = try(local.worker_pools[var.worker_pool_name], null)
 
   azure_devops         = try(local.root_admin_stack_config.settings.spacelift.azure_devops, var.azure_devops)
   bitbucket_cloud      = try(local.root_admin_stack_config.settings.spacelift.bitbucket_cloud, var.bitbucket_cloud)

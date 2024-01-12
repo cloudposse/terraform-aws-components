@@ -119,7 +119,7 @@ module "child_stack" {
   webhook_enabled                         = try(each.value.settings.spacelift.webhook_enabled, var.webhook_enabled)
   webhook_endpoint                        = try(each.value.settings.spacelift.webhook_endpoint, var.webhook_endpoint)
   webhook_secret                          = try(each.value.settings.spacelift.webhook_secret, var.webhook_secret)
-  worker_pool_id                          = try(local.worker_pools[each.value.settings.spacelift.worker_pool_name], local.worker_pools[var.worker_pool_name])
+  worker_pool_id                          = try(local.worker_pools[each.value.settings.spacelift.worker_pool_name], local.worker_pools[var.worker_pool_name], null)
 
   azure_devops         = try(each.value.settings.spacelift.azure_devops, var.azure_devops)
   bitbucket_cloud      = try(each.value.settings.spacelift.bitbucket_cloud, var.bitbucket_cloud)
