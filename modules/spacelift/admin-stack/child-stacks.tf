@@ -104,7 +104,7 @@ module "child_stack" {
   drift_detection_timezone                = try(each.value.settings.spacelift.drift_detection_timezone, var.drift_detection_timezone)
   local_preview_enabled                   = try(each.value.settings.spacelift.local_preview_enabled, var.local_preview_enabled)
   manage_state                            = try(each.value.settings.spacelift.manage_state, var.manage_state)
-  policy_ids                              = try(local.child_policy_ids, [])
+  policy_ids                              = try(concat(each.value.settings.spacelift.policies, local.child_policy_ids), local.child_policy_ids, [])
   protect_from_deletion                   = try(each.value.settings.spacelift.protect_from_deletion, var.protect_from_deletion)
   repository                              = var.repository
   runner_image                            = try(each.value.settings.spacelift.runner_image, var.runner_image)
