@@ -312,3 +312,16 @@ variable "zip" {
   description = "Zip Configuration for local file deployments"
   default     = {}
 }
+
+
+variable "cicd_ssm_param_name" {
+  type        = string
+  description = "The name of the SSM parameter to store the latest version/sha of the Lambda function. This is used with cicd_s3_key_format"
+  default     = null
+}
+
+variable "cicd_s3_key_format" {
+  type        = string
+  description = "The format of the S3 key to store the latest version/sha of the Lambda function. This is used with cicd_ssm_param_name. Defaults to 'stage/{stage}/lambda/{function_name}/%s.zip'"
+  default     = null
+}
