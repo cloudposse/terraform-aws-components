@@ -153,7 +153,7 @@ This component supports alternate service names for your ECS Service through a c
 Examples:
 
 ```yaml
-      ecs/platform/service/echo-server:
+    ecs/platform/service/echo-server:
       vars:
         vanity_domain: "dev-acme.com"
         vanity_alias:
