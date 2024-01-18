@@ -144,6 +144,53 @@ components:
           task_cpu: 256
 ```
 
+#### Other Domains
+
+This component supports alternate service names for your ECS Service through a couple of variables:
+ - `vanity_domain` & `vanity_alias` - This will create a route to the service in the listener rules of the ALB. This will also create a route53 alias record in the hosted zone in this account. The hosted zone is looked up by the `vanity_domain` input.
+ - `additional_targets` - This will create a route to the service in the listener rules of the ALB. This will not create a route53 alias record.
+
+Examples:
+
+```yaml
+      ecs/platform/service/echo-server:
+      vars:
+        vanity_domain: "dev-acme.com"
+        vanity_alias:
+          - "echo-server.dev-acme.com"
+        additional_targets:
+          - "echo.acme.com"
+```
+
+This then creates the following listener rules:
+
+```text
+HTTP Host Header is
+echo-server.public-platform.use2.dev.plat.service-discovery.com
+ OR echo-server.dev-acme.com
+ OR echo.acme.com
+```
+
+It will also create the record in Route53 to point `"echo-server.dev-acme.com"` to the ALB. Thus `"echo-server.dev-acme.com"` should resolve.
+
+We can then create a pointer to this service in the `acme.come` hosted zone.
+
+```yaml
+    dns-primary:
+      vars:
+        domain_names:
+           - acme.com
+        record_config:
+          - root_zone: acme.com
+            name: echo.
+            type: CNAME
+            ttl: 60
+            records:
+              - echo-server.dev-acme.com
+```
+
+This will create a CNAME record in the `acme.com` hosted zone that points `echo.acme.com` to `echo-server.dev-acme.com`.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
