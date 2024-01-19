@@ -177,4 +177,4 @@ Here's an example snippet for how to use this component.
 
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/tfstate-backend) - Cloud Posse's upstream component
+  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/tfstate-backend) - Cloud Posse's upstream component

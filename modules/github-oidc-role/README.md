@@ -234,6 +234,6 @@ There are two methods for adding custom policies to the IAM role.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/github-oidc-role) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/github-oidc-role) - Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

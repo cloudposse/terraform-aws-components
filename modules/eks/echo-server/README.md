@@ -1,6 +1,6 @@
 # Component: `eks/echo-server`
 
-This is copied from [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/echo-server).
+This is copied from [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/echo-server).
 
 This component installs the [Ealenn/Echo-Server](https://github.com/Ealenn/Echo-Server) to EKS clusters.
 The echo server is a server that sends it back to the client a JSON representation of all the data

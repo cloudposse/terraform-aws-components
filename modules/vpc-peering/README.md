@@ -250,6 +250,6 @@ atmos terraform apply vpc-peering -s ue1-prod
 | <a name="output_vpc_peering"></a> [vpc\_peering](#output\_vpc\_peering) | VPC peering outputs |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/vpc-peering) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/vpc-peering) - Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

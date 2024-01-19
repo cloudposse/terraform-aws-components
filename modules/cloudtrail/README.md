@@ -1,7 +1,7 @@
 # Component: `cloudtrail`
 
 This component is responsible for provisioning cloudtrail auditing in an individual account. It's expected to be used alongside
-[the `cloudtrail-bucket` component](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/cloudtrail-bucket)
+[the `cloudtrail-bucket` component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/cloudtrail-bucket)
 as it utilizes that bucket via remote state.
 
 This component can either be deployed selectively to various accounts with `is_organization_trail=false`, or alternatively
@@ -116,6 +116,6 @@ components:
 
 ## References
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/cloudtrail) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/cloudtrail) - Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
