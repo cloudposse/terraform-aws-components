@@ -121,7 +121,7 @@ For additional context, refer to some of these links.
 
 ## ✨ Contributing
 
-This project is under active development, and we encourage contributions from our community. 
+This project is under active development, and we encourage contributions from our community.
 Many thanks to our outstanding contributors:
 
 <a href="https://github.com/cloudposse/terraform-aws-components/graphs/contributors">
@@ -158,9 +158,9 @@ Sign up for [our newsletter][newsletter] that covers everything on our technolog
 
 [Join us every Wednesday via Zoom][office_hours] for our weekly "Lunch & Learn" sessions. It's **FREE** for everyone!
 
-## About 
+## About
 
-This project is maintained and funded by [Cloud Posse, LLC][website]. 
+This project is maintained and funded by [Cloud Posse, LLC][website].
 <a href="https://cpco.io/homepage"><img src="https://cloudposse.com/logo-300x69.svg" align="right" /></a>
 
 We are a [**DevOps Accelerator**][commercial_support]. We'll help you build your cloud infrastructure from the ground up so you can own it. Then we'll show you how to operate it and stick around for as long as you need us.
