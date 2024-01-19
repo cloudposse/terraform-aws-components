@@ -6,6 +6,23 @@ This component provisions Glue catalog databases.
 
 **Stack Level**: Regional
 
+```yaml
+components:
+  terraform:
+    glue/catalog-database/example:
+      metadata:
+        component: glue/catalog-database
+      vars:
+        enabled: true
+        name: example
+        catalog_database_description: Glue catalog database example
+        location_uri: "s3://awsglue-datasets/examples/medicare/Medicare_Hospital_Provider.csv"
+        glue_iam_component_name: glue/iam
+        lakeformation_permissions_enabled: true
+        lakeformation_permissions:
+          - "ALL"
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
