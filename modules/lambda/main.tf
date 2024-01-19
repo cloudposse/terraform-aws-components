@@ -2,6 +2,16 @@ locals {
   enabled             = module.this.enabled
   iam_policy_enabled  = local.enabled && (try(length(var.iam_policy), 0) > 0 || var.policy_json != null)
   s3_bucket_full_name = var.s3_bucket_name != null ? format("%s-%s-%s-%s-%s", module.this.namespace, module.this.tenant, module.this.environment, module.this.stage, var.s3_bucket_name) : null
+
+  cicd_s3_key_format = var.cicd_s3_key_format != null ? var.cicd_s3_key_format : "stage/${module.this.stage}/lambda/${var.function_name}/%s"
+  s3_key             = var.s3_bucket_name == null ? null : (var.s3_key != null ? var.s3_key : format(local.cicd_s3_key_format, coalesce(one(data.aws_ssm_parameter.cicd_ssm_param[*].value), "example")))
+
+}
+
+data "aws_ssm_parameter" "cicd_ssm_param" {
+  count = local.enabled && var.cicd_ssm_param_name != null ? 1 : 0
+
+  name = var.cicd_ssm_param_name
 }
 
 module "label" {
@@ -52,7 +62,7 @@ module "lambda" {
 
   filename          = var.filename
   s3_bucket         = local.s3_bucket_full_name
-  s3_key            = var.s3_key
+  s3_key            = local.s3_key
   s3_object_version = var.s3_object_version
 
   architectures                       = var.architectures
