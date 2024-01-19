@@ -1,11 +1,9 @@
 
 <!-- markdownlint-disable -->
-# terraform-aws-components [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-components.svg)](https://github.com/cloudposse/terraform-aws-components/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+[![Project Banner](.github/banner.png?raw=true)](https://cpco.io/homepage)
+ [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-components.svg)](https://github.com/cloudposse/terraform-aws-components/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 <!-- markdownlint-restore -->
 
-[![README Header][readme_header_img]][readme_header_link]
-
-[![Cloud Posse][logo]](https://cpco.io/homepage)
 
 <!--
 
@@ -30,22 +28,15 @@
 
 This is a collection of reusable Terraform components for provisioning infrastructure used by the Cloud Posse [reference architectures](https://cloudposse.com).
 
+
 ---
+> [!NOTE]
+> This project is part of Cloud Posse's comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
+>
+> It's 100% Open Source and licensed under the [APACHE2](LICENSE).
+>
 
-This project is part of our comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
-
-
-It's 100% Open Source and licensed under the [APACHE2](LICENSE).
-
-
-
-
-
-
-
-
-
-
+[![README Header][readme_header_img]][readme_header_link]
 
 
 ## Introduction
@@ -130,7 +121,7 @@ For additional context, refer to some of these links.
 
 ## ✨ Contributing
 
-This project is under active development, and we encourage contributions from our community.
+This project is under active development, and we encourage contributions from our community. 
 Many thanks to our outstanding contributors:
 
 <a href="https://github.com/cloudposse/terraform-aws-components/graphs/contributors">
@@ -143,7 +134,7 @@ Please use the [issue tracker](https://github.com/cloudposse/terraform-aws-compo
 
 ### 💻 Developing
 
-If you are interested in being a contributor and want to get involved in developing this project or [help out](https://cpco.io/help-out) with our other projects, we would love to hear from you! Shoot us an [email][email].
+If you are interested in being a contributor and want to get involved in developing this project or [help out](https://cpco.io/help-out) with Cloud Posse's other projects, we would love to hear from you! Shoot us an [email][email].
 
 In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
@@ -167,9 +158,9 @@ Sign up for [our newsletter][newsletter] that covers everything on our technolog
 
 [Join us every Wednesday via Zoom][office_hours] for our weekly "Lunch & Learn" sessions. It's **FREE** for everyone!
 
-## About
+## About 
 
-This project is maintained and funded by [Cloud Posse, LLC][website].
+This project is maintained and funded by [Cloud Posse, LLC][website]. 
 <a href="https://cpco.io/homepage"><img src="https://cloudposse.com/logo-300x69.svg" align="right" /></a>
 
 We are a [**DevOps Accelerator**][commercial_support]. We'll help you build your cloud infrastructure from the ground up so you can own it. Then we'll show you how to operate it and stick around for as long as you need us.
@@ -221,7 +212,7 @@ under the License.
 
 All other trademarks referenced herein are the property of their respective owners.
 ---
-Copyright © 2017-2023 [Cloud Posse, LLC](https://cpco.io/copyright)
+Copyright © 2017-2024 [Cloud Posse, LLC](https://cpco.io/copyright)
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
 <!-- markdownlint-disable -->
