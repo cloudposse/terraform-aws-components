@@ -16,9 +16,9 @@ locals {
     subnet_id = local.subnet_id
   } : null
 
-  username = var.ssm_path_username != null ? join("", data.aws_ssm_parameter.user.*.value) : null
-  password = var.ssm_path_password != null ? join("", data.aws_ssm_parameter.password.*.value) : null
-  endpoint = var.ssm_path_endpoint != null ? join("", data.aws_ssm_parameter.endpoint.*.value) : null
+  username = one(data.aws_ssm_parameter.user.*.value)
+  password = one(data.aws_ssm_parameter.password.*.value)
+  endpoint = one(data.aws_ssm_parameter.endpoint.*.value)
 }
 
 data "aws_subnet" "selected" {
@@ -35,25 +35,14 @@ module "glue_connection" {
   connection_description           = var.connection_description
   catalog_id                       = var.catalog_id
   connection_type                  = var.connection_type
-  connection_properties            = {
+  match_criteria                   = var.match_criteria
+  physical_connection_requirements = local.physical_connection_requirements
+
+  connection_properties = {
     JDBC_CONNECTION_URL = "jdbc:${var.db_type}://${local.endpoint}/${var.connection_db_name}"
     USERNAME            = local.username
     PASSWORD            = local.password
   }
-  match_criteria                   = var.match_criteria
-  physical_connection_requirements = local.physical_connection_requirements
 
   context = module.this.context
-}
-
-data "aws_ssm_parameter" "endpoint" {
-  name = var.ssm_path_endpoint
-}
-
-data "aws_ssm_parameter" "user" {
-  name = var.ssm_path_username
-}
-
-data "aws_ssm_parameter" "password" {
-  name = var.ssm_path_password
 }

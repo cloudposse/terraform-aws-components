@@ -1,4 +1,6 @@
 locals {
+  enabled = module.this.enabled
+
   glue_iam_role_arn  = module.glue_iam_role.outputs.role_arn
   glue_iam_role_name = module.glue_iam_role.outputs.role_name
 

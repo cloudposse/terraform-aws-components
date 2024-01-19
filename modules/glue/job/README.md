@@ -13,7 +13,7 @@ This component provisions Glue jobs.
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
-| <a name="requirement_utils"></a> [utils](#requirement\_utils) | >= 1.5.0 |
+| <a name="requirement_utils"></a> [utils](#requirement\_utils) | >= 1.15.0 |
 
 ## Providers
 
@@ -38,6 +38,7 @@ This component provisions Glue jobs.
 | [aws_iam_policy.glue_job_aws_tools_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role_policy_attachment.glue_jobs_aws_tools_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.glue_redshift_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_policy_document.glue_job_aws_tools_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
 ## Inputs
 

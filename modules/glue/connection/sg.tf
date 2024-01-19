@@ -14,7 +14,7 @@ locals {
 
 module "security_group" {
   source  = "cloudposse/security-group/aws"
-  version = "1.0.1"
+  version = "2.2.0"
 
   enabled = local.physical_connection_enabled
 
@@ -26,16 +26,17 @@ module "security_group" {
   context = module.this.context
 }
 
-# this adds the necessary security group for Glue to communicate with Redshift
+# This allows adding the necessary Security Group rules for Glue to communicate with Redshift
 module "target_security_group" {
   source  = "cloudposse/security-group/aws"
-  version = "1.0.1"
+  version = "2.2.0"
 
+  enabled = local.enabled && var.target_security_group_rules != null && length(var.target_security_group_rules) > 0
+
+  vpc_id                   = module.vpc.outputs.vpc_id
+  security_group_name      = [module.security_group.name]
   target_security_group_id = [module.security_group.id]
-  rules                    = var.glue_rule
-
-  security_group_name = [module.security_group.name]
-  vpc_id              = module.vpc.outputs.vpc_id
+  rules                    = var.target_security_group_rules
 
   context = module.this.context
 }
