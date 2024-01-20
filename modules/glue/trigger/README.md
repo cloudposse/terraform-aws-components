@@ -6,6 +6,26 @@ This component provisions Glue triggers.
 
 **Stack Level**: Regional
 
+```yaml
+components:
+  terraform:
+    glue/trigger/example:
+      metadata:
+        component: glue/trigger
+      vars:
+        enabled: true
+        name: example
+        trigger_name: example
+        trigger_description: "Glue trigger example"
+        glue_workflow_component_name: "glue/workflow/example"
+        glue_job_component_name: "glue/job/example"
+        glue_job_timeout: 10
+        trigger_enabled: true
+        start_on_creation: true
+        schedule: "cron(15 12 * * ? *)"
+        type: SCHEDULED
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -37,7 +57,7 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_actions"></a> [actions](#input\_actions) | List of actions initiated by the trigger when it fires. | `list(any)` | `null` | no |
+| <a name="input_actions"></a> [actions](#input\_actions) | List of actions initiated by the trigger when it fires | `list(any)` | `null` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
@@ -45,7 +65,7 @@ No resources.
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_event_batching_condition"></a> [event\_batching\_condition](#input\_event\_batching\_condition) | Batch condition that must be met (specified number of events received or batch time window expired) before EventBridge event trigger fires. | `map(number)` | `null` | no |
+| <a name="input_event_batching_condition"></a> [event\_batching\_condition](#input\_event\_batching\_condition) | Batch condition that must be met (specified number of events received or batch time window expired) before EventBridge event trigger fires | `map(number)` | `null` | no |
 | <a name="input_glue_job_component_name"></a> [glue\_job\_component\_name](#input\_glue\_job\_component\_name) | Glue workflow job name. Used to get the Glue job from the remote state | `string` | `null` | no |
 | <a name="input_glue_job_timeout"></a> [glue\_job\_timeout](#input\_glue\_job\_timeout) | The job run timeout in minutes. It overrides the timeout value of the job | `number` | `null` | no |
 | <a name="input_glue_workflow_component_name"></a> [glue\_workflow\_component\_name](#input\_glue\_workflow\_component\_name) | Glue workflow component name. Used to get the Glue workflow from the remote state | `string` | `null` | no |
@@ -56,18 +76,18 @@ No resources.
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_predicate"></a> [predicate](#input\_predicate) | A predicate to specify when the new trigger should fire. Required when trigger type is `CONDITIONAL`. | `any` | `null` | no |
+| <a name="input_predicate"></a> [predicate](#input\_predicate) | A predicate to specify when the new trigger should fire. Required when trigger type is `CONDITIONAL` | `any` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_schedule"></a> [schedule](#input\_schedule) | Cron formatted schedule. Required for triggers with type `SCHEDULED`. | `string` | `null` | no |
+| <a name="input_schedule"></a> [schedule](#input\_schedule) | Cron formatted schedule. Required for triggers with type `SCHEDULED` | `string` | `null` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
-| <a name="input_start_on_creation"></a> [start\_on\_creation](#input\_start\_on\_creation) | Set to `true` to start `SCHEDULED` and `CONDITIONAL` triggers when created. `true` is not supported for `ON_DEMAND` triggers. | `bool` | `true` | no |
+| <a name="input_start_on_creation"></a> [start\_on\_creation](#input\_start\_on\_creation) | Set to `true` to start `SCHEDULED` and `CONDITIONAL` triggers when created. `true` is not supported for `ON_DEMAND` triggers | `bool` | `true` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_trigger_description"></a> [trigger\_description](#input\_trigger\_description) | Glue trigger description. | `string` | `null` | no |
-| <a name="input_trigger_enabled"></a> [trigger\_enabled](#input\_trigger\_enabled) | Whether to start the created trigger. | `bool` | `true` | no |
-| <a name="input_trigger_name"></a> [trigger\_name](#input\_trigger\_name) | Glue trigger name. If not provided, the name will be generated from the context. | `string` | `null` | no |
-| <a name="input_type"></a> [type](#input\_type) | The type of trigger. Options are CONDITIONAL, SCHEDULED or ON\_DEMAND. | `string` | `"CONDITIONAL"` | no |
+| <a name="input_trigger_description"></a> [trigger\_description](#input\_trigger\_description) | Glue trigger description | `string` | `null` | no |
+| <a name="input_trigger_enabled"></a> [trigger\_enabled](#input\_trigger\_enabled) | Whether to start the created trigger | `bool` | `true` | no |
+| <a name="input_trigger_name"></a> [trigger\_name](#input\_trigger\_name) | Glue trigger name. If not provided, the name will be generated from the context | `string` | `null` | no |
+| <a name="input_type"></a> [type](#input\_type) | The type of trigger. Options are CONDITIONAL, SCHEDULED or ON\_DEMAND | `string` | `"CONDITIONAL"` | no |
 
 ## Outputs
 

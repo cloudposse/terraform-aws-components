@@ -6,6 +6,25 @@ This component provisions Glue connections.
 
 **Stack Level**: Regional
 
+```yaml
+components:
+  terraform:
+    glue/connection/example/redshift:
+      metadata:
+        component: glue/connection
+      vars:
+        connection_name: "jdbc-redshift"
+        connection_description: "Glue Connection for Redshift"
+        connection_type: "JDBC"
+        db_type: "redshift"
+        connection_db_name: "analytics"
+        ssm_path_username: "/glue/redshift/admin_user"
+        ssm_path_password: "/glue/redshift/admin_password"
+        ssm_path_endpoint: "/glue/redshift/endpoint"
+        physical_connection_enabled: true
+        vpc_component_name: "vpc"
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -52,7 +71,7 @@ This component provisions Glue connections.
 | <a name="input_connection_description"></a> [connection\_description](#input\_connection\_description) | Connection description | `string` | `null` | no |
 | <a name="input_connection_name"></a> [connection\_name](#input\_connection\_name) | Connection name. If not provided, the name will be generated from the context | `string` | `null` | no |
 | <a name="input_connection_properties"></a> [connection\_properties](#input\_connection\_properties) | A map of key-value pairs used as parameters for this connection | `map(string)` | `null` | no |
-| <a name="input_connection_type"></a> [connection\_type](#input\_connection\_type) | The type of the connection. Supported are: JDBC, MONGODB, KAFKA, and NETWORK. Defaults to JBDC | `string` | n/a | yes |
+| <a name="input_connection_type"></a> [connection\_type](#input\_connection\_type) | The type of the connection. Supported are: JDBC, MONGODB, KAFKA, and NETWORK. Defaults to JDBC | `string` | n/a | yes |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_db_type"></a> [db\_type](#input\_db\_type) | Database type for the connection URL: `postgres` or `redshift` | `string` | `"redshift"` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |

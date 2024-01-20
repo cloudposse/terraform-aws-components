@@ -5,31 +5,31 @@ variable "region" {
 
 variable "catalog_table_name" {
   type        = string
-  description = "Name of the table."
+  description = "Name of the table"
   default     = null
 }
 
 variable "catalog_table_description" {
   type        = string
-  description = "Description of the table."
+  description = "Description of the table"
   default     = null
 }
 
 variable "catalog_id" {
   type        = string
-  description = "ID of the Glue Catalog and database to create the table in. If omitted, this defaults to the AWS Account ID plus the database name."
+  description = "ID of the Glue Catalog and database to create the table in. If omitted, this defaults to the AWS Account ID plus the database name"
   default     = null
 }
 
 variable "owner" {
   type        = string
-  description = "Owner of the table."
+  description = "Owner of the table"
   default     = null
 }
 
 variable "parameters" {
   type        = map(string)
-  description = "Properties associated with this table, as a map of key-value pairs."
+  description = "Properties associated with this table, as a map of key-value pairs"
   default     = null
 }
 
@@ -38,7 +38,7 @@ variable "partition_index" {
     index_name = string
     keys       = list(string)
   })
-  description = "Configuration block for a maximum of 3 partition indexes."
+  description = "Configuration block for a maximum of 3 partition indexes"
   default     = null
 }
 
@@ -50,19 +50,19 @@ variable "partition_keys" {
   #  })
   # Using `type = map(string)` since some of the the fields are optional and we don't want to force the caller to specify all of them and set to `null` those not used
   type        = map(string)
-  description = "Configuration block of columns by which the table is partitioned. Only primitive types are supported as partition keys."
+  description = "Configuration block of columns by which the table is partitioned. Only primitive types are supported as partition keys"
   default     = null
 }
 
 variable "retention" {
   type        = number
-  description = "Retention time for the table."
+  description = "Retention time for the table"
   default     = null
 }
 
 variable "table_type" {
   type        = string
-  description = "Type of this table (`EXTERNAL_TABLE`, `VIRTUAL_VIEW`, etc.). While optional, some Athena DDL queries such as `ALTER TABLE` and `SHOW CREATE TABLE` will fail if this argument is empty."
+  description = "Type of this table (`EXTERNAL_TABLE`, `VIRTUAL_VIEW`, etc.). While optional, some Athena DDL queries such as `ALTER TABLE` and `SHOW CREATE TABLE` will fail if this argument is empty"
   default     = null
 }
 
@@ -72,19 +72,19 @@ variable "target_table" {
     database_name = string
     name          = string
   })
-  description = "Configuration block of a target table for resource linking."
+  description = "Configuration block of a target table for resource linking"
   default     = null
 }
 
 variable "view_expanded_text" {
   type        = string
-  description = "If the table is a view, the expanded text of the view; otherwise null."
+  description = "If the table is a view, the expanded text of the view; otherwise null"
   default     = null
 }
 
 variable "view_original_text" {
   type        = string
-  description = "If the table is a view, the original text of the view; otherwise null."
+  description = "If the table is a view, the original text of the view; otherwise null"
   default     = null
 }
 
@@ -158,7 +158,7 @@ variable "storage_descriptor" {
 
   # Using `type = any` since some of the the fields are optional and we don't want to force the caller to specify all of them and set to `null` those not used
   type        = any
-  description = "Configuration block for information about the physical storage of this table."
+  description = "Configuration block for information about the physical storage of this table"
   default     = null
 }
 

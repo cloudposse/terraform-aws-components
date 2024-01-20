@@ -6,12 +6,12 @@ This component provisions IAM roles for AWS Glue.
 
 **Stack Level**: Regional
 
-Here's an example snippet for how to use this component.
-
 ```yaml
 components:
   terraform:
     glue/iam:
+      metadata:
+        component: glue/iam
       vars:
         enabled: true
         name: glue

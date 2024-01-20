@@ -28,7 +28,7 @@ variable "catalog_id" {
 
 variable "connection_type" {
   type        = string
-  description = "The type of the connection. Supported are: JDBC, MONGODB, KAFKA, and NETWORK. Defaults to JBDC"
+  description = "The type of the connection. Supported are: JDBC, MONGODB, KAFKA, and NETWORK. Defaults to JDBC"
 
   validation {
     condition     = contains(["JDBC", "MONGODB", "KAFKA", "NETWORK"], var.connection_type)
