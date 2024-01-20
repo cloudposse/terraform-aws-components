@@ -11,7 +11,7 @@ components:
   terraform:
     glue/workflow/example:
       metadata:
-        component: glue/workflow
+        component: "glue/workflow"
       vars:
         enabled: true
         name: example
