@@ -1,6 +1,7 @@
 
 <!-- markdownlint-disable -->
-# terraform-aws-components<a href="https://cpco.io/homepage"><img align="right" src="https://cloudposse.com/logo-300x69.svg" width="150" /></a> [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-components.svg)](https://github.com/cloudposse/terraform-aws-components/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+[![Project Banner](.github/banner.png?raw=true)](https://cpco.io/homepage)
+ [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-components.svg)](https://github.com/cloudposse/terraform-aws-components/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 <!-- markdownlint-restore -->
 
 
