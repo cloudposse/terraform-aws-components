@@ -259,4 +259,4 @@ https-checks:
 
 ## References
 * Datadog's [Kubernetes Agent documentation](https://docs.datadoghq.com/containers/kubernetes/)
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/datadog-agent) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/datadog-agent) - Cloud Posse's upstream component

@@ -1,7 +1,7 @@
 # Component: `ecr`
 
 This component is responsible for provisioning repositories, lifecycle rules, and permissions for streamlined ECR usage.
-This utilizes [the roles-to-principals submodule](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/account-map/modules/roles-to-principals)
+This utilizes [the roles-to-principals submodule](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/account-map/modules/roles-to-principals)
 to assign accounts to various roles. It is also compatible with the
 [GitHub Actions IAM Role mixin](https://github.com/cloudposse/terraform-aws-components/blob/master/mixins/github-actions-iam-role/README-github-action-iam-role.md).
 
@@ -137,7 +137,7 @@ components:
 - [Decide on ECR Strategy](https://docs.cloudposse.com/reference-architecture/design-decisions/foundational-platform/decide-on-ecr-strategy)
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/ecr) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/ecr) - Cloud Posse's upstream component
 
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
