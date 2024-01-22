@@ -198,7 +198,7 @@ variable "vanity_alias" {
 
 variable "additional_targets" {
   type        = list(string)
-  description = "Additional target routes to add to the ALB that point to this service. The only difference between this and `vanity_alias` is vanity alias will create an alias record in route53 in the hosted zone in this account as well. Additional Targets only adds the listener route to this service's target group."
+  description = "Additional target routes to add to the ALB that point to this service. The only difference between this and `var.vanity_alias` is `var.vanity_alias` will create an alias record in Route 53 in the hosted zone in this account as well. `var.additional_targets` only adds the listener route to this service's target group."
   default     = []
 }
 

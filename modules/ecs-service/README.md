@@ -147,8 +147,8 @@ components:
 #### Other Domains
 
 This component supports alternate service names for your ECS Service through a couple of variables:
- - `vanity_domain` & `vanity_alias` - This will create a route to the service in the listener rules of the ALB. This will also create a route53 alias record in the hosted zone in this account. The hosted zone is looked up by the `vanity_domain` input.
- - `additional_targets` - This will create a route to the service in the listener rules of the ALB. This will not create a route53 alias record.
+ - `vanity_domain` & `vanity_alias` - This will create a route to the service in the listener rules of the ALB. This will also create a Route 53 alias record in the hosted zone in this account. The hosted zone is looked up by the `vanity_domain` input.
+ - `additional_targets` - This will create a route to the service in the listener rules of the ALB. This will not create a Route 53 alias record.
 
 Examples:
 
