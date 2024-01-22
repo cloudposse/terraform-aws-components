@@ -124,7 +124,7 @@ For databases and schemas, there are not a lot of other privileges to grant, and
 
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/aurora-postgres-resources) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aurora-postgres-resources) - Cloud Posse's upstream component
 
 * PostgreSQL references (select the correct version of PostgreSQL at the top of the page):
   * [GRANT command](https://www.postgresql.org/docs/14/sql-grant.html)

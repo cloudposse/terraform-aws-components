@@ -201,7 +201,7 @@ atmos terraform plan aws-config-{each region} --stack {each region}-{each stage}
 
 ## References
 * [AWS Config Documentation](https://docs.aws.amazon.com/config/index.html)
-* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/aws-config)
+* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aws-config)
 * [Conformance Packs documentation](https://docs.aws.amazon.com/config/latest/developerguide/conformance-packs.html)
 * [AWS Managed Sample Conformance Packs](https://github.com/awslabs/aws-config-rules/tree/master/aws-config-conformance-packs)
 
