@@ -144,6 +144,53 @@ components:
           task_cpu: 256
 ```
 
+#### Other Domains
+
+This component supports alternate service names for your ECS Service through a couple of variables:
+ - `vanity_domain` & `vanity_alias` - This will create a route to the service in the listener rules of the ALB. This will also create a Route 53 alias record in the hosted zone in this account. The hosted zone is looked up by the `vanity_domain` input.
+ - `additional_targets` - This will create a route to the service in the listener rules of the ALB. This will not create a Route 53 alias record.
+
+Examples:
+
+```yaml
+    ecs/platform/service/echo-server:
+      vars:
+        vanity_domain: "dev-acme.com"
+        vanity_alias:
+          - "echo-server.dev-acme.com"
+        additional_targets:
+          - "echo.acme.com"
+```
+
+This then creates the following listener rules:
+
+```text
+HTTP Host Header is
+echo-server.public-platform.use2.dev.plat.service-discovery.com
+ OR echo-server.dev-acme.com
+ OR echo.acme.com
+```
+
+It will also create the record in Route53 to point `"echo-server.dev-acme.com"` to the ALB. Thus `"echo-server.dev-acme.com"` should resolve.
+
+We can then create a pointer to this service in the `acme.come` hosted zone.
+
+```yaml
+    dns-primary:
+      vars:
+        domain_names:
+           - acme.com
+        record_config:
+          - root_zone: acme.com
+            name: echo.
+            type: CNAME
+            ttl: 60
+            records:
+              - echo-server.dev-acme.com
+```
+
+This will create a CNAME record in the `acme.com` hosted zone that points `echo.acme.com` to `echo-server.dev-acme.com`.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -219,6 +266,7 @@ components:
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
+| <a name="input_additional_targets"></a> [additional\_targets](#input\_additional\_targets) | Additional target routes to add to the ALB that point to this service. The only difference between this and `var.vanity_alias` is `var.vanity_alias` will create an alias record in Route 53 in the hosted zone in this account as well. `var.additional_targets` only adds the listener route to this service's target group. | `list(string)` | `[]` | no |
 | <a name="input_alb_configuration"></a> [alb\_configuration](#input\_alb\_configuration) | The configuration to use for the ALB, specifying which cluster alb configuration to use | `string` | `"default"` | no |
 | <a name="input_alb_name"></a> [alb\_name](#input\_alb\_name) | The name of the ALB this service should attach to | `string` | `null` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |

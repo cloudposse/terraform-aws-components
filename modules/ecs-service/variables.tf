@@ -196,6 +196,12 @@ variable "vanity_alias" {
   default     = []
 }
 
+variable "additional_targets" {
+  type        = list(string)
+  description = "Additional target routes to add to the ALB that point to this service. The only difference between this and `var.vanity_alias` is `var.vanity_alias` will create an alias record in Route 53 in the hosted zone in this account as well. `var.additional_targets` only adds the listener route to this service's target group."
+  default     = []
+}
+
 variable "kinesis_enabled" {
   type        = bool
   description = "Enable Kinesis"
