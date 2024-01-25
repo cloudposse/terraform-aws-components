@@ -76,18 +76,15 @@ resource "github_branch_protection" "default" {
   enforce_admins   = false # needs to be false in order to allow automation user to push
   allows_deletions = true
 
-  dynamic "required_pull_request_reviews" {
-    for_each = var.required_pull_request_reviews ? [0] : []
-    content {
-      dismiss_stale_reviews      = true
-      restrict_dismissals        = true
-      require_code_owner_reviews = true
-    }
+  required_pull_request_reviews {
+    dismiss_stale_reviews      = true
+    restrict_dismissals        = true
+    require_code_owner_reviews = true
   }
 
-  push_restrictions = var.push_restrictions_enabled ? [
+  push_restrictions = [
     join("", data.github_user.automation_user[*].node_id),
-  ] : []
+  ]
 }
 
 data "github_team" "default" {
@@ -115,7 +112,7 @@ resource "github_repository_deploy_key" "default" {
   for_each = local.environments
 
   title      = "Deploy key for ArgoCD environment: ${each.key} (${local.github_repository.default_branch} branch)"
-  repository = join("", github_repository.default[*].name)
+  repository = local.github_repository.name
   key        = tls_private_key.default[each.key].public_key_openssh
   read_only  = true
 }
