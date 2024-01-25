@@ -76,15 +76,18 @@ resource "github_branch_protection" "default" {
   enforce_admins   = false # needs to be false in order to allow automation user to push
   allows_deletions = true
 
-  required_pull_request_reviews {
-    dismiss_stale_reviews      = true
-    restrict_dismissals        = true
-    require_code_owner_reviews = true
+  dynamic "required_pull_request_reviews" {
+    for_each = var.required_pull_request_reviews ? [0] : []
+    content {
+      dismiss_stale_reviews      = true
+      restrict_dismissals        = true
+      require_code_owner_reviews = true
+    }
   }
 
-  push_restrictions = [
+  push_restrictions = var.push_restrictions_enabled ? [
     join("", data.github_user.automation_user[*].node_id),
-  ]
+  ] : []
 }
 
 data "github_team" "default" {
