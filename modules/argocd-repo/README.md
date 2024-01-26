@@ -170,6 +170,7 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 |------|-------------|
 | <a name="output_deploy_keys_ssm_path_format"></a> [deploy\_keys\_ssm\_path\_format](#output\_deploy\_keys\_ssm\_path\_format) | SSM Parameter Store path format for the repository's deploy keys |
 | <a name="output_deploy_keys_ssm_paths"></a> [deploy\_keys\_ssm\_paths](#output\_deploy\_keys\_ssm\_paths) | SSM Parameter Store paths for the repository's deploy keys |
+| <a name="output_repository"></a> [repository](#output\_repository) | Repository name |
 | <a name="output_repository_default_branch"></a> [repository\_default\_branch](#output\_repository\_default\_branch) | Repository default branch |
 | <a name="output_repository_description"></a> [repository\_description](#output\_repository\_description) | Repository description |
 | <a name="output_repository_git_clone_url"></a> [repository\_git\_clone\_url](#output\_repository\_git\_clone\_url) | Repository git clone URL |
