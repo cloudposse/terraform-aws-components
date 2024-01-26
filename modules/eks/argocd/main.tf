@@ -6,7 +6,7 @@ locals {
   oidc_enabled_count     = local.oidc_enabled ? 1 : 0
   saml_enabled           = local.enabled && var.saml_enabled
   argocd_repositories = local.enabled ? {
-    for k, v in var.argocd_repositories : k => {
+    for k, v in var.argocd_repositories : module.argocd_repo[k].outputs.repository => {
       clone_url         = module.argocd_repo[k].outputs.repository_ssh_clone_url
       github_deploy_key = data.aws_ssm_parameter.github_deploy_key[k].value
     }
@@ -222,7 +222,8 @@ module "argocd_apps" {
         stage             = var.stage
         attributes        = var.attributes
       }
-    )
+    ),
+    yamlencode(var.argocd_apps_chart_values)
   ])
 
   depends_on = [
