@@ -37,8 +37,8 @@ components:
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.34.0 |
-| <a name="provider_github"></a> [github](#provider\_github) | 5.45.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
+| <a name="provider_github"></a> [github](#provider\_github) | >= 4.0 |
 
 ## Modules
 
