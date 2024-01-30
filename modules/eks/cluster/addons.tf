@@ -27,14 +27,15 @@ locals {
 
   addons = [
     for k, v in var.addons : {
-      addon_name               = k
-      addon_version            = lookup(v, "addon_version", null)
-      configuration_values     = lookup(v, "configuration_values", null)
-      resolve_conflicts        = lookup(v, "resolve_conflicts", null)
-      service_account_role_arn = try(coalesce(lookup(v, "service_account_role_arn", null), lookup(local.final_addon_service_account_role_arn_map, k, null)), null)
-      create_timeout           = lookup(v, "create_timeout", null)
-      update_timeout           = lookup(v, "update_timeout", null)
-      delete_timeout           = lookup(v, "delete_timeout", null)
+      addon_name                  = k
+      addon_version               = lookup(v, "addon_version", null)
+      configuration_values        = lookup(v, "configuration_values", null)
+      resolve_conflicts_on_create = lookup(v, "resolve_conflicts_on_create", null)
+      resolve_conflicts_on_update = lookup(v, "resolve_conflicts_on_update", null)
+      service_account_role_arn    = try(coalesce(lookup(v, "service_account_role_arn", null), lookup(local.final_addon_service_account_role_arn_map, k, null)), null)
+      create_timeout              = lookup(v, "create_timeout", null)
+      update_timeout              = lookup(v, "update_timeout", null)
+      delete_timeout              = lookup(v, "delete_timeout", null)
 
     } if v.enabled
   ]
