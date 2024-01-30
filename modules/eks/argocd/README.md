@@ -353,7 +353,6 @@ components:
 If you are creating webhooks for ArgoCD deployment repos in multiple GitHub Organizations, you cannot use the same Terraform GitHub provider. Instead, we can use Atmos to deploy multiple component. To do this, disable the webhook creation in this component and deploy the webhook with the `github-webhook` component as such:
 
 ```yaml
-# Note: irrelevant vars are not included, although may be required
 components:
   terraform:
     eks/argocd:
