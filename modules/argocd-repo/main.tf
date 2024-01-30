@@ -12,7 +12,7 @@ locals {
     )) => env
   } : {}
 
-  manifest_kubernetes_namespace = "argocd"
+  manifest_kubernetes_namespace = var.manifest_kubernetes_namespace
 
   team_slugs = toset(compact([
     for permission in var.permissions : lookup(permission, "team_slug", null)

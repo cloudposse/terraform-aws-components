@@ -156,3 +156,9 @@ variable "slack_notifications_channel" {
   default     = ""
   description = "If given, the Slack channel to for deployment notifications."
 }
+
+variable "manifest_kubernetes_namespace" {
+  type        = string
+  default     = "argocd"
+  description = "The namespace used for the ArgoCD application"
+}

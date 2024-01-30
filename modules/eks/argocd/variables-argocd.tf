@@ -38,9 +38,10 @@ variable "argocd_create_namespaces" {
 
 variable "argocd_repositories" {
   type = map(object({
-    environment = string # The environment where the `argocd_repo` component is deployed.
-    stage       = string # The stage where the `argocd_repo` component is deployed.
-    tenant      = string # The tenant where the `argocd_repo` component is deployed.
+    environment         = string # The environment where the `argocd_repo` component is deployed.
+    stage               = string # The stage where the `argocd_repo` component is deployed.
+    tenant              = string # The tenant where the `argocd_repo` component is deployed.
+    github_organization = optional(string, "")
   }))
   description = "Map of objects defining an `argocd_repo` to configure.  The key is the name of the ArgoCD repository."
   default     = {}
@@ -197,10 +198,4 @@ variable "saml_sso_providers" {
 
   default     = {}
   description = "SAML SSO providers components"
-}
-
-variable "github_webhook_enabled" {
-  type        = bool
-  default     = true
-  description = "Enable GitHub webhook integration"
 }
