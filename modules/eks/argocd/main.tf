@@ -9,7 +9,6 @@ locals {
     for k, v in var.argocd_repositories : replace(k, "/", "-") => {
       clone_url         = module.argocd_repo[k].outputs.repository_ssh_clone_url
       github_deploy_key = data.aws_ssm_parameter.github_deploy_key[k].value
-      organization      = v.github_organization
       repository        = module.argocd_repo[k].outputs.repository
     }
   } : {}
