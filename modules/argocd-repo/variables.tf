@@ -162,3 +162,20 @@ variable "manifest_kubernetes_namespace" {
   default     = "argocd"
   description = "The namespace used for the ArgoCD application"
 }
+
+variable "github_notifications" {
+  type = list(string)
+  default = [
+    "notifications.argoproj.io/subscribe.on-deploy-started.app-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-started.argocd-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-succeded.app-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-succeded.argocd-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-failed.app-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-failed.argocd-repo-github-commit-status: \"\"",
+  ]
+  description = <<EOT
+    ArgoCD notification annotations for subscribing to GitHub.
+
+    The default value given uses the same notification template names as defined in the `eks/argocd` component. If want to add additional notifications, include any existing notifications from this list that you want to keep in addition.
+  EOT
+}
