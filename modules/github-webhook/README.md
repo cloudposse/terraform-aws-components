@@ -23,6 +23,10 @@ components:
         ssm_github_webhook: "/argocd/github/webhook"
 ```
 
+### ArgoCD Webhooks
+
+For usage with the `eks/argocd` component, see [Creating Webhooks with `github-webhook`](https://github.com/cloudposse/terraform-aws-components/blob/main/modules/eks/argocd/README.md#creating-webhooks-with-github-webhook) in that component's README.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
