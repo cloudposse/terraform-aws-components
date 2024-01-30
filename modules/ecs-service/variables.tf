@@ -134,6 +134,43 @@ variable "task" {
       name      = string
       host_path = string
     })), [])
+    efs_volumes = optional(list(object({
+      host_path = string
+      name      = string
+      efs_volume_configuration = list(object({
+        file_system_id          = string
+        root_directory          = string
+        transit_encryption      = string
+        transit_encryption_port = string
+        authorization_config = list(object({
+          access_point_id = string
+          iam             = string
+        }))
+      }))
+    })), [])
+    docker_volumes = optional(list(object({
+      host_path = string
+      name      = string
+      docker_volume_configuration = list(object({
+        autoprovision = bool
+        driver        = string
+        driver_opts   = map(string)
+        labels        = map(string)
+        scope         = string
+      }))
+    })), [])
+    fsx_volumes = optional(list(object({
+      host_path = string
+      name      = string
+      fsx_windows_file_server_volume_configuration = list(object({
+        file_system_id = string
+        root_directory = string
+        authorization_config = list(object({
+          credentials_parameter = string
+          domain                = string
+        }))
+      }))
+    })), [])
   })
   description = "Feed inputs into ecs_alb_service_task module"
   default     = {}

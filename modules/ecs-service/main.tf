@@ -214,7 +214,7 @@ locals {
 
 module "ecs_alb_service_task" {
   source  = "cloudposse/ecs-alb-service-task/aws"
-  version = "0.71.0"
+  version = "0.72.0"
 
   count = local.enabled ? 1 : 0
 
@@ -265,9 +265,13 @@ module "ecs_alb_service_task" {
   circuit_breaker_rollback_enabled   = lookup(local.task, "circuit_breaker_rollback_enabled", true)
   task_policy_arns                   = var.iam_policy_enabled ? concat(var.task_policy_arns, aws_iam_policy.default[*].arn) : var.task_policy_arns
   ecs_service_enabled                = lookup(local.task, "ecs_service_enabled", true)
-  bind_mount_volumes                 = lookup(local.task, "bind_mount_volumes", [])
   task_role_arn                      = lookup(local.task, "task_role_arn", one(module.iam_role[*]["outputs"]["role"]["arn"]))
   capacity_provider_strategies       = lookup(local.task, "capacity_provider_strategies")
+
+  efs_volumes        = lookup(local.task, "efs_volumes", [])
+  docker_volumes     = lookup(local.task, "docker_volumes", [])
+  fsx_volumes        = lookup(local.task, "fsx_volumes", [])
+  bind_mount_volumes = lookup(local.task, "bind_mount_volumes", [])
 
   depends_on = [
     module.alb_ingress
