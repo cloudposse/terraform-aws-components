@@ -348,6 +348,51 @@ components:
         github_webhook_enabled: true
 ```
 
+#### Creating Webhooks with `github-webhook`
+
+If you are creating webhooks for ArgoCD deployment repos in multiple GitHub Organizations, you cannot use the same Terraform GitHub provider. Instead, we can use Atmos to deploy multiple component. To do this, disable the webhook creation in this component and deploy the webhook with the `github-webhook` component as such:
+
+```yaml
+# Note: irrelevant vars are not included, although may be required
+components:
+  terraform:
+    eks/argocd:
+      metadata:
+        component: eks/argocd
+        inherits:
+          - eks/argocd/defaults
+      vars:
+        github_webhook_enabled: true # create webhook value; required for argo-cd chart
+        create_github_webhook: false # created with github-webhook
+        argocd_repositories:
+          "argocd-deploy-non-prod/org1":
+            environment: ue2
+            stage: auto
+            tenant: core
+          "argocd-deploy-non-prod/org2":
+            environment: ue2
+            stage: auto
+            tenant: core
+
+    webhook/org1/argocd:
+      metadata:
+        component: github-webhook
+      vars:
+        github_organization: org1
+        github_repository: argocd-deploy-non-prod
+        webhook_url: "https://argocd.ue2.dev.plat.acme.org/api/webhook"
+        ssm_github_webhook: "/argocd/github/webhook"
+
+    webhook/org2/argocd:
+      metadata:
+        component: github-webhook
+      vars:
+        github_organization: org2
+        github_repository: argocd-deploy-non-prod
+        webhook_url: "https://argocd.ue2.dev.plat.acme.org/api/webhook"
+        ssm_github_webhook: "/argocd/github/webhook"
+```
+
 ### Slack Notifications
 
 ArgoCD supports Slack notifications on application deployments.
