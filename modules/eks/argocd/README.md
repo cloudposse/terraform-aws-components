@@ -364,7 +364,7 @@ components:
         github_webhook_enabled: true # create webhook value; required for argo-cd chart
         create_github_webhook: false # created with github-webhook
         argocd_repositories:
-          "argocd-deploy-non-prod/org1":
+          "argocd-deploy-non-prod/org1": # this is the name of the `argocd-repo` component for "org1"
             environment: ue2
             stage: auto
             tenant: core
