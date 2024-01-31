@@ -2,7 +2,9 @@ locals {
   enabled            = module.this.enabled
   iam_policy_enabled = local.enabled && (try(length(var.iam_policy), 0) > 0 || var.policy_json != null)
 
-  cicd_s3_key_format = var.cicd_s3_key_format != null ? var.cicd_s3_key_format : "stage/${module.this.stage}/lambda/${var.function_name}/%s"
+  function_name = coalesce(var.function_name, module.label.id)
+
+  cicd_s3_key_format = var.cicd_s3_key_format != null ? var.cicd_s3_key_format : "stage/${module.this.stage}/lambda/${local.function_name}/%s"
   s3_key             = var.s3_bucket_name == null ? null : (var.s3_key != null ? var.s3_key : format(local.cicd_s3_key_format, coalesce(one(data.aws_ssm_parameter.cicd_ssm_param[*].value), "example")))
 
 }
@@ -52,7 +54,7 @@ module "lambda" {
   source  = "cloudposse/lambda-function/aws"
   version = "0.4.1"
 
-  function_name      = coalesce(var.function_name, module.label.id)
+  function_name      = local.function_name
   description        = var.description
   handler            = var.handler
   lambda_environment = var.lambda_environment
