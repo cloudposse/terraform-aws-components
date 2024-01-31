@@ -40,6 +40,28 @@ locals {
   } : {}
 
   task = merge(var.task, local.task_s3)
+
+  efs_component_volumes = lookup(local.task, "efs_component_volumes", [])
+  efs_component_map = {
+    for efs in local.efs_component_volumes : efs["name"] => efs
+  }
+  efs_component_remote_state = {
+    for efs in local.efs_component_volumes : efs["name"] => module.efs[efs["name"]].outputs
+  }
+  efs_component_merged = [for efs_volume_name, efs_component_output in local.efs_component_remote_state : {
+    host_path = local.efs_component_map[efs_volume_name].host_path
+    name      = efs_volume_name
+    efs_volume_configuration = [ #again this is a hardcoded array because AWS does not support multiple configurations per volume
+      {
+        file_system_id          = efs_component_output.efs_id
+        root_directory          = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].root_directory
+        transit_encryption      = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].transit_encryption
+        transit_encryption_port = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].transit_encryption_port
+        authorization_config    = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].authorization_config
+      }
+    ]
+  }]
+  efs_volumes = concat(lookup(local.task, "efs_volumes", []), local.efs_component_merged)
 }
 
 data "aws_s3_objects" "mirror" {
@@ -268,7 +290,7 @@ module "ecs_alb_service_task" {
   task_role_arn                      = lookup(local.task, "task_role_arn", one(module.iam_role[*]["outputs"]["role"]["arn"]))
   capacity_provider_strategies       = lookup(local.task, "capacity_provider_strategies")
 
-  efs_volumes        = lookup(local.task, "efs_volumes", [])
+  efs_volumes        = local.efs_volumes
   docker_volumes     = lookup(local.task, "docker_volumes", [])
   fsx_volumes        = lookup(local.task, "fsx_volumes", [])
   bind_mount_volumes = lookup(local.task, "bind_mount_volumes", [])
