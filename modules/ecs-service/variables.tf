@@ -92,9 +92,9 @@ variable "containers" {
       readOnly        = bool
     })), null)
     mount_points = optional(list(object({
-      sourceVolume  = string
-      containerPath = string
-      readOnly      = bool
+      sourceVolume  = optional(string)
+      containerPath = optional(string)
+      readOnly      = optional(bool)
     })), [])
   }))
   description = "Feed inputs into container definition module"
@@ -139,6 +139,24 @@ variable "task" {
       name      = string
       efs_volume_configuration = list(object({
         file_system_id          = string
+        root_directory          = string
+        transit_encryption      = string
+        transit_encryption_port = string
+        authorization_config = list(object({
+          access_point_id = string
+          iam             = string
+        }))
+      }))
+    })), [])
+    efs_component_volumes = optional(list(object({
+      host_path = string
+      name      = string
+      efs_volume_configuration = list(object({
+        component   = optional(string, "efs")
+        tenant      = optional(string, null)
+        environment = optional(string, null)
+        stage       = optional(string, null)
+
         root_directory          = string
         transit_encryption      = string
         transit_encryption_port = string
