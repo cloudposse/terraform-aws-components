@@ -15,4 +15,4 @@ jobs:
         with:
           prerelease: false
           publish: true
-          config-name: auto-release.yml          
+          config-name: auto-release.yml
