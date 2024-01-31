@@ -193,8 +193,7 @@ This will create a CNAME record in the `acme.com` hosted zone that points `echo.
 
 ### EFS
 
-EFS is supported by this ecs service, you can use either `efs_volumes` or `efs_component_volumes` in your task definition.
-
+EFS is supported by `ecs-service`. You can use either `efs_volumes` or `efs_component_volumes` in your task definition.
 
 This example shows how to use `efs_component_volumes` which remote looks up efs component and uses the `efs_id` to mount the volume.
 And how to use `efs_volumes`
