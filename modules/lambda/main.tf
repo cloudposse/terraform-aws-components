@@ -1,9 +1,12 @@
 locals {
-  enabled             = module.this.enabled
-  iam_policy_enabled  = local.enabled && (try(length(var.iam_policy), 0) > 0 || var.policy_json != null)
-  s3_bucket_full_name = var.s3_bucket_name != null ? format("%s-%s-%s-%s-%s", module.this.namespace, module.this.tenant, module.this.environment, module.this.stage, var.s3_bucket_name) : null
+  enabled                 = module.this.enabled
+  iam_policy_enabled      = local.enabled && (try(length(var.iam_policy), 0) > 0 || var.policy_json != null)
+  s3_bucket_computed_name = var.s3_bucket_name != null ? format("%s-%s-%s-%s-%s", module.this.namespace, module.this.tenant, module.this.environment, module.this.stage, var.s3_bucket_name) : null
 
-  cicd_s3_key_format = var.cicd_s3_key_format != null ? var.cicd_s3_key_format : "stage/${module.this.stage}/lambda/${var.function_name}/%s"
+  s3_full_bucket_name = coalesce(var.s3_full_bucket_name, local.s3_bucket_computed_name, "none") == "none" ? null : coalesce(var.s3_full_bucket_name, local.s3_bucket_computed_name)
+  function_name       = coalesce(var.function_name, module.label.id)
+
+  cicd_s3_key_format = var.cicd_s3_key_format != null ? var.cicd_s3_key_format : "stage/${module.this.stage}/lambda/${local.function_name}/%s"
   s3_key             = var.s3_bucket_name == null ? null : (var.s3_key != null ? var.s3_key : format(local.cicd_s3_key_format, coalesce(one(data.aws_ssm_parameter.cicd_ssm_param[*].value), "example")))
 
 }
@@ -53,7 +56,7 @@ module "lambda" {
   source  = "cloudposse/lambda-function/aws"
   version = "0.4.1"
 
-  function_name      = coalesce(var.function_name, module.label.id)
+  function_name      = local.function_name
   description        = var.description
   handler            = var.handler
   lambda_environment = var.lambda_environment
@@ -61,7 +64,7 @@ module "lambda" {
   image_config       = var.image_config
 
   filename          = var.filename
-  s3_bucket         = local.s3_bucket_full_name
+  s3_bucket         = local.s3_full_bucket_name
   s3_key            = local.s3_key
   s3_object_version = var.s3_object_version
 
