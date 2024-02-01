@@ -1,17 +1,18 @@
 locals {
-  enabled                = module.this.enabled
-  github_webhook_enabled = local.enabled && var.github_webhook_enabled
-  kubernetes_namespace   = var.kubernetes_namespace
-  oidc_enabled           = local.enabled && var.oidc_enabled
-  oidc_enabled_count     = local.oidc_enabled ? 1 : 0
-  saml_enabled           = local.enabled && var.saml_enabled
+  enabled = module.this.enabled
+
+  kubernetes_namespace = var.kubernetes_namespace
+  oidc_enabled         = local.enabled && var.oidc_enabled
+  oidc_enabled_count   = local.oidc_enabled ? 1 : 0
+  saml_enabled         = local.enabled && var.saml_enabled
   argocd_repositories = local.enabled ? {
-    for k, v in var.argocd_repositories : module.argocd_repo[k].outputs.repository => {
+    for k, v in var.argocd_repositories : replace(k, "/", "-") => {
       clone_url         = module.argocd_repo[k].outputs.repository_ssh_clone_url
       github_deploy_key = data.aws_ssm_parameter.github_deploy_key[k].value
+      repository        = module.argocd_repo[k].outputs.repository
     }
   } : {}
-  webhook_github_secret = try(random_password.webhook["github"].result, null)
+
   credential_templates = flatten(concat([
     for k, v in local.argocd_repositories : [
       {
@@ -159,7 +160,6 @@ module "argocd" {
         name                = module.this.name
         oidc_enabled        = local.oidc_enabled
         oidc_rbac_scopes    = var.oidc_rbac_scopes
-        organization        = var.github_organization
         saml_enabled        = local.saml_enabled
         saml_rbac_scopes    = var.saml_rbac_scopes
         rbac_default_policy = var.argocd_rbac_default_policy
@@ -229,33 +229,4 @@ module "argocd_apps" {
   depends_on = [
     module.argocd
   ]
-}
-
-resource "random_password" "webhook" {
-  for_each = toset(local.github_webhook_enabled ? ["github"] : [])
-
-  # min 16, max 128
-  length  = 128
-  special = true
-
-  min_upper   = 3
-  min_lower   = 3
-  min_numeric = 3
-  min_special = 3
-}
-
-resource "github_repository_webhook" "default" {
-  for_each   = local.github_webhook_enabled ? local.argocd_repositories : {}
-  repository = each.key
-
-  configuration {
-    url          = format("%s/api/webhook", local.url)
-    content_type = "json"
-    secret       = local.webhook_github_secret
-    insecure_ssl = false
-  }
-
-  active = true
-
-  events = ["push"]
 }
