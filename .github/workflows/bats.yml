@@ -16,7 +16,7 @@ jobs:
       BATS_SUBMODULE_TESTS: input-descriptions lint output-descriptions
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
         repository: ${{ github.event.pull_request.head.repo.full_name }}
@@ -32,7 +32,7 @@ jobs:
         HEAD_REF: ${{ github.head_ref }}
       run: |
         # when running in test-harness, need to mark the directory safe for git operations
-        make safe-directory
+        make get-safe-directory
         MODIFIED_MODULES=($(git diff --name-only origin/${BASE_REF} origin/${HEAD_REF} | xargs -n 1 dirname | sort | uniq | grep ^modules/ || true))
         if [ -z "$MODIFIED_MODULES" ]; then
             echo "No modules changed in this PR. Skipping tests."
