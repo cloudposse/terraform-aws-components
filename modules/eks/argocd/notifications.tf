@@ -20,7 +20,7 @@ module "notifications_templates" {
 
   maps = [
     var.notifications_templates,
-    local.github_default_notifications_enabled ? {
+    local.github_notifications_enabled ? {
       app-deploy-succeded = {
         message = "Application {{ .app.metadata.name }} is now running new version of deployments manifests."
         webhook = {
@@ -134,7 +134,7 @@ module "notifications_notifiers" {
 
   maps = [
     var.notifications_notifiers,
-    local.github_default_notifications_enabled ? {
+    local.github_notifications_enabled ? {
       webhook = {
         app-repo-github-commit-status    = local.notification_default_notifier_github_commit_status
         argocd-repo-github-commit-status = local.notification_default_notifier_github_commit_status
@@ -147,8 +147,8 @@ module "notifications_notifiers" {
 }
 
 locals {
-  github_default_notifications_enabled = local.enabled && var.github_default_notifications_enabled
-  slack_notifications_enabled          = local.enabled && var.slack_notifications_enabled
+  github_notifications_enabled = local.enabled && var.github_default_notifications_enabled
+  slack_notifications_enabled  = local.enabled && var.slack_notifications_enabled
 
   notification_default_notifier_github_commit_status = {
     url = "https://api.github.com"
@@ -232,7 +232,7 @@ locals {
 
   notifications_templates = jsondecode(local.enabled ? jsonencode(module.notifications_templates[0].merged) : jsonencode({}))
 
-  notifications_default_triggers = merge(local.github_default_notifications_enabled ? {
+  notifications_default_triggers = merge(local.github_notifications_enabled ? {
     on-deploy-started = [
       {
         when    = "app.status.operationState.phase in ['Running'] or ( app.status.operationState.phase == 'Succeeded' and app.status.health.status == 'Progressing' )"
