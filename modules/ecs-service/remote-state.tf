@@ -181,3 +181,20 @@ module "iam_role" {
 
   context = module.this.context
 }
+
+module "efs" {
+  for_each = local.efs_component_map
+
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "1.5.0"
+
+  # Here we can use [0] because aws only allows one efs volume configuration per volume
+  component = each.value.efs_volume_configuration[0].component
+
+  context = module.this.context
+
+  tenant      = each.value.efs_volume_configuration[0].tenant
+  stage       = each.value.efs_volume_configuration[0].stage
+  environment = each.value.efs_volume_configuration[0].environment
+
+}

@@ -173,6 +173,16 @@ variable "runtime" {
   description = "The runtime environment for the Lambda function you are uploading."
   default     = null
 }
+variable "s3_full_bucket_name" {
+  type        = string
+  description = <<EOF
+  The full name of the S3 bucket containing the function's deployment package. Conflicts with filename and image_uri.
+  This bucket must reside in the same AWS region where you are creating the Lambda function.
+
+  This is alternative to `var.s3_bucket_name` which formats the name for the current account.
+  EOF
+  default     = null
+}
 
 variable "s3_bucket_name" {
   type        = string
