@@ -476,7 +476,6 @@ Reference: https://stackoverflow.com/questions/75046330/argo-cd-error-server-sec
 | <a name="module_notifications_notifiers"></a> [notifications\_notifiers](#module\_notifications\_notifiers) | cloudposse/config/yaml//modules/deepmerge | 1.0.2 |
 | <a name="module_notifications_templates"></a> [notifications\_templates](#module\_notifications\_templates) | cloudposse/config/yaml//modules/deepmerge | 1.0.2 |
 | <a name="module_saml_sso_providers"></a> [saml\_sso\_providers](#module\_saml\_sso\_providers) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_store_write"></a> [store\_write](#module\_store\_write) | cloudposse/ssm-parameter-store/aws | 0.11.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -525,7 +524,7 @@ Reference: https://stackoverflow.com/questions/75046330/argo-cd-error-server-sec
 | <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Specify the exact chart version to install. If this is not specified, the latest version is installed. | `string` | `"5.19.12"` | no |
 | <a name="input_cleanup_on_fail"></a> [cleanup\_on\_fail](#input\_cleanup\_on\_fail) | Allow deletion of new resources created in this upgrade when upgrade fails. | `bool` | `true` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
-| <a name="input_create_github_webhook"></a> [create\_github\_webhook](#input\_create\_github\_webhook) | If enabled, create the GitHub webhook with the GitHub Terraform provider. Disable this setting if creating the webhook outside of this component | `bool` | `true` | no |
+| <a name="input_create_github_webhook"></a> [create\_github\_webhook](#input\_create\_github\_webhook) | Enable GitHub webhook creation<br><br>  Use this to create the GitHub Webhook for the given ArgoCD repo using the value created when `var.github_webhook_enabled` is `true`. | `bool` | `true` | no |
 | <a name="input_create_namespace"></a> [create\_namespace](#input\_create\_namespace) | Create the namespace if it does not yet exist. Defaults to `false`. | `bool` | `false` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
@@ -537,7 +536,7 @@ Reference: https://stackoverflow.com/questions/75046330/argo-cd-error-server-sec
 | <a name="input_github_default_notifications_enabled"></a> [github\_default\_notifications\_enabled](#input\_github\_default\_notifications\_enabled) | Enable default GitHub commit statuses notifications (required for CD sync mode) | `bool` | `true` | no |
 | <a name="input_github_organization"></a> [github\_organization](#input\_github\_organization) | GitHub Organization | `string` | n/a | yes |
 | <a name="input_github_token_override"></a> [github\_token\_override](#input\_github\_token\_override) | Use the value of this variable as the GitHub token instead of reading it from SSM | `string` | `null` | no |
-| <a name="input_github_webhook_enabled"></a> [github\_webhook\_enabled](#input\_github\_webhook\_enabled) | Enable GitHub webhook integration | `bool` | `true` | no |
+| <a name="input_github_webhook_enabled"></a> [github\_webhook\_enabled](#input\_github\_webhook\_enabled) | Enable GitHub webhook integration<br><br>  Use this to create a secret value and pass it to the argo-cd chart | `bool` | `true` | no |
 | <a name="input_helm_manifest_experiment_enabled"></a> [helm\_manifest\_experiment\_enabled](#input\_helm\_manifest\_experiment\_enabled) | Enable storing of the rendered manifest for helm\_release so the full diff of what is changing can been seen in the plan | `bool` | `false` | no |
 | <a name="input_host"></a> [host](#input\_host) | Host name to use for ingress and ALB | `string` | `""` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
@@ -576,7 +575,6 @@ Reference: https://stackoverflow.com/questions/75046330/argo-cd-error-server-sec
 | <a name="input_slack_notifications"></a> [slack\_notifications](#input\_slack\_notifications) | ArgoCD Slack notification configuration. Requires Slack Bot created with token stored at the given SSM Parameter path.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/services/slack/ | <pre>object({<br>    token_ssm_path = optional(string, "/argocd/notifications/notifiers/slack/token")<br>    api_url        = optional(string, null)<br>    username       = optional(string, "ArgoCD")<br>    icon           = optional(string, null)<br>  })</pre> | `{}` | no |
 | <a name="input_slack_notifications_enabled"></a> [slack\_notifications\_enabled](#input\_slack\_notifications\_enabled) | Whether or not to enable Slack notifications. See `var.slack_notifications.` | `bool` | `false` | no |
 | <a name="input_ssm_github_api_key"></a> [ssm\_github\_api\_key](#input\_ssm\_github\_api\_key) | SSM path to the GitHub API key | `string` | `"/argocd/github/api_key"` | no |
-| <a name="input_ssm_github_webhook"></a> [ssm\_github\_webhook](#input\_ssm\_github\_webhook) | Format string of the SSM parameter path to which the webhook will be written to (%s will be replaced with the GitHub organization and repo names respectively) | `string` | `"/argocd/github/webhook"` | no |
 | <a name="input_ssm_oidc_client_id"></a> [ssm\_oidc\_client\_id](#input\_ssm\_oidc\_client\_id) | The SSM Parameter Store path for the ID of the IdP client | `string` | `"/argocd/oidc/client_id"` | no |
 | <a name="input_ssm_oidc_client_secret"></a> [ssm\_oidc\_client\_secret](#input\_ssm\_oidc\_client\_secret) | The SSM Parameter Store path for the secret of the IdP client | `string` | `"/argocd/oidc/client_secret"` | no |
 | <a name="input_ssm_store_account"></a> [ssm\_store\_account](#input\_ssm\_store\_account) | Account storing SSM parameters | `string` | n/a | yes |
@@ -590,7 +588,9 @@ Reference: https://stackoverflow.com/questions/75046330/argo-cd-error-server-sec
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_github_webhook_value"></a> [github\_webhook\_value](#output\_github\_webhook\_value) | The value of the GitHub webhook secret used for ArgoCD |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References

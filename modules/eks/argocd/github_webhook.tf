@@ -12,19 +12,21 @@ locals {
 variable "github_webhook_enabled" {
   type        = bool
   default     = true
-  description = "Enable GitHub webhook integration"
+  description = <<EOT
+  Enable GitHub webhook integration
+
+  Use this to create a secret value and pass it to the argo-cd chart
+  EOT
 }
 
 variable "create_github_webhook" {
   type        = bool
   default     = true
-  description = "If enabled, create the GitHub webhook with the GitHub Terraform provider. Disable this setting if creating the webhook outside of this component"
-}
+  description = <<EOT
+  Enable GitHub webhook creation
 
-variable "ssm_github_webhook" {
-  type        = string
-  description = "Format string of the SSM parameter path to which the webhook will be written to (%s will be replaced with the GitHub organization and repo names respectively)"
-  default     = "/argocd/github/webhook"
+  Use this to create the GitHub Webhook for the given ArgoCD repo using the value created when `var.github_webhook_enabled` is `true`.
+  EOT
 }
 
 resource "random_password" "webhook" {
@@ -38,23 +40,6 @@ resource "random_password" "webhook" {
   min_lower   = 3
   min_numeric = 3
   min_special = 3
-}
-
-module "store_write" {
-  source  = "cloudposse/ssm-parameter-store/aws"
-  version = "0.11.0"
-
-  parameter_write = [
-    {
-      name        = var.ssm_github_webhook
-      value       = local.webhook_github_secret
-      type        = "SecureString"
-      overwrite   = true
-      description = "GitHub webhook secret value used for ArgoCD"
-    }
-  ]
-
-  context = module.this.context
 }
 
 resource "github_repository_webhook" "default" {

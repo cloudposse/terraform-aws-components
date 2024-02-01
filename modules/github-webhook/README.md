@@ -8,7 +8,7 @@ You may want to use this component if you are provisioning webhooks for multiple
 
 **Stack Level**: Regional
 
-Here's an example snippet for how to use this component.
+Here's an example snippet for how to use this component. This example pulls the value of the webhook from `remote-state`
 
 ```yaml
 components:
@@ -20,8 +20,51 @@ components:
         github_organization: cloudposse
         github_repository: argocd-deploy-non-prod
         webhook_url: "https://argocd.ue2.dev.plat.cloudposse.org/api/webhook"
+
+        remote_state_github_webhook_enabled: true # default value added for visibility
+        remote_state_component_name: eks/argocd
+```
+
+### SSM Stored Value Example
+
+Here's an example snippet for how to use this component with a value stored in SSM
+
+```yaml
+components:
+  terraform:
+    webhook/cloudposse/argocd:
+      metadata:
+        component: github-webhook
+      vars:
+        github_organization: cloudposse
+        github_repository: argocd-deploy-non-prod
+        webhook_url: "https://argocd.ue2.dev.plat.cloudposse.org/api/webhook"
+
+        remote_state_github_webhook_enabled: false
+        ssm_github_webhook_enabled: true
         ssm_github_webhook: "/argocd/github/webhook"
 ```
+
+### Input Value Example
+
+Here's an example snippet for how to use this component with a value stored in Terraform variables.
+
+```yaml
+components:
+  terraform:
+    webhook/cloudposse/argocd:
+      metadata:
+        component: github-webhook
+      vars:
+        github_organization: cloudposse
+        github_repository: argocd-deploy-non-prod
+        webhook_url: "https://argocd.ue2.dev.plat.cloudposse.org/api/webhook"
+
+        remote_state_github_webhook_enabled: false
+        ssm_github_webhook_enabled: false
+        webhook_github_secret: "abcdefg"
+```
+
 
 ### ArgoCD Webhooks
 
@@ -48,6 +91,7 @@ For usage with the `eks/argocd` component, see [Creating Webhooks with `github-w
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
+| <a name="module_source"></a> [source](#module\_source) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -82,12 +126,15 @@ For usage with the `eks/argocd` component, see [Creating Webhooks with `github-w
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region. | `string` | n/a | yes |
+| <a name="input_remote_state_component_name"></a> [remote\_state\_component\_name](#input\_remote\_state\_component\_name) | If fetching the Github Webhook value from remote-state, set this to the source compoennt name. For example, `eks/argocd`. | `string` | `""` | no |
+| <a name="input_remote_state_github_webhook_enabled"></a> [remote\_state\_github\_webhook\_enabled](#input\_remote\_state\_github\_webhook\_enabled) | If `true`, pull the GitHub Webhook value from remote-state | `bool` | `true` | no |
 | <a name="input_ssm_github_api_key"></a> [ssm\_github\_api\_key](#input\_ssm\_github\_api\_key) | SSM path to the GitHub API key | `string` | `"/argocd/github/api_key"` | no |
 | <a name="input_ssm_github_webhook"></a> [ssm\_github\_webhook](#input\_ssm\_github\_webhook) | Format string of the SSM parameter path where the webhook will be pulled from. Only used if `var.webhook_github_secret` is not given. | `string` | `"/github/webhook"` | no |
+| <a name="input_ssm_github_webhook_enabled"></a> [ssm\_github\_webhook\_enabled](#input\_ssm\_github\_webhook\_enabled) | If `true`, pull the GitHub Webhook value from AWS SSM Parameter Store using `var.ssm_github_webhook` | `bool` | `false` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_webhook_github_secret"></a> [webhook\_github\_secret](#input\_webhook\_github\_secret) | The value to use as the GitHub webhook secret. | `string` | `""` | no |
+| <a name="input_webhook_github_secret"></a> [webhook\_github\_secret](#input\_webhook\_github\_secret) | The value to use as the GitHub webhook secret. Set both `var.ssm_github_webhook_enabled` and `var.remote_state_github_webhook_enabled` to `false` in order to use this value | `string` | `""` | no |
 | <a name="input_webhook_url"></a> [webhook\_url](#input\_webhook\_url) | The URL for the webhook | `string` | n/a | yes |
 
 ## Outputs

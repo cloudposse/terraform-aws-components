@@ -1,23 +1,23 @@
 locals {
   enabled = module.this.enabled
 
-  fetch_github_webhook = local.enabled && !(length(var.webhook_github_secret) > 0)
+  remote_state_github_webhook_enabled = local.enabled && var.remote_state_github_webhook_enabled
+  ssm_github_webhook_enabled          = local.enabled && var.ssm_github_webhook_enabled
 
-  # If fetching webhook, get the value from SSM
+  # If remote_state_github_webhook_enabled, get the value from remote-state
+  # Else if ssm_github_webhook_enabled, get the value from SSM
   # Else, get the value given by var.webhook_github_secret
-  webhook_github_secret = local.fetch_github_webhook ? try(data.aws_ssm_parameter.webhook[0].value, null) : var.webhook_github_secret
+  webhook_github_secret = local.remote_state_github_webhook_enabled ? module.source[0].outputs.github_webhook_value : (local.ssm_github_webhook_enabled ? try(data.aws_ssm_parameter.webhook[0].value, null) : var.webhook_github_secret)
 }
 
 data "aws_ssm_parameter" "webhook" {
-  count = local.fetch_github_webhook ? 1 : 0
+  count = local.ssm_github_webhook_enabled ? 1 : 0
 
   name            = var.ssm_github_webhook
   with_decryption = true
 }
 
 resource "github_repository_webhook" "default" {
-  count = local.fetch_github_webhook ? 1 : 0
-
   repository = var.github_repository
 
   configuration {
