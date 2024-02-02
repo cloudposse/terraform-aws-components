@@ -3,7 +3,7 @@ locals {
 }
 
 module "sqs_queue" {
-  source = "./modules/terraform-aws-sqs-queue"
+  source = "github.com/cloudposse/terraform-aws-components.git//modules/sqs-queue/modules/terraform-aws-sqs-queue?ref=1.398.0"
 
   visibility_timeout_seconds        = var.visibility_timeout_seconds
   message_retention_seconds         = var.message_retention_seconds
