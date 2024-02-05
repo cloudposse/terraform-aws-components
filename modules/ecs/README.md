@@ -34,7 +34,20 @@ components:
         capacity_providers_ec2:
           default:
             instance_type: t3.medium
-            max_size: 2  
+            max_size: 2
+
+        alb_configuration:
+          public:
+            internal_enabled: false
+            # resolves to *.public-platform.<environment>.<stage>.<tenant>.<domain>.<tld>
+            route53_record_name: "*.public-platform"
+            additional_certs:
+              - "my-vanity-domain.com"
+          private:
+            internal_enabled: true
+            route53_record_name: "*.private-platform"
+            additional_certs:
+              - "my-vanity-domain.com"
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -67,11 +80,13 @@ components:
 
 | Name | Type |
 |------|------|
+| [aws_lb_listener_certificate.additional_certs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener_certificate) | resource |
 | [aws_route53_record.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_security_group.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group_rule.egress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.ingress_cidr](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.ingress_security_groups](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_acm_certificate.additional_certs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/acm_certificate) | data source |
 | [aws_acm_certificate.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/acm_certificate) | data source |
 
 ## Inputs
@@ -132,6 +147,6 @@ components:
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/ecs) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/ecs) - Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

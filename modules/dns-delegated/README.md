@@ -1,6 +1,6 @@
 # Component: `dns-delegated`
 
-This component is responsible for provisioning a DNS zone which delegates nameservers to the DNS zone in the primary DNS account. The primary DNS zone is expected to already be provisioned via [the `dns-primary` component](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/dns-primary).
+This component is responsible for provisioning a DNS zone which delegates nameservers to the DNS zone in the primary DNS account. The primary DNS zone is expected to already be provisioned via [the `dns-primary` component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dns-primary).
 
 This component also provisions a wildcard ACM certificate for the given subdomain.
 
@@ -211,7 +211,7 @@ Takeaway
 
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/dns-delegated) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dns-delegated) - Cloud Posse's upstream component
 
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

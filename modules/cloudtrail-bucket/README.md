@@ -1,6 +1,6 @@
 # Component: `cloudtrail-bucket`
 
-This component is responsible for provisioning a bucket for storing cloudtrail logs for auditing purposes. It's expected to be used alongside [the `cloudtrail` component](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/cloudtrail).
+This component is responsible for provisioning a bucket for storing cloudtrail logs for auditing purposes. It's expected to be used alongside [the `cloudtrail` component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/cloudtrail).
 
 ## Usage
 
@@ -90,6 +90,6 @@ No resources.
 
 ## References
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/cloudtrail-bucket) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/cloudtrail-bucket) - Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

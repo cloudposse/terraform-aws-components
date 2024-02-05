@@ -158,9 +158,9 @@ components:
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_all_admin_stacks_config"></a> [all\_admin\_stacks\_config](#module\_all\_admin\_stacks\_config) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config | 1.5.0 |
-| <a name="module_child_stack"></a> [child\_stack](#module\_child\_stack) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack | 1.5.0 |
+| <a name="module_child_stack"></a> [child\_stack](#module\_child\_stack) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack | 1.6.0 |
 | <a name="module_child_stacks_config"></a> [child\_stacks\_config](#module\_child\_stacks\_config) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config | 1.5.0 |
-| <a name="module_root_admin_stack"></a> [root\_admin\_stack](#module\_root\_admin\_stack) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack | 1.5.0 |
+| <a name="module_root_admin_stack"></a> [root\_admin\_stack](#module\_root\_admin\_stack) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack | 1.6.0 |
 | <a name="module_root_admin_stack_config"></a> [root\_admin\_stack\_config](#module\_root\_admin\_stack\_config) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config | 1.5.0 |
 | <a name="module_spaces"></a> [spaces](#module\_spaces) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -250,6 +250,7 @@ components:
 | <a name="input_terraform_smart_sanitization"></a> [terraform\_smart\_sanitization](#input\_terraform\_smart\_sanitization) | Whether or not to enable [Smart Sanitization](https://docs.spacelift.io/vendors/terraform/resource-sanitization) which will only sanitize values marked as sensitive. | `bool` | `false` | no |
 | <a name="input_terraform_version"></a> [terraform\_version](#input\_terraform\_version) | Specify the version of Terraform to use for the stack | `string` | `null` | no |
 | <a name="input_terraform_version_map"></a> [terraform\_version\_map](#input\_terraform\_version\_map) | A map to determine which Terraform patch version to use for each minor version | `map(string)` | `{}` | no |
+| <a name="input_terraform_workflow_tool"></a> [terraform\_workflow\_tool](#input\_terraform\_workflow\_tool) | Defines the tool that will be used to execute the workflow. This can be one of OPEN\_TOFU, TERRAFORM\_FOSS or CUSTOM. Defaults to TERRAFORM\_FOSS. | `string` | `"TERRAFORM_FOSS"` | no |
 | <a name="input_terraform_workspace"></a> [terraform\_workspace](#input\_terraform\_workspace) | Specify the Terraform workspace to use for the stack | `string` | `null` | no |
 | <a name="input_webhook_enabled"></a> [webhook\_enabled](#input\_webhook\_enabled) | Flag to enable/disable the webhook endpoint to which Spacelift sends the POST requests about run state changes | `bool` | `false` | no |
 | <a name="input_webhook_endpoint"></a> [webhook\_endpoint](#input\_webhook\_endpoint) | Webhook endpoint to which Spacelift sends the POST requests about run state changes | `string` | `null` | no |

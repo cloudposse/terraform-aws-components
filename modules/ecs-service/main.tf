@@ -40,6 +40,28 @@ locals {
   } : {}
 
   task = merge(var.task, local.task_s3)
+
+  efs_component_volumes = lookup(local.task, "efs_component_volumes", [])
+  efs_component_map = {
+    for efs in local.efs_component_volumes : efs["name"] => efs
+  }
+  efs_component_remote_state = {
+    for efs in local.efs_component_volumes : efs["name"] => module.efs[efs["name"]].outputs
+  }
+  efs_component_merged = [for efs_volume_name, efs_component_output in local.efs_component_remote_state : {
+    host_path = local.efs_component_map[efs_volume_name].host_path
+    name      = efs_volume_name
+    efs_volume_configuration = [ #again this is a hardcoded array because AWS does not support multiple configurations per volume
+      {
+        file_system_id          = efs_component_output.efs_id
+        root_directory          = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].root_directory
+        transit_encryption      = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].transit_encryption
+        transit_encryption_port = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].transit_encryption_port
+        authorization_config    = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].authorization_config
+      }
+    ]
+  }]
+  efs_volumes = concat(lookup(local.task, "efs_volumes", []), local.efs_component_merged)
 }
 
 data "aws_s3_objects" "mirror" {
@@ -214,7 +236,7 @@ locals {
 
 module "ecs_alb_service_task" {
   source  = "cloudposse/ecs-alb-service-task/aws"
-  version = "0.71.0"
+  version = "0.72.0"
 
   count = local.enabled ? 1 : 0
 
@@ -265,9 +287,13 @@ module "ecs_alb_service_task" {
   circuit_breaker_rollback_enabled   = lookup(local.task, "circuit_breaker_rollback_enabled", true)
   task_policy_arns                   = var.iam_policy_enabled ? concat(var.task_policy_arns, aws_iam_policy.default[*].arn) : var.task_policy_arns
   ecs_service_enabled                = lookup(local.task, "ecs_service_enabled", true)
-  bind_mount_volumes                 = lookup(local.task, "bind_mount_volumes", [])
   task_role_arn                      = lookup(local.task, "task_role_arn", one(module.iam_role[*]["outputs"]["role"]["arn"]))
   capacity_provider_strategies       = lookup(local.task, "capacity_provider_strategies")
+
+  efs_volumes        = local.efs_volumes
+  docker_volumes     = lookup(local.task, "docker_volumes", [])
+  fsx_volumes        = lookup(local.task, "fsx_volumes", [])
+  bind_mount_volumes = lookup(local.task, "bind_mount_volumes", [])
 
   depends_on = [
     module.alb_ingress
@@ -284,7 +310,7 @@ module "alb_ingress" {
 
   vpc_id                        = local.vpc_id
   unauthenticated_listener_arns = [local.lb_listener_https_arn]
-  unauthenticated_hosts         = var.lb_catch_all ? [format("*.%s", var.vanity_domain), local.full_domain] : [local.full_domain]
+  unauthenticated_hosts         = var.lb_catch_all ? [format("*.%s", var.vanity_domain), local.full_domain] : concat([local.full_domain], var.vanity_alias, var.additional_targets)
   unauthenticated_paths         = flatten(var.unauthenticated_paths)
   # When set to catch-all, make priority super high to make sure last to match
   unauthenticated_priority     = var.lb_catch_all ? 99 : var.unauthenticated_priority

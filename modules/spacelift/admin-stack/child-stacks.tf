@@ -54,7 +54,7 @@ module "child_stacks_config" {
 
 module "child_stack" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack"
-  version = "1.5.0"
+  version = "1.6.0"
 
   for_each = local.child_stacks
 
@@ -104,7 +104,7 @@ module "child_stack" {
   drift_detection_timezone                = try(each.value.settings.spacelift.drift_detection_timezone, var.drift_detection_timezone)
   local_preview_enabled                   = try(each.value.settings.spacelift.local_preview_enabled, var.local_preview_enabled)
   manage_state                            = try(each.value.settings.spacelift.manage_state, var.manage_state)
-  policy_ids                              = try(local.child_policy_ids, [])
+  policy_ids                              = try(concat(each.value.settings.spacelift.policies, local.child_policy_ids), local.child_policy_ids, [])
   protect_from_deletion                   = try(each.value.settings.spacelift.protect_from_deletion, var.protect_from_deletion)
   repository                              = var.repository
   runner_image                            = try(each.value.settings.spacelift.runner_image, var.runner_image)
@@ -115,10 +115,11 @@ module "child_stack" {
   stack_name                              = try(each.value.settings.spacelift.stack_name, each.key)
   terraform_smart_sanitization            = try(each.value.settings.spacelift.terraform_smart_sanitization, var.terraform_smart_sanitization)
   terraform_version                       = lookup(var.terraform_version_map, try(each.value.settings.spacelift.terraform_version, ""), var.terraform_version)
+  terraform_workflow_tool                 = try(each.value.settings.spacelift.terraform_workflow_tool, var.terraform_workflow_tool)
   webhook_enabled                         = try(each.value.settings.spacelift.webhook_enabled, var.webhook_enabled)
   webhook_endpoint                        = try(each.value.settings.spacelift.webhook_endpoint, var.webhook_endpoint)
   webhook_secret                          = try(each.value.settings.spacelift.webhook_secret, var.webhook_secret)
-  worker_pool_id                          = try(local.worker_pools[each.value.settings.spacelift.worker_pool_name], local.worker_pools[var.worker_pool_name])
+  worker_pool_id                          = try(local.worker_pools[each.value.settings.spacelift.worker_pool_name], local.worker_pools[var.worker_pool_name], null)
 
   azure_devops         = try(each.value.settings.spacelift.azure_devops, var.azure_devops)
   bitbucket_cloud      = try(each.value.settings.spacelift.bitbucket_cloud, var.bitbucket_cloud)

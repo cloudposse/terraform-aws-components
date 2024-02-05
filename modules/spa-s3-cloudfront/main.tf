@@ -156,6 +156,7 @@ module "lambda_edge_preview" {
   cloudfront_distribution_hosted_zone_id = module.spa_web.cf_hosted_zone_id
   site_fqdn                              = local.site_fqdn
   parent_zone_name                       = local.parent_zone_name
+  runtime                                = var.lambda_runtime
 
   context = module.this.context
 
@@ -173,6 +174,7 @@ module "lambda_edge_redirect_404" {
   cloudfront_distribution_hosted_zone_id = module.spa_web.cf_hosted_zone_id
   site_fqdn                              = local.site_fqdn
   parent_zone_name                       = local.parent_zone_name
+  runtime                                = var.lambda_runtime
 
   context = module.this.context
 
