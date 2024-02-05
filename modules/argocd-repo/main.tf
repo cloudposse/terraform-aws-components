@@ -12,7 +12,7 @@ locals {
     )) => env
   } : {}
 
-  manifest_kubernetes_namespace = "argocd"
+  manifest_kubernetes_namespace = var.manifest_kubernetes_namespace
 
   team_slugs = toset(compact([
     for permission in var.permissions : lookup(permission, "team_slug", null)
@@ -115,7 +115,7 @@ resource "github_repository_deploy_key" "default" {
   for_each = local.environments
 
   title      = "Deploy key for ArgoCD environment: ${each.key} (${local.github_repository.default_branch} branch)"
-  repository = join("", github_repository.default[*].name)
+  repository = local.github_repository.name
   key        = tls_private_key.default[each.key].public_key_openssh
   read_only  = true
 }

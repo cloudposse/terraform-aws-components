@@ -21,6 +21,19 @@ variable "start_window" {
   default     = null
 }
 
+variable "backup_vault_lock_configuration" {
+  type = object({
+    changeable_for_days = optional(number)
+    max_retention_days  = optional(number)
+    min_retention_days  = optional(number)
+  })
+  description = <<-EOT
+    The backup vault lock configuration, each vault can have one vault lock in place. This will enable Backup Vault Lock on an AWS Backup vault  it prevents the deletion of backup data for the specified retention period. During this time, the backup data remains immutable and cannot be deleted or modified."
+    `changeable_for_days` - The number of days before the lock date. If omitted creates a vault lock in `governance` mode, otherwise it will create a vault lock in `compliance` mode.
+  EOT
+  default     = null
+}
+
 variable "completion_window" {
   type        = number
   description = "The amount of time AWS Backup attempts a backup before canceling the job and returning an error. Must be at least 60 minutes greater than `start_window`"
@@ -103,4 +116,39 @@ variable "iam_role_enabled" {
   type        = bool
   description = "Whether or not to create a new IAM Role and Policy Attachment"
   default     = true
+}
+
+
+variable "rules" {
+  type = list(object({
+    name                     = string
+    schedule                 = optional(string)
+    enable_continuous_backup = optional(bool)
+    start_window             = optional(number)
+    completion_window        = optional(number)
+    lifecycle = optional(object({
+      cold_storage_after                        = optional(number)
+      delete_after                              = optional(number)
+      opt_in_to_archive_for_supported_resources = optional(bool)
+    }))
+    copy_action = optional(object({
+      destination_vault_arn = optional(string)
+      lifecycle = optional(object({
+        cold_storage_after                        = optional(number)
+        delete_after                              = optional(number)
+        opt_in_to_archive_for_supported_resources = optional(bool)
+      }))
+    }))
+  }))
+  description = "An array of rule maps used to define schedules in a backup plan"
+  default     = []
+}
+
+variable "advanced_backup_setting" {
+  type = object({
+    backup_options = string
+    resource_type  = string
+  })
+  description = "An object that specifies backup options for each resource type."
+  default     = null
 }

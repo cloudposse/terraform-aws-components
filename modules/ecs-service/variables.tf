@@ -92,9 +92,9 @@ variable "containers" {
       readOnly        = bool
     })), null)
     mount_points = optional(list(object({
-      sourceVolume  = string
-      containerPath = string
-      readOnly      = bool
+      sourceVolume  = optional(string)
+      containerPath = optional(string)
+      readOnly      = optional(bool)
     })), [])
   }))
   description = "Feed inputs into container definition module"
@@ -133,6 +133,61 @@ variable "task" {
     bind_mount_volumes = optional(list(object({
       name      = string
       host_path = string
+    })), [])
+    efs_volumes = optional(list(object({
+      host_path = string
+      name      = string
+      efs_volume_configuration = list(object({
+        file_system_id          = string
+        root_directory          = string
+        transit_encryption      = string
+        transit_encryption_port = string
+        authorization_config = list(object({
+          access_point_id = string
+          iam             = string
+        }))
+      }))
+    })), [])
+    efs_component_volumes = optional(list(object({
+      host_path = string
+      name      = string
+      efs_volume_configuration = list(object({
+        component   = optional(string, "efs")
+        tenant      = optional(string, null)
+        environment = optional(string, null)
+        stage       = optional(string, null)
+
+        root_directory          = string
+        transit_encryption      = string
+        transit_encryption_port = string
+        authorization_config = list(object({
+          access_point_id = string
+          iam             = string
+        }))
+      }))
+    })), [])
+    docker_volumes = optional(list(object({
+      host_path = string
+      name      = string
+      docker_volume_configuration = list(object({
+        autoprovision = bool
+        driver        = string
+        driver_opts   = map(string)
+        labels        = map(string)
+        scope         = string
+      }))
+    })), [])
+    fsx_volumes = optional(list(object({
+      host_path = string
+      name      = string
+      fsx_windows_file_server_volume_configuration = list(object({
+        file_system_id = string
+        root_directory = string
+        authorization_config = list(object({
+          credentials_parameter = string
+          domain                = string
+        }))
+      }))
     })), [])
   })
   description = "Feed inputs into ecs_alb_service_task module"
@@ -193,6 +248,12 @@ variable "iam_policy_enabled" {
 variable "vanity_alias" {
   type        = list(string)
   description = "The vanity aliases to use for the public LB."
+  default     = []
+}
+
+variable "additional_targets" {
+  type        = list(string)
+  description = "Additional target routes to add to the ALB that point to this service. The only difference between this and `var.vanity_alias` is `var.vanity_alias` will create an alias record in Route 53 in the hosted zone in this account as well. `var.additional_targets` only adds the listener route to this service's target group."
   default     = []
 }
 

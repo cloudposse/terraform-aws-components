@@ -1,7 +1,7 @@
 # https://levelup.gitconnected.com/preview-environments-in-aws-with-cloudfront-and-lambda-edge-7acccb0b67d1
 
 locals {
-  lambda_runtime = "nodejs12.x"
+  lambda_runtime = var.runtime
   lambda_handler = "index.handler"
 }
 

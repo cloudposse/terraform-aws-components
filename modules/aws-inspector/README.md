@@ -99,5 +99,5 @@ By customizing the configuration with the appropriate rules, you can tailor the 
 | <a name="output_inspector"></a> [inspector](#output\_inspector) | The AWS Inspector module outputs |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## References
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/TODO) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/TODO) - Cloud Posse's upstream component
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
