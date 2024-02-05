@@ -119,7 +119,7 @@ For additional context, refer to some of these links.
 
 ## ✨ Contributing
 
-This project is under active development, and we encourage contributions from our community.
+This project is under active development, and we encourage contributions from our community. 
 Many thanks to our outstanding contributors:
 
 <a href="https://github.com/cloudposse/terraform-aws-components/graphs/contributors">
