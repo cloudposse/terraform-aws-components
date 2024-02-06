@@ -56,23 +56,6 @@ These components make a lot of assumptions about how we've configured our enviro
 >
 > We intend to eventually delete, but are leaving them for now in the repo.
 
-## Using `pre-commit` Hooks
-
-This repository uses [pre-commit](https://pre-commit.com/) and [pre-commit-terraform](https://github.com/antonbabenko/pre-commit-terraform) to enforce consistent Terraform code and documentation. This is accomplished by triggering hooks during `git commit` to block commits that don't pass checks (E.g. format, and module documentation). You can find the hooks that are being executed in the [`.pre-commit-config.yaml`](.pre-commit-config.yaml) file.
-
-You can install [pre-commit](https://pre-commit.com/) and this repo's pre-commit hooks on a Mac machine by running the following commands:
-
-```bash
-brew install pre-commit gawk terraform-docs coreutils
-pre-commit install --install-hooks
-```
-
-Then run the following command to rebuild the docs for all Terraform components:
-
-```bash
-make rebuild-docs
-```
-
 
 
 ## Usage
@@ -97,6 +80,7 @@ components:
         # <var_name>: <var_value>
 
 ```
+
 
 ## Automated Updates of Components using GitHub Actions
 
@@ -136,6 +120,23 @@ update:
 ```
 
 For the full documentation on how to use the Component Updater GitHub Action, please see the [Atmos Intergations](https://atmos.tools/integrations/github-actions/component-updater) documentation.
+
+## Using `pre-commit` Hooks
+
+This repository uses [pre-commit](https://pre-commit.com/) and [pre-commit-terraform](https://github.com/antonbabenko/pre-commit-terraform) to enforce consistent Terraform code and documentation. This is accomplished by triggering hooks during `git commit` to block commits that don't pass checks (E.g. format, and module documentation). You can find the hooks that are being executed in the [`.pre-commit-config.yaml`](.pre-commit-config.yaml) file.
+
+You can install [pre-commit](https://pre-commit.com/) and this repo's pre-commit hooks on a Mac machine by running the following commands:
+
+```bash
+brew install pre-commit gawk terraform-docs coreutils
+pre-commit install --install-hooks
+```
+
+Then run the following command to rebuild the docs for all Terraform components:
+
+```bash
+make rebuild-docs
+```
 
 
 
