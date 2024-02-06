@@ -83,7 +83,7 @@ usage: |-
   Please take a look at each [component's README](https://docs.cloudposse.com/components/) for specific usage.
 
   > [!TIP]
-  > ## Use Atmos with Terraform
+  > ## 👽 Use Atmos with Terraform
   > Theese components work really well with [Atmos](https://atmos.tools), our open-source tool for managing infrastructure as code with Terraform.
 
   Generally, you can use these components in [Atmos](https://atmos.tools/core-concepts/components/) by adding the following code into your [stack manifest](https://atmos.tools/core-concepts/stacks/):
