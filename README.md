@@ -48,14 +48,6 @@ It's from this library that other developers in your organization will pick and 
 
 These components make a lot of assumptions about how we've configured our environments. That said, they can still serve as an excellent reference for others.
 
-> [!IMPORTANT]
-> ## Deprecated Components
-> Terraform components which are no longer actively maintained are kept in the [`deprecated/`](deprecated/) folder.
->
-> Many of these deprecated components are used in our older reference architectures.
->
-> We intend to eventually delete, but are leaving them for now in the repo.
-
 
 
 ## Usage
@@ -137,6 +129,14 @@ Then run the following command to rebuild the docs for all Terraform components:
 ```bash
 make rebuild-docs
 ```
+
+> [!IMPORTANT]
+> ## Deprecated Components
+> Terraform components which are no longer actively maintained are kept in the [`deprecated/`](deprecated/) folder.
+>
+> Many of these deprecated components are used in our older reference architectures.
+>
+> We intend to eventually delete, but are leaving them for now in the repo.
 
 
 
