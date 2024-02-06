@@ -249,9 +249,9 @@ Ensure that your team succeeds by using our proven process and turnkey blueprint
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=for-the-badge)](https://opensource.org/licenses/Apache-2.0)
 
 <details>
-<summary>See <a href="LICENSE.md">`LICENSE`<a> for full</summary>
+<summary>Summary of License</summary>
 
-See [LICENSE.md](LICENSE) for full details.
+Complete license is available in the [`LICENSE`](LICENSE) file.
 
 ```text
 Licensed to the Apache Software Foundation (ASF) under one
