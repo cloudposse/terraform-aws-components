@@ -63,7 +63,7 @@ Please take a look at each [component's README](https://docs.cloudposse.com/comp
 >
 > <details>
 > <summary>Watch demo of using Atmos with Terraform</summary>
-> ![Demo](https://github.com/cloudposse/atmos/blob/master/docs/demo.gif?raw=true)
+> <img src="https://github.com/cloudposse/atmos/blob/master/docs/demo.gif?raw=true"/><br/>
 > *<br/>Example of running [`atmos`](https://atmos.tools) to describe infrastructure.*
 > </detalis>
 
