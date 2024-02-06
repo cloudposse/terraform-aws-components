@@ -62,7 +62,7 @@ Please take a look at each [component's README](https://docs.cloudposse.com/comp
 > These components work really well with [Atmos](https://atmos.tools), our open-source tool for managing infrastructure as code with Terraform.
 >
 > <details>
-> <summary>Watch demo of using Atmos with Terraform</summary>
+> <summary><strong>Watch demo of using Atmos with Terraform</strong></summary>
 > <img src="https://github.com/cloudposse/atmos/blob/master/docs/demo.gif?raw=true"/><br/>
 > *<br/>Example of running [`atmos`](https://atmos.tools) to describe infrastructure.*
 > </detalis>
@@ -82,7 +82,8 @@ components:
 
 ## Automated Updates of Components using GitHub Actions
 
-Automatically update your components to the latest version using GitHub Actions.
+Leverage the Atmos components GitHub Action to automate the creation and management of pull requests for component updates.
+
 This is done by creating a new file in the `.github/workflows` directory of your repository.
 
 The file should contain the following:
