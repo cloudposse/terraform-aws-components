@@ -84,7 +84,13 @@ usage: |-
 
   > [!TIP]
   > ## 👽 Use Atmos with Terraform
-  > Theese components work really well with [Atmos](https://atmos.tools), our open-source tool for managing infrastructure as code with Terraform.
+  > These components work really well with [Atmos](https://atmos.tools), our open-source tool for managing infrastructure as code with Terraform.
+  >
+  > <details>
+  > <summary>Watch demo of using Atmos with Terraform</summary>
+  > ![Demo](https://github.com/cloudposse/atmos/blob/master/docs/demo.gif?raw=true)
+  > *<br/>Example of running [`atmos`](https://atmos.tools) to describe infrastructure.*
+  > </detalis>
 
   Generally, you can use these components in [Atmos](https://atmos.tools/core-concepts/components/) by adding the following code into your [stack manifest](https://atmos.tools/core-concepts/stacks/):
 
