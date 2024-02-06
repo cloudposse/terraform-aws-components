@@ -61,7 +61,8 @@ related:
 
 # Short description of this project
 description: |-
-  This is a collection of reusable Terraform components for provisioning infrastructure used by the Cloud Posse [reference architectures](https://cloudposse.com).
+  This is a collection of reusable [AWS Terraform components](https://atmos.tools/core-concepts/components/) for provisioning infrastructure used by the Cloud Posse [reference architectures](https://cloudposse.com).
+  They work really well with [Atmos](https://atmos.tools), our open-source tool for managing infrastructure as code with Terraform.
 
 introduction: |-
   In this repo you'll find real-world examples of how we've implemented various common patterns using our [terraform modules](https://cpco.io/terraform-modules) for our customers.
@@ -72,13 +73,13 @@ introduction: |-
 
   These components make a lot of assumptions about how we've configured our environments. That said, they can still serve as an excellent reference for others.
 
-  ## Deprecations
-
-  Terraform components which are no longer actively maintained are now in the `deprecated/` folder.
-
-  Many of these deprecated components are used in our old reference architectures.
-
-  We intend to eventually delete, but are leaving them for now in the repo.
+  > [!IMPORTANT]
+  > ## Deprecations
+  > Terraform components which are no longer actively maintained are now in the `deprecated/` folder.
+  >
+  > Many of these deprecated components are used in our old reference architectures.
+  >
+  > We intend to eventually delete, but are leaving them for now in the repo.
 
   ## Using `pre-commit` Hooks
 
@@ -99,7 +100,63 @@ introduction: |-
 
 # How to use this project
 usage: |-
-  Please take a look at each [component's README](https://docs.cloudposse.com/components/) for usage.
+
+  Please take a look at each [component's README](https://docs.cloudposse.com/components/) for specific usage.
+
+  > [!TIP]
+  > ## Use Atmos with Terraform
+  > Theese components work really well with [Atmos](https://atmos.tools), our open-source tool for managing infrastructure as code with Terraform.
+
+  Generally, you can use these components in [Atmos](https://atmos.tools/core-concepts/components/) by adding the following code into your [stack manifest](https://atmos.tools/core-concepts/stacks/):
+
+  ```yaml
+  components:
+    terraform:
+      <component_name>:
+        vars:
+          # Terraform variables
+          # <var_name>: <var_value>
+
+  ```
+
+  ## Automated Updates of Components using GitHub Actions
+
+  Automatically update your components to the latest version using GitHub Actions.
+  This is done by creating a new file in the `.github/workflows` directory of your repository.
+
+  The file should contain the following:
+
+  ```yaml
+  jobs:
+  update:
+    runs-on:
+      - "ubuntu-latest"
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Update Atmos Components
+        uses: cloudposse/github-action-atmos-component-updater@v2
+        env:
+          # https://atmos.tools/cli/configuration/#environment-variables
+          ATMOS_CLI_CONFIG_PATH: ${{ github.workspace }}/rootfs/usr/local/etc/atmos/
+        with:
+          github-access-token: ${{ secrets.GITHUB_TOKEN }}
+          log-level: INFO
+          max-number-of-prs: 10
+
+      - name: Delete abandoned update branches
+        uses: phpdocker-io/github-actions-delete-abandoned-branches@v2
+        with:
+          github_token: ${{ github.token }}
+          last_commit_age_days: 0
+          allowed_prefixes: "component-update/"
+          dry_run: no
+  ```
+
+  For the full documentation on how to use the Component Updater GitHub Action, please see the [Atmos Intergations](https://atmos.tools/integrations/github-actions/component-updater) documentation.
 
 include:
   - "docs/targets.md"
