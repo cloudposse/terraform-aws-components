@@ -74,10 +74,10 @@ introduction: |-
   These components make a lot of assumptions about how we've configured our environments. That said, they can still serve as an excellent reference for others.
 
   > [!IMPORTANT]
-  > ## Deprecations
-  > Terraform components which are no longer actively maintained are now in the `deprecated/` folder.
+  > ## Deprecated Components
+  > Terraform components which are no longer actively maintained are kept in the [`deprecated/`](deprecated/) folder.
   >
-  > Many of these deprecated components are used in our old reference architectures.
+  > Many of these deprecated components are used in our older reference architectures.
   >
   > We intend to eventually delete, but are leaving them for now in the repo.
 
