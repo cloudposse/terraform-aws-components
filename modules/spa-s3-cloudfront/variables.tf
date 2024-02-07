@@ -490,11 +490,76 @@ variable "github_runners_tenant_name" {
   default     = null
 }
 
-variable "lambda_runtime" {
+variable "lambda_edge_functions" {
+  type = map(object({
+    source = optional(list(object({
+      filename = string
+      content  = string
+    })))
+    source_dir   = optional(string)
+    source_zip   = optional(string)
+    runtime      = string
+    handler      = string
+    event_type   = string
+    include_body = bool
+  }))
+  description = <<-EOT
+  Lambda@Edge functions to create.
+
+  The key of this map is the name label of the Lambda@Edge function.
+
+  This map will be deep merged with each enabled default function. Use deep merge to change or overwrite specific values passed by those function objects.
+  EOT
+  default     = {}
+}
+
+variable "lambda_edge_runtime" {
   type        = string
   description = <<-EOT
-  Identifier of the function's runtime. See Runtimes for valid values.
-  https://docs.aws.amazon.com/lambda/latest/dg/API_CreateFunction.html#SSS-CreateFunction-request-Runtime
+  The default Lambda@Edge runtime for all functions.
+
+  This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edge_functions` and can be overwritten for any individual function.
   EOT
   default     = "nodejs16.x"
+}
+
+variable "lambda_edge_handler" {
+  type        = string
+  description = <<-EOT
+  The default Lambda@Edge handler for all functions.
+
+  This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edge_functions` and can be overwritten for any individual function.
+  EOT
+  default     = "index.handler"
+}
+
+variable "lambda_edge_allowed_ssm_parameters" {
+  type        = list(string)
+  description = "The paywall Lambda@Edge functions will be allowed to access this list of AWS SSM parameter ARN strings"
+  default     = []
+}
+
+variable "lambda_edge_destruction_delay" {
+  type        = string
+  description = <<-EOT
+  The delay, in [Golang ParseDuration](https://pkg.go.dev/time#ParseDuration) format, to wait before destroying the Lambda@Edge
+  functions.
+
+  This delay is meant to circumvent Lambda@Edge functions not being immediately deletable following their dissociation from
+  a CloudFront distribution, since they are replicated to CloudFront Edge servers around the world.
+
+  If set to `null`, no delay will be introduced.
+
+  By default, the delay is 20 minutes. This is because it takes about 3 minutes to destroy a CloudFront distribution, and
+  around 15 minutes until the Lambda@Edge function is available for deletion, in most cases.
+
+  For more information, see: https://github.com/hashicorp/terraform-provider-aws/issues/1721.
+  EOT
+  default     = "20m"
+}
+
+variable "lambda_edge_paywall_enabled" {
+  type        = bool
+  description = "Enable or disable the Lambda@Edge paywall features"
+  default     = false
 }

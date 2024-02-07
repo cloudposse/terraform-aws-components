@@ -6,7 +6,7 @@ locals {
 
 module "utils" {
   source  = "cloudposse/utils/aws"
-  version = "1.3.0"
+  version = "0.8.1"
 }
 
 data "aws_s3_bucket" "failover_bucket" {
