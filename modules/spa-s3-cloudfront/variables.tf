@@ -535,7 +535,7 @@ variable "lambda_edge_handler" {
 
 variable "lambda_edge_allowed_ssm_parameters" {
   type        = list(string)
-  description = "The paywall Lambda@Edge functions will be allowed to access this list of AWS SSM parameter ARN strings"
+  description = "The Lambda@Edge functions will be allowed to access this list of AWS SSM parameter ARN strings"
   default     = []
 }
 
@@ -556,10 +556,4 @@ variable "lambda_edge_destruction_delay" {
   For more information, see: https://github.com/hashicorp/terraform-provider-aws/issues/1721.
   EOT
   default     = "20m"
-}
-
-variable "lambda_edge_paywall_enabled" {
-  type        = bool
-  description = "Enable or disable the Lambda@Edge paywall features"
-  default     = false
 }

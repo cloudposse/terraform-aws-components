@@ -1,8 +1,24 @@
 locals {
   lambda_edge_redirect_404_enabled = local.enabled && var.lambda_edge_redirect_404_enabled
-  lambda_edge_paywall_enabled      = local.enabled && var.lambda_edge_paywall_enabled
 
   cloudfront_lambda_function_association = concat(var.cloudfront_lambda_function_association, module.lambda_edge.lambda_function_association)
+}
+
+# See CHANGELOG for PR #978:
+# https://github.com/cloudposse/terraform-aws-components/pull/978
+#
+# Lambda@Edge was moved from submodules to this file
+moved {
+  from = module.lambda-edge-preview.module.lambda_edge.aws_lambda_function.default["origin_request"]
+  to   = module.lambda_edge_functions.aws_lambda_function.default["origin_request"]
+}
+moved {
+  from = module.lambda_edge_redirect_404.module.lambda_edge.aws_lambda_function.default["origin_response"]
+  to   = module.lambda_edge_functions.aws_lambda_function.default["origin_response"]
+}
+moved {
+  from = module.lambda_edge_redirect_404.module.lambda_edge.aws_lambda_function.default["viewer_request"]
+  to   = module.lambda_edge_functions.aws_lambda_function.default["viewer_request"]
 }
 
 module "lambda_edge_functions" {
@@ -53,7 +69,7 @@ module "lambda_edge_functions" {
         event_type   = "origin-response"
         include_body = false
       },
-      viewer_request = { # if paywall is enabled, this will be overwritten
+      viewer_request = {
         source = [{
           content  = <<-EOT
           exports.handler = (event, context, callback) => {
@@ -72,23 +88,6 @@ module "lambda_edge_functions" {
         runtime      = var.lambda_edge_runtime
         handler      = var.lambda_edge_handler
         event_type   = "viewer-request"
-        include_body = false
-      }
-    } : {},
-    local.lambda_edge_paywall_enabled ? {
-      viewer_request = {
-        source       = null # overwrites deep merged result from local.lambda_edge_redirect_404_enabled, if enabled. If not enabled, no change from default value
-        source_zip   = "${path.module}/dist/lambda_edge_paywall_viewer_request.zip"
-        runtime      = var.lambda_edge_runtime
-        handler      = var.lambda_edge_handler
-        event_type   = "viewer-request"
-        include_body = false
-      }
-      viewer_response = {
-        source_zip   = "${path.module}/dist/lambda_edge_paywall_viewer_response.zip"
-        runtime      = var.lambda_edge_runtime
-        handler      = var.lambda_edge_handler
-        event_type   = "viewer-response"
         include_body = false
       }
     } : {},
