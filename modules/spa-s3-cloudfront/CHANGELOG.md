@@ -1,6 +1,6 @@
 ## Components PR [#978](https://github.com/cloudposse/terraform-aws-components/pull/978)
 
-### BREAKING: Lambda@Edge Submodule Refactor
+### Lambda@Edge Submodule Refactor
 
 This PR has significantly refactored how Lambda@Edge functions are managed by Terraform with this component. Previously, the specific use cases for Lambda@Edge functions were handled by submodules `lambda-edge-preview` and `lambda_edge_redirect_404`. These component submodules both called the same Terraform module, `cloudposse/cloudfront-s3-cdn/aws//modules/lambda@edge`. These submodules have been replaced with a single Terraform file, `lambda_edge.tf`.
 
