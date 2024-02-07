@@ -18,9 +18,9 @@ If you have no Lambda@Edge functions deployed and where both `var.preview_enviro
 
 ### Lambda Runtime Version
 
-The previous PR [#946](https://github.com/cloudposse/terraform-aws-components/pull/946) introduced the `var.lambda_runtime` input. Previously, the version of node in both submodules was hard-coded to be `nodejs12.x`. The default value should be the latest, recommended version. This PR sets that default to `nodejs16.x`.
+The previous PR [#946](https://github.com/cloudposse/terraform-aws-components/pull/946) introduced the `var.lambda_runtime` input. Previously, the version of node in both submodules was hard-coded to be `nodejs12.x`. This PR sets renames that variable to `var.lambda_edge_runtime` and sets the default to `nodejs16.x`.
 
-If you want to maintain the previous version of node, set `var.lambda_runtime` to `nodejs12.x`, though be aware that AWS deprecated that version on March 31, 2023, and lambdas using that environment may no longer work. Otherwise, this component will attempt to deploy the functions with runtime `nodejs16.x`.
+If you want to maintain the previous version of node, set `var.lambda_edge_runtime` to `nodejs12.x`, though be aware that AWS deprecated that version on March 31, 2023, and lambdas using that environment may no longer work. Otherwise, this component will attempt to deploy the functions with runtime `nodejs16.x`.
 
 - [See all available runtimes here](https://docs.aws.amazon.com/lambda/latest/dg/API_CreateFunction.html#SSS-CreateFunction-request-Runtime)
 - [See runtime environment deprecation dates here](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy)
