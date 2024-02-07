@@ -10,7 +10,7 @@ Specifically, our own use case is using an authorization Lambda@Edge viewer requ
 
 #### Upgrading with `preview_environment_enabled: true` or `lambda_edge_redirect_404_enabled: true`
 
-If you have `var.preview_environment_enabled` or `var.lambda_edge_redirect_404_enabled` set to `true`, Terraform `moved` will move the previous resource by submodule to the new resource by file. Please give your next Terraform plan a sanity check. No resource should be destroyed by this change.
+If you have `var.preview_environment_enabled` or `var.lambda_edge_redirect_404_enabled` set to `true`, Terraform `moved` will move the previous resource by submodule to the new resource by file. Please give your next Terraform plan a sanity check. Any existing Lambda functions _should not be destroyed_ by this change.
 
 #### Upgrading with both `preview_environment_enabled: false` and `lambda_edge_redirect_404_enabled: false`
 
