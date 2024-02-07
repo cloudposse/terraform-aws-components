@@ -10,15 +10,15 @@ locals {
 # Lambda@Edge was moved from submodules to this file
 moved {
   from = module.lambda-edge-preview.module.lambda_edge.aws_lambda_function.default["origin_request"]
-  to   = module.lambda_edge_functions.aws_lambda_function.default["origin_request"]
+  to   = module.lambda_edge.aws_lambda_function.default["origin_request"]
 }
 moved {
   from = module.lambda_edge_redirect_404.module.lambda_edge.aws_lambda_function.default["origin_response"]
-  to   = module.lambda_edge_functions.aws_lambda_function.default["origin_response"]
+  to   = module.lambda_edge.aws_lambda_function.default["origin_response"]
 }
 moved {
   from = module.lambda_edge_redirect_404.module.lambda_edge.aws_lambda_function.default["viewer_request"]
-  to   = module.lambda_edge_functions.aws_lambda_function.default["viewer_request"]
+  to   = module.lambda_edge.aws_lambda_function.default["viewer_request"]
 }
 
 module "lambda_edge_functions" {
