@@ -87,7 +87,7 @@ components:
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_budgets"></a> [budgets](#module\_budgets) | cloudposse/budgets/aws | 0.2.1 |
-| <a name="module_iam_account_settings"></a> [iam\_account\_settings](#module\_iam\_account\_settings) | cloudposse/iam-account-settings/aws | 0.4.0 |
+| <a name="module_iam_account_settings"></a> [iam\_account\_settings](#module\_iam\_account\_settings) | cloudposse/iam-account-settings/aws | 0.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_service_quotas"></a> [service\_quotas](#module\_service\_quotas) | cloudposse/service-quotas/aws | 0.1.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |

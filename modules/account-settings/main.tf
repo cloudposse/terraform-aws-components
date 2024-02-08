@@ -8,7 +8,7 @@ resource "aws_ebs_encryption_by_default" "default" {
 # It also sets the account alias for the current account.
 module "iam_account_settings" {
   source  = "cloudposse/iam-account-settings/aws"
-  version = "0.4.0"
+  version = "0.5.0"
 
   hard_expiry             = true
   minimum_password_length = var.minimum_password_length
