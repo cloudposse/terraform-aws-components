@@ -112,7 +112,7 @@ components:
         enabled: true
         lambda_edge_functions:
           viewer_request: # overwrite existing function
-            source: null # this overwrites the 404 viewer request source with deep merge
+            source: null # this overwrites the 404 viewer request source with deep merging
             source_zip: "./dist/lambda_edge_paywall_viewer_request.zip"
             runtime: "nodejs16.x"
             handler: "index.handler"

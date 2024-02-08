@@ -506,7 +506,7 @@ variable "lambda_edge_functions" {
   description = <<-EOT
   Lambda@Edge functions to create.
 
-  The key of this map is the name label of the Lambda@Edge function.
+  The key of this map is the name of the Lambda@Edge function.
 
   This map will be deep merged with each enabled default function. Use deep merge to change or overwrite specific values passed by those function objects.
   EOT
@@ -535,7 +535,7 @@ variable "lambda_edge_handler" {
 
 variable "lambda_edge_allowed_ssm_parameters" {
   type        = list(string)
-  description = "The Lambda@Edge functions will be allowed to access this list of AWS SSM parameter ARN strings"
+  description = "The Lambda@Edge functions will be allowed to access the list of AWS SSM parameter with these ARNs"
   default     = []
 }
 

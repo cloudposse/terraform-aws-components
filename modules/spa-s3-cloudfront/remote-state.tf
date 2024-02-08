@@ -34,7 +34,7 @@ module "github_runners" {
   component   = var.github_runners_component_name
   stage       = var.github_runners_stage_name
   environment = var.github_runners_environment_name
-  tenant      = try(var.github_runners_tenant_name, var.tenant)
+  tenant      = try(var.github_runners_tenant_name, module.this.tenant)
 
   context = module.this.context
 }
