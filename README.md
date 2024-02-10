@@ -68,7 +68,7 @@ Please take a look at each [component's README](https://docs.cloudposse.com/comp
 > <details>
 > <summary><strong>Watch demo of using Atmos with Terraform</strong></summary>
 > <img src="https://github.com/cloudposse/atmos/blob/master/docs/demo.gif?raw=true"/><br/>
-> <strong>Example of running <a href="https://atmos.tools"><code>atmos</code></a> to describe infrastructure in our <a href="https://atmos.tools/quick-start/">Quick Start</a> tutorial.</strong>
+> <strong>Example of running <a href="https://atmos.tools"><code>atmos</code></a> to manage infrastructure from our <a href="https://atmos.tools/quick-start/">Quick Start</a> tutorial.</strong>
 > </detalis>
 
 Generally, you can use these components in [Atmos](https://atmos.tools/core-concepts/components/) by adding something like the following
@@ -199,7 +199,7 @@ Please use the [issue tracker](https://github.com/cloudposse/terraform-aws-compo
 
 ### 💻 Developing
 
-If you are interested in being a contributor and want to get involved in developing this project or help out with Cloud Posse's other projects, we would love to hear from you!
+If you are interested in being a contributor and want to get involved in developing this project or help out with Cloud Posse's other projects, we would love to hear from you! 
 Hit us up in [Slack](https://cpco.io/slack?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=slack), in the `#cloudposse` channel.
 
 In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
