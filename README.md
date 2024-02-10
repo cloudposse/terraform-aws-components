@@ -199,7 +199,7 @@ Please use the [issue tracker](https://github.com/cloudposse/terraform-aws-compo
 
 ### 💻 Developing
 
-If you are interested in being a contributor and want to get involved in developing this project or help out with Cloud Posse's other projects, we would love to hear from you! 
+If you are interested in being a contributor and want to get involved in developing this project or help out with Cloud Posse's other projects, we would love to hear from you!
 Hit us up in [Slack](https://cpco.io/slack?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=slack), in the `#cloudposse` channel.
 
 In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
