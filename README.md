@@ -68,7 +68,7 @@ Please take a look at each [component's README](https://docs.cloudposse.com/comp
 > <details>
 > <summary><strong>Watch demo of using Atmos with Terraform</strong></summary>
 > <img src="https://github.com/cloudposse/atmos/blob/master/docs/demo.gif?raw=true"/><br/>
-> <strong>Example of running <a href="https://atmos.tools">`atmos`</a> to describe infrastructure.</strong>
+> <strong>Example of running <a href="https://atmos.tools"><code>atmos</code></a> to describe infrastructure in our <a href="https://atmos.tools/quick-start/">Quick Start</a> tutorial.</strong>
 > </detalis>
 
 Generally, you can use these components in [Atmos](https://atmos.tools/core-concepts/components/) by adding something like the following
