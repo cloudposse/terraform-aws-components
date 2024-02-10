@@ -67,7 +67,7 @@ Please take a look at each [component's README](https://docs.cloudposse.com/comp
 > <details>
 > <summary><strong>Watch demo of using Atmos with Terraform</strong></summary>
 > <img src="https://github.com/cloudposse/atmos/blob/master/docs/demo.gif?raw=true"/><br/>
-> *<br/>Example of running [`atmos`](https://atmos.tools) to describe infrastructure.*
+> *Example of running [`atmos`](https://atmos.tools) to describe infrastructure.*
 > </detalis>
 
 Generally, you can use these components in [Atmos](https://atmos.tools/core-concepts/components/) by adding the following code into your [stack manifest](https://atmos.tools/core-concepts/stacks/):
