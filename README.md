@@ -61,8 +61,9 @@ These components make a lot of assumptions about how we've configured our enviro
 Please take a look at each [component's README](https://docs.cloudposse.com/components/) for specific usage.
 
 > [!TIP]
-> ## 👽 Use Atmos to Orchestrate Environments with Terraform
-> These components work really well with [Atmos](https://atmos.tools), our open-source tool for orchestrating Terraform.
+> ## 👽 Use Atmos with Terraform
+> To orchestrate multiple environments with ease using Terraform, Cloud Posse recommends using [Atmos](https://atmos.tools),
+> our open-source tool for Terraform automation.
 >
 > <details>
 > <summary><strong>Watch demo of using Atmos with Terraform</strong></summary>
@@ -198,7 +199,7 @@ Please use the [issue tracker](https://github.com/cloudposse/terraform-aws-compo
 
 ### 💻 Developing
 
-If you are interested in being a contributor and want to get involved in developing this project or help out with Cloud Posse's other projects, we would love to hear from you!
+If you are interested in being a contributor and want to get involved in developing this project or help out with Cloud Posse's other projects, we would love to hear from you! 
 Hit us up in [Slack](https://cpco.io/slack?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-components&utm_content=slack), in the `#cloudposse` channel.
 
 In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.

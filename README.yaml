@@ -83,8 +83,9 @@ usage: |-
   Please take a look at each [component's README](https://docs.cloudposse.com/components/) for specific usage.
 
   > [!TIP]
-  > ## 👽 Use Atmos to Orchestrate Environments with Terraform
-  > These components work really well with [Atmos](https://atmos.tools), our open-source tool for orchestrating Terraform.
+  > ## 👽 Use Atmos with Terraform
+  > To orchestrate multiple environments with ease using Terraform, Cloud Posse recommends using [Atmos](https://atmos.tools),
+  > our open-source tool for Terraform automation.
   >
   > <details>
   > <summary><strong>Watch demo of using Atmos with Terraform</strong></summary>
