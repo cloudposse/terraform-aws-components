@@ -43,13 +43,19 @@ They work really well with [Atmos](https://atmos.tools), our open-source tool fo
 
 ## Introduction
 
-In this repo you'll find real-world examples of how we've implemented various common patterns using our [terraform modules](https://cpco.io/terraform-modules) for our customers.
+In this repo you'll find real-world examples of how we've implemented Terraform "root" modules as native
+[Atmos Components](https://atmos.tools/core-concepts/components/) for our customers. These Components
+leverage our hundreds of free and open-source [terraform "child" modules](https://cpco.io/terraform-modules).
 
-The [component library](https://docs.cloudposse.com/components/) captures the business logic, opinions, best practices and non-functional requirements.
+The [component library](https://docs.cloudposse.com/components/) captures the business logic, opinions, best practices and
+non-functional requirements for an organization.
 
-It's from this library that other developers in your organization will pick and choose from anytime they need to deploy some new capability.
+It's from this library that other developers in your organization will pick and choose from whenever they need to deploy some new
+capability.
 
-These components make a lot of assumptions about how we've configured our environments. That said, they can still serve as an excellent reference for others.
+These components make a lot of assumptions (aka ["convention over configuration"](https://en.wikipedia.org/wiki/Convention_over_configuration)) about how we've configured our environments.
+That said, they still serve as an excellent reference for others on how to build, organize and distribute enterprise-grade infrastructure
+with Terraform that can be used with [Atmos](https://atmos.tools).
 
 
 
