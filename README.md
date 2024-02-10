@@ -61,8 +61,8 @@ These components make a lot of assumptions about how we've configured our enviro
 Please take a look at each [component's README](https://docs.cloudposse.com/components/) for specific usage.
 
 > [!TIP]
-> ## 👽 Use Atmos with Terraform
-> These components work really well with [Atmos](https://atmos.tools), our open-source tool for managing infrastructure as code with Terraform.
+> ## 👽 Use Atmos to Orchestrate Environments with Terraform
+> These components work really well with [Atmos](https://atmos.tools), our open-source tool for orchestrating Terraform.
 >
 > <details>
 > <summary><strong>Watch demo of using Atmos with Terraform</strong></summary>
@@ -70,24 +70,22 @@ Please take a look at each [component's README](https://docs.cloudposse.com/comp
 > <strong>Example of running <a href="https://atmos.tools">`atmos`</a> to describe infrastructure.</strong>
 > </detalis>
 
-Generally, you can use these components in [Atmos](https://atmos.tools/core-concepts/components/) by adding the following code into your [stack manifest](https://atmos.tools/core-concepts/stacks/):
+Generally, you can use these components in [Atmos](https://atmos.tools/core-concepts/components/) by adding something like the following
+code into your [stack manifest](https://atmos.tools/core-concepts/stacks/):
 
 ```yaml
-components:
-  terraform:
-    <component_name>:
-      vars:
-        # Terraform variables
-        # <var_name>: <var_value>
-
+components:                      # List of components to include in the stack
+  terraform:                     # The toolchain being used for configuration
+    vpc:                         # The name of the component (e.g. terraform "root" module)
+      vars:                      # Terraform variables (e.g. `.tfvars`)
+        cidr_block: 10.0.0.0/16  # A variable input passed to terraform via `.tfvars`
 ```
-
 
 ## Automated Updates of Components using GitHub Actions
 
-Leverage the Atmos components GitHub Action to automate the creation and management of pull requests for component updates.
+Leverage our [GitHub Action](https://atmos.tools/integrations/github-actions/component-updater) to automate the creation and management of pull requests for component updates.
 
-This is done by creating a new file in the `.github/workflows` directory of your repository.
+This is done by creating a new file (e.g. `atmos-component-updater.yml`) in the `.github/workflows` directory of your repository.
 
 The file should contain the following:
 
