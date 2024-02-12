@@ -217,7 +217,7 @@ module "container_definition" {
     options = tomap({
       awslogs-region        = var.region,
       awslogs-group         = local.awslogs_group,
-      awslogs-stream-prefix = var.name,
+      awslogs-stream-prefix = coalesce(each.value["name"], each.key),
     })
     # if we are not using awslogs, we execute this line, which if we have dd enabled, means we are using firelens, so merge that config in.
   }) : merge(lookup(each.value, "log_configuration", {}), local.datadog_logconfiguration_firelens)
@@ -289,6 +289,8 @@ module "ecs_alb_service_task" {
   ecs_service_enabled                = lookup(local.task, "ecs_service_enabled", true)
   task_role_arn                      = lookup(local.task, "task_role_arn", one(module.iam_role[*]["outputs"]["role"]["arn"]))
   capacity_provider_strategies       = lookup(local.task, "capacity_provider_strategies")
+
+  task_exec_policy_arns_map = var.task_exec_policy_arns_map
 
   efs_volumes        = local.efs_volumes
   docker_volumes     = lookup(local.task, "docker_volumes", [])
