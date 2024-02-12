@@ -136,7 +136,8 @@ module "child_stack" {
         # if `space_name` is specified, use it
         each.value.settings.spacelift.space_name,
         # otherwise, try to replace the context tokens in `space_name_template` and use it
-        each.value.settings.spacelift.space_name_pattern != "" && each.value.settings.spacelift.space_name_pattern != nil ? (
+        # `space_name_template` accepts the following context tokens: {namespace}, {tenant}, {environment}, {stage}
+        each.value.settings.spacelift.space_name_pattern != "" && each.value.settings.spacelift.space_name_pattern != null ? (
           replace(
             replace(
               replace(
