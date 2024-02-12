@@ -239,7 +239,7 @@ variable "showcase" {
 
 variable "space_id" {
   type        = string
-  description = "Place the stack in the specified space_id."
+  description = "Place the stack in the specified space_id"
   default     = "root"
 }
 
