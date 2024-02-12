@@ -129,7 +129,31 @@ module "child_stack" {
   pulumi               = try(each.value.settings.spacelift.pulumi, var.pulumi)
   showcase             = try(each.value.settings.spacelift.showcase, var.showcase)
 
-  space_id = local.spaces[try(each.value.settings.spacelift.space_name, var.space_id)]
+  # Process `spacelift.space_name` and `spacelift.space_name_pattern`
+  space_id = local.spaces[
+    try(
+      coalesce(
+        # if `space_name` is specified, use it
+        each.value.settings.spacelift.space_name,
+        # otherwise, try to replace the context tokens in `space_name_template` and use it
+        each.value.settings.spacelift.space_name_pattern != "" && each.value.settings.spacelift.space_name_pattern != nil ? (
+          replace(
+            replace(
+              replace(
+                replace(
+                  each.value.settings.spacelift.space_name_pattern,
+                  "{namespace}", module.this.namespace
+                ),
+                "{tenant}", module.this.tenant
+              ),
+              "{environment}", module.this.environment
+            ),
+          "{stage}", module.this.stage)
+        ) : ""
+      ),
+      var.space_id
+    )
+  ]
 
   depends_on = [
     null_resource.spaces_precondition,

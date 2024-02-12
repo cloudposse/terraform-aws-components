@@ -18,7 +18,7 @@ locals {
   missing_spaces = setunion(setsubtract(local.unique_spaces_from_config, keys(local.spaces)))
 }
 
-# Ensure all of the spaces referenced in the atmos config exist in Spacelift
+# Ensure all of the spaces referenced in the Atmos config exist in Spacelift
 resource "null_resource" "spaces_precondition" {
   count = local.enabled ? 1 : 0
 
