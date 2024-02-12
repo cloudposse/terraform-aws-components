@@ -53,7 +53,7 @@ module "space" {
 
 module "policy" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-policy"
-  version = "1.4.0"
+  version = "1.6.0"
 
   for_each = local.all_policies_inputs
 

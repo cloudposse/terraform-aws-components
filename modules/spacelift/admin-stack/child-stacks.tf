@@ -108,7 +108,6 @@ module "child_stack" {
   protect_from_deletion                   = try(each.value.settings.spacelift.protect_from_deletion, var.protect_from_deletion)
   repository                              = var.repository
   runner_image                            = try(each.value.settings.spacelift.runner_image, var.runner_image)
-  space_id                                = local.spaces[try(each.value.settings.spacelift.space_name, var.space_id)]
   spacelift_run_enabled                   = try(each.value.settings.spacelift.spacelift_run_enabled, var.spacelift_run_enabled)
   spacelift_stack_dependency_enabled      = try(each.value.settings.spacelift.spacelift_stack_dependency_enabled, var.spacelift_stack_dependency_enabled)
   stack_destructor_enabled                = try(each.value.settings.spacelift.stack_destructor_enabled, var.stack_destructor_enabled)
@@ -129,6 +128,8 @@ module "child_stack" {
   gitlab               = try(each.value.settings.spacelift.gitlab, var.gitlab)
   pulumi               = try(each.value.settings.spacelift.pulumi, var.pulumi)
   showcase             = try(each.value.settings.spacelift.showcase, var.showcase)
+
+  space_id = local.spaces[try(each.value.settings.spacelift.space_name, var.space_id)]
 
   depends_on = [
     null_resource.spaces_precondition,
