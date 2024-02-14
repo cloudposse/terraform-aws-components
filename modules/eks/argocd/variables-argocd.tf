@@ -143,12 +143,6 @@ variable "saml_rbac_scopes" {
   default     = "[email,groups]"
 }
 
-variable "argo_enable_workflows_auth" {
-  type        = bool
-  default     = false
-  description = "Allow argo-workflows to use Dex instance for SAML auth"
-}
-
 variable "argocd_rbac_policies" {
   type        = list(string)
   default     = []
@@ -197,15 +191,10 @@ variable "eks_component_name" {
 
 variable "saml_sso_providers" {
   type = map(object({
-    component = string
+    component   = string
+    environment = optional(string, null)
   }))
 
   default     = {}
   description = "SAML SSO providers components"
-}
-
-variable "github_webhook_enabled" {
-  type        = bool
-  default     = true
-  description = "Enable GitHub webhook integration"
 }

@@ -517,11 +517,12 @@ variable "addons" {
     # Set default resolve_conflicts to OVERWRITE because it is required on initial installation of
     # add-ons that have self-managed versions installed by default (e.g. vpc-cni, coredns), and
     # because any custom configuration that you would want to preserve should be managed by Terraform.
-    resolve_conflicts        = optional(string, "OVERWRITE")
-    service_account_role_arn = optional(string, null)
-    create_timeout           = optional(string, null)
-    update_timeout           = optional(string, null)
-    delete_timeout           = optional(string, null)
+    resolve_conflicts_on_create = optional(string, "OVERWRITE")
+    resolve_conflicts_on_update = optional(string, "OVERWRITE")
+    service_account_role_arn    = optional(string, null)
+    create_timeout              = optional(string, null)
+    update_timeout              = optional(string, null)
+    delete_timeout              = optional(string, null)
   }))
 
   description = "Manages [EKS addons](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) resources"

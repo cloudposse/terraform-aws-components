@@ -18,7 +18,7 @@ resource "kubernetes_namespace" "default" {
 # https://external-secrets.io/v0.5.9/guides-getting-started/
 module "external_secrets_operator" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.10.0"
+  version = "0.10.1"
 
   name        = "" # avoid redundant release name in IAM role: ...-ekc-cluster-external-secrets-operator-external-secrets-operator@secrets
   description = var.chart_description
@@ -26,12 +26,13 @@ module "external_secrets_operator" {
   repository           = var.chart_repository
   chart                = var.chart
   chart_version        = var.chart_version
-  kubernetes_namespace = join("", kubernetes_namespace.default.*.id)
+  kubernetes_namespace = join("", kubernetes_namespace.default[*].id)
   create_namespace     = false
   wait                 = var.wait
   atomic               = var.atomic
   cleanup_on_fail      = var.cleanup_on_fail
   timeout              = var.timeout
+  verify               = var.verify
 
   eks_cluster_oidc_issuer_url = replace(module.eks.outputs.eks_cluster_identity_oidc_issuer, "https://", "")
 
@@ -39,26 +40,31 @@ module "external_secrets_operator" {
   service_account_namespace = var.kubernetes_namespace
 
   iam_role_enabled = true
-  iam_policy_statements = {
-    ReadParameterStore = {
-      effect = "Allow"
-      actions = [
-        "ssm:GetParameter*"
-      ]
-      resources = [for parameter_store_path in var.parameter_store_paths : (
-        "arn:aws:ssm:${var.region}:${local.account}:parameter/${parameter_store_path}/*"
-      )]
-    }
-    DescribeParameters = {
-      effect = "Allow"
-      actions = [
-        "ssm:DescribeParameter*"
-      ]
-      resources = [
-        "arn:aws:ssm:${var.region}:${local.account}:*"
-      ]
-    }
-  }
+  iam_policy = [{
+    statements = concat([
+      {
+        sid    = "ReadParameterStore"
+        effect = "Allow"
+        actions = [
+          "ssm:GetParameter*"
+        ]
+        resources = [for parameter_store_path in var.parameter_store_paths : (
+          "arn:aws:ssm:${var.region}:${local.account}:parameter/${parameter_store_path}/*"
+        )]
+      },
+      {
+        sid    = "DescribeParameters"
+        effect = "Allow"
+        actions = [
+          "ssm:DescribeParameter*"
+        ]
+        resources = [
+          "arn:aws:ssm:${var.region}:${local.account}:*"
+        ]
+      }],
+      local.overridable_additional_iam_policy_statements
+    )
+  }]
 
   values = compact([
     yamlencode({
@@ -84,7 +90,7 @@ data "kubernetes_resources" "crd" {
 
 module "external_ssm_secrets" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.10.0"
+  version = "0.10.1"
 
   enabled = local.enabled && length(data.kubernetes_resources.crd.objects) > 0
 
@@ -92,7 +98,7 @@ module "external_ssm_secrets" {
   description = "This Chart uses creates a SecretStore and ExternalSecret to pull variables (under a given path) from AWS SSM Parameter Store into a Kubernetes secret."
 
   chart                = "${path.module}/charts/external-ssm-secrets"
-  kubernetes_namespace = join("", kubernetes_namespace.default.*.id)
+  kubernetes_namespace = join("", kubernetes_namespace.default[*].id)
   create_namespace     = false
   wait                 = var.wait
   atomic               = var.atomic

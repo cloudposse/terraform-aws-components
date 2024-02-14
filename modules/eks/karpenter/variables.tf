@@ -25,6 +25,18 @@ variable "chart_version" {
   default     = null
 }
 
+variable "crd_chart_enabled" {
+  type        = bool
+  description = "`karpenter-crd` can be installed as an independent helm chart to manage the lifecycle of Karpenter CRDs. Set to `true` to install this CRD helm chart before the primary karpenter chart."
+  default     = false
+}
+
+variable "crd_chart" {
+  type        = string
+  description = "The name of the Karpenter CRD chart to be installed, if `var.crd_chart_enabled` is set to `true`."
+  default     = "karpenter-crd"
+}
+
 variable "resources" {
   type = object({
     limits = object({

@@ -2,7 +2,7 @@
 
 This component is responsible for provisioning the primary DNS zones into an AWS account. By convention, we typically provision the primary DNS zones in the `dns` account. The primary account for branded zones (e.g. `example.com`), however, would be in the `prod` account, while staging zone (e.g. `example.qa`) might be in the `staging` account.
 
-The zones from the primary DNS zone are then expected to be delegated to other accounts via [the `dns-delegated` component](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/dns-delegated). Additionally, external records can be created on the primary DNS zones via the `record_config` variable.
+The zones from the primary DNS zone are then expected to be delegated to other accounts via [the `dns-delegated` component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dns-delegated). Additionally, external records can be created on the primary DNS zones via the `record_config` variable.
 
 ## Architecture
 
@@ -47,16 +47,32 @@ components:
             ttl: 60
             records:
               - 53.229.170.215
+          # using a period at the end of a name
           - root_zone: example.net
-            name: www
+            name: www.
             type: CNAME
             ttl: 60
             records:
               - example.net
+          # using numbers as name requires quotes
+          - root_zone: example.net
+            name: "123456."
+            type: CNAME
+            ttl: 60
+            records:
+              - example.net
+          # strings that are very long, this could be a DKIM key
+          - root_zone: example.net
+            name: service._domainkey.
+            type: CNAME
+            ttl: 60
+            records:
+              - !!str |-
+                YourVeryLongStringGoesHere
 ```
 
 :::info
-Use the [acm](/components/library/aws/acm)  component for more advanced certificate requirements.
+Use the [acm](https://docs.cloudposse.com/components/library/aws/acm)  component for more advanced certificate requirements.
 
 :::
 
@@ -78,7 +94,7 @@ Use the [acm](/components/library/aws/acm)  component for more advanced certific
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_acm"></a> [acm](#module\_acm) | cloudposse/acm-request-certificate/aws | 0.16.2 |
+| <a name="module_acm"></a> [acm](#module\_acm) | cloudposse/acm-request-certificate/aws | 0.16.3 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -129,6 +145,6 @@ Use the [acm](/components/library/aws/acm)  component for more advanced certific
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/dns-primary) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dns-primary) - Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

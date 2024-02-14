@@ -93,6 +93,40 @@ SPA Preview environments (i.e. `subdomain.example.com` mapping to a `/subdomain`
 are supported via `var.preview_environment_enabled`. See the both the variable description and inline documentation for
 an extensive explanation for how these preview environments work.
 
+### Customizing Lambda@Edge
+
+This component supports customizing Lambda@Edge functions for the CloudFront distribution. All Lambda@Edge function configuration is deep merged before being passed to the `cloudposse/cloudfront-s3-cdn/aws//modules/lambda@edge` module. You can add additional functions and overwrite existing functions as such:
+
+```yaml
+import:
+  - catalog/spa-s3-cloudfront/defaults
+
+components:
+  terraform:
+    refarch-docs-site-spa:
+      metadata:
+        component: spa-s3-cloudfront
+        inherits:
+          - spa-s3-cloudfront-defaults
+      vars:
+        enabled: true
+        lambda_edge_functions:
+          viewer_request: # overwrite existing function
+            source: null # this overwrites the 404 viewer request source with deep merging
+            source_zip: "./dist/lambda_edge_paywall_viewer_request.zip"
+            runtime: "nodejs16.x"
+            handler: "index.handler"
+            event_type: "viewer-request"
+            include_body: false
+          viewer_response: # new function
+            source_zip: "./dist/lambda_edge_paywall_viewer_response.zip"
+            runtime: "nodejs16.x"
+            handler: "index.handler"
+            event_type: "viewer-response"
+            include_body: false
+
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -118,8 +152,8 @@ an extensive explanation for how these preview environments work.
 | <a name="module_gha_role_name"></a> [gha\_role\_name](#module\_gha\_role\_name) | cloudposse/label/null | 0.25.0 |
 | <a name="module_github_runners"></a> [github\_runners](#module\_github\_runners) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_lambda_edge_preview"></a> [lambda\_edge\_preview](#module\_lambda\_edge\_preview) | ./modules/lambda-edge-preview | n/a |
-| <a name="module_lambda_edge_redirect_404"></a> [lambda\_edge\_redirect\_404](#module\_lambda\_edge\_redirect\_404) | ./modules/lambda_edge_redirect_404 | n/a |
+| <a name="module_lambda_edge"></a> [lambda\_edge](#module\_lambda\_edge) | cloudposse/cloudfront-s3-cdn/aws//modules/lambda@edge | 0.92.0 |
+| <a name="module_lambda_edge_functions"></a> [lambda\_edge\_functions](#module\_lambda\_edge\_functions) | cloudposse/config/yaml//modules/deepmerge | 1.0.2 |
 | <a name="module_spa_web"></a> [spa\_web](#module\_spa\_web) | cloudposse/cloudfront-s3-cdn/aws | 0.92.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 | <a name="module_utils"></a> [utils](#module\_utils) | cloudposse/utils/aws | 1.3.0 |
@@ -129,8 +163,11 @@ an extensive explanation for how these preview environments work.
 
 | Name | Type |
 |------|------|
+| [aws_iam_policy.additional_lambda_edge_permission](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.github_actions](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy_attachment.additional_lambda_edge_permission](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_shield_protection.shield_protection](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/shield_protection) | resource |
+| [aws_iam_policy_document.additional_lambda_edge_permission](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.github_actions_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_s3_bucket.failover_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_bucket) | data source |
 
@@ -188,7 +225,12 @@ an extensive explanation for how these preview environments work.
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
+| <a name="input_lambda_edge_allowed_ssm_parameters"></a> [lambda\_edge\_allowed\_ssm\_parameters](#input\_lambda\_edge\_allowed\_ssm\_parameters) | The Lambda@Edge functions will be allowed to access the list of AWS SSM parameter with these ARNs | `list(string)` | `[]` | no |
+| <a name="input_lambda_edge_destruction_delay"></a> [lambda\_edge\_destruction\_delay](#input\_lambda\_edge\_destruction\_delay) | The delay, in [Golang ParseDuration](https://pkg.go.dev/time#ParseDuration) format, to wait before destroying the Lambda@Edge<br>functions.<br><br>This delay is meant to circumvent Lambda@Edge functions not being immediately deletable following their dissociation from<br>a CloudFront distribution, since they are replicated to CloudFront Edge servers around the world.<br><br>If set to `null`, no delay will be introduced.<br><br>By default, the delay is 20 minutes. This is because it takes about 3 minutes to destroy a CloudFront distribution, and<br>around 15 minutes until the Lambda@Edge function is available for deletion, in most cases.<br><br>For more information, see: https://github.com/hashicorp/terraform-provider-aws/issues/1721. | `string` | `"20m"` | no |
+| <a name="input_lambda_edge_functions"></a> [lambda\_edge\_functions](#input\_lambda\_edge\_functions) | Lambda@Edge functions to create.<br><br>The key of this map is the name of the Lambda@Edge function.<br><br>This map will be deep merged with each enabled default function. Use deep merge to change or overwrite specific values passed by those function objects. | <pre>map(object({<br>    source = optional(list(object({<br>      filename = string<br>      content  = string<br>    })))<br>    source_dir   = optional(string)<br>    source_zip   = optional(string)<br>    runtime      = string<br>    handler      = string<br>    event_type   = string<br>    include_body = bool<br>  }))</pre> | `{}` | no |
+| <a name="input_lambda_edge_handler"></a> [lambda\_edge\_handler](#input\_lambda\_edge\_handler) | The default Lambda@Edge handler for all functions.<br><br>This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edge_functions` and can be overwritten for any individual function. | `string` | `"index.handler"` | no |
 | <a name="input_lambda_edge_redirect_404_enabled"></a> [lambda\_edge\_redirect\_404\_enabled](#input\_lambda\_edge\_redirect\_404\_enabled) | Enable or disable SPA 404 redirects via Lambda@Edge - returns a 302 and a location of `/` if the request returned 404. | `bool` | `false` | no |
+| <a name="input_lambda_edge_runtime"></a> [lambda\_edge\_runtime](#input\_lambda\_edge\_runtime) | The default Lambda@Edge runtime for all functions.<br><br>This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edge_functions` and can be overwritten for any individual function. | `string` | `"nodejs16.x"` | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_ordered_cache"></a> [ordered\_cache](#input\_ordered\_cache) | An ordered list of [cache behaviors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#cache-behavior-arguments) resource for this distribution.<br>List in order of precedence (first match wins). This is in addition to the default cache policy.<br>Set `target_origin_id` to `""` to specify the S3 bucket origin created by this module. | <pre>list(object({<br>    target_origin_id = string<br>    path_pattern     = string<br><br>    allowed_methods    = list(string)<br>    cached_methods     = list(string)<br>    compress           = bool<br>    trusted_signers    = list(string)<br>    trusted_key_groups = list(string)<br><br>    cache_policy_id          = string<br>    origin_request_policy_id = string<br><br>    viewer_protocol_policy     = string<br>    min_ttl                    = number<br>    default_ttl                = number<br>    max_ttl                    = number<br>    response_headers_policy_id = string<br><br>    forward_query_string              = bool<br>    forward_header_values             = list(string)<br>    forward_cookies                   = string<br>    forward_cookies_whitelisted_names = list(string)<br><br>    lambda_function_association = list(object({<br>      event_type   = string<br>      include_body = bool<br>      lambda_arn   = string<br>    }))<br><br>    function_association = list(object({<br>      event_type   = string<br>      function_arn = string<br>    }))<br>  }))</pre> | `[]` | no |
@@ -232,6 +274,7 @@ an extensive explanation for how these preview environments work.
 
 ## References
 * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/spa-s3-cloudfront) - Cloud Posse's upstream component
+* [How do I use CloudFront to serve a static website hosted on Amazon S3?](https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-serve-static-website/)
 
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

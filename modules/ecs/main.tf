@@ -167,7 +167,7 @@ module "alb" {
   for_each = local.enabled ? var.alb_configuration : {}
 
   vpc_id          = module.vpc.outputs.vpc_id
-  subnet_ids      = var.internal_enabled ? module.vpc.outputs.private_subnet_ids : module.vpc.outputs.public_subnet_ids
+  subnet_ids      = lookup(each.value, "internal_enabled", var.internal_enabled) ? module.vpc.outputs.private_subnet_ids : module.vpc.outputs.public_subnet_ids
   ip_address_type = lookup(each.value, "ip_address_type", "ipv4")
 
   internal = lookup(each.value, "internal_enabled", var.internal_enabled)
@@ -224,4 +224,26 @@ module "alb" {
   attributes = lookup(each.value, "attributes", [each.key])
 
   context = module.this.context
+}
+
+locals {
+  # formats the load-balancer configuration data to be:
+  # { "${alb_configuration key}_${additional_cert_entry}" => "additional_cert_entry" }
+  certificate_domains = merge([
+    for config_key, config in var.alb_configuration :
+    { for domain in config.additional_certs :
+    "${config_key}_${domain}" => domain } if lookup(config, "additional_certs", []) != []
+  ]...)
+}
+
+resource "aws_lb_listener_certificate" "additional_certs" {
+  for_each = local.certificate_domains
+
+  listener_arn    = module.alb[split("_", each.key)[0]].https_listener_arn
+  certificate_arn = data.aws_acm_certificate.additional_certs[each.key].arn
+}
+data "aws_acm_certificate" "additional_certs" {
+  for_each = local.certificate_domains
+
+  domain = each.value
 }

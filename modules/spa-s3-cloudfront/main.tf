@@ -8,24 +8,23 @@ locals {
   s3_access_log_bucket_name         = var.origin_s3_access_log_bucket_name_rendering_enabled ? format("%[1]v-${module.this.tenant != null ? "%[2]v-" : ""}%[3]v-%[4]v-%[5]v", var.namespace, var.tenant, var.environment, var.stage, var.origin_s3_access_log_bucket_name) : var.origin_s3_access_log_bucket_name
   cloudfront_access_log_bucket_name = var.cloudfront_access_log_bucket_name_rendering_enabled ? format("%[1]v-${module.this.tenant != null ? "%[2]v-" : ""}%[3]v-%[4]v-%[5]v", var.namespace, var.tenant, var.environment, var.stage, var.cloudfront_access_log_bucket_name) : var.cloudfront_access_log_bucket_name
   cloudfront_access_log_prefix      = var.cloudfront_access_log_prefix_rendering_enabled ? "${var.cloudfront_access_log_prefix}${module.this.id}" : var.cloudfront_access_log_prefix
-  origin_deployment_principal_arns  = local.github_runners_enabled ? concat(var.origin_deployment_principal_arns, [module.github_runners[0].outputs.iam_role_arn]) : var.origin_deployment_principal_arns
+  origin_deployment_principal_arns  = local.github_runners_enabled ? concat(var.origin_deployment_principal_arns, [module.github_runners.outputs.iam_role_arn]) : var.origin_deployment_principal_arns
 
   # Variables affected by SPA Preview Environments
   #
   # In order for preview environments to work, there are some specific CloudFront Distribution settings that need to be in place (in order of local variables set below this list):
   # 1. A wildcard domain Route53 alias needs to be created for the CloudFront distribution. SANs for the ACM certificate need to be set accordingly.
-  # 2. The origin must be a custom origin pointing to the S3 website endpoint, not a S3 REST origin (the set of Lambda@Edge functions in modules/lambda-edge-preview do not support the latter).
+  # 2. The origin must be a custom origin pointing to the S3 website endpoint, not a S3 REST origin (the set of Lambda@Edge functions in lambda_edge.tf do not support the latter).
   # 3. Because of #2, the bucket in question cannot have a Public Access Block configuration blocking all public ACLs.
   # 4. Because of #2 and #3, it is best practice to enable a password on the S3 website origin so that CloudFront is the single point of entry.
   # 5. Object ACLs should be disabled for the origin bucket in the preview environment, otherwise CI/CD jobs uploading to the origin bucket may create object ACLs preventing the content from being served.
   # 6. The statement in the bucket policy blocking non-TLS requests from CloudFront needs to be disabled.
   # 7. A custom header 'x-forwarded-host' needs to be forwarded to the origin (it is injected by lambda@edge function associated with the Viewer Request event).
   # 8. TTL values will be set to 0, because the preview environment is associated with development and debugging, not long term caching.
-  # 9. The Lambda@Edge functions created by modules/lambda-edge-preview need to be associated with the CloudFront Distribution.
+  # 9. The Lambda@Edge functions created by lambda_edge.tf need to be associated with the CloudFront Distribution.
   #
   # This isn't necessarily the only way to get preview environments to work, but these are the constraints required to achieve the currently tested implementation in modules/lambda-edge-preview.
   preview_environment_enabled         = local.enabled && var.preview_environment_enabled
-  lambda_edge_redirect_404_enabled    = local.enabled && var.lambda_edge_redirect_404_enabled
   preview_environment_wildcard_domain = format("%v.%v", "*", local.site_fqdn)
   aliases                             = concat([local.site_fqdn], local.preview_environment_enabled ? [local.preview_environment_wildcard_domain] : [])
   external_aliases                    = local.preview_environment_enabled ? [] : var.external_aliases
@@ -44,11 +43,10 @@ locals {
   # Preview must have website_enabled.
   origin_allow_ssl_requests_only = var.origin_allow_ssl_requests_only && !local.s3_website_enabled
 
-  forward_header_values                  = local.preview_environment_enabled ? concat(var.forward_header_values, ["x-forwarded-host"]) : var.forward_header_values
-  cloudfront_default_ttl                 = local.preview_environment_enabled ? 0 : var.cloudfront_default_ttl
-  cloudfront_min_ttl                     = local.preview_environment_enabled ? 0 : var.cloudfront_min_ttl
-  cloudfront_max_ttl                     = local.preview_environment_enabled ? 0 : var.cloudfront_max_ttl
-  cloudfront_lambda_function_association = concat(var.cloudfront_lambda_function_association, local.preview_environment_enabled ? module.lambda_edge_preview.lambda_function_association : [], local.lambda_edge_redirect_404_enabled ? module.lambda_edge_redirect_404.lambda_function_association : [])
+  forward_header_values  = local.preview_environment_enabled ? concat(var.forward_header_values, ["x-forwarded-host"]) : var.forward_header_values
+  cloudfront_default_ttl = local.preview_environment_enabled ? 0 : var.cloudfront_default_ttl
+  cloudfront_min_ttl     = local.preview_environment_enabled ? 0 : var.cloudfront_min_ttl
+  cloudfront_max_ttl     = local.preview_environment_enabled ? 0 : var.cloudfront_max_ttl
 }
 
 # Create an ACM and explicitly set it to us-east-1 (requirement of CloudFront)
@@ -76,7 +74,7 @@ module "spa_web" {
   encryption_enabled                 = var.origin_encryption_enabled
   origin_force_destroy               = var.origin_force_destroy
   versioning_enabled                 = var.origin_versioning_enabled
-  web_acl_id                         = local.aws_waf_enabled ? module.waf[0].outputs.acl.arn : null
+  web_acl_id                         = local.aws_waf_enabled ? module.waf.outputs.acl.arn : null
 
   cloudfront_access_log_create_bucket = var.cloudfront_access_log_create_bucket
   cloudfront_access_log_bucket_name   = local.cloudfront_access_log_bucket_name
@@ -145,38 +143,4 @@ resource "aws_shield_protection" "shield_protection" {
 
   name         = module.spa_web.cf_id
   resource_arn = module.spa_web.cf_arn
-}
-
-module "lambda_edge_preview" {
-  source = "./modules/lambda-edge-preview"
-
-  enabled = local.preview_environment_enabled
-
-  cloudfront_distribution_domain_name    = module.spa_web.cf_domain_name
-  cloudfront_distribution_hosted_zone_id = module.spa_web.cf_hosted_zone_id
-  site_fqdn                              = local.site_fqdn
-  parent_zone_name                       = local.parent_zone_name
-
-  context = module.this.context
-
-  providers = {
-    aws.us-east-1 = aws.us-east-1
-  }
-}
-
-module "lambda_edge_redirect_404" {
-  source = "./modules/lambda_edge_redirect_404"
-
-  enabled = local.lambda_edge_redirect_404_enabled
-
-  cloudfront_distribution_domain_name    = module.spa_web.cf_domain_name
-  cloudfront_distribution_hosted_zone_id = module.spa_web.cf_hosted_zone_id
-  site_fqdn                              = local.site_fqdn
-  parent_zone_name                       = local.parent_zone_name
-
-  context = module.this.context
-
-  providers = {
-    aws.us-east-1 = aws.us-east-1
-  }
 }

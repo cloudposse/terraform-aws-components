@@ -170,18 +170,21 @@ When picking a Kubernetes version, be sure to review the [end-of-life dates for 
 
 | cycle |  release   | latest      | latest release |    eol     |
 |:------|:----------:|:------------|:--------------:|:----------:|
-| 1.27  | 2023-05-24 | 1.27-eks-3  |   2023-06-30   | 2024-07-01 |
-| 1.26  | 2023-04-11 | 1.26-eks-4  |   2023-06-30   | 2024-06-01 |
-| 1.25  | 2023-02-21 | 1.25-eks-5  |   2023-06-30   | 2024-05-01 |
-| 1.24  | 2022-11-15 | 1.24-eks-8  |   2023-06-30   | 2024-01-01 |
-| 1.23  | 2022-08-11 | 1.23-eks-10 |   2023-06-30   | 2023-10-11 |
+| 1.28  | 2023-09-26 | 1.28-eks-1  |   2023-09-26   | 2024-11-01 |
+| 1.27  | 2023-05-24 | 1.27-eks-5  |   2023-08-30   | 2024-07-01 |
+| 1.26  | 2023-04-11 | 1.26-eks-6  |   2023-08-30   | 2024-06-01 |
+| 1.25  | 2023-02-21 | 1.25-eks-7  |   2023-08-30   | 2024-05-01 |
+| 1.24  | 2022-11-15 | 1.24-eks-10 |   2023-08-30   | 2024-01-31 |
+| 1.23  | 2022-08-11 | 1.23-eks-12 |   2023-08-30   | 2023-10-11 |
 | 1.22  | 2022-04-04 | 1.22-eks-14 |   2023-06-30   | 2023-06-04 |
 | 1.21  | 2021-07-19 | 1.21-eks-18 |   2023-06-09   | 2023-02-15 |
 | 1.20  | 2021-05-18 | 1.20-eks-14 |   2023-05-05   | 2022-11-01 |
 | 1.19  | 2021-02-16 | 1.19-eks-11 |   2022-08-15   | 2022-08-01 |
 | 1.18  | 2020-10-13 | 1.18-eks-13 |   2022-08-15   | 2022-08-15 |
 
-*This Chart was updated as of 08/04/2023 and is generated with [the `eol` tool](https://github.com/hugovk/norwegianblue). Check the latest updates by running `eol amazon-eks` locally or [on the website directly]((https://endoflife.date/amazon-eks)).
+*This Chart was updated as of 10/16/2023 and is generated with [the `eol` tool](https://github.com/hugovk/norwegianblue). Check the latest updates by running `eol amazon-eks` locally or [on the website directly](https://endoflife.date/amazon-eks).
+
+You can also view the release and support timeline for [the Kubernetes project itself](https://endoflife.date/kubernetes).
 
 ### Usage with Node Groups
 
@@ -444,7 +447,7 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 | <a name="module_aws_efs_csi_driver_eks_iam_role"></a> [aws\_efs\_csi\_driver\_eks\_iam\_role](#module\_aws\_efs\_csi\_driver\_eks\_iam\_role) | cloudposse/eks-iam-role/aws | 2.1.1 |
 | <a name="module_coredns_fargate_profile"></a> [coredns\_fargate\_profile](#module\_coredns\_fargate\_profile) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_eks_cluster"></a> [eks\_cluster](#module\_eks\_cluster) | cloudposse/eks-cluster/aws | 2.9.0 |
+| <a name="module_eks_cluster"></a> [eks\_cluster](#module\_eks\_cluster) | cloudposse/eks-cluster/aws | 3.0.0 |
 | <a name="module_fargate_pod_execution_role"></a> [fargate\_pod\_execution\_role](#module\_fargate\_pod\_execution\_role) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
 | <a name="module_fargate_profile"></a> [fargate\_profile](#module\_fargate\_profile) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
 | <a name="module_iam_arns"></a> [iam\_arns](#module\_iam\_arns) | ../../account-map/modules/roles-to-principals | n/a |
@@ -484,7 +487,7 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_addons"></a> [addons](#input\_addons) | Manages [EKS addons](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) resources | <pre>map(object({<br>    enabled       = optional(bool, true)<br>    addon_version = optional(string, null)<br>    # configuration_values is a JSON string, such as '{"computeType": "Fargate"}'.<br>    configuration_values = optional(string, null)<br>    # Set default resolve_conflicts to OVERWRITE because it is required on initial installation of<br>    # add-ons that have self-managed versions installed by default (e.g. vpc-cni, coredns), and<br>    # because any custom configuration that you would want to preserve should be managed by Terraform.<br>    resolve_conflicts        = optional(string, "OVERWRITE")<br>    service_account_role_arn = optional(string, null)<br>    create_timeout           = optional(string, null)<br>    update_timeout           = optional(string, null)<br>    delete_timeout           = optional(string, null)<br>  }))</pre> | `{}` | no |
+| <a name="input_addons"></a> [addons](#input\_addons) | Manages [EKS addons](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) resources | <pre>map(object({<br>    enabled       = optional(bool, true)<br>    addon_version = optional(string, null)<br>    # configuration_values is a JSON string, such as '{"computeType": "Fargate"}'.<br>    configuration_values = optional(string, null)<br>    # Set default resolve_conflicts to OVERWRITE because it is required on initial installation of<br>    # add-ons that have self-managed versions installed by default (e.g. vpc-cni, coredns), and<br>    # because any custom configuration that you would want to preserve should be managed by Terraform.<br>    resolve_conflicts_on_create = optional(string, "OVERWRITE")<br>    resolve_conflicts_on_update = optional(string, "OVERWRITE")<br>    service_account_role_arn    = optional(string, null)<br>    create_timeout              = optional(string, null)<br>    update_timeout              = optional(string, null)<br>    delete_timeout              = optional(string, null)<br>  }))</pre> | `{}` | no |
 | <a name="input_addons_depends_on"></a> [addons\_depends\_on](#input\_addons\_depends\_on) | If set `true` (recommended), all addons will depend on managed node groups provisioned by this component and therefore not be installed until nodes are provisioned.<br>See [issue #170](https://github.com/cloudposse/terraform-aws-eks-cluster/issues/170) for more details. | `bool` | `true` | no |
 | <a name="input_allow_ingress_from_vpc_accounts"></a> [allow\_ingress\_from\_vpc\_accounts](#input\_allow\_ingress\_from\_vpc\_accounts) | List of account contexts to pull VPC ingress CIDR and add to cluster security group.<br><br>e.g.<br><br>{<br>  environment = "ue2",<br>  stage       = "auto",<br>  tenant      = "core"<br>} | `any` | `[]` | no |
 | <a name="input_allowed_cidr_blocks"></a> [allowed\_cidr\_blocks](#input\_allowed\_cidr\_blocks) | List of CIDR blocks to be allowed to connect to the EKS cluster | `list(string)` | `[]` | no |
@@ -580,13 +583,13 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 
 ## Related How-to Guides
 
-- [How to Load Test in AWS](/reference-architecture/how-to-guides/tutorials/how-to-load-test-in-aws)
-- [How to Tune EKS with AWS Managed Node Groups](/reference-architecture/how-to-guides/tutorials/how-to-tune-eks-with-aws-managed-node-groups)
-- [How to Keep Everything Up to Date](/reference-architecture/how-to-guides/upgrades/how-to-keep-everything-up-to-date)
-- [How to Tune SpotInst Parameters for EKS](/reference-architecture/how-to-guides/tutorials/how-to-tune-spotinst-parameters-for-eks)
-- [How to Upgrade EKS Cluster Addons](/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons)
+- [How to Load Test in AWS](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-load-test-in-aws)
+- [How to Tune EKS with AWS Managed Node Groups](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-tune-eks-with-aws-managed-node-groups)
+- [How to Keep Everything Up to Date](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-keep-everything-up-to-date)
+- [How to Tune SpotInst Parameters for EKS](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-tune-spotinst-parameters-for-eks)
+- [How to Upgrade EKS Cluster Addons](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons)
+- [How to Upgrade EKS](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks)
 - [EBS CSI Migration FAQ](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi-migration-faq.html)
-- [How to Upgrade EKS](/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks)
 
 ## References
 

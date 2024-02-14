@@ -11,15 +11,16 @@ variable "description" {
 
 variable "environments" {
   type = list(object({
-    tenant      = string
+    tenant      = optional(string, null)
     environment = string
     stage       = string
+    attributes  = optional(list(string), [])
     auto-sync   = bool
-    ignore-differences = list(object({
+    ignore-differences = optional(list(object({
       group         = string,
       kind          = string,
       json-pointers = list(string)
-    }))
+    })), [])
   }))
   description = <<-EOT
   Environments to populate `applicationset.yaml` files and repository deploy keys (for ArgoCD) for.
@@ -29,6 +30,7 @@ variable "environments" {
   `ignore-differences` determines whether or not the ArgoCD application will ignore the number of
   replicas in the deployment. Read more on ignore differences here:
   https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/#respect-ignore-difference-configs
+
   Example:
   ```
   tenant: plat
@@ -126,7 +128,54 @@ variable "permissions" {
 }
 
 variable "github_default_notifications_enabled" {
-  type        = bool
-  default     = true
+  type        = string
   description = "Enable default GitHub commit statuses notifications (required for CD sync mode)"
+  default     = true
+}
+
+variable "create_repo" {
+  type        = bool
+  description = "Whether or not to create the repository or use an existing one"
+  default     = true
+}
+
+variable "required_pull_request_reviews" {
+  type        = bool
+  description = "Enforce restrictions for pull request reviews"
+  default     = true
+}
+
+variable "push_restrictions_enabled" {
+  type        = bool
+  description = "Enforce who can push to the main branch"
+  default     = true
+}
+
+variable "slack_notifications_channel" {
+  type        = string
+  default     = ""
+  description = "If given, the Slack channel to for deployment notifications."
+}
+
+variable "manifest_kubernetes_namespace" {
+  type        = string
+  default     = "argocd"
+  description = "The namespace used for the ArgoCD application"
+}
+
+variable "github_notifications" {
+  type = list(string)
+  default = [
+    "notifications.argoproj.io/subscribe.on-deploy-started.app-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-started.argocd-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-succeded.app-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-succeded.argocd-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-failed.app-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-failed.argocd-repo-github-commit-status: \"\"",
+  ]
+  description = <<EOT
+    ArgoCD notification annotations for subscribing to GitHub.
+
+    The default value given uses the same notification template names as defined in the `eks/argocd` component. If want to add additional notifications, include any existing notifications from this list that you want to keep in addition.
+  EOT
 }

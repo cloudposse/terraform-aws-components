@@ -29,6 +29,7 @@ variable "default_annotations" {
     "alb.ingress.kubernetes.io/target-type"  = "ip"
     "kubernetes.io/ingress.class"            = "alb"
     "alb.ingress.kubernetes.io/listen-ports" = "[{\"HTTP\": 80}, {\"HTTPS\": 443}]"
+    "alb.ingress.kubernetes.io/ssl-policy"   = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   }
 }
 

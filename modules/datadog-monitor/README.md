@@ -24,7 +24,7 @@ components:
 ```
 
 ## Conventions
-- Treat datadog like a separate cloud provider with integrations ([datadog-integration](/components/library/aws/datadog-integration)) into your accounts.
+- Treat datadog like a separate cloud provider with integrations ([datadog-integration](https://docs.cloudposse.com/components/library/aws/datadog-integration)) into your accounts.
 
 - Use the `catalog` convention to define a step of alerts. You can use ours or define your own.
   [https://github.com/cloudposse/terraform-datadog-platform/tree/master/catalog/monitors](https://github.com/cloudposse/terraform-datadog-platform/tree/master/catalog/monitors)
@@ -178,7 +178,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | ../datadog-configuration/modules/datadog_keys | n/a |
-| <a name="module_datadog_monitors"></a> [datadog\_monitors](#module\_datadog\_monitors) | cloudposse/platform/datadog//modules/monitors | 1.0.1 |
+| <a name="module_datadog_monitors"></a> [datadog\_monitors](#module\_datadog\_monitors) | cloudposse/platform/datadog//modules/monitors | 1.2.0 |
 | <a name="module_datadog_monitors_merge"></a> [datadog\_monitors\_merge](#module\_datadog\_monitors\_merge) | cloudposse/config/yaml//modules/deepmerge | 1.0.2 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_local_datadog_monitors_yaml_config"></a> [local\_datadog\_monitors\_yaml\_config](#module\_local\_datadog\_monitors\_yaml\_config) | cloudposse/config/yaml | 1.0.2 |
@@ -234,16 +234,16 @@ No resources.
 
 ## Related How-to Guides
 
-- [How to Onboard a New Service with Datadog and OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-onboard-a-new-service-with-datadog-and-opsgenie)
-- [How to Sign Up for Datadog?](/reference-architecture/how-to-guides/tutorials/how-to-sign-up-for-datadog)
-- [How to use Datadog Metrics for Horizontal Pod Autoscaling (HPA)](/reference-architecture/how-to-guides/tutorials/how-to-use-datadog-metrics-for-horizontal-pod-autoscaling-hpa)
-- [How to Implement SRE with Datadog](/reference-architecture/how-to-guides/tutorials/how-to-implement-sre-with-datadog)
+- [How to Onboard a New Service with Datadog and OpsGenie](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-onboard-a-new-service-with-datadog-and-opsgenie)
+- [How to Sign Up for Datadog?](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-sign-up-for-datadog)
+- [How to use Datadog Metrics for Horizontal Pod Autoscaling (HPA)](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-use-datadog-metrics-for-horizontal-pod-autoscaling-hpa)
+- [How to Implement SRE with Datadog](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-implement-sre-with-datadog)
 
 ## Component Dependencies
-- [datadog-integration](/reference-architecture/components/datadog-integration)
+- [datadog-integration](https://docs.cloudposse.com/components/library/aws/datadog-integration/)
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/datadog-monitor) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/datadog-monitor) - Cloud Posse's upstream component
 
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

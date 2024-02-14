@@ -58,7 +58,7 @@ components:
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_association_resource_components"></a> [association\_resource\_components](#module\_association\_resource\_components) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_aws_waf"></a> [aws\_waf](#module\_aws\_waf) | cloudposse/waf/aws | 1.2.0 |
+| <a name="module_aws_waf"></a> [aws\_waf](#module\_aws\_waf) | cloudposse/waf/aws | 1.3.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_log_destination_components"></a> [log\_destination\_components](#module\_log\_destination\_components) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -82,6 +82,7 @@ components:
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_custom_response_body"></a> [custom\_response\_body](#input\_custom\_response\_body) | Defines custom response bodies that can be referenced by custom\_response actions.<br>The map keys are used as the `key` attribute which is a unique key identifying the custom response body.<br>content:<br>  Payload of the custom response.<br>  The response body can be plain text, HTML or JSON and cannot exceed 4KB in size.<br>content\_type:<br>  Content Type of Response Body.<br>  Valid values are `TEXT_PLAIN`, `TEXT_HTML`, or `APPLICATION_JSON`. | <pre>map(object({<br>    content      = string<br>    content_type = string<br>  }))</pre> | `{}` | no |
 | <a name="input_default_action"></a> [default\_action](#input\_default\_action) | Specifies that AWS WAF should allow requests by default. Possible values: `allow`, `block`. | `string` | `"block"` | no |
+| <a name="input_default_block_response"></a> [default\_block\_response](#input\_default\_block\_response) | A HTTP response code that is sent when default action is used. Only takes effect if default\_action is set to `block`. | `string` | `null` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_description"></a> [description](#input\_description) | A friendly description of the WebACL. | `string` | `"Managed by Terraform"` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
@@ -130,7 +131,7 @@ components:
 
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/waf) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/waf) - Cloud Posse's upstream component
 
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

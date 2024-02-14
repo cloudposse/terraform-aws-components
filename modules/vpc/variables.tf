@@ -122,6 +122,17 @@ variable "nat_instance_type" {
   default     = "t3.micro"
 }
 
+variable "nat_instance_ami_id" {
+  type        = list(string)
+  description = <<-EOT
+    A list optionally containing the ID of the AMI to use for the NAT instance.
+    If the list is empty (the default), the latest official AWS NAT instance AMI
+    will be used. NOTE: The Official NAT instance AMI is being phased out and
+    does not support NAT64. Use of a NAT gateway is recommended instead.
+    EOT
+  default     = []
+}
+
 variable "map_public_ip_on_launch" {
   type        = bool
   default     = true

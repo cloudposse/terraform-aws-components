@@ -73,9 +73,9 @@ components:
           - aurora-mysql/defaults
       vars:
         instance_type: db.r5.large
-        cluster_size: 1
-        cluster_name: main
-        database_name: main
+        mysql_cluster_size: 1
+        mysql_name: main
+        mysql_db_name: main
 ```
 
 Example deployment with primary cluster deployed to us-east-1 in a `platform-dev` account: `atmos terraform apply aurora-mysql/dev -s platform-use1-dev`
@@ -269,7 +269,7 @@ Reploying the component should show no changes. For example, `atmos terraform ap
 
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/aurora-mysql) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aurora-mysql) - Cloud Posse's upstream component
 
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
