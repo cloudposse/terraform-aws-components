@@ -6,11 +6,12 @@ locals {
 
 module "dynamodb_table" {
   source  = "cloudposse/dynamodb/aws"
-  version = "0.31.0"
+  version = "0.35.0"
 
   billing_mode        = var.billing_mode
   replicas            = var.replicas
   dynamodb_attributes = var.dynamodb_attributes
+  import_table        = var.import_table
 
   global_secondary_index_map = var.global_secondary_index_map
   local_secondary_index_map  = var.local_secondary_index_map
