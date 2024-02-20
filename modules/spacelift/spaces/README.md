@@ -81,7 +81,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_policy"></a> [policy](#module\_policy) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-policy | 1.4.0 |
+| <a name="module_policy"></a> [policy](#module\_policy) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-policy | 1.6.0 |
 | <a name="module_space"></a> [space](#module\_space) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-space | 1.6.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
