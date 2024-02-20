@@ -57,15 +57,3 @@ resource "aws_service_discovery_service" "default" {
     failure_threshold = 1
   }
 }
-#
-#output "service_config_with_id" {
-#  value = local.service_config_with_id
-#}
-#
-#output "service_discovery" {
-#  value = local.service_discovery
-#}
-#
-#output "aws_service_discovery_service" {
-#  value = aws_service_discovery_service.default
-#}
