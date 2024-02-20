@@ -1,9 +1,9 @@
-output "provisioners" {
-  value       = kubernetes_manifest.provisioner
-  description = "Deployed Karpenter provisioners"
+output "node_pools" {
+  value       = kubernetes_manifest.node_pool
+  description = "Deployed Karpenter NodePool resources"
 }
 
-output "providers" {
-  value       = kubernetes_manifest.provider
-  description = "Deployed Karpenter AWSNodeTemplates"
+output "node_class" {
+  value       = kubernetes_manifest.node_class
+  description = "Deployed Karpenter NodeClass resources"
 }
