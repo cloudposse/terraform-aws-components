@@ -163,7 +163,7 @@ locals {
 
 module "container_definition" {
   source  = "cloudposse/ecs-container-definition/aws"
-  version = "0.60.0"
+  version = "0.61.1"
 
   for_each = { for k, v in local.containers : k => v if local.enabled }
 
@@ -297,11 +297,26 @@ module "ecs_alb_service_task" {
   fsx_volumes        = lookup(local.task, "fsx_volumes", [])
   bind_mount_volumes = lookup(local.task, "bind_mount_volumes", [])
 
+  exec_enabled                   = var.exec_enabled
+  service_connect_configurations = local.service_connect_configurations
+  service_registries             = local.service_discovery
+
   depends_on = [
     module.alb_ingress
   ]
 
   context = module.this.context
+}
+
+resource "aws_security_group_rule" "custom_sg_rules" {
+  for_each          = local.enabled && var.custom_security_group_rules != [] ? { for sg_rule in var.custom_security_group_rules : format("%s_%s_%s", sg_rule.protocol, sg_rule.from_port, sg_rule.to_port) => sg_rule } : {}
+  description       = each.value.description
+  type              = each.value.type
+  from_port         = each.value.from_port
+  to_port           = each.value.to_port
+  protocol          = each.value.protocol
+  cidr_blocks       = each.value.cidr_blocks
+  security_group_id = one(module.ecs_alb_service_task[*].service_security_group_id)
 }
 
 module "alb_ingress" {
