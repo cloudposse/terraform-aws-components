@@ -232,21 +232,3 @@ variable "capacity_providers_ec2" {
     error_message = "'FARGATE' and 'FARGATE_SPOT' name is reserved"
   }
 }
-
-variable "default_capacity_strategy" {
-  description = "The capacity provider strategy to use by default for the cluster"
-  type = object({
-    base = object({
-      provider = string
-      value    = number
-    })
-    weights = map(number)
-  })
-  default = {
-    base = {
-      provider = "FARGATE"
-      value    = 1
-    }
-    weights = {}
-  }
-}
