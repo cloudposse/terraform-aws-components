@@ -56,3 +56,14 @@ variable "create_service_linked_role_spot" {
   type        = bool
   default     = true
 }
+
+variable "ssm_paths" {
+  description = "The root path used in SSM to store configuration and secrets."
+  type = object({
+    root       = optional(string, "github-action-runners")
+    app        = optional(string, "app")
+    runners    = optional(string, "runners")
+    use_prefix = optional(bool, true)
+  })
+  default = {}
+}
