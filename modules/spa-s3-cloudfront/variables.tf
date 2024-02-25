@@ -452,14 +452,6 @@ variable "preview_environment_enabled" {
   default     = false
 }
 
-variable "lambda_edge_redirect_404_enabled" {
-  type        = bool
-  description = <<-EOT
-  Enable or disable SPA 404 redirects via Lambda@Edge - returns a 302 and a location of `/` if the request returned 404.
-  EOT
-  default     = false
-}
-
 variable "github_runners_deployment_principal_arn_enabled" {
   type        = bool
   description = "A flag that is used to decide whether or not to include the GitHub Runner's IAM role in origin_deployment_principal_arns list"
