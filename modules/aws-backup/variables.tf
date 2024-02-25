@@ -22,12 +22,6 @@ variable "backup_vault_lock_configuration" {
   default     = null
 }
 
-variable "destination_vault_arn" {
-  type        = string
-  description = "An Amazon Resource Name (ARN) that uniquely identifies the destination backup vault for the copied backup"
-  default     = null
-}
-
 variable "destination_vault_component_name" {
   type        = string
   description = "The name of the component to be used to look up the destination vault"
