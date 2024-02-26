@@ -209,7 +209,8 @@ components:
               delete_after: 35 # 7 * 5               # days
             copy_action:
               destination_vault_arn: "arn:aws:backup:<other-region>:111111111111:backup-vault:<namespace>-<other-region>-<stage>"
-              delete_after: 35
+              lifecycle:
+                delete_after: 35
 ```
 
 ### Backup Lock Configuration
