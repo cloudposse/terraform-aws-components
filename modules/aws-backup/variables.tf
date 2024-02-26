@@ -22,18 +22,6 @@ variable "backup_vault_lock_configuration" {
   default     = null
 }
 
-variable "destination_vault_component_name" {
-  type        = string
-  description = "The name of the component to be used to look up the destination vault"
-  default     = "aws-backup/common"
-}
-
-variable "destination_vault_region" {
-  type        = string
-  description = "The short region of the destination backup vault"
-  default     = null
-}
-
 variable "selection_tags" {
   type        = list(map(string))
   description = "An array of tag condition objects used to filter resources based on tags for assigning to a backup plan"

@@ -75,14 +75,6 @@ components:
         vault_enabled: false # reuse from aws-backup-vault
         plan_enabled: true
         plan_name_suffix: aws-backup-defaults
-        # in minutes
-        start_window: 60
-        completion_window: 240
-        # in days
-        cold_storage_after: null
-        delete_after: 30 # 1 month
-        copy_action_cold_storage_after: null
-        copy_action_delete_after: null
 
     aws-backup/daily-plan:
       metadata:
@@ -97,7 +89,8 @@ components:
             schedule: "cron(0 5 ? * * *)"
             start_window: 320 # 60 * 8             # minutes
             completion_window: 10080 # 60 * 24 * 7 # minutes
-            delete_after: 35 # 7 * 5               # days
+            lifecycle:
+              delete_after: 35 # 7 * 5               # days
         selection_tags:
           - type: STRINGEQUALS
             key: aws-backup/efs
@@ -119,7 +112,8 @@ components:
             schedule: "cron(0 5 ? * SAT *)"
             start_window: 320 # 60 * 8              # minutes
             completion_window: 10080 # 60 * 24 * 7  # minutes
-            delete_after: 90 # 30 * 3               # days
+            lifecycle:
+              delete_after: 90 # 30 * 3               # days
         selection_tags:
           - type: STRINGEQUALS
             key: aws-backup/efs
@@ -141,9 +135,9 @@ components:
             schedule: "cron(0 5 1 * ? *)"
             start_window: 320 # 60 * 8              # minutes
             completion_window: 10080 # 60 * 24 * 7  # minutes
-            delete_after: 2555 # 365 * 7            # days
-            cold_storage_after: 90 # 30 * 3         # days
-
+            lifecycle:
+              delete_after: 2555 # 365 * 7            # days
+              cold_storage_after: 90 # 30 * 3         # days
         selection_tags:
           - type: STRINGEQUALS
             key: aws-backup/efs
@@ -194,14 +188,28 @@ components:
         plan_enabled: false # disables the plan (which schedules resource backups)
 ```
 
-This will output an arn - which you can then use as the copy destination, as seen in the following snippet:
+This will output an ARN - which you can then use as the destination in the rule object's `copy_action` (it will be specific to that particular plan), as seen in the following snippet:
 ```yaml
 components:
   terraform:
-    aws-backup:
+    aws-backup/plan-with-cross-region-replication:
+      metadata:
+        component: aws-backup
+        inherits:
+          - aws-backup/plan-defaults
       vars:
-        destination_vault_arn: arn:aws:backup:<other-region>:111111111111:backup-vault:<namespace>-<other-region>-<stage>
-        copy_action_delete_after: 14
+        plan_name_suffix: aws-backup-cross-region
+        # https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
+        rules:
+          - name: "plan-cross-region"
+            schedule: "cron(0 5 ? * * *)"
+            start_window: 320 # 60 * 8             # minutes
+            completion_window: 10080 # 60 * 24 * 7 # minutes
+            lifecycle:
+              delete_after: 35 # 7 * 5               # days
+            copy_action:
+              destination_vault_arn: "arn:aws:backup:<other-region>:111111111111:backup-vault:<namespace>-<other-region>-<stage>"
+              delete_after: 35
 ```
 
 ### Backup Lock Configuration
