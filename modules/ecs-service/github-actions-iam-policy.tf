@@ -111,6 +111,7 @@ data "aws_iam_policy_document" "github_actions_iam_ecspresso_policy" {
     effect = "Allow"
     actions = [
       "ecs:RegisterTaskDefinition",
+      "ecs:TagResource",
       "ecs:DescribeTaskDefinition",
       "ecs:DescribeTasks",
       "application-autoscaling:DescribeScalableTargets"
