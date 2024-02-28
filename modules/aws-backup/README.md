@@ -75,14 +75,6 @@ components:
         vault_enabled: false # reuse from aws-backup-vault
         plan_enabled: true
         plan_name_suffix: aws-backup-defaults
-        # in minutes
-        start_window: 60
-        completion_window: 240
-        # in days
-        cold_storage_after: null
-        delete_after: 30 # 1 month
-        copy_action_cold_storage_after: null
-        copy_action_delete_after: null
 
     aws-backup/daily-plan:
       metadata:
@@ -97,7 +89,8 @@ components:
             schedule: "cron(0 5 ? * * *)"
             start_window: 320 # 60 * 8             # minutes
             completion_window: 10080 # 60 * 24 * 7 # minutes
-            delete_after: 35 # 7 * 5               # days
+            lifecycle:
+              delete_after: 35 # 7 * 5               # days
         selection_tags:
           - type: STRINGEQUALS
             key: aws-backup/efs
@@ -119,7 +112,8 @@ components:
             schedule: "cron(0 5 ? * SAT *)"
             start_window: 320 # 60 * 8              # minutes
             completion_window: 10080 # 60 * 24 * 7  # minutes
-            delete_after: 90 # 30 * 3               # days
+            lifecycle:
+              delete_after: 90 # 30 * 3               # days
         selection_tags:
           - type: STRINGEQUALS
             key: aws-backup/efs
@@ -141,9 +135,9 @@ components:
             schedule: "cron(0 5 1 * ? *)"
             start_window: 320 # 60 * 8              # minutes
             completion_window: 10080 # 60 * 24 * 7  # minutes
-            delete_after: 2555 # 365 * 7            # days
-            cold_storage_after: 90 # 30 * 3         # days
-
+            lifecycle:
+              delete_after: 2555 # 365 * 7            # days
+              cold_storage_after: 90 # 30 * 3         # days
         selection_tags:
           - type: STRINGEQUALS
             key: aws-backup/efs
@@ -194,14 +188,29 @@ components:
         plan_enabled: false # disables the plan (which schedules resource backups)
 ```
 
-This will output an arn - which you can then use as the copy destination, as seen in the following snippet:
+This will output an ARN - which you can then use as the destination in the rule object's `copy_action` (it will be specific to that particular plan), as seen in the following snippet:
 ```yaml
 components:
   terraform:
-    aws-backup:
+    aws-backup/plan-with-cross-region-replication:
+      metadata:
+        component: aws-backup
+        inherits:
+          - aws-backup/plan-defaults
       vars:
-        destination_vault_arn: arn:aws:backup:<other-region>:111111111111:backup-vault:<namespace>-<other-region>-<stage>
-        copy_action_delete_after: 14
+        plan_name_suffix: aws-backup-cross-region
+        # https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
+        rules:
+          - name: "plan-cross-region"
+            schedule: "cron(0 5 ? * * *)"
+            start_window: 320 # 60 * 8             # minutes
+            completion_window: 10080 # 60 * 24 * 7 # minutes
+            lifecycle:
+              delete_after: 35 # 7 * 5               # days
+            copy_action:
+              destination_vault_arn: "arn:aws:backup:<other-region>:111111111111:backup-vault:<namespace>-<other-region>-<stage>"
+              lifecycle:
+                delete_after: 35
 ```
 
 ### Backup Lock Configuration
@@ -267,17 +276,9 @@ No resources.
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_backup_resources"></a> [backup\_resources](#input\_backup\_resources) | An array of strings that either contain Amazon Resource Names (ARNs) or match patterns of resources to assign to a backup plan | `list(string)` | `[]` | no |
 | <a name="input_backup_vault_lock_configuration"></a> [backup\_vault\_lock\_configuration](#input\_backup\_vault\_lock\_configuration) | The backup vault lock configuration, each vault can have one vault lock in place. This will enable Backup Vault Lock on an AWS Backup vault  it prevents the deletion of backup data for the specified retention period. During this time, the backup data remains immutable and cannot be deleted or modified."<br>`changeable_for_days` - The number of days before the lock date. If omitted creates a vault lock in `governance` mode, otherwise it will create a vault lock in `compliance` mode. | <pre>object({<br>    changeable_for_days = optional(number)<br>    max_retention_days  = optional(number)<br>    min_retention_days  = optional(number)<br>  })</pre> | `null` | no |
-| <a name="input_cold_storage_after"></a> [cold\_storage\_after](#input\_cold\_storage\_after) | Specifies the number of days after creation that a recovery point is moved to cold storage | `number` | `null` | no |
-| <a name="input_completion_window"></a> [completion\_window](#input\_completion\_window) | The amount of time AWS Backup attempts a backup before canceling the job and returning an error. Must be at least 60 minutes greater than `start_window` | `number` | `null` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
-| <a name="input_copy_action_cold_storage_after"></a> [copy\_action\_cold\_storage\_after](#input\_copy\_action\_cold\_storage\_after) | For copy operation, specifies the number of days after creation that a recovery point is moved to cold storage | `number` | `null` | no |
-| <a name="input_copy_action_delete_after"></a> [copy\_action\_delete\_after](#input\_copy\_action\_delete\_after) | For copy operation, specifies the number of days after creation that a recovery point is deleted. Must be 90 days greater than `copy_action_cold_storage_after` | `number` | `null` | no |
-| <a name="input_delete_after"></a> [delete\_after](#input\_delete\_after) | Specifies the number of days after creation that a recovery point is deleted. Must be 90 days greater than `cold_storage_after` | `number` | `null` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_destination_vault_arn"></a> [destination\_vault\_arn](#input\_destination\_vault\_arn) | An Amazon Resource Name (ARN) that uniquely identifies the destination backup vault for the copied backup | `string` | `null` | no |
-| <a name="input_destination_vault_component_name"></a> [destination\_vault\_component\_name](#input\_destination\_vault\_component\_name) | The name of the component to be used to look up the destination vault | `string` | `"aws-backup/common"` | no |
-| <a name="input_destination_vault_region"></a> [destination\_vault\_region](#input\_destination\_vault\_region) | The short region of the destination backup vault | `string` | `null` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_iam_role_enabled"></a> [iam\_role\_enabled](#input\_iam\_role\_enabled) | Whether or not to create a new IAM Role and Policy Attachment | `bool` | `true` | no |
@@ -294,10 +295,8 @@ No resources.
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_rules"></a> [rules](#input\_rules) | An array of rule maps used to define schedules in a backup plan | <pre>list(object({<br>    name                     = string<br>    schedule                 = optional(string)<br>    enable_continuous_backup = optional(bool)<br>    start_window             = optional(number)<br>    completion_window        = optional(number)<br>    lifecycle = optional(object({<br>      cold_storage_after                        = optional(number)<br>      delete_after                              = optional(number)<br>      opt_in_to_archive_for_supported_resources = optional(bool)<br>    }))<br>    copy_action = optional(object({<br>      destination_vault_arn = optional(string)<br>      lifecycle = optional(object({<br>        cold_storage_after                        = optional(number)<br>        delete_after                              = optional(number)<br>        opt_in_to_archive_for_supported_resources = optional(bool)<br>      }))<br>    }))<br>  }))</pre> | `[]` | no |
-| <a name="input_schedule"></a> [schedule](#input\_schedule) | A CRON expression specifying when AWS Backup initiates a backup job | `string` | `null` | no |
 | <a name="input_selection_tags"></a> [selection\_tags](#input\_selection\_tags) | An array of tag condition objects used to filter resources based on tags for assigning to a backup plan | `list(map(string))` | `[]` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
-| <a name="input_start_window"></a> [start\_window](#input\_start\_window) | The amount of time in minutes before beginning a backup. Minimum value is 60 minutes | `number` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 | <a name="input_vault_enabled"></a> [vault\_enabled](#input\_vault\_enabled) | Whether or not a new Vault should be created | `bool` | `true` | no |
@@ -311,7 +310,6 @@ No resources.
 | <a name="output_backup_selection_id"></a> [backup\_selection\_id](#output\_backup\_selection\_id) | Backup Selection ID |
 | <a name="output_backup_vault_arn"></a> [backup\_vault\_arn](#output\_backup\_vault\_arn) | Backup Vault ARN |
 | <a name="output_backup_vault_id"></a> [backup\_vault\_id](#output\_backup\_vault\_id) | Backup Vault ID |
-| <a name="output_copy_destination_backup_vault_arn"></a> [copy\_destination\_backup\_vault\_arn](#output\_copy\_destination\_backup\_vault\_arn) | ARN of the destination Backup Vault copy |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
