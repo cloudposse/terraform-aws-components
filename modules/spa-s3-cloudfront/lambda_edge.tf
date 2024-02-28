@@ -1,6 +1,4 @@
 locals {
-  lambda_edge_redirect_404_enabled = local.enabled && var.lambda_edge_redirect_404_enabled
-
   cloudfront_lambda_function_association = concat(var.cloudfront_lambda_function_association, module.lambda_edge.lambda_function_association)
 }
 
@@ -55,39 +53,6 @@ module "lambda_edge_functions" {
         runtime      = var.lambda_edge_runtime
         handler      = var.lambda_edge_handler
         event_type   = "origin-request"
-        include_body = false
-      }
-    } : {},
-    local.lambda_edge_redirect_404_enabled ? {
-      origin_response = {
-        source = [{
-          content  = file("${path.module}/dist/lambda_edge_404_redirect.js")
-          filename = "index.js"
-        }]
-        runtime      = var.lambda_edge_runtime
-        handler      = var.lambda_edge_handler
-        event_type   = "origin-response"
-        include_body = false
-      },
-      viewer_request = {
-        source = [{
-          content  = <<-EOT
-          exports.handler = (event, context, callback) => {
-              const { request } = event.Records[0].cf;
-              request.headers['x-forwarded-host'] = [
-                  {
-                      key: 'X-Forwarded-Host',
-                      value: request.headers.host[0].value
-                  }
-              ];
-              return callback(null, request);
-          };
-          EOT
-          filename = "index.js"
-        }]
-        runtime      = var.lambda_edge_runtime
-        handler      = var.lambda_edge_handler
-        event_type   = "viewer-request"
         include_body = false
       }
     } : {},
