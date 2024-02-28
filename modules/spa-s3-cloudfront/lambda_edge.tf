@@ -37,7 +37,14 @@ module "lambda_edge_functions" {
               const default_prefix = "";
 
               console.log('request:' + JSON.stringify(request));
-              const host = request.headers['x-forwarded-host'][0].value;
+
+              let host = null;
+
+              if (request.headers.hasOwnProperty('x-forwarded-host')) {
+                host = request.headers['x-forwarded-host'][0].value;
+              } else {
+                host = site_fqdn;
+              }
               if (host == site_fqdn) {
                 request.origin.custom.path = default_prefix; // use default prefix if there is no subdomain
               } else {
@@ -53,6 +60,29 @@ module "lambda_edge_functions" {
         runtime      = var.lambda_edge_runtime
         handler      = var.lambda_edge_handler
         event_type   = "origin-request"
+        include_body = false
+      },
+      viewer_request = {
+        source = [{
+          content  = <<-EOT
+          exports.handler = (event, context, callback) => {
+            const { request } = event.Records[0].cf;
+            if ('host' in request.headers) {
+              request.headers['x-forwarded-host'] = [
+                {
+                  key: 'X-Forwarded-Host',
+                  value: request.headers.host[0].value
+                }
+              ];
+            }
+            return callback(null, request);
+          };
+          EOT
+          filename = "index.js"
+        }]
+        runtime      = var.lambda_edge_runtime
+        handler      = var.lambda_edge_handler
+        event_type   = "viewer-request"
         include_body = false
       }
     } : {},
