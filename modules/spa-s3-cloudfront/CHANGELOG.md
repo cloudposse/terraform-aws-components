@@ -1,8 +1,8 @@
-## Component PR [#991]()
+## Component PRs [#991](https://github.com/cloudposse/terraform-aws-components/pull/991) and [#995](https://github.com/cloudposse/terraform-aws-components/pull/995)
 
-### Drop `lambda_edge_redirect_404`
+### Drop `lambda_edge_redirect_404` 
 
-This PR removes the `lambda_edge_redirect_404` functionality because it leads to significat costs. 
+This PRs removes the `lambda_edge_redirect_404` functionality because it leads to significat costs. 
 Use native CloudFront error pages configs instead.
 
 ```yaml
