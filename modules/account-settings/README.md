@@ -34,6 +34,27 @@ components:
             limit_amount: "3"
             limit_unit: GB
             time_unit: MONTHLY
+            notification:
+              - comparison_operator: GREATER_THAN
+                notification_type: FORECASTED
+                threshold_type: PERCENTAGE
+                threshold: 80
+                subscribers:
+                  - slack
+              - comparison_operator: GREATER_THAN
+                notification_type: FORECASTED
+                threshold_type: PERCENTAGE
+                # We generate two forecast notifications. This makes sure that notice is taken,
+                #   and hopefully action can be taken to prevent going over budget.
+                threshold: 100
+                subscribers:
+                  - slack
+              - comparison_operator: GREATER_THAN
+                notification_type: ACTUAL
+                threshold_type: PERCENTAGE
+                threshold: 100
+                subscribers:
+                  - slack
         service_quotas_enabled: true
         service_quotas:
           - quota_name: Subnets per VPC
@@ -66,7 +87,7 @@ components:
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_budgets"></a> [budgets](#module\_budgets) | cloudposse/budgets/aws | 0.2.1 |
-| <a name="module_iam_account_settings"></a> [iam\_account\_settings](#module\_iam\_account\_settings) | cloudposse/iam-account-settings/aws | 0.4.0 |
+| <a name="module_iam_account_settings"></a> [iam\_account\_settings](#module\_iam\_account\_settings) | cloudposse/iam-account-settings/aws | 0.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_service_quotas"></a> [service\_quotas](#module\_service\_quotas) | cloudposse/service-quotas/aws | 0.1.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -119,6 +140,6 @@ components:
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/account-settings) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/account-settings) - Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

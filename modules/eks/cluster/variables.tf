@@ -7,10 +7,23 @@ variable "availability_zones" {
   type        = list(string)
   description = <<-EOT
     AWS Availability Zones in which to deploy multi-AZ resources.
+    Ignored if `availability_zone_ids` is set.
+    Can be the full name, e.g. `us-east-1a`, or just the part after the region, e.g. `a` to allow reusable values across regions.
     If not provided, resources will be provisioned in every zone with a private subnet in the VPC.
     EOT
   default     = []
   nullable    = false
+}
+
+variable "availability_zone_ids" {
+  type        = list(string)
+  description = <<-EOT
+    List of Availability Zones IDs where subnets will be created. Overrides `availability_zones`.
+    Can be the full name, e.g. `use1-az1`, or just the part after the AZ ID region code, e.g. `-az1`,
+    to allow reusable values across regions. Consider contention for resources and spot pricing in each AZ when selecting.
+    Useful in some regions when using only some AZs and you want to use the same ones across multiple accounts.
+    EOT
+  default     = []
 }
 
 variable "availability_zone_abbreviation_type" {
@@ -101,21 +114,6 @@ variable "map_additional_worker_roles" {
   nullable    = false
 }
 
-variable "aws_teams_rbac" {
-  type = list(object({
-    aws_team = string
-    groups   = list(string)
-  }))
-
-  description = <<-EOT
-    List of `aws-teams` to map to Kubernetes RBAC groups.
-    This gives teams direct access to Kubernetes without having to assume a team-role.
-    EOT
-
-  default  = []
-  nullable = false
-}
-
 variable "aws_team_roles_rbac" {
   type = list(object({
     aws_team_role = string
@@ -200,43 +198,77 @@ variable "node_groups" {
   # will create 1 node group for each item in map
   type = map(object({
     # EKS AMI version to use, e.g. "1.16.13-20200821" (no "v").
-    ami_release_version = string
+    ami_release_version = optional(string, null)
     # Type of Amazon Machine Image (AMI) associated with the EKS Node Group
-    ami_type = string
+    ami_type = optional(string, null)
     # Additional attributes (e.g. `1`) for the node group
-    attributes = list(string)
+    attributes = optional(list(string), null)
     # will create 1 auto scaling group in each specified availability zone
     # or all AZs with subnets if none are specified anywhere
-    availability_zones = list(string)
+    availability_zones = optional(list(string), null)
     # Whether to enable Node Group to scale its AutoScaling Group
-    cluster_autoscaler_enabled = bool
+    cluster_autoscaler_enabled = optional(bool, null)
     # True to create new node_groups before deleting old ones, avoiding a temporary outage
-    create_before_destroy = bool
+    create_before_destroy = optional(bool, null)
     # Desired number of worker nodes when initially provisioned
-    desired_group_size = number
-    # Enable disk encryption for the created launch template (if we aren't provided with an existing launch template)
-    disk_encryption_enabled = bool
-    # Disk size in GiB for worker nodes. Terraform will only perform drift detection if a configuration value is provided.
-    disk_size = number
+    desired_group_size = optional(number, null)
     # Set of instance types associated with the EKS Node Group. Terraform will only perform drift detection if a configuration value is provided.
-    instance_types = list(string)
+    instance_types = optional(list(string), null)
     # Key-value mapping of Kubernetes labels. Only labels that are applied with the EKS API are managed by this argument. Other Kubernetes labels applied to the EKS Node Group will not be managed
-    kubernetes_labels = map(string)
+    kubernetes_labels = optional(map(string), null)
     # List of objects describing Kubernetes taints.
-    kubernetes_taints = list(object({
+    kubernetes_taints = optional(list(object({
       key    = string
       value  = string
       effect = string
-    }))
+    })), null)
     # Desired Kubernetes master version. If you do not specify a value, the latest available version is used
-    kubernetes_version = string
+    kubernetes_version = optional(string, null)
     # The maximum size of the AutoScaling Group
-    max_group_size = number
+    max_group_size = optional(number, null)
     # The minimum size of the AutoScaling Group
-    min_group_size = number
+    min_group_size = optional(number, null)
     # List of auto-launched resource types to tag
-    resources_to_tag = list(string)
-    tags             = map(string)
+    resources_to_tag = optional(list(string), null)
+    tags             = optional(map(string), null)
+
+    # block_device_map copied from cloudposse/terraform-aws-eks-node-group
+    # Keep in sync via copy and paste, but make optional.
+    # Most of the time you want "/dev/xvda". For BottleRocket, use "/dev/xvdb".
+    block_device_map = optional(map(object({
+      no_device    = optional(bool, null)
+      virtual_name = optional(string, null)
+      ebs = optional(object({
+        delete_on_termination = optional(bool, true)
+        encrypted             = optional(bool, true)
+        iops                  = optional(number, null)
+        kms_key_id            = optional(string, null)
+        snapshot_id           = optional(string, null)
+        throughput            = optional(number, null) # for gp3, MiB/s, up to 1000
+        volume_size           = optional(number, 20)   # Disk size in GB
+        volume_type           = optional(string, "gp3")
+
+        # Catch common camel case typos. These have no effect, they just generate better errors.
+        # It would be nice to actually use these, but volumeSize in particular is a number here
+        # and in most places it is a string with a unit suffix (e.g. 20Gi)
+        # Without these defined, they would be silently ignored and the default values would be used instead,
+        # which is difficult to debug.
+        deleteOnTermination = optional(any, null)
+        kmsKeyId            = optional(any, null)
+        snapshotId          = optional(any, null)
+        volumeSize          = optional(any, null)
+        volumeType          = optional(any, null)
+      }))
+    })), null)
+
+    # DEPRECATED:
+    # Enable disk encryption for the created launch template (if we aren't provided with an existing launch template)
+    # DEPRECATED: disk_encryption_enabled is DEPRECATED, use `block_device_map` instead.
+    disk_encryption_enabled = optional(bool, null)
+    # Disk size in GiB for worker nodes. Terraform will only perform drift detection if a configuration value is provided.
+    # DEPRECATED: disk_size is DEPRECATED, use `block_device_map` instead.
+    disk_size = optional(number, null)
+
   }))
 
   description = "List of objects defining a node group for the cluster"
@@ -248,49 +280,80 @@ variable "node_group_defaults" {
   # Any value in the node group that is null will be replaced
   # by the value in this object, which can also be null
   type = object({
-    ami_release_version        = string
-    ami_type                   = string
-    attributes                 = list(string)
-    availability_zones         = list(string) # set to null to use var.availability_zones
-    cluster_autoscaler_enabled = bool
-    create_before_destroy      = bool
-    desired_group_size         = number
-    disk_encryption_enabled    = bool
-    disk_size                  = number
-    instance_types             = list(string)
-    kubernetes_labels          = map(string)
-    kubernetes_taints = list(object({
+    ami_release_version        = optional(string, null)
+    ami_type                   = optional(string, null)
+    attributes                 = optional(list(string), null)
+    availability_zones         = optional(list(string)) # set to null to use var.availability_zones
+    cluster_autoscaler_enabled = optional(bool, null)
+    create_before_destroy      = optional(bool, null)
+    desired_group_size         = optional(number, null)
+    instance_types             = optional(list(string), null)
+    kubernetes_labels          = optional(map(string), {})
+    kubernetes_taints = optional(list(object({
       key    = string
       value  = string
       effect = string
-    }))
-    kubernetes_version = string # set to null to use cluster_kubernetes_version
-    max_group_size     = number
-    min_group_size     = number
-    resources_to_tag   = list(string)
-    tags               = map(string)
+    })), [])
+    kubernetes_version = optional(string, null) # set to null to use cluster_kubernetes_version
+    max_group_size     = optional(number, null)
+    min_group_size     = optional(number, null)
+    resources_to_tag   = optional(list(string), null)
+    tags               = optional(map(string), null)
+
+    # block_device_map copied from cloudposse/terraform-aws-eks-node-group
+    # Keep in sync via copy and paste, but make optional
+    # Most of the time you want "/dev/xvda". For BottleRocket, use "/dev/xvdb".
+    block_device_map = optional(map(object({
+      no_device    = optional(bool, null)
+      virtual_name = optional(string, null)
+      ebs = optional(object({
+        delete_on_termination = optional(bool, true)
+        encrypted             = optional(bool, true)
+        iops                  = optional(number, null)
+        kms_key_id            = optional(string, null)
+        snapshot_id           = optional(string, null)
+        throughput            = optional(number, null) # for gp3, MiB/s, up to 1000
+        volume_size           = optional(number, 50)   # disk  size in GB
+        volume_type           = optional(string, "gp3")
+
+        # Catch common camel case typos. These have no effect, they just generate better errors.
+        # It would be nice to actually use these, but volumeSize in particular is a number here
+        # and in most places it is a string with a unit suffix (e.g. 20Gi)
+        # Without these defined, they would be silently ignored and the default values would be used instead,
+        # which is difficult to debug.
+        deleteOnTermination = optional(any, null)
+        kmsKeyId            = optional(any, null)
+        snapshotId          = optional(any, null)
+        volumeSize          = optional(any, null)
+        volumeType          = optional(any, null)
+      }))
+    })), null)
+
+    # DEPRECATED: disk_encryption_enabled is DEPRECATED, use `block_device_map` instead.
+    disk_encryption_enabled = optional(bool, null)
+    # DEPRECATED: disk_size is DEPRECATED, use `block_device_map` instead.
+    disk_size = optional(number, null)
   })
 
   description = "Defaults for node groups in the cluster"
 
   default = {
-    ami_release_version        = null
-    ami_type                   = null
-    attributes                 = null
-    availability_zones         = null
-    cluster_autoscaler_enabled = true
-    create_before_destroy      = true
-    desired_group_size         = 1
-    disk_encryption_enabled    = true
-    disk_size                  = 20
-    instance_types             = ["t3.medium"]
-    kubernetes_labels          = null
-    kubernetes_taints          = null
-    kubernetes_version         = null # set to null to use cluster_kubernetes_version
-    max_group_size             = 100
-    min_group_size             = null
-    resources_to_tag           = null
-    tags                       = null
+    desired_group_size = 1
+    # t3.medium is kept as the default for backward compatibility.
+    # Recommendation as of 2023-08-08 is c6a.large to provide reserve HA capacity regardless of Karpenter behavoir.
+    instance_types     = ["t3.medium"]
+    kubernetes_version = null # set to null to use cluster_kubernetes_version
+    max_group_size     = 100
+
+    block_device_map = {
+      "/dev/xvda" = {
+        ebs = {
+          encrypted   = true
+          volume_size = 20    # GB
+          volume_type = "gp2" # Should be gp3, but left as gp2 for backwards compatibility
+        }
+      }
+    }
   }
   nullable = false
 }
@@ -447,16 +510,19 @@ variable "fargate_profile_iam_role_permissions_boundary" {
 
 variable "addons" {
   type = map(object({
-    addon_version        = optional(string, null)
+    enabled       = optional(bool, true)
+    addon_version = optional(string, null)
+    # configuration_values is a JSON string, such as '{"computeType": "Fargate"}'.
     configuration_values = optional(string, null)
     # Set default resolve_conflicts to OVERWRITE because it is required on initial installation of
     # add-ons that have self-managed versions installed by default (e.g. vpc-cni, coredns), and
     # because any custom configuration that you would want to preserve should be managed by Terraform.
-    resolve_conflicts        = optional(string, "OVERWRITE")
-    service_account_role_arn = optional(string, null)
-    create_timeout           = optional(string, null)
-    update_timeout           = optional(string, null)
-    delete_timeout           = optional(string, null)
+    resolve_conflicts_on_create = optional(string, "OVERWRITE")
+    resolve_conflicts_on_update = optional(string, "OVERWRITE")
+    service_account_role_arn    = optional(string, null)
+    create_timeout              = optional(string, null)
+    update_timeout              = optional(string, null)
+    delete_timeout              = optional(string, null)
   }))
 
   description = "Manages [EKS addons](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) resources"
@@ -466,8 +532,8 @@ variable "addons" {
 
 variable "deploy_addons_to_fargate" {
   type        = bool
-  description = "Set to `true` to deploy addons to Fargate instead of initial node pool"
-  default     = true
+  description = "Set to `true` (not recommended) to deploy addons to Fargate instead of initial node pool"
+  default     = false
   nullable    = false
 }
 
@@ -475,11 +541,11 @@ variable "addons_depends_on" {
   type = bool
 
   description = <<-EOT
-    If set `true`, all addons will depend on managed node groups provisioned by this component and therefore not be installed until nodes are provisioned.
+    If set `true` (recommended), all addons will depend on managed node groups provisioned by this component and therefore not be installed until nodes are provisioned.
     See [issue #170](https://github.com/cloudposse/terraform-aws-eks-cluster/issues/170) for more details.
     EOT
 
-  default  = false
+  default  = true
   nullable = false
 }
 
@@ -492,4 +558,18 @@ variable "legacy_fargate_1_role_per_profile_enabled" {
     EOT
   default     = true
   nullable    = false
+}
+
+variable "legacy_do_not_create_karpenter_instance_profile" {
+  type        = bool
+  description = <<-EOT
+    When `true` (the default), suppresses creation of the IAM Instance Profile
+    for nodes launched by Karpenter, to preserve the legacy behavior of
+    the `eks/karpenter` component creating it.
+    Set to `false` to enable creation of the IAM Instance Profile, which
+    ensures that both the role and the instance profile have the same lifecycle,
+    and avoids AWS Provider issue [#32671](https://github.com/hashicorp/terraform-provider-aws/issues/32671).
+    Use in conjunction with `eks/karpenter` component `legacy_create_karpenter_instance_profile`.
+    EOT
+  default     = true
 }

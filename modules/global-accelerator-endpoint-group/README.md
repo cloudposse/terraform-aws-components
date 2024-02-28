@@ -38,7 +38,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_endpoint_group"></a> [endpoint\_group](#module\_endpoint\_group) | cloudposse/global-accelerator/aws//modules/endpoint-group | 0.5.0 |
-| <a name="module_global_accelerator"></a> [global\_accelerator](#module\_global\_accelerator) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_global_accelerator"></a> [global\_accelerator](#module\_global\_accelerator) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -81,7 +81,7 @@ No resources.
 
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/global-accelerator-endpoint-group) - Cloud Posse's upstream component
+  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/global-accelerator-endpoint-group) - Cloud Posse's upstream component
 
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

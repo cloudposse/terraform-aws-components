@@ -21,19 +21,14 @@ components:
     eks/karpenter:
       metadata:
         type: abstract
-      settings:
-        spacelift:
-          workspace_enabled: true
       vars:
         enabled: true
-        tags:
-          Team: sre
-          Service: karpenter
-        eks_component_name: eks/cluster
+        eks_component_name: "eks/cluster"
         name: "karpenter"
+        # https://github.com/aws/karpenter/tree/main/charts/karpenter
+        chart_repository: "oci://public.ecr.aws/karpenter"
         chart: "karpenter"
-        chart_repository: "https://charts.karpenter.sh"
-        chart_version: "v0.16.3"
+        chart_version: "v0.31.0"
         create_namespace: true
         kubernetes_namespace: "karpenter"
         resources:
@@ -47,6 +42,14 @@ components:
         atomic: true
         wait: true
         rbac_enabled: true
+        # "karpenter-crd" can be installed as an independent helm chart to manage the lifecycle of Karpenter CRDs
+        crd_chart_enabled: true
+        crd_chart: "karpenter-crd"
+        # Set `legacy_create_karpenter_instance_profile` to `false` to allow the `eks/cluster` component
+        # to manage the instance profile for the nodes launched by Karpenter (recommended for all new clusters).
+        legacy_create_karpenter_instance_profile: false
+        # Enable interruption handling to deploy a SQS queue and a set of Event Bridge rules to handle interruption with Karpenter.
+        interruption_handler_enabled: true
 
     # Provision `karpenter` component on the blue EKS cluster
     eks/karpenter-blue:
@@ -278,6 +281,43 @@ For your cluster, you will need to review the following configurations for the K
       ttl_seconds_until_expired: 2592000
     ```
 
+## Node Interruption
+
+Karpenter also supports listening for and responding to Node Interruption events. If interruption handling is enabled, Karpenter will watch for upcoming involuntary interruption events that would cause disruption to your workloads. These interruption events include:
+
+- Spot Interruption Warnings
+- Scheduled Change Health Events (Maintenance Events)
+- Instance Terminating Events
+- Instance Stopping Events
+
+:::info
+
+The Node Interruption Handler is not the same as the Node Termination Handler. The latter is always enabled and cleanly shuts down the node in 2 minutes in response to a Node Termination event. The former gets advance notice that a node will soon be terminated, so it can have 5-10 minutes to shut down a node.
+
+:::
+
+For more details, see refer to the [Karpenter docs](https://karpenter.sh/v0.32/concepts/disruption/#interruption) and [FAQ](https://karpenter.sh/v0.32/faq/#interruption-handling)
+
+To enable Node Interruption handling, set `var.interruption_handler_enabled` to `true`. This will create an SQS queue and a set of Event Bridge rules to deliver interruption events to Karpenter.
+
+## Custom Resource Definition (CRD) Management
+
+Karpenter ships with a few Custom Resource Definitions (CRDs). In earlier versions
+of this component, when installing a new version of the `karpenter` helm chart, CRDs
+were not be upgraded at the same time, requiring manual steps to upgrade CRDs after deploying the latest chart.
+However Karpenter now supports an additional, independent helm chart for CRD management.
+This helm chart, `karpenter-crd`, can be installed alongside the `karpenter` helm chart to automatically manage the lifecycle of these CRDs.
+
+To deploy the `karpenter-crd` helm chart, set `var.crd_chart_enabled` to `true`.
+(Installing the `karpenter-crd` chart is recommended. `var.crd_chart_enabled` defaults
+to `false` to preserve backward compatibility with older versions of this component.)
+
+## Troubleshooting
+
+For Karpenter issues, checkout the [Karpenter Troubleshooting Guide](https://karpenter.sh/docs/troubleshooting/)
+
+### References
+
 For more details, refer to:
 
  - https://karpenter.sh/v0.28.0/provisioner/#specrequirements
@@ -285,6 +325,7 @@ For more details, refer to:
  - https://aws.github.io/aws-eks-best-practices/karpenter/#creating-provisioners
  - https://aws.github.io/aws-eks-best-practices/karpenter
  - https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
+
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -302,14 +343,16 @@ For more details, refer to:
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.7.1, != 2.21.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
-| <a name="module_karpenter"></a> [karpenter](#module\_karpenter) | cloudposse/helm-release/aws | 0.7.0 |
+| <a name="module_karpenter"></a> [karpenter](#module\_karpenter) | cloudposse/helm-release/aws | 0.10.1 |
+| <a name="module_karpenter_crd"></a> [karpenter\_crd](#module\_karpenter\_crd) | cloudposse/helm-release/aws | 0.10.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -321,6 +364,7 @@ For more details, refer to:
 | [aws_iam_instance_profile.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
 | [aws_sqs_queue.interruption_handler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue) | resource |
 | [aws_sqs_queue_policy.interruption_handler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue_policy) | resource |
+| [kubernetes_namespace.default](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 | [aws_iam_policy_document.interruption_handler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
@@ -339,6 +383,8 @@ For more details, refer to:
 | <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Specify the exact chart version to install. If this is not specified, the latest version is installed | `string` | `null` | no |
 | <a name="input_cleanup_on_fail"></a> [cleanup\_on\_fail](#input\_cleanup\_on\_fail) | Allow deletion of new resources created in this upgrade when upgrade fails | `bool` | `true` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
+| <a name="input_crd_chart"></a> [crd\_chart](#input\_crd\_chart) | The name of the Karpenter CRD chart to be installed, if `var.crd_chart_enabled` is set to `true`. | `string` | `"karpenter-crd"` | no |
+| <a name="input_crd_chart_enabled"></a> [crd\_chart\_enabled](#input\_crd\_chart\_enabled) | `karpenter-crd` can be installed as an independent helm chart to manage the lifecycle of Karpenter CRDs. Set to `true` to install this CRD helm chart before the primary karpenter chart. | `bool` | `false` | no |
 | <a name="input_create_namespace"></a> [create\_namespace](#input\_create\_namespace) | Create the namespace if it does not yet exist. Defaults to `false` | `bool` | `null` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
@@ -364,6 +410,7 @@ For more details, refer to:
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
+| <a name="input_legacy_create_karpenter_instance_profile"></a> [legacy\_create\_karpenter\_instance\_profile](#input\_legacy\_create\_karpenter\_instance\_profile) | When `true` (the default), this component creates an IAM Instance Profile<br>for nodes launched by Karpenter, to preserve the legacy behavior.<br>Set to `false` to disable creation of the IAM Instance Profile, which<br>avoids conflict with having `eks/cluster` create it.<br>Use in conjunction with `eks/cluster` component `legacy_do_not_create_karpenter_instance_profile`,<br>which see for further details. | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_rbac_enabled"></a> [rbac\_enabled](#input\_rbac\_enabled) | Enable/disable RBAC | `bool` | `true` | no |

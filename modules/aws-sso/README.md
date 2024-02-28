@@ -12,17 +12,48 @@ This component assumes that AWS SSO has already been enabled via the AWS Console
 1. Select primary region
 1. Go to AWS SSO
 1. Enable AWS SSO
-1. Click Settings > Management
-1. Delegate Identity as an administrator
 
-Once identity is delegated, it will take up to 20 to 30 minutes for the identity account to understand its delegation.
+#### Delegation no longer recommended
+
+Previously, Cloud Posse recommended delegating SSO to the identity account by following the next 2 steps:
+1. Click Settings > Management
+1. Delegate Identity as an administrator. This can take up to 30 minutes to take effect.
+
+However, this is no longer recommended. Because the delegated SSO administrator cannot make changes in the `root` account
+and this component needs to be able to make changes in the `root` account, any purported security advantage achieved by
+delegating SSO to the `identity` account is lost.
+
+Nevertheless, it is also not worth the effort to remove the delegation. If you have already delegated SSO to the `identity`,
+continue on, leaving the stack configuration in the `gbl-identity` stack rather than the currently recommended `gbl-root` stack.
+
+### Google Workspace
+
+:::important
+
+> Your identity source is currently configured as 'External identity provider'. To add new groups or edit their memberships, you must do this using your external identity provider.
+
+Groups _cannot_ be created with ClickOps in the AWS console and instead must be created with AWS API.
+
+:::
+
+Google Workspace is now supported by AWS Identity Center, but Group creation is not automatically handled. After [configuring SAML and SCIM with Google Workspace and IAM Identity Center following the AWS documentation](https://docs.aws.amazon.com/singlesignon/latest/userguide/gs-gwp.html), add any Group name to `var.groups` to create the Group with Terraform. Once the setup steps as described in the AWS documentation have been completed and the Groups are created with Terraform, Users should automatically populate each created Group.
+
+```yaml
+components:
+  terraform:
+    aws-sso:
+      vars:
+        groups:
+          - "Developers"
+          - "Dev Ops"
+```
 
 ### Atmos
 
 **Stack Level**: Global
 **Deployment**: Must be deployed by root-admin using `atmos` CLI
 
-Add catalog to `gbl-identity` root stack.
+Add catalog to `gbl-root` root stack.
 
 #### `account_assignments`
 The `account_assignments` setting configures access to permission sets for users and groups in accounts, in the following structure:
@@ -164,25 +195,27 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_iam_roles_root"></a> [iam\_roles\_root](#module\_iam\_roles\_root) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_permission_sets"></a> [permission\_sets](#module\_permission\_sets) | cloudposse/sso/aws//modules/permission-sets | 1.1.1 |
 | <a name="module_role_map"></a> [role\_map](#module\_role\_map) | ../account-map/modules/roles-to-principals | n/a |
 | <a name="module_sso_account_assignments"></a> [sso\_account\_assignments](#module\_sso\_account\_assignments) | cloudposse/sso/aws//modules/account-assignments | 1.1.1 |
 | <a name="module_sso_account_assignments_root"></a> [sso\_account\_assignments\_root](#module\_sso\_account\_assignments\_root) | cloudposse/sso/aws//modules/account-assignments | 1.1.1 |
-| <a name="module_tfstate"></a> [tfstate](#module\_tfstate) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_tfstate"></a> [tfstate](#module\_tfstate) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [aws_identitystore_group.manual](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/identitystore_group) | resource |
 | [aws_iam_policy_document.assume_aws_team](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.dns_administrator_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.eks_read_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.terraform_update_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
+| [aws_ssoadmin_instances.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssoadmin_instances) | data source |
 
 ## Inputs
 
@@ -197,6 +230,7 @@ components:
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
+| <a name="input_groups"></a> [groups](#input\_groups) | List of AWS Identity Center Groups to be created with the AWS API.<br><br>When provisioning the Google Workspace Integration with AWS, Groups need to be created with API in order for automatic provisioning to work as intended. | `list(string)` | `[]` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
@@ -216,6 +250,7 @@ components:
 
 | Name | Description |
 |------|-------------|
+| <a name="output_group_ids"></a> [group\_ids](#output\_group\_ids) | Group IDs created for Identity Center |
 | <a name="output_permission_sets"></a> [permission\_sets](#output\_permission\_sets) | Permission sets |
 | <a name="output_sso_account_assignments"></a> [sso\_account\_assignments](#output\_sso\_account\_assignments) | SSO account assignments |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

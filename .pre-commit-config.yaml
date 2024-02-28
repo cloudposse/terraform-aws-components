@@ -23,6 +23,7 @@ repos:
       - id: check-yaml  # checks yaml files for parseable syntax.
         exclude: |
           (?x)^(
+              deprecated/eks/.*/charts/.*/templates/.*.yaml
               deprecated/github-actions-runner/runners/actions-runner/chart/templates/.*.yaml |
               modules/eks/cert-manager/cert-manager-issuer/templates/.*.yaml |
               modules/strongdm/charts/strongdm/templates/.*.yaml |

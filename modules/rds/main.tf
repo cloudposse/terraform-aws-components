@@ -22,7 +22,7 @@ locals {
 
 module "rds_client_sg" {
   source  = "cloudposse/security-group/aws"
-  version = "2.0.1"
+  version = "2.2.0"
 
   name    = "${module.this.name}-client"
   enabled = module.this.enabled && var.client_security_group_enabled
@@ -35,7 +35,7 @@ module "rds_client_sg" {
 
 module "rds_instance" {
   source  = "cloudposse/rds/aws"
-  version = "0.38.5"
+  version = "1.1.0"
 
   allocated_storage                     = var.allocated_storage
   allow_major_version_upgrade           = var.allow_major_version_upgrade

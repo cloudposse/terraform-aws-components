@@ -268,3 +268,9 @@ variable "ssm_github_webhook_secret_token_path" {
   description = "The path in SSM to the GitHub Webhook Secret token."
   default     = ""
 }
+
+variable "context_tags_enabled" {
+  type        = bool
+  description = "Whether or not to include all context tags as labels for each runner"
+  default     = false
+}

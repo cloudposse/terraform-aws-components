@@ -6,6 +6,10 @@ This component is responsible for provisioning EC2 instances for GitHub runners.
 We also have a similar component based on [actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller) for Kubernetes.
 
 :::
+
+
+## Requirements
+
 ## Usage
 
 **Stack Level**: Regional
@@ -144,7 +148,49 @@ In order to use this component, you will have to obtain the `REGISTRATION_TOKEN`
 
 <img src="/assets/refarch/cleanshot-2022-03-01-at-16.10.02-20220302-005602.png" height="199" width="786" /><br/>
 
-#### Obtain the Runner Registration Token
+### Creating Registration Token
+
+:::info
+We highly recommend using a GitHub Application with the github-action-token-rotator module to generate the Registration Token. This will ensure that the token is rotated and that the token is stored in SSM Parameter Store encrypted with KMS.
+:::
+
+#### GitHub Application
+
+Follow the quickstart with the upstream module, [cloudposse/terraform-aws-github-action-token-rotator](https://github.com/cloudposse/terraform-aws-github-action-token-rotator#quick-start), or follow the steps below.
+
+1. Create a new GitHub App
+1. Add the following permission:
+```diff
+# Required Permissions for Repository Runners:
+## Repository Permissions
++ Actions (read)
++ Administration (read / write)
++ Metadata (read)
+
+# Required Permissions for Organization Runners:
+## Repository Permissions
++ Actions (read)
++ Metadata (read)
+
+## Organization Permissions
++ Self-hosted runners (read / write)
+```
+1. Generate a Private Key
+
+If you are working with Cloud Posse, upload this Private Key, GitHub App ID, and Github App Installation ID to 1Password and skip the rest. Otherwise, complete the private key setup in `core-<default-region>-auto`.
+
+1. Convert the private key to a PEM file using the following command: `openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in {DOWNLOADED_FILE_NAME}.pem -out private-key-pkcs8.key`
+1. Upload PEM file key to the specified ssm path: `/github/runners/acme/private-key` in `core-<default-region>-auto`
+1. Create another sensitive SSM parameter `/github/runners/acme/registration-token` in `core-<default-region>-auto` with any basic value, such as "foo". This will be overwritten by the rotator.
+1. Update the GitHub App ID and Installation ID in the `github-action-token-rotator` catalog.
+
+:::info
+
+If you change the Private Key saved in SSM, redeploy `github-action-token-rotator`
+
+:::
+
+#### (ClickOps) Obtain the Runner Registration Token
 1. Browse to [https://github.com/organizations/{Org}/settings/actions/runners](https://github.com/organizations/{Org}/settings/actions/runners) (Organization) or [https://github.com/{Org}/{Repo}/settings/actions/runners](https://github.com/{Org}/{Repo}/settings/actions/runners) (Repository)
 
 2. Click the **New Runner** button (Organization) or **New Self Hosted Runner** button (Repository)
@@ -158,6 +204,45 @@ In order to use this component, you will have to obtain the `REGISTRATION_TOKEN`
 ```
 chamber write github token <value>
 ```
+
+
+# FAQ
+
+## The GitHub Registration Token is not updated in SSM
+
+The `github-action-token-rotator` runs an AWS Lambda function every 30 minutes. This lambda will attempt to use a private key in its environment configuration to generate a GitHub Registration Token, and then store that token to AWS SSM Parameter Store.
+
+If the GitHub Registration Token parameter, `/github/runners/acme/registration-token`, is not updated, read through the following tips:
+
+1. The private key is stored at the given parameter path: `parameter_store_private_key_path: /github/runners/acme/private-key`
+1. The private key is Base 64 encoded. If you pull the key from SSM and decode it, it should begin with `-----BEGIN PRIVATE KEY-----`
+1. If the private key has changed, you must _redeploy_ `github-action-token-rotator`. Run a plan against the component to make sure there are not changes required.
+
+## The GitHub Registration Token is valid, but the Runners are not registering with GitHub
+
+If you first deployed the `github-action-token-rotator` component initally with an invalid configuration and then deployed the `github-runners` component, the instance runners will have failed to register with GitHub.
+
+After you correct `github-action-token-rotator` and have a valid GitHub Registration Token in SSM, _destroy and recreate_ the `github-runners` component.
+
+If you cannot see the runners registered in GitHub, check the system logs on one of EC2 Instances in AWS in `core-<default-region>-auto`.
+
+## I cannot assume the role from GitHub Actions after deploying
+
+The following error is very common if the GitHub workflow is missing proper permission.
+
+```bash
+Error: User: arn:aws:sts::***:assumed-role/acme-core-use1-auto-actions-runner@actions-runner-system/token-file-web-identity is not authorized to perform: sts:TagSession on resource: arn:aws:iam::999999999999:role/acme-plat-use1-dev-gha
+```
+
+In order to use a web identity, GitHub Action pipelines must have the following permission.
+See [GitHub Action documentation for more](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services#adding-permissions-settings).
+
+```yaml
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+```
+
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -179,13 +264,13 @@ chamber write github token <value>
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
-| <a name="module_autoscale_group"></a> [autoscale\_group](#module\_autoscale\_group) | cloudposse/ec2-autoscale-group/aws | 0.35.0 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+| <a name="module_autoscale_group"></a> [autoscale\_group](#module\_autoscale\_group) | cloudposse/ec2-autoscale-group/aws | 0.35.1 |
 | <a name="module_graceful_scale_in"></a> [graceful\_scale\_in](#module\_graceful\_scale\_in) | ./modules/graceful_scale_in | n/a |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_sg"></a> [sg](#module\_sg) | cloudposse/security-group/aws | 1.0.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 
 ## Resources
 
@@ -340,7 +425,7 @@ The `overrides` will override the `instance_type` above.
 
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/github-runners) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/github-runners) - Cloud Posse's upstream component
 * [AWS: Auto Scaling groups with multiple instance types and purchase options](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-mixed-instances-groups.html)
 * [InstancesDistribution](https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_InstancesDistribution.html)
 - [MixedInstancesPolicy](https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_MixedInstancesPolicy.html)

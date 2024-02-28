@@ -2,7 +2,7 @@
 
 This component is responsible for requesting an ACM certificate for a domain and adding a CNAME record to the DNS zone to complete certificate validation.
 
-The ACM component is to manage an unlimited number of certificates, predominantly for vanity domains. While the [dns-primary](/components/library/aws/dns-primary) component has the ability to generate ACM certificates, it is very opinionated and can only manage one zone. In reality, companies have many branded domains associated with a load balancer, so we need to be able to generate more complicated certificates.
+The ACM component is to manage an unlimited number of certificates, predominantly for vanity domains. While the [dns-primary](https://docs.cloudposse.com/components/library/aws/dns-primary) component has the ability to generate ACM certificates, it is very opinionated and can only manage one zone. In reality, companies have many branded domains associated with a load balancer, so we need to be able to generate more complicated certificates.
 
 We have, as a convenience, the ability to create an ACM certificate as part of creating a DNS zone, whether primary or delegated. That convenience is limited to creating `example.com` and `*.example.com` when creating a zone for `example.com`. For example, Acme has delegated `acct.acme.com` and in addition to `*.acct.acme.com` needed an ACM certificate for `*.usw2.acct.acme.com`, so we use the ACM component to provision that, rather than extend the DNS primary or delegated components to take a list of additional certificates. Both are different views on the Single Responsibility Principle.
 
@@ -68,10 +68,10 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_acm"></a> [acm](#module\_acm) | cloudposse/acm-request-certificate/aws | 0.16.0 |
-| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_acm"></a> [acm](#module\_acm) | cloudposse/acm-request-certificate/aws | 0.16.3 |
+| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_private_ca"></a> [private\_ca](#module\_private\_ca) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.3 |
+| <a name="module_private_ca"></a> [private\_ca](#module\_private\_ca) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -132,6 +132,6 @@ components:
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/acm) - Cloud Posse's upstream component
+* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/acm) - Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

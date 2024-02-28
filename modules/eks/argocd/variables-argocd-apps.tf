@@ -27,3 +27,9 @@ variable "argocd_apps_enabled" {
   description = "Enable argocd apps"
   default     = true
 }
+
+variable "argocd_apps_chart_values" {
+  type        = any
+  description = "Additional values to yamlencode as `helm_release` values for the argocd_apps chart"
+  default     = {}
+}

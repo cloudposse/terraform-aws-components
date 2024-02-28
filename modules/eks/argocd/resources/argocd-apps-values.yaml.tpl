@@ -8,7 +8,7 @@ applications:
   source:
     repoURL: ${url}
     targetRevision: HEAD
-    path: ./%{ if tenant != null }${tenant}/%{ endif }${environment}-${stage}/${namespace}
+    path: ./%{ if tenant != null }${tenant}/%{ endif }${environment}-${stage}%{ for attr in attributes }-${attr}%{ endfor }/${namespace}
     directory:
       recurse: false
   destination:
