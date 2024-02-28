@@ -28,7 +28,7 @@ components:
         # https://github.com/aws/karpenter/tree/main/charts/karpenter
         chart_repository: "oci://public.ecr.aws/karpenter"
         chart: "karpenter"
-        chart_version: "v0.31.0"
+        chart_version: "v0.34.0"
         create_namespace: true
         kubernetes_namespace: "karpenter"
         resources:
