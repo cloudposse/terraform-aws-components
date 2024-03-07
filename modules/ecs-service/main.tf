@@ -14,10 +14,12 @@ locals {
     for container in module.container_definition :
     container.json_map_object
     ],
-    [for container in module.datadog_container_definition :
+    [
+      for container in module.datadog_container_definition :
       container.json_map_object
     ],
-    var.datadog_log_method_is_firelens ? [for container in module.datadog_fluent_bit_container_definition :
+    var.datadog_log_method_is_firelens ? [
+      for container in module.datadog_fluent_bit_container_definition :
       container.json_map_object
     ] : [],
   )
@@ -48,19 +50,22 @@ locals {
   efs_component_remote_state = {
     for efs in local.efs_component_volumes : efs["name"] => module.efs[efs["name"]].outputs
   }
-  efs_component_merged = [for efs_volume_name, efs_component_output in local.efs_component_remote_state : {
-    host_path = local.efs_component_map[efs_volume_name].host_path
-    name      = efs_volume_name
-    efs_volume_configuration = [ #again this is a hardcoded array because AWS does not support multiple configurations per volume
-      {
-        file_system_id          = efs_component_output.efs_id
-        root_directory          = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].root_directory
-        transit_encryption      = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].transit_encryption
-        transit_encryption_port = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].transit_encryption_port
-        authorization_config    = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].authorization_config
-      }
-    ]
-  }]
+  efs_component_merged = [
+    for efs_volume_name, efs_component_output in local.efs_component_remote_state : {
+      host_path = local.efs_component_map[efs_volume_name].host_path
+      name      = efs_volume_name
+      efs_volume_configuration = [
+        #again this is a hardcoded array because AWS does not support multiple configurations per volume
+        {
+          file_system_id          = efs_component_output.efs_id
+          root_directory          = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].root_directory
+          transit_encryption      = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].transit_encryption
+          transit_encryption_port = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].transit_encryption_port
+          authorization_config    = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].authorization_config
+        }
+      ]
+    }
+  ]
   efs_volumes = concat(lookup(local.task, "efs_volumes", []), local.efs_component_merged)
 }
 
@@ -105,19 +110,23 @@ module "roles_to_principals" {
 }
 
 locals {
-  container_chamber = { for name, result in data.aws_ssm_parameters_by_path.default :
+  container_chamber = {
+    for name, result in data.aws_ssm_parameters_by_path.default :
     name => { for key, value in zipmap(result.names, result.values) : element(reverse(split("/", key)), 0) => value }
   }
 
-  container_aliases = { for name, settings in var.containers :
+  container_aliases = {
+    for name, settings in var.containers :
     settings["name"] => name if local.enabled
   }
 
-  container_s3 = { for item in lookup(local.task_definition_s3, "containerDefinitions", []) :
+  container_s3 = {
+    for item in lookup(local.task_definition_s3, "containerDefinitions", []) :
     local.container_aliases[item.name] => { container_definition = item }
   }
 
-  containers = { for name, settings in var.containers :
+  containers = {
+    for name, settings in var.containers :
     name => merge(settings, local.container_chamber[name], lookup(local.container_s3, name, {}))
     if local.enabled
   }
@@ -309,7 +318,10 @@ module "ecs_alb_service_task" {
 }
 
 resource "aws_security_group_rule" "custom_sg_rules" {
-  for_each          = local.enabled && var.custom_security_group_rules != [] ? { for sg_rule in var.custom_security_group_rules : format("%s_%s_%s", sg_rule.protocol, sg_rule.from_port, sg_rule.to_port) => sg_rule } : {}
+  for_each = local.enabled && var.custom_security_group_rules != [] ? {
+    for sg_rule in var.custom_security_group_rules :
+    format("%s_%s_%s", sg_rule.protocol, sg_rule.from_port, sg_rule.to_port) => sg_rule
+  } : {}
   description       = each.value.description
   type              = each.value.type
   from_port         = each.value.from_port
@@ -327,8 +339,10 @@ module "alb_ingress" {
 
   vpc_id                        = local.vpc_id
   unauthenticated_listener_arns = [local.lb_listener_https_arn]
-  unauthenticated_hosts         = var.lb_catch_all ? [format("*.%s", var.vanity_domain), local.full_domain] : concat([local.full_domain], var.vanity_alias, var.additional_targets)
-  unauthenticated_paths         = flatten(var.unauthenticated_paths)
+  unauthenticated_hosts = var.lb_catch_all ? [format("*.%s", var.vanity_domain), local.full_domain] : concat([
+    local.full_domain
+  ], var.vanity_alias, var.additional_targets)
+  unauthenticated_paths = flatten(var.unauthenticated_paths)
   # When set to catch-all, make priority super high to make sure last to match
   unauthenticated_priority     = var.lb_catch_all ? 99 : var.unauthenticated_priority
   default_target_group_enabled = true
@@ -536,4 +550,34 @@ resource "aws_kinesis_stream" "default" {
       stream_mode_details
     ]
   }
+}
+
+data "aws_ecs_task_definition" "created_task" {
+  task_definition = module.ecs_alb_service_task[0].task_definition_family
+}
+
+locals {
+  created_task_definition = data.aws_ecs_task_definition.created_task
+  task_template = merge(
+    {
+      containerDefinitions = local.container_definition
+      family               = lookup(local.created_task_definition, "family", null),
+      taskRoleArn          = lookup(local.created_task_definition, "task_role_arn", null),
+      executionRoleArn     = lookup(local.created_task_definition, "execution_role_arn", null),
+      networkMode          = lookup(local.created_task_definition, "network_mode", null),
+      # we explicitly do not put the volumes here. That should be merged in by GHA
+      requiresCompatibilities = [lookup(local.task, "launch_type", "FARGATE")]
+      cpu                     = tostring(lookup(local.task, "task_cpu", null))
+      memory                  = tostring(lookup(local.task, "task_memory", null))
+
+    }
+  )
+}
+
+resource "aws_s3_bucket_object" "task_definition_template" {
+  count                  = local.s3_mirroring_enabled ? 1 : 0
+  bucket                 = lookup(module.s3[0].outputs, "bucket_id", null)
+  key                    = format("%s/%s/task-template.json", module.ecs_cluster.outputs.cluster_name, module.this.id)
+  content                = jsonencode(local.task_template)
+  server_side_encryption = "AES256"
 }
