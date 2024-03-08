@@ -46,7 +46,6 @@ repos:
         types: ["markdown"]
         exclude: |
           (?x)^(
-              deprecated/.*README*.md |
               deprecated/.*.md
           )$
 
