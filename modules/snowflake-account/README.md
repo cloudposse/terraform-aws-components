@@ -1,6 +1,7 @@
 # Component: `snowflake-account`
 
-This component sets up the requirements for all other Snowflake components, including creating the Terraform service user. Before running this component, follow the manual, Click-Ops steps below to create a Snowflake subscription.
+This component sets up the requirements for all other Snowflake components, including creating the Terraform service
+user. Before running this component, follow the manual, Click-Ops steps below to create a Snowflake subscription.
 
 ## Deployment Steps
 
@@ -10,7 +11,9 @@ This component sets up the requirements for all other Snowflake components, incl
 4. Select "Snowflake Data Cloud"
 5. Click "Continue to Subscribe"
 
-6. Fill out the information steps using the following as an example. Note, the provided email cannot use labels such as `mdev+sbx01@example.com`.
+6. Fill out the information steps using the following as an example. Note, the provided email cannot use labels such as
+   `mdev+sbx01@example.com`.
+
 ```
   First Name: John
   Last Name: Smith
@@ -18,19 +21,28 @@ This component sets up the requirements for all other Snowflake components, incl
   Company: Example
   Country: United States
 ```
-7. Select "Standard" and the current region. In this example, we chose "US East (Ohio)" which is the same as `us-east-1`.
-7. Continue and wait for Sign Up to complete. Note the Snowflake account ID; you can find this in the newly accessible Snowflake console in the top right of the window.
-8. Check for the Account Activation email. Note, this may be collected in a Slack notifications channel for easy access.
-9. Follow the given link to create the Admin user with username `admin` and a strong password. Be sure to save that password somewhere secure.
-10. Upload that password to AWS Parameter Store under `/snowflake/$ACCOUNT/users/admin/password`, where `ACCOUNT` is the value given during the subscription process. This password will only be used to create a private key, and all other authentication will be done with said key. Below is an example of how to do that with a [chamber](https://github.com/segmentio/chamber) command:
+
+7. Select "Standard" and the current region. In this example, we chose "US East (Ohio)" which is the same as
+   `us-east-1`.
+8. Continue and wait for Sign Up to complete. Note the Snowflake account ID; you can find this in the newly accessible
+   Snowflake console in the top right of the window.
+9. Check for the Account Activation email. Note, this may be collected in a Slack notifications channel for easy access.
+10. Follow the given link to create the Admin user with username `admin` and a strong password. Be sure to save that
+    password somewhere secure.
+11. Upload that password to AWS Parameter Store under `/snowflake/$ACCOUNT/users/admin/password`, where `ACCOUNT` is the
+    value given during the subscription process. This password will only be used to create a private key, and all other
+    authentication will be done with said key. Below is an example of how to do that with a
+    [chamber](https://github.com/segmentio/chamber) command:
+
 ```
 AWS_PROFILE=$NAMESPACE-$TENANT-gbl-sbx01-admin chamber write /snowflake/$ACCOUNT/users/admin/ admin $PASSWORD
 ```
+
 11. Finally, use atmos to deploy this component:
+
 ```
 atmos terraform deploy snowflake/account --stack $TENANT-use2-sbx01
 ```
-
 
 ## Usage
 
@@ -55,6 +67,7 @@ components:
           Service: snowflake
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -150,6 +163,6 @@ components:
 | <a name="output_ssm_path_terraform_user_name"></a> [ssm\_path\_terraform\_user\_name](#output\_ssm\_path\_terraform\_user\_name) | The path to the SSM parameter for the Terraform user name. |
 | <a name="output_ssm_path_terraform_user_private_key"></a> [ssm\_path\_terraform\_user\_private\_key](#output\_ssm\_path\_terraform\_user\_private\_key) | The path to the SSM parameter for the Terraform user private key. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

@@ -16,6 +16,7 @@ components:
         enabled: true
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -96,7 +97,9 @@ components:
 
 No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* https://github.com/spotinst/spotinst-kubernetes-helm-charts
-* https://docs.spot.io/ocean/tutorials/spot-kubernetes-controller/
+
+- https://github.com/spotinst/spotinst-kubernetes-helm-charts
+- https://docs.spot.io/ocean/tutorials/spot-kubernetes-controller/

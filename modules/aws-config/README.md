@@ -2,40 +2,51 @@
 
 This component is responsible for configuring AWS Config.
 
-AWS Config service enables you to track changes to your AWS resources over time. It continuously monitors and records configuration changes to your AWS resources and provides you with a detailed view of the relationships between those resources. With AWS Config, you can assess, audit, and evaluate the configurations of your AWS resources for compliance, security, and governance purposes.
+AWS Config service enables you to track changes to your AWS resources over time. It continuously monitors and records
+configuration changes to your AWS resources and provides you with a detailed view of the relationships between those
+resources. With AWS Config, you can assess, audit, and evaluate the configurations of your AWS resources for compliance,
+security, and governance purposes.
 
 Some of the key features of AWS Config include:
-- Configuration history: AWS Config maintains a detailed history of changes to your AWS resources, allowing you to see when changes were made, who made them, and what the changes were.
-- Configuration snapshots: AWS Config can take periodic snapshots of your AWS resources configurations, giving you a point-in-time view of their configuration.
-- Compliance monitoring: AWS Config provides a range of pre-built rules and checks to monitor your resources for compliance with best practices and industry standards.
-- Relationship mapping: AWS Config can map the relationships between your AWS resources, enabling you to see how changes to one resource can impact others.
-- Notifications and alerts: AWS Config can send notifications and alerts when changes are made to your AWS resources that could impact their compliance or security posture.
 
-Overall, AWS Config provides you with a powerful toolset to help you monitor and manage the configurations of your AWS resources, ensuring that they remain compliant, secure, and properly configured over time.
+- Configuration history: AWS Config maintains a detailed history of changes to your AWS resources, allowing you to see
+  when changes were made, who made them, and what the changes were.
+- Configuration snapshots: AWS Config can take periodic snapshots of your AWS resources configurations, giving you a
+  point-in-time view of their configuration.
+- Compliance monitoring: AWS Config provides a range of pre-built rules and checks to monitor your resources for
+  compliance with best practices and industry standards.
+- Relationship mapping: AWS Config can map the relationships between your AWS resources, enabling you to see how changes
+  to one resource can impact others.
+- Notifications and alerts: AWS Config can send notifications and alerts when changes are made to your AWS resources
+  that could impact their compliance or security posture.
+
+Overall, AWS Config provides you with a powerful toolset to help you monitor and manage the configurations of your AWS
+resources, ensuring that they remain compliant, secure, and properly configured over time.
 
 ## Prerequisites
 
-As part of [CIS AWS Foundations 1.20](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-cis-controls.html#securityhub-cis-controls-1.20), this component assumes that a designated support IAM role with the following permissions has been deployed to every account in the organization:
+As part of
+[CIS AWS Foundations 1.20](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-cis-controls.html#securityhub-cis-controls-1.20),
+this component assumes that a designated support IAM role with the following permissions has been deployed to every
+account in the organization:
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AllowSupport",
-            "Effect": "Allow",
-            "Action": [
-                "support:*"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "AllowTrustedAdvisor",
-            "Effect": "Allow",
-            "Action": "trustedadvisor:Describe*",
-            "Resource": "*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowSupport",
+      "Effect": "Allow",
+      "Action": ["support:*"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "AllowTrustedAdvisor",
+      "Effect": "Allow",
+      "Action": "trustedadvisor:Describe*",
+      "Resource": "*"
+    }
+  ]
 }
 ```
 
@@ -47,7 +58,8 @@ Before deploying this AWS Config component `config-bucket` and `cloudtrail-bucke
 
 _**NOTE**: Since AWS Config is regional AWS service, this component needs to be deployed to all regions._
 
-At the AWS Organizational level, the Components designate an account to be the `central collection account` and a single region to be the `central collection region` so that compliance information can be aggregated into a central location.
+At the AWS Organizational level, the Components designate an account to be the `central collection account` and a single
+region to be the `central collection region` so that compliance information can be aggregated into a central location.
 
 Logs are typically written to the `audit` account and AWS Config deployed into to the `security` account.
 
@@ -58,7 +70,7 @@ components:
   terraform:
     aws-config:
       vars:
-        enabled: true  
+        enabled: true
         account_map_tenant: core
         az_abbreviation_type: fixed
         # In each AWS account, an IAM role should be created in the main region.
@@ -110,6 +122,7 @@ Apply aws-config to all stacks in all stages.
 atmos terraform plan aws-config-{each region} --stack {each region}-{each stage}
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -197,12 +210,13 @@ atmos terraform plan aws-config-{each region} --stack {each region}-{each stage}
 | <a name="output_storage_bucket_arn"></a> [storage\_bucket\_arn](#output\_storage\_bucket\_arn) | Storage Config bucket ARN |
 | <a name="output_storage_bucket_id"></a> [storage\_bucket\_id](#output\_storage\_bucket\_id) | Storage Config bucket ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [AWS Config Documentation](https://docs.aws.amazon.com/config/index.html)
-* [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aws-config)
-* [Conformance Packs documentation](https://docs.aws.amazon.com/config/latest/developerguide/conformance-packs.html)
-* [AWS Managed Sample Conformance Packs](https://github.com/awslabs/aws-config-rules/tree/master/aws-config-conformance-packs)
+
+- [AWS Config Documentation](https://docs.aws.amazon.com/config/index.html)
+- [Cloud Posse's upstream component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aws-config)
+- [Conformance Packs documentation](https://docs.aws.amazon.com/config/latest/developerguide/conformance-packs.html)
+- [AWS Managed Sample Conformance Packs](https://github.com/awslabs/aws-config-rules/tree/master/aws-config-conformance-packs)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

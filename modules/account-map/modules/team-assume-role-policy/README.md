@@ -2,13 +2,14 @@
 
 This submodule generates a JSON-encoded IAM Policy Document suitable for use as an "Assume Role Policy".
 
-You can designate both who is allowed to assume a role and who is explicitly denied permission
-to assume a role. The value of this submodule is that it allows for many ways
-to specify the "who" while at the same time limiting the "who" to assumed IAM roles:
+You can designate both who is allowed to assume a role and who is explicitly denied permission to assume a role. The
+value of this submodule is that it allows for many ways to specify the "who" while at the same time limiting the "who"
+to assumed IAM roles:
 
 - All assumed roles in the `dev` account: `allowed_roles = { dev = ["*"] }`
 - Only the `admin` role in the dev account: `allowed_roles = { dev = ["admin"] }`
-- A specific principal in any account (though it must still be an assumed role): `allowed_principal_arns = arn:aws:iam::123456789012:role/trusted-role`
+- A specific principal in any account (though it must still be an assumed role):
+  `allowed_principal_arns = arn:aws:iam::123456789012:role/trusted-role`
 - A user of a specific AWS SSO Permission Set: `allowed_permission_sets = { dev = ["DeveloperAccess"] }`
 
 ## Usage
@@ -30,6 +31,7 @@ resource "aws_iam_role" "default" {
 }
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -100,3 +102,4 @@ No requirements.
 | <a name="output_github_assume_role_policy"></a> [github\_assume\_role\_policy](#output\_github\_assume\_role\_policy) | JSON encoded string representing the "Assume Role" policy configured by the inputs |
 | <a name="output_policy_document"></a> [policy\_document](#output\_policy\_document) | JSON encoded string representing the "Assume Role" policy configured by the inputs |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->

@@ -21,6 +21,7 @@ components:
         glue_registry_component_name: "glue/registry/example"
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -89,9 +90,11 @@ No resources.
 | <a name="output_schema_id"></a> [schema\_id](#output\_schema\_id) | Glue schema ID |
 | <a name="output_schema_name"></a> [schema\_name](#output\_schema\_name) | Glue schema name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/glue/schema) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/glue/schema) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

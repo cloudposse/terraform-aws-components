@@ -26,7 +26,7 @@ components:
         github_runners_component_name: github-runners
         github_runners_tenant_name: core
         github_runners_environment_name: ue2
-        github_runners_stage_name : auto
+        github_runners_stage_name: auto
         origin_force_destroy: false
         origin_versioning_enabled: true
         origin_block_public_acls: true
@@ -52,16 +52,16 @@ components:
         name: example-spa
         site_subdomain: example-spa
         cloudfront_allowed_methods:
-        - GET
-        - HEAD
+          - GET
+          - HEAD
         cloudfront_cached_methods:
-        - GET
-        - HEAD
+          - GET
+          - HEAD
         cloudfront_custom_error_response:
-        - error_caching_min_ttl: 1
-          error_code: 403
-          response_code: 200
-          response_page_path: /index.html
+          - error_caching_min_ttl: 1
+            error_code: 403
+            response_code: 200
+            response_page_path: /index.html
         cloudfront_default_ttl: 60
         cloudfront_min_ttl: 60
         cloudfront_max_ttl: 60
@@ -89,13 +89,15 @@ Failover origins are supported via `var.failover_s3_origin_name` and `var.failov
 
 ### Preview Environments
 
-SPA Preview environments (i.e. `subdomain.example.com` mapping to a `/subdomain` path in the S3 bucket) powered by Lambda@Edge
-are supported via `var.preview_environment_enabled`. See the both the variable description and inline documentation for
-an extensive explanation for how these preview environments work.
+SPA Preview environments (i.e. `subdomain.example.com` mapping to a `/subdomain` path in the S3 bucket) powered by
+Lambda@Edge are supported via `var.preview_environment_enabled`. See the both the variable description and inline
+documentation for an extensive explanation for how these preview environments work.
 
 ### Customizing Lambda@Edge
 
-This component supports customizing Lambda@Edge functions for the CloudFront distribution. All Lambda@Edge function configuration is deep merged before being passed to the `cloudposse/cloudfront-s3-cdn/aws//modules/lambda@edge` module. You can add additional functions and overwrite existing functions as such:
+This component supports customizing Lambda@Edge functions for the CloudFront distribution. All Lambda@Edge function
+configuration is deep merged before being passed to the `cloudposse/cloudfront-s3-cdn/aws//modules/lambda@edge` module.
+You can add additional functions and overwrite existing functions as such:
 
 ```yaml
 import:
@@ -124,9 +126,9 @@ components:
             handler: "index.handler"
             event_type: "viewer-response"
             include_body: false
-
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -269,11 +271,12 @@ components:
 | <a name="output_origin_s3_bucket_arn"></a> [origin\_s3\_bucket\_arn](#output\_origin\_s3\_bucket\_arn) | Origin bucket ARN. |
 | <a name="output_origin_s3_bucket_name"></a> [origin\_s3\_bucket\_name](#output\_origin\_s3\_bucket\_name) | Origin bucket name. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/spa-s3-cloudfront) - Cloud Posse's upstream component
-* [How do I use CloudFront to serve a static website hosted on Amazon S3?](https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-serve-static-website/)
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/spa-s3-cloudfront) -
+  Cloud Posse's upstream component
+- [How do I use CloudFront to serve a static website hosted on Amazon S3?](https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-serve-static-website/)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

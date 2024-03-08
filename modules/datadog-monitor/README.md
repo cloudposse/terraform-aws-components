@@ -24,14 +24,20 @@ components:
 ```
 
 ## Conventions
-- Treat datadog like a separate cloud provider with integrations ([datadog-integration](https://docs.cloudposse.com/components/library/aws/datadog-integration)) into your accounts.
+
+- Treat datadog like a separate cloud provider with integrations
+  ([datadog-integration](https://docs.cloudposse.com/components/library/aws/datadog-integration)) into your accounts.
 
 - Use the `catalog` convention to define a step of alerts. You can use ours or define your own.
   [https://github.com/cloudposse/terraform-datadog-platform/tree/master/catalog/monitors](https://github.com/cloudposse/terraform-datadog-platform/tree/master/catalog/monitors)
 
 ## Adjust Thresholds per Stack
 
-Since there are so many parameters that may be adjusted for a given monitor, we define all monitors through YAML. By convention, we define the **default monitors** that should apply to all environments, and then adjust the thresholds per environment. This is accomplished using the `datadog-monitor` components variable `datadog_monitors_config_paths` which defines the path to the YAML configuration files. By passing a path for `dev` and `prod`, we can define configurations that are different per environment.
+Since there are so many parameters that may be adjusted for a given monitor, we define all monitors through YAML. By
+convention, we define the **default monitors** that should apply to all environments, and then adjust the thresholds per
+environment. This is accomplished using the `datadog-monitor` components variable `datadog_monitors_config_paths` which
+defines the path to the YAML configuration files. By passing a path for `dev` and `prod`, we can define configurations
+that are different per environment.
 
 For example, you might have the following settings defined for `prod` and `dev` stacks that override the defaults.
 
@@ -47,6 +53,7 @@ components:
           - catalog/monitors/*.yaml
           - catalog/monitors/dev/*.yaml # note this line
 ```
+
 For `prod` stack:
 
 ```
@@ -60,7 +67,8 @@ components:
           - catalog/monitors/prod/*.yaml # note this line
 ```
 
-Behind the scenes (with `atmos`) we fetch all files from these glob patterns, template them, and merge them by key. If we peek into the `*.yaml` and `dev/*.yaml` files above you could see an example like this:
+Behind the scenes (with `atmos`) we fetch all files from these glob patterns, template them, and merge them by key. If
+we peek into the `*.yaml` and `dev/*.yaml` files above you could see an example like this:
 
 **components/terraform/datadog-monitor/catalog/monitors/elb.yaml**
 
@@ -105,6 +113,7 @@ elb-lb-httpcode-5xx-notify:
     critical: 50
     warning: 20
 ```
+
 **components/terraform/datadog-monitor/catalog/monitors/dev/elb.yaml**
 
 ```
@@ -120,10 +129,16 @@ elb-lb-httpcode-5xx-notify:
 ## Key Notes
 
 ### Inheritance
-The important thing to note here is that the default yaml is applied to every stage that it's deployed to. For dev specifically however, we want to override the thresholds and priority for this monitor. This merging is done by key of the monitor, in this case `elb-lb-httpcode-5xx-notify`.
+
+The important thing to note here is that the default yaml is applied to every stage that it's deployed to. For dev
+specifically however, we want to override the thresholds and priority for this monitor. This merging is done by key of
+the monitor, in this case `elb-lb-httpcode-5xx-notify`.
 
 ### Templating
-The second thing to note is `${ dd_env }`. This is **terraform** templating in action. While double braces (`{{ env }}`) refers to datadog templating, `${ dd_env }` is a template variable we pass into our monitors. in this example we use it to specify a grouping int he message. This value is passed in and can be overridden via stacks.
+
+The second thing to note is `${ dd_env }`. This is **terraform** templating in action. While double braces (`{{ env }}`)
+refers to datadog templating, `${ dd_env }` is a template variable we pass into our monitors. in this example we use it
+to specify a grouping int he message. This value is passed in and can be overridden via stacks.
 
 We pass a value via:
 
@@ -140,6 +155,7 @@ components:
         datadog_monitors_config_parameters:
           dd_env: "dev"
 ```
+
 This allows us to further use inheritance from stack configuration to keep our monitors dry, but configurable.
 
 Another available option is to use our catalog as base monitors and then override them with your specific fine tuning.
@@ -156,10 +172,14 @@ components:
 
 ## Other Gotchas
 
-Our integration action that checks for `'source_type_name' equals 'Monitor Alert'` will also be true for synthetics. Whereas if we check for `'event_type' equals 'query_alert_monitor'`, that's only true for monitors, because synthetics will only be picked up by an integration action when `event_type` is `synthetics_alert`.
+Our integration action that checks for `'source_type_name' equals 'Monitor Alert'` will also be true for synthetics.
+Whereas if we check for `'event_type' equals 'query_alert_monitor'`, that's only true for monitors, because synthetics
+will only be picked up by an integration action when `event_type` is `synthetics_alert`.
 
-This is important if we need to distinguish between monitors and synthetics in OpsGenie, which is the case when we want to ensure clean messaging on OpsGenie incidents in Statuspage.
+This is important if we need to distinguish between monitors and synthetics in OpsGenie, which is the case when we want
+to ensure clean messaging on OpsGenie incidents in Statuspage.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -230,7 +250,7 @@ No resources.
 |------|-------------|
 | <a name="output_datadog_monitor_names"></a> [datadog\_monitor\_names](#output\_datadog\_monitor\_names) | Names of the created Datadog monitors |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## Related How-to Guides
 
@@ -240,10 +260,12 @@ No resources.
 - [How to Implement SRE with Datadog](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-implement-sre-with-datadog)
 
 ## Component Dependencies
+
 - [datadog-integration](https://docs.cloudposse.com/components/library/aws/datadog-integration/)
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/datadog-monitor) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/datadog-monitor) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

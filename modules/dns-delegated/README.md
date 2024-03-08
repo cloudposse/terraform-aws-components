@@ -1,6 +1,8 @@
 # Component: `dns-delegated`
 
-This component is responsible for provisioning a DNS zone which delegates nameservers to the DNS zone in the primary DNS account. The primary DNS zone is expected to already be provisioned via [the `dns-primary` component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dns-primary).
+This component is responsible for provisioning a DNS zone which delegates nameservers to the DNS zone in the primary DNS
+account. The primary DNS zone is expected to already be provisioned via
+[the `dns-primary` component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dns-primary).
 
 This component also provisions a wildcard ACM certificate for the given subdomain.
 
@@ -8,9 +10,12 @@ This component also provisions a wildcard ACM certificate for the given subdomai
 
 **Stack Level**: Global or Regional
 
-Here's an example snippet for how to use this component. Use this component in global or regional stacks for any accounts where you host services that need DNS records on a given subdomain (e.g. delegated zone) of the root domain (e.g. primary zone).
+Here's an example snippet for how to use this component. Use this component in global or regional stacks for any
+accounts where you host services that need DNS records on a given subdomain (e.g. delegated zone) of the root domain
+(e.g. primary zone).
 
-Public Hosted Zone `devplatform.example.net` will be created and `example.net` HZ in the dns primary account will contain a record delegating DNS to the new HZ
+Public Hosted Zone `devplatform.example.net` will be created and `example.net` HZ in the dns primary account will
+contain a record delegating DNS to the new HZ
 
 This will create an ACM record
 
@@ -20,8 +25,8 @@ components:
     dns-delegated:
       vars:
         zone_config:
-        - subdomain: devplatform
-          zone_name: example.net
+          - subdomain: devplatform
+            zone_name: example.net
         request_acm_certificate: true
         dns_private_zone_enabled: false
         #  dns_soa_config configures the SOA record for the zone::
@@ -33,10 +38,10 @@ components:
         #    - 60 ; nxdomain TTL, or time in seconds for secondary DNS servers to cache negative responses
         #    See [SOA Record Documentation](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html) for more information.
         dns_soa_config: "awsdns-hostmaster.amazon.com. 1 7200 900 1209600 60"
-
 ```
 
-Private Hosted Zone `devplatform.example.net` will be created and `example.net` HZ in the dns primary account will contain a record delegating DNS to the new HZ
+Private Hosted Zone `devplatform.example.net` will be created and `example.net` HZ in the dns primary account will
+contain a record delegating DNS to the new HZ
 
 This will create an ACM record using a Private CA
 
@@ -46,8 +51,8 @@ components:
     dns-delegated:
       vars:
         zone_config:
-        - subdomain: devplatform
-          zone_name: example.net
+          - subdomain: devplatform
+            zone_name: example.net
         request_acm_certificate: true
         dns_private_zone_enabled: true
         vpc_region_abbreviation_type: short
@@ -60,13 +65,19 @@ components:
 
 ### Limitations
 
-Switching a hosted zone from public to private can cause issues because the provider will try to do an update instead of a ForceNew.
+Switching a hosted zone from public to private can cause issues because the provider will try to do an update instead of
+a ForceNew.
 
 See: https://github.com/hashicorp/terraform-provider-aws/issues/7614
 
-It's not possible to toggle between public and private so if switching from public to private and downtime is acceptable, delete the records of the hosted zone, delete the hosted zone, destroy the terraform component, and deploy with the new settings.
+It's not possible to toggle between public and private so if switching from public to private and downtime is
+acceptable, delete the records of the hosted zone, delete the hosted zone, destroy the terraform component, and deploy
+with the new settings.
 
-NOTE: With each of these workarounds, you may have an issue connecting to the service specific provider e.g. for `auroro-postgres` you may get an error of the host set to `localhost` on the `postgresql` provider resulting in an error. To get around this, dump the endpoint using `atmos terraform show`, hardcode the `host` input on the provider, and re-run the apply.
+NOTE: With each of these workarounds, you may have an issue connecting to the service specific provider e.g. for
+`auroro-postgres` you may get an error of the host set to `localhost` on the `postgresql` provider resulting in an
+error. To get around this, dump the endpoint using `atmos terraform show`, hardcode the `host` input on the provider,
+and re-run the apply.
 
 #### Workaround if downtime is fine
 
@@ -84,12 +95,15 @@ NOTE: With each of these workarounds, you may have an issue connecting to the se
 1. Deploy the new dns-delegated-private component
 1. Move aurora-postgres, msk, external-dns, echo-server, etc to the new hosted zone by re-deploying
 
-
 ## Caveats
 
-- Do not create a delegation for subdomain of a domain in a zone for which that zone is not authoritative for the subdomain (usually because you already delegated a parent subdomain). Though Amazon Route 53 will allow you to, you should not do it. For historic reasons, Route 53 Public DNS allows customers to create two NS delegations within a hosted zone which creates a conflict (and can return either set to resolvers depending on the query).
+- Do not create a delegation for subdomain of a domain in a zone for which that zone is not authoritative for the
+  subdomain (usually because you already delegated a parent subdomain). Though Amazon Route 53 will allow you to, you
+  should not do it. For historic reasons, Route 53 Public DNS allows customers to create two NS delegations within a
+  hosted zone which creates a conflict (and can return either set to resolvers depending on the query).
 
-For example, in a single hosted zone with the domain name `example.com`, it is possible to create two NS delegations which are parent and child of each other as follows:
+For example, in a single hosted zone with the domain name `example.com`, it is possible to create two NS delegations
+which are parent and child of each other as follows:
 
 ```
 a.example.com. 172800 IN NS ns-1084.awsdns-07.org.
@@ -105,21 +119,29 @@ b.a.example.com. 172800 IN NS ns-338.awsdns-42.com.
 
 This configuration creates two discrete possible resolution paths.
 
-1. If a resolver directly queries the `example.com` nameservers for `c.b.a.example.com`, it will receive the second set of nameservers.
+1. If a resolver directly queries the `example.com` nameservers for `c.b.a.example.com`, it will receive the second set
+   of nameservers.
 
 2. If a resolver queries `example.com` for `a.example.com`, it will receive the first set of nameservers.
 
-If the resolver then proceeds to query the `a.example.com` nameservers for `c.b.a.example.com`, the response is driven by the contents of the `a.example.com` zone, which may be different than the results returned by the `b.a.example.com` nameservers. `c.b.a.example.com` may not have an entry in the `a.example.com` nameservers, resulting in an error (`NXDOMAIN`) being returned.
+If the resolver then proceeds to query the `a.example.com` nameservers for `c.b.a.example.com`, the response is driven
+by the contents of the `a.example.com` zone, which may be different than the results returned by the `b.a.example.com`
+nameservers. `c.b.a.example.com` may not have an entry in the `a.example.com` nameservers, resulting in an error
+(`NXDOMAIN`) being returned.
 
-From 15th May 2020, Route 53 Resolver has been enabling a modern DNS resolver standard called "QName Minimization"[*]. This change causes the resolver to more strictly use recursion path [2] described above where path [1] was common before. [*] [https://tools.ietf.org/html/rfc7816](https://tools.ietf.org/html/rfc7816)
+From 15th May 2020, Route 53 Resolver has been enabling a modern DNS resolver standard called "QName Minimization"[*].
+This change causes the resolver to more strictly use recursion path [2] described above where path [1] was common
+before. [*] [https://tools.ietf.org/html/rfc7816](https://tools.ietf.org/html/rfc7816)
 
-As of January 2022, you can observe the different query strategies in use by Google DNS at `8.8.8.8` (strategy 1) and Cloudflare DNS at `1.1.1.1` (strategy 2). You should verify that both DNS servers resolve your host records properly.
+As of January 2022, you can observe the different query strategies in use by Google DNS at `8.8.8.8` (strategy 1) and
+Cloudflare DNS at `1.1.1.1` (strategy 2). You should verify that both DNS servers resolve your host records properly.
 
 Takeaway
 
-1. In order to ensure DNS resolution is consistent no matter the resolver, it is important to always create NS delegations only authoritative zones.
+1. In order to ensure DNS resolution is consistent no matter the resolver, it is important to always create NS
+   delegations only authoritative zones.
 
-
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -208,10 +230,11 @@ Takeaway
 | <a name="output_route53_hosted_zone_protections"></a> [route53\_hosted\_zone\_protections](#output\_route53\_hosted\_zone\_protections) | List of AWS Shield Advanced Protections for Route53 Hosted Zones. |
 | <a name="output_zones"></a> [zones](#output\_zones) | Subdomain and zone config |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dns-delegated) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dns-delegated) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

@@ -2,7 +2,8 @@
 
 This component provisions a Datadog synthetics private location on Datadog and a private location agent on EKS cluster.
 
-Private locations allow you to monitor internal-facing applications or any private URLs that are not accessible from the public internet.
+Private locations allow you to monitor internal-facing applications or any private URLs that are not accessible from the
+public internet.
 
 ## Usage
 
@@ -116,11 +117,12 @@ Environment variables:
 
 ## References
 
-* https://docs.datadoghq.com/synthetics/private_locations
-* https://docs.datadoghq.com/synthetics/private_locations/configuration/
-* https://github.com/DataDog/helm-charts/tree/main/charts/synthetics-private-location
-* https://github.com/DataDog/helm-charts/blob/main/charts/synthetics-private-location/values.yaml
+- https://docs.datadoghq.com/synthetics/private_locations
+- https://docs.datadoghq.com/synthetics/private_locations/configuration/
+- https://github.com/DataDog/helm-charts/tree/main/charts/synthetics-private-location
+- https://github.com/DataDog/helm-charts/blob/main/charts/synthetics-private-location/values.yaml
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -213,10 +215,11 @@ Environment variables:
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 | <a name="output_synthetics_private_location_id"></a> [synthetics\_private\_location\_id](#output\_synthetics\_private\_location\_id) | Synthetics private location ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-* https://docs.datadoghq.com/getting_started/synthetics/private_location
-* https://docs.datadoghq.com/synthetics/private_locations/configuration
-* https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/synthetics_private_location
-* https://github.com/DataDog/helm-charts/tree/main/charts/synthetics-private-location
+- https://docs.datadoghq.com/getting_started/synthetics/private_location
+- https://docs.datadoghq.com/synthetics/private_locations/configuration
+- https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/synthetics_private_location
+- https://github.com/DataDog/helm-charts/tree/main/charts/synthetics-private-location

@@ -1,7 +1,7 @@
 # Component: `eks/platform`
 
-This component maps another components' outputs into SSM parameter store to declare
-platform context used by CI/CD workflows.
+This component maps another components' outputs into SSM parameter store to declare platform context used by CI/CD
+workflows.
 
 ## Usage
 
@@ -20,7 +20,7 @@ The default catalog values `e.g. stacks/catalog/eks/platform.yaml`
 ```yaml
 components:
   terraform:
-    eks/platform:  
+    eks/platform:
       metadata:
         component: eks/platform
       backend:
@@ -43,9 +43,10 @@ components:
             output: group_name
 ```
 
-That would read `group_name` from `eks/alb-controller-ingress-group` component outputs and
-put it into `/platform/{eks cluster name}/default/default_alb_ingress_group`
+That would read `group_name` from `eks/alb-controller-ingress-group` component outputs and put it into
+`/platform/{eks cluster name}/default/default_alb_ingress_group`
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -110,5 +111,6 @@ put it into `/platform/{eks cluster name}/default/default_alb_ingress_group`
 
 No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

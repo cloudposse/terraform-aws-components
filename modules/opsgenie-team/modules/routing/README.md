@@ -1,8 +1,10 @@
 ## Routing
 
-This module creates team routing rules, these are the initial rules that are applied to an alert to determine who gets notified.
-This module also creates incident service rules, which determine if an alert is considered a service incident or not.
+This module creates team routing rules, these are the initial rules that are applied to an alert to determine who gets
+notified. This module also creates incident service rules, which determine if an alert is considered a service incident
+or not.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -76,3 +78,4 @@ This module also creates incident service rules, which determine if an alert is 
 | <a name="output_service_incident_rule"></a> [service\_incident\_rule](#output\_service\_incident\_rule) | Service incident rules for incidents |
 | <a name="output_team_routing_rule"></a> [team\_routing\_rule](#output\_team\_routing\_rule) | Team routing rules for alerts |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->

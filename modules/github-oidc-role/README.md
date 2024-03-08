@@ -42,7 +42,7 @@ components:
         # Note: inherited lists are not merged, they are replaced
         github_actions_allowed_repos:
           - "MyOrg/infrastructure"
-        attributes: [ "gitops" ]
+        attributes: ["gitops"]
         iam_policies:
           - gitops
         gitops_policy_configuration:
@@ -68,7 +68,7 @@ components:
         enabled: true
         github_actions_allowed_repos:
           - MyOrg/example-app-on-lambda-with-gha
-        attributes: [ "lambda-cicd" ]
+        attributes: ["lambda-cicd"]
         iam_policies:
           - lambda-cicd
         lambda_cicd_policy_configuration:
@@ -98,7 +98,7 @@ components:
         enabled: true
         github_actions_allowed_repos:
           - MyOrg/example-app-on-lambda-with-gha
-        attributes: [ "custom" ]
+        attributes: ["custom"]
         iam_policies:
           - arn:aws:iam::aws:policy/AdministratorAccess
         iam_policy:
@@ -120,29 +120,33 @@ There are two methods for adding custom policies to the IAM role.
 
 #### Defining Custom Policies in Terraform
 
-1. Give the policy a unique name, e.g. `docker-publish`. We will use `NAME` as a placeholder for the name in the instructions below.
+1. Give the policy a unique name, e.g. `docker-publish`. We will use `NAME` as a placeholder for the name in the
+   instructions below.
 2. Create a file in the component directory (i.e. `github-oidc-role`) with the name `policy_NAME.tf`.
 3. In that file, conditionally (based on need) create a policy document as follows:
 
-    ```hcl
-    locals {
-      NAME_policy_enabled = contains(var.iam_policies, "NAME")
-      NAME_policy         = local.NAME_policy_enabled ? one(data.aws_iam_policy_document.NAME.*.json) : null
-    }
+   ```hcl
+   locals {
+     NAME_policy_enabled = contains(var.iam_policies, "NAME")
+     NAME_policy         = local.NAME_policy_enabled ? one(data.aws_iam_policy_document.NAME.*.json) : null
+   }
 
-    data "aws_iam_policy_document" "NAME" {
-      count = local.NAME_policy_enabled ? 1 : 0
+   data "aws_iam_policy_document" "NAME" {
+     count = local.NAME_policy_enabled ? 1 : 0
 
-      # Define the policy here
-    }
-    ```
+     # Define the policy here
+   }
+   ```
 
-   Note that you can also add input variables and outputs to this file if desired. Just make sure that all inputs are optional.
+   Note that you can also add input variables and outputs to this file if desired. Just make sure that all inputs are
+   optional.
+
 4. Create a file named `additional-policy-map_override.tf` in the component directory (if it does not already exist).
    This is a [terraform override file](https://developer.hashicorp.com/terraform/language/files/override), meaning its
-   contents will be merged with the main terraform file, and any locals defined in it will override locals defined in other files.
-   Having your code in this separate override file makes it possible for the component to provide a placeholder local variable
-   so that it works without customization, while allowing you to customize the component and still update it without losing your customizations.
+   contents will be merged with the main terraform file, and any locals defined in it will override locals defined in
+   other files. Having your code in this separate override file makes it possible for the component to provide a
+   placeholder local variable so that it works without customization, while allowing you to customize the component and
+   still update it without losing your customizations.
 5. In that file, redefine the local variable `overridable_additional_custom_policy_map` map as follows:
 
    ```hcl
@@ -153,15 +157,18 @@ There are two methods for adding custom policies to the IAM role.
    }
    ```
 
-   If you have multiple custom policies, using just this one file, add each policy document to the map in the form `NAME = local.NAME_policy`.
+   If you have multiple custom policies, using just this one file, add each policy document to the map in the form
+   `NAME = local.NAME_policy`.
+
 6. With that done, you can now attach that policy by adding the name to the `iam_policies` list. For example:
 
-    ```yaml
-        iam_policies:
-          - "arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"
-          - "NAME"
-    ```
+   ```yaml
+   iam_policies:
+     - "arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"
+     - "NAME"
+   ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -232,8 +239,11 @@ There are two methods for adding custom policies to the IAM role.
 | <a name="output_github_actions_iam_role_arn"></a> [github\_actions\_iam\_role\_arn](#output\_github\_actions\_iam\_role\_arn) | ARN of IAM role for GitHub Actions |
 | <a name="output_github_actions_iam_role_name"></a> [github\_actions\_iam\_role\_name](#output\_github\_actions\_iam\_role\_name) | Name of IAM role for GitHub Actions |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/github-oidc-role) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/github-oidc-role) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

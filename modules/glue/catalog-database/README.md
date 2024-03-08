@@ -23,6 +23,7 @@ components:
           - "ALL"
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -95,9 +96,11 @@ components:
 | <a name="output_catalog_database_id"></a> [catalog\_database\_id](#output\_catalog\_database\_id) | Catalog database ID |
 | <a name="output_catalog_database_name"></a> [catalog\_database\_name](#output\_catalog\_database\_name) | Catalog database name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/glue/catalog-database) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/glue/catalog-database) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

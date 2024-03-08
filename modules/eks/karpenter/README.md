@@ -1,22 +1,19 @@
 # Component: `eks/karpenter`
 
-This component provisions [Karpenter](https://karpenter.sh) on an EKS cluster.
-It requires at least version 0.19.0 of Karpenter, though you are encouraged to
-use the latest version.
+This component provisions [Karpenter](https://karpenter.sh) on an EKS cluster. It requires at least version 0.19.0 of
+Karpenter, though you are encouraged to use the latest version.
 
 ## Usage
 
 **Stack Level**: Regional
 
-These instructions assume you are provisioning 2 EKS clusters in the same account
-and region, named "blue" and "green", and alternating between them.
-If you are only using a single cluster, you can ignore the "blue" and "green"
-references and remove the `metadata` block from the `karpenter` module.
+These instructions assume you are provisioning 2 EKS clusters in the same account and region, named "blue" and "green",
+and alternating between them. If you are only using a single cluster, you can ignore the "blue" and "green" references
+and remove the `metadata` block from the `karpenter` module.
 
 ```yaml
 components:
   terraform:
-
     # Base component of all `karpenter` components
     eks/karpenter:
       metadata:
@@ -63,26 +60,24 @@ components:
 
 ## Provision Karpenter on EKS cluster
 
-Here we describe how to provision Karpenter on an EKS cluster.
-We will be using the `plat-ue2-dev` stack as an example.
+Here we describe how to provision Karpenter on an EKS cluster. We will be using the `plat-ue2-dev` stack as an example.
 
 ### Provision Service-Linked Roles for EC2 Spot and EC2 Spot Fleet
 
-__Note:__ If you want to use EC2 Spot for the instances launched by Karpenter,
-you may need to provision the following Service-Linked Role for EC2 Spot:
+**Note:** If you want to use EC2 Spot for the instances launched by Karpenter, you may need to provision the following
+Service-Linked Role for EC2 Spot:
 
 - Service-Linked Role for EC2 Spot
 
-This is only necessary if this is the first time you're using EC2 Spot in the account.
-Since this is a one-time operation, we recommend you do this manually via
-the AWS CLI:
+This is only necessary if this is the first time you're using EC2 Spot in the account. Since this is a one-time
+operation, we recommend you do this manually via the AWS CLI:
 
 ```bash
 aws --profile <namespace>-<tenamt>-gbl-<stage>-admin iam create-service-linked-role --aws-service-name spot.amazonaws.com
 ```
 
-Note that if the Service-Linked Roles already exist in the AWS account (if you used EC2 Spot or Spot Fleet before),
-and you try to provision them again, you will see the following errors:
+Note that if the Service-Linked Roles already exist in the AWS account (if you used EC2 Spot or Spot Fleet before), and
+you try to provision them again, you will see the following errors:
 
 ```text
 An error occurred (InvalidInput) when calling the CreateServiceLinkedRole operation:
@@ -90,14 +85,16 @@ Service role name AWSServiceRoleForEC2Spot has been taken in this account, pleas
 ```
 
 For more details, see:
- - https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
- - https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html
+
+- https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
+- https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html
 
 The process of provisioning Karpenter on an EKS cluster consists of 3 steps.
 
 ### 1. Provision EKS Fargate Profile for Karpenter and IAM Role for Nodes Launched by Karpenter
 
-EKS Fargate Profile for Karpenter and IAM Role for Nodes launched by Karpenter are provisioned by the `eks/cluster` component:
+EKS Fargate Profile for Karpenter and IAM Role for Nodes launched by Karpenter are provisioned by the `eks/cluster`
+component:
 
 ```yaml
 components:
@@ -124,9 +121,12 @@ components:
         karpenter_iam_role_enabled: true
 ```
 
-__Notes__:
-  - Fargate Profile role ARNs need to be added to the `aws-auth` ConfigMap to allow the Fargate Profile nodes to join the EKS cluster (this is done by EKS)
-  - Karpenter IAM role ARN needs to be added to the `aws-auth` ConfigMap to allow the nodes launched by Karpenter to join the EKS cluster (this is done by the `eks/cluster` component)
+**Notes**:
+
+- Fargate Profile role ARNs need to be added to the `aws-auth` ConfigMap to allow the Fargate Profile nodes to join the
+  EKS cluster (this is done by EKS)
+- Karpenter IAM role ARN needs to be added to the `aws-auth` ConfigMap to allow the nodes launched by Karpenter to join
+  the EKS cluster (this is done by the `eks/cluster` component)
 
 We use EKS Fargate Profile for Karpenter because It is recommended to run Karpenter on an EKS Fargate Profile.
 
@@ -140,7 +140,8 @@ karpenter namespace. Doing so will cause all pods deployed into this namespace t
 Do not run Karpenter on a node that is managed by Karpenter.
 ```
 
-See [Run Karpenter Controller on EKS Fargate](https://aws.github.io/aws-eks-best-practices/karpenter/#run-the-karpenter-controller-on-eks-fargate-or-on-a-worker-node-that-belongs-to-a-node-group)
+See
+[Run Karpenter Controller on EKS Fargate](https://aws.github.io/aws-eks-best-practices/karpenter/#run-the-karpenter-controller-on-eks-fargate-or-on-a-worker-node-that-belongs-to-a-node-group)
 for more details.
 
 We provision IAM Role for Nodes launched by Karpenter because they must run with an Instance Profile that grants
@@ -148,10 +149,11 @@ permissions necessary to run containers and configure networking.
 
 We define the IAM role for the Instance Profile in `components/terraform/eks/cluster/karpenter.tf`.
 
-Note that we provision the EC2 Instance Profile for the Karpenter IAM role in the `components/terraform/eks/karpenter` component (see the next step).
+Note that we provision the EC2 Instance Profile for the Karpenter IAM role in the `components/terraform/eks/karpenter`
+component (see the next step).
 
-Run the following commands to provision the EKS Fargate Profile for Karpenter and the IAM role for instances launched by Karpenter
-on the blue EKS cluster and add the role ARNs to the `aws-auth` ConfigMap:
+Run the following commands to provision the EKS Fargate Profile for Karpenter and the IAM role for instances launched by
+Karpenter on the blue EKS cluster and add the role ARNs to the `aws-auth` ConfigMap:
 
 ```bash
 atmos terraform plan eks/cluster-blue -s plat-ue2-dev
@@ -163,14 +165,14 @@ For more details, refer to:
 - https://karpenter.sh/v0.18.0/getting-started/getting-started-with-terraform
 - https://karpenter.sh/v0.18.0/getting-started/getting-started-with-eksctl
 
-
 ### 2. Provision `karpenter` component
 
 In this step, we provision the `components/terraform/eks/karpenter` component, which deploys the following resources:
 
- - EC2 Instance Profile for the nodes launched by Karpenter (note that the IAM role for the Instance Profile is provisioned in the previous step in the `eks/cluster` component)
- - Karpenter Kubernetes controller using the Karpenter Helm Chart and the `helm_release` Terraform resource
- - EKS IAM role for Kubernetes Service Account for the Karpenter controller (with all the required permissions)
+- EC2 Instance Profile for the nodes launched by Karpenter (note that the IAM role for the Instance Profile is
+  provisioned in the previous step in the `eks/cluster` component)
+- Karpenter Kubernetes controller using the Karpenter Helm Chart and the `helm_release` Terraform resource
+- EKS IAM role for Kubernetes Service Account for the Karpenter controller (with all the required permissions)
 
 Run the following commands to provision the Karpenter component on the blue EKS cluster:
 
@@ -182,22 +184,22 @@ atmos terraform apply eks/karpenter-blue -s plat-ue2-dev
 Note that the stack config for the blue Karpenter component is defined in `stacks/catalog/eks/clusters/blue.yaml`.
 
 ```yaml
-    eks/karpenter-blue:
-      metadata:
-        component: eks/karpenter
-        inherits:
-          - eks/karpenter
-      vars:
-        eks_component_name: eks/cluster-blue
+eks/karpenter-blue:
+  metadata:
+    component: eks/karpenter
+    inherits:
+      - eks/karpenter
+  vars:
+    eks_component_name: eks/cluster-blue
 ```
 
 ### 3. Provision `karpenter-provisioner` component
 
-In this step, we provision the `components/terraform/eks/karpenter-provisioner` component, which deploys Karpenter [Provisioners](https://karpenter.sh/v0.18.0/aws/provisioning)
-using the `kubernetes_manifest` resource.
+In this step, we provision the `components/terraform/eks/karpenter-provisioner` component, which deploys Karpenter
+[Provisioners](https://karpenter.sh/v0.18.0/aws/provisioning) using the `kubernetes_manifest` resource.
 
-__NOTE:__ We deploy the provisioners in a separate step as a separate component since it uses `kind: Provisioner` CRD which itself is created by
-the `karpenter` component in the previous step.
+**NOTE:** We deploy the provisioners in a separate step as a separate component since it uses `kind: Provisioner` CRD
+which itself is created by the `karpenter` component in the previous step.
 
 Run the following commands to deploy the Karpenter provisioners on the blue EKS cluster:
 
@@ -206,84 +208,90 @@ atmos terraform plan eks/karpenter-provisioner-blue -s plat-ue2-dev
 atmos terraform apply eks/karpenter-provisioner-blue -s plat-ue2-dev
 ```
 
-Note that the stack config for the blue Karpenter provisioner component is defined in `stacks/catalog/eks/clusters/blue.yaml`.
+Note that the stack config for the blue Karpenter provisioner component is defined in
+`stacks/catalog/eks/clusters/blue.yaml`.
 
 ```yaml
-    eks/karpenter-provisioner-blue:
-      metadata:
-        component: eks/karpenter-provisioner
-        inherits:
-          - eks/karpenter-provisioner
-      vars:
-        attributes:
-          - blue
-        eks_component_name: eks/cluster-blue
+eks/karpenter-provisioner-blue:
+  metadata:
+    component: eks/karpenter-provisioner
+    inherits:
+      - eks/karpenter-provisioner
+  vars:
+    attributes:
+      - blue
+    eks_component_name: eks/cluster-blue
 ```
 
 You can override the default values from the `eks/karpenter-provisioner` base component.
 
-For your cluster, you will need to review the following configurations for the Karpenter provisioners and update it according to your requirements:
+For your cluster, you will need to review the following configurations for the Karpenter provisioners and update it
+according to your requirements:
 
-  - [requirements](https://karpenter.sh/v0.18.0/provisioner/#specrequirements):
+- [requirements](https://karpenter.sh/v0.18.0/provisioner/#specrequirements):
 
-    ```yaml
-        requirements:
-          - key: "karpenter.sh/capacity-type"
-            operator: "In"
-            values:
-              - "on-demand"
-              - "spot"
-          - key: "node.kubernetes.io/instance-type"
-            operator: "In"
-            values:
-              - "m5.xlarge"
-              - "m5.large"
-              - "m5.medium"
-              - "c5.xlarge"
-              - "c5.large"
-              - "c5.medium"
-          - key: "kubernetes.io/arch"
-            operator: "In"
-            values:
-              - "amd64"
-    ```
+  ```yaml
+  requirements:
+    - key: "karpenter.sh/capacity-type"
+      operator: "In"
+      values:
+        - "on-demand"
+        - "spot"
+    - key: "node.kubernetes.io/instance-type"
+      operator: "In"
+      values:
+        - "m5.xlarge"
+        - "m5.large"
+        - "m5.medium"
+        - "c5.xlarge"
+        - "c5.large"
+        - "c5.medium"
+    - key: "kubernetes.io/arch"
+      operator: "In"
+      values:
+        - "amd64"
+  ```
 
-  - `taints`, `startup_taints`, `ami_family`
+- `taints`, `startup_taints`, `ami_family`
 
-  - Resource limits/requests for the Karpenter controller itself:
+- Resource limits/requests for the Karpenter controller itself:
 
-    ```yaml
-        resources:
-          limits:
-            cpu: "300m"
-            memory: "1Gi"
-          requests:
-            cpu: "100m"
-            memory: "512Mi"
-    ```
+  ```yaml
+  resources:
+    limits:
+      cpu: "300m"
+      memory: "1Gi"
+    requests:
+      cpu: "100m"
+      memory: "512Mi"
+  ```
 
-  - Total CPU and memory limits for all pods running on the EC2 instances launched by Karpenter:
+- Total CPU and memory limits for all pods running on the EC2 instances launched by Karpenter:
 
-    ```yaml
-      total_cpu_limit: "1k"
-      total_memory_limit: "1000Gi"
-    ```
+  ```yaml
+  total_cpu_limit: "1k"
+  total_memory_limit: "1000Gi"
+  ```
 
-  - Config to terminate empty nodes after the specified number of seconds. This behavior can be disabled by setting the value to `null` (never scales down if not set):
+- Config to terminate empty nodes after the specified number of seconds. This behavior can be disabled by setting the
+  value to `null` (never scales down if not set):
 
-    ```yaml
-      ttl_seconds_after_empty: 30
-    ```
+  ```yaml
+  ttl_seconds_after_empty: 30
+  ```
 
-  - Config to terminate nodes when a maximum age is reached. This behavior can be disabled by setting the value to `null` (never expires if not set):
+- Config to terminate nodes when a maximum age is reached. This behavior can be disabled by setting the value to `null`
+  (never expires if not set):
 
-    ```yaml
-      ttl_seconds_until_expired: 2592000
-    ```
+  ```yaml
+  ttl_seconds_until_expired: 2592000
+  ```
 
 ## Node Interruption
 
-Karpenter also supports listening for and responding to Node Interruption events. If interruption handling is enabled, Karpenter will watch for upcoming involuntary interruption events that would cause disruption to your workloads. These interruption events include:
+Karpenter also supports listening for and responding to Node Interruption events. If interruption handling is enabled,
+Karpenter will watch for upcoming involuntary interruption events that would cause disruption to your workloads. These
+interruption events include:
 
 - Spot Interruption Warnings
 - Scheduled Change Health Events (Maintenance Events)
@@ -292,25 +300,29 @@ Karpenter also supports listening for and responding to Node Interruption events
 
 :::info
 
-The Node Interruption Handler is not the same as the Node Termination Handler. The latter is always enabled and cleanly shuts down the node in 2 minutes in response to a Node Termination event. The former gets advance notice that a node will soon be terminated, so it can have 5-10 minutes to shut down a node.
+The Node Interruption Handler is not the same as the Node Termination Handler. The latter is always enabled and cleanly
+shuts down the node in 2 minutes in response to a Node Termination event. The former gets advance notice that a node
+will soon be terminated, so it can have 5-10 minutes to shut down a node.
 
 :::
 
-For more details, see refer to the [Karpenter docs](https://karpenter.sh/v0.32/concepts/disruption/#interruption) and [FAQ](https://karpenter.sh/v0.32/faq/#interruption-handling)
+For more details, see refer to the [Karpenter docs](https://karpenter.sh/v0.32/concepts/disruption/#interruption) and
+[FAQ](https://karpenter.sh/v0.32/faq/#interruption-handling)
 
-To enable Node Interruption handling, set `var.interruption_handler_enabled` to `true`. This will create an SQS queue and a set of Event Bridge rules to deliver interruption events to Karpenter.
+To enable Node Interruption handling, set `var.interruption_handler_enabled` to `true`. This will create an SQS queue
+and a set of Event Bridge rules to deliver interruption events to Karpenter.
 
 ## Custom Resource Definition (CRD) Management
 
-Karpenter ships with a few Custom Resource Definitions (CRDs). In earlier versions
-of this component, when installing a new version of the `karpenter` helm chart, CRDs
-were not be upgraded at the same time, requiring manual steps to upgrade CRDs after deploying the latest chart.
-However Karpenter now supports an additional, independent helm chart for CRD management.
-This helm chart, `karpenter-crd`, can be installed alongside the `karpenter` helm chart to automatically manage the lifecycle of these CRDs.
+Karpenter ships with a few Custom Resource Definitions (CRDs). In earlier versions of this component, when installing a
+new version of the `karpenter` helm chart, CRDs were not be upgraded at the same time, requiring manual steps to upgrade
+CRDs after deploying the latest chart. However Karpenter now supports an additional, independent helm chart for CRD
+management. This helm chart, `karpenter-crd`, can be installed alongside the `karpenter` helm chart to automatically
+manage the lifecycle of these CRDs.
 
-To deploy the `karpenter-crd` helm chart, set `var.crd_chart_enabled` to `true`.
-(Installing the `karpenter-crd` chart is recommended. `var.crd_chart_enabled` defaults
-to `false` to preserve backward compatibility with older versions of this component.)
+To deploy the `karpenter-crd` helm chart, set `var.crd_chart_enabled` to `true`. (Installing the `karpenter-crd` chart
+is recommended. `var.crd_chart_enabled` defaults to `false` to preserve backward compatibility with older versions of
+this component.)
 
 ## Troubleshooting
 
@@ -320,14 +332,13 @@ For Karpenter issues, checkout the [Karpenter Troubleshooting Guide](https://kar
 
 For more details, refer to:
 
- - https://karpenter.sh/v0.28.0/provisioner/#specrequirements
- - https://karpenter.sh/v0.28.0/aws/provisioning
- - https://aws.github.io/aws-eks-best-practices/karpenter/#creating-provisioners
- - https://aws.github.io/aws-eks-best-practices/karpenter
- - https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
+- https://karpenter.sh/v0.28.0/provisioner/#specrequirements
+- https://karpenter.sh/v0.28.0/aws/provisioning
+- https://aws.github.io/aws-eks-best-practices/karpenter/#creating-provisioners
+- https://aws.github.io/aws-eks-best-practices/karpenter
+- https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
 
-
-
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -430,6 +441,7 @@ For more details, refer to:
 | <a name="output_instance_profile"></a> [instance\_profile](#output\_instance\_profile) | Provisioned EC2 Instance Profile for nodes launched by Karpenter |
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 

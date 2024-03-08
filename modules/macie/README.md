@@ -36,9 +36,9 @@ Delegated Administrator account is `security`, both in the `core` tenant.
 
 ### Deploy to Delegated Administrator Account
 
-First, the component is deployed to the [Delegated
-Administrator](https://docs.aws.amazon.com/macie/latest/user/accounts-mgmt-ao-integrate.html) account to configure the
-central Macie account∑.
+First, the component is deployed to the
+[Delegated Administrator](https://docs.aws.amazon.com/macie/latest/user/accounts-mgmt-ao-integrate.html) account to
+configure the central Macie account∑.
 
 ```yaml
 # core-ue1-security
@@ -63,9 +63,9 @@ atmos terraform apply macie/delegated-administrator -s core-ue1-security
 Next, the component is deployed to the AWS Organization Management, a/k/a `root`, Account in order to set the AWS
 Organization Designated Admininstrator account.
 
-Note that you must `SuperAdmin` permissions as we are deploying to the AWS Organization Management account. Since
-we are using the `SuperAdmin` user, it will already have access to the state bucket, so we set the `role_arn` of the
-backend config to null and set `var.privileged` to `true`.
+Note that you must `SuperAdmin` permissions as we are deploying to the AWS Organization Management account. Since we are
+using the `SuperAdmin` user, it will already have access to the state bucket, so we set the `role_arn` of the backend
+config to null and set `var.privileged` to `true`.
 
 ```yaml
 # core-ue1-root
@@ -91,9 +91,9 @@ atmos terraform apply macie/root -s core-ue1-root
 
 ### Deploy Organization Settings in Delegated Administrator Account
 
-Finally, the component is deployed to the Delegated Administrator Account again in order to create the
-organization-wide configuration for the AWS Organization, but with `var.admin_delegated` set to `true` to indicate that
-the delegation has already been performed from the Organization Management account.
+Finally, the component is deployed to the Delegated Administrator Account again in order to create the organization-wide
+configuration for the AWS Organization, but with `var.admin_delegated` set to `true` to indicate that the delegation has
+already been performed from the Organization Management account.
 
 ```yaml
 # core-ue1-security
@@ -114,6 +114,7 @@ components:
 atmos terraform apply macie/org-settings/ue1 -s core-ue1-security
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -192,6 +193,7 @@ atmos terraform apply macie/org-settings/ue1 -s core-ue1-security
 | <a name="output_macie_service_role_arn"></a> [macie\_service\_role\_arn](#output\_macie\_service\_role\_arn) | The Amazon Resource Name (ARN) of the service-linked role that allows Macie to monitor and analyze data in AWS resources for the account. |
 | <a name="output_member_account_ids"></a> [member\_account\_ids](#output\_member\_account\_ids) | The AWS Account IDs of the member accounts |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 

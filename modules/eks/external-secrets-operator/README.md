@@ -1,8 +1,11 @@
 # Component: `external-secrets-operator`
 
-This component (ESO) is used to create an external `SecretStore` configured to synchronize secrets from AWS SSM Parameter store as Kubernetes Secrets within the cluster. Per the operator pattern, the `external-secret-operator` pods will watch for any `ExternalSecret` resources which reference the `SecretStore` to pull secrets from.
+This component (ESO) is used to create an external `SecretStore` configured to synchronize secrets from AWS SSM
+Parameter store as Kubernetes Secrets within the cluster. Per the operator pattern, the `external-secret-operator` pods
+will watch for any `ExternalSecret` resources which reference the `SecretStore` to pull secrets from.
 
-In practice, this means apps will define an `ExternalSecret` that pulls all env into a single secret as part of a helm chart; e.g.:
+In practice, this means apps will define an `ExternalSecret` that pulls all env into a single secret as part of a helm
+chart; e.g.:
 
 ```
 # Part of the charts in `/releases
@@ -29,14 +32,14 @@ spec:
         target: "$1"
 ```
 
-This component assumes secrets are prefixed by "service" in parameter store (e.g. `/app/my_secret`). The `SecretStore`. The component is designed to pull secrets from a `path` prefix (defaulting to `"app"`). This should work nicely along `chamber` which uses this same path (called a "service" in Chamber). For example, developers should store keys like so.
-
+This component assumes secrets are prefixed by "service" in parameter store (e.g. `/app/my_secret`). The `SecretStore`.
+The component is designed to pull secrets from a `path` prefix (defaulting to `"app"`). This should work nicely along
+`chamber` which uses this same path (called a "service" in Chamber). For example, developers should store keys like so.
 
 ```bash
 assume-role acme-platform-gbl-sandbox-admin
 chamber write app MY_KEY my-value
 ```
-
 
 See `docs/recipies.md` for more information on managing secrets.
 
@@ -88,6 +91,7 @@ components:
         chart_values: {}
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -181,8 +185,10 @@ components:
 |------|-------------|
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [Secrets Management Strategy](https://docs.cloudposse.com/reference-architecture/design-decisions/cold-start/decide-on-secrets-management-strategy-for-terraform/)
-* https://external-secrets.io/v0.5.9/
-* https://external-secrets.io/v0.5.9/provider-aws-parameter-store/
+
+- [Secrets Management Strategy](https://docs.cloudposse.com/reference-architecture/design-decisions/cold-start/decide-on-secrets-management-strategy-for-terraform/)
+- https://external-secrets.io/v0.5.9/
+- https://external-secrets.io/v0.5.9/provider-aws-parameter-store/

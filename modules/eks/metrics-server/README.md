@@ -1,6 +1,7 @@
 # Component: `metrics-server`
 
-This component creates a Helm release for [metrics-server](https://github.com/kubernetes-sigs/metrics-server) is a Kubernetes addon that provides resource usage metrics used in particular by other addons such Horizontal Pod Autoscaler.
+This component creates a Helm release for [metrics-server](https://github.com/kubernetes-sigs/metrics-server) is a
+Kubernetes addon that provides resource usage metrics used in particular by other addons such Horizontal Pod Autoscaler.
 
 ## Usage
 
@@ -37,6 +38,7 @@ components:
         chart_values: {}
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -125,6 +127,7 @@ components:
 |------|-------------|
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 

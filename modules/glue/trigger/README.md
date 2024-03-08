@@ -26,6 +26,7 @@ components:
         type: SCHEDULED
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -97,9 +98,11 @@ No resources.
 | <a name="output_trigger_id"></a> [trigger\_id](#output\_trigger\_id) | Glue trigger ID |
 | <a name="output_trigger_name"></a> [trigger\_name](#output\_trigger\_name) | Glue trigger name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/glue/trigger) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/glue/trigger) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

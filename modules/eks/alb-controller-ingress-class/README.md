@@ -1,10 +1,10 @@
 # Component: `eks/alb-controller-ingress-class`
 
-This component deploys a Kubernetes `IngressClass` resource for the AWS Load Balancer Controller.
-This is not often needed, as the default IngressClass deployed by the `eks/alb-controller` component
-is sufficient for most use cases, and when it is not, a service can deploy its own IngressClass.
-This is for the rare case where you want to deploy an additional IngressClass deploying an additional
-ALB that you nevertheless want to be shared by some services, with none of them explicitly owning it.
+This component deploys a Kubernetes `IngressClass` resource for the AWS Load Balancer Controller. This is not often
+needed, as the default IngressClass deployed by the `eks/alb-controller` component is sufficient for most use cases, and
+when it is not, a service can deploy its own IngressClass. This is for the rare case where you want to deploy an
+additional IngressClass deploying an additional ALB that you nevertheless want to be shared by some services, with none
+of them explicitly owning it.
 
 ## Usage
 
@@ -21,6 +21,7 @@ components:
         scheme: internet-facing
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -101,6 +102,7 @@ components:
 
 No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
