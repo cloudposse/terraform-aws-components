@@ -47,7 +47,6 @@ repos:
         exclude: |
           (?x)^(
               deprecated
-              modules
           )$
 
   - repo: local
