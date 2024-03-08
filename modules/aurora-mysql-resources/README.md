@@ -25,8 +25,10 @@ components:
         enabled: true
 ```
 
-Example (not actual) `stacks/uw2-dev.yaml` file (override the default settings for the cluster resources in the `dev`
-account, create an additional database and user):
+Example (not actual):
+
+`stacks/uw2-dev.yaml` file (override the default settings for the cluster resources in the `dev` account, create an
+additional database and user):
 
 ```yaml
 import:

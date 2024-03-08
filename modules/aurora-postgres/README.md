@@ -57,8 +57,10 @@ components:
             stage: auto
 ```
 
-Example (not actual) `stacks/uw2-dev.yaml` file (override the default settings for the cluster in the `dev` account,
-create an additional database and user):
+Example (not actual):
+
+`stacks/uw2-dev.yaml` file (override the default settings for the cluster in the `dev` account, create an additional
+database and user):
 
 ```yaml
 import:
