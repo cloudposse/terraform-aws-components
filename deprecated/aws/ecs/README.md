@@ -2,14 +2,14 @@
 
 For GitHub, your personal access token must have the following scopes.
 
-* `repo`: Grants full control of private repositories.
-* `repo:status`: Grants access to commit statuses.
-* `admin:repo_hook`: Grants full control of repository hooks. This scope is not required if your token has the repo scope.
+- `repo`: Grants full control of private repositories.
+- `repo:status`: Grants access to commit statuses.
+- `admin:repo_hook`: Grants full control of repository hooks. This scope is not required if your token has the repo
+  scope.
 
 We recommend creating the tokens from a "bot" account that has limited access to the repos you are using.
 
 Read more: <https://docs.aws.amazon.com/codebuild/latest/userguide/sample-access-tokens.html#sample-access-tokens>
-
 
 ## Example Build Manifest
 
@@ -52,14 +52,14 @@ artifacts:
 
 ## Troubleshooting
 
-
 ### InvalidParameterException: Long arn format must be used for tagging operations
 
 ```sh
 aws_ecs_service.default: error tagging ECS Cluster (arn:aws:ecs:us-west-2:223452713953:service/eg-example-fargate-atlantis): InvalidParameterException: Long arn format must be used for tagging operations
 ```
 
-See: <https://stackoverflow.com/questions/53605033/adding-tags-to-ecs-service-invalidparameterexception/53625568#53625568>
+See:
+<https://stackoverflow.com/questions/53605033/adding-tags-to-ecs-service-invalidparameterexception/53625568#53625568>
 
 After enabling the Long ARNs, the cluster needs to be rebuilt from scratch.
 
@@ -75,13 +75,14 @@ This is a race condition. Rerun `terraform apply`.
 
 ```sh
 Error putting scaling policy: ObjectNotFoundException: No scalable target registered for service namespace: ecs, resource ID: service/cpco-testing-fargate/eg-exapmle-fargate-atlantis, scalable dimension: ecs:service:DesiredCount
-````
+```
 
 This is a race condition. Rerun `terraform apply`.
 
 ### Webhooks Do Not Trigger Builds
 
-This could happen if the secrets between CodePipeline and GitHub do not match. Unfortunately, terraform cannot detect when the secrets change, so your best bet is to `taint` and reapply.
+This could happen if the secrets between CodePipeline and GitHub do not match. Unfortunately, terraform cannot detect
+when the secrets change, so your best bet is to `taint` and reapply.
 
 ```sh
 make taint/webhook
