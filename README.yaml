@@ -1,4 +1,3 @@
----
 #
 # This is the canonical configuration for the `README.md`
 # Run `make readme` to rebuild the `README.md`
@@ -35,16 +34,18 @@ github_repo: "cloudposse/terraform-aws-components"
 
 # Badges to display
 badges:
-  - name: "Latest Release"
-    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-components.svg?style=for-the-badge"
-    url: "https://github.com/cloudposse/terraform-aws-components/releases/latest"
   - name: "Last Update"
     image: https://img.shields.io/github/last-commit/cloudposse/terraform-aws-components/main?style=for-the-badge
     url: https://github.com/cloudposse/terraform-aws-components/commits/main/
-  - name: "Slack Community"
-    image: "https://slack.cloudposse.com/for-the-badge.svg"
-    url: "https://slack.cloudposse.com"
-
+  - name: Latest Release
+    image: https://img.shields.io/github/release/cloudposse/terraform-aws-components.svg?style=for-the-badge
+    url: https://github.com/cloudposse/terraform-aws-components/releases/latest
+  - name: Last Updated
+    image: https://img.shields.io/github/last-commit/cloudposse/terraform-aws-components.svg?style=for-the-badge
+    url: https://github.com/cloudposse/terraform-aws-components/commits
+  - name: Slack Community
+    image: https://slack.cloudposse.com/for-the-badge.svg
+    url: https://slack.cloudposse.com
 references:
   - name: "Cloud Posse Documentation"
     description: "Complete documentation for the Cloud Posse solution"
@@ -53,13 +54,15 @@ references:
     description: "Launch effortlessly with our turnkey reference architectures, built either by your team or ours."
     url: "https://cloudposse.com/"
 
+
+# List any related terraform modules that this module may be used with or that this module depends on.
 related:
-- name: "Cloud Posse Terraform Modules"
-  description: Our collection of reusable Terraform modules used by our reference architectures.
-  url: "https://docs.cloudposse.com/modules/"
-- name: "Atmos"
-  description: "Atmos is like docker-compose but for your infrastructure"
-  url: "https://atmos.tools"
+  - name: "Cloud Posse Terraform Modules"
+    description: Our collection of reusable Terraform modules used by our reference architectures.
+    url: "https://docs.cloudposse.com/modules/"
+  - name: "Atmos"
+    description: "Atmos is like docker-compose but for your infrastructure"
+    url: "https://atmos.tools"
 
 
 # Short description of this project
@@ -83,7 +86,7 @@ introduction: |-
   with Terraform that can be used with [Atmos](https://atmos.tools).
 
 # How to use this project
-usage: |-
+usage: |2-
 
   Please take a look at each [component's README](https://docs.cloudposse.com/components/) for specific usage.
 
