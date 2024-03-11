@@ -51,9 +51,11 @@ resource "aws_ssm_parameter" "full_urls" {
   name        = each.key
   description = each.value.description
   type        = each.value.type
-  key_id      = var.kms_alias_name_ssm
-  value       = each.value.value
-  overwrite   = true
+  # key_id is only used with SecureStrings.
+  # With other types Terraform will pass but will constantly suggest adding the key_id (perma drift)
+  key_id    = each.value.type == "SecureString" ? var.kms_alias_name_ssm : null
+  value     = each.value.value
+  overwrite = true
 
   tags = module.this.tags
 }
