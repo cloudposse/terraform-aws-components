@@ -54,6 +54,6 @@ output "service_image" {
 }
 
 output "task_template" {
-  value       = jsondecode(nonsensitive(jsonencode(local.task_template)))
+  value       = local.s3_mirroring_enabled ? jsondecode(nonsensitive(jsonencode(local.task_template))) : null
   description = "The task template rendered"
 }

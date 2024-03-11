@@ -553,25 +553,27 @@ resource "aws_kinesis_stream" "default" {
 }
 
 data "aws_ecs_task_definition" "created_task" {
+  count           = local.s3_mirroring_enabled ? 1 : 0
   task_definition = module.ecs_alb_service_task[0].task_definition_family
+  depends_on = [
+    module.ecs_alb_service_task
+  ]
 }
 
 locals {
-  created_task_definition = data.aws_ecs_task_definition.created_task
-  task_template = merge(
-    {
-      containerDefinitions = local.container_definition
-      family               = lookup(local.created_task_definition, "family", null),
-      taskRoleArn          = lookup(local.created_task_definition, "task_role_arn", null),
-      executionRoleArn     = lookup(local.created_task_definition, "execution_role_arn", null),
-      networkMode          = lookup(local.created_task_definition, "network_mode", null),
-      # we explicitly do not put the volumes here. That should be merged in by GHA
-      requiresCompatibilities = [lookup(local.task, "launch_type", "FARGATE")]
-      cpu                     = tostring(lookup(local.task, "task_cpu", null))
-      memory                  = tostring(lookup(local.task, "task_memory", null))
+  created_task_definition = local.s3_mirroring_enabled ? data.aws_ecs_task_definition.created_task[0] : {}
+  task_template = local.s3_mirroring_enabled ? {
+    containerDefinitions = local.container_definition
+    family               = lookup(local.created_task_definition, "family", null),
+    taskRoleArn          = lookup(local.created_task_definition, "task_role_arn", null),
+    executionRoleArn     = lookup(local.created_task_definition, "execution_role_arn", null),
+    networkMode          = lookup(local.created_task_definition, "network_mode", null),
+    # we explicitly do not put the volumes here. That should be merged in by GHA
+    requiresCompatibilities = [lookup(local.task, "launch_type", "FARGATE")]
+    cpu                     = tostring(lookup(local.task, "task_cpu", null))
+    memory                  = tostring(lookup(local.task, "task_memory", null))
 
-    }
-  )
+  } : null
 }
 
 resource "aws_s3_bucket_object" "task_definition_template" {
