@@ -52,3 +52,8 @@ output "service_image" {
   value       = try(nonsensitive(local.containers.service.image), null)
   description = "The image of the service container"
 }
+
+output "task_template" {
+  value       = jsondecode(nonsensitive(jsonencode(local.task_template)))
+  description = "The task template rendered"
+}
