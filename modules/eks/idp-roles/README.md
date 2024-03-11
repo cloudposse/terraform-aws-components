@@ -1,6 +1,7 @@
 # Component: `eks/idp-roles`
 
-This component installs the `idp-roles` for EKS clusters. These identity provider roles specify severl pre-determined permission levels for cluster users and come with bindings that make them easy to assign to Users and Groups.
+This component installs the `idp-roles` for EKS clusters. These identity provider roles specify severl pre-determined
+permission levels for cluster users and come with bindings that make them easy to assign to Users and Groups.
 
 ## Usage
 
@@ -21,6 +22,7 @@ components:
         kubeconfig_exec_auth_api_version: "client.authentication.k8s.io/v1beta1"
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -105,6 +107,8 @@ components:
 |------|-------------|
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* https://kubernetes.io/docs/reference/access-authn-authz/authentication/
+
+- https://kubernetes.io/docs/reference/access-authn-authz/authentication/

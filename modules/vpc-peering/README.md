@@ -50,42 +50,43 @@ components:
 Use case: Peering v2 accounts to v2
 
 ```yaml
-    vpc-peering/<stage>-vpc0:
-      metadata:
-        component: vpc-peering
-        inherits:
-          - vpc-peering/defaults
-      vars:
-        requester_vpc_component_name: vpc
-        accepter_region: us-east-1
-        accepter_stage_name: <fill-in-with-accepter-stage-name>
-        accepter_vpc:
-          tags:
-            # Fill in with your own information
-            Name: acme-<tenant>-<environment>-<stage>-<name>
+vpc-peering/<stage>-vpc0:
+  metadata:
+    component: vpc-peering
+    inherits:
+      - vpc-peering/defaults
+  vars:
+    requester_vpc_component_name: vpc
+    accepter_region: us-east-1
+    accepter_stage_name: <fill-in-with-accepter-stage-name>
+    accepter_vpc:
+      tags:
+        # Fill in with your own information
+        Name: acme-<tenant>-<environment>-<stage>-<name>
 ```
 
 ## Legacy Account Configuration
 
 The `vpc-peering` component peers the `dev`, `prod`, `sandbox` and `staging` VPCs to a VPC in the legacy account.
 
-The `dev`, `prod`, `sandbox` and `staging` VPCs are the requesters of the VPC peering connection,
-while the legacy VPC is the accepter of the peering connection.
+The `dev`, `prod`, `sandbox` and `staging` VPCs are the requesters of the VPC peering connection, while the legacy VPC
+is the accepter of the peering connection.
 
-To provision VPC peering and all related resources with Terraform, we need the following information from the legacy account:
+To provision VPC peering and all related resources with Terraform, we need the following information from the legacy
+account:
 
-  - Legacy account ID
-  - Legacy VPC ID
-  - Legacy AWS region
-  - Legacy IAM role (the role must be created in the legacy account with permissions to create VPC peering and routes).
-    The name of the role could be `acme-vpc-peering` and the ARN of the role should look like `arn:aws:iam::<LEGACY ACCOUNT ID>:role/acme-vpc-peering`
-
+- Legacy account ID
+- Legacy VPC ID
+- Legacy AWS region
+- Legacy IAM role (the role must be created in the legacy account with permissions to create VPC peering and routes).
+  The name of the role could be `acme-vpc-peering` and the ARN of the role should look like
+  `arn:aws:iam::<LEGACY ACCOUNT ID>:role/acme-vpc-peering`
 
 ### Legacy Account IAM Role
 
 In the legacy account, create IAM role `acme-vpc-peering` with the following policy:
 
-__NOTE:__ Replace `<LEGACY ACCOUNT ID>` with the ID of the legacy account.
+**NOTE:** Replace `<LEGACY ACCOUNT ID>` with the ID of the legacy account.
 
 ```json
 {
@@ -93,10 +94,7 @@ __NOTE:__ Replace `<LEGACY ACCOUNT ID>` with the ID of the legacy account.
   "Statement": [
     {
       "Effect": "Allow",
-      "Action": [
-        "ec2:CreateRoute",
-        "ec2:DeleteRoute"
-      ],
+      "Action": ["ec2:CreateRoute", "ec2:DeleteRoute"],
       "Resource": "arn:aws:ec2:*:<LEGACY ACCOUNT ID>:route-table/*"
     },
     {
@@ -126,10 +124,7 @@ __NOTE:__ Replace `<LEGACY ACCOUNT ID>` with the ID of the legacy account.
     },
     {
       "Effect": "Allow",
-      "Action": [
-        "ec2:DeleteTags",
-        "ec2:CreateTags"
-      ],
+      "Action": ["ec2:DeleteTags", "ec2:CreateTags"],
       "Resource": "arn:aws:ec2:*:<LEGACY ACCOUNT ID>:vpc-peering-connection/*"
     }
   ]
@@ -138,7 +133,7 @@ __NOTE:__ Replace `<LEGACY ACCOUNT ID>` with the ID of the legacy account.
 
 Add the following trust policy to the IAM role:
 
-__NOTE:__ Replace `<IDENTITY ACCOUNT ID>` with the ID of the `identity` account in the new infrastructure.
+**NOTE:** Replace `<IDENTITY ACCOUNT ID>` with the ID of the `identity` account in the new infrastructure.
 
 ```json
 {
@@ -147,26 +142,22 @@ __NOTE:__ Replace `<IDENTITY ACCOUNT ID>` with the ID of the `identity` account 
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": [
-          "arn:aws:iam::<IDENTITY ACCOUNT ID>:root"
-        ]
+        "AWS": ["arn:aws:iam::<IDENTITY ACCOUNT ID>:root"]
       },
-      "Action": [
-        "sts:AssumeRole",
-        "sts:TagSession"
-      ],
+      "Action": ["sts:AssumeRole", "sts:TagSession"],
       "Condition": {}
     }
   ]
 }
 ```
 
-The trust policy allows the `identity` account to assume the role (and provision all the resources in the legacy account).
+The trust policy allows the `identity` account to assume the role (and provision all the resources in the legacy
+account).
 
 ## Provisioning
 
-Provision the VPC peering connections in the `dev`, `prod`, `sandbox` and `staging` accounts by executing
-the following commands:
+Provision the VPC peering connections in the `dev`, `prod`, `sandbox` and `staging` accounts by executing the following
+commands:
 
 ```sh
 atmos terraform plan vpc-peering -s ue1-sandbox
@@ -182,6 +173,7 @@ atmos terraform plan vpc-peering -s ue1-prod
 atmos terraform apply vpc-peering -s ue1-prod
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -249,7 +241,9 @@ atmos terraform apply vpc-peering -s ue1-prod
 |------|-------------|
 | <a name="output_vpc_peering"></a> [vpc\_peering](#output\_vpc\_peering) | VPC peering outputs |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/vpc-peering) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/vpc-peering) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

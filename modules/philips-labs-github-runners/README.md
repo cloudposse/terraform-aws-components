@@ -4,11 +4,15 @@ This component is responsible for provisioning the surrounding infrastructure fo
 
 ## Prerequisites
 
-* Github App installed on the organization
-  * For more details see [Philips Lab's Setting up a Github App](https://github.com/philips-labs/terraform-aws-github-runner/tree/main#setup-github-app-part-1)
-  * Ensure you create a **PRIVATE KEY** and store it in SSM, **NOT** to be confused with a **Client Secret**. Private Keys are created in the GitHub App Configuration and scrolling to the bottom.
-* Github App ID and private key stored in SSM under `/pl-github-runners/id` (or the value of `var.github_app_id_ssm_path`)
-* Github App Private Key stored in SSM (base64 encoded) under `/pl-github-runners/key` (or the value of `var.github_app_key_ssm_path`)
+- Github App installed on the organization
+  - For more details see
+    [Philips Lab's Setting up a Github App](https://github.com/philips-labs/terraform-aws-github-runner/tree/main#setup-github-app-part-1)
+  - Ensure you create a **PRIVATE KEY** and store it in SSM, **NOT** to be confused with a **Client Secret**. Private
+    Keys are created in the GitHub App Configuration and scrolling to the bottom.
+- Github App ID and private key stored in SSM under `/pl-github-runners/id` (or the value of
+  `var.github_app_id_ssm_path`)
+- Github App Private Key stored in SSM (base64 encoded) under `/pl-github-runners/key` (or the value of
+  `var.github_app_key_ssm_path`)
 
 ## Usage
 
@@ -31,8 +35,8 @@ The following will create
 - SQS Queue
 - EC2 Launch Template instances
 
-The API Gateway is registered as a webhook within the GitHub app. Which scales up or down, via lambdas, the EC2 Launch Template
-by the number of messages in the SQS queue.
+The API Gateway is registered as a webhook within the GitHub app. Which scales up or down, via lambdas, the EC2 Launch
+Template by the number of messages in the SQS queue.
 
 ![Architecture](https://github.com/philips-labs/terraform-aws-github-runner/blob/main/docs/component-overview.svg)
 
@@ -43,12 +47,16 @@ by the number of messages in the SQS queue.
 This is a fork of https://github.com/philips-labs/terraform-aws-github-runner/tree/main/modules/webhook-github-app.
 
 We customized it until this PR is resolved as it does not update the github app webhook until this is merged.
-* https://github.com/philips-labs/terraform-aws-github-runner/pull/3625
+
+- https://github.com/philips-labs/terraform-aws-github-runner/pull/3625
 
 This module also requires an environment variable
-* `GH_TOKEN` - a github token be set
 
-This module also requires the `gh` cli to be installed. Your Dockerfile can be updated to include the following to install it:
+- `GH_TOKEN` - a github token be set
+
+This module also requires the `gh` cli to be installed. Your Dockerfile can be updated to include the following to
+install it:
+
 ```dockerfile
 ARG GH_CLI_VERSION=2.39.1
 # ...
@@ -57,13 +65,14 @@ RUN apt-get update && apt-get install -y --allow-downgrades \
     gh="${GH_CLI_VERSION}-*"
 ```
 
-By default, we leave this disabled, as it requires a github token to be set. You can enable it by setting `var.enable_update_github_app_webhook` to `true`.
-When enabled, it will update the github app webhook to point to the API Gateway. This can occur if the API Gateway is deleted and recreated.
+By default, we leave this disabled, as it requires a github token to be set. You can enable it by setting
+`var.enable_update_github_app_webhook` to `true`. When enabled, it will update the github app webhook to point to the
+API Gateway. This can occur if the API Gateway is deleted and recreated.
 
-When disabled, you will need to manually update the github app webhook to point to the API Gateway.
-This is output by the component, and available via the `webhook` output under `endpoint`.
+When disabled, you will need to manually update the github app webhook to point to the API Gateway. This is output by
+the component, and available via the `webhook` output under `endpoint`.
 
-
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -140,8 +149,11 @@ This is output by the component, and available via the `webhook` output under `e
 | <a name="output_ssm_parameters"></a> [ssm\_parameters](#output\_ssm\_parameters) | Information about the SSM parameters to use to register the runner. |
 | <a name="output_webhook"></a> [webhook](#output\_webhook) | Information about the webhook to use to register the runner. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/ecs) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/ecs) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

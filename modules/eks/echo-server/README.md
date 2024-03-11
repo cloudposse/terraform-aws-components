@@ -1,38 +1,42 @@
 # Component: `eks/echo-server`
 
-This is copied from [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/echo-server).
+This is copied from
+[cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/echo-server).
 
-This component installs the [Ealenn/Echo-Server](https://github.com/Ealenn/Echo-Server) to EKS clusters.
-The echo server is a server that sends it back to the client a JSON representation of all the data
-the server received, which is a combination of information sent by the client and information sent
-by the web server infrastructure. For further details, please consult the [Echo-Server documentation](https://ealenn.github.io/Echo-Server/).
+This component installs the [Ealenn/Echo-Server](https://github.com/Ealenn/Echo-Server) to EKS clusters. The echo server
+is a server that sends it back to the client a JSON representation of all the data the server received, which is a
+combination of information sent by the client and information sent by the web server infrastructure. For further
+details, please consult the [Echo-Server documentation](https://ealenn.github.io/Echo-Server/).
 
 ## Prerequisites
 
-Echo server is intended to provide end-to-end testing of everything needed
-to deploy an application or service with a public HTTPS endpoint. It uses
-defaults where possible, such as using the default IngressClass, in order
-to verify that the defaults are sufficient for a typical application.
+Echo server is intended to provide end-to-end testing of everything needed to deploy an application or service with a
+public HTTPS endpoint. It uses defaults where possible, such as using the default IngressClass, in order to verify that
+the defaults are sufficient for a typical application.
 
-In order to minimize the impact of the echo server on the rest of the cluster,
-it does not set any configuration that would affect other ingresses, such
-as WAF rules, logging, or redirecting HTTP to HTTPS. Those settings should
-be configured in the IngressClass where possible.
+In order to minimize the impact of the echo server on the rest of the cluster, it does not set any configuration that
+would affect other ingresses, such as WAF rules, logging, or redirecting HTTP to HTTPS. Those settings should be
+configured in the IngressClass where possible.
 
 Therefore, it requires several other components. At the moment, it supports 2 configurations:
 
 1. ALB with ACM Certificate
-  - AWS Load Balancer Controller (ALB) version 2.2.0 or later, with ACM certificate auto-discovery enabled
-  - A default IngressClass, which can be provisioned by the `alb-controller` component as part of deploying
-    the controller, or can be provisioned separately, for example by the `alb-controller-ingress-class` component.
-  - Pre-provisioned ACM TLS certificate covering the provisioned host name (typically a wildcard certificate covering all hosts in the domain)
+
+- AWS Load Balancer Controller (ALB) version 2.2.0 or later, with ACM certificate auto-discovery enabled
+- A default IngressClass, which can be provisioned by the `alb-controller` component as part of deploying the
+  controller, or can be provisioned separately, for example by the `alb-controller-ingress-class` component.
+- Pre-provisioned ACM TLS certificate covering the provisioned host name (typically a wildcard certificate covering all
+  hosts in the domain)
+
 2. Nginx with Cert Manager Certificate
-  - Nginx (via `kubernetes/ingress-nginx` controller). We recommend `ingress-nginx` v1.1.0 or later, but `echo-server`
-    should work with any version that supports Ingress API version `networking.k8s.io/v1`.
-  - `jetstack/cert-manager` configured to automatically (via Ingress Shim, installed by default) generate TLS certificates via a Cluster Issuer
-    (by default, named `letsEncrypt-prod`).
+
+- Nginx (via `kubernetes/ingress-nginx` controller). We recommend `ingress-nginx` v1.1.0 or later, but `echo-server`
+  should work with any version that supports Ingress API version `networking.k8s.io/v1`.
+- `jetstack/cert-manager` configured to automatically (via Ingress Shim, installed by default) generate TLS certificates
+  via a Cluster Issuer (by default, named `letsEncrypt-prod`).
 
 In both configurations, it has these common requirements:
+
 - EKS component deployed, with component name specified in `eks_component_name` (defaults to "eks/cluster")
 - Kubernetes version 1.19 or later
 - Ingress API version `networking.k8s.io/v1`
@@ -42,10 +46,9 @@ In both configurations, it has these common requirements:
 ## Warnings
 
 A Terraform plan may fail to apply, giving a Kubernetes authentication failure. This is due to a known issue with
-Terraform and the Kubernetes provider. During the "plan" phase Terraform gets a short-lived Kubernetes
-authentication token and caches it, and then tries to use it during "apply". If the token has expired by
-the time you try to run "apply", the "apply" will fail. The workaround is to run `terraform apply -auto-approve` without
-a "plan" file.
+Terraform and the Kubernetes provider. During the "plan" phase Terraform gets a short-lived Kubernetes authentication
+token and caches it, and then tries to use it during "apply". If the token has expired by the time you try to run
+"apply", the "apply" will fail. The workaround is to run `terraform apply -auto-approve` without a "plan" file.
 
 ## Usage
 
@@ -57,6 +60,7 @@ Set `ingress_type` to "alb" if using `alb-controller` or "nginx" if using `ingre
 
 Normally, you should not set the IngressClass or IngressGroup, as this component is intended to test the defaults.
 However, if you need to, set them in `chart_values`:
+
 ```yaml
 chart_values:
   ingress:
@@ -66,13 +70,11 @@ chart_values:
       group_name: "other-ingress-group"
 ```
 
-Note that if you follow recommendations and do not set the ingress class name,
-the deployed Ingress will have the ingressClassName setting injected by the
-Ingress controller, set to the then-current default. This means that if later
-you change the default IngressClass, the Ingress will be NOT be updated to use
-the new default. Furthermore, because of limitations in the Helm provider, this
-will not be detected as drift. You will need to destroy and re-deploy the
-echo server to update the Ingress to the new default.
+Note that if you follow recommendations and do not set the ingress class name, the deployed Ingress will have the
+ingressClassName setting injected by the Ingress controller, set to the then-current default. This means that if later
+you change the default IngressClass, the Ingress will be NOT be updated to use the new default. Furthermore, because of
+limitations in the Helm provider, this will not be detected as drift. You will need to destroy and re-deploy the echo
+server to update the Ingress to the new default.
 
 ```yaml
 components:
@@ -97,10 +99,10 @@ components:
         hostname_template: "echo.%[3]v.%[2]v.%[1]v.sample-domain.net"
 ```
 
-In rare cases where some ingress controllers do not support the `ingressClassName` field,
-you can restore the old `kubernetes.io/ingress.class` annotation by setting
-`ingress.use_ingress_class_annotation: true` in `chart_values`.
+In rare cases where some ingress controllers do not support the `ingressClassName` field, you can restore the old
+`kubernetes.io/ingress.class` annotation by setting `ingress.use_ingress_class_annotation: true` in `chart_values`.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -188,6 +190,8 @@ you can restore the old `kubernetes.io/ingress.class` annotation by setting
 | <a name="output_hostname"></a> [hostname](#output\_hostname) | Hostname of the deployed echo server |
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* https://github.com/Ealenn/Echo-Server
+
+- https://github.com/Ealenn/Echo-Server

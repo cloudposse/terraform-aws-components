@@ -2,7 +2,8 @@
 
 This component provisions a GitHub webhook for a single GitHub repository.
 
-You may want to use this component if you are provisioning webhooks for multiple ArgoCD deployment repositories across GitHub organizations.
+You may want to use this component if you are provisioning webhooks for multiple ArgoCD deployment repositories across
+GitHub organizations.
 
 ## Usage
 
@@ -65,11 +66,13 @@ components:
         webhook_github_secret: "abcdefg"
 ```
 
-
 ### ArgoCD Webhooks
 
-For usage with the `eks/argocd` component, see [Creating Webhooks with `github-webhook`](https://github.com/cloudposse/terraform-aws-components/blob/main/modules/eks/argocd/README.md#creating-webhooks-with-github-webhook) in that component's README.
+For usage with the `eks/argocd` component, see
+[Creating Webhooks with `github-webhook`](https://github.com/cloudposse/terraform-aws-components/blob/main/modules/eks/argocd/README.md#creating-webhooks-with-github-webhook)
+in that component's README.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -141,8 +144,11 @@ For usage with the `eks/argocd` component, see [Creating Webhooks with `github-w
 
 No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components) - Cloud Posse's upstream components
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components) - Cloud Posse's upstream
+  components
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

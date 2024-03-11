@@ -2,16 +2,16 @@
 
 This component is responsible for enabling AWS Shield Advanced Protection for the following resources:
 
-* Application Load Balancers (ALBs)
-* CloudFront Distributions
-* Elastic IPs
-* Route53 Hosted Zones
+- Application Load Balancers (ALBs)
+- CloudFront Distributions
+- Elastic IPs
+- Route53 Hosted Zones
 
-This component assumes that resources it is configured to protect are not already protected by other components
-that have their `xxx_aws_shield_protection_enabled` variable set to `true`.
+This component assumes that resources it is configured to protect are not already protected by other components that
+have their `xxx_aws_shield_protection_enabled` variable set to `true`.
 
-This component also requires that the account where the component is being provisioned to has
-been [subscribed to AWS Shield Advanced](https://docs.aws.amazon.com/waf/latest/developerguide/enable-ddos-prem.html).
+This component also requires that the account where the component is being provisioned to has been
+[subscribed to AWS Shield Advanced](https://docs.aws.amazon.com/waf/latest/developerguide/enable-ddos-prem.html).
 
 ## Usage
 
@@ -80,10 +80,12 @@ components:
           - 35.171.70.50
 ```
 
-Stack configurations which rely on components with a `xxx_aws_shield_protection_enabled` variable should set that variable to `true`
-and leave the corresponding variable for this component as empty, relying on that component's AWS Shield Advanced functionality instead.
-This leads to more simplified inter-component dependencies and minimizes the need for maintaining the provisioning order during a cold-start.
+Stack configurations which rely on components with a `xxx_aws_shield_protection_enabled` variable should set that
+variable to `true` and leave the corresponding variable for this component as empty, relying on that component's AWS
+Shield Advanced functionality instead. This leads to more simplified inter-component dependencies and minimizes the need
+for maintaining the provisioning order during a cold-start.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -159,9 +161,11 @@ This leads to more simplified inter-component dependencies and minimizes the nee
 | <a name="output_elastic_ip_protections"></a> [elastic\_ip\_protections](#output\_elastic\_ip\_protections) | AWS Shield Advanced Protections for Elastic IPs |
 | <a name="output_route53_hosted_zone_protections"></a> [route53\_hosted\_zone\_protections](#output\_route53\_hosted\_zone\_protections) | AWS Shield Advanced Protections for Route53 Hosted Zones |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aws-shield) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aws-shield) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

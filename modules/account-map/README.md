@@ -1,18 +1,21 @@
 # Component: `account-map`
 
-This component is responsible for provisioning information only: it simply populates Terraform state with data (account ids, groups, and roles) that other root modules need via outputs.
+This component is responsible for provisioning information only: it simply populates Terraform state with data (account
+ids, groups, and roles) that other root modules need via outputs.
 
 ## Pre-requisites
 
-- [account](https://docs.cloudposse.com/components/library/aws/account) must be provisioned before [account-map](https://docs.cloudposse.com/components/library/aws/account-map) component
+- [account](https://docs.cloudposse.com/components/library/aws/account) must be provisioned before
+  [account-map](https://docs.cloudposse.com/components/library/aws/account-map) component
 
 ## Usage
 
 **Stack Level**: Global
 
-Here is an example snippet for how to use this component. Include this snippet in the stack configuration for the management account
-(typically `root`) in the management tenant/OU (usually something like `mgmt` or `core`) in the global region (`gbl`). You can include
-the content directly, or create a `stacks/catalog/account-map.yaml` file and import it from there.
+Here is an example snippet for how to use this component. Include this snippet in the stack configuration for the
+management account (typically `root`) in the management tenant/OU (usually something like `mgmt` or `core`) in the
+global region (`gbl`). You can include the content directly, or create a `stacks/catalog/account-map.yaml` file and
+import it from there.
 
 ```yaml
 components:
@@ -44,9 +47,9 @@ components:
         iam_role_arn_template_template: "arn:%s:iam::%s:role/%s-%s-%s-%s-%%s"
         # `profile_template` is the template used to render AWS Profile names.
         profile_template: "%s-%s-%s-%s-%s"
-
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -149,9 +152,11 @@ components:
 | <a name="output_terraform_role_name_map"></a> [terraform\_role\_name\_map](#output\_terraform\_role\_name\_map) | Mapping of Terraform action (plan or apply) to aws-team-role name to assume for that action |
 | <a name="output_terraform_roles"></a> [terraform\_roles](#output\_terraform\_roles) | A list of all IAM roles used to run terraform updates |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/account-map) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/account-map) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

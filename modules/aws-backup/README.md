@@ -10,7 +10,8 @@ Here's an example snippet for how to use this component.
 
 ### Component Abstraction and Separation
 
-By separating the "common" settings from the component, we can first provision the IAM Role and AWS Backup Vault to prepare resources for future use without incuring cost.
+By separating the "common" settings from the component, we can first provision the IAM Role and AWS Backup Vault to
+prepare resources for future use without incuring cost.
 
 For example, `stacks/catalog/aws-backup/common`:
 
@@ -37,8 +38,7 @@ components:
         iam_role_enabled: true # this will be reused
         vault_enabled: true # this will be reused
         plan_enabled: false
-
-## Please be careful when enabling backup_vault_lock_configuration,  
+## Please be careful when enabling backup_vault_lock_configuration,
 #        backup_vault_lock_configuration:
 ##         `changeable_for_days` enables compliance mode and once the lock is set, the retention policy cannot be changed unless through account deletion!
 #          changeable_for_days: 36500
@@ -46,9 +46,11 @@ components:
 #          min_retention_days: 1
 ```
 
-Then if we would like to deploy the component into a given stacks we can import the following to deploy our backup plans.
+Then if we would like to deploy the component into a given stacks we can import the following to deploy our backup
+plans.
 
-Since most of these values are shared and common, we can put them in a `catalog/aws-backup/` yaml file and share them across environments.
+Since most of these values are shared and common, we can put them in a `catalog/aws-backup/` yaml file and share them
+across environments.
 
 This makes deploying the same configuration to multiple environments easy.
 
@@ -160,7 +162,8 @@ The above configuration can be used to deploy a new backup to a new region.
 
 ### Adding Resources to the Backup - Adding Tags
 
-Once an `aws-backup` with a plan and `selection_tags` has been established we can begin adding resources for it to backup by using the tagging method.
+Once an `aws-backup` with a plan and `selection_tags` has been established we can begin adding resources for it to
+backup by using the tagging method.
 
 This only requires that we add tags to the resources we wish to backup, which can be done with the following snippet:
 
@@ -175,11 +178,13 @@ components:
 
 Just ensure the tag key-value pair matches what was added to your backup plan and aws will take care of the rest.
 
-
 ### Copying across regions
-If we want to create a backup vault in another region that we can copy to, then we need to create another vault, and then specify that we want to copy to it.
+
+If we want to create a backup vault in another region that we can copy to, then we need to create another vault, and
+then specify that we want to copy to it.
 
 To create a vault in a region simply:
+
 ```yaml
 components:
   terraform:
@@ -188,7 +193,9 @@ components:
         plan_enabled: false # disables the plan (which schedules resource backups)
 ```
 
-This will output an ARN - which you can then use as the destination in the rule object's `copy_action` (it will be specific to that particular plan), as seen in the following snippet:
+This will output an ARN - which you can then use as the destination in the rule object's `copy_action` (it will be
+specific to that particular plan), as seen in the following snippet:
+
 ```yaml
 components:
   terraform:
@@ -217,31 +224,38 @@ components:
 
 To enable backup lock configuration, you can use the following snippet:
 
-* [AWS Backup Vault Lock](https://docs.aws.amazon.com/aws-backup/latest/devguide/vault-lock.html)
+- [AWS Backup Vault Lock](https://docs.aws.amazon.com/aws-backup/latest/devguide/vault-lock.html)
 
 #### Compliance Mode
-Vaults locked in compliance mode cannot be deleted once the cooling-off period ("grace time") expires. During grace time, you can still remove the vault lock and change the lock configuration.
 
-To enable **Compliance Mode**, set `changeable_for_days` to a value greater than 0. Once the lock is set, the retention policy cannot be changed unless through account deletion!
+Vaults locked in compliance mode cannot be deleted once the cooling-off period ("grace time") expires. During grace
+time, you can still remove the vault lock and change the lock configuration.
+
+To enable **Compliance Mode**, set `changeable_for_days` to a value greater than 0. Once the lock is set, the retention
+policy cannot be changed unless through account deletion!
+
 ```yaml
-# Please be careful when enabling backup_vault_lock_configuration,  
-        backup_vault_lock_configuration:
-#         `changeable_for_days` enables compliance mode and once the lock is set, the retention policy cannot be changed unless through account deletion!
-          changeable_for_days: 36500
-          max_retention_days: 365
-          min_retention_days: 1
+# Please be careful when enabling backup_vault_lock_configuration,
+backup_vault_lock_configuration:
+  #         `changeable_for_days` enables compliance mode and once the lock is set, the retention policy cannot be changed unless through account deletion!
+  changeable_for_days: 36500
+  max_retention_days: 365
+  min_retention_days: 1
 ```
 
 #### Governance Mode
+
 Vaults locked in governance mode can have the lock removed by users with sufficient IAM permissions.
 
 To enable **governance mode**
+
 ```yaml
-        backup_vault_lock_configuration:
-          max_retention_days: 365
-          min_retention_days: 1
+backup_vault_lock_configuration:
+  max_retention_days: 365
+  min_retention_days: 1
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -259,7 +273,6 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_backup"></a> [backup](#module\_backup) | cloudposse/backup/aws | 1.0.0 |
-| <a name="module_copy_destination_vault"></a> [copy\_destination\_vault](#module\_copy\_destination\_vault) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -311,11 +324,12 @@ No resources.
 | <a name="output_backup_vault_arn"></a> [backup\_vault\_arn](#output\_backup\_vault\_arn) | Backup Vault ARN |
 | <a name="output_backup_vault_id"></a> [backup\_vault\_id](#output\_backup\_vault\_id) | Backup Vault ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aws-backup) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aws-backup) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
 

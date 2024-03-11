@@ -1,7 +1,11 @@
 # Component: `aws-node-termination-handler`
 
-This component creates a Helm release for [aws-node-termination-handler](https://github.com/aws/aws-node-termination-handler) on a Kubernetes cluster. [aws-node-termination-handler](https://github.com/aws/aws-node-termination-handler) is a Kubernetes addon that (by default) monitors the EC2 IMDS endpoint for scheduled maintenance events, spot instance termination events, and rebalance recommendation events, and drains and/or cordons nodes upon such events.
-This ensures that workloads on Kubernetes are evicted gracefully when a node needs to be terminated.
+This component creates a Helm release for
+[aws-node-termination-handler](https://github.com/aws/aws-node-termination-handler) on a Kubernetes cluster.
+[aws-node-termination-handler](https://github.com/aws/aws-node-termination-handler) is a Kubernetes addon that (by
+default) monitors the EC2 IMDS endpoint for scheduled maintenance events, spot instance termination events, and
+rebalance recommendation events, and drains and/or cordons nodes upon such events. This ensures that workloads on
+Kubernetes are evicted gracefully when a node needs to be terminated.
 
 ## Usage
 
@@ -38,6 +42,7 @@ components:
         chart_values: {}
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -126,6 +131,7 @@ components:
 |------|-------------|
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 

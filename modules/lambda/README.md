@@ -7,6 +7,7 @@ This component is responsible for provisioning Lambda functions.
 **Stack Level**: Regional
 
 Stack configuration for defaults:
+
 ```yaml
 components:
   terraform:
@@ -21,6 +22,7 @@ components:
 ```
 
 Sample App Yaml Entry:
+
 ```yaml
 import:
   - catalog/lambda/defaults
@@ -74,7 +76,7 @@ components:
         # s3_key: hello-world-go.zip
 ```
 
-
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -186,9 +188,11 @@ components:
 | <a name="output_role_arn"></a> [role\_arn](#output\_role\_arn) | Lambda IAM role ARN |
 | <a name="output_role_name"></a> [role\_name](#output\_role\_name) | Lambda IAM role name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/TODO) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/TODO) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

@@ -1,6 +1,7 @@
 # Component: `eks/redis-operator`
 
-This component installs `redis-operator` for EKS clusters. Redis Operator creates/configures/manages high availability redis with sentinel automatic failover atop Kubernetes.
+This component installs `redis-operator` for EKS clusters. Redis Operator creates/configures/manages high availability
+redis with sentinel automatic failover atop Kubernetes.
 
 ## Usage
 
@@ -46,7 +47,6 @@ components:
           image:
             repository: quay.io/spotahome/redis-operator
             tag: v1.1.1
-
 ```
 
 `stacks/catalog/eks/redis-operator/dev` file (derived component for "dev" specific settings):
@@ -63,8 +63,9 @@ components:
         inherits:
           - eks/redis-operator/defaults
       vars: {}
-
 ```
+
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -153,6 +154,9 @@ components:
 |------|-------------|
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/redis-operator) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/redis-operator) -
+  Cloud Posse's upstream component

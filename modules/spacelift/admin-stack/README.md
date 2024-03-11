@@ -9,7 +9,8 @@ The component uses a series of `context_filters` to select atmos component insta
 
 **Stack Level**: Global
 
-The following are example snippets of how to use this component. For more on Spacelift admin stack usage, see the [Spacelift README](https://docs.cloudposse.com/components/library/aws/spacelift/)
+The following are example snippets of how to use this component. For more on Spacelift admin stack usage, see the
+[Spacelift README](https://docs.cloudposse.com/components/library/aws/spacelift/)
 
 First define the default configuration for any admin stack:
 
@@ -135,6 +136,7 @@ components:
           - TRIGGER Dependencies
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -265,3 +267,4 @@ components:
 | <a name="output_root_stack"></a> [root\_stack](#output\_root\_stack) | The root stack, if enabled and created by this component |
 | <a name="output_root_stack_id"></a> [root\_stack\_id](#output\_root\_stack\_id) | The stack id |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->

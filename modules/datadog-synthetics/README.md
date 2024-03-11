@@ -1,10 +1,11 @@
 # Component: `datadog-synthetics`
 
-This component provides the ability to implement [Datadog synthetic tests](https://docs.datadoghq.com/synthetics/guide/).
+This component provides the ability to implement
+[Datadog synthetic tests](https://docs.datadoghq.com/synthetics/guide/).
 
-Synthetic tests allow you to observe how your systems and applications are performing using simulated requests and actions
-from the AWS managed locations around the globe, and to monitor internal endpoints
-from [Private Locations](https://docs.datadoghq.com/synthetics/private_locations).
+Synthetic tests allow you to observe how your systems and applications are performing using simulated requests and
+actions from the AWS managed locations around the globe, and to monitor internal endpoints from
+[Private Locations](https://docs.datadoghq.com/synthetics/private_locations).
 
 ## Usage
 
@@ -39,13 +40,14 @@ components:
 
 Below are examples of Datadog browser and API synthetic tests.
 
-The synthetic tests are defined in YAML using either the [Datadog Terraform provider](https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/synthetics_test) schema
-or the [Datadog Synthetics API](https://docs.datadoghq.com/api/latest/synthetics) schema.
-See the `terraform-datadog-platform` Terraform module [README](https://github.com/cloudposse/terraform-datadog-platform/blob/main/modules/synthetics/README.md) for more details.
-We recommend using the API schema so you can more create and edit tests using the Datadog
-web API and then import them into this module by downloading the test using
-the Datadog REST API. (See the Datadog API documentation for the appropriate
-`curl` commands to use.)
+The synthetic tests are defined in YAML using either the
+[Datadog Terraform provider](https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/synthetics_test)
+schema or the [Datadog Synthetics API](https://docs.datadoghq.com/api/latest/synthetics) schema. See the
+`terraform-datadog-platform` Terraform module
+[README](https://github.com/cloudposse/terraform-datadog-platform/blob/main/modules/synthetics/README.md) for more
+details. We recommend using the API schema so you can more create and edit tests using the Datadog web API and then
+import them into this module by downloading the test using the Datadog REST API. (See the Datadog API documentation for
+the appropriate `curl` commands to use.)
 
 ```yaml
 # API schema
@@ -124,24 +126,31 @@ my-api-test:
         jsonpath: foo.bar
 ```
 
-These configuration examples are defined in the YAML files in the [catalog/synthetics/examples](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/datadog-synthetics/catalog/synthetics/examples) folder.
+These configuration examples are defined in the YAML files in the
+[catalog/synthetics/examples](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/datadog-synthetics/catalog/synthetics/examples)
+folder.
 
-You can use different subfolders for your use-case.
-For example, you can have `dev` and `prod` subfolders to define different synthetic tests for the `dev` and `prod` environments.
+You can use different subfolders for your use-case. For example, you can have `dev` and `prod` subfolders to define
+different synthetic tests for the `dev` and `prod` environments.
 
 Then use the `synthetic_paths` variable to point the component to the synthetic test configuration files.
 
 The configuration files are processed and transformed in the following order:
 
-- The `datadog-synthetics` component loads the YAML configuration files from the filesystem paths specified by the `synthetics_paths` variable
+- The `datadog-synthetics` component loads the YAML configuration files from the filesystem paths specified by the
+  `synthetics_paths` variable
 
-- Then, in the [synthetics](https://github.com/cloudposse/terraform-datadog-platform/blob/master/modules/synthetics/main.tf) module,
-  the YAML configuration files are merged and transformed from YAML into
-  the [Datadog Terraform provider](https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/synthetics_test) schema
+- Then, in the
+  [synthetics](https://github.com/cloudposse/terraform-datadog-platform/blob/master/modules/synthetics/main.tf) module,
+  the YAML configuration files are merged and transformed from YAML into the
+  [Datadog Terraform provider](https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/synthetics_test)
+  schema
 
 - And finally, the Datadog Terraform provider uses the
-  [Datadog Synthetics API](https://docs.datadoghq.com/api/latest/synthetics) specifications to call the Datadog API and provision the synthetic tests
+  [Datadog Synthetics API](https://docs.datadoghq.com/api/latest/synthetics) specifications to call the Datadog API and
+  provision the synthetic tests
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -214,6 +223,7 @@ No resources.
 | <a name="output_datadog_synthetics_test_monitor_ids"></a> [datadog\_synthetics\_test\_monitor\_ids](#output\_datadog\_synthetics\_test\_monitor\_ids) | IDs of the monitors associated with the Datadog synthetics tests |
 | <a name="output_datadog_synthetics_test_names"></a> [datadog\_synthetics\_test\_names](#output\_datadog\_synthetics\_test\_names) | Names of the created Datadog synthetic tests |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 

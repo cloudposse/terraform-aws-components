@@ -1,7 +1,7 @@
 # Component: `aurora-mysql`
 
-This component is responsible for provisioning Aurora MySQL RDS clusters.
-It seeds relevant database information (hostnames, username, password, etc.) into AWS SSM Parameter Store.
+This component is responsible for provisioning Aurora MySQL RDS clusters. It seeds relevant database information
+(hostnames, username, password, etc.) into AWS SSM Parameter Store.
 
 ## Usage
 
@@ -78,17 +78,22 @@ components:
         mysql_db_name: main
 ```
 
-Example deployment with primary cluster deployed to us-east-1 in a `platform-dev` account: `atmos terraform apply aurora-mysql/dev -s platform-use1-dev`
+Example deployment with primary cluster deployed to us-east-1 in a `platform-dev` account:
+`atmos terraform apply aurora-mysql/dev -s platform-use1-dev`
 
 ## Disaster Recovery with Cross-Region Replication
 
-This component is designed to support cross-region replication with continuous replication. If enabled and deployed, a secondary cluster will be deployed in a different region than the primary cluster. This approach is highly aggresive and costly, but in a disaster scenario where the primary cluster fails, the secondary cluster can be promoted to take its place. Follow these steps to handle a Disaster Recovery.
+This component is designed to support cross-region replication with continuous replication. If enabled and deployed, a
+secondary cluster will be deployed in a different region than the primary cluster. This approach is highly aggresive and
+costly, but in a disaster scenario where the primary cluster fails, the secondary cluster can be promoted to take its
+place. Follow these steps to handle a Disaster Recovery.
 
 ### Usage
 
 To deploy a secondary cluster for cross-region replication, add the following catalog entries to an alternative region:
 
-Default settings for a secondary, replica cluster. For this example, this file is saved as `stacks/catalog/aurora-mysql/replica/defaults.yaml`
+Default settings for a secondary, replica cluster. For this example, this file is saved as
+`stacks/catalog/aurora-mysql/replica/defaults.yaml`
 
 ```yaml
 import:
@@ -136,19 +141,23 @@ components:
 
 ### Promoting the Read Replica
 
-Promoting an existing RDS Replicate cluster to a fully standalone cluster is not currently supported by Terraform: https://github.com/hashicorp/terraform-provider-aws/issues/6749
+Promoting an existing RDS Replicate cluster to a fully standalone cluster is not currently supported by Terraform:
+https://github.com/hashicorp/terraform-provider-aws/issues/6749
 
-Instead, promote the Replicate cluster with the AWS CLI command: `aws rds promote-read-replica-db-cluster --db-cluster-identifier <identifier>`
+Instead, promote the Replicate cluster with the AWS CLI command:
+`aws rds promote-read-replica-db-cluster --db-cluster-identifier <identifier>`
 
-After promoting the replica, update the stack configuration to prevent future Terrafrom runs from re-enabling replication. In this example, modify `stacks/catalog/aurora-mysql/replica/defaults.yaml`
+After promoting the replica, update the stack configuration to prevent future Terrafrom runs from re-enabling
+replication. In this example, modify `stacks/catalog/aurora-mysql/replica/defaults.yaml`
 
 ```yaml
 is_promoted_read_replica: true
 ```
 
-Reploying the component should show no changes. For example, `atmos terraform apply aurora-mysql/dev -s platform-use2-dev`
+Reploying the component should show no changes. For example,
+`atmos terraform apply aurora-mysql/dev -s platform-use2-dev`
 
-
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -266,10 +275,11 @@ Reploying the component should show no changes. For example, `atmos terraform ap
 | <a name="output_cluster_domain"></a> [cluster\_domain](#output\_cluster\_domain) | Cluster DNS name |
 | <a name="output_kms_key_arn"></a> [kms\_key\_arn](#output\_kms\_key\_arn) | KMS key ARN for Aurora MySQL |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aurora-mysql) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aurora-mysql) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
