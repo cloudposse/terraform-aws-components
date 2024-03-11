@@ -25,6 +25,7 @@ components:
           location: "s3://awsglue-datasets/examples/medicare/Medicare_Hospital_Provider.csv"
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -105,9 +106,11 @@ components:
 | <a name="output_catalog_table_id"></a> [catalog\_table\_id](#output\_catalog\_table\_id) | Catalog table ID |
 | <a name="output_catalog_table_name"></a> [catalog\_table\_name](#output\_catalog\_table\_name) | Catalog table name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/glue/catalog-table) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/glue/catalog-table) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

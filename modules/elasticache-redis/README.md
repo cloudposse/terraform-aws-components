@@ -18,8 +18,8 @@ components:
         enabled: true
         name: "elasticache-redis"
         family: redis6.x
-        ingress_cidr_blocks: [ ]
-        egress_cidr_blocks: [ "0.0.0.0/0" ]
+        ingress_cidr_blocks: []
+        egress_cidr_blocks: ["0.0.0.0/0"]
         port: 6379
         at_rest_encryption_enabled: true
         transit_encryption_enabled: false
@@ -61,6 +61,7 @@ components:
                 value: lK
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -134,9 +135,11 @@ No resources.
 |------|-------------|
 | <a name="output_redis_clusters"></a> [redis\_clusters](#output\_redis\_clusters) | Redis cluster objects |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/elasticache-redis) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/elasticache-redis) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

@@ -52,7 +52,6 @@ components:
             env:
               - name: DD_EC2_PREFER_IMDSV2 # this merges ec2 instances and the node in the hostmap section
                 value: "true"
-
 ```
 
 Deploy this to a particular environment such as dev, prod, etc.
@@ -78,30 +77,39 @@ components:
 
 ## Cluster Checks
 
-Cluster Checks are configurations that allow us to setup external URLs to be monitored. They can be configured through the datadog agent or annotations on kubernetes services.
+Cluster Checks are configurations that allow us to setup external URLs to be monitored. They can be configured through
+the datadog agent or annotations on kubernetes services.
 
-Cluster Checks are similar to synthetics checks, they are not as indepth, but significantly cheaper. Use Cluster Checks when you need a simple health check beyond the kubernetes pod health check.
+Cluster Checks are similar to synthetics checks, they are not as indepth, but significantly cheaper. Use Cluster Checks
+when you need a simple health check beyond the kubernetes pod health check.
 
-Public addresses that test endpoints must use the agent configuration, whereas service addresses internal to the cluster can be tested by annotations.
+Public addresses that test endpoints must use the agent configuration, whereas service addresses internal to the cluster
+can be tested by annotations.
 
 ### Adding Cluster Checks
 
 Cluster Checks can be enabled or disabled via the `cluster_checks_enabled` variable. We recommend this be set to true.
 
-New Cluster Checks can be added to defaults to be applied in every account. Alternatively they can be placed in an individual stage folder which will be applied to individual stages. This is controlled by the `datadog_cluster_check_config_parameters` variable, which determines the paths of yaml files to look for cluster checks per stage.
+New Cluster Checks can be added to defaults to be applied in every account. Alternatively they can be placed in an
+individual stage folder which will be applied to individual stages. This is controlled by the
+`datadog_cluster_check_config_parameters` variable, which determines the paths of yaml files to look for cluster checks
+per stage.
 
-Once they are added, and properly configured, the new checks show up in the network monitor creation under `ssl` and `Http`
+Once they are added, and properly configured, the new checks show up in the network monitor creation under `ssl` and
+`Http`
 
-**Please note:** the yaml file name doesn't matter, but the root key inside which is `something.yaml` does matter. this is following [datadogs docs](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files) for `<integration name>.yaml`.
+**Please note:** the yaml file name doesn't matter, but the root key inside which is `something.yaml` does matter. this
+is following
+[datadogs docs](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files)
+for `<integration name>.yaml`.
 
 #### Sample Yaml
 
-:::caution
-The key of a filename must match datadog docs, which is `<INTEGRATION_NAME>.yaml`
+:::caution The key of a filename must match datadog docs, which is `<INTEGRATION_NAME>.yaml`
 [Datadog Cluster Checks](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files)
 
-:::
-Cluster Checks **can** be used for external URL testing (loadbalancer endpoints), whereas annotations **must** be used for kubernetes services.
+::: Cluster Checks **can** be used for external URL testing (loadbalancer endpoints), whereas annotations **must** be
+used for kubernetes services.
 
 ```
 http_check.yaml:
@@ -119,7 +127,8 @@ http_check.yaml:
 
 ### Monitoring Cluster Checks
 
-Using Cloudposse's `datadog-monitor` component. The following yaml snippet will monitor all HTTP Cluster Checks, this can be added to each stage (usually via a defaults folder).
+Using Cloudposse's `datadog-monitor` component. The following yaml snippet will monitor all HTTP Cluster Checks, this
+can be added to each stage (usually via a defaults folder).
 
 ```yaml
 https-checks:
@@ -146,7 +155,7 @@ https-checks:
   new_host_delay: 0
   new_group_delay: 0
   no_data_timeframe: 2
-  threshold_windows: { }
+  threshold_windows: {}
   thresholds:
     critical: 1
     warning: 1
@@ -155,12 +164,13 @@ https-checks:
 
 ## References
 
-* https://github.com/DataDog/helm-charts/tree/main/charts/datadog
-* https://github.com/DataDog/helm-charts/blob/main/charts/datadog/values.yaml
-* https://github.com/DataDog/helm-charts/blob/main/examples/datadog/agent_basic_values.yaml
-* https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release
-* https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm
+- https://github.com/DataDog/helm-charts/tree/main/charts/datadog
+- https://github.com/DataDog/helm-charts/blob/main/charts/datadog/values.yaml
+- https://github.com/DataDog/helm-charts/blob/main/examples/datadog/agent_basic_values.yaml
+- https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release
+- https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -256,7 +266,10 @@ https-checks:
 | <a name="output_cluster_checks"></a> [cluster\_checks](#output\_cluster\_checks) | Cluster Checks for the cluster |
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* Datadog's [Kubernetes Agent documentation](https://docs.datadoghq.com/containers/kubernetes/)
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/datadog-agent) - Cloud Posse's upstream component
+
+- Datadog's [Kubernetes Agent documentation](https://docs.datadoghq.com/containers/kubernetes/)
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/datadog-agent) -
+  Cloud Posse's upstream component

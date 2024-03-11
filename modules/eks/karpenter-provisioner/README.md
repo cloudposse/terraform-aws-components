@@ -6,7 +6,8 @@ This component deploys [Karpenter provisioners](https://karpenter.sh/v0.18.0/aws
 
 **Stack Level**: Regional
 
-If provisioning more than one provisioner, it is [best practice](https://aws.github.io/aws-eks-best-practices/karpenter/#create-provisioners-that-are-mutually-exclusive-or-weighted)
+If provisioning more than one provisioner, it is
+[best practice](https://aws.github.io/aws-eks-best-practices/karpenter/#create-provisioners-that-are-mutually-exclusive-or-weighted)
 to create provisioners that are mutually exclusive or weighted.
 
 ```yaml
@@ -42,63 +43,64 @@ components:
             # and capacity type (such as AWS spot or on-demand).
             # See https://karpenter.sh/v0.18.0/provisioner/#specrequirements for more details
             requirements:
-            - key: "karpenter.k8s.aws/instance-category"
-              operator: "In"
-              values: ["c", "m", "r"]
-            - key: "karpenter.k8s.aws/instance-generation"
-              operator: "Gt"
-              values: ["2"]
-            - key: "karpenter.sh/capacity-type"
-              operator: "In"
-              values:
-              - "on-demand"
-              - "spot"
-            - key: "node.kubernetes.io/instance-type"
-              operator: "In"
-              # See https://aws.amazon.com/ec2/instance-explorer/ and https://aws.amazon.com/ec2/instance-types/
-              # Values limited by DenyEC2InstancesWithoutEncryptionInTransit service control policy
-              # See https://github.com/cloudposse/terraform-aws-service-control-policies/blob/master/catalog/ec2-policies.yaml
-              # Karpenter recommends allowing at least 20 instance types to ensure availability.
-              values:
-              - "c5n.2xlarge"
-              - "c5n.xlarge"
-              - "c5n.large"
-              - "c6i.2xlarge"
-              - "c6i.xlarge"
-              - "c6i.large"
-              - "m5n.2xlarge"
-              - "m5n.xlarge"
-              - "m5n.large"
-              - "m5zn.2xlarge"
-              - "m5zn.xlarge"
-              - "m5zn.large"
-              - "m6i.2xlarge"
-              - "m6i.xlarge"
-              - "m6i.large"
-              - "r5n.2xlarge"
-              - "r5n.xlarge"
-              - "r5n.large"
-              - "r6i.2xlarge"
-              - "r6i.xlarge"
-              - "r6i.large"
-            - key: "kubernetes.io/arch"
-              operator: "In"
-              values:
-              - "amd64"
+              - key: "karpenter.k8s.aws/instance-category"
+                operator: "In"
+                values: ["c", "m", "r"]
+              - key: "karpenter.k8s.aws/instance-generation"
+                operator: "Gt"
+                values: ["2"]
+              - key: "karpenter.sh/capacity-type"
+                operator: "In"
+                values:
+                  - "on-demand"
+                  - "spot"
+              - key: "node.kubernetes.io/instance-type"
+                operator: "In"
+                # See https://aws.amazon.com/ec2/instance-explorer/ and https://aws.amazon.com/ec2/instance-types/
+                # Values limited by DenyEC2InstancesWithoutEncryptionInTransit service control policy
+                # See https://github.com/cloudposse/terraform-aws-service-control-policies/blob/master/catalog/ec2-policies.yaml
+                # Karpenter recommends allowing at least 20 instance types to ensure availability.
+                values:
+                  - "c5n.2xlarge"
+                  - "c5n.xlarge"
+                  - "c5n.large"
+                  - "c6i.2xlarge"
+                  - "c6i.xlarge"
+                  - "c6i.large"
+                  - "m5n.2xlarge"
+                  - "m5n.xlarge"
+                  - "m5n.large"
+                  - "m5zn.2xlarge"
+                  - "m5zn.xlarge"
+                  - "m5zn.large"
+                  - "m6i.2xlarge"
+                  - "m6i.xlarge"
+                  - "m6i.large"
+                  - "r5n.2xlarge"
+                  - "r5n.xlarge"
+                  - "r5n.large"
+                  - "r6i.2xlarge"
+                  - "r6i.xlarge"
+                  - "r6i.large"
+              - key: "kubernetes.io/arch"
+                operator: "In"
+                values:
+                  - "amd64"
             # The AMI used by Karpenter provisioner when provisioning nodes. Based on the value set for amiFamily, Karpenter will automatically query for the appropriate EKS optimized AMI via AWS Systems Manager (SSM)
             # Bottlerocket, AL2, Ubuntu
             # https://karpenter.sh/v0.18.0/aws/provisioning/#amazon-machine-image-ami-family
             ami_family: AL2
             # Karpenter provisioner block device mappings.
             block_device_mappings:
-            - deviceName: /dev/xvda
-              ebs:
-                volumeSize: 200Gi
-                volumeType: gp3
-                encrypted: true
-                deleteOnTermination: true
+              - deviceName: /dev/xvda
+                ebs:
+                  volumeSize: 200Gi
+                  volumeType: gp3
+                  encrypted: true
+                  deleteOnTermination: true
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -177,6 +179,7 @@ components:
 | <a name="output_providers"></a> [providers](#output\_providers) | Deployed Karpenter AWSNodeTemplates |
 | <a name="output_provisioners"></a> [provisioners](#output\_provisioners) | Deployed Karpenter provisioners |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 

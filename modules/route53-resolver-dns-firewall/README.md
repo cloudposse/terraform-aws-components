@@ -1,7 +1,9 @@
 # Component: `route53-resolver-dns-firewall`
 
-This component is responsible for provisioning [Route 53 Resolver DNS Firewall](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-dns-firewall.html)
-resources, including Route 53 Resolver DNS Firewall, domain lists, firewall rule groups, firewall rules, and logging configuration.
+This component is responsible for provisioning
+[Route 53 Resolver DNS Firewall](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-dns-firewall.html)
+resources, including Route 53 Resolver DNS Firewall, domain lists, firewall rule groups, firewall rules, and logging
+configuration.
 
 ## Usage
 
@@ -76,6 +78,7 @@ Execute the following command to provision the `route53-resolver-dns-firewall/ex
 atmos terraform apply route53-resolver-dns-firewall/example -s <stack>
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -143,6 +146,7 @@ No resources.
 | <a name="output_rule_groups"></a> [rule\_groups](#output\_rule\_groups) | Route 53 Resolver DNS Firewall rule groups |
 | <a name="output_rules"></a> [rules](#output\_rules) | Route 53 Resolver DNS Firewall rules |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
@@ -156,6 +160,7 @@ No resources.
 - [Appliance in a shared services VPC](https://docs.aws.amazon.com/vpc/latest/tgw/transit-gateway-appliance-scenario.html)
 - [Quotas on Route 53 Resolver DNS Firewall](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-entities-resolver)
 - [Unified bad hosts](https://github.com/StevenBlack/hosts)
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/TODO) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/TODO) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

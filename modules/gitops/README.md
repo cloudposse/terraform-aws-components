@@ -1,10 +1,11 @@
 # Component: `gitops`
 
-This component is used to deploy GitHub OIDC roles for accessing the `gitops` Team. We use this team to run Terraform from GitHub Actions.
+This component is used to deploy GitHub OIDC roles for accessing the `gitops` Team. We use this team to run Terraform
+from GitHub Actions.
 
 Examples:
 
-* [cloudposse/github-action-terraform-plan-storage](https://github.com/cloudposse/github-action-terraform-plan-storage/blob/main/.github/workflows/build-and-test.yml)
+- [cloudposse/github-action-terraform-plan-storage](https://github.com/cloudposse/github-action-terraform-plan-storage/blob/main/.github/workflows/build-and-test.yml)
 
 ## Usage
 
@@ -45,13 +46,14 @@ components:
       vars:
         enabled: true
         github_actions_iam_role_enabled: true
-        github_actions_iam_role_attributes: [ "gitops" ]
+        github_actions_iam_role_attributes: ["gitops"]
         github_actions_allowed_repos:
           - "acmeOrg/infra"
         s3_bucket_component_name: gitops/s3-bucket
         dynamodb_component_name: gitops/dynamodb
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -122,9 +124,11 @@ components:
 | <a name="output_github_actions_iam_role_arn"></a> [github\_actions\_iam\_role\_arn](#output\_github\_actions\_iam\_role\_arn) | ARN of IAM role for GitHub Actions |
 | <a name="output_github_actions_iam_role_name"></a> [github\_actions\_iam\_role\_name](#output\_github\_actions\_iam\_role\_name) | Name of IAM role for GitHub Actions |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/gitops) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/gitops) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

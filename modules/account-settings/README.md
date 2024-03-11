@@ -1,14 +1,15 @@
 # Component: `account-settings`
 
-This component is responsible for provisioning account level settings: IAM password policy, AWS Account Alias, EBS encryption, and Service Quotas.
+This component is responsible for provisioning account level settings: IAM password policy, AWS Account Alias, EBS
+encryption, and Service Quotas.
 
 ## Usage
 
 **Stack Level**: Global
 
-Here's an example snippet for how to use this component. It's suggested to apply this component to all accounts,
-so create a file `stacks/catalog/account-settings.yaml` with the following content and then import
-that file in each account's global stack (overriding any parameters as needed):
+Here's an example snippet for how to use this component. It's suggested to apply this component to all accounts, so
+create a file `stacks/catalog/account-settings.yaml` with the following content and then import that file in each
+account's global stack (overriding any parameters as needed):
 
 ```yaml
 components:
@@ -68,6 +69,7 @@ components:
             value: null
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -138,8 +140,11 @@ components:
 |------|-------------|
 | <a name="output_account_alias"></a> [account\_alias](#output\_account\_alias) | Account alias |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/account-settings) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/account-settings) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

@@ -8,7 +8,6 @@ This component installs `redis` for EKS clusters. This is a Self Hosted Redis Cl
 
 Use this in the catalog or use these variables to overwrite the catalog values.
 
-
 `stacks/catalog/eks/redis/defaults` file (base component for default Redis settings):
 
 ```yaml
@@ -51,7 +50,6 @@ components:
         # Disabling Manifest Experiment disables stored metadata with Terraform state
         # Otherwise, the state will show changes on all plans
         helm_manifest_experiment_enabled: false
-
 ```
 
 `stacks/catalog/eks/redis/dev` file (derived component for "dev" specific settings):
@@ -68,9 +66,9 @@ components:
         inherits:
           - eks/redis/defaults
       vars: {}
-
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -159,6 +157,9 @@ components:
 |------|-------------|
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/redis) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/redis) -
+  Cloud Posse's upstream component

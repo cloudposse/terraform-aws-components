@@ -40,12 +40,12 @@ components:
         fifo_queue_enabled: false
         content_based_deduplication: false
         redrive_policy_max_receiver_count: 5
-        redrive_policy: null  
+        redrive_policy: null
 ```
 
 ```yaml
 import:
-- catalog/sns-topic/defaults
+  - catalog/sns-topic/defaults
 
 components:
   terraform:
@@ -65,6 +65,7 @@ components:
             endpoint_auto_confirms: true
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -144,8 +145,11 @@ No resources.
 | <a name="output_sns_topic_owner"></a> [sns\_topic\_owner](#output\_sns\_topic\_owner) | SNS topic owner. |
 | <a name="output_sns_topic_subscriptions"></a> [sns\_topic\_subscriptions](#output\_sns\_topic\_subscriptions) | SNS topic subscription. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/sns-topic) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/sns-topic) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

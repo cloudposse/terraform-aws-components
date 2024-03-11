@@ -4,7 +4,9 @@ This component is responsible for provisioning [Argo CD](https://argoproj.github
 
 Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
 
-> :warning::warning::warning: ArgoCD CRDs must be installed separately from this component/helm release. :warning::warning::warning:
+> :warning::warning::warning: ArgoCD CRDs must be installed separately from this component/helm release.
+> :warning::warning::warning:
+
 ```shell
 kubectl apply -k "https://github.com/argoproj/argo-cd/manifests/crds?ref=<appVersion>"
 
@@ -16,11 +18,10 @@ kubectl apply -k "https://github.com/argoproj/argo-cd/manifests/crds?ref=v2.4.9"
 
 ### Preparing AppProject repos:
 
-First, make sure you have a GitHub repo ready to go. We have a component for this
-called the `argocd-repo` component. It will create a GitHub repo and adds
-some secrets and code owners. Most importantly, it configures an `applicationset.yaml`
-that includes all the details for helm to create ArgoCD CRDs. These CRDs
-let ArgoCD know how to fulfill changes to its repo.
+First, make sure you have a GitHub repo ready to go. We have a component for this called the `argocd-repo` component. It
+will create a GitHub repo and adds some secrets and code owners. Most importantly, it configures an
+`applicationset.yaml` that includes all the details for helm to create ArgoCD CRDs. These CRDs let ArgoCD know how to
+fulfill changes to its repo.
 
 ```yaml
 components:
@@ -34,9 +35,9 @@ components:
         github_user_email: infra@acme.com
         github_organization: ACME
         github_codeowner_teams:
-        - "@ACME/acme-admins"
-        - "@ACME/CloudPosse"
-        - "@ACME/developers"
+          - "@ACME/acme-admins"
+          - "@ACME/CloudPosse"
+          - "@ACME/developers"
         gitignore_entries:
           - "**/.DS_Store"
           - ".DS_Store"
@@ -54,11 +55,10 @@ components:
 ```
 
 ### Injecting infrastructure details into applications
-Second, your application repos could use values to best configure their
-helm releases. We have an `eks/platform` component for exposing various
-infra outputs. It takes remote state lookups and stores them into SSM.
-We demonstrate how to pull the platform SSM parameters later. Here's an
-example `eks/platform` config:
+
+Second, your application repos could use values to best configure their helm releases. We have an `eks/platform`
+component for exposing various infra outputs. It takes remote state lookups and stores them into SSM. We demonstrate how
+to pull the platform SSM parameters later. Here's an example `eks/platform` config:
 
 ```yaml
 components:
@@ -127,13 +127,13 @@ components:
         certificate_authority_enabled: false
 ```
 
-In the previous sample we create platform settings for a `dev` platform and a
-`qa2` platform. Understand that these are arbitrary titles that are used to separate
-the SSM parameters so that if, say, a particular hostname is needed, we can safely
-select the right hostname using a moniker such as `qa2`. These otherwise are meaningless
-and do not need to align with any particular stage or tenant.
+In the previous sample we create platform settings for a `dev` platform and a `qa2` platform. Understand that these are
+arbitrary titles that are used to separate the SSM parameters so that if, say, a particular hostname is needed, we can
+safely select the right hostname using a moniker such as `qa2`. These otherwise are meaningless and do not need to align
+with any particular stage or tenant.
 
 ### ArgoCD on SAML / AWS Identity Center (formerly aws-sso)
+
 Here's an example snippet for how to use this component:
 
 ```yaml
@@ -191,50 +191,48 @@ components:
         groupsAttr: groups
 ```
 
-Note, if you set up `sso-saml-provider`, you will need to restart DEX on your EKS cluster
-manually:
+Note, if you set up `sso-saml-provider`, you will need to restart DEX on your EKS cluster manually:
+
 ```bash
 kubectl delete pod <dex-pod-name> -n argocd
 ```
 
-The configuration above will work for AWS Identity Center if you have
-the following attributes in a
+The configuration above will work for AWS Identity Center if you have the following attributes in a
 [Custom SAML 2.0 application](https://docs.aws.amazon.com/singlesignon/latest/userguide/samlapps.html):
 
 | attribute name | value           | type        |
-|:---------------|:----------------|:------------|
+| :------------- | :-------------- | :---------- |
 | Subject        | ${user:subject} | persistent  |
 | email          | ${user:email}   | unspecified |
 | groups         | ${user:groups}  | unspecified |
 
-You will also need to assign AWS Identity Center groups to your Custom SAML 2.0
-application. Make a note of each group and replace the IDs in the `argocd_rbac_groups`
-var accordingly.
+You will also need to assign AWS Identity Center groups to your Custom SAML 2.0 application. Make a note of each group
+and replace the IDs in the `argocd_rbac_groups` var accordingly.
 
 ### Google Workspace OIDC
 
 To use Google OIDC:
 
 ```yaml
-  oidc_enabled: true
-  saml_enabled: false
-  oidc_providers:
-    google:
-      uses_dex: true
-      type: google
-      id: google
-      name: Google
-      serviceAccountAccess:
-        enabled: true
-        key: googleAuth.json
-        value: /sso/oidc/google/serviceaccount
-        admin_email: an_actual_user@acme.com
-      config:
-        # This filters emails when signing in with Google to only this domain. helpful for picking the right one.
-        hostedDomains:
-          - acme.com
-        clientID: /sso/saml/google/clientid
-        clientSecret: /sso/saml/google/clientsecret
+oidc_enabled: true
+saml_enabled: false
+oidc_providers:
+  google:
+    uses_dex: true
+    type: google
+    id: google
+    name: Google
+    serviceAccountAccess:
+      enabled: true
+      key: googleAuth.json
+      value: /sso/oidc/google/serviceaccount
+      admin_email: an_actual_user@acme.com
+    config:
+      # This filters emails when signing in with Google to only this domain. helpful for picking the right one.
+      hostedDomains:
+        - acme.com
+      clientID: /sso/saml/google/clientid
+      clientSecret: /sso/saml/google/clientsecret
 ```
 
 ### Working with ArgoCD and GitHub
@@ -289,8 +287,8 @@ jobs:
 ```
 
 In the above example, we make a few assumptions:
-- You've already made the app in ArgoCD by creating a YAML file
-  in your non-prod ArgoCD repo at the path
+
+- You've already made the app in ArgoCD by creating a YAML file in your non-prod ArgoCD repo at the path
   `plat/use2-dev/apps/my-preview-acme-app/config.yaml` with contents:
 
 ```yaml
@@ -303,20 +301,19 @@ manifests: plat/use2-dev/apps/my-preview-acme-app/manifests
 ```
 
 - you have set up `ecr` with permissions for github to push docker images to it
-- you already have your `ApplicationSet` and `AppProject` crd's in
-  `plat/use2-dev/argocd/applicationset.yaml`, which should be generated by our `argocd-repo`
-  component.
-- your app has a [helmfile template](https://helmfile.readthedocs.io/en/latest/#templating)
-  in `deploy/app/release.yaml`
-- that helmfile template can accept both the `eks/platform` config which is pulled from
-  ssm at the path configured in `eks/platform/defaults`
+- you already have your `ApplicationSet` and `AppProject` crd's in `plat/use2-dev/argocd/applicationset.yaml`, which
+  should be generated by our `argocd-repo` component.
+- your app has a [helmfile template](https://helmfile.readthedocs.io/en/latest/#templating) in `deploy/app/release.yaml`
+- that helmfile template can accept both the `eks/platform` config which is pulled from ssm at the path configured in
+  `eks/platform/defaults`
 - the helmfile template can update container resources using the output of `docker image inspect`
 
 ### Notifications
 
 Here's a configuration for letting argocd send notifications back to GitHub:
 
-1. [Create GitHub PAT](https://docs.github.com/en/enterprise-server@3.6/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token) with scope `repo:status`
+1. [Create GitHub PAT](https://docs.github.com/en/enterprise-server@3.6/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token)
+   with scope `repo:status`
 2. Save the PAT to SSM `/argocd/notifications/notifiers/common/github-token`
 3. Use this atmos stack configuration
 
@@ -334,7 +331,8 @@ components:
 
 Here's a configuration Github notify ArgoCD on commit:
 
-1. [Create GitHub PAT](https://docs.github.com/en/enterprise-server@3.6/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token) with scope `admin:repo_hook`
+1. [Create GitHub PAT](https://docs.github.com/en/enterprise-server@3.6/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token)
+   with scope `admin:repo_hook`
 2. Save the PAT to SSM `/argocd/github/api_key`
 3. Use this atmos stack configuration
 
@@ -350,7 +348,9 @@ components:
 
 #### Creating Webhooks with `github-webhook`
 
-If you are creating webhooks for ArgoCD deployment repos in multiple GitHub Organizations, you cannot use the same Terraform GitHub provider. Instead, we can use Atmos to deploy multiple component. To do this, disable the webhook creation in this component and deploy the webhook with the `github-webhook` component as such:
+If you are creating webhooks for ArgoCD deployment repos in multiple GitHub Organizations, you cannot use the same
+Terraform GitHub provider. Instead, we can use Atmos to deploy multiple component. To do this, disable the webhook
+creation in this component and deploy the webhook with the `github-webhook` component as such:
 
 ```yaml
 components:
@@ -396,37 +396,43 @@ components:
 
 ArgoCD supports Slack notifications on application deployments.
 
-1. In order to enable Slack notifications, first create a Slack Application following the [ArgoCD documentation](https://argocd-notifications.readthedocs.io/en/stable/services/slack/).
+1. In order to enable Slack notifications, first create a Slack Application following the
+   [ArgoCD documentation](https://argocd-notifications.readthedocs.io/en/stable/services/slack/).
 1. Create an OAuth token for the new Slack App
-1. Save the OAuth token to AWS SSM Parameter Store in the same account and region as Github tokens. For example, `core-use2-auto`
+1. Save the OAuth token to AWS SSM Parameter Store in the same account and region as Github tokens. For example,
+   `core-use2-auto`
 1. Add the app to the chosen Slack channel. _If not added, notifications will not work_
-1. For this component, enable Slack integrations for each Application with `var.slack_notifications_enabled` and `var.slack_notifications`:
+1. For this component, enable Slack integrations for each Application with `var.slack_notifications_enabled` and
+   `var.slack_notifications`:
 
 ```yaml
-        slack_notifications_enabled: true
-        slack_notifications:
-          channel: argocd-updates
+slack_notifications_enabled: true
+slack_notifications:
+  channel: argocd-updates
 ```
 
-6. In the `argocd-repo` component, set `var.slack_notifications_channel` to the name of the Slack notification channel to add the relevant ApplicationSet annotations
+6. In the `argocd-repo` component, set `var.slack_notifications_channel` to the name of the Slack notification channel
+   to add the relevant ApplicationSet annotations
 
 ## Troubleshooting
 
 ## Login to ArgoCD admin UI
 
-For ArgoCD v1.9 and later, the initial admin password is available from a Kubernetes secret named `argocd-initial-admin-secret`.
-To get the initial password, execute the following command:
+For ArgoCD v1.9 and later, the initial admin password is available from a Kubernetes secret named
+`argocd-initial-admin-secret`. To get the initial password, execute the following command:
 
 ```shell
 kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 --decode
 ```
 
-Then open the ArgoCD admin UI and use the username `admin` and the password obtained in the previous step to log in to the ArgoCD admin.
+Then open the ArgoCD admin UI and use the username `admin` and the password obtained in the previous step to log in to
+the ArgoCD admin.
 
 ## Error "server.secretkey is missing"
 
-If you provision a new version of the `eks/argocd` component, and some Helm Chart values get updated, you might encounter the error
-"server.secretkey is missing" in the ArgoCD admin UI. To fix the error, execute the following commands:
+If you provision a new version of the `eks/argocd` component, and some Helm Chart values get updated, you might
+encounter the error "server.secretkey is missing" in the ArgoCD admin UI. To fix the error, execute the following
+commands:
 
 ```shell
 # Download `kubeconfig` and set EKS cluster
@@ -438,8 +444,10 @@ kubectl rollout restart deploy/argocd-server -n argocd
 # Get the new admin password from the Kubernetes secret
 kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 --decode
 ```
+
 Reference: https://stackoverflow.com/questions/75046330/argo-cd-error-server-secretkey-is-missing
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -592,6 +600,7 @@ Reference: https://stackoverflow.com/questions/75046330/argo-cd-error-server-sec
 |------|-------------|
 | <a name="output_github_webhook_value"></a> [github\_webhook\_value](#output\_github\_webhook\_value) | The value of the GitHub webhook secret used for ArgoCD |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 

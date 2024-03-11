@@ -1,6 +1,6 @@
 # Component: `sso-saml-provider`
 
-This component reads sso credentials from SSM Parameter store and provides them as outputs  
+This component reads sso credentials from SSM Parameter store and provides them as outputs
 
 ## Usage
 

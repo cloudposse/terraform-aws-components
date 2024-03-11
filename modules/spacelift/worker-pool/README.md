@@ -11,8 +11,7 @@ assume the role via `trusted_role_arns`), and have the following AWS managed IAM
 - AWSXRayDaemonWriteAccess
 - CloudWatchAgentServerPolicy
 
-Among other things, this allows workers with SSM agent installed to
-be accessed via SSM Session Manager.
+Among other things, this allows workers with SSM agent installed to be accessed via SSM Session Manager.
 
 ```bash
 aws ssm start-session --target <instance-id>
@@ -75,11 +74,11 @@ components:
 
 ### Impacts on billing
 
-While scaling the workload for Spacelift, keep in mind that each agent connection counts
-against your quota of self-hosted workers. The number of EC2 instances you have running is _not_
-going to affect your Spacelift bill. As an example, if you had 3 EC2 instances in your Spacelift
-worker pool, and you configured `spacelift_agents_per_node` to be `3`, you would see your Spacelift
-bill report 9 agents being run. Take care while configuring the worker pool for your Spacelift infrastructure.
+While scaling the workload for Spacelift, keep in mind that each agent connection counts against your quota of
+self-hosted workers. The number of EC2 instances you have running is _not_ going to affect your Spacelift bill. As an
+example, if you had 3 EC2 instances in your Spacelift worker pool, and you configured `spacelift_agents_per_node` to be
+`3`, you would see your Spacelift bill report 9 agents being run. Take care while configuring the worker pool for your
+Spacelift infrastructure.
 
 ## Configuration
 
@@ -92,9 +91,9 @@ has read-only access to the ECR repository.
 
 Prior to deployment, the API key must exist in SSM. The key must have admin permissions.
 
-To generate the key, please follow [these
-instructions](https://docs.spacelift.io/integrations/api.html#spacelift-api-key-token). Once generated, write the API
-key ID and secret to the SSM key store at the following locations within the same AWS account and region where the
+To generate the key, please follow
+[these instructions](https://docs.spacelift.io/integrations/api.html#spacelift-api-key-token). Once generated, write the
+API key ID and secret to the SSM key store at the following locations within the same AWS account and region where the
 Spacelift worker pool will reside.
 
 | Key     | SSM Path                | Type           |
@@ -118,6 +117,7 @@ After provisioning the component, you must give the created instance role permis
 role. This is done by adding `iam_role_arn` from the output to the `trusted_role_arns` list for the `spacelift` role in
 `aws-teams`.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -260,10 +260,13 @@ role. This is done by adding `iam_role_arn` from the output to the `trusted_role
 | <a name="output_worker_pool_id"></a> [worker\_pool\_id](#output\_worker\_pool\_id) | Spacelift worker pool ID |
 | <a name="output_worker_pool_name"></a> [worker\_pool\_name](#output\_worker\_pool\_name) | Spacelift worker pool name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-- [cloudposse/terraform-spacelift-cloud-infrastructure-automation](https://github.com/cloudposse/terraform-spacelift-cloud-infrastructure-automation) - Cloud Posse's related upstream component
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/spacelift-worker-pool) - Cloud Posse's upstream component
+- [cloudposse/terraform-spacelift-cloud-infrastructure-automation](https://github.com/cloudposse/terraform-spacelift-cloud-infrastructure-automation) -
+  Cloud Posse's related upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/spacelift-worker-pool) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

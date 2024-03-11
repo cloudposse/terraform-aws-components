@@ -64,6 +64,7 @@ components:
               - plat
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -120,3 +121,4 @@ No resources.
 | <a name="output_policies"></a> [policies](#output\_policies) | The policies created by this component |
 | <a name="output_spaces"></a> [spaces](#output\_spaces) | The spaces created by this component |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->

@@ -1,8 +1,7 @@
 # Component: `eks/reloader`
 
-This component installs the [Stakater Reloader](https://github.com/stakater/Reloader) for EKS clusters.
-`reloader` can watch `ConfigMap`s and `Secret`s for changes
-and use these to trigger rolling upgrades on pods and their associated
+This component installs the [Stakater Reloader](https://github.com/stakater/Reloader) for EKS clusters. `reloader` can
+watch `ConfigMap`s and `Secret`s for changes and use these to trigger rolling upgrades on pods and their associated
 `DeploymentConfig`s, `Deployment`s, `Daemonset`s `Statefulset`s and `Rollout`s.
 
 ## Usage
@@ -29,6 +28,7 @@ components:
         timeout: 180
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -116,7 +116,9 @@ components:
 |------|-------------|
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* https://github.com/stakater/Reloader
-* https://github.com/stakater/Reloader/tree/master/deployments/kubernetes/chart/reloader
+
+- https://github.com/stakater/Reloader
+- https://github.com/stakater/Reloader/tree/master/deployments/kubernetes/chart/reloader

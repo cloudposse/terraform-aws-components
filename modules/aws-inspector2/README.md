@@ -8,13 +8,19 @@ This component is responsible for configuring Inspector V2 within an AWS Organiz
 
 ## Deployment Overview
 
-The deployment of this component requires multiple runs with different variable settings to properly configure the AWS Organization. First, you delegate Inspector V2 central management to the Administrator account (usually `security` account). After the Adminstrator account is delegated, we configure the it to manage Inspector V2 across all the Organization accounts and send all their findings to that account.
+The deployment of this component requires multiple runs with different variable settings to properly configure the AWS
+Organization. First, you delegate Inspector V2 central management to the Administrator account (usually `security`
+account). After the Adminstrator account is delegated, we configure the it to manage Inspector V2 across all the
+Organization accounts and send all their findings to that account.
 
-In the examples below, we assume that the AWS Organization Management account is `root` and the AWS Organization Delegated Administrator account is `security`.
+In the examples below, we assume that the AWS Organization Management account is `root` and the AWS Organization
+Delegated Administrator account is `security`.
 
 ### Deploy to Organization Management Account
 
-First, the component is deployed to the AWS Organization Management account `root` in each region in order to configure the [AWS Delegated Administrator account](https://docs.aws.amazon.com/inspector/latest/user/designating-admin.html) that operates Amazon Inspector V2.
+First, the component is deployed to the AWS Organization Management account `root` in each region in order to configure
+the [AWS Delegated Administrator account](https://docs.aws.amazon.com/inspector/latest/user/designating-admin.html) that
+operates Amazon Inspector V2.
 
 ```yaml
 # ue1-root
@@ -30,7 +36,10 @@ components:
 
 ### Deploy Organization Settings in Delegated Administrator Account
 
-Now the component can be deployed to the Delegated Administrator Account `security` to create the organization-wide configuration for all the Organization accounts. Note that `var.admin_delegated` set to `true` indicates that the delegation has already been performed from the Organization Management account, and only the resources required for organization-wide configuration will be created.
+Now the component can be deployed to the Delegated Administrator Account `security` to create the organization-wide
+configuration for all the Organization accounts. Note that `var.admin_delegated` set to `true` indicates that the
+delegation has already been performed from the Organization Management account, and only the resources required for
+organization-wide configuration will be created.
 
 ```yaml
 # ue1-security
@@ -45,6 +54,7 @@ components:
         admin_delegated: true
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -120,6 +130,7 @@ components:
 |------|-------------|
 | <a name="output_aws_inspector2_member_association"></a> [aws\_inspector2\_member\_association](#output\_aws\_inspector2\_member\_association) | The Inspector2 member association resource. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
