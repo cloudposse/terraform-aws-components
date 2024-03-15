@@ -31,6 +31,11 @@ components:
 - Use the `catalog` convention to define a step of alerts. You can use ours or define your own.
   [https://github.com/cloudposse/terraform-datadog-platform/tree/master/catalog/monitors](https://github.com/cloudposse/terraform-datadog-platform/tree/master/catalog/monitors)
 
+- The monitors catalog for the datadog-monitor component support datadog monitor exports. You can use
+  [the status page of a monitor to export it from 'settings'](https://docs.datadoghq.com/monitors/manage/status/#settings).
+  You can add the export to existing files or make new ones. Because the export is json formatted, it's also yaml
+  compatible. If you prefer, you can convert the export to yaml using your text editor or a cli tool like `yq`.
+
 ## Adjust Thresholds per Stack
 
 Since there are so many parameters that may be adjusted for a given monitor, we define all monitors through YAML. By
