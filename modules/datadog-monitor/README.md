@@ -95,7 +95,6 @@ elb-lb-httpcode-5xx-notify:
   escalation_message: ""
   tags: {}
   options:
-    priority: 3
     renotify_interval: 60
     notify_audit: false
     require_full_window: true
