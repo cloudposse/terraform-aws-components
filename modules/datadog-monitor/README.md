@@ -31,13 +31,18 @@ components:
 - Use the `catalog` convention to define a step of alerts. You can use ours or define your own.
   [https://github.com/cloudposse/terraform-datadog-platform/tree/master/catalog/monitors](https://github.com/cloudposse/terraform-datadog-platform/tree/master/catalog/monitors)
 
+- The monitors catalog for the datadog-monitor component support datadog monitor exports. You can use
+  [the status page of a monitor to export it from 'settings'](https://docs.datadoghq.com/monitors/manage/status/#settings).
+  You can add the export to existing files or make new ones. Because the export is json formatted, it's also yaml
+  compatible. If you prefer, you can convert the export to yaml using your text editor or a cli tool like `yq`.
+
 ## Adjust Thresholds per Stack
 
 Since there are so many parameters that may be adjusted for a given monitor, we define all monitors through YAML. By
 convention, we define the **default monitors** that should apply to all environments, and then adjust the thresholds per
-environment. This is accomplished using the `datadog-monitor` components variable `datadog_monitors_config_paths` which
-defines the path to the YAML configuration files. By passing a path for `dev` and `prod`, we can define configurations
-that are different per environment.
+environment. This is accomplished using the `datadog-monitor` components variable `local_datadog_monitors_config_paths`
+which defines the path to the YAML configuration files. By passing a path for `dev` and `prod`, we can define
+configurations that are different per environment.
 
 For example, you might have the following settings defined for `prod` and `dev` stacks that override the defaults.
 
@@ -49,7 +54,7 @@ components:
     datadog-monitor:
       vars:
         # Located in the components/terraform/datadog-monitor directory
-        datadog_monitors_config_paths:
+        local_datadog_monitors_config_paths:
           - catalog/monitors/*.yaml
           - catalog/monitors/dev/*.yaml # note this line
 ```
@@ -62,7 +67,7 @@ components:
     datadog-monitor:
       vars:
         # Located in the components/terraform/datadog-monitor directory
-        datadog_monitors_config_paths:
+        local_datadog_monitors_config_paths:
           - catalog/monitors/*.yaml
           - catalog/monitors/prod/*.yaml # note this line
 ```
@@ -89,29 +94,28 @@ elb-lb-httpcode-5xx-notify:
     Check LB
   escalation_message: ""
   tags: {}
+  options:
+    renotify_interval: 60
+    notify_audit: false
+    require_full_window: true
+    include_tags: true
+    timeout_h: 0
+    evaluation_delay: 60
+    new_host_delay: 300
+    new_group_delay: 0
+    groupby_simple_monitor: false
+    renotify_occurrences: 0
+    renotify_statuses: []
+    validate: true
+    notify_no_data: false
+    no_data_timeframe: 5
+    priority: 3
+    threshold_windows: {}
+    thresholds:
+      critical: 50
+      warning: 20
   priority: 3
-  renotify_interval: 60
-  notify_audit: false
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  timeout_h: 0
-  evaluation_delay: 60
-  new_host_delay: 300
-  new_group_delay: 0
-  groupby_simple_monitor: false
-  renotify_occurrences: 0
-  renotify_statuses: []
-  validate: true
-  notify_no_data: false
-  no_data_timeframe: 5
-  priority: 3
-  threshold_windows: {}
-  thresholds:
-    critical: 50
-    warning: 20
+  restricted_roles: null
 ```
 
 **components/terraform/datadog-monitor/catalog/monitors/dev/elb.yaml**
@@ -121,9 +125,10 @@ elb-lb-httpcode-5xx-notify:
   query: |
     avg(last_15m):max:aws.elb.httpcode_elb_5xx{${context_dd_tags}} by {env,host} > 30
   priority: 2
-  thresholds:
-    critical: 30
-    warning: 10
+  options:
+    thresholds:
+      critical: 30
+      warning: 10
 ```
 
 ## Key Notes
@@ -148,7 +153,7 @@ components:
     datadog-monitor:
       vars:
         # Located in the components/terraform/datadog-monitor directory
-        datadog_monitors_config_paths:
+        local_datadog_monitors_config_paths:
           - catalog/monitors/*.yaml
           - catalog/monitors/dev/*.yaml
         # templatefile() is used for all yaml config paths with these variables.
@@ -165,7 +170,7 @@ components:
   terraform:
     datadog-monitor:
       vars:
-        datadog_monitors_config_paths:
+        local_datadog_monitors_config_paths:
           - https://raw.githubusercontent.com/cloudposse/terraform-datadog-platform/0.27.0/catalog/monitors/ec2.yaml
           - catalog/monitors/ec2.yaml
 ```
@@ -198,7 +203,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | ../datadog-configuration/modules/datadog_keys | n/a |
-| <a name="module_datadog_monitors"></a> [datadog\_monitors](#module\_datadog\_monitors) | cloudposse/platform/datadog//modules/monitors | 1.2.0 |
+| <a name="module_datadog_monitors"></a> [datadog\_monitors](#module\_datadog\_monitors) | cloudposse/platform/datadog//modules/monitors | 1.4.1 |
 | <a name="module_datadog_monitors_merge"></a> [datadog\_monitors\_merge](#module\_datadog\_monitors\_merge) | cloudposse/config/yaml//modules/deepmerge | 1.0.2 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_local_datadog_monitors_yaml_config"></a> [local\_datadog\_monitors\_yaml\_config](#module\_local\_datadog\_monitors\_yaml\_config) | cloudposse/config/yaml | 1.0.2 |

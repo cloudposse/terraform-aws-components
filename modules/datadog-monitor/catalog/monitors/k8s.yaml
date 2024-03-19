@@ -11,21 +11,21 @@ k8s-deployment-replica-pod-down:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 0
-  timeout_h: 0
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 5
-  threshold_windows: { }
-  thresholds:
-    critical: 2
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: true
+    include_tags: true
+    renotify_interval: 0
+    timeout_h: 0
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 5
+    threshold_windows: { }
+    thresholds:
+      critical: 2
+  priority: 3
+  restricted_roles: null
 
 k8s-pod-restarting:
   name: "(k8s) ${tenant} ${ stage } - Pods are restarting multiple times"
@@ -37,22 +37,22 @@ k8s-pod-restarting:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 0
-  timeout_h: 0
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 5
-    warning: 3
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: true
+    include_tags: true
+    renotify_interval: 0
+    timeout_h: 0
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 5
+      warning: 3
+  priority: 3
+  restricted_roles: null
 
 k8s-statefulset-replica-down:
   name: "(k8s) ${tenant} ${ stage } - StatefulSet Replica Pod is down"
@@ -64,23 +64,22 @@ k8s-statefulset-replica-down:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: false
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 0
-  timeout_h: 0
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    warning: 1
-    critical: 2
-
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: false
+    include_tags: true
+    renotify_interval: 0
+    timeout_h: 0
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      warning: 1
+      critical: 2
+  priority: 3
+  restricted_roles: null
 
 k8s-daemonset-pod-down:
   name: "(k8s) ${tenant} ${ stage } - DaemonSet Pod is down"
@@ -92,21 +91,21 @@ k8s-daemonset-pod-down:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: false
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 0
-  timeout_h: 0
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 1
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: false
+    include_tags: true
+    renotify_interval: 0
+    timeout_h: 0
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 1
+  priority: 3
+  restricted_roles: null
 
 k8s-crashloopBackOff:
   name: "(k8s) ${tenant} ${ stage } - CrashloopBackOff detected"
@@ -118,21 +117,21 @@ k8s-crashloopBackOff:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: false
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 0
-  timeout_h: 0
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 1
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: false
+    include_tags: true
+    renotify_interval: 0
+    timeout_h: 0
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 1
+  priority: 3
+  restricted_roles: null
 
 k8s-multiple-pods-failing:
   name: "(k8s) ${tenant} ${ stage } - Multiple Pods are failing"
@@ -144,22 +143,22 @@ k8s-multiple-pods-failing:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 0
-  timeout_h: 0
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    warning: 5
-    critical: 10
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: true
+    include_tags: true
+    renotify_interval: 0
+    timeout_h: 0
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      warning: 5
+      critical: 10
+  priority: 3
+  restricted_roles: null
 
 k8s-unavailable-deployment-replica:
   name: "(k8s) ${tenant} ${ stage } - Unavailable Deployment Replica(s) detected"
@@ -171,26 +170,26 @@ k8s-unavailable-deployment-replica:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: false
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 24
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 0
-    #warning:
-    #unknown:
-    #ok:
-    #critical_recovery:
-    #warning_recovery:
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: false
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 24
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 0
+      #warning:
+      #unknown:
+      #ok:
+      #critical_recovery:
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null
 
 k8s-unavailable-statefulset-replica:
   name: "(k8s) ${tenant} ${ stage } - Unavailable Statefulset Replica(s) detected"
@@ -202,26 +201,26 @@ k8s-unavailable-statefulset-replica:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: false
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 24
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 0
-    #warning:
-    #unknown:
-    #ok:
-    #critical_recovery:
-    #warning_recovery:
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: false
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 24
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 0
+      #warning:
+      #unknown:
+      #ok:
+      #critical_recovery:
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null
 
 k8s-node-status-unschedulable:
   name: "(k8s) ${tenant} ${ stage } - Detected Unschedulable Node(s)"
@@ -233,26 +232,26 @@ k8s-node-status-unschedulable:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: false
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 24
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 80
-    warning: 90
-    #unknown:
-    #ok:
-    #critical_recovery:
-    #warning_recovery:
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: false
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 24
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 80
+      warning: 90
+      #unknown:
+      #ok:
+      #critical_recovery:
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null
 
 k8s-imagepullbackoff:
   name: "(k8s) ${tenant} ${ stage } - ImagePullBackOff detected"
@@ -264,26 +263,26 @@ k8s-imagepullbackoff:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: false
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 1
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 1
-    #warning:
-    #unknown:
-    #ok:
-    #critical_recovery:
-    #warning_recovery:
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: false
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 1
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 1
+      #warning:
+      #unknown:
+      #ok:
+      #critical_recovery:
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null
 
 k8s-high-cpu-usage:
   name: "(k8s) ${tenant} ${ stage } - High CPU Usage Detected"
@@ -295,26 +294,26 @@ k8s-high-cpu-usage:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 24
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 90
-    warning: 60
-    #unknown:
-    #ok:
-    #critical_recovery:
-    #warning_recovery:
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: true
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 24
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 90
+      warning: 60
+      #unknown:
+      #ok:
+      #critical_recovery:
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null
 
 k8s-high-disk-usage:
   name: "(k8s) ${tenant} ${ stage } - High Disk Usage Detected"
@@ -326,26 +325,26 @@ k8s-high-disk-usage:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 24
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 90
-    warning: 75
-    #unknown:
-    #ok:
-    #critical_recovery:
-    #warning_recovery:
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: true
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 24
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 90
+      warning: 75
+      #unknown:
+      #ok:
+      #critical_recovery:
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null
 
 k8s-high-memory-usage:
   name: "(k8s) ${tenant} ${ stage } - High Memory Usage Detected"
@@ -363,26 +362,26 @@ k8s-high-memory-usage:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 24
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 90
-    warning: 80
-    #unknown:
-    #ok:
-    #critical_recovery:
-    #warning_recovery:
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: true
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 24
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 90
+      warning: 80
+      #unknown:
+      #ok:
+      #critical_recovery:
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null
 
 k8s-high-filesystem-usage:
   name: "(k8s) ${tenant} ${ stage } - High Filesystem Usage Detected"
@@ -400,26 +399,26 @@ k8s-high-filesystem-usage:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 24
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 90
-    warning: 80
-    #unknown:
-    #ok:
-    #critical_recovery:
-    #warning_recovery:
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: true
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 24
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 90
+      warning: 80
+      #unknown:
+      #ok:
+      #critical_recovery:
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null
 
 k8s-network-tx-errors:
   name: "(k8s) ${tenant} ${ stage } - High Network TX (send) Errors"
@@ -437,26 +436,26 @@ k8s-network-tx-errors:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 24
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 100
-    warning: 10
-    #unknown:
-    #ok:
-    #critical_recovery:
-    #warning_recovery:
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: true
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 24
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 100
+      warning: 10
+      #unknown:
+      #ok:
+      #critical_recovery:
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null
 
 k8s-network-rx-errors:
   name: "(k8s) ${tenant} ${ stage } - High Network RX (receive) Errors"
@@ -474,26 +473,26 @@ k8s-network-rx-errors:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 24
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 100
-    warning: 10
-    #unknown:
-    #ok:
-    #critical_recovery:
-    #warning_recovery:
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: true
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 24
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 100
+      warning: 10
+      #unknown:
+      #ok:
+      #critical_recovery:
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null
 
 k8s-increased-pod-crash:
   name: "(k8s) ${tenant} ${ stage } - Increased Pod Crashes"
@@ -505,26 +504,26 @@ k8s-increased-pod-crash:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: false
-  require_full_window: false
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 24
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 3
-    #warning:
-    #unknown:
-    #ok:
-    #critical_recovery:
-    #warning_recovery:
+  options:
+    notify_no_data: false
+    notify_audit: false
+    require_full_window: false
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 24
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 3
+      #warning:
+      #unknown:
+      #ok:
+      #critical_recovery:
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null
 
 k8s-pending-pods:
   name: "(k8s) ${tenant} ${ stage } - Pending Pods"
@@ -537,23 +536,23 @@ k8s-pending-pods:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: false
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 24
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 1
-    #warning:
-    #unknown:
-    #ok:
-    #critical_recovery:
-    #warning_recovery:
+  options:
+    notify_no_data: false
+    notify_audit: false
+    require_full_window: true
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 24
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 1
+      #warning:
+      #unknown:
+      #ok:
+      #critical_recovery:
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null
