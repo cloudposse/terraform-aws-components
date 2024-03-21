@@ -1,7 +1,7 @@
 # Component: `eventbridge`
 
-The `eventbridge` component is a Terraform module that defines a CloudWatch EventBridge rule.
-The rule is pointed at cloudwatch by default.
+The `eventbridge` component is a Terraform module that defines a CloudWatch EventBridge rule. The rule is pointed at
+cloudwatch by default.
 
 ## Usage
 
@@ -28,13 +28,14 @@ components:
                   - WARN
                   - ERROR
               - agentConnected:
-                - false
+                  - false
               - containers:
                   exitCode:
                     - anything-but:
-                      - 0
+                        - 0
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -101,8 +102,11 @@ components:
 | <a name="output_cloudwatch_logs_log_group_arn"></a> [cloudwatch\_logs\_log\_group\_arn](#output\_cloudwatch\_logs\_log\_group\_arn) | The ARN of the CloudWatch Log Group |
 | <a name="output_cloudwatch_logs_log_group_name"></a> [cloudwatch\_logs\_log\_group\_name](#output\_cloudwatch\_logs\_log\_group\_name) | The name of the CloudWatch Log Group |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/eventbridge) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/eventbridge) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

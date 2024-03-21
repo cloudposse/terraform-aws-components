@@ -12,7 +12,7 @@ The following will create
 
 - ecs cluster
 - load balancer with an ACM cert placed on example.com
-- r53 record on all *.example.com which will point to the load balancer
+- r53 record on all \*.example.com which will point to the load balancer
 
 ```yaml
 components:
@@ -50,6 +50,7 @@ components:
               - "my-vanity-domain.com"
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -144,8 +145,11 @@ components:
 | <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | Security group id |
 | <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | VPC ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/ecs) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/ecs) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

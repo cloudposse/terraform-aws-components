@@ -1,6 +1,7 @@
 # Component: `actions-runner-controller`
 
-This component creates a Helm release for [actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller) on an EKS cluster.
+This component creates a Helm release for
+[actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller) on an EKS cluster.
 
 ## Usage
 
@@ -165,7 +166,6 @@ components:
           #    - "amd64"
           #    - "AMD64"
           #    - "core-auto"
-
 ```
 
 ### Generating Required Secrets
@@ -174,25 +174,27 @@ AWS SSM is used to store and retrieve secrets.
 
 Decide on the SSM path for the GitHub secret (PAT or Application private key) and GitHub webhook secret.
 
-Since the secret is automatically scoped by AWS to the account and region where the secret is stored,
-we recommend the secret be stored at `/github_runners/controller_github_app_secret` unless you
-plan on running multiple instances of the controller. If you plan on running multiple instances of the controller,
-and want to give them different access (otherwise they could share the same secret), then you can add
-a path component to the SSM path. For example `/github_runners/cicd/controller_github_app_secret`.
+Since the secret is automatically scoped by AWS to the account and region where the secret is stored, we recommend the
+secret be stored at `/github_runners/controller_github_app_secret` unless you plan on running multiple instances of the
+controller. If you plan on running multiple instances of the controller, and want to give them different access
+(otherwise they could share the same secret), then you can add a path component to the SSM path. For example
+`/github_runners/cicd/controller_github_app_secret`.
 
 ```
 ssm_github_secret_path: "/github_runners/controller_github_app_secret"
 ```
 
-The preferred way to authenticate is by _creating_ and _installing_ a GitHub App.
-This is the recommended approach as it allows for more much more restricted access than using a personal access token,
-at least until [fine-grained personal access token permissions](https://github.blog/2022-10-18-introducing-fine-grained-personal-access-tokens-for-github/) are generally available.
-Follow the instructions [here](https://github.com/actions-runner-controller/actions-runner-controller/blob/master/docs/detailed-docs.md#deploying-using-github-app-authentication) to create and install the GitHub App.
+The preferred way to authenticate is by _creating_ and _installing_ a GitHub App. This is the recommended approach as it
+allows for more much more restricted access than using a personal access token, at least until
+[fine-grained personal access token permissions](https://github.blog/2022-10-18-introducing-fine-grained-personal-access-tokens-for-github/)
+are generally available. Follow the instructions
+[here](https://github.com/actions-runner-controller/actions-runner-controller/blob/master/docs/detailed-docs.md#deploying-using-github-app-authentication)
+to create and install the GitHub App.
 
-At the creation stage, you will be asked to generate a private key. This is the private key that will be used to authenticate
-the Action Runner Controller. Download the file and store the contents in SSM using the following command, adjusting the profile
-and file name. The profile should be the `admin` role in the account to which you are deploying the runner controller.
-The file name should be the name of the private key file you downloaded.
+At the creation stage, you will be asked to generate a private key. This is the private key that will be used to
+authenticate the Action Runner Controller. Download the file and store the contents in SSM using the following command,
+adjusting the profile and file name. The profile should be the `admin` role in the account to which you are deploying
+the runner controller. The file name should be the name of the private key file you downloaded.
 
 ```
 AWS_PROFILE=acme-mgmt-use2-auto-admin chamber write github_runners controller_github_app_secret -- "$(cat APP_NAME.DATE.private-key.pem)"
@@ -204,15 +206,15 @@ You can verify the file was correctly written to SSM by matching the private key
 AWS_PROFILE=acme-mgmt-use2-auto-admin chamber read -q github_runners controller_github_app_secret | openssl rsa -in - -pubout -outform DER | openssl sha256 -binary | openssl base64
 ```
 
-At this stage, record the Application ID and the private key fingerprint in your secrets manager (e.g. 1Password).
-You will need the Application ID to configure the runner controller, and want the fingerprint to verify the private key.
+At this stage, record the Application ID and the private key fingerprint in your secrets manager (e.g. 1Password). You
+will need the Application ID to configure the runner controller, and want the fingerprint to verify the private key.
 
-Proceed to install the GitHub App in the organization or repository you want to use the runner controller for,
-and record the Installation ID (the final numeric part of the URL, as explained in the instructions
-linked above) in your secrets manager. You will need the Installation ID to configure the runner controller.
+Proceed to install the GitHub App in the organization or repository you want to use the runner controller for, and
+record the Installation ID (the final numeric part of the URL, as explained in the instructions linked above) in your
+secrets manager. You will need the Installation ID to configure the runner controller.
 
-In your stack configuration, set the following variables, making sure to quote the values so they are
-treated as strings, not numbers.
+In your stack configuration, set the following variables, making sure to quote the values so they are treated as
+strings, not numbers.
 
 ```
 github_app_id: "12345"
@@ -220,44 +222,52 @@ github_app_installation_id: "12345"
 ```
 
 OR (obsolete)
-- A PAT with the scope outlined in [this document](https://github.com/actions-runner-controller/actions-runner-controller#deploying-using-pat-authentication).
-  Save this to the value specified by `ssm_github_token_path` using the following command, adjusting the
-  AWS\_PROFILE to refer to the `admin` role in the account to which you are deploying the runner controller:
+
+- A PAT with the scope outlined in
+  [this document](https://github.com/actions-runner-controller/actions-runner-controller#deploying-using-pat-authentication).
+  Save this to the value specified by `ssm_github_token_path` using the following command, adjusting the AWS_PROFILE to
+  refer to the `admin` role in the account to which you are deploying the runner controller:
 
 ```
 AWS_PROFILE=acme-mgmt-use2-auto-admin chamber write github_runners controller_github_app_secret -- "<PAT>"
 ```
 
-2. If using the Webhook Driven autoscaling (recommended), generate a random string to use as the Secret when creating the webhook in GitHub.
+2. If using the Webhook Driven autoscaling (recommended), generate a random string to use as the Secret when creating
+   the webhook in GitHub.
 
 Generate the string using 1Password (no special characters, length 45) or by running
+
 ```bash
 dd if=/dev/random bs=1 count=33  2>/dev/null | base64
 ```
 
 Store this key in AWS SSM under the same path specified by `ssm_github_webhook_secret_token_path`
+
 ```
 ssm_github_webhook_secret_token_path: "/github_runners/github_webhook_secret"
 ```
 
 ### Using Runner Groups
 
-GitHub supports grouping runners into distinct [Runner Groups](https://docs.github.com/en/actions/hosting-your-own-runners/managing-access-to-self-hosted-runners-using-groups), which allow you to have different access controls
-for different runners. Read the linked documentation about creating and configuring Runner Groups, which you must do
-through the GitHub Web UI. If you choose to create Runner Groups, you can assign one or more Runner pools (from the
-`runners` map) to groups (only one group per runner pool) by including `group: <Runner Group Name>` in the runner
-configuration. We recommend including it immediately after `scope`.
+GitHub supports grouping runners into distinct
+[Runner Groups](https://docs.github.com/en/actions/hosting-your-own-runners/managing-access-to-self-hosted-runners-using-groups),
+which allow you to have different access controls for different runners. Read the linked documentation about creating
+and configuring Runner Groups, which you must do through the GitHub Web UI. If you choose to create Runner Groups, you
+can assign one or more Runner pools (from the `runners` map) to groups (only one group per runner pool) by including
+`group: <Runner Group Name>` in the runner configuration. We recommend including it immediately after `scope`.
 
 ### Using Webhook Driven Autoscaling (recommended)
 
-We recommend using Webhook Driven Autoscaling until GitHub releases their own autoscaling solution (said to be "in the works" as of April 2023).
+We recommend using Webhook Driven Autoscaling until GitHub releases their own autoscaling solution (said to be "in the
+works" as of April 2023).
 
-To use the Webhook Driven Autoscaling, in addition to setting `webhook_driven_scaling_enabled` to `true`, you must
-also install the GitHub organization-level webhook after deploying the component (specifically, the webhook server).
-The URL for the webhook is determined by the `webhook.hostname_template` and where
-it is deployed. Recommended URL is `https://gha-webhook.[environment].[stage].[tenant].[service-discovery-domain]`.
+To use the Webhook Driven Autoscaling, in addition to setting `webhook_driven_scaling_enabled` to `true`, you must also
+install the GitHub organization-level webhook after deploying the component (specifically, the webhook server). The URL
+for the webhook is determined by the `webhook.hostname_template` and where it is deployed. Recommended URL is
+`https://gha-webhook.[environment].[stage].[tenant].[service-discovery-domain]`.
 
 As a GitHub organization admin, go to `https://github.com/organizations/[organization]/settings/hooks`, and then:
+
 - Click"Add webhook" and create a new webhook with the following settings:
   - Payload URL: copy from Terraform output `webhook_payload_url`
   - Content type: `application/json`
@@ -269,62 +279,62 @@ As a GitHub organization admin, go to `https://github.com/organizations/[organiz
   - Ensure that "Active" is checked (should be checked by default)
   - Click "Add webhook" at the bottom of the settings page
 
-After the webhook is created, select "edit" for the webhook and go to the "Recent Deliveries" tab and verify that there is a delivery
-(of a "ping" event) with a green check mark. If not, verify all the settings and consult
-the logs of the `actions-runner-controller-github-webhook-server` pod.
+After the webhook is created, select "edit" for the webhook and go to the "Recent Deliveries" tab and verify that there
+is a delivery (of a "ping" event) with a green check mark. If not, verify all the settings and consult the logs of the
+`actions-runner-controller-github-webhook-server` pod.
 
 ### Configuring Webhook Driven Autoscaling
 
-The `HorizontalRunnerAutoscaler scaleUpTriggers.duration` (see [Webhook Driven Scaling documentation](https://github. com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#webhook-driven-scaling)) is
-controlled by the  `webhook_startup_timeout` setting for each Runner. The purpose of this timeout is to ensure, in
-case a job cancellation or termination event gets missed, that the resulting idle runner eventually gets terminated.
+The `HorizontalRunnerAutoscaler scaleUpTriggers.duration` (see [Webhook Driven Scaling documentation](https://github.
+com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#webhook-driven-scaling)) is
+controlled by the `webhook_startup_timeout` setting for each Runner. The purpose of this timeout is to ensure, in case a
+job cancellation or termination event gets missed, that the resulting idle runner eventually gets terminated.
 
 #### How the Autoscaler Determines the Desired Runner Pool Size
 
-When a job is queued, a `capacityReservation` is created for it. The HRA (Horizontal Runner Autoscaler) sums up all
-the capacity reservations to calculate the desired size of the runner pool, subject to the limits of `minReplicas`
-and `maxReplicas`. The idea is that a `capacityReservation` is deleted when a job is completed or canceled, and the
-pool size will be equal to `jobsStarted - jobsFinished`. However, it can happen that a job will finish without the
-HRA being successfully notified about it, so as a safety measure, the `capacityReservation` will expire after a
-configurable amount of time, at which point it will be deleted without regard to the job being finished. This
-ensures that eventually an idle runner pool will scale down to `minReplicas`.
+When a job is queued, a `capacityReservation` is created for it. The HRA (Horizontal Runner Autoscaler) sums up all the
+capacity reservations to calculate the desired size of the runner pool, subject to the limits of `minReplicas` and
+`maxReplicas`. The idea is that a `capacityReservation` is deleted when a job is completed or canceled, and the pool
+size will be equal to `jobsStarted - jobsFinished`. However, it can happen that a job will finish without the HRA being
+successfully notified about it, so as a safety measure, the `capacityReservation` will expire after a configurable
+amount of time, at which point it will be deleted without regard to the job being finished. This ensures that eventually
+an idle runner pool will scale down to `minReplicas`.
 
-If it happens that the capacity reservation expires before the job is finished, the Horizontal Runner Autoscaler (HRA) will scale down the pool
-by 2 instead of 1: once because the capacity reservation expired, and once because the job finished. This will
-also cause starvation of waiting jobs, because the next in line will have its timeout timer started but will not
-actually start running because no runner is available. And if `minReplicas` is set to zero, the pool will scale down
-to zero before finishing all the jobs, leaving some waiting indefinitely. This is why it is important to set the
-`webhook_startup_timeout` to a time long enough to cover the full time a job may have to wait between the time it is
+If it happens that the capacity reservation expires before the job is finished, the Horizontal Runner Autoscaler (HRA)
+will scale down the pool by 2 instead of 1: once because the capacity reservation expired, and once because the job
+finished. This will also cause starvation of waiting jobs, because the next in line will have its timeout timer started
+but will not actually start running because no runner is available. And if `minReplicas` is set to zero, the pool will
+scale down to zero before finishing all the jobs, leaving some waiting indefinitely. This is why it is important to set
+the `webhook_startup_timeout` to a time long enough to cover the full time a job may have to wait between the time it is
 queued and the time it finishes, assuming that the HRA scales up the pool by 1 and runs the job on the new runner.
 
-:::info
-If there are more jobs queued than there are runners allowed by `maxReplicas`, the timeout timer does not start on the
-capacity reservation until enough reservations ahead of it are removed for it to be considered as representing
+:::info If there are more jobs queued than there are runners allowed by `maxReplicas`, the timeout timer does not start
+on the capacity reservation until enough reservations ahead of it are removed for it to be considered as representing
 and active job. Although there are some edge cases regarding `webhook_startup_timeout` that seem not to be covered
-properly (see [actions-runner-controller issue #2466](https://github.com/actions/actions-runner-controller/issues/2466)),
-they only merit adding a few extra minutes to the timeout.
-:::
-
+properly (see
+[actions-runner-controller issue #2466](https://github.com/actions/actions-runner-controller/issues/2466)), they only
+merit adding a few extra minutes to the timeout. :::
 
 ### Recommended `webhook_startup_timeout` Duration
 
 #### Consequences of Too Short of a `webhook_startup_timeout` Duration
 
 If you set `webhook_startup_timeout` to too short a duration, the Horizontal Runner Autoscaler will cancel capacity
-reservations for jobs that have not yet finished, and the pool will become too small. This will be most serious if you have
-set `minReplicas = 0` because in this case, jobs will be left in the queue indefinitely. With a higher value of
-`minReplicas`, the pool will eventually make it through all the queued jobs, but not as quickly as intended due to
-the incorrectly reduced capacity.
+reservations for jobs that have not yet finished, and the pool will become too small. This will be most serious if you
+have set `minReplicas = 0` because in this case, jobs will be left in the queue indefinitely. With a higher value of
+`minReplicas`, the pool will eventually make it through all the queued jobs, but not as quickly as intended due to the
+incorrectly reduced capacity.
 
 #### Consequences of Too Long of a `webhook_startup_timeout` Duration
 
 If the Horizontal Runner Autoscaler misses a scale-down event (which can happen because events do not have delivery
-guarantees), a runner may be left running idly for as long as the `webhook_startup_timeout` duration. The only
-problem with this is the added expense of leaving the idle runner running.
+guarantees), a runner may be left running idly for as long as the `webhook_startup_timeout` duration. The only problem
+with this is the added expense of leaving the idle runner running.
 
 #### Recommendation
 
 As a result, we recommend setting `webhook_startup_timeout` to a period long enough to cover:
+
 - The time it takes for the HRA to scale up the pool and make a new runner available
 - The time it takes for the runner to pick up the job from GitHub
 - The time it takes for the job to start running on the new runner
@@ -332,21 +342,21 @@ As a result, we recommend setting `webhook_startup_timeout` to a period long eno
 
 Because the consequences of expiring a capacity reservation before the job is finished are so severe, we recommend
 setting `webhook_startup_timeout` to a period at least 30 minutes longer than you expect the longest job to take.
-Remember, when everything works properly, the HRA will scale down the pool as jobs finish, so there is little cost
-to setting a long duration, and the cost looks even smaller by comparison to the cost of having too short a duration.
+Remember, when everything works properly, the HRA will scale down the pool as jobs finish, so there is little cost to
+setting a long duration, and the cost looks even smaller by comparison to the cost of having too short a duration.
 
-For lightly used runner pools expecting only short jobs, you can set `webhook_startup_timeout` to `"30m"`.
-As a rule of thumb, we recommend setting `maxReplicas` high enough that jobs never wait on the queue more than an hour.
+For lightly used runner pools expecting only short jobs, you can set `webhook_startup_timeout` to `"30m"`. As a rule of
+thumb, we recommend setting `maxReplicas` high enough that jobs never wait on the queue more than an hour.
 
 ### Interaction with Karpenter or other EKS autoscaling solutions
 
-Kubernetes cluster autoscaling solutions generally expect that a Pod runs a service that can be terminated on one
-Node and restarted on another with only a short duration needed to finish processing any in-flight requests. When
-the cluster is resized, the cluster autoscaler will do just that. However, GitHub Action Runner Jobs do not fit this
-model. If a Pod is terminated in the middle of a job, the job is lost. The likelihood of this happening is increased
-by the fact that the Action Runner Controller Autoscaler is expanding and contracting the size of the Runner Pool on
-a regular basis, causing the cluster autoscaler to more frequently want to scale up or scale down the EKS cluster,
-and, consequently, to move Pods around.
+Kubernetes cluster autoscaling solutions generally expect that a Pod runs a service that can be terminated on one Node
+and restarted on another with only a short duration needed to finish processing any in-flight requests. When the cluster
+is resized, the cluster autoscaler will do just that. However, GitHub Action Runner Jobs do not fit this model. If a Pod
+is terminated in the middle of a job, the job is lost. The likelihood of this happening is increased by the fact that
+the Action Runner Controller Autoscaler is expanding and contracting the size of the Runner Pool on a regular basis,
+causing the cluster autoscaler to more frequently want to scale up or scale down the EKS cluster, and, consequently, to
+move Pods around.
 
 To handle these kinds of situations, Karpenter respects an annotation on the Pod:
 
@@ -358,42 +368,44 @@ spec:
         karpenter.sh/do-not-evict: "true"
 ```
 
-When you set this annotation on the Pod, Karpenter will not evict it. This means that the Pod will stay on the Node
-it is on, and the Node it is on will not be considered for eviction. This is good because it means that the Pod
-will not be terminated in the middle of a job. However, it also means that the Node the Pod is on will not be considered
-for termination, which means that the Node will not be removed from the cluster, which means that the cluster will
-not shrink in size when you would like it to.
+When you set this annotation on the Pod, Karpenter will not evict it. This means that the Pod will stay on the Node it
+is on, and the Node it is on will not be considered for eviction. This is good because it means that the Pod will not be
+terminated in the middle of a job. However, it also means that the Node the Pod is on will not be considered for
+termination, which means that the Node will not be removed from the cluster, which means that the cluster will not
+shrink in size when you would like it to.
 
 Since the Runner Pods terminate at the end of the job, this is not a problem for the Pods actually running jobs.
 However, if you have set `minReplicas > 0`, then you have some Pods that are just idling, waiting for jobs to be
-assigned to them. These Pods are exactly the kind of Pods you want terminated and moved when the cluster is underutilized.
-Therefore, when you set `minReplicas > 0`, you should **NOT** set `karpenter.sh/do-not-evict: "true"` on the Pod.
+assigned to them. These Pods are exactly the kind of Pods you want terminated and moved when the cluster is
+underutilized. Therefore, when you set `minReplicas > 0`, you should **NOT** set `karpenter.sh/do-not-evict: "true"` on
+the Pod.
 
-We have [requested a feature](https://github.com/actions/actions-runner-controller/issues/2562)
-that will allow you to set `karpenter.sh/do-not-evict: "true"` and `minReplicas > 0` at the same time by only
-annotating Pods running jobs. Meanwhile, another option is to set `minReplicas = 0` on a schedule using an ARC
-Autoscaler [scheduled override](https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#scheduled-overrides).
-At present, this component does not support that option, but it could be added in the future if our preferred
-solution is not implemented.
+We have [requested a feature](https://github.com/actions/actions-runner-controller/issues/2562) that will allow you to
+set `karpenter.sh/do-not-evict: "true"` and `minReplicas > 0` at the same time by only annotating Pods running jobs.
+Meanwhile, another option is to set `minReplicas = 0` on a schedule using an ARC Autoscaler
+[scheduled override](https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#scheduled-overrides).
+At present, this component does not support that option, but it could be added in the future if our preferred solution
+is not implemented.
 
 ### Updating CRDs
 
 When updating the chart or application version of `actions-runner-controller`, it is possible you will need to install
-new CRDs. Such a requirement should be indicated in the `actions-runner-controller` release notes and may require some adjustment to our
-custom chart or configuration.
+new CRDs. Such a requirement should be indicated in the `actions-runner-controller` release notes and may require some
+adjustment to our custom chart or configuration.
 
-This component uses `helm` to manage the deployment, and `helm` will not auto-update CRDs.
-If new CRDs are needed, install them manually via a command like
+This component uses `helm` to manage the deployment, and `helm` will not auto-update CRDs. If new CRDs are needed,
+install them manually via a command like
 
 ```
 kubectl create -f https://raw.githubusercontent.com/actions-runner-controller/actions-runner-controller/master/charts/actions-runner-controller/crds/actions.summerwind.dev_horizontalrunnerautoscalers.yaml
 ```
 
-
 ### Useful Reference
 
-Consult [actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller) documentation for further details.
+Consult [actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller)
+documentation for further details.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -497,10 +509,12 @@ Consult [actions-runner-controller](https://github.com/actions-runner-controller
 | <a name="output_metadata_action_runner_releases"></a> [metadata\_action\_runner\_releases](#output\_metadata\_action\_runner\_releases) | Block statuses of the deployed actions-runner chart releases |
 | <a name="output_webhook_payload_url"></a> [webhook\_payload\_url](#output\_webhook\_payload\_url) | Payload URL for GitHub webhook |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/actions-runner-controller) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/actions-runner-controller) -
+  Cloud Posse's upstream component
 - [alb-controller](https://artifacthub.io/packages/helm/aws/aws-load-balancer-controller) - Helm Chart
 - [alb-controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) - AWS Load Balancer Controller
 - [actions-runner-controller Webhook Driven Scaling](https://github.com/actions-runner-controller/actions-runner-controller/blob/master/docs/detailed-docs.md#webhook-driven-scaling)

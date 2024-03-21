@@ -1,11 +1,13 @@
 # Component: `rds`
 
-This component is responsible for provisioning an RDS instance. It seeds relevant database information (hostnames, username, password, etc.) into AWS SSM Parameter Store.
+This component is responsible for provisioning an RDS instance. It seeds relevant database information (hostnames,
+username, password, etc.) into AWS SSM Parameter Store.
 
 ## Security Groups Guidance:
-By default this component creates a client security group and adds that security group id to the default attached security group.
-Ideally other AWS resources that require RDS access can be granted this client security group. Additionally you can grant access
-via specific CIDR blocks or security group ids.
+
+By default this component creates a client security group and adds that security group id to the default attached
+security group. Ideally other AWS resources that require RDS access can be granted this client security group.
+Additionally you can grant access via specific CIDR blocks or security group ids.
 
 ## Usage
 
@@ -69,24 +71,29 @@ components:
         # This does not seem to work correctly
         deletion_protection: false
 ```
+
 ### Provisioning from a snapshot
-The snapshot identifier variable can be added to provision an instance from a snapshot HOWEVER-
-Keep in mind these instances are provisioned from a unique kms key per rds.
-For clean terraform runs, you must first provision the key for the destination instance, then copy the snapshot using that kms key.
+
+The snapshot identifier variable can be added to provision an instance from a snapshot HOWEVER- Keep in mind these
+instances are provisioned from a unique kms key per rds. For clean terraform runs, you must first provision the key for
+the destination instance, then copy the snapshot using that kms key.
 
 Example - I want a new instance `rds-example-new` to be provisioned from a snapshot of `rds-example-old`:
+
 1. Use the console to manually make a snapshot of rds instance `rds-example-old`
 1. provision the kms key for `rds-example-new`
 
-    ```
-    atmos terraform plan  rds-example-new -s ue1-staging '-target=module.kms_key_rds.aws_kms_key.default[0]'
-    atmos terraform apply rds-example-new -s ue1-staging '-target=module.kms_key_rds.aws_kms_key.default[0]'
-    ```
+   ```
+   atmos terraform plan  rds-example-new -s ue1-staging '-target=module.kms_key_rds.aws_kms_key.default[0]'
+   atmos terraform apply rds-example-new -s ue1-staging '-target=module.kms_key_rds.aws_kms_key.default[0]'
+   ```
 
 1. Use the console to copy the snapshot to a new name using the above provisioned kms key
-1. Add `snapshot_identifier` variable to `rds-example-new` catalog and specify the newly copied snapshot that used the above key
+1. Add `snapshot_identifier` variable to `rds-example-new` catalog and specify the newly copied snapshot that used the
+   above key
 1. Post provisioning, remove the `snapshot_idenfier` variable and verify terraform runs clean for the copied instance
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -237,10 +244,11 @@ Example - I want a new instance `rds-example-new` to be provisioned from a snaps
 | <a name="output_rds_security_group_id"></a> [rds\_security\_group\_id](#output\_rds\_security\_group\_id) | ID of the Security Group |
 | <a name="output_rds_subnet_group_id"></a> [rds\_subnet\_group\_id](#output\_rds\_subnet\_group\_id) | ID of the created Subnet Group |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/rds) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/rds) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

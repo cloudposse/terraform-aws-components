@@ -1,7 +1,7 @@
 # Component: `aws-waf-acl`
 
-This component is responsible for provisioning an AWS Web Application Firewall (WAF) with an associated managed rule group.
-
+This component is responsible for provisioning an AWS Web Application Firewall (WAF) with an associated managed rule
+group.
 
 ## Usage
 
@@ -24,21 +24,22 @@ components:
           metric_name: "default"
           sampled_requests_enabled: false
         managed_rule_group_statement_rules:
-        - name: "OWASP-10"
-          # Rules are processed in order based on the value of priority, lowest number first
-          priority: 1
+          - name: "OWASP-10"
+            # Rules are processed in order based on the value of priority, lowest number first
+            priority: 1
 
-          statement:
-            name:  AWSManagedRulesCommonRuleSet
-            vendor_name: AWS
+            statement:
+              name: AWSManagedRulesCommonRuleSet
+              vendor_name: AWS
 
-          visibility_config:
-            # Defines and enables Amazon CloudWatch metrics and web request sample collection.
-            cloudwatch_metrics_enabled: false
-            metric_name: "OWASP-10"
-            sampled_requests_enabled: false
+            visibility_config:
+              # Defines and enables Amazon CloudWatch metrics and web request sample collection.
+              cloudwatch_metrics_enabled: false
+              metric_name: "OWASP-10"
+              sampled_requests_enabled: false
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -128,10 +129,11 @@ components:
 | <a name="output_id"></a> [id](#output\_id) | The ID of the WAF WebACL. |
 | <a name="output_logging_config_id"></a> [logging\_config\_id](#output\_logging\_config\_id) | The ARN of the WAFv2 Web ACL logging configuration. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/waf) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/waf) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

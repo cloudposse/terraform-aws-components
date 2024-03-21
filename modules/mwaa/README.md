@@ -14,9 +14,9 @@ Allows the Airflow UI to be access over the public internet to users granted acc
 
 Limits access to users within the VPC to users granted access by an IAM policy.
 
-* MWAA creates a VPC interface endpoint for the Airflow webserver and an interface endpoint for the pgsql metadatabase.
+- MWAA creates a VPC interface endpoint for the Airflow webserver and an interface endpoint for the pgsql metadatabase.
   - the endpoints are created in the AZs mapped to your private subnets
-* MWAA binds an IP address from your private subnet to the interface endpoint
+- MWAA binds an IP address from your private subnet to the interface endpoint
 
 ### Managing access to VPC endpoings on MWAA
 
@@ -41,6 +41,7 @@ components:
         airflow_version: 2.0.2
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -144,10 +145,11 @@ components:
 | <a name="output_tags_all"></a> [tags\_all](#output\_tags\_all) | A map of tags assigned to the resource, including those inherited from the provider for the Amazon MWAA Environment |
 | <a name="output_webserver_url"></a> [webserver\_url](#output\_webserver\_url) | The webserver URL of the Amazon MWAA Environment |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/TODO) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/TODO) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

@@ -1,7 +1,7 @@
 # Component: `aurora-postgres`
 
-This component is responsible for provisioning Aurora Postgres RDS clusters.
-It seeds relevant database information (hostnames, username, password, etc.) into AWS SSM Parameter Store.
+This component is responsible for provisioning Aurora Postgres RDS clusters. It seeds relevant database information
+(hostnames, username, password, etc.) into AWS SSM Parameter Store.
 
 ## Usage
 
@@ -9,7 +9,8 @@ It seeds relevant database information (hostnames, username, password, etc.) int
 
 Here's an example for how to use this component.
 
-`stacks/catalog/aurora-postgres/defaults.yaml` file (base component for all Aurora Postgres clusters with default settings):
+`stacks/catalog/aurora-postgres/defaults.yaml` file (base component for all Aurora Postgres clusters with default
+settings):
 
 ```yaml
 components:
@@ -54,10 +55,12 @@ components:
         allow_ingress_from_vpc_accounts:
           - tenant: core
             stage: auto
-
 ```
-Example (not actual)
-`stacks/uw2-dev.yaml` file (override the default settings for the cluster in the `dev` account, create an additional database and user):
+
+Example (not actual):
+
+`stacks/uw2-dev.yaml` file (override the default settings for the cluster in the `dev` account, create an additional
+database and user):
 
 ```yaml
 import:
@@ -72,12 +75,12 @@ components:
           - aurora-postgres/defaults
       vars:
         enabled: true
-
 ```
 
 ### Finding Aurora Engine Version
 
-Use the following to query the AWS API by `engine-mode`. Both provisioned and Serverless v2 use the `privisoned` engine mode, whereas only Serverless v1 uses the `serverless` engine mode.
+Use the following to query the AWS API by `engine-mode`. Both provisioned and Serverless v2 use the `privisoned` engine
+mode, whereas only Serverless v1 uses the `serverless` engine mode.
 
 ```bash
 aws rds describe-db-engine-versions \
@@ -86,7 +89,8 @@ aws rds describe-db-engine-versions \
   --filters 'Name=engine-mode,Values=serverless'
 ```
 
-Use the following to query AWS API by `db-instance-class`. Use this query to find supported versions for a specific instance class, such as `db.serverless` with Serverless v2.
+Use the following to query AWS API by `db-instance-class`. Use this query to find supported versions for a specific
+instance class, such as `db.serverless` with Serverless v2.
 
 ```bash
 aws rds describe-orderable-db-instance-options \
@@ -115,7 +119,8 @@ Generally there are three different engine configurations for Aurora: provisione
 
 Serverless v1 requires `engine-mode` set to `serverless` uses `scaling_configuration` to configure scaling options.
 
-For valid values, see [ModifyCurrentDBClusterCapacity](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_ModifyCurrentDBClusterCapacity.html).
+For valid values, see
+[ModifyCurrentDBClusterCapacity](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_ModifyCurrentDBClusterCapacity.html).
 
 ```yaml
 components:
@@ -174,9 +179,11 @@ components:
 
 ### Serverless v2 Aurora Postgres
 
-Aurora Postgres Serverless v2 uses the `provisioned` engine mode with `db.serverless` instances. In order to configure scaling with Serverless v2, use `var.serverlessv2_scaling_configuration`.
+Aurora Postgres Serverless v2 uses the `provisioned` engine mode with `db.serverless` instances. In order to configure
+scaling with Serverless v2, use `var.serverlessv2_scaling_configuration`.
 
-For more on valid scaling configurations, see [Performance and scaling for Aurora Serverless v2](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.setting-capacity.html).
+For more on valid scaling configurations, see
+[Performance and scaling for Aurora Serverless v2](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.setting-capacity.html).
 
 ```yaml
 components:
@@ -230,6 +237,7 @@ components:
         additional_users: {}
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -355,10 +363,11 @@ components:
 | <a name="output_replicas_hostname"></a> [replicas\_hostname](#output\_replicas\_hostname) | Postgres replicas hostname |
 | <a name="output_ssm_key_paths"></a> [ssm\_key\_paths](#output\_ssm\_key\_paths) | Names (key paths) of all SSM parameters stored for this cluster |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aurora-postgres) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aurora-postgres) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

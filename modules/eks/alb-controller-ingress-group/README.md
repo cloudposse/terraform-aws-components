@@ -2,7 +2,8 @@
 
 This component provisions a Kubernetes Service that creates an ALB for a specific [IngressGroup].
 
-An [IngressGroup] is a feature of the [alb-controller] which allows multiple Kubernetes Ingresses to share the same Application Load Balancer.
+An [IngressGroup] is a feature of the [alb-controller] which allows multiple Kubernetes Ingresses to share the same
+Application Load Balancer.
 
 ## Usage
 
@@ -15,8 +16,8 @@ import:
   - catalog/eks/alb-controller-ingress-group
 ```
 
-The default catalog values `e.g. stacks/catalog/eks/alb-controller-ingress-group.yaml`
-will create a Kubernetes Service in the `default` namespace with an [IngressGroup] named `alb-controller-ingress-group`.
+The default catalog values `e.g. stacks/catalog/eks/alb-controller-ingress-group.yaml` will create a Kubernetes Service
+in the `default` namespace with an [IngressGroup] named `alb-controller-ingress-group`.
 
 ```yaml
 components:
@@ -33,6 +34,7 @@ components:
         name: alb-controller-ingress-group
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -139,12 +141,15 @@ components:
 | <a name="output_load_balancer_scheme"></a> [load\_balancer\_scheme](#output\_load\_balancer\_scheme) | The value of the `alb.ingress.kubernetes.io/scheme` annotation of the Kubernetes Ingress |
 | <a name="output_message_body_length"></a> [message\_body\_length](#output\_message\_body\_length) | The length of the message body to ensure it's lower than the maximum limit |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/alb-controller-ingress-group) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/alb-controller-ingress-group) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
 
-[IngressGroup]: <https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/#ingressgroup>
-[alb-controller]: <https://github.com/kubernetes-sigs/aws-load-balancer-controller>
+[ingressgroup]:
+  https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/#ingressgroup
+[alb-controller]: https://github.com/kubernetes-sigs/aws-load-balancer-controller

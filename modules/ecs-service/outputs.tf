@@ -52,3 +52,8 @@ output "service_image" {
   value       = try(nonsensitive(local.containers.service.image), null)
   description = "The image of the service container"
 }
+
+output "task_template" {
+  value       = local.s3_mirroring_enabled ? jsondecode(nonsensitive(jsonencode(local.task_template))) : null
+  description = "The task template rendered"
+}

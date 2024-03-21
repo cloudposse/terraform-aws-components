@@ -1,6 +1,8 @@
 # Component: `efs`
 
-This component is responsible for provisioning an [EFS](https://aws.amazon.com/efs/) Network File System with KMS encryption-at-rest. EFS is an excellent choice as the default block storage for EKS clusters so that volumes are not zone-locked.
+This component is responsible for provisioning an [EFS](https://aws.amazon.com/efs/) Network File System with KMS
+encryption-at-rest. EFS is an excellent choice as the default block storage for EKS clusters so that volumes are not
+zone-locked.
 
 ## Usage
 
@@ -27,6 +29,7 @@ components:
       #     cidr_blocks: ["0.0.0.0/0"]
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -109,10 +112,11 @@ components:
 | <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | EFS Security Group ID |
 | <a name="output_security_group_name"></a> [security\_group\_name](#output\_security\_group\_name) | EFS Security Group name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/efs) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/efs) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

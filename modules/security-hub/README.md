@@ -52,18 +52,18 @@ and effectively manage security compliance across their AWS accounts and resourc
 This component is complex in that it must be deployed multiple times with different variables set to configure the AWS
 Organization successfully.
 
-It is further complicated by the fact that you must deploy each of the component instances described below to
-every region that existed before March 2019 and to any regions that have been opted-in as described in the [AWS
-Documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-regions).
+It is further complicated by the fact that you must deploy each of the component instances described below to every
+region that existed before March 2019 and to any regions that have been opted-in as described in the
+[AWS Documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-regions).
 
 In the examples below, we assume that the AWS Organization Management account is `root` and the AWS Organization
 Delegated Administrator account is `security`, both in the `core` tenant.
 
 ### Deploy to Delegated Administrator Account
 
-First, the component is deployed to the [Delegated
-Administrator](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_organizations.html) account in each region to
-configure the Security Hub instance to which each account will send its findings.
+First, the component is deployed to the
+[Delegated Administrator](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_organizations.html) account in each
+region to configure the Security Hub instance to which each account will send its findings.
 
 ```yaml
 # core-ue1-security
@@ -148,6 +148,7 @@ atmos terraform apply security-hub/org-settings/uw1 -s core-uw1-security
 # ... other regions
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -236,6 +237,7 @@ atmos terraform apply security-hub/org-settings/uw1 -s core-uw1-security
 | <a name="output_sns_topic_name"></a> [sns\_topic\_name](#output\_sns\_topic\_name) | The name of the SNS topic created by the component |
 | <a name="output_sns_topic_subscriptions"></a> [sns\_topic\_subscriptions](#output\_sns\_topic\_subscriptions) | The SNS topic subscriptions created by the component |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 

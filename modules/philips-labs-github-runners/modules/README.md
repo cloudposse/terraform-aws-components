@@ -5,12 +5,16 @@
 This is a fork of https://github.com/philips-labs/terraform-aws-github-runner/tree/main/modules/webhook-github-app.
 
 We customized it until this PR is resolved as it does not update the github app webhook until this is merged.
- * https://github.com/philips-labs/terraform-aws-github-runner/pull/3625
+
+- https://github.com/philips-labs/terraform-aws-github-runner/pull/3625
 
 This module also requires an environment variable
-  * `GH_TOKEN` - a github token be set
 
-This module also requires the `gh` cli to be installed. Your Dockerfile can be updated to include the following to install it:
+- `GH_TOKEN` - a github token be set
+
+This module also requires the `gh` cli to be installed. Your Dockerfile can be updated to include the following to
+install it:
+
 ```dockerfile
 ARG GH_CLI_VERSION=2.39.1
 # ...

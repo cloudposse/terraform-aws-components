@@ -21,6 +21,7 @@ components:
           - "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -81,9 +82,11 @@ No resources.
 | <a name="output_role_id"></a> [role\_id](#output\_role\_id) | The ID of the Glue role |
 | <a name="output_role_name"></a> [role\_name](#output\_role\_name) | The name of the Glue role |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/glue/iam) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/glue/iam) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

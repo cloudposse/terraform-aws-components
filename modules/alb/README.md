@@ -1,6 +1,7 @@
 # Component: `alb`
 
-This component is responsible for provisioning a generic Application Load Balancer. It depends on the `vpc` and `dns-delegated` components.
+This component is responsible for provisioning a generic Application Load Balancer. It depends on the `vpc` and
+`dns-delegated` components.
 
 ## Usage
 
@@ -17,6 +18,7 @@ components:
         health_check_path: /api/healthz
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -125,10 +127,11 @@ No resources.
 | <a name="output_listener_arns"></a> [listener\_arns](#output\_listener\_arns) | A list of all the listener ARNs |
 | <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | The security group ID of the ALB |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/alb) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/alb) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

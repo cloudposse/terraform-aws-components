@@ -1,6 +1,7 @@
 # Component: `ssm-parameters`
 
-This component is responsible for provisioning Parameter Store resources against AWS SSM. It supports normal parameter store resources that can be configured directly in YAML OR pulling secret values from a local Sops file.
+This component is responsible for provisioning Parameter Store resources against AWS SSM. It supports normal parameter
+store resources that can be configured directly in YAML OR pulling secret values from a local Sops file.
 
 ## Usage
 
@@ -25,6 +26,7 @@ components:
             type: String
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -89,10 +91,11 @@ components:
 |------|-------------|
 | <a name="output_created_params"></a> [created\_params](#output\_created\_params) | The keys of created SSM parameter store resources. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/ssm-parameters) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/ssm-parameters) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
