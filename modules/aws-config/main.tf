@@ -40,11 +40,32 @@ module "utils" {
   context = module.this.context
 }
 
+locals {
+  account_enabled = local.enabled && var.scope == "account"
+  org_enabled     = local.enabled && var.scope == "organization"
+}
+
 module "conformance_pack" {
   source  = "cloudposse/config/aws//modules/conformance-pack"
   version = "1.1.0"
 
-  count = local.enabled ? length(var.conformance_packs) : 0
+  count = local.account_enabled ? length(var.conformance_packs) : 0
+
+  name                = var.conformance_packs[count.index].name
+  conformance_pack    = var.conformance_packs[count.index].conformance_pack
+  parameter_overrides = var.conformance_packs[count.index].parameter_overrides
+
+  depends_on = [
+    module.aws_config
+  ]
+
+  context = module.this.context
+}
+
+module "org_conformance_pack" {
+  source = "./modules/org-conformance-pack"
+
+  count = local.org_enabled ? length(var.conformance_packs) : 0
 
   name                = var.conformance_packs[count.index].name
   conformance_pack    = var.conformance_packs[count.index].conformance_pack
