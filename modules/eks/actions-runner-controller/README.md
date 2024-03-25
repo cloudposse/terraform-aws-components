@@ -313,7 +313,9 @@ on the capacity reservation until enough reservations ahead of it are removed fo
 and active job. Although there are some edge cases regarding `webhook_startup_timeout` that seem not to be covered
 properly (see
 [actions-runner-controller issue #2466](https://github.com/actions/actions-runner-controller/issues/2466)), they only
-merit adding a few extra minutes to the timeout. :::
+merit adding a few extra minutes to the timeout.
+
+:::
 
 ### Recommended `webhook_startup_timeout` Duration
 
