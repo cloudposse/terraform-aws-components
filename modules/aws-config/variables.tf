@@ -155,3 +155,13 @@ variable "managed_rules" {
   }))
   default = {}
 }
+
+variable "scope" {
+  type        = string
+  description = "The scope of the conformance pack. Valid values are `account` and `organization`."
+  default     = "account"
+  validation {
+    condition     = var.scope == "account" || var.scope == "organization"
+    error_message = "The scope must be either `account` or `organization`."
+  }
+}
