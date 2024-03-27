@@ -1,4 +1,4 @@
-## PR [#]()
+## PR [#1008](https://github.com/cloudposse/terraform-aws-components/pull/1008)
 
 ### Possible Breaking Change
 
