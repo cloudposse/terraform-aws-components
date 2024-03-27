@@ -108,8 +108,14 @@ variable "conformance_packs" {
     name                = string
     conformance_pack    = string
     parameter_overrides = map(string)
+    scope               = optional(string, null)
   }))
   default = []
+  validation {
+    # verify scope is valid
+    condition     = alltrue([for conformance_pack in var.conformance_packs : conformance_pack.scope == null || conformance_pack.scope == "account" || conformance_pack.scope == "organization"])
+    error_message = "The scope must be either `account` or `organization`."
+  }
 }
 
 variable "delegated_accounts" {
@@ -156,12 +162,12 @@ variable "managed_rules" {
   default = {}
 }
 
-variable "scope" {
+variable "default_scope" {
   type        = string
-  description = "The scope of the conformance pack. Valid values are `account` and `organization`."
+  description = "The default scope of the conformance pack. Valid values are `account` and `organization`."
   default     = "account"
   validation {
-    condition     = var.scope == "account" || var.scope == "organization"
+    condition     = var.default_scope == "account" || var.default_scope == "organization"
     error_message = "The scope must be either `account` or `organization`."
   }
 }
