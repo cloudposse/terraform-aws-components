@@ -15,12 +15,14 @@ First, make sure your root `account` allows the service access principal `config
 update child organizations. You can see the docs on the account module here:
 [aws_service_Access_principals](https://docs.cloudposse.com/components/library/aws/account/#input_aws_service_access_principals)
 
-Then set the `scope` of the parent `aws-config` to be `organization`.
+Then you have two options:
 
-After that, any conformance packs you define in the `conformance_packs` variable will be deployed to all child accounts
-of the organization.
+- set the `default_scope` of the parent `aws-config` component to be `organization` (can be overridden by the `scope` of
+  each `conformance_packs` item)
+- set the `scope` of the `conformance_packs` item to be `organization`
 
-An example yaml stack config for atmos is as follows:
+An example yaml stack config for atmos is as follows (both options are shown for demonstration purposes. In practice you
+should only have one `aws-config` per account):
 
 ```yaml
 components:
@@ -30,10 +32,17 @@ components:
         aws_service_access_principals:
           - config-multiaccountsetup.amazonaws.com
 
-    aws-config:
+    aws-config/example/1:
       vars:
-        scope: organization
         conformance_packs:
           - name: Operational-Best-Practices-for-CIS-AWS-v1.4-Level1
             conformance_pack: https://raw.githubusercontent.com/awslabs/aws-config-rules/master/aws-config-conformance-packs/Operational-Best-Practices-for-CIS-AWS-v1.4-Level1.yaml
+            scope: organization
+
+    aws-config/example/2:
+      vars:
+        default_scope: organization
+        conformance_packs:
+          - name: Operational-Best-Practices-for-CIS-AWS-v1.4-Level2
+            conformance_pack: https://raw.githubusercontent.com/awslabs/aws-config-rules/master/aws-config-conformance-packs/Operational-Best-Practices-for-CIS-AWS-v1.4-Level2.yaml
 ```
