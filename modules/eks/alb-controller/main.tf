@@ -38,9 +38,8 @@ module "alb_controller" {
     }),
     # alb-controller-specific values
     yamlencode({
-      aws = {
-        region = var.region
-      }
+      region                     = var.region
+      vpcId                      = module.vpc.outputs.vpc_id
       clusterName                = module.eks.outputs.eks_cluster_id
       createIngressClassResource = var.default_ingress_enabled
       ingressClass               = var.default_ingress_class_name

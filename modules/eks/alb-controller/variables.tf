@@ -86,6 +86,12 @@ variable "eks_component_name" {
   default     = "eks/cluster"
 }
 
+variable "vpc_component_name" {
+  type        = string
+  description = "The name of the vpc component"
+  default     = "vpc"
+}
+
 ####### Configure default Ingress Class #######
 
 variable "default_ingress_enabled" {
