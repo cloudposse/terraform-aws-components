@@ -49,11 +49,21 @@ output "environment_map" {
 }
 
 output "service_image" {
-  value       = try(nonsensitive(local.containers.service.image), null)
+  value       = try(nonsensitive(local.containers_priority_terraform.service.image), null)
   description = "The image of the service container"
 }
 
 output "task_template" {
   value       = local.s3_mirroring_enabled ? jsondecode(nonsensitive(jsonencode(local.task_template))) : null
   description = "The task template rendered"
+}
+
+output "task_definition_arn" {
+  value       = one(module.ecs_alb_service_task[*].task_definition_arn)
+  description = "The task definition ARN"
+}
+
+output "task_definition_revision" {
+  value       = one(module.ecs_alb_service_task[*].task_definition_revision)
+  description = "The task definition revision"
 }
