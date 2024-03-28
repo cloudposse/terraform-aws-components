@@ -54,7 +54,7 @@ module "aurora_postgres_cluster" {
   allow_major_version_upgrade          = var.allow_major_version_upgrade
   ca_cert_identifier                   = var.ca_cert_identifier
 
-  cluster_parameters = [
+  cluster_parameters = concat([
     {
       apply_method = "immediate"
       name         = "log_statement"
@@ -65,7 +65,7 @@ module "aurora_postgres_cluster" {
       name         = "log_min_duration_statement"
       value        = "0"
     }
-  ]
+  ], var.cluster_parameters)
 
   context = module.cluster.context
 }
