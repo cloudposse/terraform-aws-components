@@ -458,6 +458,8 @@ components:
 | <a name="output_ssm_key_prefix"></a> [ssm\_key\_prefix](#output\_ssm\_key\_prefix) | SSM prefix |
 | <a name="output_ssm_parameters"></a> [ssm\_parameters](#output\_ssm\_parameters) | SSM parameters for the ECS Service |
 | <a name="output_subnet_ids"></a> [subnet\_ids](#output\_subnet\_ids) | Selected subnet IDs |
+| <a name="output_task_definition_arn"></a> [task\_definition\_arn](#output\_task\_definition\_arn) | The task definition ARN |
+| <a name="output_task_definition_revision"></a> [task\_definition\_revision](#output\_task\_definition\_revision) | The task definition revision |
 | <a name="output_task_template"></a> [task\_template](#output\_task\_template) | The task template rendered |
 | <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | Selected VPC ID |
 | <a name="output_vpc_sg_id"></a> [vpc\_sg\_id](#output\_vpc\_sg\_id) | Selected VPC SG ID |

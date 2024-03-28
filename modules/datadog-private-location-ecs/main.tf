@@ -6,7 +6,7 @@ locals {
     container.json_map_object
     ],
   )
-  datadog_location_config = jsondecode(datadog_synthetics_private_location.private_location.config)
+  datadog_location_config = try(jsondecode(datadog_synthetics_private_location.private_location[0].config), null)
 
 }
 
@@ -30,7 +30,7 @@ module "container_definition" {
 
   depends_on = [datadog_synthetics_private_location.private_location]
 
-  for_each = var.containers
+  for_each = { for k, v in var.containers : k => v if local.enabled }
 
   container_name = lookup(each.value, "name")
 

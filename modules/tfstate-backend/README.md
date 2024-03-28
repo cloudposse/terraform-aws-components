@@ -13,7 +13,9 @@ security configuration information, so careful planning is required when archite
 :::info Part of cold start so it has to initially be run with `SuperAdmin`, multiple times: to create the S3 bucket and
 then to move the state into it. Follow the guide
 **[here](https://docs.cloudposse.com/reference-architecture/how-to-guides/implementation/enterprise/implement-aws-cold-start/#provision-tfstate-backend-component)**
-to get started. :::
+to get started.
+
+:::
 
 ### Access Control
 

@@ -179,7 +179,9 @@ permissions “mode” for Self-hosted runners to Read-Only. The instructions fo
 
 :::info We highly recommend using a GitHub Application with the github-action-token-rotator module to generate the
 Registration Token. This will ensure that the token is rotated and that the token is stored in SSM Parameter Store
-encrypted with KMS. :::
+encrypted with KMS.
+
+:::
 
 #### GitHub Application
 

@@ -125,7 +125,12 @@ locals {
     local.container_aliases[item.name] => { container_definition = item }
   }
 
-  containers = {
+  containers_priority_terraform = {
+    for name, settings in var.containers :
+    name => merge(local.container_chamber[name], lookup(local.container_s3, name, {}), settings, )
+    if local.enabled
+  }
+  containers_priority_s3 = {
     for name, settings in var.containers :
     name => merge(settings, local.container_chamber[name], lookup(local.container_s3, name, {}))
     if local.enabled
@@ -168,13 +173,18 @@ locals {
     for k, v in data.template_file.envs :
     k => v.rendered
   }
+  map_secrets = { for k, v in local.containers_priority_terraform : k => lookup(v, "map_secrets", null) != null ? zipmap(
+    keys(lookup(v, "map_secrets", null)),
+    formatlist("%s/%s", format("arn:aws:ssm:%s:%s:parameter", var.region, module.roles_to_principals.full_account_map[format("%s-%s", var.tenant, var.stage)]),
+    values(lookup(v, "map_secrets", null)))
+  ) : null }
 }
 
 module "container_definition" {
   source  = "cloudposse/ecs-container-definition/aws"
   version = "0.61.1"
 
-  for_each = { for k, v in local.containers : k => v if local.enabled }
+  for_each = { for k, v in local.containers_priority_terraform : k => v if local.enabled }
 
   container_name = each.value["name"]
 
@@ -182,8 +192,8 @@ module "container_definition" {
     "%s.dkr.ecr.%s.amazonaws.com/%s",
     module.roles_to_principals.full_account_map[var.ecr_stage_name],
     coalesce(var.ecr_region, var.region),
-    lookup(each.value, "ecr_image", null)
-  ) : lookup(each.value, "image")
+    lookup(local.containers_priority_s3[each.key], "ecr_image", null)
+  ) : lookup(local.containers_priority_s3[each.key], "image")
 
   container_memory             = each.value["memory"]
   container_memory_reservation = each.value["memory_reservation"]
@@ -203,14 +213,12 @@ module "container_definition" {
       "DD_SERVICE_NAME"        = var.name,
       "DD_ENV"                 = var.stage,
       "DD_PROFILING_EXPORTERS" = "agent"
-    } : {}
+    } : {},
+    lookup(each.value, "map_environment", null)
   ) : null
 
-  map_secrets = lookup(each.value, "map_secrets", null) != null ? zipmap(
-    keys(lookup(each.value, "map_secrets", null)),
-    formatlist("%s/%s", format("arn:aws:ssm:%s:%s:parameter", var.region, module.roles_to_principals.full_account_map[format("%s-%s", var.tenant, var.stage)]),
-    values(lookup(each.value, "map_secrets", null)))
-  ) : null
+  map_secrets = local.map_secrets[each.key]
+
   port_mappings        = each.value["port_mappings"]
   command              = each.value["command"]
   entrypoint           = each.value["entrypoint"]
@@ -235,7 +243,8 @@ module "container_definition" {
 
 
   # escape hatch for anything not specifically described above or unsupported by the upstream module
-  container_definition = lookup(each.value, "container_definition", {})
+  # March 2024: Removing this as it always prioritizes the s3 task definition
+  #  container_definition = lookup(each.value, "container_definition", {})
 }
 
 locals {
