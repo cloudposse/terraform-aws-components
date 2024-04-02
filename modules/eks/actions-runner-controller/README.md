@@ -249,13 +249,13 @@ ssm_github_webhook_secret_token_path: "/github_runners/github_webhook_secret"
 
 ### Dockerhub Authentication
 
-Authenticating with Dockerhub is optional, but when enabled can ensure stability by increasing the number of pulls
+Authenticating with Dockerhub is optional but when enabled can ensure stability by increasing the number of pulls
 allowed from your runners.
 
 To get started set `docker_config_json_enabled` to `true` and `ssm_docker_config_json_path` to the SSM path where the
-credentials are stored, for example `github_runners/docker`
+credentials are stored, for example `github_runners/docker`.
 
-to create the credentials file, fill out a json file locally with the following content:
+To create the credentials file, fill out a JSON file locally with the following content:
 
 ```json
 {
