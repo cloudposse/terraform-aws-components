@@ -60,7 +60,7 @@ locals {
 
   # ASSUMPTIONS: The stack pattern is the same for all accounts and uses the same delimiter as null-label
   teams_stacks = local.dynamic_role_enabled ? {
-    for k, v in yamldecode(data.utils_describe_stacks.teams[0].output) : k => v if !local.stack_has_namespace || try(split(module.this.delimiter, k)[local.stack_namespace_index] == module.this.namespace, false)
+    for k, v in yamldecode(data.utils_describe_stacks.teams[0].output) : k => v if v != {} && (!local.stack_has_namespace || try(split(module.this.delimiter, k)[local.stack_namespace_index] == module.this.namespace, false))
   } : local.empty
 
   teams_vars   = { for k, v in local.teams_stacks : k => v.components.terraform.aws-teams.vars }
@@ -69,7 +69,7 @@ locals {
   team_arns    = { for team_name in local.team_names : team_name => format(local.iam_role_arn_templates[local.account_role_map.identity], team_name) }
 
   team_roles_stacks = local.dynamic_role_enabled ? {
-    for k, v in yamldecode(data.utils_describe_stacks.team_roles[0].output) : k => v if !local.stack_has_namespace || try(split(module.this.delimiter, k)[local.stack_namespace_index] == module.this.namespace, false)
+    for k, v in yamldecode(data.utils_describe_stacks.team_roles[0].output) : k => v if v != {} && (!local.stack_has_namespace || try(split(module.this.delimiter, k)[local.stack_namespace_index] == module.this.namespace, false))
   } : local.empty
 
   team_roles_vars = { for k, v in local.team_roles_stacks : k => v.components.terraform.aws-team-roles.vars }
