@@ -21,7 +21,7 @@ module "metrics_server" {
   repository           = var.chart_repository
   description          = var.chart_description
   chart_version        = var.chart_version
-  kubernetes_namespace = join("", kubernetes_namespace.default.*.id)
+  kubernetes_namespace = var.create_namespace ? join("", kubernetes_namespace.default.*.id) : var.kubernetes_namespace
   create_namespace     = false
   wait                 = var.wait
   atomic               = var.atomic

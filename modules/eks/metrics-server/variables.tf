@@ -53,7 +53,7 @@ variable "resources" {
 
 variable "create_namespace" {
   type        = bool
-  description = "Create the namespace if it does not yet exist. Defaults to `false`."
+  description = "Create the namespace if it does not yet exist. Defaults to `true`."
   default     = true
 }
 
