@@ -247,6 +247,63 @@ Store this key in AWS SSM under the same path specified by `ssm_github_webhook_s
 ssm_github_webhook_secret_token_path: "/github_runners/github_webhook_secret"
 ```
 
+### Dockerhub Authentication
+
+Authenticating with Dockerhub is optional but when enabled can ensure stability by increasing the number of pulls
+allowed from your runners.
+
+To get started set `docker_config_json_enabled` to `true` and `ssm_docker_config_json_path` to the SSM path where the
+credentials are stored, for example `github_runners/docker`.
+
+To create the credentials file, fill out a JSON file locally with the following content:
+
+```json
+{
+  "auths": {
+    "https://index.docker.io/v1/": {
+      "username": "your_username",
+      "password": "your_password",
+      "email": "your_email",
+      "auth": "$(echo "your_username: your_password" | base64)"
+    }
+  }
+}
+```
+
+Then write the file to SSM with the following Atmos Workflow:
+
+```yaml
+save/docker-config-json:
+  description: Prompt for uploading Docker Config JSON to the AWS SSM Parameter Store
+  steps:
+    - type: shell
+      command: |-
+        echo "Please enter the Docker Config JSON file path"
+        echo "See https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry for information on how to create the file"
+        read -p "Docker Config JSON file path: " -r DOCKER_CONFIG_JSON_FILE_PATH
+        if [ -z "DOCKER_CONFIG_JSON_FILE_PATH" ]
+        then
+            echo 'Inputs cannot be blank please try again!'
+            exit 0
+        fi
+
+        DOCKER_CONFIG_JSON=$(<$DOCKER_CONFIG_JSON_FILE_PATH);
+        ENCODED_DOCKER_CONFIG_JSON=$(echo "$DOCKER_CONFIG_JSON" | base64 -w 0 );
+
+        echo $DOCKER_CONFIG_JSON
+        echo $ENCODED_DOCKER_CONFIG_JSON
+
+        AWS_PROFILE=acme-core-gbl-auto-admin
+
+        set -e
+
+        chamber write github_runners/docker config-json -- "$ENCODED_DOCKER_CONFIG_JSON"
+
+        echo 'Saved Docker Config JSON to the AWS SSM Parameter Store'
+```
+
+Don't forget to update the AWS Profile in the script.
+
 ### Using Runner Groups
 
 GitHub supports grouping runners into distinct
