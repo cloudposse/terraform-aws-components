@@ -128,6 +128,12 @@ variable "autoscaler_tags" {
   description = "Additional resource tags for the autoscaler module"
 }
 
+variable "table_name" {
+  type        = string
+  default     = null
+  description = "Table name. If provided, the bucket will be created with this name instead of generating the name from the context"
+}
+
 variable "dynamodb_attributes" {
   type = list(object({
     name = string
