@@ -1,0 +1,19 @@
+---
+name: release-branch
+on:
+  push:
+    branches:
+      - main
+      - release/v*
+    paths-ignore:
+      - '.github/**'
+      - 'docs/**'
+      - 'examples/**'
+      - 'test/**'
+
+permissions: {}
+
+jobs:
+  terraform-module:
+    uses: cloudposse/github-actions-workflows-terraform-module/.github/workflows/release-branch.yml@main
+    secrets: inherit
