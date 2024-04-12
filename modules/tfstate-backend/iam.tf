@@ -35,7 +35,7 @@ module "assume_role" {
   denied_roles  = each.value.denied_roles
 
   # Allow whatever user or role is running Terraform to manage the backend to assume any backend access role
-  allowed_principal_arns = concat(each.value.allowed_principal_arns, [local.caller_arn])
+  allowed_principal_arns = distinct(concat(each.value.allowed_principal_arns, [local.caller_arn]))
   denied_principal_arns  = each.value.denied_principal_arns
   # Permission sets are for AWS SSO, which is optional
   allowed_permission_sets = try(each.value.allowed_permission_sets, {})
