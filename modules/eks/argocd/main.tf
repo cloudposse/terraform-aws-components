@@ -148,6 +148,7 @@ module "argocd" {
       "${path.module}/resources/argocd-values.yaml.tpl",
       {
         admin_enabled       = var.admin_enabled
+        anonymous_enabled   = var.anonymous_enabled
         alb_group_name      = var.alb_group_name == null ? "" : var.alb_group_name
         alb_logs_bucket     = var.alb_logs_bucket
         alb_logs_prefix     = var.alb_logs_prefix
