@@ -186,7 +186,7 @@ variable "subscribers" {
   DOC
 }
 
-variable "detector_feature" {
+variable "detector_features" {
   type = map(object({
     feature_name = string
     status       = string
