@@ -193,9 +193,10 @@ variable "detector_features" {
     additional_configuration = optional(object({
       addon_name = string
       status     = string
-    }))
+    }), null)
   }))
   default     = {}
+  nullable    = false
   description = <<-DOC
   A map of detector features for streaming foundational data sources to detect communication with known malicious domains and IP addresses and identify anomalous behavior.
   For more information, see:

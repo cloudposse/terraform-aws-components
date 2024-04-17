@@ -82,7 +82,7 @@ resource "aws_guardduty_organization_configuration" "this" {
 }
 
 resource "aws_guardduty_detector_feature" "this" {
-  for_each = local.enabled ? var.detector_features : {}
+  for_each = { for k, v in var.var.detector_features : k => v if local.create_org_configuration }
 
   detector_id = module.guardduty_delegated_detector[0].outputs.guardduty_detector_id
   name        = each.value.feature_name
