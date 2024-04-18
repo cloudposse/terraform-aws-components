@@ -20,6 +20,22 @@ Some of the key features of AWS Config include:
 - Notifications and alerts: AWS Config can send notifications and alerts when changes are made to your AWS resources
   that could impact their compliance or security posture.
 
+You'll also want to be aware of some limitations with AWS Config:
+
+- The maximum number of AWS Config rules that can be evaluated in a single account is 1000.
+  - This can be mitigated by removing rules that are duplicated across packs. You'll have to manually search for these
+    duplicates.
+  - You can also look for rules that do not apply to any resources and remove those. You'll have to manually click
+    through rules in the AWS Config interface to see which rules are not being evaluated.
+  - If you end up still needing more than 1000 rules, one recommendation is to only run packs on a schedule with a
+    lambda that removes the pack after results are collected. If you had different schedule for each day of the week,
+    that would mean 7000 rules over the week. The aggregators would not be able to handle this, so you would need to
+    make sure to store them somewhere else (i.e. S3) so the findings are not lost.
+  - See the
+    [Audit Manager docs](https://aws.amazon.com/blogs/mt/integrate-across-the-three-lines-model-part-2-transform-aws-config-conformance-packs-into-aws-audit-manager-assessments/)
+    if you think you would like to convert conformance packs to custom Audit Manager assessments.
+- The maximum number of AWS Config conformance packs that can be created in a single account is 50.
+
 Overall, AWS Config provides you with a powerful toolset to help you monitor and manage the configurations of your AWS
 resources, ensuring that they remain compliant, secure, and properly configured over time.
 
