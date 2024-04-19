@@ -39,10 +39,9 @@ module "ec2-instance" {
   user_data_base64 = local.enabled ? base64encode(data.template_file.userdata[0].rendered) : ""
 
   # Make sure local.vpc_private_subnet_ids is sorted so the order does not change
-  subnet                        = local.vpc_private_subnet_ids[count.index % length(local.vpc_private_subnet_ids)]
-  vpc_id                        = local.vpc_id
-  create_default_security_group = false
-  security_group_rules          = var.security_group_rules
+  subnet               = local.vpc_private_subnet_ids[count.index % length(local.vpc_private_subnet_ids)]
+  vpc_id               = local.vpc_id
+  security_group_rules = var.security_group_rules
 
   context = module.this.context
 }
