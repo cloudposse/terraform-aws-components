@@ -2,8 +2,9 @@ locals {
   enabled = module.this.enabled
 
   vpc_id = module.vpc.outputs.vpc_id
-  # Make sure local.vpc_private_subnet_ids is sorted so the order does not change
+  # basic usage picks the first private subnet from the vpc component
   vpc_private_subnet_ids = sort(module.vpc.outputs.private_subnet_ids)
+  subnet_id              = local.vpc_private_subnet_ids[0]
 }
 
 data "aws_ami" "this" {
@@ -14,10 +15,10 @@ data "aws_ami" "this" {
   name_regex  = var.ami_name_regex
 
   dynamic "filter" {
-    for_each = var.ami_filters
+    for_each = toset(var.ami_filters)
     content {
-      name   = filter.name
-      values = filter.values
+      name   = filter.value.name
+      values = filter.value.values
     }
   }
 }
@@ -27,7 +28,7 @@ data "template_file" "userdata" {
   template = file("${path.module}/templates/userdata.sh.tmpl")
 }
 
-module "ec2-instance" {
+module "ec2_instance" {
   source  = "cloudposse/ec2-instance/aws"
   version = "1.4.0"
 
@@ -38,8 +39,7 @@ module "ec2-instance" {
   instance_type    = var.instance_type
   user_data_base64 = local.enabled ? base64encode(data.template_file.userdata[0].rendered) : ""
 
-  # Make sure local.vpc_private_subnet_ids is sorted so the order does not change
-  subnet               = local.vpc_private_subnet_ids[count.index % length(local.vpc_private_subnet_ids)]
+  subnet               = local.subnet_id
   vpc_id               = local.vpc_id
   security_group_rules = var.security_group_rules
 
