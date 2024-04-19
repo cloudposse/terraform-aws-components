@@ -30,6 +30,7 @@ variable "ami_filters" {
       values = ["hvm"]
     }
   ]
+  description = "A list of AMI filters for finding the latest AMI"
 }
 
 variable "instance_type" {
