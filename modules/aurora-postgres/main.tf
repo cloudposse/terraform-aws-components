@@ -5,10 +5,11 @@ locals {
   private_subnet_ids = module.vpc.outputs.private_subnet_ids
 
   eks_security_group_enabled = local.enabled && var.eks_security_group_enabled
-  allowed_security_groups = [
+  allowed_eks_security_groups = [
     for eks in module.eks :
     eks.outputs.eks_cluster_managed_security_group_id
   ]
+  allowed_security_groups = concat(data.aws_security_groups.allowed.ids, local.allowed_eks_security_groups)
 
   zone_id = module.dns_gbl_delegated.outputs.default_dns_zone_id
 
@@ -27,6 +28,13 @@ locals {
       module.vpc_ingress[k].outputs.vpc_cidr
     ]
   )
+}
+
+data "aws_security_groups" "allowed" {
+  filter {
+    name   = "tag:Name"
+    values = var.allowed_security_group_names
+  }
 }
 
 module "cluster" {
