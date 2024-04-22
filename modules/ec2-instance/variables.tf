@@ -56,3 +56,9 @@ variable "security_group_rules" {
     To get more info see [security_group_rule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule).
   EOT
 }
+
+variable "user_data" {
+  type        = string
+  default     = "echo \"hello user data\""
+  description = "User data to be included with this EC2 instance"
+}

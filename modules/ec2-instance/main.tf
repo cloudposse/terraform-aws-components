@@ -26,6 +26,10 @@ data "aws_ami" "this" {
 data "template_file" "userdata" {
   count    = local.enabled ? 1 : 0
   template = file("${path.module}/templates/userdata.sh.tmpl")
+
+  vars = {
+    user_data = var.user_data
+  }
 }
 
 module "ec2_instance" {
