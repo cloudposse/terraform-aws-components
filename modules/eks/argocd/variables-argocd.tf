@@ -101,6 +101,12 @@ variable "admin_enabled" {
   default     = false
 }
 
+variable "anonymous_enabled" {
+  type        = bool
+  description = "Toggles anonymous user access using default RBAC setting (Defaults to read-only)"
+  default     = false
+}
+
 variable "oidc_enabled" {
   type        = bool
   description = "Toggles OIDC integration in the deployed chart"
