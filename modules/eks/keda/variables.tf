@@ -16,17 +16,9 @@ variable "eks_component_name" {
 }
 
 variable "resources" {
-  type = object({
-    limits = object({
-      cpu    = string
-      memory = string
-    })
-    requests = object({
-      cpu    = string
-      memory = string
-    })
-  })
-  description = "The cpu and memory of the deployment's limits and requests."
+  type        = any
+  description = "A sub-nested map of deployment to resources. e.g. { operator = { requests = { cpu = 100m, memory = 100Mi }, limits = { cpu = 200m, memory = 200Mi } } }"
+  default     = null
 }
 
 variable "kubernetes_namespace" {
