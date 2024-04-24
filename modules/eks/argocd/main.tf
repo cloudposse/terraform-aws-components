@@ -162,6 +162,7 @@ module "argocd" {
         oidc_rbac_scopes    = var.oidc_rbac_scopes
         saml_enabled        = local.saml_enabled
         saml_rbac_scopes    = var.saml_rbac_scopes
+        service_type        = var.service_type
         rbac_default_policy = var.argocd_rbac_default_policy
         rbac_policies       = var.argocd_rbac_policies
         rbac_groups         = var.argocd_rbac_groups

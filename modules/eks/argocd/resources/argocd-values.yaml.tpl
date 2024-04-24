@@ -66,7 +66,7 @@ server:
     https: false
 
   service:
-    type: NodePort
+    type: ${service_type}
 
   secret:
     create: true
