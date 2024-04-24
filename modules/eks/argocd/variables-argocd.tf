@@ -103,7 +103,7 @@ variable "admin_enabled" {
 
 variable "anonymous_enabled" {
   type        = bool
-  description = "Toggles anonymous user access using default rbac setting (defaults to readonly)"
+  description = "Toggles anonymous user access using default RBAC setting (Defaults to read-only)"
   default     = false
 }
 
