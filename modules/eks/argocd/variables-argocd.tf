@@ -149,6 +149,17 @@ variable "saml_rbac_scopes" {
   default     = "[email,groups]"
 }
 
+variable "service_type" {
+  type        = string
+  default     = "NodePort"
+  description = <<-EOT
+  Service type for exposing the ArgoCD service. The available type values and their behaviors are:
+    ClusterIP: Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster.
+    NodePort: Exposes the Service on each Node's IP at a static port (the NodePort).
+    LoadBalancer: Exposes the Service externally using a cloud provider's load balancer.
+  EOT
+}
+
 variable "argocd_rbac_policies" {
   type        = list(string)
   default     = []
