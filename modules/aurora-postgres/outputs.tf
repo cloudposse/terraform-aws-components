@@ -47,3 +47,8 @@ output "kms_key_arn" {
   value       = module.kms_key_rds.key_arn
   description = "KMS key ARN for Aurora Postgres"
 }
+
+output "allowed_security_groups" {
+  value       = local.allowed_security_groups
+  description = "The resulting list of security group IDs that are allowed to connect to the Aurora Postgres cluster."
+}

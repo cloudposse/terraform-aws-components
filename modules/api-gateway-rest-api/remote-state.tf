@@ -15,6 +15,10 @@ module "acm" {
   component     = "acm"
   ignore_errors = true
 
+  defaults = {
+    domain_name = ""
+  }
+
   context = module.this.context
 }
 

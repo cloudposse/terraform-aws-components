@@ -148,6 +148,7 @@ module "argocd" {
       "${path.module}/resources/argocd-values.yaml.tpl",
       {
         admin_enabled       = var.admin_enabled
+        anonymous_enabled   = var.anonymous_enabled
         alb_group_name      = var.alb_group_name == null ? "" : var.alb_group_name
         alb_logs_bucket     = var.alb_logs_bucket
         alb_logs_prefix     = var.alb_logs_prefix
@@ -162,6 +163,7 @@ module "argocd" {
         oidc_rbac_scopes    = var.oidc_rbac_scopes
         saml_enabled        = local.saml_enabled
         saml_rbac_scopes    = var.saml_rbac_scopes
+        service_type        = var.service_type
         rbac_default_policy = var.argocd_rbac_default_policy
         rbac_policies       = var.argocd_rbac_policies
         rbac_groups         = var.argocd_rbac_groups
