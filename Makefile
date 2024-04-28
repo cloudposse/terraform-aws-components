@@ -43,3 +43,6 @@ upstream-component:
 		test -f "./modules/$(COMPONENT)/backend.tf.json" && rm ./modules/$(COMPONENT)/backend.tf.json; \
 		test -d "./modules/$(COMPONENT)/.terraform" && rm -r ./modules/$(COMPONENT)/.terraform; \
 		echo "Upstreamed ./modules/$(COMPONENT)";
+
+update-providers:
+	@find . -maxdepth 3 -name providers.tf | grep -Ev './deprecated|./modules/account|./modules/tfstate-backend/|./modules/datadog|./modules/aws-saml/|./modules/aws-sso|./modules/aws-inspector2/|./modules/aws-team-roles/|./modules/aws-teams/|./modules/eks/cluster/|./modules/github-oidc-provider/|./modules/guardduty/|./modules/security-hub/|./modules/spacelift/admin-stack|./modules/spacelift/spaces/' | rev | cut -d'/' -f2- | rev | while read paths; do cp ./mixins/providers.depth-1.tf $$paths/providers.tf; done
