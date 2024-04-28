@@ -9,6 +9,10 @@ provider "aws" {
       role_arn = coalesce(var.import_role_arn, module.iam_roles.terraform_role_arn)
     }
   }
+
+  default_tags {
+    tags = module.this.tags
+  }
 }
 
 provider "awsutils" {

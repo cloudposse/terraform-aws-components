@@ -8,6 +8,10 @@ provider "aws" {
       role_arn = module.iam_roles.terraform_role_arn
     }
   }
+
+  default_tags {
+    tags = module.this.tags
+  }
 }
 
 module "iam_roles" {
