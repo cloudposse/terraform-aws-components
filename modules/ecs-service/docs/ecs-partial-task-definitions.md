@@ -1,15 +1,3 @@
----
-title: "ECS Partial Task Definitions"
-description: "Our way of managing ECS Services using Terraform and GitHub Actions."
-slug: "ecs-partial-task-definitions"
-tags:
-  - "ECS"
-  - "Terraform"
-  - "GitHub Actions"
-categories:
-  - "Community Resources"
----
-
 # ECS Partial Task Definitions
 
 This document describes what partial task definitions are and how we can use them to set up ECS services using Terraform
