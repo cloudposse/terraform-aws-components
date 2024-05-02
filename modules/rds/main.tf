@@ -86,6 +86,7 @@ module "rds_instance" {
   skip_final_snapshot                   = var.skip_final_snapshot
   snapshot_identifier                   = var.snapshot_identifier
   storage_encrypted                     = var.storage_encrypted
+  storage_throughput                    = var.storage_throughput
   storage_type                          = var.storage_type
   subnet_ids                            = local.subnet_ids
   timezone                              = var.timezone

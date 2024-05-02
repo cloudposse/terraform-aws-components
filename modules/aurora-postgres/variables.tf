@@ -259,6 +259,12 @@ variable "snapshot_identifier" {
   description = "Specifies whether or not to create this cluster from a snapshot"
 }
 
+variable "allowed_security_group_names" {
+  type        = list(string)
+  description = "List of security group names (tags) that should be allowed access to the database"
+  default     = []
+}
+
 variable "eks_security_group_enabled" {
   type        = bool
   description = "Use the eks default security group"
