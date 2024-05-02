@@ -330,3 +330,13 @@ variable "intra_security_group_traffic_enabled" {
   default     = false
   description = "Whether to allow traffic between resources inside the database's security group."
 }
+
+variable "cluster_parameters" {
+  type = list(object({
+    apply_method = string
+    name         = string
+    value        = string
+  }))
+  default     = []
+  description = "List of DB cluster parameters to apply"
+}
