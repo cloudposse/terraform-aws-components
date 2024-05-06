@@ -280,6 +280,7 @@ components:
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.kms_key_rds](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
+| [aws_security_groups.allowed](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/security_groups) | data source |
 
 ## Inputs
 
@@ -291,6 +292,7 @@ components:
 | <a name="input_allow_ingress_from_vpc_accounts"></a> [allow\_ingress\_from\_vpc\_accounts](#input\_allow\_ingress\_from\_vpc\_accounts) | List of account contexts to pull VPC ingress CIDR and add to cluster security group.<br>e.g.<br>{<br>  environment = "ue2",<br>  stage       = "auto",<br>  tenant      = "core"<br>}<br><br>Defaults to the "vpc" component in the given account | <pre>list(object({<br>    vpc         = optional(string, "vpc")<br>    environment = optional(string)<br>    stage       = optional(string)<br>    tenant      = optional(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_allow_major_version_upgrade"></a> [allow\_major\_version\_upgrade](#input\_allow\_major\_version\_upgrade) | Enable to allow major engine version upgrades when changing engine versions. Defaults to false. | `bool` | `false` | no |
 | <a name="input_allowed_cidr_blocks"></a> [allowed\_cidr\_blocks](#input\_allowed\_cidr\_blocks) | List of CIDRs allowed to access the database (in addition to security groups and subnets) | `list(string)` | `[]` | no |
+| <a name="input_allowed_security_group_names"></a> [allowed\_security\_group\_names](#input\_allowed\_security\_group\_names) | List of security group names (tags) that should be allowed access to the database | `list(string)` | `[]` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_autoscaling_enabled"></a> [autoscaling\_enabled](#input\_autoscaling\_enabled) | Whether to enable cluster autoscaling | `bool` | `false` | no |
 | <a name="input_autoscaling_max_capacity"></a> [autoscaling\_max\_capacity](#input\_autoscaling\_max\_capacity) | Maximum number of instances to be maintained by the autoscaler | `number` | `5` | no |
@@ -355,6 +357,7 @@ components:
 | Name | Description |
 |------|-------------|
 | <a name="output_admin_username"></a> [admin\_username](#output\_admin\_username) | Postgres admin username |
+| <a name="output_allowed_security_groups"></a> [allowed\_security\_groups](#output\_allowed\_security\_groups) | The resulting list of security group IDs that are allowed to connect to the Aurora Postgres cluster. |
 | <a name="output_cluster_identifier"></a> [cluster\_identifier](#output\_cluster\_identifier) | Postgres cluster identifier |
 | <a name="output_config_map"></a> [config\_map](#output\_config\_map) | Map containing information pertinent to a PostgreSQL client configuration. |
 | <a name="output_database_name"></a> [database\_name](#output\_database\_name) | Postgres database name |
