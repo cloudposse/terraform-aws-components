@@ -202,6 +202,12 @@ variable "custom_spacelift_ami" {
   default     = false
 }
 
+variable "architecture" {
+  type        = list(string)
+  description = "OS architecture of the EC2 instance AMI"
+  default     = ["x86_64"]
+}
+
 variable "spacelift_domain_name" {
   type        = string
   description = "Top-level domain name to use for pulling the launcher binary"
