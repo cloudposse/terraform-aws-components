@@ -118,8 +118,11 @@ module "autoscale_group" {
 
   # The instance refresh definition
   # If this block is configured, an Instance Refresh will be started when the Auto Scaling Group is updated
-  instance_refresh        = var.instance_refresh
-  launch_template_version = var.launch_template_version # this has to be empty for the instance refresh to work
+  instance_refresh = var.instance_refresh
+  # Note: instance refresh settings are IGNORED unless template version is empty
+  # See the second "NOTE" in the "instance_refresh" documentation
+  #   https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group#instance_refresh
+  launch_template_version = var.instance_refresh == null ? "$Latest" : ""
 
   context = module.this.context
 }
