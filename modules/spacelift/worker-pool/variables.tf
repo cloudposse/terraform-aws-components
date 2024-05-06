@@ -60,6 +60,12 @@ variable "cpu_utilization_low_threshold_percent" {
   description = "CPU utilization low threshold"
 }
 
+variable "instance_lifetime" {
+  type        = number
+  default     = 1209600
+  description = "Number of seconds after which the instance will be terminated. The default is set to 14 days."
+}
+
 variable "default_cooldown" {
   type        = number
   description = "The amount of time, in seconds, after a scaling activity completes before another scaling activity can start"
@@ -210,7 +216,7 @@ variable "iam_attributes" {
 
 variable "launch_template_version" {
   type        = string
-  description = "Launch template version to use for workers"
+  description = "Launch template version to use for workers. Note that instance refresh settings are IGNORED unless template version is empty"
   default     = "$Latest"
 }
 
