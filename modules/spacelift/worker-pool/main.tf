@@ -59,8 +59,8 @@ data "cloudinit_config" "config" {
       ecr_region                        = local.ecr_region
       ecr_account_id                    = local.ecr_account_id
       spacelift_runner_image            = local.spacelift_runner_image
-      spacelift_worker_pool_private_key = join("", spacelift_worker_pool.primary.*.private_key)
-      spacelift_worker_pool_config      = join("", spacelift_worker_pool.primary.*.config)
+      spacelift_worker_pool_private_key = join("", spacelift_worker_pool.primary[*].private_key)
+      spacelift_worker_pool_config      = join("", spacelift_worker_pool.primary[*].config)
       spacelift_domain_name             = var.spacelift_domain_name
       github_netrc_enabled              = var.github_netrc_enabled
       github_netrc_ssm_path_token       = var.github_netrc_ssm_path_token
@@ -90,16 +90,16 @@ module "autoscale_group" {
   source  = "cloudposse/ec2-autoscale-group/aws"
   version = "0.35.1"
 
-  image_id                    = var.spacelift_ami_id == null ? join("", data.aws_ami.spacelift.*.image_id) : var.spacelift_ami_id
+  image_id                    = var.spacelift_ami_id == null ? join("", data.aws_ami.spacelift[*].image_id) : var.spacelift_ami_id
   instance_type               = var.instance_type
   mixed_instances_policy      = var.mixed_instances_policy
   subnet_ids                  = local.vpc_private_subnet_ids
   health_check_type           = var.health_check_type
   health_check_grace_period   = var.health_check_grace_period
-  user_data_base64            = join("", data.cloudinit_config.config.*.rendered)
+  user_data_base64            = join("", data.cloudinit_config.config[*].rendered)
   associate_public_ip_address = false
   block_device_mappings       = var.block_device_mappings
-  iam_instance_profile_name   = join("", aws_iam_instance_profile.default.*.name)
+  iam_instance_profile_name   = join("", aws_iam_instance_profile.default[*].name)
   security_group_ids          = [module.security_group.id]
   termination_policies        = var.termination_policies
   wait_for_capacity_timeout   = var.wait_for_capacity_timeout
