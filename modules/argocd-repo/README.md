@@ -83,7 +83,7 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
-| <a name="requirement_github"></a> [github](#requirement\_github) | >= 4.0 |
+| <a name="requirement_github"></a> [github](#requirement\_github) | >= 6.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 2.3 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | >= 3.0 |
 
@@ -92,7 +92,7 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
-| <a name="provider_github"></a> [github](#provider\_github) | >= 4.0 |
+| <a name="provider_github"></a> [github](#provider\_github) | >= 6.0 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | >= 3.0 |
 
 ## Modules
