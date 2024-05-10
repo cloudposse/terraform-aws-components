@@ -20,6 +20,8 @@ Some of the key features of AWS Config include:
 - Notifications and alerts: AWS Config can send notifications and alerts when changes are made to your AWS resources
   that could impact their compliance or security posture.
 
+## AWS Config Limitations
+
 You'll also want to be aware of some limitations with AWS Config:
 
 - The maximum number of AWS Config rules that can be evaluated in a single account is 1000.

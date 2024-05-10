@@ -7,22 +7,22 @@ and a Region or across an organization in AWS Organizations. Conformance packs a
 that contains the list of AWS Config managed or custom rules and remediation actions.
 
 The Conformance Pack cannot be deployed until AWS Config is deployed, which can be deployed using the
-[root module](../../) of this repository.
+[aws-config](../../) component.
 
 ## Usage
 
 First, make sure your root `account` allows the service access principal `config-multiaccountsetup.amazonaws.com` to
 update child organizations. You can see the docs on the account module here:
-[aws_service_Access_principals](https://docs.cloudposse.com/components/library/aws/account/#input_aws_service_access_principals)
+[aws_service_access_principals](https://docs.cloudposse.com/components/library/aws/account/#input_aws_service_access_principals)
 
 Then you have two options:
 
-- set the `default_scope` of the parent `aws-config` component to be `organization` (can be overridden by the `scope` of
+- Set the `default_scope` of the parent `aws-config` component to be `organization` (can be overridden by the `scope` of
   each `conformance_packs` item)
-- set the `scope` of the `conformance_packs` item to be `organization`
+- Set the `scope` of the `conformance_packs` item to be `organization`
 
-An example yaml stack config for atmos is as follows (both options are shown for demonstration purposes. In practice you
-should only have one `aws-config` per account):
+An example YAML stack config for Atmos follows. Note, that both options are shown for demonstration purposes. In
+practice you should only have one `aws-config` per account:
 
 ```yaml
 components:
@@ -32,14 +32,14 @@ components:
         aws_service_access_principals:
           - config-multiaccountsetup.amazonaws.com
 
-    aws-config/example/1:
+    aws-config/cis/level-1:
       vars:
         conformance_packs:
           - name: Operational-Best-Practices-for-CIS-AWS-v1.4-Level1
             conformance_pack: https://raw.githubusercontent.com/awslabs/aws-config-rules/master/aws-config-conformance-packs/Operational-Best-Practices-for-CIS-AWS-v1.4-Level1.yaml
             scope: organization
 
-    aws-config/example/2:
+    aws-config/cis/level-2:
       vars:
         default_scope: organization
         conformance_packs:
