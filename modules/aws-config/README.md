@@ -20,7 +20,7 @@ Some of the key features of AWS Config include:
 - Notifications and alerts: AWS Config can send notifications and alerts when changes are made to your AWS resources
   that could impact their compliance or security posture.
 
-## AWS Config Limitations
+:::caution AWS Config Limitations
 
 You'll also want to be aware of some limitations with AWS Config:
 
@@ -37,6 +37,8 @@ You'll also want to be aware of some limitations with AWS Config:
     [Audit Manager docs](https://aws.amazon.com/blogs/mt/integrate-across-the-three-lines-model-part-2-transform-aws-config-conformance-packs-into-aws-audit-manager-assessments/)
     if you think you would like to convert conformance packs to custom Audit Manager assessments.
 - The maximum number of AWS Config conformance packs that can be created in a single account is 50.
+
+:::
 
 Overall, AWS Config provides you with a powerful toolset to help you monitor and manage the configurations of your AWS
 resources, ensuring that they remain compliant, secure, and properly configured over time.
