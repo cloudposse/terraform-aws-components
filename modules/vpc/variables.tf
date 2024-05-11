@@ -222,10 +222,9 @@ variable "subnets_per_az_count" {
     error_message = "The `subnets_per_az` value must be greater than 0."
   }
 }
- 
+
 variable "subnets_per_az_names" {
-  type = list(string)
- 
+  type        = list(string)
   description = <<-EOT
     The subnet names of each type (public or private) to provision per Availability Zone.
     This variable is optional.
