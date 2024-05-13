@@ -44,9 +44,11 @@ repos:
         name: prettier
         entry: prettier --write --prose-wrap always --print-width 120
         types: ["markdown"]
+        # Excluding modules/eks/cluster/README.md because it chokes on the output
+        # of the `terraform-docs` command for that file.
         exclude: |
           (?x)^(
-              README.md |
+              README.md | modules/eks/cluster/README.md |
               deprecated/.*.md
           )$
 

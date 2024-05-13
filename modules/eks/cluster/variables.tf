@@ -93,27 +93,11 @@ variable "cluster_log_retention_period" {
   nullable    = false
 }
 
-variable "apply_config_map_aws_auth" {
-  type        = bool
-  description = "Whether to execute `kubectl apply` to apply the ConfigMap to allow worker nodes to join the EKS cluster"
-  default     = true
-  nullable    = false
-}
-
-variable "map_additional_aws_accounts" {
-  type        = list(string)
-  description = "Additional AWS account numbers to add to `aws-auth` ConfigMap"
-  default     = []
-  nullable    = false
-}
-
-variable "map_additional_worker_roles" {
-  type        = list(string)
-  description = "AWS IAM Role ARNs of worker nodes to add to `aws-auth` ConfigMap"
-  default     = []
-  nullable    = false
-}
-
+# TODO:
+# - Support EKS Access Policies
+# - Support namespaced access limits
+# - Support roles from other accounts
+# - Either combine with Permission Sets or similarly enhance Permission Set support
 variable "aws_team_roles_rbac" {
   type = list(object({
     aws_team_role = string
@@ -143,14 +127,26 @@ variable "aws_sso_permission_sets_rbac" {
   nullable = false
 }
 
+# TODO:
+# - Support EKS Access Policies
+# - Support namespaced access limits
+# - Combine with`map_additional_iam_users` into new input
 variable "map_additional_iam_roles" {
   type = list(object({
     rolearn  = string
-    username = string
+    username = optional(string)
     groups   = list(string)
   }))
 
-  description = "Additional IAM roles to add to `config-map-aws-auth` ConfigMap"
+  description = <<-EOT
+    Additional IAM roles to grant access to the cluster.
+    *WARNING*: Full Role ARN, including path, is required for `rolearn`.
+    In earlier versions (with `aws-auth` ConfigMap), only the path
+    had to be removed from the Role ARN. The path is now required.
+    `username` is now ignored. This input is planned to be replaced
+    in a future release with a more flexible input structure that consolidates
+    `map_additional_iam_roles` and `map_additional_iam_users`.
+    EOT
   default     = []
   nullable    = false
 }
@@ -158,11 +154,16 @@ variable "map_additional_iam_roles" {
 variable "map_additional_iam_users" {
   type = list(object({
     userarn  = string
-    username = string
+    username = optional(string)
     groups   = list(string)
   }))
 
-  description = "Additional IAM users to add to `aws-auth` ConfigMap"
+  description = <<-EOT
+    Additional IAM roles to grant access to the cluster.
+    `username` is now ignored. This input is planned to be replaced
+    in a future release with a more flexible input structure that consolidates
+    `map_additional_iam_roles` and `map_additional_iam_users`.
+    EOT
   default     = []
   nullable    = false
 }
@@ -563,7 +564,10 @@ variable "legacy_fargate_1_role_per_profile_enabled" {
 variable "legacy_do_not_create_karpenter_instance_profile" {
   type        = bool
   description = <<-EOT
-    When `true` (the default), suppresses creation of the IAM Instance Profile
+    **Obsolete:** The issues this was meant to mitigate were fixed in AWS Terraform Provider v5.43.0
+    and Karpenter v0.33.0. This variable will be removed in a future release.
+    Remove this input from your configuration and leave it at default.
+    **Old description:** When `true` (the default), suppresses creation of the IAM Instance Profile
     for nodes launched by Karpenter, to preserve the legacy behavior of
     the `eks/karpenter` component creating it.
     Set to `false` to enable creation of the IAM Instance Profile, which
@@ -572,4 +576,19 @@ variable "legacy_do_not_create_karpenter_instance_profile" {
     Use in conjunction with `eks/karpenter` component `legacy_create_karpenter_instance_profile`.
     EOT
   default     = true
+}
+
+variable "access_config" {
+  type = object({
+    authentication_mode                         = optional(string, "API")
+    bootstrap_cluster_creator_admin_permissions = optional(bool, false)
+  })
+  description = "Access configuration for the EKS cluster"
+  default     = {}
+  nullable    = false
+
+  validation {
+    condition     = !contains(["CONFIG_MAP"], var.access_config.authentication_mode)
+    error_message = "The CONFIG_MAP authentication_mode is not supported."
+  }
 }
