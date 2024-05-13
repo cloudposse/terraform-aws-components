@@ -44,8 +44,9 @@ repos:
         name: prettier
         entry: prettier --write --prose-wrap always --print-width 120
         types: ["markdown"]
-        # Excluding modules/eks/cluster/README.md because it chokes on the output
-        # of the `terraform-docs` command for that file.
+        # If prettier chokes on the output of the `terraform-docs` command for a file, don't
+        #   exclude it here. Instead, wrap the terraform-docs comment in the README with
+        #   `<!-- prettier-ignore-start -->` and `<!-- prettier-ignore-end -->` comments.
         exclude: |
           (?x)^(
               README.md |
