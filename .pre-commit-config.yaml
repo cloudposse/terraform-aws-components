@@ -48,7 +48,7 @@ repos:
         # of the `terraform-docs` command for that file.
         exclude: |
           (?x)^(
-              README.md | modules/eks/cluster/README.md |
+              README.md |
               deprecated/.*.md
           )$
 
