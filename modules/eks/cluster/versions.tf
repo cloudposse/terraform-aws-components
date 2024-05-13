@@ -12,7 +12,10 @@ terraform {
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "< 2.25"
+      # Version 2.25 and higher have bugs, so we cannot allow them, 
+      # but automation enforces that we have no upper limit.
+      # It is less critical here, because the Kubernetes provider is being removed entirely.
+      version = "2.24"
     }
   }
 }
