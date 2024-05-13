@@ -407,37 +407,6 @@ variable "aws_ssm_agent_enabled" {
   nullable    = false
 }
 
-variable "kubeconfig_file" {
-  type        = string
-  description = "Name of `kubeconfig` file to use to configure Kubernetes provider"
-  default     = ""
-}
-
-variable "kubeconfig_file_enabled" {
-  type = bool
-
-  description = <<-EOF
-    Set true to configure Kubernetes provider with a `kubeconfig` file specified by `kubeconfig_file`.
-    Mainly for when the standard configuration produces a Terraform error.
-    EOF
-
-  default  = false
-  nullable = false
-}
-
-variable "kube_exec_auth_role_arn" {
-  type        = string
-  description = "The role ARN for `aws eks get-token` to use. Defaults to the current caller's role."
-  default     = null
-}
-
-variable "aws_auth_yaml_strip_quotes" {
-  type        = bool
-  description = "If true, remove double quotes from the generated aws-auth ConfigMap YAML to reduce spurious diffs in plans"
-  default     = true
-  nullable    = false
-}
-
 variable "cluster_private_subnets_only" {
   type        = bool
   description = "Whether or not to enable private subnets or both public and private subnets"
