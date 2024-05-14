@@ -53,9 +53,6 @@ locals {
 
   access_entry_map = merge(local.aws_team_roles_access_entry_map, local.aws_sso_access_entry_map, local.iam_roles_access_entry_map, local.iam_users_access_entry_map)
 
-  # Existing Fargate Profile role ARNs
-  fargate_profile_role_arns = local.eks_outputs.fargate_profile_role_arns
-
   # If Karpenter IAM role is enabled, give it access to the cluster to allow the nodes launched by Karpenter to join the EKS cluster
   karpenter_role_arn = one(aws_iam_role.karpenter[*].arn)
 
@@ -63,8 +60,8 @@ locals {
     var.map_additional_worker_roles,
     # As of Karpenter v0.35.0, there is no entry in the official Karpenter documentation
     # stating how to configure Karpenter node roles via EKS Access Entries.
-    # However, it is launching unmanaged worker nodes, so it makes sense they they
-    # be configured as EC2_LINUX unmanaged worker nodes. Of course, this does probably
+    # However, it is launching unmanaged worker nodes, so it makes sense that they
+    # be configured as EC2_LINUX unmanaged worker nodes. Of course, this probably
     # does not work if they are Windows nodes, but at the moment, this component
     # probably has other deficiencies that would prevent it from working with Windows nodes,
     # so we will stick with just saying Windows is not supported until we have some need for it.

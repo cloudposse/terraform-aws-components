@@ -41,7 +41,7 @@ With the fixes included and AWS Terraform Provider v5.43.0 and Karpenter v0.33.0
 has role attached), you can simply remove the resource from the Terraform state with `[atmos] terraform state rm`,
 because it will be managed by the Karpenter controller instead of Terraform.
 
-### Migration Procedure
+### Access Control API Migration Procedure
 
 Full details of the migration process can be found in the `cloudposse/terraform-aws-eks-cluster`
 [migration document](https://github.com/cloudposse/terraform-aws-eks-cluster/blob/main/docs/migration-v3-v4.md). This
@@ -192,7 +192,7 @@ authentication mode, and manually remove the `aws-auth` ConfigMap.
   `kubectl delete configmap aws-auth --namespace kube-system`. This will not affect the cluster, because it is now being
   managed by the new access control API, but it will reduce the possibility of confusion in the future.
 
-### End of Migration
+### End of Access Control API Migration
 
 ---
 
@@ -226,7 +226,7 @@ will provide high availability for the cluster. As a bonus, it will also remove 
 **NOTE about instance type**: The `c7a.medium` instance type is relatively new. If you have deployed an old version of
 our [ServiceControlPolicy](https://github.com/cloudposse/terraform-aws-service-control-policies)
 `DenyEC2NonNitroInstances`, `DenyNonNitroInstances` (obsolete, replaced by `DenyEC2NonNitroInstances`), and/or
-`DenyEC2InstancesWithoutEncryptionInTransit`, you will want to update them to v0.14.1 or choose a difference instance
+`DenyEC2InstancesWithoutEncryptionInTransit`, you will want to update them to v0.14.1 or choose a different instance
 type.
 
 ### Migration procedure
