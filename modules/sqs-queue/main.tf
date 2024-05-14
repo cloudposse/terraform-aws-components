@@ -1,6 +1,7 @@
 locals {
   enabled            = module.this.enabled
   aws_account_number = one(data.aws_caller_identity.current[*].account_id)
+  policy_enabled     = local.enabled && var.iam_policy != []
 }
 
 data "aws_caller_identity" "current" {
@@ -28,7 +29,7 @@ module "sqs_queue" {
 }
 
 module "queue_policy" {
-  count = local.enabled && var.iam_policy != [] ? 1 : 0
+  count = local.policy_enabled ? 1 : 0
 
   source  = "cloudposse/iam-policy/aws"
   version = "2.0.1"
@@ -59,8 +60,8 @@ module "queue_policy" {
 }
 
 resource "aws_sqs_queue_policy" "sqs_queue_policy" {
-  count = local.enabled && var.iam_policy != [] ? 1 : 0
+  count = local.policy_enabled ? 1 : 0
 
   queue_url = module.sqs_queue.url
-  policy    = one(module.queue_policy[*].json)
+  policy    = local.policy_enabled ? one(module.queue_policy[*].json) : ""
 }
