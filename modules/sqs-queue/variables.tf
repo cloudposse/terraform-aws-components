@@ -41,8 +41,26 @@ variable "policy" {
 
 variable "redrive_policy" {
   type        = list(string)
-  description = "The JSON policy to set up the Dead Letter Queue, see AWS docs. Note: when specifying maxReceiveCount, you must specify it as an integer (5), and not a string (\"5\")."
+  description = "**DEPRECATED** This is deprecated and is left as an escape hatch, please use `dead_letter_sqs_component_name` or `dead_letter_sqs_url` instead. The JSON policy to set up the Dead Letter Queue, see AWS docs. Note: when specifying maxReceiveCount, you must specify it as an integer (5), and not a string (\"5\")."
   default     = []
+}
+
+variable "dead_letter_sqs_url" {
+  type        = string
+  description = "The sqs url of the dead letter queue. This is used to create the redrive policy."
+  default     = null
+}
+
+variable "dead_letter_sqs_component_name" {
+  type        = string
+  description = "The name of the component that will be looked up for the ARN and be used as the dead letter queue."
+  default     = null
+}
+
+variable "dead_letter_max_receive_count" {
+  type        = number
+  description = "The number of times a message can be unsuccessfully dequeued before being moved to the dead-letter queue."
+  default     = 5
 }
 
 variable "fifo_queue" {
