@@ -1,8 +1,9 @@
 locals {
   enabled = module.this.enabled
 
-  vpc_id     = module.vpc.outputs.vpc_id
-  subnet_ids = var.use_private_subnets ? module.vpc.outputs.private_subnet_ids : module.vpc.outputs.public_subnet_ids
+  vpc_id              = module.vpc.outputs.vpc_id
+  subnet_ids          = var.use_private_subnets ? module.vpc.outputs.private_subnet_ids : module.vpc.outputs.public_subnet_ids
+  psql_access_enabled = true # TODO
 
   eks_security_groups = var.use_eks_security_group ? [module.eks[0].outputs.eks_cluster_managed_security_group_id] : []
   dns_zone_id         = one(module.dns_gbl_delegated[*].outputs.default_dns_zone_id)
@@ -28,7 +29,28 @@ module "rds_client_sg" {
   enabled = module.this.enabled && var.client_security_group_enabled
 
   vpc_id = local.vpc_id
-  rules  = []
+
+  #rules  = []
+  rule_matrix = local.psql_access_enabled ? [
+    # Allow any of these security groups or the specified prefixes to access MySQL
+    {
+      source_security_group_ids = [
+        module.vpc.outputs.vpc_default_security_group_id
+      ]
+      prefix_list_ids = []
+      rules = [
+        {
+          key         = "postgresql"
+          type        = "ingress"
+          from_port   = var.database_port
+          to_port     = var.database_port
+          protocol    = "tcp"
+          description = "Allow psql access from trusted security groups"
+        }
+      ]
+    }
+  ] : []
+
 
   context = module.this.context
 }
