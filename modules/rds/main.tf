@@ -30,8 +30,7 @@ module "rds_client_sg" {
   enabled = module.this.enabled && var.client_security_group_enabled
 
   vpc_id = local.vpc_id
-
-  rules = []
+  rules  = []
 
   context = module.this.context
 }
