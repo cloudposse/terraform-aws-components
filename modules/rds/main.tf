@@ -31,27 +31,7 @@ module "rds_client_sg" {
 
   vpc_id = local.vpc_id
 
-  #rules  = []
-  rule_matrix = local.psql_access_enabled ? [
-    # Allow any of these security groups or the specified prefixes to access MySQL
-    {
-      source_security_group_ids = [
-        module.vpc.outputs.vpc_default_security_group_id
-      ]
-      prefix_list_ids = []
-      rules = [
-        {
-          key         = "postgresql"
-          type        = "ingress"
-          from_port   = var.database_port
-          to_port     = var.database_port
-          protocol    = "tcp"
-          description = "Allow psql access from trusted security groups"
-        }
-      ]
-    }
-  ] : []
-
+  rules = []
 
   context = module.this.context
 }
