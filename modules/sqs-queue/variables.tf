@@ -35,14 +35,32 @@ variable "receive_wait_time_seconds" {
 
 variable "policy" {
   type        = list(string)
-  description = "The JSON policy for the SQS queue. For more information about building AWS IAM policy documents with Terraform, see the [AWS IAM Policy Document Guide](https://learn.hashicorp.com/terraform/aws/iam-policy)."
+  description = "The JSON policy for the SQS Queue. For more information about building AWS IAM policy documents with Terraform, see the [AWS IAM Policy Document Guide](https://learn.hashicorp.com/terraform/aws/iam-policy)."
   default     = []
 }
 
 variable "redrive_policy" {
   type        = list(string)
-  description = "The JSON policy to set up the Dead Letter Queue, see AWS docs. Note: when specifying maxReceiveCount, you must specify it as an integer (5), and not a string (\"5\")."
+  description = "**DEPRECATED** This is deprecated and is left as an escape hatch, please use `dead_letter_sqs_component_name` or `dead_letter_sqs_arn` instead. The JSON policy to set up the Dead Letter Queue, see AWS docs. Note: when specifying maxReceiveCount, you must specify it as an integer (5), and not a string (\"5\")."
   default     = []
+}
+
+variable "dead_letter_sqs_arn" {
+  type        = string
+  description = "The SQS url of the Dead Letter Queue. This is used to create the redrive policy."
+  default     = null
+}
+
+variable "dead_letter_sqs_component_name" {
+  type        = string
+  description = "The name of the component that will be looked up for the ARN and be used as the Dead Letter Queue."
+  default     = null
+}
+
+variable "dead_letter_max_receive_count" {
+  type        = number
+  description = "The number of times a message can be unsuccessfully dequeued before being moved to the Dead Letter Queue."
+  default     = 5
 }
 
 variable "fifo_queue" {
