@@ -1,3 +1,30 @@
+## Version TBD
+
+Components PR TBD
+
+::: warning Major Breaking Changes
+
+Karpenter at version v0.32.0 switched from v1alpha APIs to v2beta APIs with many breaking changes. This includes
+replacing the corresponding `karpenter-provisioner` component with the `karpenter-node-pool` component. Migrating to
+Karpenter v0.33.0 or later (v0.32 is a hybrid transitional release) requires updating the `karpenter` and
+`karpenter-node-pool` components, and vice versa.
+
+:::
+
+The full list of changes in Karpenter is too extensive to repeat here. See the
+[Karpenter v1beta Migration Guide](https://karpenter.sh/v0.32/upgrading/v1beta1-migration/) and the
+[Karpenter Upgrade Guide](https://karpenter.sh/docs/upgrading/upgrade-guide/) for details.
+
+While a zero-downtime upgrade is possible, it is very complex and tedious and Cloud Posse does not support it at this
+time. Instead, we recommend you delete your existing Karpenter Provisioner (`karpenter-provisioner`) and Controller
+(`karpenter`) deployments, which will scale your cluster to zero and leave all your pods suspended, and then deploy the
+new components, which will resume your pods.
+
+If you require a zero-downtime upgrage, please contact
+[Cloud Posse professional services](https://cloudposse.com/services/) for assistance.
+
+`karpenter` and
+
 ## Version 1.348.0
 
 Components PR [#868](https://github.com/cloudposse/terraform-aws-components/pull/868)
