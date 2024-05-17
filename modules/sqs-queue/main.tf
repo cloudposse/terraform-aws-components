@@ -1,7 +1,8 @@
 locals {
-  enabled            = module.this.enabled
-  aws_account_number = one(data.aws_caller_identity.current[*].account_id)
-  policy_enabled     = local.enabled && length(var.iam_policy) > 0
+  enabled                = module.this.enabled
+  aws_account_number     = one(data.aws_caller_identity.current[*].account_id)
+  policy_enabled         = local.enabled && length(var.iam_policy) > 0
+  redrive_policy_enabled = local.enabled && (var.dead_letter_sqs_component_name != null || var.dead_letter_sqs_arn != null)
 }
 
 data "aws_caller_identity" "current" {
@@ -68,4 +69,14 @@ resource "aws_sqs_queue_policy" "sqs_queue_policy" {
 
   queue_url = module.sqs_queue.url
   policy    = one(module.queue_policy[*].json)
+}
+
+resource "aws_sqs_queue_redrive_policy" "dead_letter_queue" {
+  count = local.redrive_policy_enabled != null ? 1 : 0
+
+  queue_url = module.sqs_queue.url
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = var.dead_letter_sqs_arn != null ? var.dead_letter_sqs_arn : one(module.dead_letter_sqs_remote_state[*].outputs.arn)
+    maxReceiveCount     = var.dead_letter_max_receive_count
+  })
 }
