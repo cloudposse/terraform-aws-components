@@ -35,14 +35,32 @@ variable "receive_wait_time_seconds" {
 
 variable "policy" {
   type        = list(string)
-  description = "The JSON policy for the SQS queue. For more information about building AWS IAM policy documents with Terraform, see the [AWS IAM Policy Document Guide](https://learn.hashicorp.com/terraform/aws/iam-policy)."
+  description = "The JSON policy for the SQS Queue. For more information about building AWS IAM policy documents with Terraform, see the [AWS IAM Policy Document Guide](https://learn.hashicorp.com/terraform/aws/iam-policy)."
   default     = []
 }
 
 variable "redrive_policy" {
   type        = list(string)
-  description = "The JSON policy to set up the Dead Letter Queue, see AWS docs. Note: when specifying maxReceiveCount, you must specify it as an integer (5), and not a string (\"5\")."
+  description = "**DEPRECATED** This is deprecated and is left as an escape hatch, please use `dead_letter_sqs_component_name` or `dead_letter_sqs_arn` instead. The JSON policy to set up the Dead Letter Queue, see AWS docs. Note: when specifying maxReceiveCount, you must specify it as an integer (5), and not a string (\"5\")."
   default     = []
+}
+
+variable "dead_letter_sqs_arn" {
+  type        = string
+  description = "The SQS url of the Dead Letter Queue. This is used to create the redrive policy."
+  default     = null
+}
+
+variable "dead_letter_sqs_component_name" {
+  type        = string
+  description = "The name of the component that will be looked up for the ARN and be used as the Dead Letter Queue."
+  default     = null
+}
+
+variable "dead_letter_max_receive_count" {
+  type        = number
+  description = "The number of times a message can be unsuccessfully dequeued before being moved to the Dead Letter Queue."
+  default     = 5
 }
 
 variable "fifo_queue" {
@@ -79,4 +97,45 @@ variable "deduplication_scope" {
   type        = list(string)
   description = "Specifies whether message deduplication occurs at the message group or queue level. Valid values are messageGroup and queue. This can be specified if fifo_queue is true."
   default     = []
+}
+
+variable "iam_policy_limit_to_current_account" {
+  type        = bool
+  description = "Boolean designating whether the IAM policy should be limited to the current account."
+  default     = true
+}
+
+variable "iam_policy" {
+  type = list(object({
+    policy_id = optional(string, null)
+    version   = optional(string, null)
+    statements = list(object({
+      sid           = optional(string, null)
+      effect        = optional(string, null)
+      actions       = optional(list(string), null)
+      not_actions   = optional(list(string), null)
+      resources     = optional(list(string), null)
+      not_resources = optional(list(string), null)
+      conditions = optional(list(object({
+        test     = string
+        variable = string
+        values   = list(string)
+      })), [])
+      principals = optional(list(object({
+        type        = string
+        identifiers = list(string)
+      })), [])
+      not_principals = optional(list(object({
+        type        = string
+        identifiers = list(string)
+      })), [])
+    }))
+  }))
+  description = <<-EOT
+    IAM policy as list of Terraform objects, compatible with Terraform `aws_iam_policy_document` data source
+    except that `source_policy_documents` and `override_policy_documents` are not included.
+    Use inputs `iam_source_policy_documents` and `iam_override_policy_documents` for that.
+    EOT
+  default     = []
+  nullable    = false
 }

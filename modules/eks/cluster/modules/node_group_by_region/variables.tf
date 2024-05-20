@@ -32,7 +32,7 @@ variable "cluster_context" {
       effect = string
     }))
     kubernetes_version    = string
-    module_depends_on     = any
+    module_depends_on     = optional(any)
     resources_to_tag      = list(string)
     subnet_type_tag_key   = string
     aws_ssm_agent_enabled = bool
