@@ -38,6 +38,7 @@ locals {
     vpc_id             = module.vpc.outputs.vpc_id
     subnets            = module.vpc.outputs.private_subnet_ids
     availability_zones = var.availability_zones
+    multi_az_enabled   = var.multi_az_enabled
 
     allowed_security_groups         = local.allowed_security_groups
     additional_security_group_rules = local.additional_security_group_rules

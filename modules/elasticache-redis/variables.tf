@@ -9,6 +9,12 @@ variable "availability_zones" {
   default     = []
 }
 
+variable "multi_az_enabled" {
+  type        = bool
+  default     = false
+  description = "Multi AZ (Automatic Failover must also be enabled.  If Cluster Mode is enabled, Multi AZ is on by default, and this setting is ignored)"
+}
+
 variable "family" {
   type        = string
   description = "Redis family"

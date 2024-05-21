@@ -22,6 +22,7 @@ module "redis" {
   auth_token                           = local.auth_token
   automatic_failover_enabled           = var.cluster_attributes.automatic_failover_enabled
   availability_zones                   = var.cluster_attributes.availability_zones
+  multi_az_enabled                     = var.cluster_attributes.multi_az_enabled
   cluster_mode_enabled                 = var.num_shards > 0
   cluster_mode_num_node_groups         = var.num_shards
   cluster_mode_replicas_per_node_group = var.replicas_per_shard
