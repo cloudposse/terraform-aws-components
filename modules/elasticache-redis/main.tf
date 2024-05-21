@@ -38,6 +38,7 @@ locals {
     vpc_id             = module.vpc.outputs.vpc_id
     subnets            = module.vpc.outputs.private_subnet_ids
     availability_zones = var.availability_zones
+    multi_az_enabled   = var.multi_az_enabled
 
     allowed_security_groups         = local.allowed_security_groups
     additional_security_group_rules = local.additional_security_group_rules
@@ -65,13 +66,15 @@ module "redis_clusters" {
   cluster_name  = lookup(each.value, "cluster_name", replace(each.key, "_", "-"))
   dns_subdomain = join(".", [lookup(each.value, "cluster_name", replace(each.key, "_", "-")), module.this.environment])
 
-  instance_type      = each.value.instance_type
-  num_replicas       = lookup(each.value, "num_replicas", 1)
-  num_shards         = lookup(each.value, "num_shards", 0)
-  replicas_per_shard = lookup(each.value, "replicas_per_shard", 0)
-  engine_version     = each.value.engine_version
-  parameters         = each.value.parameters
-  cluster_attributes = local.cluster_attributes
+  instance_type          = each.value.instance_type
+  num_replicas           = lookup(each.value, "num_replicas", 1)
+  num_shards             = lookup(each.value, "num_shards", 0)
+  replicas_per_shard     = lookup(each.value, "replicas_per_shard", 0)
+  engine_version         = each.value.engine_version
+  create_parameter_group = lookup(each.value, "create_parameter_group", true)
+  parameters             = lookup(each.value, "parameters", null)
+  parameter_group_name   = lookup(each.value, "parameter_group_name", null)
+  cluster_attributes     = local.cluster_attributes
 
   context = module.this.context
 }
