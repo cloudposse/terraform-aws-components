@@ -75,6 +75,12 @@ variable "redis_clusters" {
   description = "Redis cluster configuration"
 }
 
+variable "allow_ingress_from_this_vpc" {
+  type        = bool
+  default     = true
+  description = "If set to `true`, allow ingress from the VPC CIDR for this account"
+}
+
 variable "allow_ingress_from_vpc_stages" {
   type        = list(string)
   default     = []
