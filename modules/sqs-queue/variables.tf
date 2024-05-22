@@ -144,7 +144,7 @@ variable "content_based_deduplication" {
 variable "kms_master_key_id" {
   type        = string
   description = "The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CMK. For more information, see Key Terms."
-  default     = "alias/aws/sqs"
+  default     = null
 }
 
 variable "kms_data_key_reuse_period_seconds" {
