@@ -96,7 +96,7 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_allow_all_egress"></a> [allow\_all\_egress](#input\_allow\_all\_egress) | If `true`, the created security group will allow egress on all ports and protocols to all IP address.<br>If this is false and no egress rules are otherwise specified, then no egress will be allowed. | `bool` | `true` | no |
-| <a name="input_allow_ingress_from_this_vpc"></a> [allow\_ingress\_from\_this\_vpc](#input\_allow\_ingress\_from\_this\_vpc) | If set to `true`, allow ingress from the VPC CIDR for this account | `bool` | `false` | no |
+| <a name="input_allow_ingress_from_this_vpc"></a> [allow\_ingress\_from\_this\_vpc](#input\_allow\_ingress\_from\_this\_vpc) | If set to `true`, allow ingress from the VPC CIDR for this account | `bool` | `true` | no |
 | <a name="input_allow_ingress_from_vpc_stages"></a> [allow\_ingress\_from\_vpc\_stages](#input\_allow\_ingress\_from\_vpc\_stages) | List of stages to pull VPC ingress cidr and add to security group | `list(string)` | `[]` | no |
 | <a name="input_apply_immediately"></a> [apply\_immediately](#input\_apply\_immediately) | Apply changes immediately | `bool` | n/a | yes |
 | <a name="input_at_rest_encryption_enabled"></a> [at\_rest\_encryption\_enabled](#input\_at\_rest\_encryption\_enabled) | Enable encryption at rest | `bool` | n/a | yes |

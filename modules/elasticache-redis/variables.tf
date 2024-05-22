@@ -77,7 +77,7 @@ variable "redis_clusters" {
 
 variable "allow_ingress_from_this_vpc" {
   type        = bool
-  default     = false
+  default     = true
   description = "If set to `true`, allow ingress from the VPC CIDR for this account"
 }
 
