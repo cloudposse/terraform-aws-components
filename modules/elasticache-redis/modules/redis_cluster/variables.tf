@@ -55,6 +55,7 @@ variable "cluster_attributes" {
     family                          = string
     port                            = number
     zone_id                         = string
+    multi_az_enabled                = bool
     at_rest_encryption_enabled      = bool
     transit_encryption_enabled      = bool
     apply_immediately               = bool
