@@ -23,7 +23,6 @@ variable "auto_enable_organization_members" {
   For more information, see:
   https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_organization_configuration#auto_enable_organization_members
   DOC
-
 }
 
 variable "cloudwatch_event_rule_pattern_detail_type" {
@@ -68,6 +67,12 @@ variable "cloudwatch_enabled" {
   DOC
 }
 
+variable "eks_runtime_monitoring_enabled" {
+  type        = bool
+  default     = false
+  description = "Enables EKS runtime monitoring as a feature for EKS protection"
+}
+
 variable "finding_publishing_frequency" {
   type        = string
   default     = null
@@ -102,23 +107,19 @@ variable "global_environment" {
 variable "kubernetes_audit_logs_enabled" {
   type        = bool
   default     = false
-  description = <<-DOC
-  If `true`, enables Kubernetes audit logs as a data source for Kubernetes protection.
+  description = "Enables Kubernetes audit logs as a feature for Kubernetes protection"
+}
 
-  For more information, see:
-  https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector#audit_logs
-  DOC
+variable "lambda_network_logs_enabled" {
+  type        = bool
+  default     = false
+  description = "Enables Lambda network logs as a feature for Lambda protection"
 }
 
 variable "malware_protection_scan_ec2_ebs_volumes_enabled" {
   type        = bool
   default     = false
-  description = <<-DOC
-  Configure whether Malware Protection is enabled as data source for EC2 instances EBS Volumes in GuardDuty.
-
-  For more information, see:
-  https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector#malware-protection
-  DOC
+  description = "Enables EBS malware protection as a feature for EC2 protection"
 }
 
 variable "organization_management_account_name" {
@@ -133,6 +134,12 @@ variable "privileged" {
   description = "true if the default provider already has access to the backend"
 }
 
+variable "rds_login_events_enabled" {
+  type        = bool
+  default     = false
+  description = "Enables RDS login events as a feature for RDS protection"
+}
+
 variable "region" {
   type        = string
   description = "AWS Region"
@@ -145,6 +152,12 @@ variable "root_account_stage" {
   The stage name for the Organization root (management) account. This is used to lookup account IDs from account names
   using the `account-map` component.
   DOC
+}
+
+variable "runtime_monitoring_enabled" {
+  type        = bool
+  default     = false
+  description = "Enables runtime monitoring as a feature for ECS, EKS, and EC2 protection"
 }
 
 variable "s3_protection_enabled" {

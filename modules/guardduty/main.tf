@@ -13,6 +13,47 @@ locals {
   create_guardduty_collector = local.enabled && ((local.is_org_delegated_administrator_account && !var.admin_delegated) || local.is_org_management_account)
   create_org_delegation      = local.enabled && local.is_org_management_account
   create_org_configuration   = local.enabled && local.is_org_delegated_administrator_account && var.admin_delegated
+
+  guardduty_features = {
+    "s3_data_events" = {
+      name                     = "S3_DATA_EVENTS"
+      additional_configuration = []
+      enable                   = var.s3_protection_enabled
+    },
+    "eks_audit_logs" = {
+      name                     = "EKS_AUDIT_LOGS"
+      additional_configuration = []
+      enable                   = var.kubernetes_audit_logs_enabled
+    },
+    "ebs_malware_protection" = {
+      name                     = "EBS_MALWARE_PROTECTION"
+      additional_configuration = []
+      enable                   = var.malware_protection_scan_ec2_ebs_volumes_enabled
+    },
+    "rds_login_events" = {
+      name                     = "RDS_LOGIN_EVENTS"
+      additional_configuration = []
+      enable                   = var.rds_login_events_enabled
+    },
+    "eks_runtime_monitoring" = {
+      name                     = "EKS_RUNTIME_MONITORING"
+      additional_configuration = ["EKS_ADDON_MANAGEMENT"]
+      enable                   = var.eks_runtime_monitoring_enabled
+    },
+    "lambda_network_logs" = {
+      name                     = "LAMBDA_NETWORK_LOGS"
+      additional_configuration = []
+      enable                   = var.lambda_network_logs_enabled
+    },
+    "runtime_monitoring" = {
+      name                     = "RUNTIME_MONITORING"
+      additional_configuration = ["EKS_ADDON_MANAGEMENT", "ECS_FARGATE_AGENT_MANAGEMENT", "EC2_AGENT_MANAGEMENT"]
+      enable                   = var.runtime_monitoring_enabled
+    }
+  }
+  enabled_features = {
+    for key, feature in local.guardduty_features : key => feature if feature.enable
+  }
 }
 
 data "aws_caller_identity" "this" {
@@ -61,22 +102,22 @@ resource "aws_guardduty_organization_configuration" "this" {
 
   auto_enable_organization_members = var.auto_enable_organization_members
   detector_id                      = module.guardduty_delegated_detector[0].outputs.guardduty_detector_id
+}
 
-  datasources {
-    s3_logs {
-      auto_enable = var.s3_protection_enabled
-    }
-    kubernetes {
-      audit_logs {
-        enable = var.kubernetes_audit_logs_enabled
-      }
-    }
-    malware_protection {
-      scan_ec2_instance_with_findings {
-        ebs_volumes {
-          auto_enable = var.malware_protection_scan_ec2_ebs_volumes_enabled
-        }
-      }
+resource "aws_guardduty_organization_configuration_feature" "this" {
+  for_each = local.create_org_configuration ? {
+    for key, value in local.guardduty_features :
+  key => value if value.enable == true } : {}
+
+  name        = each.value.name
+  auto_enable = var.auto_enable_organization_members
+  detector_id = module.guardduty_delegated_detector[0].outputs.guardduty_detector_id
+
+  dynamic "additional_configuration" {
+    for_each = each.value.additional_configuration != null ? toset(each.value.additional_configuration) : []
+    content {
+      auto_enable = var.auto_enable_organization_members
+      name        = additional_configuration.value
     }
   }
 }
