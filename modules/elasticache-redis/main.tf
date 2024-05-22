@@ -3,10 +3,8 @@ locals {
 
   eks_security_group_enabled = local.enabled && var.eks_security_group_enabled
 
-  vpc_cidr = module.vpc.outputs.vpc_cidr
-
   allowed_cidr_blocks = concat(
-    [local.vpc_cidr],
+    var.allow_ingress_from_this_vpc ? [module.vpc.outputs.vpc_cidr] : [],
     var.ingress_cidr_blocks,
     [
       for k in keys(module.vpc_ingress) :
