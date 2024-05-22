@@ -1,4 +1,4 @@
-## Upgrading to `v1.TODO.0`
+## Pull Request [#1042](https://github.com/cloudposse/terraform-aws-components/pull/1042) - Refactor `sqs-queue` Component
 
 Components PR [#1042](https://github.com/cloudposse/terraform-aws-components/pull/1042)
 
