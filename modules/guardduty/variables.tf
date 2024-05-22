@@ -107,7 +107,7 @@ variable "global_environment" {
 variable "kubernetes_audit_logs_enabled" {
   type        = bool
   default     = false
-  description = "Enables Kubernetes audit logs as a feature for Kubernetes protection"
+  description = "Enables audit logs as a feature for Kubernetes protection"
 }
 
 variable "lambda_network_logs_enabled" {
