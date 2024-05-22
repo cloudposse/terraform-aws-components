@@ -1,6 +1,6 @@
-## Component PR [#]()
+## Component PR [#1044](https://github.com/cloudposse/terraform-aws-components/pull/1044)
 
-Components PR [#x](https://github.com/cloudposse/terraform-aws-components/pull/x)
+Components PR [#1044](https://github.com/cloudposse/terraform-aws-components/pull/1044)
 
 ### Affected components
 
