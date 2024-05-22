@@ -1,6 +1,6 @@
 ## Upgrading to `v1.TODO.0`
 
-Components PR [#TODO](https://github.com/cloudposse/terraform-aws-components/pull/TODO)
+Components PR [#1042](https://github.com/cloudposse/terraform-aws-components/pull/1042)
 
 ### Affected Components
 
@@ -8,7 +8,7 @@ Components PR [#TODO](https://github.com/cloudposse/terraform-aws-components/pul
 
 ### Summary
 
-This change to the sqs-queue component, [#TODO](https://github.com/cloudposse/terraform-aws-components/pull/TODO),
+This change to the sqs-queue component, [#1042](https://github.com/cloudposse/terraform-aws-components/pull/1042),
 refactored the `sqs-queue` component to use the AWS Module for queues, this provides better support for Dead-Letter
 Queues and easy policy attachment.
 
