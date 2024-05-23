@@ -1,5 +1,14 @@
 # Component: `eks/karpenter-provisioner`
 
+:::warning This component is DEPRECATED
+
+With v1beta1 of Karpenter, the `provisioner` component is deprecated.
+Please use the `eks/karpenter-node-group` component instead.
+
+For more details, see the [Karpenter v1beta1 release notes](/modules/eks/karpenter/CHANGELOG.md).
+
+:::
+
 This component deploys [Karpenter provisioners](https://karpenter.sh/v0.18.0/aws/provisioning) on an EKS cluster.
 
 ## Usage
