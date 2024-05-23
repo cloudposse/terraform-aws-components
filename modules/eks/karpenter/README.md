@@ -57,15 +57,6 @@ components:
             controller: "info"
             global: "info"
             webhook: "error"
-
-    # Provision `karpenter` component on the blue EKS cluster
-    eks/karpenter-blue:
-      metadata:
-        component: eks/karpenter
-        inherits:
-          - eks/karpenter
-      vars:
-        eks_component_name: eks/cluster-blue
 ```
 
 ## Provision Karpenter on EKS cluster
@@ -103,6 +94,13 @@ The process of provisioning Karpenter on an EKS cluster consists of 3 steps.
 
 ### 1. Provision EKS Fargate Profile for Karpenter and IAM Role for Nodes Launched by Karpenter
 
+:::note VPC assumptions being made
+
+We assume you've already created a VPC using our [VPC component](/modules/vpc) and have private subnets already set up.
+The Karpenter node pools will be launched in the private subnets.
+
+:::
+
 EKS Fargate Profile for Karpenter and IAM Role for Nodes launched by Karpenter are provisioned by the `eks/cluster`
 component:
 
@@ -115,9 +113,6 @@ components:
         inherits:
           - eks/cluster
       vars:
-        attributes:
-          - blue
-        eks_component_name: eks/cluster-blue
         node_groups:
           main:
             instance_types:
@@ -196,105 +191,98 @@ atmos terraform plan eks/karpenter-blue -s plat-ue2-dev
 atmos terraform apply eks/karpenter-blue -s plat-ue2-dev
 ```
 
-### 3. Provision `karpenter-provisioner` component
+### 3. Provision `karpenter-node-pool` component
 
-:::warning This is out of date
+In this step, we provision the `components/terraform/eks/karpenter-node-pool` component, which deploys Karpenter
+[NodePools](https://karpenter.sh/v0.36/getting-started/getting-started-with-karpenter/#5-create-nodepool) using the
+`kubernetes_manifest` resource.
 
-This section needs to be updated for 0.32.0 of karpenter still
+:::note Why use a separate component for NodePools?
+
+We create the NodePools as a separate component since the CRDs for the NodePools are created by the Karpenter component.
+This helps manage dependencies.
 
 :::
 
-In this step, we provision the `components/terraform/eks/karpenter-provisioner` component, which deploys Karpenter
-[Provisioners](https://karpenter.sh/v0.18.0/aws/provisioning) using the `kubernetes_manifest` resource.
-
-**NOTE:** We deploy the provisioners in a separate step as a separate component since it uses `kind: Provisioner` CRD
-which itself is created by the `karpenter` component in the previous step.
-
-Run the following commands to deploy the Karpenter provisioners on the blue EKS cluster:
-
-```bash
-atmos terraform plan eks/karpenter-provisioner-blue -s plat-ue2-dev
-atmos terraform apply eks/karpenter-provisioner-blue -s plat-ue2-dev
-```
-
-Note that the stack config for the blue Karpenter provisioner component is defined in
-`stacks/catalog/eks/clusters/blue.yaml`.
+First, create an abstract component for the `eks/karpenter-node-pool` component:
 
 ```yaml
-eks/karpenter-provisioner-blue:
+components:
+  terraform:
+    eks/karpenter-node-pool:
+      metadata:
+        type: abstract
+      vars:
+        enabled: true
+        # Disabling Manifest Experiment disables stored metadata with Terraform state
+        # Otherwise, the state will show changes on all plans
+        helm_manifest_experiment_enabled: false
+        node_pools:
+          default:
+            # Whether to place EC2 instances launched by Karpenter into VPC private subnets. Set it to `false` to use public subnets
+            private_subnets_enabled: true
+            # You can use disruption to set the maximum instance lifetime for the EC2 instances launched by Karpenter.
+            # You can also configure how fast or slow Karpenter should add/remove nodes.
+            # See more: https://karpenter.sh/v0.36/concepts/disruption/
+            disruption:
+              max_instance_lifetime: "336h" # 14 days
+            # Taints can be used to prevent pods without the right tolerations from running on this node pool.
+            # See more: https://karpenter.sh/v0.36/concepts/nodepools/#taints
+            taints: []
+            total_cpu_limit: "1k"
+            # Karpenter provisioner total memory limit for all pods running on the EC2 instances launched by Karpenter
+            total_memory_limit: "1200Gi"
+            # Set acceptable (In) and unacceptable (Out) Kubernetes and Karpenter values for node provisioning based on
+            # Well-Known Labels and cloud-specific settings. These can include instance types, zones, computer architecture,
+            # and capacity type (such as AWS spot or on-demand).
+            # See https://karpenter.sh/v0.36/concepts/nodepools/#spectemplatespecrequirements for more details
+            requirements:
+              - key: "karpenter.sh/capacity-type"
+                operator: "In"
+                # See https://karpenter.sh/docs/concepts/nodepools/#capacity-type
+                # Allow fallback to on-demand instances when spot instances are unavailable
+                # By default, Karpenter uses the "price-capacity-optimized" allocation strategy
+                # https://aws.amazon.com/blogs/compute/introducing-price-capacity-optimized-allocation-strategy-for-ec2-spot-instances/
+                # It is currently not configurable, but that may change in the future.
+                # See https://github.com/aws/karpenter-provider-aws/issues/1240
+                values:
+                  - "on-demand"
+                  - "spot"
+              - key: "kubernetes.io/os"
+                operator: "In"
+                values:
+                  - "linux"
+              - key: "kubernetes.io/arch"
+                operator: "In"
+                values:
+                  - "amd64"
+              # The following two requirements pick instances such as c3 or m5
+              - key: karpenter.k8s.aws/instance-category
+                operator: In
+                values: ["c", "m", "r"]
+              - key: karpenter.k8s.aws/instance-generation
+                operator: Gt
+                values: ["2"]
+```
+
+Now, create the stack config for the blue Karpenter NodePool component in `stacks/catalog/eks/clusters/blue.yaml`:
+
+```yaml
+eks/karpenter-node-pool/blue:
   metadata:
-    component: eks/karpenter-provisioner
+    component: eks/karpenter-node-pool
     inherits:
-      - eks/karpenter-provisioner
+      - eks/karpenter-node-pool
   vars:
-    attributes:
-      - blue
     eks_component_name: eks/cluster-blue
 ```
 
-You can override the default values from the `eks/karpenter-provisioner` base component.
+Finally, run the following commands to deploy the Karpenter provisioners on the blue EKS cluster:
 
-For your cluster, you will need to review the following configurations for the Karpenter provisioners and update it
-according to your requirements:
-
-- [requirements](https://karpenter.sh/v0.18.0/provisioner/#specrequirements):
-
-  ```yaml
-  requirements:
-    - key: "karpenter.sh/capacity-type"
-      operator: "In"
-      values:
-        - "on-demand"
-        - "spot"
-    - key: "node.kubernetes.io/instance-type"
-      operator: "In"
-      values:
-        - "m5.xlarge"
-        - "m5.large"
-        - "m5.medium"
-        - "c5.xlarge"
-        - "c5.large"
-        - "c5.medium"
-    - key: "kubernetes.io/arch"
-      operator: "In"
-      values:
-        - "amd64"
-  ```
-
-- `taints`, `startup_taints`, `ami_family`
-
-- Resource limits/requests for the Karpenter controller itself:
-
-  ```yaml
-  resources:
-    limits:
-      cpu: "300m"
-      memory: "1Gi"
-    requests:
-      cpu: "100m"
-      memory: "512Mi"
-  ```
-
-- Total CPU and memory limits for all pods running on the EC2 instances launched by Karpenter:
-
-  ```yaml
-  total_cpu_limit: "1k"
-  total_memory_limit: "1000Gi"
-  ```
-
-- Config to terminate empty nodes after the specified number of seconds. This behavior can be disabled by setting the
-  value to `null` (never scales down if not set):
-
-  ```yaml
-  ttl_seconds_after_empty: 30
-  ```
-
-- Config to terminate nodes when a maximum age is reached. This behavior can be disabled by setting the value to `null`
-  (never expires if not set):
-
-  ```yaml
-  ttl_seconds_until_expired: 2592000
-  ```
+```bash
+atmos terraform plan eks/karpenter-node-pool/blue -s plat-ue2-dev
+atmos terraform apply eks/karpenter-node-pool/blue -s plat-ue2-dev
+```
 
 ## Node Interruption
 
@@ -307,7 +295,7 @@ interruption events include:
 - Instance Terminating Events
 - Instance Stopping Events
 
-:::info
+:::info Interruption Handler vs. Termination Handler
 
 The Node Interruption Handler is not the same as the Node Termination Handler. The latter is always enabled and cleanly
 shuts down the node in 2 minutes in response to a Node Termination event. The former gets advance notice that a node

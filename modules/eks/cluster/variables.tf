@@ -433,13 +433,6 @@ variable "allow_ingress_from_vpc_accounts" {
   nullable = false
 }
 
-variable "eks_component_name" {
-  type        = string
-  description = "The name of the eks component"
-  default     = "eks/cluster"
-  nullable    = false
-}
-
 variable "vpc_component_name" {
   type        = string
   description = "The name of the vpc component"
