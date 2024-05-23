@@ -103,12 +103,6 @@ The process of provisioning Karpenter on an EKS cluster consists of 3 steps.
 
 ### 1. Provision EKS Fargate Profile for Karpenter and IAM Role for Nodes Launched by Karpenter
 
-:::warning This is out of date
-
-This section needs to be updated for 0.32.0 of karpenter still
-
-:::
-
 EKS Fargate Profile for Karpenter and IAM Role for Nodes launched by Karpenter are provisioned by the `eks/cluster`
 component:
 
@@ -130,21 +124,14 @@ components:
               - t3.medium
             max_group_size: 3
             min_group_size: 1
-        fargate_profiles:
-          karpenter:
-            kubernetes_namespace: karpenter
-            kubernetes_labels: null
         karpenter_iam_role_enabled: true
 ```
 
-**Notes**:
+:::note Authorization
 
-- Fargate Profile role ARNs need to be added to the `aws-auth` ConfigMap to allow the Fargate Profile nodes to join the
-  EKS cluster (this is done by EKS)
-- Karpenter IAM role ARN needs to be added to the `aws-auth` ConfigMap to allow the nodes launched by Karpenter to join
-  the EKS cluster (this is done by the `eks/cluster` component)
+- The AWS Auth Api for EKS is used to authorize the Karpenter controller to interact with the EKS cluster.
 
-We use EKS Fargate Profile for Karpenter because It is recommended to run Karpenter on an EKS Fargate Profile.
+:::
 
 ```text
 Karpenter is installed using a Helm chart. The Helm chart installs the Karpenter controller and
@@ -163,13 +150,13 @@ for more details.
 We provision IAM Role for Nodes launched by Karpenter because they must run with an Instance Profile that grants
 permissions necessary to run containers and configure networking.
 
-We define the IAM role for the Instance Profile in `components/terraform/eks/cluster/karpenter.tf`.
+We define the IAM role for the Instance Profile in `components/terraform/eks/cluster/controller-policy.tf`.
 
 Note that we provision the EC2 Instance Profile for the Karpenter IAM role in the `components/terraform/eks/karpenter`
 component (see the next step).
 
-Run the following commands to provision the EKS Fargate Profile for Karpenter and the IAM role for instances launched by
-Karpenter on the blue EKS cluster and add the role ARNs to the `aws-auth` ConfigMap:
+Run the following commands to provision the EKS Instance Profile for Karpenter and the IAM role for instances launched
+by Karpenter on the blue EKS cluster and add the role ARNs to the EKS Auth API:
 
 ```bash
 atmos terraform plan eks/cluster-blue -s plat-ue2-dev
