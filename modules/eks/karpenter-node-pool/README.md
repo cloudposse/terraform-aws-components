@@ -1,16 +1,6 @@
 # Component: `eks/karpenter-node-pool`
 
-############################## ##############################
-
-::: warning OUTDATED
-
-This README is outdated and needs to be revised for Karpenter v1beta APIs
-
-:::
-
-############################## ##############################
-
-This component deploys [Karpenter provisioners](https://karpenter.sh/v0.18.0/aws/provisioning) on an EKS cluster.
+This component deploys [Karpenter NodePools](https://karpenter.sh/docs/concepts/nodepools/) to an EKS cluster.
 
 Karpenter is still in v0 and rapidly evolving. At this time, this component only supports a subset of the features
 available in Karpenter. Support could be added for additional features as needed.
@@ -19,54 +9,88 @@ Not supported:
 
 - Elements of NodePool:
   - [`template.spec.kubelet`](https://karpenter.sh/docs/concepts/nodepools/#spectemplatespeckubelet)
+  - [`limits`](https://karpenter.sh/docs/concepts/nodepools/#limits) currently only supports `cpu` and `memory`. Other
+    limits such as `nvidia.com/gpu` are not supported.
 - Elements of NodeClass:
-  - `subnetSelectorTerms`. This component only support selecting all public or all private subnets of the referenced EKS
-    cluster.
+  - `subnetSelectorTerms`. This component only supports selecting all public or all private subnets of the referenced
+    EKS cluster.
   - `securityGroupSelectorTerms`. This component only supports selecting the security group of the referenced EKS
     cluster.
   - `amiSelectorTerms`. Such terms override the `amiFamily` setting, which is the only AMI selection supported by this
     component.
   - `instanceStorePolicy`
   - `userData`
-  - `detailedMontioring`
+  - `detailedMonitoring`
   - `associatePublicIPAddress`
 
 ## Usage
 
 **Stack Level**: Regional
 
-If provisioning more than one provisioner, it is
-[best practice](https://aws.github.io/aws-eks-best-practices/karpenter/#create-provisioners-that-are-mutually-exclusive-or-weighted)
-to create provisioners that are mutually exclusive or weighted.
+If provisioning more than one NodePool, it is
+[best practice](https://aws.github.io/aws-eks-best-practices/karpenter/#creating-nodepools) to create NodePools that are
+mutually exclusive or weighted.
 
 ```yaml
 components:
   terraform:
-    eks/karpenter-provisioner:
+    eks/karpenter-node-pool:
       settings:
         spacelift:
           workspace_enabled: true
       vars:
         enabled: true
         eks_component_name: eks/cluster
-        name: "karpenter-provisioner"
-        # https://karpenter.sh/v0.18.0/getting-started/getting-started-with-terraform
-        # https://karpenter.sh/v0.18.0/aws/provisioning
-        provisioners:
+        name: "karpenter-node-pool"
+        # https://karpenter.sh/v0.36.0/docs/concepts/nodepools/
+        node_pools:
           default:
             name: default
             # Whether to place EC2 instances launched by Karpenter into VPC private subnets. Set it to `false` to use public subnets
             private_subnets_enabled: true
-            # Configures Karpenter to terminate empty nodes after the specified number of seconds.
-            # This behavior can be disabled by setting the value to `null` (never scales down if not set)
-            ttl_seconds_after_empty: 30
-            # Configures Karpenter to terminate nodes when a maximum age is reached.
-            #This behavior can be disabled by setting the value to `null` (never expires if not set)
-            ttl_seconds_until_expired: 2592000
-            # Karpenter provisioner total CPU limit for all pods running on the EC2 instances launched by Karpenter
+            disruption:
+              consolidation_policy: WhenUnderutilized
+              consolidate_after: 1h
+              max_instance_lifetime: 336h
+              budgets:
+                # This budget allows 0 disruptions during business hours (from 9am to 5pm) on weekdays
+                - schedule: "0 9 * * mon-fri"
+                  duration: 8h
+                  nodes: "0"
+            # The total cpu of the cluster. Maps to spec.limits.cpu in the Karpenter NodeClass
             total_cpu_limit: "100"
-            # Karpenter provisioner total memory limit for all pods running on the EC2 instances launched by Karpenter
+            # The total memory of the cluster. Maps to spec.limits.memory in the Karpenter NodeClass
             total_memory_limit: "1000Gi"
+            # The weight of the node pool. See https://karpenter.sh/docs/concepts/scheduling/#weighted-nodepools
+            weight: 50
+            # Taints to apply to the nodes in the node pool. See https://karpenter.sh/docs/concepts/nodeclasses/#spectaints
+            taints:
+              - key: "node.kubernetes.io/unreachable"
+                effect: "NoExecute"
+                value: "true"
+            # Taints to apply to the nodes in the node pool at startup. See https://karpenter.sh/docs/concepts/nodeclasses/#specstartuptaints
+            startup_taints:
+              - key: "node.kubernetes.io/unreachable"
+                effect: "NoExecute"
+                value: "true"
+            # Metadata options for the node pool. See https://karpenter.sh/docs/concepts/nodeclasses/#specmetadataoptions
+            metadata_options:
+              httpEndpoint: "enabled" # allows the node to call the AWS metadata service
+              httpProtocolIPv6: "disabled"
+              httpPutResponseHopLimit: 2
+              httpTokens: "required"
+            # The AMI used by Karpenter provisioner when provisioning nodes. Based on the value set for amiFamily, Karpenter will automatically query for the appropriate EKS optimized AMI via AWS Systems Manager (SSM)
+            # Bottlerocket, AL2, Ubuntu
+            # https://karpenter.sh/v0.18.0/aws/provisioning/#amazon-machine-image-ami-family
+            ami_family: AL2
+            # Karpenter provisioner block device mappings.
+            block_device_mappings:
+              - deviceName: /dev/xvda
+                ebs:
+                  volumeSize: 200Gi
+                  volumeType: gp3
+                  encrypted: true
+                  deleteOnTermination: true
             # Set acceptable (In) and unacceptable (Out) Kubernetes and Karpenter values for node provisioning based on
             # Well-Known Labels and cloud-specific settings. These can include instance types, zones, computer architecture,
             # and capacity type (such as AWS spot or on-demand).
@@ -109,18 +133,6 @@ components:
                 operator: "In"
                 values:
                   - "amd64"
-            # The AMI used by Karpenter provisioner when provisioning nodes. Based on the value set for amiFamily, Karpenter will automatically query for the appropriate EKS optimized AMI via AWS Systems Manager (SSM)
-            # Bottlerocket, AL2, Ubuntu
-            # https://karpenter.sh/v0.18.0/aws/provisioning/#amazon-machine-image-ami-family
-            ami_family: AL2
-            # Karpenter provisioner block device mappings.
-            block_device_mappings:
-              - deviceName: /dev/xvda
-                ebs:
-                  volumeSize: 200Gi
-                  volumeType: gp3
-                  encrypted: true
-                  deleteOnTermination: true
 ```
 
 <!-- prettier-ignore-start -->
@@ -211,13 +223,10 @@ components:
 
 - https://karpenter.sh
 - https://aws.github.io/aws-eks-best-practices/karpenter
-- https://karpenter.sh/v0.18.0/getting-started/getting-started-with-terraform
+- https://karpenter.sh/docs/concepts/nodepools
 - https://aws.amazon.com/blogs/aws/introducing-karpenter-an-open-source-high-performance-kubernetes-cluster-autoscaler
 - https://github.com/aws/karpenter
-- https://www.eksworkshop.com/beginner/085_scaling_karpenter
 - https://ec2spotworkshops.com/karpenter.html
-- https://www.eksworkshop.com/beginner/085_scaling_karpenter/install_karpenter
-- https://karpenter.sh/v0.18.0/development-guide
-- https://karpenter.sh/v0.18.0/aws/provisioning
+- https://www.eksworkshop.com/docs/autoscaling/compute/karpenter/
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
