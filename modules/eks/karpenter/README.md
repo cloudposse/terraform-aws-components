@@ -230,7 +230,7 @@ components:
             # See more: https://karpenter.sh/v0.36/concepts/nodepools/#taints
             taints: []
             total_cpu_limit: "1k"
-            # Karpenter provisioner total memory limit for all pods running on the EC2 instances launched by Karpenter
+            # Karpenter node pool total memory limit for all pods running on the EC2 instances launched by Karpenter
             total_memory_limit: "1200Gi"
             # Set acceptable (In) and unacceptable (Out) Kubernetes and Karpenter values for node provisioning based on
             # Well-Known Labels and cloud-specific settings. These can include instance types, zones, computer architecture,
@@ -277,7 +277,7 @@ eks/karpenter-node-pool/blue:
     eks_component_name: eks/cluster-blue
 ```
 
-Finally, run the following commands to deploy the Karpenter provisioners on the blue EKS cluster:
+Finally, run the following commands to deploy the Karpenter NodePools on the blue EKS cluster:
 
 ```bash
 atmos terraform plan eks/karpenter-node-pool/blue -s plat-ue2-dev
@@ -327,19 +327,15 @@ For Karpenter issues, checkout the [Karpenter Troubleshooting Guide](https://kar
 
 ### References
 
-:::warning This is out of date
+For more details on the CRDs, see:
 
-This section needs to be updated for 0.32.0 of karpenter still
+- https://karpenter.sh/v0.36/getting-started/getting-started-with-karpenter/#5-create-nodepool
+- https://karpenter.sh/v0.36/concepts/disruption/#interruption
+- https://karpenter.sh/v0.36/concepts/nodepools/#taints
+- https://karpenter.sh/v0.36/concepts/nodepools/#spectemplatespecrequirements
 
-:::
-
-For more details, refer to:
-
-- https://karpenter.sh/v0.28.0/provisioner/#specrequirements
-- https://karpenter.sh/v0.28.0/aws/provisioning
-- https://aws.github.io/aws-eks-best-practices/karpenter/#creating-provisioners
+- https://karpenter.sh/v0.36/getting-started/getting-started-with-karpenter/
 - https://aws.github.io/aws-eks-best-practices/karpenter
-- https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
 
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -442,24 +438,16 @@ For more details, refer to:
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 
-## References
+## Related reading
 
 - https://karpenter.sh
-- https://aws.github.io/aws-eks-best-practices/karpenter
-- https://karpenter.sh/v0.18.0/getting-started/getting-started-with-terraform
 - https://aws.amazon.com/blogs/aws/introducing-karpenter-an-open-source-high-performance-kubernetes-cluster-autoscaler
 - https://github.com/aws/karpenter
-- https://www.eksworkshop.com/beginner/085_scaling_karpenter
 - https://ec2spotworkshops.com/karpenter.html
-- https://www.eksworkshop.com/beginner/085_scaling_karpenter/install_karpenter
-- https://karpenter.sh/v0.18.0/development-guide
-- https://karpenter.sh/v0.18.0/aws/provisioning
+- https://www.eksworkshop.com/docs/autoscaling/compute/karpenter/
 - https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html
 - https://aws.amazon.com/premiumsupport/knowledge-center/fargate-troubleshoot-profile-creation
 - https://learn.hashicorp.com/tutorials/terraform/kubernetes-crd-faas
-- https://github.com/hashicorp/terraform-provider-kubernetes/issues/1545
-- https://issuemode.com/issues/hashicorp/terraform-provider-kubernetes-alpha/4840198
-- https://bytemeta.vip/repo/hashicorp/terraform-provider-kubernetes/issues/1442
 - https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
