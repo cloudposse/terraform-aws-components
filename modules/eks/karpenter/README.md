@@ -25,15 +25,15 @@ components:
         # https://github.com/aws/karpenter/tree/main/charts/karpenter
         chart_repository: "oci://public.ecr.aws/karpenter"
         chart: "karpenter"
-        chart_version: "v0.31.0"
+        chart_version: "v0.36.0"
         create_namespace: true
         resources:
           limits:
             cpu: "300m"
             memory: "1Gi"
           requests:
-            cpu: "100m"
-            memory: "512Mi"
+            cpu: "50m"
+            memory: "250Mi"
         cleanup_on_fail: true
         atomic: true
         wait: true
@@ -170,27 +170,14 @@ For more details, refer to:
 
 ### 2. Provision `karpenter` component
 
-:::warning This is out of date
-
-This section needs to be updated for 0.32.0 of karpenter still
-
-:::
-
 In this step, we provision the `components/terraform/eks/karpenter` component, which deploys the following resources:
 
-- EC2 Instance Profile for the nodes launched by Karpenter (note that the IAM role for the Instance Profile is
-  provisioned in the previous step in the `eks/cluster` component)
+- Karpenter CustomerResourceDefinitions (CRDs) using the Karpenter CRD Chart and the `helm_release` Terraform resource
 - Karpenter Kubernetes controller using the Karpenter Helm Chart and the `helm_release` Terraform resource
 - EKS IAM role for Kubernetes Service Account for the Karpenter controller (with all the required permissions)
+- An SQS Queue and Event Bridge rules for handling Node Interruption events (i.e. Spot)
 
-Run the following commands to provision the Karpenter component on the blue EKS cluster:
-
-```bash
-atmos terraform plan eks/karpenter-blue -s plat-ue2-dev
-atmos terraform apply eks/karpenter-blue -s plat-ue2-dev
-```
-
-Note that the stack config for the blue Karpenter component is defined in `stacks/catalog/eks/clusters/blue.yaml`.
+Create a stack config for the blue Karpenter component in `stacks/catalog/eks/clusters/blue.yaml`:
 
 ```yaml
 eks/karpenter-blue:
@@ -200,6 +187,13 @@ eks/karpenter-blue:
       - eks/karpenter
   vars:
     eks_component_name: eks/cluster-blue
+```
+
+Run the following commands to provision the Karpenter component on the blue EKS cluster:
+
+```bash
+atmos terraform plan eks/karpenter-blue -s plat-ue2-dev
+atmos terraform apply eks/karpenter-blue -s plat-ue2-dev
 ```
 
 ### 3. Provision `karpenter-provisioner` component
