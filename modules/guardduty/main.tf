@@ -110,13 +110,13 @@ resource "aws_guardduty_organization_configuration_feature" "this" {
   key => value if value.enable == true } : {}
 
   name        = each.value.name
-  auto_enable = var.auto_enable_organization_members
+  auto_enable = var.auto_enable_guardduty_organization_features
   detector_id = module.guardduty_delegated_detector[0].outputs.guardduty_detector_id
 
   dynamic "additional_configuration" {
     for_each = each.value.additional_configuration != null ? toset(each.value.additional_configuration) : []
     content {
-      auto_enable = var.auto_enable_organization_members
+      auto_enable = var.auto_enable_guardduty_organization_features_additional_configurations
       name        = additional_configuration.value
     }
   }

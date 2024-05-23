@@ -14,6 +14,24 @@ variable "admin_delegated" {
   DOC
 }
 
+variable "auto_enable_guardduty_organization_features" {
+  type        = string
+  default     = "NONE"
+  description = <<-DOC
+  A flag to indicate whether GuardDuty organization features should be auto-enabled
+  Valid values are `ALL`, `NEW`, `NONE`.
+  DOC
+}
+
+variable "auto_enable_guardduty_organization_features_additional_configurations" {
+  type        = string
+  default     = "NONE"
+  description = <<-DOC
+  A flag to indicate whether GuardDuty organization feature's additional configuration should be auto-enabled
+  Valid values are `ALL`, `NEW`, `NONE`.
+  DOC
+}
+
 variable "auto_enable_organization_members" {
   type        = string
   default     = "NEW"
