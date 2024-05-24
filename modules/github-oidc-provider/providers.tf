@@ -33,6 +33,10 @@ provider "aws" {
       role_arn = assume_role.value
     }
   }
+
+  default_tags {
+    tags = module.this.tags
+  }
 }
 
 

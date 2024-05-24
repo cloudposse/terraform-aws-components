@@ -194,3 +194,5 @@ cython_debug/
 *.backup
 
 default.auto.tfvars
+
+*.swp

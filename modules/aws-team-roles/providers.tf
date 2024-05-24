@@ -12,6 +12,10 @@ provider "aws" {
       role_arn = coalesce(var.import_role_arn, module.iam_roles.org_role_arn)
     }
   }
+
+  default_tags {
+    tags = module.this.tags
+  }
 }
 
 module "iam_roles" {

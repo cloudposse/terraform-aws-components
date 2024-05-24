@@ -12,6 +12,10 @@ provider "aws" {
     # This should only be run using the target account's Terraform role.
     role_arn = module.iam_roles.terraform_role_arn
   }
+
+  default_tags {
+    tags = module.this.tags
+  }
 }
 
 module "iam_roles" {
