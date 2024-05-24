@@ -119,4 +119,6 @@ variable "node_pools" {
       values = optional(list(string))
     }))
   }))
+  description = "Configuration for node pools. See code for details."
+  nullable    = false
 }
