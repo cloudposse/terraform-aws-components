@@ -44,7 +44,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_dynamodb_table"></a> [dynamodb\_table](#module\_dynamodb\_table) | cloudposse/dynamodb/aws | 0.35.0 |
+| <a name="module_dynamodb_table"></a> [dynamodb\_table](#module\_dynamodb\_table) | cloudposse/dynamodb/aws | 0.36.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -97,6 +97,7 @@ No resources.
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_stream_view_type"></a> [stream\_view\_type](#input\_stream\_view\_type) | When an item in the table is modified, what information is written to the stream | `string` | `""` | no |
 | <a name="input_streams_enabled"></a> [streams\_enabled](#input\_streams\_enabled) | Enable DynamoDB streams | `bool` | `false` | no |
+| <a name="input_table_name"></a> [table\_name](#input\_table\_name) | Table name. If provided, the bucket will be created with this name instead of generating the name from the context | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 | <a name="input_ttl_attribute"></a> [ttl\_attribute](#input\_ttl\_attribute) | DynamoDB table TTL attribute | `string` | `""` | no |
