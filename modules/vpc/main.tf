@@ -157,6 +157,8 @@ module "subnets" {
   public_subnets_additional_tags  = local.public_subnets_additional_tags
   private_subnets_additional_tags = local.private_subnets_additional_tags
   vpc_id                          = module.vpc.vpc_id
+  subnets_per_az_count            = var.subnets_per_az_count
+  subnets_per_az_names            = var.subnets_per_az_names
 
   context = module.this.context
 }

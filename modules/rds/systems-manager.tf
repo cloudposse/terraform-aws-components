@@ -48,7 +48,8 @@ variable "ssm_key_port" {
 }
 
 locals {
-  ssm_enabled = local.enabled && var.ssm_enabled
+  ssm_enabled                = local.enabled && var.ssm_enabled
+  rds_database_password_path = format(var.ssm_key_format, var.ssm_key_prefix, var.name, var.ssm_key_password)
 }
 
 resource "aws_ssm_parameter" "rds_database_user" {
@@ -64,7 +65,7 @@ resource "aws_ssm_parameter" "rds_database_user" {
 resource "aws_ssm_parameter" "rds_database_password" {
   count = local.ssm_enabled ? 1 : 0
 
-  name        = format(var.ssm_key_format, var.ssm_key_prefix, var.name, var.ssm_key_password)
+  name        = local.rds_database_password_path
   value       = local.database_password
   description = "RDS DB password"
   type        = "SecureString"

@@ -9,6 +9,12 @@ variable "availability_zones" {
   default     = []
 }
 
+variable "multi_az_enabled" {
+  type        = bool
+  default     = false
+  description = "Multi AZ (Automatic Failover must also be enabled.  If Cluster Mode is enabled, Multi AZ is on by default, and this setting is ignored)"
+}
+
 variable "family" {
   type        = string
   description = "Redis family"
@@ -67,6 +73,12 @@ variable "cloudwatch_metric_alarms_enabled" {
 variable "redis_clusters" {
   type        = map(any)
   description = "Redis cluster configuration"
+}
+
+variable "allow_ingress_from_this_vpc" {
+  type        = bool
+  default     = true
+  description = "If set to `true`, allow ingress from the VPC CIDR for this account"
 }
 
 variable "allow_ingress_from_vpc_stages" {
