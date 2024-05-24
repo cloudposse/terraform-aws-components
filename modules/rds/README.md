@@ -217,6 +217,7 @@ Example - I want a new instance `rds-example-new` to be provisioned from a snaps
 | <a name="input_ssm_key_user"></a> [ssm\_key\_user](#input\_ssm\_key\_user) | The SSM key to save the user. See `var.ssm_path_format`. | `string` | `"admin/db_user"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_storage_encrypted"></a> [storage\_encrypted](#input\_storage\_encrypted) | (Optional) Specifies whether the DB instance is encrypted. The default is false if not specified | `bool` | `true` | no |
+| <a name="input_storage_throughput"></a> [storage\_throughput](#input\_storage\_throughput) | The storage throughput value for the DB instance. Can only be set when `storage_type` is `gp3`. Cannot be specified if the `allocated_storage` value is below a per-engine threshold. | `number` | `null` | no |
 | <a name="input_storage_type"></a> [storage\_type](#input\_storage\_type) | One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned IOPS SSD) | `string` | `"standard"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
@@ -230,6 +231,7 @@ Example - I want a new instance `rds-example-new` to be provisioned from a snaps
 | Name | Description |
 |------|-------------|
 | <a name="output_exports"></a> [exports](#output\_exports) | Map of exports for use in deployment configuration templates |
+| <a name="output_psql_helper"></a> [psql\_helper](#output\_psql\_helper) | A helper output to use with psql for connecting to this RDS instance. |
 | <a name="output_rds_address"></a> [rds\_address](#output\_rds\_address) | Address of the instance |
 | <a name="output_rds_arn"></a> [rds\_arn](#output\_rds\_arn) | ARN of the instance |
 | <a name="output_rds_database_ssm_key_prefix"></a> [rds\_database\_ssm\_key\_prefix](#output\_rds\_database\_ssm\_key\_prefix) | SSM prefix |
