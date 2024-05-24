@@ -52,10 +52,6 @@ module "region_node_group" {
     vpc_id                     = local.vpc_id
 
     block_device_map = lookup(local.legacy_converted_block_device_map, each.key, local.block_device_map_w_defaults[each.key])
-
-    # See "Ensure ordering of resource creation" comment above for explanation
-    # of "module_depends_on"
-    module_depends_on = module.eks_cluster.kubernetes_config_map_id
   } : null
 
   context = module.this.context
