@@ -1,6 +1,5 @@
 locals {
   enabled     = module.this.enabled
-  eks_outputs = module.eks.outputs
   vpc_outputs = module.vpc.outputs
 
   attributes = flatten(concat(module.this.attributes, [var.color]))
