@@ -26,14 +26,16 @@ components:
         chart_repository: "oci://public.ecr.aws/karpenter"
         chart: "karpenter"
         chart_version: "v0.36.0"
-        create_namespace: true
+        # Enable Karpenter to get advance notice of spot instances being terminated
+        # See https://karpenter.sh/docs/concepts/#interruption
+        interruption_handler_enabled: true
         resources:
           limits:
             cpu: "300m"
             memory: "1Gi"
           requests:
-            cpu: "50m"
-            memory: "250Mi"
+            cpu: "100m"
+            memory: "512Mi"
         cleanup_on_fail: true
         atomic: true
         wait: true
@@ -41,8 +43,6 @@ components:
         # "karpenter-crd" can be installed as an independent helm chart to manage the lifecycle of Karpenter CRDs
         crd_chart_enabled: true
         crd_chart: "karpenter-crd"
-        # Enable interruption handling to deploy a SQS queue and a set of Event Bridge rules to handle interruption with Karpenter.
-        interruption_handler_enabled: true
         # replicas set the number of Karpenter controller replicas to run
         replicas: 2
         # "settings" controls a subset of the settings for the Karpenter controller regarding batch idle and max duration.
@@ -92,7 +92,7 @@ For more details, see:
 
 The process of provisioning Karpenter on an EKS cluster consists of 3 steps.
 
-### 1. Provision EKS Fargate Profile for Karpenter and IAM Role for Nodes Launched by Karpenter
+### 1. Provision EKS IAM Role for Nodes Launched by Karpenter
 
 :::note VPC assumptions being made
 
@@ -101,8 +101,8 @@ The Karpenter node pools will be launched in the private subnets.
 
 :::
 
-EKS Fargate Profile for Karpenter and IAM Role for Nodes launched by Karpenter are provisioned by the `eks/cluster`
-component:
+EKS IAM Role for Nodes launched by Karpenter are provisioned by the `eks/cluster` component. (EKS can also provision a
+Fargate Profile for Karpenter, but deploying Karpenter to Fargate is not recommended.):
 
 ```yaml
 components:
@@ -113,33 +113,25 @@ components:
         inherits:
           - eks/cluster
       vars:
-        node_groups:
-          main:
-            instance_types:
-              - t3.medium
-            max_group_size: 3
-            min_group_size: 1
         karpenter_iam_role_enabled: true
 ```
 
 :::note Authorization
 
-- The AWS Auth Api for EKS is used to authorize the Karpenter controller to interact with the EKS cluster.
+- The AWS Auth API for EKS is used to authorize the Karpenter controller to interact with the EKS cluster.
 
 :::
 
-```text
-Karpenter is installed using a Helm chart. The Helm chart installs the Karpenter controller and
-a webhook pod as a Deployment that needs to run before the controller can be used for scaling your cluster.
-We recommend a minimum of one small node group with at least one worker node.
+Karpenter is installed using a Helm chart. The Helm chart installs the Karpenter controller and a webhook pod as a
+Deployment that needs to run before the controller can be used for scaling your cluster. We recommend a minimum of one
+small node group with at least one worker node.
 
-As an alternative, you can run these pods on EKS Fargate by creating a Fargate profile for the
-karpenter namespace. Doing so will cause all pods deployed into this namespace to run on EKS Fargate.
-Do not run Karpenter on a node that is managed by Karpenter.
-```
+As an alternative, you can run these pods on EKS Fargate by creating a Fargate profile for the karpenter namespace.
+Doing so will cause all pods deployed into this namespace to run on EKS Fargate. Do not run Karpenter on a node that is
+managed by Karpenter.
 
 See
-[Run Karpenter Controller on EKS Fargate](https://aws.github.io/aws-eks-best-practices/karpenter/#run-the-karpenter-controller-on-eks-fargate-or-on-a-worker-node-that-belongs-to-a-node-group)
+[Run Karpenter Controller...](https://aws.github.io/aws-eks-best-practices/karpenter/#run-the-karpenter-controller-on-eks-fargate-or-on-a-worker-node-that-belongs-to-a-node-group)
 for more details.
 
 We provision IAM Role for Nodes launched by Karpenter because they must run with an Instance Profile that grants
