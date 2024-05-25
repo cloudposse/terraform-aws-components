@@ -1,32 +1,3 @@
-## Version 1.445.0
-
-Components PR #1039
-
-:::warning Major Breaking Changes
-
-Karpenter at version v0.33.0 transitioned from the `v1alpha` API to the `v1beta` API with many breaking changes. This
-component (`eks/karpenter`) changed as well, dropping support for the `v1alpha` API and adding support for the `v1beta`
-API. At the same time, the corresponding `eks/karpenter-provisioner` component was replaced with the
-`eks/karpenter-node-pool` component. The old components remain available under the
-[`deprecated/`](https://github.com/cloudposse/terraform-aws-components/tree/main/deprecated) directory.
-
-:::
-
-The full list of changes in Karpenter is too extensive to repeat here. See the
-[Karpenter v1beta Migration Guide](https://karpenter.sh/v0.32/upgrading/v1beta1-migration/) and the
-[Karpenter Upgrade Guide](https://karpenter.sh/docs/upgrading/upgrade-guide/) for details.
-
-While a zero-downtime upgrade is possible, it is very complex and tedious and Cloud Posse does not support it at this
-time. Instead, we recommend you delete your existing Karpenter Provisioner (`karpenter-provisioner`) and Controller
-(`karpenter`) deployments, which will scale your cluster to zero and leave all your pods suspended, and then deploy the
-new components, which will resume your pods.
-
-Full details of the recommended migration process for these components can be found in the
-[Migration Guide](./docs/v1alpha-to-v1beta-migration.md).
-
-If you require a zero-downtime upgrade, please contact
-[Cloud Posse professional services](https://cloudposse.com/services/) for assistance.
-
 ## Version 1.348.0
 
 Components PR [#868](https://github.com/cloudposse/terraform-aws-components/pull/868)

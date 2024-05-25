@@ -1,49 +1,29 @@
 # https://aws.amazon.com/blogs/aws/introducing-karpenter-an-open-source-high-performance-kubernetes-cluster-autoscaler/
 # https://karpenter.sh/
-# https://karpenter.sh/v0.10.1/getting-started/getting-started-with-terraform/
-# https://karpenter.sh/v0.10.1/getting-started/getting-started-with-eksctl/
-# https://www.eksworkshop.com/beginner/085_scaling_karpenter/
-# https://karpenter.sh/v0.10.1/aws/provisioning/
-# https://www.eksworkshop.com/beginner/085_scaling_karpenter/setup_the_environment/
-# https://ec2spotworkshops.com/karpenter.html
-# https://catalog.us-east-1.prod.workshops.aws/workshops/76a5dd80-3249-4101-8726-9be3eeee09b2/en-US/autoscaling/karpenter
 
 locals {
   enabled = module.this.enabled
 
-  eks_cluster_identity_oidc_issuer = try(module.eks.outputs.eks_cluster_identity_oidc_issuer, "")
-  karpenter_iam_role_name          = try(module.eks.outputs.karpenter_iam_role_name, "")
+  # We need aws_partition to be non-null even when this module is disabled, because it is used in a string template
+  aws_partition = coalesce(one(data.aws_partition.current[*].partition), "aws")
 
-  karpenter_instance_profile_enabled = local.enabled && var.legacy_create_karpenter_instance_profile && length(local.karpenter_iam_role_name) > 0
+  # eks_cluster_id is defined in provider-helm.tf
+  # eks_cluster_id = module.eks.outputs.eks_cluster_id
+  eks_cluster_arn                  = module.eks.outputs.eks_cluster_arn
+  eks_cluster_identity_oidc_issuer = module.eks.outputs.eks_cluster_identity_oidc_issuer
+
+  karpenter_node_role_arn = module.eks.outputs.karpenter_iam_role_arn
+
+  # Prior to Karpenter v0.32.0 (the v1Alpha APIs), Karpenter recommended using a dedicated namespace for Karpenter resources.
+  # Starting with Karpenter v0.32.0, Karpenter recommends installing Karpenter resources in the kube-system namespace.
+  # https://karpenter.sh/docs/getting-started/getting-started-with-karpenter/#preventing-apiserver-request-throttling
+  kubernetes_namespace = "kube-system"
 }
 
-resource "aws_iam_instance_profile" "default" {
-  count = local.karpenter_instance_profile_enabled ? 1 : 0
-
-  name = local.karpenter_iam_role_name
-  role = local.karpenter_iam_role_name
-  tags = module.this.tags
+data "aws_partition" "current" {
+  count = local.enabled ? 1 : 0
 }
 
-# See CHANGELOG for PR #868:
-# https://github.com/cloudposse/terraform-aws-components/pull/868
-#
-# Namespace was moved from the karpenter module to an independent resource in order to be
-# shared between both the karpenter and karpenter-crd modules.
-moved {
-  from = module.karpenter.kubernetes_namespace.default[0]
-  to   = kubernetes_namespace.default[0]
-}
-
-resource "kubernetes_namespace" "default" {
-  count = local.enabled && var.create_namespace ? 1 : 0
-
-  metadata {
-    name        = var.kubernetes_namespace
-    annotations = {}
-    labels      = merge(module.this.tags, { name = var.kubernetes_namespace })
-  }
-}
 
 # Deploy karpenter-crd helm chart
 # "karpenter-crd" can be installed as an independent helm chart to manage the lifecycle of Karpenter CRDs
@@ -63,28 +43,12 @@ module "karpenter_crd" {
   cleanup_on_fail = var.cleanup_on_fail
   timeout         = var.timeout
 
-  create_namespace_with_kubernetes = false # Namespace is created with kubernetes_namespace resources to be shared between charts
-  kubernetes_namespace             = join("", kubernetes_namespace.default[*].id)
-  kubernetes_namespace_labels      = merge(module.this.tags, { name = join("", kubernetes_namespace.default[*].id) })
+  create_namespace_with_kubernetes = false # Namespace is created by EKS/Kubernetes by default
+  kubernetes_namespace             = local.kubernetes_namespace
 
   eks_cluster_oidc_issuer_url = coalesce(replace(local.eks_cluster_identity_oidc_issuer, "https://", ""), "deleted")
 
-  values = compact([
-    # standard k8s object settings
-    yamlencode({
-      fullnameOverride = module.this.name
-      resources        = var.resources
-      rbac = {
-        create = var.rbac_enabled
-      }
-    }),
-  ])
-
   context = module.this.context
-
-  depends_on = [
-    kubernetes_namespace.default
-  ]
 }
 
 # Deploy Karpenter helm chart
@@ -102,93 +66,20 @@ module "karpenter" {
   timeout         = var.timeout
 
   create_namespace_with_kubernetes = false # Namespace is created with kubernetes_namespace resources to be shared between charts
-  kubernetes_namespace             = join("", kubernetes_namespace.default[*].id)
-  kubernetes_namespace_labels      = merge(module.this.tags, { name = join("", kubernetes_namespace.default[*].id) })
+  kubernetes_namespace             = local.kubernetes_namespace
 
   eks_cluster_oidc_issuer_url = coalesce(replace(local.eks_cluster_identity_oidc_issuer, "https://", ""), "deleted")
 
   service_account_name      = module.this.name
-  service_account_namespace = join("", kubernetes_namespace.default[*].id)
+  service_account_namespace = local.kubernetes_namespace
 
-  iam_role_enabled = true
+  # Defaults to true, but set it here so it can be disabled when switching to Pod Identities
+  service_account_role_arn_annotation_enabled = true
 
-  # https://karpenter.sh/v0.6.1/getting-started/cloudformation.yaml
-  # https://karpenter.sh/v0.10.1/getting-started/getting-started-with-terraform
-  # https://github.com/aws/karpenter/issues/2649
-  # Apparently the source of truth for the best IAM policy is the `data.aws_iam_policy_document.karpenter_controller` in
-  # https://github.com/terraform-aws-modules/terraform-aws-iam/blob/master/modules/iam-role-for-service-accounts-eks/policies.tf
-  iam_policy = [{
-    statements = concat([
-      {
-        sid       = "KarpenterController"
-        effect    = "Allow"
-        resources = ["*"]
-
-        actions = [
-          # https://github.com/terraform-aws-modules/terraform-aws-iam/blob/99c69ad54d985f67acf211885aa214a3a6cc931c/modules/iam-role-for-service-accounts-eks/policies.tf#L511-L581
-          # The reference policy is broken up into multiple statements with different resource restrictions based on tags.
-          # This list has breaks where statements are separated in the reference policy for easier comparison and maintenance.
-          "ec2:CreateLaunchTemplate",
-          "ec2:CreateFleet",
-          "ec2:CreateTags",
-          "ec2:DescribeLaunchTemplates",
-          "ec2:DescribeImages",
-          "ec2:DescribeInstances",
-          "ec2:DescribeSecurityGroups",
-          "ec2:DescribeSubnets",
-          "ec2:DescribeInstanceTypes",
-          "ec2:DescribeInstanceTypeOfferings",
-          "ec2:DescribeAvailabilityZones",
-          "ec2:DescribeSpotPriceHistory",
-          "pricing:GetProducts",
-
-          "ec2:TerminateInstances",
-          "ec2:DeleteLaunchTemplate",
-
-          "ec2:RunInstances",
-
-          "iam:PassRole",
-        ]
-      },
-      {
-        sid    = "KarpenterControllerSSM"
-        effect = "Allow"
-        # Allow Karpenter to read AMI IDs from SSM
-        actions   = ["ssm:GetParameter"]
-        resources = ["arn:aws:ssm:*:*:parameter/aws/service/*"]
-      },
-      {
-        sid    = "KarpenterControllerClusterAccess"
-        effect = "Allow"
-        actions = [
-          "eks:DescribeCluster"
-        ]
-        resources = [
-          module.eks.outputs.eks_cluster_arn
-        ]
-      }
-      ],
-      local.interruption_handler_enabled ? [
-        {
-          sid    = "KarpenterInterruptionHandlerAccess"
-          effect = "Allow"
-          actions = [
-            "sqs:DeleteMessage",
-            "sqs:GetQueueUrl",
-            "sqs:GetQueueAttributes",
-            "sqs:ReceiveMessage",
-          ]
-          resources = [
-            one(aws_sqs_queue.interruption_handler[*].arn)
-          ]
-        }
-      ] : []
-    )
-  }]
-
+  iam_role_enabled            = true
+  iam_source_policy_documents = [local.controller_policy_v1alpha_json, local.controller_policy_json]
 
   values = compact([
-    # standard k8s object settings
     yamlencode({
       fullnameOverride = module.this.name
       serviceAccount = {
@@ -197,31 +88,29 @@ module "karpenter" {
       controller = {
         resources = var.resources
       }
-      rbac = {
-        create = var.rbac_enabled
-      }
+      replicas = var.replicas
     }),
-    # karpenter-specific values
+    #  karpenter-specific values
     yamlencode({
-      settings = {
-        # This configuration of settings requires Karpenter chart v0.19.0 or later
-        aws = {
-          defaultInstanceProfile = local.karpenter_iam_role_name # instance profile name === role name
-          clusterName            = local.eks_cluster_id
-          # clusterEndpoint not needed as of v0.25.0
-          clusterEndpoint = local.eks_cluster_endpoint
-          tags            = module.this.tags
+      logConfig = {
+        enabled = var.logging.enabled
+        logLevel = {
+          controller = var.logging.level.controller
+          global     = var.logging.level.global
+          webhook    = var.logging.level.webhook
         }
       }
-    }),
-    yamlencode(
-      local.interruption_handler_enabled ? {
-        settings = {
-          aws = {
-            interruptionQueueName = local.interruption_handler_queue_name
-          }
-        }
-    } : {}),
+      settings = merge({
+        batchIdleDuration = var.settings.batch_idle_duration
+        batchMaxDuration  = var.settings.batch_max_duration
+        clusterName       = local.eks_cluster_id
+        },
+        local.interruption_handler_enabled ? {
+          interruptionQueue = local.interruption_handler_queue_name
+        } : {}
+      )
+      }
+    ),
     # additional values
     yamlencode(var.chart_values)
   ])
@@ -229,8 +118,10 @@ module "karpenter" {
   context = module.this.context
 
   depends_on = [
-    aws_iam_instance_profile.default,
     module.karpenter_crd,
-    kubernetes_namespace.default
+    aws_cloudwatch_event_rule.interruption_handler,
+    aws_cloudwatch_event_target.interruption_handler,
+    aws_sqs_queue.interruption_handler,
+    aws_sqs_queue_policy.interruption_handler,
   ]
 }
