@@ -186,6 +186,14 @@ components:
               # Tune the instance type according to your baseload requirements.
               - c7a.medium
             ami_type: AL2_x86_64 # use "AL2_x86_64" for standard instances, "AL2_x86_64_GPU" for GPU instances
+            node_userdata:
+              # WARNING: node_userdata is alpha status and will likely change in the future.
+              #          Also, it is only supported for AL2 and some Windows AMIs, not BottleRocket or AL2023.
+              # Kubernetes docs: https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/
+              kubelet_extra_args: >-
+                --kube-reserved cpu=100m,memory=0.6Gi,ephemeral-storage=1Gi
+                --system-reserved cpu=100m,memory=0.2Gi,ephemeral-storage=1Gi
+                --eviction-hard memory.available<200Mi,nodefs.available<10%,imagefs.available<15%
             block_device_map:
               # EBS volume for local ephemeral storage
               # IGNORED if legacy `disk_encryption_enabled` or `disk_size` are set!
