@@ -108,7 +108,9 @@ No resources.
 | Name | Description |
 |------|-------------|
 | <a name="output_global_secondary_index_names"></a> [global\_secondary\_index\_names](#output\_global\_secondary\_index\_names) | DynamoDB global secondary index names |
+| <a name="output_hash_key"></a> [hash\_key](#output\_hash\_key) | DynamoDB table hash key |
 | <a name="output_local_secondary_index_names"></a> [local\_secondary\_index\_names](#output\_local\_secondary\_index\_names) | DynamoDB local secondary index names |
+| <a name="output_range_key"></a> [range\_key](#output\_range\_key) | DynamoDB table range key |
 | <a name="output_table_arn"></a> [table\_arn](#output\_table\_arn) | DynamoDB table ARN |
 | <a name="output_table_id"></a> [table\_id](#output\_table\_id) | DynamoDB table ID |
 | <a name="output_table_name"></a> [table\_name](#output\_table\_name) | DynamoDB table name |
