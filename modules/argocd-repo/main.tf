@@ -85,9 +85,11 @@ resource "github_branch_protection" "default" {
     }
   }
 
-  push_restrictions = var.push_restrictions_enabled ? [
-    join("", data.github_user.automation_user[*].node_id),
-  ] : []
+  restrict_pushes {
+    push_allowances = var.push_restrictions_enabled ? [
+      join("", data.github_user.automation_user[*].node_id),
+    ] : []
+  }
 }
 
 data "github_team" "default" {
