@@ -38,7 +38,7 @@ components:
 
 ### Authenticating with EKS
 
-In order for this managed collector to authenticate with the EKS cluster, add update auth map after deploying.
+In order for this managed collector to authenticate with the EKS cluster, update auth map after deploying.
 
 Note the `scraper_role_arn` and `clusterrole_username` outputs and set them to `rolearn` and `username` respectively
 with the `map_additional_iam_roles` input for `eks/cluster`.

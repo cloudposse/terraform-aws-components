@@ -36,7 +36,7 @@ components:
             stage: dev
 ```
 
-> [!NOTE] Custom URLs
+> [!NOTE] 
 >
 > We would prefer to have a custom URL for the provisioned Grafana workspace, but at the moment it's not supported
 > natively and implementation would be non-trivial. We will continue to monitor that Issue and consider alternatives,
