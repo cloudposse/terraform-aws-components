@@ -23,7 +23,7 @@ components:
         alb_controller_ingress_group_component_name: eks/alb-controller-ingress-group/internal
 ```
 
-> [!IMPORTANT] Custom URLs
+> [!IMPORTANT]
 >
 > We recommend using an internal ALB for logging services. You must connect to the private network to access the Loki
 > endpoint.
