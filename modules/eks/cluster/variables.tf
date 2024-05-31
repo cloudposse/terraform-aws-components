@@ -223,6 +223,12 @@ variable "node_groups" {
       value  = string
       effect = string
     })), null)
+    node_userdata = optional(object({
+      before_cluster_joining_userdata = optional(string)
+      bootstrap_extra_args            = optional(string)
+      kubelet_extra_args              = optional(string)
+      after_cluster_joining_userdata  = optional(string)
+    }), {})
     # Desired Kubernetes master version. If you do not specify a value, the latest available version is used
     kubernetes_version = optional(string, null)
     # The maximum size of the AutoScaling Group
@@ -295,6 +301,12 @@ variable "node_group_defaults" {
       value  = string
       effect = string
     })), [])
+    node_userdata = optional(object({
+      before_cluster_joining_userdata = optional(string)
+      bootstrap_extra_args            = optional(string)
+      kubelet_extra_args              = optional(string)
+      after_cluster_joining_userdata  = optional(string)
+    }), {})
     kubernetes_version = optional(string, null) # set to null to use cluster_kubernetes_version
     max_group_size     = optional(number, null)
     min_group_size     = optional(number, null)

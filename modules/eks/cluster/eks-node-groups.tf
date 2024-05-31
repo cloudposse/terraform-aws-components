@@ -45,6 +45,7 @@ module "region_node_group" {
     instance_types             = each.value.instance_types == null ? var.node_group_defaults.instance_types : each.value.instance_types
     kubernetes_labels          = each.value.kubernetes_labels == null ? var.node_group_defaults.kubernetes_labels : each.value.kubernetes_labels
     kubernetes_taints          = each.value.kubernetes_taints == null ? var.node_group_defaults.kubernetes_taints : each.value.kubernetes_taints
+    node_userdata              = each.value.node_userdata == null ? var.node_group_defaults.node_userdata : each.value.node_userdata
     kubernetes_version         = each.value.kubernetes_version == null ? local.node_group_default_kubernetes_version : each.value.kubernetes_version
     resources_to_tag           = each.value.resources_to_tag == null ? var.node_group_defaults.resources_to_tag : each.value.resources_to_tag
     subnet_type_tag_key        = local.subnet_type_tag_key

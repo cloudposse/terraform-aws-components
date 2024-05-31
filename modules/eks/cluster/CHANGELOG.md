@@ -1,3 +1,15 @@
+## Release 1.452.0
+
+Components PR [#1046](https://github.com/cloudposse/terraform-aws-components/pull/1046)
+
+Added support for passing extra arguments to `kubelet` and other startup modifications supported by EKS on Amazon Linux
+2 via the
+[`bootsrap.sh`](https://github.com/awslabs/amazon-eks-ami/blob/d87c6c49638216907cbd6630b6cadfd4825aed20/templates/al2/runtime/bootstrap.sh)
+script.
+
+This support should be considered an `alpha` version, as it may change when support for Amazon Linux 2023 is added, and
+does not work with Bottlerocket.
+
 ## Breaking Changes: Components PR [#1033](https://github.com/cloudposse/terraform-aws-components/pull/1033)
 
 ### Major Breaking Changes
