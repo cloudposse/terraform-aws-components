@@ -1,4 +1,4 @@
-## Release 1.446.0
+## Release 1.452.0
 
 Components PR [#1046](https://github.com/cloudposse/terraform-aws-components/pull/1046)
 
