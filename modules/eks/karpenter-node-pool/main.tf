@@ -39,6 +39,10 @@ resource "kubernetes_manifest" "node_pool" {
         }
       )
       template = {
+        metadata = {
+          labels      = each.value.labels
+          annotations = each.value.annotations
+        }
         spec = merge({
           nodeClassRef = {
             apiVersion = "karpenter.k8s.aws/v1beta1"

@@ -70,7 +70,9 @@ variable "node_pools" {
     total_memory_limit = string
     # Set a weight for this node pool.
     # See https://karpenter.sh/docs/concepts/scheduling/#weighted-nodepools
-    weight = optional(number, 50)
+    weight      = optional(number, 50)
+    labels      = optional(map(string))
+    annotations = optional(map(string))
     # Karpenter provisioner taints configuration. See https://aws.github.io/aws-eks-best-practices/karpenter/#create-provisioners-that-are-mutually-exclusive for more details
     taints = optional(list(object({
       key    = string
