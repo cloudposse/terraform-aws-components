@@ -28,7 +28,7 @@
 #   "Resource": "arn:${local.aws_partition}:eks:${var.region}:${AWS::AccountId}:cluster/${local.eks_cluster_id}"
 #
 # NOTE: As a special case, the above multiple substitutions which create the ARN for the EKS cluster
-# should be replaced with a single substitution, `${local.eks_cluster_arn}` to avoid neeeding to
+# should be replaced with a single substitution, `${local.eks_cluster_arn}` to avoid needing to
 # look up the account ID and because it is more robust.
 #
 # Review the existing HEREDOC below to find conditionals such as:
