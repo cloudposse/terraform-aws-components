@@ -1,34 +1,3 @@
-{{- if .Values.pvc_enabled }}
----
-# Persistent Volumes can be used for image caching
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: {{ .Values.release_name }}
-spec:
-  accessModes:
-    - ReadWriteMany
-  # StorageClassName comes from efs-controller and must be deployed first.
-  storageClassName: efs-sc
-  resources:
-    requests:
-      # EFS is not actually storage constrained, but this storage request is
-      # required. 100Gi is a ballpark for how much we initially request, but this
-      # may grow. We are responsible for docker pruning this periodically to
-      # save space.
-      storage: 100Gi
-{{- end }}
-{{- if .Values.docker_config_json_enabled }}
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ .Values.release_name }}-regcred
-type: kubernetes.io/dockerconfigjson
-data:
-  .dockerconfigjson: {{ .Values.docker_config_json }}
-{{- end }}
----
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
 metadata:
@@ -38,13 +7,13 @@ spec:
   # See https://github.com/actions-runner-controller/actions-runner-controller/issues/206#issuecomment-748601907
   # replicas: 1
   template:
-    {{- with index .Values "pod_annotations" }}
+    {{- with .Values.pod_annotations }}
     metadata:
       annotations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
     spec:
-      {{- if  .Values.docker_config_json_enabled }}
+      {{- if .Values.docker_config_json_enabled }}
       # secrets volumeMount are always mounted readOnly so config.json has to be copied to the correct directory
       # https://github.com/kubernetes/kubernetes/issues/62099
       # https://github.com/actions/actions-runner-controller/issues/2123#issuecomment-1527077517
@@ -82,14 +51,41 @@ spec:
       #  - effect: NoSchedule
       #    key: node-role.kubernetes.io/actions-runner
       #    operator: Exists
+      {{- with .Values.node_selector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
 
-      {{ if eq .Values.type "organization" }}
+      {{- with .Values.running_pod_annotations }}
+      # Run a pre-run hook to set pod annotations
+      # See https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/running-scripts-before-or-after-a-job#triggering-the-scripts
+      containers:
+        - name: runner
+          # ARC (Summerwind) has its own pre-run hook, so we do not want to set
+          #  env:
+          #  - name: ACTIONS_RUNNER_HOOK_JOB_STARTED
+          #    value: /hooks/pre-run.sh # triggers when a job is started, and sets the pod to NOT safe-to-evict
+          # Instead, its pre-run hook runs scripts in /etc/arc/hooks/job-started.d/
+          volumeMounts:
+            - name: hooks
+              mountPath: /etc/arc/hooks/job-started.d/
+      {{- end }}
+
+      {{- if eq .Values.type "organization" }}
       organization: {{ .Values.scope }}
       {{- end }}
-      {{ if eq .Values.type "repository" }}
+      {{- if eq .Values.type "repository" }}
       repository: {{ .Values.scope }}
       {{- end }}
-      {{ if index .Values "group" }}
+      {{- if index .Values "group" }}
       group: {{ .Values.group }}
       {{- end }}
       # You can use labels to create subsets of runners.
@@ -102,14 +98,6 @@ spec:
         - self-hosted
       {{- range .Values.labels }}
         - {{ . | quote }}
-      {{- end }}
-      {{- if gt ( len (index .Values "node_selector") ) 0 }}
-      nodeSelector:
-        {{- toYaml .Values.node_selector | nindent 8 }}
-      {{- end }}
-      {{- if gt ( len (index .Values "tolerations") ) 0 }}
-      tolerations:
-        {{- toYaml .Values.tolerations | nindent 8 }}
       {{- end }}
       # dockerdWithinRunnerContainer = false means access to a Docker daemon is provided by a sidecar container.
       dockerdWithinRunnerContainer: {{ .Values.dind_enabled }}
@@ -133,7 +121,7 @@ spec:
           {{- if index .Values.resources.requests "ephemeral_storage" }}
           ephemeral-storage: {{ .Values.resources.requests.ephemeral_storage }}
           {{- end }}
-      {{- if and .Values.dind_enabled .Values.storage }}
+      {{- if and .Values.dind_enabled .Values.docker_storage }}
       dockerVolumeMounts:
         - mountPath: /var/lib/docker
           name: docker-volume
@@ -150,10 +138,10 @@ spec:
         - mountPath: /home/runner/.docker
           name: docker-config-volume
         {{- end }}
-      {{- end }}
-      {{- if or (and .Values.dind_enabled .Values.storage) (.Values.pvc_enabled) (.Values.docker_config_json_enabled) }}
+      {{- end }}{{/* End of volumeMounts */}}
+      {{- if or (and .Values.dind_enabled .Values.docker_storage) (.Values.pvc_enabled) (.Values.docker_config_json_enabled) (not (empty .Values.running_pod_annotations)) }}
       volumes:
-      {{- if and .Values.dind_enabled .Values.storage }}
+        {{- if and .Values.dind_enabled .Values.docker_storage }}
         - name: docker-volume
           ephemeral:
             volumeClaimTemplate:
@@ -161,13 +149,13 @@ spec:
                 accessModes: [ "ReadWriteOnce" ] # Only 1 pod can connect at a time
                 resources:
                   requests:
-                    storage: {{ .Values.storage }}
-      {{- end }}
-      {{- if .Values.pvc_enabled }}
+                    storage: {{ .Values.docker_storage }}
+        {{- end }}
+        {{- if .Values.pvc_enabled }}
         - name: shared-volume
           persistentVolumeClaim:
             claimName: {{ .Values.release_name }}
-      {{- end }}
+        {{- end }}
         {{- if .Values.docker_config_json_enabled }}
         - name: docker-secret
           secret:
@@ -178,4 +166,88 @@ spec:
         - name: docker-config-volume
           emptyDir:
         {{- end }}
-      {{- end }}
+        {{- with .Values.running_pod_annotations }}
+        - name: hooks
+          configMap:
+            name: runner-hooks
+            defaultMode: 0755  # Set execute permissions for all files
+        {{- end }}
+      {{- end }}{{/* End of volumes */}}
+{{- if .Values.pvc_enabled }}
+---
+# Persistent Volumes can be used for image caching
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.release_name }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  # StorageClassName comes from efs-controller and must be deployed first.
+  storageClassName: efs-sc
+  resources:
+    requests:
+      # EFS is not actually storage constrained, but this storage request is
+      # required. 100Gi is a ballpark for how much we initially request, but this
+      # may grow. We are responsible for docker pruning this periodically to
+      # save space.
+      storage: 100Gi
+{{- end }}
+{{- if .Values.docker_config_json_enabled }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Values.release_name }}-regcred
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: {{ .Values.docker_config_json }}
+{{- end }}
+{{- with .Values.running_pod_annotations }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: runner-hooks
+data:
+  annotate.sh: |
+    #!/bin/bash
+
+    # If we had kubectl and a KUBECONFIG, we could do this:
+    #   kubectl annotate pod $HOSTNAME 'karpenter.sh/do-not-evict="true"' --overwrite
+    #   kubectl annotate pod $HOSTNAME 'karpenter.sh/do-not-disrupt="true"' --overwrite
+
+    # This is the same thing, the hard way
+
+    # Metadata about the pod
+    NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+    POD_NAME=$(hostname)
+
+    # Kubernetes API URL
+    API_URL="https://kubernetes.default.svc"
+
+    # Read the service account token
+    TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+
+    # Content type
+    CONTENT_TYPE="application/merge-patch+json"
+
+    PATCH_JSON=$(cat <<EOF
+    {
+      "metadata": {
+        "annotations":
+         {{- . | toJson | nindent 10 }}
+      }
+    }
+    EOF
+    )
+
+    # Use curl to patch the pod
+      curl -sSk -X PATCH \
+    -H "Authorization: Bearer $TOKEN" \
+    -H "Content-Type: $CONTENT_TYPE" \
+    -H "Accept: application/json" \
+      -d "$PATCH_JSON" \
+      "$API_URL/api/v1/namespaces/$NAMESPACE/pods/$POD_NAME"  | jq .metadata.annotations
+
+{{ end }}
