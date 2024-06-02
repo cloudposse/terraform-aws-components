@@ -18,7 +18,8 @@ variable "chart" {
 variable "chart_repository" {
   type        = string
   description = "Repository URL where to locate the requested chart."
-  default     = "https://charts.bitnami.com/bitnami"
+  # TODO: Chart should default to https://kubernetes-sigs.github.io/metrics-server/
+  default = "https://charts.bitnami.com/bitnami"
 }
 
 variable "chart_version" {
