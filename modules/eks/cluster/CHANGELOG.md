@@ -1,3 +1,9 @@
+## Release 1.455.1
+
+Components PR [#1057](https://github.com/cloudposse/terraform-aws-components/pull/1057)
+
+Fixed "Invalid count argument" argument when creating new cluster
+
 ## Release 1.452.0
 
 Components PR [#1046](https://github.com/cloudposse/terraform-aws-components/pull/1046)
