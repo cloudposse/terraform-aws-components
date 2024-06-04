@@ -1,7 +1,7 @@
 name: bats
 
 on:
-  pull_request_target:
+  pull_request:
     types: [labeled, opened, synchronize, unlabeled]
 
 jobs:
@@ -32,6 +32,7 @@ jobs:
         HEAD_REF: ${{ github.head_ref }}
       run: |
         # when running in test-harness, need to mark the directory safe for git operations
+        echo "/usr/share/terraform/1/bin/terraform" >> "$GITHUB_PATH"
         make git-safe-directory
         MODIFIED_MODULES=($(git diff --name-only origin/${BASE_REF} origin/${HEAD_REF} | xargs -n 1 dirname | sort | uniq | grep ^modules/ || true))
         if [ -z "$MODIFIED_MODULES" ]; then
