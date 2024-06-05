@@ -559,5 +559,5 @@ variable "http_version" {
 variable "comment" {
   type        = string
   description = "Any comments you want to include about the distribution."
-  default     = null
+  default     = "Managed by Terraform"
 }
