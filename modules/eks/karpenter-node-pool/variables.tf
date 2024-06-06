@@ -13,27 +13,27 @@ variable "node_pools" {
   type = map(object({
     # The name of the Karpenter provisioner. The map key is used if this is not set.
     name = optional(string)
-    # Whether to place EC2 instances launched by Karpenter into VPC private subnets. Set it to 'false' to use public subnets.
+    # Whether to place EC2 instances launched by Karpenter into VPC private subnets. Set it to `false` to use public subnets.
     private_subnets_enabled = bool
     # The Disruption spec controls how Karpenter scales down the node group.
-    # See the example (sadly not the specific 'spec.disruption' documentation) at https://karpenter.sh/docs/concepts/nodepools/ for details
+    # See the example (sadly not the specific `spec.disruption` documentation) at https://karpenter.sh/docs/concepts/nodepools/ for details
     disruption = optional(object({
       # Describes which types of Nodes Karpenter should consider for consolidation.
       # If using 'WhenUnderutilized', Karpenter will consider all nodes for consolidation and attempt to remove or
       # replace Nodes when it discovers that the Node is underutilized and could be changed to reduce cost.
-      # If using 'WhenEmpty', Karpenter will only consider nodes for consolidation that contain no workload pods.
+      # If using `WhenEmpty`, Karpenter will only consider nodes for consolidation that contain no workload pods.
       consolidation_policy = optional(string, "WhenUnderutilized")
 
-      # The amount of time Karpenter should wait after discovering a consolidation decision ('go' duration string, s|m|h).
+      # The amount of time Karpenter should wait after discovering a consolidation decision (`go` duration string, s|m|h).
       # This value can currently (v0.36.0) only be set when the consolidationPolicy is 'WhenEmpty'.
       # You can choose to disable consolidation entirely by setting the string value 'Never' here.
-      # Earlier versions of Karpenter called this field 'ttl_seconds_after_empty'.
+      # Earlier versions of Karpenter called this field `ttl_seconds_after_empty`.
       consolidate_after = optional(string)
 
-      # The amount of time a Node can live on the cluster before being removed ('go' duration string, s|m|h).
+      # The amount of time a Node can live on the cluster before being removed (`go` duration string, s|m|h).
       # You can choose to disable expiration entirely by setting the string value 'Never' here.
       # This module sets a default of 336 hours (14 days), while the Karpenter default is 720 hours (30 days).
-      # Note that Karpenter calls this field "expiresAfter", and earlier versions called it 'ttl_seconds_until_expired',
+      # Note that Karpenter calls this field "expiresAfter", and earlier versions called it `ttl_seconds_until_expired`,
       # but we call it "max_instance_lifetime" to match the corresponding field in EC2 Auto Scaling Groups.
       max_instance_lifetime = optional(string, "336h")
 
@@ -58,7 +58,7 @@ variable "node_pools" {
         # Duration determines how long a Budget is active after each Scheduled start.
         # If omitted, the budget is always active. This is required if Schedule is set.
         # Must be a whole number of minutes and hours, as cron does not work in seconds,
-        # but since Go's 'duration.String()' always adds a "0s" at the end, that is allowed.
+        # but since Go's `duration.String()` always adds a "0s" at the end, that is allowed.
         duration = optional(string)
         # The percentage or number of nodes that Karpenter can scale down during the budget.
         nodes = string
@@ -97,8 +97,8 @@ variable "node_pools" {
     # Karpenter nodes block device mappings. Controls the Elastic Block Storage volumes that Karpenter attaches to provisioned nodes.
     # Karpenter uses default block device mappings for the AMI Family specified.
     # For example, the Bottlerocket AMI Family defaults with two block device mappings,
-    # and normally you only want to scale '/dev/xvdb' where Containers and there storage are stored.
-    # Most other AMIs only have one device mapping at '/dev/xvda'.
+    # and normally you only want to scale `/dev/xvdb` where Containers and there storage are stored.
+    # Most other AMIs only have one device mapping at `/dev/xvda`.
     # See https://karpenter.sh/docs/concepts/nodeclasses/#specblockdevicemappings for more details
     block_device_mappings = list(object({
       deviceName = string
