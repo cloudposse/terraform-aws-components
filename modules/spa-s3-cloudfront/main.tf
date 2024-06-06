@@ -87,6 +87,7 @@ module "spa_web" {
   s3_access_log_bucket_name = local.s3_access_log_bucket_name
   s3_access_log_prefix      = var.origin_s3_access_log_prefix
 
+  comment                     = var.comment
   aliases                     = local.aliases
   external_aliases            = local.external_aliases
   parent_zone_name            = local.parent_zone_name
@@ -97,6 +98,7 @@ module "spa_web" {
   acm_certificate_arn         = module.acm_request_certificate.arn
   ipv6_enabled                = var.cloudfront_ipv6_enabled
 
+  http_version          = var.http_version
   allowed_methods       = var.cloudfront_allowed_methods
   cached_methods        = var.cloudfront_cached_methods
   custom_error_response = var.cloudfront_custom_error_response

@@ -24,13 +24,13 @@ variable "node_pools" {
       # If using `WhenEmpty`, Karpenter will only consider nodes for consolidation that contain no workload pods.
       consolidation_policy = optional(string, "WhenUnderutilized")
 
-      # The amount of time Karpenter should wait after discovering a consolidation decision (`go` duration string, s|m|h).
+      # The amount of time Karpenter should wait after discovering a consolidation decision (`go` duration string, smh).
       # This value can currently (v0.36.0) only be set when the consolidationPolicy is 'WhenEmpty'.
       # You can choose to disable consolidation entirely by setting the string value 'Never' here.
       # Earlier versions of Karpenter called this field `ttl_seconds_after_empty`.
       consolidate_after = optional(string)
 
-      # The amount of time a Node can live on the cluster before being removed (`go` duration string, s|m|h).
+      # The amount of time a Node can live on the cluster before being removed (`go` duration string, smh).
       # You can choose to disable expiration entirely by setting the string value 'Never' here.
       # This module sets a default of 336 hours (14 days), while the Karpenter default is 720 hours (30 days).
       # Note that Karpenter calls this field "expiresAfter", and earlier versions called it `ttl_seconds_until_expired`,
