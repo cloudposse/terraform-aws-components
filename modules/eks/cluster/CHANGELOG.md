@@ -439,7 +439,7 @@ these steps:
    [eks/storage-class](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/storage-class)
    module to create a replacement EFS StorageClass `efs-sc`. This component is new and you may need to add it to your
    cluster.
-4. Deploy the EFS CSI Driver Add-On by adding `aws-efs-csi-driver` to the `addons` map (see [README](./README.md)).
+4. Deploy the EFS CSI Driver Add-On by adding `aws-efs-csi-driver` to the `addons` map (see `README`).
 5. Restore the Deployments you modified in step 1.
 
 ### More options for specifying Availability Zones
