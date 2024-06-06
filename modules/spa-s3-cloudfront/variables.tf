@@ -398,8 +398,10 @@ variable "ordered_cache" {
     trusted_signers    = list(string)
     trusted_key_groups = list(string)
 
-    cache_policy_id          = string
-    origin_request_policy_id = string
+    cache_policy_name          = optional(string)
+    cache_policy_id            = optional(string)
+    origin_request_policy_name = optional(string)
+    origin_request_policy_id   = optional(string)
 
     viewer_protocol_policy     = string
     min_ttl                    = number
@@ -428,6 +430,8 @@ variable "ordered_cache" {
     An ordered list of [cache behaviors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#cache-behavior-arguments) resource for this distribution.
     List in order of precedence (first match wins). This is in addition to the default cache policy.
     Set `target_origin_id` to `""` to specify the S3 bucket origin created by this module.
+    Set `cache_policy_id` to `""` to use `cache_policy_name` for creating a new policy. At least one of the two must be set.
+    Set `origin_request_policy_id` to `""` to use `origin_request_policy_name` for creating a new policy. At least one of the two must be set.
     EOT
 }
 
