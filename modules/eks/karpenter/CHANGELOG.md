@@ -22,7 +22,7 @@ time. Instead, we recommend you delete your existing Karpenter Provisioner (`kar
 new components, which will resume your pods.
 
 Full details of the recommended migration process for these components can be found in the
-[Migration Guide](./docs/v1alpha-to-v1beta-migration.md).
+[Migration Guide](https://github.com/cloudposse/terraform-aws-components/blob/main/modules/eks/karpenter/docs/v1alpha-to-v1beta-migration.md).
 
 If you require a zero-downtime upgrade, please contact
 [Cloud Posse professional services](https://cloudposse.com/services/) for assistance.
