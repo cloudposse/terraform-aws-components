@@ -59,6 +59,17 @@ module "loki_storage" {
   context = module.this.context
 }
 
+module "loki_tls_label" {
+  source  = "cloudposse/label/null"
+  version = "0.25.0"
+
+  enabled = local.enabled
+
+  attributes = ["tls"]
+
+  context = module.this.context
+}
+
 module "loki" {
   source  = "cloudposse/helm-release/aws"
   version = "0.10.1"
@@ -112,18 +123,7 @@ module "loki" {
         # For new installations, schema config doesnt change. See the following:
         # https://grafana.com/docs/loki/latest/operations/storage/schema/#new-loki-installs
         schemaConfig = {
-          configs = [
-            {
-              from         = "2024-04-01" # for a new install, this must be a date in the past, use a recent date. Format is YYYY-MM-DD.
-              object_store = "s3"
-              store        = "tsdb"
-              schema       = "v13"
-              index = {
-                prefix = "index_"
-                period = "24h"
-              }
-            }
-          ]
+          configs = compact(concat(var.default_schema_config, var.additional_schema_config))
         }
         storage = {
           bucketNames = {
@@ -160,7 +160,7 @@ module "loki" {
         ]
         tls = [
           {
-            secretName = "${module.this.id}-tls"
+            secretName = module.loki_tls_label.id
             hosts      = [local.ingress_host_name]
           }
         ]

@@ -86,3 +86,42 @@ variable "chart_values" {
   description = "Additional values to yamlencode as `helm_release` values."
   default     = {}
 }
+
+variable "default_schema_config" {
+  type = list(object({
+    from         = string
+    object_store = string
+    schema       = string
+    index = object({
+      prefix = string
+      period = string
+    })
+  }))
+  description = "A list of default `configs` for the `schemaConfig` for the Loki chart. For new installations, the default schema config doesn't change. See https://grafana.com/docs/loki/latest/operations/storage/schema/#new-loki-installs"
+  default = [
+    {
+      from         = "2024-04-01" # for a new install, this must be a date in the past, use a recent date. Format is YYYY-MM-DD.
+      object_store = "s3"
+      store        = "tsdb"
+      schema       = "v13"
+      index = {
+        prefix = "index_"
+        period = "24h"
+      }
+    }
+  ]
+}
+
+variable "additional_schema_config" {
+  type = list(object({
+    from         = string
+    object_store = string
+    schema       = string
+    index = object({
+      prefix = string
+      period = string
+    })
+  }))
+  description = "A list of additional `configs` for the `schemaConfig` for the Loki chart. This list will be merged with the default schemaConfig.config defined by `var.default_schema_config`"
+  default     = []
+}
