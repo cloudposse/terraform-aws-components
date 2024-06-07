@@ -106,7 +106,7 @@ module "spa_web" {
   min_ttl               = local.cloudfront_min_ttl
   max_ttl               = local.cloudfront_max_ttl
 
-  ordered_cache         = var.ordered_cache
+  ordered_cache         = local.ordered_cache
   forward_cookies       = var.forward_cookies
   forward_header_values = local.forward_header_values
 
