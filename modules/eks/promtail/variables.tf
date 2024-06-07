@@ -80,3 +80,11 @@ variable "push_api_enabled" {
   description = "If set to `true`, enable the `loki_push_api` block configures Promtail to expose a Loki push API server with an Ingress configuration"
   default     = false
 }
+
+variable "scrape_configs" {
+  type        = list(string)
+  description = "A list of local path paths starting with this component's base path for Promtail Scrape Configs"
+  default = [
+    "scrape_config/default_kubernetes_pods.yaml"
+  ]
+}

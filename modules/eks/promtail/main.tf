@@ -73,6 +73,15 @@ EOT
       }
     }
   }
+
+  scrape_config = join("\n", [for scrape_config_file in var.scrape_configs : file("${path.module}/${scrape_config_file}")])
+  scrape_config_chart_values = {
+    config = {
+      snippets = {
+        scrapeConfigs = local.scrape_config
+      }
+    }
+  }
 }
 
 data "aws_ssm_parameter" "basic_auth_password" {
@@ -90,6 +99,7 @@ module "chart_values" {
   maps = [
     local.loki_write_chart_values,
     jsondecode(local.push_api_enabled ? jsonencode(local.push_api_chart_values) : jsonencode({})),
+    jsondecode(local.push_api_enabled ? jsonencode(local.scrape_config_chart_values) : jsonencode({})),
     var.chart_values
   ]
 }
