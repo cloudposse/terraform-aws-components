@@ -3,7 +3,7 @@ resource "aws_cloudfront_cache_policy" "created_cache_policies" {
     for cache in var.ordered_cache : cache.cache_policy_name => cache if cache.cache_policy_id == null
   }
 
-  comment     = "Managed by Terraform"
+  comment     = var.comment
   default_ttl = each.value.default_ttl
   max_ttl     = each.value.max_ttl
   min_ttl     = each.value.min_ttl
