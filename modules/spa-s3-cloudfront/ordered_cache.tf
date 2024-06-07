@@ -26,7 +26,7 @@ resource "aws_cloudfront_origin_request_policy" "created_origin_request_policies
     for cache in var.ordered_cache : cache.origin_request_policy_name => cache if cache.origin_request_policy_id == null
   }
 
-  comment = "Managed by Terraform"
+  comment = var.comment
   name    = each.value.origin_request_policy_name
   cookies_config {
     cookie_behavior = "none"
