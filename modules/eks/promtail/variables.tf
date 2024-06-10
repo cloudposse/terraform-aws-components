@@ -75,10 +75,19 @@ variable "chart_values" {
   default     = {}
 }
 
-variable "push_api_enabled" {
-  type        = bool
-  description = "If set to `true`, enable the `loki_push_api` block configures Promtail to expose a Loki push API server with an Ingress configuration"
-  default     = false
+variable "push_api" {
+  type = object({
+    enabled       = optional(bool, false)
+    scrape_config = optional(string, "")
+  })
+  description = <<-EOT
+  Describes and configures Promtail to expose a Loki push API server with an Ingress configuration.
+
+  - enabled: Set this to `true` to enable this feature
+  - scrape_config: Optional. This component includes a basic configuration by default, or override the default configuration here.
+
+  EOT
+  default     = {}
 }
 
 variable "scrape_configs" {

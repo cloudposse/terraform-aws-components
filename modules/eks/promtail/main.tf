@@ -24,21 +24,22 @@ locals {
 
   # These are optional values used to expose an endpoint for the Push API
   # https://grafana.com/docs/loki/latest/send-data/promtail/configuration/#loki_push_api
-  push_api_enabled   = local.enabled && var.push_api_enabled
-  ingress_host_name  = local.push_api_enabled ? format("%s.%s.%s", local.name, module.this.environment, module.dns_gbl_delegated[0].outputs.default_domain_name) : ""
-  ingress_group_name = local.push_api_enabled ? module.alb_controller_ingress_group[0].outputs.group_name : ""
+  push_api_enabled               = local.enabled && var.push_api.enabled
+  ingress_host_name              = local.push_api_enabled ? format("%s.%s.%s", local.name, module.this.environment, module.dns_gbl_delegated[0].outputs.default_domain_name) : ""
+  ingress_group_name             = local.push_api_enabled ? module.alb_controller_ingress_group[0].outputs.group_name : ""
+  default_push_api_scrape_config = <<-EOT
+  - job_name: push
+    loki_push_api:
+      server:
+        http_listen_port: 3500
+        grpc_listen_port: 3600
+      labels:
+        push: default
+  EOT
   push_api_chart_values = {
     config = {
       snippets = {
-        extraScrapeConfigs = <<EOT
-- job_name: push
-  loki_push_api:
-    server:
-      http_listen_port: 3500
-      grpc_listen_port: 3600
-    labels:
-      pushserver: push
-EOT
+        extraScrapeConfigs = length(var.push_api.scrape_config) > 0 ? var.push_api.scrape_config : local.default_push_api_scrape_config
       }
     }
     extraPorts = {
@@ -99,7 +100,7 @@ module "chart_values" {
   maps = [
     local.loki_write_chart_values,
     jsondecode(local.push_api_enabled ? jsonencode(local.push_api_chart_values) : jsonencode({})),
-    jsondecode(local.push_api_enabled ? jsonencode(local.scrape_config_chart_values) : jsonencode({})),
+    local.scrape_config_chart_values,
     var.chart_values
   ]
 }

@@ -98,7 +98,7 @@ components:
 | <a name="input_loki_component_name"></a> [loki\_component\_name](#input\_loki\_component\_name) | The name of the eks/loki component | `string` | `"eks/loki"` | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_push_api_enabled"></a> [push\_api\_enabled](#input\_push\_api\_enabled) | If set to `true`, enable the `loki_push_api` block configures Promtail to expose a Loki push API server with an Ingress configuration | `bool` | `false` | no |
+| <a name="input_push_api"></a> [push\_api](#input\_push\_api) | Describes and configures Promtail to expose a Loki push API server with an Ingress configuration.<br><br>- enabled: Set this to `true` to enable this feature<br>- scrape\_config: Optional. This component includes a basic configuration by default, or override the default configuration here. | <pre>object({<br>    enabled       = optional(bool, false)<br>    scrape_config = optional(string, "")<br>  })</pre> | `{}` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_scrape_configs"></a> [scrape\_configs](#input\_scrape\_configs) | A list of local path paths starting with this component's base path for Promtail Scrape Configs | `list(string)` | <pre>[<br>  "scrape_config/default_kubernetes_pods.yaml"<br>]</pre> | no |
@@ -111,9 +111,7 @@ components:
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
+No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 
