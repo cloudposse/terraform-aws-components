@@ -52,7 +52,7 @@ locals {
 # Create an ACM and explicitly set it to us-east-1 (requirement of CloudFront)
 module "acm_request_certificate" {
   source  = "cloudposse/acm-request-certificate/aws"
-  version = "0.16.3"
+  version = "0.18.0"
   providers = {
     aws = aws.us-east-1
   }
@@ -68,7 +68,7 @@ module "acm_request_certificate" {
 
 module "spa_web" {
   source  = "cloudposse/cloudfront-s3-cdn/aws"
-  version = "0.92.0"
+  version = "0.95.0"
 
   block_origin_public_access_enabled = local.block_origin_public_access_enabled
   encryption_enabled                 = var.origin_encryption_enabled
