@@ -52,8 +52,7 @@ components:
           # this role is used to grant the Prometheus scraper access to this cluster. See eks/prometheus-scraper
           - rolearn: "arn:aws:iam::111111111111:role/AWSServiceRoleForAmazonPrometheusScraper_111111111111111"
             username: "acme-plat-ue2-sandbox-prometheus-scraper"
-            groups:
-              - "system:master"
+            groups: []
 ```
 
 Then reapply the given cluster component.
