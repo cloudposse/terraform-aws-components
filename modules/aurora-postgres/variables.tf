@@ -340,3 +340,15 @@ variable "cluster_parameters" {
   default     = []
   description = "List of DB cluster parameters to apply"
 }
+
+variable "retention_period" {
+  type        = number
+  default     = 5
+  description = "Number of days to retain backups for"
+}
+
+variable "backup_window" {
+  type        = string
+  default     = "07:00-09:00"
+  description = "Daily time range during which the backups happen, UTC"
+}
