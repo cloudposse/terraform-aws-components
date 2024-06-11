@@ -53,6 +53,8 @@ module "aurora_postgres_cluster" {
   snapshot_identifier                  = var.snapshot_identifier
   allow_major_version_upgrade          = var.allow_major_version_upgrade
   ca_cert_identifier                   = var.ca_cert_identifier
+  retention_period                     = var.retention_period
+  backup_window                        = var.backup_window
 
   cluster_parameters = concat([
     {
