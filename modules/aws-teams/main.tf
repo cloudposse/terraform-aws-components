@@ -36,7 +36,10 @@ module "assume_role" {
   for_each = local.roles_config
   source   = "../account-map/modules/team-assume-role-policy"
 
-  allowed_roles           = merge(each.value.allowed_roles, { (local.identity_account_account_name) = each.value.trusted_teams })
+  # While allowed_roles is used to easily add roles to the trust policy, it is not used that way
+  # with teams. Instead, you should directly add the role ARN to the trusted_role_arns list.
+  # We feel this is a better approach because it is more explicit.
+  allowed_roles           = { (local.identity_account_account_name) = each.value.trusted_teams }
   denied_roles            = { (local.identity_account_account_name) = each.value.denied_teams }
   allowed_principal_arns  = each.value.trusted_role_arns
   denied_principal_arns   = each.value.denied_role_arns
