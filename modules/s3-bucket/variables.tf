@@ -80,20 +80,16 @@ variable "logging_bucket_name_rendering_enabled" {
   description = "Whether to render the logging bucket name, prepending context"
 }
 
-variable "logging_bucket_name_rendering_template" {
+variable "logging_bucket_name_template_file" {
   type        = string
-  default     = "%s-%s-%s-%s-%s"
-  description = <<-EOT
-    The template for the template used to render Bucket Name for the Logging bucket.
-    Default is appropriate when using `tenant` and default label order with `null-label`.
-    Use `"%s-%s-%s-%%s"` when not using `tenant`.
-  EOT
+  default     = "logging-bucket-name.tftmpl"
+  description = "The file used during the `templatefile` function call for rendering the logging bucket name"
 }
 
-variable "logging_bucket_prefix_rendering_template" {
+variable "logging_prefix_template_file" {
   type        = string
-  default     = "%s/%s/"
-  description = "The template for the template used to render Bucket Prefix for the Logging bucket, uses the format `var.logging.prefix`/`var.name`"
+  default     = "logging-prefix.tftmpl"
+  description = "The file used during the `templatefile` function call for rendering the logging prefix"
 }
 
 variable "logging" {
