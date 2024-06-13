@@ -231,6 +231,8 @@ Example - I want a new instance `rds-example-new` to be provisioned from a snaps
 | Name | Description |
 |------|-------------|
 | <a name="output_exports"></a> [exports](#output\_exports) | Map of exports for use in deployment configuration templates |
+| <a name="output_kms_key_alias"></a> [kms\_key\_alias](#output\_kms\_key\_alias) | The KMS key alias |
+| <a name="output_psql_helper"></a> [psql\_helper](#output\_psql\_helper) | A helper output to use with psql for connecting to this RDS instance. |
 | <a name="output_rds_address"></a> [rds\_address](#output\_rds\_address) | Address of the instance |
 | <a name="output_rds_arn"></a> [rds\_arn](#output\_rds\_arn) | ARN of the instance |
 | <a name="output_rds_database_ssm_key_prefix"></a> [rds\_database\_ssm\_key\_prefix](#output\_rds\_database\_ssm\_key\_prefix) | SSM prefix |

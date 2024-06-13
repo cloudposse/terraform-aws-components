@@ -18,6 +18,8 @@ locals {
     local.eks_security_groups,
     var.security_group_ids
   )
+
+  psql_access_enabled = local.enabled && (var.engine == "postgres")
 }
 
 module "rds_client_sg" {

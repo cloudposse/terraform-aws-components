@@ -44,7 +44,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_dynamodb_table"></a> [dynamodb\_table](#module\_dynamodb\_table) | cloudposse/dynamodb/aws | 0.35.0 |
+| <a name="module_dynamodb_table"></a> [dynamodb\_table](#module\_dynamodb\_table) | cloudposse/dynamodb/aws | 0.36.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -97,6 +97,7 @@ No resources.
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_stream_view_type"></a> [stream\_view\_type](#input\_stream\_view\_type) | When an item in the table is modified, what information is written to the stream | `string` | `""` | no |
 | <a name="input_streams_enabled"></a> [streams\_enabled](#input\_streams\_enabled) | Enable DynamoDB streams | `bool` | `false` | no |
+| <a name="input_table_name"></a> [table\_name](#input\_table\_name) | Table name. If provided, the bucket will be created with this name instead of generating the name from the context | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 | <a name="input_ttl_attribute"></a> [ttl\_attribute](#input\_ttl\_attribute) | DynamoDB table TTL attribute | `string` | `""` | no |
@@ -107,7 +108,9 @@ No resources.
 | Name | Description |
 |------|-------------|
 | <a name="output_global_secondary_index_names"></a> [global\_secondary\_index\_names](#output\_global\_secondary\_index\_names) | DynamoDB global secondary index names |
+| <a name="output_hash_key"></a> [hash\_key](#output\_hash\_key) | DynamoDB table hash key |
 | <a name="output_local_secondary_index_names"></a> [local\_secondary\_index\_names](#output\_local\_secondary\_index\_names) | DynamoDB local secondary index names |
+| <a name="output_range_key"></a> [range\_key](#output\_range\_key) | DynamoDB table range key |
 | <a name="output_table_arn"></a> [table\_arn](#output\_table\_arn) | DynamoDB table ARN |
 | <a name="output_table_id"></a> [table\_id](#output\_table\_id) | DynamoDB table ID |
 | <a name="output_table_name"></a> [table\_name](#output\_table\_name) | DynamoDB table name |

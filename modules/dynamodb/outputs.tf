@@ -32,3 +32,13 @@ output "table_stream_label" {
   value       = module.dynamodb_table.table_stream_label
   description = "DynamoDB table stream label"
 }
+
+output "hash_key" {
+  value       = var.hash_key
+  description = "DynamoDB table hash key"
+}
+
+output "range_key" {
+  value       = var.range_key
+  description = "DynamoDB table range key"
+}

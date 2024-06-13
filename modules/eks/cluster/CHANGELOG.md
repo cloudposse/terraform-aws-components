@@ -1,11 +1,229 @@
-## Components PR [#910](https://github.com/cloudposse/terraform-aws-components/pull/910)
+## Release 1.455.1
+
+Components PR [#1057](https://github.com/cloudposse/terraform-aws-components/pull/1057)
+
+Fixed "Invalid count argument" argument when creating new cluster
+
+## Release 1.452.0
+
+Components PR [#1046](https://github.com/cloudposse/terraform-aws-components/pull/1046)
+
+Added support for passing extra arguments to `kubelet` and other startup modifications supported by EKS on Amazon Linux
+2 via the
+[`bootsrap.sh`](https://github.com/awslabs/amazon-eks-ami/blob/d87c6c49638216907cbd6630b6cadfd4825aed20/templates/al2/runtime/bootstrap.sh)
+script.
+
+This support should be considered an `alpha` version, as it may change when support for Amazon Linux 2023 is added, and
+does not work with Bottlerocket.
+
+## Breaking Changes: Components PR [#1033](https://github.com/cloudposse/terraform-aws-components/pull/1033)
+
+### Major Breaking Changes
+
+:::warning Major Breaking Changes, Manual Intervention Required
+
+This release includes a major breaking change that requires manual intervention to migrate existing clusters. The change
+is necessary to support the new AWS Access Control API, which is more secure and more reliable than the old `aws-auth`
+ConfigMap.
+
+:::
+
+This release drops support for the `aws-auth` ConfigMap and switches to managing access control with the new AWS Access
+Control API. This change allows for more secure and reliable access control, and removes the requirement that Terraform
+operations on the EKS cluster itself require network access to the EKS control plane.
+
+In this release, this component only supports assigning "team roles" to Kubernetes RBAC groups. Support for AWS EKS
+Access Policies is not yet implemented. However, if you specify `system:masters` as a group, that will be translated
+into assigning the `AmazonEKSClusterAdminPolicy` to the role. Any other `system:*` group will cause an error.
+
+:::tip Network Access Considerations
+
+Previously, this component required network access to the EKS control plane to manage the `aws-auth` ConfigMap. This
+meant having the EKS control plane accessible from the public internet, or using a bastion host or VPN to access the
+control plane. With the new AWS Access Control API, Terraform operations on the EKS cluster no longer require network
+access to the EKS control plane.
+
+This may seem like it makes it easier to secure the EKS control plane, but Terraform users will still require network
+access to the EKS control plane to manage any deployments or other Kubernetes resources in the cluster. This means that
+this upgrade does not substantially change the need for network access.
+
+:::
+
+### Minor Changes
+
+With the fixes included and AWS Terraform Provider v5.43.0 and Karpenter v0.33.0, the
+`legacy_do_not_create_karpenter_instance_profile` is now obsolete. After upgrading both this component and the
+`eks/karpenter` component, if you had it in your configuration, you can remove it. If you had previously set it to
+`false`, removing it may cause an error when you apply the changes. If you see an error about the
+`aws_iam_instance_profile` resource being destroyed (cannot be destroyed because it is in use, has dependencies, and/or
+has role attached), you can simply remove the resource from the Terraform state with `[atmos] terraform state rm`,
+because it will be managed by the Karpenter controller instead of Terraform.
+
+### Access Control API Migration Procedure
+
+Full details of the migration process can be found in the `cloudposse/terraform-aws-eks-cluster`
+[migration document](https://github.com/cloudposse/terraform-aws-eks-cluster/blob/main/docs/migration-v3-v4.md). This
+section is a streamlined version for users of this `eks/cluster` component.
+
+:::important
+
+The commands below assume the component is named "eks/cluster". If you are using a different name, replace "eks/cluster"
+with the correct component name.
+
+:::
+
+#### Prepare for Migration
+
+Make sure you have `kubectl` access to the cluster, preferably using the `aws eks get-token` command configured into
+your `$KUBECONFIG` file. Geodesic users can usually set this up with
+
+```shell
+atmos aws eks update-kubeconfig eks/cluster -s=<stack-name>
+# or
+set-cluster <tenant>-<region>-<stage>
+```
+
+Where `<tenant>` is the "tenant" name, a.k.a. the "org" name, e.g. "core", and should be omitted (along with the hyphen)
+if your organization does not use a tenant name. `<region>` is the AWS region abbreviation your organization is using,
+e.g. "usw2" or "uw2", and `<stage>` is the "stage" or "account" name, e.g. "auto" or "prod".
+
+Test your access with `kubectl`
+
+```shell
+# check if you have any access at all. Should output "yes".
+kubectl auth can-i -A create selfsubjectaccessreviews.authorization.k8s.io
+
+# Do you have full cluster administrator access?
+kubectl auth can-i '*' '*'
+
+# Show me what I can and cannot do (if `rakkess` is installed)
+rakkess
+
+```
+
+#### Migrate
+
+1. Update the component (already done if you see this document).
+2. Run `atmos terraform plan eks/cluster -s <stack_name>`
+
+See this error:
+
+```plaintext
+To work with module.eks_cluster.kubernetes_config_map.aws_auth_ignore_changes[0] (orphan) its original provider configuration
+```
+
+Note, in other documentation, the exact "address" of the orphaned resource may be different, and the documentation may
+say to refer to the address of the resource in the error message. In this case, because we are using this component as
+the root module, the address should be exactly as shown above. (Possibly ending with `aws_auth[0]` instead of
+`aws_auth_ignore_changes[0]`.)
+
+3. Remove the orphaned resource from the state file with
+
+```
+atmos terraform state rm eks/cluster 'module.eks_cluster.kubernetes_config_map.aws_auth_ignore_changes[0]' -s <stack_name>
+```
+
+4. `atmos terraform plan eks/cluster -s <stack_name>`
+
+Verify:
+
+- `module.eks_cluster.aws_eks_cluster.default[0]` will be updated in-place
+  - access_config.authentication_mode = "CONFIG_MAP" -> "API_AND_CONFIG_MAP"
+
+Stop and ask for help if you see `module.eks_cluster.aws_eks_cluster.default[0]` will be destroyed. Expect to see a lot
+of IAM changes due to the potential for the EKS OIDC thumbprint to change, and a lot of `aws_eks_access_entry`
+additions. You may also see:
+
+- `aws_security_group_rule` resources replaced by `aws_vpc_security_group_ingress_rule` resources
+- `null_resource` resources destroyed
+
+5. Apply the plan with `atmos terraform apply eks/cluster -s <stack_name> --from-plan`
+
+**EXPECT AN ERROR**. Something like:
+
+```plaintext
+│ Error: creating EKS Access Entry
+(eg-core-usw2-auto-eks-cluster:arn:aws:iam::123456789012:role/eg-core-gbl-auto-terraform): operation error EKS: CreateAccessEntry, https response error StatusCode: 409, RequestID: 97a40994-4223-4af1-977e-42ec57eb3ad6, ResourceInUseException: The specified access entry resource is already in use on this cluster.
+│
+│   with module.eks_cluster.aws_eks_access_entry.map["arn:aws:iam::123456789012:role/eg-core-gbl-auto-terraform"],
+│   on .terraform/modules/eks_cluster/auth.tf line 60, in resource "aws_eks_access_entry" "map":
+│   60: resource "aws_eks_access_entry" "map" {
+```
+
+This is expected. The access entry is something we want to control, but a duplicate is automatically created by AWS
+during the conversion. Import the created entry. You may get other errors, but they are likely transient and will be
+fixed automatically after fixing this one.
+
+The `access entry ID` to import is given in the error message in parentheses. In the example above, the ID is
+`eg-core-usw2-auto-eks-cluster:arn:aws:iam::123456789012:role/eg-core-gbl-auto-terraform`.
+
+The Terraform `resource address` for the resource will also be in the error message: it is the part after "with". In the
+example above, the address is
+
+```plaintext
+module.eks_cluster.aws_eks_access_entry.map["arn:aws:iam::123456789012:role/eg-core-gbl-auto-terraform"]
+```
+
+Import the resource with
+
+```bash
+atmos terraform import eks/cluster '<resource address>' '<access entry ID>' -s <stack_name>
+```
+
+It is critical to use single quotes around the resource address and access entry ID to prevent the shell from
+interpreting the square brackets and colons and to preserve the double quotes in the resource address.
+
+After successfully importing the resource, run
+
+```
+atmos terraform apply eks/cluster -s <stack_name>`
+```
+
+to apply tags to the entry and finish up any changes interrupted by the error. It should apply cleanly this time.
+
+#### Verify
+
+Verify that you still have access to the cluster with `kubectl`, just as you did in the "Prepare" section.
+
+#### Cleanup
+
+Either one cluster at a time, or later in an organization-wide cleanup, migrate all clusters from `API_AND_CONFIG_MAP`
+to `API` authentication mode.
+
+At this point you have both the old and new access control methods enabled, but nothing is managing the `aws-auth`
+ConfigMap. The `aws-auth` ConfigMap has been abandoned by this module and will no longer have entries added or,
+crucially, removed. In order to remove this lingering unmanaged grant of access, migrate the cluster to `API`
+authentication mode, and manually remove the `aws-auth` ConfigMap.
+
+- Update the `access.config.authentication_mode` to "API" in your configuration:
+
+  ```yaml
+  access_config:
+  authentication_mode: API
+  ```
+
+  and run `atmos terraform apply` again. This will cause EKS to ignore the `aws-auth` ConfigMap, but will not remove it.
+  Again, this will cause a lot of IAM changes due to the potential for the EKS OIDC thumbprint to change, but this is
+  not a problem.
+
+- Manually remove the `aws-auth` ConfigMap. You can do this with
+  `kubectl delete configmap aws-auth --namespace kube-system`. This will not affect the cluster, because it is now being
+  managed by the new access control API, but it will reduce the possibility of confusion in the future.
+
+### End of Access Control API Migration
+
+---
+
+## Changes in `v1.349.0`
+
+Components PR [#910](https://github.com/cloudposse/terraform-aws-components/pull/910)
 
 Bug fix and updates to Changelog, no action required.
 
 Fixed: Error about managed node group ARNs list being null, which could happen when adding a managed node group to an
 existing cluster that never had one.
 
-## Upgrading to `v1.303.0`
+## Changes in `v1.303.0`
 
 Components PR [#852](https://github.com/cloudposse/terraform-aws-components/pull/852)
 
@@ -20,13 +238,14 @@ single node, removing the high availability that comes from having a node per Av
 spread across those nodes.
 
 As a result, we now recommend deploying a minimal node group with a single instance (currently recommended to be a
-`c6a.large`) in each of 3 Availability Zones. This will provide the compute power needed to initialize add-ons, and will
-provide high availability for the cluster. As a bonus, it will also remove the need to deploy Karpenter to Fargate.
+`c7a.medium`) in each of 3 Availability Zones. This will provide the compute power needed to initialize add-ons, and
+will provide high availability for the cluster. As a bonus, it will also remove the need to deploy Karpenter to Fargate.
 
-**NOTE about instance type**: The `c6a.large` instance type is relatively new. If you have deployed an old version of
-our ServiceControlPolicy `DenyEC2NonNitroInstances`, `DenyNonNitroInstances` (obsolete, replaced by
-`DenyEC2NonNitroInstances`), and/or `DenyEC2InstancesWithoutEncryptionInTransit`, you will want to update them to
-v0.12.0 or choose a difference instance type.
+**NOTE about instance type**: The `c7a.medium` instance type is relatively new. If you have deployed an old version of
+our [ServiceControlPolicy](https://github.com/cloudposse/terraform-aws-service-control-policies)
+`DenyEC2NonNitroInstances`, `DenyNonNitroInstances` (obsolete, replaced by `DenyEC2NonNitroInstances`), and/or
+`DenyEC2InstancesWithoutEncryptionInTransit`, you will want to update them to v0.14.1 or choose a different instance
+type.
 
 ### Migration procedure
 
@@ -220,7 +439,7 @@ these steps:
    [eks/storage-class](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/storage-class)
    module to create a replacement EFS StorageClass `efs-sc`. This component is new and you may need to add it to your
    cluster.
-4. Deploy the EFS CSI Driver Add-On by adding `aws-efs-csi-driver` to the `addons` map (see [README](./README.md)).
+4. Deploy the EFS CSI Driver Add-On by adding `aws-efs-csi-driver` to the `addons` map (see `README`).
 5. Restore the Deployments you modified in step 1.
 
 ### More options for specifying Availability Zones

@@ -52,7 +52,7 @@ locals {
 # Create an ACM and explicitly set it to us-east-1 (requirement of CloudFront)
 module "acm_request_certificate" {
   source  = "cloudposse/acm-request-certificate/aws"
-  version = "0.16.3"
+  version = "0.18.0"
   providers = {
     aws = aws.us-east-1
   }
@@ -68,7 +68,7 @@ module "acm_request_certificate" {
 
 module "spa_web" {
   source  = "cloudposse/cloudfront-s3-cdn/aws"
-  version = "0.92.0"
+  version = "0.95.0"
 
   block_origin_public_access_enabled = local.block_origin_public_access_enabled
   encryption_enabled                 = var.origin_encryption_enabled
@@ -87,6 +87,7 @@ module "spa_web" {
   s3_access_log_bucket_name = local.s3_access_log_bucket_name
   s3_access_log_prefix      = var.origin_s3_access_log_prefix
 
+  comment                     = var.comment
   aliases                     = local.aliases
   external_aliases            = local.external_aliases
   parent_zone_name            = local.parent_zone_name
@@ -97,6 +98,7 @@ module "spa_web" {
   acm_certificate_arn         = module.acm_request_certificate.arn
   ipv6_enabled                = var.cloudfront_ipv6_enabled
 
+  http_version          = var.http_version
   allowed_methods       = var.cloudfront_allowed_methods
   cached_methods        = var.cloudfront_cached_methods
   custom_error_response = var.cloudfront_custom_error_response
@@ -104,7 +106,7 @@ module "spa_web" {
   min_ttl               = local.cloudfront_min_ttl
   max_ttl               = local.cloudfront_max_ttl
 
-  ordered_cache         = var.ordered_cache
+  ordered_cache         = local.ordered_cache
   forward_cookies       = var.forward_cookies
   forward_header_values = local.forward_header_values
 
