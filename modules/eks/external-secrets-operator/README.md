@@ -89,6 +89,8 @@ components:
         # chart_values:
         #   installCRDs: true
         chart_values: {}
+        kms_aliases_allow_decrypt: []
+        # - "alias/foo/bar"
 ```
 
 <!-- prettier-ignore-start -->
