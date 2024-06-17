@@ -1,3 +1,11 @@
+## Components PR [#1069](https://github.com/cloudposse/terraform-aws-components/pull/1069)
+
+Update `cloudposse/eks-node-group/aws` to v3.0.0
+
+- Enable use of Amazon Linux 2023
+- Other bug fixes and improvements
+- See https://github.com/cloudposse/terraform-aws-eks-node-group/releases/tag/3.0.0
+
 ## Release 1.455.1
 
 Components PR [#1057](https://github.com/cloudposse/terraform-aws-components/pull/1057)
