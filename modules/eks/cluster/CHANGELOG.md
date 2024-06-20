@@ -1,4 +1,13 @@
-## Release 1.466.1
+## Release 1.468.0
+
+PR [#1072](https://github.com/cloudposse/terraform-aws-components/pull/1072)
+
+Bugfix:
+
+- Correctly map AWS SSO Permission Sets referenced by `aws_sso_permission_sets_rbac` to IAM Role ARNs.
+- Broken in Release 1.431.1: Update to use AWS Auth API
+
+## Release 1.467.0
 
 PR [#1071](https://github.com/cloudposse/terraform-aws-components/pull/1071)
 
@@ -34,7 +43,9 @@ script.
 This support should be considered an `alpha` version, as it may change when support for Amazon Linux 2023 is added, and
 does not work with Bottlerocket.
 
-## Breaking Changes: Components PR [#1033](https://github.com/cloudposse/terraform-aws-components/pull/1033)
+## Release 1.431.1: Breaking Changes
+
+Components PR [#1033](https://github.com/cloudposse/terraform-aws-components/pull/1033)
 
 ### Major Breaking Changes
 
