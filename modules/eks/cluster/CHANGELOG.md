@@ -127,18 +127,18 @@ rakkess
 See this error:
 
 ```plaintext
-To work with module.eks_cluster.kubernetes_config_map.aws_auth_ignore_changes[0] (orphan) its original provider configuration
+To work with module.eks_cluster.kubernetes_config_map.aws_auth[0] (orphan) its original provider configuration
 ```
 
 Note, in other documentation, the exact "address" of the orphaned resource may be different, and the documentation may
 say to refer to the address of the resource in the error message. In this case, because we are using this component as
-the root module, the address should be exactly as shown above. (Possibly ending with `aws_auth[0]` instead of
-`aws_auth_ignore_changes[0]`.)
+the root module, the address should be exactly as shown above. (Possibly ending with `aws_auth_ignore_changes[0]`
+instead of `aws_auth[0]`.)
 
 3. Remove the orphaned resource from the state file with
 
 ```
-atmos terraform state rm eks/cluster 'module.eks_cluster.kubernetes_config_map.aws_auth_ignore_changes[0]' -s <stack_name>
+atmos terraform state rm eks/cluster 'module.eks_cluster.kubernetes_config_map.aws_auth[0]' -s <stack_name>
 ```
 
 4. `atmos terraform plan eks/cluster -s <stack_name>`
