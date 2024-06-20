@@ -1,4 +1,14 @@
-## Components PR [#1069](https://github.com/cloudposse/terraform-aws-components/pull/1069)
+## Release 1.466.1
+
+PR [#1071](https://github.com/cloudposse/terraform-aws-components/pull/1071)
+
+Bugfix: Update `cloudposse/eks-node-group/aws` to v3.0.1.
+
+- Fixes failure to create userdata for AL2 and Windows when using it to run `bootstrap.sh`.
+
+## Release 1.465.0
+
+Components PR [#1069](https://github.com/cloudposse/terraform-aws-components/pull/1069)
 
 Update `cloudposse/eks-node-group/aws` to v3.0.0
 

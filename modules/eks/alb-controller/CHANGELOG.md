@@ -1,4 +1,4 @@
-## PR 1070
+## Release 1.466.0
 
 PR [#1070](https://github.com/cloudposse/terraform-aws-components/pull/1070)
 
