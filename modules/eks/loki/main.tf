@@ -123,7 +123,7 @@ module "loki" {
         # For new installations, schema config doesnt change. See the following:
         # https://grafana.com/docs/loki/latest/operations/storage/schema/#new-loki-installs
         schemaConfig = {
-          configs = compact(concat(var.default_schema_config, var.additional_schema_config))
+          configs = concat(var.default_schema_config, var.additional_schema_config)
         }
         storage = {
           bucketNames = {
