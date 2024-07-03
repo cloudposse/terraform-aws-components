@@ -48,16 +48,20 @@ components:
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.0.0), version: >= 1.0.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 3.0), version: >= 3.0
-- [`snowflake`](https://registry.terraform.io/modules/snowflake/>= 0.25), version: >= 0.25
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 1.0.0 |
+| `aws` | >= 3.0 |
+| `snowflake` | >= 0.25 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 3.0
-- `snowflake`, version: >= 0.25
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 3.0 |
+| `snowflake` | >= 0.25 |
+
 
 ### Modules
 
@@ -78,15 +82,15 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`snowflake_database.this`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/database) (resource)
-  - [`snowflake_database_grant.grant`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/database_grant) (resource)
-  - [`snowflake_schema.this`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/schema) (resource)
-  - [`snowflake_schema_grant.grant`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/schema_grant) (resource)
-  - [`snowflake_sequence.this`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/sequence) (resource)
-  - [`snowflake_table.tables`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/table) (resource)
-  - [`snowflake_table_grant.grant`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/table_grant) (resource)
-  - [`snowflake_view.view`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/view) (resource)
-  - [`snowflake_view_grant.grant`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/view_grant) (resource)
+  - [`snowflake_database.this`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/database) (resource)(main.tf#42)
+  - [`snowflake_database_grant.grant`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/database_grant) (resource)(grants.tf#1)
+  - [`snowflake_schema.this`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/schema) (resource)(main.tf#58)
+  - [`snowflake_schema_grant.grant`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/schema_grant) (resource)(grants.tf#12)
+  - [`snowflake_sequence.this`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/sequence) (resource)(main.tf#77)
+  - [`snowflake_table.tables`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/table) (resource)(main.tf#85)
+  - [`snowflake_table_grant.grant`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/table_grant) (resource)(grants.tf#24)
+  - [`snowflake_view.view`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/view) (resource)(main.tf#149)
+  - [`snowflake_view_grant.grant`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/view_grant) (resource)(grants.tf#37)
 
 ### Data Sources
 
@@ -101,7 +105,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
@@ -124,7 +128,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
@@ -148,7 +152,7 @@ and treated as a single ID element.<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -197,7 +201,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between ID elements.<br/>
@@ -219,7 +223,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `descriptor_formats` (`any`) <i>optional</i>
+### `descriptor_formats` (`any`) <i>optional</i>
 
 
 Describe additional descriptors to be output in the `descriptors` output map.<br/>
@@ -251,7 +255,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -271,7 +275,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -291,7 +295,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -315,7 +319,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
@@ -339,7 +343,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The order in which the labels (ID elements) appear in the `id`.<br/>
@@ -362,7 +366,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of ID elements (labels) as included in `id`,<br/>
@@ -388,7 +392,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+### `labels_as_tags` (`set(string)`) <i>optional</i>
 
 
 Set of labels (ID elements) to include as tags in the `tags` output.<br/>
@@ -422,7 +426,7 @@ Set to `[]` to suppress all generated tags.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
@@ -445,7 +449,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
@@ -465,7 +469,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Terraform regular expression (regex) string.<br/>
@@ -488,7 +492,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -508,7 +512,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
@@ -530,7 +534,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 ---
 
 
-  ### `tenant` (`string`) <i>optional</i>
+### `tenant` (`string`) <i>optional</i>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
@@ -553,7 +557,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 </details>
 
 ### Required Inputs
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
@@ -575,7 +579,7 @@ AWS Region<br/>
 
 
 ### Optional Inputs
-  ### `data_retention_time_in_days` (`string`) <i>optional</i>
+### `data_retention_time_in_days` (`string`) <i>optional</i>
 
 
 Time in days to retain data in Snowflake databases, schemas, and tables by default.<br/>
@@ -595,7 +599,7 @@ Time in days to retain data in Snowflake databases, schemas, and tables by defau
 ---
 
 
-  ### `database_comment` (`string`) <i>optional</i>
+### `database_comment` (`string`) <i>optional</i>
 
 
 The comment to give to the provisioned database.<br/>
@@ -615,7 +619,7 @@ The comment to give to the provisioned database.<br/>
 ---
 
 
-  ### `database_grants` (`list(string)`) <i>optional</i>
+### `database_grants` (`list(string)`) <i>optional</i>
 
 
 A list of Grants to give to the database created with component.<br/>
@@ -643,7 +647,7 @@ A list of Grants to give to the database created with component.<br/>
 ---
 
 
-  ### `required_tags` (`list(string)`) <i>optional</i>
+### `required_tags` (`list(string)`) <i>optional</i>
 
 
 List of required tag names<br/>
@@ -663,7 +667,7 @@ List of required tag names<br/>
 ---
 
 
-  ### `schema_grants` (`list(string)`) <i>optional</i>
+### `schema_grants` (`list(string)`) <i>optional</i>
 
 
 A list of Grants to give to the schema created with component.<br/>
@@ -693,7 +697,7 @@ A list of Grants to give to the schema created with component.<br/>
 ---
 
 
-  ### `table_grants` (`list(string)`) <i>optional</i>
+### `table_grants` (`list(string)`) <i>optional</i>
 
 
 A list of Grants to give to the tables created with component.<br/>
@@ -724,7 +728,7 @@ A list of Grants to give to the tables created with component.<br/>
 ---
 
 
-  ### `tables` (`map(any)`) <i>optional</i>
+### `tables` (`map(any)`) <i>optional</i>
 
 
 A map of tables to create for Snowflake. A schema and database will be assigned for this group of tables.<br/>
@@ -744,7 +748,7 @@ A map of tables to create for Snowflake. A schema and database will be assigned 
 ---
 
 
-  ### `view_grants` (`list(string)`) <i>optional</i>
+### `view_grants` (`list(string)`) <i>optional</i>
 
 
 A list of Grants to give to the views created with component.<br/>
@@ -771,7 +775,7 @@ A list of Grants to give to the views created with component.<br/>
 ---
 
 
-  ### `views` (`map(any)`) <i>optional</i>
+### `views` (`map(any)`) <i>optional</i>
 
 
 A map of views to create for Snowflake. The same schema and database will be assigned as for tables.<br/>

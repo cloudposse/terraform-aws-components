@@ -47,16 +47,20 @@ components:
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.0), version: >= 1.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 4.17, <=4.67.0), version: >= 4.17, <=4.67.0
-- [`random`](https://registry.terraform.io/modules/random/>= 3.0), version: >= 3.0
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 1.0 |
+| `aws` | >= 4.17, <=4.67.0 |
+| `random` | >= 3.0 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 4.17, <=4.67.0
-- `random`, version: >= 3.0
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 4.17, <=4.67.0 |
+| `random` | >= 3.0 |
+
 
 ### Modules
 
@@ -73,13 +77,13 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`aws_ssm_parameter.redshift_database_hostname`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
-  - [`aws_ssm_parameter.redshift_database_name`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
-  - [`aws_ssm_parameter.redshift_database_password`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
-  - [`aws_ssm_parameter.redshift_database_port`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
-  - [`aws_ssm_parameter.redshift_database_user`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
-  - [`random_password.admin_password`](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) (resource)
-  - [`random_pet.admin_user`](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) (resource)
+  - [`aws_ssm_parameter.redshift_database_hostname`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(systems-manager.tf#85)
+  - [`aws_ssm_parameter.redshift_database_name`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(systems-manager.tf#54)
+  - [`aws_ssm_parameter.redshift_database_password`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(systems-manager.tf#74)
+  - [`aws_ssm_parameter.redshift_database_port`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(systems-manager.tf#95)
+  - [`aws_ssm_parameter.redshift_database_user`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(systems-manager.tf#64)
+  - [`random_password.admin_password`](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) (resource)(main.tf#20)
+  - [`random_pet.admin_user`](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) (resource)(main.tf#9)
 
 ### Data Sources
 
@@ -92,7 +96,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
@@ -115,7 +119,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
@@ -139,7 +143,7 @@ and treated as a single ID element.<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -188,7 +192,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between ID elements.<br/>
@@ -210,7 +214,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `descriptor_formats` (`any`) <i>optional</i>
+### `descriptor_formats` (`any`) <i>optional</i>
 
 
 Describe additional descriptors to be output in the `descriptors` output map.<br/>
@@ -242,7 +246,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -262,7 +266,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -282,7 +286,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -306,7 +310,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
@@ -330,7 +334,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The order in which the labels (ID elements) appear in the `id`.<br/>
@@ -353,7 +357,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of ID elements (labels) as included in `id`,<br/>
@@ -379,7 +383,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+### `labels_as_tags` (`set(string)`) <i>optional</i>
 
 
 Set of labels (ID elements) to include as tags in the `tags` output.<br/>
@@ -413,7 +417,7 @@ Set to `[]` to suppress all generated tags.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
@@ -436,7 +440,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
@@ -456,7 +460,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Terraform regular expression (regex) string.<br/>
@@ -479,7 +483,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -499,7 +503,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
@@ -521,7 +525,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 ---
 
 
-  ### `tenant` (`string`) <i>optional</i>
+### `tenant` (`string`) <i>optional</i>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
@@ -544,7 +548,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 </details>
 
 ### Required Inputs
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS region<br/>
@@ -566,7 +570,7 @@ AWS region<br/>
 
 
 ### Optional Inputs
-  ### `admin_password` (`string`) <i>optional</i>
+### `admin_password` (`string`) <i>optional</i>
 
 
 Password for the master DB user. Required unless a snapshot_identifier is provided<br/>
@@ -586,7 +590,7 @@ Password for the master DB user. Required unless a snapshot_identifier is provid
 ---
 
 
-  ### `admin_user` (`string`) <i>optional</i>
+### `admin_user` (`string`) <i>optional</i>
 
 
 Username for the master DB user. Required unless a snapshot_identifier is provided<br/>
@@ -606,7 +610,7 @@ Username for the master DB user. Required unless a snapshot_identifier is provid
 ---
 
 
-  ### `allow_version_upgrade` (`bool`) <i>optional</i>
+### `allow_version_upgrade` (`bool`) <i>optional</i>
 
 
 Whether or not to enable major version upgrades which are applied during the maintenance window to the Amazon Redshift engine that is running on the cluster<br/>
@@ -626,7 +630,7 @@ Whether or not to enable major version upgrades which are applied during the mai
 ---
 
 
-  ### `cluster_type` (`string`) <i>optional</i>
+### `cluster_type` (`string`) <i>optional</i>
 
 
 The cluster type to use. Either `single-node` or `multi-node`<br/>
@@ -646,7 +650,7 @@ The cluster type to use. Either `single-node` or `multi-node`<br/>
 ---
 
 
-  ### `custom_sg_allow_all_egress` (`bool`) <i>optional</i>
+### `custom_sg_allow_all_egress` (`bool`) <i>optional</i>
 
 
 Whether to allow all egress traffic or not<br/>
@@ -666,7 +670,7 @@ Whether to allow all egress traffic or not<br/>
 ---
 
 
-  ### `custom_sg_enabled` (`bool`) <i>optional</i>
+### `custom_sg_enabled` (`bool`) <i>optional</i>
 
 
 Whether to use custom security group or not<br/>
@@ -686,7 +690,7 @@ Whether to use custom security group or not<br/>
 ---
 
 
-  ### `custom_sg_rules` <i>optional</i>
+### `custom_sg_rules` <i>optional</i>
 
 
 An array of custom security groups to create and assign to the cluster.<br/>
@@ -719,7 +723,7 @@ An array of custom security groups to create and assign to the cluster.<br/>
 ---
 
 
-  ### `database_name` (`string`) <i>optional</i>
+### `database_name` (`string`) <i>optional</i>
 
 
 The name of the first database to be created when the cluster is created<br/>
@@ -739,7 +743,7 @@ The name of the first database to be created when the cluster is created<br/>
 ---
 
 
-  ### `engine_version` (`string`) <i>optional</i>
+### `engine_version` (`string`) <i>optional</i>
 
 
 The version of the Amazon Redshift engine to use. See https://docs.aws.amazon.com/redshift/latest/mgmt/cluster-versions.html<br/>
@@ -759,7 +763,7 @@ The version of the Amazon Redshift engine to use. See https://docs.aws.amazon.co
 ---
 
 
-  ### `kms_alias_name_ssm` (`string`) <i>optional</i>
+### `kms_alias_name_ssm` (`string`) <i>optional</i>
 
 
 KMS alias name for SSM<br/>
@@ -779,7 +783,7 @@ KMS alias name for SSM<br/>
 ---
 
 
-  ### `node_type` (`string`) <i>optional</i>
+### `node_type` (`string`) <i>optional</i>
 
 
 The node type to be provisioned for the cluster. See https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#working-with-clusters-overview<br/>
@@ -799,7 +803,7 @@ The node type to be provisioned for the cluster. See https://docs.aws.amazon.com
 ---
 
 
-  ### `number_of_nodes` (`number`) <i>optional</i>
+### `number_of_nodes` (`number`) <i>optional</i>
 
 
 The number of compute nodes in the cluster. This parameter is required when the ClusterType parameter is specified as multi-node<br/>
@@ -819,7 +823,7 @@ The number of compute nodes in the cluster. This parameter is required when the 
 ---
 
 
-  ### `port` (`number`) <i>optional</i>
+### `port` (`number`) <i>optional</i>
 
 
 The port number on which the cluster accepts incoming connections<br/>
@@ -839,7 +843,7 @@ The port number on which the cluster accepts incoming connections<br/>
 ---
 
 
-  ### `publicly_accessible` (`bool`) <i>optional</i>
+### `publicly_accessible` (`bool`) <i>optional</i>
 
 
 If true, the cluster can be accessed from a public network<br/>
@@ -859,7 +863,7 @@ If true, the cluster can be accessed from a public network<br/>
 ---
 
 
-  ### `security_group_ids` (`list(string)`) <i>optional</i>
+### `security_group_ids` (`list(string)`) <i>optional</i>
 
 
 An array of security group IDs to associate with the endpoint.<br/>
@@ -879,7 +883,7 @@ An array of security group IDs to associate with the endpoint.<br/>
 ---
 
 
-  ### `ssm_enabled` (`bool`) <i>optional</i>
+### `ssm_enabled` (`bool`) <i>optional</i>
 
 
 If `true` create SSM keys for the database user and password.<br/>
@@ -899,7 +903,7 @@ If `true` create SSM keys for the database user and password.<br/>
 ---
 
 
-  ### `ssm_key_format` (`string`) <i>optional</i>
+### `ssm_key_format` (`string`) <i>optional</i>
 
 
 SSM path format. The values will will be used in the following order: `var.ssm_key_prefix`, `var.name`, `var.ssm_key_*`<br/>
@@ -919,7 +923,7 @@ SSM path format. The values will will be used in the following order: `var.ssm_k
 ---
 
 
-  ### `ssm_key_hostname` (`string`) <i>optional</i>
+### `ssm_key_hostname` (`string`) <i>optional</i>
 
 
 The SSM key to save the hostname. See `var.ssm_path_format`.<br/>
@@ -939,7 +943,7 @@ The SSM key to save the hostname. See `var.ssm_path_format`.<br/>
 ---
 
 
-  ### `ssm_key_password` (`string`) <i>optional</i>
+### `ssm_key_password` (`string`) <i>optional</i>
 
 
 The SSM key to save the password. See `var.ssm_path_format`.<br/>
@@ -959,7 +963,7 @@ The SSM key to save the password. See `var.ssm_path_format`.<br/>
 ---
 
 
-  ### `ssm_key_port` (`string`) <i>optional</i>
+### `ssm_key_port` (`string`) <i>optional</i>
 
 
 The SSM key to save the port. See `var.ssm_path_format`.<br/>
@@ -979,7 +983,7 @@ The SSM key to save the port. See `var.ssm_path_format`.<br/>
 ---
 
 
-  ### `ssm_key_prefix` (`string`) <i>optional</i>
+### `ssm_key_prefix` (`string`) <i>optional</i>
 
 
 SSM path prefix. Omit the leading forward slash `/`.<br/>
@@ -999,7 +1003,7 @@ SSM path prefix. Omit the leading forward slash `/`.<br/>
 ---
 
 
-  ### `ssm_key_user` (`string`) <i>optional</i>
+### `ssm_key_user` (`string`) <i>optional</i>
 
 
 The SSM key to save the user. See `var.ssm_path_format`.<br/>
@@ -1019,7 +1023,7 @@ The SSM key to save the user. See `var.ssm_path_format`.<br/>
 ---
 
 
-  ### `use_private_subnets` (`bool`) <i>optional</i>
+### `use_private_subnets` (`bool`) <i>optional</i>
 
 
 Whether to use private or public subnets for the Redshift cluster<br/>
@@ -1043,43 +1047,43 @@ Whether to use private or public subnets for the Redshift cluster<br/>
 ### Outputs
 
 <dl>
-  <dt>`arn`</dt>
+  <dt><code>arn</code></dt>
   <dd>
     Amazon Resource Name (ARN) of cluster<br/>
   </dd>
-  <dt>`cluster_identifier`</dt>
+  <dt><code>cluster_identifier</code></dt>
   <dd>
     The Cluster Identifier<br/>
   </dd>
-  <dt>`cluster_security_groups`</dt>
+  <dt><code>cluster_security_groups</code></dt>
   <dd>
     The security groups associated with the cluster<br/>
   </dd>
-  <dt>`database_name`</dt>
+  <dt><code>database_name</code></dt>
   <dd>
     The name of the default database in the Cluster<br/>
   </dd>
-  <dt>`dns_name`</dt>
+  <dt><code>dns_name</code></dt>
   <dd>
     The DNS name of the cluster<br/>
   </dd>
-  <dt>`endpoint`</dt>
+  <dt><code>endpoint</code></dt>
   <dd>
     The connection endpoint<br/>
   </dd>
-  <dt>`id`</dt>
+  <dt><code>id</code></dt>
   <dd>
     The Redshift Cluster ID<br/>
   </dd>
-  <dt>`port`</dt>
+  <dt><code>port</code></dt>
   <dd>
     The Port the cluster responds on<br/>
   </dd>
-  <dt>`redshift_database_ssm_key_prefix`</dt>
+  <dt><code>redshift_database_ssm_key_prefix</code></dt>
   <dd>
     SSM prefix<br/>
   </dd>
-  <dt>`vpc_security_group_ids`</dt>
+  <dt><code>vpc_security_group_ids</code></dt>
   <dd>
     The VPC security group IDs associated with the cluster<br/>
   </dd>

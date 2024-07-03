@@ -101,16 +101,20 @@ Example - I want a new instance `rds-example-new` to be provisioned from a snaps
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.0.0), version: >= 1.0.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 4.0), version: >= 4.0
-- [`random`](https://registry.terraform.io/modules/random/>= 2.3), version: >= 2.3
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 1.0.0 |
+| `aws` | >= 4.0 |
+| `random` | >= 2.3 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 4.0
-- `random`, version: >= 2.3
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 4.0 |
+| `random` | >= 2.3 |
+
 
 ### Modules
 
@@ -131,12 +135,12 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`aws_ssm_parameter.rds_database_hostname`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
-  - [`aws_ssm_parameter.rds_database_password`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
-  - [`aws_ssm_parameter.rds_database_port`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
-  - [`aws_ssm_parameter.rds_database_user`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
-  - [`random_password.database_password`](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) (resource)
-  - [`random_pet.database_user`](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) (resource)
+  - [`aws_ssm_parameter.rds_database_hostname`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(systems-manager.tf#77)
+  - [`aws_ssm_parameter.rds_database_password`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(systems-manager.tf#66)
+  - [`aws_ssm_parameter.rds_database_port`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(systems-manager.tf#87)
+  - [`aws_ssm_parameter.rds_database_user`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(systems-manager.tf#56)
+  - [`random_password.database_password`](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) (resource)(main.tf#113)
+  - [`random_pet.database_user`](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) (resource)(main.tf#100)
 
 ### Data Sources
 
@@ -151,7 +155,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
@@ -174,7 +178,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
@@ -198,7 +202,7 @@ and treated as a single ID element.<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -247,7 +251,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between ID elements.<br/>
@@ -269,7 +273,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `descriptor_formats` (`any`) <i>optional</i>
+### `descriptor_formats` (`any`) <i>optional</i>
 
 
 Describe additional descriptors to be output in the `descriptors` output map.<br/>
@@ -301,7 +305,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -321,7 +325,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -341,7 +345,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -365,7 +369,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
@@ -389,7 +393,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The order in which the labels (ID elements) appear in the `id`.<br/>
@@ -412,7 +416,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of ID elements (labels) as included in `id`,<br/>
@@ -438,7 +442,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+### `labels_as_tags` (`set(string)`) <i>optional</i>
 
 
 Set of labels (ID elements) to include as tags in the `tags` output.<br/>
@@ -472,7 +476,7 @@ Set to `[]` to suppress all generated tags.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
@@ -495,7 +499,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
@@ -515,7 +519,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Terraform regular expression (regex) string.<br/>
@@ -538,7 +542,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -558,7 +562,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
@@ -580,7 +584,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 ---
 
 
-  ### `tenant` (`string`) <i>optional</i>
+### `tenant` (`string`) <i>optional</i>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
@@ -603,7 +607,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 </details>
 
 ### Required Inputs
-  ### `allocated_storage` (`number`) <i>required</i>
+### `allocated_storage` (`number`) <i>required</i>
 
 
 The allocated storage in GBs<br/>
@@ -623,7 +627,7 @@ The allocated storage in GBs<br/>
 ---
 
 
-  ### `database_name` (`string`) <i>required</i>
+### `database_name` (`string`) <i>required</i>
 
 
 The name of the database to create when the DB instance is created<br/>
@@ -643,7 +647,7 @@ The name of the database to create when the DB instance is created<br/>
 ---
 
 
-  ### `database_port` (`number`) <i>required</i>
+### `database_port` (`number`) <i>required</i>
 
 
 Database port (_e.g._ `3306` for `MySQL`). Used in the DB Security Group to allow access to the DB instance from the provided `security_group_ids`<br/>
@@ -663,7 +667,7 @@ Database port (_e.g._ `3306` for `MySQL`). Used in the DB Security Group to allo
 ---
 
 
-  ### `db_parameter_group` (`string`) <i>required</i>
+### `db_parameter_group` (`string`) <i>required</i>
 
 
 The DB parameter group family name. The value depends on DB engine used. See [DBParameterGroupFamily](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBParameterGroup.html#API_CreateDBParameterGroup_RequestParameters) for instructions on how to retrieve applicable value.<br/>
@@ -683,7 +687,7 @@ The DB parameter group family name. The value depends on DB engine used. See [DB
 ---
 
 
-  ### `engine` (`string`) <i>required</i>
+### `engine` (`string`) <i>required</i>
 
 
 Database engine type<br/>
@@ -703,7 +707,7 @@ Database engine type<br/>
 ---
 
 
-  ### `engine_version` (`string`) <i>required</i>
+### `engine_version` (`string`) <i>required</i>
 
 
 Database engine version, depends on engine type<br/>
@@ -723,7 +727,7 @@ Database engine version, depends on engine type<br/>
 ---
 
 
-  ### `instance_class` (`string`) <i>required</i>
+### `instance_class` (`string`) <i>required</i>
 
 
 Class of RDS instance<br/>
@@ -743,7 +747,7 @@ Class of RDS instance<br/>
 ---
 
 
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
@@ -765,7 +769,7 @@ AWS Region<br/>
 
 
 ### Optional Inputs
-  ### `allow_major_version_upgrade` (`bool`) <i>optional</i>
+### `allow_major_version_upgrade` (`bool`) <i>optional</i>
 
 
 Allow major version upgrade<br/>
@@ -785,7 +789,7 @@ Allow major version upgrade<br/>
 ---
 
 
-  ### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
+### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
 
 
 The whitelisted CIDRs which to allow `ingress` traffic to the DB instance<br/>
@@ -805,7 +809,7 @@ The whitelisted CIDRs which to allow `ingress` traffic to the DB instance<br/>
 ---
 
 
-  ### `apply_immediately` (`bool`) <i>optional</i>
+### `apply_immediately` (`bool`) <i>optional</i>
 
 
 Specifies whether any database modifications are applied immediately, or during the next maintenance window<br/>
@@ -825,7 +829,7 @@ Specifies whether any database modifications are applied immediately, or during 
 ---
 
 
-  ### `associate_security_group_ids` (`list(string)`) <i>optional</i>
+### `associate_security_group_ids` (`list(string)`) <i>optional</i>
 
 
 The IDs of the existing security groups to associate with the DB instance<br/>
@@ -845,7 +849,7 @@ The IDs of the existing security groups to associate with the DB instance<br/>
 ---
 
 
-  ### `auto_minor_version_upgrade` (`bool`) <i>optional</i>
+### `auto_minor_version_upgrade` (`bool`) <i>optional</i>
 
 
 Allow automated minor version upgrade (e.g. from Postgres 9.5.3 to Postgres 9.5.4)<br/>
@@ -865,7 +869,7 @@ Allow automated minor version upgrade (e.g. from Postgres 9.5.3 to Postgres 9.5.
 ---
 
 
-  ### `availability_zone` (`string`) <i>optional</i>
+### `availability_zone` (`string`) <i>optional</i>
 
 
 The AZ for the RDS instance. Specify one of `subnet_ids`, `db_subnet_group_name` or `availability_zone`. If `availability_zone` is provided, the instance will be placed into the default VPC or EC2 Classic<br/>
@@ -885,7 +889,7 @@ The AZ for the RDS instance. Specify one of `subnet_ids`, `db_subnet_group_name`
 ---
 
 
-  ### `backup_retention_period` (`number`) <i>optional</i>
+### `backup_retention_period` (`number`) <i>optional</i>
 
 
 Backup retention period in days. Must be > 0 to enable backups<br/>
@@ -905,7 +909,7 @@ Backup retention period in days. Must be > 0 to enable backups<br/>
 ---
 
 
-  ### `backup_window` (`string`) <i>optional</i>
+### `backup_window` (`string`) <i>optional</i>
 
 
 When AWS can perform DB snapshots, can't overlap with maintenance window<br/>
@@ -925,7 +929,7 @@ When AWS can perform DB snapshots, can't overlap with maintenance window<br/>
 ---
 
 
-  ### `ca_cert_identifier` (`string`) <i>optional</i>
+### `ca_cert_identifier` (`string`) <i>optional</i>
 
 
 The identifier of the CA certificate for the DB instance<br/>
@@ -945,7 +949,7 @@ The identifier of the CA certificate for the DB instance<br/>
 ---
 
 
-  ### `charset_name` (`string`) <i>optional</i>
+### `charset_name` (`string`) <i>optional</i>
 
 
 The character set name to use for DB encoding. [Oracle & Microsoft SQL only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance#character_set_name). For other engines use `db_parameter`<br/>
@@ -965,7 +969,7 @@ The character set name to use for DB encoding. [Oracle & Microsoft SQL only](htt
 ---
 
 
-  ### `client_security_group_enabled` (`bool`) <i>optional</i>
+### `client_security_group_enabled` (`bool`) <i>optional</i>
 
 
 create a client security group and include in attached default security group<br/>
@@ -985,7 +989,7 @@ create a client security group and include in attached default security group<br
 ---
 
 
-  ### `copy_tags_to_snapshot` (`bool`) <i>optional</i>
+### `copy_tags_to_snapshot` (`bool`) <i>optional</i>
 
 
 Copy tags from DB to a snapshot<br/>
@@ -1005,7 +1009,7 @@ Copy tags from DB to a snapshot<br/>
 ---
 
 
-  ### `database_password` (`string`) <i>optional</i>
+### `database_password` (`string`) <i>optional</i>
 
 
 Database password for the admin user<br/>
@@ -1025,7 +1029,7 @@ Database password for the admin user<br/>
 ---
 
 
-  ### `database_user` (`string`) <i>optional</i>
+### `database_user` (`string`) <i>optional</i>
 
 
 Database admin user name<br/>
@@ -1045,7 +1049,7 @@ Database admin user name<br/>
 ---
 
 
-  ### `db_options` <i>optional</i>
+### `db_options` <i>optional</i>
 
 
 A list of DB options to apply with an option group. Depends on DB engine<br/>
@@ -1081,7 +1085,7 @@ A list of DB options to apply with an option group. Depends on DB engine<br/>
 ---
 
 
-  ### `db_parameter` <i>optional</i>
+### `db_parameter` <i>optional</i>
 
 
 A list of DB parameters to apply. Note that parameters may differ from a DB family to another<br/>
@@ -1110,7 +1114,7 @@ A list of DB parameters to apply. Note that parameters may differ from a DB fami
 ---
 
 
-  ### `db_subnet_group_name` (`string`) <i>optional</i>
+### `db_subnet_group_name` (`string`) <i>optional</i>
 
 
 Name of DB subnet group. DB instance will be created in the VPC associated with the DB subnet group. Specify one of `subnet_ids`, `db_subnet_group_name` or `availability_zone`<br/>
@@ -1130,7 +1134,7 @@ Name of DB subnet group. DB instance will be created in the VPC associated with 
 ---
 
 
-  ### `deletion_protection` (`bool`) <i>optional</i>
+### `deletion_protection` (`bool`) <i>optional</i>
 
 
 Set to true to enable deletion protection on the RDS instance<br/>
@@ -1150,7 +1154,7 @@ Set to true to enable deletion protection on the RDS instance<br/>
 ---
 
 
-  ### `dns_gbl_delegated_environment_name` (`string`) <i>optional</i>
+### `dns_gbl_delegated_environment_name` (`string`) <i>optional</i>
 
 
 The name of the environment where global `dns_delegated` is provisioned<br/>
@@ -1170,7 +1174,7 @@ The name of the environment where global `dns_delegated` is provisioned<br/>
 ---
 
 
-  ### `dns_zone_id` (`string`) <i>optional</i>
+### `dns_zone_id` (`string`) <i>optional</i>
 
 
 The ID of the DNS Zone in Route53 where a new DNS record will be created for the DB host name<br/>
@@ -1190,7 +1194,7 @@ The ID of the DNS Zone in Route53 where a new DNS record will be created for the
 ---
 
 
-  ### `enabled_cloudwatch_logs_exports` (`list(string)`) <i>optional</i>
+### `enabled_cloudwatch_logs_exports` (`list(string)`) <i>optional</i>
 
 
 List of log types to enable for exporting to CloudWatch logs. If omitted, no logs will be exported. Valid values (depending on engine): alert, audit, error, general, listener, slowquery, trace, postgresql (PostgreSQL), upgrade (PostgreSQL).<br/>
@@ -1210,7 +1214,7 @@ List of log types to enable for exporting to CloudWatch logs. If omitted, no log
 ---
 
 
-  ### `final_snapshot_identifier` (`string`) <i>optional</i>
+### `final_snapshot_identifier` (`string`) <i>optional</i>
 
 
 Final snapshot identifier e.g.: some-db-final-snapshot-2019-06-26-06-05<br/>
@@ -1230,7 +1234,7 @@ Final snapshot identifier e.g.: some-db-final-snapshot-2019-06-26-06-05<br/>
 ---
 
 
-  ### `host_name` (`string`) <i>optional</i>
+### `host_name` (`string`) <i>optional</i>
 
 
 The DB host name created in Route53<br/>
@@ -1250,7 +1254,7 @@ The DB host name created in Route53<br/>
 ---
 
 
-  ### `iam_database_authentication_enabled` (`bool`) <i>optional</i>
+### `iam_database_authentication_enabled` (`bool`) <i>optional</i>
 
 
 Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled<br/>
@@ -1270,7 +1274,7 @@ Specifies whether or mappings of AWS Identity and Access Management (IAM) accoun
 ---
 
 
-  ### `iops` (`number`) <i>optional</i>
+### `iops` (`number`) <i>optional</i>
 
 
 The amount of provisioned IOPS. Setting this implies a storage_type of 'io1'. Default is 0 if rds storage type is not 'io1'<br/>
@@ -1290,7 +1294,7 @@ The amount of provisioned IOPS. Setting this implies a storage_type of 'io1'. De
 ---
 
 
-  ### `kms_alias_name_ssm` (`string`) <i>optional</i>
+### `kms_alias_name_ssm` (`string`) <i>optional</i>
 
 
 KMS alias name for SSM<br/>
@@ -1310,7 +1314,7 @@ KMS alias name for SSM<br/>
 ---
 
 
-  ### `kms_key_arn` (`string`) <i>optional</i>
+### `kms_key_arn` (`string`) <i>optional</i>
 
 
 The ARN of the existing KMS key to encrypt storage<br/>
@@ -1330,7 +1334,7 @@ The ARN of the existing KMS key to encrypt storage<br/>
 ---
 
 
-  ### `license_model` (`string`) <i>optional</i>
+### `license_model` (`string`) <i>optional</i>
 
 
 License model for this DB. Optional, but required for some DB Engines. Valid values: license-included | bring-your-own-license | general-public-license<br/>
@@ -1350,7 +1354,7 @@ License model for this DB. Optional, but required for some DB Engines. Valid val
 ---
 
 
-  ### `maintenance_window` (`string`) <i>optional</i>
+### `maintenance_window` (`string`) <i>optional</i>
 
 
 The window to perform maintenance in. Syntax: 'ddd:hh24:mi-ddd:hh24:mi' UTC <br/>
@@ -1370,7 +1374,7 @@ The window to perform maintenance in. Syntax: 'ddd:hh24:mi-ddd:hh24:mi' UTC <br/
 ---
 
 
-  ### `major_engine_version` (`string`) <i>optional</i>
+### `major_engine_version` (`string`) <i>optional</i>
 
 
 Database MAJOR engine version, depends on engine type<br/>
@@ -1390,7 +1394,7 @@ Database MAJOR engine version, depends on engine type<br/>
 ---
 
 
-  ### `max_allocated_storage` (`number`) <i>optional</i>
+### `max_allocated_storage` (`number`) <i>optional</i>
 
 
 The upper limit to which RDS can automatically scale the storage in GBs<br/>
@@ -1410,7 +1414,7 @@ The upper limit to which RDS can automatically scale the storage in GBs<br/>
 ---
 
 
-  ### `monitoring_interval` (`string`) <i>optional</i>
+### `monitoring_interval` (`string`) <i>optional</i>
 
 
 The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance. To disable collecting Enhanced Monitoring metrics, specify 0. Valid Values are 0, 1, 5, 10, 15, 30, 60.<br/>
@@ -1430,7 +1434,7 @@ The interval, in seconds, between points when Enhanced Monitoring metrics are co
 ---
 
 
-  ### `monitoring_role_arn` (`string`) <i>optional</i>
+### `monitoring_role_arn` (`string`) <i>optional</i>
 
 
 The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to CloudWatch Logs<br/>
@@ -1450,7 +1454,7 @@ The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to
 ---
 
 
-  ### `multi_az` (`bool`) <i>optional</i>
+### `multi_az` (`bool`) <i>optional</i>
 
 
 Set to true if multi AZ deployment must be supported<br/>
@@ -1470,7 +1474,7 @@ Set to true if multi AZ deployment must be supported<br/>
 ---
 
 
-  ### `option_group_name` (`string`) <i>optional</i>
+### `option_group_name` (`string`) <i>optional</i>
 
 
 Name of the DB option group to associate<br/>
@@ -1490,7 +1494,7 @@ Name of the DB option group to associate<br/>
 ---
 
 
-  ### `parameter_group_name` (`string`) <i>optional</i>
+### `parameter_group_name` (`string`) <i>optional</i>
 
 
 Name of the DB parameter group to associate<br/>
@@ -1510,7 +1514,7 @@ Name of the DB parameter group to associate<br/>
 ---
 
 
-  ### `performance_insights_enabled` (`bool`) <i>optional</i>
+### `performance_insights_enabled` (`bool`) <i>optional</i>
 
 
 Specifies whether Performance Insights are enabled.<br/>
@@ -1530,7 +1534,7 @@ Specifies whether Performance Insights are enabled.<br/>
 ---
 
 
-  ### `performance_insights_kms_key_id` (`string`) <i>optional</i>
+### `performance_insights_kms_key_id` (`string`) <i>optional</i>
 
 
 The ARN for the KMS key to encrypt Performance Insights data. Once KMS key is set, it can never be changed.<br/>
@@ -1550,7 +1554,7 @@ The ARN for the KMS key to encrypt Performance Insights data. Once KMS key is se
 ---
 
 
-  ### `performance_insights_retention_period` (`number`) <i>optional</i>
+### `performance_insights_retention_period` (`number`) <i>optional</i>
 
 
 The amount of time in days to retain Performance Insights data. Either 7 (7 days) or 731 (2 years).<br/>
@@ -1570,7 +1574,7 @@ The amount of time in days to retain Performance Insights data. Either 7 (7 days
 ---
 
 
-  ### `publicly_accessible` (`bool`) <i>optional</i>
+### `publicly_accessible` (`bool`) <i>optional</i>
 
 
 Determines if database can be publicly available (NOT recommended)<br/>
@@ -1590,7 +1594,7 @@ Determines if database can be publicly available (NOT recommended)<br/>
 ---
 
 
-  ### `replicate_source_db` (`any`) <i>optional</i>
+### `replicate_source_db` (`any`) <i>optional</i>
 
 
 If the rds db instance is a replica, supply the source database identifier here<br/>
@@ -1610,7 +1614,7 @@ If the rds db instance is a replica, supply the source database identifier here<
 ---
 
 
-  ### `security_group_ids` (`list(string)`) <i>optional</i>
+### `security_group_ids` (`list(string)`) <i>optional</i>
 
 
 The IDs of the security groups from which to allow `ingress` traffic to the DB instance<br/>
@@ -1630,7 +1634,7 @@ The IDs of the security groups from which to allow `ingress` traffic to the DB i
 ---
 
 
-  ### `skip_final_snapshot` (`bool`) <i>optional</i>
+### `skip_final_snapshot` (`bool`) <i>optional</i>
 
 
 If true (default), no snapshot will be made before deleting DB<br/>
@@ -1650,7 +1654,7 @@ If true (default), no snapshot will be made before deleting DB<br/>
 ---
 
 
-  ### `snapshot_identifier` (`string`) <i>optional</i>
+### `snapshot_identifier` (`string`) <i>optional</i>
 
 
 Snapshot identifier e.g: rds:production-2019-06-26-06-05. If specified, the module create cluster from the snapshot<br/>
@@ -1670,7 +1674,7 @@ Snapshot identifier e.g: rds:production-2019-06-26-06-05. If specified, the modu
 ---
 
 
-  ### `ssm_enabled` (`bool`) <i>optional</i>
+### `ssm_enabled` (`bool`) <i>optional</i>
 
 
 If `true` create SSM keys for the database user and password.<br/>
@@ -1690,7 +1694,7 @@ If `true` create SSM keys for the database user and password.<br/>
 ---
 
 
-  ### `ssm_key_format` (`string`) <i>optional</i>
+### `ssm_key_format` (`string`) <i>optional</i>
 
 
 SSM path format. The values will will be used in the following order: `var.ssm_key_prefix`, `var.name`, `var.ssm_key_*`<br/>
@@ -1710,7 +1714,7 @@ SSM path format. The values will will be used in the following order: `var.ssm_k
 ---
 
 
-  ### `ssm_key_hostname` (`string`) <i>optional</i>
+### `ssm_key_hostname` (`string`) <i>optional</i>
 
 
 The SSM key to save the hostname. See `var.ssm_path_format`.<br/>
@@ -1730,7 +1734,7 @@ The SSM key to save the hostname. See `var.ssm_path_format`.<br/>
 ---
 
 
-  ### `ssm_key_password` (`string`) <i>optional</i>
+### `ssm_key_password` (`string`) <i>optional</i>
 
 
 The SSM key to save the password. See `var.ssm_path_format`.<br/>
@@ -1750,7 +1754,7 @@ The SSM key to save the password. See `var.ssm_path_format`.<br/>
 ---
 
 
-  ### `ssm_key_port` (`string`) <i>optional</i>
+### `ssm_key_port` (`string`) <i>optional</i>
 
 
 The SSM key to save the port. See `var.ssm_path_format`.<br/>
@@ -1770,7 +1774,7 @@ The SSM key to save the port. See `var.ssm_path_format`.<br/>
 ---
 
 
-  ### `ssm_key_prefix` (`string`) <i>optional</i>
+### `ssm_key_prefix` (`string`) <i>optional</i>
 
 
 SSM path prefix. Omit the leading forward slash `/`.<br/>
@@ -1790,7 +1794,7 @@ SSM path prefix. Omit the leading forward slash `/`.<br/>
 ---
 
 
-  ### `ssm_key_user` (`string`) <i>optional</i>
+### `ssm_key_user` (`string`) <i>optional</i>
 
 
 The SSM key to save the user. See `var.ssm_path_format`.<br/>
@@ -1810,7 +1814,7 @@ The SSM key to save the user. See `var.ssm_path_format`.<br/>
 ---
 
 
-  ### `storage_encrypted` (`bool`) <i>optional</i>
+### `storage_encrypted` (`bool`) <i>optional</i>
 
 
 (Optional) Specifies whether the DB instance is encrypted. The default is false if not specified<br/>
@@ -1830,7 +1834,7 @@ The SSM key to save the user. See `var.ssm_path_format`.<br/>
 ---
 
 
-  ### `storage_throughput` (`number`) <i>optional</i>
+### `storage_throughput` (`number`) <i>optional</i>
 
 
 The storage throughput value for the DB instance. Can only be set when `storage_type` is `gp3`. Cannot be specified if the `allocated_storage` value is below a per-engine threshold.<br/>
@@ -1850,7 +1854,7 @@ The storage throughput value for the DB instance. Can only be set when `storage_
 ---
 
 
-  ### `storage_type` (`string`) <i>optional</i>
+### `storage_type` (`string`) <i>optional</i>
 
 
 One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned IOPS SSD)<br/>
@@ -1870,7 +1874,7 @@ One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned
 ---
 
 
-  ### `timezone` (`string`) <i>optional</i>
+### `timezone` (`string`) <i>optional</i>
 
 
 Time zone of the DB instance. timezone is currently only supported by Microsoft SQL Server. The timezone can only be set on creation. See [MSSQL User Guide](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.TimeZone) for more information.<br/>
@@ -1890,7 +1894,7 @@ Time zone of the DB instance. timezone is currently only supported by Microsoft 
 ---
 
 
-  ### `use_dns_delegated` (`bool`) <i>optional</i>
+### `use_dns_delegated` (`bool`) <i>optional</i>
 
 
 Use the dns-delegated dns_zone_id<br/>
@@ -1910,7 +1914,7 @@ Use the dns-delegated dns_zone_id<br/>
 ---
 
 
-  ### `use_eks_security_group` (`bool`) <i>optional</i>
+### `use_eks_security_group` (`bool`) <i>optional</i>
 
 
 Use the eks default security group<br/>
@@ -1930,7 +1934,7 @@ Use the eks default security group<br/>
 ---
 
 
-  ### `use_private_subnets` (`bool`) <i>optional</i>
+### `use_private_subnets` (`bool`) <i>optional</i>
 
 
 Use private subnets<br/>
@@ -1954,67 +1958,67 @@ Use private subnets<br/>
 ### Outputs
 
 <dl>
-  <dt>`exports`</dt>
+  <dt><code>exports</code></dt>
   <dd>
     Map of exports for use in deployment configuration templates<br/>
   </dd>
-  <dt>`kms_key_alias`</dt>
+  <dt><code>kms_key_alias</code></dt>
   <dd>
     The KMS key alias<br/>
   </dd>
-  <dt>`psql_helper`</dt>
+  <dt><code>psql_helper</code></dt>
   <dd>
     A helper output to use with psql for connecting to this RDS instance.<br/>
   </dd>
-  <dt>`rds_address`</dt>
+  <dt><code>rds_address</code></dt>
   <dd>
     Address of the instance<br/>
   </dd>
-  <dt>`rds_arn`</dt>
+  <dt><code>rds_arn</code></dt>
   <dd>
     ARN of the instance<br/>
   </dd>
-  <dt>`rds_database_ssm_key_prefix`</dt>
+  <dt><code>rds_database_ssm_key_prefix</code></dt>
   <dd>
     SSM prefix<br/>
   </dd>
-  <dt>`rds_endpoint`</dt>
+  <dt><code>rds_endpoint</code></dt>
   <dd>
     DNS Endpoint of the instance<br/>
   </dd>
-  <dt>`rds_hostname`</dt>
+  <dt><code>rds_hostname</code></dt>
   <dd>
     DNS host name of the instance<br/>
   </dd>
-  <dt>`rds_id`</dt>
+  <dt><code>rds_id</code></dt>
   <dd>
     ID of the instance<br/>
   </dd>
-  <dt>`rds_name`</dt>
+  <dt><code>rds_name</code></dt>
   <dd>
     RDS DB name<br/>
   </dd>
-  <dt>`rds_option_group_id`</dt>
+  <dt><code>rds_option_group_id</code></dt>
   <dd>
     ID of the Option Group<br/>
   </dd>
-  <dt>`rds_parameter_group_id`</dt>
+  <dt><code>rds_parameter_group_id</code></dt>
   <dd>
     ID of the Parameter Group<br/>
   </dd>
-  <dt>`rds_port`</dt>
+  <dt><code>rds_port</code></dt>
   <dd>
     RDS DB port<br/>
   </dd>
-  <dt>`rds_resource_id`</dt>
+  <dt><code>rds_resource_id</code></dt>
   <dd>
     The RDS Resource ID of this instance.<br/>
   </dd>
-  <dt>`rds_security_group_id`</dt>
+  <dt><code>rds_security_group_id</code></dt>
   <dd>
     ID of the Security Group<br/>
   </dd>
-  <dt>`rds_subnet_group_id`</dt>
+  <dt><code>rds_subnet_group_id</code></dt>
   <dd>
     ID of the created Subnet Group<br/>
   </dd>

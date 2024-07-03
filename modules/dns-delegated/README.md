@@ -149,15 +149,19 @@ Takeaway
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.0.0), version: >= 1.0.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 4.9.0), version: >= 4.9.0
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 1.0.0 |
+| `aws` | >= 4.9.0 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 4.9.0
-- `aws`, version: >= 4.9.0
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 4.9.0 |
+| `aws` | >= 4.9.0 |
+
 
 ### Modules
 
@@ -175,13 +179,13 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`aws_route53_record.root_ns`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) (resource)
-  - [`aws_route53_record.soa`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) (resource)
-  - [`aws_route53_zone.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone) (resource)
-  - [`aws_route53_zone.private`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone) (resource)
-  - [`aws_route53_zone_association.secondary`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone_association) (resource)
-  - [`aws_shield_protection.shield_protection`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/shield_protection) (resource)
-  - [`aws_ssm_parameter.acm_arn`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
+  - [`aws_route53_record.root_ns`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) (resource)(main.tf#104)
+  - [`aws_route53_record.soa`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) (resource)(main.tf#82)
+  - [`aws_route53_zone.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone) (resource)(main.tf#17)
+  - [`aws_route53_zone.private`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone) (resource)(main.tf#27)
+  - [`aws_route53_zone_association.secondary`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone_association) (resource)(main.tf#61)
+  - [`aws_shield_protection.shield_protection`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/shield_protection) (resource)(main.tf#73)
+  - [`aws_ssm_parameter.acm_arn`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(acm.tf#36)
 
 ### Data Sources
 
@@ -196,7 +200,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
@@ -219,7 +223,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
@@ -243,7 +247,7 @@ and treated as a single ID element.<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -292,7 +296,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between ID elements.<br/>
@@ -314,7 +318,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `descriptor_formats` (`any`) <i>optional</i>
+### `descriptor_formats` (`any`) <i>optional</i>
 
 
 Describe additional descriptors to be output in the `descriptors` output map.<br/>
@@ -346,7 +350,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -366,7 +370,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -386,7 +390,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -410,7 +414,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
@@ -434,7 +438,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The order in which the labels (ID elements) appear in the `id`.<br/>
@@ -457,7 +461,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of ID elements (labels) as included in `id`,<br/>
@@ -483,7 +487,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+### `labels_as_tags` (`set(string)`) <i>optional</i>
 
 
 Set of labels (ID elements) to include as tags in the `tags` output.<br/>
@@ -517,7 +521,7 @@ Set to `[]` to suppress all generated tags.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
@@ -540,7 +544,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
@@ -560,7 +564,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Terraform regular expression (regex) string.<br/>
@@ -583,7 +587,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -603,7 +607,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
@@ -625,7 +629,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 ---
 
 
-  ### `tenant` (`string`) <i>optional</i>
+### `tenant` (`string`) <i>optional</i>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
@@ -648,7 +652,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 </details>
 
 ### Required Inputs
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
@@ -668,7 +672,7 @@ AWS Region<br/>
 ---
 
 
-  ### `zone_config` <i>required</i>
+### `zone_config` <i>required</i>
 
 
 Zone config<br/>
@@ -698,7 +702,7 @@ Zone config<br/>
 
 
 ### Optional Inputs
-  ### `aws_shield_protection_enabled` (`bool`) <i>optional</i>
+### `aws_shield_protection_enabled` (`bool`) <i>optional</i>
 
 
 Enable or disable AWS Shield Advanced protection for Route53 Zones. If set to 'true', a subscription to AWS Shield Advanced must exist in this account.<br/>
@@ -718,7 +722,7 @@ Enable or disable AWS Shield Advanced protection for Route53 Zones. If set to 't
 ---
 
 
-  ### `certificate_authority_component_key` (`string`) <i>optional</i>
+### `certificate_authority_component_key` (`string`) <i>optional</i>
 
 
 Use this component key e.g. `root` or `mgmt` to read from the remote state to get the certificate_authority_arn if using an authority type of SUBORDINATE<br/>
@@ -738,7 +742,7 @@ Use this component key e.g. `root` or `mgmt` to read from the remote state to ge
 ---
 
 
-  ### `certificate_authority_component_name` (`string`) <i>optional</i>
+### `certificate_authority_component_name` (`string`) <i>optional</i>
 
 
 Use this component name to read from the remote state to get the certificate_authority_arn if using an authority type of SUBORDINATE<br/>
@@ -758,7 +762,7 @@ Use this component name to read from the remote state to get the certificate_aut
 ---
 
 
-  ### `certificate_authority_enabled` (`bool`) <i>optional</i>
+### `certificate_authority_enabled` (`bool`) <i>optional</i>
 
 
 Whether to use the certificate authority or not<br/>
@@ -778,7 +782,7 @@ Whether to use the certificate authority or not<br/>
 ---
 
 
-  ### `certificate_authority_environment_name` (`string`) <i>optional</i>
+### `certificate_authority_environment_name` (`string`) <i>optional</i>
 
 
 Use this environment name to read from the remote state to get the certificate_authority_arn if using an authority type of SUBORDINATE<br/>
@@ -798,7 +802,7 @@ Use this environment name to read from the remote state to get the certificate_a
 ---
 
 
-  ### `certificate_authority_stage_name` (`string`) <i>optional</i>
+### `certificate_authority_stage_name` (`string`) <i>optional</i>
 
 
 Use this stage name to read from the remote state to get the certificate_authority_arn if using an authority type of SUBORDINATE<br/>
@@ -818,7 +822,7 @@ Use this stage name to read from the remote state to get the certificate_authori
 ---
 
 
-  ### `dns_private_zone_enabled` (`bool`) <i>optional</i>
+### `dns_private_zone_enabled` (`bool`) <i>optional</i>
 
 
 Whether to set the zone to public or private<br/>
@@ -838,7 +842,7 @@ Whether to set the zone to public or private<br/>
 ---
 
 
-  ### `dns_soa_config` (`string`) <i>optional</i>
+### `dns_soa_config` (`string`) <i>optional</i>
 
 
 Root domain name DNS SOA record:<br/>
@@ -866,7 +870,7 @@ See [SOA Record Documentation](https://docs.aws.amazon.com/Route53/latest/Develo
 ---
 
 
-  ### `request_acm_certificate` (`bool`) <i>optional</i>
+### `request_acm_certificate` (`bool`) <i>optional</i>
 
 
 Whether or not to create an ACM certificate<br/>
@@ -886,7 +890,7 @@ Whether or not to create an ACM certificate<br/>
 ---
 
 
-  ### `vpc_primary_environment_name` (`string`) <i>optional</i>
+### `vpc_primary_environment_name` (`string`) <i>optional</i>
 
 
 The name of the environment where primary VPC is deployed<br/>
@@ -906,7 +910,7 @@ The name of the environment where primary VPC is deployed<br/>
 ---
 
 
-  ### `vpc_region_abbreviation_type` (`string`) <i>optional</i>
+### `vpc_region_abbreviation_type` (`string`) <i>optional</i>
 
 
 Type of VPC abbreviation (either `fixed` or `short`) to use in names. See https://github.com/cloudposse/terraform-aws-utils for details.<br/>
@@ -926,7 +930,7 @@ Type of VPC abbreviation (either `fixed` or `short`) to use in names. See https:
 ---
 
 
-  ### `vpc_secondary_environment_names` (`list(string)`) <i>optional</i>
+### `vpc_secondary_environment_names` (`list(string)`) <i>optional</i>
 
 
 The names of the environments where secondary VPCs are deployed<br/>
@@ -950,27 +954,27 @@ The names of the environments where secondary VPCs are deployed<br/>
 ### Outputs
 
 <dl>
-  <dt>`acm_ssm_parameter`</dt>
+  <dt><code>acm_ssm_parameter</code></dt>
   <dd>
     The SSM parameter for the ACM cert.<br/>
   </dd>
-  <dt>`certificate`</dt>
+  <dt><code>certificate</code></dt>
   <dd>
     The ACM certificate information.<br/>
   </dd>
-  <dt>`default_dns_zone_id`</dt>
+  <dt><code>default_dns_zone_id</code></dt>
   <dd>
     Default root DNS zone ID for the cluster<br/>
   </dd>
-  <dt>`default_domain_name`</dt>
+  <dt><code>default_domain_name</code></dt>
   <dd>
     Default root domain name (e.g. dev.example.net) for the cluster<br/>
   </dd>
-  <dt>`route53_hosted_zone_protections`</dt>
+  <dt><code>route53_hosted_zone_protections</code></dt>
   <dd>
     List of AWS Shield Advanced Protections for Route53 Hosted Zones.<br/>
   </dd>
-  <dt>`zones`</dt>
+  <dt><code>zones</code></dt>
   <dd>
     Subdomain and zone config<br/>
   </dd>

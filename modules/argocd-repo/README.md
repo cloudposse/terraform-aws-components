@@ -83,19 +83,23 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.0.0), version: >= 1.0.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 4.0), version: >= 4.0
-- [`github`](https://registry.terraform.io/modules/github/>= 4.0), version: >= 4.0
-- [`random`](https://registry.terraform.io/modules/random/>= 2.3), version: >= 2.3
-- [`tls`](https://registry.terraform.io/modules/tls/>= 3.0), version: >= 3.0
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 1.0.0 |
+| `aws` | >= 4.0 |
+| `github` | >= 4.0 |
+| `random` | >= 2.3 |
+| `tls` | >= 3.0 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 4.0
-- `github`, version: >= 4.0
-- `tls`, version: >= 3.0
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 4.0 |
+| `github` | >= 4.0 |
+| `tls` | >= 3.0 |
+
 
 ### Modules
 
@@ -110,17 +114,17 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`github_branch_default.default`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default) (resource)
-  - [`github_branch_protection.default`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_protection) (resource)
-  - [`github_repository.default`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository) (resource)
-  - [`github_repository_deploy_key.default`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_deploy_key) (resource)
-  - [`github_repository_file.application_set`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_file) (resource)
-  - [`github_repository_file.codeowners_file`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_file) (resource)
-  - [`github_repository_file.gitignore`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_file) (resource)
-  - [`github_repository_file.pull_request_template`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_file) (resource)
-  - [`github_repository_file.readme`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_file) (resource)
-  - [`github_team_repository.default`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_repository) (resource)
-  - [`tls_private_key.default`](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) (resource)
+  - [`github_branch_default.default`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default) (resource)(main.tf#55)
+  - [`github_branch_protection.default`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_protection) (resource)(main.tf#68)
+  - [`github_repository.default`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository) (resource)(main.tf#45)
+  - [`github_repository_deploy_key.default`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_deploy_key) (resource)(main.tf#114)
+  - [`github_repository_file.application_set`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_file) (resource)(applicationset.tf#6)
+  - [`github_repository_file.codeowners_file`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_file) (resource)(git-files.tf#33)
+  - [`github_repository_file.gitignore`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_file) (resource)(git-files.tf#1)
+  - [`github_repository_file.pull_request_template`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_file) (resource)(git-files.tf#48)
+  - [`github_repository_file.readme`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_file) (resource)(git-files.tf#16)
+  - [`github_team_repository.default`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_repository) (resource)(main.tf#99)
+  - [`tls_private_key.default`](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) (resource)(main.tf#107)
 
 ### Data Sources
 
@@ -137,7 +141,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
@@ -160,7 +164,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
@@ -184,7 +188,7 @@ and treated as a single ID element.<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -233,7 +237,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between ID elements.<br/>
@@ -255,7 +259,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `descriptor_formats` (`any`) <i>optional</i>
+### `descriptor_formats` (`any`) <i>optional</i>
 
 
 Describe additional descriptors to be output in the `descriptors` output map.<br/>
@@ -287,7 +291,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -307,7 +311,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -327,7 +331,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -351,7 +355,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
@@ -375,7 +379,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The order in which the labels (ID elements) appear in the `id`.<br/>
@@ -398,7 +402,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of ID elements (labels) as included in `id`,<br/>
@@ -424,7 +428,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+### `labels_as_tags` (`set(string)`) <i>optional</i>
 
 
 Set of labels (ID elements) to include as tags in the `tags` output.<br/>
@@ -458,7 +462,7 @@ Set to `[]` to suppress all generated tags.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
@@ -481,7 +485,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
@@ -501,7 +505,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Terraform regular expression (regex) string.<br/>
@@ -524,7 +528,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -544,7 +548,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
@@ -566,7 +570,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 ---
 
 
-  ### `tenant` (`string`) <i>optional</i>
+### `tenant` (`string`) <i>optional</i>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
@@ -589,7 +593,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 </details>
 
 ### Required Inputs
-  ### `github_codeowner_teams` (`list(string)`) <i>required</i>
+### `github_codeowner_teams` (`list(string)`) <i>required</i>
 
 
 List of teams to use when populating the CODEOWNERS file.<br/>
@@ -612,7 +616,7 @@ For example: `["@ACME/cloud-admins", "@ACME/cloud-developers"]`.<br/>
 ---
 
 
-  ### `github_organization` (`string`) <i>required</i>
+### `github_organization` (`string`) <i>required</i>
 
 
 GitHub Organization<br/>
@@ -632,7 +636,7 @@ GitHub Organization<br/>
 ---
 
 
-  ### `github_user` (`string`) <i>required</i>
+### `github_user` (`string`) <i>required</i>
 
 
 Github user<br/>
@@ -652,7 +656,7 @@ Github user<br/>
 ---
 
 
-  ### `github_user_email` (`string`) <i>required</i>
+### `github_user_email` (`string`) <i>required</i>
 
 
 Github user email<br/>
@@ -672,7 +676,7 @@ Github user email<br/>
 ---
 
 
-  ### `gitignore_entries` (`list(string)`) <i>required</i>
+### `gitignore_entries` (`list(string)`) <i>required</i>
 
 
 List of .gitignore entries to use when populating the .gitignore file.<br/>
@@ -695,7 +699,7 @@ For example: `[".idea/", ".vscode/"]`.<br/>
 ---
 
 
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
@@ -717,7 +721,7 @@ AWS Region<br/>
 
 
 ### Optional Inputs
-  ### `create_repo` (`bool`) <i>optional</i>
+### `create_repo` (`bool`) <i>optional</i>
 
 
 Whether or not to create the repository or use an existing one<br/>
@@ -737,7 +741,7 @@ Whether or not to create the repository or use an existing one<br/>
 ---
 
 
-  ### `description` (`string`) <i>optional</i>
+### `description` (`string`) <i>optional</i>
 
 
 The description of the repository<br/>
@@ -757,7 +761,7 @@ The description of the repository<br/>
 ---
 
 
-  ### `environments` <i>optional</i>
+### `environments` <i>optional</i>
 
 
 Environments to populate `applicationset.yaml` files and repository deploy keys (for ArgoCD) for.<br/>
@@ -813,7 +817,7 @@ ignore-differences:<br/>
 ---
 
 
-  ### `github_base_url` (`string`) <i>optional</i>
+### `github_base_url` (`string`) <i>optional</i>
 
 
 This is the target GitHub base API endpoint. Providing a value is a requirement when working with GitHub Enterprise. It is optional to provide this value and it can also be sourced from the `GITHUB_BASE_URL` environment variable. The value must end with a slash, for example: `https://terraformtesting-ghe.westus.cloudapp.azure.com/`<br/>
@@ -833,7 +837,7 @@ This is the target GitHub base API endpoint. Providing a value is a requirement 
 ---
 
 
-  ### `github_default_notifications_enabled` (`string`) <i>optional</i>
+### `github_default_notifications_enabled` (`string`) <i>optional</i>
 
 
 Enable default GitHub commit statuses notifications (required for CD sync mode)<br/>
@@ -853,7 +857,7 @@ Enable default GitHub commit statuses notifications (required for CD sync mode)<
 ---
 
 
-  ### `github_notifications` (`list(string)`) <i>optional</i>
+### `github_notifications` (`list(string)`) <i>optional</i>
 
 
     ArgoCD notification annotations for subscribing to GitHub.<br/>
@@ -887,7 +891,7 @@ Enable default GitHub commit statuses notifications (required for CD sync mode)<
 ---
 
 
-  ### `github_token_override` (`string`) <i>optional</i>
+### `github_token_override` (`string`) <i>optional</i>
 
 
 Use the value of this variable as the GitHub token instead of reading it from SSM<br/>
@@ -907,7 +911,7 @@ Use the value of this variable as the GitHub token instead of reading it from SS
 ---
 
 
-  ### `manifest_kubernetes_namespace` (`string`) <i>optional</i>
+### `manifest_kubernetes_namespace` (`string`) <i>optional</i>
 
 
 The namespace used for the ArgoCD application<br/>
@@ -927,7 +931,7 @@ The namespace used for the ArgoCD application<br/>
 ---
 
 
-  ### `permissions` <i>optional</i>
+### `permissions` <i>optional</i>
 
 
 A list of Repository Permission objects used to configure the team permissions of the repository<br/>
@@ -959,7 +963,7 @@ A list of Repository Permission objects used to configure the team permissions o
 ---
 
 
-  ### `push_restrictions_enabled` (`bool`) <i>optional</i>
+### `push_restrictions_enabled` (`bool`) <i>optional</i>
 
 
 Enforce who can push to the main branch<br/>
@@ -979,7 +983,7 @@ Enforce who can push to the main branch<br/>
 ---
 
 
-  ### `required_pull_request_reviews` (`bool`) <i>optional</i>
+### `required_pull_request_reviews` (`bool`) <i>optional</i>
 
 
 Enforce restrictions for pull request reviews<br/>
@@ -999,7 +1003,7 @@ Enforce restrictions for pull request reviews<br/>
 ---
 
 
-  ### `slack_notifications_channel` (`string`) <i>optional</i>
+### `slack_notifications_channel` (`string`) <i>optional</i>
 
 
 If given, the Slack channel to for deployment notifications.<br/>
@@ -1019,7 +1023,7 @@ If given, the Slack channel to for deployment notifications.<br/>
 ---
 
 
-  ### `ssm_github_api_key` (`string`) <i>optional</i>
+### `ssm_github_api_key` (`string`) <i>optional</i>
 
 
 SSM path to the GitHub API key<br/>
@@ -1039,7 +1043,7 @@ SSM path to the GitHub API key<br/>
 ---
 
 
-  ### `ssm_github_deploy_key_format` (`string`) <i>optional</i>
+### `ssm_github_deploy_key_format` (`string`) <i>optional</i>
 
 
 Format string of the SSM parameter path to which the deploy keys will be written to (%s will be replaced with the environment name)<br/>
@@ -1063,35 +1067,35 @@ Format string of the SSM parameter path to which the deploy keys will be written
 ### Outputs
 
 <dl>
-  <dt>`deploy_keys_ssm_path_format`</dt>
+  <dt><code>deploy_keys_ssm_path_format</code></dt>
   <dd>
     SSM Parameter Store path format for the repository's deploy keys<br/>
   </dd>
-  <dt>`deploy_keys_ssm_paths`</dt>
+  <dt><code>deploy_keys_ssm_paths</code></dt>
   <dd>
     SSM Parameter Store paths for the repository's deploy keys<br/>
   </dd>
-  <dt>`repository`</dt>
+  <dt><code>repository</code></dt>
   <dd>
     Repository name<br/>
   </dd>
-  <dt>`repository_default_branch`</dt>
+  <dt><code>repository_default_branch</code></dt>
   <dd>
     Repository default branch<br/>
   </dd>
-  <dt>`repository_description`</dt>
+  <dt><code>repository_description</code></dt>
   <dd>
     Repository description<br/>
   </dd>
-  <dt>`repository_git_clone_url`</dt>
+  <dt><code>repository_git_clone_url</code></dt>
   <dd>
     Repository git clone URL<br/>
   </dd>
-  <dt>`repository_ssh_clone_url`</dt>
+  <dt><code>repository_ssh_clone_url</code></dt>
   <dd>
     Repository SSH clone URL<br/>
   </dd>
-  <dt>`repository_url`</dt>
+  <dt><code>repository_url</code></dt>
   <dd>
     Repository URL<br/>
   </dd>

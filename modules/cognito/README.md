@@ -44,14 +44,18 @@ components:
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.0.0), version: >= 1.0.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 4.8.0), version: >= 4.8.0
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 1.0.0 |
+| `aws` | >= 4.8.0 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 4.8.0
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 4.8.0 |
+
 
 ### Modules
 
@@ -65,12 +69,12 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`aws_cognito_identity_provider.identity_provider`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_identity_provider) (resource)
-  - [`aws_cognito_resource_server.resource`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_resource_server) (resource)
-  - [`aws_cognito_user_group.main`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_group) (resource)
-  - [`aws_cognito_user_pool.pool`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool) (resource)
-  - [`aws_cognito_user_pool_client.client`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool_client) (resource)
-  - [`aws_cognito_user_pool_domain.domain`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool_domain) (resource)
+  - [`aws_cognito_identity_provider.identity_provider`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_identity_provider) (resource)(identity-provider.tf#1)
+  - [`aws_cognito_resource_server.resource`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_resource_server) (resource)(resource-server.tf#27)
+  - [`aws_cognito_user_group.main`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_group) (resource)(user-group.tf#25)
+  - [`aws_cognito_user_pool.pool`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool) (resource)(main.tf#139)
+  - [`aws_cognito_user_pool_client.client`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool_client) (resource)(client.tf#51)
+  - [`aws_cognito_user_pool_domain.domain`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool_domain) (resource)(domain.tf#1)
 
 ### Data Sources
 
@@ -83,7 +87,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
@@ -106,7 +110,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
@@ -130,7 +134,7 @@ and treated as a single ID element.<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -179,7 +183,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between ID elements.<br/>
@@ -201,7 +205,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `descriptor_formats` (`any`) <i>optional</i>
+### `descriptor_formats` (`any`) <i>optional</i>
 
 
 Describe additional descriptors to be output in the `descriptors` output map.<br/>
@@ -233,7 +237,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -253,7 +257,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -273,7 +277,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -297,7 +301,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
@@ -321,7 +325,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The order in which the labels (ID elements) appear in the `id`.<br/>
@@ -344,7 +348,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of ID elements (labels) as included in `id`,<br/>
@@ -370,7 +374,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+### `labels_as_tags` (`set(string)`) <i>optional</i>
 
 
 Set of labels (ID elements) to include as tags in the `tags` output.<br/>
@@ -404,7 +408,7 @@ Set to `[]` to suppress all generated tags.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
@@ -427,7 +431,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
@@ -447,7 +451,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Terraform regular expression (regex) string.<br/>
@@ -470,7 +474,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -490,7 +494,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
@@ -512,7 +516,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 ---
 
 
-  ### `tenant` (`string`) <i>optional</i>
+### `tenant` (`string`) <i>optional</i>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
@@ -535,7 +539,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 </details>
 
 ### Required Inputs
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS region<br/>
@@ -557,7 +561,7 @@ AWS region<br/>
 
 
 ### Optional Inputs
-  ### `admin_create_user_config` (`map(any)`) <i>optional</i>
+### `admin_create_user_config` (`map(any)`) <i>optional</i>
 
 
 The configuration for AdminCreateUser requests<br/>
@@ -577,7 +581,7 @@ The configuration for AdminCreateUser requests<br/>
 ---
 
 
-  ### `admin_create_user_config_allow_admin_create_user_only` (`bool`) <i>optional</i>
+### `admin_create_user_config_allow_admin_create_user_only` (`bool`) <i>optional</i>
 
 
 Set to `true` if only the administrator is allowed to create user profiles. Set to `false` if users can sign themselves up via an app<br/>
@@ -597,7 +601,7 @@ Set to `true` if only the administrator is allowed to create user profiles. Set 
 ---
 
 
-  ### `admin_create_user_config_email_message` (`string`) <i>optional</i>
+### `admin_create_user_config_email_message` (`string`) <i>optional</i>
 
 
 The message template for email messages. Must contain `{username}` and `{####}` placeholders, for username and temporary password, respectively<br/>
@@ -617,7 +621,7 @@ The message template for email messages. Must contain `{username}` and `{####}` 
 ---
 
 
-  ### `admin_create_user_config_email_subject` (`string`) <i>optional</i>
+### `admin_create_user_config_email_subject` (`string`) <i>optional</i>
 
 
 The subject line for email messages<br/>
@@ -637,7 +641,7 @@ The subject line for email messages<br/>
 ---
 
 
-  ### `admin_create_user_config_sms_message` (`string`) <i>optional</i>
+### `admin_create_user_config_sms_message` (`string`) <i>optional</i>
 
 
 The message template for SMS messages. Must contain `{username}` and `{####}` placeholders, for username and temporary password, respectively<br/>
@@ -657,7 +661,7 @@ The message template for SMS messages. Must contain `{username}` and `{####}` pl
 ---
 
 
-  ### `alias_attributes` (`list(string)`) <i>optional</i>
+### `alias_attributes` (`list(string)`) <i>optional</i>
 
 
 Attributes supported as an alias for this user pool. Possible values: phone_number, email, or preferred_username. Conflicts with `username_attributes`<br/>
@@ -677,7 +681,7 @@ Attributes supported as an alias for this user pool. Possible values: phone_numb
 ---
 
 
-  ### `auto_verified_attributes` (`list(string)`) <i>optional</i>
+### `auto_verified_attributes` (`list(string)`) <i>optional</i>
 
 
 The attributes to be auto-verified. Possible values: email, phone_number<br/>
@@ -697,7 +701,7 @@ The attributes to be auto-verified. Possible values: email, phone_number<br/>
 ---
 
 
-  ### `client_access_token_validity` (`number`) <i>optional</i>
+### `client_access_token_validity` (`number`) <i>optional</i>
 
 
 Time limit, between 5 minutes and 1 day, after which the access token is no longer valid and cannot be used. This value will be overridden if you have entered a value in `token_validity_units`.<br/>
@@ -717,7 +721,7 @@ Time limit, between 5 minutes and 1 day, after which the access token is no long
 ---
 
 
-  ### `client_allowed_oauth_flows` (`list(string)`) <i>optional</i>
+### `client_allowed_oauth_flows` (`list(string)`) <i>optional</i>
 
 
 List of allowed OAuth flows (code, implicit, client_credentials)<br/>
@@ -737,7 +741,7 @@ List of allowed OAuth flows (code, implicit, client_credentials)<br/>
 ---
 
 
-  ### `client_allowed_oauth_flows_user_pool_client` (`bool`) <i>optional</i>
+### `client_allowed_oauth_flows_user_pool_client` (`bool`) <i>optional</i>
 
 
 Whether the client is allowed to follow the OAuth protocol when interacting with Cognito user pools<br/>
@@ -757,7 +761,7 @@ Whether the client is allowed to follow the OAuth protocol when interacting with
 ---
 
 
-  ### `client_allowed_oauth_scopes` (`list(string)`) <i>optional</i>
+### `client_allowed_oauth_scopes` (`list(string)`) <i>optional</i>
 
 
 List of allowed OAuth scopes (phone, email, openid, profile, and aws.cognito.signin.user.admin)<br/>
@@ -777,7 +781,7 @@ List of allowed OAuth scopes (phone, email, openid, profile, and aws.cognito.sig
 ---
 
 
-  ### `client_callback_urls` (`list(string)`) <i>optional</i>
+### `client_callback_urls` (`list(string)`) <i>optional</i>
 
 
 List of allowed callback URLs for the identity providers<br/>
@@ -797,7 +801,7 @@ List of allowed callback URLs for the identity providers<br/>
 ---
 
 
-  ### `client_default_redirect_uri` (`string`) <i>optional</i>
+### `client_default_redirect_uri` (`string`) <i>optional</i>
 
 
 The default redirect URI. Must be in the list of callback URLs<br/>
@@ -817,7 +821,7 @@ The default redirect URI. Must be in the list of callback URLs<br/>
 ---
 
 
-  ### `client_explicit_auth_flows` (`list(string)`) <i>optional</i>
+### `client_explicit_auth_flows` (`list(string)`) <i>optional</i>
 
 
 List of authentication flows (ADMIN_NO_SRP_AUTH, CUSTOM_AUTH_FLOW_ONLY, USER_PASSWORD_AUTH)<br/>
@@ -837,7 +841,7 @@ List of authentication flows (ADMIN_NO_SRP_AUTH, CUSTOM_AUTH_FLOW_ONLY, USER_PAS
 ---
 
 
-  ### `client_generate_secret` (`bool`) <i>optional</i>
+### `client_generate_secret` (`bool`) <i>optional</i>
 
 
 Should an application secret be generated<br/>
@@ -857,7 +861,7 @@ Should an application secret be generated<br/>
 ---
 
 
-  ### `client_id_token_validity` (`number`) <i>optional</i>
+### `client_id_token_validity` (`number`) <i>optional</i>
 
 
 Time limit, between 5 minutes and 1 day, after which the ID token is no longer valid and cannot be used. Must be between 5 minutes and 1 day. Cannot be greater than refresh token expiration. This value will be overridden if you have entered a value in `token_validity_units`.<br/>
@@ -877,7 +881,7 @@ Time limit, between 5 minutes and 1 day, after which the ID token is no longer v
 ---
 
 
-  ### `client_logout_urls` (`list(string)`) <i>optional</i>
+### `client_logout_urls` (`list(string)`) <i>optional</i>
 
 
 List of allowed logout URLs for the identity providers<br/>
@@ -897,7 +901,7 @@ List of allowed logout URLs for the identity providers<br/>
 ---
 
 
-  ### `client_name` (`string`) <i>optional</i>
+### `client_name` (`string`) <i>optional</i>
 
 
 The name of the application client<br/>
@@ -917,7 +921,7 @@ The name of the application client<br/>
 ---
 
 
-  ### `client_prevent_user_existence_errors` (`string`) <i>optional</i>
+### `client_prevent_user_existence_errors` (`string`) <i>optional</i>
 
 
 Choose which errors and responses are returned by Cognito APIs during authentication, account confirmation, and password recovery when the user does not exist in the user pool. When set to ENABLED and the user does not exist, authentication returns an error indicating either the username or password was incorrect, and account confirmation and password recovery return a response indicating a code was sent to a simulated destination. When set to LEGACY, those APIs will return a UserNotFoundException exception if the user does not exist in the user pool.<br/>
@@ -937,7 +941,7 @@ Choose which errors and responses are returned by Cognito APIs during authentica
 ---
 
 
-  ### `client_read_attributes` (`list(string)`) <i>optional</i>
+### `client_read_attributes` (`list(string)`) <i>optional</i>
 
 
 List of user pool attributes the application client can read from<br/>
@@ -957,7 +961,7 @@ List of user pool attributes the application client can read from<br/>
 ---
 
 
-  ### `client_refresh_token_validity` (`number`) <i>optional</i>
+### `client_refresh_token_validity` (`number`) <i>optional</i>
 
 
 The time limit in days refresh tokens are valid for. Must be between 60 minutes and 3650 days. This value will be overridden if you have entered a value in `token_validity_units`<br/>
@@ -977,7 +981,7 @@ The time limit in days refresh tokens are valid for. Must be between 60 minutes 
 ---
 
 
-  ### `client_supported_identity_providers` (`list(string)`) <i>optional</i>
+### `client_supported_identity_providers` (`list(string)`) <i>optional</i>
 
 
 List of provider names for the identity providers that are supported on this client<br/>
@@ -997,7 +1001,7 @@ List of provider names for the identity providers that are supported on this cli
 ---
 
 
-  ### `client_token_validity_units` (`any`) <i>optional</i>
+### `client_token_validity_units` (`any`) <i>optional</i>
 
 
 Configuration block for units in which the validity times are represented in. Valid values for the following arguments are: `seconds`, `minutes`, `hours` or `days`.<br/>
@@ -1025,7 +1029,7 @@ Configuration block for units in which the validity times are represented in. Va
 ---
 
 
-  ### `client_write_attributes` (`list(string)`) <i>optional</i>
+### `client_write_attributes` (`list(string)`) <i>optional</i>
 
 
 List of user pool attributes the application client can write to<br/>
@@ -1045,7 +1049,7 @@ List of user pool attributes the application client can write to<br/>
 ---
 
 
-  ### `clients` (`any`) <i>optional</i>
+### `clients` (`any`) <i>optional</i>
 
 
 User Pool clients configuration<br/>
@@ -1065,7 +1069,7 @@ User Pool clients configuration<br/>
 ---
 
 
-  ### `deletion_protection` (`string`) <i>optional</i>
+### `deletion_protection` (`string`) <i>optional</i>
 
 
 (Optional) When active, DeletionProtection prevents accidental deletion of your user pool. Before you can delete a user pool that you have protected against deletion, you must deactivate this feature. Valid values are ACTIVE and INACTIVE, Default value is INACTIVE.<br/>
@@ -1085,7 +1089,7 @@ User Pool clients configuration<br/>
 ---
 
 
-  ### `device_configuration` (`map(any)`) <i>optional</i>
+### `device_configuration` (`map(any)`) <i>optional</i>
 
 
 The configuration for the user pool's device tracking<br/>
@@ -1105,7 +1109,7 @@ The configuration for the user pool's device tracking<br/>
 ---
 
 
-  ### `device_configuration_challenge_required_on_new_device` (`bool`) <i>optional</i>
+### `device_configuration_challenge_required_on_new_device` (`bool`) <i>optional</i>
 
 
 Indicates whether a challenge is required on a new device. Only applicable to a new device<br/>
@@ -1125,7 +1129,7 @@ Indicates whether a challenge is required on a new device. Only applicable to a 
 ---
 
 
-  ### `device_configuration_device_only_remembered_on_user_prompt` (`bool`) <i>optional</i>
+### `device_configuration_device_only_remembered_on_user_prompt` (`bool`) <i>optional</i>
 
 
 If true, a device is only remembered on user prompt<br/>
@@ -1145,7 +1149,7 @@ If true, a device is only remembered on user prompt<br/>
 ---
 
 
-  ### `domain` (`string`) <i>optional</i>
+### `domain` (`string`) <i>optional</i>
 
 
 Cognito User Pool domain<br/>
@@ -1165,7 +1169,7 @@ Cognito User Pool domain<br/>
 ---
 
 
-  ### `domain_certificate_arn` (`string`) <i>optional</i>
+### `domain_certificate_arn` (`string`) <i>optional</i>
 
 
 The ARN of an ISSUED ACM certificate in `us-east-1` for a custom domain<br/>
@@ -1185,7 +1189,7 @@ The ARN of an ISSUED ACM certificate in `us-east-1` for a custom domain<br/>
 ---
 
 
-  ### `email_configuration` (`map(any)`) <i>optional</i>
+### `email_configuration` (`map(any)`) <i>optional</i>
 
 
 Email configuration<br/>
@@ -1205,7 +1209,7 @@ Email configuration<br/>
 ---
 
 
-  ### `email_configuration_email_sending_account` (`string`) <i>optional</i>
+### `email_configuration_email_sending_account` (`string`) <i>optional</i>
 
 
 Instruct Cognito to either use its built-in functionality or Amazon SES to send out emails. Allowed values: `COGNITO_DEFAULT` or `DEVELOPER`<br/>
@@ -1225,7 +1229,7 @@ Instruct Cognito to either use its built-in functionality or Amazon SES to send 
 ---
 
 
-  ### `email_configuration_from_email_address` (`string`) <i>optional</i>
+### `email_configuration_from_email_address` (`string`) <i>optional</i>
 
 
 Sender’s email address or sender’s display name with their email address (e.g. `john@example.com`, `John Smith <john@example.com>` or `"John Smith Ph.D." <john@example.com>)`. Escaped double quotes are required around display names that contain certain characters as specified in RFC 5322<br/>
@@ -1245,7 +1249,7 @@ Sender’s email address or sender’s display name with their email address (e.
 ---
 
 
-  ### `email_configuration_reply_to_email_address` (`string`) <i>optional</i>
+### `email_configuration_reply_to_email_address` (`string`) <i>optional</i>
 
 
 The REPLY-TO email address<br/>
@@ -1265,7 +1269,7 @@ The REPLY-TO email address<br/>
 ---
 
 
-  ### `email_configuration_source_arn` (`string`) <i>optional</i>
+### `email_configuration_source_arn` (`string`) <i>optional</i>
 
 
 The ARN of the email configuration source<br/>
@@ -1285,7 +1289,7 @@ The ARN of the email configuration source<br/>
 ---
 
 
-  ### `email_verification_message` (`string`) <i>optional</i>
+### `email_verification_message` (`string`) <i>optional</i>
 
 
 A string representing the email verification message<br/>
@@ -1305,7 +1309,7 @@ A string representing the email verification message<br/>
 ---
 
 
-  ### `email_verification_subject` (`string`) <i>optional</i>
+### `email_verification_subject` (`string`) <i>optional</i>
 
 
 A string representing the email verification subject<br/>
@@ -1325,7 +1329,7 @@ A string representing the email verification subject<br/>
 ---
 
 
-  ### `identity_providers` (`list(any)`) <i>optional</i>
+### `identity_providers` (`list(any)`) <i>optional</i>
 
 
 Cognito Identity Providers configuration<br/>
@@ -1345,7 +1349,7 @@ Cognito Identity Providers configuration<br/>
 ---
 
 
-  ### `lambda_config` (`any`) <i>optional</i>
+### `lambda_config` (`any`) <i>optional</i>
 
 
 Configuration for the AWS Lambda triggers associated with the User Pool<br/>
@@ -1365,7 +1369,7 @@ Configuration for the AWS Lambda triggers associated with the User Pool<br/>
 ---
 
 
-  ### `lambda_config_create_auth_challenge` (`string`) <i>optional</i>
+### `lambda_config_create_auth_challenge` (`string`) <i>optional</i>
 
 
 The ARN of the lambda creating an authentication challenge<br/>
@@ -1385,7 +1389,7 @@ The ARN of the lambda creating an authentication challenge<br/>
 ---
 
 
-  ### `lambda_config_custom_email_sender` (`map(any)`) <i>optional</i>
+### `lambda_config_custom_email_sender` (`map(any)`) <i>optional</i>
 
 
 A custom email sender AWS Lambda trigger<br/>
@@ -1405,7 +1409,7 @@ A custom email sender AWS Lambda trigger<br/>
 ---
 
 
-  ### `lambda_config_custom_message` (`string`) <i>optional</i>
+### `lambda_config_custom_message` (`string`) <i>optional</i>
 
 
 AWS Lambda trigger custom message<br/>
@@ -1425,7 +1429,7 @@ AWS Lambda trigger custom message<br/>
 ---
 
 
-  ### `lambda_config_custom_sms_sender` (`map(any)`) <i>optional</i>
+### `lambda_config_custom_sms_sender` (`map(any)`) <i>optional</i>
 
 
 A custom SMS sender AWS Lambda trigger<br/>
@@ -1445,7 +1449,7 @@ A custom SMS sender AWS Lambda trigger<br/>
 ---
 
 
-  ### `lambda_config_define_auth_challenge` (`string`) <i>optional</i>
+### `lambda_config_define_auth_challenge` (`string`) <i>optional</i>
 
 
 Authentication challenge<br/>
@@ -1465,7 +1469,7 @@ Authentication challenge<br/>
 ---
 
 
-  ### `lambda_config_kms_key_id` (`string`) <i>optional</i>
+### `lambda_config_kms_key_id` (`string`) <i>optional</i>
 
 
 The Amazon Resource Name of Key Management Service Customer master keys. Amazon Cognito uses the key to encrypt codes and temporary passwords sent to CustomEmailSender and CustomSMSSender.<br/>
@@ -1485,7 +1489,7 @@ The Amazon Resource Name of Key Management Service Customer master keys. Amazon 
 ---
 
 
-  ### `lambda_config_post_authentication` (`string`) <i>optional</i>
+### `lambda_config_post_authentication` (`string`) <i>optional</i>
 
 
 A post-authentication AWS Lambda trigger<br/>
@@ -1505,7 +1509,7 @@ A post-authentication AWS Lambda trigger<br/>
 ---
 
 
-  ### `lambda_config_post_confirmation` (`string`) <i>optional</i>
+### `lambda_config_post_confirmation` (`string`) <i>optional</i>
 
 
 A post-confirmation AWS Lambda trigger<br/>
@@ -1525,7 +1529,7 @@ A post-confirmation AWS Lambda trigger<br/>
 ---
 
 
-  ### `lambda_config_pre_authentication` (`string`) <i>optional</i>
+### `lambda_config_pre_authentication` (`string`) <i>optional</i>
 
 
 A pre-authentication AWS Lambda trigger<br/>
@@ -1545,7 +1549,7 @@ A pre-authentication AWS Lambda trigger<br/>
 ---
 
 
-  ### `lambda_config_pre_sign_up` (`string`) <i>optional</i>
+### `lambda_config_pre_sign_up` (`string`) <i>optional</i>
 
 
 A pre-registration AWS Lambda trigger<br/>
@@ -1565,7 +1569,7 @@ A pre-registration AWS Lambda trigger<br/>
 ---
 
 
-  ### `lambda_config_pre_token_generation` (`string`) <i>optional</i>
+### `lambda_config_pre_token_generation` (`string`) <i>optional</i>
 
 
 Allow to customize identity token claims before token generation<br/>
@@ -1585,7 +1589,7 @@ Allow to customize identity token claims before token generation<br/>
 ---
 
 
-  ### `lambda_config_user_migration` (`string`) <i>optional</i>
+### `lambda_config_user_migration` (`string`) <i>optional</i>
 
 
 The user migration Lambda config type<br/>
@@ -1605,7 +1609,7 @@ The user migration Lambda config type<br/>
 ---
 
 
-  ### `lambda_config_verify_auth_challenge_response` (`string`) <i>optional</i>
+### `lambda_config_verify_auth_challenge_response` (`string`) <i>optional</i>
 
 
 Verifies the authentication challenge response<br/>
@@ -1625,7 +1629,7 @@ Verifies the authentication challenge response<br/>
 ---
 
 
-  ### `mfa_configuration` (`string`) <i>optional</i>
+### `mfa_configuration` (`string`) <i>optional</i>
 
 
 Multi-factor authentication configuration. Must be one of the following values (ON, OFF, OPTIONAL)<br/>
@@ -1645,7 +1649,7 @@ Multi-factor authentication configuration. Must be one of the following values (
 ---
 
 
-  ### `number_schemas` (`list(any)`) <i>optional</i>
+### `number_schemas` (`list(any)`) <i>optional</i>
 
 
 A container with the number schema attributes of a user pool. Maximum of 50 attributes<br/>
@@ -1665,7 +1669,7 @@ A container with the number schema attributes of a user pool. Maximum of 50 attr
 ---
 
 
-  ### `password_policy` <i>optional</i>
+### `password_policy` <i>optional</i>
 
 
 User Pool password policy configuration<br/>
@@ -1697,7 +1701,7 @@ User Pool password policy configuration<br/>
 ---
 
 
-  ### `password_policy_minimum_length` (`number`) <i>optional</i>
+### `password_policy_minimum_length` (`number`) <i>optional</i>
 
 
 The minimum password length<br/>
@@ -1717,7 +1721,7 @@ The minimum password length<br/>
 ---
 
 
-  ### `password_policy_require_lowercase` (`bool`) <i>optional</i>
+### `password_policy_require_lowercase` (`bool`) <i>optional</i>
 
 
 Whether you have required users to use at least one lowercase letter in their password<br/>
@@ -1737,7 +1741,7 @@ Whether you have required users to use at least one lowercase letter in their pa
 ---
 
 
-  ### `password_policy_require_numbers` (`bool`) <i>optional</i>
+### `password_policy_require_numbers` (`bool`) <i>optional</i>
 
 
 Whether you have required users to use at least one number in their password<br/>
@@ -1757,7 +1761,7 @@ Whether you have required users to use at least one number in their password<br/
 ---
 
 
-  ### `password_policy_require_symbols` (`bool`) <i>optional</i>
+### `password_policy_require_symbols` (`bool`) <i>optional</i>
 
 
 Whether you have required users to use at least one symbol in their password<br/>
@@ -1777,7 +1781,7 @@ Whether you have required users to use at least one symbol in their password<br/
 ---
 
 
-  ### `password_policy_require_uppercase` (`bool`) <i>optional</i>
+### `password_policy_require_uppercase` (`bool`) <i>optional</i>
 
 
 Whether you have required users to use at least one uppercase letter in their password<br/>
@@ -1797,7 +1801,7 @@ Whether you have required users to use at least one uppercase letter in their pa
 ---
 
 
-  ### `password_policy_temporary_password_validity_days` (`number`) <i>optional</i>
+### `password_policy_temporary_password_validity_days` (`number`) <i>optional</i>
 
 
 Password policy temporary password validity_days<br/>
@@ -1817,7 +1821,7 @@ Password policy temporary password validity_days<br/>
 ---
 
 
-  ### `recovery_mechanisms` (`list(any)`) <i>optional</i>
+### `recovery_mechanisms` (`list(any)`) <i>optional</i>
 
 
 List of account recovery options<br/>
@@ -1837,7 +1841,7 @@ List of account recovery options<br/>
 ---
 
 
-  ### `resource_server_identifier` (`string`) <i>optional</i>
+### `resource_server_identifier` (`string`) <i>optional</i>
 
 
 Resource server identifier<br/>
@@ -1857,7 +1861,7 @@ Resource server identifier<br/>
 ---
 
 
-  ### `resource_server_name` (`string`) <i>optional</i>
+### `resource_server_name` (`string`) <i>optional</i>
 
 
 Resource server name<br/>
@@ -1877,7 +1881,7 @@ Resource server name<br/>
 ---
 
 
-  ### `resource_server_scope_description` (`string`) <i>optional</i>
+### `resource_server_scope_description` (`string`) <i>optional</i>
 
 
 Resource server scope description<br/>
@@ -1897,7 +1901,7 @@ Resource server scope description<br/>
 ---
 
 
-  ### `resource_server_scope_name` (`string`) <i>optional</i>
+### `resource_server_scope_name` (`string`) <i>optional</i>
 
 
 Resource server scope name<br/>
@@ -1917,7 +1921,7 @@ Resource server scope name<br/>
 ---
 
 
-  ### `resource_servers` (`list(any)`) <i>optional</i>
+### `resource_servers` (`list(any)`) <i>optional</i>
 
 
 Resource servers configuration<br/>
@@ -1937,7 +1941,7 @@ Resource servers configuration<br/>
 ---
 
 
-  ### `schemas` (`list(any)`) <i>optional</i>
+### `schemas` (`list(any)`) <i>optional</i>
 
 
 A container with the schema attributes of a User Pool. Maximum of 50 attributes<br/>
@@ -1957,7 +1961,7 @@ A container with the schema attributes of a User Pool. Maximum of 50 attributes<
 ---
 
 
-  ### `sms_authentication_message` (`string`) <i>optional</i>
+### `sms_authentication_message` (`string`) <i>optional</i>
 
 
 A string representing the SMS authentication message<br/>
@@ -1977,7 +1981,7 @@ A string representing the SMS authentication message<br/>
 ---
 
 
-  ### `sms_configuration` (`map(any)`) <i>optional</i>
+### `sms_configuration` (`map(any)`) <i>optional</i>
 
 
 SMS configuration<br/>
@@ -1997,7 +2001,7 @@ SMS configuration<br/>
 ---
 
 
-  ### `sms_configuration_external_id` (`string`) <i>optional</i>
+### `sms_configuration_external_id` (`string`) <i>optional</i>
 
 
 The external ID used in IAM role trust relationships<br/>
@@ -2017,7 +2021,7 @@ The external ID used in IAM role trust relationships<br/>
 ---
 
 
-  ### `sms_configuration_sns_caller_arn` (`string`) <i>optional</i>
+### `sms_configuration_sns_caller_arn` (`string`) <i>optional</i>
 
 
 The ARN of the Amazon SNS caller. This is usually the IAM role that you've given Cognito permission to assume<br/>
@@ -2037,7 +2041,7 @@ The ARN of the Amazon SNS caller. This is usually the IAM role that you've given
 ---
 
 
-  ### `sms_verification_message` (`string`) <i>optional</i>
+### `sms_verification_message` (`string`) <i>optional</i>
 
 
 A string representing the SMS verification message<br/>
@@ -2057,7 +2061,7 @@ A string representing the SMS verification message<br/>
 ---
 
 
-  ### `software_token_mfa_configuration` (`map(any)`) <i>optional</i>
+### `software_token_mfa_configuration` (`map(any)`) <i>optional</i>
 
 
 Configuration block for software token MFA. `mfa_configuration` must also be enabled for this to work<br/>
@@ -2077,7 +2081,7 @@ Configuration block for software token MFA. `mfa_configuration` must also be ena
 ---
 
 
-  ### `software_token_mfa_configuration_enabled` (`bool`) <i>optional</i>
+### `software_token_mfa_configuration_enabled` (`bool`) <i>optional</i>
 
 
 If `true`, and if `mfa_configuration` is also enabled, multi-factor authentication by software TOTP generator will be enabled<br/>
@@ -2097,7 +2101,7 @@ If `true`, and if `mfa_configuration` is also enabled, multi-factor authenticati
 ---
 
 
-  ### `string_schemas` (`list(any)`) <i>optional</i>
+### `string_schemas` (`list(any)`) <i>optional</i>
 
 
 A container with the string schema attributes of a user pool. Maximum of 50 attributes<br/>
@@ -2117,7 +2121,7 @@ A container with the string schema attributes of a user pool. Maximum of 50 attr
 ---
 
 
-  ### `temporary_password_validity_days` (`number`) <i>optional</i>
+### `temporary_password_validity_days` (`number`) <i>optional</i>
 
 
 The user account expiration limit, in days, after which the account is no longer usable<br/>
@@ -2137,7 +2141,7 @@ The user account expiration limit, in days, after which the account is no longer
 ---
 
 
-  ### `user_group_description` (`string`) <i>optional</i>
+### `user_group_description` (`string`) <i>optional</i>
 
 
 The description of the user group<br/>
@@ -2157,7 +2161,7 @@ The description of the user group<br/>
 ---
 
 
-  ### `user_group_name` (`string`) <i>optional</i>
+### `user_group_name` (`string`) <i>optional</i>
 
 
 The name of the user group<br/>
@@ -2177,7 +2181,7 @@ The name of the user group<br/>
 ---
 
 
-  ### `user_group_precedence` (`number`) <i>optional</i>
+### `user_group_precedence` (`number`) <i>optional</i>
 
 
 The precedence of the user group<br/>
@@ -2197,7 +2201,7 @@ The precedence of the user group<br/>
 ---
 
 
-  ### `user_group_role_arn` (`string`) <i>optional</i>
+### `user_group_role_arn` (`string`) <i>optional</i>
 
 
 The ARN of the IAM role to be associated with the user group<br/>
@@ -2217,7 +2221,7 @@ The ARN of the IAM role to be associated with the user group<br/>
 ---
 
 
-  ### `user_groups` (`list(any)`) <i>optional</i>
+### `user_groups` (`list(any)`) <i>optional</i>
 
 
 User groups configuration<br/>
@@ -2237,7 +2241,7 @@ User groups configuration<br/>
 ---
 
 
-  ### `user_pool_add_ons` (`map(any)`) <i>optional</i>
+### `user_pool_add_ons` (`map(any)`) <i>optional</i>
 
 
 Configuration block for user pool add-ons to enable user pool advanced security mode features<br/>
@@ -2257,7 +2261,7 @@ Configuration block for user pool add-ons to enable user pool advanced security 
 ---
 
 
-  ### `user_pool_add_ons_advanced_security_mode` (`string`) <i>optional</i>
+### `user_pool_add_ons_advanced_security_mode` (`string`) <i>optional</i>
 
 
 The mode for advanced security, must be one of `OFF`, `AUDIT` or `ENFORCED`<br/>
@@ -2277,7 +2281,7 @@ The mode for advanced security, must be one of `OFF`, `AUDIT` or `ENFORCED`<br/>
 ---
 
 
-  ### `user_pool_name` (`string`) <i>optional</i>
+### `user_pool_name` (`string`) <i>optional</i>
 
 
 User pool name. If not provided, the name will be generated from the context<br/>
@@ -2297,7 +2301,7 @@ User pool name. If not provided, the name will be generated from the context<br/
 ---
 
 
-  ### `username_attributes` (`list(string)`) <i>optional</i>
+### `username_attributes` (`list(string)`) <i>optional</i>
 
 
 Specifies whether email addresses or phone numbers can be specified as usernames when a user signs up. Conflicts with `alias_attributes`<br/>
@@ -2317,7 +2321,7 @@ Specifies whether email addresses or phone numbers can be specified as usernames
 ---
 
 
-  ### `username_configuration` (`map(any)`) <i>optional</i>
+### `username_configuration` (`map(any)`) <i>optional</i>
 
 
 The Username Configuration. Setting `case_sensitive` specifies whether username case sensitivity will be applied for all users in the user pool through Cognito APIs<br/>
@@ -2337,7 +2341,7 @@ The Username Configuration. Setting `case_sensitive` specifies whether username 
 ---
 
 
-  ### `verification_message_template` (`map(any)`) <i>optional</i>
+### `verification_message_template` (`map(any)`) <i>optional</i>
 
 
 The verification message templates configuration<br/>
@@ -2357,7 +2361,7 @@ The verification message templates configuration<br/>
 ---
 
 
-  ### `verification_message_template_default_email_option` (`string`) <i>optional</i>
+### `verification_message_template_default_email_option` (`string`) <i>optional</i>
 
 
 The default email option. Must be either `CONFIRM_WITH_CODE` or `CONFIRM_WITH_LINK`. Defaults to `CONFIRM_WITH_CODE`<br/>
@@ -2377,7 +2381,7 @@ The default email option. Must be either `CONFIRM_WITH_CODE` or `CONFIRM_WITH_LI
 ---
 
 
-  ### `verification_message_template_email_message_by_link` (`string`) <i>optional</i>
+### `verification_message_template_email_message_by_link` (`string`) <i>optional</i>
 
 
 The email message template for sending a confirmation link to the user, it must contain the `{##Click Here##}` placeholder<br/>
@@ -2397,7 +2401,7 @@ The email message template for sending a confirmation link to the user, it must 
 ---
 
 
-  ### `verification_message_template_email_subject_by_link` (`string`) <i>optional</i>
+### `verification_message_template_email_subject_by_link` (`string`) <i>optional</i>
 
 
 The subject line for the email message template for sending a confirmation link to the user<br/>
@@ -2421,59 +2425,59 @@ The subject line for the email message template for sending a confirmation link 
 ### Outputs
 
 <dl>
-  <dt>`arn`</dt>
+  <dt><code>arn</code></dt>
   <dd>
     The ARN of the User Pool<br/>
   </dd>
-  <dt>`client_ids`</dt>
+  <dt><code>client_ids</code></dt>
   <dd>
     The ids of the User Pool clients<br/>
   </dd>
-  <dt>`client_ids_map`</dt>
+  <dt><code>client_ids_map</code></dt>
   <dd>
     The IDs map of the User Pool clients<br/>
   </dd>
-  <dt>`client_secrets`</dt>
+  <dt><code>client_secrets</code></dt>
   <dd>
      The client secrets of the User Pool clients<br/>
   </dd>
-  <dt>`client_secrets_map`</dt>
+  <dt><code>client_secrets_map</code></dt>
   <dd>
     The client secrets map of the User Pool clients<br/>
   </dd>
-  <dt>`creation_date`</dt>
+  <dt><code>creation_date</code></dt>
   <dd>
     The date the User Pool was created<br/>
   </dd>
-  <dt>`domain_app_version`</dt>
+  <dt><code>domain_app_version</code></dt>
   <dd>
     The app version for the domain<br/>
   </dd>
-  <dt>`domain_aws_account_id`</dt>
+  <dt><code>domain_aws_account_id</code></dt>
   <dd>
     The AWS account ID for the User Pool domain<br/>
   </dd>
-  <dt>`domain_cloudfront_distribution_arn`</dt>
+  <dt><code>domain_cloudfront_distribution_arn</code></dt>
   <dd>
     The ARN of the CloudFront distribution for the domain<br/>
   </dd>
-  <dt>`domain_s3_bucket`</dt>
+  <dt><code>domain_s3_bucket</code></dt>
   <dd>
     The S3 bucket where the static files for the domain are stored<br/>
   </dd>
-  <dt>`endpoint`</dt>
+  <dt><code>endpoint</code></dt>
   <dd>
     The endpoint name of the User Pool. Example format: cognito-idp.REGION.amazonaws.com/xxxx_yyyyy<br/>
   </dd>
-  <dt>`id`</dt>
+  <dt><code>id</code></dt>
   <dd>
     The ID of the User Pool<br/>
   </dd>
-  <dt>`last_modified_date`</dt>
+  <dt><code>last_modified_date</code></dt>
   <dd>
     The date the User Pool was last modified<br/>
   </dd>
-  <dt>`resource_servers_scope_identifiers`</dt>
+  <dt><code>resource_servers_scope_identifiers</code></dt>
   <dd>
      A list of all scopes configured in the format identifier/scope_name<br/>
   </dd>

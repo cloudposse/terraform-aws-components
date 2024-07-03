@@ -35,13 +35,14 @@ components:
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 0.13.0), version: >= 0.13.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 3.0), version: >= 3.0
-- [`local`](https://registry.terraform.io/modules/local/>= 1.3), version: >= 1.3
-- [`template`](https://registry.terraform.io/modules/template/>= 2.2), version: >= 2.2
-- [`utils`](https://registry.terraform.io/modules/utils/>= 1.10.0), version: >= 1.10.0
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 0.13.0 |
+| `aws` | >= 3.0 |
+| `local` | >= 1.3 |
+| `template` | >= 2.2 |
+| `utils` | >= 1.10.0 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 
 
@@ -64,7 +65,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
@@ -84,7 +85,7 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 Additional attributes (e.g. `1`)<br/>
@@ -104,7 +105,7 @@ Additional attributes (e.g. `1`)<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -148,7 +149,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br/>
@@ -170,7 +171,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -190,7 +191,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -210,7 +211,7 @@ Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -234,7 +235,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 The letter case of label keys (`tag` names) (i.e. `name`, `namespace`, `environment`, `stage`, `attributes`) to use in `tags`.<br/>
@@ -257,7 +258,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The naming order of the id output and Name tag.<br/>
@@ -280,7 +281,7 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 The letter case of output label values (also used in `tags` and `id`).<br/>
@@ -303,7 +304,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 Solution name, e.g. 'app' or 'jenkins'<br/>
@@ -323,7 +324,7 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
@@ -343,7 +344,7 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br/>
@@ -365,7 +366,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -385,7 +386,7 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
@@ -408,7 +409,7 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 </details>
 
 ### Required Inputs
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
@@ -430,7 +431,7 @@ AWS Region<br/>
 
 
 ### Optional Inputs
-  ### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
+### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
 
 
 List of CIDR blocks that are allowed ingress to the broker's Security Group created in the module<br/>
@@ -450,7 +451,7 @@ List of CIDR blocks that are allowed ingress to the broker's Security Group crea
 ---
 
 
-  ### `allowed_security_groups` (`list(string)`) <i>optional</i>
+### `allowed_security_groups` (`list(string)`) <i>optional</i>
 
 
 List of security groups to be allowed to connect to the broker instance<br/>
@@ -470,7 +471,7 @@ List of security groups to be allowed to connect to the broker instance<br/>
 ---
 
 
-  ### `apply_immediately` (`bool`) <i>optional</i>
+### `apply_immediately` (`bool`) <i>optional</i>
 
 
 Specifies whether any cluster modifications are applied immediately, or during the next maintenance window<br/>
@@ -490,7 +491,7 @@ Specifies whether any cluster modifications are applied immediately, or during t
 ---
 
 
-  ### `audit_log_enabled` (`bool`) <i>optional</i>
+### `audit_log_enabled` (`bool`) <i>optional</i>
 
 
 Enables audit logging. User management action made using JMX or the ActiveMQ Web Console is logged<br/>
@@ -510,7 +511,7 @@ Enables audit logging. User management action made using JMX or the ActiveMQ Web
 ---
 
 
-  ### `auto_minor_version_upgrade` (`bool`) <i>optional</i>
+### `auto_minor_version_upgrade` (`bool`) <i>optional</i>
 
 
 Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions<br/>
@@ -530,7 +531,7 @@ Enables automatic upgrades to new minor versions for brokers, as Apache releases
 ---
 
 
-  ### `deployment_mode` (`string`) <i>optional</i>
+### `deployment_mode` (`string`) <i>optional</i>
 
 
 The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY_MULTI_AZ<br/>
@@ -550,7 +551,7 @@ The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY
 ---
 
 
-  ### `encryption_enabled` (`bool`) <i>optional</i>
+### `encryption_enabled` (`bool`) <i>optional</i>
 
 
 Flag to enable/disable Amazon MQ encryption at rest<br/>
@@ -570,7 +571,7 @@ Flag to enable/disable Amazon MQ encryption at rest<br/>
 ---
 
 
-  ### `engine_type` (`string`) <i>optional</i>
+### `engine_type` (`string`) <i>optional</i>
 
 
 Type of broker engine, `ActiveMQ` or `RabbitMQ`<br/>
@@ -590,7 +591,7 @@ Type of broker engine, `ActiveMQ` or `RabbitMQ`<br/>
 ---
 
 
-  ### `engine_version` (`string`) <i>optional</i>
+### `engine_version` (`string`) <i>optional</i>
 
 
 The version of the broker engine. See https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html for more details<br/>
@@ -610,7 +611,7 @@ The version of the broker engine. See https://docs.aws.amazon.com/amazon-mq/late
 ---
 
 
-  ### `existing_security_groups` (`list(string)`) <i>optional</i>
+### `existing_security_groups` (`list(string)`) <i>optional</i>
 
 
 List of existing Security Group IDs to place the broker into. Set `use_existing_security_groups` to `true` to enable using `existing_security_groups` as Security Groups for the broker<br/>
@@ -630,7 +631,7 @@ List of existing Security Group IDs to place the broker into. Set `use_existing_
 ---
 
 
-  ### `general_log_enabled` (`bool`) <i>optional</i>
+### `general_log_enabled` (`bool`) <i>optional</i>
 
 
 Enables general logging via CloudWatch<br/>
@@ -650,7 +651,7 @@ Enables general logging via CloudWatch<br/>
 ---
 
 
-  ### `host_instance_type` (`string`) <i>optional</i>
+### `host_instance_type` (`string`) <i>optional</i>
 
 
 The broker's instance type. e.g. mq.t2.micro or mq.m4.large<br/>
@@ -670,7 +671,7 @@ The broker's instance type. e.g. mq.t2.micro or mq.m4.large<br/>
 ---
 
 
-  ### `kms_mq_key_arn` (`string`) <i>optional</i>
+### `kms_mq_key_arn` (`string`) <i>optional</i>
 
 
 ARN of the AWS KMS key used for Amazon MQ encryption<br/>
@@ -690,7 +691,7 @@ ARN of the AWS KMS key used for Amazon MQ encryption<br/>
 ---
 
 
-  ### `kms_ssm_key_arn` (`string`) <i>optional</i>
+### `kms_ssm_key_arn` (`string`) <i>optional</i>
 
 
 ARN of the AWS KMS key used for SSM encryption<br/>
@@ -710,7 +711,7 @@ ARN of the AWS KMS key used for SSM encryption<br/>
 ---
 
 
-  ### `maintenance_day_of_week` (`string`) <i>optional</i>
+### `maintenance_day_of_week` (`string`) <i>optional</i>
 
 
 The maintenance day of the week. e.g. MONDAY, TUESDAY, or WEDNESDAY<br/>
@@ -730,7 +731,7 @@ The maintenance day of the week. e.g. MONDAY, TUESDAY, or WEDNESDAY<br/>
 ---
 
 
-  ### `maintenance_time_of_day` (`string`) <i>optional</i>
+### `maintenance_time_of_day` (`string`) <i>optional</i>
 
 
 The maintenance time, in 24-hour format. e.g. 02:00<br/>
@@ -750,7 +751,7 @@ The maintenance time, in 24-hour format. e.g. 02:00<br/>
 ---
 
 
-  ### `maintenance_time_zone` (`string`) <i>optional</i>
+### `maintenance_time_zone` (`string`) <i>optional</i>
 
 
 The maintenance time zone, in either the Country/City format, or the UTC offset format. e.g. CET<br/>
@@ -770,7 +771,7 @@ The maintenance time zone, in either the Country/City format, or the UTC offset 
 ---
 
 
-  ### `mq_admin_password` (`string`) <i>optional</i>
+### `mq_admin_password` (`string`) <i>optional</i>
 
 
 Admin password<br/>
@@ -790,7 +791,7 @@ Admin password<br/>
 ---
 
 
-  ### `mq_admin_user` (`string`) <i>optional</i>
+### `mq_admin_user` (`string`) <i>optional</i>
 
 
 Admin username<br/>
@@ -810,7 +811,7 @@ Admin username<br/>
 ---
 
 
-  ### `mq_application_password` (`string`) <i>optional</i>
+### `mq_application_password` (`string`) <i>optional</i>
 
 
 Application password<br/>
@@ -830,7 +831,7 @@ Application password<br/>
 ---
 
 
-  ### `mq_application_user` (`string`) <i>optional</i>
+### `mq_application_user` (`string`) <i>optional</i>
 
 
 Application username<br/>
@@ -850,7 +851,7 @@ Application username<br/>
 ---
 
 
-  ### `overwrite_ssm_parameter` (`bool`) <i>optional</i>
+### `overwrite_ssm_parameter` (`bool`) <i>optional</i>
 
 
 Whether to overwrite an existing SSM parameter<br/>
@@ -870,7 +871,7 @@ Whether to overwrite an existing SSM parameter<br/>
 ---
 
 
-  ### `publicly_accessible` (`bool`) <i>optional</i>
+### `publicly_accessible` (`bool`) <i>optional</i>
 
 
 Whether to enable connections from applications outside of the VPC that hosts the broker's subnets<br/>
@@ -890,7 +891,7 @@ Whether to enable connections from applications outside of the VPC that hosts th
 ---
 
 
-  ### `ssm_parameter_name_format` (`string`) <i>optional</i>
+### `ssm_parameter_name_format` (`string`) <i>optional</i>
 
 
 SSM parameter name format<br/>
@@ -910,7 +911,7 @@ SSM parameter name format<br/>
 ---
 
 
-  ### `ssm_path` (`string`) <i>optional</i>
+### `ssm_path` (`string`) <i>optional</i>
 
 
 SSM path<br/>
@@ -930,7 +931,7 @@ SSM path<br/>
 ---
 
 
-  ### `use_aws_owned_key` (`bool`) <i>optional</i>
+### `use_aws_owned_key` (`bool`) <i>optional</i>
 
 
 Boolean to enable an AWS owned Key Management Service (KMS) Customer Master Key (CMK) for Amazon MQ encryption that is not in your account<br/>
@@ -950,7 +951,7 @@ Boolean to enable an AWS owned Key Management Service (KMS) Customer Master Key 
 ---
 
 
-  ### `use_existing_security_groups` (`bool`) <i>optional</i>
+### `use_existing_security_groups` (`bool`) <i>optional</i>
 
 
 Flag to enable/disable creation of Security Group in the module. Set to `true` to disable Security Group creation and provide a list of existing security Group IDs in `existing_security_groups` to place the broker into<br/>
@@ -974,67 +975,67 @@ Flag to enable/disable creation of Security Group in the module. Set to `true` t
 ### Outputs
 
 <dl>
-  <dt>`broker_arn`</dt>
+  <dt><code>broker_arn</code></dt>
   <dd>
     AmazonMQ broker ARN<br/>
   </dd>
-  <dt>`broker_id`</dt>
+  <dt><code>broker_id</code></dt>
   <dd>
     AmazonMQ broker ID<br/>
   </dd>
-  <dt>`primary_amqp_ssl_endpoint`</dt>
+  <dt><code>primary_amqp_ssl_endpoint</code></dt>
   <dd>
     AmazonMQ primary AMQP+SSL endpoint<br/>
   </dd>
-  <dt>`primary_console_url`</dt>
+  <dt><code>primary_console_url</code></dt>
   <dd>
     AmazonMQ active web console URL<br/>
   </dd>
-  <dt>`primary_ip_address`</dt>
+  <dt><code>primary_ip_address</code></dt>
   <dd>
     AmazonMQ primary IP address<br/>
   </dd>
-  <dt>`primary_mqtt_ssl_endpoint`</dt>
+  <dt><code>primary_mqtt_ssl_endpoint</code></dt>
   <dd>
     AmazonMQ primary MQTT+SSL endpoint<br/>
   </dd>
-  <dt>`primary_ssl_endpoint`</dt>
+  <dt><code>primary_ssl_endpoint</code></dt>
   <dd>
     AmazonMQ primary SSL endpoint<br/>
   </dd>
-  <dt>`primary_stomp_ssl_endpoint`</dt>
+  <dt><code>primary_stomp_ssl_endpoint</code></dt>
   <dd>
     AmazonMQ primary STOMP+SSL endpoint<br/>
   </dd>
-  <dt>`primary_wss_endpoint`</dt>
+  <dt><code>primary_wss_endpoint</code></dt>
   <dd>
     AmazonMQ primary WSS endpoint<br/>
   </dd>
-  <dt>`secondary_amqp_ssl_endpoint`</dt>
+  <dt><code>secondary_amqp_ssl_endpoint</code></dt>
   <dd>
     AmazonMQ secondary AMQP+SSL endpoint<br/>
   </dd>
-  <dt>`secondary_console_url`</dt>
+  <dt><code>secondary_console_url</code></dt>
   <dd>
     AmazonMQ secondary web console URL<br/>
   </dd>
-  <dt>`secondary_ip_address`</dt>
+  <dt><code>secondary_ip_address</code></dt>
   <dd>
     AmazonMQ secondary IP address<br/>
   </dd>
-  <dt>`secondary_mqtt_ssl_endpoint`</dt>
+  <dt><code>secondary_mqtt_ssl_endpoint</code></dt>
   <dd>
     AmazonMQ secondary MQTT+SSL endpoint<br/>
   </dd>
-  <dt>`secondary_ssl_endpoint`</dt>
+  <dt><code>secondary_ssl_endpoint</code></dt>
   <dd>
     AmazonMQ secondary SSL endpoint<br/>
   </dd>
-  <dt>`secondary_stomp_ssl_endpoint`</dt>
+  <dt><code>secondary_stomp_ssl_endpoint</code></dt>
   <dd>
     AmazonMQ secondary STOMP+SSL endpoint<br/>
   </dd>
-  <dt>`secondary_wss_endpoint`</dt>
+  <dt><code>secondary_wss_endpoint</code></dt>
   <dd>
     AmazonMQ secondary WSS endpoint<br/>
   </dd>

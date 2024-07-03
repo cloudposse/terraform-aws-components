@@ -75,20 +75,24 @@ components:
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.0.0), version: >= 1.0.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 3.0), version: >= 3.0
-- [`random`](https://registry.terraform.io/modules/random/>= 2.3), version: >= 2.3
-- [`snowflake`](https://registry.terraform.io/modules/snowflake/>= 0.25), version: >= 0.25
-- [`tls`](https://registry.terraform.io/modules/tls/>= 3.0), version: >= 3.0
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 1.0.0 |
+| `aws` | >= 3.0 |
+| `random` | >= 2.3 |
+| `snowflake` | >= 0.25 |
+| `tls` | >= 3.0 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 3.0
-- `random`, version: >= 2.3
-- `snowflake`, version: >= 0.25
-- `tls`, version: >= 3.0
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 3.0 |
+| `random` | >= 2.3 |
+| `snowflake` | >= 0.25 |
+| `tls` | >= 3.0 |
+
 
 ### Modules
 
@@ -109,13 +113,13 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`random_password.terraform_user_password`](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) (resource)
-  - [`snowflake_role.terraform`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/role) (resource)
-  - [`snowflake_role_grants.grant_custom_roles`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/role_grants) (resource)
-  - [`snowflake_role_grants.grant_system_roles`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/role_grants) (resource)
-  - [`snowflake_user.terraform`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/user) (resource)
-  - [`snowflake_warehouse.default`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/warehouse) (resource)
-  - [`tls_private_key.terraform_user_key`](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) (resource)
+  - [`random_password.terraform_user_password`](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) (resource)(main.tf#64)
+  - [`snowflake_role.terraform`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/role) (resource)(main.tf#116)
+  - [`snowflake_role_grants.grant_custom_roles`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/role_grants) (resource)(main.tf#135)
+  - [`snowflake_role_grants.grant_system_roles`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/role_grants) (resource)(main.tf#123)
+  - [`snowflake_user.terraform`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/user) (resource)(main.tf#78)
+  - [`snowflake_warehouse.default`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/warehouse) (resource)(main.tf#56)
+  - [`tls_private_key.terraform_user_key`](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) (resource)(main.tf#72)
 
 ### Data Sources
 
@@ -129,7 +133,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
@@ -152,7 +156,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
@@ -176,7 +180,7 @@ and treated as a single ID element.<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -225,7 +229,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between ID elements.<br/>
@@ -247,7 +251,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `descriptor_formats` (`any`) <i>optional</i>
+### `descriptor_formats` (`any`) <i>optional</i>
 
 
 Describe additional descriptors to be output in the `descriptors` output map.<br/>
@@ -279,7 +283,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -299,7 +303,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -319,7 +323,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -343,7 +347,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
@@ -367,7 +371,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The order in which the labels (ID elements) appear in the `id`.<br/>
@@ -390,7 +394,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of ID elements (labels) as included in `id`,<br/>
@@ -416,7 +420,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+### `labels_as_tags` (`set(string)`) <i>optional</i>
 
 
 Set of labels (ID elements) to include as tags in the `tags` output.<br/>
@@ -450,7 +454,7 @@ Set to `[]` to suppress all generated tags.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
@@ -473,7 +477,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
@@ -493,7 +497,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Terraform regular expression (regex) string.<br/>
@@ -516,7 +520,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -536,7 +540,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
@@ -558,7 +562,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 ---
 
 
-  ### `tenant` (`string`) <i>optional</i>
+### `tenant` (`string`) <i>optional</i>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
@@ -581,7 +585,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 </details>
 
 ### Required Inputs
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
@@ -601,7 +605,7 @@ AWS Region<br/>
 ---
 
 
-  ### `snowflake_account` (`string`) <i>required</i>
+### `snowflake_account` (`string`) <i>required</i>
 
 
 The Snowflake account given with the AWS Marketplace Subscription.<br/>
@@ -621,7 +625,7 @@ The Snowflake account given with the AWS Marketplace Subscription.<br/>
 ---
 
 
-  ### `snowflake_account_region` (`string`) <i>required</i>
+### `snowflake_account_region` (`string`) <i>required</i>
 
 
 AWS Region with the Snowflake subscription<br/>
@@ -643,7 +647,7 @@ AWS Region with the Snowflake subscription<br/>
 
 
 ### Optional Inputs
-  ### `default_warehouse_size` (`string`) <i>optional</i>
+### `default_warehouse_size` (`string`) <i>optional</i>
 
 
 The size for the default Snowflake Warehouse<br/>
@@ -663,7 +667,7 @@ The size for the default Snowflake Warehouse<br/>
 ---
 
 
-  ### `global_environment_name` (`string`) <i>optional</i>
+### `global_environment_name` (`string`) <i>optional</i>
 
 
 Global environment name<br/>
@@ -683,7 +687,7 @@ Global environment name<br/>
 ---
 
 
-  ### `privileged` (`bool`) <i>optional</i>
+### `privileged` (`bool`) <i>optional</i>
 
 
 True if the default provider already has access to the backend<br/>
@@ -703,7 +707,7 @@ True if the default provider already has access to the backend<br/>
 ---
 
 
-  ### `required_tags` (`list(string)`) <i>optional</i>
+### `required_tags` (`list(string)`) <i>optional</i>
 
 
 List of required tag names<br/>
@@ -723,7 +727,7 @@ List of required tag names<br/>
 ---
 
 
-  ### `root_account_stage_name` (`string`) <i>optional</i>
+### `root_account_stage_name` (`string`) <i>optional</i>
 
 
 The stage name for the AWS Organization root (master) account<br/>
@@ -743,7 +747,7 @@ The stage name for the AWS Organization root (master) account<br/>
 ---
 
 
-  ### `service_user_id` (`string`) <i>optional</i>
+### `service_user_id` (`string`) <i>optional</i>
 
 
 The identifier for the service user created to manage infrastructure.<br/>
@@ -763,7 +767,7 @@ The identifier for the service user created to manage infrastructure.<br/>
 ---
 
 
-  ### `snowflake_admin_username` (`string`) <i>optional</i>
+### `snowflake_admin_username` (`string`) <i>optional</i>
 
 
 Snowflake admin username created with the initial account subscription.<br/>
@@ -783,7 +787,7 @@ Snowflake admin username created with the initial account subscription.<br/>
 ---
 
 
-  ### `snowflake_role_description` (`string`) <i>optional</i>
+### `snowflake_role_description` (`string`) <i>optional</i>
 
 
 Comment to attach to the Snowflake Role.<br/>
@@ -803,7 +807,7 @@ Comment to attach to the Snowflake Role.<br/>
 ---
 
 
-  ### `snowflake_username_format` (`string`) <i>optional</i>
+### `snowflake_username_format` (`string`) <i>optional</i>
 
 
 Snowflake username format<br/>
@@ -823,7 +827,7 @@ Snowflake username format<br/>
 ---
 
 
-  ### `ssm_path_snowflake_user_format` (`string`) <i>optional</i>
+### `ssm_path_snowflake_user_format` (`string`) <i>optional</i>
 
 
 SSM parameter path format for a Snowflake user. For example, /snowflake/{{ account }}/users/{{ username }}/<br/>
@@ -843,7 +847,7 @@ SSM parameter path format for a Snowflake user. For example, /snowflake/{{ accou
 ---
 
 
-  ### `terraform_user_first_name` (`string`) <i>optional</i>
+### `terraform_user_first_name` (`string`) <i>optional</i>
 
 
 Snowflake Terraform first name given with User creation<br/>
@@ -863,7 +867,7 @@ Snowflake Terraform first name given with User creation<br/>
 ---
 
 
-  ### `terraform_user_last_name` (`string`) <i>optional</i>
+### `terraform_user_last_name` (`string`) <i>optional</i>
 
 
 Snowflake Terraform last name given with User creation<br/>
@@ -887,23 +891,23 @@ Snowflake Terraform last name given with User creation<br/>
 ### Outputs
 
 <dl>
-  <dt>`snowflake_account`</dt>
+  <dt><code>snowflake_account</code></dt>
   <dd>
     The Snowflake account ID.<br/>
   </dd>
-  <dt>`snowflake_region`</dt>
+  <dt><code>snowflake_region</code></dt>
   <dd>
     The AWS Region with the Snowflake account.<br/>
   </dd>
-  <dt>`snowflake_terraform_role`</dt>
+  <dt><code>snowflake_terraform_role</code></dt>
   <dd>
     The name of the role given to the Terraform service user.<br/>
   </dd>
-  <dt>`ssm_path_terraform_user_name`</dt>
+  <dt><code>ssm_path_terraform_user_name</code></dt>
   <dd>
     The path to the SSM parameter for the Terraform user name.<br/>
   </dd>
-  <dt>`ssm_path_terraform_user_private_key`</dt>
+  <dt><code>ssm_path_terraform_user_private_key</code></dt>
   <dd>
     The path to the SSM parameter for the Terraform user private key.<br/>
   </dd>

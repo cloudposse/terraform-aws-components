@@ -46,19 +46,23 @@ import:
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 0.13.0), version: >= 0.13.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 3.0), version: >= 3.0
-- [`null`](https://registry.terraform.io/modules/null/>= 3.0), version: >= 3.0
-- [`random`](https://registry.terraform.io/modules/random/>= 3.0), version: >= 3.0
-- [`template`](https://registry.terraform.io/modules/template/>= 2.2), version: >= 2.2
-- [`utils`](https://registry.terraform.io/modules/utils/>= 1.10.0), version: >= 1.10.0
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 0.13.0 |
+| `aws` | >= 3.0 |
+| `null` | >= 3.0 |
+| `random` | >= 3.0 |
+| `template` | >= 2.2 |
+| `utils` | >= 1.10.0 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 3.0
-- `template`, version: >= 2.2
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 3.0 |
+| `template` | >= 2.2 |
+
 
 ### Modules
 
@@ -73,7 +77,7 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`aws_iam_role_policy_attachment.ssm_core`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) (resource)
+  - [`aws_iam_role_policy_attachment.ssm_core`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) (resource)(main.tf#71)
 
 ### Data Sources
 
@@ -89,7 +93,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
@@ -109,7 +113,7 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 Additional attributes (e.g. `1`)<br/>
@@ -129,7 +133,7 @@ Additional attributes (e.g. `1`)<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -173,7 +177,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br/>
@@ -195,7 +199,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -215,7 +219,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -235,7 +239,7 @@ Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -259,7 +263,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 The letter case of label keys (`tag` names) (i.e. `name`, `namespace`, `environment`, `stage`, `attributes`) to use in `tags`.<br/>
@@ -282,7 +286,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The naming order of the id output and Name tag.<br/>
@@ -305,7 +309,7 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 The letter case of output label values (also used in `tags` and `id`).<br/>
@@ -328,7 +332,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 Solution name, e.g. 'app' or 'jenkins'<br/>
@@ -348,7 +352,7 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
@@ -368,7 +372,7 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br/>
@@ -390,7 +394,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -410,7 +414,7 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
@@ -433,7 +437,7 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 </details>
 
 ### Required Inputs
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS region<br/>
@@ -455,7 +459,7 @@ AWS region<br/>
 
 
 ### Optional Inputs
-  ### `ami_owner` (`string`) <i>optional</i>
+### `ami_owner` (`string`) <i>optional</i>
 
 
 The owner of the AMI used for the ZScaler EC2 instances.<br/>
@@ -475,7 +479,7 @@ The owner of the AMI used for the ZScaler EC2 instances.<br/>
 ---
 
 
-  ### `ami_regex` (`string`) <i>optional</i>
+### `ami_regex` (`string`) <i>optional</i>
 
 
 The regex used to match the latest AMI to be used for the ZScaler EC2 instances.<br/>
@@ -495,7 +499,7 @@ The regex used to match the latest AMI to be used for the ZScaler EC2 instances.
 ---
 
 
-  ### `aws_ssm_enabled` (`bool`) <i>optional</i>
+### `aws_ssm_enabled` (`bool`) <i>optional</i>
 
 
 Set true to install the AWS SSM agent on each EC2 instances.<br/>
@@ -515,7 +519,7 @@ Set true to install the AWS SSM agent on each EC2 instances.<br/>
 ---
 
 
-  ### `instance_type` (`string`) <i>optional</i>
+### `instance_type` (`string`) <i>optional</i>
 
 
 The instance family to use for the ZScaler EC2 instances.<br/>
@@ -535,7 +539,7 @@ The instance family to use for the ZScaler EC2 instances.<br/>
 ---
 
 
-  ### `secrets_store_type` (`string`) <i>optional</i>
+### `secrets_store_type` (`string`) <i>optional</i>
 
 
 Secret store type for Zscaler provisioning keys. Valid values: `SSM`, `ASM` (but `ASM` not currently supported)<br/>
@@ -555,7 +559,7 @@ Secret store type for Zscaler provisioning keys. Valid values: `SSM`, `ASM` (but
 ---
 
 
-  ### `security_group_rules` (`list(any)`) <i>optional</i>
+### `security_group_rules` (`list(any)`) <i>optional</i>
 
 
 A list of maps of Security Group rules.<br/>
@@ -592,7 +596,7 @@ To get more info see [security_group_rule](https://registry.terraform.io/provide
 ---
 
 
-  ### `zscaler_count` (`number`) <i>optional</i>
+### `zscaler_count` (`number`) <i>optional</i>
 
 
 The number of Zscaler instances.<br/>
@@ -612,7 +616,7 @@ The number of Zscaler instances.<br/>
 ---
 
 
-  ### `zscaler_key` (`string`) <i>optional</i>
+### `zscaler_key` (`string`) <i>optional</i>
 
 
 SSM key (without leading `/`) for the Zscaler provisioning key secret.<br/>
@@ -636,11 +640,11 @@ SSM key (without leading `/`) for the Zscaler provisioning key secret.<br/>
 ### Outputs
 
 <dl>
-  <dt>`instance_id`</dt>
+  <dt><code>instance_id</code></dt>
   <dd>
     Instance ID<br/>
   </dd>
-  <dt>`private_ip`</dt>
+  <dt><code>private_ip</code></dt>
   <dd>
     Private IP of the instance<br/>
   </dd>

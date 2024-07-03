@@ -189,18 +189,22 @@ https://github.com/awslabs/ssosync/issues/91
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.0.0), version: >= 1.0.0
-- [`archive`](https://registry.terraform.io/modules/archive/>= 2.3.0), version: >= 2.3.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 4.0), version: >= 4.0
-- [`null`](https://registry.terraform.io/modules/null/>= 3.0), version: >= 3.0
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 1.0.0 |
+| `archive` | >= 2.3.0 |
+| `aws` | >= 4.0 |
+| `null` | >= 3.0 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `archive`, version: >= 2.3.0
-- `aws`, version: >= 4.0
-- `null`, version: >= 3.0
+| Provider | Version |
+| --- | --- |
+| `archive` | >= 2.3.0 |
+| `aws` | >= 4.0 |
+| `null` | >= 3.0 |
+
 
 ### Modules
 
@@ -214,12 +218,12 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`aws_cloudwatch_event_rule.ssosync`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_rule) (resource)
-  - [`aws_cloudwatch_event_target.ssosync`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) (resource)
-  - [`aws_iam_role.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) (resource)
-  - [`aws_lambda_function.ssosync`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function) (resource)
-  - [`aws_lambda_permission.allow_cloudwatch_execution`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission) (resource)
-  - [`null_resource.extract_my_tgz`](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) (resource)
+  - [`aws_cloudwatch_event_rule.ssosync`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_rule) (resource)(main.tf#102)
+  - [`aws_cloudwatch_event_target.ssosync`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) (resource)(main.tf#111)
+  - [`aws_iam_role.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) (resource)(iam.tf#37)
+  - [`aws_lambda_function.ssosync`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function) (resource)(main.tf#67)
+  - [`aws_lambda_permission.allow_cloudwatch_execution`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission) (resource)(main.tf#120)
+  - [`null_resource.extract_my_tgz`](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) (resource)(main.tf#46)
 
 ### Data Sources
 
@@ -239,7 +243,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
@@ -262,7 +266,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
@@ -286,7 +290,7 @@ and treated as a single ID element.<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -335,7 +339,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between ID elements.<br/>
@@ -357,7 +361,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `descriptor_formats` (`any`) <i>optional</i>
+### `descriptor_formats` (`any`) <i>optional</i>
 
 
 Describe additional descriptors to be output in the `descriptors` output map.<br/>
@@ -389,7 +393,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -409,7 +413,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -429,7 +433,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -453,7 +457,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
@@ -477,7 +481,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The order in which the labels (ID elements) appear in the `id`.<br/>
@@ -500,7 +504,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of ID elements (labels) as included in `id`,<br/>
@@ -526,7 +530,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+### `labels_as_tags` (`set(string)`) <i>optional</i>
 
 
 Set of labels (ID elements) to include as tags in the `tags` output.<br/>
@@ -560,7 +564,7 @@ Set to `[]` to suppress all generated tags.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
@@ -583,7 +587,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
@@ -603,7 +607,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Terraform regular expression (regex) string.<br/>
@@ -626,7 +630,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -646,7 +650,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
@@ -668,7 +672,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 ---
 
 
-  ### `tenant` (`string`) <i>optional</i>
+### `tenant` (`string`) <i>optional</i>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
@@ -691,7 +695,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 </details>
 
 ### Required Inputs
-  ### `google_admin_email` (`string`) <i>required</i>
+### `google_admin_email` (`string`) <i>required</i>
 
 
 Google Admin email<br/>
@@ -711,7 +715,7 @@ Google Admin email<br/>
 ---
 
 
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region where AWS SSO is enabled<br/>
@@ -733,7 +737,7 @@ AWS Region where AWS SSO is enabled<br/>
 
 
 ### Optional Inputs
-  ### `architecture` (`string`) <i>optional</i>
+### `architecture` (`string`) <i>optional</i>
 
 
 Architecture of the Lambda function<br/>
@@ -753,7 +757,7 @@ Architecture of the Lambda function<br/>
 ---
 
 
-  ### `google_credentials_ssm_path` (`string`) <i>optional</i>
+### `google_credentials_ssm_path` (`string`) <i>optional</i>
 
 
 SSM Path for `ssosync` secrets<br/>
@@ -773,7 +777,7 @@ SSM Path for `ssosync` secrets<br/>
 ---
 
 
-  ### `google_group_match` (`string`) <i>optional</i>
+### `google_group_match` (`string`) <i>optional</i>
 
 
 Google Workspace group filter query parameter, example: 'name:Admin* email:aws-*', see: https://developers.google.com/admin-sdk/directory/v1/guides/search-groups<br/>
@@ -793,7 +797,7 @@ Google Workspace group filter query parameter, example: 'name:Admin* email:aws-*
 ---
 
 
-  ### `google_user_match` (`string`) <i>optional</i>
+### `google_user_match` (`string`) <i>optional</i>
 
 
 Google Workspace user filter query parameter, example: 'name:John* email:admin*', see: https://developers.google.com/admin-sdk/directory/v1/guides/search-users<br/>
@@ -813,7 +817,7 @@ Google Workspace user filter query parameter, example: 'name:John* email:admin*'
 ---
 
 
-  ### `ignore_groups` (`string`) <i>optional</i>
+### `ignore_groups` (`string`) <i>optional</i>
 
 
 Ignore these Google Workspace groups<br/>
@@ -833,7 +837,7 @@ Ignore these Google Workspace groups<br/>
 ---
 
 
-  ### `ignore_users` (`string`) <i>optional</i>
+### `ignore_users` (`string`) <i>optional</i>
 
 
 Ignore these Google Workspace users<br/>
@@ -853,7 +857,7 @@ Ignore these Google Workspace users<br/>
 ---
 
 
-  ### `include_groups` (`string`) <i>optional</i>
+### `include_groups` (`string`) <i>optional</i>
 
 
 Include only these Google Workspace groups. (Only applicable for sync_method user_groups)<br/>
@@ -873,7 +877,7 @@ Include only these Google Workspace groups. (Only applicable for sync_method use
 ---
 
 
-  ### `log_format` (`string`) <i>optional</i>
+### `log_format` (`string`) <i>optional</i>
 
 
 Log format for Lambda function logging<br/>
@@ -893,7 +897,7 @@ Log format for Lambda function logging<br/>
 ---
 
 
-  ### `log_level` (`string`) <i>optional</i>
+### `log_level` (`string`) <i>optional</i>
 
 
 Log level for Lambda function logging<br/>
@@ -913,7 +917,7 @@ Log level for Lambda function logging<br/>
 ---
 
 
-  ### `schedule_expression` (`string`) <i>optional</i>
+### `schedule_expression` (`string`) <i>optional</i>
 
 
 Schedule for trigger the execution of ssosync (see CloudWatch schedule expressions)<br/>
@@ -933,7 +937,7 @@ Schedule for trigger the execution of ssosync (see CloudWatch schedule expressio
 ---
 
 
-  ### `ssosync_url_prefix` (`string`) <i>optional</i>
+### `ssosync_url_prefix` (`string`) <i>optional</i>
 
 
 URL prefix for ssosync binary<br/>
@@ -953,7 +957,7 @@ URL prefix for ssosync binary<br/>
 ---
 
 
-  ### `ssosync_version` (`string`) <i>optional</i>
+### `ssosync_version` (`string`) <i>optional</i>
 
 
 Version of ssosync to use<br/>
@@ -973,7 +977,7 @@ Version of ssosync to use<br/>
 ---
 
 
-  ### `sync_method` (`string`) <i>optional</i>
+### `sync_method` (`string`) <i>optional</i>
 
 
 Sync method to use<br/>
@@ -997,15 +1001,15 @@ Sync method to use<br/>
 ### Outputs
 
 <dl>
-  <dt>`arn`</dt>
+  <dt><code>arn</code></dt>
   <dd>
     ARN of the lambda function<br/>
   </dd>
-  <dt>`invoke_arn`</dt>
+  <dt><code>invoke_arn</code></dt>
   <dd>
     Invoke ARN of the lambda function<br/>
   </dd>
-  <dt>`qualified_arn`</dt>
+  <dt><code>qualified_arn</code></dt>
   <dd>
     ARN identifying your Lambda Function Version (if versioning is enabled via publish = true)<br/>
   </dd>

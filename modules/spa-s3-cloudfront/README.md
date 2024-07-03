@@ -136,15 +136,19 @@ components:
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.0.0), version: >= 1.0.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 4.9.0), version: >= 4.9.0
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 1.0.0 |
+| `aws` | >= 4.9.0 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 4.9.0
-- `aws`, version: >= 4.9.0
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 4.9.0 |
+| `aws` | >= 4.9.0 |
+
 
 ### Modules
 
@@ -168,12 +172,12 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`aws_cloudfront_cache_policy.created_cache_policies`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_cache_policy) (resource)
-  - [`aws_cloudfront_origin_request_policy.created_origin_request_policies`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_request_policy) (resource)
-  - [`aws_iam_policy.additional_lambda_edge_permission`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) (resource)
-  - [`aws_iam_role.github_actions`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) (resource)
-  - [`aws_iam_role_policy_attachment.additional_lambda_edge_permission`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) (resource)
-  - [`aws_shield_protection.shield_protection`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/shield_protection) (resource)
+  - [`aws_cloudfront_cache_policy.created_cache_policies`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_cache_policy) (resource)(ordered_cache.tf#1)
+  - [`aws_cloudfront_origin_request_policy.created_origin_request_policies`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_request_policy) (resource)(ordered_cache.tf#24)
+  - [`aws_iam_policy.additional_lambda_edge_permission`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) (resource)(lambda_edge.tf#116)
+  - [`aws_iam_role.github_actions`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) (resource)(github-actions-iam-role.mixin.tf#53)
+  - [`aws_iam_role_policy_attachment.additional_lambda_edge_permission`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) (resource)(lambda_edge.tf#123)
+  - [`aws_shield_protection.shield_protection`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/shield_protection) (resource)(main.tf#143)
 
 ### Data Sources
 
@@ -189,7 +193,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
@@ -212,7 +216,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
@@ -236,7 +240,7 @@ and treated as a single ID element.<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -285,7 +289,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between ID elements.<br/>
@@ -307,7 +311,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `descriptor_formats` (`any`) <i>optional</i>
+### `descriptor_formats` (`any`) <i>optional</i>
 
 
 Describe additional descriptors to be output in the `descriptors` output map.<br/>
@@ -339,7 +343,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -359,7 +363,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -379,7 +383,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -403,7 +407,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
@@ -427,7 +431,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The order in which the labels (ID elements) appear in the `id`.<br/>
@@ -450,7 +454,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of ID elements (labels) as included in `id`,<br/>
@@ -476,7 +480,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+### `labels_as_tags` (`set(string)`) <i>optional</i>
 
 
 Set of labels (ID elements) to include as tags in the `tags` output.<br/>
@@ -510,7 +514,7 @@ Set to `[]` to suppress all generated tags.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
@@ -533,7 +537,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
@@ -553,7 +557,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Terraform regular expression (regex) string.<br/>
@@ -576,7 +580,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -596,7 +600,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
@@ -618,7 +622,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 ---
 
 
-  ### `tenant` (`string`) <i>optional</i>
+### `tenant` (`string`) <i>optional</i>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
@@ -641,7 +645,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 </details>
 
 ### Required Inputs
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region.<br/>
@@ -663,7 +667,7 @@ AWS Region.<br/>
 
 
 ### Optional Inputs
-  ### `block_origin_public_access_enabled` (`bool`) <i>optional</i>
+### `block_origin_public_access_enabled` (`bool`) <i>optional</i>
 
 
 When set to 'true' the s3 origin bucket will have public access block enabled.<br/>
@@ -683,7 +687,7 @@ When set to 'true' the s3 origin bucket will have public access block enabled.<b
 ---
 
 
-  ### `cloudfront_access_log_bucket_name` (`string`) <i>optional</i>
+### `cloudfront_access_log_bucket_name` (`string`) <i>optional</i>
 
 
 When `cloudfront_access_log_create_bucket` is `false`, this is the name of the existing S3 Bucket where<br/>
@@ -705,7 +709,7 @@ CloudFront Access Logs are to be delivered and is required. IGNORED when `cloudf
 ---
 
 
-  ### `cloudfront_access_log_bucket_name_rendering_enabled` (`bool`) <i>optional</i>
+### `cloudfront_access_log_bucket_name_rendering_enabled` (`bool`) <i>optional</i>
 
 
 If set to `true`, then the CloudFront origin access logs bucket name will be rendered by calling `format("%v-%v-%v-%v", var.namespace, var.environment, var.stage, var.cloudfront_access_log_bucket_name)`.<br/>
@@ -730,7 +734,7 @@ For example, if this component produces an origin bucket named `eg-ue1-devplatfo
 ---
 
 
-  ### `cloudfront_access_log_create_bucket` (`bool`) <i>optional</i>
+### `cloudfront_access_log_create_bucket` (`bool`) <i>optional</i>
 
 
 When `true` and `cloudfront_access_logging_enabled` is also true, this module will create a new,<br/>
@@ -752,7 +756,7 @@ separate S3 bucket to receive CloudFront Access Logs.<br/>
 ---
 
 
-  ### `cloudfront_access_log_prefix` (`string`) <i>optional</i>
+### `cloudfront_access_log_prefix` (`string`) <i>optional</i>
 
 
 Prefix to use for CloudFront Access Log object keys. Defaults to no prefix.<br/>
@@ -772,7 +776,7 @@ Prefix to use for CloudFront Access Log object keys. Defaults to no prefix.<br/>
 ---
 
 
-  ### `cloudfront_access_log_prefix_rendering_enabled` (`bool`) <i>optional</i>
+### `cloudfront_access_log_prefix_rendering_enabled` (`bool`) <i>optional</i>
 
 
 Whether or not to dynamically render ${module.this.id} at the end of `var.cloudfront_access_log_prefix`.<br/>
@@ -792,7 +796,7 @@ Whether or not to dynamically render ${module.this.id} at the end of `var.cloudf
 ---
 
 
-  ### `cloudfront_allowed_methods` (`list(string)`) <i>optional</i>
+### `cloudfront_allowed_methods` (`list(string)`) <i>optional</i>
 
 
 List of allowed methods (e.g. GET, PUT, POST, DELETE, HEAD) for AWS CloudFront.<br/>
@@ -824,7 +828,7 @@ List of allowed methods (e.g. GET, PUT, POST, DELETE, HEAD) for AWS CloudFront.<
 ---
 
 
-  ### `cloudfront_aws_shield_protection_enabled` (`bool`) <i>optional</i>
+### `cloudfront_aws_shield_protection_enabled` (`bool`) <i>optional</i>
 
 
 Enable or disable AWS Shield Advanced protection for the CloudFront distribution. If set to 'true', a subscription to AWS Shield Advanced must exist in this account.<br/>
@@ -844,7 +848,7 @@ Enable or disable AWS Shield Advanced protection for the CloudFront distribution
 ---
 
 
-  ### `cloudfront_aws_waf_component_name` (`string`) <i>optional</i>
+### `cloudfront_aws_waf_component_name` (`string`) <i>optional</i>
 
 
 The name of the component used when deploying WAF ACL<br/>
@@ -864,7 +868,7 @@ The name of the component used when deploying WAF ACL<br/>
 ---
 
 
-  ### `cloudfront_aws_waf_environment` (`string`) <i>optional</i>
+### `cloudfront_aws_waf_environment` (`string`) <i>optional</i>
 
 
 The environment where the WAF ACL for CloudFront distribution exists.<br/>
@@ -884,7 +888,7 @@ The environment where the WAF ACL for CloudFront distribution exists.<br/>
 ---
 
 
-  ### `cloudfront_aws_waf_protection_enabled` (`bool`) <i>optional</i>
+### `cloudfront_aws_waf_protection_enabled` (`bool`) <i>optional</i>
 
 
 Enable or disable AWS WAF for the CloudFront distribution.<br/>
@@ -908,7 +912,7 @@ to `var.waf_acl_environment`.<br/>
 ---
 
 
-  ### `cloudfront_cached_methods` (`list(string)`) <i>optional</i>
+### `cloudfront_cached_methods` (`list(string)`) <i>optional</i>
 
 
 List of cached methods (e.g. GET, PUT, POST, DELETE, HEAD).<br/>
@@ -935,7 +939,7 @@ List of cached methods (e.g. GET, PUT, POST, DELETE, HEAD).<br/>
 ---
 
 
-  ### `cloudfront_compress` (`bool`) <i>optional</i>
+### `cloudfront_compress` (`bool`) <i>optional</i>
 
 
 Compress content for web requests that include Accept-Encoding: gzip in the request header.<br/>
@@ -955,7 +959,7 @@ Compress content for web requests that include Accept-Encoding: gzip in the requ
 ---
 
 
-  ### `cloudfront_custom_error_response` <i>optional</i>
+### `cloudfront_custom_error_response` <i>optional</i>
 
 
 List of one or more custom error response element maps.<br/>
@@ -985,7 +989,7 @@ List of one or more custom error response element maps.<br/>
 ---
 
 
-  ### `cloudfront_default_root_object` (`string`) <i>optional</i>
+### `cloudfront_default_root_object` (`string`) <i>optional</i>
 
 
 Object that CloudFront return when requests the root URL.<br/>
@@ -1005,7 +1009,7 @@ Object that CloudFront return when requests the root URL.<br/>
 ---
 
 
-  ### `cloudfront_default_ttl` (`number`) <i>optional</i>
+### `cloudfront_default_ttl` (`number`) <i>optional</i>
 
 
 Default amount of time (in seconds) that an object is in a CloudFront cache.<br/>
@@ -1025,7 +1029,7 @@ Default amount of time (in seconds) that an object is in a CloudFront cache.<br/
 ---
 
 
-  ### `cloudfront_index_document` (`string`) <i>optional</i>
+### `cloudfront_index_document` (`string`) <i>optional</i>
 
 
 Amazon S3 returns this index document when requests are made to the root domain or any of the subfolders.<br/>
@@ -1045,7 +1049,7 @@ Amazon S3 returns this index document when requests are made to the root domain 
 ---
 
 
-  ### `cloudfront_ipv6_enabled` (`bool`) <i>optional</i>
+### `cloudfront_ipv6_enabled` (`bool`) <i>optional</i>
 
 
 Set to true to enable an AAAA DNS record to be set as well as the A record.<br/>
@@ -1065,7 +1069,7 @@ Set to true to enable an AAAA DNS record to be set as well as the A record.<br/>
 ---
 
 
-  ### `cloudfront_lambda_function_association` <i>optional</i>
+### `cloudfront_lambda_function_association` <i>optional</i>
 
 
 A config block that configures the CloudFront distribution with lambda@edge functions for specific events.<br/>
@@ -1094,7 +1098,7 @@ A config block that configures the CloudFront distribution with lambda@edge func
 ---
 
 
-  ### `cloudfront_max_ttl` (`number`) <i>optional</i>
+### `cloudfront_max_ttl` (`number`) <i>optional</i>
 
 
 Maximum amount of time (in seconds) that an object is in a CloudFront cache.<br/>
@@ -1114,7 +1118,7 @@ Maximum amount of time (in seconds) that an object is in a CloudFront cache.<br/
 ---
 
 
-  ### `cloudfront_min_ttl` (`number`) <i>optional</i>
+### `cloudfront_min_ttl` (`number`) <i>optional</i>
 
 
 Minimum amount of time that you want objects to stay in CloudFront caches.<br/>
@@ -1134,7 +1138,7 @@ Minimum amount of time that you want objects to stay in CloudFront caches.<br/>
 ---
 
 
-  ### `cloudfront_viewer_protocol_policy` (`string`) <i>optional</i>
+### `cloudfront_viewer_protocol_policy` (`string`) <i>optional</i>
 
 
 Limit the protocol users can use to access content. One of `allow-all`, `https-only`, or `redirect-to-https`.<br/>
@@ -1154,7 +1158,7 @@ Limit the protocol users can use to access content. One of `allow-all`, `https-o
 ---
 
 
-  ### `comment` (`string`) <i>optional</i>
+### `comment` (`string`) <i>optional</i>
 
 
 Any comments you want to include about the distribution.<br/>
@@ -1174,7 +1178,7 @@ Any comments you want to include about the distribution.<br/>
 ---
 
 
-  ### `custom_origins` <i>optional</i>
+### `custom_origins` <i>optional</i>
 
 
 A list of additional custom website [origins](https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments) for this distribution.<br/>
@@ -1216,7 +1220,7 @@ A list of additional custom website [origins](https://www.terraform.io/docs/prov
 ---
 
 
-  ### `dns_delegated_environment_name` (`string`) <i>optional</i>
+### `dns_delegated_environment_name` (`string`) <i>optional</i>
 
 
 The environment where `dns-delegated` component is deployed to<br/>
@@ -1236,7 +1240,7 @@ The environment where `dns-delegated` component is deployed to<br/>
 ---
 
 
-  ### `external_aliases` (`list(string)`) <i>optional</i>
+### `external_aliases` (`list(string)`) <i>optional</i>
 
 
 List of FQDN's - Used to set the Alternate Domain Names (CNAMEs) setting on CloudFront. No new Route53 records will be created for these.<br/>
@@ -1261,7 +1265,7 @@ Setting `preview_environment_enabled` to `true` will cause this variable to be i
 ---
 
 
-  ### `failover_criteria_status_codes` (`list(string)`) <i>optional</i>
+### `failover_criteria_status_codes` (`list(string)`) <i>optional</i>
 
 
 List of HTTP Status Codes to use as the origin group failover criteria.<br/>
@@ -1290,7 +1294,7 @@ List of HTTP Status Codes to use as the origin group failover criteria.<br/>
 ---
 
 
-  ### `failover_s3_origin_environment` (`string`) <i>optional</i>
+### `failover_s3_origin_environment` (`string`) <i>optional</i>
 
 
 The [fixed name](https://github.com/cloudposse/terraform-aws-utils/blob/399951e552483a4f4c1dc7fbe2675c443f3dbd83/main.tf#L10) of the AWS Region where the<br/>
@@ -1317,7 +1321,7 @@ then it is expected that a bucket with the name `eg-uw1-devplatform-example-fail
 ---
 
 
-  ### `failover_s3_origin_format` (`string`) <i>optional</i>
+### `failover_s3_origin_format` (`string`) <i>optional</i>
 
 
 If `var.failover_s3_origin_environment` is supplied, this is the format to use for the failover S3 origin bucket name when<br/>
@@ -1343,7 +1347,7 @@ is set to `uw1`, then it is expected that a bucket with the name `eg-uw1-devplat
 ---
 
 
-  ### `forward_cookies` (`string`) <i>optional</i>
+### `forward_cookies` (`string`) <i>optional</i>
 
 
 Specifies whether you want CloudFront to forward all or no cookies to the origin. Can be 'all' or 'none'<br/>
@@ -1363,7 +1367,7 @@ Specifies whether you want CloudFront to forward all or no cookies to the origin
 ---
 
 
-  ### `forward_header_values` (`list(string)`) <i>optional</i>
+### `forward_header_values` (`list(string)`) <i>optional</i>
 
 
 A list of whitelisted header values to forward to the origin (incompatible with `cache_policy_id`)<br/>
@@ -1391,7 +1395,7 @@ A list of whitelisted header values to forward to the origin (incompatible with 
 ---
 
 
-  ### `github_actions_allowed_repos` (`list(string)`) <i>optional</i>
+### `github_actions_allowed_repos` (`list(string)`) <i>optional</i>
 
 
   A list of the GitHub repositories that are allowed to assume this role from GitHub Actions. For example,<br/>
@@ -1414,7 +1418,7 @@ A list of whitelisted header values to forward to the origin (incompatible with 
 ---
 
 
-  ### `github_actions_iam_role_attributes` (`list(string)`) <i>optional</i>
+### `github_actions_iam_role_attributes` (`list(string)`) <i>optional</i>
 
 
 Additional attributes to add to the role name<br/>
@@ -1434,7 +1438,7 @@ Additional attributes to add to the role name<br/>
 ---
 
 
-  ### `github_actions_iam_role_enabled` (`bool`) <i>optional</i>
+### `github_actions_iam_role_enabled` (`bool`) <i>optional</i>
 
 
 Flag to toggle creation of an IAM Role that GitHub Actions can assume to access AWS resources<br/>
@@ -1455,7 +1459,7 @@ Flag to toggle creation of an IAM Role that GitHub Actions can assume to access 
 ---
 
 
-  ### `github_runners_component_name` (`string`) <i>optional</i>
+### `github_runners_component_name` (`string`) <i>optional</i>
 
 
 The name of the component that deploys GitHub Runners, used in remote-state lookup<br/>
@@ -1475,7 +1479,7 @@ The name of the component that deploys GitHub Runners, used in remote-state look
 ---
 
 
-  ### `github_runners_deployment_principal_arn_enabled` (`bool`) <i>optional</i>
+### `github_runners_deployment_principal_arn_enabled` (`bool`) <i>optional</i>
 
 
 A flag that is used to decide whether or not to include the GitHub Runner's IAM role in origin_deployment_principal_arns list<br/>
@@ -1495,7 +1499,7 @@ A flag that is used to decide whether or not to include the GitHub Runner's IAM 
 ---
 
 
-  ### `github_runners_environment_name` (`string`) <i>optional</i>
+### `github_runners_environment_name` (`string`) <i>optional</i>
 
 
 The name of the environment where the CloudTrail bucket is provisioned<br/>
@@ -1515,7 +1519,7 @@ The name of the environment where the CloudTrail bucket is provisioned<br/>
 ---
 
 
-  ### `github_runners_stage_name` (`string`) <i>optional</i>
+### `github_runners_stage_name` (`string`) <i>optional</i>
 
 
 The stage name where the CloudTrail bucket is provisioned<br/>
@@ -1535,7 +1539,7 @@ The stage name where the CloudTrail bucket is provisioned<br/>
 ---
 
 
-  ### `github_runners_tenant_name` (`string`) <i>optional</i>
+### `github_runners_tenant_name` (`string`) <i>optional</i>
 
 
 The tenant name where the GitHub Runners are provisioned<br/>
@@ -1555,7 +1559,7 @@ The tenant name where the GitHub Runners are provisioned<br/>
 ---
 
 
-  ### `http_version` (`string`) <i>optional</i>
+### `http_version` (`string`) <i>optional</i>
 
 
 The maximum HTTP version to support on the distribution. Allowed values are http1.1, http2, http2and3 and http3<br/>
@@ -1575,7 +1579,7 @@ The maximum HTTP version to support on the distribution. Allowed values are http
 ---
 
 
-  ### `lambda_edge_allowed_ssm_parameters` (`list(string)`) <i>optional</i>
+### `lambda_edge_allowed_ssm_parameters` (`list(string)`) <i>optional</i>
 
 
 The Lambda@Edge functions will be allowed to access the list of AWS SSM parameter with these ARNs<br/>
@@ -1595,7 +1599,7 @@ The Lambda@Edge functions will be allowed to access the list of AWS SSM paramete
 ---
 
 
-  ### `lambda_edge_destruction_delay` (`string`) <i>optional</i>
+### `lambda_edge_destruction_delay` (`string`) <i>optional</i>
 
 
 The delay, in [Golang ParseDuration](https://pkg.go.dev/time#ParseDuration) format, to wait before destroying the Lambda@Edge<br/>
@@ -1627,7 +1631,7 @@ For more information, see: https://github.com/hashicorp/terraform-provider-aws/i
 ---
 
 
-  ### `lambda_edge_functions` <i>optional</i>
+### `lambda_edge_functions` <i>optional</i>
 
 
 Lambda@Edge functions to create.<br/>
@@ -1668,7 +1672,7 @@ This map will be deep merged with each enabled default function. Use deep merge 
 ---
 
 
-  ### `lambda_edge_handler` (`string`) <i>optional</i>
+### `lambda_edge_handler` (`string`) <i>optional</i>
 
 
 The default Lambda@Edge handler for all functions.<br/>
@@ -1691,7 +1695,7 @@ This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edg
 ---
 
 
-  ### `lambda_edge_runtime` (`string`) <i>optional</i>
+### `lambda_edge_runtime` (`string`) <i>optional</i>
 
 
 The default Lambda@Edge runtime for all functions.<br/>
@@ -1714,7 +1718,7 @@ This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edg
 ---
 
 
-  ### `ordered_cache` <i>optional</i>
+### `ordered_cache` <i>optional</i>
 
 
 An ordered list of [cache behaviors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#cache-behavior-arguments) resource for this distribution.<br/>
@@ -1780,7 +1784,7 @@ Set `origin_request_policy_id` to `""` to use `origin_request_policy_name` for c
 ---
 
 
-  ### `origin_allow_ssl_requests_only` (`bool`) <i>optional</i>
+### `origin_allow_ssl_requests_only` (`bool`) <i>optional</i>
 
 
 Set to `true` in order to have the origin bucket require requests to use Secure Socket Layer (HTTPS/SSL). This will explicitly deny access to HTTP requests<br/>
@@ -1800,7 +1804,7 @@ Set to `true` in order to have the origin bucket require requests to use Secure 
 ---
 
 
-  ### `origin_deployment_actions` (`list(string)`) <i>optional</i>
+### `origin_deployment_actions` (`list(string)`) <i>optional</i>
 
 
 List of actions to permit `origin_deployment_principal_arns` to perform on bucket and bucket prefixes (see `origin_deployment_principal_arns`)<br/>
@@ -1833,7 +1837,7 @@ List of actions to permit `origin_deployment_principal_arns` to perform on bucke
 ---
 
 
-  ### `origin_deployment_principal_arns` (`list(string)`) <i>optional</i>
+### `origin_deployment_principal_arns` (`list(string)`) <i>optional</i>
 
 
 List of role ARNs to grant deployment permissions to the origin Bucket.<br/>
@@ -1853,7 +1857,7 @@ List of role ARNs to grant deployment permissions to the origin Bucket.<br/>
 ---
 
 
-  ### `origin_encryption_enabled` (`bool`) <i>optional</i>
+### `origin_encryption_enabled` (`bool`) <i>optional</i>
 
 
 When set to 'true' the origin Bucket will have aes256 encryption enabled by default.<br/>
@@ -1873,7 +1877,7 @@ When set to 'true' the origin Bucket will have aes256 encryption enabled by defa
 ---
 
 
-  ### `origin_force_destroy` (`bool`) <i>optional</i>
+### `origin_force_destroy` (`bool`) <i>optional</i>
 
 
 A boolean string that indicates all objects should be deleted from the origin Bucket so that the Bucket can be destroyed without error. These objects are not recoverable.<br/>
@@ -1893,7 +1897,7 @@ A boolean string that indicates all objects should be deleted from the origin Bu
 ---
 
 
-  ### `origin_s3_access_log_bucket_name` (`string`) <i>optional</i>
+### `origin_s3_access_log_bucket_name` (`string`) <i>optional</i>
 
 
 Name of the existing S3 bucket where S3 Access Logs for the origin Bucket will be delivered. Default is not to enable S3 Access Logging for the origin Bucket.<br/>
@@ -1913,7 +1917,7 @@ Name of the existing S3 bucket where S3 Access Logs for the origin Bucket will b
 ---
 
 
-  ### `origin_s3_access_log_bucket_name_rendering_enabled` (`bool`) <i>optional</i>
+### `origin_s3_access_log_bucket_name_rendering_enabled` (`bool`) <i>optional</i>
 
 
 If set to `true`, then the S3 origin access logs bucket name will be rendered by calling `format("%v-%v-%v-%v", var.namespace, var.environment, var.stage, var.origin_s3_access_log_bucket_name)`.<br/>
@@ -1938,7 +1942,7 @@ For example, if this component produces an origin bucket named `eg-ue1-devplatfo
 ---
 
 
-  ### `origin_s3_access_log_prefix` (`string`) <i>optional</i>
+### `origin_s3_access_log_prefix` (`string`) <i>optional</i>
 
 
 Prefix to use for S3 Access Log object keys. Defaults to `logs/${module.this.id}`<br/>
@@ -1958,7 +1962,7 @@ Prefix to use for S3 Access Log object keys. Defaults to `logs/${module.this.id}
 ---
 
 
-  ### `origin_s3_access_logging_enabled` (`bool`) <i>optional</i>
+### `origin_s3_access_logging_enabled` (`bool`) <i>optional</i>
 
 
 Set `true` to deliver S3 Access Logs to the `origin_s3_access_log_bucket_name` bucket.<br/>
@@ -1981,7 +1985,7 @@ Must be set explicitly if the access log bucket is being created at the same tim
 ---
 
 
-  ### `origin_versioning_enabled` (`bool`) <i>optional</i>
+### `origin_versioning_enabled` (`bool`) <i>optional</i>
 
 
 Enable or disable versioning for the origin Bucket. Versioning is a means of keeping multiple variants of an object in the same bucket.<br/>
@@ -2001,7 +2005,7 @@ Enable or disable versioning for the origin Bucket. Versioning is a means of kee
 ---
 
 
-  ### `parent_zone_name` (`string`) <i>optional</i>
+### `parent_zone_name` (`string`) <i>optional</i>
 
 
 Parent domain name of site to publish. Defaults to format(parent_zone_name_pattern, stage, environment).<br/>
@@ -2021,7 +2025,7 @@ Parent domain name of site to publish. Defaults to format(parent_zone_name_patte
 ---
 
 
-  ### `preview_environment_enabled` (`bool`) <i>optional</i>
+### `preview_environment_enabled` (`bool`) <i>optional</i>
 
 
 Enable or disable SPA Preview Environments via Lambda@Edge, i.e. mapping `subdomain.example.com` to the `/subdomain`<br/>
@@ -2055,7 +2059,7 @@ This variable implicitly affects the following variables:<br/>
 ---
 
 
-  ### `process_domain_validation_options` (`bool`) <i>optional</i>
+### `process_domain_validation_options` (`bool`) <i>optional</i>
 
 
 Flag to enable/disable processing of the record to add to the DNS zone to complete certificate validation<br/>
@@ -2075,7 +2079,7 @@ Flag to enable/disable processing of the record to add to the DNS zone to comple
 ---
 
 
-  ### `s3_object_ownership` (`string`) <i>optional</i>
+### `s3_object_ownership` (`string`) <i>optional</i>
 
 
 Specifies the S3 object ownership control on the origin bucket. Valid values are `ObjectWriter`, `BucketOwnerPreferred`, and 'BucketOwnerEnforced'.<br/>
@@ -2095,7 +2099,7 @@ Specifies the S3 object ownership control on the origin bucket. Valid values are
 ---
 
 
-  ### `s3_website_enabled` (`bool`) <i>optional</i>
+### `s3_website_enabled` (`bool`) <i>optional</i>
 
 
 Set to true to enable the created S3 bucket to serve as a website independently of CloudFront,<br/>
@@ -2119,7 +2123,7 @@ Setting `preview_environment_enabled` will implicitly set this to `true`.<br/>
 ---
 
 
-  ### `s3_website_password_enabled` (`bool`) <i>optional</i>
+### `s3_website_password_enabled` (`bool`) <i>optional</i>
 
 
 If set to true, and `s3_website_enabled` is also true, a password will be required in the `Referrer` field of the<br/>
@@ -2142,7 +2146,7 @@ This will make it much harder for people to bypass CloudFront and access the S3 
 ---
 
 
-  ### `site_fqdn` (`string`) <i>optional</i>
+### `site_fqdn` (`string`) <i>optional</i>
 
 
 Fully qualified domain name of site to publish. Overrides site_subdomain and parent_zone_name.<br/>
@@ -2162,7 +2166,7 @@ Fully qualified domain name of site to publish. Overrides site_subdomain and par
 ---
 
 
-  ### `site_subdomain` (`string`) <i>optional</i>
+### `site_subdomain` (`string`) <i>optional</i>
 
 
 Subdomain to plug into site_name_pattern to make site FQDN.<br/>
@@ -2186,31 +2190,31 @@ Subdomain to plug into site_name_pattern to make site FQDN.<br/>
 ### Outputs
 
 <dl>
-  <dt>`cloudfront_distribution_alias`</dt>
+  <dt><code>cloudfront_distribution_alias</code></dt>
   <dd>
     Cloudfront Distribution Alias Record.<br/>
   </dd>
-  <dt>`cloudfront_distribution_domain_name`</dt>
+  <dt><code>cloudfront_distribution_domain_name</code></dt>
   <dd>
     Cloudfront Distribution Domain Name.<br/>
   </dd>
-  <dt>`failover_s3_bucket_name`</dt>
+  <dt><code>failover_s3_bucket_name</code></dt>
   <dd>
     Failover Origin bucket name, if enabled.<br/>
   </dd>
-  <dt>`github_actions_iam_role_arn`</dt>
+  <dt><code>github_actions_iam_role_arn</code></dt>
   <dd>
     ARN of IAM role for GitHub Actions<br/>
   </dd>
-  <dt>`github_actions_iam_role_name`</dt>
+  <dt><code>github_actions_iam_role_name</code></dt>
   <dd>
     Name of IAM role for GitHub Actions<br/>
   </dd>
-  <dt>`origin_s3_bucket_arn`</dt>
+  <dt><code>origin_s3_bucket_arn</code></dt>
   <dd>
     Origin bucket ARN.<br/>
   </dd>
-  <dt>`origin_s3_bucket_name`</dt>
+  <dt><code>origin_s3_bucket_name</code></dt>
   <dd>
     Origin bucket name.<br/>
   </dd>

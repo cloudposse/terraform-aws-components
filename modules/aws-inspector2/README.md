@@ -62,15 +62,19 @@ components:
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.0.0), version: >= 1.0.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 5.0), version: >= 5.0
-- [`awsutils`](https://registry.terraform.io/modules/awsutils/>= 0.16.0), version: >= 0.16.0
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 1.0.0 |
+| `aws` | >= 5.0 |
+| `awsutils` | >= 0.16.0 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 5.0
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 5.0 |
+
 
 ### Modules
 
@@ -85,11 +89,11 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`aws_inspector2_delegated_admin_account.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/inspector2_delegated_admin_account) (resource)
-  - [`aws_inspector2_enabler.delegated_admin`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/inspector2_enabler) (resource)
-  - [`aws_inspector2_enabler.member_accounts`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/inspector2_enabler) (resource)
-  - [`aws_inspector2_member_association.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/inspector2_member_association) (resource)
-  - [`aws_inspector2_organization_configuration.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/inspector2_organization_configuration) (resource)
+  - [`aws_inspector2_delegated_admin_account.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/inspector2_delegated_admin_account) (resource)(main.tf#26)
+  - [`aws_inspector2_enabler.delegated_admin`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/inspector2_enabler) (resource)(main.tf#31)
+  - [`aws_inspector2_enabler.member_accounts`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/inspector2_enabler) (resource)(main.tf#51)
+  - [`aws_inspector2_member_association.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/inspector2_member_association) (resource)(main.tf#60)
+  - [`aws_inspector2_organization_configuration.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/inspector2_organization_configuration) (resource)(main.tf#40)
 
 ### Data Sources
 
@@ -103,7 +107,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
@@ -126,7 +130,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
@@ -150,7 +154,7 @@ and treated as a single ID element.<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -199,7 +203,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between ID elements.<br/>
@@ -221,7 +225,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `descriptor_formats` (`any`) <i>optional</i>
+### `descriptor_formats` (`any`) <i>optional</i>
 
 
 Describe additional descriptors to be output in the `descriptors` output map.<br/>
@@ -253,7 +257,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -273,7 +277,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -293,7 +297,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -317,7 +321,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
@@ -341,7 +345,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The order in which the labels (ID elements) appear in the `id`.<br/>
@@ -364,7 +368,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of ID elements (labels) as included in `id`,<br/>
@@ -390,7 +394,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+### `labels_as_tags` (`set(string)`) <i>optional</i>
 
 
 Set of labels (ID elements) to include as tags in the `tags` output.<br/>
@@ -424,7 +428,7 @@ Set to `[]` to suppress all generated tags.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
@@ -447,7 +451,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
@@ -467,7 +471,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Terraform regular expression (regex) string.<br/>
@@ -490,7 +494,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -510,7 +514,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
@@ -532,7 +536,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 ---
 
 
-  ### `tenant` (`string`) <i>optional</i>
+### `tenant` (`string`) <i>optional</i>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
@@ -555,7 +559,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 </details>
 
 ### Required Inputs
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
@@ -577,7 +581,7 @@ AWS Region<br/>
 
 
 ### Optional Inputs
-  ### `account_map_tenant` (`string`) <i>optional</i>
+### `account_map_tenant` (`string`) <i>optional</i>
 
 
 The tenant where the `account_map` component required by remote-state is deployed<br/>
@@ -597,7 +601,7 @@ The tenant where the `account_map` component required by remote-state is deploye
 ---
 
 
-  ### `admin_delegated` (`bool`) <i>optional</i>
+### `admin_delegated` (`bool`) <i>optional</i>
 
 
   A flag to indicate if the AWS Organization-wide settings should be created. This can only be done after the GuardDuty<br/>
@@ -620,7 +624,7 @@ The tenant where the `account_map` component required by remote-state is deploye
 ---
 
 
-  ### `auto_enable_ec2` (`bool`) <i>optional</i>
+### `auto_enable_ec2` (`bool`) <i>optional</i>
 
 
 Whether Amazon EC2 scans are automatically enabled for new members of the Amazon Inspector organization.<br/>
@@ -640,7 +644,7 @@ Whether Amazon EC2 scans are automatically enabled for new members of the Amazon
 ---
 
 
-  ### `auto_enable_ecr` (`bool`) <i>optional</i>
+### `auto_enable_ecr` (`bool`) <i>optional</i>
 
 
 Whether Amazon ECR scans are automatically enabled for new members of the Amazon Inspector organization.<br/>
@@ -660,7 +664,7 @@ Whether Amazon ECR scans are automatically enabled for new members of the Amazon
 ---
 
 
-  ### `auto_enable_lambda` (`bool`) <i>optional</i>
+### `auto_enable_lambda` (`bool`) <i>optional</i>
 
 
 Whether Lambda Function scans are automatically enabled for new members of the Amazon Inspector organization.<br/>
@@ -680,7 +684,7 @@ Whether Lambda Function scans are automatically enabled for new members of the A
 ---
 
 
-  ### `delegated_administrator_account_name` (`string`) <i>optional</i>
+### `delegated_administrator_account_name` (`string`) <i>optional</i>
 
 
 The name of the account that is the AWS Organization Delegated Administrator account<br/>
@@ -700,7 +704,7 @@ The name of the account that is the AWS Organization Delegated Administrator acc
 ---
 
 
-  ### `global_environment` (`string`) <i>optional</i>
+### `global_environment` (`string`) <i>optional</i>
 
 
 Global environment name<br/>
@@ -720,7 +724,7 @@ Global environment name<br/>
 ---
 
 
-  ### `member_association_excludes` (`list(string)`) <i>optional</i>
+### `member_association_excludes` (`list(string)`) <i>optional</i>
 
 
 List of account names to exlude from Amazon Inspector member association<br/>
@@ -740,7 +744,7 @@ List of account names to exlude from Amazon Inspector member association<br/>
 ---
 
 
-  ### `organization_management_account_name` (`string`) <i>optional</i>
+### `organization_management_account_name` (`string`) <i>optional</i>
 
 
 The name of the AWS Organization management account<br/>
@@ -760,7 +764,7 @@ The name of the AWS Organization management account<br/>
 ---
 
 
-  ### `privileged` (`bool`) <i>optional</i>
+### `privileged` (`bool`) <i>optional</i>
 
 
 true if the default provider already has access to the backend<br/>
@@ -780,7 +784,7 @@ true if the default provider already has access to the backend<br/>
 ---
 
 
-  ### `root_account_stage` (`string`) <i>optional</i>
+### `root_account_stage` (`string`) <i>optional</i>
 
 
 The stage name for the Organization root (management) account. This is used to lookup account IDs from account names<br/>
@@ -806,7 +810,7 @@ using the `account-map` component.<br/>
 ### Outputs
 
 <dl>
-  <dt>`aws_inspector2_member_association`</dt>
+  <dt><code>aws_inspector2_member_association</code></dt>
   <dd>
     The Inspector2 member association resource.<br/>
   </dd>

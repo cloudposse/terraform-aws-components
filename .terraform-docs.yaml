@@ -1,3 +1,4 @@
+# https://pkg.go.dev/github.com/terraform-docs/terraform-docs/terraform#Module
 content: |-
   {{- $context_variables := list "context" "enabled" "namespace" "tenant" "environment" "stage" "name" "delimiter" "attributes" "tags" "additional_tag_map" "label_order" "regex_replace_chars" "id_length_limit" "label_key_case" "label_value_case" "descriptor_formats" "labels_as_tags" -}}
   {{- define "variableDescription" -}}
@@ -42,32 +43,23 @@ content: |-
 
   {{ if ne (len .Module.Requirements) 0 -}}
   ### Version Requirements
-  {{ range .Module.Requirements }}
-  {{ if .Version }}
-  {{- $baseUrl := "https://registry.terraform.io/modules" -}}
 
-  {{- if contains "//" .Name -}}
-    {{- $moduleParts := split "//" .Name -}}
-    {{- $moduleName := index $moduleParts 0 -}}
-    {{- $submodulePath := index $moduleParts 1 -}}
-  - {{ printf "[`%s`](%s/%s/%s/%s)" .Name $baseUrl $moduleName $submodulePath .Version -}}, version: {{ .Version }}
-  {{- else -}}
-  - {{ printf "[`%s`](%s/%s/%s)" .Name $baseUrl .Name .Version -}}, version: {{ .Version }}
-  {{- end -}}
-  {{ else }}
-  - `{{ .Name }}`
+  | Requirement | Version |
+  | --- | --- |
+  {{- range .Module.Requirements }}
+  | `{{ .Name }}` | {{ tostring .Version | default "latest" }} |
+  {{- end }}
   {{ end }}
-  {{- end }}
-  {{- end }}
-
-  https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
   {{ if ne (len .Module.Providers) 0 -}}
   ### Providers
-  {{ range .Module.Providers }}
-  - `{{ .Name }}`{{ if .Version }}, version: {{ .Version }}{{ end }}
+
+  | Provider | Version |
+  | --- | --- |
+  {{- range .Module.Providers }}
+  | `{{ .Name }}` | {{ tostring .Version | default "latest" }} |
   {{- end }}
-  {{- end }}
+  {{ end }}
 
   {{ if ne (len .Module.ModuleCalls) 0 -}}
   ### Modules
@@ -96,7 +88,7 @@ content: |-
     {{- $isResource := and $.Config.Sections.Resources ( eq "resource" (printf "%s" .GetMode)) }}
     {{- if $isResource }}
     {{- $fullspec := ternary .URL (printf "[`%s`](%s)" .Spec .URL) .Spec }}
-    - {{ $fullspec }} {{ printf "(%s)" .GetMode -}}
+    - {{ $fullspec }} {{ printf "(%s)" .GetMode -}} ({{ .Position.Filename }}#{{ .Position.Line }})
     {{- end }}
   {{- end }}
   {{- end }}
@@ -123,7 +115,7 @@ content: |-
 
   {{- range .Module.Inputs }}
   {{- if and (has .Name $context_variables) }}
-    {{ template "variableDescription" . }}
+  {{ template "variableDescription" . }}
   {{- end }}
   {{- end }}
   </details>
@@ -132,7 +124,7 @@ content: |-
 
   {{- range .Module.Inputs }}
   {{- if and (not (has .Name $context_variables)) .Required }}
-    {{ template "variableDescription" . }}
+  {{ template "variableDescription" . }}
   {{- end }}
   {{- end }}
 
@@ -144,7 +136,7 @@ content: |-
 
   {{- range .Module.Inputs }}
   {{- if and (not (has .Name $context_variables)) (not .Required) }}
-    {{ template "variableDescription" . }}
+  {{ template "variableDescription" . }}
   {{- end -}}
   {{ end -}}
   {{ end }}
@@ -154,7 +146,7 @@ content: |-
 
   <dl>
   {{- range .Module.Outputs }}
-    <dt>`{{ .Name }}`{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}</dt>
+    <dt><code>{{ .Name }}</code>{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}</dt>
     <dd>
       {{- $lines := regexSplit "\n" (tostring .Description | replace "OBSOLETE: " "" | default "n/a" ) -1 -}}
       {{- range $lines }}

@@ -356,18 +356,22 @@ implementation.
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.3.0), version: >= 1.3.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 4.9.0), version: >= 4.9.0
-- [`helm`](https://registry.terraform.io/modules/helm/>= 2.0), version: >= 2.0
-- [`kubernetes`](https://registry.terraform.io/modules/kubernetes/>= 2.0, != 2.21.0), version: >= 2.0, != 2.21.0
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 1.3.0 |
+| `aws` | >= 4.9.0 |
+| `helm` | >= 2.0 |
+| `kubernetes` | >= 2.0, != 2.21.0 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 4.9.0
-- `aws`, version: >= 4.9.0
-- `kubernetes`, version: >= 2.0, != 2.21.0
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 4.9.0 |
+| `aws` | >= 4.9.0 |
+| `kubernetes` | >= 2.0, != 2.21.0 |
+
 
 ### Modules
 
@@ -384,12 +388,12 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`kubernetes_namespace.controller`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) (resource)
-  - [`kubernetes_namespace.runner`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) (resource)
-  - [`kubernetes_secret_v1.controller_image_pull_secret`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) (resource)
-  - [`kubernetes_secret_v1.controller_ns_github_secret`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) (resource)
-  - [`kubernetes_secret_v1.github_secret`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) (resource)
-  - [`kubernetes_secret_v1.image_pull_secret`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) (resource)
+  - [`kubernetes_namespace.controller`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) (resource)(main.tf#52)
+  - [`kubernetes_namespace.runner`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) (resource)(runners.tf#26)
+  - [`kubernetes_secret_v1.controller_image_pull_secret`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) (resource)(main.tf#66)
+  - [`kubernetes_secret_v1.controller_ns_github_secret`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) (resource)(main.tf#81)
+  - [`kubernetes_secret_v1.github_secret`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) (resource)(runners.tf#39)
+  - [`kubernetes_secret_v1.image_pull_secret`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) (resource)(runners.tf#52)
 
 ### Data Sources
 
@@ -405,7 +409,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
@@ -428,7 +432,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
@@ -452,7 +456,7 @@ and treated as a single ID element.<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -501,7 +505,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between ID elements.<br/>
@@ -523,7 +527,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `descriptor_formats` (`any`) <i>optional</i>
+### `descriptor_formats` (`any`) <i>optional</i>
 
 
 Describe additional descriptors to be output in the `descriptors` output map.<br/>
@@ -555,7 +559,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -575,7 +579,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -595,7 +599,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -619,7 +623,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
@@ -643,7 +647,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The order in which the labels (ID elements) appear in the `id`.<br/>
@@ -666,7 +670,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of ID elements (labels) as included in `id`,<br/>
@@ -692,7 +696,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+### `labels_as_tags` (`set(string)`) <i>optional</i>
 
 
 Set of labels (ID elements) to include as tags in the `tags` output.<br/>
@@ -726,7 +730,7 @@ Set to `[]` to suppress all generated tags.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
@@ -749,7 +753,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
@@ -769,7 +773,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Terraform regular expression (regex) string.<br/>
@@ -792,7 +796,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -812,7 +816,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
@@ -834,7 +838,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 ---
 
 
-  ### `tenant` (`string`) <i>optional</i>
+### `tenant` (`string`) <i>optional</i>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
@@ -857,7 +861,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 </details>
 
 ### Required Inputs
-  ### `charts` <i>required</i>
+### `charts` <i>required</i>
 
 
 Map of Helm charts to install. Keys are "controller" and "runner_sets".<br/>
@@ -891,7 +895,7 @@ Map of Helm charts to install. Keys are "controller" and "runner_sets".<br/>
 ---
 
 
-  ### `controller` <i>required</i>
+### `controller` <i>required</i>
 
 
 Configuration for the controller.<br/>
@@ -949,7 +953,7 @@ Configuration for the controller.<br/>
 ---
 
 
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region.<br/>
@@ -971,7 +975,7 @@ AWS Region.<br/>
 
 
 ### Optional Inputs
-  ### `create_github_kubernetes_secret` (`bool`) <i>optional</i>
+### `create_github_kubernetes_secret` (`bool`) <i>optional</i>
 
 
 If `true`, this component will create the Kubernetes Secret that will be used to get<br/>
@@ -998,7 +1002,7 @@ namespace where you are deploying runners (the controller does not need it).<br/
 ---
 
 
-  ### `create_image_pull_kubernetes_secret` (`bool`) <i>optional</i>
+### `create_image_pull_kubernetes_secret` (`bool`) <i>optional</i>
 
 
 If `true` and `image_pull_secret_enabled` is `true`, this component will create the Kubernetes image pull secret resource,<br/>
@@ -1024,7 +1028,7 @@ namespace where you are deploying controllers or runners.<br/>
 ---
 
 
-  ### `eks_component_name` (`string`) <i>optional</i>
+### `eks_component_name` (`string`) <i>optional</i>
 
 
 The name of the eks component<br/>
@@ -1044,7 +1048,7 @@ The name of the eks component<br/>
 ---
 
 
-  ### `github_app_id` (`string`) <i>optional</i>
+### `github_app_id` (`string`) <i>optional</i>
 
 
 The ID of the GitHub App to use for the runner controller. Leave empty if using a GitHub PAT.<br/>
@@ -1064,7 +1068,7 @@ The ID of the GitHub App to use for the runner controller. Leave empty if using 
 ---
 
 
-  ### `github_app_installation_id` (`string`) <i>optional</i>
+### `github_app_installation_id` (`string`) <i>optional</i>
 
 
 The "Installation ID" of the GitHub App to use for the runner controller. Leave empty if using a GitHub PAT.<br/>
@@ -1084,7 +1088,7 @@ The "Installation ID" of the GitHub App to use for the runner controller. Leave 
 ---
 
 
-  ### `github_kubernetes_secret_name` (`string`) <i>optional</i>
+### `github_kubernetes_secret_name` (`string`) <i>optional</i>
 
 
 Name of the Kubernetes Secret that will be used to get the GitHub App private key or GitHub PAT token.<br/>
@@ -1104,7 +1108,7 @@ Name of the Kubernetes Secret that will be used to get the GitHub App private ke
 ---
 
 
-  ### `helm_manifest_experiment_enabled` (`bool`) <i>optional</i>
+### `helm_manifest_experiment_enabled` (`bool`) <i>optional</i>
 
 
 Enable storing of the rendered manifest for helm_release so the full diff of what is changing can been seen in the plan<br/>
@@ -1124,7 +1128,7 @@ Enable storing of the rendered manifest for helm_release so the full diff of wha
 ---
 
 
-  ### `image_pull_kubernetes_secret_name` (`string`) <i>optional</i>
+### `image_pull_kubernetes_secret_name` (`string`) <i>optional</i>
 
 
 Name of the Kubernetes Secret that will be used as the imagePullSecret.<br/>
@@ -1144,7 +1148,7 @@ Name of the Kubernetes Secret that will be used as the imagePullSecret.<br/>
 ---
 
 
-  ### `image_pull_secret_enabled` (`bool`) <i>optional</i>
+### `image_pull_secret_enabled` (`bool`) <i>optional</i>
 
 
 Whether to configure the controller and runners with an image pull secret.<br/>
@@ -1164,7 +1168,7 @@ Whether to configure the controller and runners with an image pull secret.<br/>
 ---
 
 
-  ### `kube_data_auth_enabled` (`bool`) <i>optional</i>
+### `kube_data_auth_enabled` (`bool`) <i>optional</i>
 
 
 If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS cluster.<br/>
@@ -1186,7 +1190,7 @@ Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
 ---
 
 
-  ### `kube_exec_auth_aws_profile` (`string`) <i>optional</i>
+### `kube_exec_auth_aws_profile` (`string`) <i>optional</i>
 
 
 The AWS config profile for `aws eks get-token` to use<br/>
@@ -1206,7 +1210,7 @@ The AWS config profile for `aws eks get-token` to use<br/>
 ---
 
 
-  ### `kube_exec_auth_aws_profile_enabled` (`bool`) <i>optional</i>
+### `kube_exec_auth_aws_profile_enabled` (`bool`) <i>optional</i>
 
 
 If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-token`<br/>
@@ -1226,7 +1230,7 @@ If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-to
 ---
 
 
-  ### `kube_exec_auth_enabled` (`bool`) <i>optional</i>
+### `kube_exec_auth_enabled` (`bool`) <i>optional</i>
 
 
 If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-token` to authenticate to the EKS cluster.<br/>
@@ -1248,7 +1252,7 @@ Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
 ---
 
 
-  ### `kube_exec_auth_role_arn` (`string`) <i>optional</i>
+### `kube_exec_auth_role_arn` (`string`) <i>optional</i>
 
 
 The role ARN for `aws eks get-token` to use<br/>
@@ -1268,7 +1272,7 @@ The role ARN for `aws eks get-token` to use<br/>
 ---
 
 
-  ### `kube_exec_auth_role_arn_enabled` (`bool`) <i>optional</i>
+### `kube_exec_auth_role_arn_enabled` (`bool`) <i>optional</i>
 
 
 If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`<br/>
@@ -1288,7 +1292,7 @@ If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`
 ---
 
 
-  ### `kubeconfig_context` (`string`) <i>optional</i>
+### `kubeconfig_context` (`string`) <i>optional</i>
 
 
 Context to choose from the Kubernetes config file.<br/>
@@ -1310,7 +1314,7 @@ If supplied, `kubeconfig_context_format` will be ignored.<br/>
 ---
 
 
-  ### `kubeconfig_context_format` (`string`) <i>optional</i>
+### `kubeconfig_context_format` (`string`) <i>optional</i>
 
 
 A format string to use for creating the `kubectl` context name when<br/>
@@ -1333,7 +1337,7 @@ Must include a single `%s` which will be replaced with the cluster name.<br/>
 ---
 
 
-  ### `kubeconfig_exec_auth_api_version` (`string`) <i>optional</i>
+### `kubeconfig_exec_auth_api_version` (`string`) <i>optional</i>
 
 
 The Kubernetes API version of the credentials returned by the `exec` auth plugin<br/>
@@ -1353,7 +1357,7 @@ The Kubernetes API version of the credentials returned by the `exec` auth plugin
 ---
 
 
-  ### `kubeconfig_file` (`string`) <i>optional</i>
+### `kubeconfig_file` (`string`) <i>optional</i>
 
 
 The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true`<br/>
@@ -1373,7 +1377,7 @@ The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabl
 ---
 
 
-  ### `kubeconfig_file_enabled` (`bool`) <i>optional</i>
+### `kubeconfig_file_enabled` (`bool`) <i>optional</i>
 
 
 If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster<br/>
@@ -1393,7 +1397,7 @@ If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that
 ---
 
 
-  ### `runners` <i>optional</i>
+### `runners` <i>optional</i>
 
 
 Map of Runner Scale Set configurations, with the key being the name of the runner set.<br/>
@@ -1477,7 +1481,7 @@ organization-runner = {<br/>
 ---
 
 
-  ### `ssm_github_secret_path` (`string`) <i>optional</i>
+### `ssm_github_secret_path` (`string`) <i>optional</i>
 
 
 The path in SSM to the GitHub app private key file contents or GitHub PAT token.<br/>
@@ -1497,7 +1501,7 @@ The path in SSM to the GitHub app private key file contents or GitHub PAT token.
 ---
 
 
-  ### `ssm_image_pull_secret_path` (`string`) <i>optional</i>
+### `ssm_image_pull_secret_path` (`string`) <i>optional</i>
 
 
 SSM path to the base64 encoded `dockercfg` image pull secret.<br/>
@@ -1517,7 +1521,7 @@ SSM path to the base64 encoded `dockercfg` image pull secret.<br/>
 ---
 
 
-  ### `ssm_region` (`string`) <i>optional</i>
+### `ssm_region` (`string`) <i>optional</i>
 
 
 AWS Region where SSM secrets are stored. Defaults to `var.region`.<br/>
@@ -1541,11 +1545,11 @@ AWS Region where SSM secrets are stored. Defaults to `var.region`.<br/>
 ### Outputs
 
 <dl>
-  <dt>`metadata`</dt>
+  <dt><code>metadata</code></dt>
   <dd>
     Block status of the deployed release<br/>
   </dd>
-  <dt>`runners`</dt>
+  <dt><code>runners</code></dt>
   <dd>
     Human-readable summary of the deployed runners<br/>
   </dd>

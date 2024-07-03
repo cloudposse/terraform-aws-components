@@ -31,17 +31,21 @@ components:
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 0.13.0), version: >= 0.13.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 3.0), version: >= 3.0
-- [`local`](https://registry.terraform.io/modules/local/>= 1.3), version: >= 1.3
-- [`template`](https://registry.terraform.io/modules/template/>= 2.2), version: >= 2.2
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 0.13.0 |
+| `aws` | >= 3.0 |
+| `local` | >= 1.3 |
+| `template` | >= 2.2 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 3.0
-- `terraform`
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 3.0 |
+| `terraform` | latest |
+
 
 ### Modules
 
@@ -79,7 +83,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
@@ -99,7 +103,7 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 Additional attributes (e.g. `1`)<br/>
@@ -119,7 +123,7 @@ Additional attributes (e.g. `1`)<br/>
 ---
 
 
-  ### `context` <i>optional</i>
+### `context` <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -179,7 +183,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br/>
@@ -201,7 +205,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -221,7 +225,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -241,7 +245,7 @@ Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters.<br/>
@@ -265,7 +269,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The naming order of the id output and Name tag.<br/>
@@ -288,7 +292,7 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 Solution name, e.g. 'app' or 'jenkins'<br/>
@@ -308,7 +312,7 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
@@ -328,7 +332,7 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br/>
@@ -350,7 +354,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -370,7 +374,7 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
@@ -393,7 +397,7 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 </details>
 
 ### Required Inputs
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
@@ -413,7 +417,7 @@ AWS Region<br/>
 ---
 
 
-  ### `standard_service_accounts` (`list(string)`) <i>required</i>
+### `standard_service_accounts` (`list(string)`) <i>required</i>
 
 
 List of standard service accounts expected to be enabled everywhere<br/>
@@ -435,7 +439,7 @@ List of standard service accounts expected to be enabled everywhere<br/>
 
 
 ### Optional Inputs
-  ### `account_map_environment_name` (`string`) <i>optional</i>
+### `account_map_environment_name` (`string`) <i>optional</i>
 
 
 The name of the environment where `account_map` is provisioned<br/>
@@ -455,7 +459,7 @@ The name of the environment where `account_map` is provisioned<br/>
 ---
 
 
-  ### `account_map_stage_name` (`string`) <i>optional</i>
+### `account_map_stage_name` (`string`) <i>optional</i>
 
 
 The name of the stage where `account_map` is provisioned<br/>
@@ -475,7 +479,7 @@ The name of the stage where `account_map` is provisioned<br/>
 ---
 
 
-  ### `dns_gbl_delegated_environment_name` (`string`) <i>optional</i>
+### `dns_gbl_delegated_environment_name` (`string`) <i>optional</i>
 
 
 The name of the environment where global `dns_delegated` is provisioned<br/>
@@ -495,7 +499,7 @@ The name of the environment where global `dns_delegated` is provisioned<br/>
 ---
 
 
-  ### `kms_alias_name` (`string`) <i>optional</i>
+### `kms_alias_name` (`string`) <i>optional</i>
 
 
 AWS KMS alias used for encryption/decryption of SSM parameters default is alias used in SSM<br/>
@@ -515,7 +519,7 @@ AWS KMS alias used for encryption/decryption of SSM parameters default is alias 
 ---
 
 
-  ### `optional_service_accounts` (`list(string)`) <i>optional</i>
+### `optional_service_accounts` (`list(string)`) <i>optional</i>
 
 
 List of optional service accounts to enable<br/>
@@ -535,7 +539,7 @@ List of optional service accounts to enable<br/>
 ---
 
 
-  ### `tfstate_account_id` (`string`) <i>optional</i>
+### `tfstate_account_id` (`string`) <i>optional</i>
 
 
 The ID of the account where the Terraform remote state backend is provisioned<br/>
@@ -555,7 +559,7 @@ The ID of the account where the Terraform remote state backend is provisioned<br
 ---
 
 
-  ### `tfstate_assume_role` (`bool`) <i>optional</i>
+### `tfstate_assume_role` (`bool`) <i>optional</i>
 
 
 Set to false to use the caller's role to access the Terraform remote state<br/>
@@ -575,7 +579,7 @@ Set to false to use the caller's role to access the Terraform remote state<br/>
 ---
 
 
-  ### `tfstate_bucket_environment_name` (`string`) <i>optional</i>
+### `tfstate_bucket_environment_name` (`string`) <i>optional</i>
 
 
 The name of the environment for Terraform state bucket<br/>
@@ -595,7 +599,7 @@ The name of the environment for Terraform state bucket<br/>
 ---
 
 
-  ### `tfstate_bucket_stage_name` (`string`) <i>optional</i>
+### `tfstate_bucket_stage_name` (`string`) <i>optional</i>
 
 
 The name of the stage for Terraform state bucket<br/>
@@ -615,7 +619,7 @@ The name of the stage for Terraform state bucket<br/>
 ---
 
 
-  ### `tfstate_existing_role_arn` (`string`) <i>optional</i>
+### `tfstate_existing_role_arn` (`string`) <i>optional</i>
 
 
 The ARN of the existing IAM Role to access the Terraform remote state. If not provided and `remote_state_assume_role` is `true`, a role will be constructed from `remote_state_role_arn_template`<br/>
@@ -635,7 +639,7 @@ The ARN of the existing IAM Role to access the Terraform remote state. If not pr
 ---
 
 
-  ### `tfstate_role_arn_template` (`string`) <i>optional</i>
+### `tfstate_role_arn_template` (`string`) <i>optional</i>
 
 
 IAM Role ARN template for accessing the Terraform remote state<br/>
@@ -655,7 +659,7 @@ IAM Role ARN template for accessing the Terraform remote state<br/>
 ---
 
 
-  ### `tfstate_role_environment_name` (`string`) <i>optional</i>
+### `tfstate_role_environment_name` (`string`) <i>optional</i>
 
 
 The name of the environment for Terraform state IAM role<br/>
@@ -675,7 +679,7 @@ The name of the environment for Terraform state IAM role<br/>
 ---
 
 
-  ### `tfstate_role_name` (`string`) <i>optional</i>
+### `tfstate_role_name` (`string`) <i>optional</i>
 
 
 IAM Role name for accessing the Terraform remote state<br/>
@@ -695,7 +699,7 @@ IAM Role name for accessing the Terraform remote state<br/>
 ---
 
 
-  ### `tfstate_role_stage_name` (`string`) <i>optional</i>
+### `tfstate_role_stage_name` (`string`) <i>optional</i>
 
 
 The name of the stage for Terraform state IAM role<br/>
@@ -719,7 +723,7 @@ The name of the stage for Terraform state IAM role<br/>
 ### Outputs
 
 <dl>
-  <dt>`service_accounts`</dt>
+  <dt><code>service_accounts</code></dt>
   <dd>
     n/a<br/>
   </dd>

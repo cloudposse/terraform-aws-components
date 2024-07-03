@@ -76,12 +76,13 @@ atmos terraform apply guardduty/common-uw1 -s core-uw1-security
 
 
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
-
 ### Providers
 
-- `aws`
-- `awsutils`
+| Provider | Version |
+| --- | --- |
+| `aws` | latest |
+| `awsutils` | latest |
+
 
 ### Modules
 
@@ -96,7 +97,7 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`awsutils_guardduty_organization_settings.this`](https://registry.terraform.io/providers/hashicorp/awsutils/latest/docs/resources/guardduty_organization_settings) (resource)
+  - [`awsutils_guardduty_organization_settings.this`](https://registry.terraform.io/providers/hashicorp/awsutils/latest/docs/resources/guardduty_organization_settings) (resource)(main.tf#30)
 
 ### Data Sources
 
@@ -119,19 +120,19 @@ The following variables are defined in the `context.tf` file of this module and 
 ### Outputs
 
 <dl>
-  <dt>`guardduty_detector_arn`</dt>
+  <dt><code>guardduty_detector_arn</code></dt>
   <dd>
     GuardDuty detector ARN<br/>
   </dd>
-  <dt>`guardduty_detector_id`</dt>
+  <dt><code>guardduty_detector_id</code></dt>
   <dd>
     GuardDuty detector ID<br/>
   </dd>
-  <dt>`sns_topic_name`</dt>
+  <dt><code>sns_topic_name</code></dt>
   <dd>
     SNS topic name<br/>
   </dd>
-  <dt>`sns_topic_subscriptions`</dt>
+  <dt><code>sns_topic_subscriptions</code></dt>
   <dd>
     SNS topic subscriptions<br/>
   </dd>

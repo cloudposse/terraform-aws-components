@@ -41,18 +41,22 @@ components:
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 0.14.9), version: >= 0.14.9
-- [`aws`](https://registry.terraform.io/modules/aws/>= 3.36), version: >= 3.36
-- [`external`](https://registry.terraform.io/modules/external/>= 2.1), version: >= 2.1
-- [`local`](https://registry.terraform.io/modules/local/>= 2.1), version: >= 2.1
-- [`template`](https://registry.terraform.io/modules/template/>= 2.2), version: >= 2.2
-- [`utils`](https://registry.terraform.io/modules/utils/>= 0.3), version: >= 0.3
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 0.14.9 |
+| `aws` | >= 3.36 |
+| `external` | >= 2.1 |
+| `local` | >= 2.1 |
+| `template` | >= 2.2 |
+| `utils` | >= 0.3 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 3.36
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 3.36 |
+
 
 ### Modules
 
@@ -67,7 +71,7 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`aws_ssm_parameter.acl_arn`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
+  - [`aws_ssm_parameter.acl_arn`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(main.tf#30)
 
 ### Data Sources
 
@@ -80,7 +84,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
@@ -100,7 +104,7 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 Additional attributes (e.g. `1`)<br/>
@@ -120,7 +124,7 @@ Additional attributes (e.g. `1`)<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -164,7 +168,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br/>
@@ -186,7 +190,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -206,7 +210,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -226,7 +230,7 @@ Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -250,7 +254,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 The letter case of label keys (`tag` names) (i.e. `name`, `namespace`, `environment`, `stage`, `attributes`) to use in `tags`.<br/>
@@ -273,7 +277,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The naming order of the id output and Name tag.<br/>
@@ -296,7 +300,7 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 The letter case of output label values (also used in `tags` and `id`).<br/>
@@ -319,7 +323,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 Solution name, e.g. 'app' or 'jenkins'<br/>
@@ -339,7 +343,7 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
@@ -359,7 +363,7 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br/>
@@ -381,7 +385,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -401,7 +405,7 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
@@ -424,7 +428,7 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 </details>
 
 ### Required Inputs
-  ### `acl_name` (`string`) <i>required</i>
+### `acl_name` (`string`) <i>required</i>
 
 
 Friendly name of the ACL. The ACL ARN will be stored in SSM under {ssm_path_prefix}/{acl_name}/arn<br/>
@@ -444,7 +448,7 @@ Friendly name of the ACL. The ACL ARN will be stored in SSM under {ssm_path_pref
 ---
 
 
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
@@ -466,7 +470,7 @@ AWS Region<br/>
 
 
 ### Optional Inputs
-  ### `association_resource_arns` (`list(string)`) <i>optional</i>
+### `association_resource_arns` (`list(string)`) <i>optional</i>
 
 
 A list of ARNs of the resources to associate with the web ACL.<br/>
@@ -488,7 +492,7 @@ This must be an ARN of an Application Load Balancer or an Amazon API Gateway sta
 ---
 
 
-  ### `byte_match_statement_rules` (`list(any)`) <i>optional</i>
+### `byte_match_statement_rules` (`list(any)`) <i>optional</i>
 
 
 A rule statement that defines a string match search for AWS WAF to apply to web requests.<br/>
@@ -536,7 +540,7 @@ visibility_config:<br/>
 ---
 
 
-  ### `default_action` (`string`) <i>optional</i>
+### `default_action` (`string`) <i>optional</i>
 
 
 Specifies that AWS WAF should allow requests by default. Possible values: `allow`, `block`.<br/>
@@ -556,7 +560,7 @@ Specifies that AWS WAF should allow requests by default. Possible values: `allow
 ---
 
 
-  ### `description` (`string`) <i>optional</i>
+### `description` (`string`) <i>optional</i>
 
 
 A friendly description of the WebACL.<br/>
@@ -576,7 +580,7 @@ A friendly description of the WebACL.<br/>
 ---
 
 
-  ### `geo_match_statement_rules` (`list(any)`) <i>optional</i>
+### `geo_match_statement_rules` (`list(any)`) <i>optional</i>
 
 
 A rule statement used to identify web requests based on country of origin.<br/>
@@ -626,7 +630,7 @@ visibility_config:<br/>
 ---
 
 
-  ### `ip_set_reference_statement_rules` (`list(any)`) <i>optional</i>
+### `ip_set_reference_statement_rules` (`list(any)`) <i>optional</i>
 
 
 A rule statement used to detect web requests coming from particular IP addresses or address ranges.<br/>
@@ -679,7 +683,7 @@ visibility_config:<br/>
 ---
 
 
-  ### `log_destination_configs` (`list(string)`) <i>optional</i>
+### `log_destination_configs` (`list(string)`) <i>optional</i>
 
 
 The Amazon Kinesis Data Firehose ARNs.<br/>
@@ -699,7 +703,7 @@ The Amazon Kinesis Data Firehose ARNs.<br/>
 ---
 
 
-  ### `managed_rule_group_statement_rules` (`list(any)`) <i>optional</i>
+### `managed_rule_group_statement_rules` (`list(any)`) <i>optional</i>
 
 
 A rule statement used to run the rules that are defined in a managed rule group.<br/>
@@ -749,7 +753,7 @@ visibility_config:<br/>
 ---
 
 
-  ### `rate_based_statement_rules` (`list(any)`) <i>optional</i>
+### `rate_based_statement_rules` (`list(any)`) <i>optional</i>
 
 
 A rate-based rule tracks the rate of requests for each originating IP address,<br/>
@@ -803,7 +807,7 @@ visibility_config:<br/>
 ---
 
 
-  ### `redacted_fields` <i>optional</i>
+### `redacted_fields` <i>optional</i>
 
 
 The parts of the request that you want to keep out of the logs.<br/>
@@ -846,7 +850,7 @@ single_header:<br/>
 ---
 
 
-  ### `regex_pattern_set_reference_statement_rules` (`list(any)`) <i>optional</i>
+### `regex_pattern_set_reference_statement_rules` (`list(any)`) <i>optional</i>
 
 
 A rule statement used to search web request components for matches with regular expressions.<br/>
@@ -896,7 +900,7 @@ visibility_config:<br/>
 ---
 
 
-  ### `rule_group_reference_statement_rules` (`list(any)`) <i>optional</i>
+### `rule_group_reference_statement_rules` (`list(any)`) <i>optional</i>
 
 
 A rule statement used to run the rules that are defined in an WAFv2 Rule Group.<br/>
@@ -946,7 +950,7 @@ visibility_config:<br/>
 ---
 
 
-  ### `scope` (`string`) <i>optional</i>
+### `scope` (`string`) <i>optional</i>
 
 
 Specifies whether this is for an AWS CloudFront distribution or for a regional application.<br/>
@@ -969,7 +973,7 @@ To work with CloudFront, you must also specify the region us-east-1 (N. Virginia
 ---
 
 
-  ### `size_constraint_statement_rules` (`list(any)`) <i>optional</i>
+### `size_constraint_statement_rules` (`list(any)`) <i>optional</i>
 
 
 A rule statement that uses a comparison operator to compare a number of bytes against the size of a request component.<br/>
@@ -1023,7 +1027,7 @@ visibility_config:<br/>
 ---
 
 
-  ### `sqli_match_statement_rules` (`list(any)`) <i>optional</i>
+### `sqli_match_statement_rules` (`list(any)`) <i>optional</i>
 
 
 An SQL injection match condition identifies the part of web requests,<br/>
@@ -1072,7 +1076,7 @@ visibility_config:<br/>
 ---
 
 
-  ### `ssm_path_prefix` (`string`) <i>optional</i>
+### `ssm_path_prefix` (`string`) <i>optional</i>
 
 
 SSM path prefix (with leading but not trailing slash) under which to store all WAF info<br/>
@@ -1092,7 +1096,7 @@ SSM path prefix (with leading but not trailing slash) under which to store all W
 ---
 
 
-  ### `visibility_config` (`map(string)`) <i>optional</i>
+### `visibility_config` (`map(string)`) <i>optional</i>
 
 
 Defines and enables Amazon CloudWatch metrics and web request sample collection.<br/>
@@ -1120,7 +1124,7 @@ sampled_requests_enabled:<br/>
 ---
 
 
-  ### `xss_match_statement_rules` (`list(any)`) <i>optional</i>
+### `xss_match_statement_rules` (`list(any)`) <i>optional</i>
 
 
 A rule statement that defines a cross-site scripting (XSS) match search for AWS WAF to apply to web requests.<br/>
@@ -1172,7 +1176,7 @@ visibility_config:<br/>
 ### Outputs
 
 <dl>
-  <dt>`acl`</dt>
+  <dt><code>acl</code></dt>
   <dd>
     Information about the created WAF ACL<br/>
   </dd>

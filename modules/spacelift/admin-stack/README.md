@@ -144,18 +144,22 @@ components:
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.3), version: >= 1.3
-- [`aws`](https://registry.terraform.io/modules/aws/>= 4.0), version: >= 4.0
-- [`null`](https://registry.terraform.io/modules/null/>= 3.0), version: >= 3.0
-- [`spacelift`](https://registry.terraform.io/modules/spacelift/>= 0.1.31), version: >= 0.1.31
-- [`utils`](https://registry.terraform.io/modules/utils/>= 1.14.0), version: >= 1.14.0
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 1.3 |
+| `aws` | >= 4.0 |
+| `null` | >= 3.0 |
+| `spacelift` | >= 0.1.31 |
+| `utils` | >= 1.14.0 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `null`, version: >= 3.0
-- `spacelift`, version: >= 0.1.31
+| Provider | Version |
+| --- | --- |
+| `null` | >= 3.0 |
+| `spacelift` | >= 0.1.31 |
+
 
 ### Modules
 
@@ -174,11 +178,11 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`null_resource.child_stack_parent_precondition`](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) (resource)
-  - [`null_resource.public_workers_precondition`](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) (resource)
-  - [`null_resource.spaces_precondition`](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) (resource)
-  - [`null_resource.workers_precondition`](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) (resource)
-  - [`spacelift_policy_attachment.root`](https://registry.terraform.io/providers/spacelift-io/spacelift/latest/docs/resources/policy_attachment) (resource)
+  - [`null_resource.child_stack_parent_precondition`](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) (resource)(child-stacks.tf#33)
+  - [`null_resource.public_workers_precondition`](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) (resource)(workers.tf#23)
+  - [`null_resource.spaces_precondition`](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) (resource)(spaces.tf#44)
+  - [`null_resource.workers_precondition`](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) (resource)(workers.tf#34)
+  - [`spacelift_policy_attachment.root`](https://registry.terraform.io/providers/spacelift-io/spacelift/latest/docs/resources/policy_attachment) (resource)(root-admin-stack.tf#106)
 
 ### Data Sources
 
@@ -194,7 +198,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
@@ -217,7 +221,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
@@ -241,7 +245,7 @@ and treated as a single ID element.<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -290,7 +294,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between ID elements.<br/>
@@ -312,7 +316,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `descriptor_formats` (`any`) <i>optional</i>
+### `descriptor_formats` (`any`) <i>optional</i>
 
 
 Describe additional descriptors to be output in the `descriptors` output map.<br/>
@@ -344,7 +348,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -364,7 +368,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -384,7 +388,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -408,7 +412,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
@@ -432,7 +436,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The order in which the labels (ID elements) appear in the `id`.<br/>
@@ -455,7 +459,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of ID elements (labels) as included in `id`,<br/>
@@ -481,7 +485,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+### `labels_as_tags` (`set(string)`) <i>optional</i>
 
 
 Set of labels (ID elements) to include as tags in the `tags` output.<br/>
@@ -515,7 +519,7 @@ Set to `[]` to suppress all generated tags.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
@@ -538,7 +542,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
@@ -558,7 +562,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Terraform regular expression (regex) string.<br/>
@@ -581,7 +585,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -601,7 +605,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
@@ -623,7 +627,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 ---
 
 
-  ### `tenant` (`string`) <i>optional</i>
+### `tenant` (`string`) <i>optional</i>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
@@ -646,7 +650,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 </details>
 
 ### Required Inputs
-  ### `component_root` (`string`) <i>required</i>
+### `component_root` (`string`) <i>required</i>
 
 
 The path, relative to the root of the repository, where the component can be found<br/>
@@ -666,7 +670,7 @@ The path, relative to the root of the repository, where the component can be fou
 ---
 
 
-  ### `context_filters` <i>required</i>
+### `context_filters` <i>required</i>
 
 
 Context filters to select atmos stacks matching specific criteria to create as children.<br/>
@@ -699,7 +703,7 @@ Context filters to select atmos stacks matching specific criteria to create as c
 ---
 
 
-  ### `repository` (`string`) <i>required</i>
+### `repository` (`string`) <i>required</i>
 
 
 The name of your infrastructure repo<br/>
@@ -721,7 +725,7 @@ The name of your infrastructure repo<br/>
 
 
 ### Optional Inputs
-  ### `admin_stack_label` (`string`) <i>optional</i>
+### `admin_stack_label` (`string`) <i>optional</i>
 
 
 Label to use to identify the admin stack when creating the child stacks<br/>
@@ -741,7 +745,7 @@ Label to use to identify the admin stack when creating the child stacks<br/>
 ---
 
 
-  ### `allow_public_workers` (`bool`) <i>optional</i>
+### `allow_public_workers` (`bool`) <i>optional</i>
 
 
 Whether to allow public workers to be used for this stack<br/>
@@ -761,7 +765,7 @@ Whether to allow public workers to be used for this stack<br/>
 ---
 
 
-  ### `autodeploy` (`bool`) <i>optional</i>
+### `autodeploy` (`bool`) <i>optional</i>
 
 
 Controls the Spacelift 'autodeploy' option for a stack<br/>
@@ -781,7 +785,7 @@ Controls the Spacelift 'autodeploy' option for a stack<br/>
 ---
 
 
-  ### `autoretry` (`bool`) <i>optional</i>
+### `autoretry` (`bool`) <i>optional</i>
 
 
 Controls the Spacelift 'autoretry' option for a stack<br/>
@@ -801,7 +805,7 @@ Controls the Spacelift 'autoretry' option for a stack<br/>
 ---
 
 
-  ### `aws_role_arn` (`string`) <i>optional</i>
+### `aws_role_arn` (`string`) <i>optional</i>
 
 
 ARN of the AWS IAM role to assume and put its temporary credentials in the runtime environment<br/>
@@ -821,7 +825,7 @@ ARN of the AWS IAM role to assume and put its temporary credentials in the runti
 ---
 
 
-  ### `aws_role_enabled` (`bool`) <i>optional</i>
+### `aws_role_enabled` (`bool`) <i>optional</i>
 
 
 Flag to enable/disable Spacelift to use AWS STS to assume the supplied IAM role and put its temporary credentials in the runtime environment<br/>
@@ -841,7 +845,7 @@ Flag to enable/disable Spacelift to use AWS STS to assume the supplied IAM role 
 ---
 
 
-  ### `aws_role_external_id` (`string`) <i>optional</i>
+### `aws_role_external_id` (`string`) <i>optional</i>
 
 
 Custom external ID (works only for private workers). See https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html for more details<br/>
@@ -861,7 +865,7 @@ Custom external ID (works only for private workers). See https://docs.aws.amazon
 ---
 
 
-  ### `aws_role_generate_credentials_in_worker` (`bool`) <i>optional</i>
+### `aws_role_generate_credentials_in_worker` (`bool`) <i>optional</i>
 
 
 Flag to enable/disable generating AWS credentials in the private worker after assuming the supplied IAM role<br/>
@@ -881,7 +885,7 @@ Flag to enable/disable generating AWS credentials in the private worker after as
 ---
 
 
-  ### `azure_devops` (`map(any)`) <i>optional</i>
+### `azure_devops` (`map(any)`) <i>optional</i>
 
 
 Azure DevOps VCS settings<br/>
@@ -901,7 +905,7 @@ Azure DevOps VCS settings<br/>
 ---
 
 
-  ### `bitbucket_cloud` (`map(any)`) <i>optional</i>
+### `bitbucket_cloud` (`map(any)`) <i>optional</i>
 
 
 Bitbucket Cloud VCS settings<br/>
@@ -921,7 +925,7 @@ Bitbucket Cloud VCS settings<br/>
 ---
 
 
-  ### `bitbucket_datacenter` (`map(any)`) <i>optional</i>
+### `bitbucket_datacenter` (`map(any)`) <i>optional</i>
 
 
 Bitbucket Datacenter VCS settings<br/>
@@ -941,7 +945,7 @@ Bitbucket Datacenter VCS settings<br/>
 ---
 
 
-  ### `branch` (`string`) <i>optional</i>
+### `branch` (`string`) <i>optional</i>
 
 
 Specify which branch to use within your infrastructure repo<br/>
@@ -961,7 +965,7 @@ Specify which branch to use within your infrastructure repo<br/>
 ---
 
 
-  ### `child_policy_attachments` (`set(string)`) <i>optional</i>
+### `child_policy_attachments` (`set(string)`) <i>optional</i>
 
 
 List of policy attachments to attach to the child stacks created by this module<br/>
@@ -981,7 +985,7 @@ List of policy attachments to attach to the child stacks created by this module<
 ---
 
 
-  ### `cloudformation` (`map(any)`) <i>optional</i>
+### `cloudformation` (`map(any)`) <i>optional</i>
 
 
 CloudFormation-specific configuration. Presence means this Stack is a CloudFormation Stack.<br/>
@@ -1001,7 +1005,7 @@ CloudFormation-specific configuration. Presence means this Stack is a CloudForma
 ---
 
 
-  ### `commit_sha` (`string`) <i>optional</i>
+### `commit_sha` (`string`) <i>optional</i>
 
 
 The commit SHA for which to trigger a run. Requires `var.spacelift_run_enabled` to be set to `true`<br/>
@@ -1021,7 +1025,7 @@ The commit SHA for which to trigger a run. Requires `var.spacelift_run_enabled` 
 ---
 
 
-  ### `component_env` (`any`) <i>optional</i>
+### `component_env` (`any`) <i>optional</i>
 
 
 Map of component ENV variables<br/>
@@ -1041,7 +1045,7 @@ Map of component ENV variables<br/>
 ---
 
 
-  ### `component_vars` (`any`) <i>optional</i>
+### `component_vars` (`any`) <i>optional</i>
 
 
 All Terraform values to be applied to the stack via a mounted file<br/>
@@ -1061,7 +1065,7 @@ All Terraform values to be applied to the stack via a mounted file<br/>
 ---
 
 
-  ### `context_attachments` (`list(string)`) <i>optional</i>
+### `context_attachments` (`list(string)`) <i>optional</i>
 
 
 A list of context IDs to attach to this stack<br/>
@@ -1081,7 +1085,7 @@ A list of context IDs to attach to this stack<br/>
 ---
 
 
-  ### `description` (`string`) <i>optional</i>
+### `description` (`string`) <i>optional</i>
 
 
 Specify description of stack<br/>
@@ -1101,7 +1105,7 @@ Specify description of stack<br/>
 ---
 
 
-  ### `drift_detection_enabled` (`bool`) <i>optional</i>
+### `drift_detection_enabled` (`bool`) <i>optional</i>
 
 
 Flag to enable/disable drift detection on the infrastructure stacks<br/>
@@ -1121,7 +1125,7 @@ Flag to enable/disable drift detection on the infrastructure stacks<br/>
 ---
 
 
-  ### `drift_detection_reconcile` (`bool`) <i>optional</i>
+### `drift_detection_reconcile` (`bool`) <i>optional</i>
 
 
 Flag to enable/disable infrastructure stacks drift automatic reconciliation. If drift is detected and `reconcile` is turned on, Spacelift will create a tracked run to correct the drift<br/>
@@ -1141,7 +1145,7 @@ Flag to enable/disable infrastructure stacks drift automatic reconciliation. If 
 ---
 
 
-  ### `drift_detection_schedule` (`list(string)`) <i>optional</i>
+### `drift_detection_schedule` (`list(string)`) <i>optional</i>
 
 
 List of cron expressions to schedule drift detection for the infrastructure stacks<br/>
@@ -1167,7 +1171,7 @@ List of cron expressions to schedule drift detection for the infrastructure stac
 ---
 
 
-  ### `drift_detection_timezone` (`string`) <i>optional</i>
+### `drift_detection_timezone` (`string`) <i>optional</i>
 
 
 Timezone in which the schedule is expressed. Defaults to UTC.<br/>
@@ -1187,7 +1191,7 @@ Timezone in which the schedule is expressed. Defaults to UTC.<br/>
 ---
 
 
-  ### `excluded_context_filters` <i>optional</i>
+### `excluded_context_filters` <i>optional</i>
 
 
 Context filters to exclude from stacks matching specific criteria of `var.context_filters`.<br/>
@@ -1218,7 +1222,7 @@ Context filters to exclude from stacks matching specific criteria of `var.contex
 ---
 
 
-  ### `github_enterprise` (`map(any)`) <i>optional</i>
+### `github_enterprise` (`map(any)`) <i>optional</i>
 
 
 GitHub Enterprise (self-hosted) VCS settings<br/>
@@ -1238,7 +1242,7 @@ GitHub Enterprise (self-hosted) VCS settings<br/>
 ---
 
 
-  ### `gitlab` (`map(any)`) <i>optional</i>
+### `gitlab` (`map(any)`) <i>optional</i>
 
 
 GitLab VCS settings<br/>
@@ -1258,7 +1262,7 @@ GitLab VCS settings<br/>
 ---
 
 
-  ### `labels` (`list(string)`) <i>optional</i>
+### `labels` (`list(string)`) <i>optional</i>
 
 
 A list of labels for the stack<br/>
@@ -1278,7 +1282,7 @@ A list of labels for the stack<br/>
 ---
 
 
-  ### `local_preview_enabled` (`bool`) <i>optional</i>
+### `local_preview_enabled` (`bool`) <i>optional</i>
 
 
 Indicates whether local preview runs can be triggered on this Stack<br/>
@@ -1298,7 +1302,7 @@ Indicates whether local preview runs can be triggered on this Stack<br/>
 ---
 
 
-  ### `manage_state` (`bool`) <i>optional</i>
+### `manage_state` (`bool`) <i>optional</i>
 
 
 Flag to enable/disable manage_state setting in stack<br/>
@@ -1318,7 +1322,7 @@ Flag to enable/disable manage_state setting in stack<br/>
 ---
 
 
-  ### `protect_from_deletion` (`bool`) <i>optional</i>
+### `protect_from_deletion` (`bool`) <i>optional</i>
 
 
 Flag to enable/disable deletion protection.<br/>
@@ -1338,7 +1342,7 @@ Flag to enable/disable deletion protection.<br/>
 ---
 
 
-  ### `pulumi` (`map(any)`) <i>optional</i>
+### `pulumi` (`map(any)`) <i>optional</i>
 
 
 Pulumi-specific configuration. Presence means this Stack is a Pulumi Stack.<br/>
@@ -1358,7 +1362,7 @@ Pulumi-specific configuration. Presence means this Stack is a Pulumi Stack.<br/>
 ---
 
 
-  ### `root_admin_stack` (`bool`) <i>optional</i>
+### `root_admin_stack` (`bool`) <i>optional</i>
 
 
 Flag to indicate if this stack is the root admin stack. In this case, the stack will be created in the root space and will create all the other admin stacks as children.<br/>
@@ -1378,7 +1382,7 @@ Flag to indicate if this stack is the root admin stack. In this case, the stack 
 ---
 
 
-  ### `root_stack_policy_attachments` (`set(string)`) <i>optional</i>
+### `root_stack_policy_attachments` (`set(string)`) <i>optional</i>
 
 
 List of policy attachments to attach to the root admin stack<br/>
@@ -1398,7 +1402,7 @@ List of policy attachments to attach to the root admin stack<br/>
 ---
 
 
-  ### `runner_image` (`string`) <i>optional</i>
+### `runner_image` (`string`) <i>optional</i>
 
 
 The full image name and tag of the Docker image to use in Spacelift<br/>
@@ -1418,7 +1422,7 @@ The full image name and tag of the Docker image to use in Spacelift<br/>
 ---
 
 
-  ### `showcase` (`map(any)`) <i>optional</i>
+### `showcase` (`map(any)`) <i>optional</i>
 
 
 Showcase settings<br/>
@@ -1438,7 +1442,7 @@ Showcase settings<br/>
 ---
 
 
-  ### `space_id` (`string`) <i>optional</i>
+### `space_id` (`string`) <i>optional</i>
 
 
 Place the stack in the specified space_id<br/>
@@ -1458,7 +1462,7 @@ Place the stack in the specified space_id<br/>
 ---
 
 
-  ### `spacelift_run_enabled` (`bool`) <i>optional</i>
+### `spacelift_run_enabled` (`bool`) <i>optional</i>
 
 
 Enable/disable creation of the `spacelift_run` resource<br/>
@@ -1478,7 +1482,7 @@ Enable/disable creation of the `spacelift_run` resource<br/>
 ---
 
 
-  ### `spacelift_spaces_component_name` (`string`) <i>optional</i>
+### `spacelift_spaces_component_name` (`string`) <i>optional</i>
 
 
 The component name of the spacelift spaces component<br/>
@@ -1498,7 +1502,7 @@ The component name of the spacelift spaces component<br/>
 ---
 
 
-  ### `spacelift_spaces_environment_name` (`string`) <i>optional</i>
+### `spacelift_spaces_environment_name` (`string`) <i>optional</i>
 
 
 The environment name of the spacelift spaces component<br/>
@@ -1518,7 +1522,7 @@ The environment name of the spacelift spaces component<br/>
 ---
 
 
-  ### `spacelift_spaces_stage_name` (`string`) <i>optional</i>
+### `spacelift_spaces_stage_name` (`string`) <i>optional</i>
 
 
 The stage name of the spacelift spaces component<br/>
@@ -1538,7 +1542,7 @@ The stage name of the spacelift spaces component<br/>
 ---
 
 
-  ### `spacelift_spaces_tenant_name` (`string`) <i>optional</i>
+### `spacelift_spaces_tenant_name` (`string`) <i>optional</i>
 
 
 The tenant name of the spacelift spaces component<br/>
@@ -1558,7 +1562,7 @@ The tenant name of the spacelift spaces component<br/>
 ---
 
 
-  ### `spacelift_stack_dependency_enabled` (`bool`) <i>optional</i>
+### `spacelift_stack_dependency_enabled` (`bool`) <i>optional</i>
 
 
 If enabled, the `spacelift_stack_dependency` Spacelift resource will be used to create dependencies between stacks instead of using the `depends-on` labels. The `depends-on` labels will be removed from the stacks and the trigger policies for dependencies will be detached<br/>
@@ -1578,7 +1582,7 @@ If enabled, the `spacelift_stack_dependency` Spacelift resource will be used to 
 ---
 
 
-  ### `stack_destructor_enabled` (`bool`) <i>optional</i>
+### `stack_destructor_enabled` (`bool`) <i>optional</i>
 
 
 Flag to enable/disable the stack destructor to destroy the resources of the stack before deleting the stack itself<br/>
@@ -1598,7 +1602,7 @@ Flag to enable/disable the stack destructor to destroy the resources of the stac
 ---
 
 
-  ### `stack_name` (`string`) <i>optional</i>
+### `stack_name` (`string`) <i>optional</i>
 
 
 The name of the Spacelift stack<br/>
@@ -1618,7 +1622,7 @@ The name of the Spacelift stack<br/>
 ---
 
 
-  ### `terraform_smart_sanitization` (`bool`) <i>optional</i>
+### `terraform_smart_sanitization` (`bool`) <i>optional</i>
 
 
 Whether or not to enable [Smart Sanitization](https://docs.spacelift.io/vendors/terraform/resource-sanitization) which will only sanitize values marked as sensitive.<br/>
@@ -1638,7 +1642,7 @@ Whether or not to enable [Smart Sanitization](https://docs.spacelift.io/vendors/
 ---
 
 
-  ### `terraform_version` (`string`) <i>optional</i>
+### `terraform_version` (`string`) <i>optional</i>
 
 
 Specify the version of Terraform to use for the stack<br/>
@@ -1658,7 +1662,7 @@ Specify the version of Terraform to use for the stack<br/>
 ---
 
 
-  ### `terraform_version_map` (`map(string)`) <i>optional</i>
+### `terraform_version_map` (`map(string)`) <i>optional</i>
 
 
 A map to determine which Terraform patch version to use for each minor version<br/>
@@ -1678,7 +1682,7 @@ A map to determine which Terraform patch version to use for each minor version<b
 ---
 
 
-  ### `terraform_workflow_tool` (`string`) <i>optional</i>
+### `terraform_workflow_tool` (`string`) <i>optional</i>
 
 
 Defines the tool that will be used to execute the workflow. This can be one of OPEN_TOFU, TERRAFORM_FOSS or CUSTOM. Defaults to TERRAFORM_FOSS.<br/>
@@ -1698,7 +1702,7 @@ Defines the tool that will be used to execute the workflow. This can be one of O
 ---
 
 
-  ### `terraform_workspace` (`string`) <i>optional</i>
+### `terraform_workspace` (`string`) <i>optional</i>
 
 
 Specify the Terraform workspace to use for the stack<br/>
@@ -1718,7 +1722,7 @@ Specify the Terraform workspace to use for the stack<br/>
 ---
 
 
-  ### `webhook_enabled` (`bool`) <i>optional</i>
+### `webhook_enabled` (`bool`) <i>optional</i>
 
 
 Flag to enable/disable the webhook endpoint to which Spacelift sends the POST requests about run state changes<br/>
@@ -1738,7 +1742,7 @@ Flag to enable/disable the webhook endpoint to which Spacelift sends the POST re
 ---
 
 
-  ### `webhook_endpoint` (`string`) <i>optional</i>
+### `webhook_endpoint` (`string`) <i>optional</i>
 
 
 Webhook endpoint to which Spacelift sends the POST requests about run state changes<br/>
@@ -1758,7 +1762,7 @@ Webhook endpoint to which Spacelift sends the POST requests about run state chan
 ---
 
 
-  ### `webhook_secret` (`string`) <i>optional</i>
+### `webhook_secret` (`string`) <i>optional</i>
 
 
 Webhook secret used to sign each POST request so you're able to verify that the requests come from Spacelift<br/>
@@ -1778,7 +1782,7 @@ Webhook secret used to sign each POST request so you're able to verify that the 
 ---
 
 
-  ### `worker_pool_name` (`string`) <i>optional</i>
+### `worker_pool_name` (`string`) <i>optional</i>
 
 
 The atmos stack name of the worker pool. Example: `acme-core-ue2-auto-spacelift-default-worker-pool`<br/>
@@ -1802,15 +1806,15 @@ The atmos stack name of the worker pool. Example: `acme-core-ue2-auto-spacelift-
 ### Outputs
 
 <dl>
-  <dt>`child_stacks`</dt>
+  <dt><code>child_stacks</code></dt>
   <dd>
     All children stacks managed by this component<br/>
   </dd>
-  <dt>`root_stack`</dt>
+  <dt><code>root_stack</code></dt>
   <dd>
     The root stack, if enabled and created by this component<br/>
   </dd>
-  <dt>`root_stack_id`</dt>
+  <dt><code>root_stack_id</code></dt>
   <dd>
     The stack id<br/>
   </dd>

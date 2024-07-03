@@ -77,17 +77,21 @@ components:
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 0.12), version: >= 0.12
-- [`aws`](https://registry.terraform.io/modules/aws/>= 2.0), version: >= 2.0
-- [`local`](https://registry.terraform.io/modules/local/>= 1.3), version: >= 1.3
-- [`opsgenie`](https://registry.terraform.io/modules/opsgenie/>= 0.5.0), version: >= 0.5.0
-- [`template`](https://registry.terraform.io/modules/template/>= 2.0), version: >= 2.0
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 0.12 |
+| `aws` | >= 2.0 |
+| `local` | >= 1.3 |
+| `opsgenie` | >= 0.5.0 |
+| `template` | >= 2.0 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 2.0
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 2.0 |
+
 
 ### Modules
 
@@ -102,7 +106,7 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`aws_ssm_parameter.opsgenie_datadog_api_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
+  - [`aws_ssm_parameter.opsgenie_datadog_api_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(ssm.tf#10)
 
 ### Data Sources
 
@@ -116,7 +120,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
@@ -136,7 +140,7 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 Additional attributes (e.g. `1`)<br/>
@@ -156,7 +160,7 @@ Additional attributes (e.g. `1`)<br/>
 ---
 
 
-  ### `context` <i>optional</i>
+### `context` <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -216,7 +220,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br/>
@@ -238,7 +242,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -258,7 +262,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -278,7 +282,7 @@ Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters.<br/>
@@ -302,7 +306,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The naming order of the id output and Name tag.<br/>
@@ -325,7 +329,7 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 Solution name, e.g. 'app' or 'jenkins'<br/>
@@ -345,7 +349,7 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
@@ -365,7 +369,7 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br/>
@@ -387,7 +391,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -407,7 +411,7 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
@@ -430,7 +434,7 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 </details>
 
 ### Required Inputs
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
@@ -452,7 +456,7 @@ AWS Region<br/>
 
 
 ### Optional Inputs
-  ### `import_role_arn` (`string`) <i>optional</i>
+### `import_role_arn` (`string`) <i>optional</i>
 
 
 IAM Role ARN to use when importing a resource<br/>
@@ -472,7 +476,7 @@ IAM Role ARN to use when importing a resource<br/>
 ---
 
 
-  ### `kms_key_arn` (`string`) <i>optional</i>
+### `kms_key_arn` (`string`) <i>optional</i>
 
 
 AWS KMS key used for writing to SSM<br/>
@@ -492,7 +496,7 @@ AWS KMS key used for writing to SSM<br/>
 ---
 
 
-  ### `ssm_parameter_name_format` (`string`) <i>optional</i>
+### `ssm_parameter_name_format` (`string`) <i>optional</i>
 
 
 SSM parameter name format<br/>
@@ -512,7 +516,7 @@ SSM parameter name format<br/>
 ---
 
 
-  ### `ssm_path` (`string`) <i>optional</i>
+### `ssm_path` (`string`) <i>optional</i>
 
 
 SSM path<br/>
@@ -532,7 +536,7 @@ SSM path<br/>
 ---
 
 
-  ### `tfstate_account_id` (`string`) <i>optional</i>
+### `tfstate_account_id` (`string`) <i>optional</i>
 
 
 The ID of the account where the Terraform remote state backend is provisioned<br/>
@@ -552,7 +556,7 @@ The ID of the account where the Terraform remote state backend is provisioned<br
 ---
 
 
-  ### `tfstate_assume_role` (`bool`) <i>optional</i>
+### `tfstate_assume_role` (`bool`) <i>optional</i>
 
 
 Set to false to use the caller's role to access the Terraform remote state<br/>
@@ -572,7 +576,7 @@ Set to false to use the caller's role to access the Terraform remote state<br/>
 ---
 
 
-  ### `tfstate_bucket_environment_name` (`string`) <i>optional</i>
+### `tfstate_bucket_environment_name` (`string`) <i>optional</i>
 
 
 The name of the environment for Terraform state bucket<br/>
@@ -592,7 +596,7 @@ The name of the environment for Terraform state bucket<br/>
 ---
 
 
-  ### `tfstate_bucket_stage_name` (`string`) <i>optional</i>
+### `tfstate_bucket_stage_name` (`string`) <i>optional</i>
 
 
 The name of the stage for Terraform state bucket<br/>
@@ -612,7 +616,7 @@ The name of the stage for Terraform state bucket<br/>
 ---
 
 
-  ### `tfstate_existing_role_arn` (`string`) <i>optional</i>
+### `tfstate_existing_role_arn` (`string`) <i>optional</i>
 
 
 The ARN of the existing IAM Role to access the Terraform remote state. If not provided and `remote_state_assume_role` is `true`, a role will be constructed from `remote_state_role_arn_template`<br/>
@@ -632,7 +636,7 @@ The ARN of the existing IAM Role to access the Terraform remote state. If not pr
 ---
 
 
-  ### `tfstate_role_arn_template` (`string`) <i>optional</i>
+### `tfstate_role_arn_template` (`string`) <i>optional</i>
 
 
 IAM Role ARN template for accessing the Terraform remote state<br/>
@@ -652,7 +656,7 @@ IAM Role ARN template for accessing the Terraform remote state<br/>
 ---
 
 
-  ### `tfstate_role_environment_name` (`string`) <i>optional</i>
+### `tfstate_role_environment_name` (`string`) <i>optional</i>
 
 
 The name of the environment for Terraform state IAM role<br/>
@@ -672,7 +676,7 @@ The name of the environment for Terraform state IAM role<br/>
 ---
 
 
-  ### `tfstate_role_name` (`string`) <i>optional</i>
+### `tfstate_role_name` (`string`) <i>optional</i>
 
 
 IAM Role name for accessing the Terraform remote state<br/>
@@ -692,7 +696,7 @@ IAM Role name for accessing the Terraform remote state<br/>
 ---
 
 
-  ### `tfstate_role_stage_name` (`string`) <i>optional</i>
+### `tfstate_role_stage_name` (`string`) <i>optional</i>
 
 
 The name of the stage for Terraform state IAM role<br/>
@@ -716,43 +720,43 @@ The name of the stage for Terraform state IAM role<br/>
 ### Outputs
 
 <dl>
-  <dt>`alert_policies`</dt>
+  <dt><code>alert_policies</code></dt>
   <dd>
     Alert policies<br/>
   </dd>
-  <dt>`api_integrations`</dt>
+  <dt><code>api_integrations</code></dt>
   <dd>
     API integrations<br/>
   </dd>
-  <dt>`escalations`</dt>
+  <dt><code>escalations</code></dt>
   <dd>
     Escalations<br/>
   </dd>
-  <dt>`existing_users`</dt>
+  <dt><code>existing_users</code></dt>
   <dd>
     Existing Users<br/>
   </dd>
-  <dt>`notification_policies`</dt>
+  <dt><code>notification_policies</code></dt>
   <dd>
     Notification policies<br/>
   </dd>
-  <dt>`service_incident_rule_ids`</dt>
+  <dt><code>service_incident_rule_ids</code></dt>
   <dd>
     Service Incident Rule IDs<br/>
   </dd>
-  <dt>`services`</dt>
+  <dt><code>services</code></dt>
   <dd>
     Services<br/>
   </dd>
-  <dt>`team_routing_rules`</dt>
+  <dt><code>team_routing_rules</code></dt>
   <dd>
     Team routing rules<br/>
   </dd>
-  <dt>`teams`</dt>
+  <dt><code>teams</code></dt>
   <dd>
     Teams<br/>
   </dd>
-  <dt>`users`</dt>
+  <dt><code>users</code></dt>
   <dd>
     Users<br/>
   </dd>

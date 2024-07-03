@@ -260,18 +260,22 @@ components:
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.0.0), version: >= 1.0.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 4.66.1), version: >= 4.66.1
-- [`jq`](https://registry.terraform.io/modules/jq/>=0.2.0), version: >=0.2.0
-- [`template`](https://registry.terraform.io/modules/template/>= 2.2), version: >= 2.2
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 1.0.0 |
+| `aws` | >= 4.66.1 |
+| `jq` | >=0.2.0 |
+| `template` | >= 2.2 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 4.66.1
-- `jq`, version: >=0.2.0
-- `template`, version: >= 2.2
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 4.66.1 |
+| `jq` | >=0.2.0 |
+| `template` | >= 2.2 |
+
 
 ### Modules
 
@@ -311,13 +315,13 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`aws_iam_policy.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) (resource)
-  - [`aws_iam_role.github_actions`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) (resource)
-  - [`aws_kinesis_stream.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kinesis_stream) (resource)
-  - [`aws_s3_bucket_object.task_definition_template`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) (resource)
-  - [`aws_security_group_rule.custom_sg_rules`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) (resource)
-  - [`aws_service_discovery_service.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/service_discovery_service) (resource)
-  - [`aws_ssm_parameter.full_urls`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
+  - [`aws_iam_policy.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) (resource)(main.tf#422)
+  - [`aws_iam_role.github_actions`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) (resource)(github-actions-iam-role.mixin.tf#53)
+  - [`aws_kinesis_stream.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kinesis_stream) (resource)(main.tf#543)
+  - [`aws_s3_bucket_object.task_definition_template`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) (resource)(main.tf#588)
+  - [`aws_security_group_rule.custom_sg_rules`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) (resource)(main.tf#329)
+  - [`aws_service_discovery_service.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/service_discovery_service) (resource)(cloud-map.tf#46)
+  - [`aws_ssm_parameter.full_urls`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(systems-manager.tf#48)
 
 ### Data Sources
 
@@ -344,7 +348,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
@@ -367,7 +371,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
@@ -391,7 +395,7 @@ and treated as a single ID element.<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -440,7 +444,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between ID elements.<br/>
@@ -462,7 +466,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `descriptor_formats` (`any`) <i>optional</i>
+### `descriptor_formats` (`any`) <i>optional</i>
 
 
 Describe additional descriptors to be output in the `descriptors` output map.<br/>
@@ -494,7 +498,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -514,7 +518,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -534,7 +538,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -558,7 +562,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
@@ -582,7 +586,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The order in which the labels (ID elements) appear in the `id`.<br/>
@@ -605,7 +609,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of ID elements (labels) as included in `id`,<br/>
@@ -631,7 +635,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+### `labels_as_tags` (`set(string)`) <i>optional</i>
 
 
 Set of labels (ID elements) to include as tags in the `tags` output.<br/>
@@ -665,7 +669,7 @@ Set to `[]` to suppress all generated tags.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
@@ -688,7 +692,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
@@ -708,7 +712,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Terraform regular expression (regex) string.<br/>
@@ -731,7 +735,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -751,7 +755,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
@@ -773,7 +777,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 ---
 
 
-  ### `tenant` (`string`) <i>optional</i>
+### `tenant` (`string`) <i>optional</i>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
@@ -796,7 +800,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 </details>
 
 ### Required Inputs
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
@@ -818,7 +822,7 @@ AWS Region<br/>
 
 
 ### Optional Inputs
-  ### `additional_targets` (`list(string)`) <i>optional</i>
+### `additional_targets` (`list(string)`) <i>optional</i>
 
 
 Additional target routes to add to the ALB that point to this service. The only difference between this and `var.vanity_alias` is `var.vanity_alias` will create an alias record in Route 53 in the hosted zone in this account as well. `var.additional_targets` only adds the listener route to this service's target group.<br/>
@@ -838,7 +842,7 @@ Additional target routes to add to the ALB that point to this service. The only 
 ---
 
 
-  ### `alb_configuration` (`string`) <i>optional</i>
+### `alb_configuration` (`string`) <i>optional</i>
 
 
 The configuration to use for the ALB, specifying which cluster alb configuration to use<br/>
@@ -858,7 +862,7 @@ The configuration to use for the ALB, specifying which cluster alb configuration
 ---
 
 
-  ### `alb_name` (`string`) <i>optional</i>
+### `alb_name` (`string`) <i>optional</i>
 
 
 The name of the ALB this service should attach to<br/>
@@ -878,7 +882,7 @@ The name of the ALB this service should attach to<br/>
 ---
 
 
-  ### `autoscaling_dimension` (`string`) <i>optional</i>
+### `autoscaling_dimension` (`string`) <i>optional</i>
 
 
 The dimension to use to decide to autoscale<br/>
@@ -898,7 +902,7 @@ The dimension to use to decide to autoscale<br/>
 ---
 
 
-  ### `autoscaling_enabled` (`bool`) <i>optional</i>
+### `autoscaling_enabled` (`bool`) <i>optional</i>
 
 
 Should this service autoscale using SNS alarams<br/>
@@ -918,7 +922,7 @@ Should this service autoscale using SNS alarams<br/>
 ---
 
 
-  ### `chamber_service` (`string`) <i>optional</i>
+### `chamber_service` (`string`) <i>optional</i>
 
 
 SSM parameter service name for use with chamber. This is used in chamber_format where /$chamber_service/$name/$container_name/$parameter would be the default.<br/>
@@ -938,7 +942,7 @@ SSM parameter service name for use with chamber. This is used in chamber_format 
 ---
 
 
-  ### `cluster_attributes` (`list(string)`) <i>optional</i>
+### `cluster_attributes` (`list(string)`) <i>optional</i>
 
 
 The attributes of the cluster name e.g. if the full name is `namespace-tenant-environment-dev-ecs-b2b` then the `cluster_name` is `ecs` and this value should be `b2b`.<br/>
@@ -958,7 +962,7 @@ The attributes of the cluster name e.g. if the full name is `namespace-tenant-en
 ---
 
 
-  ### `containers` <i>optional</i>
+### `containers` <i>optional</i>
 
 
 Feed inputs into container definition module<br/>
@@ -1035,7 +1039,7 @@ Feed inputs into container definition module<br/>
 ---
 
 
-  ### `cpu_utilization_high_alarm_actions` (`list(string)`) <i>optional</i>
+### `cpu_utilization_high_alarm_actions` (`list(string)`) <i>optional</i>
 
 
 A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High Alarm action<br/>
@@ -1055,7 +1059,7 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High Alarm acti
 ---
 
 
-  ### `cpu_utilization_high_evaluation_periods` (`number`) <i>optional</i>
+### `cpu_utilization_high_evaluation_periods` (`number`) <i>optional</i>
 
 
 Number of periods to evaluate for the alarm<br/>
@@ -1075,7 +1079,7 @@ Number of periods to evaluate for the alarm<br/>
 ---
 
 
-  ### `cpu_utilization_high_ok_actions` (`list(string)`) <i>optional</i>
+### `cpu_utilization_high_ok_actions` (`list(string)`) <i>optional</i>
 
 
 A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High OK action<br/>
@@ -1095,7 +1099,7 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High OK action<
 ---
 
 
-  ### `cpu_utilization_high_period` (`number`) <i>optional</i>
+### `cpu_utilization_high_period` (`number`) <i>optional</i>
 
 
 Duration in seconds to evaluate for the alarm<br/>
@@ -1115,7 +1119,7 @@ Duration in seconds to evaluate for the alarm<br/>
 ---
 
 
-  ### `cpu_utilization_high_threshold` (`number`) <i>optional</i>
+### `cpu_utilization_high_threshold` (`number`) <i>optional</i>
 
 
 The maximum percentage of CPU utilization average<br/>
@@ -1135,7 +1139,7 @@ The maximum percentage of CPU utilization average<br/>
 ---
 
 
-  ### `cpu_utilization_low_alarm_actions` (`list(string)`) <i>optional</i>
+### `cpu_utilization_low_alarm_actions` (`list(string)`) <i>optional</i>
 
 
 A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low Alarm action<br/>
@@ -1155,7 +1159,7 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low Alarm actio
 ---
 
 
-  ### `cpu_utilization_low_evaluation_periods` (`number`) <i>optional</i>
+### `cpu_utilization_low_evaluation_periods` (`number`) <i>optional</i>
 
 
 Number of periods to evaluate for the alarm<br/>
@@ -1175,7 +1179,7 @@ Number of periods to evaluate for the alarm<br/>
 ---
 
 
-  ### `cpu_utilization_low_ok_actions` (`list(string)`) <i>optional</i>
+### `cpu_utilization_low_ok_actions` (`list(string)`) <i>optional</i>
 
 
 A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low OK action<br/>
@@ -1195,7 +1199,7 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low OK action<b
 ---
 
 
-  ### `cpu_utilization_low_period` (`number`) <i>optional</i>
+### `cpu_utilization_low_period` (`number`) <i>optional</i>
 
 
 Duration in seconds to evaluate for the alarm<br/>
@@ -1215,7 +1219,7 @@ Duration in seconds to evaluate for the alarm<br/>
 ---
 
 
-  ### `cpu_utilization_low_threshold` (`number`) <i>optional</i>
+### `cpu_utilization_low_threshold` (`number`) <i>optional</i>
 
 
 The minimum percentage of CPU utilization average<br/>
@@ -1235,7 +1239,7 @@ The minimum percentage of CPU utilization average<br/>
 ---
 
 
-  ### `custom_security_group_rules` <i>optional</i>
+### `custom_security_group_rules` <i>optional</i>
 
 
 The list of custom security group rules to add to the service security group<br/>
@@ -1267,7 +1271,7 @@ The list of custom security group rules to add to the service security group<br/
 ---
 
 
-  ### `datadog_agent_sidecar_enabled` (`bool`) <i>optional</i>
+### `datadog_agent_sidecar_enabled` (`bool`) <i>optional</i>
 
 
 Enable the Datadog Agent Sidecar<br/>
@@ -1287,7 +1291,7 @@ Enable the Datadog Agent Sidecar<br/>
 ---
 
 
-  ### `datadog_log_method_is_firelens` (`bool`) <i>optional</i>
+### `datadog_log_method_is_firelens` (`bool`) <i>optional</i>
 
 
 Datadog logs can be sent via cloudwatch logs (and lambda) or firelens, set this to true to enable firelens via a sidecar container for fluentbit<br/>
@@ -1307,7 +1311,7 @@ Datadog logs can be sent via cloudwatch logs (and lambda) or firelens, set this 
 ---
 
 
-  ### `datadog_logging_default_tags_enabled` (`bool`) <i>optional</i>
+### `datadog_logging_default_tags_enabled` (`bool`) <i>optional</i>
 
 
 Add Default tags to all logs sent to Datadog<br/>
@@ -1327,7 +1331,7 @@ Add Default tags to all logs sent to Datadog<br/>
 ---
 
 
-  ### `datadog_logging_tags` (`map(string)`) <i>optional</i>
+### `datadog_logging_tags` (`map(string)`) <i>optional</i>
 
 
 Tags to add to all logs sent to Datadog<br/>
@@ -1347,7 +1351,7 @@ Tags to add to all logs sent to Datadog<br/>
 ---
 
 
-  ### `datadog_sidecar_containers_logs_enabled` (`bool`) <i>optional</i>
+### `datadog_sidecar_containers_logs_enabled` (`bool`) <i>optional</i>
 
 
 Enable the Datadog Agent Sidecar to send logs to aws cloudwatch group, requires `datadog_agent_sidecar_enabled` to be true<br/>
@@ -1367,7 +1371,7 @@ Enable the Datadog Agent Sidecar to send logs to aws cloudwatch group, requires 
 ---
 
 
-  ### `ecr_region` (`string`) <i>optional</i>
+### `ecr_region` (`string`) <i>optional</i>
 
 
 The region to use for the fully qualified ECR image URL. Defaults to the current region.<br/>
@@ -1387,7 +1391,7 @@ The region to use for the fully qualified ECR image URL. Defaults to the current
 ---
 
 
-  ### `ecr_stage_name` (`string`) <i>optional</i>
+### `ecr_stage_name` (`string`) <i>optional</i>
 
 
 The ecr stage (account) name to use for the fully qualified ECR image URL.<br/>
@@ -1407,7 +1411,7 @@ The ecr stage (account) name to use for the fully qualified ECR image URL.<br/>
 ---
 
 
-  ### `ecs_cluster_name` (`any`) <i>optional</i>
+### `ecs_cluster_name` (`any`) <i>optional</i>
 
 
 The name of the ECS Cluster this belongs to<br/>
@@ -1427,7 +1431,7 @@ The name of the ECS Cluster this belongs to<br/>
 ---
 
 
-  ### `exec_enabled` (`bool`) <i>optional</i>
+### `exec_enabled` (`bool`) <i>optional</i>
 
 
 Specifies whether to enable Amazon ECS Exec for the tasks within the service<br/>
@@ -1447,7 +1451,7 @@ Specifies whether to enable Amazon ECS Exec for the tasks within the service<br/
 ---
 
 
-  ### `github_actions_allowed_repos` (`list(string)`) <i>optional</i>
+### `github_actions_allowed_repos` (`list(string)`) <i>optional</i>
 
 
   A list of the GitHub repositories that are allowed to assume this role from GitHub Actions. For example,<br/>
@@ -1470,7 +1474,7 @@ Specifies whether to enable Amazon ECS Exec for the tasks within the service<br/
 ---
 
 
-  ### `github_actions_ecspresso_enabled` (`bool`) <i>optional</i>
+### `github_actions_ecspresso_enabled` (`bool`) <i>optional</i>
 
 
 Create IAM policies required for deployments with Ecspresso<br/>
@@ -1490,7 +1494,7 @@ Create IAM policies required for deployments with Ecspresso<br/>
 ---
 
 
-  ### `github_actions_iam_role_attributes` (`list(string)`) <i>optional</i>
+### `github_actions_iam_role_attributes` (`list(string)`) <i>optional</i>
 
 
 Additional attributes to add to the role name<br/>
@@ -1510,7 +1514,7 @@ Additional attributes to add to the role name<br/>
 ---
 
 
-  ### `github_actions_iam_role_enabled` (`bool`) <i>optional</i>
+### `github_actions_iam_role_enabled` (`bool`) <i>optional</i>
 
 
 Flag to toggle creation of an IAM Role that GitHub Actions can assume to access AWS resources<br/>
@@ -1531,7 +1535,7 @@ Flag to toggle creation of an IAM Role that GitHub Actions can assume to access 
 ---
 
 
-  ### `github_oidc_trusted_role_arns` (`list(string)`) <i>optional</i>
+### `github_oidc_trusted_role_arns` (`list(string)`) <i>optional</i>
 
 
 A list of IAM Role ARNs allowed to assume this cluster's GitHub OIDC role<br/>
@@ -1551,7 +1555,7 @@ A list of IAM Role ARNs allowed to assume this cluster's GitHub OIDC role<br/>
 ---
 
 
-  ### `health_check_healthy_threshold` (`number`) <i>optional</i>
+### `health_check_healthy_threshold` (`number`) <i>optional</i>
 
 
 The number of consecutive health checks successes required before healthy<br/>
@@ -1571,7 +1575,7 @@ The number of consecutive health checks successes required before healthy<br/>
 ---
 
 
-  ### `health_check_interval` (`number`) <i>optional</i>
+### `health_check_interval` (`number`) <i>optional</i>
 
 
 The duration in seconds in between health checks<br/>
@@ -1591,7 +1595,7 @@ The duration in seconds in between health checks<br/>
 ---
 
 
-  ### `health_check_matcher` (`string`) <i>optional</i>
+### `health_check_matcher` (`string`) <i>optional</i>
 
 
 The HTTP response codes to indicate a healthy check<br/>
@@ -1611,7 +1615,7 @@ The HTTP response codes to indicate a healthy check<br/>
 ---
 
 
-  ### `health_check_path` (`string`) <i>optional</i>
+### `health_check_path` (`string`) <i>optional</i>
 
 
 The destination for the health check request<br/>
@@ -1631,7 +1635,7 @@ The destination for the health check request<br/>
 ---
 
 
-  ### `health_check_port` (`string`) <i>optional</i>
+### `health_check_port` (`string`) <i>optional</i>
 
 
 The port to use to connect with the target. Valid values are either ports 1-65536, or `traffic-port`. Defaults to `traffic-port`<br/>
@@ -1651,7 +1655,7 @@ The port to use to connect with the target. Valid values are either ports 1-6553
 ---
 
 
-  ### `health_check_timeout` (`number`) <i>optional</i>
+### `health_check_timeout` (`number`) <i>optional</i>
 
 
 The amount of time to wait in seconds before failing a health check request<br/>
@@ -1671,7 +1675,7 @@ The amount of time to wait in seconds before failing a health check request<br/>
 ---
 
 
-  ### `health_check_unhealthy_threshold` (`number`) <i>optional</i>
+### `health_check_unhealthy_threshold` (`number`) <i>optional</i>
 
 
 The number of consecutive health check failures required before unhealthy<br/>
@@ -1691,7 +1695,7 @@ The number of consecutive health check failures required before unhealthy<br/>
 ---
 
 
-  ### `http_protocol` (`string`) <i>optional</i>
+### `http_protocol` (`string`) <i>optional</i>
 
 
 Which http protocol to use in outputs and SSM url params. This value is ignored if a load balancer is not used. If it is `null`, the redirect value from the ALB determines the protocol.<br/>
@@ -1711,7 +1715,7 @@ Which http protocol to use in outputs and SSM url params. This value is ignored 
 ---
 
 
-  ### `iam_policy_enabled` (`bool`) <i>optional</i>
+### `iam_policy_enabled` (`bool`) <i>optional</i>
 
 
 If set to true will create IAM policy in AWS<br/>
@@ -1731,7 +1735,7 @@ If set to true will create IAM policy in AWS<br/>
 ---
 
 
-  ### `iam_policy_statements` (`any`) <i>optional</i>
+### `iam_policy_statements` (`any`) <i>optional</i>
 
 
 Map of IAM policy statements to use in the policy. This can be used with or instead of the `var.iam_source_json_url`.<br/>
@@ -1751,7 +1755,7 @@ Map of IAM policy statements to use in the policy. This can be used with or inst
 ---
 
 
-  ### `kinesis_enabled` (`bool`) <i>optional</i>
+### `kinesis_enabled` (`bool`) <i>optional</i>
 
 
 Enable Kinesis<br/>
@@ -1771,7 +1775,7 @@ Enable Kinesis<br/>
 ---
 
 
-  ### `kms_alias_name_ssm` (`string`) <i>optional</i>
+### `kms_alias_name_ssm` (`string`) <i>optional</i>
 
 
 KMS alias name for SSM<br/>
@@ -1791,7 +1795,7 @@ KMS alias name for SSM<br/>
 ---
 
 
-  ### `kms_key_alias` (`string`) <i>optional</i>
+### `kms_key_alias` (`string`) <i>optional</i>
 
 
 ID of KMS key<br/>
@@ -1811,7 +1815,7 @@ ID of KMS key<br/>
 ---
 
 
-  ### `lb_catch_all` (`bool`) <i>optional</i>
+### `lb_catch_all` (`bool`) <i>optional</i>
 
 
 Should this service act as catch all for all subdomain hosts of the vanity domain<br/>
@@ -1831,7 +1835,7 @@ Should this service act as catch all for all subdomain hosts of the vanity domai
 ---
 
 
-  ### `logs` (`any`) <i>optional</i>
+### `logs` (`any`) <i>optional</i>
 
 
 Feed inputs into cloudwatch logs module<br/>
@@ -1851,7 +1855,7 @@ Feed inputs into cloudwatch logs module<br/>
 ---
 
 
-  ### `memory_utilization_high_alarm_actions` (`list(string)`) <i>optional</i>
+### `memory_utilization_high_alarm_actions` (`list(string)`) <i>optional</i>
 
 
 A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High Alarm action<br/>
@@ -1871,7 +1875,7 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High Alarm a
 ---
 
 
-  ### `memory_utilization_high_evaluation_periods` (`number`) <i>optional</i>
+### `memory_utilization_high_evaluation_periods` (`number`) <i>optional</i>
 
 
 Number of periods to evaluate for the alarm<br/>
@@ -1891,7 +1895,7 @@ Number of periods to evaluate for the alarm<br/>
 ---
 
 
-  ### `memory_utilization_high_ok_actions` (`list(string)`) <i>optional</i>
+### `memory_utilization_high_ok_actions` (`list(string)`) <i>optional</i>
 
 
 A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High OK action<br/>
@@ -1911,7 +1915,7 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High OK acti
 ---
 
 
-  ### `memory_utilization_high_period` (`number`) <i>optional</i>
+### `memory_utilization_high_period` (`number`) <i>optional</i>
 
 
 Duration in seconds to evaluate for the alarm<br/>
@@ -1931,7 +1935,7 @@ Duration in seconds to evaluate for the alarm<br/>
 ---
 
 
-  ### `memory_utilization_high_threshold` (`number`) <i>optional</i>
+### `memory_utilization_high_threshold` (`number`) <i>optional</i>
 
 
 The maximum percentage of Memory utilization average<br/>
@@ -1951,7 +1955,7 @@ The maximum percentage of Memory utilization average<br/>
 ---
 
 
-  ### `memory_utilization_low_alarm_actions` (`list(string)`) <i>optional</i>
+### `memory_utilization_low_alarm_actions` (`list(string)`) <i>optional</i>
 
 
 A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low Alarm action<br/>
@@ -1971,7 +1975,7 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low Alarm ac
 ---
 
 
-  ### `memory_utilization_low_evaluation_periods` (`number`) <i>optional</i>
+### `memory_utilization_low_evaluation_periods` (`number`) <i>optional</i>
 
 
 Number of periods to evaluate for the alarm<br/>
@@ -1991,7 +1995,7 @@ Number of periods to evaluate for the alarm<br/>
 ---
 
 
-  ### `memory_utilization_low_ok_actions` (`list(string)`) <i>optional</i>
+### `memory_utilization_low_ok_actions` (`list(string)`) <i>optional</i>
 
 
 A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low OK action<br/>
@@ -2011,7 +2015,7 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low OK actio
 ---
 
 
-  ### `memory_utilization_low_period` (`number`) <i>optional</i>
+### `memory_utilization_low_period` (`number`) <i>optional</i>
 
 
 Duration in seconds to evaluate for the alarm<br/>
@@ -2031,7 +2035,7 @@ Duration in seconds to evaluate for the alarm<br/>
 ---
 
 
-  ### `memory_utilization_low_threshold` (`number`) <i>optional</i>
+### `memory_utilization_low_threshold` (`number`) <i>optional</i>
 
 
 The minimum percentage of Memory utilization average<br/>
@@ -2051,7 +2055,7 @@ The minimum percentage of Memory utilization average<br/>
 ---
 
 
-  ### `nlb_name` (`string`) <i>optional</i>
+### `nlb_name` (`string`) <i>optional</i>
 
 
 The name of the NLB this service should attach to<br/>
@@ -2071,7 +2075,7 @@ The name of the NLB this service should attach to<br/>
 ---
 
 
-  ### `rds_name` (`any`) <i>optional</i>
+### `rds_name` (`any`) <i>optional</i>
 
 
 The name of the RDS database this service should allow access to<br/>
@@ -2091,7 +2095,7 @@ The name of the RDS database this service should allow access to<br/>
 ---
 
 
-  ### `retention_period` (`number`) <i>optional</i>
+### `retention_period` (`number`) <i>optional</i>
 
 
 Length of time data records are accessible after they are added to the stream<br/>
@@ -2111,7 +2115,7 @@ Length of time data records are accessible after they are added to the stream<br
 ---
 
 
-  ### `s3_mirror_name` (`string`) <i>optional</i>
+### `s3_mirror_name` (`string`) <i>optional</i>
 
 
 The name of the S3 mirror component<br/>
@@ -2131,7 +2135,7 @@ The name of the S3 mirror component<br/>
 ---
 
 
-  ### `service_connect_configurations` <i>optional</i>
+### `service_connect_configurations` <i>optional</i>
 
 
 The list of Service Connect configurations.<br/>
@@ -2178,7 +2182,7 @@ See `service_connect_configuration` docs https://registry.terraform.io/providers
 ---
 
 
-  ### `service_registries` <i>optional</i>
+### `service_registries` <i>optional</i>
 
 
 The list of Service Registries.<br/>
@@ -2211,7 +2215,7 @@ See `service_registries` docs https://registry.terraform.io/providers/hashicorp/
 ---
 
 
-  ### `shard_count` (`number`) <i>optional</i>
+### `shard_count` (`number`) <i>optional</i>
 
 
 Number of shards that the stream will use<br/>
@@ -2231,7 +2235,7 @@ Number of shards that the stream will use<br/>
 ---
 
 
-  ### `shard_level_metrics` (`list(string)`) <i>optional</i>
+### `shard_level_metrics` (`list(string)`) <i>optional</i>
 
 
 List of shard-level CloudWatch metrics which can be enabled for the stream<br/>
@@ -2263,7 +2267,7 @@ List of shard-level CloudWatch metrics which can be enabled for the stream<br/>
 ---
 
 
-  ### `ssm_enabled` (`bool`) <i>optional</i>
+### `ssm_enabled` (`bool`) <i>optional</i>
 
 
 If `true` create SSM keys for the database user and password.<br/>
@@ -2283,7 +2287,7 @@ If `true` create SSM keys for the database user and password.<br/>
 ---
 
 
-  ### `ssm_key_format` (`string`) <i>optional</i>
+### `ssm_key_format` (`string`) <i>optional</i>
 
 
 SSM path format. The values will will be used in the following order: `var.ssm_key_prefix`, `var.name`, `var.ssm_key_*`<br/>
@@ -2303,7 +2307,7 @@ SSM path format. The values will will be used in the following order: `var.ssm_k
 ---
 
 
-  ### `ssm_key_prefix` (`string`) <i>optional</i>
+### `ssm_key_prefix` (`string`) <i>optional</i>
 
 
 SSM path prefix. Omit the leading forward slash `/`.<br/>
@@ -2323,7 +2327,7 @@ SSM path prefix. Omit the leading forward slash `/`.<br/>
 ---
 
 
-  ### `stickiness_cookie_duration` (`number`) <i>optional</i>
+### `stickiness_cookie_duration` (`number`) <i>optional</i>
 
 
 The time period, in seconds, during which requests from a client should be routed to the same target. After this time period expires, the load balancer-generated cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds)<br/>
@@ -2343,7 +2347,7 @@ The time period, in seconds, during which requests from a client should be route
 ---
 
 
-  ### `stickiness_enabled` (`bool`) <i>optional</i>
+### `stickiness_enabled` (`bool`) <i>optional</i>
 
 
 Boolean to enable / disable `stickiness`. Default is `true`<br/>
@@ -2363,7 +2367,7 @@ Boolean to enable / disable `stickiness`. Default is `true`<br/>
 ---
 
 
-  ### `stickiness_type` (`string`) <i>optional</i>
+### `stickiness_type` (`string`) <i>optional</i>
 
 
 The type of sticky sessions. The only current possible value is `lb_cookie`<br/>
@@ -2383,7 +2387,7 @@ The type of sticky sessions. The only current possible value is `lb_cookie`<br/>
 ---
 
 
-  ### `stream_mode` (`string`) <i>optional</i>
+### `stream_mode` (`string`) <i>optional</i>
 
 
 Stream mode details for the Kinesis stream<br/>
@@ -2403,7 +2407,7 @@ Stream mode details for the Kinesis stream<br/>
 ---
 
 
-  ### `task` <i>optional</i>
+### `task` <i>optional</i>
 
 
 Feed inputs into ecs_alb_service_task module<br/>
@@ -2515,7 +2519,7 @@ Feed inputs into ecs_alb_service_task module<br/>
 ---
 
 
-  ### `task_enabled` (`bool`) <i>optional</i>
+### `task_enabled` (`bool`) <i>optional</i>
 
 
 Whether or not to use the ECS task module<br/>
@@ -2535,7 +2539,7 @@ Whether or not to use the ECS task module<br/>
 ---
 
 
-  ### `task_exec_policy_arns_map` (`map(string)`) <i>optional</i>
+### `task_exec_policy_arns_map` (`map(string)`) <i>optional</i>
 
 
 A map of name to IAM Policy ARNs to attach to the generated task execution role.<br/>
@@ -2559,7 +2563,7 @@ If you cannot provide unique names known at plan time, use `task_exec_policy_arn
 ---
 
 
-  ### `task_iam_role_component` (`string`) <i>optional</i>
+### `task_iam_role_component` (`string`) <i>optional</i>
 
 
 A component that outputs an iam_role module as 'role' for adding to the service as a whole.<br/>
@@ -2579,7 +2583,7 @@ A component that outputs an iam_role module as 'role' for adding to the service 
 ---
 
 
-  ### `task_policy_arns` (`list(string)`) <i>optional</i>
+### `task_policy_arns` (`list(string)`) <i>optional</i>
 
 
 The IAM policy ARNs to attach to the ECS task IAM role<br/>
@@ -2606,7 +2610,7 @@ The IAM policy ARNs to attach to the ECS task IAM role<br/>
 ---
 
 
-  ### `task_security_group_component` (`string`) <i>optional</i>
+### `task_security_group_component` (`string`) <i>optional</i>
 
 
 A component that outputs security_group_id for adding to the service as a whole.<br/>
@@ -2626,7 +2630,7 @@ A component that outputs security_group_id for adding to the service as a whole.
 ---
 
 
-  ### `unauthenticated_paths` (`list(string)`) <i>optional</i>
+### `unauthenticated_paths` (`list(string)`) <i>optional</i>
 
 
 Unauthenticated path pattern to match<br/>
@@ -2646,7 +2650,7 @@ Unauthenticated path pattern to match<br/>
 ---
 
 
-  ### `unauthenticated_priority` (`string`) <i>optional</i>
+### `unauthenticated_priority` (`string`) <i>optional</i>
 
 
 The priority for the rules without authentication, between 1 and 50000 (1 being highest priority). Must be different from `authenticated_priority` since a listener can't have multiple rules with the same priority	<br/>
@@ -2666,7 +2670,7 @@ The priority for the rules without authentication, between 1 and 50000 (1 being 
 ---
 
 
-  ### `use_lb` (`bool`) <i>optional</i>
+### `use_lb` (`bool`) <i>optional</i>
 
 
 Whether use load balancer for the service<br/>
@@ -2686,7 +2690,7 @@ Whether use load balancer for the service<br/>
 ---
 
 
-  ### `use_rds_client_sg` (`bool`) <i>optional</i>
+### `use_rds_client_sg` (`bool`) <i>optional</i>
 
 
 Use the RDS client security group<br/>
@@ -2706,7 +2710,7 @@ Use the RDS client security group<br/>
 ---
 
 
-  ### `vanity_alias` (`list(string)`) <i>optional</i>
+### `vanity_alias` (`list(string)`) <i>optional</i>
 
 
 The vanity aliases to use for the public LB.<br/>
@@ -2726,7 +2730,7 @@ The vanity aliases to use for the public LB.<br/>
 ---
 
 
-  ### `vanity_domain` (`string`) <i>optional</i>
+### `vanity_domain` (`string`) <i>optional</i>
 
 
 Whether to use the vanity domain alias for the service<br/>
@@ -2746,7 +2750,7 @@ Whether to use the vanity domain alias for the service<br/>
 ---
 
 
-  ### `zone_component` (`string`) <i>optional</i>
+### `zone_component` (`string`) <i>optional</i>
 
 
 The component name to look up service domain remote-state on<br/>
@@ -2766,7 +2770,7 @@ The component name to look up service domain remote-state on<br/>
 ---
 
 
-  ### `zone_component_output` (`string`) <i>optional</i>
+### `zone_component_output` (`string`) <i>optional</i>
 
 
 A json query to use to get the zone domain from the remote state. See <br/>
@@ -2790,75 +2794,75 @@ A json query to use to get the zone domain from the remote state. See <br/>
 ### Outputs
 
 <dl>
-  <dt>`ecs_cluster_arn`</dt>
+  <dt><code>ecs_cluster_arn</code></dt>
   <dd>
     Selected ECS cluster ARN<br/>
   </dd>
-  <dt>`environment_map`</dt>
+  <dt><code>environment_map</code></dt>
   <dd>
     Environment variables to pass to the container, this is a map of key/value pairs, where the key is `containerName,variableName`<br/>
   </dd>
-  <dt>`full_domain`</dt>
+  <dt><code>full_domain</code></dt>
   <dd>
     Domain to respond to GET requests<br/>
   </dd>
-  <dt>`github_actions_iam_role_arn`</dt>
+  <dt><code>github_actions_iam_role_arn</code></dt>
   <dd>
     ARN of IAM role for GitHub Actions<br/>
   </dd>
-  <dt>`github_actions_iam_role_name`</dt>
+  <dt><code>github_actions_iam_role_name</code></dt>
   <dd>
     Name of IAM role for GitHub Actions<br/>
   </dd>
-  <dt>`lb_arn`</dt>
+  <dt><code>lb_arn</code></dt>
   <dd>
     Selected LB ARN<br/>
   </dd>
-  <dt>`lb_listener_https`</dt>
+  <dt><code>lb_listener_https</code></dt>
   <dd>
     Selected LB HTTPS Listener<br/>
   </dd>
-  <dt>`lb_sg_id`</dt>
+  <dt><code>lb_sg_id</code></dt>
   <dd>
     Selected LB SG ID<br/>
   </dd>
-  <dt>`logs`</dt>
+  <dt><code>logs</code></dt>
   <dd>
     Output of cloudwatch logs module<br/>
   </dd>
-  <dt>`service_image`</dt>
+  <dt><code>service_image</code></dt>
   <dd>
     The image of the service container<br/>
   </dd>
-  <dt>`ssm_key_prefix`</dt>
+  <dt><code>ssm_key_prefix</code></dt>
   <dd>
     SSM prefix<br/>
   </dd>
-  <dt>`ssm_parameters`</dt>
+  <dt><code>ssm_parameters</code></dt>
   <dd>
     SSM parameters for the ECS Service<br/>
   </dd>
-  <dt>`subnet_ids`</dt>
+  <dt><code>subnet_ids</code></dt>
   <dd>
     Selected subnet IDs<br/>
   </dd>
-  <dt>`task_definition_arn`</dt>
+  <dt><code>task_definition_arn</code></dt>
   <dd>
     The task definition ARN<br/>
   </dd>
-  <dt>`task_definition_revision`</dt>
+  <dt><code>task_definition_revision</code></dt>
   <dd>
     The task definition revision<br/>
   </dd>
-  <dt>`task_template`</dt>
+  <dt><code>task_template</code></dt>
   <dd>
     The task template rendered<br/>
   </dd>
-  <dt>`vpc_id`</dt>
+  <dt><code>vpc_id</code></dt>
   <dd>
     Selected VPC ID<br/>
   </dd>
-  <dt>`vpc_sg_id`</dt>
+  <dt><code>vpc_sg_id</code></dt>
   <dd>
     Selected VPC SG ID<br/>
   </dd>

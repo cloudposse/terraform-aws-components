@@ -58,14 +58,18 @@ components:
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.3.0), version: >= 1.3.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 4.0), version: >= 4.0
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 1.3.0 |
+| `aws` | >= 4.0 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 4.0
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 4.0 |
+
 
 ### Modules
 
@@ -84,12 +88,12 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`aws_lb_listener_certificate.additional_certs`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener_certificate) (resource)
-  - [`aws_route53_record.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) (resource)
-  - [`aws_security_group.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) (resource)
-  - [`aws_security_group_rule.egress`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) (resource)
-  - [`aws_security_group_rule.ingress_cidr`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) (resource)
-  - [`aws_security_group_rule.ingress_security_groups`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) (resource)
+  - [`aws_lb_listener_certificate.additional_certs`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener_certificate) (resource)(main.tf#241)
+  - [`aws_route53_record.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) (resource)(main.tf#146)
+  - [`aws_security_group.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) (resource)(main.tf#33)
+  - [`aws_security_group_rule.egress`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) (resource)(main.tf#60)
+  - [`aws_security_group_rule.ingress_cidr`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) (resource)(main.tf#40)
+  - [`aws_security_group_rule.ingress_security_groups`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) (resource)(main.tf#50)
 
 ### Data Sources
 
@@ -104,7 +108,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
@@ -127,7 +131,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
@@ -151,7 +155,7 @@ and treated as a single ID element.<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -200,7 +204,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between ID elements.<br/>
@@ -222,7 +226,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `descriptor_formats` (`any`) <i>optional</i>
+### `descriptor_formats` (`any`) <i>optional</i>
 
 
 Describe additional descriptors to be output in the `descriptors` output map.<br/>
@@ -254,7 +258,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -274,7 +278,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -294,7 +298,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -318,7 +322,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
@@ -342,7 +346,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The order in which the labels (ID elements) appear in the `id`.<br/>
@@ -365,7 +369,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of ID elements (labels) as included in `id`,<br/>
@@ -391,7 +395,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+### `labels_as_tags` (`set(string)`) <i>optional</i>
 
 
 Set of labels (ID elements) to include as tags in the `tags` output.<br/>
@@ -425,7 +429,7 @@ Set to `[]` to suppress all generated tags.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
@@ -448,7 +452,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
@@ -468,7 +472,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Terraform regular expression (regex) string.<br/>
@@ -491,7 +495,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -511,7 +515,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
@@ -533,7 +537,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 ---
 
 
-  ### `tenant` (`string`) <i>optional</i>
+### `tenant` (`string`) <i>optional</i>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
@@ -556,7 +560,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 </details>
 
 ### Required Inputs
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
@@ -578,7 +582,7 @@ AWS Region<br/>
 
 
 ### Optional Inputs
-  ### `acm_certificate_domain` (`string`) <i>optional</i>
+### `acm_certificate_domain` (`string`) <i>optional</i>
 
 
 Domain to get the ACM cert to use on the ALB.<br/>
@@ -598,7 +602,7 @@ Domain to get the ACM cert to use on the ALB.<br/>
 ---
 
 
-  ### `acm_certificate_domain_suffix` (`string`) <i>optional</i>
+### `acm_certificate_domain_suffix` (`string`) <i>optional</i>
 
 
 Domain suffix to use with dns delegated HZ to get the ACM cert to use on the ALB<br/>
@@ -618,7 +622,7 @@ Domain suffix to use with dns delegated HZ to get the ACM cert to use on the ALB
 ---
 
 
-  ### `alb_configuration` (`map(any)`) <i>optional</i>
+### `alb_configuration` (`map(any)`) <i>optional</i>
 
 
 Map of multiple ALB configurations.<br/>
@@ -638,7 +642,7 @@ Map of multiple ALB configurations.<br/>
 ---
 
 
-  ### `alb_ingress_cidr_blocks_http` (`list(string)`) <i>optional</i>
+### `alb_ingress_cidr_blocks_http` (`list(string)`) <i>optional</i>
 
 
 List of CIDR blocks allowed to access environment over HTTP<br/>
@@ -664,7 +668,7 @@ List of CIDR blocks allowed to access environment over HTTP<br/>
 ---
 
 
-  ### `alb_ingress_cidr_blocks_https` (`list(string)`) <i>optional</i>
+### `alb_ingress_cidr_blocks_https` (`list(string)`) <i>optional</i>
 
 
 List of CIDR blocks allowed to access environment over HTTPS<br/>
@@ -690,7 +694,7 @@ List of CIDR blocks allowed to access environment over HTTPS<br/>
 ---
 
 
-  ### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
+### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
 
 
 List of CIDR blocks to be allowed to connect to the ECS cluster<br/>
@@ -710,7 +714,7 @@ List of CIDR blocks to be allowed to connect to the ECS cluster<br/>
 ---
 
 
-  ### `allowed_security_groups` (`list(string)`) <i>optional</i>
+### `allowed_security_groups` (`list(string)`) <i>optional</i>
 
 
 List of Security Group IDs to be allowed to connect to the ECS cluster<br/>
@@ -730,7 +734,7 @@ List of Security Group IDs to be allowed to connect to the ECS cluster<br/>
 ---
 
 
-  ### `capacity_providers_ec2` <i>optional</i>
+### `capacity_providers_ec2` <i>optional</i>
 
 
 EC2 autoscale groups capacity providers<br/>
@@ -873,7 +877,7 @@ EC2 autoscale groups capacity providers<br/>
 ---
 
 
-  ### `capacity_providers_fargate` (`bool`) <i>optional</i>
+### `capacity_providers_fargate` (`bool`) <i>optional</i>
 
 
 Use FARGATE capacity provider<br/>
@@ -893,7 +897,7 @@ Use FARGATE capacity provider<br/>
 ---
 
 
-  ### `capacity_providers_fargate_spot` (`bool`) <i>optional</i>
+### `capacity_providers_fargate_spot` (`bool`) <i>optional</i>
 
 
 Use FARGATE_SPOT capacity provider<br/>
@@ -913,7 +917,7 @@ Use FARGATE_SPOT capacity provider<br/>
 ---
 
 
-  ### `container_insights_enabled` (`bool`) <i>optional</i>
+### `container_insights_enabled` (`bool`) <i>optional</i>
 
 
 Whether or not to enable container insights<br/>
@@ -933,7 +937,7 @@ Whether or not to enable container insights<br/>
 ---
 
 
-  ### `dns_delegated_component_name` (`string`) <i>optional</i>
+### `dns_delegated_component_name` (`string`) <i>optional</i>
 
 
 Use this component name to read from the remote state to get the dns_delegated zone ID<br/>
@@ -953,7 +957,7 @@ Use this component name to read from the remote state to get the dns_delegated z
 ---
 
 
-  ### `dns_delegated_environment_name` (`string`) <i>optional</i>
+### `dns_delegated_environment_name` (`string`) <i>optional</i>
 
 
 Use this environment name to read from the remote state to get the dns_delegated zone ID<br/>
@@ -973,7 +977,7 @@ Use this environment name to read from the remote state to get the dns_delegated
 ---
 
 
-  ### `dns_delegated_stage_name` (`string`) <i>optional</i>
+### `dns_delegated_stage_name` (`string`) <i>optional</i>
 
 
 Use this stage name to read from the remote state to get the dns_delegated zone ID<br/>
@@ -993,7 +997,7 @@ Use this stage name to read from the remote state to get the dns_delegated zone 
 ---
 
 
-  ### `internal_enabled` (`bool`) <i>optional</i>
+### `internal_enabled` (`bool`) <i>optional</i>
 
 
 Whether to create an internal load balancer for services in this cluster<br/>
@@ -1013,7 +1017,7 @@ Whether to create an internal load balancer for services in this cluster<br/>
 ---
 
 
-  ### `maintenance_page_path` (`string`) <i>optional</i>
+### `maintenance_page_path` (`string`) <i>optional</i>
 
 
 The path from this directory to the text/html page to use as the maintenance page. Must be within 1024 characters<br/>
@@ -1033,7 +1037,7 @@ The path from this directory to the text/html page to use as the maintenance pag
 ---
 
 
-  ### `route53_enabled` (`bool`) <i>optional</i>
+### `route53_enabled` (`bool`) <i>optional</i>
 
 
 Whether or not to create a route53 record for the ALB<br/>
@@ -1053,7 +1057,7 @@ Whether or not to create a route53 record for the ALB<br/>
 ---
 
 
-  ### `route53_record_name` (`string`) <i>optional</i>
+### `route53_record_name` (`string`) <i>optional</i>
 
 
 The route53 record name<br/>
@@ -1077,35 +1081,35 @@ The route53 record name<br/>
 ### Outputs
 
 <dl>
-  <dt>`alb`</dt>
+  <dt><code>alb</code></dt>
   <dd>
     ALB outputs<br/>
   </dd>
-  <dt>`cluster_arn`</dt>
+  <dt><code>cluster_arn</code></dt>
   <dd>
     ECS cluster ARN<br/>
   </dd>
-  <dt>`cluster_name`</dt>
+  <dt><code>cluster_name</code></dt>
   <dd>
     ECS Cluster Name<br/>
   </dd>
-  <dt>`private_subnet_ids`</dt>
+  <dt><code>private_subnet_ids</code></dt>
   <dd>
     Private subnet ids<br/>
   </dd>
-  <dt>`public_subnet_ids`</dt>
+  <dt><code>public_subnet_ids</code></dt>
   <dd>
     Public subnet ids<br/>
   </dd>
-  <dt>`records`</dt>
+  <dt><code>records</code></dt>
   <dd>
     Record names<br/>
   </dd>
-  <dt>`security_group_id`</dt>
+  <dt><code>security_group_id</code></dt>
   <dd>
     Security group id<br/>
   </dd>
-  <dt>`vpc_id`</dt>
+  <dt><code>vpc_id</code></dt>
   <dd>
     VPC ID<br/>
   </dd>

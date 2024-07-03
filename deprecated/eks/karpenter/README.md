@@ -346,17 +346,21 @@ For more details, refer to:
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.0.0), version: >= 1.0.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 4.9.0), version: >= 4.9.0
-- [`helm`](https://registry.terraform.io/modules/helm/>= 2.0), version: >= 2.0
-- [`kubernetes`](https://registry.terraform.io/modules/kubernetes/>= 2.7.1, != 2.21.0), version: >= 2.7.1, != 2.21.0
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 1.0.0 |
+| `aws` | >= 4.9.0 |
+| `helm` | >= 2.0 |
+| `kubernetes` | >= 2.7.1, != 2.21.0 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 4.9.0
-- `kubernetes`, version: >= 2.7.1, != 2.21.0
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 4.9.0 |
+| `kubernetes` | >= 2.7.1, != 2.21.0 |
+
 
 ### Modules
 
@@ -373,12 +377,12 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`aws_cloudwatch_event_rule.interruption_handler`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_rule) (resource)
-  - [`aws_cloudwatch_event_target.interruption_handler`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) (resource)
-  - [`aws_iam_instance_profile.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) (resource)
-  - [`aws_sqs_queue.interruption_handler`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue) (resource)
-  - [`aws_sqs_queue_policy.interruption_handler`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue_policy) (resource)
-  - [`kubernetes_namespace.default`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) (resource)
+  - [`aws_cloudwatch_event_rule.interruption_handler`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_rule) (resource)(interruption_handler.tf#83)
+  - [`aws_cloudwatch_event_target.interruption_handler`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) (resource)(interruption_handler.tf#93)
+  - [`aws_iam_instance_profile.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) (resource)(main.tf#20)
+  - [`aws_sqs_queue.interruption_handler`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue) (resource)(interruption_handler.tf#47)
+  - [`aws_sqs_queue_policy.interruption_handler`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue_policy) (resource)(interruption_handler.tf#76)
+  - [`kubernetes_namespace.default`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) (resource)(main.tf#38)
 
 ### Data Sources
 
@@ -394,7 +398,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
@@ -417,7 +421,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
@@ -441,7 +445,7 @@ and treated as a single ID element.<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -490,7 +494,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between ID elements.<br/>
@@ -512,7 +516,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `descriptor_formats` (`any`) <i>optional</i>
+### `descriptor_formats` (`any`) <i>optional</i>
 
 
 Describe additional descriptors to be output in the `descriptors` output map.<br/>
@@ -544,7 +548,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -564,7 +568,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -584,7 +588,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -608,7 +612,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
@@ -632,7 +636,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The order in which the labels (ID elements) appear in the `id`.<br/>
@@ -655,7 +659,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 Controls the letter case of ID elements (labels) as included in `id`,<br/>
@@ -681,7 +685,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+### `labels_as_tags` (`set(string)`) <i>optional</i>
 
 
 Set of labels (ID elements) to include as tags in the `tags` output.<br/>
@@ -715,7 +719,7 @@ Set to `[]` to suppress all generated tags.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
@@ -738,7 +742,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
@@ -758,7 +762,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Terraform regular expression (regex) string.<br/>
@@ -781,7 +785,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -801,7 +805,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
@@ -823,7 +827,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 ---
 
 
-  ### `tenant` (`string`) <i>optional</i>
+### `tenant` (`string`) <i>optional</i>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
@@ -846,7 +850,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 </details>
 
 ### Required Inputs
-  ### `chart` (`string`) <i>required</i>
+### `chart` (`string`) <i>required</i>
 
 
 Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended<br/>
@@ -866,7 +870,7 @@ Chart name to be installed. The chart name can be local path, a URL to a chart, 
 ---
 
 
-  ### `chart_repository` (`string`) <i>required</i>
+### `chart_repository` (`string`) <i>required</i>
 
 
 Repository URL where to locate the requested chart<br/>
@@ -886,7 +890,7 @@ Repository URL where to locate the requested chart<br/>
 ---
 
 
-  ### `kubernetes_namespace` (`string`) <i>required</i>
+### `kubernetes_namespace` (`string`) <i>required</i>
 
 
 The namespace to install the release into<br/>
@@ -906,7 +910,7 @@ The namespace to install the release into<br/>
 ---
 
 
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
@@ -926,7 +930,7 @@ AWS Region<br/>
 ---
 
 
-  ### `resources` <i>required</i>
+### `resources` <i>required</i>
 
 
 The CPU and memory of the deployment's limits and requests<br/>
@@ -962,7 +966,7 @@ The CPU and memory of the deployment's limits and requests<br/>
 
 
 ### Optional Inputs
-  ### `atomic` (`bool`) <i>optional</i>
+### `atomic` (`bool`) <i>optional</i>
 
 
 If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used<br/>
@@ -982,7 +986,7 @@ If set, installation process purges chart on fail. The wait flag will be set aut
 ---
 
 
-  ### `chart_description` (`string`) <i>optional</i>
+### `chart_description` (`string`) <i>optional</i>
 
 
 Set release description attribute (visible in the history)<br/>
@@ -1002,7 +1006,7 @@ Set release description attribute (visible in the history)<br/>
 ---
 
 
-  ### `chart_values` (`any`) <i>optional</i>
+### `chart_values` (`any`) <i>optional</i>
 
 
 Additional values to yamlencode as `helm_release` values<br/>
@@ -1022,7 +1026,7 @@ Additional values to yamlencode as `helm_release` values<br/>
 ---
 
 
-  ### `chart_version` (`string`) <i>optional</i>
+### `chart_version` (`string`) <i>optional</i>
 
 
 Specify the exact chart version to install. If this is not specified, the latest version is installed<br/>
@@ -1042,7 +1046,7 @@ Specify the exact chart version to install. If this is not specified, the latest
 ---
 
 
-  ### `cleanup_on_fail` (`bool`) <i>optional</i>
+### `cleanup_on_fail` (`bool`) <i>optional</i>
 
 
 Allow deletion of new resources created in this upgrade when upgrade fails<br/>
@@ -1062,7 +1066,7 @@ Allow deletion of new resources created in this upgrade when upgrade fails<br/>
 ---
 
 
-  ### `crd_chart` (`string`) <i>optional</i>
+### `crd_chart` (`string`) <i>optional</i>
 
 
 The name of the Karpenter CRD chart to be installed, if `var.crd_chart_enabled` is set to `true`.<br/>
@@ -1082,7 +1086,7 @@ The name of the Karpenter CRD chart to be installed, if `var.crd_chart_enabled` 
 ---
 
 
-  ### `crd_chart_enabled` (`bool`) <i>optional</i>
+### `crd_chart_enabled` (`bool`) <i>optional</i>
 
 
 `karpenter-crd` can be installed as an independent helm chart to manage the lifecycle of Karpenter CRDs. Set to `true` to install this CRD helm chart before the primary karpenter chart.<br/>
@@ -1102,7 +1106,7 @@ The name of the Karpenter CRD chart to be installed, if `var.crd_chart_enabled` 
 ---
 
 
-  ### `create_namespace` (`bool`) <i>optional</i>
+### `create_namespace` (`bool`) <i>optional</i>
 
 
 Create the namespace if it does not yet exist. Defaults to `false`<br/>
@@ -1122,7 +1126,7 @@ Create the namespace if it does not yet exist. Defaults to `false`<br/>
 ---
 
 
-  ### `eks_component_name` (`string`) <i>optional</i>
+### `eks_component_name` (`string`) <i>optional</i>
 
 
 The name of the eks component<br/>
@@ -1142,7 +1146,7 @@ The name of the eks component<br/>
 ---
 
 
-  ### `helm_manifest_experiment_enabled` (`bool`) <i>optional</i>
+### `helm_manifest_experiment_enabled` (`bool`) <i>optional</i>
 
 
 Enable storing of the rendered manifest for helm_release so the full diff of what is changing can been seen in the plan<br/>
@@ -1162,7 +1166,7 @@ Enable storing of the rendered manifest for helm_release so the full diff of wha
 ---
 
 
-  ### `interruption_handler_enabled` (`bool`) <i>optional</i>
+### `interruption_handler_enabled` (`bool`) <i>optional</i>
 
 
   If `true`, deploy a SQS queue and Event Bridge rules to enable interruption handling by Karpenter.<br/>
@@ -1185,7 +1189,7 @@ Enable storing of the rendered manifest for helm_release so the full diff of wha
 ---
 
 
-  ### `interruption_queue_message_retention` (`number`) <i>optional</i>
+### `interruption_queue_message_retention` (`number`) <i>optional</i>
 
 
 The message retention in seconds for the interruption handler SQS queue.<br/>
@@ -1205,7 +1209,7 @@ The message retention in seconds for the interruption handler SQS queue.<br/>
 ---
 
 
-  ### `kube_data_auth_enabled` (`bool`) <i>optional</i>
+### `kube_data_auth_enabled` (`bool`) <i>optional</i>
 
 
 If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS cluster.<br/>
@@ -1227,7 +1231,7 @@ Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
 ---
 
 
-  ### `kube_exec_auth_aws_profile` (`string`) <i>optional</i>
+### `kube_exec_auth_aws_profile` (`string`) <i>optional</i>
 
 
 The AWS config profile for `aws eks get-token` to use<br/>
@@ -1247,7 +1251,7 @@ The AWS config profile for `aws eks get-token` to use<br/>
 ---
 
 
-  ### `kube_exec_auth_aws_profile_enabled` (`bool`) <i>optional</i>
+### `kube_exec_auth_aws_profile_enabled` (`bool`) <i>optional</i>
 
 
 If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-token`<br/>
@@ -1267,7 +1271,7 @@ If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-to
 ---
 
 
-  ### `kube_exec_auth_enabled` (`bool`) <i>optional</i>
+### `kube_exec_auth_enabled` (`bool`) <i>optional</i>
 
 
 If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-token` to authenticate to the EKS cluster.<br/>
@@ -1289,7 +1293,7 @@ Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
 ---
 
 
-  ### `kube_exec_auth_role_arn` (`string`) <i>optional</i>
+### `kube_exec_auth_role_arn` (`string`) <i>optional</i>
 
 
 The role ARN for `aws eks get-token` to use<br/>
@@ -1309,7 +1313,7 @@ The role ARN for `aws eks get-token` to use<br/>
 ---
 
 
-  ### `kube_exec_auth_role_arn_enabled` (`bool`) <i>optional</i>
+### `kube_exec_auth_role_arn_enabled` (`bool`) <i>optional</i>
 
 
 If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`<br/>
@@ -1329,7 +1333,7 @@ If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`
 ---
 
 
-  ### `kubeconfig_context` (`string`) <i>optional</i>
+### `kubeconfig_context` (`string`) <i>optional</i>
 
 
 Context to choose from the Kubernetes config file.<br/>
@@ -1351,7 +1355,7 @@ If supplied, `kubeconfig_context_format` will be ignored.<br/>
 ---
 
 
-  ### `kubeconfig_context_format` (`string`) <i>optional</i>
+### `kubeconfig_context_format` (`string`) <i>optional</i>
 
 
 A format string to use for creating the `kubectl` context name when<br/>
@@ -1374,7 +1378,7 @@ Must include a single `%s` which will be replaced with the cluster name.<br/>
 ---
 
 
-  ### `kubeconfig_exec_auth_api_version` (`string`) <i>optional</i>
+### `kubeconfig_exec_auth_api_version` (`string`) <i>optional</i>
 
 
 The Kubernetes API version of the credentials returned by the `exec` auth plugin<br/>
@@ -1394,7 +1398,7 @@ The Kubernetes API version of the credentials returned by the `exec` auth plugin
 ---
 
 
-  ### `kubeconfig_file` (`string`) <i>optional</i>
+### `kubeconfig_file` (`string`) <i>optional</i>
 
 
 The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true`<br/>
@@ -1414,7 +1418,7 @@ The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabl
 ---
 
 
-  ### `kubeconfig_file_enabled` (`bool`) <i>optional</i>
+### `kubeconfig_file_enabled` (`bool`) <i>optional</i>
 
 
 If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster<br/>
@@ -1434,7 +1438,7 @@ If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that
 ---
 
 
-  ### `legacy_create_karpenter_instance_profile` (`bool`) <i>optional</i>
+### `legacy_create_karpenter_instance_profile` (`bool`) <i>optional</i>
 
 
 When `true` (the default), this component creates an IAM Instance Profile<br/>
@@ -1460,7 +1464,7 @@ which see for further details.<br/>
 ---
 
 
-  ### `rbac_enabled` (`bool`) <i>optional</i>
+### `rbac_enabled` (`bool`) <i>optional</i>
 
 
 Enable/disable RBAC<br/>
@@ -1480,7 +1484,7 @@ Enable/disable RBAC<br/>
 ---
 
 
-  ### `timeout` (`number`) <i>optional</i>
+### `timeout` (`number`) <i>optional</i>
 
 
 Time in seconds to wait for any individual kubernetes operation (like Jobs for hooks). Defaults to `300` seconds<br/>
@@ -1500,7 +1504,7 @@ Time in seconds to wait for any individual kubernetes operation (like Jobs for h
 ---
 
 
-  ### `wait` (`bool`) <i>optional</i>
+### `wait` (`bool`) <i>optional</i>
 
 
 Will wait until all resources are in a ready state before marking the release as successful. It will wait for as long as `timeout`. Defaults to `true`<br/>
@@ -1524,11 +1528,11 @@ Will wait until all resources are in a ready state before marking the release as
 ### Outputs
 
 <dl>
-  <dt>`instance_profile`</dt>
+  <dt><code>instance_profile</code></dt>
   <dd>
     Provisioned EC2 Instance Profile for nodes launched by Karpenter<br/>
   </dd>
-  <dt>`metadata`</dt>
+  <dt><code>metadata</code></dt>
   <dd>
     Block status of the deployed release<br/>
   </dd>

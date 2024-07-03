@@ -24,19 +24,23 @@ components:
 
 ### Version Requirements
 
-- [`terraform`](https://registry.terraform.io/modules/terraform/>= 0.13.0), version: >= 0.13.0
-- [`aws`](https://registry.terraform.io/modules/aws/>= 3.0), version: >= 3.0
-- [`helm`](https://registry.terraform.io/modules/helm/>= 2.2.0), version: >= 2.2.0
-- [`sdm`](https://registry.terraform.io/modules/sdm/>= 1.0.19), version: >= 1.0.19
+| Requirement | Version |
+| --- | --- |
+| `terraform` | >= 0.13.0 |
+| `aws` | >= 3.0 |
+| `helm` | >= 2.2.0 |
+| `sdm` | >= 1.0.19 |
 
-https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
 ### Providers
 
-- `aws`, version: >= 3.0
-- `aws`, version: >= 3.0
-- `helm`, version: >= 2.2.0
-- `sdm`, version: >= 1.0.19
+| Provider | Version |
+| --- | --- |
+| `aws` | >= 3.0 |
+| `aws` | >= 3.0 |
+| `helm` | >= 2.2.0 |
+| `sdm` | >= 1.0.19 |
+
 
 ### Modules
 
@@ -51,15 +55,15 @@ Name | Version | Source | Description
 
 The following resources are used by this module:
 
-  - [`aws_ssm_parameter.gateway_tokens`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
-  - [`aws_ssm_parameter.relay_tokens`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
-  - [`aws_ssm_parameter.ssh_admin_token`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
-  - [`helm_release.cleanup`](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)
-  - [`helm_release.gateway`](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)
-  - [`helm_release.node`](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)
-  - [`helm_release.relay`](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)
-  - [`sdm_node.gateway`](https://registry.terraform.io/providers/strongdm/sdm/latest/docs/resources/node) (resource)
-  - [`sdm_node.relay`](https://registry.terraform.io/providers/strongdm/sdm/latest/docs/resources/node) (resource)
+  - [`aws_ssm_parameter.gateway_tokens`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(main.tf#50)
+  - [`aws_ssm_parameter.relay_tokens`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(main.tf#60)
+  - [`aws_ssm_parameter.ssh_admin_token`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(main.tf#70)
+  - [`helm_release.cleanup`](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)(helm.tf#67)
+  - [`helm_release.gateway`](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)(helm.tf#1)
+  - [`helm_release.node`](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)(helm.tf#40)
+  - [`helm_release.relay`](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)(helm.tf#23)
+  - [`sdm_node.gateway`](https://registry.terraform.io/providers/strongdm/sdm/latest/docs/resources/node) (resource)(main.tf#29)
+  - [`sdm_node.relay`](https://registry.terraform.io/providers/strongdm/sdm/latest/docs/resources/node) (resource)(main.tf#43)
 
 ### Data Sources
 
@@ -75,7 +79,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
 Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
@@ -95,7 +99,7 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 ---
 
 
-  ### `attributes` (`list(string)`) <i>optional</i>
+### `attributes` (`list(string)`) <i>optional</i>
 
 
 Additional attributes (e.g. `1`)<br/>
@@ -115,7 +119,7 @@ Additional attributes (e.g. `1`)<br/>
 ---
 
 
-  ### `context` (`any`) <i>optional</i>
+### `context` (`any`) <i>optional</i>
 
 
 Single object for setting entire context at once.<br/>
@@ -159,7 +163,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 ---
 
 
-  ### `delimiter` (`string`) <i>optional</i>
+### `delimiter` (`string`) <i>optional</i>
 
 
 Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br/>
@@ -181,7 +185,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 ---
 
 
-  ### `enabled` (`bool`) <i>optional</i>
+### `enabled` (`bool`) <i>optional</i>
 
 
 Set to false to prevent the module from creating any resources<br/>
@@ -201,7 +205,7 @@ Set to false to prevent the module from creating any resources<br/>
 ---
 
 
-  ### `environment` (`string`) <i>optional</i>
+### `environment` (`string`) <i>optional</i>
 
 
 Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
@@ -221,7 +225,7 @@ Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
 ---
 
 
-  ### `id_length_limit` (`number`) <i>optional</i>
+### `id_length_limit` (`number`) <i>optional</i>
 
 
 Limit `id` to this many characters (minimum 6).<br/>
@@ -245,7 +249,7 @@ Does not affect `id_full`.<br/>
 ---
 
 
-  ### `label_key_case` (`string`) <i>optional</i>
+### `label_key_case` (`string`) <i>optional</i>
 
 
 The letter case of label keys (`tag` names) (i.e. `name`, `namespace`, `environment`, `stage`, `attributes`) to use in `tags`.<br/>
@@ -268,7 +272,7 @@ Default value: `title`.<br/>
 ---
 
 
-  ### `label_order` (`list(string)`) <i>optional</i>
+### `label_order` (`list(string)`) <i>optional</i>
 
 
 The naming order of the id output and Name tag.<br/>
@@ -291,7 +295,7 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
 ---
 
 
-  ### `label_value_case` (`string`) <i>optional</i>
+### `label_value_case` (`string`) <i>optional</i>
 
 
 The letter case of output label values (also used in `tags` and `id`).<br/>
@@ -314,7 +318,7 @@ Default value: `lower`.<br/>
 ---
 
 
-  ### `name` (`string`) <i>optional</i>
+### `name` (`string`) <i>optional</i>
 
 
 Solution name, e.g. 'app' or 'jenkins'<br/>
@@ -334,7 +338,7 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 ---
 
 
-  ### `namespace` (`string`) <i>optional</i>
+### `namespace` (`string`) <i>optional</i>
 
 
 Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
@@ -354,7 +358,7 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
 ---
 
 
-  ### `regex_replace_chars` (`string`) <i>optional</i>
+### `regex_replace_chars` (`string`) <i>optional</i>
 
 
 Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br/>
@@ -376,7 +380,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 ---
 
 
-  ### `stage` (`string`) <i>optional</i>
+### `stage` (`string`) <i>optional</i>
 
 
 Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
@@ -396,7 +400,7 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 ---
 
 
-  ### `tags` (`map(string)`) <i>optional</i>
+### `tags` (`map(string)`) <i>optional</i>
 
 
 Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
@@ -419,7 +423,7 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 </details>
 
 ### Required Inputs
-  ### `region` (`string`) <i>required</i>
+### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
@@ -439,7 +443,7 @@ AWS Region<br/>
 ---
 
 
-  ### `ssm_account` (`string`) <i>required</i>
+### `ssm_account` (`string`) <i>required</i>
 
 
 Account (stage) housing SSM parameters<br/>
@@ -459,7 +463,7 @@ Account (stage) housing SSM parameters<br/>
 ---
 
 
-  ### `ssm_region` (`string`) <i>required</i>
+### `ssm_region` (`string`) <i>required</i>
 
 
 AWS Region housing SSM parameters<br/>
@@ -481,7 +485,7 @@ AWS Region housing SSM parameters<br/>
 
 
 ### Optional Inputs
-  ### `create_roles` (`bool`) <i>optional</i>
+### `create_roles` (`bool`) <i>optional</i>
 
 
 Set `true` to create roles (should only be set in one account)<br/>
@@ -501,7 +505,7 @@ Set `true` to create roles (should only be set in one account)<br/>
 ---
 
 
-  ### `dns_zone` (`string`) <i>optional</i>
+### `dns_zone` (`string`) <i>optional</i>
 
 
 DNS zone (e.g. example.com) into which to install the web host.<br/>
@@ -521,7 +525,7 @@ DNS zone (e.g. example.com) into which to install the web host.<br/>
 ---
 
 
-  ### `gateway_count` (`number`) <i>optional</i>
+### `gateway_count` (`number`) <i>optional</i>
 
 
 Number of gateways to provision<br/>
@@ -541,7 +545,7 @@ Number of gateways to provision<br/>
 ---
 
 
-  ### `install_gateway` (`bool`) <i>optional</i>
+### `install_gateway` (`bool`) <i>optional</i>
 
 
 Set `true` to install a pair of gateways<br/>
@@ -561,7 +565,7 @@ Set `true` to install a pair of gateways<br/>
 ---
 
 
-  ### `install_relay` (`bool`) <i>optional</i>
+### `install_relay` (`bool`) <i>optional</i>
 
 
 Set `true` to install a pair of relays<br/>
@@ -581,7 +585,7 @@ Set `true` to install a pair of relays<br/>
 ---
 
 
-  ### `kms_alias_name` (`string`) <i>optional</i>
+### `kms_alias_name` (`string`) <i>optional</i>
 
 
 AWS KMS alias used for encryption/decryption default is alias used in SSM<br/>
@@ -601,7 +605,7 @@ AWS KMS alias used for encryption/decryption default is alias used in SSM<br/>
 ---
 
 
-  ### `kubernetes_namespace` (`string`) <i>optional</i>
+### `kubernetes_namespace` (`string`) <i>optional</i>
 
 
 The Kubernetes namespace to install the release into. Defaults to `default`.<br/>
@@ -621,7 +625,7 @@ The Kubernetes namespace to install the release into. Defaults to `default`.<br/
 ---
 
 
-  ### `register_nodes` (`bool`) <i>optional</i>
+### `register_nodes` (`bool`) <i>optional</i>
 
 
 Set `true` to register nodes as SSH targets<br/>
@@ -641,7 +645,7 @@ Set `true` to register nodes as SSH targets<br/>
 ---
 
 
-  ### `relay_count` (`number`) <i>optional</i>
+### `relay_count` (`number`) <i>optional</i>
 
 
 Number of relays to provision<br/>
