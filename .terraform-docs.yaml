@@ -1,0 +1,245 @@
+content: |-
+  {{- $context_variables := list "context" "enabled" "namespace" "tenant" "environment" "stage" "name" "delimiter" "attributes" "tags" "additional_tag_map" "label_order" "regex_replace_chars" "id_length_limit" "label_key_case" "label_value_case" "descriptor_formats" "labels_as_tags" -}}
+
+  {{ .Header }}
+
+  ## Reference
+
+  {{ if ne (len .Module.Requirements) 0 -}}
+  ### Version Requirements
+  {{ range .Module.Requirements }}
+  {{ if .Version }}
+  {{- $baseUrl := "https://registry.terraform.io/modules" -}}
+
+  {{- if contains "//" .Name -}}
+    {{- $moduleParts := split "//" .Name -}}
+    {{- $moduleName := index $moduleParts 0 -}}
+    {{- $submodulePath := index $moduleParts 1 -}}
+  - {{ printf "[`%s`](%s/%s/%s/%s)" .Name $baseUrl $moduleName $submodulePath .Version -}}, version: {{ .Version }}
+  {{- else -}}
+  - {{ printf "[`%s`](%s/%s/%s)" .Name $baseUrl .Name .Version -}}, version: {{ .Version }}
+  {{- end -}}
+  {{ else }}
+  - `{{ .Name }}`
+  {{ end }}
+  {{- end }}
+  {{- end }}
+
+  https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
+
+  {{ if ne (len .Module.Providers) 0 -}}
+  ### Providers
+  {{ range .Module.Providers }}
+  - `{{ .Name }}`{{ if .Version }}, version: {{ .Version }}{{ end }}
+  {{- end }}
+  {{- end }}
+
+  {{ if ne (len .Module.ModuleCalls) 0 -}}
+  ### Modules
+
+  Name | Version | Source | Description
+  --- | --- | --- | ---
+  {{ range .Module.ModuleCalls }}
+  {{- $baseUrl := "https://registry.terraform.io/modules" -}}
+  {{ if contains "//" .Source -}}
+    {{- $moduleParts := regexSplit "//" .Source 2 -}}
+    {{- $moduleName := first $moduleParts -}}
+    {{- $submodulePath := last $moduleParts -}}
+    `{{ .Name }}` | {{ .Version | default "latest" }} | {{ printf "[`%s`](%s/%s/%s/%s)" .Source $baseUrl $moduleName $submodulePath .Version }} | {{ tostring .Description | default "n/a" }}
+  {{ else -}}
+    `{{ .Name }}` | {{ .Version | default "latest" }} | {{ printf "[`%s`](%s/%s/%s)" .Source $baseUrl .Source .Version }} | {{ tostring .Description | default "n/a" }}
+  {{ end }}
+  {{- end -}}
+  {{- end -}}
+
+  {{- if ne (len .Module.Resources) 0 }}
+
+  ### Resources
+
+  The following resources are used by this module:
+  {{ range .Module.Resources }}
+    {{- $isResource := and $.Config.Sections.Resources ( eq "resource" (printf "%s" .GetMode)) }}
+    {{- if $isResource }}
+    {{- $fullspec := ternary .URL (printf "[`%s`](%s)" .Spec .URL) .Spec }}
+    - {{ $fullspec }} {{ printf "(%s)" .GetMode -}}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+
+  {{ if ne (len .Module.Resources) 0 -}}
+  ### Data Sources
+
+  The following data sources are used by this module:
+  {{ range .Module.Resources }}
+    {{- $isDataResource := and $.Config.Sections.DataSources ( eq "data source" (printf "%s" .GetMode)) }}
+    {{- if $isDataResource }}
+    {{- $fullspec := ternary .URL (printf "[`%s`](%s)" .Spec .URL) .Spec }}
+    - {{ $fullspec }} {{ printf "(%s)" .GetMode -}}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+
+  ### Context Variables
+
+  The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+
+  <dl>
+  {{- range .Module.Inputs }}
+  {{- if and (has .Name $context_variables) }}
+    <dt>`{{ .Name }}`{{ if lt (len (split "\n" (tostring .Type))) 2 }} (`{{ tostring .Type }}`){{end}} <i>{{ ternary .Required "required" "optional" }}</i>{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}</dt>
+    <dd>
+      {{- $lines := regexSplit "\n" (tostring .Description | replace "OBSOLETE: " "") -1 -}}
+      {{- range $lines }}
+      {{ . }}<br/>
+      {{- end }}
+      **Required:** {{ ternary .Required "Yes" "No" }}<br/>
+      **Type:** {{ if lt (len (split "\n" (tostring .Type))) 2 }}`{{ tostring .Type }}`{{ else }}
+
+      ```hcl
+      {{ .Type.Raw }}
+      ```
+      <br/>
+      {{ end }}
+      **Default value:** {{ if lt (len (split "\n" .GetValue)) 2 }}`{{ .GetValue }}`{{ else }}
+      ```hcl
+      {{- $lines := regexSplit "\n" .GetValue -1 -}}
+      {{- range $lines }}
+      {{ . }}
+      {{- end }}
+      ```
+      {{ end }}
+    </dd>
+  {{- end }}
+  {{- end }}
+  </dl>
+
+  ### Required Inputs
+
+  <dl>
+  {{- range .Module.Inputs }}
+  {{- if and (not (has .Name $context_variables)) .Required }}
+    <dt>`{{ .Name }}`{{ if lt (len (split "\n" (tostring .Type))) 2 }} (`{{ tostring .Type }}`){{end}} <i>required</i>{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}</dt>
+    <dd>
+      {{- $lines := regexSplit "\n" (tostring .Description | replace "OBSOLETE: " "") -1 -}}
+      {{- range $lines }}
+      {{ . }}<br/>
+      {{- end }}
+
+      **Type:** {{ if lt (len (split "\n" (tostring .Type))) 2 }}`{{ tostring .Type }}`{{ else }}
+
+      ```hcl
+      {{ .Type.Raw }}
+      ```
+      {{ end }}
+      <br/>
+      **Default value:** {{ if lt (len (split "\n" .GetValue)) 2 }}`{{ .GetValue }}`{{ else }}
+      ```hcl
+      {{- $lines := regexSplit "\n" .GetValue -1 -}}
+      {{- range $lines }}
+      {{ . }}
+      {{- end }}
+      ```
+      {{ end }}
+
+    </dd>
+  {{- end }}
+  {{- end }}
+  </dl>
+
+  {{ $optional := false -}}
+  {{ range .Module.Inputs }}{{ if not .Required }}{{ $optional = true -}}{{ end -}}{{ end -}}
+
+  {{ if $optional -}}
+  ### Optional Inputs
+
+  <dl>
+  {{- range .Module.Inputs }}
+  {{- if and (not (has .Name $context_variables)) (not .Required) }}
+    <dt>`{{ .Name }}`{{ if lt (len (split "\n" (tostring .Type))) 2 }} (`{{ tostring .Type }}`){{end}} <i>optional</i>{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}</dt>
+    <dd>
+      {{- $lines := regexSplit "\n" (tostring .Description | replace "OBSOLETE: " "") -1 -}}
+      {{- range $lines }}
+      {{ . }}<br/>
+      {{- end }}
+      <br/>
+      **Type:** {{ if lt (len (split "\n" (tostring .Type))) 2 }}`{{ tostring .Type }}`{{ else }}
+
+      ```hcl
+      {{ tostring .Type }}
+      ```
+      {{ end }}
+      <br/>
+      **Default value:** {{ if lt (len (split "\n" .GetValue)) 2 }}`{{ .GetValue }}`{{ else }}
+      ```hcl
+      {{- $lines := regexSplit "\n" .GetValue -1 -}}
+      {{- range $lines }}
+      {{ . }}
+      {{- end }}
+      ```
+      {{ end }}
+    </dd>
+  {{- end -}}
+  {{ end -}}
+  </dl>
+  {{ end }}
+
+  {{ if ne (len .Module.Outputs) 0 -}}
+  ### Outputs
+
+  <dl>
+  {{- range .Module.Outputs }}
+    <dt>`{{ .Name }}`{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}</dt>
+    <dd>
+      {{- $lines := regexSplit "\n" (tostring .Description | replace "OBSOLETE: " "" | default "n/a" ) -1 -}}
+      {{- range $lines }}
+      {{ . }}<br/>
+      {{- end }}
+    </dd>
+  {{- end }}
+  </dl>
+  {{- end }}
+
+formatter: "markdown document" # this is required
+version: ""
+#header-from: ".header.md"
+
+recursive:
+  enabled: false
+  path: modules
+
+sections:
+  hide: []
+  show: []
+
+output:
+  file: README.md
+  mode: replace
+  template: |-
+    {{ .Content }}
+
+sort:
+  enabled: true
+  by: required
+
+output-values:
+  enabled: false
+  from: ''
+
+settings:
+  anchor: true
+  color: true
+  default: true
+  description: true
+  escape: true
+  hide-empty: false
+  html: true
+  indent: 2
+  lockfile: false
+  read-comments: true
+  required: true
+  sensitive: true
+  type: true
+
+
+
+
