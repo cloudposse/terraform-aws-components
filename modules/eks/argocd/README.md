@@ -449,159 +449,1046 @@ Reference: https://stackoverflow.com/questions/75046330/argo-cd-error-server-sec
 
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
-| <a name="requirement_github"></a> [github](#requirement\_github) | >= 4.0 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.6.0 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.9.0, != 2.21.0 |
-| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.5 |
 
-## Providers
+## Reference
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
-| <a name="provider_aws.config_secrets"></a> [aws.config\_secrets](#provider\_aws.config\_secrets) | >= 4.0 |
-| <a name="provider_github"></a> [github](#provider\_github) | >= 4.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.9.0, != 2.21.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | >= 3.5 |
+### Version Requirements
 
-## Modules
+- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.0.0), version: >= 1.0.0
+- [`aws`](https://registry.terraform.io/modules/aws/>= 4.0), version: >= 4.0
+- [`github`](https://registry.terraform.io/modules/github/>= 4.0), version: >= 4.0
+- [`helm`](https://registry.terraform.io/modules/helm/>= 2.6.0), version: >= 2.6.0
+- [`kubernetes`](https://registry.terraform.io/modules/kubernetes/>= 2.9.0, != 2.21.0), version: >= 2.9.0, != 2.21.0
+- [`random`](https://registry.terraform.io/modules/random/>= 3.5), version: >= 3.5
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_argocd"></a> [argocd](#module\_argocd) | cloudposse/helm-release/aws | 0.10.1 |
-| <a name="module_argocd_apps"></a> [argocd\_apps](#module\_argocd\_apps) | cloudposse/helm-release/aws | 0.10.1 |
-| <a name="module_argocd_repo"></a> [argocd\_repo](#module\_argocd\_repo) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
-| <a name="module_iam_roles_config_secrets"></a> [iam\_roles\_config\_secrets](#module\_iam\_roles\_config\_secrets) | ../../account-map/modules/iam-roles | n/a |
-| <a name="module_notifications_notifiers"></a> [notifications\_notifiers](#module\_notifications\_notifiers) | cloudposse/config/yaml//modules/deepmerge | 1.0.2 |
-| <a name="module_notifications_templates"></a> [notifications\_templates](#module\_notifications\_templates) | cloudposse/config/yaml//modules/deepmerge | 1.0.2 |
-| <a name="module_saml_sso_providers"></a> [saml\_sso\_providers](#module\_saml\_sso\_providers) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
+https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
-## Resources
+### Providers
 
-| Name | Type |
-|------|------|
-| [github_repository_webhook.default](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_webhook) | resource |
-| [random_password.webhook](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
-| [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
-| [aws_ssm_parameter.github_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameter.github_deploy_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameter.oidc_client_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameter.oidc_client_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameter.slack_notifications](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameters_by_path.argocd_notifications](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameters_by_path) | data source |
-| [kubernetes_resources.crd](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/resources) | data source |
+- `aws`, version: >= 4.0
+- `aws`, version: >= 4.0
+- `github`, version: >= 4.0
+- `kubernetes`, version: >= 2.9.0, != 2.21.0
+- `random`, version: >= 3.5
 
-## Inputs
+### Modules
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_admin_enabled"></a> [admin\_enabled](#input\_admin\_enabled) | Toggles Admin user creation the deployed chart | `bool` | `false` | no |
-| <a name="input_alb_group_name"></a> [alb\_group\_name](#input\_alb\_group\_name) | A name used in annotations to reuse an ALB (e.g. `argocd`) or to generate a new one | `string` | `null` | no |
-| <a name="input_alb_logs_bucket"></a> [alb\_logs\_bucket](#input\_alb\_logs\_bucket) | The name of the bucket for ALB access logs. The bucket must have policy allowing the ELB logging principal | `string` | `""` | no |
-| <a name="input_alb_logs_prefix"></a> [alb\_logs\_prefix](#input\_alb\_logs\_prefix) | `alb_logs_bucket` s3 bucket prefix | `string` | `""` | no |
-| <a name="input_alb_name"></a> [alb\_name](#input\_alb\_name) | The name of the ALB (e.g. `argocd`) provisioned by `alb-controller`. Works together with `var.alb_group_name` | `string` | `null` | no |
-| <a name="input_anonymous_enabled"></a> [anonymous\_enabled](#input\_anonymous\_enabled) | Toggles anonymous user access using default RBAC setting (Defaults to read-only) | `bool` | `false` | no |
-| <a name="input_argocd_apps_chart"></a> [argocd\_apps\_chart](#input\_argocd\_apps\_chart) | Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended. | `string` | `"argocd-apps"` | no |
-| <a name="input_argocd_apps_chart_description"></a> [argocd\_apps\_chart\_description](#input\_argocd\_apps\_chart\_description) | Set release description attribute (visible in the history). | `string` | `"A Helm chart for managing additional Argo CD Applications and Projects"` | no |
-| <a name="input_argocd_apps_chart_repository"></a> [argocd\_apps\_chart\_repository](#input\_argocd\_apps\_chart\_repository) | Repository URL where to locate the requested chart. | `string` | `"https://argoproj.github.io/argo-helm"` | no |
-| <a name="input_argocd_apps_chart_values"></a> [argocd\_apps\_chart\_values](#input\_argocd\_apps\_chart\_values) | Additional values to yamlencode as `helm_release` values for the argocd\_apps chart | `any` | `{}` | no |
-| <a name="input_argocd_apps_chart_version"></a> [argocd\_apps\_chart\_version](#input\_argocd\_apps\_chart\_version) | Specify the exact chart version to install. If this is not specified, the latest version is installed. | `string` | `"0.0.3"` | no |
-| <a name="input_argocd_apps_enabled"></a> [argocd\_apps\_enabled](#input\_argocd\_apps\_enabled) | Enable argocd apps | `bool` | `true` | no |
-| <a name="input_argocd_create_namespaces"></a> [argocd\_create\_namespaces](#input\_argocd\_create\_namespaces) | ArgoCD create namespaces policy | `bool` | `false` | no |
-| <a name="input_argocd_rbac_default_policy"></a> [argocd\_rbac\_default\_policy](#input\_argocd\_rbac\_default\_policy) | Default ArgoCD RBAC default role.<br><br>See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/#basic-built-in-roles for more information. | `string` | `"role:readonly"` | no |
-| <a name="input_argocd_rbac_groups"></a> [argocd\_rbac\_groups](#input\_argocd\_rbac\_groups) | List of ArgoCD Group Role Assignment strings to be added to the argocd-rbac configmap policy.csv item.<br>e.g.<br>[<br>  {<br>    group: idp-group-name,<br>    role: argocd-role-name<br>  },<br>]<br>becomes: `g, idp-group-name, role:argocd-role-name`<br>See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more information. | <pre>list(object({<br>    group = string,<br>    role  = string<br>  }))</pre> | `[]` | no |
-| <a name="input_argocd_rbac_policies"></a> [argocd\_rbac\_policies](#input\_argocd\_rbac\_policies) | List of ArgoCD RBAC Permission strings to be added to the argocd-rbac configmap policy.csv item.<br><br>See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more information. | `list(string)` | `[]` | no |
-| <a name="input_argocd_repositories"></a> [argocd\_repositories](#input\_argocd\_repositories) | Map of objects defining an `argocd_repo` to configure.  The key is the name of the ArgoCD repository. | <pre>map(object({<br>    environment = string # The environment where the `argocd_repo` component is deployed.<br>    stage       = string # The stage where the `argocd_repo` component is deployed.<br>    tenant      = string # The tenant where the `argocd_repo` component is deployed.<br>  }))</pre> | `{}` | no |
-| <a name="input_atomic"></a> [atomic](#input\_atomic) | If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used. | `bool` | `true` | no |
-| <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_certificate_issuer"></a> [certificate\_issuer](#input\_certificate\_issuer) | Certificate manager cluster issuer | `string` | `"letsencrypt-staging"` | no |
-| <a name="input_chart"></a> [chart](#input\_chart) | Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended. | `string` | `"argo-cd"` | no |
-| <a name="input_chart_description"></a> [chart\_description](#input\_chart\_description) | Set release description attribute (visible in the history). | `string` | `null` | no |
-| <a name="input_chart_repository"></a> [chart\_repository](#input\_chart\_repository) | Repository URL where to locate the requested chart. | `string` | `"https://argoproj.github.io/argo-helm"` | no |
-| <a name="input_chart_values"></a> [chart\_values](#input\_chart\_values) | Additional values to yamlencode as `helm_release` values. | `any` | `{}` | no |
-| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Specify the exact chart version to install. If this is not specified, the latest version is installed. | `string` | `"5.19.12"` | no |
-| <a name="input_cleanup_on_fail"></a> [cleanup\_on\_fail](#input\_cleanup\_on\_fail) | Allow deletion of new resources created in this upgrade when upgrade fails. | `bool` | `true` | no |
-| <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
-| <a name="input_create_github_webhook"></a> [create\_github\_webhook](#input\_create\_github\_webhook) | Enable GitHub webhook creation<br><br>  Use this to create the GitHub Webhook for the given ArgoCD repo using the value created when `var.github_webhook_enabled` is `true`. | `bool` | `true` | no |
-| <a name="input_create_namespace"></a> [create\_namespace](#input\_create\_namespace) | Create the namespace if it does not yet exist. Defaults to `false`. | `bool` | `false` | no |
-| <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_eks_component_name"></a> [eks\_component\_name](#input\_eks\_component\_name) | The name of the eks component | `string` | `"eks/cluster"` | no |
-| <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_forecastle_enabled"></a> [forecastle\_enabled](#input\_forecastle\_enabled) | Toggles Forecastle integration in the deployed chart | `bool` | `false` | no |
-| <a name="input_github_base_url"></a> [github\_base\_url](#input\_github\_base\_url) | This is the target GitHub base API endpoint. Providing a value is a requirement when working with GitHub Enterprise. It is optional to provide this value and it can also be sourced from the `GITHUB_BASE_URL` environment variable. The value must end with a slash, for example: `https://terraformtesting-ghe.westus.cloudapp.azure.com/` | `string` | `null` | no |
-| <a name="input_github_default_notifications_enabled"></a> [github\_default\_notifications\_enabled](#input\_github\_default\_notifications\_enabled) | Enable default GitHub commit statuses notifications (required for CD sync mode) | `bool` | `true` | no |
-| <a name="input_github_organization"></a> [github\_organization](#input\_github\_organization) | GitHub Organization | `string` | n/a | yes |
-| <a name="input_github_token_override"></a> [github\_token\_override](#input\_github\_token\_override) | Use the value of this variable as the GitHub token instead of reading it from SSM | `string` | `null` | no |
-| <a name="input_github_webhook_enabled"></a> [github\_webhook\_enabled](#input\_github\_webhook\_enabled) | Enable GitHub webhook integration<br><br>  Use this to create a secret value and pass it to the argo-cd chart | `bool` | `true` | no |
-| <a name="input_helm_manifest_experiment_enabled"></a> [helm\_manifest\_experiment\_enabled](#input\_helm\_manifest\_experiment\_enabled) | Enable storing of the rendered manifest for helm\_release so the full diff of what is changing can been seen in the plan | `bool` | `false` | no |
-| <a name="input_host"></a> [host](#input\_host) | Host name to use for ingress and ALB | `string` | `""` | no |
-| <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_kube_data_auth_enabled"></a> [kube\_data\_auth\_enabled](#input\_kube\_data\_auth\_enabled) | If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`. | `bool` | `false` | no |
-| <a name="input_kube_exec_auth_aws_profile"></a> [kube\_exec\_auth\_aws\_profile](#input\_kube\_exec\_auth\_aws\_profile) | The AWS config profile for `aws eks get-token` to use | `string` | `""` | no |
-| <a name="input_kube_exec_auth_aws_profile_enabled"></a> [kube\_exec\_auth\_aws\_profile\_enabled](#input\_kube\_exec\_auth\_aws\_profile\_enabled) | If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-token` | `bool` | `false` | no |
-| <a name="input_kube_exec_auth_enabled"></a> [kube\_exec\_auth\_enabled](#input\_kube\_exec\_auth\_enabled) | If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-token` to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`. | `bool` | `true` | no |
-| <a name="input_kube_exec_auth_role_arn"></a> [kube\_exec\_auth\_role\_arn](#input\_kube\_exec\_auth\_role\_arn) | The role ARN for `aws eks get-token` to use | `string` | `""` | no |
-| <a name="input_kube_exec_auth_role_arn_enabled"></a> [kube\_exec\_auth\_role\_arn\_enabled](#input\_kube\_exec\_auth\_role\_arn\_enabled) | If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token` | `bool` | `true` | no |
-| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes config file.<br>If supplied, `kubeconfig_context_format` will be ignored. | `string` | `""` | no |
-| <a name="input_kubeconfig_context_format"></a> [kubeconfig\_context\_format](#input\_kubeconfig\_context\_format) | A format string to use for creating the `kubectl` context name when<br>`kubeconfig_file_enabled` is `true` and `kubeconfig_context` is not supplied.<br>Must include a single `%s` which will be replaced with the cluster name. | `string` | `""` | no |
-| <a name="input_kubeconfig_exec_auth_api_version"></a> [kubeconfig\_exec\_auth\_api\_version](#input\_kubeconfig\_exec\_auth\_api\_version) | The Kubernetes API version of the credentials returned by the `exec` auth plugin | `string` | `"client.authentication.k8s.io/v1beta1"` | no |
-| <a name="input_kubeconfig_file"></a> [kubeconfig\_file](#input\_kubeconfig\_file) | The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true` | `string` | `""` | no |
-| <a name="input_kubeconfig_file_enabled"></a> [kubeconfig\_file\_enabled](#input\_kubeconfig\_file\_enabled) | If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster | `bool` | `false` | no |
-| <a name="input_kubernetes_namespace"></a> [kubernetes\_namespace](#input\_kubernetes\_namespace) | The namespace to install the release into. | `string` | `"argocd"` | no |
-| <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
-| <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
-| <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
-| <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_notifications_notifiers"></a> [notifications\_notifiers](#input\_notifications\_notifiers) | Notification Triggers to configure.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/triggers/<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L352) | <pre>object({<br>    ssm_path_prefix = optional(string, "/argocd/notifications/notifiers")<br>    # service.webhook.<webhook-name>:<br>    webhook = optional(map(<br>      object({<br>        url = string<br>        headers = optional(list(<br>          object({<br>            name  = string<br>            value = string<br>          })<br>        ), [])<br>        insecureSkipVerify = optional(bool, false)<br>      })<br>    ))<br>  })</pre> | `{}` | no |
-| <a name="input_notifications_templates"></a> [notifications\_templates](#input\_notifications\_templates) | Notification Templates to configure.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/templates/<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L158) | <pre>map(object({<br>    message = string<br>    alertmanager = optional(object({<br>      labels       = map(string)<br>      annotations  = map(string)<br>      generatorURL = string<br>    }))<br>    webhook = optional(map(<br>      object({<br>        method = optional(string)<br>        path   = optional(string)<br>        body   = optional(string)<br>      })<br>    ))<br>  }))</pre> | `{}` | no |
-| <a name="input_notifications_triggers"></a> [notifications\_triggers](#input\_notifications\_triggers) | Notification Triggers to configure.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/triggers/<br>See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L352) | <pre>map(list(<br>    object({<br>      oncePer = optional(string)<br>      send    = list(string)<br>      when    = string<br>    })<br>  ))</pre> | `{}` | no |
-| <a name="input_oidc_enabled"></a> [oidc\_enabled](#input\_oidc\_enabled) | Toggles OIDC integration in the deployed chart | `bool` | `false` | no |
-| <a name="input_oidc_issuer"></a> [oidc\_issuer](#input\_oidc\_issuer) | OIDC issuer URL | `string` | `""` | no |
-| <a name="input_oidc_name"></a> [oidc\_name](#input\_oidc\_name) | Name of the OIDC resource | `string` | `""` | no |
-| <a name="input_oidc_rbac_scopes"></a> [oidc\_rbac\_scopes](#input\_oidc\_rbac\_scopes) | OIDC RBAC scopes to request | `string` | `"[argocd_realm_access]"` | no |
-| <a name="input_oidc_requested_scopes"></a> [oidc\_requested\_scopes](#input\_oidc\_requested\_scopes) | Set of OIDC scopes to request | `string` | `"[\"openid\", \"profile\", \"email\", \"groups\"]"` | no |
-| <a name="input_rbac_enabled"></a> [rbac\_enabled](#input\_rbac\_enabled) | Enable Service Account for pods. | `bool` | `true` | no |
-| <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
-| <a name="input_region"></a> [region](#input\_region) | AWS Region. | `string` | n/a | yes |
-| <a name="input_resources"></a> [resources](#input\_resources) | The cpu and memory of the deployment's limits and requests. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | `null` | no |
-| <a name="input_saml_enabled"></a> [saml\_enabled](#input\_saml\_enabled) | Toggles SAML integration in the deployed chart | `bool` | `false` | no |
-| <a name="input_saml_rbac_scopes"></a> [saml\_rbac\_scopes](#input\_saml\_rbac\_scopes) | SAML RBAC scopes to request | `string` | `"[email,groups]"` | no |
-| <a name="input_saml_sso_providers"></a> [saml\_sso\_providers](#input\_saml\_sso\_providers) | SAML SSO providers components | <pre>map(object({<br>    component   = string<br>    environment = optional(string, null)<br>  }))</pre> | `{}` | no |
-| <a name="input_service_type"></a> [service\_type](#input\_service\_type) | Service type for exposing the ArgoCD service. The available type values and their behaviors are:<br>  ClusterIP: Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster.<br>  NodePort: Exposes the Service on each Node's IP at a static port (the NodePort).<br>  LoadBalancer: Exposes the Service externally using a cloud provider's load balancer. | `string` | `"NodePort"` | no |
-| <a name="input_slack_notifications"></a> [slack\_notifications](#input\_slack\_notifications) | ArgoCD Slack notification configuration. Requires Slack Bot created with token stored at the given SSM Parameter path.<br><br>See: https://argocd-notifications.readthedocs.io/en/stable/services/slack/ | <pre>object({<br>    token_ssm_path = optional(string, "/argocd/notifications/notifiers/slack/token")<br>    api_url        = optional(string, null)<br>    username       = optional(string, "ArgoCD")<br>    icon           = optional(string, null)<br>  })</pre> | `{}` | no |
-| <a name="input_slack_notifications_enabled"></a> [slack\_notifications\_enabled](#input\_slack\_notifications\_enabled) | Whether or not to enable Slack notifications. See `var.slack_notifications.` | `bool` | `false` | no |
-| <a name="input_ssm_github_api_key"></a> [ssm\_github\_api\_key](#input\_ssm\_github\_api\_key) | SSM path to the GitHub API key | `string` | `"/argocd/github/api_key"` | no |
-| <a name="input_ssm_oidc_client_id"></a> [ssm\_oidc\_client\_id](#input\_ssm\_oidc\_client\_id) | The SSM Parameter Store path for the ID of the IdP client | `string` | `"/argocd/oidc/client_id"` | no |
-| <a name="input_ssm_oidc_client_secret"></a> [ssm\_oidc\_client\_secret](#input\_ssm\_oidc\_client\_secret) | The SSM Parameter Store path for the secret of the IdP client | `string` | `"/argocd/oidc/client_secret"` | no |
-| <a name="input_ssm_store_account"></a> [ssm\_store\_account](#input\_ssm\_store\_account) | Account storing SSM parameters | `string` | n/a | yes |
-| <a name="input_ssm_store_account_region"></a> [ssm\_store\_account\_region](#input\_ssm\_store\_account\_region) | AWS region storing SSM parameters | `string` | n/a | yes |
-| <a name="input_ssm_store_account_tenant"></a> [ssm\_store\_account\_tenant](#input\_ssm\_store\_account\_tenant) | Tenant of the account storing SSM parameters.<br><br>If the tenant label is not used, leave this as null. | `string` | `null` | no |
-| <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
-| <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_timeout"></a> [timeout](#input\_timeout) | Time in seconds to wait for any individual kubernetes operation (like Jobs for hooks). Defaults to `300` seconds | `number` | `300` | no |
-| <a name="input_wait"></a> [wait](#input\_wait) | Will wait until all resources are in a ready state before marking the release as successful. It will wait for as long as `timeout`. Defaults to `true`. | `bool` | `true` | no |
+Name | Version | Source | Description
+--- | --- | --- | ---
+`argocd` | 0.10.1 | [`cloudposse/helm-release/aws`](https://registry.terraform.io/modules/cloudposse/helm-release/aws/0.10.1) | n/a
+`argocd_apps` | 0.10.1 | [`cloudposse/helm-release/aws`](https://registry.terraform.io/modules/cloudposse/helm-release/aws/0.10.1) | n/a
+`argocd_repo` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`dns_gbl_delegated` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`eks` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`iam_roles` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
+`iam_roles_config_secrets` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
+`notifications_notifiers` | 1.0.2 | [`cloudposse/config/yaml//modules/deepmerge`](https://registry.terraform.io/modules/cloudposse/config/yaml/modules/deepmerge/1.0.2) | n/a
+`notifications_templates` | 1.0.2 | [`cloudposse/config/yaml//modules/deepmerge`](https://registry.terraform.io/modules/cloudposse/config/yaml/modules/deepmerge/1.0.2) | n/a
+`saml_sso_providers` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
-## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_github_webhook_value"></a> [github\_webhook\_value](#output\_github\_webhook\_value) | The value of the GitHub webhook secret used for ArgoCD |
+### Resources
+
+The following resources are used by this module:
+
+  - [`github_repository_webhook.default`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_webhook) (resource)
+  - [`random_password.webhook`](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) (resource)
+
+### Data Sources
+
+The following data sources are used by this module:
+
+  - [`aws_eks_cluster_auth.eks`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) (data source)
+  - [`aws_ssm_parameter.github_api_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
+  - [`aws_ssm_parameter.github_deploy_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
+  - [`aws_ssm_parameter.oidc_client_id`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
+  - [`aws_ssm_parameter.oidc_client_secret`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
+  - [`aws_ssm_parameter.slack_notifications`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
+  - [`aws_ssm_parameters_by_path.argocd_notifications`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameters_by_path) (data source)
+  - [`kubernetes_resources.crd`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/resources) (data source)
+
+### Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+
+<dl>
+  <dt>`additional_tag_map` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+    This is for some rare cases where resources want additional configuration of tags<br/>
+    and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `map(string)`
+    **Default value:** `{}`
+  </dd>
+  <dt>`attributes` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+    in the order they appear in the list. New attributes are appended to the<br/>
+    end of the list. The elements of the list are joined by the `delimiter`<br/>
+    and treated as a single ID element.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `list(string)`
+    **Default value:** `[]`
+  </dd>
+  <dt>`context` (`any`) <i>optional</i></dt>
+  <dd>
+    Single object for setting entire context at once.<br/>
+    See description of individual variables for details.<br/>
+    Leave string and numeric variables as `null` to use default value.<br/>
+    Individual variable settings (non-null) override settings in context object,<br/>
+    except for attributes, tags, and additional_tag_map, which are merged.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `any`
+    **Default value:** 
+    ```hcl
+    {
+      "additional_tag_map": {},
+      "attributes": [],
+      "delimiter": null,
+      "descriptor_formats": {},
+      "enabled": true,
+      "environment": null,
+      "id_length_limit": null,
+      "label_key_case": null,
+      "label_order": [],
+      "label_value_case": null,
+      "labels_as_tags": [
+        "unset"
+      ],
+      "name": null,
+      "namespace": null,
+      "regex_replace_chars": null,
+      "stage": null,
+      "tags": {},
+      "tenant": null
+    }
+    ```
+    
+  </dd>
+  <dt>`delimiter` (`string`) <i>optional</i></dt>
+  <dd>
+    Delimiter to be used between ID elements.<br/>
+    Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`descriptor_formats` (`any`) <i>optional</i></dt>
+  <dd>
+    Describe additional descriptors to be output in the `descriptors` output map.<br/>
+    Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+    `{<br/>
+       format = string<br/>
+       labels = list(string)<br/>
+    }`<br/>
+    (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+    `format` is a Terraform format string to be passed to the `format()` function.<br/>
+    `labels` is a list of labels, in order, to pass to `format()` function.<br/>
+    Label values will be normalized before being passed to `format()` so they will be<br/>
+    identical to how they appear in `id`.<br/>
+    Default is `{}` (`descriptors` output will be empty).<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `any`
+    **Default value:** `{}`
+  </dd>
+  <dt>`enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to false to prevent the module from creating any resources<br/>
+    **Required:** No<br/>
+    **Type:** `bool`
+    **Default value:** `null`
+  </dd>
+  <dt>`environment` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`id_length_limit` (`number`) <i>optional</i></dt>
+  <dd>
+    Limit `id` to this many characters (minimum 6).<br/>
+    Set to `0` for unlimited length.<br/>
+    Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+    Does not affect `id_full`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `number`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_key_case` (`string`) <i>optional</i></dt>
+  <dd>
+    Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+    Does not affect keys of tags passed in via the `tags` input.<br/>
+    Possible values: `lower`, `title`, `upper`.<br/>
+    Default value: `title`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_order` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    The order in which the labels (ID elements) appear in the `id`.<br/>
+    Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+    You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `list(string)`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_value_case` (`string`) <i>optional</i></dt>
+  <dd>
+    Controls the letter case of ID elements (labels) as included in `id`,<br/>
+    set as tag values, and output by this module individually.<br/>
+    Does not affect values of tags passed in via the `tags` input.<br/>
+    Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+    Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+    Default value: `lower`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`labels_as_tags` (`set(string)`) <i>optional</i></dt>
+  <dd>
+    Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+    Default is to include all labels.<br/>
+    Tags with empty values will not be included in the `tags` output.<br/>
+    Set to `[]` to suppress all generated tags.<br/>
+    **Notes:**<br/>
+      The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+      Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+      changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `set(string)`
+    **Default value:** 
+    ```hcl
+    [
+      "default"
+    ]
+    ```
+    
+  </dd>
+  <dt>`name` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+    This is the only ID element not also included as a `tag`.<br/>
+    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`namespace` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`regex_replace_chars` (`string`) <i>optional</i></dt>
+  <dd>
+    Terraform regular expression (regex) string.<br/>
+    Characters matching the regex will be removed from the ID elements.<br/>
+    If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`stage` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`tags` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+    Neither the tag keys nor the tag values will be modified by this module.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `map(string)`
+    **Default value:** `{}`
+  </dd>
+  <dt>`tenant` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+</dl>
+
+### Required Inputs
+
+<dl>
+  <dt>`github_organization` (`string`) <i>required</i></dt>
+  <dd>
+    GitHub Organization<br/>
+
+    **Type:** `string`
+    <br/>
+    **Default value:** ``
+
+  </dd>
+  <dt>`region` (`string`) <i>required</i></dt>
+  <dd>
+    AWS Region.<br/>
+
+    **Type:** `string`
+    <br/>
+    **Default value:** ``
+
+  </dd>
+  <dt>`ssm_store_account` (`string`) <i>required</i></dt>
+  <dd>
+    Account storing SSM parameters<br/>
+
+    **Type:** `string`
+    <br/>
+    **Default value:** ``
+
+  </dd>
+  <dt>`ssm_store_account_region` (`string`) <i>required</i></dt>
+  <dd>
+    AWS region storing SSM parameters<br/>
+
+    **Type:** `string`
+    <br/>
+    **Default value:** ``
+
+  </dd>
+</dl>
+
+### Optional Inputs
+
+<dl>
+  <dt>`admin_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Toggles Admin user creation the deployed chart<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`alb_group_name` (`string`) <i>optional</i></dt>
+  <dd>
+    A name used in annotations to reuse an ALB (e.g. `argocd`) or to generate a new one<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`alb_logs_bucket` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the bucket for ALB access logs. The bucket must have policy allowing the ELB logging principal<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`alb_logs_prefix` (`string`) <i>optional</i></dt>
+  <dd>
+    `alb_logs_bucket` s3 bucket prefix<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`alb_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the ALB (e.g. `argocd`) provisioned by `alb-controller`. Works together with `var.alb_group_name`<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`anonymous_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Toggles anonymous user access using default RBAC setting (Defaults to read-only)<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`argocd_apps_chart` (`string`) <i>optional</i></dt>
+  <dd>
+    Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"argocd-apps"`
+  </dd>
+  <dt>`argocd_apps_chart_description` (`string`) <i>optional</i></dt>
+  <dd>
+    Set release description attribute (visible in the history).<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"A Helm chart for managing additional Argo CD Applications and Projects"`
+  </dd>
+  <dt>`argocd_apps_chart_repository` (`string`) <i>optional</i></dt>
+  <dd>
+    Repository URL where to locate the requested chart.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"https://argoproj.github.io/argo-helm"`
+  </dd>
+  <dt>`argocd_apps_chart_values` (`any`) <i>optional</i></dt>
+  <dd>
+    Additional values to yamlencode as `helm_release` values for the argocd_apps chart<br/>
+    <br/>
+    **Type:** `any`
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`argocd_apps_chart_version` (`string`) <i>optional</i></dt>
+  <dd>
+    Specify the exact chart version to install. If this is not specified, the latest version is installed.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"0.0.3"`
+  </dd>
+  <dt>`argocd_apps_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Enable argocd apps<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`argocd_create_namespaces` (`bool`) <i>optional</i></dt>
+  <dd>
+    ArgoCD create namespaces policy<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`argocd_rbac_default_policy` (`string`) <i>optional</i></dt>
+  <dd>
+    Default ArgoCD RBAC default role.<br/>
+    <br/>
+    See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/#basic-built-in-roles for more information.<br/>
+    <br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"role:readonly"`
+  </dd>
+  <dt>`argocd_rbac_groups` <i>optional</i></dt>
+  <dd>
+    List of ArgoCD Group Role Assignment strings to be added to the argocd-rbac configmap policy.csv item.<br/>
+    e.g.<br/>
+    [<br/>
+      {<br/>
+        group: idp-group-name,<br/>
+        role: argocd-role-name<br/>
+      },<br/>
+    ]<br/>
+    becomes: `g, idp-group-name, role:argocd-role-name`<br/>
+    See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more information.<br/>
+    <br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    list(object({
+    group = string,
+    role  = string
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`argocd_rbac_policies` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    List of ArgoCD RBAC Permission strings to be added to the argocd-rbac configmap policy.csv item.<br/>
+    <br/>
+    See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more information.<br/>
+    <br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`argocd_repositories` <i>optional</i></dt>
+  <dd>
+    Map of objects defining an `argocd_repo` to configure.  The key is the name of the ArgoCD repository.<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    map(object({
+    environment = string # The environment where the `argocd_repo` component is deployed.
+    stage       = string # The stage where the `argocd_repo` component is deployed.
+    tenant      = string # The tenant where the `argocd_repo` component is deployed.
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`atomic` (`bool`) <i>optional</i></dt>
+  <dd>
+    If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`certificate_issuer` (`string`) <i>optional</i></dt>
+  <dd>
+    Certificate manager cluster issuer<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"letsencrypt-staging"`
+  </dd>
+  <dt>`chart` (`string`) <i>optional</i></dt>
+  <dd>
+    Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"argo-cd"`
+  </dd>
+  <dt>`chart_description` (`string`) <i>optional</i></dt>
+  <dd>
+    Set release description attribute (visible in the history).<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`chart_repository` (`string`) <i>optional</i></dt>
+  <dd>
+    Repository URL where to locate the requested chart.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"https://argoproj.github.io/argo-helm"`
+  </dd>
+  <dt>`chart_values` (`any`) <i>optional</i></dt>
+  <dd>
+    Additional values to yamlencode as `helm_release` values.<br/>
+    <br/>
+    **Type:** `any`
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`chart_version` (`string`) <i>optional</i></dt>
+  <dd>
+    Specify the exact chart version to install. If this is not specified, the latest version is installed.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"5.19.12"`
+  </dd>
+  <dt>`cleanup_on_fail` (`bool`) <i>optional</i></dt>
+  <dd>
+    Allow deletion of new resources created in this upgrade when upgrade fails.<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`create_github_webhook` (`bool`) <i>optional</i></dt>
+  <dd>
+      Enable GitHub webhook creation<br/>
+    <br/>
+      Use this to create the GitHub Webhook for the given ArgoCD repo using the value created when `var.github_webhook_enabled` is `true`.<br/>
+    <br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`create_namespace` (`bool`) <i>optional</i></dt>
+  <dd>
+    Create the namespace if it does not yet exist. Defaults to `false`.<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`eks_component_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the eks component<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"eks/cluster"`
+  </dd>
+  <dt>`forecastle_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Toggles Forecastle integration in the deployed chart<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`github_base_url` (`string`) <i>optional</i></dt>
+  <dd>
+    This is the target GitHub base API endpoint. Providing a value is a requirement when working with GitHub Enterprise. It is optional to provide this value and it can also be sourced from the `GITHUB_BASE_URL` environment variable. The value must end with a slash, for example: `https://terraformtesting-ghe.westus.cloudapp.azure.com/`<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`github_default_notifications_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Enable default GitHub commit statuses notifications (required for CD sync mode)<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`github_token_override` (`string`) <i>optional</i></dt>
+  <dd>
+    Use the value of this variable as the GitHub token instead of reading it from SSM<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`github_webhook_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+      Enable GitHub webhook integration<br/>
+    <br/>
+      Use this to create a secret value and pass it to the argo-cd chart<br/>
+    <br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`helm_manifest_experiment_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Enable storing of the rendered manifest for helm_release so the full diff of what is changing can been seen in the plan<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`host` (`string`) <i>optional</i></dt>
+  <dd>
+    Host name to use for ingress and ALB<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`kube_data_auth_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS cluster.<br/>
+    Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
+    <br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`kube_exec_auth_aws_profile` (`string`) <i>optional</i></dt>
+  <dd>
+    The AWS config profile for `aws eks get-token` to use<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`kube_exec_auth_aws_profile_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-token`<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`kube_exec_auth_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-token` to authenticate to the EKS cluster.<br/>
+    Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
+    <br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`kube_exec_auth_role_arn` (`string`) <i>optional</i></dt>
+  <dd>
+    The role ARN for `aws eks get-token` to use<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`kube_exec_auth_role_arn_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`kubeconfig_context` (`string`) <i>optional</i></dt>
+  <dd>
+    Context to choose from the Kubernetes config file.<br/>
+    If supplied, `kubeconfig_context_format` will be ignored.<br/>
+    <br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`kubeconfig_context_format` (`string`) <i>optional</i></dt>
+  <dd>
+    A format string to use for creating the `kubectl` context name when<br/>
+    `kubeconfig_file_enabled` is `true` and `kubeconfig_context` is not supplied.<br/>
+    Must include a single `%s` which will be replaced with the cluster name.<br/>
+    <br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`kubeconfig_exec_auth_api_version` (`string`) <i>optional</i></dt>
+  <dd>
+    The Kubernetes API version of the credentials returned by the `exec` auth plugin<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"client.authentication.k8s.io/v1beta1"`
+  </dd>
+  <dt>`kubeconfig_file` (`string`) <i>optional</i></dt>
+  <dd>
+    The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true`<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`kubeconfig_file_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`kubernetes_namespace` (`string`) <i>optional</i></dt>
+  <dd>
+    The namespace to install the release into.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"argocd"`
+  </dd>
+  <dt>`notifications_notifiers` <i>optional</i></dt>
+  <dd>
+    Notification Triggers to configure.<br/>
+    <br/>
+    See: https://argocd-notifications.readthedocs.io/en/stable/triggers/<br/>
+    See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L352)<br/>
+    <br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    object({
+    ssm_path_prefix = optional(string, "/argocd/notifications/notifiers")
+    # service.webhook.<webhook-name>:
+    webhook = optional(map(
+      object({
+        url = string
+        headers = optional(list(
+          object({
+            name  = string
+            value = string
+          })
+        ), [])
+        insecureSkipVerify = optional(bool, false)
+      })
+    ))
+  })
+    ```
+    
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`notifications_templates` <i>optional</i></dt>
+  <dd>
+    Notification Templates to configure.<br/>
+    <br/>
+    See: https://argocd-notifications.readthedocs.io/en/stable/templates/<br/>
+    See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L158)<br/>
+    <br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    map(object({
+    message = string
+    alertmanager = optional(object({
+      labels       = map(string)
+      annotations  = map(string)
+      generatorURL = string
+    }))
+    webhook = optional(map(
+      object({
+        method = optional(string)
+        path   = optional(string)
+        body   = optional(string)
+      })
+    ))
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`notifications_triggers` <i>optional</i></dt>
+  <dd>
+    Notification Triggers to configure.<br/>
+    <br/>
+    See: https://argocd-notifications.readthedocs.io/en/stable/triggers/<br/>
+    See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L352)<br/>
+    <br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    map(list(
+    object({
+      oncePer = optional(string)
+      send    = list(string)
+      when    = string
+    })
+  ))
+    ```
+    
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`oidc_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Toggles OIDC integration in the deployed chart<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`oidc_issuer` (`string`) <i>optional</i></dt>
+  <dd>
+    OIDC issuer URL<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`oidc_name` (`string`) <i>optional</i></dt>
+  <dd>
+    Name of the OIDC resource<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`oidc_rbac_scopes` (`string`) <i>optional</i></dt>
+  <dd>
+    OIDC RBAC scopes to request<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"[argocd_realm_access]"`
+  </dd>
+  <dt>`oidc_requested_scopes` (`string`) <i>optional</i></dt>
+  <dd>
+    Set of OIDC scopes to request<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"[\"openid\", \"profile\", \"email\", \"groups\"]"`
+  </dd>
+  <dt>`rbac_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Enable Service Account for pods.<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`resources` <i>optional</i></dt>
+  <dd>
+    The cpu and memory of the deployment's limits and requests.<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    object({
+    limits = object({
+      cpu    = string
+      memory = string
+    })
+    requests = object({
+      cpu    = string
+      memory = string
+    })
+  })
+    ```
+    
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`saml_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Toggles SAML integration in the deployed chart<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`saml_rbac_scopes` (`string`) <i>optional</i></dt>
+  <dd>
+    SAML RBAC scopes to request<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"[email,groups]"`
+  </dd>
+  <dt>`saml_sso_providers` <i>optional</i></dt>
+  <dd>
+    SAML SSO providers components<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    map(object({
+    component   = string
+    environment = optional(string, null)
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`service_type` (`string`) <i>optional</i></dt>
+  <dd>
+    Service type for exposing the ArgoCD service. The available type values and their behaviors are:<br/>
+      ClusterIP: Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster.<br/>
+      NodePort: Exposes the Service on each Node's IP at a static port (the NodePort).<br/>
+      LoadBalancer: Exposes the Service externally using a cloud provider's load balancer.<br/>
+    <br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"NodePort"`
+  </dd>
+  <dt>`slack_notifications` <i>optional</i></dt>
+  <dd>
+    ArgoCD Slack notification configuration. Requires Slack Bot created with token stored at the given SSM Parameter path.<br/>
+    <br/>
+    See: https://argocd-notifications.readthedocs.io/en/stable/services/slack/<br/>
+    <br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    object({
+    token_ssm_path = optional(string, "/argocd/notifications/notifiers/slack/token")
+    api_url        = optional(string, null)
+    username       = optional(string, "ArgoCD")
+    icon           = optional(string, null)
+  })
+    ```
+    
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`slack_notifications_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Whether or not to enable Slack notifications. See `var.slack_notifications.<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`ssm_github_api_key` (`string`) <i>optional</i></dt>
+  <dd>
+    SSM path to the GitHub API key<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"/argocd/github/api_key"`
+  </dd>
+  <dt>`ssm_oidc_client_id` (`string`) <i>optional</i></dt>
+  <dd>
+    The SSM Parameter Store path for the ID of the IdP client<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"/argocd/oidc/client_id"`
+  </dd>
+  <dt>`ssm_oidc_client_secret` (`string`) <i>optional</i></dt>
+  <dd>
+    The SSM Parameter Store path for the secret of the IdP client<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"/argocd/oidc/client_secret"`
+  </dd>
+  <dt>`ssm_store_account_tenant` (`string`) <i>optional</i></dt>
+  <dd>
+    Tenant of the account storing SSM parameters.<br/>
+    <br/>
+    If the tenant label is not used, leave this as null.<br/>
+    <br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`timeout` (`number`) <i>optional</i></dt>
+  <dd>
+    Time in seconds to wait for any individual kubernetes operation (like Jobs for hooks). Defaults to `300` seconds<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `300`
+  </dd>
+  <dt>`wait` (`bool`) <i>optional</i></dt>
+  <dd>
+    Will wait until all resources are in a ready state before marking the release as successful. It will wait for as long as `timeout`. Defaults to `true`.<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd></dl>
+
+
+### Outputs
+
+<dl>
+  <dt>`github_webhook_value`</dt>
+  <dd>
+    The value of the GitHub webhook secret used for ArgoCD<br/>
+  </dd>
+</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

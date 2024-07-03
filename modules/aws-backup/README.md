@@ -257,72 +257,418 @@ backup_vault_lock_configuration:
 
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 
-## Providers
+## Reference
 
-No providers.
+### Version Requirements
 
-## Modules
+- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.3.0), version: >= 1.3.0
+- [`aws`](https://registry.terraform.io/modules/aws/>= 4.9.0), version: >= 4.9.0
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_backup"></a> [backup](#module\_backup) | cloudposse/backup/aws | 1.0.0 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
+https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
-## Resources
 
-No resources.
 
-## Inputs
+### Modules
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_advanced_backup_setting"></a> [advanced\_backup\_setting](#input\_advanced\_backup\_setting) | An object that specifies backup options for each resource type. | <pre>object({<br>    backup_options = string<br>    resource_type  = string<br>  })</pre> | `null` | no |
-| <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_backup_resources"></a> [backup\_resources](#input\_backup\_resources) | An array of strings that either contain Amazon Resource Names (ARNs) or match patterns of resources to assign to a backup plan | `list(string)` | `[]` | no |
-| <a name="input_backup_vault_lock_configuration"></a> [backup\_vault\_lock\_configuration](#input\_backup\_vault\_lock\_configuration) | The backup vault lock configuration, each vault can have one vault lock in place. This will enable Backup Vault Lock on an AWS Backup vault  it prevents the deletion of backup data for the specified retention period. During this time, the backup data remains immutable and cannot be deleted or modified."<br>`changeable_for_days` - The number of days before the lock date. If omitted creates a vault lock in `governance` mode, otherwise it will create a vault lock in `compliance` mode. | <pre>object({<br>    changeable_for_days = optional(number)<br>    max_retention_days  = optional(number)<br>    min_retention_days  = optional(number)<br>  })</pre> | `null` | no |
-| <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
-| <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_iam_role_enabled"></a> [iam\_role\_enabled](#input\_iam\_role\_enabled) | Whether or not to create a new IAM Role and Policy Attachment | `bool` | `true` | no |
-| <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_kms_key_arn"></a> [kms\_key\_arn](#input\_kms\_key\_arn) | The server-side encryption key that is used to protect your backups | `string` | `null` | no |
-| <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
-| <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
-| <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
-| <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_plan_enabled"></a> [plan\_enabled](#input\_plan\_enabled) | Whether or not to create a new Plan | `bool` | `true` | no |
-| <a name="input_plan_name_suffix"></a> [plan\_name\_suffix](#input\_plan\_name\_suffix) | The string appended to the plan name | `string` | `null` | no |
-| <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
-| <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_rules"></a> [rules](#input\_rules) | An array of rule maps used to define schedules in a backup plan | <pre>list(object({<br>    name                     = string<br>    schedule                 = optional(string)<br>    enable_continuous_backup = optional(bool)<br>    start_window             = optional(number)<br>    completion_window        = optional(number)<br>    lifecycle = optional(object({<br>      cold_storage_after                        = optional(number)<br>      delete_after                              = optional(number)<br>      opt_in_to_archive_for_supported_resources = optional(bool)<br>    }))<br>    copy_action = optional(object({<br>      destination_vault_arn = optional(string)<br>      lifecycle = optional(object({<br>        cold_storage_after                        = optional(number)<br>        delete_after                              = optional(number)<br>        opt_in_to_archive_for_supported_resources = optional(bool)<br>      }))<br>    }))<br>  }))</pre> | `[]` | no |
-| <a name="input_selection_tags"></a> [selection\_tags](#input\_selection\_tags) | An array of tag condition objects used to filter resources based on tags for assigning to a backup plan | `list(map(string))` | `[]` | no |
-| <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
-| <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_vault_enabled"></a> [vault\_enabled](#input\_vault\_enabled) | Whether or not a new Vault should be created | `bool` | `true` | no |
+Name | Version | Source | Description
+--- | --- | --- | ---
+`backup` | 1.0.0 | [`cloudposse/backup/aws`](https://registry.terraform.io/modules/cloudposse/backup/aws/1.0.0) | n/a
+`iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
+`this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
-## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_backup_plan_arn"></a> [backup\_plan\_arn](#output\_backup\_plan\_arn) | Backup Plan ARN |
-| <a name="output_backup_plan_version"></a> [backup\_plan\_version](#output\_backup\_plan\_version) | Unique, randomly generated, Unicode, UTF-8 encoded string that serves as the version ID of the backup plan |
-| <a name="output_backup_selection_id"></a> [backup\_selection\_id](#output\_backup\_selection\_id) | Backup Selection ID |
-| <a name="output_backup_vault_arn"></a> [backup\_vault\_arn](#output\_backup\_vault\_arn) | Backup Vault ARN |
-| <a name="output_backup_vault_id"></a> [backup\_vault\_id](#output\_backup\_vault\_id) | Backup Vault ID |
+
+
+### Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+
+<dl>
+  <dt>`additional_tag_map` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+    This is for some rare cases where resources want additional configuration of tags<br/>
+    and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `map(string)`
+    **Default value:** `{}`
+  </dd>
+  <dt>`attributes` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+    in the order they appear in the list. New attributes are appended to the<br/>
+    end of the list. The elements of the list are joined by the `delimiter`<br/>
+    and treated as a single ID element.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `list(string)`
+    **Default value:** `[]`
+  </dd>
+  <dt>`context` (`any`) <i>optional</i></dt>
+  <dd>
+    Single object for setting entire context at once.<br/>
+    See description of individual variables for details.<br/>
+    Leave string and numeric variables as `null` to use default value.<br/>
+    Individual variable settings (non-null) override settings in context object,<br/>
+    except for attributes, tags, and additional_tag_map, which are merged.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `any`
+    **Default value:** 
+    ```hcl
+    {
+      "additional_tag_map": {},
+      "attributes": [],
+      "delimiter": null,
+      "descriptor_formats": {},
+      "enabled": true,
+      "environment": null,
+      "id_length_limit": null,
+      "label_key_case": null,
+      "label_order": [],
+      "label_value_case": null,
+      "labels_as_tags": [
+        "unset"
+      ],
+      "name": null,
+      "namespace": null,
+      "regex_replace_chars": null,
+      "stage": null,
+      "tags": {},
+      "tenant": null
+    }
+    ```
+    
+  </dd>
+  <dt>`delimiter` (`string`) <i>optional</i></dt>
+  <dd>
+    Delimiter to be used between ID elements.<br/>
+    Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`descriptor_formats` (`any`) <i>optional</i></dt>
+  <dd>
+    Describe additional descriptors to be output in the `descriptors` output map.<br/>
+    Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+    `{<br/>
+       format = string<br/>
+       labels = list(string)<br/>
+    }`<br/>
+    (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+    `format` is a Terraform format string to be passed to the `format()` function.<br/>
+    `labels` is a list of labels, in order, to pass to `format()` function.<br/>
+    Label values will be normalized before being passed to `format()` so they will be<br/>
+    identical to how they appear in `id`.<br/>
+    Default is `{}` (`descriptors` output will be empty).<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `any`
+    **Default value:** `{}`
+  </dd>
+  <dt>`enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to false to prevent the module from creating any resources<br/>
+    **Required:** No<br/>
+    **Type:** `bool`
+    **Default value:** `null`
+  </dd>
+  <dt>`environment` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`id_length_limit` (`number`) <i>optional</i></dt>
+  <dd>
+    Limit `id` to this many characters (minimum 6).<br/>
+    Set to `0` for unlimited length.<br/>
+    Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+    Does not affect `id_full`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `number`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_key_case` (`string`) <i>optional</i></dt>
+  <dd>
+    Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+    Does not affect keys of tags passed in via the `tags` input.<br/>
+    Possible values: `lower`, `title`, `upper`.<br/>
+    Default value: `title`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_order` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    The order in which the labels (ID elements) appear in the `id`.<br/>
+    Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+    You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `list(string)`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_value_case` (`string`) <i>optional</i></dt>
+  <dd>
+    Controls the letter case of ID elements (labels) as included in `id`,<br/>
+    set as tag values, and output by this module individually.<br/>
+    Does not affect values of tags passed in via the `tags` input.<br/>
+    Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+    Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+    Default value: `lower`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`labels_as_tags` (`set(string)`) <i>optional</i></dt>
+  <dd>
+    Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+    Default is to include all labels.<br/>
+    Tags with empty values will not be included in the `tags` output.<br/>
+    Set to `[]` to suppress all generated tags.<br/>
+    **Notes:**<br/>
+      The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+      Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+      changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `set(string)`
+    **Default value:** 
+    ```hcl
+    [
+      "default"
+    ]
+    ```
+    
+  </dd>
+  <dt>`name` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+    This is the only ID element not also included as a `tag`.<br/>
+    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`namespace` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`regex_replace_chars` (`string`) <i>optional</i></dt>
+  <dd>
+    Terraform regular expression (regex) string.<br/>
+    Characters matching the regex will be removed from the ID elements.<br/>
+    If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`stage` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`tags` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+    Neither the tag keys nor the tag values will be modified by this module.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `map(string)`
+    **Default value:** `{}`
+  </dd>
+  <dt>`tenant` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+</dl>
+
+### Required Inputs
+
+<dl>
+  <dt>`region` (`string`) <i>required</i></dt>
+  <dd>
+    AWS Region<br/>
+
+    **Type:** `string`
+    <br/>
+    **Default value:** ``
+
+  </dd>
+</dl>
+
+### Optional Inputs
+
+<dl>
+  <dt>`advanced_backup_setting` <i>optional</i></dt>
+  <dd>
+    An object that specifies backup options for each resource type.<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    object({
+    backup_options = string
+    resource_type  = string
+  })
+    ```
+    
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`backup_resources` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    An array of strings that either contain Amazon Resource Names (ARNs) or match patterns of resources to assign to a backup plan<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`backup_vault_lock_configuration` <i>optional</i></dt>
+  <dd>
+    The backup vault lock configuration, each vault can have one vault lock in place. This will enable Backup Vault Lock on an AWS Backup vault  it prevents the deletion of backup data for the specified retention period. During this time, the backup data remains immutable and cannot be deleted or modified."<br/>
+    `changeable_for_days` - The number of days before the lock date. If omitted creates a vault lock in `governance` mode, otherwise it will create a vault lock in `compliance` mode.<br/>
+    <br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    object({
+    changeable_for_days = optional(number)
+    max_retention_days  = optional(number)
+    min_retention_days  = optional(number)
+  })
+    ```
+    
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`iam_role_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Whether or not to create a new IAM Role and Policy Attachment<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`kms_key_arn` (`string`) <i>optional</i></dt>
+  <dd>
+    The server-side encryption key that is used to protect your backups<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`plan_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Whether or not to create a new Plan<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`plan_name_suffix` (`string`) <i>optional</i></dt>
+  <dd>
+    The string appended to the plan name<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`rules` <i>optional</i></dt>
+  <dd>
+    An array of rule maps used to define schedules in a backup plan<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    list(object({
+    name                     = string
+    schedule                 = optional(string)
+    enable_continuous_backup = optional(bool)
+    start_window             = optional(number)
+    completion_window        = optional(number)
+    lifecycle = optional(object({
+      cold_storage_after                        = optional(number)
+      delete_after                              = optional(number)
+      opt_in_to_archive_for_supported_resources = optional(bool)
+    }))
+    copy_action = optional(object({
+      destination_vault_arn = optional(string)
+      lifecycle = optional(object({
+        cold_storage_after                        = optional(number)
+        delete_after                              = optional(number)
+        opt_in_to_archive_for_supported_resources = optional(bool)
+      }))
+    }))
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`selection_tags` (`list(map(string))`) <i>optional</i></dt>
+  <dd>
+    An array of tag condition objects used to filter resources based on tags for assigning to a backup plan<br/>
+    <br/>
+    **Type:** `list(map(string))`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`vault_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Whether or not a new Vault should be created<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd></dl>
+
+
+### Outputs
+
+<dl>
+  <dt>`backup_plan_arn`</dt>
+  <dd>
+    Backup Plan ARN<br/>
+  </dd>
+  <dt>`backup_plan_version`</dt>
+  <dd>
+    Unique, randomly generated, Unicode, UTF-8 encoded string that serves as the version ID of the backup plan<br/>
+  </dd>
+  <dt>`backup_selection_id`</dt>
+  <dd>
+    Backup Selection ID<br/>
+  </dd>
+  <dt>`backup_vault_arn`</dt>
+  <dd>
+    Backup Vault ARN<br/>
+  </dd>
+  <dt>`backup_vault_id`</dt>
+  <dd>
+    Backup Vault ID<br/>
+  </dd>
+</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

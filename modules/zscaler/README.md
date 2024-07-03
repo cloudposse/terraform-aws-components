@@ -40,76 +40,314 @@ import:
 
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
-| <a name="requirement_null"></a> [null](#requirement\_null) | >= 3.0 |
-| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.0 |
-| <a name="requirement_template"></a> [template](#requirement\_template) | >= 2.2 |
-| <a name="requirement_utils"></a> [utils](#requirement\_utils) | >= 1.10.0 |
 
-## Providers
+## Reference
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
-| <a name="provider_template"></a> [template](#provider\_template) | >= 2.2 |
+### Version Requirements
 
-## Modules
+- [`terraform`](https://registry.terraform.io/modules/terraform/>= 0.13.0), version: >= 0.13.0
+- [`aws`](https://registry.terraform.io/modules/aws/>= 3.0), version: >= 3.0
+- [`null`](https://registry.terraform.io/modules/null/>= 3.0), version: >= 3.0
+- [`random`](https://registry.terraform.io/modules/random/>= 3.0), version: >= 3.0
+- [`template`](https://registry.terraform.io/modules/template/>= 2.2), version: >= 2.2
+- [`utils`](https://registry.terraform.io/modules/utils/>= 1.10.0), version: >= 1.10.0
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_ec2_zscaler"></a> [ec2\_zscaler](#module\_ec2\_zscaler) | cloudposse/ec2-instance/aws | 0.32.2 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.24.1 |
+https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
-## Resources
+### Providers
 
-| Name | Type |
-|------|------|
-| [aws_iam_role_policy_attachment.ssm_core](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_ami.amazon_linux_2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
-| [aws_ssm_parameter.zscaler_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [template_file.userdata](https://registry.terraform.io/providers/cloudposse/template/latest/docs/data-sources/file) | data source |
+- `aws`, version: >= 3.0
+- `template`, version: >= 2.2
 
-## Inputs
+### Modules
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional tags for appending to tags\_as\_list\_of\_maps. Not added to `tags`. | `map(string)` | `{}` | no |
-| <a name="input_ami_owner"></a> [ami\_owner](#input\_ami\_owner) | The owner of the AMI used for the ZScaler EC2 instances. | `string` | `"amazon"` | no |
-| <a name="input_ami_regex"></a> [ami\_regex](#input\_ami\_regex) | The regex used to match the latest AMI to be used for the ZScaler EC2 instances. | `string` | `"^amzn2-ami-hvm.*"` | no |
-| <a name="input_attributes"></a> [attributes](#input\_attributes) | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
-| <a name="input_aws_ssm_enabled"></a> [aws\_ssm\_enabled](#input\_aws\_ssm\_enabled) | Set true to install the AWS SSM agent on each EC2 instances. | `bool` | `true` | no |
-| <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
-| <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for default, which is `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The instance family to use for the ZScaler EC2 instances. | `string` | `"m5n.large"` | no |
-| <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | The letter case of label keys (`tag` names) (i.e. `name`, `namespace`, `environment`, `stage`, `attributes`) to use in `tags`.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
-| <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The naming order of the id output and Name tag.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 5 elements, but at least one must be present. | `list(string)` | `null` | no |
-| <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | The letter case of output label values (also used in `tags` and `id`).<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Default value: `lower`. | `string` | `null` | no |
-| <a name="input_name"></a> [name](#input\_name) | Solution name, e.g. 'app' or 'jenkins' | `string` | `null` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp' | `string` | `null` | no |
-| <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
-| <a name="input_region"></a> [region](#input\_region) | AWS region | `string` | n/a | yes |
-| <a name="input_secrets_store_type"></a> [secrets\_store\_type](#input\_secrets\_store\_type) | Secret store type for Zscaler provisioning keys. Valid values: `SSM`, `ASM` (but `ASM` not currently supported) | `string` | `"SSM"` | no |
-| <a name="input_security_group_rules"></a> [security\_group\_rules](#input\_security\_group\_rules) | A list of maps of Security Group rules.<br>The values of map is fully complated with `aws_security_group_rule` resource.<br>To get more info see [security\_group\_rule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule). | `list(any)` | <pre>[<br>  {<br>    "cidr_blocks": [<br>      "0.0.0.0/0"<br>    ],<br>    "from_port": 0,<br>    "protocol": "-1",<br>    "to_port": 65535,<br>    "type": "egress"<br>  }<br>]</pre> | no |
-| <a name="input_stage"></a> [stage](#input\_stage) | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
-| <a name="input_zscaler_count"></a> [zscaler\_count](#input\_zscaler\_count) | The number of Zscaler instances. | `number` | `1` | no |
-| <a name="input_zscaler_key"></a> [zscaler\_key](#input\_zscaler\_key) | SSM key (without leading `/`) for the Zscaler provisioning key secret. | `string` | `"zscaler/key"` | no |
+Name | Version | Source | Description
+--- | --- | --- | ---
+`ec2_zscaler` | 0.32.2 | [`cloudposse/ec2-instance/aws`](https://registry.terraform.io/modules/cloudposse/ec2-instance/aws/0.32.2) | n/a
+`iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
+`this` | 0.24.1 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | n/a
 
-## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_instance_id"></a> [instance\_id](#output\_instance\_id) | Instance ID |
-| <a name="output_private_ip"></a> [private\_ip](#output\_private\_ip) | Private IP of the instance |
+### Resources
+
+The following resources are used by this module:
+
+  - [`aws_iam_role_policy_attachment.ssm_core`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) (resource)
+
+### Data Sources
+
+The following data sources are used by this module:
+
+  - [`aws_ami.amazon_linux_2`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) (data source)
+  - [`aws_ssm_parameter.zscaler_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
+  - [`template_file.userdata`](https://registry.terraform.io/providers/cloudposse/template/latest/docs/data-sources/file) (data source)
+
+### Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+
+<dl>
+  <dt>`additional_tag_map` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
+    **Required:** No<br/>
+    **Type:** `map(string)`
+    **Default value:** `{}`
+  </dd>
+  <dt>`attributes` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    Additional attributes (e.g. `1`)<br/>
+    **Required:** No<br/>
+    **Type:** `list(string)`
+    **Default value:** `[]`
+  </dd>
+  <dt>`context` (`any`) <i>optional</i></dt>
+  <dd>
+    Single object for setting entire context at once.<br/>
+    See description of individual variables for details.<br/>
+    Leave string and numeric variables as `null` to use default value.<br/>
+    Individual variable settings (non-null) override settings in context object,<br/>
+    except for attributes, tags, and additional_tag_map, which are merged.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `any`
+    **Default value:** 
+    ```hcl
+    {
+      "additional_tag_map": {},
+      "attributes": [],
+      "delimiter": null,
+      "enabled": true,
+      "environment": null,
+      "id_length_limit": null,
+      "label_key_case": null,
+      "label_order": [],
+      "label_value_case": null,
+      "name": null,
+      "namespace": null,
+      "regex_replace_chars": null,
+      "stage": null,
+      "tags": {}
+    }
+    ```
+    
+  </dd>
+  <dt>`delimiter` (`string`) <i>optional</i></dt>
+  <dd>
+    Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br/>
+    Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to false to prevent the module from creating any resources<br/>
+    **Required:** No<br/>
+    **Type:** `bool`
+    **Default value:** `null`
+  </dd>
+  <dt>`environment` (`string`) <i>optional</i></dt>
+  <dd>
+    Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`id_length_limit` (`number`) <i>optional</i></dt>
+  <dd>
+    Limit `id` to this many characters (minimum 6).<br/>
+    Set to `0` for unlimited length.<br/>
+    Set to `null` for default, which is `0`.<br/>
+    Does not affect `id_full`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `number`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_key_case` (`string`) <i>optional</i></dt>
+  <dd>
+    The letter case of label keys (`tag` names) (i.e. `name`, `namespace`, `environment`, `stage`, `attributes`) to use in `tags`.<br/>
+    Possible values: `lower`, `title`, `upper`.<br/>
+    Default value: `title`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_order` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    The naming order of the id output and Name tag.<br/>
+    Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+    You can omit any of the 5 elements, but at least one must be present.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `list(string)`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_value_case` (`string`) <i>optional</i></dt>
+  <dd>
+    The letter case of output label values (also used in `tags` and `id`).<br/>
+    Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+    Default value: `lower`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`name` (`string`) <i>optional</i></dt>
+  <dd>
+    Solution name, e.g. 'app' or 'jenkins'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`namespace` (`string`) <i>optional</i></dt>
+  <dd>
+    Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`regex_replace_chars` (`string`) <i>optional</i></dt>
+  <dd>
+    Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br/>
+    If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`stage` (`string`) <i>optional</i></dt>
+  <dd>
+    Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`tags` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
+    **Required:** No<br/>
+    **Type:** `map(string)`
+    **Default value:** `{}`
+  </dd>
+</dl>
+
+### Required Inputs
+
+<dl>
+  <dt>`region` (`string`) <i>required</i></dt>
+  <dd>
+    AWS region<br/>
+
+    **Type:** `string`
+    <br/>
+    **Default value:** ``
+
+  </dd>
+</dl>
+
+### Optional Inputs
+
+<dl>
+  <dt>`ami_owner` (`string`) <i>optional</i></dt>
+  <dd>
+    The owner of the AMI used for the ZScaler EC2 instances.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"amazon"`
+  </dd>
+  <dt>`ami_regex` (`string`) <i>optional</i></dt>
+  <dd>
+    The regex used to match the latest AMI to be used for the ZScaler EC2 instances.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"^amzn2-ami-hvm.*"`
+  </dd>
+  <dt>`aws_ssm_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set true to install the AWS SSM agent on each EC2 instances.<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`instance_type` (`string`) <i>optional</i></dt>
+  <dd>
+    The instance family to use for the ZScaler EC2 instances.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"m5n.large"`
+  </dd>
+  <dt>`secrets_store_type` (`string`) <i>optional</i></dt>
+  <dd>
+    Secret store type for Zscaler provisioning keys. Valid values: `SSM`, `ASM` (but `ASM` not currently supported)<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"SSM"`
+  </dd>
+  <dt>`security_group_rules` (`list(any)`) <i>optional</i></dt>
+  <dd>
+    A list of maps of Security Group rules.<br/>
+    The values of map is fully complated with `aws_security_group_rule` resource.<br/>
+    To get more info see [security_group_rule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule).<br/>
+    <br/>
+    <br/>
+    **Type:** `list(any)`
+    <br/>
+    **Default value:** 
+    ```hcl
+    [
+      {
+        "cidr_blocks": [
+          "0.0.0.0/0"
+        ],
+        "from_port": 0,
+        "protocol": "-1",
+        "to_port": 65535,
+        "type": "egress"
+      }
+    ]
+    ```
+    
+  </dd>
+  <dt>`zscaler_count` (`number`) <i>optional</i></dt>
+  <dd>
+    The number of Zscaler instances.<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `1`
+  </dd>
+  <dt>`zscaler_key` (`string`) <i>optional</i></dt>
+  <dd>
+    SSM key (without leading `/`) for the Zscaler provisioning key secret.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"zscaler/key"`
+  </dd></dl>
+
+
+### Outputs
+
+<dl>
+  <dt>`instance_id`</dt>
+  <dd>
+    Instance ID<br/>
+  </dd>
+  <dt>`private_ip`</dt>
+  <dd>
+    Private IP of the instance<br/>
+  </dd>
+</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

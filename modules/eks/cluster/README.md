@@ -479,158 +479,1074 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
-| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.0 |
 
-## Providers
+## Reference
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | >= 3.0 |
+### Version Requirements
 
-## Modules
+- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.3.0), version: >= 1.3.0
+- [`aws`](https://registry.terraform.io/modules/aws/>= 4.9.0), version: >= 4.9.0
+- [`random`](https://registry.terraform.io/modules/random/>= 3.0), version: >= 3.0
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_aws_ebs_csi_driver_eks_iam_role"></a> [aws\_ebs\_csi\_driver\_eks\_iam\_role](#module\_aws\_ebs\_csi\_driver\_eks\_iam\_role) | cloudposse/eks-iam-role/aws | 2.1.1 |
-| <a name="module_aws_ebs_csi_driver_fargate_profile"></a> [aws\_ebs\_csi\_driver\_fargate\_profile](#module\_aws\_ebs\_csi\_driver\_fargate\_profile) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
-| <a name="module_aws_efs_csi_driver_eks_iam_role"></a> [aws\_efs\_csi\_driver\_eks\_iam\_role](#module\_aws\_efs\_csi\_driver\_eks\_iam\_role) | cloudposse/eks-iam-role/aws | 2.1.1 |
-| <a name="module_coredns_fargate_profile"></a> [coredns\_fargate\_profile](#module\_coredns\_fargate\_profile) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
-| <a name="module_eks_cluster"></a> [eks\_cluster](#module\_eks\_cluster) | cloudposse/eks-cluster/aws | 4.1.0 |
-| <a name="module_fargate_pod_execution_role"></a> [fargate\_pod\_execution\_role](#module\_fargate\_pod\_execution\_role) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
-| <a name="module_fargate_profile"></a> [fargate\_profile](#module\_fargate\_profile) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
-| <a name="module_iam_arns"></a> [iam\_arns](#module\_iam\_arns) | ../../account-map/modules/roles-to-principals | n/a |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
-| <a name="module_karpenter_label"></a> [karpenter\_label](#module\_karpenter\_label) | cloudposse/label/null | 0.25.0 |
-| <a name="module_region_node_group"></a> [region\_node\_group](#module\_region\_node\_group) | ./modules/node_group_by_region | n/a |
-| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_utils"></a> [utils](#module\_utils) | cloudposse/utils/aws | 1.3.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_vpc_cni_eks_iam_role"></a> [vpc\_cni\_eks\_iam\_role](#module\_vpc\_cni\_eks\_iam\_role) | cloudposse/eks-iam-role/aws | 2.1.1 |
-| <a name="module_vpc_ingress"></a> [vpc\_ingress](#module\_vpc\_ingress) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
-## Resources
+### Providers
 
-| Name | Type |
-|------|------|
-| [aws_iam_instance_profile.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
-| [aws_iam_policy.ipv6_eks_cni_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
-| [aws_iam_role.karpenter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
-| [aws_iam_role_policy_attachment.amazon_ec2_container_registry_readonly](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.amazon_eks_worker_node_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.amazon_ssm_managed_instance_core](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.aws_ebs_csi_driver](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.aws_efs_csi_driver](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.ipv6_eks_cni_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [random_pet.camel_case_warning](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) | resource |
-| [aws_availability_zones.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
-| [aws_iam_policy_document.assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.ipv6_eks_cni_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.vpc_cni_ipv6](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_roles.sso_roles](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_roles) | data source |
-| [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
+- `aws`, version: >= 4.9.0
+- `random`, version: >= 3.0
 
-## Inputs
+### Modules
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_access_config"></a> [access\_config](#input\_access\_config) | Access configuration for the EKS cluster | <pre>object({<br>    authentication_mode                         = optional(string, "API")<br>    bootstrap_cluster_creator_admin_permissions = optional(bool, false)<br>  })</pre> | `{}` | no |
-| <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_addons"></a> [addons](#input\_addons) | Manages [EKS addons](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) resources | <pre>map(object({<br>    enabled       = optional(bool, true)<br>    addon_version = optional(string, null)<br>    # configuration_values is a JSON string, such as '{"computeType": "Fargate"}'.<br>    configuration_values = optional(string, null)<br>    # Set default resolve_conflicts to OVERWRITE because it is required on initial installation of<br>    # add-ons that have self-managed versions installed by default (e.g. vpc-cni, coredns), and<br>    # because any custom configuration that you would want to preserve should be managed by Terraform.<br>    resolve_conflicts_on_create = optional(string, "OVERWRITE")<br>    resolve_conflicts_on_update = optional(string, "OVERWRITE")<br>    service_account_role_arn    = optional(string, null)<br>    create_timeout              = optional(string, null)<br>    update_timeout              = optional(string, null)<br>    delete_timeout              = optional(string, null)<br>  }))</pre> | `{}` | no |
-| <a name="input_addons_depends_on"></a> [addons\_depends\_on](#input\_addons\_depends\_on) | If set `true` (recommended), all addons will depend on managed node groups provisioned by this component and therefore not be installed until nodes are provisioned.<br>See [issue #170](https://github.com/cloudposse/terraform-aws-eks-cluster/issues/170) for more details. | `bool` | `true` | no |
-| <a name="input_allow_ingress_from_vpc_accounts"></a> [allow\_ingress\_from\_vpc\_accounts](#input\_allow\_ingress\_from\_vpc\_accounts) | List of account contexts to pull VPC ingress CIDR and add to cluster security group.<br><br>e.g.<br><br>{<br>  environment = "ue2",<br>  stage       = "auto",<br>  tenant      = "core"<br>} | `any` | `[]` | no |
-| <a name="input_allowed_cidr_blocks"></a> [allowed\_cidr\_blocks](#input\_allowed\_cidr\_blocks) | List of CIDR blocks to be allowed to connect to the EKS cluster | `list(string)` | `[]` | no |
-| <a name="input_allowed_security_groups"></a> [allowed\_security\_groups](#input\_allowed\_security\_groups) | List of Security Group IDs to be allowed to connect to the EKS cluster | `list(string)` | `[]` | no |
-| <a name="input_apply_config_map_aws_auth"></a> [apply\_config\_map\_aws\_auth](#input\_apply\_config\_map\_aws\_auth) | (Obsolete) Whether to execute `kubectl apply` to apply the ConfigMap to allow worker nodes to join the EKS cluster.<br>This input is included to avoid breaking existing configurations that set it to `true`;<br>a value of `false` is no longer allowed.<br>This input is obsolete and will be removed in a future release. | `bool` | `true` | no |
-| <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_availability_zone_abbreviation_type"></a> [availability\_zone\_abbreviation\_type](#input\_availability\_zone\_abbreviation\_type) | Type of Availability Zone abbreviation (either `fixed` or `short`) to use in names. See https://github.com/cloudposse/terraform-aws-utils for details. | `string` | `"fixed"` | no |
-| <a name="input_availability_zone_ids"></a> [availability\_zone\_ids](#input\_availability\_zone\_ids) | List of Availability Zones IDs where subnets will be created. Overrides `availability_zones`.<br>Can be the full name, e.g. `use1-az1`, or just the part after the AZ ID region code, e.g. `-az1`,<br>to allow reusable values across regions. Consider contention for resources and spot pricing in each AZ when selecting.<br>Useful in some regions when using only some AZs and you want to use the same ones across multiple accounts. | `list(string)` | `[]` | no |
-| <a name="input_availability_zones"></a> [availability\_zones](#input\_availability\_zones) | AWS Availability Zones in which to deploy multi-AZ resources.<br>Ignored if `availability_zone_ids` is set.<br>Can be the full name, e.g. `us-east-1a`, or just the part after the region, e.g. `a` to allow reusable values across regions.<br>If not provided, resources will be provisioned in every zone with a private subnet in the VPC. | `list(string)` | `[]` | no |
-| <a name="input_aws_ssm_agent_enabled"></a> [aws\_ssm\_agent\_enabled](#input\_aws\_ssm\_agent\_enabled) | Set true to attach the required IAM policy for AWS SSM agent to each EC2 instance's IAM Role | `bool` | `false` | no |
-| <a name="input_aws_sso_permission_sets_rbac"></a> [aws\_sso\_permission\_sets\_rbac](#input\_aws\_sso\_permission\_sets\_rbac) | (Not Recommended): AWS SSO (IAM Identity Center) permission sets in the EKS deployment account to add to `aws-auth` ConfigMap.<br>Unfortunately, `aws-auth` ConfigMap does not support SSO permission sets, so we map the generated<br>IAM Role ARN corresponding to the permission set at the time Terraform runs. This is subject to change<br>when any changes are made to the AWS SSO configuration, invalidating the mapping, and requiring a<br>`terraform apply` in this project to update the `aws-auth` ConfigMap and restore access. | <pre>list(object({<br>    aws_sso_permission_set = string<br>    groups                 = list(string)<br>  }))</pre> | `[]` | no |
-| <a name="input_aws_team_roles_rbac"></a> [aws\_team\_roles\_rbac](#input\_aws\_team\_roles\_rbac) | List of `aws-team-roles` (in the target AWS account) to map to Kubernetes RBAC groups. | <pre>list(object({<br>    aws_team_role = string<br>    groups        = list(string)<br>  }))</pre> | `[]` | no |
-| <a name="input_cluster_encryption_config_enabled"></a> [cluster\_encryption\_config\_enabled](#input\_cluster\_encryption\_config\_enabled) | Set to `true` to enable Cluster Encryption Configuration | `bool` | `true` | no |
-| <a name="input_cluster_encryption_config_kms_key_deletion_window_in_days"></a> [cluster\_encryption\_config\_kms\_key\_deletion\_window\_in\_days](#input\_cluster\_encryption\_config\_kms\_key\_deletion\_window\_in\_days) | Cluster Encryption Config KMS Key Resource argument - key deletion windows in days post destruction | `number` | `10` | no |
-| <a name="input_cluster_encryption_config_kms_key_enable_key_rotation"></a> [cluster\_encryption\_config\_kms\_key\_enable\_key\_rotation](#input\_cluster\_encryption\_config\_kms\_key\_enable\_key\_rotation) | Cluster Encryption Config KMS Key Resource argument - enable kms key rotation | `bool` | `true` | no |
-| <a name="input_cluster_encryption_config_kms_key_id"></a> [cluster\_encryption\_config\_kms\_key\_id](#input\_cluster\_encryption\_config\_kms\_key\_id) | KMS Key ID to use for cluster encryption config | `string` | `""` | no |
-| <a name="input_cluster_encryption_config_kms_key_policy"></a> [cluster\_encryption\_config\_kms\_key\_policy](#input\_cluster\_encryption\_config\_kms\_key\_policy) | Cluster Encryption Config KMS Key Resource argument - key policy | `string` | `null` | no |
-| <a name="input_cluster_encryption_config_resources"></a> [cluster\_encryption\_config\_resources](#input\_cluster\_encryption\_config\_resources) | Cluster Encryption Config Resources to encrypt, e.g. `["secrets"]` | `list(string)` | <pre>[<br>  "secrets"<br>]</pre> | no |
-| <a name="input_cluster_endpoint_private_access"></a> [cluster\_endpoint\_private\_access](#input\_cluster\_endpoint\_private\_access) | Indicates whether or not the Amazon EKS private API server endpoint is enabled. Default to AWS EKS resource and it is `false` | `bool` | `false` | no |
-| <a name="input_cluster_endpoint_public_access"></a> [cluster\_endpoint\_public\_access](#input\_cluster\_endpoint\_public\_access) | Indicates whether or not the Amazon EKS public API server endpoint is enabled. Default to AWS EKS resource and it is `true` | `bool` | `true` | no |
-| <a name="input_cluster_kubernetes_version"></a> [cluster\_kubernetes\_version](#input\_cluster\_kubernetes\_version) | Desired Kubernetes master version. If you do not specify a value, the latest available version is used | `string` | `null` | no |
-| <a name="input_cluster_log_retention_period"></a> [cluster\_log\_retention\_period](#input\_cluster\_log\_retention\_period) | Number of days to retain cluster logs. Requires `enabled_cluster_log_types` to be set. See https://docs.aws.amazon.com/en_us/eks/latest/userguide/control-plane-logs.html. | `number` | `0` | no |
-| <a name="input_cluster_private_subnets_only"></a> [cluster\_private\_subnets\_only](#input\_cluster\_private\_subnets\_only) | Whether or not to enable private subnets or both public and private subnets | `bool` | `false` | no |
-| <a name="input_color"></a> [color](#input\_color) | The cluster stage represented by a color; e.g. blue, green | `string` | `""` | no |
-| <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
-| <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| <a name="input_deploy_addons_to_fargate"></a> [deploy\_addons\_to\_fargate](#input\_deploy\_addons\_to\_fargate) | Set to `true` (not recommended) to deploy addons to Fargate instead of initial node pool | `bool` | `false` | no |
-| <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
-| <a name="input_enabled_cluster_log_types"></a> [enabled\_cluster\_log\_types](#input\_enabled\_cluster\_log\_types) | A list of the desired control plane logging to enable. For more information, see https://docs.aws.amazon.com/en_us/eks/latest/userguide/control-plane-logs.html. Possible values [`api`, `audit`, `authenticator`, `controllerManager`, `scheduler`] | `list(string)` | `[]` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_fargate_profile_iam_role_kubernetes_namespace_delimiter"></a> [fargate\_profile\_iam\_role\_kubernetes\_namespace\_delimiter](#input\_fargate\_profile\_iam\_role\_kubernetes\_namespace\_delimiter) | Delimiter for the Kubernetes namespace in the IAM Role name for Fargate Profiles | `string` | `"-"` | no |
-| <a name="input_fargate_profile_iam_role_permissions_boundary"></a> [fargate\_profile\_iam\_role\_permissions\_boundary](#input\_fargate\_profile\_iam\_role\_permissions\_boundary) | If provided, all Fargate Profiles IAM roles will be created with this permissions boundary attached | `string` | `null` | no |
-| <a name="input_fargate_profiles"></a> [fargate\_profiles](#input\_fargate\_profiles) | Fargate Profiles config | <pre>map(object({<br>    kubernetes_namespace = string<br>    kubernetes_labels    = map(string)<br>  }))</pre> | `{}` | no |
-| <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_karpenter_iam_role_enabled"></a> [karpenter\_iam\_role\_enabled](#input\_karpenter\_iam\_role\_enabled) | Flag to enable/disable creation of IAM role for EC2 Instance Profile that is attached to the nodes launched by Karpenter | `bool` | `false` | no |
-| <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
-| <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
-| <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
-| <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_legacy_do_not_create_karpenter_instance_profile"></a> [legacy\_do\_not\_create\_karpenter\_instance\_profile](#input\_legacy\_do\_not\_create\_karpenter\_instance\_profile) | **Obsolete:** The issues this was meant to mitigate were fixed in AWS Terraform Provider v5.43.0<br>and Karpenter v0.33.0. This variable will be removed in a future release.<br>Remove this input from your configuration and leave it at default.<br>**Old description:** When `true` (the default), suppresses creation of the IAM Instance Profile<br>for nodes launched by Karpenter, to preserve the legacy behavior of<br>the `eks/karpenter` component creating it.<br>Set to `false` to enable creation of the IAM Instance Profile, which<br>ensures that both the role and the instance profile have the same lifecycle,<br>and avoids AWS Provider issue [#32671](https://github.com/hashicorp/terraform-provider-aws/issues/32671).<br>Use in conjunction with `eks/karpenter` component `legacy_create_karpenter_instance_profile`. | `bool` | `true` | no |
-| <a name="input_legacy_fargate_1_role_per_profile_enabled"></a> [legacy\_fargate\_1\_role\_per\_profile\_enabled](#input\_legacy\_fargate\_1\_role\_per\_profile\_enabled) | Set to `false` for new clusters to create a single Fargate Pod Execution role for the cluster.<br>Set to `true` for existing clusters to preserve the old behavior of creating<br>a Fargate Pod Execution role for each Fargate Profile. | `bool` | `true` | no |
-| <a name="input_managed_node_groups_enabled"></a> [managed\_node\_groups\_enabled](#input\_managed\_node\_groups\_enabled) | Set false to prevent the creation of EKS managed node groups. | `bool` | `true` | no |
-| <a name="input_map_additional_aws_accounts"></a> [map\_additional\_aws\_accounts](#input\_map\_additional\_aws\_accounts) | (Obsolete) Additional AWS accounts to grant access to the EKS cluster.<br>This input is included to avoid breaking existing configurations that<br>supplied an empty list, but the list is no longer allowed to have entries.<br>(It is not clear that it worked properly in earlier versions in any case.)<br>This component now only supports EKS access entries, which require full principal ARNs.<br>This input is deprecated and will be removed in a future release. | `list(string)` | `[]` | no |
-| <a name="input_map_additional_iam_roles"></a> [map\_additional\_iam\_roles](#input\_map\_additional\_iam\_roles) | Additional IAM roles to grant access to the cluster.<br>*WARNING*: Full Role ARN, including path, is required for `rolearn`.<br>In earlier versions (with `aws-auth` ConfigMap), only the path<br>had to be removed from the Role ARN. The path is now required.<br>`username` is now ignored. This input is planned to be replaced<br>in a future release with a more flexible input structure that consolidates<br>`map_additional_iam_roles` and `map_additional_iam_users`. | <pre>list(object({<br>    rolearn  = string<br>    username = optional(string)<br>    groups   = list(string)<br>  }))</pre> | `[]` | no |
-| <a name="input_map_additional_iam_users"></a> [map\_additional\_iam\_users](#input\_map\_additional\_iam\_users) | Additional IAM roles to grant access to the cluster.<br>`username` is now ignored. This input is planned to be replaced<br>in a future release with a more flexible input structure that consolidates<br>`map_additional_iam_roles` and `map_additional_iam_users`. | <pre>list(object({<br>    userarn  = string<br>    username = optional(string)<br>    groups   = list(string)<br>  }))</pre> | `[]` | no |
-| <a name="input_map_additional_worker_roles"></a> [map\_additional\_worker\_roles](#input\_map\_additional\_worker\_roles) | (Deprecated) AWS IAM Role ARNs of unmanaged Linux worker nodes to grant access to the EKS cluster.<br>In earlier versions, this could be used to grant access to worker nodes of any type<br>that were not managed by the EKS cluster. Now EKS requires that unmanaged worker nodes<br>be classified as Linux or Windows servers, in this input is temporarily retained<br>with the assumption that all worker nodes are Linux servers. (It is likely that<br>earlier versions did not work properly with Windows worker nodes anyway.)<br>This input is deprecated and will be removed in a future release.<br>In the future, this component will either have a way to separate Linux and Windows worker nodes,<br>or drop support for unmanaged worker nodes entirely. | `list(string)` | `[]` | no |
-| <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_node_group_defaults"></a> [node\_group\_defaults](#input\_node\_group\_defaults) | Defaults for node groups in the cluster | <pre>object({<br>    ami_release_version        = optional(string, null)<br>    ami_type                   = optional(string, null)<br>    attributes                 = optional(list(string), null)<br>    availability_zones         = optional(list(string)) # set to null to use var.availability_zones<br>    cluster_autoscaler_enabled = optional(bool, null)<br>    create_before_destroy      = optional(bool, null)<br>    desired_group_size         = optional(number, null)<br>    instance_types             = optional(list(string), null)<br>    kubernetes_labels          = optional(map(string), {})<br>    kubernetes_taints = optional(list(object({<br>      key    = string<br>      value  = string<br>      effect = string<br>    })), [])<br>    node_userdata = optional(object({<br>      before_cluster_joining_userdata = optional(string)<br>      bootstrap_extra_args            = optional(string)<br>      kubelet_extra_args              = optional(string)<br>      after_cluster_joining_userdata  = optional(string)<br>    }), {})<br>    kubernetes_version = optional(string, null) # set to null to use cluster_kubernetes_version<br>    max_group_size     = optional(number, null)<br>    min_group_size     = optional(number, null)<br>    resources_to_tag   = optional(list(string), null)<br>    tags               = optional(map(string), null)<br><br>    # block_device_map copied from cloudposse/terraform-aws-eks-node-group<br>    # Keep in sync via copy and paste, but make optional<br>    # Most of the time you want "/dev/xvda". For BottleRocket, use "/dev/xvdb".<br>    block_device_map = optional(map(object({<br>      no_device    = optional(bool, null)<br>      virtual_name = optional(string, null)<br>      ebs = optional(object({<br>        delete_on_termination = optional(bool, true)<br>        encrypted             = optional(bool, true)<br>        iops                  = optional(number, null)<br>        kms_key_id            = optional(string, null)<br>        snapshot_id           = optional(string, null)<br>        throughput            = optional(number, null) # for gp3, MiB/s, up to 1000<br>        volume_size           = optional(number, 50)   # disk  size in GB<br>        volume_type           = optional(string, "gp3")<br><br>        # Catch common camel case typos. These have no effect, they just generate better errors.<br>        # It would be nice to actually use these, but volumeSize in particular is a number here<br>        # and in most places it is a string with a unit suffix (e.g. 20Gi)<br>        # Without these defined, they would be silently ignored and the default values would be used instead,<br>        # which is difficult to debug.<br>        deleteOnTermination = optional(any, null)<br>        kmsKeyId            = optional(any, null)<br>        snapshotId          = optional(any, null)<br>        volumeSize          = optional(any, null)<br>        volumeType          = optional(any, null)<br>      }))<br>    })), null)<br><br>    # DEPRECATED: disk_encryption_enabled is DEPRECATED, use `block_device_map` instead.<br>    disk_encryption_enabled = optional(bool, null)<br>    # DEPRECATED: disk_size is DEPRECATED, use `block_device_map` instead.<br>    disk_size = optional(number, null)<br>  })</pre> | <pre>{<br>  "block_device_map": {<br>    "/dev/xvda": {<br>      "ebs": {<br>        "encrypted": true,<br>        "volume_size": 20,<br>        "volume_type": "gp2"<br>      }<br>    }<br>  },<br>  "desired_group_size": 1,<br>  "instance_types": [<br>    "t3.medium"<br>  ],<br>  "kubernetes_version": null,<br>  "max_group_size": 100<br>}</pre> | no |
-| <a name="input_node_groups"></a> [node\_groups](#input\_node\_groups) | List of objects defining a node group for the cluster | <pre>map(object({<br>    # EKS AMI version to use, e.g. "1.16.13-20200821" (no "v").<br>    ami_release_version = optional(string, null)<br>    # Type of Amazon Machine Image (AMI) associated with the EKS Node Group<br>    ami_type = optional(string, null)<br>    # Additional attributes (e.g. `1`) for the node group<br>    attributes = optional(list(string), null)<br>    # will create 1 auto scaling group in each specified availability zone<br>    # or all AZs with subnets if none are specified anywhere<br>    availability_zones = optional(list(string), null)<br>    # Whether to enable Node Group to scale its AutoScaling Group<br>    cluster_autoscaler_enabled = optional(bool, null)<br>    # True to create new node_groups before deleting old ones, avoiding a temporary outage<br>    create_before_destroy = optional(bool, null)<br>    # Desired number of worker nodes when initially provisioned<br>    desired_group_size = optional(number, null)<br>    # Set of instance types associated with the EKS Node Group. Terraform will only perform drift detection if a configuration value is provided.<br>    instance_types = optional(list(string), null)<br>    # Key-value mapping of Kubernetes labels. Only labels that are applied with the EKS API are managed by this argument. Other Kubernetes labels applied to the EKS Node Group will not be managed<br>    kubernetes_labels = optional(map(string), null)<br>    # List of objects describing Kubernetes taints.<br>    kubernetes_taints = optional(list(object({<br>      key    = string<br>      value  = string<br>      effect = string<br>    })), null)<br>    node_userdata = optional(object({<br>      before_cluster_joining_userdata = optional(string)<br>      bootstrap_extra_args            = optional(string)<br>      kubelet_extra_args              = optional(string)<br>      after_cluster_joining_userdata  = optional(string)<br>    }), {})<br>    # Desired Kubernetes master version. If you do not specify a value, the latest available version is used<br>    kubernetes_version = optional(string, null)<br>    # The maximum size of the AutoScaling Group<br>    max_group_size = optional(number, null)<br>    # The minimum size of the AutoScaling Group<br>    min_group_size = optional(number, null)<br>    # List of auto-launched resource types to tag<br>    resources_to_tag = optional(list(string), null)<br>    tags             = optional(map(string), null)<br><br>    # block_device_map copied from cloudposse/terraform-aws-eks-node-group<br>    # Keep in sync via copy and paste, but make optional.<br>    # Most of the time you want "/dev/xvda". For BottleRocket, use "/dev/xvdb".<br>    block_device_map = optional(map(object({<br>      no_device    = optional(bool, null)<br>      virtual_name = optional(string, null)<br>      ebs = optional(object({<br>        delete_on_termination = optional(bool, true)<br>        encrypted             = optional(bool, true)<br>        iops                  = optional(number, null)<br>        kms_key_id            = optional(string, null)<br>        snapshot_id           = optional(string, null)<br>        throughput            = optional(number, null) # for gp3, MiB/s, up to 1000<br>        volume_size           = optional(number, 20)   # Disk size in GB<br>        volume_type           = optional(string, "gp3")<br><br>        # Catch common camel case typos. These have no effect, they just generate better errors.<br>        # It would be nice to actually use these, but volumeSize in particular is a number here<br>        # and in most places it is a string with a unit suffix (e.g. 20Gi)<br>        # Without these defined, they would be silently ignored and the default values would be used instead,<br>        # which is difficult to debug.<br>        deleteOnTermination = optional(any, null)<br>        kmsKeyId            = optional(any, null)<br>        snapshotId          = optional(any, null)<br>        volumeSize          = optional(any, null)<br>        volumeType          = optional(any, null)<br>      }))<br>    })), null)<br><br>    # DEPRECATED:<br>    # Enable disk encryption for the created launch template (if we aren't provided with an existing launch template)<br>    # DEPRECATED: disk_encryption_enabled is DEPRECATED, use `block_device_map` instead.<br>    disk_encryption_enabled = optional(bool, null)<br>    # Disk size in GiB for worker nodes. Terraform will only perform drift detection if a configuration value is provided.<br>    # DEPRECATED: disk_size is DEPRECATED, use `block_device_map` instead.<br>    disk_size = optional(number, null)<br><br>  }))</pre> | `{}` | no |
-| <a name="input_oidc_provider_enabled"></a> [oidc\_provider\_enabled](#input\_oidc\_provider\_enabled) | Create an IAM OIDC identity provider for the cluster, then you can create IAM roles to associate with a service account in the cluster, instead of using kiam or kube2iam. For more information, see https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html | `bool` | `true` | no |
-| <a name="input_public_access_cidrs"></a> [public\_access\_cidrs](#input\_public\_access\_cidrs) | Indicates which CIDR blocks can access the Amazon EKS public API server endpoint when enabled. EKS defaults this to a list with 0.0.0.0/0. | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
-| <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
-| <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
-| <a name="input_subnet_type_tag_key"></a> [subnet\_type\_tag\_key](#input\_subnet\_type\_tag\_key) | The tag used to find the private subnets to find by availability zone. If null, will be looked up in vpc outputs. | `string` | `null` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
-| <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_vpc_component_name"></a> [vpc\_component\_name](#input\_vpc\_component\_name) | The name of the vpc component | `string` | `"vpc"` | no |
+Name | Version | Source | Description
+--- | --- | --- | ---
+`aws_ebs_csi_driver_eks_iam_role` | 2.1.1 | [`cloudposse/eks-iam-role/aws`](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/2.1.1) | n/a
+`aws_ebs_csi_driver_fargate_profile` | 1.3.0 | [`cloudposse/eks-fargate-profile/aws`](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | n/a
+`aws_efs_csi_driver_eks_iam_role` | 2.1.1 | [`cloudposse/eks-iam-role/aws`](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/2.1.1) | n/a
+`coredns_fargate_profile` | 1.3.0 | [`cloudposse/eks-fargate-profile/aws`](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | n/a
+`eks_cluster` | 4.1.0 | [`cloudposse/eks-cluster/aws`](https://registry.terraform.io/modules/cloudposse/eks-cluster/aws/4.1.0) | n/a
+`fargate_pod_execution_role` | 1.3.0 | [`cloudposse/eks-fargate-profile/aws`](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | n/a
+`fargate_profile` | 1.3.0 | [`cloudposse/eks-fargate-profile/aws`](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | ############################################################################## ## Both New and Legacy behavior, use caution when modifying ##############################################################################
+`iam_arns` | latest | [`../../account-map/modules/roles-to-principals`](https://registry.terraform.io/modules/../../account-map/modules/roles-to-principals/) | n/a
+`iam_roles` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
+`karpenter_label` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`region_node_group` | latest | [`./modules/node_group_by_region`](https://registry.terraform.io/modules/./modules/node_group_by_region/) | n/a
+`this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`utils` | 1.3.0 | [`cloudposse/utils/aws`](https://registry.terraform.io/modules/cloudposse/utils/aws/1.3.0) | n/a
+`vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`vpc_cni_eks_iam_role` | 2.1.1 | [`cloudposse/eks-iam-role/aws`](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/2.1.1) | n/a
+`vpc_ingress` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
 
-## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_availability_zones"></a> [availability\_zones](#output\_availability\_zones) | Availability Zones in which the cluster is provisioned |
-| <a name="output_eks_addons_versions"></a> [eks\_addons\_versions](#output\_eks\_addons\_versions) | Map of enabled EKS Addons names and versions |
-| <a name="output_eks_auth_worker_roles"></a> [eks\_auth\_worker\_roles](#output\_eks\_auth\_worker\_roles) | List of worker IAM roles that were included in the `auth-map` ConfigMap. |
-| <a name="output_eks_cluster_arn"></a> [eks\_cluster\_arn](#output\_eks\_cluster\_arn) | The Amazon Resource Name (ARN) of the cluster |
-| <a name="output_eks_cluster_certificate_authority_data"></a> [eks\_cluster\_certificate\_authority\_data](#output\_eks\_cluster\_certificate\_authority\_data) | The Kubernetes cluster certificate authority data |
-| <a name="output_eks_cluster_endpoint"></a> [eks\_cluster\_endpoint](#output\_eks\_cluster\_endpoint) | The endpoint for the Kubernetes API server |
-| <a name="output_eks_cluster_id"></a> [eks\_cluster\_id](#output\_eks\_cluster\_id) | The name of the cluster |
-| <a name="output_eks_cluster_identity_oidc_issuer"></a> [eks\_cluster\_identity\_oidc\_issuer](#output\_eks\_cluster\_identity\_oidc\_issuer) | The OIDC Identity issuer for the cluster |
-| <a name="output_eks_cluster_managed_security_group_id"></a> [eks\_cluster\_managed\_security\_group\_id](#output\_eks\_cluster\_managed\_security\_group\_id) | Security Group ID that was created by EKS for the cluster. EKS creates a Security Group and applies it to ENI that is attached to EKS Control Plane master nodes and to any managed workloads |
-| <a name="output_eks_cluster_version"></a> [eks\_cluster\_version](#output\_eks\_cluster\_version) | The Kubernetes server version of the cluster |
-| <a name="output_eks_managed_node_workers_role_arns"></a> [eks\_managed\_node\_workers\_role\_arns](#output\_eks\_managed\_node\_workers\_role\_arns) | List of ARNs for workers in managed node groups |
-| <a name="output_eks_node_group_arns"></a> [eks\_node\_group\_arns](#output\_eks\_node\_group\_arns) | List of all the node group ARNs in the cluster |
-| <a name="output_eks_node_group_count"></a> [eks\_node\_group\_count](#output\_eks\_node\_group\_count) | Count of the worker nodes |
-| <a name="output_eks_node_group_ids"></a> [eks\_node\_group\_ids](#output\_eks\_node\_group\_ids) | EKS Cluster name and EKS Node Group name separated by a colon |
-| <a name="output_eks_node_group_role_names"></a> [eks\_node\_group\_role\_names](#output\_eks\_node\_group\_role\_names) | List of worker nodes IAM role names |
-| <a name="output_eks_node_group_statuses"></a> [eks\_node\_group\_statuses](#output\_eks\_node\_group\_statuses) | Status of the EKS Node Group |
-| <a name="output_fargate_profile_role_arns"></a> [fargate\_profile\_role\_arns](#output\_fargate\_profile\_role\_arns) | Fargate Profile Role ARNs |
-| <a name="output_fargate_profile_role_names"></a> [fargate\_profile\_role\_names](#output\_fargate\_profile\_role\_names) | Fargate Profile Role names |
-| <a name="output_fargate_profiles"></a> [fargate\_profiles](#output\_fargate\_profiles) | Fargate Profiles |
-| <a name="output_karpenter_iam_role_arn"></a> [karpenter\_iam\_role\_arn](#output\_karpenter\_iam\_role\_arn) | Karpenter IAM Role ARN |
-| <a name="output_karpenter_iam_role_name"></a> [karpenter\_iam\_role\_name](#output\_karpenter\_iam\_role\_name) | Karpenter IAM Role name |
-| <a name="output_vpc_cidr"></a> [vpc\_cidr](#output\_vpc\_cidr) | The CIDR of the VPC where this cluster is deployed. |
+### Resources
+
+The following resources are used by this module:
+
+  - [`aws_iam_instance_profile.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) (resource)
+  - [`aws_iam_policy.ipv6_eks_cni_policy`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) (resource)
+  - [`aws_iam_role.karpenter`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) (resource)
+  - [`aws_iam_role_policy_attachment.amazon_ec2_container_registry_readonly`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) (resource)
+  - [`aws_iam_role_policy_attachment.amazon_eks_worker_node_policy`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) (resource)
+  - [`aws_iam_role_policy_attachment.amazon_ssm_managed_instance_core`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) (resource)
+  - [`aws_iam_role_policy_attachment.aws_ebs_csi_driver`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) (resource)
+  - [`aws_iam_role_policy_attachment.aws_efs_csi_driver`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) (resource)
+  - [`aws_iam_role_policy_attachment.ipv6_eks_cni_policy`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) (resource)
+  - [`aws_iam_role_policy_attachment.vpc_cni`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) (resource)
+  - [`random_pet.camel_case_warning`](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) (resource)
+
+### Data Sources
+
+The following data sources are used by this module:
+
+  - [`aws_availability_zones.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) (data source)
+  - [`aws_iam_policy_document.assume_role`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
+  - [`aws_iam_policy_document.ipv6_eks_cni_policy`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
+  - [`aws_iam_policy_document.vpc_cni_ipv6`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
+  - [`aws_iam_roles.sso_roles`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_roles) (data source)
+  - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
+
+### Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+
+<dl>
+  <dt>`additional_tag_map` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+    This is for some rare cases where resources want additional configuration of tags<br/>
+    and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `map(string)`
+    **Default value:** `{}`
+  </dd>
+  <dt>`attributes` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+    in the order they appear in the list. New attributes are appended to the<br/>
+    end of the list. The elements of the list are joined by the `delimiter`<br/>
+    and treated as a single ID element.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `list(string)`
+    **Default value:** `[]`
+  </dd>
+  <dt>`context` (`any`) <i>optional</i></dt>
+  <dd>
+    Single object for setting entire context at once.<br/>
+    See description of individual variables for details.<br/>
+    Leave string and numeric variables as `null` to use default value.<br/>
+    Individual variable settings (non-null) override settings in context object,<br/>
+    except for attributes, tags, and additional_tag_map, which are merged.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `any`
+    **Default value:** 
+    ```hcl
+    {
+      "additional_tag_map": {},
+      "attributes": [],
+      "delimiter": null,
+      "descriptor_formats": {},
+      "enabled": true,
+      "environment": null,
+      "id_length_limit": null,
+      "label_key_case": null,
+      "label_order": [],
+      "label_value_case": null,
+      "labels_as_tags": [
+        "unset"
+      ],
+      "name": null,
+      "namespace": null,
+      "regex_replace_chars": null,
+      "stage": null,
+      "tags": {},
+      "tenant": null
+    }
+    ```
+    
+  </dd>
+  <dt>`delimiter` (`string`) <i>optional</i></dt>
+  <dd>
+    Delimiter to be used between ID elements.<br/>
+    Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`descriptor_formats` (`any`) <i>optional</i></dt>
+  <dd>
+    Describe additional descriptors to be output in the `descriptors` output map.<br/>
+    Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+    `{<br/>
+       format = string<br/>
+       labels = list(string)<br/>
+    }`<br/>
+    (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+    `format` is a Terraform format string to be passed to the `format()` function.<br/>
+    `labels` is a list of labels, in order, to pass to `format()` function.<br/>
+    Label values will be normalized before being passed to `format()` so they will be<br/>
+    identical to how they appear in `id`.<br/>
+    Default is `{}` (`descriptors` output will be empty).<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `any`
+    **Default value:** `{}`
+  </dd>
+  <dt>`enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to false to prevent the module from creating any resources<br/>
+    **Required:** No<br/>
+    **Type:** `bool`
+    **Default value:** `null`
+  </dd>
+  <dt>`environment` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`id_length_limit` (`number`) <i>optional</i></dt>
+  <dd>
+    Limit `id` to this many characters (minimum 6).<br/>
+    Set to `0` for unlimited length.<br/>
+    Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+    Does not affect `id_full`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `number`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_key_case` (`string`) <i>optional</i></dt>
+  <dd>
+    Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+    Does not affect keys of tags passed in via the `tags` input.<br/>
+    Possible values: `lower`, `title`, `upper`.<br/>
+    Default value: `title`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_order` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    The order in which the labels (ID elements) appear in the `id`.<br/>
+    Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+    You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `list(string)`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_value_case` (`string`) <i>optional</i></dt>
+  <dd>
+    Controls the letter case of ID elements (labels) as included in `id`,<br/>
+    set as tag values, and output by this module individually.<br/>
+    Does not affect values of tags passed in via the `tags` input.<br/>
+    Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+    Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+    Default value: `lower`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`labels_as_tags` (`set(string)`) <i>optional</i></dt>
+  <dd>
+    Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+    Default is to include all labels.<br/>
+    Tags with empty values will not be included in the `tags` output.<br/>
+    Set to `[]` to suppress all generated tags.<br/>
+    **Notes:**<br/>
+      The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+      Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+      changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `set(string)`
+    **Default value:** 
+    ```hcl
+    [
+      "default"
+    ]
+    ```
+    
+  </dd>
+  <dt>`name` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+    This is the only ID element not also included as a `tag`.<br/>
+    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`namespace` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`regex_replace_chars` (`string`) <i>optional</i></dt>
+  <dd>
+    Terraform regular expression (regex) string.<br/>
+    Characters matching the regex will be removed from the ID elements.<br/>
+    If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`stage` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`tags` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+    Neither the tag keys nor the tag values will be modified by this module.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `map(string)`
+    **Default value:** `{}`
+  </dd>
+  <dt>`tenant` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+</dl>
+
+### Required Inputs
+
+<dl>
+  <dt>`region` (`string`) <i>required</i></dt>
+  <dd>
+    AWS Region<br/>
+
+    **Type:** `string`
+    <br/>
+    **Default value:** ``
+
+  </dd>
+</dl>
+
+### Optional Inputs
+
+<dl>
+  <dt>`access_config` <i>optional</i></dt>
+  <dd>
+    Access configuration for the EKS cluster<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    object({
+    authentication_mode                         = optional(string, "API")
+    bootstrap_cluster_creator_admin_permissions = optional(bool, false)
+  })
+    ```
+    
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`addons` <i>optional</i></dt>
+  <dd>
+    Manages [EKS addons](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) resources<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    map(object({
+    enabled       = optional(bool, true)
+    addon_version = optional(string, null)
+    # configuration_values is a JSON string, such as '{"computeType": "Fargate"}'.
+    configuration_values = optional(string, null)
+    # Set default resolve_conflicts to OVERWRITE because it is required on initial installation of
+    # add-ons that have self-managed versions installed by default (e.g. vpc-cni, coredns), and
+    # because any custom configuration that you would want to preserve should be managed by Terraform.
+    resolve_conflicts_on_create = optional(string, "OVERWRITE")
+    resolve_conflicts_on_update = optional(string, "OVERWRITE")
+    service_account_role_arn    = optional(string, null)
+    create_timeout              = optional(string, null)
+    update_timeout              = optional(string, null)
+    delete_timeout              = optional(string, null)
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`addons_depends_on` (`bool`) <i>optional</i></dt>
+  <dd>
+    If set `true` (recommended), all addons will depend on managed node groups provisioned by this component and therefore not be installed until nodes are provisioned.<br/>
+    See [issue #170](https://github.com/cloudposse/terraform-aws-eks-cluster/issues/170) for more details.<br/>
+    <br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`allow_ingress_from_vpc_accounts` (`any`) <i>optional</i></dt>
+  <dd>
+    List of account contexts to pull VPC ingress CIDR and add to cluster security group.<br/>
+    <br/>
+    e.g.<br/>
+    <br/>
+    {<br/>
+      environment = "ue2",<br/>
+      stage       = "auto",<br/>
+      tenant      = "core"<br/>
+    }<br/>
+    <br/>
+    <br/>
+    **Type:** `any`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`allowed_cidr_blocks` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    List of CIDR blocks to be allowed to connect to the EKS cluster<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`allowed_security_groups` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    List of Security Group IDs to be allowed to connect to the EKS cluster<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`apply_config_map_aws_auth` (`bool`) <i>optional</i></dt>
+  <dd>
+    (Obsolete) Whether to execute `kubectl apply` to apply the ConfigMap to allow worker nodes to join the EKS cluster.<br/>
+    This input is included to avoid breaking existing configurations that set it to `true`;<br/>
+    a value of `false` is no longer allowed.<br/>
+    This input is obsolete and will be removed in a future release.<br/>
+    <br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`availability_zone_abbreviation_type` (`string`) <i>optional</i></dt>
+  <dd>
+    Type of Availability Zone abbreviation (either `fixed` or `short`) to use in names. See https://github.com/cloudposse/terraform-aws-utils for details.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"fixed"`
+  </dd>
+  <dt>`availability_zone_ids` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    List of Availability Zones IDs where subnets will be created. Overrides `availability_zones`.<br/>
+    Can be the full name, e.g. `use1-az1`, or just the part after the AZ ID region code, e.g. `-az1`,<br/>
+    to allow reusable values across regions. Consider contention for resources and spot pricing in each AZ when selecting.<br/>
+    Useful in some regions when using only some AZs and you want to use the same ones across multiple accounts.<br/>
+    <br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`availability_zones` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    AWS Availability Zones in which to deploy multi-AZ resources.<br/>
+    Ignored if `availability_zone_ids` is set.<br/>
+    Can be the full name, e.g. `us-east-1a`, or just the part after the region, e.g. `a` to allow reusable values across regions.<br/>
+    If not provided, resources will be provisioned in every zone with a private subnet in the VPC.<br/>
+    <br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`aws_ssm_agent_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set true to attach the required IAM policy for AWS SSM agent to each EC2 instance's IAM Role<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`aws_sso_permission_sets_rbac` <i>optional</i></dt>
+  <dd>
+    (Not Recommended): AWS SSO (IAM Identity Center) permission sets in the EKS deployment account to add to `aws-auth` ConfigMap.<br/>
+    Unfortunately, `aws-auth` ConfigMap does not support SSO permission sets, so we map the generated<br/>
+    IAM Role ARN corresponding to the permission set at the time Terraform runs. This is subject to change<br/>
+    when any changes are made to the AWS SSO configuration, invalidating the mapping, and requiring a<br/>
+    `terraform apply` in this project to update the `aws-auth` ConfigMap and restore access.<br/>
+    <br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    list(object({
+    aws_sso_permission_set = string
+    groups                 = list(string)
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`aws_team_roles_rbac` <i>optional</i></dt>
+  <dd>
+    List of `aws-team-roles` (in the target AWS account) to map to Kubernetes RBAC groups.<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    list(object({
+    aws_team_role = string
+    groups        = list(string)
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`cluster_encryption_config_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to `true` to enable Cluster Encryption Configuration<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`cluster_encryption_config_kms_key_deletion_window_in_days` (`number`) <i>optional</i></dt>
+  <dd>
+    Cluster Encryption Config KMS Key Resource argument - key deletion windows in days post destruction<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `10`
+  </dd>
+  <dt>`cluster_encryption_config_kms_key_enable_key_rotation` (`bool`) <i>optional</i></dt>
+  <dd>
+    Cluster Encryption Config KMS Key Resource argument - enable kms key rotation<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`cluster_encryption_config_kms_key_id` (`string`) <i>optional</i></dt>
+  <dd>
+    KMS Key ID to use for cluster encryption config<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`cluster_encryption_config_kms_key_policy` (`string`) <i>optional</i></dt>
+  <dd>
+    Cluster Encryption Config KMS Key Resource argument - key policy<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`cluster_encryption_config_resources` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    Cluster Encryption Config Resources to encrypt, e.g. `["secrets"]`<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** 
+    ```hcl
+    [
+      "secrets"
+    ]
+    ```
+    
+  </dd>
+  <dt>`cluster_endpoint_private_access` (`bool`) <i>optional</i></dt>
+  <dd>
+    Indicates whether or not the Amazon EKS private API server endpoint is enabled. Default to AWS EKS resource and it is `false`<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`cluster_endpoint_public_access` (`bool`) <i>optional</i></dt>
+  <dd>
+    Indicates whether or not the Amazon EKS public API server endpoint is enabled. Default to AWS EKS resource and it is `true`<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`cluster_kubernetes_version` (`string`) <i>optional</i></dt>
+  <dd>
+    Desired Kubernetes master version. If you do not specify a value, the latest available version is used<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`cluster_log_retention_period` (`number`) <i>optional</i></dt>
+  <dd>
+    Number of days to retain cluster logs. Requires `enabled_cluster_log_types` to be set. See https://docs.aws.amazon.com/en_us/eks/latest/userguide/control-plane-logs.html.<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `0`
+  </dd>
+  <dt>`cluster_private_subnets_only` (`bool`) <i>optional</i></dt>
+  <dd>
+    Whether or not to enable private subnets or both public and private subnets<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`color` (`string`) <i>optional</i></dt>
+  <dd>
+    The cluster stage represented by a color; e.g. blue, green<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`deploy_addons_to_fargate` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to `true` (not recommended) to deploy addons to Fargate instead of initial node pool<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`enabled_cluster_log_types` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    A list of the desired control plane logging to enable. For more information, see https://docs.aws.amazon.com/en_us/eks/latest/userguide/control-plane-logs.html. Possible values [`api`, `audit`, `authenticator`, `controllerManager`, `scheduler`]<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`fargate_profile_iam_role_kubernetes_namespace_delimiter` (`string`) <i>optional</i></dt>
+  <dd>
+    Delimiter for the Kubernetes namespace in the IAM Role name for Fargate Profiles<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"-"`
+  </dd>
+  <dt>`fargate_profile_iam_role_permissions_boundary` (`string`) <i>optional</i></dt>
+  <dd>
+    If provided, all Fargate Profiles IAM roles will be created with this permissions boundary attached<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`fargate_profiles` <i>optional</i></dt>
+  <dd>
+    Fargate Profiles config<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    map(object({
+    kubernetes_namespace = string
+    kubernetes_labels    = map(string)
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`karpenter_iam_role_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Flag to enable/disable creation of IAM role for EC2 Instance Profile that is attached to the nodes launched by Karpenter<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`legacy_do_not_create_karpenter_instance_profile` (`bool`) <i>optional</i></dt>
+  <dd>
+    **Obsolete:** The issues this was meant to mitigate were fixed in AWS Terraform Provider v5.43.0<br/>
+    and Karpenter v0.33.0. This variable will be removed in a future release.<br/>
+    Remove this input from your configuration and leave it at default.<br/>
+    **Old description:** When `true` (the default), suppresses creation of the IAM Instance Profile<br/>
+    for nodes launched by Karpenter, to preserve the legacy behavior of<br/>
+    the `eks/karpenter` component creating it.<br/>
+    Set to `false` to enable creation of the IAM Instance Profile, which<br/>
+    ensures that both the role and the instance profile have the same lifecycle,<br/>
+    and avoids AWS Provider issue [#32671](https://github.com/hashicorp/terraform-provider-aws/issues/32671).<br/>
+    Use in conjunction with `eks/karpenter` component `legacy_create_karpenter_instance_profile`.<br/>
+    <br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`legacy_fargate_1_role_per_profile_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to `false` for new clusters to create a single Fargate Pod Execution role for the cluster.<br/>
+    Set to `true` for existing clusters to preserve the old behavior of creating<br/>
+    a Fargate Pod Execution role for each Fargate Profile.<br/>
+    <br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`managed_node_groups_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set false to prevent the creation of EKS managed node groups.<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`map_additional_aws_accounts` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    (Obsolete) Additional AWS accounts to grant access to the EKS cluster.<br/>
+    This input is included to avoid breaking existing configurations that<br/>
+    supplied an empty list, but the list is no longer allowed to have entries.<br/>
+    (It is not clear that it worked properly in earlier versions in any case.)<br/>
+    This component now only supports EKS access entries, which require full principal ARNs.<br/>
+    This input is deprecated and will be removed in a future release.<br/>
+    <br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`map_additional_iam_roles` <i>optional</i></dt>
+  <dd>
+    Additional IAM roles to grant access to the cluster.<br/>
+    *WARNING*: Full Role ARN, including path, is required for `rolearn`.<br/>
+    In earlier versions (with `aws-auth` ConfigMap), only the path<br/>
+    had to be removed from the Role ARN. The path is now required.<br/>
+    `username` is now ignored. This input is planned to be replaced<br/>
+    in a future release with a more flexible input structure that consolidates<br/>
+    `map_additional_iam_roles` and `map_additional_iam_users`.<br/>
+    <br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    list(object({
+    rolearn  = string
+    username = optional(string)
+    groups   = list(string)
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`map_additional_iam_users` <i>optional</i></dt>
+  <dd>
+    Additional IAM roles to grant access to the cluster.<br/>
+    `username` is now ignored. This input is planned to be replaced<br/>
+    in a future release with a more flexible input structure that consolidates<br/>
+    `map_additional_iam_roles` and `map_additional_iam_users`.<br/>
+    <br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    list(object({
+    userarn  = string
+    username = optional(string)
+    groups   = list(string)
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`map_additional_worker_roles` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    (Deprecated) AWS IAM Role ARNs of unmanaged Linux worker nodes to grant access to the EKS cluster.<br/>
+    In earlier versions, this could be used to grant access to worker nodes of any type<br/>
+    that were not managed by the EKS cluster. Now EKS requires that unmanaged worker nodes<br/>
+    be classified as Linux or Windows servers, in this input is temporarily retained<br/>
+    with the assumption that all worker nodes are Linux servers. (It is likely that<br/>
+    earlier versions did not work properly with Windows worker nodes anyway.)<br/>
+    This input is deprecated and will be removed in a future release.<br/>
+    In the future, this component will either have a way to separate Linux and Windows worker nodes,<br/>
+    or drop support for unmanaged worker nodes entirely.<br/>
+    <br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`node_group_defaults` <i>optional</i></dt>
+  <dd>
+    Defaults for node groups in the cluster<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    object({
+    ami_release_version        = optional(string, null)
+    ami_type                   = optional(string, null)
+    attributes                 = optional(list(string), null)
+    availability_zones         = optional(list(string)) # set to null to use var.availability_zones
+    cluster_autoscaler_enabled = optional(bool, null)
+    create_before_destroy      = optional(bool, null)
+    desired_group_size         = optional(number, null)
+    instance_types             = optional(list(string), null)
+    kubernetes_labels          = optional(map(string), {})
+    kubernetes_taints = optional(list(object({
+      key    = string
+      value  = string
+      effect = string
+    })), [])
+    node_userdata = optional(object({
+      before_cluster_joining_userdata = optional(string)
+      bootstrap_extra_args            = optional(string)
+      kubelet_extra_args              = optional(string)
+      after_cluster_joining_userdata  = optional(string)
+    }), {})
+    kubernetes_version = optional(string, null) # set to null to use cluster_kubernetes_version
+    max_group_size     = optional(number, null)
+    min_group_size     = optional(number, null)
+    resources_to_tag   = optional(list(string), null)
+    tags               = optional(map(string), null)
+
+    # block_device_map copied from cloudposse/terraform-aws-eks-node-group
+    # Keep in sync via copy and paste, but make optional
+    # Most of the time you want "/dev/xvda". For BottleRocket, use "/dev/xvdb".
+    block_device_map = optional(map(object({
+      no_device    = optional(bool, null)
+      virtual_name = optional(string, null)
+      ebs = optional(object({
+        delete_on_termination = optional(bool, true)
+        encrypted             = optional(bool, true)
+        iops                  = optional(number, null)
+        kms_key_id            = optional(string, null)
+        snapshot_id           = optional(string, null)
+        throughput            = optional(number, null) # for gp3, MiB/s, up to 1000
+        volume_size           = optional(number, 50)   # disk  size in GB
+        volume_type           = optional(string, "gp3")
+
+        # Catch common camel case typos. These have no effect, they just generate better errors.
+        # It would be nice to actually use these, but volumeSize in particular is a number here
+        # and in most places it is a string with a unit suffix (e.g. 20Gi)
+        # Without these defined, they would be silently ignored and the default values would be used instead,
+        # which is difficult to debug.
+        deleteOnTermination = optional(any, null)
+        kmsKeyId            = optional(any, null)
+        snapshotId          = optional(any, null)
+        volumeSize          = optional(any, null)
+        volumeType          = optional(any, null)
+      }))
+    })), null)
+
+    # DEPRECATED: disk_encryption_enabled is DEPRECATED, use `block_device_map` instead.
+    disk_encryption_enabled = optional(bool, null)
+    # DEPRECATED: disk_size is DEPRECATED, use `block_device_map` instead.
+    disk_size = optional(number, null)
+  })
+    ```
+    
+    <br/>
+    **Default value:** 
+    ```hcl
+    {
+      "block_device_map": {
+        "/dev/xvda": {
+          "ebs": {
+            "encrypted": true,
+            "volume_size": 20,
+            "volume_type": "gp2"
+          }
+        }
+      },
+      "desired_group_size": 1,
+      "instance_types": [
+        "t3.medium"
+      ],
+      "kubernetes_version": null,
+      "max_group_size": 100
+    }
+    ```
+    
+  </dd>
+  <dt>`node_groups` <i>optional</i></dt>
+  <dd>
+    List of objects defining a node group for the cluster<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    map(object({
+    # EKS AMI version to use, e.g. "1.16.13-20200821" (no "v").
+    ami_release_version = optional(string, null)
+    # Type of Amazon Machine Image (AMI) associated with the EKS Node Group
+    ami_type = optional(string, null)
+    # Additional attributes (e.g. `1`) for the node group
+    attributes = optional(list(string), null)
+    # will create 1 auto scaling group in each specified availability zone
+    # or all AZs with subnets if none are specified anywhere
+    availability_zones = optional(list(string), null)
+    # Whether to enable Node Group to scale its AutoScaling Group
+    cluster_autoscaler_enabled = optional(bool, null)
+    # True to create new node_groups before deleting old ones, avoiding a temporary outage
+    create_before_destroy = optional(bool, null)
+    # Desired number of worker nodes when initially provisioned
+    desired_group_size = optional(number, null)
+    # Set of instance types associated with the EKS Node Group. Terraform will only perform drift detection if a configuration value is provided.
+    instance_types = optional(list(string), null)
+    # Key-value mapping of Kubernetes labels. Only labels that are applied with the EKS API are managed by this argument. Other Kubernetes labels applied to the EKS Node Group will not be managed
+    kubernetes_labels = optional(map(string), null)
+    # List of objects describing Kubernetes taints.
+    kubernetes_taints = optional(list(object({
+      key    = string
+      value  = string
+      effect = string
+    })), null)
+    node_userdata = optional(object({
+      before_cluster_joining_userdata = optional(string)
+      bootstrap_extra_args            = optional(string)
+      kubelet_extra_args              = optional(string)
+      after_cluster_joining_userdata  = optional(string)
+    }), {})
+    # Desired Kubernetes master version. If you do not specify a value, the latest available version is used
+    kubernetes_version = optional(string, null)
+    # The maximum size of the AutoScaling Group
+    max_group_size = optional(number, null)
+    # The minimum size of the AutoScaling Group
+    min_group_size = optional(number, null)
+    # List of auto-launched resource types to tag
+    resources_to_tag = optional(list(string), null)
+    tags             = optional(map(string), null)
+
+    # block_device_map copied from cloudposse/terraform-aws-eks-node-group
+    # Keep in sync via copy and paste, but make optional.
+    # Most of the time you want "/dev/xvda". For BottleRocket, use "/dev/xvdb".
+    block_device_map = optional(map(object({
+      no_device    = optional(bool, null)
+      virtual_name = optional(string, null)
+      ebs = optional(object({
+        delete_on_termination = optional(bool, true)
+        encrypted             = optional(bool, true)
+        iops                  = optional(number, null)
+        kms_key_id            = optional(string, null)
+        snapshot_id           = optional(string, null)
+        throughput            = optional(number, null) # for gp3, MiB/s, up to 1000
+        volume_size           = optional(number, 20)   # Disk size in GB
+        volume_type           = optional(string, "gp3")
+
+        # Catch common camel case typos. These have no effect, they just generate better errors.
+        # It would be nice to actually use these, but volumeSize in particular is a number here
+        # and in most places it is a string with a unit suffix (e.g. 20Gi)
+        # Without these defined, they would be silently ignored and the default values would be used instead,
+        # which is difficult to debug.
+        deleteOnTermination = optional(any, null)
+        kmsKeyId            = optional(any, null)
+        snapshotId          = optional(any, null)
+        volumeSize          = optional(any, null)
+        volumeType          = optional(any, null)
+      }))
+    })), null)
+
+    # DEPRECATED:
+    # Enable disk encryption for the created launch template (if we aren't provided with an existing launch template)
+    # DEPRECATED: disk_encryption_enabled is DEPRECATED, use `block_device_map` instead.
+    disk_encryption_enabled = optional(bool, null)
+    # Disk size in GiB for worker nodes. Terraform will only perform drift detection if a configuration value is provided.
+    # DEPRECATED: disk_size is DEPRECATED, use `block_device_map` instead.
+    disk_size = optional(number, null)
+
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`oidc_provider_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Create an IAM OIDC identity provider for the cluster, then you can create IAM roles to associate with a service account in the cluster, instead of using kiam or kube2iam. For more information, see https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`public_access_cidrs` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    Indicates which CIDR blocks can access the Amazon EKS public API server endpoint when enabled. EKS defaults this to a list with 0.0.0.0/0.<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** 
+    ```hcl
+    [
+      "0.0.0.0/0"
+    ]
+    ```
+    
+  </dd>
+  <dt>`subnet_type_tag_key` (`string`) <i>optional</i></dt>
+  <dd>
+    The tag used to find the private subnets to find by availability zone. If null, will be looked up in vpc outputs.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`vpc_component_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the vpc component<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"vpc"`
+  </dd></dl>
+
+
+### Outputs
+
+<dl>
+  <dt>`availability_zones`</dt>
+  <dd>
+    Availability Zones in which the cluster is provisioned<br/>
+  </dd>
+  <dt>`eks_addons_versions`</dt>
+  <dd>
+    Map of enabled EKS Addons names and versions<br/>
+  </dd>
+  <dt>`eks_auth_worker_roles`</dt>
+  <dd>
+    List of worker IAM roles that were included in the `auth-map` ConfigMap.<br/>
+  </dd>
+  <dt>`eks_cluster_arn`</dt>
+  <dd>
+    The Amazon Resource Name (ARN) of the cluster<br/>
+  </dd>
+  <dt>`eks_cluster_certificate_authority_data`</dt>
+  <dd>
+    The Kubernetes cluster certificate authority data<br/>
+  </dd>
+  <dt>`eks_cluster_endpoint`</dt>
+  <dd>
+    The endpoint for the Kubernetes API server<br/>
+  </dd>
+  <dt>`eks_cluster_id`</dt>
+  <dd>
+    The name of the cluster<br/>
+  </dd>
+  <dt>`eks_cluster_identity_oidc_issuer`</dt>
+  <dd>
+    The OIDC Identity issuer for the cluster<br/>
+  </dd>
+  <dt>`eks_cluster_managed_security_group_id`</dt>
+  <dd>
+    Security Group ID that was created by EKS for the cluster. EKS creates a Security Group and applies it to ENI that is attached to EKS Control Plane master nodes and to any managed workloads<br/>
+  </dd>
+  <dt>`eks_cluster_version`</dt>
+  <dd>
+    The Kubernetes server version of the cluster<br/>
+  </dd>
+  <dt>`eks_managed_node_workers_role_arns`</dt>
+  <dd>
+    List of ARNs for workers in managed node groups<br/>
+  </dd>
+  <dt>`eks_node_group_arns`</dt>
+  <dd>
+    List of all the node group ARNs in the cluster<br/>
+  </dd>
+  <dt>`eks_node_group_count`</dt>
+  <dd>
+    Count of the worker nodes<br/>
+  </dd>
+  <dt>`eks_node_group_ids`</dt>
+  <dd>
+    EKS Cluster name and EKS Node Group name separated by a colon<br/>
+  </dd>
+  <dt>`eks_node_group_role_names`</dt>
+  <dd>
+    List of worker nodes IAM role names<br/>
+  </dd>
+  <dt>`eks_node_group_statuses`</dt>
+  <dd>
+    Status of the EKS Node Group<br/>
+  </dd>
+  <dt>`fargate_profile_role_arns`</dt>
+  <dd>
+    Fargate Profile Role ARNs<br/>
+  </dd>
+  <dt>`fargate_profile_role_names`</dt>
+  <dd>
+    Fargate Profile Role names<br/>
+  </dd>
+  <dt>`fargate_profiles`</dt>
+  <dd>
+    Fargate Profiles<br/>
+  </dd>
+  <dt>`karpenter_iam_role_arn`</dt>
+  <dd>
+    Karpenter IAM Role ARN<br/>
+  </dd>
+  <dt>`karpenter_iam_role_name`</dt>
+  <dd>
+    Karpenter IAM Role name<br/>
+  </dd>
+  <dt>`vpc_cidr`</dt>
+  <dd>
+    The CIDR of the VPC where this cluster is deployed.<br/>
+  </dd>
+</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

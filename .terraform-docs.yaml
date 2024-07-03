@@ -211,12 +211,6 @@ sections:
   hide: []
   show: []
 
-output:
-  file: README.md
-  mode: replace
-  template: |-
-    {{ .Content }}
-
 sort:
   enabled: true
   by: required

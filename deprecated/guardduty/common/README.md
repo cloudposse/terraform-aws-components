@@ -70,44 +70,74 @@ atmos terraform apply guardduty/common-uw1 -s core-uw1-security
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-No requirements.
 
-## Providers
+## Reference
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
-| <a name="provider_awsutils"></a> [awsutils](#provider\_awsutils) | n/a |
 
-## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
-| <a name="module_guardduty"></a> [guardduty](#module\_guardduty) | cloudposse/guardduty/aws | 0.5.0 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
+https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
-## Resources
+### Providers
 
-| Name | Type |
-|------|------|
-| [awsutils_guardduty_organization_settings.this](https://registry.terraform.io/providers/hashicorp/awsutils/latest/docs/resources/guardduty_organization_settings) | resource |
-| [aws_caller_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+- `aws`
+- `awsutils`
 
-## Inputs
+### Modules
 
-No inputs.
+Name | Version | Source | Description
+--- | --- | --- | ---
+`account_map` | 1.4.2 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.4.2) | n/a
+`guardduty` | 0.5.0 | [`cloudposse/guardduty/aws`](https://registry.terraform.io/modules/cloudposse/guardduty/aws/0.5.0) | n/a
+`iam_roles` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
 
-## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_guardduty_detector_arn"></a> [guardduty\_detector\_arn](#output\_guardduty\_detector\_arn) | GuardDuty detector ARN |
-| <a name="output_guardduty_detector_id"></a> [guardduty\_detector\_id](#output\_guardduty\_detector\_id) | GuardDuty detector ID |
-| <a name="output_sns_topic_name"></a> [sns\_topic\_name](#output\_sns\_topic\_name) | SNS topic name |
-| <a name="output_sns_topic_subscriptions"></a> [sns\_topic\_subscriptions](#output\_sns\_topic\_subscriptions) | SNS topic subscriptions |
+### Resources
+
+The following resources are used by this module:
+
+  - [`awsutils_guardduty_organization_settings.this`](https://registry.terraform.io/providers/hashicorp/awsutils/latest/docs/resources/guardduty_organization_settings) (resource)
+
+### Data Sources
+
+The following data sources are used by this module:
+
+  - [`aws_caller_identity.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
+
+### Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+
+<dl>
+</dl>
+
+### Required Inputs
+
+<dl>
+</dl>
+
+
+
+### Outputs
+
+<dl>
+  <dt>`guardduty_detector_arn`</dt>
+  <dd>
+    GuardDuty detector ARN<br/>
+  </dd>
+  <dt>`guardduty_detector_id`</dt>
+  <dd>
+    GuardDuty detector ID<br/>
+  </dd>
+  <dt>`sns_topic_name`</dt>
+  <dd>
+    SNS topic name<br/>
+  </dd>
+  <dt>`sns_topic_subscriptions`</dt>
+  <dd>
+    SNS topic subscriptions<br/>
+  </dd>
+</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References

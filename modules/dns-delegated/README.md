@@ -143,92 +143,443 @@ Takeaway
 
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 
-## Providers
+## Reference
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
-| <a name="provider_aws.primary"></a> [aws.primary](#provider\_aws.primary) | >= 4.9.0 |
+### Version Requirements
 
-## Modules
+- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.0.0), version: >= 1.0.0
+- [`aws`](https://registry.terraform.io/modules/aws/>= 4.9.0), version: >= 4.9.0
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_acm"></a> [acm](#module\_acm) | cloudposse/acm-request-certificate/aws | 0.17.0 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_private_ca"></a> [private\_ca](#module\_private\_ca) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_utils"></a> [utils](#module\_utils) | cloudposse/utils/aws | 1.3.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
-## Resources
+### Providers
 
-| Name | Type |
-|------|------|
-| [aws_route53_record.root_ns](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
-| [aws_route53_record.soa](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
-| [aws_route53_zone.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone) | resource |
-| [aws_route53_zone.private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone) | resource |
-| [aws_route53_zone_association.secondary](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone_association) | resource |
-| [aws_shield_protection.shield_protection](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/shield_protection) | resource |
-| [aws_ssm_parameter.acm_arn](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
-| [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
-| [aws_route53_zone.root_zone](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
+- `aws`, version: >= 4.9.0
+- `aws`, version: >= 4.9.0
 
-## Inputs
+### Modules
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_aws_shield_protection_enabled"></a> [aws\_shield\_protection\_enabled](#input\_aws\_shield\_protection\_enabled) | Enable or disable AWS Shield Advanced protection for Route53 Zones. If set to 'true', a subscription to AWS Shield Advanced must exist in this account. | `bool` | `false` | no |
-| <a name="input_certificate_authority_component_key"></a> [certificate\_authority\_component\_key](#input\_certificate\_authority\_component\_key) | Use this component key e.g. `root` or `mgmt` to read from the remote state to get the certificate\_authority\_arn if using an authority type of SUBORDINATE | `string` | `null` | no |
-| <a name="input_certificate_authority_component_name"></a> [certificate\_authority\_component\_name](#input\_certificate\_authority\_component\_name) | Use this component name to read from the remote state to get the certificate\_authority\_arn if using an authority type of SUBORDINATE | `string` | `null` | no |
-| <a name="input_certificate_authority_enabled"></a> [certificate\_authority\_enabled](#input\_certificate\_authority\_enabled) | Whether to use the certificate authority or not | `bool` | `false` | no |
-| <a name="input_certificate_authority_environment_name"></a> [certificate\_authority\_environment\_name](#input\_certificate\_authority\_environment\_name) | Use this environment name to read from the remote state to get the certificate\_authority\_arn if using an authority type of SUBORDINATE | `string` | `null` | no |
-| <a name="input_certificate_authority_stage_name"></a> [certificate\_authority\_stage\_name](#input\_certificate\_authority\_stage\_name) | Use this stage name to read from the remote state to get the certificate\_authority\_arn if using an authority type of SUBORDINATE | `string` | `null` | no |
-| <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
-| <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_dns_private_zone_enabled"></a> [dns\_private\_zone\_enabled](#input\_dns\_private\_zone\_enabled) | Whether to set the zone to public or private | `bool` | `false` | no |
-| <a name="input_dns_soa_config"></a> [dns\_soa\_config](#input\_dns\_soa\_config) | Root domain name DNS SOA record:<br>- awsdns-hostmaster.amazon.com. ; AWS default value for administrator email address<br>- 1 ; serial number, not used by AWS<br>- 7200 ; refresh time in seconds for secondary DNS servers to refreh SOA record<br>- 900 ; retry time in seconds for secondary DNS servers to retry failed SOA record update<br>- 1209600 ; expire time in seconds (1209600 is 2 weeks) for secondary DNS servers to remove SOA record if they cannot refresh it<br>- 60 ; nxdomain TTL, or time in seconds for secondary DNS servers to cache negative responses<br>See [SOA Record Documentation](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html) for more information. | `string` | `"awsdns-hostmaster.amazon.com. 1 7200 900 1209600 60"` | no |
-| <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
-| <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
-| <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
-| <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
-| <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_request_acm_certificate"></a> [request\_acm\_certificate](#input\_request\_acm\_certificate) | Whether or not to create an ACM certificate | `bool` | `true` | no |
-| <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
-| <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_vpc_primary_environment_name"></a> [vpc\_primary\_environment\_name](#input\_vpc\_primary\_environment\_name) | The name of the environment where primary VPC is deployed | `string` | `null` | no |
-| <a name="input_vpc_region_abbreviation_type"></a> [vpc\_region\_abbreviation\_type](#input\_vpc\_region\_abbreviation\_type) | Type of VPC abbreviation (either `fixed` or `short`) to use in names. See https://github.com/cloudposse/terraform-aws-utils for details. | `string` | `"fixed"` | no |
-| <a name="input_vpc_secondary_environment_names"></a> [vpc\_secondary\_environment\_names](#input\_vpc\_secondary\_environment\_names) | The names of the environments where secondary VPCs are deployed | `list(string)` | `[]` | no |
-| <a name="input_zone_config"></a> [zone\_config](#input\_zone\_config) | Zone config | <pre>list(object({<br>    subdomain = string<br>    zone_name = string<br>  }))</pre> | n/a | yes |
+Name | Version | Source | Description
+--- | --- | --- | ---
+`acm` | 0.17.0 | [`cloudposse/acm-request-certificate/aws`](https://registry.terraform.io/modules/cloudposse/acm-request-certificate/aws/0.17.0) | n/a
+`iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
+`private_ca` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`utils` | 1.3.0 | [`cloudposse/utils/aws`](https://registry.terraform.io/modules/cloudposse/utils/aws/1.3.0) | n/a
+`vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
 
-## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_acm_ssm_parameter"></a> [acm\_ssm\_parameter](#output\_acm\_ssm\_parameter) | The SSM parameter for the ACM cert. |
-| <a name="output_certificate"></a> [certificate](#output\_certificate) | The ACM certificate information. |
-| <a name="output_default_dns_zone_id"></a> [default\_dns\_zone\_id](#output\_default\_dns\_zone\_id) | Default root DNS zone ID for the cluster |
-| <a name="output_default_domain_name"></a> [default\_domain\_name](#output\_default\_domain\_name) | Default root domain name (e.g. dev.example.net) for the cluster |
-| <a name="output_route53_hosted_zone_protections"></a> [route53\_hosted\_zone\_protections](#output\_route53\_hosted\_zone\_protections) | List of AWS Shield Advanced Protections for Route53 Hosted Zones. |
-| <a name="output_zones"></a> [zones](#output\_zones) | Subdomain and zone config |
+### Resources
+
+The following resources are used by this module:
+
+  - [`aws_route53_record.root_ns`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) (resource)
+  - [`aws_route53_record.soa`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) (resource)
+  - [`aws_route53_zone.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone) (resource)
+  - [`aws_route53_zone.private`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone) (resource)
+  - [`aws_route53_zone_association.secondary`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone_association) (resource)
+  - [`aws_shield_protection.shield_protection`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/shield_protection) (resource)
+  - [`aws_ssm_parameter.acm_arn`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
+
+### Data Sources
+
+The following data sources are used by this module:
+
+  - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
+  - [`aws_route53_zone.root_zone`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) (data source)
+
+### Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+
+<dl>
+  <dt>`additional_tag_map` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+    This is for some rare cases where resources want additional configuration of tags<br/>
+    and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `map(string)`
+    **Default value:** `{}`
+  </dd>
+  <dt>`attributes` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+    in the order they appear in the list. New attributes are appended to the<br/>
+    end of the list. The elements of the list are joined by the `delimiter`<br/>
+    and treated as a single ID element.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `list(string)`
+    **Default value:** `[]`
+  </dd>
+  <dt>`context` (`any`) <i>optional</i></dt>
+  <dd>
+    Single object for setting entire context at once.<br/>
+    See description of individual variables for details.<br/>
+    Leave string and numeric variables as `null` to use default value.<br/>
+    Individual variable settings (non-null) override settings in context object,<br/>
+    except for attributes, tags, and additional_tag_map, which are merged.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `any`
+    **Default value:** 
+    ```hcl
+    {
+      "additional_tag_map": {},
+      "attributes": [],
+      "delimiter": null,
+      "descriptor_formats": {},
+      "enabled": true,
+      "environment": null,
+      "id_length_limit": null,
+      "label_key_case": null,
+      "label_order": [],
+      "label_value_case": null,
+      "labels_as_tags": [
+        "unset"
+      ],
+      "name": null,
+      "namespace": null,
+      "regex_replace_chars": null,
+      "stage": null,
+      "tags": {},
+      "tenant": null
+    }
+    ```
+    
+  </dd>
+  <dt>`delimiter` (`string`) <i>optional</i></dt>
+  <dd>
+    Delimiter to be used between ID elements.<br/>
+    Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`descriptor_formats` (`any`) <i>optional</i></dt>
+  <dd>
+    Describe additional descriptors to be output in the `descriptors` output map.<br/>
+    Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+    `{<br/>
+       format = string<br/>
+       labels = list(string)<br/>
+    }`<br/>
+    (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+    `format` is a Terraform format string to be passed to the `format()` function.<br/>
+    `labels` is a list of labels, in order, to pass to `format()` function.<br/>
+    Label values will be normalized before being passed to `format()` so they will be<br/>
+    identical to how they appear in `id`.<br/>
+    Default is `{}` (`descriptors` output will be empty).<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `any`
+    **Default value:** `{}`
+  </dd>
+  <dt>`enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to false to prevent the module from creating any resources<br/>
+    **Required:** No<br/>
+    **Type:** `bool`
+    **Default value:** `null`
+  </dd>
+  <dt>`environment` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`id_length_limit` (`number`) <i>optional</i></dt>
+  <dd>
+    Limit `id` to this many characters (minimum 6).<br/>
+    Set to `0` for unlimited length.<br/>
+    Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+    Does not affect `id_full`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `number`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_key_case` (`string`) <i>optional</i></dt>
+  <dd>
+    Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+    Does not affect keys of tags passed in via the `tags` input.<br/>
+    Possible values: `lower`, `title`, `upper`.<br/>
+    Default value: `title`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_order` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    The order in which the labels (ID elements) appear in the `id`.<br/>
+    Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+    You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `list(string)`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_value_case` (`string`) <i>optional</i></dt>
+  <dd>
+    Controls the letter case of ID elements (labels) as included in `id`,<br/>
+    set as tag values, and output by this module individually.<br/>
+    Does not affect values of tags passed in via the `tags` input.<br/>
+    Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+    Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+    Default value: `lower`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`labels_as_tags` (`set(string)`) <i>optional</i></dt>
+  <dd>
+    Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+    Default is to include all labels.<br/>
+    Tags with empty values will not be included in the `tags` output.<br/>
+    Set to `[]` to suppress all generated tags.<br/>
+    **Notes:**<br/>
+      The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+      Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+      changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `set(string)`
+    **Default value:** 
+    ```hcl
+    [
+      "default"
+    ]
+    ```
+    
+  </dd>
+  <dt>`name` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+    This is the only ID element not also included as a `tag`.<br/>
+    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`namespace` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`regex_replace_chars` (`string`) <i>optional</i></dt>
+  <dd>
+    Terraform regular expression (regex) string.<br/>
+    Characters matching the regex will be removed from the ID elements.<br/>
+    If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`stage` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`tags` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+    Neither the tag keys nor the tag values will be modified by this module.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `map(string)`
+    **Default value:** `{}`
+  </dd>
+  <dt>`tenant` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+</dl>
+
+### Required Inputs
+
+<dl>
+  <dt>`region` (`string`) <i>required</i></dt>
+  <dd>
+    AWS Region<br/>
+
+    **Type:** `string`
+    <br/>
+    **Default value:** ``
+
+  </dd>
+  <dt>`zone_config` <i>required</i></dt>
+  <dd>
+    Zone config<br/>
+
+    **Type:** 
+
+    ```hcl
+    list(object({
+    subdomain = string
+    zone_name = string
+  }))
+    ```
+    
+    <br/>
+    **Default value:** ``
+
+  </dd>
+</dl>
+
+### Optional Inputs
+
+<dl>
+  <dt>`aws_shield_protection_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Enable or disable AWS Shield Advanced protection for Route53 Zones. If set to 'true', a subscription to AWS Shield Advanced must exist in this account.<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`certificate_authority_component_key` (`string`) <i>optional</i></dt>
+  <dd>
+    Use this component key e.g. `root` or `mgmt` to read from the remote state to get the certificate_authority_arn if using an authority type of SUBORDINATE<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`certificate_authority_component_name` (`string`) <i>optional</i></dt>
+  <dd>
+    Use this component name to read from the remote state to get the certificate_authority_arn if using an authority type of SUBORDINATE<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`certificate_authority_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Whether to use the certificate authority or not<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`certificate_authority_environment_name` (`string`) <i>optional</i></dt>
+  <dd>
+    Use this environment name to read from the remote state to get the certificate_authority_arn if using an authority type of SUBORDINATE<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`certificate_authority_stage_name` (`string`) <i>optional</i></dt>
+  <dd>
+    Use this stage name to read from the remote state to get the certificate_authority_arn if using an authority type of SUBORDINATE<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`dns_private_zone_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Whether to set the zone to public or private<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`dns_soa_config` (`string`) <i>optional</i></dt>
+  <dd>
+    Root domain name DNS SOA record:<br/>
+    - awsdns-hostmaster.amazon.com. ; AWS default value for administrator email address<br/>
+    - 1 ; serial number, not used by AWS<br/>
+    - 7200 ; refresh time in seconds for secondary DNS servers to refreh SOA record<br/>
+    - 900 ; retry time in seconds for secondary DNS servers to retry failed SOA record update<br/>
+    - 1209600 ; expire time in seconds (1209600 is 2 weeks) for secondary DNS servers to remove SOA record if they cannot refresh it<br/>
+    - 60 ; nxdomain TTL, or time in seconds for secondary DNS servers to cache negative responses<br/>
+    See [SOA Record Documentation](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html) for more information.<br/>
+    <br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"awsdns-hostmaster.amazon.com. 1 7200 900 1209600 60"`
+  </dd>
+  <dt>`request_acm_certificate` (`bool`) <i>optional</i></dt>
+  <dd>
+    Whether or not to create an ACM certificate<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`vpc_primary_environment_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the environment where primary VPC is deployed<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`vpc_region_abbreviation_type` (`string`) <i>optional</i></dt>
+  <dd>
+    Type of VPC abbreviation (either `fixed` or `short`) to use in names. See https://github.com/cloudposse/terraform-aws-utils for details.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"fixed"`
+  </dd>
+  <dt>`vpc_secondary_environment_names` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    The names of the environments where secondary VPCs are deployed<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd></dl>
+
+
+### Outputs
+
+<dl>
+  <dt>`acm_ssm_parameter`</dt>
+  <dd>
+    The SSM parameter for the ACM cert.<br/>
+  </dd>
+  <dt>`certificate`</dt>
+  <dd>
+    The ACM certificate information.<br/>
+  </dd>
+  <dt>`default_dns_zone_id`</dt>
+  <dd>
+    Default root DNS zone ID for the cluster<br/>
+  </dd>
+  <dt>`default_domain_name`</dt>
+  <dd>
+    Default root domain name (e.g. dev.example.net) for the cluster<br/>
+  </dd>
+  <dt>`route53_hosted_zone_protections`</dt>
+  <dd>
+    List of AWS Shield Advanced Protections for Route53 Hosted Zones.<br/>
+  </dd>
+  <dt>`zones`</dt>
+  <dd>
+    Subdomain and zone config<br/>
+  </dd>
+</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

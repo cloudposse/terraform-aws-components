@@ -75,112 +75,735 @@ components:
 
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
-| <a name="requirement_template"></a> [template](#requirement\_template) | >= 2.2.0 |
 
-## Providers
+## Reference
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
-| <a name="provider_template"></a> [template](#provider\_template) | >= 2.2.0 |
+### Version Requirements
 
-## Modules
+- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.0.0), version: >= 1.0.0
+- [`aws`](https://registry.terraform.io/modules/aws/>= 4.0), version: >= 4.0
+- [`template`](https://registry.terraform.io/modules/template/>= 2.2.0), version: >= 2.2.0
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_bucket_policy"></a> [bucket\_policy](#module\_bucket\_policy) | cloudposse/iam-policy/aws | 0.4.0 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_s3_bucket"></a> [s3\_bucket](#module\_s3\_bucket) | cloudposse/s3-bucket/aws | 3.1.1 |
-| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
+https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
-## Resources
+### Providers
 
-| Name | Type |
-|------|------|
-| [aws_iam_policy_document.custom_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
-| [template_file.bucket_policy](https://registry.terraform.io/providers/cloudposse/template/latest/docs/data-sources/file) | data source |
+- `aws`, version: >= 4.0
+- `template`, version: >= 2.2.0
 
-## Inputs
+### Modules
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_account_map_environment_name"></a> [account\_map\_environment\_name](#input\_account\_map\_environment\_name) | The name of the environment where `account_map` is provisioned | `string` | `"gbl"` | no |
-| <a name="input_account_map_stage_name"></a> [account\_map\_stage\_name](#input\_account\_map\_stage\_name) | The name of the stage where `account_map` is provisioned | `string` | `"root"` | no |
-| <a name="input_account_map_tenant_name"></a> [account\_map\_tenant\_name](#input\_account\_map\_tenant\_name) | The name of the tenant where `account_map` is provisioned.<br><br>If the `tenant` label is not used, leave this as `null`. | `string` | `null` | no |
-| <a name="input_acl"></a> [acl](#input\_acl) | The [canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) to apply.<br>We recommend `private` to avoid exposing sensitive information. Conflicts with `grants`. | `string` | `"private"` | no |
-| <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_allow_encrypted_uploads_only"></a> [allow\_encrypted\_uploads\_only](#input\_allow\_encrypted\_uploads\_only) | Set to `true` to prevent uploads of unencrypted objects to S3 bucket | `bool` | `false` | no |
-| <a name="input_allow_ssl_requests_only"></a> [allow\_ssl\_requests\_only](#input\_allow\_ssl\_requests\_only) | Set to `true` to require requests to use Secure Socket Layer (HTTPS/SSL). This will explicitly deny access to HTTP requests | `bool` | `false` | no |
-| <a name="input_allowed_bucket_actions"></a> [allowed\_bucket\_actions](#input\_allowed\_bucket\_actions) | List of actions the user is permitted to perform on the S3 bucket | `list(string)` | <pre>[<br>  "s3:PutObject",<br>  "s3:PutObjectAcl",<br>  "s3:GetObject",<br>  "s3:DeleteObject",<br>  "s3:ListBucket",<br>  "s3:ListBucketMultipartUploads",<br>  "s3:GetBucketLocation",<br>  "s3:AbortMultipartUpload"<br>]</pre> | no |
-| <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_block_public_acls"></a> [block\_public\_acls](#input\_block\_public\_acls) | Set to `false` to disable the blocking of new public access lists on the bucket | `bool` | `true` | no |
-| <a name="input_block_public_policy"></a> [block\_public\_policy](#input\_block\_public\_policy) | Set to `false` to disable the blocking of new public policies on the bucket | `bool` | `true` | no |
-| <a name="input_bucket_key_enabled"></a> [bucket\_key\_enabled](#input\_bucket\_key\_enabled) | Set this to true to use Amazon S3 Bucket Keys for SSE-KMS, which reduce the cost of AWS KMS requests.<br>For more information, see: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html | `bool` | `false` | no |
-| <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | Bucket name. If provided, the bucket will be created with this name instead of generating the name from the context | `string` | `""` | no |
-| <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
-| <a name="input_cors_configuration"></a> [cors\_configuration](#input\_cors\_configuration) | Specifies the allowed headers, methods, origins and exposed headers when using CORS on this bucket | <pre>list(object({<br>    allowed_headers = list(string)<br>    allowed_methods = list(string)<br>    allowed_origins = list(string)<br>    expose_headers  = list(string)<br>    max_age_seconds = number<br>  }))</pre> | `null` | no |
-| <a name="input_custom_policy_account_names"></a> [custom\_policy\_account\_names](#input\_custom\_policy\_account\_names) | List of accounts names to assign as principals for the s3 bucket custom policy | `list(string)` | `[]` | no |
-| <a name="input_custom_policy_actions"></a> [custom\_policy\_actions](#input\_custom\_policy\_actions) | List of S3 Actions for the custom policy | `list(string)` | `[]` | no |
-| <a name="input_custom_policy_enabled"></a> [custom\_policy\_enabled](#input\_custom\_policy\_enabled) | Whether to enable or disable the custom policy. If enabled, the default policy will be ignored | `bool` | `false` | no |
-| <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_force_destroy"></a> [force\_destroy](#input\_force\_destroy) | When `true`, permits a non-empty S3 bucket to be deleted by first deleting all objects in the bucket.<br>THESE OBJECTS ARE NOT RECOVERABLE even if they were versioned and stored in Glacier. | `bool` | `false` | no |
-| <a name="input_grants"></a> [grants](#input\_grants) | A list of policy grants for the bucket, taking a list of permissions.<br>Conflicts with `acl`. Set `acl` to `null` to use this. | <pre>list(object({<br>    id          = string<br>    type        = string<br>    permissions = list(string)<br>    uri         = string<br>  }))</pre> | `[]` | no |
-| <a name="input_iam_policy_statements"></a> [iam\_policy\_statements](#input\_iam\_policy\_statements) | Map of IAM policy statements to use in the bucket policy. | `any` | `{}` | no |
-| <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_ignore_public_acls"></a> [ignore\_public\_acls](#input\_ignore\_public\_acls) | Set to `false` to disable the ignoring of public access lists on the bucket | `bool` | `true` | no |
-| <a name="input_kms_master_key_arn"></a> [kms\_master\_key\_arn](#input\_kms\_master\_key\_arn) | The AWS KMS master key ARN used for the `SSE-KMS` encryption. This can only be used when you set the value of `sse_algorithm` as `aws:kms`. The default aws/s3 AWS KMS master key is used if this element is absent while the `sse_algorithm` is `aws:kms` | `string` | `""` | no |
-| <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
-| <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
-| <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
-| <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_lifecycle_configuration_rules"></a> [lifecycle\_configuration\_rules](#input\_lifecycle\_configuration\_rules) | A list of lifecycle V2 rules | <pre>list(object({<br>    enabled = bool<br>    id      = string<br><br>    abort_incomplete_multipart_upload_days = number<br><br>    # `filter_and` is the `and` configuration block inside the `filter` configuration.<br>    # This is the only place you should specify a prefix.<br>    filter_and = any<br>    expiration = any<br>    transition = list(any)<br><br>    noncurrent_version_expiration = any<br>    noncurrent_version_transition = list(any)<br>  }))</pre> | `[]` | no |
-| <a name="input_logging"></a> [logging](#input\_logging) | Bucket access logging configuration. | <pre>object({<br>    bucket_name = string<br>    prefix      = string<br>  })</pre> | `null` | no |
-| <a name="input_logging_bucket_name_rendering_enabled"></a> [logging\_bucket\_name\_rendering\_enabled](#input\_logging\_bucket\_name\_rendering\_enabled) | Whether to render the logging bucket name, prepending context | `bool` | `false` | no |
-| <a name="input_logging_bucket_name_rendering_template"></a> [logging\_bucket\_name\_rendering\_template](#input\_logging\_bucket\_name\_rendering\_template) | The template for the template used to render Bucket Name for the Logging bucket.<br>Default is appropriate when using `tenant` and default label order with `null-label`.<br>Use `"%s-%s-%s-%%s"` when not using `tenant`. | `string` | `"%s-%s-%s-%s-%s"` | no |
-| <a name="input_logging_bucket_prefix_rendering_template"></a> [logging\_bucket\_prefix\_rendering\_template](#input\_logging\_bucket\_prefix\_rendering\_template) | The template for the template used to render Bucket Prefix for the Logging bucket, uses the format `var.logging.prefix`/`var.name` | `string` | `"%s/%s/"` | no |
-| <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_object_lock_configuration"></a> [object\_lock\_configuration](#input\_object\_lock\_configuration) | A configuration for S3 object locking. With S3 Object Lock, you can store objects using a `write once, read many` (WORM) model. Object Lock can help prevent objects from being deleted or overwritten for a fixed amount of time or indefinitely. | <pre>object({<br>    mode  = string # Valid values are GOVERNANCE and COMPLIANCE.<br>    days  = number<br>    years = number<br>  })</pre> | `null` | no |
-| <a name="input_privileged_principal_actions"></a> [privileged\_principal\_actions](#input\_privileged\_principal\_actions) | List of actions to permit `privileged_principal_arns` to perform on bucket and bucket prefixes (see `privileged_principal_arns`) | `list(string)` | `[]` | no |
-| <a name="input_privileged_principal_arns"></a> [privileged\_principal\_arns](#input\_privileged\_principal\_arns) | List of maps. Each map has one key, an IAM Principal ARN, whose associated value is<br>a list of S3 path prefixes to grant `privileged_principal_actions` permissions for that principal,<br>in addition to the bucket itself, which is automatically included. Prefixes should not begin with '/'. | `list(map(list(string)))` | `[]` | no |
-| <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
-| <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_restrict_public_buckets"></a> [restrict\_public\_buckets](#input\_restrict\_public\_buckets) | Set to `false` to disable the restricting of making the bucket public | `bool` | `true` | no |
-| <a name="input_s3_object_ownership"></a> [s3\_object\_ownership](#input\_s3\_object\_ownership) | Specifies the S3 object ownership control. Valid values are `ObjectWriter`, `BucketOwnerPreferred`, and 'BucketOwnerEnforced'. | `string` | `"ObjectWriter"` | no |
-| <a name="input_s3_replica_bucket_arn"></a> [s3\_replica\_bucket\_arn](#input\_s3\_replica\_bucket\_arn) | A single S3 bucket ARN to use for all replication rules.<br>Note: The destination bucket can be specified in the replication rule itself<br>(which allows for multiple destinations), in which case it will take precedence over this variable. | `string` | `""` | no |
-| <a name="input_s3_replication_enabled"></a> [s3\_replication\_enabled](#input\_s3\_replication\_enabled) | Set this to true and specify `s3_replication_rules` to enable replication. `versioning_enabled` must also be `true`. | `bool` | `false` | no |
-| <a name="input_s3_replication_rules"></a> [s3\_replication\_rules](#input\_s3\_replication\_rules) | Specifies the replication rules for S3 bucket replication if enabled. You must also set s3\_replication\_enabled to true. | `list(any)` | `null` | no |
-| <a name="input_s3_replication_source_roles"></a> [s3\_replication\_source\_roles](#input\_s3\_replication\_source\_roles) | Cross-account IAM Role ARNs that will be allowed to perform S3 replication to this bucket (for replication within the same AWS account, it's not necessary to adjust the bucket policy). | `list(string)` | `[]` | no |
-| <a name="input_source_policy_documents"></a> [source\_policy\_documents](#input\_source\_policy\_documents) | List of IAM policy documents that are merged together into the exported document.<br>Statements defined in source\_policy\_documents or source\_json must have unique SIDs.<br>Statement having SIDs that match policy SIDs generated by this module will override them. | `list(string)` | `[]` | no |
-| <a name="input_sse_algorithm"></a> [sse\_algorithm](#input\_sse\_algorithm) | The server-side encryption algorithm to use. Valid values are `AES256` and `aws:kms` | `string` | `"AES256"` | no |
-| <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
-| <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_transfer_acceleration_enabled"></a> [transfer\_acceleration\_enabled](#input\_transfer\_acceleration\_enabled) | Set this to true to enable S3 Transfer Acceleration for the bucket. | `bool` | `false` | no |
-| <a name="input_user_enabled"></a> [user\_enabled](#input\_user\_enabled) | Set to `true` to create an IAM user with permission to access the bucket | `bool` | `false` | no |
-| <a name="input_versioning_enabled"></a> [versioning\_enabled](#input\_versioning\_enabled) | A state of versioning. Versioning is a means of keeping multiple variants of an object in the same bucket | `bool` | `true` | no |
-| <a name="input_website_inputs"></a> [website\_inputs](#input\_website\_inputs) | Specifies the static website hosting configuration object. | <pre>list(object({<br>    index_document           = string<br>    error_document           = string<br>    redirect_all_requests_to = string<br>    routing_rules            = string<br>  }))</pre> | `null` | no |
+Name | Version | Source | Description
+--- | --- | --- | ---
+`account_map` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`bucket_policy` | 0.4.0 | [`cloudposse/iam-policy/aws`](https://registry.terraform.io/modules/cloudposse/iam-policy/aws/0.4.0) | n/a
+`iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
+`s3_bucket` | 3.1.1 | [`cloudposse/s3-bucket/aws`](https://registry.terraform.io/modules/cloudposse/s3-bucket/aws/3.1.1) | n/a
+`this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
-## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_bucket_arn"></a> [bucket\_arn](#output\_bucket\_arn) | Bucket ARN |
-| <a name="output_bucket_domain_name"></a> [bucket\_domain\_name](#output\_bucket\_domain\_name) | Bucket domain name |
-| <a name="output_bucket_id"></a> [bucket\_id](#output\_bucket\_id) | Bucket ID |
-| <a name="output_bucket_region"></a> [bucket\_region](#output\_bucket\_region) | Bucket region |
-| <a name="output_bucket_regional_domain_name"></a> [bucket\_regional\_domain\_name](#output\_bucket\_regional\_domain\_name) | Bucket region-specific domain name |
+### Resources
+
+The following resources are used by this module:
+
+
+### Data Sources
+
+The following data sources are used by this module:
+
+  - [`aws_iam_policy_document.custom_policy`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
+  - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
+  - [`template_file.bucket_policy`](https://registry.terraform.io/providers/cloudposse/template/latest/docs/data-sources/file) (data source)
+
+### Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+
+<dl>
+  <dt>`additional_tag_map` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+    This is for some rare cases where resources want additional configuration of tags<br/>
+    and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `map(string)`
+    **Default value:** `{}`
+  </dd>
+  <dt>`attributes` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+    in the order they appear in the list. New attributes are appended to the<br/>
+    end of the list. The elements of the list are joined by the `delimiter`<br/>
+    and treated as a single ID element.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `list(string)`
+    **Default value:** `[]`
+  </dd>
+  <dt>`context` (`any`) <i>optional</i></dt>
+  <dd>
+    Single object for setting entire context at once.<br/>
+    See description of individual variables for details.<br/>
+    Leave string and numeric variables as `null` to use default value.<br/>
+    Individual variable settings (non-null) override settings in context object,<br/>
+    except for attributes, tags, and additional_tag_map, which are merged.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `any`
+    **Default value:** 
+    ```hcl
+    {
+      "additional_tag_map": {},
+      "attributes": [],
+      "delimiter": null,
+      "descriptor_formats": {},
+      "enabled": true,
+      "environment": null,
+      "id_length_limit": null,
+      "label_key_case": null,
+      "label_order": [],
+      "label_value_case": null,
+      "labels_as_tags": [
+        "unset"
+      ],
+      "name": null,
+      "namespace": null,
+      "regex_replace_chars": null,
+      "stage": null,
+      "tags": {},
+      "tenant": null
+    }
+    ```
+    
+  </dd>
+  <dt>`delimiter` (`string`) <i>optional</i></dt>
+  <dd>
+    Delimiter to be used between ID elements.<br/>
+    Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`descriptor_formats` (`any`) <i>optional</i></dt>
+  <dd>
+    Describe additional descriptors to be output in the `descriptors` output map.<br/>
+    Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+    `{<br/>
+       format = string<br/>
+       labels = list(string)<br/>
+    }`<br/>
+    (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+    `format` is a Terraform format string to be passed to the `format()` function.<br/>
+    `labels` is a list of labels, in order, to pass to `format()` function.<br/>
+    Label values will be normalized before being passed to `format()` so they will be<br/>
+    identical to how they appear in `id`.<br/>
+    Default is `{}` (`descriptors` output will be empty).<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `any`
+    **Default value:** `{}`
+  </dd>
+  <dt>`enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to false to prevent the module from creating any resources<br/>
+    **Required:** No<br/>
+    **Type:** `bool`
+    **Default value:** `null`
+  </dd>
+  <dt>`environment` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`id_length_limit` (`number`) <i>optional</i></dt>
+  <dd>
+    Limit `id` to this many characters (minimum 6).<br/>
+    Set to `0` for unlimited length.<br/>
+    Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+    Does not affect `id_full`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `number`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_key_case` (`string`) <i>optional</i></dt>
+  <dd>
+    Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+    Does not affect keys of tags passed in via the `tags` input.<br/>
+    Possible values: `lower`, `title`, `upper`.<br/>
+    Default value: `title`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_order` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    The order in which the labels (ID elements) appear in the `id`.<br/>
+    Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+    You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `list(string)`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_value_case` (`string`) <i>optional</i></dt>
+  <dd>
+    Controls the letter case of ID elements (labels) as included in `id`,<br/>
+    set as tag values, and output by this module individually.<br/>
+    Does not affect values of tags passed in via the `tags` input.<br/>
+    Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+    Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+    Default value: `lower`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`labels_as_tags` (`set(string)`) <i>optional</i></dt>
+  <dd>
+    Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+    Default is to include all labels.<br/>
+    Tags with empty values will not be included in the `tags` output.<br/>
+    Set to `[]` to suppress all generated tags.<br/>
+    **Notes:**<br/>
+      The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+      Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+      changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `set(string)`
+    **Default value:** 
+    ```hcl
+    [
+      "default"
+    ]
+    ```
+    
+  </dd>
+  <dt>`name` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+    This is the only ID element not also included as a `tag`.<br/>
+    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`namespace` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`regex_replace_chars` (`string`) <i>optional</i></dt>
+  <dd>
+    Terraform regular expression (regex) string.<br/>
+    Characters matching the regex will be removed from the ID elements.<br/>
+    If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`stage` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`tags` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+    Neither the tag keys nor the tag values will be modified by this module.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `map(string)`
+    **Default value:** `{}`
+  </dd>
+  <dt>`tenant` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+</dl>
+
+### Required Inputs
+
+<dl>
+  <dt>`region` (`string`) <i>required</i></dt>
+  <dd>
+    AWS Region<br/>
+
+    **Type:** `string`
+    <br/>
+    **Default value:** ``
+
+  </dd>
+</dl>
+
+### Optional Inputs
+
+<dl>
+  <dt>`account_map_environment_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the environment where `account_map` is provisioned<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"gbl"`
+  </dd>
+  <dt>`account_map_stage_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the stage where `account_map` is provisioned<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"root"`
+  </dd>
+  <dt>`account_map_tenant_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the tenant where `account_map` is provisioned.<br/>
+    <br/>
+    If the `tenant` label is not used, leave this as `null`.<br/>
+    <br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`acl` (`string`) <i>optional</i></dt>
+  <dd>
+    The [canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) to apply.<br/>
+    We recommend `private` to avoid exposing sensitive information. Conflicts with `grants`.<br/>
+    <br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"private"`
+  </dd>
+  <dt>`allow_encrypted_uploads_only` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to `true` to prevent uploads of unencrypted objects to S3 bucket<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`allow_ssl_requests_only` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to `true` to require requests to use Secure Socket Layer (HTTPS/SSL). This will explicitly deny access to HTTP requests<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`allowed_bucket_actions` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    List of actions the user is permitted to perform on the S3 bucket<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** 
+    ```hcl
+    [
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:GetObject",
+      "s3:DeleteObject",
+      "s3:ListBucket",
+      "s3:ListBucketMultipartUploads",
+      "s3:GetBucketLocation",
+      "s3:AbortMultipartUpload"
+    ]
+    ```
+    
+  </dd>
+  <dt>`block_public_acls` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to `false` to disable the blocking of new public access lists on the bucket<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`block_public_policy` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to `false` to disable the blocking of new public policies on the bucket<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`bucket_key_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set this to true to use Amazon S3 Bucket Keys for SSE-KMS, which reduce the cost of AWS KMS requests.<br/>
+    For more information, see: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html<br/>
+    <br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`bucket_name` (`string`) <i>optional</i></dt>
+  <dd>
+    Bucket name. If provided, the bucket will be created with this name instead of generating the name from the context<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`cors_configuration` <i>optional</i></dt>
+  <dd>
+    Specifies the allowed headers, methods, origins and exposed headers when using CORS on this bucket<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    list(object({
+    allowed_headers = list(string)
+    allowed_methods = list(string)
+    allowed_origins = list(string)
+    expose_headers  = list(string)
+    max_age_seconds = number
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`custom_policy_account_names` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    List of accounts names to assign as principals for the s3 bucket custom policy<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`custom_policy_actions` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    List of S3 Actions for the custom policy<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`custom_policy_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Whether to enable or disable the custom policy. If enabled, the default policy will be ignored<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`force_destroy` (`bool`) <i>optional</i></dt>
+  <dd>
+    When `true`, permits a non-empty S3 bucket to be deleted by first deleting all objects in the bucket.<br/>
+    THESE OBJECTS ARE NOT RECOVERABLE even if they were versioned and stored in Glacier.<br/>
+    <br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`grants` <i>optional</i></dt>
+  <dd>
+    A list of policy grants for the bucket, taking a list of permissions.<br/>
+    Conflicts with `acl`. Set `acl` to `null` to use this.<br/>
+    <br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    list(object({
+    id          = string
+    type        = string
+    permissions = list(string)
+    uri         = string
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`iam_policy_statements` (`any`) <i>optional</i></dt>
+  <dd>
+    Map of IAM policy statements to use in the bucket policy.<br/>
+    <br/>
+    **Type:** `any`
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`ignore_public_acls` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to `false` to disable the ignoring of public access lists on the bucket<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`kms_master_key_arn` (`string`) <i>optional</i></dt>
+  <dd>
+    The AWS KMS master key ARN used for the `SSE-KMS` encryption. This can only be used when you set the value of `sse_algorithm` as `aws:kms`. The default aws/s3 AWS KMS master key is used if this element is absent while the `sse_algorithm` is `aws:kms`<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`lifecycle_configuration_rules` <i>optional</i></dt>
+  <dd>
+    A list of lifecycle V2 rules<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    list(object({
+    enabled = bool
+    id      = string
+
+    abort_incomplete_multipart_upload_days = number
+
+    # `filter_and` is the `and` configuration block inside the `filter` configuration.
+    # This is the only place you should specify a prefix.
+    filter_and = any
+    expiration = any
+    transition = list(any)
+
+    noncurrent_version_expiration = any
+    noncurrent_version_transition = list(any)
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`logging` <i>optional</i></dt>
+  <dd>
+    Bucket access logging configuration.<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    object({
+    bucket_name = string
+    prefix      = string
+  })
+    ```
+    
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`logging_bucket_name_rendering_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Whether to render the logging bucket name, prepending context<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`logging_bucket_name_rendering_template` (`string`) <i>optional</i></dt>
+  <dd>
+    The template for the template used to render Bucket Name for the Logging bucket.<br/>
+    Default is appropriate when using `tenant` and default label order with `null-label`.<br/>
+    Use `"%s-%s-%s-%%s"` when not using `tenant`.<br/>
+    <br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"%s-%s-%s-%s-%s"`
+  </dd>
+  <dt>`logging_bucket_prefix_rendering_template` (`string`) <i>optional</i></dt>
+  <dd>
+    The template for the template used to render Bucket Prefix for the Logging bucket, uses the format `var.logging.prefix`/`var.name`<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"%s/%s/"`
+  </dd>
+  <dt>`object_lock_configuration` <i>optional</i></dt>
+  <dd>
+    A configuration for S3 object locking. With S3 Object Lock, you can store objects using a `write once, read many` (WORM) model. Object Lock can help prevent objects from being deleted or overwritten for a fixed amount of time or indefinitely.<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    object({
+    mode  = string # Valid values are GOVERNANCE and COMPLIANCE.
+    days  = number
+    years = number
+  })
+    ```
+    
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`privileged_principal_actions` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    List of actions to permit `privileged_principal_arns` to perform on bucket and bucket prefixes (see `privileged_principal_arns`)<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`privileged_principal_arns` (`list(map(list(string)))`) <i>optional</i></dt>
+  <dd>
+    List of maps. Each map has one key, an IAM Principal ARN, whose associated value is<br/>
+    a list of S3 path prefixes to grant `privileged_principal_actions` permissions for that principal,<br/>
+    in addition to the bucket itself, which is automatically included. Prefixes should not begin with '/'.<br/>
+    <br/>
+    <br/>
+    **Type:** `list(map(list(string)))`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`restrict_public_buckets` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to `false` to disable the restricting of making the bucket public<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`s3_object_ownership` (`string`) <i>optional</i></dt>
+  <dd>
+    Specifies the S3 object ownership control. Valid values are `ObjectWriter`, `BucketOwnerPreferred`, and 'BucketOwnerEnforced'.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"ObjectWriter"`
+  </dd>
+  <dt>`s3_replica_bucket_arn` (`string`) <i>optional</i></dt>
+  <dd>
+    A single S3 bucket ARN to use for all replication rules.<br/>
+    Note: The destination bucket can be specified in the replication rule itself<br/>
+    (which allows for multiple destinations), in which case it will take precedence over this variable.<br/>
+    <br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`s3_replication_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set this to true and specify `s3_replication_rules` to enable replication. `versioning_enabled` must also be `true`.<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`s3_replication_rules` (`list(any)`) <i>optional</i></dt>
+  <dd>
+    Specifies the replication rules for S3 bucket replication if enabled. You must also set s3_replication_enabled to true.<br/>
+    <br/>
+    **Type:** `list(any)`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`s3_replication_source_roles` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    Cross-account IAM Role ARNs that will be allowed to perform S3 replication to this bucket (for replication within the same AWS account, it's not necessary to adjust the bucket policy).<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`source_policy_documents` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    List of IAM policy documents that are merged together into the exported document.<br/>
+    Statements defined in source_policy_documents or source_json must have unique SIDs.<br/>
+    Statement having SIDs that match policy SIDs generated by this module will override them.<br/>
+    <br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`sse_algorithm` (`string`) <i>optional</i></dt>
+  <dd>
+    The server-side encryption algorithm to use. Valid values are `AES256` and `aws:kms`<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"AES256"`
+  </dd>
+  <dt>`transfer_acceleration_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set this to true to enable S3 Transfer Acceleration for the bucket.<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`user_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to `true` to create an IAM user with permission to access the bucket<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`versioning_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    A state of versioning. Versioning is a means of keeping multiple variants of an object in the same bucket<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`website_inputs` <i>optional</i></dt>
+  <dd>
+    Specifies the static website hosting configuration object.<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    list(object({
+    index_document           = string
+    error_document           = string
+    redirect_all_requests_to = string
+    routing_rules            = string
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `null`
+  </dd></dl>
+
+
+### Outputs
+
+<dl>
+  <dt>`bucket_arn`</dt>
+  <dd>
+    Bucket ARN<br/>
+  </dd>
+  <dt>`bucket_domain_name`</dt>
+  <dd>
+    Bucket domain name<br/>
+  </dd>
+  <dt>`bucket_id`</dt>
+  <dd>
+    Bucket ID<br/>
+  </dd>
+  <dt>`bucket_region`</dt>
+  <dd>
+    Bucket region<br/>
+  </dd>
+  <dt>`bucket_regional_domain_name`</dt>
+  <dd>
+    Bucket region-specific domain name<br/>
+  </dd>
+</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

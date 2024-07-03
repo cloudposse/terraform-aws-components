@@ -254,215 +254,1331 @@ components:
 
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.66.1 |
-| <a name="requirement_jq"></a> [jq](#requirement\_jq) | >=0.2.0 |
-| <a name="requirement_template"></a> [template](#requirement\_template) | >= 2.2 |
 
-## Providers
+## Reference
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.66.1 |
-| <a name="provider_jq"></a> [jq](#provider\_jq) | >=0.2.0 |
-| <a name="provider_template"></a> [template](#provider\_template) | >= 2.2 |
+### Version Requirements
 
-## Modules
+- [`terraform`](https://registry.terraform.io/modules/terraform/>= 1.0.0), version: >= 1.0.0
+- [`aws`](https://registry.terraform.io/modules/aws/>= 4.66.1), version: >= 4.66.1
+- [`jq`](https://registry.terraform.io/modules/jq/>=0.2.0), version: >=0.2.0
+- [`template`](https://registry.terraform.io/modules/template/>= 2.2), version: >= 2.2
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_alb"></a> [alb](#module\_alb) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_alb_ingress"></a> [alb\_ingress](#module\_alb\_ingress) | cloudposse/alb-ingress/aws | 0.28.0 |
-| <a name="module_cloudmap_namespace"></a> [cloudmap\_namespace](#module\_cloudmap\_namespace) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_cloudmap_namespace_service_discovery"></a> [cloudmap\_namespace\_service\_discovery](#module\_cloudmap\_namespace\_service\_discovery) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_container_definition"></a> [container\_definition](#module\_container\_definition) | cloudposse/ecs-container-definition/aws | 0.61.1 |
-| <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_datadog_container_definition"></a> [datadog\_container\_definition](#module\_datadog\_container\_definition) | cloudposse/ecs-container-definition/aws | 0.58.1 |
-| <a name="module_datadog_fluent_bit_container_definition"></a> [datadog\_fluent\_bit\_container\_definition](#module\_datadog\_fluent\_bit\_container\_definition) | cloudposse/ecs-container-definition/aws | 0.58.1 |
-| <a name="module_datadog_sidecar_logs"></a> [datadog\_sidecar\_logs](#module\_datadog\_sidecar\_logs) | cloudposse/cloudwatch-logs/aws | 0.6.6 |
-| <a name="module_ecs_alb_service_task"></a> [ecs\_alb\_service\_task](#module\_ecs\_alb\_service\_task) | cloudposse/ecs-alb-service-task/aws | 0.72.0 |
-| <a name="module_ecs_cloudwatch_autoscaling"></a> [ecs\_cloudwatch\_autoscaling](#module\_ecs\_cloudwatch\_autoscaling) | cloudposse/ecs-cloudwatch-autoscaling/aws | 0.7.3 |
-| <a name="module_ecs_cloudwatch_sns_alarms"></a> [ecs\_cloudwatch\_sns\_alarms](#module\_ecs\_cloudwatch\_sns\_alarms) | cloudposse/ecs-cloudwatch-sns-alarms/aws | 0.12.3 |
-| <a name="module_ecs_cluster"></a> [ecs\_cluster](#module\_ecs\_cluster) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_efs"></a> [efs](#module\_efs) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_gha_assume_role"></a> [gha\_assume\_role](#module\_gha\_assume\_role) | ../account-map/modules/team-assume-role-policy | n/a |
-| <a name="module_gha_role_name"></a> [gha\_role\_name](#module\_gha\_role\_name) | cloudposse/label/null | 0.25.0 |
-| <a name="module_iam_role"></a> [iam\_role](#module\_iam\_role) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_logs"></a> [logs](#module\_logs) | cloudposse/cloudwatch-logs/aws | 0.6.8 |
-| <a name="module_nlb"></a> [nlb](#module\_nlb) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_rds"></a> [rds](#module\_rds) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_roles_to_principals"></a> [roles\_to\_principals](#module\_roles\_to\_principals) | ../account-map/modules/roles-to-principals | n/a |
-| <a name="module_s3"></a> [s3](#module\_s3) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_security_group"></a> [security\_group](#module\_security\_group) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_service_domain"></a> [service\_domain](#module\_service\_domain) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vanity_alias"></a> [vanity\_alias](#module\_vanity\_alias) | cloudposse/route53-alias/aws | 0.13.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
-## Resources
+### Providers
 
-| Name | Type |
-|------|------|
-| [aws_iam_policy.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
-| [aws_iam_role.github_actions](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
-| [aws_kinesis_stream.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kinesis_stream) | resource |
-| [aws_s3_bucket_object.task_definition_template](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
-| [aws_security_group_rule.custom_sg_rules](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
-| [aws_service_discovery_service.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/service_discovery_service) | resource |
-| [aws_ssm_parameter.full_urls](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
-| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
-| [aws_ecs_task_definition.created_task](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ecs_task_definition) | data source |
-| [aws_iam_policy_document.github_actions_iam_ecspresso_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.github_actions_iam_platform_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.github_actions_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_kms_alias.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/kms_alias) | data source |
-| [aws_route53_zone.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
-| [aws_route53_zone.selected_vanity](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
-| [aws_s3_object.task_definition](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_object) | data source |
-| [aws_s3_objects.mirror](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_objects) | data source |
-| [aws_ssm_parameters_by_path.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameters_by_path) | data source |
-| [jq_query.service_domain_query](https://registry.terraform.io/providers/massdriver-cloud/jq/latest/docs/data-sources/query) | data source |
-| [template_file.envs](https://registry.terraform.io/providers/cloudposse/template/latest/docs/data-sources/file) | data source |
+- `aws`, version: >= 4.66.1
+- `jq`, version: >=0.2.0
+- `template`, version: >= 2.2
 
-## Inputs
+### Modules
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_additional_targets"></a> [additional\_targets](#input\_additional\_targets) | Additional target routes to add to the ALB that point to this service. The only difference between this and `var.vanity_alias` is `var.vanity_alias` will create an alias record in Route 53 in the hosted zone in this account as well. `var.additional_targets` only adds the listener route to this service's target group. | `list(string)` | `[]` | no |
-| <a name="input_alb_configuration"></a> [alb\_configuration](#input\_alb\_configuration) | The configuration to use for the ALB, specifying which cluster alb configuration to use | `string` | `"default"` | no |
-| <a name="input_alb_name"></a> [alb\_name](#input\_alb\_name) | The name of the ALB this service should attach to | `string` | `null` | no |
-| <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_autoscaling_dimension"></a> [autoscaling\_dimension](#input\_autoscaling\_dimension) | The dimension to use to decide to autoscale | `string` | `"cpu"` | no |
-| <a name="input_autoscaling_enabled"></a> [autoscaling\_enabled](#input\_autoscaling\_enabled) | Should this service autoscale using SNS alarams | `bool` | `true` | no |
-| <a name="input_chamber_service"></a> [chamber\_service](#input\_chamber\_service) | SSM parameter service name for use with chamber. This is used in chamber\_format where /$chamber\_service/$name/$container\_name/$parameter would be the default. | `string` | `"ecs-service"` | no |
-| <a name="input_cluster_attributes"></a> [cluster\_attributes](#input\_cluster\_attributes) | The attributes of the cluster name e.g. if the full name is `namespace-tenant-environment-dev-ecs-b2b` then the `cluster_name` is `ecs` and this value should be `b2b`. | `list(string)` | `[]` | no |
-| <a name="input_containers"></a> [containers](#input\_containers) | Feed inputs into container definition module | <pre>map(object({<br>    name                     = string<br>    ecr_image                = optional(string)<br>    image                    = optional(string)<br>    memory                   = optional(number)<br>    memory_reservation       = optional(number)<br>    cpu                      = optional(number)<br>    essential                = optional(bool, true)<br>    readonly_root_filesystem = optional(bool, null)<br>    privileged               = optional(bool, null)<br>    container_depends_on = optional(list(object({<br>      containerName = string<br>      condition     = string # START, COMPLETE, SUCCESS, HEALTHY<br>    })), null)<br><br>    port_mappings = optional(list(object({<br>      containerPort = number<br>      hostPort      = optional(number)<br>      protocol      = optional(string)<br>      name          = optional(string)<br>      appProtocol   = optional(string)<br>    })), [])<br>    command    = optional(list(string), null)<br>    entrypoint = optional(list(string), null)<br>    healthcheck = optional(object({<br>      command     = list(string)<br>      interval    = number<br>      retries     = number<br>      startPeriod = number<br>      timeout     = number<br>    }), null)<br>    ulimits = optional(list(object({<br>      name      = string<br>      softLimit = number<br>      hardLimit = number<br>    })), null)<br>    log_configuration = optional(object({<br>      logDriver = string<br>      options   = optional(map(string), {})<br>    }))<br>    docker_labels   = optional(map(string), null)<br>    map_environment = optional(map(string), {})<br>    map_secrets     = optional(map(string), {})<br>    volumes_from = optional(list(object({<br>      sourceContainer = string<br>      readOnly        = bool<br>    })), null)<br>    mount_points = optional(list(object({<br>      sourceVolume  = optional(string)<br>      containerPath = optional(string)<br>      readOnly      = optional(bool)<br>    })), [])<br>  }))</pre> | `{}` | no |
-| <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
-| <a name="input_cpu_utilization_high_alarm_actions"></a> [cpu\_utilization\_high\_alarm\_actions](#input\_cpu\_utilization\_high\_alarm\_actions) | A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High Alarm action | `list(string)` | `[]` | no |
-| <a name="input_cpu_utilization_high_evaluation_periods"></a> [cpu\_utilization\_high\_evaluation\_periods](#input\_cpu\_utilization\_high\_evaluation\_periods) | Number of periods to evaluate for the alarm | `number` | `1` | no |
-| <a name="input_cpu_utilization_high_ok_actions"></a> [cpu\_utilization\_high\_ok\_actions](#input\_cpu\_utilization\_high\_ok\_actions) | A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High OK action | `list(string)` | `[]` | no |
-| <a name="input_cpu_utilization_high_period"></a> [cpu\_utilization\_high\_period](#input\_cpu\_utilization\_high\_period) | Duration in seconds to evaluate for the alarm | `number` | `300` | no |
-| <a name="input_cpu_utilization_high_threshold"></a> [cpu\_utilization\_high\_threshold](#input\_cpu\_utilization\_high\_threshold) | The maximum percentage of CPU utilization average | `number` | `80` | no |
-| <a name="input_cpu_utilization_low_alarm_actions"></a> [cpu\_utilization\_low\_alarm\_actions](#input\_cpu\_utilization\_low\_alarm\_actions) | A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low Alarm action | `list(string)` | `[]` | no |
-| <a name="input_cpu_utilization_low_evaluation_periods"></a> [cpu\_utilization\_low\_evaluation\_periods](#input\_cpu\_utilization\_low\_evaluation\_periods) | Number of periods to evaluate for the alarm | `number` | `1` | no |
-| <a name="input_cpu_utilization_low_ok_actions"></a> [cpu\_utilization\_low\_ok\_actions](#input\_cpu\_utilization\_low\_ok\_actions) | A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low OK action | `list(string)` | `[]` | no |
-| <a name="input_cpu_utilization_low_period"></a> [cpu\_utilization\_low\_period](#input\_cpu\_utilization\_low\_period) | Duration in seconds to evaluate for the alarm | `number` | `300` | no |
-| <a name="input_cpu_utilization_low_threshold"></a> [cpu\_utilization\_low\_threshold](#input\_cpu\_utilization\_low\_threshold) | The minimum percentage of CPU utilization average | `number` | `20` | no |
-| <a name="input_custom_security_group_rules"></a> [custom\_security\_group\_rules](#input\_custom\_security\_group\_rules) | The list of custom security group rules to add to the service security group | <pre>list(object({<br>    type        = string<br>    from_port   = number<br>    to_port     = number<br>    protocol    = string<br>    cidr_blocks = list(string)<br>    description = optional(string)<br>  }))</pre> | `[]` | no |
-| <a name="input_datadog_agent_sidecar_enabled"></a> [datadog\_agent\_sidecar\_enabled](#input\_datadog\_agent\_sidecar\_enabled) | Enable the Datadog Agent Sidecar | `bool` | `false` | no |
-| <a name="input_datadog_log_method_is_firelens"></a> [datadog\_log\_method\_is\_firelens](#input\_datadog\_log\_method\_is\_firelens) | Datadog logs can be sent via cloudwatch logs (and lambda) or firelens, set this to true to enable firelens via a sidecar container for fluentbit | `bool` | `false` | no |
-| <a name="input_datadog_logging_default_tags_enabled"></a> [datadog\_logging\_default\_tags\_enabled](#input\_datadog\_logging\_default\_tags\_enabled) | Add Default tags to all logs sent to Datadog | `bool` | `true` | no |
-| <a name="input_datadog_logging_tags"></a> [datadog\_logging\_tags](#input\_datadog\_logging\_tags) | Tags to add to all logs sent to Datadog | `map(string)` | `null` | no |
-| <a name="input_datadog_sidecar_containers_logs_enabled"></a> [datadog\_sidecar\_containers\_logs\_enabled](#input\_datadog\_sidecar\_containers\_logs\_enabled) | Enable the Datadog Agent Sidecar to send logs to aws cloudwatch group, requires `datadog_agent_sidecar_enabled` to be true | `bool` | `true` | no |
-| <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_ecr_region"></a> [ecr\_region](#input\_ecr\_region) | The region to use for the fully qualified ECR image URL. Defaults to the current region. | `string` | `""` | no |
-| <a name="input_ecr_stage_name"></a> [ecr\_stage\_name](#input\_ecr\_stage\_name) | The ecr stage (account) name to use for the fully qualified ECR image URL. | `string` | `"auto"` | no |
-| <a name="input_ecs_cluster_name"></a> [ecs\_cluster\_name](#input\_ecs\_cluster\_name) | The name of the ECS Cluster this belongs to | `any` | `"ecs"` | no |
-| <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_exec_enabled"></a> [exec\_enabled](#input\_exec\_enabled) | Specifies whether to enable Amazon ECS Exec for the tasks within the service | `bool` | `false` | no |
-| <a name="input_github_actions_allowed_repos"></a> [github\_actions\_allowed\_repos](#input\_github\_actions\_allowed\_repos) | A list of the GitHub repositories that are allowed to assume this role from GitHub Actions. For example,<br>  ["cloudposse/infra-live"]. Can contain "*" as wildcard.<br>  If org part of repo name is omitted, "cloudposse" will be assumed. | `list(string)` | `[]` | no |
-| <a name="input_github_actions_ecspresso_enabled"></a> [github\_actions\_ecspresso\_enabled](#input\_github\_actions\_ecspresso\_enabled) | Create IAM policies required for deployments with Ecspresso | `bool` | `false` | no |
-| <a name="input_github_actions_iam_role_attributes"></a> [github\_actions\_iam\_role\_attributes](#input\_github\_actions\_iam\_role\_attributes) | Additional attributes to add to the role name | `list(string)` | `[]` | no |
-| <a name="input_github_actions_iam_role_enabled"></a> [github\_actions\_iam\_role\_enabled](#input\_github\_actions\_iam\_role\_enabled) | Flag to toggle creation of an IAM Role that GitHub Actions can assume to access AWS resources | `bool` | `false` | no |
-| <a name="input_github_oidc_trusted_role_arns"></a> [github\_oidc\_trusted\_role\_arns](#input\_github\_oidc\_trusted\_role\_arns) | A list of IAM Role ARNs allowed to assume this cluster's GitHub OIDC role | `list(string)` | `[]` | no |
-| <a name="input_health_check_healthy_threshold"></a> [health\_check\_healthy\_threshold](#input\_health\_check\_healthy\_threshold) | The number of consecutive health checks successes required before healthy | `number` | `2` | no |
-| <a name="input_health_check_interval"></a> [health\_check\_interval](#input\_health\_check\_interval) | The duration in seconds in between health checks | `number` | `15` | no |
-| <a name="input_health_check_matcher"></a> [health\_check\_matcher](#input\_health\_check\_matcher) | The HTTP response codes to indicate a healthy check | `string` | `"200-404"` | no |
-| <a name="input_health_check_path"></a> [health\_check\_path](#input\_health\_check\_path) | The destination for the health check request | `string` | `"/health"` | no |
-| <a name="input_health_check_port"></a> [health\_check\_port](#input\_health\_check\_port) | The port to use to connect with the target. Valid values are either ports 1-65536, or `traffic-port`. Defaults to `traffic-port` | `string` | `"traffic-port"` | no |
-| <a name="input_health_check_timeout"></a> [health\_check\_timeout](#input\_health\_check\_timeout) | The amount of time to wait in seconds before failing a health check request | `number` | `10` | no |
-| <a name="input_health_check_unhealthy_threshold"></a> [health\_check\_unhealthy\_threshold](#input\_health\_check\_unhealthy\_threshold) | The number of consecutive health check failures required before unhealthy | `number` | `2` | no |
-| <a name="input_http_protocol"></a> [http\_protocol](#input\_http\_protocol) | Which http protocol to use in outputs and SSM url params. This value is ignored if a load balancer is not used. If it is `null`, the redirect value from the ALB determines the protocol. | `string` | `null` | no |
-| <a name="input_iam_policy_enabled"></a> [iam\_policy\_enabled](#input\_iam\_policy\_enabled) | If set to true will create IAM policy in AWS | `bool` | `false` | no |
-| <a name="input_iam_policy_statements"></a> [iam\_policy\_statements](#input\_iam\_policy\_statements) | Map of IAM policy statements to use in the policy. This can be used with or instead of the `var.iam_source_json_url`. | `any` | `{}` | no |
-| <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_kinesis_enabled"></a> [kinesis\_enabled](#input\_kinesis\_enabled) | Enable Kinesis | `bool` | `false` | no |
-| <a name="input_kms_alias_name_ssm"></a> [kms\_alias\_name\_ssm](#input\_kms\_alias\_name\_ssm) | KMS alias name for SSM | `string` | `"alias/aws/ssm"` | no |
-| <a name="input_kms_key_alias"></a> [kms\_key\_alias](#input\_kms\_key\_alias) | ID of KMS key | `string` | `"default"` | no |
-| <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
-| <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
-| <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
-| <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_lb_catch_all"></a> [lb\_catch\_all](#input\_lb\_catch\_all) | Should this service act as catch all for all subdomain hosts of the vanity domain | `bool` | `false` | no |
-| <a name="input_logs"></a> [logs](#input\_logs) | Feed inputs into cloudwatch logs module | `any` | `{}` | no |
-| <a name="input_memory_utilization_high_alarm_actions"></a> [memory\_utilization\_high\_alarm\_actions](#input\_memory\_utilization\_high\_alarm\_actions) | A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High Alarm action | `list(string)` | `[]` | no |
-| <a name="input_memory_utilization_high_evaluation_periods"></a> [memory\_utilization\_high\_evaluation\_periods](#input\_memory\_utilization\_high\_evaluation\_periods) | Number of periods to evaluate for the alarm | `number` | `1` | no |
-| <a name="input_memory_utilization_high_ok_actions"></a> [memory\_utilization\_high\_ok\_actions](#input\_memory\_utilization\_high\_ok\_actions) | A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High OK action | `list(string)` | `[]` | no |
-| <a name="input_memory_utilization_high_period"></a> [memory\_utilization\_high\_period](#input\_memory\_utilization\_high\_period) | Duration in seconds to evaluate for the alarm | `number` | `300` | no |
-| <a name="input_memory_utilization_high_threshold"></a> [memory\_utilization\_high\_threshold](#input\_memory\_utilization\_high\_threshold) | The maximum percentage of Memory utilization average | `number` | `80` | no |
-| <a name="input_memory_utilization_low_alarm_actions"></a> [memory\_utilization\_low\_alarm\_actions](#input\_memory\_utilization\_low\_alarm\_actions) | A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low Alarm action | `list(string)` | `[]` | no |
-| <a name="input_memory_utilization_low_evaluation_periods"></a> [memory\_utilization\_low\_evaluation\_periods](#input\_memory\_utilization\_low\_evaluation\_periods) | Number of periods to evaluate for the alarm | `number` | `1` | no |
-| <a name="input_memory_utilization_low_ok_actions"></a> [memory\_utilization\_low\_ok\_actions](#input\_memory\_utilization\_low\_ok\_actions) | A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low OK action | `list(string)` | `[]` | no |
-| <a name="input_memory_utilization_low_period"></a> [memory\_utilization\_low\_period](#input\_memory\_utilization\_low\_period) | Duration in seconds to evaluate for the alarm | `number` | `300` | no |
-| <a name="input_memory_utilization_low_threshold"></a> [memory\_utilization\_low\_threshold](#input\_memory\_utilization\_low\_threshold) | The minimum percentage of Memory utilization average | `number` | `20` | no |
-| <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_nlb_name"></a> [nlb\_name](#input\_nlb\_name) | The name of the NLB this service should attach to | `string` | `null` | no |
-| <a name="input_rds_name"></a> [rds\_name](#input\_rds\_name) | The name of the RDS database this service should allow access to | `any` | `null` | no |
-| <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
-| <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_retention_period"></a> [retention\_period](#input\_retention\_period) | Length of time data records are accessible after they are added to the stream | `number` | `48` | no |
-| <a name="input_s3_mirror_name"></a> [s3\_mirror\_name](#input\_s3\_mirror\_name) | The name of the S3 mirror component | `string` | `null` | no |
-| <a name="input_service_connect_configurations"></a> [service\_connect\_configurations](#input\_service\_connect\_configurations) | The list of Service Connect configurations.<br>See `service_connect_configuration` docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#service_connect_configuration | <pre>list(object({<br>    enabled   = bool<br>    namespace = optional(string, null)<br>    log_configuration = optional(object({<br>      log_driver = string<br>      options    = optional(map(string), null)<br>      secret_option = optional(list(object({<br>        name       = string<br>        value_from = string<br>      })), [])<br>    }), null)<br>    service = optional(list(object({<br>      client_alias = list(object({<br>        dns_name = string<br>        port     = number<br>      }))<br>      discovery_name        = optional(string, null)<br>      ingress_port_override = optional(number, null)<br>      port_name             = string<br>    })), [])<br>  }))</pre> | `[]` | no |
-| <a name="input_service_registries"></a> [service\_registries](#input\_service\_registries) | The list of Service Registries.<br>See `service_registries` docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#service_registries | <pre>list(object({<br>    namespace      = string<br>    registry_arn   = optional(string)<br>    port           = optional(number)<br>    container_name = optional(string)<br>    container_port = optional(number)<br>  }))</pre> | `[]` | no |
-| <a name="input_shard_count"></a> [shard\_count](#input\_shard\_count) | Number of shards that the stream will use | `number` | `1` | no |
-| <a name="input_shard_level_metrics"></a> [shard\_level\_metrics](#input\_shard\_level\_metrics) | List of shard-level CloudWatch metrics which can be enabled for the stream | `list(string)` | <pre>[<br>  "IncomingBytes",<br>  "IncomingRecords",<br>  "IteratorAgeMilliseconds",<br>  "OutgoingBytes",<br>  "OutgoingRecords",<br>  "ReadProvisionedThroughputExceeded",<br>  "WriteProvisionedThroughputExceeded"<br>]</pre> | no |
-| <a name="input_ssm_enabled"></a> [ssm\_enabled](#input\_ssm\_enabled) | If `true` create SSM keys for the database user and password. | `bool` | `false` | no |
-| <a name="input_ssm_key_format"></a> [ssm\_key\_format](#input\_ssm\_key\_format) | SSM path format. The values will will be used in the following order: `var.ssm_key_prefix`, `var.name`, `var.ssm_key_*` | `string` | `"/%v/%v/%v"` | no |
-| <a name="input_ssm_key_prefix"></a> [ssm\_key\_prefix](#input\_ssm\_key\_prefix) | SSM path prefix. Omit the leading forward slash `/`. | `string` | `"ecs-service"` | no |
-| <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
-| <a name="input_stickiness_cookie_duration"></a> [stickiness\_cookie\_duration](#input\_stickiness\_cookie\_duration) | The time period, in seconds, during which requests from a client should be routed to the same target. After this time period expires, the load balancer-generated cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds) | `number` | `86400` | no |
-| <a name="input_stickiness_enabled"></a> [stickiness\_enabled](#input\_stickiness\_enabled) | Boolean to enable / disable `stickiness`. Default is `true` | `bool` | `true` | no |
-| <a name="input_stickiness_type"></a> [stickiness\_type](#input\_stickiness\_type) | The type of sticky sessions. The only current possible value is `lb_cookie` | `string` | `"lb_cookie"` | no |
-| <a name="input_stream_mode"></a> [stream\_mode](#input\_stream\_mode) | Stream mode details for the Kinesis stream | `string` | `"PROVISIONED"` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
-| <a name="input_task"></a> [task](#input\_task) | Feed inputs into ecs\_alb\_service\_task module | <pre>object({<br>    task_cpu                = optional(number)<br>    task_memory             = optional(number)<br>    task_role_arn           = optional(string, "")<br>    pid_mode                = optional(string, null)<br>    ipc_mode                = optional(string, null)<br>    network_mode            = optional(string)<br>    propagate_tags          = optional(string)<br>    assign_public_ip        = optional(bool, false)<br>    use_alb_security_groups = optional(bool, true)<br>    launch_type             = optional(string, "FARGATE")<br>    scheduling_strategy     = optional(string, "REPLICA")<br>    capacity_provider_strategies = optional(list(object({<br>      capacity_provider = string<br>      weight            = number<br>      base              = number<br>    })), [])<br><br>    deployment_minimum_healthy_percent = optional(number, null)<br>    deployment_maximum_percent         = optional(number, null)<br>    desired_count                      = optional(number, 0)<br>    min_capacity                       = optional(number, 1)<br>    max_capacity                       = optional(number, 2)<br>    wait_for_steady_state              = optional(bool, true)<br>    circuit_breaker_deployment_enabled = optional(bool, true)<br>    circuit_breaker_rollback_enabled   = optional(bool, true)<br><br>    ecs_service_enabled = optional(bool, true)<br>    bind_mount_volumes = optional(list(object({<br>      name      = string<br>      host_path = string<br>    })), [])<br>    efs_volumes = optional(list(object({<br>      host_path = string<br>      name      = string<br>      efs_volume_configuration = list(object({<br>        file_system_id          = string<br>        root_directory          = string<br>        transit_encryption      = string<br>        transit_encryption_port = string<br>        authorization_config = list(object({<br>          access_point_id = string<br>          iam             = string<br>        }))<br>      }))<br>    })), [])<br>    efs_component_volumes = optional(list(object({<br>      host_path = string<br>      name      = string<br>      efs_volume_configuration = list(object({<br>        component   = optional(string, "efs")<br>        tenant      = optional(string, null)<br>        environment = optional(string, null)<br>        stage       = optional(string, null)<br><br>        root_directory          = string<br>        transit_encryption      = string<br>        transit_encryption_port = string<br>        authorization_config = list(object({<br>          access_point_id = string<br>          iam             = string<br>        }))<br>      }))<br>    })), [])<br>    docker_volumes = optional(list(object({<br>      host_path = string<br>      name      = string<br>      docker_volume_configuration = list(object({<br>        autoprovision = bool<br>        driver        = string<br>        driver_opts   = map(string)<br>        labels        = map(string)<br>        scope         = string<br>      }))<br>    })), [])<br>    fsx_volumes = optional(list(object({<br>      host_path = string<br>      name      = string<br>      fsx_windows_file_server_volume_configuration = list(object({<br>        file_system_id = string<br>        root_directory = string<br>        authorization_config = list(object({<br>          credentials_parameter = string<br>          domain                = string<br>        }))<br>      }))<br>    })), [])<br>  })</pre> | `{}` | no |
-| <a name="input_task_enabled"></a> [task\_enabled](#input\_task\_enabled) | Whether or not to use the ECS task module | `bool` | `true` | no |
-| <a name="input_task_exec_policy_arns_map"></a> [task\_exec\_policy\_arns\_map](#input\_task\_exec\_policy\_arns\_map) | A map of name to IAM Policy ARNs to attach to the generated task execution role.<br>The names are arbitrary, but must be known at plan time. The purpose of the name<br>is so that changes to one ARN do not cause a ripple effect on the other ARNs.<br>If you cannot provide unique names known at plan time, use `task_exec_policy_arns` instead. | `map(string)` | `{}` | no |
-| <a name="input_task_iam_role_component"></a> [task\_iam\_role\_component](#input\_task\_iam\_role\_component) | A component that outputs an iam\_role module as 'role' for adding to the service as a whole. | `string` | `null` | no |
-| <a name="input_task_policy_arns"></a> [task\_policy\_arns](#input\_task\_policy\_arns) | The IAM policy ARNs to attach to the ECS task IAM role | `list(string)` | <pre>[<br>  "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",<br>  "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"<br>]</pre> | no |
-| <a name="input_task_security_group_component"></a> [task\_security\_group\_component](#input\_task\_security\_group\_component) | A component that outputs security\_group\_id for adding to the service as a whole. | `string` | `null` | no |
-| <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_unauthenticated_paths"></a> [unauthenticated\_paths](#input\_unauthenticated\_paths) | Unauthenticated path pattern to match | `list(string)` | `[]` | no |
-| <a name="input_unauthenticated_priority"></a> [unauthenticated\_priority](#input\_unauthenticated\_priority) | The priority for the rules without authentication, between 1 and 50000 (1 being highest priority). Must be different from `authenticated_priority` since a listener can't have multiple rules with the same priority | `string` | `0` | no |
-| <a name="input_use_lb"></a> [use\_lb](#input\_use\_lb) | Whether use load balancer for the service | `bool` | `false` | no |
-| <a name="input_use_rds_client_sg"></a> [use\_rds\_client\_sg](#input\_use\_rds\_client\_sg) | Use the RDS client security group | `bool` | `false` | no |
-| <a name="input_vanity_alias"></a> [vanity\_alias](#input\_vanity\_alias) | The vanity aliases to use for the public LB. | `list(string)` | `[]` | no |
-| <a name="input_vanity_domain"></a> [vanity\_domain](#input\_vanity\_domain) | Whether to use the vanity domain alias for the service | `string` | `null` | no |
-| <a name="input_zone_component"></a> [zone\_component](#input\_zone\_component) | The component name to look up service domain remote-state on | `string` | `"dns-delegated"` | no |
-| <a name="input_zone_component_output"></a> [zone\_component\_output](#input\_zone\_component\_output) | A json query to use to get the zone domain from the remote state. See | `string` | `".default_domain_name"` | no |
+Name | Version | Source | Description
+--- | --- | --- | ---
+`alb` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`alb_ingress` | 0.28.0 | [`cloudposse/alb-ingress/aws`](https://registry.terraform.io/modules/cloudposse/alb-ingress/aws/0.28.0) | n/a
+`cloudmap_namespace` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`cloudmap_namespace_service_discovery` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`container_definition` | 0.61.1 | [`cloudposse/ecs-container-definition/aws`](https://registry.terraform.io/modules/cloudposse/ecs-container-definition/aws/0.61.1) | n/a
+`datadog_configuration` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`datadog_container_definition` | 0.58.1 | [`cloudposse/ecs-container-definition/aws`](https://registry.terraform.io/modules/cloudposse/ecs-container-definition/aws/0.58.1) | n/a
+`datadog_fluent_bit_container_definition` | 0.58.1 | [`cloudposse/ecs-container-definition/aws`](https://registry.terraform.io/modules/cloudposse/ecs-container-definition/aws/0.58.1) | n/a
+`datadog_sidecar_logs` | 0.6.6 | [`cloudposse/cloudwatch-logs/aws`](https://registry.terraform.io/modules/cloudposse/cloudwatch-logs/aws/0.6.6) | n/a
+`ecs_alb_service_task` | 0.72.0 | [`cloudposse/ecs-alb-service-task/aws`](https://registry.terraform.io/modules/cloudposse/ecs-alb-service-task/aws/0.72.0) | n/a
+`ecs_cloudwatch_autoscaling` | 0.7.3 | [`cloudposse/ecs-cloudwatch-autoscaling/aws`](https://registry.terraform.io/modules/cloudposse/ecs-cloudwatch-autoscaling/aws/0.7.3) | n/a
+`ecs_cloudwatch_sns_alarms` | 0.12.3 | [`cloudposse/ecs-cloudwatch-sns-alarms/aws`](https://registry.terraform.io/modules/cloudposse/ecs-cloudwatch-sns-alarms/aws/0.12.3) | n/a
+`ecs_cluster` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`efs` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`gha_assume_role` | latest | [`../account-map/modules/team-assume-role-policy`](https://registry.terraform.io/modules/../account-map/modules/team-assume-role-policy/) | n/a
+`gha_role_name` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`iam_role` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
+`logs` | 0.6.8 | [`cloudposse/cloudwatch-logs/aws`](https://registry.terraform.io/modules/cloudposse/cloudwatch-logs/aws/0.6.8) | n/a
+`nlb` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`rds` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`roles_to_principals` | latest | [`../account-map/modules/roles-to-principals`](https://registry.terraform.io/modules/../account-map/modules/roles-to-principals/) | n/a
+`s3` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`security_group` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`service_domain` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`vanity_alias` | 0.13.0 | [`cloudposse/route53-alias/aws`](https://registry.terraform.io/modules/cloudposse/route53-alias/aws/0.13.0) | n/a
+`vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
 
-## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_ecs_cluster_arn"></a> [ecs\_cluster\_arn](#output\_ecs\_cluster\_arn) | Selected ECS cluster ARN |
-| <a name="output_environment_map"></a> [environment\_map](#output\_environment\_map) | Environment variables to pass to the container, this is a map of key/value pairs, where the key is `containerName,variableName` |
-| <a name="output_full_domain"></a> [full\_domain](#output\_full\_domain) | Domain to respond to GET requests |
-| <a name="output_github_actions_iam_role_arn"></a> [github\_actions\_iam\_role\_arn](#output\_github\_actions\_iam\_role\_arn) | ARN of IAM role for GitHub Actions |
-| <a name="output_github_actions_iam_role_name"></a> [github\_actions\_iam\_role\_name](#output\_github\_actions\_iam\_role\_name) | Name of IAM role for GitHub Actions |
-| <a name="output_lb_arn"></a> [lb\_arn](#output\_lb\_arn) | Selected LB ARN |
-| <a name="output_lb_listener_https"></a> [lb\_listener\_https](#output\_lb\_listener\_https) | Selected LB HTTPS Listener |
-| <a name="output_lb_sg_id"></a> [lb\_sg\_id](#output\_lb\_sg\_id) | Selected LB SG ID |
-| <a name="output_logs"></a> [logs](#output\_logs) | Output of cloudwatch logs module |
-| <a name="output_service_image"></a> [service\_image](#output\_service\_image) | The image of the service container |
-| <a name="output_ssm_key_prefix"></a> [ssm\_key\_prefix](#output\_ssm\_key\_prefix) | SSM prefix |
-| <a name="output_ssm_parameters"></a> [ssm\_parameters](#output\_ssm\_parameters) | SSM parameters for the ECS Service |
-| <a name="output_subnet_ids"></a> [subnet\_ids](#output\_subnet\_ids) | Selected subnet IDs |
-| <a name="output_task_definition_arn"></a> [task\_definition\_arn](#output\_task\_definition\_arn) | The task definition ARN |
-| <a name="output_task_definition_revision"></a> [task\_definition\_revision](#output\_task\_definition\_revision) | The task definition revision |
-| <a name="output_task_template"></a> [task\_template](#output\_task\_template) | The task template rendered |
-| <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | Selected VPC ID |
-| <a name="output_vpc_sg_id"></a> [vpc\_sg\_id](#output\_vpc\_sg\_id) | Selected VPC SG ID |
+### Resources
+
+The following resources are used by this module:
+
+  - [`aws_iam_policy.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) (resource)
+  - [`aws_iam_role.github_actions`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) (resource)
+  - [`aws_kinesis_stream.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kinesis_stream) (resource)
+  - [`aws_s3_bucket_object.task_definition_template`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) (resource)
+  - [`aws_security_group_rule.custom_sg_rules`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) (resource)
+  - [`aws_service_discovery_service.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/service_discovery_service) (resource)
+  - [`aws_ssm_parameter.full_urls`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)
+
+### Data Sources
+
+The following data sources are used by this module:
+
+  - [`aws_caller_identity.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
+  - [`aws_ecs_task_definition.created_task`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ecs_task_definition) (data source)
+  - [`aws_iam_policy_document.github_actions_iam_ecspresso_policy`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
+  - [`aws_iam_policy_document.github_actions_iam_platform_policy`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
+  - [`aws_iam_policy_document.github_actions_iam_policy`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
+  - [`aws_iam_policy_document.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
+  - [`aws_kms_alias.selected`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/kms_alias) (data source)
+  - [`aws_route53_zone.selected`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) (data source)
+  - [`aws_route53_zone.selected_vanity`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) (data source)
+  - [`aws_s3_object.task_definition`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_object) (data source)
+  - [`aws_s3_objects.mirror`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_objects) (data source)
+  - [`aws_ssm_parameters_by_path.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameters_by_path) (data source)
+  - [`jq_query.service_domain_query`](https://registry.terraform.io/providers/massdriver-cloud/jq/latest/docs/data-sources/query) (data source)
+  - [`template_file.envs`](https://registry.terraform.io/providers/cloudposse/template/latest/docs/data-sources/file) (data source)
+
+### Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+
+<dl>
+  <dt>`additional_tag_map` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+    This is for some rare cases where resources want additional configuration of tags<br/>
+    and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `map(string)`
+    **Default value:** `{}`
+  </dd>
+  <dt>`attributes` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+    in the order they appear in the list. New attributes are appended to the<br/>
+    end of the list. The elements of the list are joined by the `delimiter`<br/>
+    and treated as a single ID element.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `list(string)`
+    **Default value:** `[]`
+  </dd>
+  <dt>`context` (`any`) <i>optional</i></dt>
+  <dd>
+    Single object for setting entire context at once.<br/>
+    See description of individual variables for details.<br/>
+    Leave string and numeric variables as `null` to use default value.<br/>
+    Individual variable settings (non-null) override settings in context object,<br/>
+    except for attributes, tags, and additional_tag_map, which are merged.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `any`
+    **Default value:** 
+    ```hcl
+    {
+      "additional_tag_map": {},
+      "attributes": [],
+      "delimiter": null,
+      "descriptor_formats": {},
+      "enabled": true,
+      "environment": null,
+      "id_length_limit": null,
+      "label_key_case": null,
+      "label_order": [],
+      "label_value_case": null,
+      "labels_as_tags": [
+        "unset"
+      ],
+      "name": null,
+      "namespace": null,
+      "regex_replace_chars": null,
+      "stage": null,
+      "tags": {},
+      "tenant": null
+    }
+    ```
+    
+  </dd>
+  <dt>`delimiter` (`string`) <i>optional</i></dt>
+  <dd>
+    Delimiter to be used between ID elements.<br/>
+    Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`descriptor_formats` (`any`) <i>optional</i></dt>
+  <dd>
+    Describe additional descriptors to be output in the `descriptors` output map.<br/>
+    Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+    `{<br/>
+       format = string<br/>
+       labels = list(string)<br/>
+    }`<br/>
+    (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+    `format` is a Terraform format string to be passed to the `format()` function.<br/>
+    `labels` is a list of labels, in order, to pass to `format()` function.<br/>
+    Label values will be normalized before being passed to `format()` so they will be<br/>
+    identical to how they appear in `id`.<br/>
+    Default is `{}` (`descriptors` output will be empty).<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `any`
+    **Default value:** `{}`
+  </dd>
+  <dt>`enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to false to prevent the module from creating any resources<br/>
+    **Required:** No<br/>
+    **Type:** `bool`
+    **Default value:** `null`
+  </dd>
+  <dt>`environment` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`id_length_limit` (`number`) <i>optional</i></dt>
+  <dd>
+    Limit `id` to this many characters (minimum 6).<br/>
+    Set to `0` for unlimited length.<br/>
+    Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+    Does not affect `id_full`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `number`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_key_case` (`string`) <i>optional</i></dt>
+  <dd>
+    Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+    Does not affect keys of tags passed in via the `tags` input.<br/>
+    Possible values: `lower`, `title`, `upper`.<br/>
+    Default value: `title`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_order` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    The order in which the labels (ID elements) appear in the `id`.<br/>
+    Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+    You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `list(string)`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_value_case` (`string`) <i>optional</i></dt>
+  <dd>
+    Controls the letter case of ID elements (labels) as included in `id`,<br/>
+    set as tag values, and output by this module individually.<br/>
+    Does not affect values of tags passed in via the `tags` input.<br/>
+    Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+    Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+    Default value: `lower`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`labels_as_tags` (`set(string)`) <i>optional</i></dt>
+  <dd>
+    Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+    Default is to include all labels.<br/>
+    Tags with empty values will not be included in the `tags` output.<br/>
+    Set to `[]` to suppress all generated tags.<br/>
+    **Notes:**<br/>
+      The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+      Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+      changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `set(string)`
+    **Default value:** 
+    ```hcl
+    [
+      "default"
+    ]
+    ```
+    
+  </dd>
+  <dt>`name` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+    This is the only ID element not also included as a `tag`.<br/>
+    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`namespace` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`regex_replace_chars` (`string`) <i>optional</i></dt>
+  <dd>
+    Terraform regular expression (regex) string.<br/>
+    Characters matching the regex will be removed from the ID elements.<br/>
+    If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`stage` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`tags` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+    Neither the tag keys nor the tag values will be modified by this module.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `map(string)`
+    **Default value:** `{}`
+  </dd>
+  <dt>`tenant` (`string`) <i>optional</i></dt>
+  <dd>
+    ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+</dl>
+
+### Required Inputs
+
+<dl>
+  <dt>`region` (`string`) <i>required</i></dt>
+  <dd>
+    AWS Region<br/>
+
+    **Type:** `string`
+    <br/>
+    **Default value:** ``
+
+  </dd>
+</dl>
+
+### Optional Inputs
+
+<dl>
+  <dt>`additional_targets` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    Additional target routes to add to the ALB that point to this service. The only difference between this and `var.vanity_alias` is `var.vanity_alias` will create an alias record in Route 53 in the hosted zone in this account as well. `var.additional_targets` only adds the listener route to this service's target group.<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`alb_configuration` (`string`) <i>optional</i></dt>
+  <dd>
+    The configuration to use for the ALB, specifying which cluster alb configuration to use<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"default"`
+  </dd>
+  <dt>`alb_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the ALB this service should attach to<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`autoscaling_dimension` (`string`) <i>optional</i></dt>
+  <dd>
+    The dimension to use to decide to autoscale<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"cpu"`
+  </dd>
+  <dt>`autoscaling_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Should this service autoscale using SNS alarams<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`chamber_service` (`string`) <i>optional</i></dt>
+  <dd>
+    SSM parameter service name for use with chamber. This is used in chamber_format where /$chamber_service/$name/$container_name/$parameter would be the default.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"ecs-service"`
+  </dd>
+  <dt>`cluster_attributes` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    The attributes of the cluster name e.g. if the full name is `namespace-tenant-environment-dev-ecs-b2b` then the `cluster_name` is `ecs` and this value should be `b2b`.<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`containers` <i>optional</i></dt>
+  <dd>
+    Feed inputs into container definition module<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    map(object({
+    name                     = string
+    ecr_image                = optional(string)
+    image                    = optional(string)
+    memory                   = optional(number)
+    memory_reservation       = optional(number)
+    cpu                      = optional(number)
+    essential                = optional(bool, true)
+    readonly_root_filesystem = optional(bool, null)
+    privileged               = optional(bool, null)
+    container_depends_on = optional(list(object({
+      containerName = string
+      condition     = string # START, COMPLETE, SUCCESS, HEALTHY
+    })), null)
+
+    port_mappings = optional(list(object({
+      containerPort = number
+      hostPort      = optional(number)
+      protocol      = optional(string)
+      name          = optional(string)
+      appProtocol   = optional(string)
+    })), [])
+    command    = optional(list(string), null)
+    entrypoint = optional(list(string), null)
+    healthcheck = optional(object({
+      command     = list(string)
+      interval    = number
+      retries     = number
+      startPeriod = number
+      timeout     = number
+    }), null)
+    ulimits = optional(list(object({
+      name      = string
+      softLimit = number
+      hardLimit = number
+    })), null)
+    log_configuration = optional(object({
+      logDriver = string
+      options   = optional(map(string), {})
+    }))
+    docker_labels   = optional(map(string), null)
+    map_environment = optional(map(string), {})
+    map_secrets     = optional(map(string), {})
+    volumes_from = optional(list(object({
+      sourceContainer = string
+      readOnly        = bool
+    })), null)
+    mount_points = optional(list(object({
+      sourceVolume  = optional(string)
+      containerPath = optional(string)
+      readOnly      = optional(bool)
+    })), [])
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`cpu_utilization_high_alarm_actions` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High Alarm action<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`cpu_utilization_high_evaluation_periods` (`number`) <i>optional</i></dt>
+  <dd>
+    Number of periods to evaluate for the alarm<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `1`
+  </dd>
+  <dt>`cpu_utilization_high_ok_actions` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High OK action<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`cpu_utilization_high_period` (`number`) <i>optional</i></dt>
+  <dd>
+    Duration in seconds to evaluate for the alarm<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `300`
+  </dd>
+  <dt>`cpu_utilization_high_threshold` (`number`) <i>optional</i></dt>
+  <dd>
+    The maximum percentage of CPU utilization average<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `80`
+  </dd>
+  <dt>`cpu_utilization_low_alarm_actions` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low Alarm action<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`cpu_utilization_low_evaluation_periods` (`number`) <i>optional</i></dt>
+  <dd>
+    Number of periods to evaluate for the alarm<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `1`
+  </dd>
+  <dt>`cpu_utilization_low_ok_actions` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low OK action<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`cpu_utilization_low_period` (`number`) <i>optional</i></dt>
+  <dd>
+    Duration in seconds to evaluate for the alarm<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `300`
+  </dd>
+  <dt>`cpu_utilization_low_threshold` (`number`) <i>optional</i></dt>
+  <dd>
+    The minimum percentage of CPU utilization average<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `20`
+  </dd>
+  <dt>`custom_security_group_rules` <i>optional</i></dt>
+  <dd>
+    The list of custom security group rules to add to the service security group<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    list(object({
+    type        = string
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    cidr_blocks = list(string)
+    description = optional(string)
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`datadog_agent_sidecar_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Enable the Datadog Agent Sidecar<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`datadog_log_method_is_firelens` (`bool`) <i>optional</i></dt>
+  <dd>
+    Datadog logs can be sent via cloudwatch logs (and lambda) or firelens, set this to true to enable firelens via a sidecar container for fluentbit<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`datadog_logging_default_tags_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Add Default tags to all logs sent to Datadog<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`datadog_logging_tags` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Tags to add to all logs sent to Datadog<br/>
+    <br/>
+    **Type:** `map(string)`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`datadog_sidecar_containers_logs_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Enable the Datadog Agent Sidecar to send logs to aws cloudwatch group, requires `datadog_agent_sidecar_enabled` to be true<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`ecr_region` (`string`) <i>optional</i></dt>
+  <dd>
+    The region to use for the fully qualified ECR image URL. Defaults to the current region.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`ecr_stage_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The ecr stage (account) name to use for the fully qualified ECR image URL.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"auto"`
+  </dd>
+  <dt>`ecs_cluster_name` (`any`) <i>optional</i></dt>
+  <dd>
+    The name of the ECS Cluster this belongs to<br/>
+    <br/>
+    **Type:** `any`
+    <br/>
+    **Default value:** `"ecs"`
+  </dd>
+  <dt>`exec_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Specifies whether to enable Amazon ECS Exec for the tasks within the service<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`github_actions_allowed_repos` (`list(string)`) <i>optional</i></dt>
+  <dd>
+      A list of the GitHub repositories that are allowed to assume this role from GitHub Actions. For example,<br/>
+      ["cloudposse/infra-live"]. Can contain "*" as wildcard.<br/>
+      If org part of repo name is omitted, "cloudposse" will be assumed.<br/>
+    <br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`github_actions_ecspresso_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Create IAM policies required for deployments with Ecspresso<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`github_actions_iam_role_attributes` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    Additional attributes to add to the role name<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`github_actions_iam_role_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Flag to toggle creation of an IAM Role that GitHub Actions can assume to access AWS resources<br/>
+    <br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`github_oidc_trusted_role_arns` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    A list of IAM Role ARNs allowed to assume this cluster's GitHub OIDC role<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`health_check_healthy_threshold` (`number`) <i>optional</i></dt>
+  <dd>
+    The number of consecutive health checks successes required before healthy<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `2`
+  </dd>
+  <dt>`health_check_interval` (`number`) <i>optional</i></dt>
+  <dd>
+    The duration in seconds in between health checks<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `15`
+  </dd>
+  <dt>`health_check_matcher` (`string`) <i>optional</i></dt>
+  <dd>
+    The HTTP response codes to indicate a healthy check<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"200-404"`
+  </dd>
+  <dt>`health_check_path` (`string`) <i>optional</i></dt>
+  <dd>
+    The destination for the health check request<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"/health"`
+  </dd>
+  <dt>`health_check_port` (`string`) <i>optional</i></dt>
+  <dd>
+    The port to use to connect with the target. Valid values are either ports 1-65536, or `traffic-port`. Defaults to `traffic-port`<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"traffic-port"`
+  </dd>
+  <dt>`health_check_timeout` (`number`) <i>optional</i></dt>
+  <dd>
+    The amount of time to wait in seconds before failing a health check request<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `10`
+  </dd>
+  <dt>`health_check_unhealthy_threshold` (`number`) <i>optional</i></dt>
+  <dd>
+    The number of consecutive health check failures required before unhealthy<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `2`
+  </dd>
+  <dt>`http_protocol` (`string`) <i>optional</i></dt>
+  <dd>
+    Which http protocol to use in outputs and SSM url params. This value is ignored if a load balancer is not used. If it is `null`, the redirect value from the ALB determines the protocol.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`iam_policy_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    If set to true will create IAM policy in AWS<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`iam_policy_statements` (`any`) <i>optional</i></dt>
+  <dd>
+    Map of IAM policy statements to use in the policy. This can be used with or instead of the `var.iam_source_json_url`.<br/>
+    <br/>
+    **Type:** `any`
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`kinesis_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Enable Kinesis<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`kms_alias_name_ssm` (`string`) <i>optional</i></dt>
+  <dd>
+    KMS alias name for SSM<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"alias/aws/ssm"`
+  </dd>
+  <dt>`kms_key_alias` (`string`) <i>optional</i></dt>
+  <dd>
+    ID of KMS key<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"default"`
+  </dd>
+  <dt>`lb_catch_all` (`bool`) <i>optional</i></dt>
+  <dd>
+    Should this service act as catch all for all subdomain hosts of the vanity domain<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`logs` (`any`) <i>optional</i></dt>
+  <dd>
+    Feed inputs into cloudwatch logs module<br/>
+    <br/>
+    **Type:** `any`
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`memory_utilization_high_alarm_actions` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High Alarm action<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`memory_utilization_high_evaluation_periods` (`number`) <i>optional</i></dt>
+  <dd>
+    Number of periods to evaluate for the alarm<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `1`
+  </dd>
+  <dt>`memory_utilization_high_ok_actions` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High OK action<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`memory_utilization_high_period` (`number`) <i>optional</i></dt>
+  <dd>
+    Duration in seconds to evaluate for the alarm<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `300`
+  </dd>
+  <dt>`memory_utilization_high_threshold` (`number`) <i>optional</i></dt>
+  <dd>
+    The maximum percentage of Memory utilization average<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `80`
+  </dd>
+  <dt>`memory_utilization_low_alarm_actions` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low Alarm action<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`memory_utilization_low_evaluation_periods` (`number`) <i>optional</i></dt>
+  <dd>
+    Number of periods to evaluate for the alarm<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `1`
+  </dd>
+  <dt>`memory_utilization_low_ok_actions` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low OK action<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`memory_utilization_low_period` (`number`) <i>optional</i></dt>
+  <dd>
+    Duration in seconds to evaluate for the alarm<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `300`
+  </dd>
+  <dt>`memory_utilization_low_threshold` (`number`) <i>optional</i></dt>
+  <dd>
+    The minimum percentage of Memory utilization average<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `20`
+  </dd>
+  <dt>`nlb_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the NLB this service should attach to<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`rds_name` (`any`) <i>optional</i></dt>
+  <dd>
+    The name of the RDS database this service should allow access to<br/>
+    <br/>
+    **Type:** `any`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`retention_period` (`number`) <i>optional</i></dt>
+  <dd>
+    Length of time data records are accessible after they are added to the stream<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `48`
+  </dd>
+  <dt>`s3_mirror_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the S3 mirror component<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`service_connect_configurations` <i>optional</i></dt>
+  <dd>
+    The list of Service Connect configurations.<br/>
+    See `service_connect_configuration` docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#service_connect_configuration<br/>
+    <br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    list(object({
+    enabled   = bool
+    namespace = optional(string, null)
+    log_configuration = optional(object({
+      log_driver = string
+      options    = optional(map(string), null)
+      secret_option = optional(list(object({
+        name       = string
+        value_from = string
+      })), [])
+    }), null)
+    service = optional(list(object({
+      client_alias = list(object({
+        dns_name = string
+        port     = number
+      }))
+      discovery_name        = optional(string, null)
+      ingress_port_override = optional(number, null)
+      port_name             = string
+    })), [])
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`service_registries` <i>optional</i></dt>
+  <dd>
+    The list of Service Registries.<br/>
+    See `service_registries` docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#service_registries<br/>
+    <br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    list(object({
+    namespace      = string
+    registry_arn   = optional(string)
+    port           = optional(number)
+    container_name = optional(string)
+    container_port = optional(number)
+  }))
+    ```
+    
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`shard_count` (`number`) <i>optional</i></dt>
+  <dd>
+    Number of shards that the stream will use<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `1`
+  </dd>
+  <dt>`shard_level_metrics` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    List of shard-level CloudWatch metrics which can be enabled for the stream<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** 
+    ```hcl
+    [
+      "IncomingBytes",
+      "IncomingRecords",
+      "IteratorAgeMilliseconds",
+      "OutgoingBytes",
+      "OutgoingRecords",
+      "ReadProvisionedThroughputExceeded",
+      "WriteProvisionedThroughputExceeded"
+    ]
+    ```
+    
+  </dd>
+  <dt>`ssm_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    If `true` create SSM keys for the database user and password.<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`ssm_key_format` (`string`) <i>optional</i></dt>
+  <dd>
+    SSM path format. The values will will be used in the following order: `var.ssm_key_prefix`, `var.name`, `var.ssm_key_*`<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"/%v/%v/%v"`
+  </dd>
+  <dt>`ssm_key_prefix` (`string`) <i>optional</i></dt>
+  <dd>
+    SSM path prefix. Omit the leading forward slash `/`.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"ecs-service"`
+  </dd>
+  <dt>`stickiness_cookie_duration` (`number`) <i>optional</i></dt>
+  <dd>
+    The time period, in seconds, during which requests from a client should be routed to the same target. After this time period expires, the load balancer-generated cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds)<br/>
+    <br/>
+    **Type:** `number`
+    <br/>
+    **Default value:** `86400`
+  </dd>
+  <dt>`stickiness_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Boolean to enable / disable `stickiness`. Default is `true`<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`stickiness_type` (`string`) <i>optional</i></dt>
+  <dd>
+    The type of sticky sessions. The only current possible value is `lb_cookie`<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"lb_cookie"`
+  </dd>
+  <dt>`stream_mode` (`string`) <i>optional</i></dt>
+  <dd>
+    Stream mode details for the Kinesis stream<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"PROVISIONED"`
+  </dd>
+  <dt>`task` <i>optional</i></dt>
+  <dd>
+    Feed inputs into ecs_alb_service_task module<br/>
+    <br/>
+    **Type:** 
+
+    ```hcl
+    object({
+    task_cpu                = optional(number)
+    task_memory             = optional(number)
+    task_role_arn           = optional(string, "")
+    pid_mode                = optional(string, null)
+    ipc_mode                = optional(string, null)
+    network_mode            = optional(string)
+    propagate_tags          = optional(string)
+    assign_public_ip        = optional(bool, false)
+    use_alb_security_groups = optional(bool, true)
+    launch_type             = optional(string, "FARGATE")
+    scheduling_strategy     = optional(string, "REPLICA")
+    capacity_provider_strategies = optional(list(object({
+      capacity_provider = string
+      weight            = number
+      base              = number
+    })), [])
+
+    deployment_minimum_healthy_percent = optional(number, null)
+    deployment_maximum_percent         = optional(number, null)
+    desired_count                      = optional(number, 0)
+    min_capacity                       = optional(number, 1)
+    max_capacity                       = optional(number, 2)
+    wait_for_steady_state              = optional(bool, true)
+    circuit_breaker_deployment_enabled = optional(bool, true)
+    circuit_breaker_rollback_enabled   = optional(bool, true)
+
+    ecs_service_enabled = optional(bool, true)
+    bind_mount_volumes = optional(list(object({
+      name      = string
+      host_path = string
+    })), [])
+    efs_volumes = optional(list(object({
+      host_path = string
+      name      = string
+      efs_volume_configuration = list(object({
+        file_system_id          = string
+        root_directory          = string
+        transit_encryption      = string
+        transit_encryption_port = string
+        authorization_config = list(object({
+          access_point_id = string
+          iam             = string
+        }))
+      }))
+    })), [])
+    efs_component_volumes = optional(list(object({
+      host_path = string
+      name      = string
+      efs_volume_configuration = list(object({
+        component   = optional(string, "efs")
+        tenant      = optional(string, null)
+        environment = optional(string, null)
+        stage       = optional(string, null)
+
+        root_directory          = string
+        transit_encryption      = string
+        transit_encryption_port = string
+        authorization_config = list(object({
+          access_point_id = string
+          iam             = string
+        }))
+      }))
+    })), [])
+    docker_volumes = optional(list(object({
+      host_path = string
+      name      = string
+      docker_volume_configuration = list(object({
+        autoprovision = bool
+        driver        = string
+        driver_opts   = map(string)
+        labels        = map(string)
+        scope         = string
+      }))
+    })), [])
+    fsx_volumes = optional(list(object({
+      host_path = string
+      name      = string
+      fsx_windows_file_server_volume_configuration = list(object({
+        file_system_id = string
+        root_directory = string
+        authorization_config = list(object({
+          credentials_parameter = string
+          domain                = string
+        }))
+      }))
+    })), [])
+  })
+    ```
+    
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`task_enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Whether or not to use the ECS task module<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`task_exec_policy_arns_map` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    A map of name to IAM Policy ARNs to attach to the generated task execution role.<br/>
+    The names are arbitrary, but must be known at plan time. The purpose of the name<br/>
+    is so that changes to one ARN do not cause a ripple effect on the other ARNs.<br/>
+    If you cannot provide unique names known at plan time, use `task_exec_policy_arns` instead.<br/>
+    <br/>
+    <br/>
+    **Type:** `map(string)`
+    <br/>
+    **Default value:** `{}`
+  </dd>
+  <dt>`task_iam_role_component` (`string`) <i>optional</i></dt>
+  <dd>
+    A component that outputs an iam_role module as 'role' for adding to the service as a whole.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`task_policy_arns` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    The IAM policy ARNs to attach to the ECS task IAM role<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** 
+    ```hcl
+    [
+      "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
+      "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
+    ]
+    ```
+    
+  </dd>
+  <dt>`task_security_group_component` (`string`) <i>optional</i></dt>
+  <dd>
+    A component that outputs security_group_id for adding to the service as a whole.<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`unauthenticated_paths` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    Unauthenticated path pattern to match<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`unauthenticated_priority` (`string`) <i>optional</i></dt>
+  <dd>
+    The priority for the rules without authentication, between 1 and 50000 (1 being highest priority). Must be different from `authenticated_priority` since a listener can't have multiple rules with the same priority	<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `0`
+  </dd>
+  <dt>`use_lb` (`bool`) <i>optional</i></dt>
+  <dd>
+    Whether use load balancer for the service<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`use_rds_client_sg` (`bool`) <i>optional</i></dt>
+  <dd>
+    Use the RDS client security group<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `false`
+  </dd>
+  <dt>`vanity_alias` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    The vanity aliases to use for the public LB.<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`vanity_domain` (`string`) <i>optional</i></dt>
+  <dd>
+    Whether to use the vanity domain alias for the service<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `null`
+  </dd>
+  <dt>`zone_component` (`string`) <i>optional</i></dt>
+  <dd>
+    The component name to look up service domain remote-state on<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"dns-delegated"`
+  </dd>
+  <dt>`zone_component_output` (`string`) <i>optional</i></dt>
+  <dd>
+    A json query to use to get the zone domain from the remote state. See <br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `".default_domain_name"`
+  </dd></dl>
+
+
+### Outputs
+
+<dl>
+  <dt>`ecs_cluster_arn`</dt>
+  <dd>
+    Selected ECS cluster ARN<br/>
+  </dd>
+  <dt>`environment_map`</dt>
+  <dd>
+    Environment variables to pass to the container, this is a map of key/value pairs, where the key is `containerName,variableName`<br/>
+  </dd>
+  <dt>`full_domain`</dt>
+  <dd>
+    Domain to respond to GET requests<br/>
+  </dd>
+  <dt>`github_actions_iam_role_arn`</dt>
+  <dd>
+    ARN of IAM role for GitHub Actions<br/>
+  </dd>
+  <dt>`github_actions_iam_role_name`</dt>
+  <dd>
+    Name of IAM role for GitHub Actions<br/>
+  </dd>
+  <dt>`lb_arn`</dt>
+  <dd>
+    Selected LB ARN<br/>
+  </dd>
+  <dt>`lb_listener_https`</dt>
+  <dd>
+    Selected LB HTTPS Listener<br/>
+  </dd>
+  <dt>`lb_sg_id`</dt>
+  <dd>
+    Selected LB SG ID<br/>
+  </dd>
+  <dt>`logs`</dt>
+  <dd>
+    Output of cloudwatch logs module<br/>
+  </dd>
+  <dt>`service_image`</dt>
+  <dd>
+    The image of the service container<br/>
+  </dd>
+  <dt>`ssm_key_prefix`</dt>
+  <dd>
+    SSM prefix<br/>
+  </dd>
+  <dt>`ssm_parameters`</dt>
+  <dd>
+    SSM parameters for the ECS Service<br/>
+  </dd>
+  <dt>`subnet_ids`</dt>
+  <dd>
+    Selected subnet IDs<br/>
+  </dd>
+  <dt>`task_definition_arn`</dt>
+  <dd>
+    The task definition ARN<br/>
+  </dd>
+  <dt>`task_definition_revision`</dt>
+  <dd>
+    The task definition revision<br/>
+  </dd>
+  <dt>`task_template`</dt>
+  <dd>
+    The task template rendered<br/>
+  </dd>
+  <dt>`vpc_id`</dt>
+  <dd>
+    Selected VPC ID<br/>
+  </dd>
+  <dt>`vpc_sg_id`</dt>
+  <dd>
+    Selected VPC SG ID<br/>
+  </dd>
+</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

@@ -25,85 +25,352 @@ components:
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
-| <a name="requirement_local"></a> [local](#requirement\_local) | >= 1.3 |
-| <a name="requirement_template"></a> [template](#requirement\_template) | >= 2.2 |
 
-## Providers
+## Reference
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
-| <a name="provider_terraform"></a> [terraform](#provider\_terraform) | n/a |
+### Version Requirements
 
-## Modules
+- [`terraform`](https://registry.terraform.io/modules/terraform/>= 0.13.0), version: >= 0.13.0
+- [`aws`](https://registry.terraform.io/modules/aws/>= 3.0), version: >= 3.0
+- [`local`](https://registry.terraform.io/modules/local/>= 1.3), version: >= 1.3
+- [`template`](https://registry.terraform.io/modules/template/>= 2.2), version: >= 2.2
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_alb-controller"></a> [alb-controller](#module\_alb-controller) | ./modules/service-account | n/a |
-| <a name="module_autoscaler"></a> [autoscaler](#module\_autoscaler) | ./modules/service-account | n/a |
-| <a name="module_cert-manager"></a> [cert-manager](#module\_cert-manager) | ./modules/service-account | n/a |
-| <a name="module_external-dns"></a> [external-dns](#module\_external-dns) | ./modules/service-account | n/a |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/cloudposse/terraform-null-label.git | tags/0.21.0 |
+https://registry.terraform.io/modules/cloudposse/stack-config/yaml//remote-state
 
-## Resources
+### Providers
 
-| Name | Type |
-|------|------|
-| [aws_iam_policy_document.autoscaler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.cert_manager](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.external_dns](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_kms_alias.ssm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/kms_alias) | data source |
-| [terraform_remote_state.account_map](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
-| [terraform_remote_state.dns_delegated](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
-| [terraform_remote_state.dns_gbl_delegated](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
-| [terraform_remote_state.eks](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
+- `aws`, version: >= 3.0
+- `terraform`
 
-## Inputs
+### Modules
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_account_map_environment_name"></a> [account\_map\_environment\_name](#input\_account\_map\_environment\_name) | The name of the environment where `account_map` is provisioned | `string` | `"gbl"` | no |
-| <a name="input_account_map_stage_name"></a> [account\_map\_stage\_name](#input\_account\_map\_stage\_name) | The name of the stage where `account_map` is provisioned | `string` | `"root"` | no |
-| <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional tags for appending to tags\_as\_list\_of\_maps. Not added to `tags`. | `map(string)` | `{}` | no |
-| <a name="input_attributes"></a> [attributes](#input\_attributes) | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
-| <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | <pre>object({<br>    enabled             = bool<br>    namespace           = string<br>    environment         = string<br>    stage               = string<br>    name                = string<br>    delimiter           = string<br>    attributes          = list(string)<br>    tags                = map(string)<br>    additional_tag_map  = map(string)<br>    regex_replace_chars = string<br>    label_order         = list(string)<br>    id_length_limit     = number<br>  })</pre> | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_order": [],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
-| <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| <a name="input_dns_gbl_delegated_environment_name"></a> [dns\_gbl\_delegated\_environment\_name](#input\_dns\_gbl\_delegated\_environment\_name) | The name of the environment where global `dns_delegated` is provisioned | `string` | `"gbl"` | no |
-| <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters.<br>Set to `0` for unlimited length.<br>Set to `null` for default, which is `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_kms_alias_name"></a> [kms\_alias\_name](#input\_kms\_alias\_name) | AWS KMS alias used for encryption/decryption of SSM parameters default is alias used in SSM | `string` | `"alias/aws/ssm"` | no |
-| <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The naming order of the id output and Name tag.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 5 elements, but at least one must be present. | `list(string)` | `null` | no |
-| <a name="input_name"></a> [name](#input\_name) | Solution name, e.g. 'app' or 'jenkins' | `string` | `null` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp' | `string` | `null` | no |
-| <a name="input_optional_service_accounts"></a> [optional\_service\_accounts](#input\_optional\_service\_accounts) | List of optional service accounts to enable | `list(string)` | `[]` | no |
-| <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
-| <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_stage"></a> [stage](#input\_stage) | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
-| <a name="input_standard_service_accounts"></a> [standard\_service\_accounts](#input\_standard\_service\_accounts) | List of standard service accounts expected to be enabled everywhere | `list(string)` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
-| <a name="input_tfstate_account_id"></a> [tfstate\_account\_id](#input\_tfstate\_account\_id) | The ID of the account where the Terraform remote state backend is provisioned | `string` | `""` | no |
-| <a name="input_tfstate_assume_role"></a> [tfstate\_assume\_role](#input\_tfstate\_assume\_role) | Set to false to use the caller's role to access the Terraform remote state | `bool` | `true` | no |
-| <a name="input_tfstate_bucket_environment_name"></a> [tfstate\_bucket\_environment\_name](#input\_tfstate\_bucket\_environment\_name) | The name of the environment for Terraform state bucket | `string` | `""` | no |
-| <a name="input_tfstate_bucket_stage_name"></a> [tfstate\_bucket\_stage\_name](#input\_tfstate\_bucket\_stage\_name) | The name of the stage for Terraform state bucket | `string` | `"root"` | no |
-| <a name="input_tfstate_existing_role_arn"></a> [tfstate\_existing\_role\_arn](#input\_tfstate\_existing\_role\_arn) | The ARN of the existing IAM Role to access the Terraform remote state. If not provided and `remote_state_assume_role` is `true`, a role will be constructed from `remote_state_role_arn_template` | `string` | `""` | no |
-| <a name="input_tfstate_role_arn_template"></a> [tfstate\_role\_arn\_template](#input\_tfstate\_role\_arn\_template) | IAM Role ARN template for accessing the Terraform remote state | `string` | `"arn:aws:iam::%s:role/%s-%s-%s-%s"` | no |
-| <a name="input_tfstate_role_environment_name"></a> [tfstate\_role\_environment\_name](#input\_tfstate\_role\_environment\_name) | The name of the environment for Terraform state IAM role | `string` | `"gbl"` | no |
-| <a name="input_tfstate_role_name"></a> [tfstate\_role\_name](#input\_tfstate\_role\_name) | IAM Role name for accessing the Terraform remote state | `string` | `"terraform"` | no |
-| <a name="input_tfstate_role_stage_name"></a> [tfstate\_role\_stage\_name](#input\_tfstate\_role\_stage\_name) | The name of the stage for Terraform state IAM role | `string` | `"root"` | no |
+Name | Version | Source | Description
+--- | --- | --- | ---
+`alb-controller` | latest | [`./modules/service-account`](https://registry.terraform.io/modules/./modules/service-account/) | n/a
+`autoscaler` | latest | [`./modules/service-account`](https://registry.terraform.io/modules/./modules/service-account/) | n/a
+`cert-manager` | latest | [`./modules/service-account`](https://registry.terraform.io/modules/./modules/service-account/) | n/a
+`external-dns` | latest | [`./modules/service-account`](https://registry.terraform.io/modules/./modules/service-account/) | n/a
+`iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
+`this` | tags/0.21.0 | [`git::https://github.com/cloudposse/terraform-null-label.git`](https://registry.terraform.io/modules/git::https:/github.com/cloudposse/terraform-null-label.git/tags/0.21.0) | n/a
 
-## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_service_accounts"></a> [service\_accounts](#output\_service\_accounts) | n/a |
+### Resources
+
+The following resources are used by this module:
+
+
+### Data Sources
+
+The following data sources are used by this module:
+
+  - [`aws_iam_policy_document.autoscaler`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
+  - [`aws_iam_policy_document.cert_manager`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
+  - [`aws_iam_policy_document.external_dns`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
+  - [`aws_kms_alias.ssm`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/kms_alias) (data source)
+  - [`terraform_remote_state.account_map`](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) (data source)
+  - [`terraform_remote_state.dns_delegated`](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) (data source)
+  - [`terraform_remote_state.dns_gbl_delegated`](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) (data source)
+  - [`terraform_remote_state.eks`](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) (data source)
+
+### Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+
+<dl>
+  <dt>`additional_tag_map` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
+    **Required:** No<br/>
+    **Type:** `map(string)`
+    **Default value:** `{}`
+  </dd>
+  <dt>`attributes` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    Additional attributes (e.g. `1`)<br/>
+    **Required:** No<br/>
+    **Type:** `list(string)`
+    **Default value:** `[]`
+  </dd>
+  <dt>`context` <i>optional</i></dt>
+  <dd>
+    Single object for setting entire context at once.<br/>
+    See description of individual variables for details.<br/>
+    Leave string and numeric variables as `null` to use default value.<br/>
+    Individual variable settings (non-null) override settings in context object,<br/>
+    except for attributes, tags, and additional_tag_map, which are merged.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** 
+
+    ```hcl
+    object({
+    enabled             = bool
+    namespace           = string
+    environment         = string
+    stage               = string
+    name                = string
+    delimiter           = string
+    attributes          = list(string)
+    tags                = map(string)
+    additional_tag_map  = map(string)
+    regex_replace_chars = string
+    label_order         = list(string)
+    id_length_limit     = number
+  })
+    ```
+    <br/>
+    
+    **Default value:** 
+    ```hcl
+    {
+      "additional_tag_map": {},
+      "attributes": [],
+      "delimiter": null,
+      "enabled": true,
+      "environment": null,
+      "id_length_limit": null,
+      "label_order": [],
+      "name": null,
+      "namespace": null,
+      "regex_replace_chars": null,
+      "stage": null,
+      "tags": {}
+    }
+    ```
+    
+  </dd>
+  <dt>`delimiter` (`string`) <i>optional</i></dt>
+  <dd>
+    Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br/>
+    Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`enabled` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to false to prevent the module from creating any resources<br/>
+    **Required:** No<br/>
+    **Type:** `bool`
+    **Default value:** `null`
+  </dd>
+  <dt>`environment` (`string`) <i>optional</i></dt>
+  <dd>
+    Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`id_length_limit` (`number`) <i>optional</i></dt>
+  <dd>
+    Limit `id` to this many characters.<br/>
+    Set to `0` for unlimited length.<br/>
+    Set to `null` for default, which is `0`.<br/>
+    Does not affect `id_full`.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `number`
+    **Default value:** `null`
+  </dd>
+  <dt>`label_order` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    The naming order of the id output and Name tag.<br/>
+    Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+    You can omit any of the 5 elements, but at least one must be present.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `list(string)`
+    **Default value:** `null`
+  </dd>
+  <dt>`name` (`string`) <i>optional</i></dt>
+  <dd>
+    Solution name, e.g. 'app' or 'jenkins'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`namespace` (`string`) <i>optional</i></dt>
+  <dd>
+    Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`regex_replace_chars` (`string`) <i>optional</i></dt>
+  <dd>
+    Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br/>
+    If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+    <br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`stage` (`string`) <i>optional</i></dt>
+  <dd>
+    Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
+    **Required:** No<br/>
+    **Type:** `string`
+    **Default value:** `null`
+  </dd>
+  <dt>`tags` (`map(string)`) <i>optional</i></dt>
+  <dd>
+    Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
+    **Required:** No<br/>
+    **Type:** `map(string)`
+    **Default value:** `{}`
+  </dd>
+</dl>
+
+### Required Inputs
+
+<dl>
+  <dt>`region` (`string`) <i>required</i></dt>
+  <dd>
+    AWS Region<br/>
+
+    **Type:** `string`
+    <br/>
+    **Default value:** ``
+
+  </dd>
+  <dt>`standard_service_accounts` (`list(string)`) <i>required</i></dt>
+  <dd>
+    List of standard service accounts expected to be enabled everywhere<br/>
+
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** ``
+
+  </dd>
+</dl>
+
+### Optional Inputs
+
+<dl>
+  <dt>`account_map_environment_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the environment where `account_map` is provisioned<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"gbl"`
+  </dd>
+  <dt>`account_map_stage_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the stage where `account_map` is provisioned<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"root"`
+  </dd>
+  <dt>`dns_gbl_delegated_environment_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the environment where global `dns_delegated` is provisioned<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"gbl"`
+  </dd>
+  <dt>`kms_alias_name` (`string`) <i>optional</i></dt>
+  <dd>
+    AWS KMS alias used for encryption/decryption of SSM parameters default is alias used in SSM<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"alias/aws/ssm"`
+  </dd>
+  <dt>`optional_service_accounts` (`list(string)`) <i>optional</i></dt>
+  <dd>
+    List of optional service accounts to enable<br/>
+    <br/>
+    **Type:** `list(string)`
+    <br/>
+    **Default value:** `[]`
+  </dd>
+  <dt>`tfstate_account_id` (`string`) <i>optional</i></dt>
+  <dd>
+    The ID of the account where the Terraform remote state backend is provisioned<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`tfstate_assume_role` (`bool`) <i>optional</i></dt>
+  <dd>
+    Set to false to use the caller's role to access the Terraform remote state<br/>
+    <br/>
+    **Type:** `bool`
+    <br/>
+    **Default value:** `true`
+  </dd>
+  <dt>`tfstate_bucket_environment_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the environment for Terraform state bucket<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`tfstate_bucket_stage_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the stage for Terraform state bucket<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"root"`
+  </dd>
+  <dt>`tfstate_existing_role_arn` (`string`) <i>optional</i></dt>
+  <dd>
+    The ARN of the existing IAM Role to access the Terraform remote state. If not provided and `remote_state_assume_role` is `true`, a role will be constructed from `remote_state_role_arn_template`<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `""`
+  </dd>
+  <dt>`tfstate_role_arn_template` (`string`) <i>optional</i></dt>
+  <dd>
+    IAM Role ARN template for accessing the Terraform remote state<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"arn:aws:iam::%s:role/%s-%s-%s-%s"`
+  </dd>
+  <dt>`tfstate_role_environment_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the environment for Terraform state IAM role<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"gbl"`
+  </dd>
+  <dt>`tfstate_role_name` (`string`) <i>optional</i></dt>
+  <dd>
+    IAM Role name for accessing the Terraform remote state<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"terraform"`
+  </dd>
+  <dt>`tfstate_role_stage_name` (`string`) <i>optional</i></dt>
+  <dd>
+    The name of the stage for Terraform state IAM role<br/>
+    <br/>
+    **Type:** `string`
+    <br/>
+    **Default value:** `"root"`
+  </dd></dl>
+
+
+### Outputs
+
+<dl>
+  <dt>`service_accounts`</dt>
+  <dd>
+    n/a<br/>
+  </dd>
+</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
