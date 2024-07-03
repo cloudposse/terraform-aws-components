@@ -106,15 +106,13 @@ The following data sources are used by this module:
 
 ### Context Variables
 
-The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
-<dl>
-</dl>
+<details>
+<summary>Click to expand</summary>
+</details>
 
 ### Required Inputs
-
-<dl>
-</dl>
 
 
 

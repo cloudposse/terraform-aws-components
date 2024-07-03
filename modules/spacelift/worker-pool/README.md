@@ -176,373 +176,768 @@ The following data sources are used by this module:
 
 ### Context Variables
 
-The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
+<details>
+<summary>Click to expand</summary>
+  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+This is for some rare cases where resources want additional configuration of tags<br/>
+and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+<br/>
 <dl>
-  <dt>`additional_tag_map` (`map(string)`) <i>optional</i></dt>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
-    This is for some rare cases where resources want additional configuration of tags<br/>
-    and therefore take a list of maps with tag key, value, and additional configuration.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `map(string)`
-    **Default value:** `{}`
+  `map(string)`
   </dd>
-  <dt>`attributes` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
-    in the order they appear in the list. New attributes are appended to the<br/>
-    end of the list. The elements of the list are joined by the `delimiter`<br/>
-    and treated as a single ID element.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `list(string)`
-    **Default value:** `[]`
-  </dd>
-  <dt>`context` (`any`) <i>optional</i></dt>
-  <dd>
-    Single object for setting entire context at once.<br/>
-    See description of individual variables for details.<br/>
-    Leave string and numeric variables as `null` to use default value.<br/>
-    Individual variable settings (non-null) override settings in context object,<br/>
-    except for attributes, tags, and additional_tag_map, which are merged.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `any`
-    **Default value:** 
-    ```hcl
-    {
-      "additional_tag_map": {},
-      "attributes": [],
-      "delimiter": null,
-      "descriptor_formats": {},
-      "enabled": true,
-      "environment": null,
-      "id_length_limit": null,
-      "label_key_case": null,
-      "label_order": [],
-      "label_value_case": null,
-      "labels_as_tags": [
-        "unset"
-      ],
-      "name": null,
-      "namespace": null,
-      "regex_replace_chars": null,
-      "stage": null,
-      "tags": {},
-      "tenant": null
-    }
-    ```
-    
-  </dd>
-  <dt>`delimiter` (`string`) <i>optional</i></dt>
-  <dd>
-    Delimiter to be used between ID elements.<br/>
-    Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`descriptor_formats` (`any`) <i>optional</i></dt>
-  <dd>
-    Describe additional descriptors to be output in the `descriptors` output map.<br/>
-    Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
-    `{<br/>
-       format = string<br/>
-       labels = list(string)<br/>
-    }`<br/>
-    (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
-    `format` is a Terraform format string to be passed to the `format()` function.<br/>
-    `labels` is a list of labels, in order, to pass to `format()` function.<br/>
-    Label values will be normalized before being passed to `format()` so they will be<br/>
-    identical to how they appear in `id`.<br/>
-    Default is `{}` (`descriptors` output will be empty).<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `any`
-    **Default value:** `{}`
-  </dd>
-  <dt>`enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Set to false to prevent the module from creating any resources<br/>
-    **Required:** No<br/>
-    **Type:** `bool`
-    **Default value:** `null`
-  </dd>
-  <dt>`environment` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`id_length_limit` (`number`) <i>optional</i></dt>
-  <dd>
-    Limit `id` to this many characters (minimum 6).<br/>
-    Set to `0` for unlimited length.<br/>
-    Set to `null` for keep the existing setting, which defaults to `0`.<br/>
-    Does not affect `id_full`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `number`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_key_case` (`string`) <i>optional</i></dt>
-  <dd>
-    Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
-    Does not affect keys of tags passed in via the `tags` input.<br/>
-    Possible values: `lower`, `title`, `upper`.<br/>
-    Default value: `title`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_order` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    The order in which the labels (ID elements) appear in the `id`.<br/>
-    Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
-    You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `list(string)`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_value_case` (`string`) <i>optional</i></dt>
-  <dd>
-    Controls the letter case of ID elements (labels) as included in `id`,<br/>
-    set as tag values, and output by this module individually.<br/>
-    Does not affect values of tags passed in via the `tags` input.<br/>
-    Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
-    Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
-    Default value: `lower`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`labels_as_tags` (`set(string)`) <i>optional</i></dt>
-  <dd>
-    Set of labels (ID elements) to include as tags in the `tags` output.<br/>
-    Default is to include all labels.<br/>
-    Tags with empty values will not be included in the `tags` output.<br/>
-    Set to `[]` to suppress all generated tags.<br/>
-    **Notes:**<br/>
-      The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
-      Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
-      changed in later chained modules. Attempts to change it will be silently ignored.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `set(string)`
-    **Default value:** 
-    ```hcl
-    [
-      "default"
-    ]
-    ```
-    
-  </dd>
-  <dt>`name` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
-    This is the only ID element not also included as a `tag`.<br/>
-    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`namespace` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`regex_replace_chars` (`string`) <i>optional</i></dt>
-  <dd>
-    Terraform regular expression (regex) string.<br/>
-    Characters matching the regex will be removed from the ID elements.<br/>
-    If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`stage` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`tags` (`map(string)`) <i>optional</i></dt>
-  <dd>
-    Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
-    Neither the tag keys nor the tag values will be modified by this module.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `map(string)`
-    **Default value:** `{}`
-  </dd>
-  <dt>`tenant` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
+  `{}`
   </dd>
 </dl>
+
+---
+
+
+  ### `attributes` (`list(string)`) <i>optional</i>
+
+
+ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+in the order they appear in the list. New attributes are appended to the<br/>
+end of the list. The elements of the list are joined by the `delimiter`<br/>
+and treated as a single ID element.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `any`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  {
+    "additional_tag_map": {},
+    "attributes": [],
+    "delimiter": null,
+    "descriptor_formats": {},
+    "enabled": true,
+    "environment": null,
+    "id_length_limit": null,
+    "label_key_case": null,
+    "label_order": [],
+    "label_value_case": null,
+    "labels_as_tags": [
+      "unset"
+    ],
+    "name": null,
+    "namespace": null,
+    "regex_replace_chars": null,
+    "stage": null,
+    "tags": {},
+    "tenant": null
+  }
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between ID elements.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `descriptor_formats` (`any`) <i>optional</i>
+
+
+Describe additional descriptors to be output in the `descriptors` output map.<br/>
+Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+`{<br/>
+   format = string<br/>
+   labels = list(string)<br/>
+}`<br/>
+(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+`format` is a Terraform format string to be passed to the `format()` function.<br/>
+`labels` is a list of labels, in order, to pass to `format()` function.<br/>
+Label values will be normalized before being passed to `format()` so they will be<br/>
+identical to how they appear in `id`.<br/>
+Default is `{}` (`descriptors` output will be empty).<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `any`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `environment` (`string`) <i>optional</i>
+
+
+ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_key_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+Does not affect keys of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_order` (`list(string)`) <i>optional</i>
+
+
+The order in which the labels (ID elements) appear in the `id`.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_value_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of ID elements (labels) as included in `id`,<br/>
+set as tag values, and output by this module individually.<br/>
+Does not affect values of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+Default value: `lower`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+
+
+Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+Default is to include all labels.<br/>
+Tags with empty values will not be included in the `tags` output.<br/>
+Set to `[]` to suppress all generated tags.<br/>
+**Notes:**<br/>
+  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `set(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  [
+    "default"
+  ]
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `name` (`string`) <i>optional</i>
+
+
+ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+This is the only ID element not also included as a `tag`.<br/>
+The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `namespace` (`string`) <i>optional</i>
+
+
+ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Terraform regular expression (regex) string.<br/>
+Characters matching the regex will be removed from the ID elements.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `stage` (`string`) <i>optional</i>
+
+
+ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+Neither the tag keys nor the tag values will be modified by this module.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `map(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tenant` (`string`) <i>optional</i>
+
+
+ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+</details>
 
 ### Required Inputs
+  ### `cpu_utilization_high_threshold_percent` (`number`) <i>required</i>
 
+
+CPU utilization high threshold<br/>
 <dl>
-  <dt>`cpu_utilization_high_threshold_percent` (`number`) <i>required</i></dt>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    CPU utilization high threshold<br/>
-
-    **Type:** `number`
-    <br/>
-    **Default value:** ``
-
+  `number`
   </dd>
-  <dt>`cpu_utilization_low_threshold_percent` (`number`) <i>required</i></dt>
+  <dt>Default value</dt>
   <dd>
-    CPU utilization low threshold<br/>
-
-    **Type:** `number`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`ecr_repo_name` (`string`) <i>required</i></dt>
-  <dd>
-    ECR repository name<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`max_size` (`number`) <i>required</i></dt>
-  <dd>
-    The maximum size of the autoscale group<br/>
-
-    **Type:** `number`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`min_size` (`number`) <i>required</i></dt>
-  <dd>
-    The minimum size of the autoscale group<br/>
-
-    **Type:** `number`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`region` (`string`) <i>required</i></dt>
-  <dd>
-    AWS Region<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`spacelift_api_endpoint` (`string`) <i>required</i></dt>
-  <dd>
-    The Spacelift API endpoint URL (e.g. https://example.app.spacelift.io)<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`wait_for_capacity_timeout` (`string`) <i>required</i></dt>
-  <dd>
-    A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. (See also Waiting for Capacity below.) Setting this to '0' causes Terraform to skip all Capacity Waiting behavior<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
+  ``
   </dd>
 </dl>
 
-### Optional Inputs
+---
 
+
+  ### `cpu_utilization_low_threshold_percent` (`number`) <i>required</i>
+
+
+CPU utilization low threshold<br/>
 <dl>
-  <dt>`account_map_environment_name` (`string`) <i>optional</i></dt>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    The name of the environment where `account_map` is provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"gbl"`
+  `number`
   </dd>
-  <dt>`account_map_stage_name` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The name of the stage where `account_map` is provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"root"`
+  ``
   </dd>
-  <dt>`account_map_tenant_name` (`string`) <i>optional</i></dt>
-  <dd>
-    The name of the tenant where `account_map` is provisioned.<br/>
-    <br/>
-    If the `tenant` label is not used, leave this as `null`.<br/>
-    <br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd>
-  <dt>`architecture` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    OS architecture of the EC2 instance AMI<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** 
-    ```hcl
-    [
-      "x86_64"
-    ]
-    ```
-    
-  </dd>
-  <dt>`aws_config_file` (`string`) <i>optional</i></dt>
-  <dd>
-    The AWS_CONFIG_FILE used by the worker. Can be overridden by `/.spacelift/config.yml`.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"/etc/aws-config/aws-config-spacelift"`
-  </dd>
-  <dt>`aws_profile` (`string`) <i>optional</i></dt>
-  <dd>
-    The AWS_PROFILE used by the worker. If not specified, `"${var.namespace}-identity"` will be used.<br/>
-    Can be overridden by `/.spacelift/config.yml`.<br/>
-    <br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd>
-  <dt>`block_device_mappings` <i>optional</i></dt>
-  <dd>
-    Specify volumes to attach to the instance besides the volumes specified by the AMI<br/>
-    <br/>
-    **Type:** 
+</dl>
 
-    ```hcl
-    list(object({
+---
+
+
+  ### `ecr_repo_name` (`string`) <i>required</i>
+
+
+ECR repository name<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  ``
+  </dd>
+</dl>
+
+---
+
+
+  ### `max_size` (`number`) <i>required</i>
+
+
+The maximum size of the autoscale group<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  ``
+  </dd>
+</dl>
+
+---
+
+
+  ### `min_size` (`number`) <i>required</i>
+
+
+The minimum size of the autoscale group<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  ``
+  </dd>
+</dl>
+
+---
+
+
+  ### `region` (`string`) <i>required</i>
+
+
+AWS Region<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  ``
+  </dd>
+</dl>
+
+---
+
+
+  ### `spacelift_api_endpoint` (`string`) <i>required</i>
+
+
+The Spacelift API endpoint URL (e.g. https://example.app.spacelift.io)<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  ``
+  </dd>
+</dl>
+
+---
+
+
+  ### `wait_for_capacity_timeout` (`string`) <i>required</i>
+
+
+A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. (See also Waiting for Capacity below.) Setting this to '0' causes Terraform to skip all Capacity Waiting behavior<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  ``
+  </dd>
+</dl>
+
+---
+
+
+
+### Optional Inputs
+  ### `account_map_environment_name` (`string`) <i>optional</i>
+
+
+The name of the environment where `account_map` is provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"gbl"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `account_map_stage_name` (`string`) <i>optional</i>
+
+
+The name of the stage where `account_map` is provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"root"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `account_map_tenant_name` (`string`) <i>optional</i>
+
+
+The name of the tenant where `account_map` is provisioned.<br/>
+<br/>
+If the `tenant` label is not used, leave this as `null`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `architecture` (`list(string)`) <i>optional</i>
+
+
+OS architecture of the EC2 instance AMI<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  [
+    "x86_64"
+  ]
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `aws_config_file` (`string`) <i>optional</i>
+
+
+The AWS_CONFIG_FILE used by the worker. Can be overridden by `/.spacelift/config.yml`.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"/etc/aws-config/aws-config-spacelift"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `aws_profile` (`string`) <i>optional</i>
+
+
+The AWS_PROFILE used by the worker. If not specified, `"${var.namespace}-identity"` will be used.<br/>
+Can be overridden by `/.spacelift/config.yml`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `block_device_mappings` <i>optional</i>
+
+
+Specify volumes to attach to the instance besides the volumes specified by the AMI<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  list(object({
     device_name  = string
     no_device    = bool
     virtual_name = string
@@ -556,174 +951,414 @@ The following variables are defined in the `context.tf` file of this module and 
       volume_type           = string
     })
   }))
-    ```
-    
-    <br/>
-    **Default value:** `[]`
+  ```
+  
   </dd>
-  <dt>`custom_spacelift_ami` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Custom spacelift AMI<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `[]`
   </dd>
-  <dt>`default_cooldown` (`number`) <i>optional</i></dt>
-  <dd>
-    The amount of time, in seconds, after a scaling activity completes before another scaling activity can start<br/>
-    <br/>
-    **Type:** `number`
-    <br/>
-    **Default value:** `300`
-  </dd>
-  <dt>`desired_capacity` (`number`) <i>optional</i></dt>
-  <dd>
-    The number of Amazon EC2 instances that should be running in the group, if not set will use `min_size` as value<br/>
-    <br/>
-    **Type:** `number`
-    <br/>
-    **Default value:** `null`
-  </dd>
-  <dt>`ebs_optimized` (`bool`) <i>optional</i></dt>
-  <dd>
-    If true, the launched EC2 instance will be EBS-optimized<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
-  </dd>
-  <dt>`ecr_environment_name` (`string`) <i>optional</i></dt>
-  <dd>
-    The name of the environment where `ecr` is provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
-  </dd>
-  <dt>`ecr_region` (`string`) <i>optional</i></dt>
-  <dd>
-    AWS region that contains the ECR infrastructure repo<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
-  </dd>
-  <dt>`ecr_stage_name` (`string`) <i>optional</i></dt>
-  <dd>
-    The name of the stage where `ecr` is provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"artifacts"`
-  </dd>
-  <dt>`ecr_tenant_name` (`string`) <i>optional</i></dt>
-  <dd>
-    The name of the tenant where `ecr` is provisioned.<br/>
-    <br/>
-    If the `tenant` label is not used, leave this as `null`.<br/>
-    <br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd>
-  <dt>`github_netrc_enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Whether to create a GitHub .netrc file so Spacelift can clone private GitHub repositories.<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
-  </dd>
-  <dt>`github_netrc_ssm_path_token` (`string`) <i>optional</i></dt>
-  <dd>
-    If `github_netrc` is enabled, this is the SSM path to retrieve the GitHub token.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"/github/token"`
-  </dd>
-  <dt>`github_netrc_ssm_path_user` (`string`) <i>optional</i></dt>
-  <dd>
-    If `github_netrc` is enabled, this is the SSM path to retrieve the GitHub user<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"/github/user"`
-  </dd>
-  <dt>`health_check_grace_period` (`number`) <i>optional</i></dt>
-  <dd>
-    Time (in seconds) after instance comes into service before checking health<br/>
-    <br/>
-    **Type:** `number`
-    <br/>
-    **Default value:** `300`
-  </dd>
-  <dt>`health_check_type` (`string`) <i>optional</i></dt>
-  <dd>
-    Controls how health checking is done. Valid values are `EC2` or `ELB`<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"EC2"`
-  </dd>
-  <dt>`iam_attributes` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    Additional attributes to add to the IDs of the IAM role and policy<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
-  </dd>
-  <dt>`infracost_api_token_ssm_path` (`string`) <i>optional</i></dt>
-  <dd>
-    This is the SSM path to retrieve and set the INFRACOST_API_TOKEN environment variable<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"/infracost/token"`
-  </dd>
-  <dt>`infracost_cli_args` (`string`) <i>optional</i></dt>
-  <dd>
-    These are the CLI args passed to infracost<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
-  </dd>
-  <dt>`infracost_enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Whether to enable infracost for Spacelift stacks<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
-  </dd>
-  <dt>`infracost_warn_on_failure` (`bool`) <i>optional</i></dt>
-  <dd>
-    A failure executing Infracost, or a non-zero exit code being returned from the command will cause runs to fail. If this is true, this will only warn instead of failing the stack.<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
-  </dd>
-  <dt>`instance_lifetime` (`number`) <i>optional</i></dt>
-  <dd>
-    Number of seconds after which the instance will be terminated. The default is set to 14 days.<br/>
-    <br/>
-    **Type:** `number`
-    <br/>
-    **Default value:** `1209600`
-  </dd>
-  <dt>`instance_refresh` <i>optional</i></dt>
-  <dd>
-    The instance refresh definition. If this block is configured, an Instance Refresh will be started when the Auto Scaling Group is updated<br/>
-    <br/>
-    **Type:** 
+</dl>
 
-    ```hcl
-    object({
+---
+
+
+  ### `custom_spacelift_ami` (`bool`) <i>optional</i>
+
+
+Custom spacelift AMI<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `default_cooldown` (`number`) <i>optional</i>
+
+
+The amount of time, in seconds, after a scaling activity completes before another scaling activity can start<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `300`
+  </dd>
+</dl>
+
+---
+
+
+  ### `desired_capacity` (`number`) <i>optional</i>
+
+
+The number of Amazon EC2 instances that should be running in the group, if not set will use `min_size` as value<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `ebs_optimized` (`bool`) <i>optional</i>
+
+
+If true, the launched EC2 instance will be EBS-optimized<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `ecr_environment_name` (`string`) <i>optional</i>
+
+
+The name of the environment where `ecr` is provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `ecr_region` (`string`) <i>optional</i>
+
+
+AWS region that contains the ECR infrastructure repo<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `ecr_stage_name` (`string`) <i>optional</i>
+
+
+The name of the stage where `ecr` is provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"artifacts"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `ecr_tenant_name` (`string`) <i>optional</i>
+
+
+The name of the tenant where `ecr` is provisioned.<br/>
+<br/>
+If the `tenant` label is not used, leave this as `null`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `github_netrc_enabled` (`bool`) <i>optional</i>
+
+
+Whether to create a GitHub .netrc file so Spacelift can clone private GitHub repositories.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `github_netrc_ssm_path_token` (`string`) <i>optional</i>
+
+
+If `github_netrc` is enabled, this is the SSM path to retrieve the GitHub token.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"/github/token"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `github_netrc_ssm_path_user` (`string`) <i>optional</i>
+
+
+If `github_netrc` is enabled, this is the SSM path to retrieve the GitHub user<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"/github/user"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `health_check_grace_period` (`number`) <i>optional</i>
+
+
+Time (in seconds) after instance comes into service before checking health<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `300`
+  </dd>
+</dl>
+
+---
+
+
+  ### `health_check_type` (`string`) <i>optional</i>
+
+
+Controls how health checking is done. Valid values are `EC2` or `ELB`<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"EC2"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `iam_attributes` (`list(string)`) <i>optional</i>
+
+
+Additional attributes to add to the IDs of the IAM role and policy<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `infracost_api_token_ssm_path` (`string`) <i>optional</i>
+
+
+This is the SSM path to retrieve and set the INFRACOST_API_TOKEN environment variable<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"/infracost/token"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `infracost_cli_args` (`string`) <i>optional</i>
+
+
+These are the CLI args passed to infracost<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `infracost_enabled` (`bool`) <i>optional</i>
+
+
+Whether to enable infracost for Spacelift stacks<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `infracost_warn_on_failure` (`bool`) <i>optional</i>
+
+
+A failure executing Infracost, or a non-zero exit code being returned from the command will cause runs to fail. If this is true, this will only warn instead of failing the stack.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `instance_lifetime` (`number`) <i>optional</i>
+
+
+Number of seconds after which the instance will be terminated. The default is set to 14 days.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `1209600`
+  </dd>
+</dl>
+
+---
+
+
+  ### `instance_refresh` <i>optional</i>
+
+
+The instance refresh definition. If this block is configured, an Instance Refresh will be started when the Auto Scaling Group is updated<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  object({
     strategy = string
     preferences = object({
       instance_warmup        = optional(number, null)
@@ -733,35 +1368,71 @@ The following variables are defined in the `context.tf` file of this module and 
     })
     triggers = optional(list(string), [])
   })
-    ```
-    
-    <br/>
-    **Default value:** `null`
+  ```
+  
   </dd>
-  <dt>`instance_type` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    EC2 instance type to use for workers<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"r5n.large"`
+  `null`
   </dd>
-  <dt>`launch_template_version` (`string`) <i>optional</i></dt>
-  <dd>
-    Launch template version to use for workers. Note that instance refresh settings are IGNORED unless template version is empty<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"$Latest"`
-  </dd>
-  <dt>`mixed_instances_policy` <i>optional</i></dt>
-  <dd>
-    Policy to use a mixed group of on-demand/spot of different types. Launch template is automatically generated. https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html#mixed_instances_policy-1<br/>
-    <br/>
-    **Type:** 
+</dl>
 
-    ```hcl
-    object({
+---
+
+
+  ### `instance_type` (`string`) <i>optional</i>
+
+
+EC2 instance type to use for workers<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"r5n.large"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `launch_template_version` (`string`) <i>optional</i>
+
+
+Launch template version to use for workers. Note that instance refresh settings are IGNORED unless template version is empty<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"$Latest"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `mixed_instances_policy` <i>optional</i>
+
+
+Policy to use a mixed group of on-demand/spot of different types. Launch template is automatically generated. https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html#mixed_instances_policy-1<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  object({
     instances_distribution = object({
       on_demand_allocation_strategy            = string
       on_demand_base_capacity                  = number
@@ -775,113 +1446,263 @@ The following variables are defined in the `context.tf` file of this module and 
       weighted_capacity = number
     }))
   })
-    ```
-    
-    <br/>
-    **Default value:** `null`
+  ```
+  
   </dd>
-  <dt>`scale_down_cooldown_seconds` (`number`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The amount of time, in seconds, after a scaling activity completes and before the next scaling activity can start<br/>
-    <br/>
-    **Type:** `number`
-    <br/>
-    **Default value:** `300`
+  `null`
   </dd>
-  <dt>`space_name` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `scale_down_cooldown_seconds` (`number`) <i>optional</i>
+
+
+The amount of time, in seconds, after a scaling activity completes and before the next scaling activity can start<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    The name of the Space to create the worker pool in<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"root"`
+  `number`
   </dd>
-  <dt>`spacelift_agents_per_node` (`number`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Number of Spacelift agents to run on one worker node. NOTE: This affects billable units. Spacelift charges per agent.<br/>
-    <br/>
-    **Type:** `number`
-    <br/>
-    **Default value:** `1`
+  `300`
   </dd>
-  <dt>`spacelift_ami_id` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `space_name` (`string`) <i>optional</i>
+
+
+The name of the Space to create the worker pool in<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    AMI ID of Spacelift worker pool image<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
+  `string`
   </dd>
-  <dt>`spacelift_aws_account_id` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    AWS Account ID owned by Spacelift<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"643313122712"`
+  `"root"`
   </dd>
-  <dt>`spacelift_domain_name` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `spacelift_agents_per_node` (`number`) <i>optional</i>
+
+
+Number of Spacelift agents to run on one worker node. NOTE: This affects billable units. Spacelift charges per agent.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Top-level domain name to use for pulling the launcher binary<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"spacelift.io"`
+  `number`
   </dd>
-  <dt>`spacelift_runner_image` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    URL of ECR image to use for Spacelift<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `1`
   </dd>
-  <dt>`spacelift_spaces_component_name` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `spacelift_ami_id` (`string`) <i>optional</i>
+
+
+AMI ID of Spacelift worker pool image<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    The name of the spacelift spaces component<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"spacelift/spaces"`
+  `string`
   </dd>
-  <dt>`spacelift_spaces_environment_name` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The environment name of the spacelift spaces component<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
+  `null`
   </dd>
-  <dt>`spacelift_spaces_stage_name` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `spacelift_aws_account_id` (`string`) <i>optional</i>
+
+
+AWS Account ID owned by Spacelift<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    The stage name of the spacelift spaces component<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
+  `string`
   </dd>
-  <dt>`spacelift_spaces_tenant_name` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The tenant name of the spacelift spaces component<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
+  `"643313122712"`
   </dd>
-  <dt>`termination_policies` (`list(string)`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `spacelift_domain_name` (`string`) <i>optional</i>
+
+
+Top-level domain name to use for pulling the launcher binary<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    A list of policies to decide how the instances in the auto scale group should be terminated. The allowed values are `OldestInstance`, `NewestInstance`, `OldestLaunchConfiguration`, `ClosestToNextInstanceHour`, `Default`<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** 
-    ```hcl
-    [
-      "OldestLaunchConfiguration"
-    ]
-    ```
-    
-  </dd></dl>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"spacelift.io"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `spacelift_runner_image` (`string`) <i>optional</i>
+
+
+URL of ECR image to use for Spacelift<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `spacelift_spaces_component_name` (`string`) <i>optional</i>
+
+
+The name of the spacelift spaces component<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"spacelift/spaces"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `spacelift_spaces_environment_name` (`string`) <i>optional</i>
+
+
+The environment name of the spacelift spaces component<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `spacelift_spaces_stage_name` (`string`) <i>optional</i>
+
+
+The stage name of the spacelift spaces component<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `spacelift_spaces_tenant_name` (`string`) <i>optional</i>
+
+
+The tenant name of the spacelift spaces component<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `termination_policies` (`list(string)`) <i>optional</i>
+
+
+A list of policies to decide how the instances in the auto scale group should be terminated. The allowed values are `OldestInstance`, `NewestInstance`, `OldestLaunchConfiguration`, `ClosestToNextInstanceHour`, `Default`<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  [
+    "OldestLaunchConfiguration"
+  ]
+  ```
+  
+  </dd>
+</dl>
+
+---
+
 
 
 ### Outputs

@@ -91,559 +91,1211 @@ Name | Version | Source | Description
 
 ### Context Variables
 
-The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
+<details>
+<summary>Click to expand</summary>
+  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+This is for some rare cases where resources want additional configuration of tags<br/>
+and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+<br/>
 <dl>
-  <dt>`additional_tag_map` (`map(string)`) <i>optional</i></dt>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
-    This is for some rare cases where resources want additional configuration of tags<br/>
-    and therefore take a list of maps with tag key, value, and additional configuration.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `map(string)`
-    **Default value:** `{}`
+  `map(string)`
   </dd>
-  <dt>`attributes` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
-    in the order they appear in the list. New attributes are appended to the<br/>
-    end of the list. The elements of the list are joined by the `delimiter`<br/>
-    and treated as a single ID element.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `list(string)`
-    **Default value:** `[]`
-  </dd>
-  <dt>`context` (`any`) <i>optional</i></dt>
-  <dd>
-    Single object for setting entire context at once.<br/>
-    See description of individual variables for details.<br/>
-    Leave string and numeric variables as `null` to use default value.<br/>
-    Individual variable settings (non-null) override settings in context object,<br/>
-    except for attributes, tags, and additional_tag_map, which are merged.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `any`
-    **Default value:** 
-    ```hcl
-    {
-      "additional_tag_map": {},
-      "attributes": [],
-      "delimiter": null,
-      "descriptor_formats": {},
-      "enabled": true,
-      "environment": null,
-      "id_length_limit": null,
-      "label_key_case": null,
-      "label_order": [],
-      "label_value_case": null,
-      "labels_as_tags": [
-        "unset"
-      ],
-      "name": null,
-      "namespace": null,
-      "regex_replace_chars": null,
-      "stage": null,
-      "tags": {},
-      "tenant": null
-    }
-    ```
-    
-  </dd>
-  <dt>`delimiter` (`string`) <i>optional</i></dt>
-  <dd>
-    Delimiter to be used between ID elements.<br/>
-    Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`descriptor_formats` (`any`) <i>optional</i></dt>
-  <dd>
-    Describe additional descriptors to be output in the `descriptors` output map.<br/>
-    Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
-    `{<br/>
-       format = string<br/>
-       labels = list(string)<br/>
-    }`<br/>
-    (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
-    `format` is a Terraform format string to be passed to the `format()` function.<br/>
-    `labels` is a list of labels, in order, to pass to `format()` function.<br/>
-    Label values will be normalized before being passed to `format()` so they will be<br/>
-    identical to how they appear in `id`.<br/>
-    Default is `{}` (`descriptors` output will be empty).<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `any`
-    **Default value:** `{}`
-  </dd>
-  <dt>`enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Set to false to prevent the module from creating any resources<br/>
-    **Required:** No<br/>
-    **Type:** `bool`
-    **Default value:** `null`
-  </dd>
-  <dt>`environment` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`id_length_limit` (`number`) <i>optional</i></dt>
-  <dd>
-    Limit `id` to this many characters (minimum 6).<br/>
-    Set to `0` for unlimited length.<br/>
-    Set to `null` for keep the existing setting, which defaults to `0`.<br/>
-    Does not affect `id_full`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `number`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_key_case` (`string`) <i>optional</i></dt>
-  <dd>
-    Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
-    Does not affect keys of tags passed in via the `tags` input.<br/>
-    Possible values: `lower`, `title`, `upper`.<br/>
-    Default value: `title`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_order` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    The order in which the labels (ID elements) appear in the `id`.<br/>
-    Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
-    You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `list(string)`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_value_case` (`string`) <i>optional</i></dt>
-  <dd>
-    Controls the letter case of ID elements (labels) as included in `id`,<br/>
-    set as tag values, and output by this module individually.<br/>
-    Does not affect values of tags passed in via the `tags` input.<br/>
-    Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
-    Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
-    Default value: `lower`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`labels_as_tags` (`set(string)`) <i>optional</i></dt>
-  <dd>
-    Set of labels (ID elements) to include as tags in the `tags` output.<br/>
-    Default is to include all labels.<br/>
-    Tags with empty values will not be included in the `tags` output.<br/>
-    Set to `[]` to suppress all generated tags.<br/>
-    **Notes:**<br/>
-      The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
-      Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
-      changed in later chained modules. Attempts to change it will be silently ignored.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `set(string)`
-    **Default value:** 
-    ```hcl
-    [
-      "default"
-    ]
-    ```
-    
-  </dd>
-  <dt>`name` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
-    This is the only ID element not also included as a `tag`.<br/>
-    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`namespace` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`regex_replace_chars` (`string`) <i>optional</i></dt>
-  <dd>
-    Terraform regular expression (regex) string.<br/>
-    Characters matching the regex will be removed from the ID elements.<br/>
-    If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`stage` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`tags` (`map(string)`) <i>optional</i></dt>
-  <dd>
-    Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
-    Neither the tag keys nor the tag values will be modified by this module.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `map(string)`
-    **Default value:** `{}`
-  </dd>
-  <dt>`tenant` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
+  `{}`
   </dd>
 </dl>
+
+---
+
+
+  ### `attributes` (`list(string)`) <i>optional</i>
+
+
+ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+in the order they appear in the list. New attributes are appended to the<br/>
+end of the list. The elements of the list are joined by the `delimiter`<br/>
+and treated as a single ID element.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `any`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  {
+    "additional_tag_map": {},
+    "attributes": [],
+    "delimiter": null,
+    "descriptor_formats": {},
+    "enabled": true,
+    "environment": null,
+    "id_length_limit": null,
+    "label_key_case": null,
+    "label_order": [],
+    "label_value_case": null,
+    "labels_as_tags": [
+      "unset"
+    ],
+    "name": null,
+    "namespace": null,
+    "regex_replace_chars": null,
+    "stage": null,
+    "tags": {},
+    "tenant": null
+  }
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between ID elements.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `descriptor_formats` (`any`) <i>optional</i>
+
+
+Describe additional descriptors to be output in the `descriptors` output map.<br/>
+Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+`{<br/>
+   format = string<br/>
+   labels = list(string)<br/>
+}`<br/>
+(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+`format` is a Terraform format string to be passed to the `format()` function.<br/>
+`labels` is a list of labels, in order, to pass to `format()` function.<br/>
+Label values will be normalized before being passed to `format()` so they will be<br/>
+identical to how they appear in `id`.<br/>
+Default is `{}` (`descriptors` output will be empty).<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `any`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `environment` (`string`) <i>optional</i>
+
+
+ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_key_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+Does not affect keys of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_order` (`list(string)`) <i>optional</i>
+
+
+The order in which the labels (ID elements) appear in the `id`.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_value_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of ID elements (labels) as included in `id`,<br/>
+set as tag values, and output by this module individually.<br/>
+Does not affect values of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+Default value: `lower`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+
+
+Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+Default is to include all labels.<br/>
+Tags with empty values will not be included in the `tags` output.<br/>
+Set to `[]` to suppress all generated tags.<br/>
+**Notes:**<br/>
+  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `set(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  [
+    "default"
+  ]
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `name` (`string`) <i>optional</i>
+
+
+ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+This is the only ID element not also included as a `tag`.<br/>
+The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `namespace` (`string`) <i>optional</i>
+
+
+ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Terraform regular expression (regex) string.<br/>
+Characters matching the regex will be removed from the ID elements.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `stage` (`string`) <i>optional</i>
+
+
+ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+Neither the tag keys nor the tag values will be modified by this module.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `map(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tenant` (`string`) <i>optional</i>
+
+
+ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+</details>
 
 ### Required Inputs
+  ### `availability_zones` (`list(string)`) <i>required</i>
 
+
+AWS Availability Zones in which to deploy multi-AZ resources<br/>
 <dl>
-  <dt>`availability_zones` (`list(string)`) <i>required</i></dt>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    AWS Availability Zones in which to deploy multi-AZ resources<br/>
-
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** ``
-
+  `list(string)`
   </dd>
-  <dt>`oidc_provider_enabled` (`bool`) <i>required</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Create an IAM OIDC identity provider for the cluster, then you can create IAM roles to associate with a service account in the cluster, instead of using kiam or kube2iam. For more information, see https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html<br/>
-
-    **Type:** `bool`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`region` (`string`) <i>required</i></dt>
-  <dd>
-    AWS Region<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
+  ``
   </dd>
 </dl>
 
-### Optional Inputs
+---
 
+
+  ### `oidc_provider_enabled` (`bool`) <i>required</i>
+
+
+Create an IAM OIDC identity provider for the cluster, then you can create IAM roles to associate with a service account in the cluster, instead of using kiam or kube2iam. For more information, see https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html<br/>
 <dl>
-  <dt>`allow_ingress_from_vpc_stages` (`list(string)`) <i>optional</i></dt>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    List of stages to pull VPC ingress CIDR and add to security group<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
+  `bool`
   </dd>
-  <dt>`allowed_cidr_blocks` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    List of CIDR blocks to be allowed to connect to the EKS cluster<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
+  ``
   </dd>
-  <dt>`allowed_security_groups` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    List of Security Group IDs to be allowed to connect to the EKS cluster<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
-  </dd>
-  <dt>`apply_config_map_aws_auth` (`bool`) <i>optional</i></dt>
-  <dd>
-    Whether to execute `kubectl apply` to apply the ConfigMap to allow worker nodes to join the EKS cluster<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
-  </dd>
-  <dt>`availability_zone_abbreviation_type` (`string`) <i>optional</i></dt>
-  <dd>
-    Type of Availability Zone abbreviation (either `fixed` or `short`) to use in names. See https://github.com/cloudposse/terraform-aws-utils for details.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"fixed"`
-  </dd>
-  <dt>`aws_auth_yaml_strip_quotes` (`bool`) <i>optional</i></dt>
-  <dd>
-    If true, remove double quotes from the generated aws-auth ConfigMap YAML to reduce spurious diffs in plans<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
-  </dd>
-  <dt>`aws_ssm_agent_enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Set true to attach the required IAM policy for AWS SSM agent to each EC2 instance's IAM Role<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
-  </dd>
-  <dt>`cluster_encryption_config_enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Set to `true` to enable Cluster Encryption Configuration<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
-  </dd>
-  <dt>`cluster_encryption_config_kms_key_deletion_window_in_days` (`number`) <i>optional</i></dt>
-  <dd>
-    Cluster Encryption Config KMS Key Resource argument - key deletion windows in days post destruction<br/>
-    <br/>
-    **Type:** `number`
-    <br/>
-    **Default value:** `10`
-  </dd>
-  <dt>`cluster_encryption_config_kms_key_enable_key_rotation` (`bool`) <i>optional</i></dt>
-  <dd>
-    Cluster Encryption Config KMS Key Resource argument - enable kms key rotation<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
-  </dd>
-  <dt>`cluster_encryption_config_kms_key_id` (`string`) <i>optional</i></dt>
-  <dd>
-    KMS Key ID to use for cluster encryption config<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
-  </dd>
-  <dt>`cluster_encryption_config_kms_key_policy` (`string`) <i>optional</i></dt>
-  <dd>
-    Cluster Encryption Config KMS Key Resource argument - key policy<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd>
-  <dt>`cluster_encryption_config_resources` (`list(any)`) <i>optional</i></dt>
-  <dd>
-    Cluster Encryption Config Resources to encrypt, e.g. ['secrets']<br/>
-    <br/>
-    **Type:** `list(any)`
-    <br/>
-    **Default value:** 
-    ```hcl
-    [
-      "secrets"
-    ]
-    ```
-    
-  </dd>
-  <dt>`cluster_endpoint_private_access` (`bool`) <i>optional</i></dt>
-  <dd>
-    Indicates whether or not the Amazon EKS private API server endpoint is enabled. Default to AWS EKS resource and it is `false`<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
-  </dd>
-  <dt>`cluster_endpoint_public_access` (`bool`) <i>optional</i></dt>
-  <dd>
-    Indicates whether or not the Amazon EKS public API server endpoint is enabled. Default to AWS EKS resource and it is `true`<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
-  </dd>
-  <dt>`cluster_kubernetes_version` (`string`) <i>optional</i></dt>
-  <dd>
-    Desired Kubernetes master version. If you do not specify a value, the latest available version is used<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd>
-  <dt>`cluster_log_retention_period` (`number`) <i>optional</i></dt>
-  <dd>
-    Number of days to retain cluster logs. Requires `enabled_cluster_log_types` to be set. See https://docs.aws.amazon.com/en_us/eks/latest/userguide/control-plane-logs.html.<br/>
-    <br/>
-    **Type:** `number`
-    <br/>
-    **Default value:** `90`
-  </dd>
-  <dt>`cluster_private_subnets_only` (`bool`) <i>optional</i></dt>
-  <dd>
-    Whether or not to enable private subnets or both public and private subnets<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
-  </dd>
-  <dt>`color` (`string`) <i>optional</i></dt>
-  <dd>
-    The cluster stage represented by a color; e.g. blue, green<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
-  </dd>
-  <dt>`delegated_iam_roles` <i>optional</i></dt>
-  <dd>
-    Delegated IAM roles to add to `aws-auth` ConfigMap<br/>
-    <br/>
-    **Type:** 
+</dl>
 
-    ```hcl
-    list(object({
+---
+
+
+  ### `region` (`string`) <i>required</i>
+
+
+AWS Region<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  ``
+  </dd>
+</dl>
+
+---
+
+
+
+### Optional Inputs
+  ### `allow_ingress_from_vpc_stages` (`list(string)`) <i>optional</i>
+
+
+List of stages to pull VPC ingress CIDR and add to security group<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
+
+
+List of CIDR blocks to be allowed to connect to the EKS cluster<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `allowed_security_groups` (`list(string)`) <i>optional</i>
+
+
+List of Security Group IDs to be allowed to connect to the EKS cluster<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `apply_config_map_aws_auth` (`bool`) <i>optional</i>
+
+
+Whether to execute `kubectl apply` to apply the ConfigMap to allow worker nodes to join the EKS cluster<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `availability_zone_abbreviation_type` (`string`) <i>optional</i>
+
+
+Type of Availability Zone abbreviation (either `fixed` or `short`) to use in names. See https://github.com/cloudposse/terraform-aws-utils for details.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"fixed"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `aws_auth_yaml_strip_quotes` (`bool`) <i>optional</i>
+
+
+If true, remove double quotes from the generated aws-auth ConfigMap YAML to reduce spurious diffs in plans<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `aws_ssm_agent_enabled` (`bool`) <i>optional</i>
+
+
+Set true to attach the required IAM policy for AWS SSM agent to each EC2 instance's IAM Role<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cluster_encryption_config_enabled` (`bool`) <i>optional</i>
+
+
+Set to `true` to enable Cluster Encryption Configuration<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cluster_encryption_config_kms_key_deletion_window_in_days` (`number`) <i>optional</i>
+
+
+Cluster Encryption Config KMS Key Resource argument - key deletion windows in days post destruction<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `10`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cluster_encryption_config_kms_key_enable_key_rotation` (`bool`) <i>optional</i>
+
+
+Cluster Encryption Config KMS Key Resource argument - enable kms key rotation<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cluster_encryption_config_kms_key_id` (`string`) <i>optional</i>
+
+
+KMS Key ID to use for cluster encryption config<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cluster_encryption_config_kms_key_policy` (`string`) <i>optional</i>
+
+
+Cluster Encryption Config KMS Key Resource argument - key policy<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cluster_encryption_config_resources` (`list(any)`) <i>optional</i>
+
+
+Cluster Encryption Config Resources to encrypt, e.g. ['secrets']<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(any)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  [
+    "secrets"
+  ]
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `cluster_endpoint_private_access` (`bool`) <i>optional</i>
+
+
+Indicates whether or not the Amazon EKS private API server endpoint is enabled. Default to AWS EKS resource and it is `false`<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cluster_endpoint_public_access` (`bool`) <i>optional</i>
+
+
+Indicates whether or not the Amazon EKS public API server endpoint is enabled. Default to AWS EKS resource and it is `true`<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cluster_kubernetes_version` (`string`) <i>optional</i>
+
+
+Desired Kubernetes master version. If you do not specify a value, the latest available version is used<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cluster_log_retention_period` (`number`) <i>optional</i>
+
+
+Number of days to retain cluster logs. Requires `enabled_cluster_log_types` to be set. See https://docs.aws.amazon.com/en_us/eks/latest/userguide/control-plane-logs.html.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `90`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cluster_private_subnets_only` (`bool`) <i>optional</i>
+
+
+Whether or not to enable private subnets or both public and private subnets<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `color` (`string`) <i>optional</i>
+
+
+The cluster stage represented by a color; e.g. blue, green<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `delegated_iam_roles` <i>optional</i>
+
+
+Delegated IAM roles to add to `aws-auth` ConfigMap<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  list(object({
     role   = string
     groups = list(string)
   }))
-    ```
-    
-    <br/>
-    **Default value:** `[]`
+  ```
+  
   </dd>
-  <dt>`eks_component_name` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The name of the eks component<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"eks/cluster"`
+  `[]`
   </dd>
-  <dt>`enabled_cluster_log_types` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    A list of the desired control plane logging to enable. For more information, see https://docs.aws.amazon.com/en_us/eks/latest/userguide/control-plane-logs.html. Possible values [`api`, `audit`, `authenticator`, `controllerManager`, `scheduler`]<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
-  </dd>
-  <dt>`iam_primary_roles_stage_name` (`string`) <i>optional</i></dt>
-  <dd>
-    The name of the stage where the IAM primary roles are provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"identity"`
-  </dd>
-  <dt>`iam_primary_roles_tenant_name` (`string`) <i>optional</i></dt>
-  <dd>
-    The name of the tenant where the IAM primary roles are provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd>
-  <dt>`iam_roles_environment_name` (`string`) <i>optional</i></dt>
-  <dd>
-    The name of the environment where the IAM roles are provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"gbl"`
-  </dd>
-  <dt>`kubeconfig_file` (`string`) <i>optional</i></dt>
-  <dd>
-    Name of `kubeconfig` file to use to configure Kubernetes provider<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
-  </dd>
-  <dt>`kubeconfig_file_enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Set true to configure Kubernetes provider with a `kubeconfig` file specified by `kubeconfig_file`.<br/>
-    Mainly for when the standard configuration produces a Terraform error.<br/>
-    <br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
-  </dd>
-  <dt>`managed_node_groups_enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Set false to prevent the creation of EKS managed node groups.<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
-  </dd>
-  <dt>`map_additional_aws_accounts` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    Additional AWS account numbers to add to `aws-auth` ConfigMap<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
-  </dd>
-  <dt>`map_additional_iam_roles` <i>optional</i></dt>
-  <dd>
-    Additional IAM roles to add to `config-map-aws-auth` ConfigMap<br/>
-    <br/>
-    **Type:** 
+</dl>
 
-    ```hcl
-    list(object({
+---
+
+
+  ### `eks_component_name` (`string`) <i>optional</i>
+
+
+The name of the eks component<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"eks/cluster"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `enabled_cluster_log_types` (`list(string)`) <i>optional</i>
+
+
+A list of the desired control plane logging to enable. For more information, see https://docs.aws.amazon.com/en_us/eks/latest/userguide/control-plane-logs.html. Possible values [`api`, `audit`, `authenticator`, `controllerManager`, `scheduler`]<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `iam_primary_roles_stage_name` (`string`) <i>optional</i>
+
+
+The name of the stage where the IAM primary roles are provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"identity"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `iam_primary_roles_tenant_name` (`string`) <i>optional</i>
+
+
+The name of the tenant where the IAM primary roles are provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `iam_roles_environment_name` (`string`) <i>optional</i>
+
+
+The name of the environment where the IAM roles are provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"gbl"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `kubeconfig_file` (`string`) <i>optional</i>
+
+
+Name of `kubeconfig` file to use to configure Kubernetes provider<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `kubeconfig_file_enabled` (`bool`) <i>optional</i>
+
+
+Set true to configure Kubernetes provider with a `kubeconfig` file specified by `kubeconfig_file`.<br/>
+Mainly for when the standard configuration produces a Terraform error.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `managed_node_groups_enabled` (`bool`) <i>optional</i>
+
+
+Set false to prevent the creation of EKS managed node groups.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `map_additional_aws_accounts` (`list(string)`) <i>optional</i>
+
+
+Additional AWS account numbers to add to `aws-auth` ConfigMap<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `map_additional_iam_roles` <i>optional</i>
+
+
+Additional IAM roles to add to `config-map-aws-auth` ConfigMap<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  list(object({
     rolearn  = string
     username = string
     groups   = list(string)
   }))
-    ```
-    
-    <br/>
-    **Default value:** `[]`
+  ```
+  
   </dd>
-  <dt>`map_additional_iam_users` <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Additional IAM users to add to `aws-auth` ConfigMap<br/>
-    <br/>
-    **Type:** 
+  `[]`
+  </dd>
+</dl>
 
-    ```hcl
-    list(object({
+---
+
+
+  ### `map_additional_iam_users` <i>optional</i>
+
+
+Additional IAM users to add to `aws-auth` ConfigMap<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  list(object({
     userarn  = string
     username = string
     groups   = list(string)
   }))
-    ```
-    
-    <br/>
-    **Default value:** `[]`
+  ```
+  
   </dd>
-  <dt>`map_additional_worker_roles` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    AWS IAM Role ARNs of worker nodes to add to `aws-auth` ConfigMap<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
+  `[]`
   </dd>
-  <dt>`node_group_defaults` <i>optional</i></dt>
-  <dd>
-    Defaults for node groups in the cluster<br/>
-    <br/>
-    **Type:** 
+</dl>
 
-    ```hcl
-    object({
+---
+
+
+  ### `map_additional_worker_roles` (`list(string)`) <i>optional</i>
+
+
+AWS IAM Role ARNs of worker nodes to add to `aws-auth` ConfigMap<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `node_group_defaults` <i>optional</i>
+
+
+Defaults for node groups in the cluster<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  object({
     ami_release_version        = string
     ami_type                   = string
     attributes                 = list(string)
@@ -666,43 +1318,55 @@ The following variables are defined in the `context.tf` file of this module and 
     resources_to_tag   = list(string)
     tags               = map(string)
   })
-    ```
-    
-    <br/>
-    **Default value:** 
-    ```hcl
-    {
-      "ami_release_version": null,
-      "ami_type": null,
-      "attributes": null,
-      "availability_zones": null,
-      "cluster_autoscaler_enabled": true,
-      "create_before_destroy": true,
-      "desired_group_size": 1,
-      "disk_encryption_enabled": true,
-      "disk_size": 20,
-      "instance_types": [
-        "t3.medium"
-      ],
-      "kubernetes_labels": null,
-      "kubernetes_taints": null,
-      "kubernetes_version": null,
-      "max_group_size": 100,
-      "min_group_size": null,
-      "resources_to_tag": null,
-      "tags": null
-    }
-    ```
-    
+  ```
+  
   </dd>
-  <dt>`node_groups` <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    List of objects defining a node group for the cluster<br/>
-    <br/>
-    **Type:** 
+  
+  ```hcl
+  {
+    "ami_release_version": null,
+    "ami_type": null,
+    "attributes": null,
+    "availability_zones": null,
+    "cluster_autoscaler_enabled": true,
+    "create_before_destroy": true,
+    "desired_group_size": 1,
+    "disk_encryption_enabled": true,
+    "disk_size": 20,
+    "instance_types": [
+      "t3.medium"
+    ],
+    "kubernetes_labels": null,
+    "kubernetes_taints": null,
+    "kubernetes_version": null,
+    "max_group_size": 100,
+    "min_group_size": null,
+    "resources_to_tag": null,
+    "tags": null
+  }
+  ```
+  
+  </dd>
+</dl>
 
-    ```hcl
-    map(object({
+---
+
+
+  ### `node_groups` <i>optional</i>
+
+
+List of objects defining a node group for the cluster<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  map(object({
     # EKS AMI version to use, e.g. "1.16.13-20200821" (no "v").
     ami_release_version = string
     # Type of Amazon Machine Image (AMI) associated with the EKS Node Group
@@ -741,43 +1405,85 @@ The following variables are defined in the `context.tf` file of this module and 
     resources_to_tag = list(string)
     tags             = map(string)
   }))
-    ```
-    
-    <br/>
-    **Default value:** `{}`
+  ```
+  
   </dd>
-  <dt>`primary_iam_roles` <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Primary IAM roles to add to `aws-auth` ConfigMap<br/>
-    <br/>
-    **Type:** 
+  `{}`
+  </dd>
+</dl>
 
-    ```hcl
-    list(object({
+---
+
+
+  ### `primary_iam_roles` <i>optional</i>
+
+
+Primary IAM roles to add to `aws-auth` ConfigMap<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  list(object({
     role   = string
     groups = list(string)
   }))
-    ```
-    
-    <br/>
-    **Default value:** `[]`
+  ```
+  
   </dd>
-  <dt>`public_access_cidrs` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Indicates which CIDR blocks can access the Amazon EKS public API server endpoint when enabled. EKS defaults this to a list with 0.0.0.0/0.<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
+  `[]`
   </dd>
-  <dt>`subnet_type_tag_key` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `public_access_cidrs` (`list(string)`) <i>optional</i>
+
+
+Indicates which CIDR blocks can access the Amazon EKS public API server endpoint when enabled. EKS defaults this to a list with 0.0.0.0/0.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    The tag used to find the private subnets to find by availability zone. If null, will be looked up in vpc outputs.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd></dl>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `subnet_type_tag_key` (`string`) <i>optional</i>
+
+
+The tag used to find the private subnets to find by availability zone. If null, will be looked up in vpc outputs.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
 
 
 ### Outputs

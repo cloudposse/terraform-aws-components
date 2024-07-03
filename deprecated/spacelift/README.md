@@ -378,574 +378,1265 @@ The following data sources are used by this module:
 
 ### Context Variables
 
-The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
+<details>
+<summary>Click to expand</summary>
+  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+This is for some rare cases where resources want additional configuration of tags<br/>
+and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+<br/>
 <dl>
-  <dt>`additional_tag_map` (`map(string)`) <i>optional</i></dt>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
-    This is for some rare cases where resources want additional configuration of tags<br/>
-    and therefore take a list of maps with tag key, value, and additional configuration.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `map(string)`
-    **Default value:** `{}`
+  `map(string)`
   </dd>
-  <dt>`attributes` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
-    in the order they appear in the list. New attributes are appended to the<br/>
-    end of the list. The elements of the list are joined by the `delimiter`<br/>
-    and treated as a single ID element.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `list(string)`
-    **Default value:** `[]`
-  </dd>
-  <dt>`context` (`any`) <i>optional</i></dt>
-  <dd>
-    Single object for setting entire context at once.<br/>
-    See description of individual variables for details.<br/>
-    Leave string and numeric variables as `null` to use default value.<br/>
-    Individual variable settings (non-null) override settings in context object,<br/>
-    except for attributes, tags, and additional_tag_map, which are merged.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `any`
-    **Default value:** 
-    ```hcl
-    {
-      "additional_tag_map": {},
-      "attributes": [],
-      "delimiter": null,
-      "descriptor_formats": {},
-      "enabled": true,
-      "environment": null,
-      "id_length_limit": null,
-      "label_key_case": null,
-      "label_order": [],
-      "label_value_case": null,
-      "labels_as_tags": [
-        "unset"
-      ],
-      "name": null,
-      "namespace": null,
-      "regex_replace_chars": null,
-      "stage": null,
-      "tags": {},
-      "tenant": null
-    }
-    ```
-    
-  </dd>
-  <dt>`delimiter` (`string`) <i>optional</i></dt>
-  <dd>
-    Delimiter to be used between ID elements.<br/>
-    Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`descriptor_formats` (`any`) <i>optional</i></dt>
-  <dd>
-    Describe additional descriptors to be output in the `descriptors` output map.<br/>
-    Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
-    `{<br/>
-       format = string<br/>
-       labels = list(string)<br/>
-    }`<br/>
-    (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
-    `format` is a Terraform format string to be passed to the `format()` function.<br/>
-    `labels` is a list of labels, in order, to pass to `format()` function.<br/>
-    Label values will be normalized before being passed to `format()` so they will be<br/>
-    identical to how they appear in `id`.<br/>
-    Default is `{}` (`descriptors` output will be empty).<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `any`
-    **Default value:** `{}`
-  </dd>
-  <dt>`enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Set to false to prevent the module from creating any resources<br/>
-    **Required:** No<br/>
-    **Type:** `bool`
-    **Default value:** `null`
-  </dd>
-  <dt>`environment` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`id_length_limit` (`number`) <i>optional</i></dt>
-  <dd>
-    Limit `id` to this many characters (minimum 6).<br/>
-    Set to `0` for unlimited length.<br/>
-    Set to `null` for keep the existing setting, which defaults to `0`.<br/>
-    Does not affect `id_full`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `number`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_key_case` (`string`) <i>optional</i></dt>
-  <dd>
-    Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
-    Does not affect keys of tags passed in via the `tags` input.<br/>
-    Possible values: `lower`, `title`, `upper`.<br/>
-    Default value: `title`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_order` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    The order in which the labels (ID elements) appear in the `id`.<br/>
-    Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
-    You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `list(string)`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_value_case` (`string`) <i>optional</i></dt>
-  <dd>
-    Controls the letter case of ID elements (labels) as included in `id`,<br/>
-    set as tag values, and output by this module individually.<br/>
-    Does not affect values of tags passed in via the `tags` input.<br/>
-    Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
-    Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
-    Default value: `lower`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`labels_as_tags` (`set(string)`) <i>optional</i></dt>
-  <dd>
-    Set of labels (ID elements) to include as tags in the `tags` output.<br/>
-    Default is to include all labels.<br/>
-    Tags with empty values will not be included in the `tags` output.<br/>
-    Set to `[]` to suppress all generated tags.<br/>
-    **Notes:**<br/>
-      The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
-      Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
-      changed in later chained modules. Attempts to change it will be silently ignored.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `set(string)`
-    **Default value:** 
-    ```hcl
-    [
-      "default"
-    ]
-    ```
-    
-  </dd>
-  <dt>`name` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
-    This is the only ID element not also included as a `tag`.<br/>
-    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`namespace` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`regex_replace_chars` (`string`) <i>optional</i></dt>
-  <dd>
-    Terraform regular expression (regex) string.<br/>
-    Characters matching the regex will be removed from the ID elements.<br/>
-    If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`stage` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`tags` (`map(string)`) <i>optional</i></dt>
-  <dd>
-    Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
-    Neither the tag keys nor the tag values will be modified by this module.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `map(string)`
-    **Default value:** `{}`
-  </dd>
-  <dt>`tenant` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
+  `{}`
   </dd>
 </dl>
+
+---
+
+
+  ### `attributes` (`list(string)`) <i>optional</i>
+
+
+ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+in the order they appear in the list. New attributes are appended to the<br/>
+end of the list. The elements of the list are joined by the `delimiter`<br/>
+and treated as a single ID element.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `any`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  {
+    "additional_tag_map": {},
+    "attributes": [],
+    "delimiter": null,
+    "descriptor_formats": {},
+    "enabled": true,
+    "environment": null,
+    "id_length_limit": null,
+    "label_key_case": null,
+    "label_order": [],
+    "label_value_case": null,
+    "labels_as_tags": [
+      "unset"
+    ],
+    "name": null,
+    "namespace": null,
+    "regex_replace_chars": null,
+    "stage": null,
+    "tags": {},
+    "tenant": null
+  }
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between ID elements.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `descriptor_formats` (`any`) <i>optional</i>
+
+
+Describe additional descriptors to be output in the `descriptors` output map.<br/>
+Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+`{<br/>
+   format = string<br/>
+   labels = list(string)<br/>
+}`<br/>
+(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+`format` is a Terraform format string to be passed to the `format()` function.<br/>
+`labels` is a list of labels, in order, to pass to `format()` function.<br/>
+Label values will be normalized before being passed to `format()` so they will be<br/>
+identical to how they appear in `id`.<br/>
+Default is `{}` (`descriptors` output will be empty).<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `any`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `environment` (`string`) <i>optional</i>
+
+
+ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_key_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+Does not affect keys of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_order` (`list(string)`) <i>optional</i>
+
+
+The order in which the labels (ID elements) appear in the `id`.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_value_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of ID elements (labels) as included in `id`,<br/>
+set as tag values, and output by this module individually.<br/>
+Does not affect values of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+Default value: `lower`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+
+
+Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+Default is to include all labels.<br/>
+Tags with empty values will not be included in the `tags` output.<br/>
+Set to `[]` to suppress all generated tags.<br/>
+**Notes:**<br/>
+  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `set(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  [
+    "default"
+  ]
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `name` (`string`) <i>optional</i>
+
+
+ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+This is the only ID element not also included as a `tag`.<br/>
+The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `namespace` (`string`) <i>optional</i>
+
+
+ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Terraform regular expression (regex) string.<br/>
+Characters matching the regex will be removed from the ID elements.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `stage` (`string`) <i>optional</i>
+
+
+ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+Neither the tag keys nor the tag values will be modified by this module.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `map(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tenant` (`string`) <i>optional</i>
+
+
+ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+</details>
 
 ### Required Inputs
+  ### `autodeploy` (`bool`) <i>required</i>
 
+
+Default autodeploy value for all stacks created by this project<br/>
 <dl>
-  <dt>`autodeploy` (`bool`) <i>required</i></dt>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    Default autodeploy value for all stacks created by this project<br/>
-
-    **Type:** `bool`
-    <br/>
-    **Default value:** ``
-
+  `bool`
   </dd>
-  <dt>`git_repository` (`string`) <i>required</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The Git repository name<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`region` (`string`) <i>required</i></dt>
-  <dd>
-    AWS Region<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`runner_image` (`string`) <i>required</i></dt>
-  <dd>
-    Full address & tag of the Spacelift runner image (e.g. on ECR)<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`spacelift_api_endpoint` (`string`) <i>required</i></dt>
-  <dd>
-    The Spacelift API endpoint URL (e.g. https://example.app.spacelift.io)<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`terraform_version` (`string`) <i>required</i></dt>
-  <dd>
-    Default Terraform version for all stacks created by this project<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
+  ``
   </dd>
 </dl>
 
-### Optional Inputs
+---
 
+
+  ### `git_repository` (`string`) <i>required</i>
+
+
+The Git repository name<br/>
 <dl>
-  <dt>`administrative_push_policy_enabled` (`bool`) <i>optional</i></dt>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    Flag to enable/disable the global administrative push policy<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
+  `string`
   </dd>
-  <dt>`administrative_stack_drift_detection_enabled` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Flag to enable/disable administrative stack drift detection<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
+  ``
   </dd>
-  <dt>`administrative_stack_drift_detection_reconcile` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `region` (`string`) <i>required</i>
+
+
+AWS Region<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    Flag to enable/disable administrative stack drift automatic reconciliation. If drift is detected and `reconcile` is turned on, Spacelift will create a tracked run to correct the drift<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
+  `string`
   </dd>
-  <dt>`administrative_stack_drift_detection_schedule` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    List of cron expressions to schedule drift detection for the administrative stack<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** 
-    ```hcl
-    [
-      "0 4 * * *"
-    ]
-    ```
-    
+  ``
   </dd>
-  <dt>`administrative_trigger_policy_enabled` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `runner_image` (`string`) <i>required</i>
+
+
+Full address & tag of the Spacelift runner image (e.g. on ECR)<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    Flag to enable/disable the global administrative trigger policy<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
+  `string`
   </dd>
-  <dt>`attachment_space_id` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Specify the space ID for attachments (e.g. policies, contexts, etc.)<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"legacy"`
+  ``
   </dd>
-  <dt>`aws_role_arn` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `spacelift_api_endpoint` (`string`) <i>required</i>
+
+
+The Spacelift API endpoint URL (e.g. https://example.app.spacelift.io)<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    ARN of the AWS IAM role to assume and put its temporary credentials in the runtime environment<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
+  `string`
   </dd>
-  <dt>`aws_role_enabled` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Flag to enable/disable Spacelift to use AWS STS to assume the supplied IAM role and put its temporary credentials in the runtime environment<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  ``
   </dd>
-  <dt>`aws_role_external_id` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `terraform_version` (`string`) <i>required</i>
+
+
+Default Terraform version for all stacks created by this project<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    Custom external ID (works only for private workers). See https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html for more details<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
+  `string`
   </dd>
-  <dt>`aws_role_generate_credentials_in_worker` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Flag to enable/disable generating AWS credentials in the private worker after assuming the supplied IAM role<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  ``
   </dd>
-  <dt>`before_init` (`list(string)`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+
+### Optional Inputs
+  ### `administrative_push_policy_enabled` (`bool`) <i>optional</i>
+
+
+Flag to enable/disable the global administrative push policy<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    List of before-init scripts<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
+  `bool`
   </dd>
-  <dt>`context_filters` (`map(list(string))`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Context filters to create stacks for specific context information. Valid lists are `namespaces`, `environments`, `tenants`, `stages`.<br/>
-    <br/>
-    **Type:** `map(list(string))`
-    <br/>
-    **Default value:** `{}`
+  `true`
   </dd>
-  <dt>`drift_detection_enabled` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `administrative_stack_drift_detection_enabled` (`bool`) <i>optional</i>
+
+
+Flag to enable/disable administrative stack drift detection<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Flag to enable/disable drift detection on the infrastructure stacks<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
+  `bool`
   </dd>
-  <dt>`drift_detection_reconcile` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Flag to enable/disable infrastructure stacks drift automatic reconciliation. If drift is detected and `reconcile` is turned on, Spacelift will create a tracked run to correct the drift<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
+  `true`
   </dd>
-  <dt>`drift_detection_schedule` (`list(string)`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `administrative_stack_drift_detection_reconcile` (`bool`) <i>optional</i>
+
+
+Flag to enable/disable administrative stack drift automatic reconciliation. If drift is detected and `reconcile` is turned on, Spacelift will create a tracked run to correct the drift<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    List of cron expressions to schedule drift detection for the infrastructure stacks<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** 
-    ```hcl
-    [
-      "0 4 * * *"
-    ]
-    ```
-    
+  `bool`
   </dd>
-  <dt>`external_execution` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Set this to true if you're calling this module from outside of a Spacelift stack (e.g. the `complete` example)<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `true`
   </dd>
-  <dt>`git_branch` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `administrative_stack_drift_detection_schedule` (`list(string)`) <i>optional</i>
+
+
+List of cron expressions to schedule drift detection for the administrative stack<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    The Git branch name<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"main"`
+  `list(string)`
   </dd>
-  <dt>`git_commit_sha` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The commit SHA for which to trigger a run. Requires `var.spacelift_run_enabled` to be set to `true`<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
+  
+  ```hcl
+  [
+    "0 4 * * *"
+  ]
+  ```
+  
   </dd>
-  <dt>`infracost_enabled` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `administrative_trigger_policy_enabled` (`bool`) <i>optional</i>
+
+
+Flag to enable/disable the global administrative trigger policy<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Flag to enable/disable infracost. If this is enabled, it will add infracost label to each stack. See [spacelift infracost](https://docs.spacelift.io/vendors/terraform/infracost) docs for more details.<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `bool`
   </dd>
-  <dt>`policies_available` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    List of available default policies to create in Spacelift (these policies will not be attached to Spacelift stacks by default, use `var.policies_enabled`)<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** 
-    ```hcl
-    [
-      "git_push.proposed-run",
-      "git_push.tracked-run",
-      "plan.default",
-      "trigger.dependencies",
-      "trigger.retries"
-    ]
-    ```
-    
+  `true`
   </dd>
-  <dt>`policies_by_id_enabled` (`list(string)`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `attachment_space_id` (`string`) <i>optional</i>
+
+
+Specify the space ID for attachments (e.g. policies, contexts, etc.)<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    List of existing policy IDs to attach to all Spacelift stacks. These policies must already exist in Spacelift<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
+  `string`
   </dd>
-  <dt>`policies_by_name_enabled` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    List of existing policy names to attach to all Spacelift stacks. These policies must exist at `modules/spacelift/rego-policies` OR `var.policies_by_name_path`.<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
+  `"legacy"`
   </dd>
-  <dt>`policies_by_name_path` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `aws_role_arn` (`string`) <i>optional</i>
+
+
+ARN of the AWS IAM role to assume and put its temporary credentials in the runtime environment<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Path to the catalog of external Rego policies. The Rego files must exist in the caller's code at the path. The module will create Spacelift policies from the external Rego definitions<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `string`
   </dd>
-  <dt>`policies_enabled` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    DEPRECATED: Use `policies_by_id_enabled` instead. List of default policies created by this stack to attach to all Spacelift stacks<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
+  `null`
   </dd>
-  <dt>`spacelift_component_path` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `aws_role_enabled` (`bool`) <i>optional</i>
+
+
+Flag to enable/disable Spacelift to use AWS STS to assume the supplied IAM role and put its temporary credentials in the runtime environment<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    The Spacelift Component Path<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"components/terraform"`
+  `bool`
   </dd>
-  <dt>`spacelift_run_enabled` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Enable/disable creation of the `spacelift_run` resource<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `false`
   </dd>
-  <dt>`spacelift_stack_dependency_enabled` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `aws_role_external_id` (`string`) <i>optional</i>
+
+
+Custom external ID (works only for private workers). See https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html for more details<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    If enabled, the `spacelift_stack_dependency` Spacelift resource will be used to create dependencies between stacks instead of using the `depends-on` labels. The `depends-on` labels will be removed from the stacks and the trigger policies for dependencies will be detached<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `string`
   </dd>
-  <dt>`stack_config_path_template` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Stack config path template<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"stacks/%s.yaml"`
+  `null`
   </dd>
-  <dt>`stack_destructor_enabled` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `aws_role_generate_credentials_in_worker` (`bool`) <i>optional</i>
+
+
+Flag to enable/disable generating AWS credentials in the private worker after assuming the supplied IAM role<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Flag to enable/disable the stack destructor to destroy the resources of a stack before deleting the stack itself<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `bool`
   </dd>
-  <dt>`stacks_space_id` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Override the space ID for all stacks (unless the stack config has `dedicated_space` set to true). Otherwise, it will default to the admin stack's space.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
+  `false`
   </dd>
-  <dt>`tag_filters` (`map(string)`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `before_init` (`list(string)`) <i>optional</i>
+
+
+List of before-init scripts<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    A map of tags that will filter stack creation by the matching `tags` set in a component `vars` configuration.<br/>
-    <br/>
-    **Type:** `map(string)`
-    <br/>
-    **Default value:** `{}`
+  `list(string)`
   </dd>
-  <dt>`terraform_version_map` (`map(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    A map to determine which Terraform patch version to use for each minor version<br/>
-    <br/>
-    **Type:** `map(string)`
-    <br/>
-    **Default value:** `{}`
+  `[]`
   </dd>
-  <dt>`worker_pool_name_id_map` (`map(any)`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `context_filters` (`map(list(string))`) <i>optional</i>
+
+
+Context filters to create stacks for specific context information. Valid lists are `namespaces`, `environments`, `tenants`, `stages`.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Map of worker pool names to worker pool IDs<br/>
-    <br/>
-    **Type:** `map(any)`
-    <br/>
-    **Default value:** `{}`
-  </dd></dl>
+  `map(list(string))`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `drift_detection_enabled` (`bool`) <i>optional</i>
+
+
+Flag to enable/disable drift detection on the infrastructure stacks<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `drift_detection_reconcile` (`bool`) <i>optional</i>
+
+
+Flag to enable/disable infrastructure stacks drift automatic reconciliation. If drift is detected and `reconcile` is turned on, Spacelift will create a tracked run to correct the drift<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `drift_detection_schedule` (`list(string)`) <i>optional</i>
+
+
+List of cron expressions to schedule drift detection for the infrastructure stacks<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  [
+    "0 4 * * *"
+  ]
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `external_execution` (`bool`) <i>optional</i>
+
+
+Set this to true if you're calling this module from outside of a Spacelift stack (e.g. the `complete` example)<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `git_branch` (`string`) <i>optional</i>
+
+
+The Git branch name<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"main"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `git_commit_sha` (`string`) <i>optional</i>
+
+
+The commit SHA for which to trigger a run. Requires `var.spacelift_run_enabled` to be set to `true`<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `infracost_enabled` (`bool`) <i>optional</i>
+
+
+Flag to enable/disable infracost. If this is enabled, it will add infracost label to each stack. See [spacelift infracost](https://docs.spacelift.io/vendors/terraform/infracost) docs for more details.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `policies_available` (`list(string)`) <i>optional</i>
+
+
+List of available default policies to create in Spacelift (these policies will not be attached to Spacelift stacks by default, use `var.policies_enabled`)<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  [
+    "git_push.proposed-run",
+    "git_push.tracked-run",
+    "plan.default",
+    "trigger.dependencies",
+    "trigger.retries"
+  ]
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `policies_by_id_enabled` (`list(string)`) <i>optional</i>
+
+
+List of existing policy IDs to attach to all Spacelift stacks. These policies must already exist in Spacelift<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `policies_by_name_enabled` (`list(string)`) <i>optional</i>
+
+
+List of existing policy names to attach to all Spacelift stacks. These policies must exist at `modules/spacelift/rego-policies` OR `var.policies_by_name_path`.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `policies_by_name_path` (`string`) <i>optional</i>
+
+
+Path to the catalog of external Rego policies. The Rego files must exist in the caller's code at the path. The module will create Spacelift policies from the external Rego definitions<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `policies_enabled` (`list(string)`) <i>optional</i>
+
+
+DEPRECATED: Use `policies_by_id_enabled` instead. List of default policies created by this stack to attach to all Spacelift stacks<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `spacelift_component_path` (`string`) <i>optional</i>
+
+
+The Spacelift Component Path<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"components/terraform"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `spacelift_run_enabled` (`bool`) <i>optional</i>
+
+
+Enable/disable creation of the `spacelift_run` resource<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `spacelift_stack_dependency_enabled` (`bool`) <i>optional</i>
+
+
+If enabled, the `spacelift_stack_dependency` Spacelift resource will be used to create dependencies between stacks instead of using the `depends-on` labels. The `depends-on` labels will be removed from the stacks and the trigger policies for dependencies will be detached<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `stack_config_path_template` (`string`) <i>optional</i>
+
+
+Stack config path template<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"stacks/%s.yaml"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `stack_destructor_enabled` (`bool`) <i>optional</i>
+
+
+Flag to enable/disable the stack destructor to destroy the resources of a stack before deleting the stack itself<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `stacks_space_id` (`string`) <i>optional</i>
+
+
+Override the space ID for all stacks (unless the stack config has `dedicated_space` set to true). Otherwise, it will default to the admin stack's space.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tag_filters` (`map(string)`) <i>optional</i>
+
+
+A map of tags that will filter stack creation by the matching `tags` set in a component `vars` configuration.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `map(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `terraform_version_map` (`map(string)`) <i>optional</i>
+
+
+A map to determine which Terraform patch version to use for each minor version<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `map(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `worker_pool_name_id_map` (`map(any)`) <i>optional</i>
+
+
+Map of worker pool names to worker pool IDs<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `map(any)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
 
 
 ### Outputs

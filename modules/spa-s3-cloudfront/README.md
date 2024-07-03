@@ -185,487 +185,1009 @@ The following data sources are used by this module:
 
 ### Context Variables
 
-The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
+<details>
+<summary>Click to expand</summary>
+  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+This is for some rare cases where resources want additional configuration of tags<br/>
+and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+<br/>
 <dl>
-  <dt>`additional_tag_map` (`map(string)`) <i>optional</i></dt>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
-    This is for some rare cases where resources want additional configuration of tags<br/>
-    and therefore take a list of maps with tag key, value, and additional configuration.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `map(string)`
-    **Default value:** `{}`
+  `map(string)`
   </dd>
-  <dt>`attributes` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
-    in the order they appear in the list. New attributes are appended to the<br/>
-    end of the list. The elements of the list are joined by the `delimiter`<br/>
-    and treated as a single ID element.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `list(string)`
-    **Default value:** `[]`
-  </dd>
-  <dt>`context` (`any`) <i>optional</i></dt>
-  <dd>
-    Single object for setting entire context at once.<br/>
-    See description of individual variables for details.<br/>
-    Leave string and numeric variables as `null` to use default value.<br/>
-    Individual variable settings (non-null) override settings in context object,<br/>
-    except for attributes, tags, and additional_tag_map, which are merged.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `any`
-    **Default value:** 
-    ```hcl
-    {
-      "additional_tag_map": {},
-      "attributes": [],
-      "delimiter": null,
-      "descriptor_formats": {},
-      "enabled": true,
-      "environment": null,
-      "id_length_limit": null,
-      "label_key_case": null,
-      "label_order": [],
-      "label_value_case": null,
-      "labels_as_tags": [
-        "unset"
-      ],
-      "name": null,
-      "namespace": null,
-      "regex_replace_chars": null,
-      "stage": null,
-      "tags": {},
-      "tenant": null
-    }
-    ```
-    
-  </dd>
-  <dt>`delimiter` (`string`) <i>optional</i></dt>
-  <dd>
-    Delimiter to be used between ID elements.<br/>
-    Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`descriptor_formats` (`any`) <i>optional</i></dt>
-  <dd>
-    Describe additional descriptors to be output in the `descriptors` output map.<br/>
-    Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
-    `{<br/>
-       format = string<br/>
-       labels = list(string)<br/>
-    }`<br/>
-    (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
-    `format` is a Terraform format string to be passed to the `format()` function.<br/>
-    `labels` is a list of labels, in order, to pass to `format()` function.<br/>
-    Label values will be normalized before being passed to `format()` so they will be<br/>
-    identical to how they appear in `id`.<br/>
-    Default is `{}` (`descriptors` output will be empty).<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `any`
-    **Default value:** `{}`
-  </dd>
-  <dt>`enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Set to false to prevent the module from creating any resources<br/>
-    **Required:** No<br/>
-    **Type:** `bool`
-    **Default value:** `null`
-  </dd>
-  <dt>`environment` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`id_length_limit` (`number`) <i>optional</i></dt>
-  <dd>
-    Limit `id` to this many characters (minimum 6).<br/>
-    Set to `0` for unlimited length.<br/>
-    Set to `null` for keep the existing setting, which defaults to `0`.<br/>
-    Does not affect `id_full`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `number`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_key_case` (`string`) <i>optional</i></dt>
-  <dd>
-    Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
-    Does not affect keys of tags passed in via the `tags` input.<br/>
-    Possible values: `lower`, `title`, `upper`.<br/>
-    Default value: `title`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_order` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    The order in which the labels (ID elements) appear in the `id`.<br/>
-    Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
-    You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `list(string)`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_value_case` (`string`) <i>optional</i></dt>
-  <dd>
-    Controls the letter case of ID elements (labels) as included in `id`,<br/>
-    set as tag values, and output by this module individually.<br/>
-    Does not affect values of tags passed in via the `tags` input.<br/>
-    Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
-    Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
-    Default value: `lower`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`labels_as_tags` (`set(string)`) <i>optional</i></dt>
-  <dd>
-    Set of labels (ID elements) to include as tags in the `tags` output.<br/>
-    Default is to include all labels.<br/>
-    Tags with empty values will not be included in the `tags` output.<br/>
-    Set to `[]` to suppress all generated tags.<br/>
-    **Notes:**<br/>
-      The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
-      Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
-      changed in later chained modules. Attempts to change it will be silently ignored.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `set(string)`
-    **Default value:** 
-    ```hcl
-    [
-      "default"
-    ]
-    ```
-    
-  </dd>
-  <dt>`name` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
-    This is the only ID element not also included as a `tag`.<br/>
-    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`namespace` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`regex_replace_chars` (`string`) <i>optional</i></dt>
-  <dd>
-    Terraform regular expression (regex) string.<br/>
-    Characters matching the regex will be removed from the ID elements.<br/>
-    If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`stage` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`tags` (`map(string)`) <i>optional</i></dt>
-  <dd>
-    Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
-    Neither the tag keys nor the tag values will be modified by this module.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `map(string)`
-    **Default value:** `{}`
-  </dd>
-  <dt>`tenant` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
+  `{}`
   </dd>
 </dl>
+
+---
+
+
+  ### `attributes` (`list(string)`) <i>optional</i>
+
+
+ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+in the order they appear in the list. New attributes are appended to the<br/>
+end of the list. The elements of the list are joined by the `delimiter`<br/>
+and treated as a single ID element.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `any`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  {
+    "additional_tag_map": {},
+    "attributes": [],
+    "delimiter": null,
+    "descriptor_formats": {},
+    "enabled": true,
+    "environment": null,
+    "id_length_limit": null,
+    "label_key_case": null,
+    "label_order": [],
+    "label_value_case": null,
+    "labels_as_tags": [
+      "unset"
+    ],
+    "name": null,
+    "namespace": null,
+    "regex_replace_chars": null,
+    "stage": null,
+    "tags": {},
+    "tenant": null
+  }
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between ID elements.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `descriptor_formats` (`any`) <i>optional</i>
+
+
+Describe additional descriptors to be output in the `descriptors` output map.<br/>
+Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+`{<br/>
+   format = string<br/>
+   labels = list(string)<br/>
+}`<br/>
+(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+`format` is a Terraform format string to be passed to the `format()` function.<br/>
+`labels` is a list of labels, in order, to pass to `format()` function.<br/>
+Label values will be normalized before being passed to `format()` so they will be<br/>
+identical to how they appear in `id`.<br/>
+Default is `{}` (`descriptors` output will be empty).<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `any`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `environment` (`string`) <i>optional</i>
+
+
+ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_key_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+Does not affect keys of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_order` (`list(string)`) <i>optional</i>
+
+
+The order in which the labels (ID elements) appear in the `id`.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_value_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of ID elements (labels) as included in `id`,<br/>
+set as tag values, and output by this module individually.<br/>
+Does not affect values of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+Default value: `lower`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+
+
+Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+Default is to include all labels.<br/>
+Tags with empty values will not be included in the `tags` output.<br/>
+Set to `[]` to suppress all generated tags.<br/>
+**Notes:**<br/>
+  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `set(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  [
+    "default"
+  ]
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `name` (`string`) <i>optional</i>
+
+
+ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+This is the only ID element not also included as a `tag`.<br/>
+The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `namespace` (`string`) <i>optional</i>
+
+
+ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Terraform regular expression (regex) string.<br/>
+Characters matching the regex will be removed from the ID elements.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `stage` (`string`) <i>optional</i>
+
+
+ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+Neither the tag keys nor the tag values will be modified by this module.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `map(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tenant` (`string`) <i>optional</i>
+
+
+ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+</details>
 
 ### Required Inputs
+  ### `region` (`string`) <i>required</i>
 
+
+AWS Region.<br/>
 <dl>
-  <dt>`region` (`string`) <i>required</i></dt>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    AWS Region.<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  ``
   </dd>
 </dl>
 
+---
+
+
+
 ### Optional Inputs
+  ### `block_origin_public_access_enabled` (`bool`) <i>optional</i>
 
+
+When set to 'true' the s3 origin bucket will have public access block enabled.<br/>
 <dl>
-  <dt>`block_origin_public_access_enabled` (`bool`) <i>optional</i></dt>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    When set to 'true' the s3 origin bucket will have public access block enabled.<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
+  `bool`
   </dd>
-  <dt>`cloudfront_access_log_bucket_name` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    When `cloudfront_access_log_create_bucket` is `false`, this is the name of the existing S3 Bucket where<br/>
-    CloudFront Access Logs are to be delivered and is required. IGNORED when `cloudfront_access_log_create_bucket` is `true`.<br/>
-    <br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `true`
   </dd>
-  <dt>`cloudfront_access_log_bucket_name_rendering_enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    If set to `true`, then the CloudFront origin access logs bucket name will be rendered by calling `format("%v-%v-%v-%v", var.namespace, var.environment, var.stage, var.cloudfront_access_log_bucket_name)`.<br/>
-    Otherwise, the value for `cloudfront_access_log_bucket_name` will need to be the globally unique name of the access logs bucket.<br/>
-    <br/>
-    For example, if this component produces an origin bucket named `eg-ue1-devplatform-example` and `cloudfront_access_log_bucket_name` is set to<br/>
-    `example-cloudfront-access-logs`, then the bucket name will be rendered to be `eg-ue1-devplatform-example-cloudfront-access-logs`.<br/>
-    <br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
-  </dd>
-  <dt>`cloudfront_access_log_create_bucket` (`bool`) <i>optional</i></dt>
-  <dd>
-    When `true` and `cloudfront_access_logging_enabled` is also true, this module will create a new,<br/>
-    separate S3 bucket to receive CloudFront Access Logs.<br/>
-    <br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
-  </dd>
-  <dt>`cloudfront_access_log_prefix` (`string`) <i>optional</i></dt>
-  <dd>
-    Prefix to use for CloudFront Access Log object keys. Defaults to no prefix.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
-  </dd>
-  <dt>`cloudfront_access_log_prefix_rendering_enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Whether or not to dynamically render ${module.this.id} at the end of `var.cloudfront_access_log_prefix`.<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
-  </dd>
-  <dt>`cloudfront_allowed_methods` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    List of allowed methods (e.g. GET, PUT, POST, DELETE, HEAD) for AWS CloudFront.<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** 
-    ```hcl
-    [
-      "DELETE",
-      "GET",
-      "HEAD",
-      "OPTIONS",
-      "PATCH",
-      "POST",
-      "PUT"
-    ]
-    ```
-    
-  </dd>
-  <dt>`cloudfront_aws_shield_protection_enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Enable or disable AWS Shield Advanced protection for the CloudFront distribution. If set to 'true', a subscription to AWS Shield Advanced must exist in this account.<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
-  </dd>
-  <dt>`cloudfront_aws_waf_component_name` (`string`) <i>optional</i></dt>
-  <dd>
-    The name of the component used when deploying WAF ACL<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"waf"`
-  </dd>
-  <dt>`cloudfront_aws_waf_environment` (`string`) <i>optional</i></dt>
-  <dd>
-    The environment where the WAF ACL for CloudFront distribution exists.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd>
-  <dt>`cloudfront_aws_waf_protection_enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Enable or disable AWS WAF for the CloudFront distribution.<br/>
-    <br/>
-    This assumes that the `aws-waf-acl-default-cloudfront` component has been deployed to the regional stack corresponding<br/>
-    to `var.waf_acl_environment`.<br/>
-    <br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
-  </dd>
-  <dt>`cloudfront_cached_methods` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    List of cached methods (e.g. GET, PUT, POST, DELETE, HEAD).<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** 
-    ```hcl
-    [
-      "GET",
-      "HEAD"
-    ]
-    ```
-    
-  </dd>
-  <dt>`cloudfront_compress` (`bool`) <i>optional</i></dt>
-  <dd>
-    Compress content for web requests that include Accept-Encoding: gzip in the request header.<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
-  </dd>
-  <dt>`cloudfront_custom_error_response` <i>optional</i></dt>
-  <dd>
-    List of one or more custom error response element maps.<br/>
-    <br/>
-    **Type:** 
+</dl>
 
-    ```hcl
-    list(object({
+---
+
+
+  ### `cloudfront_access_log_bucket_name` (`string`) <i>optional</i>
+
+
+When `cloudfront_access_log_create_bucket` is `false`, this is the name of the existing S3 Bucket where<br/>
+CloudFront Access Logs are to be delivered and is required. IGNORED when `cloudfront_access_log_create_bucket` is `true`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_access_log_bucket_name_rendering_enabled` (`bool`) <i>optional</i>
+
+
+If set to `true`, then the CloudFront origin access logs bucket name will be rendered by calling `format("%v-%v-%v-%v", var.namespace, var.environment, var.stage, var.cloudfront_access_log_bucket_name)`.<br/>
+Otherwise, the value for `cloudfront_access_log_bucket_name` will need to be the globally unique name of the access logs bucket.<br/>
+<br/>
+For example, if this component produces an origin bucket named `eg-ue1-devplatform-example` and `cloudfront_access_log_bucket_name` is set to<br/>
+`example-cloudfront-access-logs`, then the bucket name will be rendered to be `eg-ue1-devplatform-example-cloudfront-access-logs`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_access_log_create_bucket` (`bool`) <i>optional</i>
+
+
+When `true` and `cloudfront_access_logging_enabled` is also true, this module will create a new,<br/>
+separate S3 bucket to receive CloudFront Access Logs.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_access_log_prefix` (`string`) <i>optional</i>
+
+
+Prefix to use for CloudFront Access Log object keys. Defaults to no prefix.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_access_log_prefix_rendering_enabled` (`bool`) <i>optional</i>
+
+
+Whether or not to dynamically render ${module.this.id} at the end of `var.cloudfront_access_log_prefix`.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_allowed_methods` (`list(string)`) <i>optional</i>
+
+
+List of allowed methods (e.g. GET, PUT, POST, DELETE, HEAD) for AWS CloudFront.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  [
+    "DELETE",
+    "GET",
+    "HEAD",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT"
+  ]
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_aws_shield_protection_enabled` (`bool`) <i>optional</i>
+
+
+Enable or disable AWS Shield Advanced protection for the CloudFront distribution. If set to 'true', a subscription to AWS Shield Advanced must exist in this account.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_aws_waf_component_name` (`string`) <i>optional</i>
+
+
+The name of the component used when deploying WAF ACL<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"waf"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_aws_waf_environment` (`string`) <i>optional</i>
+
+
+The environment where the WAF ACL for CloudFront distribution exists.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_aws_waf_protection_enabled` (`bool`) <i>optional</i>
+
+
+Enable or disable AWS WAF for the CloudFront distribution.<br/>
+<br/>
+This assumes that the `aws-waf-acl-default-cloudfront` component has been deployed to the regional stack corresponding<br/>
+to `var.waf_acl_environment`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_cached_methods` (`list(string)`) <i>optional</i>
+
+
+List of cached methods (e.g. GET, PUT, POST, DELETE, HEAD).<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  [
+    "GET",
+    "HEAD"
+  ]
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_compress` (`bool`) <i>optional</i>
+
+
+Compress content for web requests that include Accept-Encoding: gzip in the request header.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_custom_error_response` <i>optional</i>
+
+
+List of one or more custom error response element maps.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  list(object({
     error_caching_min_ttl = optional(string, "10")
     error_code            = string
     response_code         = string
     response_page_path    = string
   }))
-    ```
-    
-    <br/>
-    **Default value:** `[]`
+  ```
+  
   </dd>
-  <dt>`cloudfront_default_root_object` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Object that CloudFront return when requests the root URL.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"index.html"`
+  `[]`
   </dd>
-  <dt>`cloudfront_default_ttl` (`number`) <i>optional</i></dt>
-  <dd>
-    Default amount of time (in seconds) that an object is in a CloudFront cache.<br/>
-    <br/>
-    **Type:** `number`
-    <br/>
-    **Default value:** `60`
-  </dd>
-  <dt>`cloudfront_index_document` (`string`) <i>optional</i></dt>
-  <dd>
-    Amazon S3 returns this index document when requests are made to the root domain or any of the subfolders.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"index.html"`
-  </dd>
-  <dt>`cloudfront_ipv6_enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Set to true to enable an AAAA DNS record to be set as well as the A record.<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
-  </dd>
-  <dt>`cloudfront_lambda_function_association` <i>optional</i></dt>
-  <dd>
-    A config block that configures the CloudFront distribution with lambda@edge functions for specific events.<br/>
-    <br/>
-    **Type:** 
+</dl>
 
-    ```hcl
-    list(object({
+---
+
+
+  ### `cloudfront_default_root_object` (`string`) <i>optional</i>
+
+
+Object that CloudFront return when requests the root URL.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"index.html"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_default_ttl` (`number`) <i>optional</i>
+
+
+Default amount of time (in seconds) that an object is in a CloudFront cache.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `60`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_index_document` (`string`) <i>optional</i>
+
+
+Amazon S3 returns this index document when requests are made to the root domain or any of the subfolders.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"index.html"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_ipv6_enabled` (`bool`) <i>optional</i>
+
+
+Set to true to enable an AAAA DNS record to be set as well as the A record.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_lambda_function_association` <i>optional</i>
+
+
+A config block that configures the CloudFront distribution with lambda@edge functions for specific events.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  list(object({
     event_type   = string
     include_body = bool
     lambda_arn   = string
   }))
-    ```
-    
-    <br/>
-    **Default value:** `[]`
+  ```
+  
   </dd>
-  <dt>`cloudfront_max_ttl` (`number`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Maximum amount of time (in seconds) that an object is in a CloudFront cache.<br/>
-    <br/>
-    **Type:** `number`
-    <br/>
-    **Default value:** `31536000`
+  `[]`
   </dd>
-  <dt>`cloudfront_min_ttl` (`number`) <i>optional</i></dt>
-  <dd>
-    Minimum amount of time that you want objects to stay in CloudFront caches.<br/>
-    <br/>
-    **Type:** `number`
-    <br/>
-    **Default value:** `0`
-  </dd>
-  <dt>`cloudfront_viewer_protocol_policy` (`string`) <i>optional</i></dt>
-  <dd>
-    Limit the protocol users can use to access content. One of `allow-all`, `https-only`, or `redirect-to-https`.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"redirect-to-https"`
-  </dd>
-  <dt>`comment` (`string`) <i>optional</i></dt>
-  <dd>
-    Any comments you want to include about the distribution.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"Managed by Terraform"`
-  </dd>
-  <dt>`custom_origins` <i>optional</i></dt>
-  <dd>
-    A list of additional custom website [origins](https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments) for this distribution.<br/>
-    <br/>
-    <br/>
-    **Type:** 
+</dl>
 
-    ```hcl
-    list(object({
+---
+
+
+  ### `cloudfront_max_ttl` (`number`) <i>optional</i>
+
+
+Maximum amount of time (in seconds) that an object is in a CloudFront cache.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `31536000`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_min_ttl` (`number`) <i>optional</i>
+
+
+Minimum amount of time that you want objects to stay in CloudFront caches.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `0`
+  </dd>
+</dl>
+
+---
+
+
+  ### `cloudfront_viewer_protocol_policy` (`string`) <i>optional</i>
+
+
+Limit the protocol users can use to access content. One of `allow-all`, `https-only`, or `redirect-to-https`.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"redirect-to-https"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `comment` (`string`) <i>optional</i>
+
+
+Any comments you want to include about the distribution.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"Managed by Terraform"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `custom_origins` <i>optional</i>
+
+
+A list of additional custom website [origins](https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments) for this distribution.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  list(object({
     domain_name = string
     origin_id   = string
     origin_path = string
@@ -682,219 +1204,447 @@ The following variables are defined in the `context.tf` file of this module and 
       origin_read_timeout      = number
     })
   }))
-    ```
-    
-    <br/>
-    **Default value:** `[]`
+  ```
+  
   </dd>
-  <dt>`dns_delegated_environment_name` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The environment where `dns-delegated` component is deployed to<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"gbl"`
+  `[]`
   </dd>
-  <dt>`external_aliases` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    List of FQDN's - Used to set the Alternate Domain Names (CNAMEs) setting on CloudFront. No new Route53 records will be created for these.<br/>
-    <br/>
-    Setting `process_domain_validation_options` to true may cause the component to fail if an external_alias DNS zone is not controlled by Terraform.<br/>
-    <br/>
-    Setting `preview_environment_enabled` to `true` will cause this variable to be ignored.<br/>
-    <br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
-  </dd>
-  <dt>`failover_criteria_status_codes` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    List of HTTP Status Codes to use as the origin group failover criteria.<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** 
-    ```hcl
-    [
-      403,
-      404,
-      500,
-      502
-    ]
-    ```
-    
-  </dd>
-  <dt>`failover_s3_origin_environment` (`string`) <i>optional</i></dt>
-  <dd>
-    The [fixed name](https://github.com/cloudposse/terraform-aws-utils/blob/399951e552483a4f4c1dc7fbe2675c443f3dbd83/main.tf#L10) of the AWS Region where the<br/>
-    failover S3 origin exists. Setting this variable will enable use of a failover S3 origin, but it is required for the<br/>
-    failover S3 origin to exist beforehand. This variable is used in conjunction with `var.failover_s3_origin_format` to<br/>
-    build out the name of the Failover S3 origin in the specified region.<br/>
-    <br/>
-    For example, if this component creates an origin of name `eg-ue1-devplatform-example` and this variable is set to `uw1`,<br/>
-    then it is expected that a bucket with the name `eg-uw1-devplatform-example-failover` exists in `us-west-1`.<br/>
-    <br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd>
-  <dt>`failover_s3_origin_format` (`string`) <i>optional</i></dt>
-  <dd>
-    If `var.failover_s3_origin_environment` is supplied, this is the format to use for the failover S3 origin bucket name when<br/>
-    building the name via `format([format], var.namespace, var.failover_s3_origin_environment, var.stage, var.name)`<br/>
-    and then looking it up via the `aws_s3_bucket` Data Source.<br/>
-    <br/>
-    For example, if this component creates an origin of name `eg-ue1-devplatform-example` and `var.failover_s3_origin_environment`<br/>
-    is set to `uw1`, then it is expected that a bucket with the name `eg-uw1-devplatform-example-failover` exists in `us-west-1`.<br/>
-    <br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"%v-%v-%v-%v-failover"`
-  </dd>
-  <dt>`forward_cookies` (`string`) <i>optional</i></dt>
-  <dd>
-    Specifies whether you want CloudFront to forward all or no cookies to the origin. Can be 'all' or 'none'<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"none"`
-  </dd>
-  <dt>`forward_header_values` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    A list of whitelisted header values to forward to the origin (incompatible with `cache_policy_id`)<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** 
-    ```hcl
-    [
-      "Access-Control-Request-Headers",
-      "Access-Control-Request-Method",
-      "Origin"
-    ]
-    ```
-    
-  </dd>
-  <dt>`github_actions_allowed_repos` (`list(string)`) <i>optional</i></dt>
-  <dd>
-      A list of the GitHub repositories that are allowed to assume this role from GitHub Actions. For example,<br/>
-      ["cloudposse/infra-live"]. Can contain "*" as wildcard.<br/>
-      If org part of repo name is omitted, "cloudposse" will be assumed.<br/>
-    <br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
-  </dd>
-  <dt>`github_actions_iam_role_attributes` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    Additional attributes to add to the role name<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
-  </dd>
-  <dt>`github_actions_iam_role_enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Flag to toggle creation of an IAM Role that GitHub Actions can assume to access AWS resources<br/>
-    <br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
-  </dd>
-  <dt>`github_runners_component_name` (`string`) <i>optional</i></dt>
-  <dd>
-    The name of the component that deploys GitHub Runners, used in remote-state lookup<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"github-runners"`
-  </dd>
-  <dt>`github_runners_deployment_principal_arn_enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    A flag that is used to decide whether or not to include the GitHub Runner's IAM role in origin_deployment_principal_arns list<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
-  </dd>
-  <dt>`github_runners_environment_name` (`string`) <i>optional</i></dt>
-  <dd>
-    The name of the environment where the CloudTrail bucket is provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"ue2"`
-  </dd>
-  <dt>`github_runners_stage_name` (`string`) <i>optional</i></dt>
-  <dd>
-    The stage name where the CloudTrail bucket is provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"auto"`
-  </dd>
-  <dt>`github_runners_tenant_name` (`string`) <i>optional</i></dt>
-  <dd>
-    The tenant name where the GitHub Runners are provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd>
-  <dt>`http_version` (`string`) <i>optional</i></dt>
-  <dd>
-    The maximum HTTP version to support on the distribution. Allowed values are http1.1, http2, http2and3 and http3<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"http2"`
-  </dd>
-  <dt>`lambda_edge_allowed_ssm_parameters` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    The Lambda@Edge functions will be allowed to access the list of AWS SSM parameter with these ARNs<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
-  </dd>
-  <dt>`lambda_edge_destruction_delay` (`string`) <i>optional</i></dt>
-  <dd>
-    The delay, in [Golang ParseDuration](https://pkg.go.dev/time#ParseDuration) format, to wait before destroying the Lambda@Edge<br/>
-    functions.<br/>
-    <br/>
-    This delay is meant to circumvent Lambda@Edge functions not being immediately deletable following their dissociation from<br/>
-    a CloudFront distribution, since they are replicated to CloudFront Edge servers around the world.<br/>
-    <br/>
-    If set to `null`, no delay will be introduced.<br/>
-    <br/>
-    By default, the delay is 20 minutes. This is because it takes about 3 minutes to destroy a CloudFront distribution, and<br/>
-    around 15 minutes until the Lambda@Edge function is available for deletion, in most cases.<br/>
-    <br/>
-    For more information, see: https://github.com/hashicorp/terraform-provider-aws/issues/1721.<br/>
-    <br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"20m"`
-  </dd>
-  <dt>`lambda_edge_functions` <i>optional</i></dt>
-  <dd>
-    Lambda@Edge functions to create.<br/>
-    <br/>
-    The key of this map is the name of the Lambda@Edge function.<br/>
-    <br/>
-    This map will be deep merged with each enabled default function. Use deep merge to change or overwrite specific values passed by those function objects.<br/>
-    <br/>
-    <br/>
-    **Type:** 
+</dl>
 
-    ```hcl
-    map(object({
+---
+
+
+  ### `dns_delegated_environment_name` (`string`) <i>optional</i>
+
+
+The environment where `dns-delegated` component is deployed to<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"gbl"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `external_aliases` (`list(string)`) <i>optional</i>
+
+
+List of FQDN's - Used to set the Alternate Domain Names (CNAMEs) setting on CloudFront. No new Route53 records will be created for these.<br/>
+<br/>
+Setting `process_domain_validation_options` to true may cause the component to fail if an external_alias DNS zone is not controlled by Terraform.<br/>
+<br/>
+Setting `preview_environment_enabled` to `true` will cause this variable to be ignored.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `failover_criteria_status_codes` (`list(string)`) <i>optional</i>
+
+
+List of HTTP Status Codes to use as the origin group failover criteria.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  [
+    403,
+    404,
+    500,
+    502
+  ]
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `failover_s3_origin_environment` (`string`) <i>optional</i>
+
+
+The [fixed name](https://github.com/cloudposse/terraform-aws-utils/blob/399951e552483a4f4c1dc7fbe2675c443f3dbd83/main.tf#L10) of the AWS Region where the<br/>
+failover S3 origin exists. Setting this variable will enable use of a failover S3 origin, but it is required for the<br/>
+failover S3 origin to exist beforehand. This variable is used in conjunction with `var.failover_s3_origin_format` to<br/>
+build out the name of the Failover S3 origin in the specified region.<br/>
+<br/>
+For example, if this component creates an origin of name `eg-ue1-devplatform-example` and this variable is set to `uw1`,<br/>
+then it is expected that a bucket with the name `eg-uw1-devplatform-example-failover` exists in `us-west-1`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `failover_s3_origin_format` (`string`) <i>optional</i>
+
+
+If `var.failover_s3_origin_environment` is supplied, this is the format to use for the failover S3 origin bucket name when<br/>
+building the name via `format([format], var.namespace, var.failover_s3_origin_environment, var.stage, var.name)`<br/>
+and then looking it up via the `aws_s3_bucket` Data Source.<br/>
+<br/>
+For example, if this component creates an origin of name `eg-ue1-devplatform-example` and `var.failover_s3_origin_environment`<br/>
+is set to `uw1`, then it is expected that a bucket with the name `eg-uw1-devplatform-example-failover` exists in `us-west-1`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"%v-%v-%v-%v-failover"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `forward_cookies` (`string`) <i>optional</i>
+
+
+Specifies whether you want CloudFront to forward all or no cookies to the origin. Can be 'all' or 'none'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"none"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `forward_header_values` (`list(string)`) <i>optional</i>
+
+
+A list of whitelisted header values to forward to the origin (incompatible with `cache_policy_id`)<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  [
+    "Access-Control-Request-Headers",
+    "Access-Control-Request-Method",
+    "Origin"
+  ]
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `github_actions_allowed_repos` (`list(string)`) <i>optional</i>
+
+
+  A list of the GitHub repositories that are allowed to assume this role from GitHub Actions. For example,<br/>
+  ["cloudposse/infra-live"]. Can contain "*" as wildcard.<br/>
+  If org part of repo name is omitted, "cloudposse" will be assumed.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `github_actions_iam_role_attributes` (`list(string)`) <i>optional</i>
+
+
+Additional attributes to add to the role name<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `github_actions_iam_role_enabled` (`bool`) <i>optional</i>
+
+
+Flag to toggle creation of an IAM Role that GitHub Actions can assume to access AWS resources<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `github_runners_component_name` (`string`) <i>optional</i>
+
+
+The name of the component that deploys GitHub Runners, used in remote-state lookup<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"github-runners"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `github_runners_deployment_principal_arn_enabled` (`bool`) <i>optional</i>
+
+
+A flag that is used to decide whether or not to include the GitHub Runner's IAM role in origin_deployment_principal_arns list<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `github_runners_environment_name` (`string`) <i>optional</i>
+
+
+The name of the environment where the CloudTrail bucket is provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"ue2"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `github_runners_stage_name` (`string`) <i>optional</i>
+
+
+The stage name where the CloudTrail bucket is provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"auto"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `github_runners_tenant_name` (`string`) <i>optional</i>
+
+
+The tenant name where the GitHub Runners are provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `http_version` (`string`) <i>optional</i>
+
+
+The maximum HTTP version to support on the distribution. Allowed values are http1.1, http2, http2and3 and http3<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"http2"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `lambda_edge_allowed_ssm_parameters` (`list(string)`) <i>optional</i>
+
+
+The Lambda@Edge functions will be allowed to access the list of AWS SSM parameter with these ARNs<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `lambda_edge_destruction_delay` (`string`) <i>optional</i>
+
+
+The delay, in [Golang ParseDuration](https://pkg.go.dev/time#ParseDuration) format, to wait before destroying the Lambda@Edge<br/>
+functions.<br/>
+<br/>
+This delay is meant to circumvent Lambda@Edge functions not being immediately deletable following their dissociation from<br/>
+a CloudFront distribution, since they are replicated to CloudFront Edge servers around the world.<br/>
+<br/>
+If set to `null`, no delay will be introduced.<br/>
+<br/>
+By default, the delay is 20 minutes. This is because it takes about 3 minutes to destroy a CloudFront distribution, and<br/>
+around 15 minutes until the Lambda@Edge function is available for deletion, in most cases.<br/>
+<br/>
+For more information, see: https://github.com/hashicorp/terraform-provider-aws/issues/1721.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"20m"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `lambda_edge_functions` <i>optional</i>
+
+
+Lambda@Edge functions to create.<br/>
+<br/>
+The key of this map is the name of the Lambda@Edge function.<br/>
+<br/>
+This map will be deep merged with each enabled default function. Use deep merge to change or overwrite specific values passed by those function objects.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  map(object({
     source = optional(list(object({
       filename = string
       content  = string
@@ -906,46 +1656,82 @@ The following variables are defined in the `context.tf` file of this module and 
     event_type   = string
     include_body = bool
   }))
-    ```
-    
-    <br/>
-    **Default value:** `{}`
+  ```
+  
   </dd>
-  <dt>`lambda_edge_handler` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The default Lambda@Edge handler for all functions.<br/>
-    <br/>
-    This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edge_functions` and can be overwritten for any individual function.<br/>
-    <br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"index.handler"`
+  `{}`
   </dd>
-  <dt>`lambda_edge_runtime` (`string`) <i>optional</i></dt>
-  <dd>
-    The default Lambda@Edge runtime for all functions.<br/>
-    <br/>
-    This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edge_functions` and can be overwritten for any individual function.<br/>
-    <br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"nodejs16.x"`
-  </dd>
-  <dt>`ordered_cache` <i>optional</i></dt>
-  <dd>
-    An ordered list of [cache behaviors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#cache-behavior-arguments) resource for this distribution.<br/>
-    List in order of precedence (first match wins). This is in addition to the default cache policy.<br/>
-    Set `target_origin_id` to `""` to specify the S3 bucket origin created by this module.<br/>
-    Set `cache_policy_id` to `""` to use `cache_policy_name` for creating a new policy. At least one of the two must be set.<br/>
-    Set `origin_request_policy_id` to `""` to use `origin_request_policy_name` for creating a new policy. At least one of the two must be set.<br/>
-    <br/>
-    <br/>
-    **Type:** 
+</dl>
 
-    ```hcl
-    list(object({
+---
+
+
+  ### `lambda_edge_handler` (`string`) <i>optional</i>
+
+
+The default Lambda@Edge handler for all functions.<br/>
+<br/>
+This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edge_functions` and can be overwritten for any individual function.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"index.handler"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `lambda_edge_runtime` (`string`) <i>optional</i>
+
+
+The default Lambda@Edge runtime for all functions.<br/>
+<br/>
+This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edge_functions` and can be overwritten for any individual function.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"nodejs16.x"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `ordered_cache` <i>optional</i>
+
+
+An ordered list of [cache behaviors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#cache-behavior-arguments) resource for this distribution.<br/>
+List in order of precedence (first match wins). This is in addition to the default cache policy.<br/>
+Set `target_origin_id` to `""` to specify the S3 bucket origin created by this module.<br/>
+Set `cache_policy_id` to `""` to use `cache_policy_name` for creating a new policy. At least one of the two must be set.<br/>
+Set `origin_request_policy_id` to `""` to use `origin_request_policy_name` for creating a new policy. At least one of the two must be set.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  list(object({
     target_origin_id = string
     path_pattern     = string
 
@@ -982,197 +1768,419 @@ The following variables are defined in the `context.tf` file of this module and 
       function_arn = string
     }))
   }))
-    ```
-    
-    <br/>
-    **Default value:** `[]`
+  ```
+  
   </dd>
-  <dt>`origin_allow_ssl_requests_only` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Set to `true` in order to have the origin bucket require requests to use Secure Socket Layer (HTTPS/SSL). This will explicitly deny access to HTTP requests<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
+  `[]`
   </dd>
-  <dt>`origin_deployment_actions` (`list(string)`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `origin_allow_ssl_requests_only` (`bool`) <i>optional</i>
+
+
+Set to `true` in order to have the origin bucket require requests to use Secure Socket Layer (HTTPS/SSL). This will explicitly deny access to HTTP requests<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    List of actions to permit `origin_deployment_principal_arns` to perform on bucket and bucket prefixes (see `origin_deployment_principal_arns`)<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** 
-    ```hcl
-    [
-      "s3:PutObject",
-      "s3:PutObjectAcl",
-      "s3:GetObject",
-      "s3:DeleteObject",
-      "s3:ListBucket",
-      "s3:ListBucketMultipartUploads",
-      "s3:GetBucketLocation",
-      "s3:AbortMultipartUpload"
-    ]
-    ```
-    
+  `bool`
   </dd>
-  <dt>`origin_deployment_principal_arns` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    List of role ARNs to grant deployment permissions to the origin Bucket.<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
+  `true`
   </dd>
-  <dt>`origin_encryption_enabled` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `origin_deployment_actions` (`list(string)`) <i>optional</i>
+
+
+List of actions to permit `origin_deployment_principal_arns` to perform on bucket and bucket prefixes (see `origin_deployment_principal_arns`)<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    When set to 'true' the origin Bucket will have aes256 encryption enabled by default.<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
+  `list(string)`
   </dd>
-  <dt>`origin_force_destroy` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    A boolean string that indicates all objects should be deleted from the origin Bucket so that the Bucket can be destroyed without error. These objects are not recoverable.<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  
+  ```hcl
+  [
+    "s3:PutObject",
+    "s3:PutObjectAcl",
+    "s3:GetObject",
+    "s3:DeleteObject",
+    "s3:ListBucket",
+    "s3:ListBucketMultipartUploads",
+    "s3:GetBucketLocation",
+    "s3:AbortMultipartUpload"
+  ]
+  ```
+  
   </dd>
-  <dt>`origin_s3_access_log_bucket_name` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `origin_deployment_principal_arns` (`list(string)`) <i>optional</i>
+
+
+List of role ARNs to grant deployment permissions to the origin Bucket.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Name of the existing S3 bucket where S3 Access Logs for the origin Bucket will be delivered. Default is not to enable S3 Access Logging for the origin Bucket.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `list(string)`
   </dd>
-  <dt>`origin_s3_access_log_bucket_name_rendering_enabled` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    If set to `true`, then the S3 origin access logs bucket name will be rendered by calling `format("%v-%v-%v-%v", var.namespace, var.environment, var.stage, var.origin_s3_access_log_bucket_name)`.<br/>
-    Otherwise, the value for `origin_s3_access_log_bucket_name` will need to be the globally unique name of the access logs bucket.<br/>
-    <br/>
-    For example, if this component produces an origin bucket named `eg-ue1-devplatform-example` and `origin_s3_access_log_bucket_name` is set to<br/>
-    `example-s3-access-logs`, then the bucket name will be rendered to be `eg-ue1-devplatform-example-s3-access-logs`.<br/>
-    <br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `[]`
   </dd>
-  <dt>`origin_s3_access_log_prefix` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `origin_encryption_enabled` (`bool`) <i>optional</i>
+
+
+When set to 'true' the origin Bucket will have aes256 encryption enabled by default.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Prefix to use for S3 Access Log object keys. Defaults to `logs/${module.this.id}`<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `bool`
   </dd>
-  <dt>`origin_s3_access_logging_enabled` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Set `true` to deliver S3 Access Logs to the `origin_s3_access_log_bucket_name` bucket.<br/>
-    Defaults to `false` if `origin_s3_access_log_bucket_name` is empty (the default), `true` otherwise.<br/>
-    Must be set explicitly if the access log bucket is being created at the same time as this module is being invoked.<br/>
-    <br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `null`
+  `true`
   </dd>
-  <dt>`origin_versioning_enabled` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `origin_force_destroy` (`bool`) <i>optional</i>
+
+
+A boolean string that indicates all objects should be deleted from the origin Bucket so that the Bucket can be destroyed without error. These objects are not recoverable.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Enable or disable versioning for the origin Bucket. Versioning is a means of keeping multiple variants of an object in the same bucket.<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `bool`
   </dd>
-  <dt>`parent_zone_name` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Parent domain name of site to publish. Defaults to format(parent_zone_name_pattern, stage, environment).<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `false`
   </dd>
-  <dt>`preview_environment_enabled` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `origin_s3_access_log_bucket_name` (`string`) <i>optional</i>
+
+
+Name of the existing S3 bucket where S3 Access Logs for the origin Bucket will be delivered. Default is not to enable S3 Access Logging for the origin Bucket.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Enable or disable SPA Preview Environments via Lambda@Edge, i.e. mapping `subdomain.example.com` to the `/subdomain`<br/>
-    path in the origin S3 bucket.<br/>
-    <br/>
-    This variable implicitly affects the following variables:<br/>
-    <br/>
-    * `s3_website_enabled`<br/>
-    * `s3_website_password_enabled`<br/>
-    * `block_origin_public_access_enabled`<br/>
-    * `origin_allow_ssl_requests_only`<br/>
-    * `forward_header_values`<br/>
-    * `cloudfront_default_ttl`<br/>
-    * `cloudfront_min_ttl`<br/>
-    * `cloudfront_max_ttl`<br/>
-    * `cloudfront_lambda_function_association`<br/>
-    <br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `string`
   </dd>
-  <dt>`process_domain_validation_options` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Flag to enable/disable processing of the record to add to the DNS zone to complete certificate validation<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
+  `""`
   </dd>
-  <dt>`s3_object_ownership` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `origin_s3_access_log_bucket_name_rendering_enabled` (`bool`) <i>optional</i>
+
+
+If set to `true`, then the S3 origin access logs bucket name will be rendered by calling `format("%v-%v-%v-%v", var.namespace, var.environment, var.stage, var.origin_s3_access_log_bucket_name)`.<br/>
+Otherwise, the value for `origin_s3_access_log_bucket_name` will need to be the globally unique name of the access logs bucket.<br/>
+<br/>
+For example, if this component produces an origin bucket named `eg-ue1-devplatform-example` and `origin_s3_access_log_bucket_name` is set to<br/>
+`example-s3-access-logs`, then the bucket name will be rendered to be `eg-ue1-devplatform-example-s3-access-logs`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Specifies the S3 object ownership control on the origin bucket. Valid values are `ObjectWriter`, `BucketOwnerPreferred`, and 'BucketOwnerEnforced'.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"ObjectWriter"`
+  `bool`
   </dd>
-  <dt>`s3_website_enabled` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Set to true to enable the created S3 bucket to serve as a website independently of CloudFront,<br/>
-    and to use that website as the origin.<br/>
-    <br/>
-    Setting `preview_environment_enabled` will implicitly set this to `true`.<br/>
-    <br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `false`
   </dd>
-  <dt>`s3_website_password_enabled` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `origin_s3_access_log_prefix` (`string`) <i>optional</i>
+
+
+Prefix to use for S3 Access Log object keys. Defaults to `logs/${module.this.id}`<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    If set to true, and `s3_website_enabled` is also true, a password will be required in the `Referrer` field of the<br/>
-    HTTP request in order to access the website, and CloudFront will be configured to pass this password in its requests.<br/>
-    This will make it much harder for people to bypass CloudFront and access the S3 website directly via its website endpoint.<br/>
-    <br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `string`
   </dd>
-  <dt>`site_fqdn` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Fully qualified domain name of site to publish. Overrides site_subdomain and parent_zone_name.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `""`
   </dd>
-  <dt>`site_subdomain` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `origin_s3_access_logging_enabled` (`bool`) <i>optional</i>
+
+
+Set `true` to deliver S3 Access Logs to the `origin_s3_access_log_bucket_name` bucket.<br/>
+Defaults to `false` if `origin_s3_access_log_bucket_name` is empty (the default), `true` otherwise.<br/>
+Must be set explicitly if the access log bucket is being created at the same time as this module is being invoked.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Subdomain to plug into site_name_pattern to make site FQDN.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
-  </dd></dl>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `origin_versioning_enabled` (`bool`) <i>optional</i>
+
+
+Enable or disable versioning for the origin Bucket. Versioning is a means of keeping multiple variants of an object in the same bucket.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `parent_zone_name` (`string`) <i>optional</i>
+
+
+Parent domain name of site to publish. Defaults to format(parent_zone_name_pattern, stage, environment).<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `preview_environment_enabled` (`bool`) <i>optional</i>
+
+
+Enable or disable SPA Preview Environments via Lambda@Edge, i.e. mapping `subdomain.example.com` to the `/subdomain`<br/>
+path in the origin S3 bucket.<br/>
+<br/>
+This variable implicitly affects the following variables:<br/>
+<br/>
+* `s3_website_enabled`<br/>
+* `s3_website_password_enabled`<br/>
+* `block_origin_public_access_enabled`<br/>
+* `origin_allow_ssl_requests_only`<br/>
+* `forward_header_values`<br/>
+* `cloudfront_default_ttl`<br/>
+* `cloudfront_min_ttl`<br/>
+* `cloudfront_max_ttl`<br/>
+* `cloudfront_lambda_function_association`<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `process_domain_validation_options` (`bool`) <i>optional</i>
+
+
+Flag to enable/disable processing of the record to add to the DNS zone to complete certificate validation<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `s3_object_ownership` (`string`) <i>optional</i>
+
+
+Specifies the S3 object ownership control on the origin bucket. Valid values are `ObjectWriter`, `BucketOwnerPreferred`, and 'BucketOwnerEnforced'.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"ObjectWriter"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `s3_website_enabled` (`bool`) <i>optional</i>
+
+
+Set to true to enable the created S3 bucket to serve as a website independently of CloudFront,<br/>
+and to use that website as the origin.<br/>
+<br/>
+Setting `preview_environment_enabled` will implicitly set this to `true`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `s3_website_password_enabled` (`bool`) <i>optional</i>
+
+
+If set to true, and `s3_website_enabled` is also true, a password will be required in the `Referrer` field of the<br/>
+HTTP request in order to access the website, and CloudFront will be configured to pass this password in its requests.<br/>
+This will make it much harder for people to bypass CloudFront and access the S3 website directly via its website endpoint.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `site_fqdn` (`string`) <i>optional</i>
+
+
+Fully qualified domain name of site to publish. Overrides site_subdomain and parent_zone_name.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `site_subdomain` (`string`) <i>optional</i>
+
+
+Subdomain to plug into site_name_pattern to make site FQDN.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
 
 
 ### Outputs

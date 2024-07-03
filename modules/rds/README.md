@@ -147,426 +147,917 @@ The following data sources are used by this module:
 
 ### Context Variables
 
-The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
+<details>
+<summary>Click to expand</summary>
+  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+This is for some rare cases where resources want additional configuration of tags<br/>
+and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+<br/>
 <dl>
-  <dt>`additional_tag_map` (`map(string)`) <i>optional</i></dt>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
-    This is for some rare cases where resources want additional configuration of tags<br/>
-    and therefore take a list of maps with tag key, value, and additional configuration.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `map(string)`
-    **Default value:** `{}`
+  `map(string)`
   </dd>
-  <dt>`attributes` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
-    in the order they appear in the list. New attributes are appended to the<br/>
-    end of the list. The elements of the list are joined by the `delimiter`<br/>
-    and treated as a single ID element.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `list(string)`
-    **Default value:** `[]`
-  </dd>
-  <dt>`context` (`any`) <i>optional</i></dt>
-  <dd>
-    Single object for setting entire context at once.<br/>
-    See description of individual variables for details.<br/>
-    Leave string and numeric variables as `null` to use default value.<br/>
-    Individual variable settings (non-null) override settings in context object,<br/>
-    except for attributes, tags, and additional_tag_map, which are merged.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `any`
-    **Default value:** 
-    ```hcl
-    {
-      "additional_tag_map": {},
-      "attributes": [],
-      "delimiter": null,
-      "descriptor_formats": {},
-      "enabled": true,
-      "environment": null,
-      "id_length_limit": null,
-      "label_key_case": null,
-      "label_order": [],
-      "label_value_case": null,
-      "labels_as_tags": [
-        "unset"
-      ],
-      "name": null,
-      "namespace": null,
-      "regex_replace_chars": null,
-      "stage": null,
-      "tags": {},
-      "tenant": null
-    }
-    ```
-    
-  </dd>
-  <dt>`delimiter` (`string`) <i>optional</i></dt>
-  <dd>
-    Delimiter to be used between ID elements.<br/>
-    Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`descriptor_formats` (`any`) <i>optional</i></dt>
-  <dd>
-    Describe additional descriptors to be output in the `descriptors` output map.<br/>
-    Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
-    `{<br/>
-       format = string<br/>
-       labels = list(string)<br/>
-    }`<br/>
-    (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
-    `format` is a Terraform format string to be passed to the `format()` function.<br/>
-    `labels` is a list of labels, in order, to pass to `format()` function.<br/>
-    Label values will be normalized before being passed to `format()` so they will be<br/>
-    identical to how they appear in `id`.<br/>
-    Default is `{}` (`descriptors` output will be empty).<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `any`
-    **Default value:** `{}`
-  </dd>
-  <dt>`enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Set to false to prevent the module from creating any resources<br/>
-    **Required:** No<br/>
-    **Type:** `bool`
-    **Default value:** `null`
-  </dd>
-  <dt>`environment` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`id_length_limit` (`number`) <i>optional</i></dt>
-  <dd>
-    Limit `id` to this many characters (minimum 6).<br/>
-    Set to `0` for unlimited length.<br/>
-    Set to `null` for keep the existing setting, which defaults to `0`.<br/>
-    Does not affect `id_full`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `number`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_key_case` (`string`) <i>optional</i></dt>
-  <dd>
-    Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
-    Does not affect keys of tags passed in via the `tags` input.<br/>
-    Possible values: `lower`, `title`, `upper`.<br/>
-    Default value: `title`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_order` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    The order in which the labels (ID elements) appear in the `id`.<br/>
-    Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
-    You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `list(string)`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_value_case` (`string`) <i>optional</i></dt>
-  <dd>
-    Controls the letter case of ID elements (labels) as included in `id`,<br/>
-    set as tag values, and output by this module individually.<br/>
-    Does not affect values of tags passed in via the `tags` input.<br/>
-    Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
-    Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
-    Default value: `lower`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`labels_as_tags` (`set(string)`) <i>optional</i></dt>
-  <dd>
-    Set of labels (ID elements) to include as tags in the `tags` output.<br/>
-    Default is to include all labels.<br/>
-    Tags with empty values will not be included in the `tags` output.<br/>
-    Set to `[]` to suppress all generated tags.<br/>
-    **Notes:**<br/>
-      The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
-      Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
-      changed in later chained modules. Attempts to change it will be silently ignored.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `set(string)`
-    **Default value:** 
-    ```hcl
-    [
-      "default"
-    ]
-    ```
-    
-  </dd>
-  <dt>`name` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
-    This is the only ID element not also included as a `tag`.<br/>
-    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`namespace` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`regex_replace_chars` (`string`) <i>optional</i></dt>
-  <dd>
-    Terraform regular expression (regex) string.<br/>
-    Characters matching the regex will be removed from the ID elements.<br/>
-    If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`stage` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`tags` (`map(string)`) <i>optional</i></dt>
-  <dd>
-    Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
-    Neither the tag keys nor the tag values will be modified by this module.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `map(string)`
-    **Default value:** `{}`
-  </dd>
-  <dt>`tenant` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
+  `{}`
   </dd>
 </dl>
+
+---
+
+
+  ### `attributes` (`list(string)`) <i>optional</i>
+
+
+ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+in the order they appear in the list. New attributes are appended to the<br/>
+end of the list. The elements of the list are joined by the `delimiter`<br/>
+and treated as a single ID element.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `any`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  {
+    "additional_tag_map": {},
+    "attributes": [],
+    "delimiter": null,
+    "descriptor_formats": {},
+    "enabled": true,
+    "environment": null,
+    "id_length_limit": null,
+    "label_key_case": null,
+    "label_order": [],
+    "label_value_case": null,
+    "labels_as_tags": [
+      "unset"
+    ],
+    "name": null,
+    "namespace": null,
+    "regex_replace_chars": null,
+    "stage": null,
+    "tags": {},
+    "tenant": null
+  }
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between ID elements.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `descriptor_formats` (`any`) <i>optional</i>
+
+
+Describe additional descriptors to be output in the `descriptors` output map.<br/>
+Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+`{<br/>
+   format = string<br/>
+   labels = list(string)<br/>
+}`<br/>
+(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+`format` is a Terraform format string to be passed to the `format()` function.<br/>
+`labels` is a list of labels, in order, to pass to `format()` function.<br/>
+Label values will be normalized before being passed to `format()` so they will be<br/>
+identical to how they appear in `id`.<br/>
+Default is `{}` (`descriptors` output will be empty).<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `any`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `environment` (`string`) <i>optional</i>
+
+
+ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_key_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+Does not affect keys of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_order` (`list(string)`) <i>optional</i>
+
+
+The order in which the labels (ID elements) appear in the `id`.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_value_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of ID elements (labels) as included in `id`,<br/>
+set as tag values, and output by this module individually.<br/>
+Does not affect values of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+Default value: `lower`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+
+
+Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+Default is to include all labels.<br/>
+Tags with empty values will not be included in the `tags` output.<br/>
+Set to `[]` to suppress all generated tags.<br/>
+**Notes:**<br/>
+  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `set(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  [
+    "default"
+  ]
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `name` (`string`) <i>optional</i>
+
+
+ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+This is the only ID element not also included as a `tag`.<br/>
+The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `namespace` (`string`) <i>optional</i>
+
+
+ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Terraform regular expression (regex) string.<br/>
+Characters matching the regex will be removed from the ID elements.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `stage` (`string`) <i>optional</i>
+
+
+ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+Neither the tag keys nor the tag values will be modified by this module.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `map(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tenant` (`string`) <i>optional</i>
+
+
+ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+</details>
 
 ### Required Inputs
+  ### `allocated_storage` (`number`) <i>required</i>
 
+
+The allocated storage in GBs<br/>
 <dl>
-  <dt>`allocated_storage` (`number`) <i>required</i></dt>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    The allocated storage in GBs<br/>
-
-    **Type:** `number`
-    <br/>
-    **Default value:** ``
-
+  `number`
   </dd>
-  <dt>`database_name` (`string`) <i>required</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The name of the database to create when the DB instance is created<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`database_port` (`number`) <i>required</i></dt>
-  <dd>
-    Database port (_e.g._ `3306` for `MySQL`). Used in the DB Security Group to allow access to the DB instance from the provided `security_group_ids`<br/>
-
-    **Type:** `number`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`db_parameter_group` (`string`) <i>required</i></dt>
-  <dd>
-    The DB parameter group family name. The value depends on DB engine used. See [DBParameterGroupFamily](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBParameterGroup.html#API_CreateDBParameterGroup_RequestParameters) for instructions on how to retrieve applicable value.<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`engine` (`string`) <i>required</i></dt>
-  <dd>
-    Database engine type<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`engine_version` (`string`) <i>required</i></dt>
-  <dd>
-    Database engine version, depends on engine type<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`instance_class` (`string`) <i>required</i></dt>
-  <dd>
-    Class of RDS instance<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
-  </dd>
-  <dt>`region` (`string`) <i>required</i></dt>
-  <dd>
-    AWS Region<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
+  ``
   </dd>
 </dl>
 
-### Optional Inputs
+---
 
+
+  ### `database_name` (`string`) <i>required</i>
+
+
+The name of the database to create when the DB instance is created<br/>
 <dl>
-  <dt>`allow_major_version_upgrade` (`bool`) <i>optional</i></dt>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    Allow major version upgrade<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `string`
   </dd>
-  <dt>`allowed_cidr_blocks` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The whitelisted CIDRs which to allow `ingress` traffic to the DB instance<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
+  ``
   </dd>
-  <dt>`apply_immediately` (`bool`) <i>optional</i></dt>
-  <dd>
-    Specifies whether any database modifications are applied immediately, or during the next maintenance window<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
-  </dd>
-  <dt>`associate_security_group_ids` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    The IDs of the existing security groups to associate with the DB instance<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
-  </dd>
-  <dt>`auto_minor_version_upgrade` (`bool`) <i>optional</i></dt>
-  <dd>
-    Allow automated minor version upgrade (e.g. from Postgres 9.5.3 to Postgres 9.5.4)<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
-  </dd>
-  <dt>`availability_zone` (`string`) <i>optional</i></dt>
-  <dd>
-    The AZ for the RDS instance. Specify one of `subnet_ids`, `db_subnet_group_name` or `availability_zone`. If `availability_zone` is provided, the instance will be placed into the default VPC or EC2 Classic<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd>
-  <dt>`backup_retention_period` (`number`) <i>optional</i></dt>
-  <dd>
-    Backup retention period in days. Must be > 0 to enable backups<br/>
-    <br/>
-    **Type:** `number`
-    <br/>
-    **Default value:** `0`
-  </dd>
-  <dt>`backup_window` (`string`) <i>optional</i></dt>
-  <dd>
-    When AWS can perform DB snapshots, can't overlap with maintenance window<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"22:00-03:00"`
-  </dd>
-  <dt>`ca_cert_identifier` (`string`) <i>optional</i></dt>
-  <dd>
-    The identifier of the CA certificate for the DB instance<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd>
-  <dt>`charset_name` (`string`) <i>optional</i></dt>
-  <dd>
-    The character set name to use for DB encoding. [Oracle & Microsoft SQL only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance#character_set_name). For other engines use `db_parameter`<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd>
-  <dt>`client_security_group_enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    create a client security group and include in attached default security group<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
-  </dd>
-  <dt>`copy_tags_to_snapshot` (`bool`) <i>optional</i></dt>
-  <dd>
-    Copy tags from DB to a snapshot<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
-  </dd>
-  <dt>`database_password` (`string`) <i>optional</i></dt>
-  <dd>
-    Database password for the admin user<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
-  </dd>
-  <dt>`database_user` (`string`) <i>optional</i></dt>
-  <dd>
-    Database admin user name<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
-  </dd>
-  <dt>`db_options` <i>optional</i></dt>
-  <dd>
-    A list of DB options to apply with an option group. Depends on DB engine<br/>
-    <br/>
-    **Type:** 
+</dl>
 
-    ```hcl
-    list(object({
+---
+
+
+  ### `database_port` (`number`) <i>required</i>
+
+
+Database port (_e.g._ `3306` for `MySQL`). Used in the DB Security Group to allow access to the DB instance from the provided `security_group_ids`<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  ``
+  </dd>
+</dl>
+
+---
+
+
+  ### `db_parameter_group` (`string`) <i>required</i>
+
+
+The DB parameter group family name. The value depends on DB engine used. See [DBParameterGroupFamily](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBParameterGroup.html#API_CreateDBParameterGroup_RequestParameters) for instructions on how to retrieve applicable value.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  ``
+  </dd>
+</dl>
+
+---
+
+
+  ### `engine` (`string`) <i>required</i>
+
+
+Database engine type<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  ``
+  </dd>
+</dl>
+
+---
+
+
+  ### `engine_version` (`string`) <i>required</i>
+
+
+Database engine version, depends on engine type<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  ``
+  </dd>
+</dl>
+
+---
+
+
+  ### `instance_class` (`string`) <i>required</i>
+
+
+Class of RDS instance<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  ``
+  </dd>
+</dl>
+
+---
+
+
+  ### `region` (`string`) <i>required</i>
+
+
+AWS Region<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  ``
+  </dd>
+</dl>
+
+---
+
+
+
+### Optional Inputs
+  ### `allow_major_version_upgrade` (`bool`) <i>optional</i>
+
+
+Allow major version upgrade<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
+
+
+The whitelisted CIDRs which to allow `ingress` traffic to the DB instance<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `apply_immediately` (`bool`) <i>optional</i>
+
+
+Specifies whether any database modifications are applied immediately, or during the next maintenance window<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `associate_security_group_ids` (`list(string)`) <i>optional</i>
+
+
+The IDs of the existing security groups to associate with the DB instance<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `auto_minor_version_upgrade` (`bool`) <i>optional</i>
+
+
+Allow automated minor version upgrade (e.g. from Postgres 9.5.3 to Postgres 9.5.4)<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `availability_zone` (`string`) <i>optional</i>
+
+
+The AZ for the RDS instance. Specify one of `subnet_ids`, `db_subnet_group_name` or `availability_zone`. If `availability_zone` is provided, the instance will be placed into the default VPC or EC2 Classic<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `backup_retention_period` (`number`) <i>optional</i>
+
+
+Backup retention period in days. Must be > 0 to enable backups<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `0`
+  </dd>
+</dl>
+
+---
+
+
+  ### `backup_window` (`string`) <i>optional</i>
+
+
+When AWS can perform DB snapshots, can't overlap with maintenance window<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"22:00-03:00"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `ca_cert_identifier` (`string`) <i>optional</i>
+
+
+The identifier of the CA certificate for the DB instance<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `charset_name` (`string`) <i>optional</i>
+
+
+The character set name to use for DB encoding. [Oracle & Microsoft SQL only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance#character_set_name). For other engines use `db_parameter`<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `client_security_group_enabled` (`bool`) <i>optional</i>
+
+
+create a client security group and include in attached default security group<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `copy_tags_to_snapshot` (`bool`) <i>optional</i>
+
+
+Copy tags from DB to a snapshot<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `database_password` (`string`) <i>optional</i>
+
+
+Database password for the admin user<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `database_user` (`string`) <i>optional</i>
+
+
+Database admin user name<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `db_options` <i>optional</i>
+
+
+A list of DB options to apply with an option group. Depends on DB engine<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  list(object({
     db_security_group_memberships  = list(string)
     option_name                    = string
     port                           = number
@@ -578,364 +1069,886 @@ The following variables are defined in the `context.tf` file of this module and 
       value = string
     }))
   }))
-    ```
-    
-    <br/>
-    **Default value:** `[]`
+  ```
+  
   </dd>
-  <dt>`db_parameter` <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    A list of DB parameters to apply. Note that parameters may differ from a DB family to another<br/>
-    <br/>
-    **Type:** 
+  `[]`
+  </dd>
+</dl>
 
-    ```hcl
-    list(object({
+---
+
+
+  ### `db_parameter` <i>optional</i>
+
+
+A list of DB parameters to apply. Note that parameters may differ from a DB family to another<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  list(object({
     apply_method = string
     name         = string
     value        = string
   }))
-    ```
-    
-    <br/>
-    **Default value:** `[]`
+  ```
+  
   </dd>
-  <dt>`db_subnet_group_name` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Name of DB subnet group. DB instance will be created in the VPC associated with the DB subnet group. Specify one of `subnet_ids`, `db_subnet_group_name` or `availability_zone`<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
+  `[]`
   </dd>
-  <dt>`deletion_protection` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `db_subnet_group_name` (`string`) <i>optional</i>
+
+
+Name of DB subnet group. DB instance will be created in the VPC associated with the DB subnet group. Specify one of `subnet_ids`, `db_subnet_group_name` or `availability_zone`<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Set to true to enable deletion protection on the RDS instance<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `string`
   </dd>
-  <dt>`dns_gbl_delegated_environment_name` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The name of the environment where global `dns_delegated` is provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"gbl"`
+  `null`
   </dd>
-  <dt>`dns_zone_id` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `deletion_protection` (`bool`) <i>optional</i>
+
+
+Set to true to enable deletion protection on the RDS instance<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    The ID of the DNS Zone in Route53 where a new DNS record will be created for the DB host name<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `bool`
   </dd>
-  <dt>`enabled_cloudwatch_logs_exports` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    List of log types to enable for exporting to CloudWatch logs. If omitted, no logs will be exported. Valid values (depending on engine): alert, audit, error, general, listener, slowquery, trace, postgresql (PostgreSQL), upgrade (PostgreSQL).<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
+  `false`
   </dd>
-  <dt>`final_snapshot_identifier` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `dns_gbl_delegated_environment_name` (`string`) <i>optional</i>
+
+
+The name of the environment where global `dns_delegated` is provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Final snapshot identifier e.g.: some-db-final-snapshot-2019-06-26-06-05<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `string`
   </dd>
-  <dt>`host_name` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The DB host name created in Route53<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"db"`
+  `"gbl"`
   </dd>
-  <dt>`iam_database_authentication_enabled` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `dns_zone_id` (`string`) <i>optional</i>
+
+
+The ID of the DNS Zone in Route53 where a new DNS record will be created for the DB host name<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `string`
   </dd>
-  <dt>`iops` (`number`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The amount of provisioned IOPS. Setting this implies a storage_type of 'io1'. Default is 0 if rds storage type is not 'io1'<br/>
-    <br/>
-    **Type:** `number`
-    <br/>
-    **Default value:** `0`
+  `""`
   </dd>
-  <dt>`kms_alias_name_ssm` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `enabled_cloudwatch_logs_exports` (`list(string)`) <i>optional</i>
+
+
+List of log types to enable for exporting to CloudWatch logs. If omitted, no logs will be exported. Valid values (depending on engine): alert, audit, error, general, listener, slowquery, trace, postgresql (PostgreSQL), upgrade (PostgreSQL).<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    KMS alias name for SSM<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"alias/aws/ssm"`
+  `list(string)`
   </dd>
-  <dt>`kms_key_arn` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The ARN of the existing KMS key to encrypt storage<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `[]`
   </dd>
-  <dt>`license_model` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `final_snapshot_identifier` (`string`) <i>optional</i>
+
+
+Final snapshot identifier e.g.: some-db-final-snapshot-2019-06-26-06-05<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    License model for this DB. Optional, but required for some DB Engines. Valid values: license-included | bring-your-own-license | general-public-license<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `string`
   </dd>
-  <dt>`maintenance_window` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The window to perform maintenance in. Syntax: 'ddd:hh24:mi-ddd:hh24:mi' UTC <br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"Mon:03:00-Mon:04:00"`
+  `""`
   </dd>
-  <dt>`major_engine_version` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `host_name` (`string`) <i>optional</i>
+
+
+The DB host name created in Route53<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Database MAJOR engine version, depends on engine type<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `string`
   </dd>
-  <dt>`max_allocated_storage` (`number`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The upper limit to which RDS can automatically scale the storage in GBs<br/>
-    <br/>
-    **Type:** `number`
-    <br/>
-    **Default value:** `0`
+  `"db"`
   </dd>
-  <dt>`monitoring_interval` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `iam_database_authentication_enabled` (`bool`) <i>optional</i>
+
+
+Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance. To disable collecting Enhanced Monitoring metrics, specify 0. Valid Values are 0, 1, 5, 10, 15, 30, 60.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"0"`
+  `bool`
   </dd>
-  <dt>`monitoring_role_arn` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to CloudWatch Logs<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
+  `false`
   </dd>
-  <dt>`multi_az` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `iops` (`number`) <i>optional</i>
+
+
+The amount of provisioned IOPS. Setting this implies a storage_type of 'io1'. Default is 0 if rds storage type is not 'io1'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Set to true if multi AZ deployment must be supported<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `number`
   </dd>
-  <dt>`option_group_name` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Name of the DB option group to associate<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `0`
   </dd>
-  <dt>`parameter_group_name` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `kms_alias_name_ssm` (`string`) <i>optional</i>
+
+
+KMS alias name for SSM<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Name of the DB parameter group to associate<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `string`
   </dd>
-  <dt>`performance_insights_enabled` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Specifies whether Performance Insights are enabled.<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `"alias/aws/ssm"`
   </dd>
-  <dt>`performance_insights_kms_key_id` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `kms_key_arn` (`string`) <i>optional</i>
+
+
+The ARN of the existing KMS key to encrypt storage<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    The ARN for the KMS key to encrypt Performance Insights data. Once KMS key is set, it can never be changed.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
+  `string`
   </dd>
-  <dt>`performance_insights_retention_period` (`number`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The amount of time in days to retain Performance Insights data. Either 7 (7 days) or 731 (2 years).<br/>
-    <br/>
-    **Type:** `number`
-    <br/>
-    **Default value:** `7`
+  `""`
   </dd>
-  <dt>`publicly_accessible` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `license_model` (`string`) <i>optional</i>
+
+
+License model for this DB. Optional, but required for some DB Engines. Valid values: license-included | bring-your-own-license | general-public-license<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Determines if database can be publicly available (NOT recommended)<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `string`
   </dd>
-  <dt>`replicate_source_db` (`any`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    If the rds db instance is a replica, supply the source database identifier here<br/>
-    <br/>
-    **Type:** `any`
-    <br/>
-    **Default value:** `null`
+  `""`
   </dd>
-  <dt>`security_group_ids` (`list(string)`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `maintenance_window` (`string`) <i>optional</i>
+
+
+The window to perform maintenance in. Syntax: 'ddd:hh24:mi-ddd:hh24:mi' UTC <br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    The IDs of the security groups from which to allow `ingress` traffic to the DB instance<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
+  `string`
   </dd>
-  <dt>`skip_final_snapshot` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    If true (default), no snapshot will be made before deleting DB<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
+  `"Mon:03:00-Mon:04:00"`
   </dd>
-  <dt>`snapshot_identifier` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `major_engine_version` (`string`) <i>optional</i>
+
+
+Database MAJOR engine version, depends on engine type<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Snapshot identifier e.g: rds:production-2019-06-26-06-05. If specified, the module create cluster from the snapshot<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
+  `string`
   </dd>
-  <dt>`ssm_enabled` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    If `true` create SSM keys for the database user and password.<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `""`
   </dd>
-  <dt>`ssm_key_format` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `max_allocated_storage` (`number`) <i>optional</i>
+
+
+The upper limit to which RDS can automatically scale the storage in GBs<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    SSM path format. The values will will be used in the following order: `var.ssm_key_prefix`, `var.name`, `var.ssm_key_*`<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"/%v/%v/%v"`
+  `number`
   </dd>
-  <dt>`ssm_key_hostname` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The SSM key to save the hostname. See `var.ssm_path_format`.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"admin/db_hostname"`
+  `0`
   </dd>
-  <dt>`ssm_key_password` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `monitoring_interval` (`string`) <i>optional</i>
+
+
+The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance. To disable collecting Enhanced Monitoring metrics, specify 0. Valid Values are 0, 1, 5, 10, 15, 30, 60.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    The SSM key to save the password. See `var.ssm_path_format`.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"admin/db_password"`
+  `string`
   </dd>
-  <dt>`ssm_key_port` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The SSM key to save the port. See `var.ssm_path_format`.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"admin/db_port"`
+  `"0"`
   </dd>
-  <dt>`ssm_key_prefix` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `monitoring_role_arn` (`string`) <i>optional</i>
+
+
+The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to CloudWatch Logs<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    SSM path prefix. Omit the leading forward slash `/`.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"rds"`
+  `string`
   </dd>
-  <dt>`ssm_key_user` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The SSM key to save the user. See `var.ssm_path_format`.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"admin/db_user"`
+  `null`
   </dd>
-  <dt>`storage_encrypted` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `multi_az` (`bool`) <i>optional</i>
+
+
+Set to true if multi AZ deployment must be supported<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    (Optional) Specifies whether the DB instance is encrypted. The default is false if not specified<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
+  `bool`
   </dd>
-  <dt>`storage_throughput` (`number`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The storage throughput value for the DB instance. Can only be set when `storage_type` is `gp3`. Cannot be specified if the `allocated_storage` value is below a per-engine threshold.<br/>
-    <br/>
-    **Type:** `number`
-    <br/>
-    **Default value:** `null`
+  `false`
   </dd>
-  <dt>`storage_type` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `option_group_name` (`string`) <i>optional</i>
+
+
+Name of the DB option group to associate<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned IOPS SSD)<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"standard"`
+  `string`
   </dd>
-  <dt>`timezone` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Time zone of the DB instance. timezone is currently only supported by Microsoft SQL Server. The timezone can only be set on creation. See [MSSQL User Guide](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.TimeZone) for more information.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
+  `""`
   </dd>
-  <dt>`use_dns_delegated` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `parameter_group_name` (`string`) <i>optional</i>
+
+
+Name of the DB parameter group to associate<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Use the dns-delegated dns_zone_id<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `string`
   </dd>
-  <dt>`use_eks_security_group` (`bool`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Use the eks default security group<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
+  `""`
   </dd>
-  <dt>`use_private_subnets` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `performance_insights_enabled` (`bool`) <i>optional</i>
+
+
+Specifies whether Performance Insights are enabled.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Use private subnets<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
-  </dd></dl>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `performance_insights_kms_key_id` (`string`) <i>optional</i>
+
+
+The ARN for the KMS key to encrypt Performance Insights data. Once KMS key is set, it can never be changed.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `performance_insights_retention_period` (`number`) <i>optional</i>
+
+
+The amount of time in days to retain Performance Insights data. Either 7 (7 days) or 731 (2 years).<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `7`
+  </dd>
+</dl>
+
+---
+
+
+  ### `publicly_accessible` (`bool`) <i>optional</i>
+
+
+Determines if database can be publicly available (NOT recommended)<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `replicate_source_db` (`any`) <i>optional</i>
+
+
+If the rds db instance is a replica, supply the source database identifier here<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `any`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `security_group_ids` (`list(string)`) <i>optional</i>
+
+
+The IDs of the security groups from which to allow `ingress` traffic to the DB instance<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `skip_final_snapshot` (`bool`) <i>optional</i>
+
+
+If true (default), no snapshot will be made before deleting DB<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `snapshot_identifier` (`string`) <i>optional</i>
+
+
+Snapshot identifier e.g: rds:production-2019-06-26-06-05. If specified, the module create cluster from the snapshot<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `ssm_enabled` (`bool`) <i>optional</i>
+
+
+If `true` create SSM keys for the database user and password.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `ssm_key_format` (`string`) <i>optional</i>
+
+
+SSM path format. The values will will be used in the following order: `var.ssm_key_prefix`, `var.name`, `var.ssm_key_*`<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"/%v/%v/%v"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `ssm_key_hostname` (`string`) <i>optional</i>
+
+
+The SSM key to save the hostname. See `var.ssm_path_format`.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"admin/db_hostname"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `ssm_key_password` (`string`) <i>optional</i>
+
+
+The SSM key to save the password. See `var.ssm_path_format`.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"admin/db_password"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `ssm_key_port` (`string`) <i>optional</i>
+
+
+The SSM key to save the port. See `var.ssm_path_format`.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"admin/db_port"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `ssm_key_prefix` (`string`) <i>optional</i>
+
+
+SSM path prefix. Omit the leading forward slash `/`.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"rds"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `ssm_key_user` (`string`) <i>optional</i>
+
+
+The SSM key to save the user. See `var.ssm_path_format`.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"admin/db_user"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `storage_encrypted` (`bool`) <i>optional</i>
+
+
+(Optional) Specifies whether the DB instance is encrypted. The default is false if not specified<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `storage_throughput` (`number`) <i>optional</i>
+
+
+The storage throughput value for the DB instance. Can only be set when `storage_type` is `gp3`. Cannot be specified if the `allocated_storage` value is below a per-engine threshold.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `storage_type` (`string`) <i>optional</i>
+
+
+One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned IOPS SSD)<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"standard"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `timezone` (`string`) <i>optional</i>
+
+
+Time zone of the DB instance. timezone is currently only supported by Microsoft SQL Server. The timezone can only be set on creation. See [MSSQL User Guide](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.TimeZone) for more information.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `use_dns_delegated` (`bool`) <i>optional</i>
+
+
+Use the dns-delegated dns_zone_id<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `use_eks_security_group` (`bool`) <i>optional</i>
+
+
+Use the eks default security group<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `use_private_subnets` (`bool`) <i>optional</i>
+
+
+Use private subnets<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
 
 
 ### Outputs

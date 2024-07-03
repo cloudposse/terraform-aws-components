@@ -207,268 +207,537 @@ The following data sources are used by this module:
 
 ### Context Variables
 
-The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
+<details>
+<summary>Click to expand</summary>
+  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+This is for some rare cases where resources want additional configuration of tags<br/>
+and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+<br/>
 <dl>
-  <dt>`additional_tag_map` (`map(string)`) <i>optional</i></dt>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
-    This is for some rare cases where resources want additional configuration of tags<br/>
-    and therefore take a list of maps with tag key, value, and additional configuration.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `map(string)`
-    **Default value:** `{}`
+  `map(string)`
   </dd>
-  <dt>`attributes` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
-    in the order they appear in the list. New attributes are appended to the<br/>
-    end of the list. The elements of the list are joined by the `delimiter`<br/>
-    and treated as a single ID element.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `list(string)`
-    **Default value:** `[]`
-  </dd>
-  <dt>`context` (`any`) <i>optional</i></dt>
-  <dd>
-    Single object for setting entire context at once.<br/>
-    See description of individual variables for details.<br/>
-    Leave string and numeric variables as `null` to use default value.<br/>
-    Individual variable settings (non-null) override settings in context object,<br/>
-    except for attributes, tags, and additional_tag_map, which are merged.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `any`
-    **Default value:** 
-    ```hcl
-    {
-      "additional_tag_map": {},
-      "attributes": [],
-      "delimiter": null,
-      "descriptor_formats": {},
-      "enabled": true,
-      "environment": null,
-      "id_length_limit": null,
-      "label_key_case": null,
-      "label_order": [],
-      "label_value_case": null,
-      "labels_as_tags": [
-        "unset"
-      ],
-      "name": null,
-      "namespace": null,
-      "regex_replace_chars": null,
-      "stage": null,
-      "tags": {},
-      "tenant": null
-    }
-    ```
-    
-  </dd>
-  <dt>`delimiter` (`string`) <i>optional</i></dt>
-  <dd>
-    Delimiter to be used between ID elements.<br/>
-    Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`descriptor_formats` (`any`) <i>optional</i></dt>
-  <dd>
-    Describe additional descriptors to be output in the `descriptors` output map.<br/>
-    Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
-    `{<br/>
-       format = string<br/>
-       labels = list(string)<br/>
-    }`<br/>
-    (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
-    `format` is a Terraform format string to be passed to the `format()` function.<br/>
-    `labels` is a list of labels, in order, to pass to `format()` function.<br/>
-    Label values will be normalized before being passed to `format()` so they will be<br/>
-    identical to how they appear in `id`.<br/>
-    Default is `{}` (`descriptors` output will be empty).<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `any`
-    **Default value:** `{}`
-  </dd>
-  <dt>`enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Set to false to prevent the module from creating any resources<br/>
-    **Required:** No<br/>
-    **Type:** `bool`
-    **Default value:** `null`
-  </dd>
-  <dt>`environment` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`id_length_limit` (`number`) <i>optional</i></dt>
-  <dd>
-    Limit `id` to this many characters (minimum 6).<br/>
-    Set to `0` for unlimited length.<br/>
-    Set to `null` for keep the existing setting, which defaults to `0`.<br/>
-    Does not affect `id_full`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `number`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_key_case` (`string`) <i>optional</i></dt>
-  <dd>
-    Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
-    Does not affect keys of tags passed in via the `tags` input.<br/>
-    Possible values: `lower`, `title`, `upper`.<br/>
-    Default value: `title`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_order` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    The order in which the labels (ID elements) appear in the `id`.<br/>
-    Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
-    You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `list(string)`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_value_case` (`string`) <i>optional</i></dt>
-  <dd>
-    Controls the letter case of ID elements (labels) as included in `id`,<br/>
-    set as tag values, and output by this module individually.<br/>
-    Does not affect values of tags passed in via the `tags` input.<br/>
-    Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
-    Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
-    Default value: `lower`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`labels_as_tags` (`set(string)`) <i>optional</i></dt>
-  <dd>
-    Set of labels (ID elements) to include as tags in the `tags` output.<br/>
-    Default is to include all labels.<br/>
-    Tags with empty values will not be included in the `tags` output.<br/>
-    Set to `[]` to suppress all generated tags.<br/>
-    **Notes:**<br/>
-      The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
-      Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
-      changed in later chained modules. Attempts to change it will be silently ignored.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `set(string)`
-    **Default value:** 
-    ```hcl
-    [
-      "default"
-    ]
-    ```
-    
-  </dd>
-  <dt>`name` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
-    This is the only ID element not also included as a `tag`.<br/>
-    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`namespace` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`regex_replace_chars` (`string`) <i>optional</i></dt>
-  <dd>
-    Terraform regular expression (regex) string.<br/>
-    Characters matching the regex will be removed from the ID elements.<br/>
-    If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`stage` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`tags` (`map(string)`) <i>optional</i></dt>
-  <dd>
-    Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
-    Neither the tag keys nor the tag values will be modified by this module.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `map(string)`
-    **Default value:** `{}`
-  </dd>
-  <dt>`tenant` (`string`) <i>optional</i></dt>
-  <dd>
-    ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
+  `{}`
   </dd>
 </dl>
+
+---
+
+
+  ### `attributes` (`list(string)`) <i>optional</i>
+
+
+ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+in the order they appear in the list. New attributes are appended to the<br/>
+end of the list. The elements of the list are joined by the `delimiter`<br/>
+and treated as a single ID element.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `any`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  {
+    "additional_tag_map": {},
+    "attributes": [],
+    "delimiter": null,
+    "descriptor_formats": {},
+    "enabled": true,
+    "environment": null,
+    "id_length_limit": null,
+    "label_key_case": null,
+    "label_order": [],
+    "label_value_case": null,
+    "labels_as_tags": [
+      "unset"
+    ],
+    "name": null,
+    "namespace": null,
+    "regex_replace_chars": null,
+    "stage": null,
+    "tags": {},
+    "tenant": null
+  }
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between ID elements.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `descriptor_formats` (`any`) <i>optional</i>
+
+
+Describe additional descriptors to be output in the `descriptors` output map.<br/>
+Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+`{<br/>
+   format = string<br/>
+   labels = list(string)<br/>
+}`<br/>
+(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+`format` is a Terraform format string to be passed to the `format()` function.<br/>
+`labels` is a list of labels, in order, to pass to `format()` function.<br/>
+Label values will be normalized before being passed to `format()` so they will be<br/>
+identical to how they appear in `id`.<br/>
+Default is `{}` (`descriptors` output will be empty).<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `any`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `environment` (`string`) <i>optional</i>
+
+
+ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_key_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+Does not affect keys of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_order` (`list(string)`) <i>optional</i>
+
+
+The order in which the labels (ID elements) appear in the `id`.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_value_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of ID elements (labels) as included in `id`,<br/>
+set as tag values, and output by this module individually.<br/>
+Does not affect values of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+Default value: `lower`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `labels_as_tags` (`set(string)`) <i>optional</i>
+
+
+Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+Default is to include all labels.<br/>
+Tags with empty values will not be included in the `tags` output.<br/>
+Set to `[]` to suppress all generated tags.<br/>
+**Notes:**<br/>
+  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `set(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  [
+    "default"
+  ]
+  ```
+  
+  </dd>
+</dl>
+
+---
+
+
+  ### `name` (`string`) <i>optional</i>
+
+
+ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+This is the only ID element not also included as a `tag`.<br/>
+The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `namespace` (`string`) <i>optional</i>
+
+
+ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Terraform regular expression (regex) string.<br/>
+Characters matching the regex will be removed from the ID elements.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `stage` (`string`) <i>optional</i>
+
+
+ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+Neither the tag keys nor the tag values will be modified by this module.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `map(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tenant` (`string`) <i>optional</i>
+
+
+ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+</details>
 
 ### Required Inputs
+  ### `region` (`string`) <i>required</i>
 
+
+AWS Region<br/>
 <dl>
-  <dt>`region` (`string`) <i>required</i></dt>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    AWS Region<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
+  `string`
   </dd>
-  <dt>`runner_configurations` (`list(map(string))`) <i>required</i></dt>
+  <dt>Default value</dt>
   <dd>
-    List of maps to create runners from<br/>
-
-    **Type:** `list(map(string))`
-    <br/>
-    **Default value:** ``
-
+  ``
   </dd>
 </dl>
 
-### Optional Inputs
+---
 
+
+  ### `runner_configurations` (`list(map(string))`) <i>required</i>
+
+
+List of maps to create runners from<br/>
 <dl>
-  <dt>`autoscale_type` (`string`) <i>optional</i></dt>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    Default choice if not defined in autoscale_types<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"low_concurrency"`
+  `list(map(string))`
   </dd>
-  <dt>`autoscale_types` <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Map to define HRA CRD scaling configurations<br/>
-    <br/>
-    **Type:** 
+  ``
+  </dd>
+</dl>
 
-    ```hcl
-    map(object({
+---
+
+
+
+### Optional Inputs
+  ### `autoscale_type` (`string`) <i>optional</i>
+
+
+Default choice if not defined in autoscale_types<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"low_concurrency"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `autoscale_types` <i>optional</i>
+
+
+Map to define HRA CRD scaling configurations<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  map(object({
     minReplicas = number,
     maxReplicas = number
     metrics = object({
@@ -479,187 +748,427 @@ The following variables are defined in the `context.tf` file of this module and 
       scaleDownAdjustment = number
     })
   }))
-    ```
-    
-    <br/>
-    **Default value:** 
-    ```hcl
-    {
-      "low_concurrency": {
-        "maxReplicas": 8,
-        "metrics": {
-          "scaleDownAdjustment": 1,
-          "scaleDownThreshold": 0.3,
-          "scaleUpAdjustment": 1,
-          "scaleUpThreshold": 0.75,
-          "type": "PercentageRunnersBusy"
-        },
-        "minReplicas": 1
-      }
+  ```
+  
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  {
+    "low_concurrency": {
+      "maxReplicas": 8,
+      "metrics": {
+        "scaleDownAdjustment": 1,
+        "scaleDownThreshold": 0.3,
+        "scaleUpAdjustment": 1,
+        "scaleUpThreshold": 0.75,
+        "type": "PercentageRunnersBusy"
+      },
+      "minReplicas": 1
     }
-    ```
-    
+  }
+  ```
+  
   </dd>
-  <dt>`controller_chart_image` (`string`) <i>optional</i></dt>
-  <dd>
-    Image to use for controller<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"summerwind/actions-runner-controller"`
-  </dd>
-  <dt>`controller_chart_image_tag` (`string`) <i>optional</i></dt>
-  <dd>
-    Tag to use for controller image<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"v0.19.0"`
-  </dd>
-  <dt>`controller_chart_name` (`string`) <i>optional</i></dt>
-  <dd>
-    Controller Helm chart name.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"actions-runner-controller"`
-  </dd>
-  <dt>`controller_chart_namespace` (`string`) <i>optional</i></dt>
-  <dd>
-    Controller kubernetes namespace.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"actions-runner-system"`
-  </dd>
-  <dt>`controller_chart_namespace_create` (`bool`) <i>optional</i></dt>
-  <dd>
-    Controller kubernetes namespace created if not present<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
-  </dd>
-  <dt>`controller_chart_release_name` (`string`) <i>optional</i></dt>
-  <dd>
-    Controller Helm chart release name.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"actions-runner-controller"`
-  </dd>
-  <dt>`controller_chart_repo` (`string`) <i>optional</i></dt>
-  <dd>
-    Controller Helm chart repository name.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"https://actions-runner-controller.github.io/actions-runner-controller"`
-  </dd>
-  <dt>`controller_chart_values` (`any`) <i>optional</i></dt>
-  <dd>
-    Additional values to yamlencode as `helm_release` values.<br/>
-    <br/>
-    **Type:** `any`
-    <br/>
-    **Default value:** `{}`
-  </dd>
-  <dt>`controller_chart_version` (`string`) <i>optional</i></dt>
-  <dd>
-    Controller Helm chart version.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"0.12.8"`
-  </dd>
-  <dt>`iam_policy_statements` (`any`) <i>optional</i></dt>
-  <dd>
-    IAM policy for the service account. Required if `var.iam_role_enabled` is `true`. This will not do variable replacements. Please see `var.iam_policy_statements_template_path`.<br/>
-    <br/>
-    **Type:** `any`
-    <br/>
-    **Default value:** `[]`
-  </dd>
-  <dt>`iam_primary_roles_environment_name` (`string`) <i>optional</i></dt>
-  <dd>
-    The name of the environment where global `iam_primary_roles` is provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"gbl"`
-  </dd>
-  <dt>`iam_primary_roles_stage_name` (`string`) <i>optional</i></dt>
-  <dd>
-    The name of the stage where `iam_primary_roles` is provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"identity"`
-  </dd>
-  <dt>`iam_role_enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Whether to create an IAM role. Setting this to `true` will also replace any occurrences of `{service_account_role_arn}` in `var.values_template_path` with the ARN of the IAM role created by this module.<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `false`
-  </dd>
-  <dt>`iam_source_json_url` (`string`) <i>optional</i></dt>
-  <dd>
-    IAM source json policy to download. This will be used as the `source_json` meaning the `var.iam_policy_statements` and `var.iam_policy_statements_template_path` can override it.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd>
-  <dt>`import_profile_name` (`string`) <i>optional</i></dt>
-  <dd>
-    AWS Profile name to use when importing a resource<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd>
-  <dt>`import_role_arn` (`string`) <i>optional</i></dt>
-  <dd>
-    IAM Role ARN to use when importing a resource<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd>
-  <dt>`runner_chart_image` (`string`) <i>optional</i></dt>
-  <dd>
-    Controller Helm chart name.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"actions-runner"`
-  </dd>
-  <dt>`runner_chart_values` (`any`) <i>optional</i></dt>
-  <dd>
-    Additional values to yamlencode as `helm_release` values.<br/>
-    <br/>
-    **Type:** `any`
-    <br/>
-    **Default value:** `{}`
-  </dd>
-  <dt>`runner_type` (`string`) <i>optional</i></dt>
-  <dd>
-    Default choice if not defined in runner_configurations<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"small"`
-  </dd>
-  <dt>`runner_types` <i>optional</i></dt>
-  <dd>
-    Map to define resources limits and requests<br/>
-    <br/>
-    **Type:** 
+</dl>
 
-    ```hcl
-    map(object({
+---
+
+
+  ### `controller_chart_image` (`string`) <i>optional</i>
+
+
+Image to use for controller<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"summerwind/actions-runner-controller"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `controller_chart_image_tag` (`string`) <i>optional</i>
+
+
+Tag to use for controller image<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"v0.19.0"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `controller_chart_name` (`string`) <i>optional</i>
+
+
+Controller Helm chart name.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"actions-runner-controller"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `controller_chart_namespace` (`string`) <i>optional</i>
+
+
+Controller kubernetes namespace.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"actions-runner-system"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `controller_chart_namespace_create` (`bool`) <i>optional</i>
+
+
+Controller kubernetes namespace created if not present<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `controller_chart_release_name` (`string`) <i>optional</i>
+
+
+Controller Helm chart release name.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"actions-runner-controller"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `controller_chart_repo` (`string`) <i>optional</i>
+
+
+Controller Helm chart repository name.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"https://actions-runner-controller.github.io/actions-runner-controller"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `controller_chart_values` (`any`) <i>optional</i>
+
+
+Additional values to yamlencode as `helm_release` values.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `any`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `controller_chart_version` (`string`) <i>optional</i>
+
+
+Controller Helm chart version.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"0.12.8"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `iam_policy_statements` (`any`) <i>optional</i>
+
+
+IAM policy for the service account. Required if `var.iam_role_enabled` is `true`. This will not do variable replacements. Please see `var.iam_policy_statements_template_path`.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `any`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `iam_primary_roles_environment_name` (`string`) <i>optional</i>
+
+
+The name of the environment where global `iam_primary_roles` is provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"gbl"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `iam_primary_roles_stage_name` (`string`) <i>optional</i>
+
+
+The name of the stage where `iam_primary_roles` is provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"identity"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `iam_role_enabled` (`bool`) <i>optional</i>
+
+
+Whether to create an IAM role. Setting this to `true` will also replace any occurrences of `{service_account_role_arn}` in `var.values_template_path` with the ARN of the IAM role created by this module.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `false`
+  </dd>
+</dl>
+
+---
+
+
+  ### `iam_source_json_url` (`string`) <i>optional</i>
+
+
+IAM source json policy to download. This will be used as the `source_json` meaning the `var.iam_policy_statements` and `var.iam_policy_statements_template_path` can override it.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `import_profile_name` (`string`) <i>optional</i>
+
+
+AWS Profile name to use when importing a resource<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `import_role_arn` (`string`) <i>optional</i>
+
+
+IAM Role ARN to use when importing a resource<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `runner_chart_image` (`string`) <i>optional</i>
+
+
+Controller Helm chart name.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"actions-runner"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `runner_chart_values` (`any`) <i>optional</i>
+
+
+Additional values to yamlencode as `helm_release` values.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `any`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+  ### `runner_type` (`string`) <i>optional</i>
+
+
+Default choice if not defined in runner_configurations<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"small"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `runner_types` <i>optional</i>
+
+
+Map to define resources limits and requests<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  map(object({
     resources = object({
       limits = object({
         cpu    = string,
@@ -671,44 +1180,74 @@ The following variables are defined in the `context.tf` file of this module and 
       })
     })
   }))
-    ```
-    
-    <br/>
-    **Default value:** 
-    ```hcl
-    {
-      "small": {
-        "resources": {
-          "limits": {
-            "cpu": "3",
-            "memory": "12Gi"
-          },
-          "requests": {
-            "cpu": "1",
-            "memory": "1Gi"
-          }
+  ```
+  
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  
+  ```hcl
+  {
+    "small": {
+      "resources": {
+        "limits": {
+          "cpu": "3",
+          "memory": "12Gi"
+        },
+        "requests": {
+          "cpu": "1",
+          "memory": "1Gi"
         }
       }
     }
-    ```
-    
+  }
+  ```
+  
   </dd>
-  <dt>`service_account_name` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `service_account_name` (`string`) <i>optional</i>
+
+
+Kubernetes ServiceAccount name. Required if `var.iam_role_enabled` is `true`.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Kubernetes ServiceAccount name. Required if `var.iam_role_enabled` is `true`.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
+  `string`
   </dd>
-  <dt>`service_account_namespace` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Kubernetes Namespace where service account is deployed. Required if `var.iam_role_enabled` is `true`.<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `null`
-  </dd></dl>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `service_account_namespace` (`string`) <i>optional</i>
+
+
+Kubernetes Namespace where service account is deployed. Required if `var.iam_role_enabled` is `true`.<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
 
 
 ### Outputs

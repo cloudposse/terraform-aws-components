@@ -75,36 +75,68 @@ The following data sources are used by this module:
 
 ### Context Variables
 
-The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern.
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
+<details>
+<summary>Click to expand</summary>
+  ### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 <dl>
-  <dt>`additional_tag_map` (`map(string)`) <i>optional</i></dt>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
-    **Required:** No<br/>
-    **Type:** `map(string)`
-    **Default value:** `{}`
+  `map(string)`
   </dd>
-  <dt>`attributes` (`list(string)`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Additional attributes (e.g. `1`)<br/>
-    **Required:** No<br/>
-    **Type:** `list(string)`
-    **Default value:** `[]`
+  `{}`
   </dd>
-  <dt>`context` <i>optional</i></dt>
-  <dd>
-    Single object for setting entire context at once.<br/>
-    See description of individual variables for details.<br/>
-    Leave string and numeric variables as `null` to use default value.<br/>
-    Individual variable settings (non-null) override settings in context object,<br/>
-    except for attributes, tags, and additional_tag_map, which are merged.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** 
+</dl>
 
-    ```hcl
-    object({
+---
+
+
+  ### `attributes` (`list(string)`) <i>optional</i>
+
+
+Additional attributes (e.g. `1`)<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `[]`
+  </dd>
+</dl>
+
+---
+
+
+  ### `context` <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  
+
+  ```hcl
+  object({
     enabled             = bool
     namespace           = string
     environment         = string
@@ -118,249 +150,570 @@ The following variables are defined in the `context.tf` file of this module and 
     label_order         = list(string)
     id_length_limit     = number
   })
-    ```
-    <br/>
-    
-    **Default value:** 
-    ```hcl
-    {
-      "additional_tag_map": {},
-      "attributes": [],
-      "delimiter": null,
-      "enabled": true,
-      "environment": null,
-      "id_length_limit": null,
-      "label_order": [],
-      "name": null,
-      "namespace": null,
-      "regex_replace_chars": null,
-      "stage": null,
-      "tags": {}
-    }
-    ```
-    
+  ```
+  
   </dd>
-  <dt>`delimiter` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br/>
-    Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`enabled` (`bool`) <i>optional</i></dt>
-  <dd>
-    Set to false to prevent the module from creating any resources<br/>
-    **Required:** No<br/>
-    **Type:** `bool`
-    **Default value:** `null`
-  </dd>
-  <dt>`environment` (`string`) <i>optional</i></dt>
-  <dd>
-    Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`id_length_limit` (`number`) <i>optional</i></dt>
-  <dd>
-    Limit `id` to this many characters.<br/>
-    Set to `0` for unlimited length.<br/>
-    Set to `null` for default, which is `0`.<br/>
-    Does not affect `id_full`.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `number`
-    **Default value:** `null`
-  </dd>
-  <dt>`label_order` (`list(string)`) <i>optional</i></dt>
-  <dd>
-    The naming order of the id output and Name tag.<br/>
-    Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
-    You can omit any of the 5 elements, but at least one must be present.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `list(string)`
-    **Default value:** `null`
-  </dd>
-  <dt>`name` (`string`) <i>optional</i></dt>
-  <dd>
-    Solution name, e.g. 'app' or 'jenkins'<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`namespace` (`string`) <i>optional</i></dt>
-  <dd>
-    Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`regex_replace_chars` (`string`) <i>optional</i></dt>
-  <dd>
-    Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br/>
-    If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
-    <br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`stage` (`string`) <i>optional</i></dt>
-  <dd>
-    Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
-    **Required:** No<br/>
-    **Type:** `string`
-    **Default value:** `null`
-  </dd>
-  <dt>`tags` (`map(string)`) <i>optional</i></dt>
-  <dd>
-    Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
-    **Required:** No<br/>
-    **Type:** `map(string)`
-    **Default value:** `{}`
+  
+  ```hcl
+  {
+    "additional_tag_map": {},
+    "attributes": [],
+    "delimiter": null,
+    "enabled": true,
+    "environment": null,
+    "id_length_limit": null,
+    "label_order": [],
+    "name": null,
+    "namespace": null,
+    "regex_replace_chars": null,
+    "stage": null,
+    "tags": {}
+  }
+  ```
+  
   </dd>
 </dl>
+
+---
+
+
+  ### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `environment` (`string`) <i>optional</i>
+
+
+Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters.<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for default, which is `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `number`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `label_order` (`list(string)`) <i>optional</i>
+
+
+The naming order of the id output and Name tag.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 5 elements, but at least one must be present.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `list(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `name` (`string`) <i>optional</i>
+
+
+Solution name, e.g. 'app' or 'jenkins'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `namespace` (`string`) <i>optional</i>
+
+
+Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `stage` (`string`) <i>optional</i>
+
+
+Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `null`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `map(string)`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `{}`
+  </dd>
+</dl>
+
+---
+
+
+</details>
 
 ### Required Inputs
+  ### `region` (`string`) <i>required</i>
 
+
+AWS Region<br/>
 <dl>
-  <dt>`region` (`string`) <i>required</i></dt>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    AWS Region<br/>
-
-    **Type:** `string`
-    <br/>
-    **Default value:** ``
-
+  `string`
   </dd>
-  <dt>`standard_service_accounts` (`list(string)`) <i>required</i></dt>
+  <dt>Default value</dt>
   <dd>
-    List of standard service accounts expected to be enabled everywhere<br/>
-
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** ``
-
+  ``
   </dd>
 </dl>
 
-### Optional Inputs
+---
 
+
+  ### `standard_service_accounts` (`list(string)`) <i>required</i>
+
+
+List of standard service accounts expected to be enabled everywhere<br/>
 <dl>
-  <dt>`account_map_environment_name` (`string`) <i>optional</i></dt>
+  <dt>Required</dt>
+  <dd>Yes</dd>
+  <dt>Type</dt>
   <dd>
-    The name of the environment where `account_map` is provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"gbl"`
+  `list(string)`
   </dd>
-  <dt>`account_map_stage_name` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The name of the stage where `account_map` is provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"root"`
+  ``
   </dd>
-  <dt>`dns_gbl_delegated_environment_name` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+
+### Optional Inputs
+  ### `account_map_environment_name` (`string`) <i>optional</i>
+
+
+The name of the environment where `account_map` is provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    The name of the environment where global `dns_delegated` is provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"gbl"`
+  `string`
   </dd>
-  <dt>`kms_alias_name` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    AWS KMS alias used for encryption/decryption of SSM parameters default is alias used in SSM<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"alias/aws/ssm"`
+  `"gbl"`
   </dd>
-  <dt>`optional_service_accounts` (`list(string)`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `account_map_stage_name` (`string`) <i>optional</i>
+
+
+The name of the stage where `account_map` is provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    List of optional service accounts to enable<br/>
-    <br/>
-    **Type:** `list(string)`
-    <br/>
-    **Default value:** `[]`
+  `string`
   </dd>
-  <dt>`tfstate_account_id` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The ID of the account where the Terraform remote state backend is provisioned<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `"root"`
   </dd>
-  <dt>`tfstate_assume_role` (`bool`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `dns_gbl_delegated_environment_name` (`string`) <i>optional</i>
+
+
+The name of the environment where global `dns_delegated` is provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    Set to false to use the caller's role to access the Terraform remote state<br/>
-    <br/>
-    **Type:** `bool`
-    <br/>
-    **Default value:** `true`
+  `string`
   </dd>
-  <dt>`tfstate_bucket_environment_name` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The name of the environment for Terraform state bucket<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `"gbl"`
   </dd>
-  <dt>`tfstate_bucket_stage_name` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `kms_alias_name` (`string`) <i>optional</i>
+
+
+AWS KMS alias used for encryption/decryption of SSM parameters default is alias used in SSM<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    The name of the stage for Terraform state bucket<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"root"`
+  `string`
   </dd>
-  <dt>`tfstate_existing_role_arn` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The ARN of the existing IAM Role to access the Terraform remote state. If not provided and `remote_state_assume_role` is `true`, a role will be constructed from `remote_state_role_arn_template`<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `""`
+  `"alias/aws/ssm"`
   </dd>
-  <dt>`tfstate_role_arn_template` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `optional_service_accounts` (`list(string)`) <i>optional</i>
+
+
+List of optional service accounts to enable<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    IAM Role ARN template for accessing the Terraform remote state<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"arn:aws:iam::%s:role/%s-%s-%s-%s"`
+  `list(string)`
   </dd>
-  <dt>`tfstate_role_environment_name` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The name of the environment for Terraform state IAM role<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"gbl"`
+  `[]`
   </dd>
-  <dt>`tfstate_role_name` (`string`) <i>optional</i></dt>
+</dl>
+
+---
+
+
+  ### `tfstate_account_id` (`string`) <i>optional</i>
+
+
+The ID of the account where the Terraform remote state backend is provisioned<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
   <dd>
-    IAM Role name for accessing the Terraform remote state<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"terraform"`
+  `string`
   </dd>
-  <dt>`tfstate_role_stage_name` (`string`) <i>optional</i></dt>
+  <dt>Default value</dt>
   <dd>
-    The name of the stage for Terraform state IAM role<br/>
-    <br/>
-    **Type:** `string`
-    <br/>
-    **Default value:** `"root"`
-  </dd></dl>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tfstate_assume_role` (`bool`) <i>optional</i>
+
+
+Set to false to use the caller's role to access the Terraform remote state<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `bool`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `true`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tfstate_bucket_environment_name` (`string`) <i>optional</i>
+
+
+The name of the environment for Terraform state bucket<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tfstate_bucket_stage_name` (`string`) <i>optional</i>
+
+
+The name of the stage for Terraform state bucket<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"root"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tfstate_existing_role_arn` (`string`) <i>optional</i>
+
+
+The ARN of the existing IAM Role to access the Terraform remote state. If not provided and `remote_state_assume_role` is `true`, a role will be constructed from `remote_state_role_arn_template`<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `""`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tfstate_role_arn_template` (`string`) <i>optional</i>
+
+
+IAM Role ARN template for accessing the Terraform remote state<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"arn:aws:iam::%s:role/%s-%s-%s-%s"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tfstate_role_environment_name` (`string`) <i>optional</i>
+
+
+The name of the environment for Terraform state IAM role<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"gbl"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tfstate_role_name` (`string`) <i>optional</i>
+
+
+IAM Role name for accessing the Terraform remote state<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"terraform"`
+  </dd>
+</dl>
+
+---
+
+
+  ### `tfstate_role_stage_name` (`string`) <i>optional</i>
+
+
+The name of the stage for Terraform state IAM role<br/>
+<dl>
+  <dt>Required</dt>
+  <dd>No</dd>
+  <dt>Type</dt>
+  <dd>
+  `string`
+  </dd>
+  <dt>Default value</dt>
+  <dd>
+  `"root"`
+  </dd>
+</dl>
+
+---
+
 
 
 ### Outputs
