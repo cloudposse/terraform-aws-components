@@ -168,8 +168,7 @@ AWS Region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -192,8 +191,7 @@ The name of the Datadog API secret<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"default"</code>
->   </dd>
+>    <code>"default"</code>>   </dd>
 > </dl>
 >
 
@@ -214,8 +212,7 @@ The format string (%v will be replaced by the var.datadog_api_secret_key) for th
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/datadog/%v/datadog_api_key"</code>
->   </dd>
+>    <code>"/datadog/%v/datadog_api_key"</code>>   </dd>
 > </dl>
 >
 
@@ -236,8 +233,7 @@ The format string (%v will be replaced by the var.datadog_api_secret_key) for th
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/datadog/datadog_api_key"</code>
->   </dd>
+>    <code>"/datadog/datadog_api_key"</code>>   </dd>
 > </dl>
 >
 
@@ -258,8 +254,7 @@ The name of the Datadog APP secret<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"default"</code>
->   </dd>
+>    <code>"default"</code>>   </dd>
 > </dl>
 >
 
@@ -280,8 +275,7 @@ The format string (%v will be replaced by the var.datadog_app_secret_key) for th
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/datadog/%v/datadog_app_key"</code>
->   </dd>
+>    <code>"/datadog/%v/datadog_app_key"</code>>   </dd>
 > </dl>
 >
 
@@ -302,8 +296,7 @@ The format string (%v will be replaced by the var.datadog_api_secret_key) for th
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/datadog/datadog_app_key"</code>
->   </dd>
+>    <code>"/datadog/datadog_app_key"</code>>   </dd>
 > </dl>
 >
 
@@ -324,8 +317,7 @@ Region for holding Secret Store Datadog Keys, leave as null to use the same regi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -346,8 +338,7 @@ Stage holding Secret Store for Datadog API and app keys.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"auto"</code>
->   </dd>
+>    <code>"auto"</code>>   </dd>
 > </dl>
 >
 
@@ -368,8 +359,7 @@ Tenant holding Secret Store for Datadog API and app keys.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"core"</code>
->   </dd>
+>    <code>"core"</code>>   </dd>
 > </dl>
 >
 
@@ -390,8 +380,7 @@ Secret Store type for Datadog API and app keys. Valid values: `SSM`, `ASM`<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"SSM"</code>
->   </dd>
+>    <code>"SSM"</code>>   </dd>
 > </dl>
 >
 
@@ -412,8 +401,7 @@ The Datadog Site URL, https://docs.datadoghq.com/getting_started/site/<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -446,8 +434,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -472,8 +459,7 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -501,8 +487,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    {
 >
 >      "additional_tag_map": {},
@@ -546,9 +531,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >    }
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -571,8 +554,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -605,8 +587,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -627,8 +608,7 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -649,8 +629,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -675,8 +654,7 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -701,8 +679,7 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -726,8 +703,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -754,8 +730,7 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -786,8 +761,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "default"
@@ -795,9 +769,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -821,8 +793,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -843,8 +814,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -868,8 +838,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -890,8 +859,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -914,8 +882,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -936,8 +903,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 

@@ -109,8 +109,7 @@ AWS Region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -133,8 +132,7 @@ Glue catalog database description<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -155,8 +153,7 @@ Glue catalog database name. The acceptable characters are lowercase letters, num
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -177,8 +174,7 @@ ID of the Glue Catalog to create the database in. If omitted, this defaults to t
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -199,8 +195,7 @@ Creates a set of default permissions on the table for principals<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -221,8 +216,7 @@ Glue IAM component name. Used to get the Glue IAM role from the remote state<br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"glue/iam"</code>
->   </dd>
+>    <code>"glue/iam"</code>>   </dd>
 > </dl>
 >
 
@@ -245,8 +239,7 @@ List of permissions granted to the principal. Refer to https://docs.aws.amazon.c
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "ALL"
@@ -254,9 +247,7 @@ List of permissions granted to the principal. Refer to https://docs.aws.amazon.c
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -277,8 +268,7 @@ Whether to enable adding Lake Formation permissions to the IAM role that is used
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -299,8 +289,7 @@ Location of the database (for example, an HDFS path)<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -321,8 +310,7 @@ Map of key-value pairs that define parameters and properties of the database<br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -353,8 +341,7 @@ Map of key-value pairs that define parameters and properties of the database<br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -387,8 +374,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -413,8 +399,7 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -442,8 +427,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    {
 >
 >      "additional_tag_map": {},
@@ -487,9 +471,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >    }
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -512,8 +494,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -546,8 +527,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -568,8 +548,7 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -590,8 +569,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -616,8 +594,7 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -642,8 +619,7 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -667,8 +643,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -695,8 +670,7 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -727,8 +701,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "default"
@@ -736,9 +709,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -762,8 +733,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -784,8 +754,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -809,8 +778,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -831,8 +799,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -855,8 +822,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -877,8 +843,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 

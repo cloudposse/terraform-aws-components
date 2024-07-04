@@ -460,8 +460,7 @@ AWS Region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -484,8 +483,7 @@ Additional target routes to add to the ALB that point to this service. The only 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -506,8 +504,7 @@ The configuration to use for the ALB, specifying which cluster alb configuration
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"default"</code>
->   </dd>
+>    <code>"default"</code>>   </dd>
 > </dl>
 >
 
@@ -528,8 +525,7 @@ The name of the ALB this service should attach to<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -550,8 +546,7 @@ The dimension to use to decide to autoscale<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"cpu"</code>
->   </dd>
+>    <code>"cpu"</code>>   </dd>
 > </dl>
 >
 
@@ -572,8 +567,7 @@ Should this service autoscale using SNS alarams<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -594,8 +588,7 @@ SSM parameter service name for use with chamber. This is used in chamber_format 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"ecs-service"</code>
->   </dd>
+>    <code>"ecs-service"</code>>   </dd>
 > </dl>
 >
 
@@ -616,8 +609,7 @@ The attributes of the cluster name e.g. if the full name is `namespace-tenant-en
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -696,8 +688,7 @@ Feed inputs into container definition module<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -718,8 +709,7 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High Alarm acti
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -740,8 +730,7 @@ Number of periods to evaluate for the alarm<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>1</code>
->   </dd>
+>    <code>1</code>>   </dd>
 > </dl>
 >
 
@@ -762,8 +751,7 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High OK action<
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -784,8 +772,7 @@ Duration in seconds to evaluate for the alarm<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>300</code>
->   </dd>
+>    <code>300</code>>   </dd>
 > </dl>
 >
 
@@ -806,8 +793,7 @@ The maximum percentage of CPU utilization average<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>80</code>
->   </dd>
+>    <code>80</code>>   </dd>
 > </dl>
 >
 
@@ -828,8 +814,7 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low Alarm actio
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -850,8 +835,7 @@ Number of periods to evaluate for the alarm<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>1</code>
->   </dd>
+>    <code>1</code>>   </dd>
 > </dl>
 >
 
@@ -872,8 +856,7 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low OK action<b
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -894,8 +877,7 @@ Duration in seconds to evaluate for the alarm<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>300</code>
->   </dd>
+>    <code>300</code>>   </dd>
 > </dl>
 >
 
@@ -916,8 +898,7 @@ The minimum percentage of CPU utilization average<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>20</code>
->   </dd>
+>    <code>20</code>>   </dd>
 > </dl>
 >
 
@@ -951,8 +932,7 @@ The list of custom security group rules to add to the service security group<br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -973,8 +953,7 @@ Enable the Datadog Agent Sidecar<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -995,8 +974,7 @@ Datadog logs can be sent via cloudwatch logs (and lambda) or firelens, set this 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1017,8 +995,7 @@ Add Default tags to all logs sent to Datadog<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -1039,8 +1016,7 @@ Tags to add to all logs sent to Datadog<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1061,8 +1037,7 @@ Enable the Datadog Agent Sidecar to send logs to aws cloudwatch group, requires 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -1083,8 +1058,7 @@ The region to use for the fully qualified ECR image URL. Defaults to the current
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -1105,8 +1079,7 @@ The ecr stage (account) name to use for the fully qualified ECR image URL.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"auto"</code>
->   </dd>
+>    <code>"auto"</code>>   </dd>
 > </dl>
 >
 
@@ -1127,8 +1100,7 @@ The name of the ECS Cluster this belongs to<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"ecs"</code>
->   </dd>
+>    <code>"ecs"</code>>   </dd>
 > </dl>
 >
 
@@ -1149,8 +1121,7 @@ Specifies whether to enable Amazon ECS Exec for the tasks within the service<br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1174,8 +1145,7 @@ Specifies whether to enable Amazon ECS Exec for the tasks within the service<br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -1196,8 +1166,7 @@ Create IAM policies required for deployments with Ecspresso<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1218,8 +1187,7 @@ Additional attributes to add to the role name<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -1241,8 +1209,7 @@ Flag to toggle creation of an IAM Role that GitHub Actions can assume to access 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1263,8 +1230,7 @@ A list of IAM Role ARNs allowed to assume this cluster's GitHub OIDC role<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -1285,8 +1251,7 @@ The number of consecutive health checks successes required before healthy<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>2</code>
->   </dd>
+>    <code>2</code>>   </dd>
 > </dl>
 >
 
@@ -1307,8 +1272,7 @@ The duration in seconds in between health checks<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>15</code>
->   </dd>
+>    <code>15</code>>   </dd>
 > </dl>
 >
 
@@ -1329,8 +1293,7 @@ The HTTP response codes to indicate a healthy check<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"200-404"</code>
->   </dd>
+>    <code>"200-404"</code>>   </dd>
 > </dl>
 >
 
@@ -1351,8 +1314,7 @@ The destination for the health check request<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/health"</code>
->   </dd>
+>    <code>"/health"</code>>   </dd>
 > </dl>
 >
 
@@ -1373,8 +1335,7 @@ The port to use to connect with the target. Valid values are either ports 1-6553
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"traffic-port"</code>
->   </dd>
+>    <code>"traffic-port"</code>>   </dd>
 > </dl>
 >
 
@@ -1395,8 +1356,7 @@ The amount of time to wait in seconds before failing a health check request<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>10</code>
->   </dd>
+>    <code>10</code>>   </dd>
 > </dl>
 >
 
@@ -1417,8 +1377,7 @@ The number of consecutive health check failures required before unhealthy<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>2</code>
->   </dd>
+>    <code>2</code>>   </dd>
 > </dl>
 >
 
@@ -1439,8 +1398,7 @@ Which http protocol to use in outputs and SSM url params. This value is ignored 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1461,8 +1419,7 @@ If set to true will create IAM policy in AWS<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1483,8 +1440,7 @@ Map of IAM policy statements to use in the policy. This can be used with or inst
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1505,8 +1461,7 @@ Enable Kinesis<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1527,8 +1482,7 @@ KMS alias name for SSM<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"alias/aws/ssm"</code>
->   </dd>
+>    <code>"alias/aws/ssm"</code>>   </dd>
 > </dl>
 >
 
@@ -1549,8 +1503,7 @@ ID of KMS key<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"default"</code>
->   </dd>
+>    <code>"default"</code>>   </dd>
 > </dl>
 >
 
@@ -1571,8 +1524,7 @@ Should this service act as catch all for all subdomain hosts of the vanity domai
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1593,8 +1545,7 @@ Feed inputs into cloudwatch logs module<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1615,8 +1566,7 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High Alarm a
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -1637,8 +1587,7 @@ Number of periods to evaluate for the alarm<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>1</code>
->   </dd>
+>    <code>1</code>>   </dd>
 > </dl>
 >
 
@@ -1659,8 +1608,7 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High OK acti
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -1681,8 +1629,7 @@ Duration in seconds to evaluate for the alarm<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>300</code>
->   </dd>
+>    <code>300</code>>   </dd>
 > </dl>
 >
 
@@ -1703,8 +1650,7 @@ The maximum percentage of Memory utilization average<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>80</code>
->   </dd>
+>    <code>80</code>>   </dd>
 > </dl>
 >
 
@@ -1725,8 +1671,7 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low Alarm ac
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -1747,8 +1692,7 @@ Number of periods to evaluate for the alarm<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>1</code>
->   </dd>
+>    <code>1</code>>   </dd>
 > </dl>
 >
 
@@ -1769,8 +1713,7 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low OK actio
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -1791,8 +1734,7 @@ Duration in seconds to evaluate for the alarm<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>300</code>
->   </dd>
+>    <code>300</code>>   </dd>
 > </dl>
 >
 
@@ -1813,8 +1755,7 @@ The minimum percentage of Memory utilization average<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>20</code>
->   </dd>
+>    <code>20</code>>   </dd>
 > </dl>
 >
 
@@ -1835,8 +1776,7 @@ The name of the NLB this service should attach to<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1857,8 +1797,7 @@ The name of the RDS database this service should allow access to<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1879,8 +1818,7 @@ Length of time data records are accessible after they are added to the stream<br
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>48</code>
->   </dd>
+>    <code>48</code>>   </dd>
 > </dl>
 >
 
@@ -1901,8 +1839,7 @@ The name of the S3 mirror component<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1951,8 +1888,7 @@ See `service_connect_configuration` docs https://registry.terraform.io/providers
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -1987,8 +1923,7 @@ See `service_registries` docs https://registry.terraform.io/providers/hashicorp/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -2009,8 +1944,7 @@ Number of shards that the stream will use<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>1</code>
->   </dd>
+>    <code>1</code>>   </dd>
 > </dl>
 >
 
@@ -2033,8 +1967,7 @@ List of shard-level CloudWatch metrics which can be enabled for the stream<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "IncomingBytes",
@@ -2054,9 +1987,7 @@ List of shard-level CloudWatch metrics which can be enabled for the stream<br/>
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -2077,8 +2008,7 @@ If `true` create SSM keys for the database user and password.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -2099,8 +2029,7 @@ SSM path format. The values will will be used in the following order: `var.ssm_k
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/%v/%v/%v"</code>
->   </dd>
+>    <code>"/%v/%v/%v"</code>>   </dd>
 > </dl>
 >
 
@@ -2121,8 +2050,7 @@ SSM path prefix. Omit the leading forward slash `/`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"ecs-service"</code>
->   </dd>
+>    <code>"ecs-service"</code>>   </dd>
 > </dl>
 >
 
@@ -2143,8 +2071,7 @@ The time period, in seconds, during which requests from a client should be route
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>86400</code>
->   </dd>
+>    <code>86400</code>>   </dd>
 > </dl>
 >
 
@@ -2165,8 +2092,7 @@ Boolean to enable / disable `stickiness`. Default is `true`<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -2187,8 +2113,7 @@ The type of sticky sessions. The only current possible value is `lb_cookie`<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"lb_cookie"</code>
->   </dd>
+>    <code>"lb_cookie"</code>>   </dd>
 > </dl>
 >
 
@@ -2209,8 +2134,7 @@ Stream mode details for the Kinesis stream<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"PROVISIONED"</code>
->   </dd>
+>    <code>"PROVISIONED"</code>>   </dd>
 > </dl>
 >
 
@@ -2324,8 +2248,7 @@ Feed inputs into ecs_alb_service_task module<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -2346,8 +2269,7 @@ Whether or not to use the ECS task module<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -2372,8 +2294,7 @@ If you cannot provide unique names known at plan time, use `task_exec_policy_arn
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -2394,8 +2315,7 @@ A component that outputs an iam_role module as 'role' for adding to the service 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2418,8 +2338,7 @@ The IAM policy ARNs to attach to the ECS task IAM role<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
@@ -2429,9 +2348,7 @@ The IAM policy ARNs to attach to the ECS task IAM role<br/>
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -2452,8 +2369,7 @@ A component that outputs security_group_id for adding to the service as a whole.
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2474,8 +2390,7 @@ Unauthenticated path pattern to match<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -2496,8 +2411,7 @@ The priority for the rules without authentication, between 1 and 50000 (1 being 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>0</code>
->   </dd>
+>    <code>0</code>>   </dd>
 > </dl>
 >
 
@@ -2518,8 +2432,7 @@ Whether use load balancer for the service<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -2540,8 +2453,7 @@ Use the RDS client security group<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -2562,8 +2474,7 @@ The vanity aliases to use for the public LB.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -2584,8 +2495,7 @@ Whether to use the vanity domain alias for the service<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2606,8 +2516,7 @@ The component name to look up service domain remote-state on<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"dns-delegated"</code>
->   </dd>
+>    <code>"dns-delegated"</code>>   </dd>
 > </dl>
 >
 
@@ -2628,8 +2537,7 @@ A json query to use to get the zone domain from the remote state. See <br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>".default_domain_name"</code>
->   </dd>
+>    <code>".default_domain_name"</code>>   </dd>
 > </dl>
 >
 
@@ -2662,8 +2570,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -2688,8 +2595,7 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -2717,8 +2623,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    {
 >
 >      "additional_tag_map": {},
@@ -2762,9 +2667,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >    }
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -2787,8 +2690,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2821,8 +2723,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -2843,8 +2744,7 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2865,8 +2765,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2891,8 +2790,7 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2917,8 +2815,7 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2942,8 +2839,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2970,8 +2866,7 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -3002,8 +2897,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "default"
@@ -3011,9 +2905,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -3037,8 +2929,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -3059,8 +2950,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -3084,8 +2974,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -3106,8 +2995,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -3130,8 +3018,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -3152,8 +3039,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 

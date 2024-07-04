@@ -192,8 +192,7 @@ AWS Region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -216,8 +215,7 @@ IAM Role ARN to use when importing a resource<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -238,8 +236,7 @@ AWS KMS key used for writing to SSM<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"alias/aws/ssm"</code>
->   </dd>
+>    <code>"alias/aws/ssm"</code>>   </dd>
 > </dl>
 >
 
@@ -260,8 +257,7 @@ SSM parameter name format<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/%s/%s"</code>
->   </dd>
+>    <code>"/%s/%s"</code>>   </dd>
 > </dl>
 >
 
@@ -282,8 +278,7 @@ SSM path<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"opsgenie"</code>
->   </dd>
+>    <code>"opsgenie"</code>>   </dd>
 > </dl>
 >
 
@@ -304,8 +299,7 @@ The ID of the account where the Terraform remote state backend is provisioned<br
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -326,8 +320,7 @@ Set to false to use the caller's role to access the Terraform remote state<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -348,8 +341,7 @@ The name of the environment for Terraform state bucket<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -370,8 +362,7 @@ The name of the stage for Terraform state bucket<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"root"</code>
->   </dd>
+>    <code>"root"</code>>   </dd>
 > </dl>
 >
 
@@ -392,8 +383,7 @@ The ARN of the existing IAM Role to access the Terraform remote state. If not pr
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -414,8 +404,7 @@ IAM Role ARN template for accessing the Terraform remote state<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"arn:aws:iam::%s:role/%s-%s-%s-%s"</code>
->   </dd>
+>    <code>"arn:aws:iam::%s:role/%s-%s-%s-%s"</code>>   </dd>
 > </dl>
 >
 
@@ -436,8 +425,7 @@ The name of the environment for Terraform state IAM role<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"gbl"</code>
->   </dd>
+>    <code>"gbl"</code>>   </dd>
 > </dl>
 >
 
@@ -458,8 +446,7 @@ IAM Role name for accessing the Terraform remote state<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"terraform"</code>
->   </dd>
+>    <code>"terraform"</code>>   </dd>
 > </dl>
 >
 
@@ -480,8 +467,7 @@ The name of the stage for Terraform state IAM role<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"root"</code>
->   </dd>
+>    <code>"root"</code>>   </dd>
 > </dl>
 >
 
@@ -511,8 +497,7 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -533,8 +518,7 @@ Additional attributes (e.g. `1`)<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -581,8 +565,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    {
 >
 >      "additional_tag_map": {},
@@ -612,9 +595,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >    }
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -637,8 +618,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -659,8 +639,7 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -681,8 +660,7 @@ Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -707,8 +685,7 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -732,8 +709,7 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -754,8 +730,7 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -776,8 +751,7 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -800,8 +774,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -822,8 +795,7 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -844,8 +816,7 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 

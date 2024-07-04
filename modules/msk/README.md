@@ -225,8 +225,7 @@ The instance type to use for the Kafka brokers<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -249,8 +248,7 @@ Refer to https://docs.aws.amazon.com/msk/latest/developerguide/supported-kafka-v
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -271,8 +269,7 @@ AWS region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -293,8 +290,7 @@ The name of the Atmos VPC component<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -324,8 +320,7 @@ and https://github.com/cloudposse/terraform-aws-security-group.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -348,8 +343,7 @@ If this is false and no egress rules are otherwise specified, then no egress wil
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -372,8 +366,7 @@ The length of this list must be known at "plan" time.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -396,8 +389,7 @@ The length of this list must be known at "plan" time.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -420,8 +412,7 @@ These security groups will not be modified and, if `create_security_group` is `f
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -442,8 +433,7 @@ To automatically expand your cluster's storage in response to increased usage, y
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -469,8 +459,7 @@ The "count" value depends on resource attributes that cannot be determined until
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>0</code>
->   </dd>
+>    <code>0</code>>   </dd>
 > </dl>
 >
 
@@ -491,8 +480,7 @@ Number of Kafka brokers per zone<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>1</code>
->   </dd>
+>    <code>1</code>>   </dd>
 > </dl>
 >
 
@@ -513,8 +501,7 @@ The size in GiB of the EBS volume for the data drive on each broker node<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>1000</code>
->   </dd>
+>    <code>1000</code>>   </dd>
 > </dl>
 >
 
@@ -535,8 +522,7 @@ List of ACM Certificate Authority Amazon Resource Names (ARNs) to be used for TL
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -557,8 +543,7 @@ Enable unauthenticated access<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -579,8 +564,7 @@ Encryption setting for data in transit between clients and brokers. Valid values
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"TLS"</code>
->   </dd>
+>    <code>"TLS"</code>>   </dd>
 > </dl>
 >
 
@@ -601,8 +585,7 @@ Enable client authentication via IAM policies. Cannot be set to `true` at the sa
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -623,8 +606,7 @@ Enable SCRAM client authentication via AWS Secrets Manager. Cannot be set to `tr
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -645,8 +627,7 @@ List of AWS Secrets Manager secret ARNs for SCRAM authentication<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -667,8 +648,7 @@ Enable the list of AWS Secrets Manager secret ARNs for SCRAM authentication<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -689,8 +669,7 @@ Set `true` to enable the Client TLS Authentication<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -711,8 +690,7 @@ Indicates whether you want to enable or disable streaming broker logs to Cloudwa
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -733,8 +711,7 @@ Name of the Cloudwatch Log Group to deliver logs to<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -755,8 +732,7 @@ Set `true` to create and configure a new security group. If false, `associated_s
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -777,8 +753,7 @@ Custom Route53 DNS hostname for MSK brokers. Use `%%ID%%` key to specify brokers
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -799,8 +774,7 @@ The component name of `dns-delegated`<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"dns-delegated"</code>
->   </dd>
+>    <code>"dns-delegated"</code>>   </dd>
 > </dl>
 >
 
@@ -821,8 +795,7 @@ The environment name of `dns-delegated`<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"gbl"</code>
->   </dd>
+>    <code>"gbl"</code>>   </dd>
 > </dl>
 >
 
@@ -843,8 +816,7 @@ You may specify a KMS key short ID or ARN (it will always output an ARN) to use 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -865,8 +837,7 @@ Whether data communication among broker nodes is encrypted<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -887,8 +858,7 @@ Specify the desired enhanced MSK CloudWatch monitoring level. Valid values: `DEF
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"DEFAULT"</code>
->   </dd>
+>    <code>"DEFAULT"</code>>   </dd>
 > </dl>
 >
 
@@ -909,8 +879,7 @@ Name of the Kinesis Data Firehose delivery stream to deliver logs to<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -931,8 +900,7 @@ Indicates whether you want to enable or disable streaming broker logs to Kinesis
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -956,8 +924,7 @@ See [this post](https://github.com/hashicorp/terraform-provider-aws/pull/9032#is
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -978,8 +945,7 @@ Set `true` to enable the JMX Exporter<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1000,8 +966,7 @@ Set `true` to enable the Node Exporter<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1031,8 +996,7 @@ See the [terraform-aws-security-group README](https://github.com/cloudposse/terr
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1053,8 +1017,7 @@ Contents of the server.properties file. Supported properties are documented in t
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1075,8 +1038,7 @@ Enable public access to MSK cluster (given that all of the requirements are met)
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1097,8 +1059,7 @@ Name of the S3 bucket to deliver logs to<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -1119,8 +1080,7 @@ Name of the S3 bucket to deliver logs to<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1141,8 +1101,7 @@ Prefix to append to the S3 folder name logs are delivered to<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -1167,8 +1126,7 @@ Note that changing this value will always cause the security group to be replace
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -1189,8 +1147,7 @@ How long to wait for the security group to be created.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"10m"</code>
->   </dd>
+>    <code>"10m"</code>>   </dd>
 > </dl>
 >
 
@@ -1213,8 +1170,7 @@ lingering ENIs left by certain AWS services such as Elastic Load Balancing.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"15m"</code>
->   </dd>
+>    <code>"15m"</code>>   </dd>
 > </dl>
 >
 
@@ -1237,8 +1193,7 @@ Warning: Changing the description causes the security group to be replaced.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"Managed by Terraform"</code>
->   </dd>
+>    <code>"Managed by Terraform"</code>>   </dd>
 > </dl>
 >
 
@@ -1262,8 +1217,7 @@ If `create_before_destroy` is true, will be used as a name prefix.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -1284,8 +1238,7 @@ The description to place on each security group rule. The %s will be replaced wi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"Allow inbound %s traffic"</code>
->   </dd>
+>    <code>"Allow inbound %s traffic"</code>>   </dd>
 > </dl>
 >
 
@@ -1306,8 +1259,7 @@ If the value is true, scale in is disabled and the target tracking policy won't 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1328,8 +1280,7 @@ Maximum size the autoscaling policy can scale storage. Defaults to `broker_volum
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1350,8 +1301,7 @@ Percentage of storage used to trigger autoscaled storage increase<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>60</code>
->   </dd>
+>    <code>60</code>>   </dd>
 > </dl>
 >
 
@@ -1384,8 +1334,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1410,8 +1359,7 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -1439,8 +1387,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    {
 >
 >      "additional_tag_map": {},
@@ -1484,9 +1431,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >    }
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -1509,8 +1454,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1543,8 +1487,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1565,8 +1508,7 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1587,8 +1529,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1613,8 +1554,7 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1639,8 +1579,7 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1664,8 +1603,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1692,8 +1630,7 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1724,8 +1661,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "default"
@@ -1733,9 +1669,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -1759,8 +1693,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1781,8 +1714,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1806,8 +1738,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1828,8 +1759,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1852,8 +1782,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1874,8 +1803,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 

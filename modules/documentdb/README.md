@@ -151,8 +151,7 @@ AWS Region.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -175,8 +174,7 @@ Specifies whether any cluster modifications are applied immediately, or during t
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -197,8 +195,7 @@ Specifies whether any minor engine upgrades will be applied automatically to the
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -219,8 +216,7 @@ The family of the DocumentDB cluster parameter group. For more details, see http
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"docdb3.6"</code>
->   </dd>
+>    <code>"docdb3.6"</code>>   </dd>
 > </dl>
 >
 
@@ -251,8 +247,7 @@ List of DB parameters to apply<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -273,8 +268,7 @@ Number of DB instances to create in the cluster<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>3</code>
->   </dd>
+>    <code>3</code>>   </dd>
 > </dl>
 >
 
@@ -295,8 +289,7 @@ DocumentDB port<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>27017</code>
->   </dd>
+>    <code>27017</code>>   </dd>
 > </dl>
 >
 
@@ -317,8 +310,7 @@ A value that indicates whether the DB cluster has deletion protection enabled<br
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -339,8 +331,7 @@ Whether to add the Security Group managed by the EKS cluster in the same regiona
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -361,8 +352,7 @@ List of log types to export to cloudwatch. The following log types are supported
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -383,8 +373,7 @@ Specifies whether the DB cluster is encrypted<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -405,8 +394,7 @@ The name of the database engine to be used for this DB cluster. Defaults to `doc
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"docdb"</code>
->   </dd>
+>    <code>"docdb"</code>>   </dd>
 > </dl>
 >
 
@@ -427,8 +415,7 @@ The version number of the database engine to use<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"3.6.0"</code>
->   </dd>
+>    <code>"3.6.0"</code>>   </dd>
 > </dl>
 >
 
@@ -449,8 +436,7 @@ The instance class to use. For more details, see https://docs.aws.amazon.com/doc
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"db.r4.large"</code>
->   </dd>
+>    <code>"db.r4.large"</code>>   </dd>
 > </dl>
 >
 
@@ -471,8 +457,7 @@ The instance class to use. For more details, see https://docs.aws.amazon.com/doc
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"admin1"</code>
->   </dd>
+>    <code>"admin1"</code>>   </dd>
 > </dl>
 >
 
@@ -493,8 +478,7 @@ Daily time range during which the backups happen<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"07:00-09:00"</code>
->   </dd>
+>    <code>"07:00-09:00"</code>>   </dd>
 > </dl>
 >
 
@@ -515,8 +499,7 @@ The window to perform maintenance in. Syntax: `ddd:hh24:mi-ddd:hh24:mi`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"Mon:22:00-Mon:23:00"</code>
->   </dd>
+>    <code>"Mon:22:00-Mon:23:00"</code>>   </dd>
 > </dl>
 >
 
@@ -537,8 +520,7 @@ Number of days to retain backups for<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>5</code>
->   </dd>
+>    <code>5</code>>   </dd>
 > </dl>
 >
 
@@ -559,8 +541,7 @@ Determines whether a final DB snapshot is created before the DB cluster is delet
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -581,8 +562,7 @@ Specifies whether or not to create this cluster from a snapshot. You can use eit
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -615,8 +595,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -641,8 +620,7 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -670,8 +648,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    {
 >
 >      "additional_tag_map": {},
@@ -715,9 +692,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >    }
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -740,8 +715,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -774,8 +748,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -796,8 +769,7 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -818,8 +790,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -844,8 +815,7 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -870,8 +840,7 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -895,8 +864,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -923,8 +891,7 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -955,8 +922,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "default"
@@ -964,9 +930,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -990,8 +954,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1012,8 +975,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1037,8 +999,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1059,8 +1020,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1083,8 +1043,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1105,8 +1064,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 

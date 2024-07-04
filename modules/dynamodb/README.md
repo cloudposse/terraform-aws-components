@@ -127,8 +127,7 @@ DynamoDB table Hash Key<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -149,8 +148,7 @@ AWS Region.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -173,8 +171,7 @@ DynamoDB autoscaling max read capacity<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>20</code>
->   </dd>
+>    <code>20</code>>   </dd>
 > </dl>
 >
 
@@ -195,8 +192,7 @@ DynamoDB autoscaling max write capacity<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>20</code>
->   </dd>
+>    <code>20</code>>   </dd>
 > </dl>
 >
 
@@ -217,8 +213,7 @@ DynamoDB autoscaling min read capacity<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>5</code>
->   </dd>
+>    <code>5</code>>   </dd>
 > </dl>
 >
 
@@ -239,8 +234,7 @@ DynamoDB autoscaling min write capacity<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>5</code>
->   </dd>
+>    <code>5</code>>   </dd>
 > </dl>
 >
 
@@ -261,8 +255,7 @@ The target value (in %) for DynamoDB read autoscaling<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>50</code>
->   </dd>
+>    <code>50</code>>   </dd>
 > </dl>
 >
 
@@ -283,8 +276,7 @@ The target value (in %) for DynamoDB write autoscaling<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>50</code>
->   </dd>
+>    <code>50</code>>   </dd>
 > </dl>
 >
 
@@ -305,8 +297,7 @@ Additional attributes for the autoscaler module<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -327,8 +318,7 @@ Flag to enable/disable DynamoDB autoscaling<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -349,8 +339,7 @@ Additional resource tags for the autoscaler module<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -371,8 +360,7 @@ DynamoDB Billing mode. Can be PROVISIONED or PAY_PER_REQUEST<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"PROVISIONED"</code>
->   </dd>
+>    <code>"PROVISIONED"</code>>   </dd>
 > </dl>
 >
 
@@ -402,8 +390,7 @@ Additional DynamoDB attributes in the form of a list of mapped values<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -424,8 +411,7 @@ Enable DynamoDB server-side encryption<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -460,8 +446,7 @@ Additional global secondary indexes in the form of a list of mapped values<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -482,8 +467,7 @@ Hash Key type, which must be a scalar type: `S`, `N`, or `B` for String, Number 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"S"</code>
->   </dd>
+>    <code>"S"</code>>   </dd>
 > </dl>
 >
 
@@ -526,8 +510,7 @@ Import Amazon S3 data into a new table.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -559,8 +542,7 @@ Additional local secondary indexes in the form of a list of mapped values<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -581,8 +563,7 @@ Enable DynamoDB point in time recovery<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -603,8 +584,7 @@ DynamoDB table Range Key<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -625,8 +605,7 @@ Range Key type, which must be a scalar type: `S`, `N`, or `B` for String, Number
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"S"</code>
->   </dd>
+>    <code>"S"</code>>   </dd>
 > </dl>
 >
 
@@ -647,8 +626,7 @@ List of regions to create a replica table in<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -669,8 +647,7 @@ The ARN of the CMK that should be used for the AWS KMS encryption. This attribut
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -691,8 +668,7 @@ When an item in the table is modified, what information is written to the stream
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -713,8 +689,7 @@ Enable DynamoDB streams<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -735,8 +710,7 @@ Table name. If provided, the bucket will be created with this name instead of ge
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -757,8 +731,7 @@ DynamoDB table TTL attribute<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -779,8 +752,7 @@ Set to false to disable DynamoDB table TTL<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -813,8 +785,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -839,8 +810,7 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -868,8 +838,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    {
 >
 >      "additional_tag_map": {},
@@ -913,9 +882,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >    }
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -938,8 +905,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -972,8 +938,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -994,8 +959,7 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1016,8 +980,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1042,8 +1005,7 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1068,8 +1030,7 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1093,8 +1054,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1121,8 +1081,7 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1153,8 +1112,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "default"
@@ -1162,9 +1120,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -1188,8 +1144,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1210,8 +1165,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1235,8 +1189,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1257,8 +1210,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1281,8 +1233,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1303,8 +1254,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 

@@ -546,8 +546,7 @@ GitHub Organization<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -568,8 +567,7 @@ AWS Region.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -590,8 +588,7 @@ Account storing SSM parameters<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -612,8 +609,7 @@ AWS region storing SSM parameters<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -636,8 +632,7 @@ Toggles Admin user creation the deployed chart<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -658,8 +653,7 @@ A name used in annotations to reuse an ALB (e.g. `argocd`) or to generate a new 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -680,8 +674,7 @@ The name of the bucket for ALB access logs. The bucket must have policy allowing
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -702,8 +695,7 @@ The name of the bucket for ALB access logs. The bucket must have policy allowing
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -724,8 +716,7 @@ The name of the ALB (e.g. `argocd`) provisioned by `alb-controller`. Works toget
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -746,8 +737,7 @@ Toggles anonymous user access using default RBAC setting (Defaults to read-only)
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -768,8 +758,7 @@ Chart name to be installed. The chart name can be local path, a URL to a chart, 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"argocd-apps"</code>
->   </dd>
+>    <code>"argocd-apps"</code>>   </dd>
 > </dl>
 >
 
@@ -790,8 +779,7 @@ Set release description attribute (visible in the history).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"A Helm chart for managing additional Argo CD Applications and Projects"</code>
->   </dd>
+>    <code>"A Helm chart for managing additional Argo CD Applications and Projects"</code>>   </dd>
 > </dl>
 >
 
@@ -812,8 +800,7 @@ Repository URL where to locate the requested chart.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"https://argoproj.github.io/argo-helm"</code>
->   </dd>
+>    <code>"https://argoproj.github.io/argo-helm"</code>>   </dd>
 > </dl>
 >
 
@@ -834,8 +821,7 @@ Additional values to yamlencode as `helm_release` values for the argocd_apps cha
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -856,8 +842,7 @@ Specify the exact chart version to install. If this is not specified, the latest
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"0.0.3"</code>
->   </dd>
+>    <code>"0.0.3"</code>>   </dd>
 > </dl>
 >
 
@@ -878,8 +863,7 @@ Enable argocd apps<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -900,8 +884,7 @@ ArgoCD create namespaces policy<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -925,8 +908,7 @@ See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/#basic-built-i
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"role:readonly"</code>
->   </dd>
+>    <code>"role:readonly"</code>>   </dd>
 > </dl>
 >
 
@@ -966,8 +948,7 @@ See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more info
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -991,8 +972,7 @@ See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more info
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -1023,8 +1003,7 @@ Map of objects defining an `argocd_repo` to configure.  The key is the name of t
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1045,8 +1024,7 @@ If set, installation process purges chart on fail. The wait flag will be set aut
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -1067,8 +1045,7 @@ Certificate manager cluster issuer<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"letsencrypt-staging"</code>
->   </dd>
+>    <code>"letsencrypt-staging"</code>>   </dd>
 > </dl>
 >
 
@@ -1089,8 +1066,7 @@ Chart name to be installed. The chart name can be local path, a URL to a chart, 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"argo-cd"</code>
->   </dd>
+>    <code>"argo-cd"</code>>   </dd>
 > </dl>
 >
 
@@ -1111,8 +1087,7 @@ Set release description attribute (visible in the history).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1133,8 +1108,7 @@ Repository URL where to locate the requested chart.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"https://argoproj.github.io/argo-helm"</code>
->   </dd>
+>    <code>"https://argoproj.github.io/argo-helm"</code>>   </dd>
 > </dl>
 >
 
@@ -1155,8 +1129,7 @@ Additional values to yamlencode as `helm_release` values.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1177,8 +1150,7 @@ Specify the exact chart version to install. If this is not specified, the latest
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"5.19.12"</code>
->   </dd>
+>    <code>"5.19.12"</code>>   </dd>
 > </dl>
 >
 
@@ -1199,8 +1171,7 @@ Allow deletion of new resources created in this upgrade when upgrade fails.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -1224,8 +1195,7 @@ Allow deletion of new resources created in this upgrade when upgrade fails.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -1246,8 +1216,7 @@ Create the namespace if it does not yet exist. Defaults to `false`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1268,8 +1237,7 @@ The name of the eks component<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"eks/cluster"</code>
->   </dd>
+>    <code>"eks/cluster"</code>>   </dd>
 > </dl>
 >
 
@@ -1290,8 +1258,7 @@ Toggles Forecastle integration in the deployed chart<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1312,8 +1279,7 @@ This is the target GitHub base API endpoint. Providing a value is a requirement 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1334,8 +1300,7 @@ Enable default GitHub commit statuses notifications (required for CD sync mode)<
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -1356,8 +1321,7 @@ Use the value of this variable as the GitHub token instead of reading it from SS
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1381,8 +1345,7 @@ Use the value of this variable as the GitHub token instead of reading it from SS
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -1403,8 +1366,7 @@ Enable storing of the rendered manifest for helm_release so the full diff of wha
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1425,8 +1387,7 @@ Host name to use for ingress and ALB<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -1449,8 +1410,7 @@ Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1471,8 +1431,7 @@ The AWS config profile for `aws eks get-token` to use<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -1493,8 +1452,7 @@ If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-to
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1517,8 +1475,7 @@ Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -1539,8 +1496,7 @@ The role ARN for `aws eks get-token` to use<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -1561,8 +1517,7 @@ If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -1585,8 +1540,7 @@ If supplied, `kubeconfig_context_format` will be ignored.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -1610,8 +1564,7 @@ Must include a single `%s` which will be replaced with the cluster name.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -1632,8 +1585,7 @@ The Kubernetes API version of the credentials returned by the `exec` auth plugin
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"client.authentication.k8s.io/v1beta1"</code>
->   </dd>
+>    <code>"client.authentication.k8s.io/v1beta1"</code>>   </dd>
 > </dl>
 >
 
@@ -1654,8 +1606,7 @@ The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabl
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -1676,8 +1627,7 @@ If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1698,8 +1648,7 @@ The namespace to install the release into.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"argocd"</code>
->   </dd>
+>    <code>"argocd"</code>>   </dd>
 > </dl>
 >
 
@@ -1745,8 +1694,7 @@ See: [Example value in argocd-notifications Helm Chart](https://github.com/argop
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1791,8 +1739,7 @@ See: [Example value in argocd-notifications Helm Chart](https://github.com/argop
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1829,8 +1776,7 @@ See: [Example value in argocd-notifications Helm Chart](https://github.com/argop
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1851,8 +1797,7 @@ Toggles OIDC integration in the deployed chart<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1873,8 +1818,7 @@ OIDC issuer URL<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -1895,8 +1839,7 @@ Name of the OIDC resource<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -1917,8 +1860,7 @@ OIDC RBAC scopes to request<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"[argocd_realm_access]"</code>
->   </dd>
+>    <code>"[argocd_realm_access]"</code>>   </dd>
 > </dl>
 >
 
@@ -1939,8 +1881,7 @@ Set of OIDC scopes to request<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"[\"openid\", \"profile\", \"email\", \"groups\"]"</code>
->   </dd>
+>    <code>"[\"openid\", \"profile\", \"email\", \"groups\"]"</code>>   </dd>
 > </dl>
 >
 
@@ -1961,8 +1902,7 @@ Enable Service Account for pods.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -1998,8 +1938,7 @@ The cpu and memory of the deployment's limits and requests.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2020,8 +1959,7 @@ Toggles SAML integration in the deployed chart<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -2042,8 +1980,7 @@ SAML RBAC scopes to request<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"[email,groups]"</code>
->   </dd>
+>    <code>"[email,groups]"</code>>   </dd>
 > </dl>
 >
 
@@ -2073,8 +2010,7 @@ SAML SSO providers components<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -2099,8 +2035,7 @@ Service type for exposing the ArgoCD service. The available type values and thei
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"NodePort"</code>
->   </dd>
+>    <code>"NodePort"</code>>   </dd>
 > </dl>
 >
 
@@ -2135,8 +2070,7 @@ See: https://argocd-notifications.readthedocs.io/en/stable/services/slack/<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -2157,8 +2091,7 @@ Whether or not to enable Slack notifications. See `var.slack_notifications.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -2179,8 +2112,7 @@ SSM path to the GitHub API key<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/argocd/github/api_key"</code>
->   </dd>
+>    <code>"/argocd/github/api_key"</code>>   </dd>
 > </dl>
 >
 
@@ -2201,8 +2133,7 @@ The SSM Parameter Store path for the ID of the IdP client<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/argocd/oidc/client_id"</code>
->   </dd>
+>    <code>"/argocd/oidc/client_id"</code>>   </dd>
 > </dl>
 >
 
@@ -2223,8 +2154,7 @@ The SSM Parameter Store path for the secret of the IdP client<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/argocd/oidc/client_secret"</code>
->   </dd>
+>    <code>"/argocd/oidc/client_secret"</code>>   </dd>
 > </dl>
 >
 
@@ -2248,8 +2178,7 @@ If the tenant label is not used, leave this as null.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2270,8 +2199,7 @@ Time in seconds to wait for any individual kubernetes operation (like Jobs for h
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>300</code>
->   </dd>
+>    <code>300</code>>   </dd>
 > </dl>
 >
 
@@ -2292,8 +2220,7 @@ Will wait until all resources are in a ready state before marking the release as
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -2326,8 +2253,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -2352,8 +2278,7 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -2381,8 +2306,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    {
 >
 >      "additional_tag_map": {},
@@ -2426,9 +2350,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >    }
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -2451,8 +2373,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2485,8 +2406,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -2507,8 +2427,7 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2529,8 +2448,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2555,8 +2473,7 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2581,8 +2498,7 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2606,8 +2522,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2634,8 +2549,7 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2666,8 +2580,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "default"
@@ -2675,9 +2588,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -2701,8 +2612,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2723,8 +2633,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2748,8 +2657,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2770,8 +2678,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -2794,8 +2701,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -2816,8 +2722,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 

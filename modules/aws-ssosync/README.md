@@ -280,8 +280,7 @@ Google Admin email<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -302,8 +301,7 @@ AWS Region where AWS SSO is enabled<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -326,8 +324,7 @@ Architecture of the Lambda function<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"x86_64"</code>
->   </dd>
+>    <code>"x86_64"</code>>   </dd>
 > </dl>
 >
 
@@ -348,8 +345,7 @@ SSM Path for `ssosync` secrets<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/ssosync"</code>
->   </dd>
+>    <code>"/ssosync"</code>>   </dd>
 > </dl>
 >
 
@@ -370,8 +366,7 @@ Google Workspace group filter query parameter, example: 'name:Admin* email:aws-*
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -392,8 +387,7 @@ Google Workspace user filter query parameter, example: 'name:John* email:admin*'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -414,8 +408,7 @@ Ignore these Google Workspace groups<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -436,8 +429,7 @@ Ignore these Google Workspace users<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -458,8 +450,7 @@ Include only these Google Workspace groups. (Only applicable for sync_method use
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -480,8 +471,7 @@ Log format for Lambda function logging<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"json"</code>
->   </dd>
+>    <code>"json"</code>>   </dd>
 > </dl>
 >
 
@@ -502,8 +492,7 @@ Log level for Lambda function logging<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"warn"</code>
->   </dd>
+>    <code>"warn"</code>>   </dd>
 > </dl>
 >
 
@@ -524,8 +513,7 @@ Schedule for trigger the execution of ssosync (see CloudWatch schedule expressio
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"rate(15 minutes)"</code>
->   </dd>
+>    <code>"rate(15 minutes)"</code>>   </dd>
 > </dl>
 >
 
@@ -546,8 +534,7 @@ URL prefix for ssosync binary<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"https://github.com/Benbentwo/ssosync/releases/download"</code>
->   </dd>
+>    <code>"https://github.com/Benbentwo/ssosync/releases/download"</code>>   </dd>
 > </dl>
 >
 
@@ -568,8 +555,7 @@ Version of ssosync to use<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"v2.0.2"</code>
->   </dd>
+>    <code>"v2.0.2"</code>>   </dd>
 > </dl>
 >
 
@@ -590,8 +576,7 @@ Sync method to use<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"groups"</code>
->   </dd>
+>    <code>"groups"</code>>   </dd>
 > </dl>
 >
 
@@ -624,8 +609,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -650,8 +634,7 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -679,8 +662,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    {
 >
 >      "additional_tag_map": {},
@@ -724,9 +706,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >    }
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -749,8 +729,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -783,8 +762,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -805,8 +783,7 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -827,8 +804,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -853,8 +829,7 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -879,8 +854,7 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -904,8 +878,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -932,8 +905,7 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -964,8 +936,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "default"
@@ -973,9 +944,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -999,8 +968,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1021,8 +989,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1046,8 +1013,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1068,8 +1034,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1092,8 +1057,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1114,8 +1078,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 

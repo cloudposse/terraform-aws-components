@@ -165,8 +165,7 @@ AWS Region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -189,8 +188,7 @@ The Airflow override options<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -211,8 +209,7 @@ Airflow version of the MWAA environment, will be set by default to the latest ve
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -235,8 +232,7 @@ List of stages to pull VPC ingress cidr and add to security group<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "auto",
@@ -246,9 +242,7 @@ List of stages to pull VPC ingress cidr and add to security group<br/>
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -269,8 +263,7 @@ List of CIDR blocks to be allowed to connect to the MWAA cluster<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -291,8 +284,7 @@ A list of IDs of Security Groups to allow access to the security group created b
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -313,8 +305,7 @@ List of role ARNs to allow airflow web access<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -335,8 +326,7 @@ List of role names to allow airflow web access<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -357,8 +347,7 @@ Enabling or disabling the creatation of a default IAM Role for AWS MWAA<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -379,8 +368,7 @@ Enabling or disabling the creatation of an S3 bucket for AWS MWAA<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -401,8 +389,7 @@ Enabling or disabling the collection of logs for processing DAGs<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -423,8 +410,7 @@ DAG processing logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBU
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"INFO"</code>
->   </dd>
+>    <code>"INFO"</code>>   </dd>
 > </dl>
 >
 
@@ -445,8 +431,7 @@ Path to dags in s3<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"dags"</code>
->   </dd>
+>    <code>"dags"</code>>   </dd>
 > </dl>
 >
 
@@ -467,8 +452,7 @@ Environment class for the cluster. Possible options are mw1.small, mw1.medium, m
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"mw1.small"</code>
->   </dd>
+>    <code>"mw1.small"</code>>   </dd>
 > </dl>
 >
 
@@ -489,8 +473,7 @@ If `create_iam_role` is `false` then set this to the target MWAA execution role<
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -511,8 +494,7 @@ The maximum number of workers that can be automatically scaled up. Value need to
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>10</code>
->   </dd>
+>    <code>10</code>>   </dd>
 > </dl>
 >
 
@@ -533,8 +515,7 @@ The minimum number of workers that you want to run in your environment.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>1</code>
->   </dd>
+>    <code>1</code>>   </dd>
 > </dl>
 >
 
@@ -555,8 +536,7 @@ The plugins.zip file version you want to use.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -577,8 +557,7 @@ The relative path to the plugins.zip file on your Amazon S3 storage bucket. For 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -599,8 +578,7 @@ The requirements.txt file version you<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -621,8 +599,7 @@ The relative path to the requirements.txt file on your Amazon S3 storage bucket.
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -643,8 +620,7 @@ Enabling or disabling the collection of logs for the schedulers<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -665,8 +641,7 @@ Schedulers logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"INFO"</code>
->   </dd>
+>    <code>"INFO"</code>>   </dd>
 > </dl>
 >
 
@@ -687,8 +662,7 @@ Set this to the Amazon Resource Name (ARN) of your Amazon S3 storage bucket.<br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -709,8 +683,7 @@ Enabling or disabling the collection of logs for DAG tasks<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -731,8 +704,7 @@ DAG tasks logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"INFO"</code>
->   </dd>
+>    <code>"INFO"</code>>   </dd>
 > </dl>
 >
 
@@ -753,8 +725,7 @@ Specifies whether the webserver is accessible over the internet, PUBLIC_ONLY or 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"PRIVATE_ONLY"</code>
->   </dd>
+>    <code>"PRIVATE_ONLY"</code>>   </dd>
 > </dl>
 >
 
@@ -775,8 +746,7 @@ Enabling or disabling the collection of logs for the webservers<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -797,8 +767,7 @@ Webserver logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"INFO"</code>
->   </dd>
+>    <code>"INFO"</code>>   </dd>
 > </dl>
 >
 
@@ -819,8 +788,7 @@ Specifies the start date for the weekly maintenance window.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -841,8 +809,7 @@ Enabling or disabling the collection of logs for the workers<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -863,8 +830,7 @@ Workers logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"INFO"</code>
->   </dd>
+>    <code>"INFO"</code>>   </dd>
 > </dl>
 >
 
@@ -897,8 +863,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -923,8 +888,7 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -952,8 +916,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    {
 >
 >      "additional_tag_map": {},
@@ -997,9 +960,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >    }
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -1022,8 +983,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1056,8 +1016,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1078,8 +1037,7 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1100,8 +1058,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1126,8 +1083,7 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1152,8 +1108,7 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1177,8 +1132,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1205,8 +1159,7 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1237,8 +1190,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "default"
@@ -1246,9 +1198,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -1272,8 +1222,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1294,8 +1243,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1319,8 +1267,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1341,8 +1288,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1365,8 +1311,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1387,8 +1332,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 

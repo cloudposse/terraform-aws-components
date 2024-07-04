@@ -137,8 +137,7 @@ AWS Region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -161,8 +160,7 @@ Enables content-based deduplication for FIFO queues. For more information, see t
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -183,8 +181,7 @@ Determines whether to create a redrive allow policy for the dead letter queue.<b
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -205,8 +202,7 @@ Specifies whether message deduplication occurs at the message group or queue lev
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -227,8 +223,7 @@ The time in seconds that the delivery of all messages in the queue will be delay
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>0</code>
->   </dd>
+>    <code>0</code>>   </dd>
 > </dl>
 >
 
@@ -249,8 +244,7 @@ Enables content-based deduplication for FIFO queues<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -271,8 +265,7 @@ Specifies whether message deduplication occurs at the message group or queue lev
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -293,8 +286,7 @@ The time in seconds that the delivery of all messages in the queue will be delay
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -315,8 +307,7 @@ Boolean designating whether the Dead Letter Queue should be created by this comp
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -337,8 +328,7 @@ The length of time, in seconds, for which Amazon SQS can reuse a data key to enc
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -359,8 +349,7 @@ The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CM
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -381,8 +370,7 @@ The number of times a message can be unsuccessfully dequeued before being moved 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>5</code>
->   </dd>
+>    <code>5</code>>   </dd>
 > </dl>
 >
 
@@ -403,8 +391,7 @@ The number of seconds Amazon SQS retains a message. Integer representing seconds
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -425,8 +412,7 @@ The suffix of the Dead Letter Queue.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"dlq"</code>
->   </dd>
+>    <code>"dlq"</code>>   </dd>
 > </dl>
 >
 
@@ -447,8 +433,7 @@ The time for which a ReceiveMessage call will wait for a message to arrive (long
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -469,8 +454,7 @@ The JSON policy to set up the Dead Letter Queue redrive permission, see AWS docs
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -491,8 +475,7 @@ Boolean to enable server-side encryption (SSE) of message content with SQS-owned
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -513,8 +496,7 @@ A mapping of additional tags to assign to the dead letter queue<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -535,8 +517,7 @@ The visibility timeout for the queue. An integer from 0 to 43200 (12 hours)<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -557,8 +538,7 @@ Boolean designating a FIFO queue. If not set, it defaults to false making it sta
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -579,8 +559,7 @@ Specifies whether the FIFO queue throughput quota applies to the entire queue or
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -634,8 +613,7 @@ Use inputs `iam_source_policy_documents` and `iam_override_policy_documents` for
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -656,8 +634,7 @@ Boolean designating whether the IAM policy should be limited to the current acco
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -678,8 +655,7 @@ The length of time, in seconds, for which Amazon SQS can reuse a data key to enc
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>300</code>
->   </dd>
+>    <code>300</code>>   </dd>
 > </dl>
 >
 
@@ -700,8 +676,7 @@ The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CM
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -722,8 +697,7 @@ The limit of how many bytes a message can contain before Amazon SQS rejects it. 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>262144</code>
->   </dd>
+>    <code>262144</code>>   </dd>
 > </dl>
 >
 
@@ -744,8 +718,7 @@ The number of seconds Amazon SQS retains a message. Integer representing seconds
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>345600</code>
->   </dd>
+>    <code>345600</code>>   </dd>
 > </dl>
 >
 
@@ -766,8 +739,7 @@ The time for which a ReceiveMessage call will wait for a message to arrive (long
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>0</code>
->   </dd>
+>    <code>0</code>>   </dd>
 > </dl>
 >
 
@@ -788,8 +760,7 @@ Boolean to enable server-side encryption (SSE) of message content with SQS-owned
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -810,8 +781,7 @@ The visibility timeout for the queue. An integer from 0 to 43200 (12 hours). The
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>30</code>
->   </dd>
+>    <code>30</code>>   </dd>
 > </dl>
 >
 
@@ -844,8 +814,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -870,8 +839,7 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -899,8 +867,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    {
 >
 >      "additional_tag_map": {},
@@ -944,9 +911,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >    }
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -969,8 +934,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1003,8 +967,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1025,8 +988,7 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1047,8 +1009,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1073,8 +1034,7 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1099,8 +1059,7 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1124,8 +1083,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1152,8 +1110,7 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1184,8 +1141,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "default"
@@ -1193,9 +1149,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -1219,8 +1173,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1241,8 +1194,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1266,8 +1218,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1288,8 +1239,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1312,8 +1262,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1334,8 +1283,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 

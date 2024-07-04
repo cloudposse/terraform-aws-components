@@ -296,8 +296,7 @@ CPU utilization high threshold<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -318,8 +317,7 @@ CPU utilization low threshold<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -340,8 +338,7 @@ ECR repository name<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -362,8 +359,7 @@ The maximum size of the autoscale group<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -384,8 +380,7 @@ The minimum size of the autoscale group<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -406,8 +401,7 @@ AWS Region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -428,8 +422,7 @@ The Spacelift API endpoint URL (e.g. https://example.app.spacelift.io)<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -450,8 +443,7 @@ A maximum duration that Terraform should wait for ASG instances to be healthy be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>
->   </dd>
+>    <code></code>>   </dd>
 > </dl>
 >
 
@@ -474,8 +466,7 @@ The name of the environment where `account_map` is provisioned<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"gbl"</code>
->   </dd>
+>    <code>"gbl"</code>>   </dd>
 > </dl>
 >
 
@@ -496,8 +487,7 @@ The name of the stage where `account_map` is provisioned<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"root"</code>
->   </dd>
+>    <code>"root"</code>>   </dd>
 > </dl>
 >
 
@@ -521,8 +511,7 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -545,8 +534,7 @@ OS architecture of the EC2 instance AMI<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "x86_64"
@@ -554,9 +542,7 @@ OS architecture of the EC2 instance AMI<br/>
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -577,8 +563,7 @@ The AWS_CONFIG_FILE used by the worker. Can be overridden by `/.spacelift/config
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/etc/aws-config/aws-config-spacelift"</code>
->   </dd>
+>    <code>"/etc/aws-config/aws-config-spacelift"</code>>   </dd>
 > </dl>
 >
 
@@ -601,8 +586,7 @@ Can be overridden by `/.spacelift/config.yml`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -642,8 +626,7 @@ Specify volumes to attach to the instance besides the volumes specified by the A
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -664,8 +647,7 @@ Custom spacelift AMI<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -686,8 +668,7 @@ The amount of time, in seconds, after a scaling activity completes before anothe
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>300</code>
->   </dd>
+>    <code>300</code>>   </dd>
 > </dl>
 >
 
@@ -708,8 +689,7 @@ The number of Amazon EC2 instances that should be running in the group, if not s
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -730,8 +710,7 @@ If true, the launched EC2 instance will be EBS-optimized<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -752,8 +731,7 @@ The name of the environment where `ecr` is provisioned<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -774,8 +752,7 @@ AWS region that contains the ECR infrastructure repo<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -796,8 +773,7 @@ The name of the stage where `ecr` is provisioned<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"artifacts"</code>
->   </dd>
+>    <code>"artifacts"</code>>   </dd>
 > </dl>
 >
 
@@ -821,8 +797,7 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -843,8 +818,7 @@ Whether to create a GitHub .netrc file so Spacelift can clone private GitHub rep
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -865,8 +839,7 @@ If `github_netrc` is enabled, this is the SSM path to retrieve the GitHub token.
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/github/token"</code>
->   </dd>
+>    <code>"/github/token"</code>>   </dd>
 > </dl>
 >
 
@@ -887,8 +860,7 @@ If `github_netrc` is enabled, this is the SSM path to retrieve the GitHub user<b
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/github/user"</code>
->   </dd>
+>    <code>"/github/user"</code>>   </dd>
 > </dl>
 >
 
@@ -909,8 +881,7 @@ Time (in seconds) after instance comes into service before checking health<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>300</code>
->   </dd>
+>    <code>300</code>>   </dd>
 > </dl>
 >
 
@@ -931,8 +902,7 @@ Controls how health checking is done. Valid values are `EC2` or `ELB`<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"EC2"</code>
->   </dd>
+>    <code>"EC2"</code>>   </dd>
 > </dl>
 >
 
@@ -953,8 +923,7 @@ Additional attributes to add to the IDs of the IAM role and policy<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -975,8 +944,7 @@ This is the SSM path to retrieve and set the INFRACOST_API_TOKEN environment var
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/infracost/token"</code>
->   </dd>
+>    <code>"/infracost/token"</code>>   </dd>
 > </dl>
 >
 
@@ -997,8 +965,7 @@ These are the CLI args passed to infracost<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -1019,8 +986,7 @@ Whether to enable infracost for Spacelift stacks<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>
->   </dd>
+>    <code>false</code>>   </dd>
 > </dl>
 >
 
@@ -1041,8 +1007,7 @@ A failure executing Infracost, or a non-zero exit code being returned from the c
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>
->   </dd>
+>    <code>true</code>>   </dd>
 > </dl>
 >
 
@@ -1063,8 +1028,7 @@ Number of seconds after which the instance will be terminated. The default is se
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>1209600</code>
->   </dd>
+>    <code>1209600</code>>   </dd>
 > </dl>
 >
 
@@ -1100,8 +1064,7 @@ The instance refresh definition. If this block is configured, an Instance Refres
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1122,8 +1085,7 @@ EC2 instance type to use for workers<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"r5n.large"</code>
->   </dd>
+>    <code>"r5n.large"</code>>   </dd>
 > </dl>
 >
 
@@ -1144,8 +1106,7 @@ Launch template version to use for workers. Note that instance refresh settings 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"$Latest"</code>
->   </dd>
+>    <code>"$Latest"</code>>   </dd>
 > </dl>
 >
 
@@ -1185,8 +1146,7 @@ Policy to use a mixed group of on-demand/spot of different types. Launch templat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1207,8 +1167,7 @@ The amount of time, in seconds, after a scaling activity completes and before th
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>300</code>
->   </dd>
+>    <code>300</code>>   </dd>
 > </dl>
 >
 
@@ -1229,8 +1188,7 @@ The name of the Space to create the worker pool in<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"root"</code>
->   </dd>
+>    <code>"root"</code>>   </dd>
 > </dl>
 >
 
@@ -1251,8 +1209,7 @@ Number of Spacelift agents to run on one worker node. NOTE: This affects billabl
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>1</code>
->   </dd>
+>    <code>1</code>>   </dd>
 > </dl>
 >
 
@@ -1273,8 +1230,7 @@ AMI ID of Spacelift worker pool image<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1295,8 +1251,7 @@ AWS Account ID owned by Spacelift<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"643313122712"</code>
->   </dd>
+>    <code>"643313122712"</code>>   </dd>
 > </dl>
 >
 
@@ -1317,8 +1272,7 @@ Top-level domain name to use for pulling the launcher binary<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"spacelift.io"</code>
->   </dd>
+>    <code>"spacelift.io"</code>>   </dd>
 > </dl>
 >
 
@@ -1339,8 +1293,7 @@ URL of ECR image to use for Spacelift<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>
->   </dd>
+>    <code>""</code>>   </dd>
 > </dl>
 >
 
@@ -1361,8 +1314,7 @@ The name of the spacelift spaces component<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"spacelift/spaces"</code>
->   </dd>
+>    <code>"spacelift/spaces"</code>>   </dd>
 > </dl>
 >
 
@@ -1383,8 +1335,7 @@ The environment name of the spacelift spaces component<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1405,8 +1356,7 @@ The stage name of the spacelift spaces component<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1427,8 +1377,7 @@ The tenant name of the spacelift spaces component<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1451,8 +1400,7 @@ A list of policies to decide how the instances in the auto scale group should be
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "OldestLaunchConfiguration"
@@ -1460,9 +1408,7 @@ A list of policies to decide how the instances in the auto scale group should be
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -1495,8 +1441,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1521,8 +1466,7 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>
->   </dd>
+>    <code>[]</code>>   </dd>
 > </dl>
 >
 
@@ -1550,8 +1494,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    {
 >
 >      "additional_tag_map": {},
@@ -1595,9 +1538,7 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >    }
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -1620,8 +1561,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1654,8 +1594,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1676,8 +1615,7 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1698,8 +1636,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1724,8 +1661,7 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1750,8 +1686,7 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1775,8 +1710,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1803,8 +1737,7 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1835,8 +1768,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl
->    >
+>    ```hcl>
 >    [
 >
 >      "default"
@@ -1844,9 +1776,7 @@ Set to `[]` to suppress all generated tags.<br/>
 >    ]
 >
 >    ```
->
->    
->   </dd>
+>>   </dd>
 > </dl>
 >
 
@@ -1870,8 +1800,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1892,8 +1821,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1917,8 +1845,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1939,8 +1866,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 
@@ -1963,8 +1889,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>
->   </dd>
+>    <code>{}</code>>   </dd>
 > </dl>
 >
 
@@ -1985,8 +1910,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>
->   </dd>
+>    <code>null</code>>   </dd>
 > </dl>
 >
 

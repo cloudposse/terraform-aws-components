@@ -29,13 +29,13 @@ content: |-
   >    {{ if lt (len (split "\n" .GetValue)) 2 }}<code>{{ .GetValue }}</code>{{ else }}
   >
   >    ```hcl
-  >    {{ $lines := regexSplit "\n" .GetValue -1 -}}
+       {{- $lines := regexSplit "\n" .GetValue -1 -}}
   >    {{- range $lines }}
   >    {{ . }}
   >    {{- end }}
   >    ```
   >
-  >    {{ end }}
+      {{- end -}}
   >   </dd>
   > </dl>
   >
