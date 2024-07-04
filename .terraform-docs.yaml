@@ -43,10 +43,9 @@ content: |-
 
   {{ .Header }}
 
-  ## Reference
 
   {{ if ne (len .Module.Requirements) 0 -}}
-  ### Version Requirements
+  ## Version Requirements
 
   | Requirement | Version |
   | --- | --- |
@@ -56,7 +55,7 @@ content: |-
   {{ end }}
 
   {{ if ne (len .Module.Providers) 0 -}}
-  ### Providers
+  ## Providers
 
   | Provider | Version |
   | --- | --- |
@@ -66,7 +65,7 @@ content: |-
   {{ end }}
 
   {{ if ne (len .Module.ModuleCalls) 0 -}}
-  ### Modules
+  ## Modules
 
   Name | Version | Source | Description
   --- | --- | --- | ---
@@ -85,7 +84,7 @@ content: |-
 
   {{- if ne (len .Module.Resources) 0 }}
 
-  ### Resources
+  ## Resources
 
   The following resources are used by this module:
   {{ range .Module.Resources }}
@@ -98,7 +97,7 @@ content: |-
   {{- end }}
 
   {{ if ne (len .Module.Resources) 0 -}}
-  ### Data Sources
+  ## Data Sources
 
   The following data sources are used by this module:
   {{ range .Module.Resources }}
@@ -109,8 +108,8 @@ content: |-
     {{- end }}
   {{- end }}
   {{- end }}
-  ---
-  ### Required Variables
+
+  ## Required Variables
 
   {{- range .Module.Inputs }}
   {{- if and (not (has .Name $context_variables)) .Required }}
@@ -122,8 +121,7 @@ content: |-
   {{ range .Module.Inputs }}{{ if not .Required }}{{ $optional = true -}}{{ end -}}{{ end -}}
 
   {{ if $optional -}}
-  ---
-  ### Optional Variables
+  ## Optional Variables
 
   {{- range .Module.Inputs }}
   {{- if and (not (has .Name $context_variables)) (not .Required) }}
@@ -132,8 +130,7 @@ content: |-
   {{ end -}}
   {{ end }}
 
-  ---
-  ### Context Variables
+  ## Context Variables
 
   The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -149,7 +146,7 @@ content: |-
   </details>
 
   {{ if ne (len .Module.Outputs) 0 -}}
-  ### Outputs
+  ## Outputs
 
   <dl>
   {{- range .Module.Outputs }}
