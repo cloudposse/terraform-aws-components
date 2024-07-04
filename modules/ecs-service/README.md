@@ -342,646 +342,12 @@ The following data sources are used by this module:
   - [`jq_query.service_domain_query`](https://registry.terraform.io/providers/massdriver-cloud/jq/latest/docs/data-sources/query) (data source)
   - [`template_file.envs`](https://registry.terraform.io/providers/cloudposse/template/latest/docs/data-sources/file) (data source)
 
-### Context Variables
-
-The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
-
-<details>
-<summary>Click to expand</summary>
-> ### `additional_tag_map` (`map(string)`) <i>optional</i>
->
->
-> Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
->
-> This is for some rare cases where resources want additional configuration of tags<br/>
->
-> and therefore take a list of maps with tag key, value, and additional configuration.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `map(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `{}`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `attributes` (`list(string)`) <i>optional</i>
->
->
-> ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
->
-> in the order they appear in the list. New attributes are appended to the<br/>
->
-> end of the list. The elements of the list are joined by the `delimiter`<br/>
->
-> and treated as a single ID element.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `[]`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `context` (`any`) <i>optional</i>
->
->
-> Single object for setting entire context at once.<br/>
->
-> See description of individual variables for details.<br/>
->
-> Leave string and numeric variables as `null` to use default value.<br/>
->
-> Individual variable settings (non-null) override settings in context object,<br/>
->
-> except for attributes, tags, and additional_tag_map, which are merged.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `any`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    
->    ```hcl
->>
->    {
->
->      "additional_tag_map": {},
->
->      "attributes": [],
->
->      "delimiter": null,
->
->      "descriptor_formats": {},
->
->      "enabled": true,
->
->      "environment": null,
->
->      "id_length_limit": null,
->
->      "label_key_case": null,
->
->      "label_order": [],
->
->      "label_value_case": null,
->
->      "labels_as_tags": [
->
->        "unset"
->
->      ],
->
->      "name": null,
->
->      "namespace": null,
->
->      "regex_replace_chars": null,
->
->      "stage": null,
->
->      "tags": {},
->
->      "tenant": null
->
->    }
->
->    ```
->    
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `delimiter` (`string`) <i>optional</i>
->
->
-> Delimiter to be used between ID elements.<br/>
->
-> Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `descriptor_formats` (`any`) <i>optional</i>
->
->
-> Describe additional descriptors to be output in the `descriptors` output map.<br/>
->
-> Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
->
-> `{<br/>
->
->    format = string<br/>
->
->    labels = list(string)<br/>
->
-> }`<br/>
->
-> (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
->
-> `format` is a Terraform format string to be passed to the `format()` function.<br/>
->
-> `labels` is a list of labels, in order, to pass to `format()` function.<br/>
->
-> Label values will be normalized before being passed to `format()` so they will be<br/>
->
-> identical to how they appear in `id`.<br/>
->
-> Default is `{}` (`descriptors` output will be empty).<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `any`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `{}`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `enabled` (`bool`) <i>optional</i>
->
->
-> Set to false to prevent the module from creating any resources<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `environment` (`string`) <i>optional</i>
->
->
-> ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `id_length_limit` (`number`) <i>optional</i>
->
->
-> Limit `id` to this many characters (minimum 6).<br/>
->
-> Set to `0` for unlimited length.<br/>
->
-> Set to `null` for keep the existing setting, which defaults to `0`.<br/>
->
-> Does not affect `id_full`.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `number`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `label_key_case` (`string`) <i>optional</i>
->
->
-> Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
->
-> Does not affect keys of tags passed in via the `tags` input.<br/>
->
-> Possible values: `lower`, `title`, `upper`.<br/>
->
-> Default value: `title`.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `label_order` (`list(string)`) <i>optional</i>
->
->
-> The order in which the labels (ID elements) appear in the `id`.<br/>
->
-> Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
->
-> You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `label_value_case` (`string`) <i>optional</i>
->
->
-> Controls the letter case of ID elements (labels) as included in `id`,<br/>
->
-> set as tag values, and output by this module individually.<br/>
->
-> Does not affect values of tags passed in via the `tags` input.<br/>
->
-> Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
->
-> Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
->
-> Default value: `lower`.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `labels_as_tags` (`set(string)`) <i>optional</i>
->
->
-> Set of labels (ID elements) to include as tags in the `tags` output.<br/>
->
-> Default is to include all labels.<br/>
->
-> Tags with empty values will not be included in the `tags` output.<br/>
->
-> Set to `[]` to suppress all generated tags.<br/>
->
-> **Notes:**<br/>
->
->   The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
->
->   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
->
->   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `set(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    
->    ```hcl
->>
->    [
->
->      "default"
->
->    ]
->
->    ```
->    
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `name` (`string`) <i>optional</i>
->
->
-> ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
->
-> This is the only ID element not also included as a `tag`.<br/>
->
-> The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `namespace` (`string`) <i>optional</i>
->
->
-> ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `regex_replace_chars` (`string`) <i>optional</i>
->
->
-> Terraform regular expression (regex) string.<br/>
->
-> Characters matching the regex will be removed from the ID elements.<br/>
->
-> If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `stage` (`string`) <i>optional</i>
->
->
-> ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `tags` (`map(string)`) <i>optional</i>
->
->
-> Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
->
-> Neither the tag keys nor the tag values will be modified by this module.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `map(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `{}`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `tenant` (`string`) <i>optional</i>
->
->
-> ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-
-</details>
-
 ### Required Variables
-> ### `region` (`string`) <i>required</i>
->
->
-> AWS Region<br/>
->
->
+### `region` (`string`) <i>required</i>
+
+
+AWS Region<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -990,11 +356,11 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>Yes</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    ``
+>    <code></code>
 >   </dd>
 > </dl>
 >
@@ -1003,12 +369,11 @@ The following variables are defined in the `context.tf` file of this module and 
 
 
 ### Optional Variables
-> ### `additional_targets` (`list(string)`) <i>optional</i>
->
->
-> Additional target routes to add to the ALB that point to this service. The only difference between this and `var.vanity_alias` is `var.vanity_alias` will create an alias record in Route 53 in the hosted zone in this account as well. `var.additional_targets` only adds the listener route to this service's target group.<br/>
->
->
+### `additional_targets` (`list(string)`) <i>optional</i>
+
+
+Additional target routes to add to the ALB that point to this service. The only difference between this and `var.vanity_alias` is `var.vanity_alias` will create an alias record in Route 53 in the hosted zone in this account as well. `var.additional_targets` only adds the listener route to this service's target group.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1017,23 +382,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `alb_configuration` (`string`) <i>optional</i>
->
->
-> The configuration to use for the ALB, specifying which cluster alb configuration to use<br/>
->
->
+### `alb_configuration` (`string`) <i>optional</i>
+
+
+The configuration to use for the ALB, specifying which cluster alb configuration to use<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1042,23 +406,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"default"`
+>    <code>"default"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `alb_name` (`string`) <i>optional</i>
->
->
-> The name of the ALB this service should attach to<br/>
->
->
+### `alb_name` (`string`) <i>optional</i>
+
+
+The name of the ALB this service should attach to<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1067,23 +430,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `autoscaling_dimension` (`string`) <i>optional</i>
->
->
-> The dimension to use to decide to autoscale<br/>
->
->
+### `autoscaling_dimension` (`string`) <i>optional</i>
+
+
+The dimension to use to decide to autoscale<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1092,23 +454,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"cpu"`
+>    <code>"cpu"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `autoscaling_enabled` (`bool`) <i>optional</i>
->
->
-> Should this service autoscale using SNS alarams<br/>
->
->
+### `autoscaling_enabled` (`bool`) <i>optional</i>
+
+
+Should this service autoscale using SNS alarams<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1117,23 +478,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `true`
+>    <code>true</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `chamber_service` (`string`) <i>optional</i>
->
->
-> SSM parameter service name for use with chamber. This is used in chamber_format where /$chamber_service/$name/$container_name/$parameter would be the default.<br/>
->
->
+### `chamber_service` (`string`) <i>optional</i>
+
+
+SSM parameter service name for use with chamber. This is used in chamber_format where /$chamber_service/$name/$container_name/$parameter would be the default.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1142,23 +502,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"ecs-service"`
+>    <code>"ecs-service"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cluster_attributes` (`list(string)`) <i>optional</i>
->
->
-> The attributes of the cluster name e.g. if the full name is `namespace-tenant-environment-dev-ecs-b2b` then the `cluster_name` is `ecs` and this value should be `b2b`.<br/>
->
->
+### `cluster_attributes` (`list(string)`) <i>optional</i>
+
+
+The attributes of the cluster name e.g. if the full name is `namespace-tenant-environment-dev-ecs-b2b` then the `cluster_name` is `ecs` and this value should be `b2b`.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1167,23 +526,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `containers` <i>optional</i>
->
->
-> Feed inputs into container definition module<br/>
->
->
+### `containers` <i>optional</i>
+
+
+Feed inputs into container definition module<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1249,23 +607,23 @@ The following variables are defined in the `context.tf` file of this module and 
     })), [])
   }))
 >   ```
+>
 >   
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cpu_utilization_high_alarm_actions` (`list(string)`) <i>optional</i>
->
->
-> A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High Alarm action<br/>
->
->
+### `cpu_utilization_high_alarm_actions` (`list(string)`) <i>optional</i>
+
+
+A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High Alarm action<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1274,23 +632,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cpu_utilization_high_evaluation_periods` (`number`) <i>optional</i>
->
->
-> Number of periods to evaluate for the alarm<br/>
->
->
+### `cpu_utilization_high_evaluation_periods` (`number`) <i>optional</i>
+
+
+Number of periods to evaluate for the alarm<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1299,23 +656,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `1`
+>    <code>1</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cpu_utilization_high_ok_actions` (`list(string)`) <i>optional</i>
->
->
-> A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High OK action<br/>
->
->
+### `cpu_utilization_high_ok_actions` (`list(string)`) <i>optional</i>
+
+
+A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High OK action<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1324,23 +680,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cpu_utilization_high_period` (`number`) <i>optional</i>
->
->
-> Duration in seconds to evaluate for the alarm<br/>
->
->
+### `cpu_utilization_high_period` (`number`) <i>optional</i>
+
+
+Duration in seconds to evaluate for the alarm<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1349,23 +704,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `300`
+>    <code>300</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cpu_utilization_high_threshold` (`number`) <i>optional</i>
->
->
-> The maximum percentage of CPU utilization average<br/>
->
->
+### `cpu_utilization_high_threshold` (`number`) <i>optional</i>
+
+
+The maximum percentage of CPU utilization average<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1374,23 +728,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `80`
+>    <code>80</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cpu_utilization_low_alarm_actions` (`list(string)`) <i>optional</i>
->
->
-> A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low Alarm action<br/>
->
->
+### `cpu_utilization_low_alarm_actions` (`list(string)`) <i>optional</i>
+
+
+A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low Alarm action<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1399,23 +752,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cpu_utilization_low_evaluation_periods` (`number`) <i>optional</i>
->
->
-> Number of periods to evaluate for the alarm<br/>
->
->
+### `cpu_utilization_low_evaluation_periods` (`number`) <i>optional</i>
+
+
+Number of periods to evaluate for the alarm<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1424,23 +776,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `1`
+>    <code>1</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cpu_utilization_low_ok_actions` (`list(string)`) <i>optional</i>
->
->
-> A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low OK action<br/>
->
->
+### `cpu_utilization_low_ok_actions` (`list(string)`) <i>optional</i>
+
+
+A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low OK action<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1449,23 +800,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cpu_utilization_low_period` (`number`) <i>optional</i>
->
->
-> Duration in seconds to evaluate for the alarm<br/>
->
->
+### `cpu_utilization_low_period` (`number`) <i>optional</i>
+
+
+Duration in seconds to evaluate for the alarm<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1474,23 +824,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `300`
+>    <code>300</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cpu_utilization_low_threshold` (`number`) <i>optional</i>
->
->
-> The minimum percentage of CPU utilization average<br/>
->
->
+### `cpu_utilization_low_threshold` (`number`) <i>optional</i>
+
+
+The minimum percentage of CPU utilization average<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1499,23 +848,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `20`
+>    <code>20</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `custom_security_group_rules` <i>optional</i>
->
->
-> The list of custom security group rules to add to the service security group<br/>
->
->
+### `custom_security_group_rules` <i>optional</i>
+
+
+The list of custom security group rules to add to the service security group<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1536,23 +884,23 @@ The following variables are defined in the `context.tf` file of this module and 
     description = optional(string)
   }))
 >   ```
+>
 >   
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `datadog_agent_sidecar_enabled` (`bool`) <i>optional</i>
->
->
-> Enable the Datadog Agent Sidecar<br/>
->
->
+### `datadog_agent_sidecar_enabled` (`bool`) <i>optional</i>
+
+
+Enable the Datadog Agent Sidecar<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1561,23 +909,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `datadog_log_method_is_firelens` (`bool`) <i>optional</i>
->
->
-> Datadog logs can be sent via cloudwatch logs (and lambda) or firelens, set this to true to enable firelens via a sidecar container for fluentbit<br/>
->
->
+### `datadog_log_method_is_firelens` (`bool`) <i>optional</i>
+
+
+Datadog logs can be sent via cloudwatch logs (and lambda) or firelens, set this to true to enable firelens via a sidecar container for fluentbit<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1586,23 +933,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `datadog_logging_default_tags_enabled` (`bool`) <i>optional</i>
->
->
-> Add Default tags to all logs sent to Datadog<br/>
->
->
+### `datadog_logging_default_tags_enabled` (`bool`) <i>optional</i>
+
+
+Add Default tags to all logs sent to Datadog<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1611,23 +957,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `true`
+>    <code>true</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `datadog_logging_tags` (`map(string)`) <i>optional</i>
->
->
-> Tags to add to all logs sent to Datadog<br/>
->
->
+### `datadog_logging_tags` (`map(string)`) <i>optional</i>
+
+
+Tags to add to all logs sent to Datadog<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1636,23 +981,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `map(string)`
+>   <code>map(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `datadog_sidecar_containers_logs_enabled` (`bool`) <i>optional</i>
->
->
-> Enable the Datadog Agent Sidecar to send logs to aws cloudwatch group, requires `datadog_agent_sidecar_enabled` to be true<br/>
->
->
+### `datadog_sidecar_containers_logs_enabled` (`bool`) <i>optional</i>
+
+
+Enable the Datadog Agent Sidecar to send logs to aws cloudwatch group, requires `datadog_agent_sidecar_enabled` to be true<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1661,23 +1005,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `true`
+>    <code>true</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `ecr_region` (`string`) <i>optional</i>
->
->
-> The region to use for the fully qualified ECR image URL. Defaults to the current region.<br/>
->
->
+### `ecr_region` (`string`) <i>optional</i>
+
+
+The region to use for the fully qualified ECR image URL. Defaults to the current region.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1686,23 +1029,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `""`
+>    <code>""</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `ecr_stage_name` (`string`) <i>optional</i>
->
->
-> The ecr stage (account) name to use for the fully qualified ECR image URL.<br/>
->
->
+### `ecr_stage_name` (`string`) <i>optional</i>
+
+
+The ecr stage (account) name to use for the fully qualified ECR image URL.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1711,23 +1053,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"auto"`
+>    <code>"auto"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `ecs_cluster_name` (`any`) <i>optional</i>
->
->
-> The name of the ECS Cluster this belongs to<br/>
->
->
+### `ecs_cluster_name` (`any`) <i>optional</i>
+
+
+The name of the ECS Cluster this belongs to<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1736,23 +1077,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `any`
+>   <code>any</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"ecs"`
+>    <code>"ecs"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `exec_enabled` (`bool`) <i>optional</i>
->
->
-> Specifies whether to enable Amazon ECS Exec for the tasks within the service<br/>
->
->
+### `exec_enabled` (`bool`) <i>optional</i>
+
+
+Specifies whether to enable Amazon ECS Exec for the tasks within the service<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1761,29 +1101,25 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `github_actions_allowed_repos` (`list(string)`) <i>optional</i>
->
->
->   A list of the GitHub repositories that are allowed to assume this role from GitHub Actions. For example,<br/>
->
->   ["cloudposse/infra-live"]. Can contain "*" as wildcard.<br/>
->
->   If org part of repo name is omitted, "cloudposse" will be assumed.<br/>
->
-> <br/>
->
->
+### `github_actions_allowed_repos` (`list(string)`) <i>optional</i>
+
+
+  A list of the GitHub repositories that are allowed to assume this role from GitHub Actions. For example,<br/>
+  ["cloudposse/infra-live"]. Can contain "*" as wildcard.<br/>
+  If org part of repo name is omitted, "cloudposse" will be assumed.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1792,23 +1128,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `github_actions_ecspresso_enabled` (`bool`) <i>optional</i>
->
->
-> Create IAM policies required for deployments with Ecspresso<br/>
->
->
+### `github_actions_ecspresso_enabled` (`bool`) <i>optional</i>
+
+
+Create IAM policies required for deployments with Ecspresso<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1817,23 +1152,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `github_actions_iam_role_attributes` (`list(string)`) <i>optional</i>
->
->
-> Additional attributes to add to the role name<br/>
->
->
+### `github_actions_iam_role_attributes` (`list(string)`) <i>optional</i>
+
+
+Additional attributes to add to the role name<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1842,25 +1176,23 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `github_actions_iam_role_enabled` (`bool`) <i>optional</i>
->
->
-> Flag to toggle creation of an IAM Role that GitHub Actions can assume to access AWS resources<br/>
->
-> <br/>
->
->
+### `github_actions_iam_role_enabled` (`bool`) <i>optional</i>
+
+
+Flag to toggle creation of an IAM Role that GitHub Actions can assume to access AWS resources<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1869,23 +1201,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `github_oidc_trusted_role_arns` (`list(string)`) <i>optional</i>
->
->
-> A list of IAM Role ARNs allowed to assume this cluster's GitHub OIDC role<br/>
->
->
+### `github_oidc_trusted_role_arns` (`list(string)`) <i>optional</i>
+
+
+A list of IAM Role ARNs allowed to assume this cluster's GitHub OIDC role<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1894,23 +1225,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `health_check_healthy_threshold` (`number`) <i>optional</i>
->
->
-> The number of consecutive health checks successes required before healthy<br/>
->
->
+### `health_check_healthy_threshold` (`number`) <i>optional</i>
+
+
+The number of consecutive health checks successes required before healthy<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1919,23 +1249,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `2`
+>    <code>2</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `health_check_interval` (`number`) <i>optional</i>
->
->
-> The duration in seconds in between health checks<br/>
->
->
+### `health_check_interval` (`number`) <i>optional</i>
+
+
+The duration in seconds in between health checks<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1944,23 +1273,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `15`
+>    <code>15</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `health_check_matcher` (`string`) <i>optional</i>
->
->
-> The HTTP response codes to indicate a healthy check<br/>
->
->
+### `health_check_matcher` (`string`) <i>optional</i>
+
+
+The HTTP response codes to indicate a healthy check<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1969,23 +1297,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"200-404"`
+>    <code>"200-404"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `health_check_path` (`string`) <i>optional</i>
->
->
-> The destination for the health check request<br/>
->
->
+### `health_check_path` (`string`) <i>optional</i>
+
+
+The destination for the health check request<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1994,23 +1321,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"/health"`
+>    <code>"/health"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `health_check_port` (`string`) <i>optional</i>
->
->
-> The port to use to connect with the target. Valid values are either ports 1-65536, or `traffic-port`. Defaults to `traffic-port`<br/>
->
->
+### `health_check_port` (`string`) <i>optional</i>
+
+
+The port to use to connect with the target. Valid values are either ports 1-65536, or `traffic-port`. Defaults to `traffic-port`<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2019,23 +1345,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"traffic-port"`
+>    <code>"traffic-port"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `health_check_timeout` (`number`) <i>optional</i>
->
->
-> The amount of time to wait in seconds before failing a health check request<br/>
->
->
+### `health_check_timeout` (`number`) <i>optional</i>
+
+
+The amount of time to wait in seconds before failing a health check request<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2044,23 +1369,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `10`
+>    <code>10</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `health_check_unhealthy_threshold` (`number`) <i>optional</i>
->
->
-> The number of consecutive health check failures required before unhealthy<br/>
->
->
+### `health_check_unhealthy_threshold` (`number`) <i>optional</i>
+
+
+The number of consecutive health check failures required before unhealthy<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2069,23 +1393,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `2`
+>    <code>2</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `http_protocol` (`string`) <i>optional</i>
->
->
-> Which http protocol to use in outputs and SSM url params. This value is ignored if a load balancer is not used. If it is `null`, the redirect value from the ALB determines the protocol.<br/>
->
->
+### `http_protocol` (`string`) <i>optional</i>
+
+
+Which http protocol to use in outputs and SSM url params. This value is ignored if a load balancer is not used. If it is `null`, the redirect value from the ALB determines the protocol.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2094,23 +1417,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `iam_policy_enabled` (`bool`) <i>optional</i>
->
->
-> If set to true will create IAM policy in AWS<br/>
->
->
+### `iam_policy_enabled` (`bool`) <i>optional</i>
+
+
+If set to true will create IAM policy in AWS<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2119,23 +1441,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `iam_policy_statements` (`any`) <i>optional</i>
->
->
-> Map of IAM policy statements to use in the policy. This can be used with or instead of the `var.iam_source_json_url`.<br/>
->
->
+### `iam_policy_statements` (`any`) <i>optional</i>
+
+
+Map of IAM policy statements to use in the policy. This can be used with or instead of the `var.iam_source_json_url`.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2144,23 +1465,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `any`
+>   <code>any</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `kinesis_enabled` (`bool`) <i>optional</i>
->
->
-> Enable Kinesis<br/>
->
->
+### `kinesis_enabled` (`bool`) <i>optional</i>
+
+
+Enable Kinesis<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2169,23 +1489,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `kms_alias_name_ssm` (`string`) <i>optional</i>
->
->
-> KMS alias name for SSM<br/>
->
->
+### `kms_alias_name_ssm` (`string`) <i>optional</i>
+
+
+KMS alias name for SSM<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2194,23 +1513,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"alias/aws/ssm"`
+>    <code>"alias/aws/ssm"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `kms_key_alias` (`string`) <i>optional</i>
->
->
-> ID of KMS key<br/>
->
->
+### `kms_key_alias` (`string`) <i>optional</i>
+
+
+ID of KMS key<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2219,23 +1537,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"default"`
+>    <code>"default"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `lb_catch_all` (`bool`) <i>optional</i>
->
->
-> Should this service act as catch all for all subdomain hosts of the vanity domain<br/>
->
->
+### `lb_catch_all` (`bool`) <i>optional</i>
+
+
+Should this service act as catch all for all subdomain hosts of the vanity domain<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2244,23 +1561,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `logs` (`any`) <i>optional</i>
->
->
-> Feed inputs into cloudwatch logs module<br/>
->
->
+### `logs` (`any`) <i>optional</i>
+
+
+Feed inputs into cloudwatch logs module<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2269,23 +1585,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `any`
+>   <code>any</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `memory_utilization_high_alarm_actions` (`list(string)`) <i>optional</i>
->
->
-> A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High Alarm action<br/>
->
->
+### `memory_utilization_high_alarm_actions` (`list(string)`) <i>optional</i>
+
+
+A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High Alarm action<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2294,23 +1609,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `memory_utilization_high_evaluation_periods` (`number`) <i>optional</i>
->
->
-> Number of periods to evaluate for the alarm<br/>
->
->
+### `memory_utilization_high_evaluation_periods` (`number`) <i>optional</i>
+
+
+Number of periods to evaluate for the alarm<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2319,23 +1633,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `1`
+>    <code>1</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `memory_utilization_high_ok_actions` (`list(string)`) <i>optional</i>
->
->
-> A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High OK action<br/>
->
->
+### `memory_utilization_high_ok_actions` (`list(string)`) <i>optional</i>
+
+
+A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High OK action<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2344,23 +1657,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `memory_utilization_high_period` (`number`) <i>optional</i>
->
->
-> Duration in seconds to evaluate for the alarm<br/>
->
->
+### `memory_utilization_high_period` (`number`) <i>optional</i>
+
+
+Duration in seconds to evaluate for the alarm<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2369,23 +1681,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `300`
+>    <code>300</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `memory_utilization_high_threshold` (`number`) <i>optional</i>
->
->
-> The maximum percentage of Memory utilization average<br/>
->
->
+### `memory_utilization_high_threshold` (`number`) <i>optional</i>
+
+
+The maximum percentage of Memory utilization average<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2394,23 +1705,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `80`
+>    <code>80</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `memory_utilization_low_alarm_actions` (`list(string)`) <i>optional</i>
->
->
-> A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low Alarm action<br/>
->
->
+### `memory_utilization_low_alarm_actions` (`list(string)`) <i>optional</i>
+
+
+A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low Alarm action<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2419,23 +1729,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `memory_utilization_low_evaluation_periods` (`number`) <i>optional</i>
->
->
-> Number of periods to evaluate for the alarm<br/>
->
->
+### `memory_utilization_low_evaluation_periods` (`number`) <i>optional</i>
+
+
+Number of periods to evaluate for the alarm<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2444,23 +1753,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `1`
+>    <code>1</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `memory_utilization_low_ok_actions` (`list(string)`) <i>optional</i>
->
->
-> A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low OK action<br/>
->
->
+### `memory_utilization_low_ok_actions` (`list(string)`) <i>optional</i>
+
+
+A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low OK action<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2469,23 +1777,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `memory_utilization_low_period` (`number`) <i>optional</i>
->
->
-> Duration in seconds to evaluate for the alarm<br/>
->
->
+### `memory_utilization_low_period` (`number`) <i>optional</i>
+
+
+Duration in seconds to evaluate for the alarm<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2494,23 +1801,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `300`
+>    <code>300</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `memory_utilization_low_threshold` (`number`) <i>optional</i>
->
->
-> The minimum percentage of Memory utilization average<br/>
->
->
+### `memory_utilization_low_threshold` (`number`) <i>optional</i>
+
+
+The minimum percentage of Memory utilization average<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2519,23 +1825,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `20`
+>    <code>20</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `nlb_name` (`string`) <i>optional</i>
->
->
-> The name of the NLB this service should attach to<br/>
->
->
+### `nlb_name` (`string`) <i>optional</i>
+
+
+The name of the NLB this service should attach to<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2544,23 +1849,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `rds_name` (`any`) <i>optional</i>
->
->
-> The name of the RDS database this service should allow access to<br/>
->
->
+### `rds_name` (`any`) <i>optional</i>
+
+
+The name of the RDS database this service should allow access to<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2569,23 +1873,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `any`
+>   <code>any</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `retention_period` (`number`) <i>optional</i>
->
->
-> Length of time data records are accessible after they are added to the stream<br/>
->
->
+### `retention_period` (`number`) <i>optional</i>
+
+
+Length of time data records are accessible after they are added to the stream<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2594,23 +1897,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `48`
+>    <code>48</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `s3_mirror_name` (`string`) <i>optional</i>
->
->
-> The name of the S3 mirror component<br/>
->
->
+### `s3_mirror_name` (`string`) <i>optional</i>
+
+
+The name of the S3 mirror component<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2619,27 +1921,24 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `service_connect_configurations` <i>optional</i>
->
->
-> The list of Service Connect configurations.<br/>
->
-> See `service_connect_configuration` docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#service_connect_configuration<br/>
->
-> <br/>
->
->
+### `service_connect_configurations` <i>optional</i>
+
+
+The list of Service Connect configurations.<br/>
+See `service_connect_configuration` docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#service_connect_configuration<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2673,27 +1972,25 @@ The following variables are defined in the `context.tf` file of this module and 
     })), [])
   }))
 >   ```
+>
 >   
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `service_registries` <i>optional</i>
->
->
-> The list of Service Registries.<br/>
->
-> See `service_registries` docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#service_registries<br/>
->
-> <br/>
->
->
+### `service_registries` <i>optional</i>
+
+
+The list of Service Registries.<br/>
+See `service_registries` docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#service_registries<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2713,23 +2010,23 @@ The following variables are defined in the `context.tf` file of this module and 
     container_port = optional(number)
   }))
 >   ```
+>
 >   
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `shard_count` (`number`) <i>optional</i>
->
->
-> Number of shards that the stream will use<br/>
->
->
+### `shard_count` (`number`) <i>optional</i>
+
+
+Number of shards that the stream will use<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2738,23 +2035,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `1`
+>    <code>1</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `shard_level_metrics` (`list(string)`) <i>optional</i>
->
->
-> List of shard-level CloudWatch metrics which can be enabled for the stream<br/>
->
->
+### `shard_level_metrics` (`list(string)`) <i>optional</i>
+
+
+List of shard-level CloudWatch metrics which can be enabled for the stream<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2763,11 +2059,12 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
 >    
+>
 >    ```hcl
 >>
 >    [
@@ -2789,6 +2086,7 @@ The following variables are defined in the `context.tf` file of this module and 
 >    ]
 >
 >    ```
+>
 >    
 >   </dd>
 > </dl>
@@ -2796,12 +2094,11 @@ The following variables are defined in the `context.tf` file of this module and 
 > </details>
 
 
-> ### `ssm_enabled` (`bool`) <i>optional</i>
->
->
-> If `true` create SSM keys for the database user and password.<br/>
->
->
+### `ssm_enabled` (`bool`) <i>optional</i>
+
+
+If `true` create SSM keys for the database user and password.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2810,23 +2107,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `ssm_key_format` (`string`) <i>optional</i>
->
->
-> SSM path format. The values will will be used in the following order: `var.ssm_key_prefix`, `var.name`, `var.ssm_key_*`<br/>
->
->
+### `ssm_key_format` (`string`) <i>optional</i>
+
+
+SSM path format. The values will will be used in the following order: `var.ssm_key_prefix`, `var.name`, `var.ssm_key_*`<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2835,23 +2131,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"/%v/%v/%v"`
+>    <code>"/%v/%v/%v"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `ssm_key_prefix` (`string`) <i>optional</i>
->
->
-> SSM path prefix. Omit the leading forward slash `/`.<br/>
->
->
+### `ssm_key_prefix` (`string`) <i>optional</i>
+
+
+SSM path prefix. Omit the leading forward slash `/`.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2860,23 +2155,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"ecs-service"`
+>    <code>"ecs-service"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `stickiness_cookie_duration` (`number`) <i>optional</i>
->
->
-> The time period, in seconds, during which requests from a client should be routed to the same target. After this time period expires, the load balancer-generated cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds)<br/>
->
->
+### `stickiness_cookie_duration` (`number`) <i>optional</i>
+
+
+The time period, in seconds, during which requests from a client should be routed to the same target. After this time period expires, the load balancer-generated cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds)<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2885,23 +2179,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `86400`
+>    <code>86400</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `stickiness_enabled` (`bool`) <i>optional</i>
->
->
-> Boolean to enable / disable `stickiness`. Default is `true`<br/>
->
->
+### `stickiness_enabled` (`bool`) <i>optional</i>
+
+
+Boolean to enable / disable `stickiness`. Default is `true`<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2910,23 +2203,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `true`
+>    <code>true</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `stickiness_type` (`string`) <i>optional</i>
->
->
-> The type of sticky sessions. The only current possible value is `lb_cookie`<br/>
->
->
+### `stickiness_type` (`string`) <i>optional</i>
+
+
+The type of sticky sessions. The only current possible value is `lb_cookie`<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2935,23 +2227,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"lb_cookie"`
+>    <code>"lb_cookie"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `stream_mode` (`string`) <i>optional</i>
->
->
-> Stream mode details for the Kinesis stream<br/>
->
->
+### `stream_mode` (`string`) <i>optional</i>
+
+
+Stream mode details for the Kinesis stream<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2960,23 +2251,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"PROVISIONED"`
+>    <code>"PROVISIONED"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `task` <i>optional</i>
->
->
-> Feed inputs into ecs_alb_service_task module<br/>
->
->
+### `task` <i>optional</i>
+
+
+Feed inputs into ecs_alb_service_task module<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -3077,23 +2367,23 @@ The following variables are defined in the `context.tf` file of this module and 
     })), [])
   })
 >   ```
+>
 >   
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `task_enabled` (`bool`) <i>optional</i>
->
->
-> Whether or not to use the ECS task module<br/>
->
->
+### `task_enabled` (`bool`) <i>optional</i>
+
+
+Whether or not to use the ECS task module<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -3102,31 +2392,26 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `true`
+>    <code>true</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `task_exec_policy_arns_map` (`map(string)`) <i>optional</i>
->
->
-> A map of name to IAM Policy ARNs to attach to the generated task execution role.<br/>
->
-> The names are arbitrary, but must be known at plan time. The purpose of the name<br/>
->
-> is so that changes to one ARN do not cause a ripple effect on the other ARNs.<br/>
->
-> If you cannot provide unique names known at plan time, use `task_exec_policy_arns` instead.<br/>
->
-> <br/>
->
->
+### `task_exec_policy_arns_map` (`map(string)`) <i>optional</i>
+
+
+A map of name to IAM Policy ARNs to attach to the generated task execution role.<br/>
+The names are arbitrary, but must be known at plan time. The purpose of the name<br/>
+is so that changes to one ARN do not cause a ripple effect on the other ARNs.<br/>
+If you cannot provide unique names known at plan time, use `task_exec_policy_arns` instead.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -3135,23 +2420,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `map(string)`
+>   <code>map(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `task_iam_role_component` (`string`) <i>optional</i>
->
->
-> A component that outputs an iam_role module as 'role' for adding to the service as a whole.<br/>
->
->
+### `task_iam_role_component` (`string`) <i>optional</i>
+
+
+A component that outputs an iam_role module as 'role' for adding to the service as a whole.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -3160,23 +2444,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `task_policy_arns` (`list(string)`) <i>optional</i>
->
->
-> The IAM policy ARNs to attach to the ECS task IAM role<br/>
->
->
+### `task_policy_arns` (`list(string)`) <i>optional</i>
+
+
+The IAM policy ARNs to attach to the ECS task IAM role<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -3185,11 +2468,12 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
 >    
+>
 >    ```hcl
 >>
 >    [
@@ -3201,6 +2485,7 @@ The following variables are defined in the `context.tf` file of this module and 
 >    ]
 >
 >    ```
+>
 >    
 >   </dd>
 > </dl>
@@ -3208,12 +2493,11 @@ The following variables are defined in the `context.tf` file of this module and 
 > </details>
 
 
-> ### `task_security_group_component` (`string`) <i>optional</i>
->
->
-> A component that outputs security_group_id for adding to the service as a whole.<br/>
->
->
+### `task_security_group_component` (`string`) <i>optional</i>
+
+
+A component that outputs security_group_id for adding to the service as a whole.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -3222,23 +2506,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `unauthenticated_paths` (`list(string)`) <i>optional</i>
->
->
-> Unauthenticated path pattern to match<br/>
->
->
+### `unauthenticated_paths` (`list(string)`) <i>optional</i>
+
+
+Unauthenticated path pattern to match<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -3247,23 +2530,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `unauthenticated_priority` (`string`) <i>optional</i>
->
->
-> The priority for the rules without authentication, between 1 and 50000 (1 being highest priority). Must be different from `authenticated_priority` since a listener can't have multiple rules with the same priority	<br/>
->
->
+### `unauthenticated_priority` (`string`) <i>optional</i>
+
+
+The priority for the rules without authentication, between 1 and 50000 (1 being highest priority). Must be different from `authenticated_priority` since a listener can't have multiple rules with the same priority	<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -3272,23 +2554,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `0`
+>    <code>0</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `use_lb` (`bool`) <i>optional</i>
->
->
-> Whether use load balancer for the service<br/>
->
->
+### `use_lb` (`bool`) <i>optional</i>
+
+
+Whether use load balancer for the service<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -3297,23 +2578,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `use_rds_client_sg` (`bool`) <i>optional</i>
->
->
-> Use the RDS client security group<br/>
->
->
+### `use_rds_client_sg` (`bool`) <i>optional</i>
+
+
+Use the RDS client security group<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -3322,23 +2602,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `vanity_alias` (`list(string)`) <i>optional</i>
->
->
-> The vanity aliases to use for the public LB.<br/>
->
->
+### `vanity_alias` (`list(string)`) <i>optional</i>
+
+
+The vanity aliases to use for the public LB.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -3347,23 +2626,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `vanity_domain` (`string`) <i>optional</i>
->
->
-> Whether to use the vanity domain alias for the service<br/>
->
->
+### `vanity_domain` (`string`) <i>optional</i>
+
+
+Whether to use the vanity domain alias for the service<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -3372,23 +2650,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `zone_component` (`string`) <i>optional</i>
->
->
-> The component name to look up service domain remote-state on<br/>
->
->
+### `zone_component` (`string`) <i>optional</i>
+
+
+The component name to look up service domain remote-state on<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -3397,23 +2674,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"dns-delegated"`
+>    <code>"dns-delegated"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `zone_component_output` (`string`) <i>optional</i>
->
->
-> A json query to use to get the zone domain from the remote state. See <br/>
->
->
+### `zone_component_output` (`string`) <i>optional</i>
+
+
+A json query to use to get the zone domain from the remote state. See <br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -3422,17 +2698,577 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `".default_domain_name"`
+>    <code>".default_domain_name"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
+
+### Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
+
+<details>
+<summary>Click to expand</summary>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+This is for some rare cases where resources want additional configuration of tags<br/>
+and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>{}</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `attributes` (`list(string)`) <i>optional</i>
+
+
+ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+in the order they appear in the list. New attributes are appended to the<br/>
+end of the list. The elements of the list are joined by the `delimiter`<br/>
+and treated as a single ID element.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>[]</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>any</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>
+>    ```hcl
+>>
+>    {
+>
+>      "additional_tag_map": {},
+>
+>      "attributes": [],
+>
+>      "delimiter": null,
+>
+>      "descriptor_formats": {},
+>
+>      "enabled": true,
+>
+>      "environment": null,
+>
+>      "id_length_limit": null,
+>
+>      "label_key_case": null,
+>
+>      "label_order": [],
+>
+>      "label_value_case": null,
+>
+>      "labels_as_tags": [
+>
+>        "unset"
+>
+>      ],
+>
+>      "name": null,
+>
+>      "namespace": null,
+>
+>      "regex_replace_chars": null,
+>
+>      "stage": null,
+>
+>      "tags": {},
+>
+>      "tenant": null
+>
+>    }
+>
+>    ```
+>
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between ID elements.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `descriptor_formats` (`any`) <i>optional</i>
+
+
+Describe additional descriptors to be output in the `descriptors` output map.<br/>
+Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+`{<br/>
+   format = string<br/>
+   labels = list(string)<br/>
+}`<br/>
+(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+`format` is a Terraform format string to be passed to the `format()` function.<br/>
+`labels` is a list of labels, in order, to pass to `format()` function.<br/>
+Label values will be normalized before being passed to `format()` so they will be<br/>
+identical to how they appear in `id`.<br/>
+Default is `{}` (`descriptors` output will be empty).<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>any</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>{}</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `environment` (`string`) <i>optional</i>
+
+
+ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `label_key_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+Does not affect keys of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `label_order` (`list(string)`) <i>optional</i>
+
+
+The order in which the labels (ID elements) appear in the `id`.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `label_value_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of ID elements (labels) as included in `id`,<br/>
+set as tag values, and output by this module individually.<br/>
+Does not affect values of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+Default value: `lower`.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `labels_as_tags` (`set(string)`) <i>optional</i>
+
+
+Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+Default is to include all labels.<br/>
+Tags with empty values will not be included in the `tags` output.<br/>
+Set to `[]` to suppress all generated tags.<br/>
+**Notes:**<br/>
+  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>set(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>
+>    ```hcl
+>>
+>    [
+>
+>      "default"
+>
+>    ]
+>
+>    ```
+>
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `name` (`string`) <i>optional</i>
+
+
+ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+This is the only ID element not also included as a `tag`.<br/>
+The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `namespace` (`string`) <i>optional</i>
+
+
+ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Terraform regular expression (regex) string.<br/>
+Characters matching the regex will be removed from the ID elements.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `stage` (`string`) <i>optional</i>
+
+
+ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+Neither the tag keys nor the tag values will be modified by this module.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>{}</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `tenant` (`string`) <i>optional</i>
+
+
+ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+
+</details>
 
 ### Outputs
 
@@ -3440,74 +3276,92 @@ The following variables are defined in the `context.tf` file of this module and 
   <dt><code>ecs_cluster_arn</code></dt>
   <dd>
     Selected ECS cluster ARN<br/>
+
   </dd>
   <dt><code>environment_map</code></dt>
   <dd>
     Environment variables to pass to the container, this is a map of key/value pairs, where the key is `containerName,variableName`<br/>
+
   </dd>
   <dt><code>full_domain</code></dt>
   <dd>
     Domain to respond to GET requests<br/>
+
   </dd>
   <dt><code>github_actions_iam_role_arn</code></dt>
   <dd>
     ARN of IAM role for GitHub Actions<br/>
+
   </dd>
   <dt><code>github_actions_iam_role_name</code></dt>
   <dd>
     Name of IAM role for GitHub Actions<br/>
+
   </dd>
   <dt><code>lb_arn</code></dt>
   <dd>
     Selected LB ARN<br/>
+
   </dd>
   <dt><code>lb_listener_https</code></dt>
   <dd>
     Selected LB HTTPS Listener<br/>
+
   </dd>
   <dt><code>lb_sg_id</code></dt>
   <dd>
     Selected LB SG ID<br/>
+
   </dd>
   <dt><code>logs</code></dt>
   <dd>
     Output of cloudwatch logs module<br/>
+
   </dd>
   <dt><code>service_image</code></dt>
   <dd>
     The image of the service container<br/>
+
   </dd>
   <dt><code>ssm_key_prefix</code></dt>
   <dd>
     SSM prefix<br/>
+
   </dd>
   <dt><code>ssm_parameters</code></dt>
   <dd>
     SSM parameters for the ECS Service<br/>
+
   </dd>
   <dt><code>subnet_ids</code></dt>
   <dd>
     Selected subnet IDs<br/>
+
   </dd>
   <dt><code>task_definition_arn</code></dt>
   <dd>
     The task definition ARN<br/>
+
   </dd>
   <dt><code>task_definition_revision</code></dt>
   <dd>
     The task definition revision<br/>
+
   </dd>
   <dt><code>task_template</code></dt>
   <dd>
     The task template rendered<br/>
+
   </dd>
   <dt><code>vpc_id</code></dt>
   <dd>
     Selected VPC ID<br/>
+
   </dd>
   <dt><code>vpc_sg_id</code></dt>
   <dd>
     Selected VPC SG ID<br/>
+
   </dd>
 </dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

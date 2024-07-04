@@ -433,24 +433,216 @@ The following data sources are used by this module:
 
   - [`aws_organizations_organization.existing`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/organizations_organization) (data source)
 
+### Required Variables
+### `account_email_format` (`string`) <i>required</i>
+
+
+Email address format for the accounts (e.g. `aws+%s@example.com`)<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code></code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `aws_service_access_principals` (`list(string)`) <i>required</i>
+
+
+List of AWS service principal names for which you want to enable integration with your organization. This is typically in the form of a URL, such as service-abbreviation.amazonaws.com. Organization must have `feature_set` set to ALL. For additional information, see the [AWS Organizations User Guide](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html)<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code></code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `enabled_policy_types` (`list(string)`) <i>required</i>
+
+
+List of Organizations policy types to enable in the Organization Root. Organization must have feature_set set to ALL. For additional information about valid policy types (e.g. SERVICE_CONTROL_POLICY and TAG_POLICY), see the [AWS Organizations API Reference](https://docs.aws.amazon.com/organizations/latest/APIReference/API_EnablePolicyType.html)<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code></code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `organization_config` (`any`) <i>required</i>
+
+
+Organization, Organizational Units and Accounts configuration<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>any</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code></code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `region` (`string`) <i>required</i>
+
+
+AWS Region<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code></code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `service_control_policies_config_paths` (`list(string)`) <i>required</i>
+
+
+List of paths to Service Control Policy configurations<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code></code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+
+### Optional Variables
+### `account_iam_user_access_to_billing` (`string`) <i>optional</i>
+
+
+If set to `ALLOW`, the new account enables IAM users to access account billing information if they have the required permissions. If set to `DENY`, then only the root user of the new account can access account billing information<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"DENY"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `organization_enabled` (`bool`) <i>optional</i>
+
+
+A boolean flag indicating whether to create an Organization or use the existing one<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>true</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
 <details>
 <summary>Click to expand</summary>
-> ### `additional_tag_map` (`map(string)`) <i>optional</i>
->
->
-> Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
->
-> This is for some rare cases where resources want additional configuration of tags<br/>
->
-> and therefore take a list of maps with tag key, value, and additional configuration.<br/>
->
-> <br/>
->
->
+### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+This is for some rare cases where resources want additional configuration of tags<br/>
+and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -459,31 +651,26 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `map(string)`
+>   <code>map(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `attributes` (`list(string)`) <i>optional</i>
->
->
-> ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
->
-> in the order they appear in the list. New attributes are appended to the<br/>
->
-> end of the list. The elements of the list are joined by the `delimiter`<br/>
->
-> and treated as a single ID element.<br/>
->
-> <br/>
->
->
+### `attributes` (`list(string)`) <i>optional</i>
+
+
+ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+in the order they appear in the list. New attributes are appended to the<br/>
+end of the list. The elements of the list are joined by the `delimiter`<br/>
+and treated as a single ID element.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -492,33 +679,27 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `context` (`any`) <i>optional</i>
->
->
-> Single object for setting entire context at once.<br/>
->
-> See description of individual variables for details.<br/>
->
-> Leave string and numeric variables as `null` to use default value.<br/>
->
-> Individual variable settings (non-null) override settings in context object,<br/>
->
-> except for attributes, tags, and additional_tag_map, which are merged.<br/>
->
-> <br/>
->
->
+### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -527,11 +708,12 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `any`
+>   <code>any</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
 >    
+>
 >    ```hcl
 >>
 >    {
@@ -577,6 +759,7 @@ The following variables are defined in the `context.tf` file of this module and 
 >    }
 >
 >    ```
+>
 >    
 >   </dd>
 > </dl>
@@ -584,16 +767,13 @@ The following variables are defined in the `context.tf` file of this module and 
 > </details>
 
 
-> ### `delimiter` (`string`) <i>optional</i>
->
->
-> Delimiter to be used between ID elements.<br/>
->
-> Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
->
-> <br/>
->
->
+### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between ID elements.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -602,47 +782,34 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `descriptor_formats` (`any`) <i>optional</i>
->
->
-> Describe additional descriptors to be output in the `descriptors` output map.<br/>
->
-> Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
->
-> `{<br/>
->
->    format = string<br/>
->
->    labels = list(string)<br/>
->
-> }`<br/>
->
-> (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
->
-> `format` is a Terraform format string to be passed to the `format()` function.<br/>
->
-> `labels` is a list of labels, in order, to pass to `format()` function.<br/>
->
-> Label values will be normalized before being passed to `format()` so they will be<br/>
->
-> identical to how they appear in `id`.<br/>
->
-> Default is `{}` (`descriptors` output will be empty).<br/>
->
-> <br/>
->
->
+### `descriptor_formats` (`any`) <i>optional</i>
+
+
+Describe additional descriptors to be output in the `descriptors` output map.<br/>
+Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+`{<br/>
+   format = string<br/>
+   labels = list(string)<br/>
+}`<br/>
+(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+`format` is a Terraform format string to be passed to the `format()` function.<br/>
+`labels` is a list of labels, in order, to pass to `format()` function.<br/>
+Label values will be normalized before being passed to `format()` so they will be<br/>
+identical to how they appear in `id`.<br/>
+Default is `{}` (`descriptors` output will be empty).<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -651,23 +818,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `any`
+>   <code>any</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `enabled` (`bool`) <i>optional</i>
->
->
-> Set to false to prevent the module from creating any resources<br/>
->
->
+### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -676,23 +842,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `environment` (`string`) <i>optional</i>
->
->
-> ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
->
->
+### `environment` (`string`) <i>optional</i>
+
+
+ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -701,31 +866,26 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `id_length_limit` (`number`) <i>optional</i>
->
->
-> Limit `id` to this many characters (minimum 6).<br/>
->
-> Set to `0` for unlimited length.<br/>
->
-> Set to `null` for keep the existing setting, which defaults to `0`.<br/>
->
-> Does not affect `id_full`.<br/>
->
-> <br/>
->
->
+### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -734,31 +894,26 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `label_key_case` (`string`) <i>optional</i>
->
->
-> Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
->
-> Does not affect keys of tags passed in via the `tags` input.<br/>
->
-> Possible values: `lower`, `title`, `upper`.<br/>
->
-> Default value: `title`.<br/>
->
-> <br/>
->
->
+### `label_key_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+Does not affect keys of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -767,29 +922,25 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `label_order` (`list(string)`) <i>optional</i>
->
->
-> The order in which the labels (ID elements) appear in the `id`.<br/>
->
-> Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
->
-> You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
->
-> <br/>
->
->
+### `label_order` (`list(string)`) <i>optional</i>
+
+
+The order in which the labels (ID elements) appear in the `id`.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -798,35 +949,28 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `label_value_case` (`string`) <i>optional</i>
->
->
-> Controls the letter case of ID elements (labels) as included in `id`,<br/>
->
-> set as tag values, and output by this module individually.<br/>
->
-> Does not affect values of tags passed in via the `tags` input.<br/>
->
-> Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
->
-> Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
->
-> Default value: `lower`.<br/>
->
-> <br/>
->
->
+### `label_value_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of ID elements (labels) as included in `id`,<br/>
+set as tag values, and output by this module individually.<br/>
+Does not affect values of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+Default value: `lower`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -835,39 +979,30 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `labels_as_tags` (`set(string)`) <i>optional</i>
->
->
-> Set of labels (ID elements) to include as tags in the `tags` output.<br/>
->
-> Default is to include all labels.<br/>
->
-> Tags with empty values will not be included in the `tags` output.<br/>
->
-> Set to `[]` to suppress all generated tags.<br/>
->
-> **Notes:**<br/>
->
->   The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
->
->   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
->
->   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
->
-> <br/>
->
->
+### `labels_as_tags` (`set(string)`) <i>optional</i>
+
+
+Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+Default is to include all labels.<br/>
+Tags with empty values will not be included in the `tags` output.<br/>
+Set to `[]` to suppress all generated tags.<br/>
+**Notes:**<br/>
+  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -876,11 +1011,12 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `set(string)`
+>   <code>set(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
 >    
+>
 >    ```hcl
 >>
 >    [
@@ -890,6 +1026,7 @@ The following variables are defined in the `context.tf` file of this module and 
 >    ]
 >
 >    ```
+>
 >    
 >   </dd>
 > </dl>
@@ -897,18 +1034,14 @@ The following variables are defined in the `context.tf` file of this module and 
 > </details>
 
 
-> ### `name` (`string`) <i>optional</i>
->
->
-> ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
->
-> This is the only ID element not also included as a `tag`.<br/>
->
-> The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
->
-> <br/>
->
->
+### `name` (`string`) <i>optional</i>
+
+
+ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+This is the only ID element not also included as a `tag`.<br/>
+The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -917,23 +1050,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `namespace` (`string`) <i>optional</i>
->
->
-> ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
->
->
+### `namespace` (`string`) <i>optional</i>
+
+
+ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -942,29 +1074,25 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `regex_replace_chars` (`string`) <i>optional</i>
->
->
-> Terraform regular expression (regex) string.<br/>
->
-> Characters matching the regex will be removed from the ID elements.<br/>
->
-> If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
->
-> <br/>
->
->
+### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Terraform regular expression (regex) string.<br/>
+Characters matching the regex will be removed from the ID elements.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -973,23 +1101,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `stage` (`string`) <i>optional</i>
->
->
-> ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
->
->
+### `stage` (`string`) <i>optional</i>
+
+
+ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -998,27 +1125,24 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `tags` (`map(string)`) <i>optional</i>
->
->
-> Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
->
-> Neither the tag keys nor the tag values will be modified by this module.<br/>
->
-> <br/>
->
->
+### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+Neither the tag keys nor the tag values will be modified by this module.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1027,23 +1151,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `map(string)`
+>   <code>map(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `tenant` (`string`) <i>optional</i>
->
->
-> ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
->
->
+### `tenant` (`string`) <i>optional</i>
+
+
+ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1052,11 +1175,11 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1066,220 +1189,18 @@ The following variables are defined in the `context.tf` file of this module and 
 
 </details>
 
-### Required Variables
-> ### `account_email_format` (`string`) <i>required</i>
->
->
-> Email address format for the accounts (e.g. `aws+%s@example.com`)<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>Yes</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    ``
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `aws_service_access_principals` (`list(string)`) <i>required</i>
->
->
-> List of AWS service principal names for which you want to enable integration with your organization. This is typically in the form of a URL, such as service-abbreviation.amazonaws.com. Organization must have `feature_set` set to ALL. For additional information, see the [AWS Organizations User Guide](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html)<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>Yes</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    ``
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `enabled_policy_types` (`list(string)`) <i>required</i>
->
->
-> List of Organizations policy types to enable in the Organization Root. Organization must have feature_set set to ALL. For additional information about valid policy types (e.g. SERVICE_CONTROL_POLICY and TAG_POLICY), see the [AWS Organizations API Reference](https://docs.aws.amazon.com/organizations/latest/APIReference/API_EnablePolicyType.html)<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>Yes</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    ``
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `organization_config` (`any`) <i>required</i>
->
->
-> Organization, Organizational Units and Accounts configuration<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>Yes</dd>
->   <dt>Type</dt>
->   <dd>
->   `any`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    ``
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `region` (`string`) <i>required</i>
->
->
-> AWS Region<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>Yes</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    ``
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `service_control_policies_config_paths` (`list(string)`) <i>required</i>
->
->
-> List of paths to Service Control Policy configurations<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>Yes</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    ``
->   </dd>
-> </dl>
->
-> </details>
-
-
-
-### Optional Variables
-> ### `account_iam_user_access_to_billing` (`string`) <i>optional</i>
->
->
-> If set to `ALLOW`, the new account enables IAM users to access account billing information if they have the required permissions. If set to `DENY`, then only the root user of the new account can access account billing information<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"DENY"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `organization_enabled` (`bool`) <i>optional</i>
->
->
-> A boolean flag indicating whether to create an Organization or use the existing one<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `true`
->   </dd>
-> </dl>
->
-> </details>
-
-
-
 ### Outputs
 
 <dl>
   <dt><code>account_arns</code></dt>
   <dd>
     List of account ARNs (excluding root account)<br/>
+
   </dd>
   <dt><code>account_ids</code></dt>
   <dd>
     List of account IDs (excluding root account)<br/>
+
   </dd>
   <dt><code>account_info_map</code></dt>
   <dd>
@@ -1289,82 +1210,102 @@ The following variables are defined in the `context.tf` file of this module and 
       stage: (optional) the account "stage"<br/>
       tenant: (optional) the account "tenant"<br/>
     <br/>
+
   </dd>
   <dt><code>account_names_account_arns</code></dt>
   <dd>
     Map of account names to account ARNs (excluding root account)<br/>
+
   </dd>
   <dt><code>account_names_account_ids</code></dt>
   <dd>
     Map of account names to account IDs (excluding root account)<br/>
+
   </dd>
   <dt><code>account_names_account_scp_arns</code></dt>
   <dd>
     Map of account names to SCP ARNs for accounts with SCPs<br/>
+
   </dd>
   <dt><code>account_names_account_scp_ids</code></dt>
   <dd>
     Map of account names to SCP IDs for accounts with SCPs<br/>
+
   </dd>
   <dt><code>eks_accounts</code></dt>
   <dd>
     List of EKS accounts<br/>
+
   </dd>
   <dt><code>non_eks_accounts</code></dt>
   <dd>
     List of non EKS accounts<br/>
+
   </dd>
   <dt><code>organization_arn</code></dt>
   <dd>
     Organization ARN<br/>
+
   </dd>
   <dt><code>organization_id</code></dt>
   <dd>
     Organization ID<br/>
+
   </dd>
   <dt><code>organization_master_account_arn</code></dt>
   <dd>
     Organization master account ARN<br/>
+
   </dd>
   <dt><code>organization_master_account_email</code></dt>
   <dd>
     Organization master account email<br/>
+
   </dd>
   <dt><code>organization_master_account_id</code></dt>
   <dd>
     Organization master account ID<br/>
+
   </dd>
   <dt><code>organization_scp_arn</code></dt>
   <dd>
     Organization Service Control Policy ARN<br/>
+
   </dd>
   <dt><code>organization_scp_id</code></dt>
   <dd>
     Organization Service Control Policy ID<br/>
+
   </dd>
   <dt><code>organizational_unit_arns</code></dt>
   <dd>
     List of Organizational Unit ARNs<br/>
+
   </dd>
   <dt><code>organizational_unit_ids</code></dt>
   <dd>
     List of Organizational Unit IDs<br/>
+
   </dd>
   <dt><code>organizational_unit_names_organizational_unit_arns</code></dt>
   <dd>
     Map of Organizational Unit names to Organizational Unit ARNs<br/>
+
   </dd>
   <dt><code>organizational_unit_names_organizational_unit_ids</code></dt>
   <dd>
     Map of Organizational Unit names to Organizational Unit IDs<br/>
+
   </dd>
   <dt><code>organizational_unit_names_organizational_unit_scp_arns</code></dt>
   <dd>
     Map of OU names to SCP ARNs<br/>
+
   </dd>
   <dt><code>organizational_unit_names_organizational_unit_scp_ids</code></dt>
   <dd>
     Map of OU names to SCP IDs<br/>
+
   </dd>
 </dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

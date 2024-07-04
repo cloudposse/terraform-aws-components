@@ -189,24 +189,548 @@ The following data sources are used by this module:
 
   - [`aws_caller_identity.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
 
+### Required Variables
+### `region` (`string`) <i>required</i>
+
+
+AWS Region<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code></code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+
+### Optional Variables
+### `account_map_tenant` (`string`) <i>optional</i>
+
+
+The tenant where the `account_map` component required by remote-state is deployed<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"core"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `admin_delegated` (`bool`) <i>optional</i>
+
+
+  A flag to indicate if the AWS Organization-wide settings should be created. This can only be done after the GuardDuty<br/>
+  Admininstrator account has already been delegated from the AWS Org Management account (usually 'root'). See the<br/>
+  Deployment section of the README for more information.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>false</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `auto_enable_organization_members` (`string`) <i>optional</i>
+
+
+Indicates the auto-enablement configuration of GuardDuty for the member accounts in the organization. Valid values are `ALL`, `NEW`, `NONE`.<br/>
+<br/>
+For more information, see:<br/>
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_organization_configuration#auto_enable_organization_members<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"NEW"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `cloudwatch_enabled` (`bool`) <i>optional</i>
+
+
+Flag to indicate whether CloudWatch logging should be enabled for GuardDuty<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>false</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `cloudwatch_event_rule_pattern_detail_type` (`string`) <i>optional</i>
+
+
+The detail-type pattern used to match events that will be sent to SNS.<br/>
+<br/>
+For more information, see:<br/>
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html<br/>
+https://docs.aws.amazon.com/eventbridge/latest/userguide/event-types.html<br/>
+https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_findings_cloudwatch.html<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"GuardDuty Finding"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `create_sns_topic` (`bool`) <i>optional</i>
+
+
+Flag to indicate whether an SNS topic should be created for notifications. If you want to send findings to a new SNS<br/>
+topic, set this to true and provide a valid configuration for subscribers.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>false</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `delegated_admininstrator_component_name` (`string`) <i>optional</i>
+
+
+The name of the component that created the GuardDuty detector.<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"guardduty/delegated-administrator"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `delegated_administrator_account_name` (`string`) <i>optional</i>
+
+
+The name of the account that is the AWS Organization Delegated Administrator account<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"core-security"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `finding_publishing_frequency` (`string`) <i>optional</i>
+
+
+The frequency of notifications sent for finding occurrences. If the detector is a GuardDuty member account, the value<br/>
+is determined by the GuardDuty master account and cannot be modified, otherwise it defaults to SIX_HOURS.<br/>
+<br/>
+For standalone and GuardDuty master accounts, it must be configured in Terraform to enable drift detection.<br/>
+Valid values for standalone and master accounts: FIFTEEN_MINUTES, ONE_HOUR, SIX_HOURS."<br/>
+<br/>
+For more information, see:<br/>
+https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_findings_cloudwatch.html#guardduty_findings_cloudwatch_notification_frequency<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `findings_notification_arn` (`string`) <i>optional</i>
+
+
+The ARN for an SNS topic to send findings notifications to. This is only used if create_sns_topic is false.<br/>
+If you want to send findings to an existing SNS topic, set this to the ARN of the existing topic and set<br/>
+create_sns_topic to false.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `global_environment` (`string`) <i>optional</i>
+
+
+Global environment name<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"gbl"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `kubernetes_audit_logs_enabled` (`bool`) <i>optional</i>
+
+
+If `true`, enables Kubernetes audit logs as a data source for Kubernetes protection.<br/>
+<br/>
+For more information, see:<br/>
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector#audit_logs<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>false</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `malware_protection_scan_ec2_ebs_volumes_enabled` (`bool`) <i>optional</i>
+
+
+Configure whether Malware Protection is enabled as data source for EC2 instances EBS Volumes in GuardDuty.<br/>
+<br/>
+For more information, see:<br/>
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector#malware-protection<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>false</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `organization_management_account_name` (`string`) <i>optional</i>
+
+
+The name of the AWS Organization management account<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `privileged` (`bool`) <i>optional</i>
+
+
+true if the default provider already has access to the backend<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>false</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `root_account_stage` (`string`) <i>optional</i>
+
+
+The stage name for the Organization root (management) account. This is used to lookup account IDs from account names<br/>
+using the `account-map` component.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"root"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `s3_protection_enabled` (`bool`) <i>optional</i>
+
+
+If `true`, enables S3 protection.<br/>
+<br/>
+For more information, see:<br/>
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector#s3-logs<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>true</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `subscribers` <i>optional</i>
+
+
+A map of subscription configurations for SNS topics<br/>
+<br/>
+For more information, see:<br/>
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_subscription#argument-reference<br/>
+<br/>
+protocol:<br/>
+  The protocol to use. The possible values for this are: sqs, sms, lambda, application. (http or https are partially<br/>
+  supported, see link) (email is an option but is unsupported in terraform, see link).<br/>
+endpoint:<br/>
+  The endpoint to send data to, the contents will vary with the protocol. (see link for more information)<br/>
+endpoint_auto_confirms:<br/>
+  Boolean indicating whether the end point is capable of auto confirming subscription e.g., PagerDuty. Default is<br/>
+  false.<br/>
+raw_message_delivery:<br/>
+  Boolean indicating whether or not to enable raw message delivery (the original message is directly passed, not<br/>
+  wrapped in JSON with the original message in the message property). Default is false.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   map(object({
+    protocol               = string
+    endpoint               = string
+    endpoint_auto_confirms = bool
+    raw_message_delivery   = bool
+  }))
+>   ```
+>
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>{}</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
 <details>
 <summary>Click to expand</summary>
-> ### `additional_tag_map` (`map(string)`) <i>optional</i>
->
->
-> Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
->
-> This is for some rare cases where resources want additional configuration of tags<br/>
->
-> and therefore take a list of maps with tag key, value, and additional configuration.<br/>
->
-> <br/>
->
->
+### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+This is for some rare cases where resources want additional configuration of tags<br/>
+and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -215,31 +739,26 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `map(string)`
+>   <code>map(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `attributes` (`list(string)`) <i>optional</i>
->
->
-> ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
->
-> in the order they appear in the list. New attributes are appended to the<br/>
->
-> end of the list. The elements of the list are joined by the `delimiter`<br/>
->
-> and treated as a single ID element.<br/>
->
-> <br/>
->
->
+### `attributes` (`list(string)`) <i>optional</i>
+
+
+ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+in the order they appear in the list. New attributes are appended to the<br/>
+end of the list. The elements of the list are joined by the `delimiter`<br/>
+and treated as a single ID element.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -248,33 +767,27 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `context` (`any`) <i>optional</i>
->
->
-> Single object for setting entire context at once.<br/>
->
-> See description of individual variables for details.<br/>
->
-> Leave string and numeric variables as `null` to use default value.<br/>
->
-> Individual variable settings (non-null) override settings in context object,<br/>
->
-> except for attributes, tags, and additional_tag_map, which are merged.<br/>
->
-> <br/>
->
->
+### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -283,11 +796,12 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `any`
+>   <code>any</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
 >    
+>
 >    ```hcl
 >>
 >    {
@@ -333,6 +847,7 @@ The following variables are defined in the `context.tf` file of this module and 
 >    }
 >
 >    ```
+>
 >    
 >   </dd>
 > </dl>
@@ -340,16 +855,13 @@ The following variables are defined in the `context.tf` file of this module and 
 > </details>
 
 
-> ### `delimiter` (`string`) <i>optional</i>
->
->
-> Delimiter to be used between ID elements.<br/>
->
-> Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
->
-> <br/>
->
->
+### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between ID elements.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -358,47 +870,34 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `descriptor_formats` (`any`) <i>optional</i>
->
->
-> Describe additional descriptors to be output in the `descriptors` output map.<br/>
->
-> Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
->
-> `{<br/>
->
->    format = string<br/>
->
->    labels = list(string)<br/>
->
-> }`<br/>
->
-> (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
->
-> `format` is a Terraform format string to be passed to the `format()` function.<br/>
->
-> `labels` is a list of labels, in order, to pass to `format()` function.<br/>
->
-> Label values will be normalized before being passed to `format()` so they will be<br/>
->
-> identical to how they appear in `id`.<br/>
->
-> Default is `{}` (`descriptors` output will be empty).<br/>
->
-> <br/>
->
->
+### `descriptor_formats` (`any`) <i>optional</i>
+
+
+Describe additional descriptors to be output in the `descriptors` output map.<br/>
+Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+`{<br/>
+   format = string<br/>
+   labels = list(string)<br/>
+}`<br/>
+(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+`format` is a Terraform format string to be passed to the `format()` function.<br/>
+`labels` is a list of labels, in order, to pass to `format()` function.<br/>
+Label values will be normalized before being passed to `format()` so they will be<br/>
+identical to how they appear in `id`.<br/>
+Default is `{}` (`descriptors` output will be empty).<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -407,23 +906,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `any`
+>   <code>any</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `enabled` (`bool`) <i>optional</i>
->
->
-> Set to false to prevent the module from creating any resources<br/>
->
->
+### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -432,23 +930,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `environment` (`string`) <i>optional</i>
->
->
-> ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
->
->
+### `environment` (`string`) <i>optional</i>
+
+
+ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -457,31 +954,26 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `id_length_limit` (`number`) <i>optional</i>
->
->
-> Limit `id` to this many characters (minimum 6).<br/>
->
-> Set to `0` for unlimited length.<br/>
->
-> Set to `null` for keep the existing setting, which defaults to `0`.<br/>
->
-> Does not affect `id_full`.<br/>
->
-> <br/>
->
->
+### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -490,31 +982,26 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `label_key_case` (`string`) <i>optional</i>
->
->
-> Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
->
-> Does not affect keys of tags passed in via the `tags` input.<br/>
->
-> Possible values: `lower`, `title`, `upper`.<br/>
->
-> Default value: `title`.<br/>
->
-> <br/>
->
->
+### `label_key_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+Does not affect keys of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -523,29 +1010,25 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `label_order` (`list(string)`) <i>optional</i>
->
->
-> The order in which the labels (ID elements) appear in the `id`.<br/>
->
-> Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
->
-> You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
->
-> <br/>
->
->
+### `label_order` (`list(string)`) <i>optional</i>
+
+
+The order in which the labels (ID elements) appear in the `id`.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -554,35 +1037,28 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `label_value_case` (`string`) <i>optional</i>
->
->
-> Controls the letter case of ID elements (labels) as included in `id`,<br/>
->
-> set as tag values, and output by this module individually.<br/>
->
-> Does not affect values of tags passed in via the `tags` input.<br/>
->
-> Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
->
-> Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
->
-> Default value: `lower`.<br/>
->
-> <br/>
->
->
+### `label_value_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of ID elements (labels) as included in `id`,<br/>
+set as tag values, and output by this module individually.<br/>
+Does not affect values of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+Default value: `lower`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -591,39 +1067,30 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `labels_as_tags` (`set(string)`) <i>optional</i>
->
->
-> Set of labels (ID elements) to include as tags in the `tags` output.<br/>
->
-> Default is to include all labels.<br/>
->
-> Tags with empty values will not be included in the `tags` output.<br/>
->
-> Set to `[]` to suppress all generated tags.<br/>
->
-> **Notes:**<br/>
->
->   The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
->
->   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
->
->   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
->
-> <br/>
->
->
+### `labels_as_tags` (`set(string)`) <i>optional</i>
+
+
+Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+Default is to include all labels.<br/>
+Tags with empty values will not be included in the `tags` output.<br/>
+Set to `[]` to suppress all generated tags.<br/>
+**Notes:**<br/>
+  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -632,11 +1099,12 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `set(string)`
+>   <code>set(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
 >    
+>
 >    ```hcl
 >>
 >    [
@@ -646,6 +1114,7 @@ The following variables are defined in the `context.tf` file of this module and 
 >    ]
 >
 >    ```
+>
 >    
 >   </dd>
 > </dl>
@@ -653,18 +1122,14 @@ The following variables are defined in the `context.tf` file of this module and 
 > </details>
 
 
-> ### `name` (`string`) <i>optional</i>
->
->
-> ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
->
-> This is the only ID element not also included as a `tag`.<br/>
->
-> The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
->
-> <br/>
->
->
+### `name` (`string`) <i>optional</i>
+
+
+ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+This is the only ID element not also included as a `tag`.<br/>
+The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -673,23 +1138,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `namespace` (`string`) <i>optional</i>
->
->
-> ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
->
->
+### `namespace` (`string`) <i>optional</i>
+
+
+ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -698,29 +1162,25 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `regex_replace_chars` (`string`) <i>optional</i>
->
->
-> Terraform regular expression (regex) string.<br/>
->
-> Characters matching the regex will be removed from the ID elements.<br/>
->
-> If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
->
-> <br/>
->
->
+### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Terraform regular expression (regex) string.<br/>
+Characters matching the regex will be removed from the ID elements.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -729,23 +1189,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `stage` (`string`) <i>optional</i>
->
->
-> ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
->
->
+### `stage` (`string`) <i>optional</i>
+
+
+ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -754,27 +1213,24 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `tags` (`map(string)`) <i>optional</i>
->
->
-> Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
->
-> Neither the tag keys nor the tag values will be modified by this module.<br/>
->
-> <br/>
->
->
+### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+Neither the tag keys nor the tag values will be modified by this module.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -783,23 +1239,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `map(string)`
+>   <code>map(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `tenant` (`string`) <i>optional</i>
->
->
-> ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
->
->
+### `tenant` (`string`) <i>optional</i>
+
+
+ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -808,11 +1263,11 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -822,631 +1277,33 @@ The following variables are defined in the `context.tf` file of this module and 
 
 </details>
 
-### Required Variables
-> ### `region` (`string`) <i>required</i>
->
->
-> AWS Region<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>Yes</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    ``
->   </dd>
-> </dl>
->
-> </details>
-
-
-
-### Optional Variables
-> ### `account_map_tenant` (`string`) <i>optional</i>
->
->
-> The tenant where the `account_map` component required by remote-state is deployed<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"core"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `admin_delegated` (`bool`) <i>optional</i>
->
->
->   A flag to indicate if the AWS Organization-wide settings should be created. This can only be done after the GuardDuty<br/>
->
->   Admininstrator account has already been delegated from the AWS Org Management account (usually 'root'). See the<br/>
->
->   Deployment section of the README for more information.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `false`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `auto_enable_organization_members` (`string`) <i>optional</i>
->
->
-> Indicates the auto-enablement configuration of GuardDuty for the member accounts in the organization. Valid values are `ALL`, `NEW`, `NONE`.<br/>
->
-> <br/>
->
-> For more information, see:<br/>
->
-> https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_organization_configuration#auto_enable_organization_members<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"NEW"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `cloudwatch_enabled` (`bool`) <i>optional</i>
->
->
-> Flag to indicate whether CloudWatch logging should be enabled for GuardDuty<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `false`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `cloudwatch_event_rule_pattern_detail_type` (`string`) <i>optional</i>
->
->
-> The detail-type pattern used to match events that will be sent to SNS.<br/>
->
-> <br/>
->
-> For more information, see:<br/>
->
-> https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html<br/>
->
-> https://docs.aws.amazon.com/eventbridge/latest/userguide/event-types.html<br/>
->
-> https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_findings_cloudwatch.html<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"GuardDuty Finding"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `create_sns_topic` (`bool`) <i>optional</i>
->
->
-> Flag to indicate whether an SNS topic should be created for notifications. If you want to send findings to a new SNS<br/>
->
-> topic, set this to true and provide a valid configuration for subscribers.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `false`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `delegated_admininstrator_component_name` (`string`) <i>optional</i>
->
->
-> The name of the component that created the GuardDuty detector.<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"guardduty/delegated-administrator"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `delegated_administrator_account_name` (`string`) <i>optional</i>
->
->
-> The name of the account that is the AWS Organization Delegated Administrator account<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"core-security"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `finding_publishing_frequency` (`string`) <i>optional</i>
->
->
-> The frequency of notifications sent for finding occurrences. If the detector is a GuardDuty member account, the value<br/>
->
-> is determined by the GuardDuty master account and cannot be modified, otherwise it defaults to SIX_HOURS.<br/>
->
-> <br/>
->
-> For standalone and GuardDuty master accounts, it must be configured in Terraform to enable drift detection.<br/>
->
-> Valid values for standalone and master accounts: FIFTEEN_MINUTES, ONE_HOUR, SIX_HOURS."<br/>
->
-> <br/>
->
-> For more information, see:<br/>
->
-> https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_findings_cloudwatch.html#guardduty_findings_cloudwatch_notification_frequency<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `findings_notification_arn` (`string`) <i>optional</i>
->
->
-> The ARN for an SNS topic to send findings notifications to. This is only used if create_sns_topic is false.<br/>
->
-> If you want to send findings to an existing SNS topic, set this to the ARN of the existing topic and set<br/>
->
-> create_sns_topic to false.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `global_environment` (`string`) <i>optional</i>
->
->
-> Global environment name<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"gbl"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `kubernetes_audit_logs_enabled` (`bool`) <i>optional</i>
->
->
-> If `true`, enables Kubernetes audit logs as a data source for Kubernetes protection.<br/>
->
-> <br/>
->
-> For more information, see:<br/>
->
-> https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector#audit_logs<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `false`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `malware_protection_scan_ec2_ebs_volumes_enabled` (`bool`) <i>optional</i>
->
->
-> Configure whether Malware Protection is enabled as data source for EC2 instances EBS Volumes in GuardDuty.<br/>
->
-> <br/>
->
-> For more information, see:<br/>
->
-> https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector#malware-protection<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `false`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `organization_management_account_name` (`string`) <i>optional</i>
->
->
-> The name of the AWS Organization management account<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `privileged` (`bool`) <i>optional</i>
->
->
-> true if the default provider already has access to the backend<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `false`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `root_account_stage` (`string`) <i>optional</i>
->
->
-> The stage name for the Organization root (management) account. This is used to lookup account IDs from account names<br/>
->
-> using the `account-map` component.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"root"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `s3_protection_enabled` (`bool`) <i>optional</i>
->
->
-> If `true`, enables S3 protection.<br/>
->
-> <br/>
->
-> For more information, see:<br/>
->
-> https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector#s3-logs<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `true`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `subscribers` <i>optional</i>
->
->
-> A map of subscription configurations for SNS topics<br/>
->
-> <br/>
->
-> For more information, see:<br/>
->
-> https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_subscription#argument-reference<br/>
->
-> <br/>
->
-> protocol:<br/>
->
->   The protocol to use. The possible values for this are: sqs, sms, lambda, application. (http or https are partially<br/>
->
->   supported, see link) (email is an option but is unsupported in terraform, see link).<br/>
->
-> endpoint:<br/>
->
->   The endpoint to send data to, the contents will vary with the protocol. (see link for more information)<br/>
->
-> endpoint_auto_confirms:<br/>
->
->   Boolean indicating whether the end point is capable of auto confirming subscription e.g., PagerDuty. Default is<br/>
->
->   false.<br/>
->
-> raw_message_delivery:<br/>
->
->   Boolean indicating whether or not to enable raw message delivery (the original message is directly passed, not<br/>
->
->   wrapped in JSON with the original message in the message property). Default is false.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   
->
->   ```hcl
->   map(object({
-    protocol               = string
-    endpoint               = string
-    endpoint_auto_confirms = bool
-    raw_message_delivery   = bool
-  }))
->   ```
->   
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `{}`
->   </dd>
-> </dl>
->
-> </details>
-
-
-
 ### Outputs
 
 <dl>
   <dt><code>delegated_administrator_account_id</code></dt>
   <dd>
     The AWS Account ID of the AWS Organization delegated administrator account<br/>
+
   </dd>
   <dt><code>guardduty_detector_arn</code></dt>
   <dd>
     The ARN of the GuardDuty detector created by the component<br/>
+
   </dd>
   <dt><code>guardduty_detector_id</code></dt>
   <dd>
     The ID of the GuardDuty detector created by the component<br/>
+
   </dd>
   <dt><code>sns_topic_name</code></dt>
   <dd>
     The name of the SNS topic created by the component<br/>
+
   </dd>
   <dt><code>sns_topic_subscriptions</code></dt>
   <dd>
     The SNS topic subscriptions created by the component<br/>
+
   </dd>
 </dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -2,13 +2,13 @@
 content: |-
   {{- $context_variables := list "context" "enabled" "namespace" "tenant" "environment" "stage" "name" "delimiter" "attributes" "tags" "additional_tag_map" "label_order" "regex_replace_chars" "id_length_limit" "label_key_case" "label_value_case" "descriptor_formats" "labels_as_tags" -}}
   {{- define "variableDescription" -}}
-  > ### `{{ .Name }}`{{ if lt (len (split "\n" (tostring .Type))) 2 }} (`{{ tostring .Type }}`){{end}} <i>{{ ternary .Required "required" "optional" }}</i>{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}
-  >
+  ### `{{ .Name }}`{{ if lt (len (split "\n" (tostring .Type))) 2 }} (`{{ tostring .Type }}`){{end}} <i>{{ ternary .Required "required" "optional" }}</i>{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}
+
   {{ $lines := regexSplit "\n" (tostring .Description | replace "OBSOLETE: " "") -1 -}}
-  > {{- range $lines }}
-  > {{ . }}<br/>
-  > {{- end }}
-  >
+  {{- range $lines }}
+  {{ . }}<br/>
+  {{- end }}
+
   > <details>
   > <summary>Click to expand</summary>
   >
@@ -17,22 +17,25 @@ content: |-
   >   <dd>{{ ternary .Required "Yes" "No" }}</dd>
   >   <dt>Type</dt>
   >   <dd>
-  >   {{ if lt (len (split "\n" (tostring .Type))) 2 }}`{{ tostring .Type }}`{{ else }}
+  >   {{ if lt (len (split "\n" (tostring .Type))) 2 }}<code>{{ tostring .Type }}</code>{{ else }}
   >
   >   ```hcl
   >   {{ .Type.Raw }}
   >   ```
+  >
   >   {{ end }}
   >  </dd>
   >  <dt>Default value</dt>
   >  <dd>
-  >    {{ if lt (len (split "\n" .GetValue)) 2 }}`{{ .GetValue }}`{{ else }}
+  >    {{ if lt (len (split "\n" .GetValue)) 2 }}<code>{{ .GetValue }}</code>{{ else }}
+  >
   >    ```hcl
   >    {{- $lines := regexSplit "\n" .GetValue -1 -}}
   >    {{- range $lines }}
   >    {{ . }}
   >    {{- end }}
   >    ```
+  >
   >    {{ end }}
   >   </dd>
   > </dl>
@@ -110,21 +113,6 @@ content: |-
   {{- end }}
   {{- end }}
 
-  ### Context Variables
-
-  The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
-
-  <details>
-  <summary>Click to expand</summary>
-
-  {{- range .Module.Inputs }}
-  {{- if and (has .Name $context_variables) }}
-  {{ template "variableDescription" . }}
-  {{- end }}
-  {{- end }}
-
-  </details>
-
   ### Required Variables
 
   {{- range .Module.Inputs }}
@@ -146,6 +134,21 @@ content: |-
   {{ end -}}
   {{ end }}
 
+  ### Context Variables
+
+  The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
+
+  <details>
+  <summary>Click to expand</summary>
+
+  {{- range .Module.Inputs }}
+  {{- if and (has .Name $context_variables) }}
+  {{ template "variableDescription" . }}
+  {{- end }}
+  {{- end }}
+
+  </details>
+
   {{ if ne (len .Module.Outputs) 0 -}}
   ### Outputs
 
@@ -153,10 +156,12 @@ content: |-
   {{- range .Module.Outputs }}
     <dt><code>{{ .Name }}</code>{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}</dt>
     <dd>
+
       {{- $lines := regexSplit "\n" (tostring .Description | replace "OBSOLETE: " "" | default "n/a" ) -1 -}}
       {{- range $lines }}
       {{ . }}<br/>
       {{- end }}
+
     </dd>
   {{- end }}
   </dl>

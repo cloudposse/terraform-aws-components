@@ -103,24 +103,780 @@ The following data sources are used by this module:
   - [`aws_caller_identity.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
   - [`aws_eip.eip`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eip) (data source)
 
+### Required Variables
+### `region` (`string`) <i>required</i>
+
+
+AWS Region<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code></code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `subnet_type_tag_key` (`string`) <i>required</i>
+
+
+Key for subnet type tag to provide information about the type of subnets, e.g. `cpco/subnet/type=private` or `cpcp/subnet/type=public`<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code></code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+
+### Optional Variables
+### `assign_generated_ipv6_cidr_block` (`bool`) <i>optional</i>
+
+
+When `true`, assign AWS generated IPv6 CIDR block to the VPC.  Conflicts with `ipv6_ipam_pool_id`.<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>false</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `availability_zone_ids` (`list(string)`) <i>optional</i>
+
+
+List of Availability Zones IDs where subnets will be created. Overrides `availability_zones`.<br/>
+Can be the full name, e.g. `use1-az1`, or just the part after the AZ ID region code, e.g. `-az1`,<br/>
+to allow reusable values across regions. Consider contention for resources and spot pricing in each AZ when selecting.<br/>
+Useful in some regions when using only some AZs and you want to use the same ones across multiple accounts.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>[]</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `availability_zones` (`list(string)`) <i>optional</i>
+
+
+List of Availability Zones (AZs) where subnets will be created. Ignored when `availability_zone_ids` is set.<br/>
+Can be the full name, e.g. `us-east-1a`, or just the part after the region, e.g. `a` to allow reusable values across regions.<br/>
+The order of zones in the list ***must be stable*** or else Terraform will continually make changes.<br/>
+If no AZs are specified, then `max_subnet_count` AZs will be selected in alphabetical order.<br/>
+If `max_subnet_count > 0` and `length(var.availability_zones) > max_subnet_count`, the list<br/>
+will be truncated. We recommend setting `availability_zones` and `max_subnet_count` explicitly as constant<br/>
+(not computed) values for predictability, consistency, and stability.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>[]</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `gateway_vpc_endpoints` (`set(string)`) <i>optional</i>
+
+
+A list of Gateway VPC Endpoints to provision into the VPC. Only valid values are "dynamodb" and "s3".<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>set(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>[]</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `interface_vpc_endpoints` (`set(string)`) <i>optional</i>
+
+
+A list of Interface VPC Endpoints to provision into the VPC.<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>set(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>[]</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `ipv4_additional_cidr_block_associations` <i>optional</i>
+
+
+IPv4 CIDR blocks to assign to the VPC.<br/>
+`ipv4_cidr_block` can be set explicitly, or set to `null` with the CIDR block derived from `ipv4_ipam_pool_id` using `ipv4_netmask_length`.<br/>
+Map keys must be known at `plan` time, and are only used to track changes.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   map(object({
+    ipv4_cidr_block     = string
+    ipv4_ipam_pool_id   = string
+    ipv4_netmask_length = number
+  }))
+>   ```
+>
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>{}</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `ipv4_cidr_block_association_timeouts` <i>optional</i>
+
+
+Timeouts (in `go` duration format) for creating and destroying IPv4 CIDR block associations<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   object({
+    create = string
+    delete = string
+  })
+>   ```
+>
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `ipv4_cidrs` <i>optional</i>
+
+
+Lists of CIDRs to assign to subnets. Order of CIDRs in the lists must not change over time.<br/>
+Lists may contain more CIDRs than needed.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   list(object({
+    private = list(string)
+    public  = list(string)
+  }))
+>   ```
+>
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>[]</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `ipv4_primary_cidr_block` (`string`) <i>optional</i>
+
+
+The primary IPv4 CIDR block for the VPC.<br/>
+Either `ipv4_primary_cidr_block` or `ipv4_primary_cidr_block_association` must be set, but not both.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `ipv4_primary_cidr_block_association` <i>optional</i>
+
+
+Configuration of the VPC's primary IPv4 CIDR block via IPAM. Conflicts with `ipv4_primary_cidr_block`.<br/>
+One of `ipv4_primary_cidr_block` or `ipv4_primary_cidr_block_association` must be set.<br/>
+Additional CIDR blocks can be set via `ipv4_additional_cidr_block_associations`.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   object({
+    ipv4_ipam_pool_id   = string
+    ipv4_netmask_length = number
+  })
+>   ```
+>
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `map_public_ip_on_launch` (`bool`) <i>optional</i>
+
+
+Instances launched into a public subnet should be assigned a public IP address<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>true</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `max_subnet_count` (`number`) <i>optional</i>
+
+
+Sets the maximum amount of subnets to deploy. 0 will deploy a subnet for every provided availability zone (in `region_availability_zones` variable) within the region<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>0</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `nat_eip_aws_shield_protection_enabled` (`bool`) <i>optional</i>
+
+
+Enable or disable AWS Shield Advanced protection for NAT EIPs. If set to 'true', a subscription to AWS Shield Advanced must exist in this account.<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>false</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `nat_gateway_enabled` (`bool`) <i>optional</i>
+
+
+Flag to enable/disable NAT gateways<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>true</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `nat_instance_ami_id` (`list(string)`) <i>optional</i>
+
+
+A list optionally containing the ID of the AMI to use for the NAT instance.<br/>
+If the list is empty (the default), the latest official AWS NAT instance AMI<br/>
+will be used. NOTE: The Official NAT instance AMI is being phased out and<br/>
+does not support NAT64. Use of a NAT gateway is recommended instead.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>[]</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `nat_instance_enabled` (`bool`) <i>optional</i>
+
+
+Flag to enable/disable NAT instances<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>false</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `nat_instance_type` (`string`) <i>optional</i>
+
+
+NAT Instance type<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"t3.micro"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `public_subnets_enabled` (`bool`) <i>optional</i>
+
+
+If false, do not create public subnets.<br/>
+Since NAT gateways and instances must be created in public subnets, these will also not be created when `false`.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>true</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `subnets_per_az_count` (`number`) <i>optional</i>
+
+
+The number of subnet of each type (public or private) to provision per Availability Zone.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>1</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `subnets_per_az_names` (`list(string)`) <i>optional</i>
+
+
+The subnet names of each type (public or private) to provision per Availability Zone.<br/>
+This variable is optional.<br/>
+If a list of names is provided, the list items will be used as keys in the outputs `named_private_subnets_map`, `named_public_subnets_map`,<br/>
+`named_private_route_table_ids_map` and `named_public_route_table_ids_map`<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>
+>    ```hcl
+>>
+>    [
+>
+>      "common"
+>
+>    ]
+>
+>    ```
+>
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `vpc_flow_logs_bucket_environment_name` (`string`) <i>optional</i>
+
+
+The name of the environment where the VPC Flow Logs bucket is provisioned<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>""</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `vpc_flow_logs_bucket_stage_name` (`string`) <i>optional</i>
+
+
+The stage (account) name where the VPC Flow Logs bucket is provisioned<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>""</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `vpc_flow_logs_bucket_tenant_name` (`string`) <i>optional</i>
+
+
+The name of the tenant where the VPC Flow Logs bucket is provisioned.<br/>
+<br/>
+If the `tenant` label is not used, leave this as `null`.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `vpc_flow_logs_enabled` (`bool`) <i>optional</i>
+
+
+Enable or disable the VPC Flow Logs<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>true</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `vpc_flow_logs_log_destination_type` (`string`) <i>optional</i>
+
+
+The type of the logging destination. Valid values: `cloud-watch-logs`, `s3`<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"s3"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `vpc_flow_logs_traffic_type` (`string`) <i>optional</i>
+
+
+The type of traffic to capture. Valid values: `ACCEPT`, `REJECT`, `ALL`<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"ALL"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
 <details>
 <summary>Click to expand</summary>
-> ### `additional_tag_map` (`map(string)`) <i>optional</i>
->
->
-> Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
->
-> This is for some rare cases where resources want additional configuration of tags<br/>
->
-> and therefore take a list of maps with tag key, value, and additional configuration.<br/>
->
-> <br/>
->
->
+### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+This is for some rare cases where resources want additional configuration of tags<br/>
+and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -129,31 +885,26 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `map(string)`
+>   <code>map(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `attributes` (`list(string)`) <i>optional</i>
->
->
-> ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
->
-> in the order they appear in the list. New attributes are appended to the<br/>
->
-> end of the list. The elements of the list are joined by the `delimiter`<br/>
->
-> and treated as a single ID element.<br/>
->
-> <br/>
->
->
+### `attributes` (`list(string)`) <i>optional</i>
+
+
+ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+in the order they appear in the list. New attributes are appended to the<br/>
+end of the list. The elements of the list are joined by the `delimiter`<br/>
+and treated as a single ID element.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -162,33 +913,27 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `context` (`any`) <i>optional</i>
->
->
-> Single object for setting entire context at once.<br/>
->
-> See description of individual variables for details.<br/>
->
-> Leave string and numeric variables as `null` to use default value.<br/>
->
-> Individual variable settings (non-null) override settings in context object,<br/>
->
-> except for attributes, tags, and additional_tag_map, which are merged.<br/>
->
-> <br/>
->
->
+### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -197,11 +942,12 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `any`
+>   <code>any</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
 >    
+>
 >    ```hcl
 >>
 >    {
@@ -247,6 +993,7 @@ The following variables are defined in the `context.tf` file of this module and 
 >    }
 >
 >    ```
+>
 >    
 >   </dd>
 > </dl>
@@ -254,16 +1001,13 @@ The following variables are defined in the `context.tf` file of this module and 
 > </details>
 
 
-> ### `delimiter` (`string`) <i>optional</i>
->
->
-> Delimiter to be used between ID elements.<br/>
->
-> Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
->
-> <br/>
->
->
+### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between ID elements.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -272,47 +1016,34 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `descriptor_formats` (`any`) <i>optional</i>
->
->
-> Describe additional descriptors to be output in the `descriptors` output map.<br/>
->
-> Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
->
-> `{<br/>
->
->    format = string<br/>
->
->    labels = list(string)<br/>
->
-> }`<br/>
->
-> (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
->
-> `format` is a Terraform format string to be passed to the `format()` function.<br/>
->
-> `labels` is a list of labels, in order, to pass to `format()` function.<br/>
->
-> Label values will be normalized before being passed to `format()` so they will be<br/>
->
-> identical to how they appear in `id`.<br/>
->
-> Default is `{}` (`descriptors` output will be empty).<br/>
->
-> <br/>
->
->
+### `descriptor_formats` (`any`) <i>optional</i>
+
+
+Describe additional descriptors to be output in the `descriptors` output map.<br/>
+Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+`{<br/>
+   format = string<br/>
+   labels = list(string)<br/>
+}`<br/>
+(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+`format` is a Terraform format string to be passed to the `format()` function.<br/>
+`labels` is a list of labels, in order, to pass to `format()` function.<br/>
+Label values will be normalized before being passed to `format()` so they will be<br/>
+identical to how they appear in `id`.<br/>
+Default is `{}` (`descriptors` output will be empty).<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -321,23 +1052,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `any`
+>   <code>any</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `enabled` (`bool`) <i>optional</i>
->
->
-> Set to false to prevent the module from creating any resources<br/>
->
->
+### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -346,23 +1076,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `environment` (`string`) <i>optional</i>
->
->
-> ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
->
->
+### `environment` (`string`) <i>optional</i>
+
+
+ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -371,31 +1100,26 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `id_length_limit` (`number`) <i>optional</i>
->
->
-> Limit `id` to this many characters (minimum 6).<br/>
->
-> Set to `0` for unlimited length.<br/>
->
-> Set to `null` for keep the existing setting, which defaults to `0`.<br/>
->
-> Does not affect `id_full`.<br/>
->
-> <br/>
->
->
+### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -404,31 +1128,26 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `label_key_case` (`string`) <i>optional</i>
->
->
-> Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
->
-> Does not affect keys of tags passed in via the `tags` input.<br/>
->
-> Possible values: `lower`, `title`, `upper`.<br/>
->
-> Default value: `title`.<br/>
->
-> <br/>
->
->
+### `label_key_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+Does not affect keys of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -437,29 +1156,25 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `label_order` (`list(string)`) <i>optional</i>
->
->
-> The order in which the labels (ID elements) appear in the `id`.<br/>
->
-> Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
->
-> You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
->
-> <br/>
->
->
+### `label_order` (`list(string)`) <i>optional</i>
+
+
+The order in which the labels (ID elements) appear in the `id`.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -468,35 +1183,28 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `label_value_case` (`string`) <i>optional</i>
->
->
-> Controls the letter case of ID elements (labels) as included in `id`,<br/>
->
-> set as tag values, and output by this module individually.<br/>
->
-> Does not affect values of tags passed in via the `tags` input.<br/>
->
-> Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
->
-> Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
->
-> Default value: `lower`.<br/>
->
-> <br/>
->
->
+### `label_value_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of ID elements (labels) as included in `id`,<br/>
+set as tag values, and output by this module individually.<br/>
+Does not affect values of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+Default value: `lower`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -505,39 +1213,30 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `labels_as_tags` (`set(string)`) <i>optional</i>
->
->
-> Set of labels (ID elements) to include as tags in the `tags` output.<br/>
->
-> Default is to include all labels.<br/>
->
-> Tags with empty values will not be included in the `tags` output.<br/>
->
-> Set to `[]` to suppress all generated tags.<br/>
->
-> **Notes:**<br/>
->
->   The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
->
->   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
->
->   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
->
-> <br/>
->
->
+### `labels_as_tags` (`set(string)`) <i>optional</i>
+
+
+Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+Default is to include all labels.<br/>
+Tags with empty values will not be included in the `tags` output.<br/>
+Set to `[]` to suppress all generated tags.<br/>
+**Notes:**<br/>
+  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -546,11 +1245,12 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `set(string)`
+>   <code>set(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
 >    
+>
 >    ```hcl
 >>
 >    [
@@ -560,6 +1260,7 @@ The following variables are defined in the `context.tf` file of this module and 
 >    ]
 >
 >    ```
+>
 >    
 >   </dd>
 > </dl>
@@ -567,18 +1268,14 @@ The following variables are defined in the `context.tf` file of this module and 
 > </details>
 
 
-> ### `name` (`string`) <i>optional</i>
->
->
-> ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
->
-> This is the only ID element not also included as a `tag`.<br/>
->
-> The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
->
-> <br/>
->
->
+### `name` (`string`) <i>optional</i>
+
+
+ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+This is the only ID element not also included as a `tag`.<br/>
+The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -587,23 +1284,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `namespace` (`string`) <i>optional</i>
->
->
-> ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
->
->
+### `namespace` (`string`) <i>optional</i>
+
+
+ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -612,29 +1308,25 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `regex_replace_chars` (`string`) <i>optional</i>
->
->
-> Terraform regular expression (regex) string.<br/>
->
-> Characters matching the regex will be removed from the ID elements.<br/>
->
-> If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
->
-> <br/>
->
->
+### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Terraform regular expression (regex) string.<br/>
+Characters matching the regex will be removed from the ID elements.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -643,23 +1335,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `stage` (`string`) <i>optional</i>
->
->
-> ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
->
->
+### `stage` (`string`) <i>optional</i>
+
+
+ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -668,27 +1359,24 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `tags` (`map(string)`) <i>optional</i>
->
->
-> Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
->
-> Neither the tag keys nor the tag values will be modified by this module.<br/>
->
-> <br/>
->
->
+### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+Neither the tag keys nor the tag values will be modified by this module.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -697,23 +1385,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `map(string)`
+>   <code>map(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `tenant` (`string`) <i>optional</i>
->
->
-> ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
->
->
+### `tenant` (`string`) <i>optional</i>
+
+
+ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -722,11 +1409,11 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -736,913 +1423,118 @@ The following variables are defined in the `context.tf` file of this module and 
 
 </details>
 
-### Required Variables
-> ### `region` (`string`) <i>required</i>
->
->
-> AWS Region<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>Yes</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    ``
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `subnet_type_tag_key` (`string`) <i>required</i>
->
->
-> Key for subnet type tag to provide information about the type of subnets, e.g. `cpco/subnet/type=private` or `cpcp/subnet/type=public`<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>Yes</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    ``
->   </dd>
-> </dl>
->
-> </details>
-
-
-
-### Optional Variables
-> ### `assign_generated_ipv6_cidr_block` (`bool`) <i>optional</i>
->
->
-> When `true`, assign AWS generated IPv6 CIDR block to the VPC.  Conflicts with `ipv6_ipam_pool_id`.<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `false`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `availability_zone_ids` (`list(string)`) <i>optional</i>
->
->
-> List of Availability Zones IDs where subnets will be created. Overrides `availability_zones`.<br/>
->
-> Can be the full name, e.g. `use1-az1`, or just the part after the AZ ID region code, e.g. `-az1`,<br/>
->
-> to allow reusable values across regions. Consider contention for resources and spot pricing in each AZ when selecting.<br/>
->
-> Useful in some regions when using only some AZs and you want to use the same ones across multiple accounts.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `[]`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `availability_zones` (`list(string)`) <i>optional</i>
->
->
-> List of Availability Zones (AZs) where subnets will be created. Ignored when `availability_zone_ids` is set.<br/>
->
-> Can be the full name, e.g. `us-east-1a`, or just the part after the region, e.g. `a` to allow reusable values across regions.<br/>
->
-> The order of zones in the list ***must be stable*** or else Terraform will continually make changes.<br/>
->
-> If no AZs are specified, then `max_subnet_count` AZs will be selected in alphabetical order.<br/>
->
-> If `max_subnet_count > 0` and `length(var.availability_zones) > max_subnet_count`, the list<br/>
->
-> will be truncated. We recommend setting `availability_zones` and `max_subnet_count` explicitly as constant<br/>
->
-> (not computed) values for predictability, consistency, and stability.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `[]`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `gateway_vpc_endpoints` (`set(string)`) <i>optional</i>
->
->
-> A list of Gateway VPC Endpoints to provision into the VPC. Only valid values are "dynamodb" and "s3".<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `set(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `[]`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `interface_vpc_endpoints` (`set(string)`) <i>optional</i>
->
->
-> A list of Interface VPC Endpoints to provision into the VPC.<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `set(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `[]`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `ipv4_additional_cidr_block_associations` <i>optional</i>
->
->
-> IPv4 CIDR blocks to assign to the VPC.<br/>
->
-> `ipv4_cidr_block` can be set explicitly, or set to `null` with the CIDR block derived from `ipv4_ipam_pool_id` using `ipv4_netmask_length`.<br/>
->
-> Map keys must be known at `plan` time, and are only used to track changes.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   
->
->   ```hcl
->   map(object({
-    ipv4_cidr_block     = string
-    ipv4_ipam_pool_id   = string
-    ipv4_netmask_length = number
-  }))
->   ```
->   
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `{}`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `ipv4_cidr_block_association_timeouts` <i>optional</i>
->
->
-> Timeouts (in `go` duration format) for creating and destroying IPv4 CIDR block associations<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   
->
->   ```hcl
->   object({
-    create = string
-    delete = string
-  })
->   ```
->   
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `ipv4_cidrs` <i>optional</i>
->
->
-> Lists of CIDRs to assign to subnets. Order of CIDRs in the lists must not change over time.<br/>
->
-> Lists may contain more CIDRs than needed.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   
->
->   ```hcl
->   list(object({
-    private = list(string)
-    public  = list(string)
-  }))
->   ```
->   
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `[]`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `ipv4_primary_cidr_block` (`string`) <i>optional</i>
->
->
-> The primary IPv4 CIDR block for the VPC.<br/>
->
-> Either `ipv4_primary_cidr_block` or `ipv4_primary_cidr_block_association` must be set, but not both.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `ipv4_primary_cidr_block_association` <i>optional</i>
->
->
-> Configuration of the VPC's primary IPv4 CIDR block via IPAM. Conflicts with `ipv4_primary_cidr_block`.<br/>
->
-> One of `ipv4_primary_cidr_block` or `ipv4_primary_cidr_block_association` must be set.<br/>
->
-> Additional CIDR blocks can be set via `ipv4_additional_cidr_block_associations`.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   
->
->   ```hcl
->   object({
-    ipv4_ipam_pool_id   = string
-    ipv4_netmask_length = number
-  })
->   ```
->   
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `map_public_ip_on_launch` (`bool`) <i>optional</i>
->
->
-> Instances launched into a public subnet should be assigned a public IP address<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `true`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `max_subnet_count` (`number`) <i>optional</i>
->
->
-> Sets the maximum amount of subnets to deploy. 0 will deploy a subnet for every provided availability zone (in `region_availability_zones` variable) within the region<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `number`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `0`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `nat_eip_aws_shield_protection_enabled` (`bool`) <i>optional</i>
->
->
-> Enable or disable AWS Shield Advanced protection for NAT EIPs. If set to 'true', a subscription to AWS Shield Advanced must exist in this account.<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `false`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `nat_gateway_enabled` (`bool`) <i>optional</i>
->
->
-> Flag to enable/disable NAT gateways<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `true`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `nat_instance_ami_id` (`list(string)`) <i>optional</i>
->
->
-> A list optionally containing the ID of the AMI to use for the NAT instance.<br/>
->
-> If the list is empty (the default), the latest official AWS NAT instance AMI<br/>
->
-> will be used. NOTE: The Official NAT instance AMI is being phased out and<br/>
->
-> does not support NAT64. Use of a NAT gateway is recommended instead.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `[]`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `nat_instance_enabled` (`bool`) <i>optional</i>
->
->
-> Flag to enable/disable NAT instances<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `false`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `nat_instance_type` (`string`) <i>optional</i>
->
->
-> NAT Instance type<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"t3.micro"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `public_subnets_enabled` (`bool`) <i>optional</i>
->
->
-> If false, do not create public subnets.<br/>
->
-> Since NAT gateways and instances must be created in public subnets, these will also not be created when `false`.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `true`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `subnets_per_az_count` (`number`) <i>optional</i>
->
->
-> The number of subnet of each type (public or private) to provision per Availability Zone.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `number`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `1`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `subnets_per_az_names` (`list(string)`) <i>optional</i>
->
->
-> The subnet names of each type (public or private) to provision per Availability Zone.<br/>
->
-> This variable is optional.<br/>
->
-> If a list of names is provided, the list items will be used as keys in the outputs `named_private_subnets_map`, `named_public_subnets_map`,<br/>
->
-> `named_private_route_table_ids_map` and `named_public_route_table_ids_map`<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    
->    ```hcl
->>
->    [
->
->      "common"
->
->    ]
->
->    ```
->    
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `vpc_flow_logs_bucket_environment_name` (`string`) <i>optional</i>
->
->
-> The name of the environment where the VPC Flow Logs bucket is provisioned<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `""`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `vpc_flow_logs_bucket_stage_name` (`string`) <i>optional</i>
->
->
-> The stage (account) name where the VPC Flow Logs bucket is provisioned<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `""`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `vpc_flow_logs_bucket_tenant_name` (`string`) <i>optional</i>
->
->
-> The name of the tenant where the VPC Flow Logs bucket is provisioned.<br/>
->
-> <br/>
->
-> If the `tenant` label is not used, leave this as `null`.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `vpc_flow_logs_enabled` (`bool`) <i>optional</i>
->
->
-> Enable or disable the VPC Flow Logs<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `true`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `vpc_flow_logs_log_destination_type` (`string`) <i>optional</i>
->
->
-> The type of the logging destination. Valid values: `cloud-watch-logs`, `s3`<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"s3"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `vpc_flow_logs_traffic_type` (`string`) <i>optional</i>
->
->
-> The type of traffic to capture. Valid values: `ACCEPT`, `REJECT`, `ALL`<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"ALL"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-
 ### Outputs
 
 <dl>
   <dt><code>availability_zones</code></dt>
   <dd>
     List of Availability Zones where subnets were created<br/>
+
   </dd>
   <dt><code>az_private_subnets_map</code></dt>
   <dd>
     Map of AZ names to list of private subnet IDs in the AZs<br/>
+
   </dd>
   <dt><code>az_public_subnets_map</code></dt>
   <dd>
     Map of AZ names to list of public subnet IDs in the AZs<br/>
+
   </dd>
   <dt><code>interface_vpc_endpoints</code></dt>
   <dd>
     List of Interface VPC Endpoints in this VPC.<br/>
+
   </dd>
   <dt><code>max_subnet_count</code></dt>
   <dd>
     Maximum allowed number of subnets before all subnet CIDRs need to be recomputed<br/>
+
   </dd>
   <dt><code>nat_eip_protections</code></dt>
   <dd>
     List of AWS Shield Advanced Protections for NAT Elastic IPs.<br/>
+
   </dd>
   <dt><code>nat_gateway_ids</code></dt>
   <dd>
     NAT Gateway IDs<br/>
+
   </dd>
   <dt><code>nat_gateway_public_ips</code></dt>
   <dd>
     NAT Gateway public IPs<br/>
+
   </dd>
   <dt><code>nat_instance_ids</code></dt>
   <dd>
     NAT Instance IDs<br/>
+
   </dd>
   <dt><code>private_route_table_ids</code></dt>
   <dd>
     Private subnet route table IDs<br/>
+
   </dd>
   <dt><code>private_subnet_cidrs</code></dt>
   <dd>
     Private subnet CIDRs<br/>
+
   </dd>
   <dt><code>private_subnet_ids</code></dt>
   <dd>
     Private subnet IDs<br/>
+
   </dd>
   <dt><code>public_route_table_ids</code></dt>
   <dd>
     Public subnet route table IDs<br/>
+
   </dd>
   <dt><code>public_subnet_cidrs</code></dt>
   <dd>
     Public subnet CIDRs<br/>
+
   </dd>
   <dt><code>public_subnet_ids</code></dt>
   <dd>
     Public subnet IDs<br/>
+
   </dd>
   <dt><code>route_tables</code></dt>
   <dd>
     Route tables info map<br/>
+
   </dd>
   <dt><code>subnets</code></dt>
   <dd>
     Subnets info map<br/>
+
   </dd>
   <dt><code>vpc</code></dt>
   <dd>
     VPC info map<br/>
+
   </dd>
   <dt><code>vpc_cidr</code></dt>
   <dd>
     VPC CIDR<br/>
+
   </dd>
   <dt><code>vpc_default_network_acl_id</code></dt>
   <dd>
     The ID of the network ACL created by default on VPC creation<br/>
+
   </dd>
   <dt><code>vpc_default_security_group_id</code></dt>
   <dd>
     The ID of the security group created by default on VPC creation<br/>
+
   </dd>
   <dt><code>vpc_id</code></dt>
   <dd>
     VPC ID<br/>
+
   </dd>
 </dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

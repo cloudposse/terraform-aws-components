@@ -114,18 +114,357 @@ The following data sources are used by this module:
 
   - [`aws_ssm_parameter.opsgenie_api_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
 
+### Required Variables
+### `region` (`string`) <i>required</i>
+
+
+AWS Region<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code></code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+
+### Optional Variables
+### `import_role_arn` (`string`) <i>optional</i>
+
+
+IAM Role ARN to use when importing a resource<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `kms_key_arn` (`string`) <i>optional</i>
+
+
+AWS KMS key used for writing to SSM<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"alias/aws/ssm"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `ssm_parameter_name_format` (`string`) <i>optional</i>
+
+
+SSM parameter name format<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"/%s/%s"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `ssm_path` (`string`) <i>optional</i>
+
+
+SSM path<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"opsgenie"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `tfstate_account_id` (`string`) <i>optional</i>
+
+
+The ID of the account where the Terraform remote state backend is provisioned<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>""</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `tfstate_assume_role` (`bool`) <i>optional</i>
+
+
+Set to false to use the caller's role to access the Terraform remote state<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>true</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `tfstate_bucket_environment_name` (`string`) <i>optional</i>
+
+
+The name of the environment for Terraform state bucket<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>""</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `tfstate_bucket_stage_name` (`string`) <i>optional</i>
+
+
+The name of the stage for Terraform state bucket<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"root"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `tfstate_existing_role_arn` (`string`) <i>optional</i>
+
+
+The ARN of the existing IAM Role to access the Terraform remote state. If not provided and `remote_state_assume_role` is `true`, a role will be constructed from `remote_state_role_arn_template`<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>""</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `tfstate_role_arn_template` (`string`) <i>optional</i>
+
+
+IAM Role ARN template for accessing the Terraform remote state<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"arn:aws:iam::%s:role/%s-%s-%s-%s"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `tfstate_role_environment_name` (`string`) <i>optional</i>
+
+
+The name of the environment for Terraform state IAM role<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"gbl"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `tfstate_role_name` (`string`) <i>optional</i>
+
+
+IAM Role name for accessing the Terraform remote state<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"terraform"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `tfstate_role_stage_name` (`string`) <i>optional</i>
+
+
+The name of the stage for Terraform state IAM role<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"root"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
 <details>
 <summary>Click to expand</summary>
-> ### `additional_tag_map` (`map(string)`) <i>optional</i>
->
->
-> Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
->
->
+### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -134,23 +473,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `map(string)`
+>   <code>map(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `attributes` (`list(string)`) <i>optional</i>
->
->
-> Additional attributes (e.g. `1`)<br/>
->
->
+### `attributes` (`list(string)`) <i>optional</i>
+
+
+Additional attributes (e.g. `1`)<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -159,33 +497,27 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `context` <i>optional</i>
->
->
-> Single object for setting entire context at once.<br/>
->
-> See description of individual variables for details.<br/>
->
-> Leave string and numeric variables as `null` to use default value.<br/>
->
-> Individual variable settings (non-null) override settings in context object,<br/>
->
-> except for attributes, tags, and additional_tag_map, which are merged.<br/>
->
-> <br/>
->
->
+### `context` <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -212,11 +544,13 @@ The following variables are defined in the `context.tf` file of this module and 
     id_length_limit     = number
   })
 >   ```
+>
 >   
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
 >    
+>
 >    ```hcl
 >>
 >    {
@@ -248,6 +582,7 @@ The following variables are defined in the `context.tf` file of this module and 
 >    }
 >
 >    ```
+>
 >    
 >   </dd>
 > </dl>
@@ -255,16 +590,13 @@ The following variables are defined in the `context.tf` file of this module and 
 > </details>
 
 
-> ### `delimiter` (`string`) <i>optional</i>
->
->
-> Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br/>
->
-> Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
->
-> <br/>
->
->
+### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -273,23 +605,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `enabled` (`bool`) <i>optional</i>
->
->
-> Set to false to prevent the module from creating any resources<br/>
->
->
+### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -298,23 +629,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `environment` (`string`) <i>optional</i>
->
->
-> Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
->
->
+### `environment` (`string`) <i>optional</i>
+
+
+Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -323,31 +653,26 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `id_length_limit` (`number`) <i>optional</i>
->
->
-> Limit `id` to this many characters.<br/>
->
-> Set to `0` for unlimited length.<br/>
->
-> Set to `null` for default, which is `0`.<br/>
->
-> Does not affect `id_full`.<br/>
->
-> <br/>
->
->
+### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters.<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for default, which is `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -356,29 +681,25 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `label_order` (`list(string)`) <i>optional</i>
->
->
-> The naming order of the id output and Name tag.<br/>
->
-> Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
->
-> You can omit any of the 5 elements, but at least one must be present.<br/>
->
-> <br/>
->
->
+### `label_order` (`list(string)`) <i>optional</i>
+
+
+The naming order of the id output and Name tag.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 5 elements, but at least one must be present.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -387,23 +708,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `name` (`string`) <i>optional</i>
->
->
-> Solution name, e.g. 'app' or 'jenkins'<br/>
->
->
+### `name` (`string`) <i>optional</i>
+
+
+Solution name, e.g. 'app' or 'jenkins'<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -412,23 +732,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `namespace` (`string`) <i>optional</i>
->
->
-> Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
->
->
+### `namespace` (`string`) <i>optional</i>
+
+
+Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -437,27 +756,24 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `regex_replace_chars` (`string`) <i>optional</i>
->
->
-> Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br/>
->
-> If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
->
-> <br/>
->
->
+### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -466,23 +782,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `stage` (`string`) <i>optional</i>
->
->
-> Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
->
->
+### `stage` (`string`) <i>optional</i>
+
+
+Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -491,23 +806,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `tags` (`map(string)`) <i>optional</i>
->
->
-> Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
->
->
+### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -516,11 +830,11 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `map(string)`
+>   <code>map(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -530,402 +844,58 @@ The following variables are defined in the `context.tf` file of this module and 
 
 </details>
 
-### Required Variables
-> ### `region` (`string`) <i>required</i>
->
->
-> AWS Region<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>Yes</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    ``
->   </dd>
-> </dl>
->
-> </details>
-
-
-
-### Optional Variables
-> ### `import_role_arn` (`string`) <i>optional</i>
->
->
-> IAM Role ARN to use when importing a resource<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `kms_key_arn` (`string`) <i>optional</i>
->
->
-> AWS KMS key used for writing to SSM<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"alias/aws/ssm"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `ssm_parameter_name_format` (`string`) <i>optional</i>
->
->
-> SSM parameter name format<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"/%s/%s"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `ssm_path` (`string`) <i>optional</i>
->
->
-> SSM path<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"opsgenie"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `tfstate_account_id` (`string`) <i>optional</i>
->
->
-> The ID of the account where the Terraform remote state backend is provisioned<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `""`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `tfstate_assume_role` (`bool`) <i>optional</i>
->
->
-> Set to false to use the caller's role to access the Terraform remote state<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `true`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `tfstate_bucket_environment_name` (`string`) <i>optional</i>
->
->
-> The name of the environment for Terraform state bucket<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `""`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `tfstate_bucket_stage_name` (`string`) <i>optional</i>
->
->
-> The name of the stage for Terraform state bucket<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"root"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `tfstate_existing_role_arn` (`string`) <i>optional</i>
->
->
-> The ARN of the existing IAM Role to access the Terraform remote state. If not provided and `remote_state_assume_role` is `true`, a role will be constructed from `remote_state_role_arn_template`<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `""`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `tfstate_role_arn_template` (`string`) <i>optional</i>
->
->
-> IAM Role ARN template for accessing the Terraform remote state<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"arn:aws:iam::%s:role/%s-%s-%s-%s"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `tfstate_role_environment_name` (`string`) <i>optional</i>
->
->
-> The name of the environment for Terraform state IAM role<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"gbl"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `tfstate_role_name` (`string`) <i>optional</i>
->
->
-> IAM Role name for accessing the Terraform remote state<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"terraform"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `tfstate_role_stage_name` (`string`) <i>optional</i>
->
->
-> The name of the stage for Terraform state IAM role<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"root"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-
 ### Outputs
 
 <dl>
   <dt><code>alert_policies</code></dt>
   <dd>
     Alert policies<br/>
+
   </dd>
   <dt><code>api_integrations</code></dt>
   <dd>
     API integrations<br/>
+
   </dd>
   <dt><code>escalations</code></dt>
   <dd>
     Escalations<br/>
+
   </dd>
   <dt><code>existing_users</code></dt>
   <dd>
     Existing Users<br/>
+
   </dd>
   <dt><code>notification_policies</code></dt>
   <dd>
     Notification policies<br/>
+
   </dd>
   <dt><code>service_incident_rule_ids</code></dt>
   <dd>
     Service Incident Rule IDs<br/>
+
   </dd>
   <dt><code>services</code></dt>
   <dd>
     Services<br/>
+
   </dd>
   <dt><code>team_routing_rules</code></dt>
   <dd>
     Team routing rules<br/>
+
   </dd>
   <dt><code>teams</code></dt>
   <dd>
     Teams<br/>
+
   </dd>
   <dt><code>users</code></dt>
   <dd>
     Users<br/>
+
   </dd>
 </dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

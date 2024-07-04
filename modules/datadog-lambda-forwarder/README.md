@@ -91,24 +91,990 @@ The following resources are used by this module:
 The following data sources are used by this module:
 
 
+### Required Variables
+### `region` (`string`) <i>required</i>
+
+
+AWS Region<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code></code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+
+### Optional Variables
+### `cloudwatch_forwarder_event_patterns` <i>optional</i>
+
+
+Map of title => CloudWatch Event patterns to forward to Datadog. Event structure from here: <https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html#CloudWatchEventsPatterns><br/>
+Example:<br/>
+```hcl<br/>
+cloudwatch_forwarder_event_rules = {<br/>
+  "guardduty" = {<br/>
+    source = ["aws.guardduty"]<br/>
+    detail-type = ["GuardDuty Finding"]<br/>
+  }<br/>
+  "ec2-terminated" = {<br/>
+    source = ["aws.ec2"]<br/>
+    detail-type = ["EC2 Instance State-change Notification"]<br/>
+    detail = {<br/>
+      state = ["terminated"]<br/>
+    }<br/>
+  }<br/>
+}<br/>
+```<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   map(object({
+    version     = optional(list(string))
+    id          = optional(list(string))
+    detail-type = optional(list(string))
+    source      = optional(list(string))
+    account     = optional(list(string))
+    time        = optional(list(string))
+    region      = optional(list(string))
+    resources   = optional(list(string))
+    detail      = optional(map(list(string)))
+  }))
+>   ```
+>
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>{}</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `cloudwatch_forwarder_log_groups` (`map(map(string))`) <i>optional</i>
+
+
+    Map of CloudWatch Log Groups with a filter pattern that the Lambda forwarder will send logs from. For example: { mysql1 = { name = "/aws/rds/maincluster", filter_pattern = "" }<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(map(string))</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>{}</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `context_tags` (`set(string)`) <i>optional</i>
+
+
+List of context tags to add to each monitor<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>set(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>
+>    ```hcl
+>>
+>    [
+>
+>      "namespace",
+>
+>      "tenant",
+>
+>      "environment",
+>
+>      "stage"
+>
+>    ]
+>
+>    ```
+>
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `context_tags_enabled` (`bool`) <i>optional</i>
+
+
+Whether to add context tags to add to each monitor<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>true</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `datadog_forwarder_lambda_environment_variables` (`map(string)`) <i>optional</i>
+
+
+Map of environment variables to pass to the Lambda Function<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>{}</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `dd_api_key_kms_ciphertext_blob` (`string`) <i>optional</i>
+
+
+CiphertextBlob stored in environment variable DD_KMS_API_KEY used by the lambda function, along with the KMS key, to decrypt Datadog API key<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>""</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `dd_artifact_filename` (`string`) <i>optional</i>
+
+
+The Datadog artifact filename minus extension<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"aws-dd-forwarder"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `dd_forwarder_version` (`string`) <i>optional</i>
+
+
+Version tag of Datadog lambdas to use. https://github.com/DataDog/datadog-serverless-functions/releases<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"3.66.0"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `dd_module_name` (`string`) <i>optional</i>
+
+
+The Datadog GitHub repository name<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"datadog-serverless-functions"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `dd_tags_map` (`map(string)`) <i>optional</i>
+
+
+A map of Datadog tags to apply to all logs forwarded to Datadog<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>{}</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `forwarder_lambda_debug_enabled` (`bool`) <i>optional</i>
+
+
+Whether to enable or disable debug for the Lambda forwarder<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>false</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `forwarder_log_artifact_url` (`string`) <i>optional</i>
+
+
+The URL for the code of the Datadog forwarder for Logs. It can be a local file, URL or git repo<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `forwarder_log_enabled` (`bool`) <i>optional</i>
+
+
+Flag to enable or disable Datadog log forwarder<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>false</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `forwarder_log_layers` (`list(string)`) <i>optional</i>
+
+
+List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog log forwarder lambda function<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>[]</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `forwarder_log_retention_days` (`number`) <i>optional</i>
+
+
+Number of days to retain Datadog forwarder lambda execution logs. One of [0 1 3 5 7 14 30 60 90 120 150 180 365 400 545 731 1827 3653]<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>14</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `forwarder_rds_artifact_url` (`string`) <i>optional</i>
+
+
+The URL for the code of the Datadog forwarder for RDS. It can be a local file, url or git repo<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `forwarder_rds_enabled` (`bool`) <i>optional</i>
+
+
+Flag to enable or disable Datadog RDS enhanced monitoring forwarder<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>false</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `forwarder_rds_filter_pattern` (`string`) <i>optional</i>
+
+
+Filter pattern for Lambda forwarder RDS<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>""</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `forwarder_rds_layers` (`list(string)`) <i>optional</i>
+
+
+List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog RDS enhanced monitoring lambda function<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>[]</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `forwarder_vpc_logs_artifact_url` (`string`) <i>optional</i>
+
+
+The URL for the code of the Datadog forwarder for VPC Logs. It can be a local file, url or git repo<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `forwarder_vpc_logs_enabled` (`bool`) <i>optional</i>
+
+
+Flag to enable or disable Datadog VPC flow log forwarder<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>false</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `forwarder_vpc_logs_layers` (`list(string)`) <i>optional</i>
+
+
+List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog VPC flow log forwarder lambda function<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>[]</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `forwarder_vpclogs_filter_pattern` (`string`) <i>optional</i>
+
+
+Filter pattern for Lambda forwarder VPC Logs<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>""</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `kms_key_id` (`string`) <i>optional</i>
+
+
+Optional KMS key ID to encrypt Datadog Lambda function logs<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `lambda_arn_enabled` (`bool`) <i>optional</i>
+
+
+Enable adding the Lambda Arn to this account integration<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>true</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `lambda_policy_source_json` (`string`) <i>optional</i>
+
+
+Additional IAM policy document that can optionally be passed and merged with the created policy document<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>""</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `lambda_reserved_concurrent_executions` (`number`) <i>optional</i>
+
+
+Amount of reserved concurrent executions for the lambda function. A value of 0 disables Lambda from being triggered and -1 removes any concurrency limitations. Defaults to Unreserved Concurrency Limits -1<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>-1</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `lambda_runtime` (`string`) <i>optional</i>
+
+
+Runtime environment for Datadog Lambda<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"python3.8"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `log_collection_services` (`list(string)`) <i>optional</i>
+
+
+List of log collection services to enable<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>
+>    ```hcl
+>>
+>    [
+>
+>      "apigw-access-logs",
+>
+>      "apigw-execution-logs",
+>
+>      "elbv2",
+>
+>      "elb",
+>
+>      "cloudfront",
+>
+>      "lambda",
+>
+>      "redshift",
+>
+>      "s3"
+>
+>    ]
+>
+>    ```
+>
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `s3_bucket_kms_arns` (`list(string)`) <i>optional</i>
+
+
+List of KMS key ARNs for s3 bucket encryption<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>[]</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `s3_buckets` (`list(string)`) <i>optional</i>
+
+
+The names of S3 buckets to forward logs to Datadog<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>[]</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `s3_buckets_with_prefixes` (`map(object({ bucket_name : string, bucket_prefix : string }))`) <i>optional</i>
+
+
+The names S3 buckets and prefix to forward logs to Datadog<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(object({ bucket_name : string, bucket_prefix : string }))</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>{}</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `security_group_ids` (`list(string)`) <i>optional</i>
+
+
+List of security group IDs to use when the Lambda Function runs in a VPC<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `subnet_ids` (`list(string)`) <i>optional</i>
+
+
+List of subnet IDs to use when deploying the Lambda Function in a VPC<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `tracing_config_mode` (`string`) <i>optional</i>
+
+
+Can be either PassThrough or Active. If PassThrough, Lambda will only trace the request from an upstream service if it contains a tracing header with 'sampled=1'. If Active, Lambda will respect any tracing header it receives from an upstream service<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>"PassThrough"</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `vpclogs_cloudwatch_log_group` (`string`) <i>optional</i>
+
+
+The name of the CloudWatch Log Group for VPC flow logs<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
 <details>
 <summary>Click to expand</summary>
-> ### `additional_tag_map` (`map(string)`) <i>optional</i>
->
->
-> Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
->
-> This is for some rare cases where resources want additional configuration of tags<br/>
->
-> and therefore take a list of maps with tag key, value, and additional configuration.<br/>
->
-> <br/>
->
->
+### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+This is for some rare cases where resources want additional configuration of tags<br/>
+and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -117,31 +1083,26 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `map(string)`
+>   <code>map(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `attributes` (`list(string)`) <i>optional</i>
->
->
-> ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
->
-> in the order they appear in the list. New attributes are appended to the<br/>
->
-> end of the list. The elements of the list are joined by the `delimiter`<br/>
->
-> and treated as a single ID element.<br/>
->
-> <br/>
->
->
+### `attributes` (`list(string)`) <i>optional</i>
+
+
+ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+in the order they appear in the list. New attributes are appended to the<br/>
+end of the list. The elements of the list are joined by the `delimiter`<br/>
+and treated as a single ID element.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -150,33 +1111,27 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `context` (`any`) <i>optional</i>
->
->
-> Single object for setting entire context at once.<br/>
->
-> See description of individual variables for details.<br/>
->
-> Leave string and numeric variables as `null` to use default value.<br/>
->
-> Individual variable settings (non-null) override settings in context object,<br/>
->
-> except for attributes, tags, and additional_tag_map, which are merged.<br/>
->
-> <br/>
->
->
+### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -185,11 +1140,12 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `any`
+>   <code>any</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
 >    
+>
 >    ```hcl
 >>
 >    {
@@ -235,6 +1191,7 @@ The following variables are defined in the `context.tf` file of this module and 
 >    }
 >
 >    ```
+>
 >    
 >   </dd>
 > </dl>
@@ -242,16 +1199,13 @@ The following variables are defined in the `context.tf` file of this module and 
 > </details>
 
 
-> ### `delimiter` (`string`) <i>optional</i>
->
->
-> Delimiter to be used between ID elements.<br/>
->
-> Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
->
-> <br/>
->
->
+### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between ID elements.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -260,47 +1214,34 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `descriptor_formats` (`any`) <i>optional</i>
->
->
-> Describe additional descriptors to be output in the `descriptors` output map.<br/>
->
-> Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
->
-> `{<br/>
->
->    format = string<br/>
->
->    labels = list(string)<br/>
->
-> }`<br/>
->
-> (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
->
-> `format` is a Terraform format string to be passed to the `format()` function.<br/>
->
-> `labels` is a list of labels, in order, to pass to `format()` function.<br/>
->
-> Label values will be normalized before being passed to `format()` so they will be<br/>
->
-> identical to how they appear in `id`.<br/>
->
-> Default is `{}` (`descriptors` output will be empty).<br/>
->
-> <br/>
->
->
+### `descriptor_formats` (`any`) <i>optional</i>
+
+
+Describe additional descriptors to be output in the `descriptors` output map.<br/>
+Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+`{<br/>
+   format = string<br/>
+   labels = list(string)<br/>
+}`<br/>
+(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+`format` is a Terraform format string to be passed to the `format()` function.<br/>
+`labels` is a list of labels, in order, to pass to `format()` function.<br/>
+Label values will be normalized before being passed to `format()` so they will be<br/>
+identical to how they appear in `id`.<br/>
+Default is `{}` (`descriptors` output will be empty).<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -309,23 +1250,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `any`
+>   <code>any</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `enabled` (`bool`) <i>optional</i>
->
->
-> Set to false to prevent the module from creating any resources<br/>
->
->
+### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -334,23 +1274,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `environment` (`string`) <i>optional</i>
->
->
-> ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
->
->
+### `environment` (`string`) <i>optional</i>
+
+
+ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -359,31 +1298,26 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `id_length_limit` (`number`) <i>optional</i>
->
->
-> Limit `id` to this many characters (minimum 6).<br/>
->
-> Set to `0` for unlimited length.<br/>
->
-> Set to `null` for keep the existing setting, which defaults to `0`.<br/>
->
-> Does not affect `id_full`.<br/>
->
-> <br/>
->
->
+### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -392,31 +1326,26 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `label_key_case` (`string`) <i>optional</i>
->
->
-> Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
->
-> Does not affect keys of tags passed in via the `tags` input.<br/>
->
-> Possible values: `lower`, `title`, `upper`.<br/>
->
-> Default value: `title`.<br/>
->
-> <br/>
->
->
+### `label_key_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+Does not affect keys of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -425,29 +1354,25 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `label_order` (`list(string)`) <i>optional</i>
->
->
-> The order in which the labels (ID elements) appear in the `id`.<br/>
->
-> Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
->
-> You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
->
-> <br/>
->
->
+### `label_order` (`list(string)`) <i>optional</i>
+
+
+The order in which the labels (ID elements) appear in the `id`.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -456,35 +1381,28 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `label_value_case` (`string`) <i>optional</i>
->
->
-> Controls the letter case of ID elements (labels) as included in `id`,<br/>
->
-> set as tag values, and output by this module individually.<br/>
->
-> Does not affect values of tags passed in via the `tags` input.<br/>
->
-> Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
->
-> Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
->
-> Default value: `lower`.<br/>
->
-> <br/>
->
->
+### `label_value_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of ID elements (labels) as included in `id`,<br/>
+set as tag values, and output by this module individually.<br/>
+Does not affect values of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+Default value: `lower`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -493,39 +1411,30 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `labels_as_tags` (`set(string)`) <i>optional</i>
->
->
-> Set of labels (ID elements) to include as tags in the `tags` output.<br/>
->
-> Default is to include all labels.<br/>
->
-> Tags with empty values will not be included in the `tags` output.<br/>
->
-> Set to `[]` to suppress all generated tags.<br/>
->
-> **Notes:**<br/>
->
->   The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
->
->   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
->
->   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
->
-> <br/>
->
->
+### `labels_as_tags` (`set(string)`) <i>optional</i>
+
+
+Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+Default is to include all labels.<br/>
+Tags with empty values will not be included in the `tags` output.<br/>
+Set to `[]` to suppress all generated tags.<br/>
+**Notes:**<br/>
+  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -534,11 +1443,12 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `set(string)`
+>   <code>set(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
 >    
+>
 >    ```hcl
 >>
 >    [
@@ -548,6 +1458,7 @@ The following variables are defined in the `context.tf` file of this module and 
 >    ]
 >
 >    ```
+>
 >    
 >   </dd>
 > </dl>
@@ -555,18 +1466,14 @@ The following variables are defined in the `context.tf` file of this module and 
 > </details>
 
 
-> ### `name` (`string`) <i>optional</i>
->
->
-> ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
->
-> This is the only ID element not also included as a `tag`.<br/>
->
-> The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
->
-> <br/>
->
->
+### `name` (`string`) <i>optional</i>
+
+
+ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+This is the only ID element not also included as a `tag`.<br/>
+The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -575,23 +1482,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `namespace` (`string`) <i>optional</i>
->
->
-> ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
->
->
+### `namespace` (`string`) <i>optional</i>
+
+
+ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -600,29 +1506,25 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `regex_replace_chars` (`string`) <i>optional</i>
->
->
-> Terraform regular expression (regex) string.<br/>
->
-> Characters matching the regex will be removed from the ID elements.<br/>
->
-> If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
->
-> <br/>
->
->
+### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Terraform regular expression (regex) string.<br/>
+Characters matching the regex will be removed from the ID elements.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -631,23 +1533,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `stage` (`string`) <i>optional</i>
->
->
-> ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
->
->
+### `stage` (`string`) <i>optional</i>
+
+
+ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -656,27 +1557,24 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `tags` (`map(string)`) <i>optional</i>
->
->
-> Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
->
-> Neither the tag keys nor the tag values will be modified by this module.<br/>
->
-> <br/>
->
->
+### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+Neither the tag keys nor the tag values will be modified by this module.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -685,23 +1583,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `map(string)`
+>   <code>map(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `tenant` (`string`) <i>optional</i>
->
->
-> ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
->
->
+### `tenant` (`string`) <i>optional</i>
+
+
+ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -710,11 +1607,11 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -724,1052 +1621,38 @@ The following variables are defined in the `context.tf` file of this module and 
 
 </details>
 
-### Required Variables
-> ### `region` (`string`) <i>required</i>
->
->
-> AWS Region<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>Yes</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    ``
->   </dd>
-> </dl>
->
-> </details>
-
-
-
-### Optional Variables
-> ### `cloudwatch_forwarder_event_patterns` <i>optional</i>
->
->
-> Map of title => CloudWatch Event patterns to forward to Datadog. Event structure from here: <https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html#CloudWatchEventsPatterns><br/>
->
-> Example:<br/>
->
-> ```hcl<br/>
->
-> cloudwatch_forwarder_event_rules = {<br/>
->
->   "guardduty" = {<br/>
->
->     source = ["aws.guardduty"]<br/>
->
->     detail-type = ["GuardDuty Finding"]<br/>
->
->   }<br/>
->
->   "ec2-terminated" = {<br/>
->
->     source = ["aws.ec2"]<br/>
->
->     detail-type = ["EC2 Instance State-change Notification"]<br/>
->
->     detail = {<br/>
->
->       state = ["terminated"]<br/>
->
->     }<br/>
->
->   }<br/>
->
-> }<br/>
->
-> ```<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   
->
->   ```hcl
->   map(object({
-    version     = optional(list(string))
-    id          = optional(list(string))
-    detail-type = optional(list(string))
-    source      = optional(list(string))
-    account     = optional(list(string))
-    time        = optional(list(string))
-    region      = optional(list(string))
-    resources   = optional(list(string))
-    detail      = optional(map(list(string)))
-  }))
->   ```
->   
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `{}`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `cloudwatch_forwarder_log_groups` (`map(map(string))`) <i>optional</i>
->
->
->     Map of CloudWatch Log Groups with a filter pattern that the Lambda forwarder will send logs from. For example: { mysql1 = { name = "/aws/rds/maincluster", filter_pattern = "" }<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `map(map(string))`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `{}`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `context_tags` (`set(string)`) <i>optional</i>
->
->
-> List of context tags to add to each monitor<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `set(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    
->    ```hcl
->>
->    [
->
->      "namespace",
->
->      "tenant",
->
->      "environment",
->
->      "stage"
->
->    ]
->
->    ```
->    
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `context_tags_enabled` (`bool`) <i>optional</i>
->
->
-> Whether to add context tags to add to each monitor<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `true`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `datadog_forwarder_lambda_environment_variables` (`map(string)`) <i>optional</i>
->
->
-> Map of environment variables to pass to the Lambda Function<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `map(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `{}`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `dd_api_key_kms_ciphertext_blob` (`string`) <i>optional</i>
->
->
-> CiphertextBlob stored in environment variable DD_KMS_API_KEY used by the lambda function, along with the KMS key, to decrypt Datadog API key<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `""`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `dd_artifact_filename` (`string`) <i>optional</i>
->
->
-> The Datadog artifact filename minus extension<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"aws-dd-forwarder"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `dd_forwarder_version` (`string`) <i>optional</i>
->
->
-> Version tag of Datadog lambdas to use. https://github.com/DataDog/datadog-serverless-functions/releases<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"3.66.0"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `dd_module_name` (`string`) <i>optional</i>
->
->
-> The Datadog GitHub repository name<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"datadog-serverless-functions"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `dd_tags_map` (`map(string)`) <i>optional</i>
->
->
-> A map of Datadog tags to apply to all logs forwarded to Datadog<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `map(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `{}`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `forwarder_lambda_debug_enabled` (`bool`) <i>optional</i>
->
->
-> Whether to enable or disable debug for the Lambda forwarder<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `false`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `forwarder_log_artifact_url` (`string`) <i>optional</i>
->
->
-> The URL for the code of the Datadog forwarder for Logs. It can be a local file, URL or git repo<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `forwarder_log_enabled` (`bool`) <i>optional</i>
->
->
-> Flag to enable or disable Datadog log forwarder<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `false`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `forwarder_log_layers` (`list(string)`) <i>optional</i>
->
->
-> List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog log forwarder lambda function<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `[]`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `forwarder_log_retention_days` (`number`) <i>optional</i>
->
->
-> Number of days to retain Datadog forwarder lambda execution logs. One of [0 1 3 5 7 14 30 60 90 120 150 180 365 400 545 731 1827 3653]<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `number`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `14`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `forwarder_rds_artifact_url` (`string`) <i>optional</i>
->
->
-> The URL for the code of the Datadog forwarder for RDS. It can be a local file, url or git repo<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `forwarder_rds_enabled` (`bool`) <i>optional</i>
->
->
-> Flag to enable or disable Datadog RDS enhanced monitoring forwarder<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `false`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `forwarder_rds_filter_pattern` (`string`) <i>optional</i>
->
->
-> Filter pattern for Lambda forwarder RDS<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `""`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `forwarder_rds_layers` (`list(string)`) <i>optional</i>
->
->
-> List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog RDS enhanced monitoring lambda function<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `[]`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `forwarder_vpc_logs_artifact_url` (`string`) <i>optional</i>
->
->
-> The URL for the code of the Datadog forwarder for VPC Logs. It can be a local file, url or git repo<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `forwarder_vpc_logs_enabled` (`bool`) <i>optional</i>
->
->
-> Flag to enable or disable Datadog VPC flow log forwarder<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `false`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `forwarder_vpc_logs_layers` (`list(string)`) <i>optional</i>
->
->
-> List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog VPC flow log forwarder lambda function<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `[]`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `forwarder_vpclogs_filter_pattern` (`string`) <i>optional</i>
->
->
-> Filter pattern for Lambda forwarder VPC Logs<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `""`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `kms_key_id` (`string`) <i>optional</i>
->
->
-> Optional KMS key ID to encrypt Datadog Lambda function logs<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `lambda_arn_enabled` (`bool`) <i>optional</i>
->
->
-> Enable adding the Lambda Arn to this account integration<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `true`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `lambda_policy_source_json` (`string`) <i>optional</i>
->
->
-> Additional IAM policy document that can optionally be passed and merged with the created policy document<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `""`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `lambda_reserved_concurrent_executions` (`number`) <i>optional</i>
->
->
-> Amount of reserved concurrent executions for the lambda function. A value of 0 disables Lambda from being triggered and -1 removes any concurrency limitations. Defaults to Unreserved Concurrency Limits -1<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `number`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `-1`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `lambda_runtime` (`string`) <i>optional</i>
->
->
-> Runtime environment for Datadog Lambda<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"python3.8"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `log_collection_services` (`list(string)`) <i>optional</i>
->
->
-> List of log collection services to enable<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    
->    ```hcl
->>
->    [
->
->      "apigw-access-logs",
->
->      "apigw-execution-logs",
->
->      "elbv2",
->
->      "elb",
->
->      "cloudfront",
->
->      "lambda",
->
->      "redshift",
->
->      "s3"
->
->    ]
->
->    ```
->    
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `s3_bucket_kms_arns` (`list(string)`) <i>optional</i>
->
->
-> List of KMS key ARNs for s3 bucket encryption<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `[]`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `s3_buckets` (`list(string)`) <i>optional</i>
->
->
-> The names of S3 buckets to forward logs to Datadog<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `[]`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `s3_buckets_with_prefixes` (`map(object({ bucket_name : string, bucket_prefix : string }))`) <i>optional</i>
->
->
-> The names S3 buckets and prefix to forward logs to Datadog<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `map(object({ bucket_name : string, bucket_prefix : string }))`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `{}`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `security_group_ids` (`list(string)`) <i>optional</i>
->
->
-> List of security group IDs to use when the Lambda Function runs in a VPC<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `subnet_ids` (`list(string)`) <i>optional</i>
->
->
-> List of subnet IDs to use when deploying the Lambda Function in a VPC<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `tracing_config_mode` (`string`) <i>optional</i>
->
->
-> Can be either PassThrough or Active. If PassThrough, Lambda will only trace the request from an upstream service if it contains a tracing header with 'sampled=1'. If Active, Lambda will respect any tracing header it receives from an upstream service<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `"PassThrough"`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `vpclogs_cloudwatch_log_group` (`string`) <i>optional</i>
->
->
-> The name of the CloudWatch Log Group for VPC flow logs<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-
 ### Outputs
 
 <dl>
   <dt><code>lambda_forwarder_log_function_arn</code></dt>
   <dd>
     Datadog Lambda forwarder CloudWatch/S3 function ARN<br/>
+
   </dd>
   <dt><code>lambda_forwarder_log_function_name</code></dt>
   <dd>
     Datadog Lambda forwarder CloudWatch/S3 function name<br/>
+
   </dd>
   <dt><code>lambda_forwarder_rds_enhanced_monitoring_function_name</code></dt>
   <dd>
     Datadog Lambda forwarder RDS Enhanced Monitoring function name<br/>
+
   </dd>
   <dt><code>lambda_forwarder_rds_function_arn</code></dt>
   <dd>
     Datadog Lambda forwarder RDS Enhanced Monitoring function ARN<br/>
+
   </dd>
   <dt><code>lambda_forwarder_vpc_log_function_arn</code></dt>
   <dd>
     Datadog Lambda forwarder VPC Flow Logs function ARN<br/>
+
   </dd>
   <dt><code>lambda_forwarder_vpc_log_function_name</code></dt>
   <dd>
     Datadog Lambda forwarder VPC Flow Logs function name<br/>
+
   </dd>
 </dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

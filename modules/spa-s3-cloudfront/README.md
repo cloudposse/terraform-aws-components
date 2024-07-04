@@ -187,646 +187,12 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.github_actions_iam_policy`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_s3_bucket.failover_bucket`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_bucket) (data source)
 
-### Context Variables
-
-The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
-
-<details>
-<summary>Click to expand</summary>
-> ### `additional_tag_map` (`map(string)`) <i>optional</i>
->
->
-> Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
->
-> This is for some rare cases where resources want additional configuration of tags<br/>
->
-> and therefore take a list of maps with tag key, value, and additional configuration.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `map(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `{}`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `attributes` (`list(string)`) <i>optional</i>
->
->
-> ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
->
-> in the order they appear in the list. New attributes are appended to the<br/>
->
-> end of the list. The elements of the list are joined by the `delimiter`<br/>
->
-> and treated as a single ID element.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `[]`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `context` (`any`) <i>optional</i>
->
->
-> Single object for setting entire context at once.<br/>
->
-> See description of individual variables for details.<br/>
->
-> Leave string and numeric variables as `null` to use default value.<br/>
->
-> Individual variable settings (non-null) override settings in context object,<br/>
->
-> except for attributes, tags, and additional_tag_map, which are merged.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `any`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    
->    ```hcl
->>
->    {
->
->      "additional_tag_map": {},
->
->      "attributes": [],
->
->      "delimiter": null,
->
->      "descriptor_formats": {},
->
->      "enabled": true,
->
->      "environment": null,
->
->      "id_length_limit": null,
->
->      "label_key_case": null,
->
->      "label_order": [],
->
->      "label_value_case": null,
->
->      "labels_as_tags": [
->
->        "unset"
->
->      ],
->
->      "name": null,
->
->      "namespace": null,
->
->      "regex_replace_chars": null,
->
->      "stage": null,
->
->      "tags": {},
->
->      "tenant": null
->
->    }
->
->    ```
->    
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `delimiter` (`string`) <i>optional</i>
->
->
-> Delimiter to be used between ID elements.<br/>
->
-> Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `descriptor_formats` (`any`) <i>optional</i>
->
->
-> Describe additional descriptors to be output in the `descriptors` output map.<br/>
->
-> Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
->
-> `{<br/>
->
->    format = string<br/>
->
->    labels = list(string)<br/>
->
-> }`<br/>
->
-> (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
->
-> `format` is a Terraform format string to be passed to the `format()` function.<br/>
->
-> `labels` is a list of labels, in order, to pass to `format()` function.<br/>
->
-> Label values will be normalized before being passed to `format()` so they will be<br/>
->
-> identical to how they appear in `id`.<br/>
->
-> Default is `{}` (`descriptors` output will be empty).<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `any`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `{}`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `enabled` (`bool`) <i>optional</i>
->
->
-> Set to false to prevent the module from creating any resources<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `bool`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `environment` (`string`) <i>optional</i>
->
->
-> ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `id_length_limit` (`number`) <i>optional</i>
->
->
-> Limit `id` to this many characters (minimum 6).<br/>
->
-> Set to `0` for unlimited length.<br/>
->
-> Set to `null` for keep the existing setting, which defaults to `0`.<br/>
->
-> Does not affect `id_full`.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `number`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `label_key_case` (`string`) <i>optional</i>
->
->
-> Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
->
-> Does not affect keys of tags passed in via the `tags` input.<br/>
->
-> Possible values: `lower`, `title`, `upper`.<br/>
->
-> Default value: `title`.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `label_order` (`list(string)`) <i>optional</i>
->
->
-> The order in which the labels (ID elements) appear in the `id`.<br/>
->
-> Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
->
-> You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `list(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `label_value_case` (`string`) <i>optional</i>
->
->
-> Controls the letter case of ID elements (labels) as included in `id`,<br/>
->
-> set as tag values, and output by this module individually.<br/>
->
-> Does not affect values of tags passed in via the `tags` input.<br/>
->
-> Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
->
-> Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
->
-> Default value: `lower`.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `labels_as_tags` (`set(string)`) <i>optional</i>
->
->
-> Set of labels (ID elements) to include as tags in the `tags` output.<br/>
->
-> Default is to include all labels.<br/>
->
-> Tags with empty values will not be included in the `tags` output.<br/>
->
-> Set to `[]` to suppress all generated tags.<br/>
->
-> **Notes:**<br/>
->
->   The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
->
->   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
->
->   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `set(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    
->    ```hcl
->>
->    [
->
->      "default"
->
->    ]
->
->    ```
->    
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `name` (`string`) <i>optional</i>
->
->
-> ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
->
-> This is the only ID element not also included as a `tag`.<br/>
->
-> The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `namespace` (`string`) <i>optional</i>
->
->
-> ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `regex_replace_chars` (`string`) <i>optional</i>
->
->
-> Terraform regular expression (regex) string.<br/>
->
-> Characters matching the regex will be removed from the ID elements.<br/>
->
-> If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `stage` (`string`) <i>optional</i>
->
->
-> ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `tags` (`map(string)`) <i>optional</i>
->
->
-> Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
->
-> Neither the tag keys nor the tag values will be modified by this module.<br/>
->
-> <br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `map(string)`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `{}`
->   </dd>
-> </dl>
->
-> </details>
-
-
-> ### `tenant` (`string`) <i>optional</i>
->
->
-> ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
->
->
-> <details>
-> <summary>Click to expand</summary>
->
-> <dl>
->   <dt>Required</dt>
->   <dd>No</dd>
->   <dt>Type</dt>
->   <dd>
->   `string`
->  </dd>
->  <dt>Default value</dt>
->  <dd>
->    `null`
->   </dd>
-> </dl>
->
-> </details>
-
-
-
-</details>
-
 ### Required Variables
-> ### `region` (`string`) <i>required</i>
->
->
-> AWS Region.<br/>
->
->
+### `region` (`string`) <i>required</i>
+
+
+AWS Region.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -835,11 +201,11 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>Yes</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    ``
+>    <code></code>
 >   </dd>
 > </dl>
 >
@@ -848,12 +214,11 @@ The following variables are defined in the `context.tf` file of this module and 
 
 
 ### Optional Variables
-> ### `block_origin_public_access_enabled` (`bool`) <i>optional</i>
->
->
-> When set to 'true' the s3 origin bucket will have public access block enabled.<br/>
->
->
+### `block_origin_public_access_enabled` (`bool`) <i>optional</i>
+
+
+When set to 'true' the s3 origin bucket will have public access block enabled.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -862,27 +227,24 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `true`
+>    <code>true</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_access_log_bucket_name` (`string`) <i>optional</i>
->
->
-> When `cloudfront_access_log_create_bucket` is `false`, this is the name of the existing S3 Bucket where<br/>
->
-> CloudFront Access Logs are to be delivered and is required. IGNORED when `cloudfront_access_log_create_bucket` is `true`.<br/>
->
-> <br/>
->
->
+### `cloudfront_access_log_bucket_name` (`string`) <i>optional</i>
+
+
+When `cloudfront_access_log_create_bucket` is `false`, this is the name of the existing S3 Bucket where<br/>
+CloudFront Access Logs are to be delivered and is required. IGNORED when `cloudfront_access_log_create_bucket` is `true`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -891,33 +253,27 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `""`
+>    <code>""</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_access_log_bucket_name_rendering_enabled` (`bool`) <i>optional</i>
->
->
-> If set to `true`, then the CloudFront origin access logs bucket name will be rendered by calling `format("%v-%v-%v-%v", var.namespace, var.environment, var.stage, var.cloudfront_access_log_bucket_name)`.<br/>
->
-> Otherwise, the value for `cloudfront_access_log_bucket_name` will need to be the globally unique name of the access logs bucket.<br/>
->
-> <br/>
->
-> For example, if this component produces an origin bucket named `eg-ue1-devplatform-example` and `cloudfront_access_log_bucket_name` is set to<br/>
->
-> `example-cloudfront-access-logs`, then the bucket name will be rendered to be `eg-ue1-devplatform-example-cloudfront-access-logs`.<br/>
->
-> <br/>
->
->
+### `cloudfront_access_log_bucket_name_rendering_enabled` (`bool`) <i>optional</i>
+
+
+If set to `true`, then the CloudFront origin access logs bucket name will be rendered by calling `format("%v-%v-%v-%v", var.namespace, var.environment, var.stage, var.cloudfront_access_log_bucket_name)`.<br/>
+Otherwise, the value for `cloudfront_access_log_bucket_name` will need to be the globally unique name of the access logs bucket.<br/>
+<br/>
+For example, if this component produces an origin bucket named `eg-ue1-devplatform-example` and `cloudfront_access_log_bucket_name` is set to<br/>
+`example-cloudfront-access-logs`, then the bucket name will be rendered to be `eg-ue1-devplatform-example-cloudfront-access-logs`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -926,27 +282,24 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_access_log_create_bucket` (`bool`) <i>optional</i>
->
->
-> When `true` and `cloudfront_access_logging_enabled` is also true, this module will create a new,<br/>
->
-> separate S3 bucket to receive CloudFront Access Logs.<br/>
->
-> <br/>
->
->
+### `cloudfront_access_log_create_bucket` (`bool`) <i>optional</i>
+
+
+When `true` and `cloudfront_access_logging_enabled` is also true, this module will create a new,<br/>
+separate S3 bucket to receive CloudFront Access Logs.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -955,23 +308,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `true`
+>    <code>true</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_access_log_prefix` (`string`) <i>optional</i>
->
->
-> Prefix to use for CloudFront Access Log object keys. Defaults to no prefix.<br/>
->
->
+### `cloudfront_access_log_prefix` (`string`) <i>optional</i>
+
+
+Prefix to use for CloudFront Access Log object keys. Defaults to no prefix.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -980,23 +332,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `""`
+>    <code>""</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_access_log_prefix_rendering_enabled` (`bool`) <i>optional</i>
->
->
-> Whether or not to dynamically render ${module.this.id} at the end of `var.cloudfront_access_log_prefix`.<br/>
->
->
+### `cloudfront_access_log_prefix_rendering_enabled` (`bool`) <i>optional</i>
+
+
+Whether or not to dynamically render ${module.this.id} at the end of `var.cloudfront_access_log_prefix`.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1005,23 +356,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_allowed_methods` (`list(string)`) <i>optional</i>
->
->
-> List of allowed methods (e.g. GET, PUT, POST, DELETE, HEAD) for AWS CloudFront.<br/>
->
->
+### `cloudfront_allowed_methods` (`list(string)`) <i>optional</i>
+
+
+List of allowed methods (e.g. GET, PUT, POST, DELETE, HEAD) for AWS CloudFront.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1030,11 +380,12 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
 >    
+>
 >    ```hcl
 >>
 >    [
@@ -1056,6 +407,7 @@ The following variables are defined in the `context.tf` file of this module and 
 >    ]
 >
 >    ```
+>
 >    
 >   </dd>
 > </dl>
@@ -1063,12 +415,11 @@ The following variables are defined in the `context.tf` file of this module and 
 > </details>
 
 
-> ### `cloudfront_aws_shield_protection_enabled` (`bool`) <i>optional</i>
->
->
-> Enable or disable AWS Shield Advanced protection for the CloudFront distribution. If set to 'true', a subscription to AWS Shield Advanced must exist in this account.<br/>
->
->
+### `cloudfront_aws_shield_protection_enabled` (`bool`) <i>optional</i>
+
+
+Enable or disable AWS Shield Advanced protection for the CloudFront distribution. If set to 'true', a subscription to AWS Shield Advanced must exist in this account.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1077,23 +428,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_aws_waf_component_name` (`string`) <i>optional</i>
->
->
-> The name of the component used when deploying WAF ACL<br/>
->
->
+### `cloudfront_aws_waf_component_name` (`string`) <i>optional</i>
+
+
+The name of the component used when deploying WAF ACL<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1102,23 +452,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"waf"`
+>    <code>"waf"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_aws_waf_environment` (`string`) <i>optional</i>
->
->
-> The environment where the WAF ACL for CloudFront distribution exists.<br/>
->
->
+### `cloudfront_aws_waf_environment` (`string`) <i>optional</i>
+
+
+The environment where the WAF ACL for CloudFront distribution exists.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1127,31 +476,26 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_aws_waf_protection_enabled` (`bool`) <i>optional</i>
->
->
-> Enable or disable AWS WAF for the CloudFront distribution.<br/>
->
-> <br/>
->
-> This assumes that the `aws-waf-acl-default-cloudfront` component has been deployed to the regional stack corresponding<br/>
->
-> to `var.waf_acl_environment`.<br/>
->
-> <br/>
->
->
+### `cloudfront_aws_waf_protection_enabled` (`bool`) <i>optional</i>
+
+
+Enable or disable AWS WAF for the CloudFront distribution.<br/>
+<br/>
+This assumes that the `aws-waf-acl-default-cloudfront` component has been deployed to the regional stack corresponding<br/>
+to `var.waf_acl_environment`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1160,23 +504,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `true`
+>    <code>true</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_cached_methods` (`list(string)`) <i>optional</i>
->
->
-> List of cached methods (e.g. GET, PUT, POST, DELETE, HEAD).<br/>
->
->
+### `cloudfront_cached_methods` (`list(string)`) <i>optional</i>
+
+
+List of cached methods (e.g. GET, PUT, POST, DELETE, HEAD).<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1185,11 +528,12 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
 >    
+>
 >    ```hcl
 >>
 >    [
@@ -1201,6 +545,7 @@ The following variables are defined in the `context.tf` file of this module and 
 >    ]
 >
 >    ```
+>
 >    
 >   </dd>
 > </dl>
@@ -1208,12 +553,11 @@ The following variables are defined in the `context.tf` file of this module and 
 > </details>
 
 
-> ### `cloudfront_compress` (`bool`) <i>optional</i>
->
->
-> Compress content for web requests that include Accept-Encoding: gzip in the request header.<br/>
->
->
+### `cloudfront_compress` (`bool`) <i>optional</i>
+
+
+Compress content for web requests that include Accept-Encoding: gzip in the request header.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1222,23 +566,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_custom_error_response` <i>optional</i>
->
->
-> List of one or more custom error response element maps.<br/>
->
->
+### `cloudfront_custom_error_response` <i>optional</i>
+
+
+List of one or more custom error response element maps.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1257,23 +600,23 @@ The following variables are defined in the `context.tf` file of this module and 
     response_page_path    = string
   }))
 >   ```
+>
 >   
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_default_root_object` (`string`) <i>optional</i>
->
->
-> Object that CloudFront return when requests the root URL.<br/>
->
->
+### `cloudfront_default_root_object` (`string`) <i>optional</i>
+
+
+Object that CloudFront return when requests the root URL.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1282,23 +625,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"index.html"`
+>    <code>"index.html"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_default_ttl` (`number`) <i>optional</i>
->
->
-> Default amount of time (in seconds) that an object is in a CloudFront cache.<br/>
->
->
+### `cloudfront_default_ttl` (`number`) <i>optional</i>
+
+
+Default amount of time (in seconds) that an object is in a CloudFront cache.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1307,23 +649,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `60`
+>    <code>60</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_index_document` (`string`) <i>optional</i>
->
->
-> Amazon S3 returns this index document when requests are made to the root domain or any of the subfolders.<br/>
->
->
+### `cloudfront_index_document` (`string`) <i>optional</i>
+
+
+Amazon S3 returns this index document when requests are made to the root domain or any of the subfolders.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1332,23 +673,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"index.html"`
+>    <code>"index.html"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_ipv6_enabled` (`bool`) <i>optional</i>
->
->
-> Set to true to enable an AAAA DNS record to be set as well as the A record.<br/>
->
->
+### `cloudfront_ipv6_enabled` (`bool`) <i>optional</i>
+
+
+Set to true to enable an AAAA DNS record to be set as well as the A record.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1357,23 +697,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `true`
+>    <code>true</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_lambda_function_association` <i>optional</i>
->
->
-> A config block that configures the CloudFront distribution with lambda@edge functions for specific events.<br/>
->
->
+### `cloudfront_lambda_function_association` <i>optional</i>
+
+
+A config block that configures the CloudFront distribution with lambda@edge functions for specific events.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1391,23 +730,23 @@ The following variables are defined in the `context.tf` file of this module and 
     lambda_arn   = string
   }))
 >   ```
+>
 >   
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_max_ttl` (`number`) <i>optional</i>
->
->
-> Maximum amount of time (in seconds) that an object is in a CloudFront cache.<br/>
->
->
+### `cloudfront_max_ttl` (`number`) <i>optional</i>
+
+
+Maximum amount of time (in seconds) that an object is in a CloudFront cache.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1416,23 +755,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `31536000`
+>    <code>31536000</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_min_ttl` (`number`) <i>optional</i>
->
->
-> Minimum amount of time that you want objects to stay in CloudFront caches.<br/>
->
->
+### `cloudfront_min_ttl` (`number`) <i>optional</i>
+
+
+Minimum amount of time that you want objects to stay in CloudFront caches.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1441,23 +779,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `number`
+>   <code>number</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `0`
+>    <code>0</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `cloudfront_viewer_protocol_policy` (`string`) <i>optional</i>
->
->
-> Limit the protocol users can use to access content. One of `allow-all`, `https-only`, or `redirect-to-https`.<br/>
->
->
+### `cloudfront_viewer_protocol_policy` (`string`) <i>optional</i>
+
+
+Limit the protocol users can use to access content. One of `allow-all`, `https-only`, or `redirect-to-https`.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1466,23 +803,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"redirect-to-https"`
+>    <code>"redirect-to-https"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `comment` (`string`) <i>optional</i>
->
->
-> Any comments you want to include about the distribution.<br/>
->
->
+### `comment` (`string`) <i>optional</i>
+
+
+Any comments you want to include about the distribution.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1491,25 +827,23 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"Managed by Terraform"`
+>    <code>"Managed by Terraform"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `custom_origins` <i>optional</i>
->
->
-> A list of additional custom website [origins](https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments) for this distribution.<br/>
->
-> <br/>
->
->
+### `custom_origins` <i>optional</i>
+
+
+A list of additional custom website [origins](https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments) for this distribution.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1539,23 +873,23 @@ The following variables are defined in the `context.tf` file of this module and 
     })
   }))
 >   ```
+>
 >   
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `dns_delegated_environment_name` (`string`) <i>optional</i>
->
->
-> The environment where `dns-delegated` component is deployed to<br/>
->
->
+### `dns_delegated_environment_name` (`string`) <i>optional</i>
+
+
+The environment where `dns-delegated` component is deployed to<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1564,33 +898,27 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"gbl"`
+>    <code>"gbl"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `external_aliases` (`list(string)`) <i>optional</i>
->
->
-> List of FQDN's - Used to set the Alternate Domain Names (CNAMEs) setting on CloudFront. No new Route53 records will be created for these.<br/>
->
-> <br/>
->
-> Setting `process_domain_validation_options` to true may cause the component to fail if an external_alias DNS zone is not controlled by Terraform.<br/>
->
-> <br/>
->
-> Setting `preview_environment_enabled` to `true` will cause this variable to be ignored.<br/>
->
-> <br/>
->
->
+### `external_aliases` (`list(string)`) <i>optional</i>
+
+
+List of FQDN's - Used to set the Alternate Domain Names (CNAMEs) setting on CloudFront. No new Route53 records will be created for these.<br/>
+<br/>
+Setting `process_domain_validation_options` to true may cause the component to fail if an external_alias DNS zone is not controlled by Terraform.<br/>
+<br/>
+Setting `preview_environment_enabled` to `true` will cause this variable to be ignored.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1599,23 +927,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `failover_criteria_status_codes` (`list(string)`) <i>optional</i>
->
->
-> List of HTTP Status Codes to use as the origin group failover criteria.<br/>
->
->
+### `failover_criteria_status_codes` (`list(string)`) <i>optional</i>
+
+
+List of HTTP Status Codes to use as the origin group failover criteria.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1624,11 +951,12 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
 >    
+>
 >    ```hcl
 >>
 >    [
@@ -1644,6 +972,7 @@ The following variables are defined in the `context.tf` file of this module and 
 >    ]
 >
 >    ```
+>
 >    
 >   </dd>
 > </dl>
@@ -1651,26 +980,18 @@ The following variables are defined in the `context.tf` file of this module and 
 > </details>
 
 
-> ### `failover_s3_origin_environment` (`string`) <i>optional</i>
->
->
-> The [fixed name](https://github.com/cloudposse/terraform-aws-utils/blob/399951e552483a4f4c1dc7fbe2675c443f3dbd83/main.tf#L10) of the AWS Region where the<br/>
->
-> failover S3 origin exists. Setting this variable will enable use of a failover S3 origin, but it is required for the<br/>
->
-> failover S3 origin to exist beforehand. This variable is used in conjunction with `var.failover_s3_origin_format` to<br/>
->
-> build out the name of the Failover S3 origin in the specified region.<br/>
->
-> <br/>
->
-> For example, if this component creates an origin of name `eg-ue1-devplatform-example` and this variable is set to `uw1`,<br/>
->
-> then it is expected that a bucket with the name `eg-uw1-devplatform-example-failover` exists in `us-west-1`.<br/>
->
-> <br/>
->
->
+### `failover_s3_origin_environment` (`string`) <i>optional</i>
+
+
+The [fixed name](https://github.com/cloudposse/terraform-aws-utils/blob/399951e552483a4f4c1dc7fbe2675c443f3dbd83/main.tf#L10) of the AWS Region where the<br/>
+failover S3 origin exists. Setting this variable will enable use of a failover S3 origin, but it is required for the<br/>
+failover S3 origin to exist beforehand. This variable is used in conjunction with `var.failover_s3_origin_format` to<br/>
+build out the name of the Failover S3 origin in the specified region.<br/>
+<br/>
+For example, if this component creates an origin of name `eg-ue1-devplatform-example` and this variable is set to `uw1`,<br/>
+then it is expected that a bucket with the name `eg-uw1-devplatform-example-failover` exists in `us-west-1`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1679,35 +1000,28 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `failover_s3_origin_format` (`string`) <i>optional</i>
->
->
-> If `var.failover_s3_origin_environment` is supplied, this is the format to use for the failover S3 origin bucket name when<br/>
->
-> building the name via `format([format], var.namespace, var.failover_s3_origin_environment, var.stage, var.name)`<br/>
->
-> and then looking it up via the `aws_s3_bucket` Data Source.<br/>
->
-> <br/>
->
-> For example, if this component creates an origin of name `eg-ue1-devplatform-example` and `var.failover_s3_origin_environment`<br/>
->
-> is set to `uw1`, then it is expected that a bucket with the name `eg-uw1-devplatform-example-failover` exists in `us-west-1`.<br/>
->
-> <br/>
->
->
+### `failover_s3_origin_format` (`string`) <i>optional</i>
+
+
+If `var.failover_s3_origin_environment` is supplied, this is the format to use for the failover S3 origin bucket name when<br/>
+building the name via `format([format], var.namespace, var.failover_s3_origin_environment, var.stage, var.name)`<br/>
+and then looking it up via the `aws_s3_bucket` Data Source.<br/>
+<br/>
+For example, if this component creates an origin of name `eg-ue1-devplatform-example` and `var.failover_s3_origin_environment`<br/>
+is set to `uw1`, then it is expected that a bucket with the name `eg-uw1-devplatform-example-failover` exists in `us-west-1`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1716,23 +1030,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"%v-%v-%v-%v-failover"`
+>    <code>"%v-%v-%v-%v-failover"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `forward_cookies` (`string`) <i>optional</i>
->
->
-> Specifies whether you want CloudFront to forward all or no cookies to the origin. Can be 'all' or 'none'<br/>
->
->
+### `forward_cookies` (`string`) <i>optional</i>
+
+
+Specifies whether you want CloudFront to forward all or no cookies to the origin. Can be 'all' or 'none'<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1741,23 +1054,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"none"`
+>    <code>"none"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `forward_header_values` (`list(string)`) <i>optional</i>
->
->
-> A list of whitelisted header values to forward to the origin (incompatible with `cache_policy_id`)<br/>
->
->
+### `forward_header_values` (`list(string)`) <i>optional</i>
+
+
+A list of whitelisted header values to forward to the origin (incompatible with `cache_policy_id`)<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1766,11 +1078,12 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
 >    
+>
 >    ```hcl
 >>
 >    [
@@ -1784,6 +1097,7 @@ The following variables are defined in the `context.tf` file of this module and 
 >    ]
 >
 >    ```
+>
 >    
 >   </dd>
 > </dl>
@@ -1791,18 +1105,14 @@ The following variables are defined in the `context.tf` file of this module and 
 > </details>
 
 
-> ### `github_actions_allowed_repos` (`list(string)`) <i>optional</i>
->
->
->   A list of the GitHub repositories that are allowed to assume this role from GitHub Actions. For example,<br/>
->
->   ["cloudposse/infra-live"]. Can contain "*" as wildcard.<br/>
->
->   If org part of repo name is omitted, "cloudposse" will be assumed.<br/>
->
-> <br/>
->
->
+### `github_actions_allowed_repos` (`list(string)`) <i>optional</i>
+
+
+  A list of the GitHub repositories that are allowed to assume this role from GitHub Actions. For example,<br/>
+  ["cloudposse/infra-live"]. Can contain "*" as wildcard.<br/>
+  If org part of repo name is omitted, "cloudposse" will be assumed.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1811,23 +1121,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `github_actions_iam_role_attributes` (`list(string)`) <i>optional</i>
->
->
-> Additional attributes to add to the role name<br/>
->
->
+### `github_actions_iam_role_attributes` (`list(string)`) <i>optional</i>
+
+
+Additional attributes to add to the role name<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1836,25 +1145,23 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `github_actions_iam_role_enabled` (`bool`) <i>optional</i>
->
->
-> Flag to toggle creation of an IAM Role that GitHub Actions can assume to access AWS resources<br/>
->
-> <br/>
->
->
+### `github_actions_iam_role_enabled` (`bool`) <i>optional</i>
+
+
+Flag to toggle creation of an IAM Role that GitHub Actions can assume to access AWS resources<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1863,23 +1170,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `github_runners_component_name` (`string`) <i>optional</i>
->
->
-> The name of the component that deploys GitHub Runners, used in remote-state lookup<br/>
->
->
+### `github_runners_component_name` (`string`) <i>optional</i>
+
+
+The name of the component that deploys GitHub Runners, used in remote-state lookup<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1888,23 +1194,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"github-runners"`
+>    <code>"github-runners"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `github_runners_deployment_principal_arn_enabled` (`bool`) <i>optional</i>
->
->
-> A flag that is used to decide whether or not to include the GitHub Runner's IAM role in origin_deployment_principal_arns list<br/>
->
->
+### `github_runners_deployment_principal_arn_enabled` (`bool`) <i>optional</i>
+
+
+A flag that is used to decide whether or not to include the GitHub Runner's IAM role in origin_deployment_principal_arns list<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1913,23 +1218,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `true`
+>    <code>true</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `github_runners_environment_name` (`string`) <i>optional</i>
->
->
-> The name of the environment where the CloudTrail bucket is provisioned<br/>
->
->
+### `github_runners_environment_name` (`string`) <i>optional</i>
+
+
+The name of the environment where the CloudTrail bucket is provisioned<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1938,23 +1242,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"ue2"`
+>    <code>"ue2"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `github_runners_stage_name` (`string`) <i>optional</i>
->
->
-> The stage name where the CloudTrail bucket is provisioned<br/>
->
->
+### `github_runners_stage_name` (`string`) <i>optional</i>
+
+
+The stage name where the CloudTrail bucket is provisioned<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1963,23 +1266,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"auto"`
+>    <code>"auto"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `github_runners_tenant_name` (`string`) <i>optional</i>
->
->
-> The tenant name where the GitHub Runners are provisioned<br/>
->
->
+### `github_runners_tenant_name` (`string`) <i>optional</i>
+
+
+The tenant name where the GitHub Runners are provisioned<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -1988,23 +1290,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `http_version` (`string`) <i>optional</i>
->
->
-> The maximum HTTP version to support on the distribution. Allowed values are http1.1, http2, http2and3 and http3<br/>
->
->
+### `http_version` (`string`) <i>optional</i>
+
+
+The maximum HTTP version to support on the distribution. Allowed values are http1.1, http2, http2and3 and http3<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2013,23 +1314,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"http2"`
+>    <code>"http2"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `lambda_edge_allowed_ssm_parameters` (`list(string)`) <i>optional</i>
->
->
-> The Lambda@Edge functions will be allowed to access the list of AWS SSM parameter with these ARNs<br/>
->
->
+### `lambda_edge_allowed_ssm_parameters` (`list(string)`) <i>optional</i>
+
+
+The Lambda@Edge functions will be allowed to access the list of AWS SSM parameter with these ARNs<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2038,47 +1338,34 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `lambda_edge_destruction_delay` (`string`) <i>optional</i>
->
->
-> The delay, in [Golang ParseDuration](https://pkg.go.dev/time#ParseDuration) format, to wait before destroying the Lambda@Edge<br/>
->
-> functions.<br/>
->
-> <br/>
->
-> This delay is meant to circumvent Lambda@Edge functions not being immediately deletable following their dissociation from<br/>
->
-> a CloudFront distribution, since they are replicated to CloudFront Edge servers around the world.<br/>
->
-> <br/>
->
-> If set to `null`, no delay will be introduced.<br/>
->
-> <br/>
->
-> By default, the delay is 20 minutes. This is because it takes about 3 minutes to destroy a CloudFront distribution, and<br/>
->
-> around 15 minutes until the Lambda@Edge function is available for deletion, in most cases.<br/>
->
-> <br/>
->
-> For more information, see: https://github.com/hashicorp/terraform-provider-aws/issues/1721.<br/>
->
-> <br/>
->
->
+### `lambda_edge_destruction_delay` (`string`) <i>optional</i>
+
+
+The delay, in [Golang ParseDuration](https://pkg.go.dev/time#ParseDuration) format, to wait before destroying the Lambda@Edge<br/>
+functions.<br/>
+<br/>
+This delay is meant to circumvent Lambda@Edge functions not being immediately deletable following their dissociation from<br/>
+a CloudFront distribution, since they are replicated to CloudFront Edge servers around the world.<br/>
+<br/>
+If set to `null`, no delay will be introduced.<br/>
+<br/>
+By default, the delay is 20 minutes. This is because it takes about 3 minutes to destroy a CloudFront distribution, and<br/>
+around 15 minutes until the Lambda@Edge function is available for deletion, in most cases.<br/>
+<br/>
+For more information, see: https://github.com/hashicorp/terraform-provider-aws/issues/1721.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2087,33 +1374,27 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"20m"`
+>    <code>"20m"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `lambda_edge_functions` <i>optional</i>
->
->
-> Lambda@Edge functions to create.<br/>
->
-> <br/>
->
-> The key of this map is the name of the Lambda@Edge function.<br/>
->
-> <br/>
->
-> This map will be deep merged with each enabled default function. Use deep merge to change or overwrite specific values passed by those function objects.<br/>
->
-> <br/>
->
->
+### `lambda_edge_functions` <i>optional</i>
+
+
+Lambda@Edge functions to create.<br/>
+<br/>
+The key of this map is the name of the Lambda@Edge function.<br/>
+<br/>
+This map will be deep merged with each enabled default function. Use deep merge to change or overwrite specific values passed by those function objects.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2138,29 +1419,26 @@ The following variables are defined in the `context.tf` file of this module and 
     include_body = bool
   }))
 >   ```
+>
 >   
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `{}`
+>    <code>{}</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `lambda_edge_handler` (`string`) <i>optional</i>
->
->
-> The default Lambda@Edge handler for all functions.<br/>
->
-> <br/>
->
-> This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edge_functions` and can be overwritten for any individual function.<br/>
->
-> <br/>
->
->
+### `lambda_edge_handler` (`string`) <i>optional</i>
+
+
+The default Lambda@Edge handler for all functions.<br/>
+<br/>
+This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edge_functions` and can be overwritten for any individual function.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2169,29 +1447,25 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"index.handler"`
+>    <code>"index.handler"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `lambda_edge_runtime` (`string`) <i>optional</i>
->
->
-> The default Lambda@Edge runtime for all functions.<br/>
->
-> <br/>
->
-> This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edge_functions` and can be overwritten for any individual function.<br/>
->
-> <br/>
->
->
+### `lambda_edge_runtime` (`string`) <i>optional</i>
+
+
+The default Lambda@Edge runtime for all functions.<br/>
+<br/>
+This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edge_functions` and can be overwritten for any individual function.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2200,33 +1474,27 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"nodejs16.x"`
+>    <code>"nodejs16.x"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `ordered_cache` <i>optional</i>
->
->
-> An ordered list of [cache behaviors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#cache-behavior-arguments) resource for this distribution.<br/>
->
-> List in order of precedence (first match wins). This is in addition to the default cache policy.<br/>
->
-> Set `target_origin_id` to `""` to specify the S3 bucket origin created by this module.<br/>
->
-> Set `cache_policy_id` to `""` to use `cache_policy_name` for creating a new policy. At least one of the two must be set.<br/>
->
-> Set `origin_request_policy_id` to `""` to use `origin_request_policy_name` for creating a new policy. At least one of the two must be set.<br/>
->
-> <br/>
->
->
+### `ordered_cache` <i>optional</i>
+
+
+An ordered list of [cache behaviors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#cache-behavior-arguments) resource for this distribution.<br/>
+List in order of precedence (first match wins). This is in addition to the default cache policy.<br/>
+Set `target_origin_id` to `""` to specify the S3 bucket origin created by this module.<br/>
+Set `cache_policy_id` to `""` to use `cache_policy_name` for creating a new policy. At least one of the two must be set.<br/>
+Set `origin_request_policy_id` to `""` to use `origin_request_policy_name` for creating a new policy. At least one of the two must be set.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2276,23 +1544,23 @@ The following variables are defined in the `context.tf` file of this module and 
     }))
   }))
 >   ```
+>
 >   
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `origin_allow_ssl_requests_only` (`bool`) <i>optional</i>
->
->
-> Set to `true` in order to have the origin bucket require requests to use Secure Socket Layer (HTTPS/SSL). This will explicitly deny access to HTTP requests<br/>
->
->
+### `origin_allow_ssl_requests_only` (`bool`) <i>optional</i>
+
+
+Set to `true` in order to have the origin bucket require requests to use Secure Socket Layer (HTTPS/SSL). This will explicitly deny access to HTTP requests<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2301,23 +1569,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `true`
+>    <code>true</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `origin_deployment_actions` (`list(string)`) <i>optional</i>
->
->
-> List of actions to permit `origin_deployment_principal_arns` to perform on bucket and bucket prefixes (see `origin_deployment_principal_arns`)<br/>
->
->
+### `origin_deployment_actions` (`list(string)`) <i>optional</i>
+
+
+List of actions to permit `origin_deployment_principal_arns` to perform on bucket and bucket prefixes (see `origin_deployment_principal_arns`)<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2326,11 +1593,12 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
 >    
+>
 >    ```hcl
 >>
 >    [
@@ -2354,6 +1622,7 @@ The following variables are defined in the `context.tf` file of this module and 
 >    ]
 >
 >    ```
+>
 >    
 >   </dd>
 > </dl>
@@ -2361,12 +1630,11 @@ The following variables are defined in the `context.tf` file of this module and 
 > </details>
 
 
-> ### `origin_deployment_principal_arns` (`list(string)`) <i>optional</i>
->
->
-> List of role ARNs to grant deployment permissions to the origin Bucket.<br/>
->
->
+### `origin_deployment_principal_arns` (`list(string)`) <i>optional</i>
+
+
+List of role ARNs to grant deployment permissions to the origin Bucket.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2375,23 +1643,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `list(string)`
+>   <code>list(string)</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `[]`
+>    <code>[]</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `origin_encryption_enabled` (`bool`) <i>optional</i>
->
->
-> When set to 'true' the origin Bucket will have aes256 encryption enabled by default.<br/>
->
->
+### `origin_encryption_enabled` (`bool`) <i>optional</i>
+
+
+When set to 'true' the origin Bucket will have aes256 encryption enabled by default.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2400,23 +1667,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `true`
+>    <code>true</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `origin_force_destroy` (`bool`) <i>optional</i>
->
->
-> A boolean string that indicates all objects should be deleted from the origin Bucket so that the Bucket can be destroyed without error. These objects are not recoverable.<br/>
->
->
+### `origin_force_destroy` (`bool`) <i>optional</i>
+
+
+A boolean string that indicates all objects should be deleted from the origin Bucket so that the Bucket can be destroyed without error. These objects are not recoverable.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2425,23 +1691,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `origin_s3_access_log_bucket_name` (`string`) <i>optional</i>
->
->
-> Name of the existing S3 bucket where S3 Access Logs for the origin Bucket will be delivered. Default is not to enable S3 Access Logging for the origin Bucket.<br/>
->
->
+### `origin_s3_access_log_bucket_name` (`string`) <i>optional</i>
+
+
+Name of the existing S3 bucket where S3 Access Logs for the origin Bucket will be delivered. Default is not to enable S3 Access Logging for the origin Bucket.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2450,33 +1715,27 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `""`
+>    <code>""</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `origin_s3_access_log_bucket_name_rendering_enabled` (`bool`) <i>optional</i>
->
->
-> If set to `true`, then the S3 origin access logs bucket name will be rendered by calling `format("%v-%v-%v-%v", var.namespace, var.environment, var.stage, var.origin_s3_access_log_bucket_name)`.<br/>
->
-> Otherwise, the value for `origin_s3_access_log_bucket_name` will need to be the globally unique name of the access logs bucket.<br/>
->
-> <br/>
->
-> For example, if this component produces an origin bucket named `eg-ue1-devplatform-example` and `origin_s3_access_log_bucket_name` is set to<br/>
->
-> `example-s3-access-logs`, then the bucket name will be rendered to be `eg-ue1-devplatform-example-s3-access-logs`.<br/>
->
-> <br/>
->
->
+### `origin_s3_access_log_bucket_name_rendering_enabled` (`bool`) <i>optional</i>
+
+
+If set to `true`, then the S3 origin access logs bucket name will be rendered by calling `format("%v-%v-%v-%v", var.namespace, var.environment, var.stage, var.origin_s3_access_log_bucket_name)`.<br/>
+Otherwise, the value for `origin_s3_access_log_bucket_name` will need to be the globally unique name of the access logs bucket.<br/>
+<br/>
+For example, if this component produces an origin bucket named `eg-ue1-devplatform-example` and `origin_s3_access_log_bucket_name` is set to<br/>
+`example-s3-access-logs`, then the bucket name will be rendered to be `eg-ue1-devplatform-example-s3-access-logs`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2485,23 +1744,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `origin_s3_access_log_prefix` (`string`) <i>optional</i>
->
->
-> Prefix to use for S3 Access Log object keys. Defaults to `logs/${module.this.id}`<br/>
->
->
+### `origin_s3_access_log_prefix` (`string`) <i>optional</i>
+
+
+Prefix to use for S3 Access Log object keys. Defaults to `logs/${module.this.id}`<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2510,29 +1768,25 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `""`
+>    <code>""</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `origin_s3_access_logging_enabled` (`bool`) <i>optional</i>
->
->
-> Set `true` to deliver S3 Access Logs to the `origin_s3_access_log_bucket_name` bucket.<br/>
->
-> Defaults to `false` if `origin_s3_access_log_bucket_name` is empty (the default), `true` otherwise.<br/>
->
-> Must be set explicitly if the access log bucket is being created at the same time as this module is being invoked.<br/>
->
-> <br/>
->
->
+### `origin_s3_access_logging_enabled` (`bool`) <i>optional</i>
+
+
+Set `true` to deliver S3 Access Logs to the `origin_s3_access_log_bucket_name` bucket.<br/>
+Defaults to `false` if `origin_s3_access_log_bucket_name` is empty (the default), `true` otherwise.<br/>
+Must be set explicitly if the access log bucket is being created at the same time as this module is being invoked.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2541,23 +1795,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `null`
+>    <code>null</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `origin_versioning_enabled` (`bool`) <i>optional</i>
->
->
-> Enable or disable versioning for the origin Bucket. Versioning is a means of keeping multiple variants of an object in the same bucket.<br/>
->
->
+### `origin_versioning_enabled` (`bool`) <i>optional</i>
+
+
+Enable or disable versioning for the origin Bucket. Versioning is a means of keeping multiple variants of an object in the same bucket.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2566,23 +1819,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `parent_zone_name` (`string`) <i>optional</i>
->
->
-> Parent domain name of site to publish. Defaults to format(parent_zone_name_pattern, stage, environment).<br/>
->
->
+### `parent_zone_name` (`string`) <i>optional</i>
+
+
+Parent domain name of site to publish. Defaults to format(parent_zone_name_pattern, stage, environment).<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2591,51 +1843,36 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `""`
+>    <code>""</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `preview_environment_enabled` (`bool`) <i>optional</i>
->
->
-> Enable or disable SPA Preview Environments via Lambda@Edge, i.e. mapping `subdomain.example.com` to the `/subdomain`<br/>
->
-> path in the origin S3 bucket.<br/>
->
-> <br/>
->
-> This variable implicitly affects the following variables:<br/>
->
-> <br/>
->
-> * `s3_website_enabled`<br/>
->
-> * `s3_website_password_enabled`<br/>
->
-> * `block_origin_public_access_enabled`<br/>
->
-> * `origin_allow_ssl_requests_only`<br/>
->
-> * `forward_header_values`<br/>
->
-> * `cloudfront_default_ttl`<br/>
->
-> * `cloudfront_min_ttl`<br/>
->
-> * `cloudfront_max_ttl`<br/>
->
-> * `cloudfront_lambda_function_association`<br/>
->
-> <br/>
->
->
+### `preview_environment_enabled` (`bool`) <i>optional</i>
+
+
+Enable or disable SPA Preview Environments via Lambda@Edge, i.e. mapping `subdomain.example.com` to the `/subdomain`<br/>
+path in the origin S3 bucket.<br/>
+<br/>
+This variable implicitly affects the following variables:<br/>
+<br/>
+* `s3_website_enabled`<br/>
+* `s3_website_password_enabled`<br/>
+* `block_origin_public_access_enabled`<br/>
+* `origin_allow_ssl_requests_only`<br/>
+* `forward_header_values`<br/>
+* `cloudfront_default_ttl`<br/>
+* `cloudfront_min_ttl`<br/>
+* `cloudfront_max_ttl`<br/>
+* `cloudfront_lambda_function_association`<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2644,23 +1881,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `process_domain_validation_options` (`bool`) <i>optional</i>
->
->
-> Flag to enable/disable processing of the record to add to the DNS zone to complete certificate validation<br/>
->
->
+### `process_domain_validation_options` (`bool`) <i>optional</i>
+
+
+Flag to enable/disable processing of the record to add to the DNS zone to complete certificate validation<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2669,23 +1905,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `true`
+>    <code>true</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `s3_object_ownership` (`string`) <i>optional</i>
->
->
-> Specifies the S3 object ownership control on the origin bucket. Valid values are `ObjectWriter`, `BucketOwnerPreferred`, and 'BucketOwnerEnforced'.<br/>
->
->
+### `s3_object_ownership` (`string`) <i>optional</i>
+
+
+Specifies the S3 object ownership control on the origin bucket. Valid values are `ObjectWriter`, `BucketOwnerPreferred`, and 'BucketOwnerEnforced'.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2694,31 +1929,26 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `"ObjectWriter"`
+>    <code>"ObjectWriter"</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `s3_website_enabled` (`bool`) <i>optional</i>
->
->
-> Set to true to enable the created S3 bucket to serve as a website independently of CloudFront,<br/>
->
-> and to use that website as the origin.<br/>
->
-> <br/>
->
-> Setting `preview_environment_enabled` will implicitly set this to `true`.<br/>
->
-> <br/>
->
->
+### `s3_website_enabled` (`bool`) <i>optional</i>
+
+
+Set to true to enable the created S3 bucket to serve as a website independently of CloudFront,<br/>
+and to use that website as the origin.<br/>
+<br/>
+Setting `preview_environment_enabled` will implicitly set this to `true`.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2727,29 +1957,25 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `s3_website_password_enabled` (`bool`) <i>optional</i>
->
->
-> If set to true, and `s3_website_enabled` is also true, a password will be required in the `Referrer` field of the<br/>
->
-> HTTP request in order to access the website, and CloudFront will be configured to pass this password in its requests.<br/>
->
-> This will make it much harder for people to bypass CloudFront and access the S3 website directly via its website endpoint.<br/>
->
-> <br/>
->
->
+### `s3_website_password_enabled` (`bool`) <i>optional</i>
+
+
+If set to true, and `s3_website_enabled` is also true, a password will be required in the `Referrer` field of the<br/>
+HTTP request in order to access the website, and CloudFront will be configured to pass this password in its requests.<br/>
+This will make it much harder for people to bypass CloudFront and access the S3 website directly via its website endpoint.<br/>
+<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2758,23 +1984,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `bool`
+>   <code>bool</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `false`
+>    <code>false</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `site_fqdn` (`string`) <i>optional</i>
->
->
-> Fully qualified domain name of site to publish. Overrides site_subdomain and parent_zone_name.<br/>
->
->
+### `site_fqdn` (`string`) <i>optional</i>
+
+
+Fully qualified domain name of site to publish. Overrides site_subdomain and parent_zone_name.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2783,23 +2008,22 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `""`
+>    <code>""</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
-> ### `site_subdomain` (`string`) <i>optional</i>
->
->
-> Subdomain to plug into site_name_pattern to make site FQDN.<br/>
->
->
+### `site_subdomain` (`string`) <i>optional</i>
+
+
+Subdomain to plug into site_name_pattern to make site FQDN.<br/>
+
 > <details>
 > <summary>Click to expand</summary>
 >
@@ -2808,17 +2032,577 @@ The following variables are defined in the `context.tf` file of this module and 
 >   <dd>No</dd>
 >   <dt>Type</dt>
 >   <dd>
->   `string`
+>   <code>string</code>
 >  </dd>
 >  <dt>Default value</dt>
 >  <dd>
->    `""`
+>    <code>""</code>
 >   </dd>
 > </dl>
 >
 > </details>
 
 
+
+### Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
+
+<details>
+<summary>Click to expand</summary>
+### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+This is for some rare cases where resources want additional configuration of tags<br/>
+and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>{}</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `attributes` (`list(string)`) <i>optional</i>
+
+
+ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+in the order they appear in the list. New attributes are appended to the<br/>
+end of the list. The elements of the list are joined by the `delimiter`<br/>
+and treated as a single ID element.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>[]</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>any</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>
+>    ```hcl
+>>
+>    {
+>
+>      "additional_tag_map": {},
+>
+>      "attributes": [],
+>
+>      "delimiter": null,
+>
+>      "descriptor_formats": {},
+>
+>      "enabled": true,
+>
+>      "environment": null,
+>
+>      "id_length_limit": null,
+>
+>      "label_key_case": null,
+>
+>      "label_order": [],
+>
+>      "label_value_case": null,
+>
+>      "labels_as_tags": [
+>
+>        "unset"
+>
+>      ],
+>
+>      "name": null,
+>
+>      "namespace": null,
+>
+>      "regex_replace_chars": null,
+>
+>      "stage": null,
+>
+>      "tags": {},
+>
+>      "tenant": null
+>
+>    }
+>
+>    ```
+>
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between ID elements.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `descriptor_formats` (`any`) <i>optional</i>
+
+
+Describe additional descriptors to be output in the `descriptors` output map.<br/>
+Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+`{<br/>
+   format = string<br/>
+   labels = list(string)<br/>
+}`<br/>
+(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+`format` is a Terraform format string to be passed to the `format()` function.<br/>
+`labels` is a list of labels, in order, to pass to `format()` function.<br/>
+Label values will be normalized before being passed to `format()` so they will be<br/>
+identical to how they appear in `id`.<br/>
+Default is `{}` (`descriptors` output will be empty).<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>any</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>{}</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `environment` (`string`) <i>optional</i>
+
+
+ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `label_key_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+Does not affect keys of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `label_order` (`list(string)`) <i>optional</i>
+
+
+The order in which the labels (ID elements) appear in the `id`.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `label_value_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of ID elements (labels) as included in `id`,<br/>
+set as tag values, and output by this module individually.<br/>
+Does not affect values of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+Default value: `lower`.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `labels_as_tags` (`set(string)`) <i>optional</i>
+
+
+Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+Default is to include all labels.<br/>
+Tags with empty values will not be included in the `tags` output.<br/>
+Set to `[]` to suppress all generated tags.<br/>
+**Notes:**<br/>
+  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>set(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>
+>    ```hcl
+>>
+>    [
+>
+>      "default"
+>
+>    ]
+>
+>    ```
+>
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `name` (`string`) <i>optional</i>
+
+
+ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+This is the only ID element not also included as a `tag`.<br/>
+The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `namespace` (`string`) <i>optional</i>
+
+
+ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Terraform regular expression (regex) string.<br/>
+Characters matching the regex will be removed from the ID elements.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `stage` (`string`) <i>optional</i>
+
+
+ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+Neither the tag keys nor the tag values will be modified by this module.<br/>
+<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>{}</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+### `tenant` (`string`) <i>optional</i>
+
+
+ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    <code>null</code>
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+
+</details>
 
 ### Outputs
 
@@ -2826,30 +2610,37 @@ The following variables are defined in the `context.tf` file of this module and 
   <dt><code>cloudfront_distribution_alias</code></dt>
   <dd>
     Cloudfront Distribution Alias Record.<br/>
+
   </dd>
   <dt><code>cloudfront_distribution_domain_name</code></dt>
   <dd>
     Cloudfront Distribution Domain Name.<br/>
+
   </dd>
   <dt><code>failover_s3_bucket_name</code></dt>
   <dd>
     Failover Origin bucket name, if enabled.<br/>
+
   </dd>
   <dt><code>github_actions_iam_role_arn</code></dt>
   <dd>
     ARN of IAM role for GitHub Actions<br/>
+
   </dd>
   <dt><code>github_actions_iam_role_name</code></dt>
   <dd>
     Name of IAM role for GitHub Actions<br/>
+
   </dd>
   <dt><code>origin_s3_bucket_arn</code></dt>
   <dd>
     Origin bucket ARN.<br/>
+
   </dd>
   <dt><code>origin_s3_bucket_name</code></dt>
   <dd>
     Origin bucket name.<br/>
+
   </dd>
 </dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

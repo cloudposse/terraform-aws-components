@@ -105,6 +105,10 @@ The following data sources are used by this module:
 
   - [`aws_caller_identity.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
 
+### Required Variables
+
+
+
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -114,28 +118,28 @@ The following variables are defined in the `context.tf` file of this module and 
 
 </details>
 
-### Required Variables
-
-
-
 ### Outputs
 
 <dl>
   <dt><code>guardduty_detector_arn</code></dt>
   <dd>
     GuardDuty detector ARN<br/>
+
   </dd>
   <dt><code>guardduty_detector_id</code></dt>
   <dd>
     GuardDuty detector ID<br/>
+
   </dd>
   <dt><code>sns_topic_name</code></dt>
   <dd>
     SNS topic name<br/>
+
   </dd>
   <dt><code>sns_topic_subscriptions</code></dt>
   <dd>
     SNS topic subscriptions<br/>
+
   </dd>
 </dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
