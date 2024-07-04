@@ -31,9 +31,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -46,7 +45,7 @@ components:
 
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -58,8 +57,8 @@ Name | Version | Source | Description
 
 
 
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -82,8 +81,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
 
 
@@ -652,8 +650,7 @@ Flag to enable/disable creation of Security Group in the module. Set to `true` t
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -1037,7 +1034,7 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>broker_arn</code></dt>

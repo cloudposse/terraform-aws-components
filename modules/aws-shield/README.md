@@ -89,9 +89,8 @@ for maintaining the provisioning order during a cold-start.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -99,14 +98,14 @@ for maintaining the provisioning order during a cold-start.
 | `aws` | >= 4.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `aws` | >= 4.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -115,7 +114,7 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
@@ -124,7 +123,7 @@ The following resources are used by this module:
   - [`aws_shield_protection.eip_shield_protection`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/shield_protection) (resource)(eip.tf#7)
   - [`aws_shield_protection.route53_zone_protection`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/shield_protection) (resource)(route53.tf#7)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
@@ -134,8 +133,8 @@ The following data sources are used by this module:
   - [`aws_eip.eip`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eip) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
   - [`aws_route53_zone.route53_zone`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -158,8 +157,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `alb_names` (`list(string)`) <i>optional</i>
 
 
@@ -266,8 +264,7 @@ List of Route53 Hosted Zone names which will be protected with AWS Shield Advanc
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -773,7 +770,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>application_load_balancer_protections</code></dt>

@@ -27,9 +27,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -39,7 +38,7 @@ components:
 | `template` | >= 2.2 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -47,7 +46,7 @@ components:
 | `terraform` | latest |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -59,12 +58,12 @@ Name | Version | Source | Description
 `this` | tags/0.21.0 | [`git::https://github.com/cloudposse/terraform-null-label.git`](https://registry.terraform.io/modules/git::https:/github.com/cloudposse/terraform-null-label.git/tags/0.21.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
@@ -76,8 +75,8 @@ The following data sources are used by this module:
   - [`terraform_remote_state.dns_delegated`](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) (data source)
   - [`terraform_remote_state.dns_gbl_delegated`](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) (data source)
   - [`terraform_remote_state.eks`](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -121,8 +120,7 @@ List of standard service accounts expected to be enabled everywhere<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `account_map_environment_name` (`string`) <i>optional</i>
 
 
@@ -418,8 +416,7 @@ The name of the stage for Terraform state IAM role<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -770,7 +767,7 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>service_accounts</code></dt>

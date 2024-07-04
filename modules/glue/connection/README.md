@@ -29,9 +29,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -40,14 +39,14 @@ components:
 | `utils` | >= 1.15.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `aws` | >= 4.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -59,12 +58,12 @@ Name | Version | Source | Description
 `vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
@@ -72,8 +71,8 @@ The following data sources are used by this module:
   - [`aws_ssm_parameter.password`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`aws_ssm_parameter.user`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`aws_subnet.selected`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `connection_type` (`string`) <i>required</i>
 
 
@@ -138,8 +137,7 @@ VPC component name<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `catalog_id` (`string`) <i>optional</i>
 
 
@@ -504,8 +502,7 @@ Additional Security Group rules that allow Glue to communicate with the target d
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -1011,7 +1008,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>connection_arn</code></dt>

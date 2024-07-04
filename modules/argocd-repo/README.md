@@ -79,9 +79,8 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -92,7 +91,7 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 | `tls` | >= 3.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -101,7 +100,7 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 | `tls` | >= 3.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -110,7 +109,7 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
@@ -126,7 +125,7 @@ The following resources are used by this module:
   - [`github_team_repository.default`](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_repository) (resource)(main.tf#99)
   - [`tls_private_key.default`](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) (resource)(main.tf#107)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
@@ -134,8 +133,8 @@ The following data sources are used by this module:
   - [`github_repository.default`](https://registry.terraform.io/providers/integrations/github/latest/docs/data-sources/repository) (data source)
   - [`github_team.default`](https://registry.terraform.io/providers/integrations/github/latest/docs/data-sources/team) (data source)
   - [`github_user.automation_user`](https://registry.terraform.io/providers/integrations/github/latest/docs/data-sources/user) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `github_codeowner_teams` (`list(string)`) <i>required</i>
 
 
@@ -269,8 +268,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `create_repo` (`bool`) <i>optional</i>
 
 
@@ -641,8 +639,7 @@ Format string of the SSM parameter path to which the deploy keys will be written
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -1148,7 +1145,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>deploy_keys_ssm_path_format</code></dt>

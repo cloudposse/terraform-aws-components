@@ -41,9 +41,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -53,7 +52,7 @@ components:
 
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -75,8 +74,8 @@ Name | Version | Source | Description
 
 
 
----
-### Required Variables
+
+## Required Variables
 ### `aws_region_abbreviation` (`string`) <i>required</i>
 
 
@@ -184,8 +183,7 @@ Initiators region config. Describe the transit gateway that should originate the
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `account_map_tenant_name` (`string`) <i>optional</i>
 
 
@@ -253,8 +251,7 @@ IAM Role ARN to use when importing a resource<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -760,7 +757,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>tgw_routes_home_region</code></dt>

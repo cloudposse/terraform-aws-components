@@ -76,9 +76,8 @@ the component, and available via the `webhook` output under `endpoint`.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -88,14 +87,14 @@ the component, and available via the `webhook` output under `endpoint`.
 | `random` | >= 3.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `random` | >= 3.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -108,18 +107,18 @@ Name | Version | Source | Description
 `webhook_github_app` | 5.4.2 | [`philips-labs/github-runner/aws//modules/webhook-github-app`](https://registry.terraform.io/modules/philips-labs/github-runner/aws/modules/webhook-github-app/5.4.2) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
   - [`random_id.webhook_secret`](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) (resource)(main.tf#33)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -142,8 +141,7 @@ AWS region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `create_service_linked_role_spot` (`bool`) <i>optional</i>
 
 
@@ -357,8 +355,7 @@ The root path used in SSM to store configuration and secrets.<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -864,7 +861,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>github_runners</code></dt>

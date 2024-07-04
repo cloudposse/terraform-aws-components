@@ -8,9 +8,8 @@ or not.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -18,14 +17,14 @@ or not.
 | `opsgenie` | >= 0.6.7 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `opsgenie` | >= 0.6.7 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -35,20 +34,20 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`opsgenie_schedule.notification_schedule`](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/data-sources/schedule) (data source)
   - [`opsgenie_service.incident_service`](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/data-sources/service) (data source)
   - [`opsgenie_team.default`](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/data-sources/team) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `criteria` <i>required</i>
 
 
@@ -164,8 +163,7 @@ Priority level of custom Incidents<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `is_default` (`bool`) <i>optional</i>
 
 
@@ -314,8 +312,7 @@ Type of Routing Rule Alert or Incident<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -821,7 +818,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>service_incident_rule</code></dt>

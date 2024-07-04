@@ -162,9 +162,8 @@ atmos terraform plan aws-config-{each region} --stack {each region}-{each stage}
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -173,14 +172,14 @@ atmos terraform plan aws-config-{each region} --stack {each region}-{each stage}
 | `awsutils` | >= 0.16.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `aws` | >= 4.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -197,20 +196,20 @@ Name | Version | Source | Description
 `utils` | 1.3.0 | [`cloudposse/utils/aws`](https://registry.terraform.io/modules/cloudposse/utils/aws/1.3.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_caller_identity.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
   - [`aws_partition.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
   - [`aws_region.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `central_resource_collector_account` (`string`) <i>required</i>
 
 
@@ -317,8 +316,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `account_map_tenant` (`string`) <i>optional</i>
 
 
@@ -664,8 +662,7 @@ The stage name for the Organization root (master) account<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -1171,7 +1168,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>aws_config_configuration_recorder_id</code></dt>

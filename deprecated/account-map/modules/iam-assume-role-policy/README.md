@@ -33,18 +33,17 @@ resource "aws_iam_role" "default" {
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `aws` | latest |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -53,23 +52,22 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_arn.allowed`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/arn) (data source)
   - [`aws_arn.denied`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/arn) (data source)
   - [`aws_iam_policy_document.assume_role`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
----
-### Required Variables
 
----
-### Optional Variables
+## Required Variables
+
+## Optional Variables
 ### `allowed_permission_sets` (`map(list(string))`) <i>optional</i>
 
 
@@ -222,8 +220,7 @@ True if the default provider already has access to the backend<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -729,7 +726,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>policy_document</code></dt>

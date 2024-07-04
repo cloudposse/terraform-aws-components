@@ -140,9 +140,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -153,7 +152,7 @@ components:
 | `utils` | >= 1.14.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -161,7 +160,7 @@ components:
 | `spacelift` | >= 0.1.31 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -174,7 +173,7 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
@@ -184,15 +183,15 @@ The following resources are used by this module:
   - [`null_resource.workers_precondition`](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) (resource)(workers.tf#34)
   - [`spacelift_policy_attachment.root`](https://registry.terraform.io/providers/spacelift-io/spacelift/latest/docs/resources/policy_attachment) (resource)(root-admin-stack.tf#106)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`spacelift_policies.this`](https://registry.terraform.io/providers/spacelift-io/spacelift/latest/docs/data-sources/policies) (data source)
   - [`spacelift_stacks.this`](https://registry.terraform.io/providers/spacelift-io/spacelift/latest/docs/data-sources/stacks) (data source)
   - [`spacelift_worker_pools.this`](https://registry.terraform.io/providers/spacelift-io/spacelift/latest/docs/data-sources/worker_pools) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `component_root` (`string`) <i>required</i>
 
 
@@ -271,8 +270,7 @@ The name of your infrastructure repo<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `admin_stack_label` (`string`) <i>optional</i>
 
 
@@ -1411,8 +1409,7 @@ The atmos stack name of the worker pool. Example: `acme-core-ue2-auto-spacelift-
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -1918,7 +1915,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>child_stacks</code></dt>

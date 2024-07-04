@@ -177,9 +177,8 @@ atmos terraform apply vpc-peering -s ue1-prod
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -187,14 +186,14 @@ atmos terraform apply vpc-peering -s ue1-prod
 | `aws` | >= 3.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `aws` | >= 3.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -204,18 +203,18 @@ Name | Version | Source | Description
 `vpc_peering` | 0.19.1 | [`cloudposse/vpc-peering-multi-account/aws`](https://registry.terraform.io/modules/cloudposse/vpc-peering-multi-account/aws/0.19.1) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_vpc.accepter`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `accepter_region` (`string`) <i>required</i>
 
 
@@ -280,8 +279,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `accepter_allow_remote_vpc_dns_resolution` (`bool`) <i>optional</i>
 
 
@@ -409,8 +407,7 @@ Requestor vpc component name<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -916,7 +913,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>vpc_peering</code></dt>

@@ -77,9 +77,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -88,7 +87,7 @@ components:
 | `template` | >= 2.2.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -96,7 +95,7 @@ components:
 | `template` | >= 2.2.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -107,20 +106,20 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_iam_policy_document.custom_policy`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
   - [`template_file.bucket_policy`](https://registry.terraform.io/providers/cloudposse/template/latest/docs/data-sources/file) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -143,8 +142,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `account_map_environment_name` (`string`) <i>optional</i>
 
 
@@ -1108,8 +1106,7 @@ Specifies the static website hosting configuration object.<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -1615,7 +1612,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>bucket_arn</code></dt>

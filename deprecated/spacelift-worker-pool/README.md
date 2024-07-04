@@ -77,9 +77,8 @@ the output to the `trusted_role_arns` list for the `spacelift` role in `aws-team
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -89,7 +88,7 @@ the output to the `trusted_role_arns` list for the `spacelift` role in `aws-team
 | `spacelift` | >= 0.1.2 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -98,7 +97,7 @@ the output to the `trusted_role_arns` list for the `spacelift` role in `aws-team
 | `spacelift` | >= 0.1.2 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -112,7 +111,7 @@ Name | Version | Source | Description
 `vpc` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.4.1) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
@@ -121,7 +120,7 @@ The following resources are used by this module:
   - [`aws_iam_role.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) (resource)(iam.tf#64)
   - [`spacelift_worker_pool.primary`](https://registry.terraform.io/providers/spacelift-io/spacelift/latest/docs/resources/worker_pool) (resource)(main.tf#31)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
@@ -132,8 +131,8 @@ The following data sources are used by this module:
   - [`aws_ssm_parameter.spacelift_key_id`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`aws_ssm_parameter.spacelift_key_secret`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`cloudinit_config.config`](https://registry.terraform.io/providers/hashicorp/cloudinit/latest/docs/data-sources/config) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `cpu_utilization_high_threshold_percent` (`number`) <i>required</i>
 
 
@@ -303,8 +302,7 @@ A maximum duration that Terraform should wait for ASG instances to be healthy be
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `account_map_environment_name` (`string`) <i>optional</i>
 
 
@@ -1133,8 +1131,7 @@ A list of policies to decide how the instances in the auto scale group should be
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -1640,7 +1637,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>autoscaling_group_arn</code></dt>

@@ -20,9 +20,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -32,7 +31,7 @@ components:
 | `sdm` | >= 1.0.19 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -42,7 +41,7 @@ components:
 | `sdm` | >= 1.0.19 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -51,7 +50,7 @@ Name | Version | Source | Description
 `this` | 0.24.1 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
@@ -65,15 +64,15 @@ The following resources are used by this module:
   - [`sdm_node.gateway`](https://registry.terraform.io/providers/strongdm/sdm/latest/docs/resources/node) (resource)(main.tf#29)
   - [`sdm_node.relay`](https://registry.terraform.io/providers/strongdm/sdm/latest/docs/resources/node) (resource)(main.tf#43)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_ssm_parameter.api_access_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`aws_ssm_parameter.api_secret_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`aws_ssm_parameter.ssh_admin_token`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -138,8 +137,7 @@ AWS Region housing SSM parameters<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `create_roles` (`bool`) <i>optional</i>
 
 
@@ -330,8 +328,7 @@ Number of relays to provision<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 

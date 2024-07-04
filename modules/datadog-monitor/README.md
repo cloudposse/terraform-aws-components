@@ -188,9 +188,8 @@ to ensure clean messaging on OpsGenie incidents in Statuspage.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -201,7 +200,7 @@ to ensure clean messaging on OpsGenie incidents in Statuspage.
 
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -215,8 +214,8 @@ Name | Version | Source | Description
 
 
 
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -239,8 +238,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `alert_tags` (`list(string)`) <i>optional</i>
 
 
@@ -491,8 +489,7 @@ List of paths to remote Datadog monitor configurations<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -998,7 +995,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>datadog_monitor_names</code></dt>

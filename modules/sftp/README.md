@@ -23,9 +23,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -35,14 +34,14 @@ components:
 | `local` | >= 2.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `aws` | >= 4.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -54,19 +53,19 @@ Name | Version | Source | Description
 `vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_route53_zone.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) (data source)
   - [`aws_s3_bucket.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_bucket) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `hosted_zone_suffix` (`string`) <i>required</i>
 
 
@@ -131,8 +130,7 @@ The s3 bucket context map of inputs. The same null label inputs can be provided.
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `address_allocation_ids` (`list(string)`) <i>optional</i>
 
 
@@ -394,8 +392,7 @@ A list of security groups IDs that are available to attach to your server's endp
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -901,7 +898,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>sftp</code></dt>

@@ -102,9 +102,8 @@ requirements.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -112,14 +111,14 @@ requirements.
 | `aws` | >= 4.9.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `aws` | >= 4.9.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -128,7 +127,7 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
@@ -137,12 +136,12 @@ The following resources are used by this module:
   - [`aws_route53_record.soa`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) (resource)(main.tf#15)
   - [`aws_route53_zone.root`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone) (resource)(main.tf#7)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -165,8 +164,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `alias_record_config` <i>optional</i>
 
 
@@ -306,8 +304,7 @@ Whether or not to request an ACM certificate for each domain<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -813,7 +810,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>acms</code></dt>

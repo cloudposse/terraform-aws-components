@@ -58,9 +58,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -69,7 +68,7 @@ components:
 | `mysql` | >= 3.0.22 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -77,7 +76,7 @@ components:
 | `mysql` | >= 3.0.22 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -88,20 +87,20 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
   - [`mysql_database.additional`](https://registry.terraform.io/providers/petoju/mysql/latest/docs/resources/database) (resource)(main.tf#24)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_ssm_parameter.admin_password`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`aws_ssm_parameter.password`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -124,8 +123,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `additional_databases` (`set(string)`) <i>optional</i>
 
 
@@ -366,8 +364,7 @@ SSM path prefix<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -873,7 +870,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>additional_grants</code></dt>

@@ -73,9 +73,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -86,14 +85,14 @@ components:
 | `template` | >= 2.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `aws` | >= 2.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -102,19 +101,19 @@ Name | Version | Source | Description
 `this` | tags/0.21.0 | [`git::https://github.com/cloudposse/terraform-null-label.git`](https://registry.terraform.io/modules/git::https:/github.com/cloudposse/terraform-null-label.git/tags/0.21.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
   - [`aws_ssm_parameter.opsgenie_datadog_api_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(ssm.tf#10)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_ssm_parameter.opsgenie_api_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -137,8 +136,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `import_role_arn` (`string`) <i>optional</i>
 
 
@@ -413,8 +411,7 @@ The name of the stage for Terraform state IAM role<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -765,7 +762,7 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>alert_policies</code></dt>

@@ -41,9 +41,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -53,7 +52,7 @@ components:
 
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -66,8 +65,8 @@ Name | Version | Source | Description
 
 
 
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -174,8 +173,7 @@ DMS target endpoint component name (used to get the ARN of the DMS target endpoi
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `cdc_start_position` (`string`) <i>optional</i>
 
 
@@ -282,8 +280,7 @@ If set to `true`, the created replication tasks will be started automatically<br
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -789,7 +786,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>dms_replication_task_arn</code></dt>

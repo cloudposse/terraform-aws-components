@@ -37,9 +37,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -51,14 +50,14 @@ components:
 | `utils` | >= 0.3 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `aws` | >= 3.36 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -67,18 +66,18 @@ Name | Version | Source | Description
 `this` | 0.24.1 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
   - [`aws_ssm_parameter.acl_arn`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(main.tf#30)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
----
-### Required Variables
+
+## Required Variables
 ### `acl_name` (`string`) <i>required</i>
 
 
@@ -122,8 +121,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `association_resource_arns` (`list(string)`) <i>optional</i>
 
 
@@ -846,8 +844,7 @@ visibility_config:<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -1231,7 +1228,7 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>acl</code></dt>

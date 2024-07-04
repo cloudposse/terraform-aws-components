@@ -94,9 +94,8 @@ done
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -105,7 +104,7 @@ done
 | `awsutils` | >= 0.16.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -113,7 +112,7 @@ done
 | `awsutils` | >= 0.16.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -123,7 +122,7 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
@@ -131,15 +130,15 @@ The following resources are used by this module:
   - [`aws_securityhub_standards_subscription.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/securityhub_standards_subscription) (resource)(main.tf#49)
   - [`awsutils_security_hub_organization_settings.this`](https://registry.terraform.io/providers/cloudposse/awsutils/latest/docs/resources/security_hub_organization_settings) (resource)(main.tf#55)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_caller_identity.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
   - [`aws_partition.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
   - [`aws_region.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `central_resource_collector_account` (`string`) <i>required</i>
 
 
@@ -204,8 +203,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `account_map_tenant` (`string`) <i>optional</i>
 
 
@@ -464,8 +462,7 @@ The stage name for the Organization root (management) account<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -971,7 +968,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>enabled_subscriptions</code></dt>

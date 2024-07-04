@@ -161,9 +161,8 @@ Reploying the component should show no changes. For example,
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -172,7 +171,7 @@ Reploying the component should show no changes. For example,
 | `random` | >= 2.2 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -180,7 +179,7 @@ Reploying the component should show no changes. For example,
 | `random` | >= 2.2 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -197,7 +196,7 @@ Name | Version | Source | Description
 `vpc_ingress` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
@@ -205,7 +204,7 @@ The following resources are used by this module:
   - [`random_pet.mysql_admin_user`](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) (resource)(main.tf#63)
   - [`random_pet.mysql_db_name`](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) (resource)(main.tf#75)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
@@ -213,8 +212,8 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.kms_key_rds`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
   - [`aws_ssm_parameter.password`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `aurora_mysql_cluster_family` (`string`) <i>required</i>
 
 
@@ -279,8 +278,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `allow_ingress_from_vpc_accounts` <i>optional</i>
 
 
@@ -989,8 +987,7 @@ The name of the VPC component<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -1496,7 +1493,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>aurora_mysql_cluster_arn</code></dt>

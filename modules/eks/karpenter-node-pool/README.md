@@ -139,9 +139,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -151,7 +150,7 @@ components:
 | `kubernetes` | >= 2.7.1, != 2.21.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -159,7 +158,7 @@ components:
 | `kubernetes` | >= 2.7.1, != 2.21.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -169,20 +168,20 @@ Name | Version | Source | Description
 `vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
   - [`kubernetes_manifest.ec2_node_class`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) (resource)(ec2-node-class.tf#26)
   - [`kubernetes_manifest.node_pool`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) (resource)(main.tf#15)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_eks_cluster_auth.eks`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `node_pools` <i>required</i>
 
 
@@ -342,8 +341,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `eks_component_name` (`string`) <i>optional</i>
 
 
@@ -669,8 +667,7 @@ If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -1176,7 +1173,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>ec2_node_classes</code></dt>

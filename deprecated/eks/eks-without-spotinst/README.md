@@ -61,9 +61,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -73,7 +72,7 @@ components:
 
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -89,8 +88,8 @@ Name | Version | Source | Description
 
 
 
----
-### Required Variables
+
+## Required Variables
 ### `availability_zones` (`list(string)`) <i>required</i>
 
 
@@ -155,8 +154,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `allow_ingress_from_vpc_stages` (`list(string)`) <i>optional</i>
 
 
@@ -1107,8 +1105,7 @@ The tag used to find the private subnets to find by availability zone. If null, 
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -1614,7 +1611,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>eks_auth_worker_roles</code></dt>

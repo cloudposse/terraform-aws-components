@@ -32,9 +32,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -42,14 +41,14 @@ components:
 | `aws` | >= 4.9.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `aws` | >= 4.9.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -61,7 +60,7 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
@@ -70,7 +69,7 @@ The following resources are used by this module:
   - [`aws_iam_role.cloudtrail_cloudwatch_logs`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) (resource)(cloudtrail-cloudwatch-logs.tf#39)
   - [`aws_iam_role_policy_attachment.cloudtrail_cloudwatch_logs`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) (resource)(cloudtrail-cloudwatch-logs.tf#56)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
@@ -79,8 +78,8 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.cloudtrail_cloudwatch_logs_assume_role`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_iam_policy_document.kms_key_cloudtrail`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `cloudtrail_bucket_environment_name` (`string`) <i>required</i>
 
 
@@ -145,8 +144,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `audit_access_enabled` (`bool`) <i>optional</i>
 
 
@@ -341,8 +339,7 @@ for an organization in AWS Organizations.<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -848,7 +845,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>cloudtrail_arn</code></dt>

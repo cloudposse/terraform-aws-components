@@ -54,9 +54,8 @@ For more details, see:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -64,14 +63,14 @@ For more details, see:
 | `aws` | >= 3.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `aws` | >= 3.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -79,18 +78,18 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
   - [`aws_iam_service_linked_role.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_service_linked_role) (resource)(main.tf#6)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -143,11 +142,9 @@ Service-Linked roles config<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -653,7 +650,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>service_linked_roles</code></dt>

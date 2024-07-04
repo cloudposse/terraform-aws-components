@@ -42,9 +42,8 @@ import:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -56,7 +55,7 @@ import:
 | `utils` | >= 1.10.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -64,7 +63,7 @@ import:
 | `template` | >= 2.2 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -73,21 +72,21 @@ Name | Version | Source | Description
 `this` | 0.24.1 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
   - [`aws_iam_role_policy_attachment.ssm_core`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) (resource)(main.tf#71)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_ami.amazon_linux_2`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) (data source)
   - [`aws_ssm_parameter.zscaler_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`template_file.userdata`](https://registry.terraform.io/providers/cloudposse/template/latest/docs/data-sources/file) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -110,8 +109,7 @@ AWS region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `ami_owner` (`string`) <i>optional</i>
 
 
@@ -312,8 +310,7 @@ SSM key (without leading `/`) for the Zscaler provisioning key secret.<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -697,7 +694,7 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>instance_id</code></dt>

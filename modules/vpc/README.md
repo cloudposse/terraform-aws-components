@@ -58,9 +58,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -68,14 +67,14 @@ components:
 | `aws` | >= 4.9.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `aws` | >= 4.9.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -89,21 +88,21 @@ Name | Version | Source | Description
 `vpc_flow_logs_bucket` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
   - [`aws_flow_log.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/flow_log) (resource)(vpc-flow-logs.tf#3)
   - [`aws_shield_protection.nat_eip_shield_protection`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/shield_protection) (resource)(main.tf#176)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_caller_identity.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
   - [`aws_eip.eip`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eip) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -147,8 +146,7 @@ Key for subnet type tag to provide information about the type of subnets, e.g. `
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `assign_generated_ipv6_cidr_block` (`bool`) <i>optional</i>
 
 
@@ -780,8 +778,7 @@ The type of traffic to capture. Valid values: `ACCEPT`, `REJECT`, `ALL`<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -1287,7 +1284,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>availability_zones</code></dt>

@@ -59,9 +59,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -69,14 +68,14 @@ components:
 | `aws` | >= 4.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `aws` | >= 4.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -85,19 +84,19 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
   - [`aws_iam_service_linked_role.lakeformation`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_service_linked_role) (resource)(main.tf#9)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_iam_role.lakeformation`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_role) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -141,8 +140,7 @@ Amazon Resource Name (ARN) of the Lake Formation resource, an S3 path.<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `admin_arn_list` (`list(string)`) <i>optional</i>
 
 
@@ -333,8 +331,7 @@ A map of Lake Formation resources to create, with related attributes.<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -840,7 +837,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>lf_tags</code></dt>

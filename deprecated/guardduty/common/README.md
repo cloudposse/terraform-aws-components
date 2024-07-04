@@ -72,11 +72,10 @@ atmos terraform apply guardduty/common-uw1 -s core-uw1-security
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -84,7 +83,7 @@ atmos terraform apply guardduty/common-uw1 -s core-uw1-security
 | `awsutils` | latest |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -93,24 +92,23 @@ Name | Version | Source | Description
 `iam_roles` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
   - [`awsutils_guardduty_organization_settings.this`](https://registry.terraform.io/providers/hashicorp/awsutils/latest/docs/resources/guardduty_organization_settings) (resource)(main.tf#30)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_caller_identity.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
----
-### Required Variables
+
+## Required Variables
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -119,7 +117,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>guardduty_detector_arn</code></dt>

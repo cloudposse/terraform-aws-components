@@ -62,9 +62,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -73,7 +72,7 @@ components:
 | `utils` | >= 1.10.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -81,7 +80,7 @@ components:
 | `aws` | >= 4.1 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -93,7 +92,7 @@ Name | Version | Source | Description
 `utils` | 1.3.0 | [`cloudposse/utils/aws`](https://registry.terraform.io/modules/cloudposse/utils/aws/1.3.0) | Used to translate region to environment
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
@@ -102,12 +101,12 @@ The following resources are used by this module:
   - [`aws_ec2_transit_gateway_route_table_association.primary_region`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_transit_gateway_route_table_association) (resource)(main.tf#41)
   - [`aws_ec2_transit_gateway_route_table_association.this_region`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_transit_gateway_route_table_association) (resource)(main.tf#32)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
----
-### Required Variables
+
+## Required Variables
 ### `primary_tgw_hub_region` (`string`) <i>required</i>
 
 
@@ -151,8 +150,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `account_map_environment_name` (`string`) <i>optional</i>
 
 
@@ -259,8 +257,7 @@ The name of the tenant where the primary Transit Gateway hub is deployed. Only u
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -766,7 +763,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>aws_ec2_transit_gateway_peering_attachment_id</code></dt>

@@ -50,9 +50,8 @@ That would read `group_name` from `eks/alb-controller-ingress-group` component o
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -62,14 +61,14 @@ That would read `group_name` from `eks/alb-controller-ingress-group` component o
 | `jq` | >= 0.2.1 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `jq` | >= 0.2.1 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -80,18 +79,18 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`jq_query.default`](https://registry.terraform.io/providers/massdriver-cloud/jq/latest/docs/data-sources/query) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -114,8 +113,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `eks_component_name` (`string`) <i>optional</i>
 
 
@@ -214,8 +212,7 @@ Format SSM path to store platform configs<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 

@@ -44,9 +44,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -55,7 +54,7 @@ components:
 | `snowflake` | >= 0.25 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -63,7 +62,7 @@ components:
 | `snowflake` | >= 0.25 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -78,7 +77,7 @@ Name | Version | Source | Description
 `utils` | 0.8.1 | [`cloudposse/utils/aws`](https://registry.terraform.io/modules/cloudposse/utils/aws/0.8.1) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
@@ -92,14 +91,14 @@ The following resources are used by this module:
   - [`snowflake_view.view`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/view) (resource)(main.tf#149)
   - [`snowflake_view_grant.grant`](https://registry.terraform.io/providers/chanzuckerberg/snowflake/latest/docs/resources/view_grant) (resource)(grants.tf#37)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_ssm_parameter.snowflake_private_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`aws_ssm_parameter.snowflake_username`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -122,8 +121,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `data_retention_time_in_days` (`string`) <i>optional</i>
 
 
@@ -386,8 +384,7 @@ A map of views to create for Snowflake. The same schema and database will be ass
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 

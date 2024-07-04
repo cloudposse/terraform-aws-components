@@ -25,9 +25,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -37,7 +36,7 @@ components:
 | `kubernetes` | >= 2.14.0, != 2.21.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -45,7 +44,7 @@ components:
 | `kubernetes` | >= 2.14.0, != 2.21.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -54,20 +53,20 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
   - [`kubernetes_ingress_class_v1.default`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/ingress_class_v1) (resource)(main.tf#1)
   - [`kubernetes_manifest.alb_controller_class_params`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) (resource)(main.tf#21)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_eks_cluster_auth.eks`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -90,8 +89,7 @@ AWS Region.<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `additional_tags` (`map(string)`) <i>optional</i>
 
 
@@ -524,8 +522,7 @@ Scheme for default ingress, one of `internet-facing` or `internal`.<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 

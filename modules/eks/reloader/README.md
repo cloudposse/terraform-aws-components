@@ -32,9 +32,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -44,7 +43,7 @@ components:
 | `kubernetes` | >= 2.7.1, != 2.21.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -53,7 +52,7 @@ components:
 | `kubernetes` | >= 2.7.1, != 2.21.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -62,20 +61,20 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
   - [`helm_release.this`](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)(main.tf#15)
   - [`kubernetes_namespace.default`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) (resource)(main.tf#5)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_eks_cluster_auth.eks`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `chart` (`string`) <i>required</i>
 
 
@@ -140,8 +139,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `atomic` (`bool`) <i>optional</i>
 
 
@@ -614,8 +612,7 @@ Will wait until all resources are in a ready state before marking the release as
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -1121,7 +1118,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>metadata</code></dt>

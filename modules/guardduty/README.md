@@ -145,9 +145,8 @@ atmos terraform apply guardduty/org-settings/uw1 -s core-uw1-security
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -156,7 +155,7 @@ atmos terraform apply guardduty/org-settings/uw1 -s core-uw1-security
 | `awsutils` | >= 0.16.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -164,7 +163,7 @@ atmos terraform apply guardduty/org-settings/uw1 -s core-uw1-security
 | `awsutils` | >= 0.16.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -175,7 +174,7 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
@@ -183,13 +182,13 @@ The following resources are used by this module:
   - [`aws_guardduty_organization_configuration.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_organization_configuration) (resource)(main.tf#59)
   - [`awsutils_guardduty_organization_settings.this`](https://registry.terraform.io/providers/cloudposse/awsutils/latest/docs/resources/guardduty_organization_settings) (resource)(main.tf#52)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
   - [`aws_caller_identity.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -212,8 +211,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `account_map_tenant` (`string`) <i>optional</i>
 
 
@@ -661,8 +659,7 @@ raw_message_delivery:<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -1168,7 +1165,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>delegated_administrator_account_id</code></dt>

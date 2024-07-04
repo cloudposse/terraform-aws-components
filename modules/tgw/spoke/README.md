@@ -93,9 +93,8 @@ atmos terraform apply tgw/spoke -s <tenant>-<environment>-<stage>
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -103,7 +102,7 @@ atmos terraform apply tgw/spoke -s <tenant>-<environment>-<stage>
 | `aws` | >= 4.1 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -111,7 +110,7 @@ atmos terraform apply tgw/spoke -s <tenant>-<environment>-<stage>
 | `aws` | >= 4.1 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -125,19 +124,19 @@ Name | Version | Source | Description
 `vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
   - [`aws_route.back_route`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) (resource)(main.tf#71)
   - [`aws_route.default_route`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) (resource)(main.tf#58)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -160,8 +159,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `connections` <i>optional</i>
 
 
@@ -478,8 +476,7 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 

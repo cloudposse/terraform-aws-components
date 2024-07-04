@@ -256,9 +256,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -268,7 +267,7 @@ components:
 | `template` | >= 2.2 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
@@ -277,7 +276,7 @@ components:
 | `template` | >= 2.2 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -311,7 +310,7 @@ Name | Version | Source | Description
 `vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
@@ -323,7 +322,7 @@ The following resources are used by this module:
   - [`aws_service_discovery_service.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/service_discovery_service) (resource)(cloud-map.tf#46)
   - [`aws_ssm_parameter.full_urls`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(systems-manager.tf#48)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
@@ -341,8 +340,8 @@ The following data sources are used by this module:
   - [`aws_ssm_parameters_by_path.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameters_by_path) (data source)
   - [`jq_query.service_domain_query`](https://registry.terraform.io/providers/massdriver-cloud/jq/latest/docs/data-sources/query) (data source)
   - [`template_file.envs`](https://registry.terraform.io/providers/cloudposse/template/latest/docs/data-sources/file) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -365,8 +364,7 @@ AWS Region<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `additional_targets` (`list(string)`) <i>optional</i>
 
 
@@ -2447,8 +2445,7 @@ A json query to use to get the zone domain from the remote state. See <br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -2954,7 +2951,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>ecs_cluster_arn</code></dt>

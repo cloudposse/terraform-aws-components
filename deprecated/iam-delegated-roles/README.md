@@ -163,9 +163,8 @@ components:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
-## Reference
 
-### Version Requirements
+## Version Requirements
 
 | Requirement | Version |
 | --- | --- |
@@ -173,14 +172,14 @@ components:
 | `aws` | ~> 4.0 |
 
 
-### Providers
+## Providers
 
 | Provider | Version |
 | --- | --- |
 | `aws` | ~> 4.0 |
 
 
-### Modules
+## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
@@ -190,7 +189,7 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
-### Resources
+## Resources
 
 The following resources are used by this module:
 
@@ -200,7 +199,7 @@ The following resources are used by this module:
   - [`aws_iam_role.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) (resource)(main.tf#90)
   - [`aws_iam_role_policy_attachment.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) (resource)(main.tf#100)
 
-### Data Sources
+## Data Sources
 
 The following data sources are used by this module:
 
@@ -213,8 +212,8 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.support_access_aggregated`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_iam_policy_document.support_access_trusted_advisor`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
----
-### Required Variables
+
+## Required Variables
 ### `region` (`string`) <i>required</i>
 
 
@@ -277,8 +276,7 @@ A roles map to configure the accounts.<br/>
 
 
 
----
-### Optional Variables
+## Optional Variables
 ### `iam_primary_roles_account_name` (`string`) <i>optional</i>
 
 
@@ -343,8 +341,7 @@ IAM Role ARN to use when importing a resource<br/>
 
 
 
----
-### Context Variables
+## Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
 
@@ -850,7 +847,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 </details>
 
-### Outputs
+## Outputs
 
 <dl>
   <dt><code>role_long_name_policy_arn_map</code></dt>
