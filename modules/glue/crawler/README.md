@@ -65,1118 +65,1165 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-### `additional_tag_map` (`map(string)`) <i>optional</i>
-
-
-Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
-This is for some rare cases where resources want additional configuration of tags<br/>
-and therefore take a list of maps with tag key, value, and additional configuration.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `map(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `attributes` (`list(string)`) <i>optional</i>
-
-
-ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
-in the order they appear in the list. New attributes are appended to the<br/>
-end of the list. The elements of the list are joined by the `delimiter`<br/>
-and treated as a single ID element.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `[]`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `context` (`any`) <i>optional</i>
-
-
-Single object for setting entire context at once.<br/>
-See description of individual variables for details.<br/>
-Leave string and numeric variables as `null` to use default value.<br/>
-Individual variable settings (non-null) override settings in context object,<br/>
-except for attributes, tags, and additional_tag_map, which are merged.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `any`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  
-  ```hcl
-  {
-    "additional_tag_map": {},
-    "attributes": [],
-    "delimiter": null,
-    "descriptor_formats": {},
-    "enabled": true,
-    "environment": null,
-    "id_length_limit": null,
-    "label_key_case": null,
-    "label_order": [],
-    "label_value_case": null,
-    "labels_as_tags": [
-      "unset"
-    ],
-    "name": null,
-    "namespace": null,
-    "regex_replace_chars": null,
-    "stage": null,
-    "tags": {},
-    "tenant": null
-  }
-  ```
-  
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `delimiter` (`string`) <i>optional</i>
-
-
-Delimiter to be used between ID elements.<br/>
-Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `descriptor_formats` (`any`) <i>optional</i>
-
-
-Describe additional descriptors to be output in the `descriptors` output map.<br/>
-Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
-`{<br/>
-   format = string<br/>
-   labels = list(string)<br/>
-}`<br/>
-(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
-`format` is a Terraform format string to be passed to the `format()` function.<br/>
-`labels` is a list of labels, in order, to pass to `format()` function.<br/>
-Label values will be normalized before being passed to `format()` so they will be<br/>
-identical to how they appear in `id`.<br/>
-Default is `{}` (`descriptors` output will be empty).<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `any`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `enabled` (`bool`) <i>optional</i>
-
-
-Set to false to prevent the module from creating any resources<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `environment` (`string`) <i>optional</i>
-
-
-ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `id_length_limit` (`number`) <i>optional</i>
-
-
-Limit `id` to this many characters (minimum 6).<br/>
-Set to `0` for unlimited length.<br/>
-Set to `null` for keep the existing setting, which defaults to `0`.<br/>
-Does not affect `id_full`.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `label_key_case` (`string`) <i>optional</i>
-
-
-Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
-Does not affect keys of tags passed in via the `tags` input.<br/>
-Possible values: `lower`, `title`, `upper`.<br/>
-Default value: `title`.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `label_order` (`list(string)`) <i>optional</i>
-
-
-The order in which the labels (ID elements) appear in the `id`.<br/>
-Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
-You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `label_value_case` (`string`) <i>optional</i>
-
-
-Controls the letter case of ID elements (labels) as included in `id`,<br/>
-set as tag values, and output by this module individually.<br/>
-Does not affect values of tags passed in via the `tags` input.<br/>
-Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
-Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
-Default value: `lower`.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `labels_as_tags` (`set(string)`) <i>optional</i>
-
-
-Set of labels (ID elements) to include as tags in the `tags` output.<br/>
-Default is to include all labels.<br/>
-Tags with empty values will not be included in the `tags` output.<br/>
-Set to `[]` to suppress all generated tags.<br/>
-**Notes:**<br/>
-  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
-  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
-  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `set(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  
-  ```hcl
-  [
-    "default"
-  ]
-  ```
-  
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `name` (`string`) <i>optional</i>
-
-
-ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
-This is the only ID element not also included as a `tag`.<br/>
-The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `namespace` (`string`) <i>optional</i>
-
-
-ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `regex_replace_chars` (`string`) <i>optional</i>
-
-
-Terraform regular expression (regex) string.<br/>
-Characters matching the regex will be removed from the ID elements.<br/>
-If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `stage` (`string`) <i>optional</i>
-
-
-ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `tags` (`map(string)`) <i>optional</i>
-
-
-Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
-Neither the tag keys nor the tag values will be modified by this module.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `map(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `tenant` (`string`) <i>optional</i>
-
-
-ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `additional_tag_map` (`map(string)`) <i>optional</i>
+>
+>
+> Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+>
+> This is for some rare cases where resources want additional configuration of tags<br/>
+>
+> and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `map(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `attributes` (`list(string)`) <i>optional</i>
+>
+>
+> ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+>
+> in the order they appear in the list. New attributes are appended to the<br/>
+>
+> end of the list. The elements of the list are joined by the `delimiter`<br/>
+>
+> and treated as a single ID element.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `[]`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `context` (`any`) <i>optional</i>
+>
+>
+> Single object for setting entire context at once.<br/>
+>
+> See description of individual variables for details.<br/>
+>
+> Leave string and numeric variables as `null` to use default value.<br/>
+>
+> Individual variable settings (non-null) override settings in context object,<br/>
+>
+> except for attributes, tags, and additional_tag_map, which are merged.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `any`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>    ```hcl
+>>
+>    {
+>
+>      "additional_tag_map": {},
+>
+>      "attributes": [],
+>
+>      "delimiter": null,
+>
+>      "descriptor_formats": {},
+>
+>      "enabled": true,
+>
+>      "environment": null,
+>
+>      "id_length_limit": null,
+>
+>      "label_key_case": null,
+>
+>      "label_order": [],
+>
+>      "label_value_case": null,
+>
+>      "labels_as_tags": [
+>
+>        "unset"
+>
+>      ],
+>
+>      "name": null,
+>
+>      "namespace": null,
+>
+>      "regex_replace_chars": null,
+>
+>      "stage": null,
+>
+>      "tags": {},
+>
+>      "tenant": null
+>
+>    }
+>
+>    ```
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `delimiter` (`string`) <i>optional</i>
+>
+>
+> Delimiter to be used between ID elements.<br/>
+>
+> Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `descriptor_formats` (`any`) <i>optional</i>
+>
+>
+> Describe additional descriptors to be output in the `descriptors` output map.<br/>
+>
+> Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+>
+> `{<br/>
+>
+>    format = string<br/>
+>
+>    labels = list(string)<br/>
+>
+> }`<br/>
+>
+> (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+>
+> `format` is a Terraform format string to be passed to the `format()` function.<br/>
+>
+> `labels` is a list of labels, in order, to pass to `format()` function.<br/>
+>
+> Label values will be normalized before being passed to `format()` so they will be<br/>
+>
+> identical to how they appear in `id`.<br/>
+>
+> Default is `{}` (`descriptors` output will be empty).<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `any`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `enabled` (`bool`) <i>optional</i>
+>
+>
+> Set to false to prevent the module from creating any resources<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `environment` (`string`) <i>optional</i>
+>
+>
+> ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `id_length_limit` (`number`) <i>optional</i>
+>
+>
+> Limit `id` to this many characters (minimum 6).<br/>
+>
+> Set to `0` for unlimited length.<br/>
+>
+> Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+>
+> Does not affect `id_full`.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `label_key_case` (`string`) <i>optional</i>
+>
+>
+> Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+>
+> Does not affect keys of tags passed in via the `tags` input.<br/>
+>
+> Possible values: `lower`, `title`, `upper`.<br/>
+>
+> Default value: `title`.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `label_order` (`list(string)`) <i>optional</i>
+>
+>
+> The order in which the labels (ID elements) appear in the `id`.<br/>
+>
+> Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+>
+> You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `label_value_case` (`string`) <i>optional</i>
+>
+>
+> Controls the letter case of ID elements (labels) as included in `id`,<br/>
+>
+> set as tag values, and output by this module individually.<br/>
+>
+> Does not affect values of tags passed in via the `tags` input.<br/>
+>
+> Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+>
+> Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+>
+> Default value: `lower`.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `labels_as_tags` (`set(string)`) <i>optional</i>
+>
+>
+> Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+>
+> Default is to include all labels.<br/>
+>
+> Tags with empty values will not be included in the `tags` output.<br/>
+>
+> Set to `[]` to suppress all generated tags.<br/>
+>
+> **Notes:**<br/>
+>
+>   The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+>
+>   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+>
+>   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `set(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>    ```hcl
+>>
+>    [
+>
+>      "default"
+>
+>    ]
+>
+>    ```
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `name` (`string`) <i>optional</i>
+>
+>
+> ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+>
+> This is the only ID element not also included as a `tag`.<br/>
+>
+> The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `namespace` (`string`) <i>optional</i>
+>
+>
+> ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `regex_replace_chars` (`string`) <i>optional</i>
+>
+>
+> Terraform regular expression (regex) string.<br/>
+>
+> Characters matching the regex will be removed from the ID elements.<br/>
+>
+> If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `stage` (`string`) <i>optional</i>
+>
+>
+> ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `tags` (`map(string)`) <i>optional</i>
+>
+>
+> Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+>
+> Neither the tag keys nor the tag values will be modified by this module.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `map(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `tenant` (`string`) <i>optional</i>
+>
+>
+> ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
 
 </details>
 
-### Required Inputs
-### `glue_catalog_database_component_name` (`string`) <i>required</i>
+### Required Variables
+> ### `glue_catalog_database_component_name` (`string`) <i>required</i>
+>
+>
+> Glue catalog database component name where metadata resides. Used to get the Glue catalog database from the remote state<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    ``
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-Glue catalog database component name where metadata resides. Used to get the Glue catalog database from the remote state<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>Yes</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  ``
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `region` (`string`) <i>required</i>
-
-
-AWS Region<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>Yes</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  ``
-  </dd>
-</dl>
-
-</details
-
----
+> ### `region` (`string`) <i>required</i>
+>
+>
+> AWS Region<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    ``
+>   </dd>
+> </dl>
+>
+> </details>
 
 
 
-### Optional Inputs
-### `catalog_target` <i>optional</i>
-
-
-List of nested Glue catalog target arguments<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  
-
-  ```hcl
-  list(object({
+### Optional Variables
+> ### `catalog_target` <i>optional</i>
+>
+>
+> List of nested Glue catalog target arguments<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   list(object({
     database_name = string
     tables        = list(string)
   }))
-  ```
-  
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+>   ```
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `classifiers` (`list(string)`) <i>optional</i>
+> ### `classifiers` (`list(string)`) <i>optional</i>
+>
+>
+> List of custom classifiers. By default, all AWS classifiers are included in a crawl, but these custom classifiers always override the default classifiers for a given classification<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-List of custom classifiers. By default, all AWS classifiers are included in a crawl, but these custom classifiers always override the default classifiers for a given classification<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `configuration` (`string`) <i>optional</i>
-
-
-JSON string of configuration information<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `configuration` (`string`) <i>optional</i>
+>
+>
+> JSON string of configuration information<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `crawler_description` (`string`) <i>optional</i>
+> ### `crawler_description` (`string`) <i>optional</i>
+>
+>
+> Glue crawler description<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-Glue crawler description<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `crawler_name` (`string`) <i>optional</i>
-
-
-Glue crawler name. If not provided, the name will be generated from the context<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `crawler_name` (`string`) <i>optional</i>
+>
+>
+> Glue crawler name. If not provided, the name will be generated from the context<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `delta_target` <i>optional</i>
-
-
-List of nested Delta target arguments<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  
-
-  ```hcl
-  list(object({
+> ### `delta_target` <i>optional</i>
+>
+>
+> List of nested Delta target arguments<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   list(object({
     connection_name = string
     delta_tables    = list(string)
     write_manifest  = bool
   }))
-  ```
-  
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+>   ```
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `dynamodb_target` (`list(any)`) <i>optional</i>
+> ### `dynamodb_target` (`list(any)`) <i>optional</i>
+>
+>
+> List of nested DynamoDB target arguments<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(any)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-List of nested DynamoDB target arguments<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(any)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `glue_catalog_table_component_name` (`string`) <i>optional</i>
-
-
-Glue catalog table component name where metadata resides. Used to get the Glue catalog table from the remote state<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `glue_catalog_table_component_name` (`string`) <i>optional</i>
+>
+>
+> Glue catalog table component name where metadata resides. Used to get the Glue catalog table from the remote state<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `glue_iam_component_name` (`string`) <i>optional</i>
+> ### `glue_iam_component_name` (`string`) <i>optional</i>
+>
+>
+> Glue IAM component name. Used to get the Glue IAM role from the remote state<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"glue/iam"`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-Glue IAM component name. Used to get the Glue IAM role from the remote state<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"glue/iam"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `jdbc_target` (`list(any)`) <i>optional</i>
-
-
-List of nested JBDC target arguments<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(any)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `jdbc_target` (`list(any)`) <i>optional</i>
+>
+>
+> List of nested JBDC target arguments<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(any)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `lineage_configuration` <i>optional</i>
-
-
-Specifies data lineage configuration settings for the crawler<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  
-
-  ```hcl
-  object({
+> ### `lineage_configuration` <i>optional</i>
+>
+>
+> Specifies data lineage configuration settings for the crawler<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   object({
     crawler_lineage_settings = string
   })
-  ```
-  
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+>   ```
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `mongodb_target` (`list(any)`) <i>optional</i>
+> ### `mongodb_target` (`list(any)`) <i>optional</i>
+>
+>
+> List of nested MongoDB target arguments<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(any)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-List of nested MongoDB target arguments<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(any)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `recrawl_policy` <i>optional</i>
-
-
-A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were added since the last crawler run<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  
-
-  ```hcl
-  object({
+> ### `recrawl_policy` <i>optional</i>
+>
+>
+> A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were added since the last crawler run<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   object({
     recrawl_behavior = string
   })
-  ```
-  
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+>   ```
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `s3_target` (`list(any)`) <i>optional</i>
+> ### `s3_target` (`list(any)`) <i>optional</i>
+>
+>
+> List of nested Amazon S3 target arguments<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(any)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-List of nested Amazon S3 target arguments<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(any)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `schedule` (`string`) <i>optional</i>
-
-
-A cron expression for the schedule<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `schedule` (`string`) <i>optional</i>
+>
+>
+> A cron expression for the schedule<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `schema_change_policy` (`map(string)`) <i>optional</i>
+> ### `schema_change_policy` (`map(string)`) <i>optional</i>
+>
+>
+> Policy for the crawler's update and deletion behavior<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `map(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-Policy for the crawler's update and deletion behavior<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `map(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `security_configuration` (`string`) <i>optional</i>
-
-
-The name of Security Configuration to be used by the crawler<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `security_configuration` (`string`) <i>optional</i>
+>
+>
+> The name of Security Configuration to be used by the crawler<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `table_prefix` (`string`) <i>optional</i>
-
-
-The table prefix used for catalog tables that are created<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `table_prefix` (`string`) <i>optional</i>
+>
+>
+> The table prefix used for catalog tables that are created<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
 

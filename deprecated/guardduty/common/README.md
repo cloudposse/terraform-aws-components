@@ -114,7 +114,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 </details>
 
-### Required Inputs
+### Required Variables
 
 
 

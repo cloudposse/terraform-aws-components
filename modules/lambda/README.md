@@ -129,1012 +129,1074 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-### `additional_tag_map` (`map(string)`) <i>optional</i>
-
-
-Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
-This is for some rare cases where resources want additional configuration of tags<br/>
-and therefore take a list of maps with tag key, value, and additional configuration.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `map(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `attributes` (`list(string)`) <i>optional</i>
-
-
-ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
-in the order they appear in the list. New attributes are appended to the<br/>
-end of the list. The elements of the list are joined by the `delimiter`<br/>
-and treated as a single ID element.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `[]`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `context` (`any`) <i>optional</i>
-
-
-Single object for setting entire context at once.<br/>
-See description of individual variables for details.<br/>
-Leave string and numeric variables as `null` to use default value.<br/>
-Individual variable settings (non-null) override settings in context object,<br/>
-except for attributes, tags, and additional_tag_map, which are merged.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `any`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  
-  ```hcl
-  {
-    "additional_tag_map": {},
-    "attributes": [],
-    "delimiter": null,
-    "descriptor_formats": {},
-    "enabled": true,
-    "environment": null,
-    "id_length_limit": null,
-    "label_key_case": null,
-    "label_order": [],
-    "label_value_case": null,
-    "labels_as_tags": [
-      "unset"
-    ],
-    "name": null,
-    "namespace": null,
-    "regex_replace_chars": null,
-    "stage": null,
-    "tags": {},
-    "tenant": null
-  }
-  ```
-  
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `delimiter` (`string`) <i>optional</i>
-
-
-Delimiter to be used between ID elements.<br/>
-Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `descriptor_formats` (`any`) <i>optional</i>
-
-
-Describe additional descriptors to be output in the `descriptors` output map.<br/>
-Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
-`{<br/>
-   format = string<br/>
-   labels = list(string)<br/>
-}`<br/>
-(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
-`format` is a Terraform format string to be passed to the `format()` function.<br/>
-`labels` is a list of labels, in order, to pass to `format()` function.<br/>
-Label values will be normalized before being passed to `format()` so they will be<br/>
-identical to how they appear in `id`.<br/>
-Default is `{}` (`descriptors` output will be empty).<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `any`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `enabled` (`bool`) <i>optional</i>
-
-
-Set to false to prevent the module from creating any resources<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `environment` (`string`) <i>optional</i>
-
-
-ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `id_length_limit` (`number`) <i>optional</i>
-
-
-Limit `id` to this many characters (minimum 6).<br/>
-Set to `0` for unlimited length.<br/>
-Set to `null` for keep the existing setting, which defaults to `0`.<br/>
-Does not affect `id_full`.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `label_key_case` (`string`) <i>optional</i>
-
-
-Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
-Does not affect keys of tags passed in via the `tags` input.<br/>
-Possible values: `lower`, `title`, `upper`.<br/>
-Default value: `title`.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `label_order` (`list(string)`) <i>optional</i>
-
-
-The order in which the labels (ID elements) appear in the `id`.<br/>
-Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
-You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `label_value_case` (`string`) <i>optional</i>
-
-
-Controls the letter case of ID elements (labels) as included in `id`,<br/>
-set as tag values, and output by this module individually.<br/>
-Does not affect values of tags passed in via the `tags` input.<br/>
-Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
-Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
-Default value: `lower`.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `labels_as_tags` (`set(string)`) <i>optional</i>
-
-
-Set of labels (ID elements) to include as tags in the `tags` output.<br/>
-Default is to include all labels.<br/>
-Tags with empty values will not be included in the `tags` output.<br/>
-Set to `[]` to suppress all generated tags.<br/>
-**Notes:**<br/>
-  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
-  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
-  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `set(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  
-  ```hcl
-  [
-    "default"
-  ]
-  ```
-  
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `name` (`string`) <i>optional</i>
-
-
-ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
-This is the only ID element not also included as a `tag`.<br/>
-The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `namespace` (`string`) <i>optional</i>
-
-
-ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `regex_replace_chars` (`string`) <i>optional</i>
-
-
-Terraform regular expression (regex) string.<br/>
-Characters matching the regex will be removed from the ID elements.<br/>
-If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `stage` (`string`) <i>optional</i>
-
-
-ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `tags` (`map(string)`) <i>optional</i>
-
-
-Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
-Neither the tag keys nor the tag values will be modified by this module.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `map(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `tenant` (`string`) <i>optional</i>
-
-
-ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `additional_tag_map` (`map(string)`) <i>optional</i>
+>
+>
+> Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+>
+> This is for some rare cases where resources want additional configuration of tags<br/>
+>
+> and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `map(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `attributes` (`list(string)`) <i>optional</i>
+>
+>
+> ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+>
+> in the order they appear in the list. New attributes are appended to the<br/>
+>
+> end of the list. The elements of the list are joined by the `delimiter`<br/>
+>
+> and treated as a single ID element.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `[]`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `context` (`any`) <i>optional</i>
+>
+>
+> Single object for setting entire context at once.<br/>
+>
+> See description of individual variables for details.<br/>
+>
+> Leave string and numeric variables as `null` to use default value.<br/>
+>
+> Individual variable settings (non-null) override settings in context object,<br/>
+>
+> except for attributes, tags, and additional_tag_map, which are merged.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `any`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>    ```hcl
+>>
+>    {
+>
+>      "additional_tag_map": {},
+>
+>      "attributes": [],
+>
+>      "delimiter": null,
+>
+>      "descriptor_formats": {},
+>
+>      "enabled": true,
+>
+>      "environment": null,
+>
+>      "id_length_limit": null,
+>
+>      "label_key_case": null,
+>
+>      "label_order": [],
+>
+>      "label_value_case": null,
+>
+>      "labels_as_tags": [
+>
+>        "unset"
+>
+>      ],
+>
+>      "name": null,
+>
+>      "namespace": null,
+>
+>      "regex_replace_chars": null,
+>
+>      "stage": null,
+>
+>      "tags": {},
+>
+>      "tenant": null
+>
+>    }
+>
+>    ```
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `delimiter` (`string`) <i>optional</i>
+>
+>
+> Delimiter to be used between ID elements.<br/>
+>
+> Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `descriptor_formats` (`any`) <i>optional</i>
+>
+>
+> Describe additional descriptors to be output in the `descriptors` output map.<br/>
+>
+> Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+>
+> `{<br/>
+>
+>    format = string<br/>
+>
+>    labels = list(string)<br/>
+>
+> }`<br/>
+>
+> (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+>
+> `format` is a Terraform format string to be passed to the `format()` function.<br/>
+>
+> `labels` is a list of labels, in order, to pass to `format()` function.<br/>
+>
+> Label values will be normalized before being passed to `format()` so they will be<br/>
+>
+> identical to how they appear in `id`.<br/>
+>
+> Default is `{}` (`descriptors` output will be empty).<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `any`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `enabled` (`bool`) <i>optional</i>
+>
+>
+> Set to false to prevent the module from creating any resources<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `environment` (`string`) <i>optional</i>
+>
+>
+> ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `id_length_limit` (`number`) <i>optional</i>
+>
+>
+> Limit `id` to this many characters (minimum 6).<br/>
+>
+> Set to `0` for unlimited length.<br/>
+>
+> Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+>
+> Does not affect `id_full`.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `label_key_case` (`string`) <i>optional</i>
+>
+>
+> Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+>
+> Does not affect keys of tags passed in via the `tags` input.<br/>
+>
+> Possible values: `lower`, `title`, `upper`.<br/>
+>
+> Default value: `title`.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `label_order` (`list(string)`) <i>optional</i>
+>
+>
+> The order in which the labels (ID elements) appear in the `id`.<br/>
+>
+> Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+>
+> You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `label_value_case` (`string`) <i>optional</i>
+>
+>
+> Controls the letter case of ID elements (labels) as included in `id`,<br/>
+>
+> set as tag values, and output by this module individually.<br/>
+>
+> Does not affect values of tags passed in via the `tags` input.<br/>
+>
+> Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+>
+> Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+>
+> Default value: `lower`.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `labels_as_tags` (`set(string)`) <i>optional</i>
+>
+>
+> Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+>
+> Default is to include all labels.<br/>
+>
+> Tags with empty values will not be included in the `tags` output.<br/>
+>
+> Set to `[]` to suppress all generated tags.<br/>
+>
+> **Notes:**<br/>
+>
+>   The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+>
+>   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+>
+>   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `set(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>    ```hcl
+>>
+>    [
+>
+>      "default"
+>
+>    ]
+>
+>    ```
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `name` (`string`) <i>optional</i>
+>
+>
+> ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+>
+> This is the only ID element not also included as a `tag`.<br/>
+>
+> The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `namespace` (`string`) <i>optional</i>
+>
+>
+> ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `regex_replace_chars` (`string`) <i>optional</i>
+>
+>
+> Terraform regular expression (regex) string.<br/>
+>
+> Characters matching the regex will be removed from the ID elements.<br/>
+>
+> If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `stage` (`string`) <i>optional</i>
+>
+>
+> ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `tags` (`map(string)`) <i>optional</i>
+>
+>
+> Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+>
+> Neither the tag keys nor the tag values will be modified by this module.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `map(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `tenant` (`string`) <i>optional</i>
+>
+>
+> ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
 
 </details>
 
-### Required Inputs
-### `region` (`string`) <i>required</i>
-
-
-AWS Region<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>Yes</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  ``
-  </dd>
-</dl>
-
-</details
-
----
-
-
-
-### Optional Inputs
-### `architectures` (`list(string)`) <i>optional</i>
-
-
-    Instruction set architecture for your Lambda function. Valid values are ["x86_64"] and ["arm64"].<br/>
-    Default is ["x86_64"]. Removing this attribute, function's architecture stay the same.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `cicd_s3_key_format` (`string`) <i>optional</i>
-
-
-The format of the S3 key to store the latest version/sha of the Lambda function. This is used with cicd_ssm_param_name. Defaults to 'stage/{stage}/lambda/{function_name}/%s.zip'<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `cicd_ssm_param_name` (`string`) <i>optional</i>
-
-
-The name of the SSM parameter to store the latest version/sha of the Lambda function. This is used with cicd_s3_key_format<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `cloudwatch_event_rules` (`map(any)`) <i>optional</i>
-
-
-Creates EventBridge (CloudWatch Events) rules for invoking the Lambda Function along with the required permissions.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `map(any)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `cloudwatch_lambda_insights_enabled` (`bool`) <i>optional</i>
-
-
-Enable CloudWatch Lambda Insights for the Lambda Function.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `cloudwatch_log_subscription_filters` (`map(any)`) <i>optional</i>
-
-
-CloudWatch Logs subscription filter resources. Currently supports only Lambda functions as destinations.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `map(any)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `cloudwatch_logs_kms_key_arn` (`string`) <i>optional</i>
-
-
-The ARN of the KMS Key to use when encrypting log data.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `cloudwatch_logs_retention_in_days` (`number`) <i>optional</i>
-
-
-  Specifies the number of days you want to retain log events in the specified log group. Possible values are:<br/>
-  1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653, and 0. If you select 0, the events in the<br/>
-  log group are always retained and never expire.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `custom_iam_policy_arns` (`set(string)`) <i>optional</i>
-
-
-ARNs of IAM policies to be attached to the Lambda role<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `set(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `[]`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `dead_letter_config_target_arn` (`string`) <i>optional</i>
-
-
-  ARN of an SNS topic or SQS queue to notify when an invocation fails. If this option is used, the function's IAM role<br/>
-  must be granted suitable access to write to the target object, which means allowing either the sns:Publish or<br/>
-  sqs:SendMessage action on this ARN, depending on which service is targeted."<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `description` (`string`) <i>optional</i>
-
-
-Description of what the Lambda Function does.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `event_source_mappings` (`any`) <i>optional</i>
-
-
-  Creates event source mappings to allow the Lambda function to get events from Kinesis, DynamoDB and SQS. The IAM role<br/>
-  of this Lambda function will be enhanced with necessary minimum permissions to get those events.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `any`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `filename` (`string`) <i>optional</i>
-
-
-The path to the function's deployment package within the local filesystem. If defined, The s3_-prefixed options and image_uri cannot be used.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `function_name` (`string`) <i>optional</i>
-
-
-Unique name for the Lambda Function.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `handler` (`string`) <i>optional</i>
-
-
-The function entrypoint in your code.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `iam_policy` <i>optional</i>
-
-
-IAM policy to attach to the Lambda role, specified as a Terraform object. This can be used with or instead of `var.policy_json`.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  
-
-  ```hcl
-  object({
+### Required Variables
+> ### `region` (`string`) <i>required</i>
+>
+>
+> AWS Region<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    ``
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+
+### Optional Variables
+> ### `architectures` (`list(string)`) <i>optional</i>
+>
+>
+>     Instruction set architecture for your Lambda function. Valid values are ["x86_64"] and ["arm64"].<br/>
+>
+>     Default is ["x86_64"]. Removing this attribute, function's architecture stay the same.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `cicd_s3_key_format` (`string`) <i>optional</i>
+>
+>
+> The format of the S3 key to store the latest version/sha of the Lambda function. This is used with cicd_ssm_param_name. Defaults to 'stage/{stage}/lambda/{function_name}/%s.zip'<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `cicd_ssm_param_name` (`string`) <i>optional</i>
+>
+>
+> The name of the SSM parameter to store the latest version/sha of the Lambda function. This is used with cicd_s3_key_format<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `cloudwatch_event_rules` (`map(any)`) <i>optional</i>
+>
+>
+> Creates EventBridge (CloudWatch Events) rules for invoking the Lambda Function along with the required permissions.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `map(any)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `cloudwatch_lambda_insights_enabled` (`bool`) <i>optional</i>
+>
+>
+> Enable CloudWatch Lambda Insights for the Lambda Function.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `cloudwatch_log_subscription_filters` (`map(any)`) <i>optional</i>
+>
+>
+> CloudWatch Logs subscription filter resources. Currently supports only Lambda functions as destinations.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `map(any)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `cloudwatch_logs_kms_key_arn` (`string`) <i>optional</i>
+>
+>
+> The ARN of the KMS Key to use when encrypting log data.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `cloudwatch_logs_retention_in_days` (`number`) <i>optional</i>
+>
+>
+>   Specifies the number of days you want to retain log events in the specified log group. Possible values are:<br/>
+>
+>   1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653, and 0. If you select 0, the events in the<br/>
+>
+>   log group are always retained and never expire.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `custom_iam_policy_arns` (`set(string)`) <i>optional</i>
+>
+>
+> ARNs of IAM policies to be attached to the Lambda role<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `set(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `[]`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `dead_letter_config_target_arn` (`string`) <i>optional</i>
+>
+>
+>   ARN of an SNS topic or SQS queue to notify when an invocation fails. If this option is used, the function's IAM role<br/>
+>
+>   must be granted suitable access to write to the target object, which means allowing either the sns:Publish or<br/>
+>
+>   sqs:SendMessage action on this ARN, depending on which service is targeted."<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `description` (`string`) <i>optional</i>
+>
+>
+> Description of what the Lambda Function does.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `event_source_mappings` (`any`) <i>optional</i>
+>
+>
+>   Creates event source mappings to allow the Lambda function to get events from Kinesis, DynamoDB and SQS. The IAM role<br/>
+>
+>   of this Lambda function will be enhanced with necessary minimum permissions to get those events.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `any`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `filename` (`string`) <i>optional</i>
+>
+>
+> The path to the function's deployment package within the local filesystem. If defined, The s3_-prefixed options and image_uri cannot be used.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `function_name` (`string`) <i>optional</i>
+>
+>
+> Unique name for the Lambda Function.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `handler` (`string`) <i>optional</i>
+>
+>
+> The function entrypoint in your code.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `iam_policy` <i>optional</i>
+>
+>
+> IAM policy to attach to the Lambda role, specified as a Terraform object. This can be used with or instead of `var.policy_json`.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   object({
     policy_id = optional(string, null)
     version   = optional(string, null)
     statements = list(object({
@@ -1159,744 +1221,742 @@ IAM policy to attach to the Lambda role, specified as a Terraform object. This c
       })), [])
     }))
   })
-  ```
-  
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+>   ```
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `iam_policy_description` (`string`) <i>optional</i>
+> ### `iam_policy_description` (`string`) <i>optional</i>
+>
+>
+> Description of the IAM policy for the Lambda IAM role<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"Minimum SSM read permissions for Lambda IAM Role"`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-Description of the IAM policy for the Lambda IAM role<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"Minimum SSM read permissions for Lambda IAM Role"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `ignore_external_function_updates` (`bool`) <i>optional</i>
-
-
-  Ignore updates to the Lambda Function executed externally to the Terraform lifecycle. Set this to `true` if you're<br/>
-  using CodeDeploy, aws CLI or other external tools to update the Lambda Function code."<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `ignore_external_function_updates` (`bool`) <i>optional</i>
+>
+>
+>   Ignore updates to the Lambda Function executed externally to the Terraform lifecycle. Set this to `true` if you're<br/>
+>
+>   using CodeDeploy, aws CLI or other external tools to update the Lambda Function code."<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `image_config` (`any`) <i>optional</i>
+> ### `image_config` (`any`) <i>optional</i>
+>
+>
+>   The Lambda OCI [image configurations](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#image_config)<br/>
+>
+>   block with three (optional) arguments:<br/>
+>
+>   - *entry_point* - The ENTRYPOINT for the docker image (type `list(string)`).<br/>
+>
+>   - *command* - The CMD for the docker image (type `list(string)`).<br/>
+>
+>   - *working_directory* - The working directory for the docker image (type `string`).<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `any`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-  The Lambda OCI [image configurations](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#image_config)<br/>
-  block with three (optional) arguments:<br/>
-  - *entry_point* - The ENTRYPOINT for the docker image (type `list(string)`).<br/>
-  - *command* - The CMD for the docker image (type `list(string)`).<br/>
-  - *working_directory* - The working directory for the docker image (type `string`).<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `any`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `image_uri` (`string`) <i>optional</i>
+>
+>
+> The ECR image URI containing the function's deployment package. Conflicts with `filename`, `s3_bucket_name`, `s3_key`, and `s3_object_version`.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `image_uri` (`string`) <i>optional</i>
+> ### `kms_key_arn` (`string`) <i>optional</i>
+>
+>
+>   Amazon Resource Name (ARN) of the AWS Key Management Service (KMS) key that is used to encrypt environment variables.<br/>
+>
+>   If this configuration is not provided when environment variables are in use, AWS Lambda uses a default service key.<br/>
+>
+>   If this configuration is provided when environment variables are not in use, the AWS Lambda API does not save this<br/>
+>
+>   configuration and Terraform will show a perpetual difference of adding the key. To fix the perpetual difference,<br/>
+>
+>   remove this configuration.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `""`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-The ECR image URI containing the function's deployment package. Conflicts with `filename`, `s3_bucket_name`, `s3_key`, and `s3_object_version`.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `kms_key_arn` (`string`) <i>optional</i>
-
-
-  Amazon Resource Name (ARN) of the AWS Key Management Service (KMS) key that is used to encrypt environment variables.<br/>
-  If this configuration is not provided when environment variables are in use, AWS Lambda uses a default service key.<br/>
-  If this configuration is provided when environment variables are not in use, the AWS Lambda API does not save this<br/>
-  configuration and Terraform will show a perpetual difference of adding the key. To fix the perpetual difference,<br/>
-  remove this configuration.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `""`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `lambda_at_edge_enabled` (`bool`) <i>optional</i>
+>
+>
+> Enable Lambda@Edge for your Node.js or Python functions. The required trust relationship and publishing of function versions will be configured in this module.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `lambda_at_edge_enabled` (`bool`) <i>optional</i>
-
-
-Enable Lambda@Edge for your Node.js or Python functions. The required trust relationship and publishing of function versions will be configured in this module.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `lambda_environment` <i>optional</i>
-
-
-Environment (e.g. ENV variables) configuration for the Lambda function enable you to dynamically pass settings to your function code and libraries.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  
-
-  ```hcl
-  object({
+> ### `lambda_environment` <i>optional</i>
+>
+>
+> Environment (e.g. ENV variables) configuration for the Lambda function enable you to dynamically pass settings to your function code and libraries.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   object({
     variables = map(string)
   })
-  ```
-  
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `layers` (`list(string)`) <i>optional</i>
-
-
-List of Lambda Layer Version ARNs (maximum of 5) to attach to the Lambda Function.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `[]`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `memory_size` (`number`) <i>optional</i>
-
-
-Amount of memory in MB the Lambda Function can use at runtime.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `128`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `package_type` (`string`) <i>optional</i>
-
-
-The Lambda deployment package type. Valid values are `Zip` and `Image`.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"Zip"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `permissions_boundary` (`string`) <i>optional</i>
-
-
-ARN of the policy that is used to set the permissions boundary for the role<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `""`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `policy_json` (`string`) <i>optional</i>
-
-
-IAM policy to attach to the Lambda role, specified as JSON. This can be used with or instead of `var.iam_policy`.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `publish` (`bool`) <i>optional</i>
-
-
-Whether to publish creation/change as new Lambda Function Version.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `reserved_concurrent_executions` (`number`) <i>optional</i>
-
-
-The amount of reserved concurrent executions for this lambda function. A value of 0 disables lambda from being triggered and -1 removes any concurrency limitations.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `-1`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `runtime` (`string`) <i>optional</i>
-
-
-The runtime environment for the Lambda function you are uploading.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `s3_bucket_name` (`string`) <i>optional</i>
-
-
-  The name suffix of the S3 bucket containing the function's deployment package. Conflicts with filename and image_uri.<br/>
-  This bucket must reside in the same AWS region where you are creating the Lambda function.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `s3_full_bucket_name` (`string`) <i>optional</i>
-
-
-  The full name of the S3 bucket containing the function's deployment package. Conflicts with filename and image_uri.<br/>
-  This bucket must reside in the same AWS region where you are creating the Lambda function.<br/>
-<br/>
-  This is alternative to `var.s3_bucket_name` which formats the name for the current account.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `s3_key` (`string`) <i>optional</i>
-
-
-The S3 key of an object containing the function's deployment package. Conflicts with filename and image_uri.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `s3_object_version` (`string`) <i>optional</i>
-
-
-The object version containing the function's deployment package. Conflicts with filename and image_uri.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `sns_subscriptions` (`map(any)`) <i>optional</i>
-
-
-Creates subscriptions to SNS topics which trigger the Lambda Function. Required Lambda invocation permissions will be generated.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `map(any)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `source_code_hash` (`string`) <i>optional</i>
-
-
-  Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the package file specified with either<br/>
-  filename or s3_key. The usual way to set this is filebase64sha256('file.zip') where 'file.zip' is the local filename<br/>
-  of the lambda function source archive.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `""`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `ssm_parameter_names` (`list(string)`) <i>optional</i>
-
-
-  List of AWS Systems Manager Parameter Store parameter names. The IAM role of this Lambda function will be enhanced<br/>
-  with read permissions for those parameters. Parameters must start with a forward slash and can be encrypted with the<br/>
-  default KMS key.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `timeout` (`number`) <i>optional</i>
-
-
-The amount of time the Lambda Function has to run in seconds.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `3`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `tracing_config_mode` (`string`) <i>optional</i>
-
-
-Tracing config mode of the Lambda function. Can be either PassThrough or Active.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `vpc_config` <i>optional</i>
-
-
-  Provide this to allow your function to access your VPC (if both 'subnet_ids' and 'security_group_ids' are empty then<br/>
-  vpc_config is considered to be empty or unset, see https://docs.aws.amazon.com/lambda/latest/dg/vpc.html for details).<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  
-
-  ```hcl
-  object({
+>   ```
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `layers` (`list(string)`) <i>optional</i>
+>
+>
+> List of Lambda Layer Version ARNs (maximum of 5) to attach to the Lambda Function.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `[]`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `memory_size` (`number`) <i>optional</i>
+>
+>
+> Amount of memory in MB the Lambda Function can use at runtime.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `128`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `package_type` (`string`) <i>optional</i>
+>
+>
+> The Lambda deployment package type. Valid values are `Zip` and `Image`.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"Zip"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `permissions_boundary` (`string`) <i>optional</i>
+>
+>
+> ARN of the policy that is used to set the permissions boundary for the role<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `""`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `policy_json` (`string`) <i>optional</i>
+>
+>
+> IAM policy to attach to the Lambda role, specified as JSON. This can be used with or instead of `var.iam_policy`.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `publish` (`bool`) <i>optional</i>
+>
+>
+> Whether to publish creation/change as new Lambda Function Version.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `reserved_concurrent_executions` (`number`) <i>optional</i>
+>
+>
+> The amount of reserved concurrent executions for this lambda function. A value of 0 disables lambda from being triggered and -1 removes any concurrency limitations.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `-1`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `runtime` (`string`) <i>optional</i>
+>
+>
+> The runtime environment for the Lambda function you are uploading.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `s3_bucket_name` (`string`) <i>optional</i>
+>
+>
+>   The name suffix of the S3 bucket containing the function's deployment package. Conflicts with filename and image_uri.<br/>
+>
+>   This bucket must reside in the same AWS region where you are creating the Lambda function.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `s3_full_bucket_name` (`string`) <i>optional</i>
+>
+>
+>   The full name of the S3 bucket containing the function's deployment package. Conflicts with filename and image_uri.<br/>
+>
+>   This bucket must reside in the same AWS region where you are creating the Lambda function.<br/>
+>
+> <br/>
+>
+>   This is alternative to `var.s3_bucket_name` which formats the name for the current account.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `s3_key` (`string`) <i>optional</i>
+>
+>
+> The S3 key of an object containing the function's deployment package. Conflicts with filename and image_uri.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `s3_object_version` (`string`) <i>optional</i>
+>
+>
+> The object version containing the function's deployment package. Conflicts with filename and image_uri.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `sns_subscriptions` (`map(any)`) <i>optional</i>
+>
+>
+> Creates subscriptions to SNS topics which trigger the Lambda Function. Required Lambda invocation permissions will be generated.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `map(any)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `source_code_hash` (`string`) <i>optional</i>
+>
+>
+>   Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the package file specified with either<br/>
+>
+>   filename or s3_key. The usual way to set this is filebase64sha256('file.zip') where 'file.zip' is the local filename<br/>
+>
+>   of the lambda function source archive.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `""`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `ssm_parameter_names` (`list(string)`) <i>optional</i>
+>
+>
+>   List of AWS Systems Manager Parameter Store parameter names. The IAM role of this Lambda function will be enhanced<br/>
+>
+>   with read permissions for those parameters. Parameters must start with a forward slash and can be encrypted with the<br/>
+>
+>   default KMS key.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `timeout` (`number`) <i>optional</i>
+>
+>
+> The amount of time the Lambda Function has to run in seconds.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `3`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `tracing_config_mode` (`string`) <i>optional</i>
+>
+>
+> Tracing config mode of the Lambda function. Can be either PassThrough or Active.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `vpc_config` <i>optional</i>
+>
+>
+>   Provide this to allow your function to access your VPC (if both 'subnet_ids' and 'security_group_ids' are empty then<br/>
+>
+>   vpc_config is considered to be empty or unset, see https://docs.aws.amazon.com/lambda/latest/dg/vpc.html for details).<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   object({
     security_group_ids = list(string)
     subnet_ids         = list(string)
   })
-  ```
-  
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+>   ```
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `zip` <i>optional</i>
-
-
-Zip Configuration for local file deployments<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  
-
-  ```hcl
-  object({
+> ### `zip` <i>optional</i>
+>
+>
+> Zip Configuration for local file deployments<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   object({
     enabled   = optional(bool, false)
     output    = optional(string, "output.zip")
     input_dir = optional(string, null)
   })
-  ```
-  
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
+>   ```
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
 

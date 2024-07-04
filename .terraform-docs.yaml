@@ -2,44 +2,42 @@
 content: |-
   {{- $context_variables := list "context" "enabled" "namespace" "tenant" "environment" "stage" "name" "delimiter" "attributes" "tags" "additional_tag_map" "label_order" "regex_replace_chars" "id_length_limit" "label_key_case" "label_value_case" "descriptor_formats" "labels_as_tags" -}}
   {{- define "variableDescription" -}}
-  ### `{{ .Name }}`{{ if lt (len (split "\n" (tostring .Type))) 2 }} (`{{ tostring .Type }}`){{end}} <i>{{ ternary .Required "required" "optional" }}</i>{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}
-
+  > ### `{{ .Name }}`{{ if lt (len (split "\n" (tostring .Type))) 2 }} (`{{ tostring .Type }}`){{end}} <i>{{ ternary .Required "required" "optional" }}</i>{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}
+  >
   {{ $lines := regexSplit "\n" (tostring .Description | replace "OBSOLETE: " "") -1 -}}
-  {{- range $lines }}
-  {{ . }}<br/>
-  {{- end }}
-
-  <details>
-  <summary>Click to expand</summary>
-
-  <dl>
-    <dt>Required</dt>
-    <dd>{{ ternary .Required "Yes" "No" }}</dd>
-    <dt>Type</dt>
-    <dd>
-    {{ if lt (len (split "\n" (tostring .Type))) 2 }}`{{ tostring .Type }}`{{ else }}
-
-    ```hcl
-    {{ .Type.Raw }}
-    ```
-    {{ end }}
-    </dd>
-    <dt>Default value</dt>
-    <dd>
-    {{ if lt (len (split "\n" .GetValue)) 2 }}`{{ .GetValue }}`{{ else }}
-    ```hcl
-    {{- $lines := regexSplit "\n" .GetValue -1 -}}
-    {{- range $lines }}
-    {{ . }}
-    {{- end }}
-    ```
-    {{ end }}
-    </dd>
-  </dl>
-
-  </details
-
-  ---
+  > {{- range $lines }}
+  > {{ . }}<br/>
+  > {{- end }}
+  >
+  > <details>
+  > <summary>Click to expand</summary>
+  >
+  > <dl>
+  >   <dt>Required</dt>
+  >   <dd>{{ ternary .Required "Yes" "No" }}</dd>
+  >   <dt>Type</dt>
+  >   <dd>
+  >   {{ if lt (len (split "\n" (tostring .Type))) 2 }}`{{ tostring .Type }}`{{ else }}
+  >
+  >   ```hcl
+  >   {{ .Type.Raw }}
+  >   ```
+  >   {{ end }}
+  >  </dd>
+  >  <dt>Default value</dt>
+  >  <dd>
+  >    {{ if lt (len (split "\n" .GetValue)) 2 }}`{{ .GetValue }}`{{ else }}
+  >    ```hcl
+  >    {{- $lines := regexSplit "\n" .GetValue -1 -}}
+  >    {{- range $lines }}
+  >    {{ . }}
+  >    {{- end }}
+  >    ```
+  >    {{ end }}
+  >   </dd>
+  > </dl>
+  >
+  > </details>
 
   {{ end -}}
 

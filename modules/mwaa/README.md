@@ -93,1406 +93,1446 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-### `additional_tag_map` (`map(string)`) <i>optional</i>
-
-
-Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
-This is for some rare cases where resources want additional configuration of tags<br/>
-and therefore take a list of maps with tag key, value, and additional configuration.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `map(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `attributes` (`list(string)`) <i>optional</i>
-
-
-ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
-in the order they appear in the list. New attributes are appended to the<br/>
-end of the list. The elements of the list are joined by the `delimiter`<br/>
-and treated as a single ID element.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `[]`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `context` (`any`) <i>optional</i>
-
-
-Single object for setting entire context at once.<br/>
-See description of individual variables for details.<br/>
-Leave string and numeric variables as `null` to use default value.<br/>
-Individual variable settings (non-null) override settings in context object,<br/>
-except for attributes, tags, and additional_tag_map, which are merged.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `any`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  
-  ```hcl
-  {
-    "additional_tag_map": {},
-    "attributes": [],
-    "delimiter": null,
-    "descriptor_formats": {},
-    "enabled": true,
-    "environment": null,
-    "id_length_limit": null,
-    "label_key_case": null,
-    "label_order": [],
-    "label_value_case": null,
-    "labels_as_tags": [
-      "unset"
-    ],
-    "name": null,
-    "namespace": null,
-    "regex_replace_chars": null,
-    "stage": null,
-    "tags": {},
-    "tenant": null
-  }
-  ```
-  
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `delimiter` (`string`) <i>optional</i>
-
-
-Delimiter to be used between ID elements.<br/>
-Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `descriptor_formats` (`any`) <i>optional</i>
-
-
-Describe additional descriptors to be output in the `descriptors` output map.<br/>
-Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
-`{<br/>
-   format = string<br/>
-   labels = list(string)<br/>
-}`<br/>
-(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
-`format` is a Terraform format string to be passed to the `format()` function.<br/>
-`labels` is a list of labels, in order, to pass to `format()` function.<br/>
-Label values will be normalized before being passed to `format()` so they will be<br/>
-identical to how they appear in `id`.<br/>
-Default is `{}` (`descriptors` output will be empty).<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `any`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `enabled` (`bool`) <i>optional</i>
-
-
-Set to false to prevent the module from creating any resources<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `environment` (`string`) <i>optional</i>
-
-
-ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `id_length_limit` (`number`) <i>optional</i>
-
-
-Limit `id` to this many characters (minimum 6).<br/>
-Set to `0` for unlimited length.<br/>
-Set to `null` for keep the existing setting, which defaults to `0`.<br/>
-Does not affect `id_full`.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `label_key_case` (`string`) <i>optional</i>
-
-
-Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
-Does not affect keys of tags passed in via the `tags` input.<br/>
-Possible values: `lower`, `title`, `upper`.<br/>
-Default value: `title`.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `label_order` (`list(string)`) <i>optional</i>
-
-
-The order in which the labels (ID elements) appear in the `id`.<br/>
-Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
-You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `label_value_case` (`string`) <i>optional</i>
-
-
-Controls the letter case of ID elements (labels) as included in `id`,<br/>
-set as tag values, and output by this module individually.<br/>
-Does not affect values of tags passed in via the `tags` input.<br/>
-Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
-Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
-Default value: `lower`.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `labels_as_tags` (`set(string)`) <i>optional</i>
-
-
-Set of labels (ID elements) to include as tags in the `tags` output.<br/>
-Default is to include all labels.<br/>
-Tags with empty values will not be included in the `tags` output.<br/>
-Set to `[]` to suppress all generated tags.<br/>
-**Notes:**<br/>
-  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
-  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
-  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `set(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  
-  ```hcl
-  [
-    "default"
-  ]
-  ```
-  
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `name` (`string`) <i>optional</i>
-
-
-ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
-This is the only ID element not also included as a `tag`.<br/>
-The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `namespace` (`string`) <i>optional</i>
-
-
-ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `regex_replace_chars` (`string`) <i>optional</i>
-
-
-Terraform regular expression (regex) string.<br/>
-Characters matching the regex will be removed from the ID elements.<br/>
-If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `stage` (`string`) <i>optional</i>
-
-
-ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `tags` (`map(string)`) <i>optional</i>
-
-
-Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
-Neither the tag keys nor the tag values will be modified by this module.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `map(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `tenant` (`string`) <i>optional</i>
-
-
-ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `additional_tag_map` (`map(string)`) <i>optional</i>
+>
+>
+> Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+>
+> This is for some rare cases where resources want additional configuration of tags<br/>
+>
+> and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `map(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `attributes` (`list(string)`) <i>optional</i>
+>
+>
+> ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+>
+> in the order they appear in the list. New attributes are appended to the<br/>
+>
+> end of the list. The elements of the list are joined by the `delimiter`<br/>
+>
+> and treated as a single ID element.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `[]`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `context` (`any`) <i>optional</i>
+>
+>
+> Single object for setting entire context at once.<br/>
+>
+> See description of individual variables for details.<br/>
+>
+> Leave string and numeric variables as `null` to use default value.<br/>
+>
+> Individual variable settings (non-null) override settings in context object,<br/>
+>
+> except for attributes, tags, and additional_tag_map, which are merged.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `any`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>    ```hcl
+>>
+>    {
+>
+>      "additional_tag_map": {},
+>
+>      "attributes": [],
+>
+>      "delimiter": null,
+>
+>      "descriptor_formats": {},
+>
+>      "enabled": true,
+>
+>      "environment": null,
+>
+>      "id_length_limit": null,
+>
+>      "label_key_case": null,
+>
+>      "label_order": [],
+>
+>      "label_value_case": null,
+>
+>      "labels_as_tags": [
+>
+>        "unset"
+>
+>      ],
+>
+>      "name": null,
+>
+>      "namespace": null,
+>
+>      "regex_replace_chars": null,
+>
+>      "stage": null,
+>
+>      "tags": {},
+>
+>      "tenant": null
+>
+>    }
+>
+>    ```
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `delimiter` (`string`) <i>optional</i>
+>
+>
+> Delimiter to be used between ID elements.<br/>
+>
+> Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `descriptor_formats` (`any`) <i>optional</i>
+>
+>
+> Describe additional descriptors to be output in the `descriptors` output map.<br/>
+>
+> Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+>
+> `{<br/>
+>
+>    format = string<br/>
+>
+>    labels = list(string)<br/>
+>
+> }`<br/>
+>
+> (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+>
+> `format` is a Terraform format string to be passed to the `format()` function.<br/>
+>
+> `labels` is a list of labels, in order, to pass to `format()` function.<br/>
+>
+> Label values will be normalized before being passed to `format()` so they will be<br/>
+>
+> identical to how they appear in `id`.<br/>
+>
+> Default is `{}` (`descriptors` output will be empty).<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `any`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `enabled` (`bool`) <i>optional</i>
+>
+>
+> Set to false to prevent the module from creating any resources<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `environment` (`string`) <i>optional</i>
+>
+>
+> ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `id_length_limit` (`number`) <i>optional</i>
+>
+>
+> Limit `id` to this many characters (minimum 6).<br/>
+>
+> Set to `0` for unlimited length.<br/>
+>
+> Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+>
+> Does not affect `id_full`.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `label_key_case` (`string`) <i>optional</i>
+>
+>
+> Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+>
+> Does not affect keys of tags passed in via the `tags` input.<br/>
+>
+> Possible values: `lower`, `title`, `upper`.<br/>
+>
+> Default value: `title`.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `label_order` (`list(string)`) <i>optional</i>
+>
+>
+> The order in which the labels (ID elements) appear in the `id`.<br/>
+>
+> Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+>
+> You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `label_value_case` (`string`) <i>optional</i>
+>
+>
+> Controls the letter case of ID elements (labels) as included in `id`,<br/>
+>
+> set as tag values, and output by this module individually.<br/>
+>
+> Does not affect values of tags passed in via the `tags` input.<br/>
+>
+> Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+>
+> Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+>
+> Default value: `lower`.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `labels_as_tags` (`set(string)`) <i>optional</i>
+>
+>
+> Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+>
+> Default is to include all labels.<br/>
+>
+> Tags with empty values will not be included in the `tags` output.<br/>
+>
+> Set to `[]` to suppress all generated tags.<br/>
+>
+> **Notes:**<br/>
+>
+>   The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+>
+>   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+>
+>   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `set(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>    ```hcl
+>>
+>    [
+>
+>      "default"
+>
+>    ]
+>
+>    ```
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `name` (`string`) <i>optional</i>
+>
+>
+> ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+>
+> This is the only ID element not also included as a `tag`.<br/>
+>
+> The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `namespace` (`string`) <i>optional</i>
+>
+>
+> ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `regex_replace_chars` (`string`) <i>optional</i>
+>
+>
+> Terraform regular expression (regex) string.<br/>
+>
+> Characters matching the regex will be removed from the ID elements.<br/>
+>
+> If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `stage` (`string`) <i>optional</i>
+>
+>
+> ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `tags` (`map(string)`) <i>optional</i>
+>
+>
+> Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+>
+> Neither the tag keys nor the tag values will be modified by this module.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `map(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `tenant` (`string`) <i>optional</i>
+>
+>
+> ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
 
 </details>
 
-### Required Inputs
-### `region` (`string`) <i>required</i>
-
-
-AWS Region<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>Yes</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  ``
-  </dd>
-</dl>
-
-</details
-
----
-
-
-
-### Optional Inputs
-### `airflow_configuration_options` (`map(string)`) <i>optional</i>
-
-
-The Airflow override options<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `map(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `airflow_version` (`string`) <i>optional</i>
-
-
-Airflow version of the MWAA environment, will be set by default to the latest version that MWAA supports.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `""`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `allow_ingress_from_vpc_stages` (`list(string)`) <i>optional</i>
-
-
-List of stages to pull VPC ingress cidr and add to security group<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  
-  ```hcl
-  [
-    "auto",
-    "corp"
-  ]
-  ```
-  
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
-
-
-List of CIDR blocks to be allowed to connect to the MWAA cluster<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `[]`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `allowed_security_groups` (`list(string)`) <i>optional</i>
-
-
-A list of IDs of Security Groups to allow access to the security group created by this module.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `[]`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `allowed_web_access_role_arns` (`list(string)`) <i>optional</i>
-
-
-List of role ARNs to allow airflow web access<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `[]`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `allowed_web_access_role_names` (`list(string)`) <i>optional</i>
-
-
-List of role names to allow airflow web access<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `[]`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `create_iam_role` (`bool`) <i>optional</i>
-
-
-Enabling or disabling the creatation of a default IAM Role for AWS MWAA<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `true`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `create_s3_bucket` (`bool`) <i>optional</i>
-
-
-Enabling or disabling the creatation of an S3 bucket for AWS MWAA<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `true`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `dag_processing_logs_enabled` (`bool`) <i>optional</i>
-
-
-Enabling or disabling the collection of logs for processing DAGs<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `dag_processing_logs_level` (`string`) <i>optional</i>
-
-
-DAG processing logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"INFO"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `dag_s3_path` (`string`) <i>optional</i>
-
-
-Path to dags in s3<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"dags"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `environment_class` (`string`) <i>optional</i>
-
-
-Environment class for the cluster. Possible options are mw1.small, mw1.medium, mw1.large.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"mw1.small"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `execution_role_arn` (`string`) <i>optional</i>
-
-
-If `create_iam_role` is `false` then set this to the target MWAA execution role<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `""`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `max_workers` (`number`) <i>optional</i>
-
-
-The maximum number of workers that can be automatically scaled up. Value need to be between 1 and 25.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `10`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `min_workers` (`number`) <i>optional</i>
-
-
-The minimum number of workers that you want to run in your environment.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `1`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `plugins_s3_object_version` (`string`) <i>optional</i>
-
-
-The plugins.zip file version you want to use.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `plugins_s3_path` (`string`) <i>optional</i>
-
-
-The relative path to the plugins.zip file on your Amazon S3 storage bucket. For example, plugins.zip. If a relative path is provided in the request, then plugins_s3_object_version is required<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `requirements_s3_object_version` (`string`) <i>optional</i>
-
-
-The requirements.txt file version you<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `requirements_s3_path` (`string`) <i>optional</i>
-
-
-The relative path to the requirements.txt file on your Amazon S3 storage bucket. For example, requirements.txt. If a relative path is provided in the request, then requirements_s3_object_version is required<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `scheduler_logs_enabled` (`bool`) <i>optional</i>
-
-
-Enabling or disabling the collection of logs for the schedulers<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `scheduler_logs_level` (`string`) <i>optional</i>
-
-
-Schedulers logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"INFO"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `source_bucket_arn` (`string`) <i>optional</i>
-
-
-Set this to the Amazon Resource Name (ARN) of your Amazon S3 storage bucket.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `task_logs_enabled` (`bool`) <i>optional</i>
-
-
-Enabling or disabling the collection of logs for DAG tasks<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `task_logs_level` (`string`) <i>optional</i>
-
-
-DAG tasks logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"INFO"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `webserver_access_mode` (`string`) <i>optional</i>
-
-
-Specifies whether the webserver is accessible over the internet, PUBLIC_ONLY or PRIVATE_ONLY<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"PRIVATE_ONLY"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `webserver_logs_enabled` (`bool`) <i>optional</i>
-
-
-Enabling or disabling the collection of logs for the webservers<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `webserver_logs_level` (`string`) <i>optional</i>
-
-
-Webserver logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"INFO"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `weekly_maintenance_window_start` (`string`) <i>optional</i>
-
-
-Specifies the start date for the weekly maintenance window.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `worker_logs_enabled` (`bool`) <i>optional</i>
-
-
-Enabling or disabling the collection of logs for the workers<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `worker_logs_level` (`string`) <i>optional</i>
-
-
-Workers logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"INFO"`
-  </dd>
-</dl>
-
-</details
-
----
+### Required Variables
+> ### `region` (`string`) <i>required</i>
+>
+>
+> AWS Region<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    ``
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+
+### Optional Variables
+> ### `airflow_configuration_options` (`map(string)`) <i>optional</i>
+>
+>
+> The Airflow override options<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `map(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `airflow_version` (`string`) <i>optional</i>
+>
+>
+> Airflow version of the MWAA environment, will be set by default to the latest version that MWAA supports.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `""`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `allow_ingress_from_vpc_stages` (`list(string)`) <i>optional</i>
+>
+>
+> List of stages to pull VPC ingress cidr and add to security group<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>    ```hcl
+>>
+>    [
+>
+>      "auto",
+>
+>      "corp"
+>
+>    ]
+>
+>    ```
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
+>
+>
+> List of CIDR blocks to be allowed to connect to the MWAA cluster<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `[]`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `allowed_security_groups` (`list(string)`) <i>optional</i>
+>
+>
+> A list of IDs of Security Groups to allow access to the security group created by this module.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `[]`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `allowed_web_access_role_arns` (`list(string)`) <i>optional</i>
+>
+>
+> List of role ARNs to allow airflow web access<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `[]`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `allowed_web_access_role_names` (`list(string)`) <i>optional</i>
+>
+>
+> List of role names to allow airflow web access<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `[]`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `create_iam_role` (`bool`) <i>optional</i>
+>
+>
+> Enabling or disabling the creatation of a default IAM Role for AWS MWAA<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `true`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `create_s3_bucket` (`bool`) <i>optional</i>
+>
+>
+> Enabling or disabling the creatation of an S3 bucket for AWS MWAA<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `true`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `dag_processing_logs_enabled` (`bool`) <i>optional</i>
+>
+>
+> Enabling or disabling the collection of logs for processing DAGs<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `dag_processing_logs_level` (`string`) <i>optional</i>
+>
+>
+> DAG processing logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"INFO"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `dag_s3_path` (`string`) <i>optional</i>
+>
+>
+> Path to dags in s3<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"dags"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `environment_class` (`string`) <i>optional</i>
+>
+>
+> Environment class for the cluster. Possible options are mw1.small, mw1.medium, mw1.large.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"mw1.small"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `execution_role_arn` (`string`) <i>optional</i>
+>
+>
+> If `create_iam_role` is `false` then set this to the target MWAA execution role<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `""`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `max_workers` (`number`) <i>optional</i>
+>
+>
+> The maximum number of workers that can be automatically scaled up. Value need to be between 1 and 25.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `10`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `min_workers` (`number`) <i>optional</i>
+>
+>
+> The minimum number of workers that you want to run in your environment.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `1`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `plugins_s3_object_version` (`string`) <i>optional</i>
+>
+>
+> The plugins.zip file version you want to use.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `plugins_s3_path` (`string`) <i>optional</i>
+>
+>
+> The relative path to the plugins.zip file on your Amazon S3 storage bucket. For example, plugins.zip. If a relative path is provided in the request, then plugins_s3_object_version is required<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `requirements_s3_object_version` (`string`) <i>optional</i>
+>
+>
+> The requirements.txt file version you<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `requirements_s3_path` (`string`) <i>optional</i>
+>
+>
+> The relative path to the requirements.txt file on your Amazon S3 storage bucket. For example, requirements.txt. If a relative path is provided in the request, then requirements_s3_object_version is required<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `scheduler_logs_enabled` (`bool`) <i>optional</i>
+>
+>
+> Enabling or disabling the collection of logs for the schedulers<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `scheduler_logs_level` (`string`) <i>optional</i>
+>
+>
+> Schedulers logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"INFO"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `source_bucket_arn` (`string`) <i>optional</i>
+>
+>
+> Set this to the Amazon Resource Name (ARN) of your Amazon S3 storage bucket.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `task_logs_enabled` (`bool`) <i>optional</i>
+>
+>
+> Enabling or disabling the collection of logs for DAG tasks<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `task_logs_level` (`string`) <i>optional</i>
+>
+>
+> DAG tasks logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"INFO"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `webserver_access_mode` (`string`) <i>optional</i>
+>
+>
+> Specifies whether the webserver is accessible over the internet, PUBLIC_ONLY or PRIVATE_ONLY<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"PRIVATE_ONLY"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `webserver_logs_enabled` (`bool`) <i>optional</i>
+>
+>
+> Enabling or disabling the collection of logs for the webservers<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `webserver_logs_level` (`string`) <i>optional</i>
+>
+>
+> Webserver logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"INFO"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `weekly_maintenance_window_start` (`string`) <i>optional</i>
+>
+>
+> Specifies the start date for the weekly maintenance window.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `worker_logs_enabled` (`bool`) <i>optional</i>
+>
+>
+> Enabling or disabling the collection of logs for the workers<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `worker_logs_level` (`string`) <i>optional</i>
+>
+>
+> Workers logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"INFO"`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
 

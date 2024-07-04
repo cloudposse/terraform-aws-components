@@ -300,1930 +300,1968 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
-### `additional_tag_map` (`map(string)`) <i>optional</i>
-
-
-Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
-This is for some rare cases where resources want additional configuration of tags<br/>
-and therefore take a list of maps with tag key, value, and additional configuration.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `map(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `attributes` (`list(string)`) <i>optional</i>
-
-
-ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
-in the order they appear in the list. New attributes are appended to the<br/>
-end of the list. The elements of the list are joined by the `delimiter`<br/>
-and treated as a single ID element.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `[]`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `context` (`any`) <i>optional</i>
-
-
-Single object for setting entire context at once.<br/>
-See description of individual variables for details.<br/>
-Leave string and numeric variables as `null` to use default value.<br/>
-Individual variable settings (non-null) override settings in context object,<br/>
-except for attributes, tags, and additional_tag_map, which are merged.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `any`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  
-  ```hcl
-  {
-    "additional_tag_map": {},
-    "attributes": [],
-    "delimiter": null,
-    "descriptor_formats": {},
-    "enabled": true,
-    "environment": null,
-    "id_length_limit": null,
-    "label_key_case": null,
-    "label_order": [],
-    "label_value_case": null,
-    "labels_as_tags": [
-      "unset"
-    ],
-    "name": null,
-    "namespace": null,
-    "regex_replace_chars": null,
-    "stage": null,
-    "tags": {},
-    "tenant": null
-  }
-  ```
-  
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `delimiter` (`string`) <i>optional</i>
-
-
-Delimiter to be used between ID elements.<br/>
-Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `descriptor_formats` (`any`) <i>optional</i>
-
-
-Describe additional descriptors to be output in the `descriptors` output map.<br/>
-Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
-`{<br/>
-   format = string<br/>
-   labels = list(string)<br/>
-}`<br/>
-(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
-`format` is a Terraform format string to be passed to the `format()` function.<br/>
-`labels` is a list of labels, in order, to pass to `format()` function.<br/>
-Label values will be normalized before being passed to `format()` so they will be<br/>
-identical to how they appear in `id`.<br/>
-Default is `{}` (`descriptors` output will be empty).<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `any`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `enabled` (`bool`) <i>optional</i>
-
-
-Set to false to prevent the module from creating any resources<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `environment` (`string`) <i>optional</i>
-
-
-ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `id_length_limit` (`number`) <i>optional</i>
-
-
-Limit `id` to this many characters (minimum 6).<br/>
-Set to `0` for unlimited length.<br/>
-Set to `null` for keep the existing setting, which defaults to `0`.<br/>
-Does not affect `id_full`.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `label_key_case` (`string`) <i>optional</i>
-
-
-Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
-Does not affect keys of tags passed in via the `tags` input.<br/>
-Possible values: `lower`, `title`, `upper`.<br/>
-Default value: `title`.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `label_order` (`list(string)`) <i>optional</i>
-
-
-The order in which the labels (ID elements) appear in the `id`.<br/>
-Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
-You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `label_value_case` (`string`) <i>optional</i>
-
-
-Controls the letter case of ID elements (labels) as included in `id`,<br/>
-set as tag values, and output by this module individually.<br/>
-Does not affect values of tags passed in via the `tags` input.<br/>
-Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
-Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
-Default value: `lower`.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `labels_as_tags` (`set(string)`) <i>optional</i>
-
-
-Set of labels (ID elements) to include as tags in the `tags` output.<br/>
-Default is to include all labels.<br/>
-Tags with empty values will not be included in the `tags` output.<br/>
-Set to `[]` to suppress all generated tags.<br/>
-**Notes:**<br/>
-  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
-  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
-  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `set(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  
-  ```hcl
-  [
-    "default"
-  ]
-  ```
-  
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `name` (`string`) <i>optional</i>
-
-
-ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
-This is the only ID element not also included as a `tag`.<br/>
-The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `namespace` (`string`) <i>optional</i>
-
-
-ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `regex_replace_chars` (`string`) <i>optional</i>
-
-
-Terraform regular expression (regex) string.<br/>
-Characters matching the regex will be removed from the ID elements.<br/>
-If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `stage` (`string`) <i>optional</i>
-
-
-ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `tags` (`map(string)`) <i>optional</i>
-
-
-Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
-Neither the tag keys nor the tag values will be modified by this module.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `map(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `{}`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `tenant` (`string`) <i>optional</i>
-
-
-ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `additional_tag_map` (`map(string)`) <i>optional</i>
+>
+>
+> Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+>
+> This is for some rare cases where resources want additional configuration of tags<br/>
+>
+> and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `map(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `attributes` (`list(string)`) <i>optional</i>
+>
+>
+> ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+>
+> in the order they appear in the list. New attributes are appended to the<br/>
+>
+> end of the list. The elements of the list are joined by the `delimiter`<br/>
+>
+> and treated as a single ID element.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `[]`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `context` (`any`) <i>optional</i>
+>
+>
+> Single object for setting entire context at once.<br/>
+>
+> See description of individual variables for details.<br/>
+>
+> Leave string and numeric variables as `null` to use default value.<br/>
+>
+> Individual variable settings (non-null) override settings in context object,<br/>
+>
+> except for attributes, tags, and additional_tag_map, which are merged.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `any`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>    ```hcl
+>>
+>    {
+>
+>      "additional_tag_map": {},
+>
+>      "attributes": [],
+>
+>      "delimiter": null,
+>
+>      "descriptor_formats": {},
+>
+>      "enabled": true,
+>
+>      "environment": null,
+>
+>      "id_length_limit": null,
+>
+>      "label_key_case": null,
+>
+>      "label_order": [],
+>
+>      "label_value_case": null,
+>
+>      "labels_as_tags": [
+>
+>        "unset"
+>
+>      ],
+>
+>      "name": null,
+>
+>      "namespace": null,
+>
+>      "regex_replace_chars": null,
+>
+>      "stage": null,
+>
+>      "tags": {},
+>
+>      "tenant": null
+>
+>    }
+>
+>    ```
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `delimiter` (`string`) <i>optional</i>
+>
+>
+> Delimiter to be used between ID elements.<br/>
+>
+> Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `descriptor_formats` (`any`) <i>optional</i>
+>
+>
+> Describe additional descriptors to be output in the `descriptors` output map.<br/>
+>
+> Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+>
+> `{<br/>
+>
+>    format = string<br/>
+>
+>    labels = list(string)<br/>
+>
+> }`<br/>
+>
+> (Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+>
+> `format` is a Terraform format string to be passed to the `format()` function.<br/>
+>
+> `labels` is a list of labels, in order, to pass to `format()` function.<br/>
+>
+> Label values will be normalized before being passed to `format()` so they will be<br/>
+>
+> identical to how they appear in `id`.<br/>
+>
+> Default is `{}` (`descriptors` output will be empty).<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `any`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `enabled` (`bool`) <i>optional</i>
+>
+>
+> Set to false to prevent the module from creating any resources<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `environment` (`string`) <i>optional</i>
+>
+>
+> ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `id_length_limit` (`number`) <i>optional</i>
+>
+>
+> Limit `id` to this many characters (minimum 6).<br/>
+>
+> Set to `0` for unlimited length.<br/>
+>
+> Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+>
+> Does not affect `id_full`.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `label_key_case` (`string`) <i>optional</i>
+>
+>
+> Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+>
+> Does not affect keys of tags passed in via the `tags` input.<br/>
+>
+> Possible values: `lower`, `title`, `upper`.<br/>
+>
+> Default value: `title`.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `label_order` (`list(string)`) <i>optional</i>
+>
+>
+> The order in which the labels (ID elements) appear in the `id`.<br/>
+>
+> Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+>
+> You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `label_value_case` (`string`) <i>optional</i>
+>
+>
+> Controls the letter case of ID elements (labels) as included in `id`,<br/>
+>
+> set as tag values, and output by this module individually.<br/>
+>
+> Does not affect values of tags passed in via the `tags` input.<br/>
+>
+> Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+>
+> Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+>
+> Default value: `lower`.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `labels_as_tags` (`set(string)`) <i>optional</i>
+>
+>
+> Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+>
+> Default is to include all labels.<br/>
+>
+> Tags with empty values will not be included in the `tags` output.<br/>
+>
+> Set to `[]` to suppress all generated tags.<br/>
+>
+> **Notes:**<br/>
+>
+>   The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+>
+>   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+>
+>   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `set(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>    ```hcl
+>>
+>    [
+>
+>      "default"
+>
+>    ]
+>
+>    ```
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `name` (`string`) <i>optional</i>
+>
+>
+> ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+>
+> This is the only ID element not also included as a `tag`.<br/>
+>
+> The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `namespace` (`string`) <i>optional</i>
+>
+>
+> ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `regex_replace_chars` (`string`) <i>optional</i>
+>
+>
+> Terraform regular expression (regex) string.<br/>
+>
+> Characters matching the regex will be removed from the ID elements.<br/>
+>
+> If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `stage` (`string`) <i>optional</i>
+>
+>
+> ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `tags` (`map(string)`) <i>optional</i>
+>
+>
+> Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+>
+> Neither the tag keys nor the tag values will be modified by this module.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `map(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `{}`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `tenant` (`string`) <i>optional</i>
+>
+>
+> ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
 
 </details>
 
-### Required Inputs
-### `cluster_name` (`string`) <i>required</i>
+### Required Variables
+> ### `cluster_name` (`string`) <i>required</i>
+>
+>
+> Short name for this cluster<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    ``
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-Short name for this cluster<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>Yes</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  ``
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `cluster_size` (`number`) <i>required</i>
-
-
-Postgres cluster size<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>Yes</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  ``
-  </dd>
-</dl>
-
-</details
-
----
+> ### `cluster_size` (`number`) <i>required</i>
+>
+>
+> Postgres cluster size<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    ``
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `engine_mode` (`string`) <i>required</i>
+> ### `engine_mode` (`string`) <i>required</i>
+>
+>
+> The database engine mode. Valid values: `global`, `multimaster`, `parallelquery`, `provisioned`, `serverless`<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    ``
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-The database engine mode. Valid values: `global`, `multimaster`, `parallelquery`, `provisioned`, `serverless`<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>Yes</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  ``
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `instance_type` (`string`) <i>required</i>
-
-
-EC2 instance type for Postgres cluster<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>Yes</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  ``
-  </dd>
-</dl>
-
-</details
-
----
+> ### `instance_type` (`string`) <i>required</i>
+>
+>
+> EC2 instance type for Postgres cluster<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    ``
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `region` (`string`) <i>required</i>
-
-
-AWS Region<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>Yes</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  ``
-  </dd>
-</dl>
-
-</details
-
----
+> ### `region` (`string`) <i>required</i>
+>
+>
+> AWS Region<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    ``
+>   </dd>
+> </dl>
+>
+> </details>
 
 
 
-### Optional Inputs
-### `admin_password` (`string`) <i>optional</i>
+### Optional Variables
+> ### `admin_password` (`string`) <i>optional</i>
+>
+>
+> Postgres password for the admin user<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `""`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-Postgres password for the admin user<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `""`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `admin_user` (`string`) <i>optional</i>
-
-
-Postgres admin user name<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `""`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `admin_user` (`string`) <i>optional</i>
+>
+>
+> Postgres admin user name<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `""`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `allow_ingress_from_vpc_accounts` <i>optional</i>
-
-
-List of account contexts to pull VPC ingress CIDR and add to cluster security group.<br/>
-e.g.<br/>
-{<br/>
-  environment = "ue2",<br/>
-  stage       = "auto",<br/>
-  tenant      = "core"<br/>
-}<br/>
-<br/>
-Defaults to the "vpc" component in the given account<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  
-
-  ```hcl
-  list(object({
+> ### `allow_ingress_from_vpc_accounts` <i>optional</i>
+>
+>
+> List of account contexts to pull VPC ingress CIDR and add to cluster security group.<br/>
+>
+> e.g.<br/>
+>
+> {<br/>
+>
+>   environment = "ue2",<br/>
+>
+>   stage       = "auto",<br/>
+>
+>   tenant      = "core"<br/>
+>
+> }<br/>
+>
+> <br/>
+>
+> Defaults to the "vpc" component in the given account<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   list(object({
     vpc         = optional(string, "vpc")
     environment = optional(string)
     stage       = optional(string)
     tenant      = optional(string)
   }))
-  ```
-  
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `[]`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `allow_major_version_upgrade` (`bool`) <i>optional</i>
-
-
-Enable to allow major engine version upgrades when changing engine versions. Defaults to false.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
-
-
-List of CIDRs allowed to access the database (in addition to security groups and subnets)<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `[]`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `allowed_security_group_names` (`list(string)`) <i>optional</i>
-
-
-List of security group names (tags) that should be allowed access to the database<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `[]`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `autoscaling_enabled` (`bool`) <i>optional</i>
-
-
-Whether to enable cluster autoscaling<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `autoscaling_max_capacity` (`number`) <i>optional</i>
-
-
-Maximum number of instances to be maintained by the autoscaler<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `5`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `autoscaling_min_capacity` (`number`) <i>optional</i>
-
-
-Minimum number of instances to be maintained by the autoscaler<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `1`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `autoscaling_policy_type` (`string`) <i>optional</i>
-
-
-Autoscaling policy type. `TargetTrackingScaling` and `StepScaling` are supported<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"TargetTrackingScaling"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `autoscaling_scale_in_cooldown` (`number`) <i>optional</i>
-
-
-The amount of time, in seconds, after a scaling activity completes and before the next scaling down activity can start. Default is 300s<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `300`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `autoscaling_scale_out_cooldown` (`number`) <i>optional</i>
-
-
-The amount of time, in seconds, after a scaling activity completes and before the next scaling up activity can start. Default is 300s<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `300`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `autoscaling_target_metrics` (`string`) <i>optional</i>
-
-
-The metrics type to use. If this value isn't provided the default is CPU utilization<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"RDSReaderAverageCPUUtilization"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `autoscaling_target_value` (`number`) <i>optional</i>
-
-
-The target value to scale with respect to target metrics<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `75`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `backup_window` (`string`) <i>optional</i>
-
-
-Daily time range during which the backups happen, UTC<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"07:00-09:00"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `ca_cert_identifier` (`string`) <i>optional</i>
-
-
-The identifier of the CA certificate for the DB instance<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `cluster_dns_name_part` (`string`) <i>optional</i>
-
-
-Part of DNS name added to module and cluster name for DNS for cluster endpoint<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"writer"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `cluster_family` (`string`) <i>optional</i>
-
-
-Family of the DB parameter group. Valid values for Aurora PostgreSQL: `aurora-postgresql9.6`, `aurora-postgresql10`, `aurora-postgresql11`, `aurora-postgresql12`<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"aurora-postgresql13"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `cluster_parameters` <i>optional</i>
-
-
-List of DB cluster parameters to apply<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  
-
-  ```hcl
-  list(object({
+>   ```
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `[]`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `allow_major_version_upgrade` (`bool`) <i>optional</i>
+>
+>
+> Enable to allow major engine version upgrades when changing engine versions. Defaults to false.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
+>
+>
+> List of CIDRs allowed to access the database (in addition to security groups and subnets)<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `[]`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `allowed_security_group_names` (`list(string)`) <i>optional</i>
+>
+>
+> List of security group names (tags) that should be allowed access to the database<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `[]`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `autoscaling_enabled` (`bool`) <i>optional</i>
+>
+>
+> Whether to enable cluster autoscaling<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `autoscaling_max_capacity` (`number`) <i>optional</i>
+>
+>
+> Maximum number of instances to be maintained by the autoscaler<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `5`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `autoscaling_min_capacity` (`number`) <i>optional</i>
+>
+>
+> Minimum number of instances to be maintained by the autoscaler<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `1`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `autoscaling_policy_type` (`string`) <i>optional</i>
+>
+>
+> Autoscaling policy type. `TargetTrackingScaling` and `StepScaling` are supported<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"TargetTrackingScaling"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `autoscaling_scale_in_cooldown` (`number`) <i>optional</i>
+>
+>
+> The amount of time, in seconds, after a scaling activity completes and before the next scaling down activity can start. Default is 300s<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `300`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `autoscaling_scale_out_cooldown` (`number`) <i>optional</i>
+>
+>
+> The amount of time, in seconds, after a scaling activity completes and before the next scaling up activity can start. Default is 300s<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `300`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `autoscaling_target_metrics` (`string`) <i>optional</i>
+>
+>
+> The metrics type to use. If this value isn't provided the default is CPU utilization<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"RDSReaderAverageCPUUtilization"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `autoscaling_target_value` (`number`) <i>optional</i>
+>
+>
+> The target value to scale with respect to target metrics<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `75`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `backup_window` (`string`) <i>optional</i>
+>
+>
+> Daily time range during which the backups happen, UTC<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"07:00-09:00"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `ca_cert_identifier` (`string`) <i>optional</i>
+>
+>
+> The identifier of the CA certificate for the DB instance<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `cluster_dns_name_part` (`string`) <i>optional</i>
+>
+>
+> Part of DNS name added to module and cluster name for DNS for cluster endpoint<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"writer"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `cluster_family` (`string`) <i>optional</i>
+>
+>
+> Family of the DB parameter group. Valid values for Aurora PostgreSQL: `aurora-postgresql9.6`, `aurora-postgresql10`, `aurora-postgresql11`, `aurora-postgresql12`<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"aurora-postgresql13"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `cluster_parameters` <i>optional</i>
+>
+>
+> List of DB cluster parameters to apply<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   list(object({
     apply_method = string
     name         = string
     value        = string
   }))
-  ```
-  
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `[]`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `database_name` (`string`) <i>optional</i>
-
-
-Name for an automatically created database on cluster creation. An empty name will generate a db name.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `""`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `database_port` (`number`) <i>optional</i>
-
-
-Database port<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `5432`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `deletion_protection` (`bool`) <i>optional</i>
-
-
-Specifies whether the Cluster should have deletion protection enabled. The database can't be deleted when this value is set to `true`<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `dns_gbl_delegated_environment_name` (`string`) <i>optional</i>
-
-
-The name of the environment where global `dns_delegated` is provisioned<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"gbl"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `eks_component_names` (`set(string)`) <i>optional</i>
-
-
-The names of the eks components<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `set(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  
-  ```hcl
-  [
-    "eks/cluster"
-  ]
-  ```
-  
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `eks_security_group_enabled` (`bool`) <i>optional</i>
-
-
-Use the eks default security group<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `enabled_cloudwatch_logs_exports` (`list(string)`) <i>optional</i>
-
-
-List of log types to export to cloudwatch. The following log types are supported: audit, error, general, slowquery<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `[]`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `engine` (`string`) <i>optional</i>
-
-
-Name of the database engine to be used for the DB cluster<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"postgresql"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `engine_version` (`string`) <i>optional</i>
-
-
-Engine version of the Aurora global database<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"13.4"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `enhanced_monitoring_attributes` (`list(string)`) <i>optional</i>
-
-
-Attributes used to format the Enhanced Monitoring IAM role. If this role hits IAM role length restrictions (max 64 characters), consider shortening these strings.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `list(string)`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  
-  ```hcl
-  [
-    "enhanced-monitoring"
-  ]
-  ```
-  
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `enhanced_monitoring_role_enabled` (`bool`) <i>optional</i>
-
-
-A boolean flag to enable/disable the creation of the enhanced monitoring IAM role. If set to `false`, the module will not create a new role and will use `rds_monitoring_role_arn` for enhanced monitoring<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `true`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `iam_database_authentication_enabled` (`bool`) <i>optional</i>
-
-
-Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `intra_security_group_traffic_enabled` (`bool`) <i>optional</i>
-
-
-Whether to allow traffic between resources inside the database's security group.<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `maintenance_window` (`string`) <i>optional</i>
-
-
-Weekly time range during which system maintenance can occur, in UTC<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"wed:03:00-wed:04:00"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `performance_insights_enabled` (`bool`) <i>optional</i>
-
-
-Whether to enable Performance Insights<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `publicly_accessible` (`bool`) <i>optional</i>
-
-
-Set true to make this database accessible from the public internet<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `rds_monitoring_interval` (`number`) <i>optional</i>
-
-
-The interval, in seconds, between points when enhanced monitoring metrics are collected for the DB instance. To disable collecting Enhanced Monitoring metrics, specify 0. The default is 0. Valid Values: 0, 1, 5, 10, 15, 30, 60<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `60`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `reader_dns_name_part` (`string`) <i>optional</i>
-
-
-Part of DNS name added to module and cluster name for DNS for cluster reader<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"reader"`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `retention_period` (`number`) <i>optional</i>
-
-
-Number of days to retain backups for<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `number`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `5`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `scaling_configuration` <i>optional</i>
-
-
-List of nested attributes with scaling properties. Only valid when `engine_mode` is set to `serverless`. This is required for Serverless v1<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  
-
-  ```hcl
-  list(object({
+>   ```
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `[]`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `database_name` (`string`) <i>optional</i>
+>
+>
+> Name for an automatically created database on cluster creation. An empty name will generate a db name.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `""`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `database_port` (`number`) <i>optional</i>
+>
+>
+> Database port<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `5432`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `deletion_protection` (`bool`) <i>optional</i>
+>
+>
+> Specifies whether the Cluster should have deletion protection enabled. The database can't be deleted when this value is set to `true`<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `dns_gbl_delegated_environment_name` (`string`) <i>optional</i>
+>
+>
+> The name of the environment where global `dns_delegated` is provisioned<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"gbl"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `eks_component_names` (`set(string)`) <i>optional</i>
+>
+>
+> The names of the eks components<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `set(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>    ```hcl
+>>
+>    [
+>
+>      "eks/cluster"
+>
+>    ]
+>
+>    ```
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `eks_security_group_enabled` (`bool`) <i>optional</i>
+>
+>
+> Use the eks default security group<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `enabled_cloudwatch_logs_exports` (`list(string)`) <i>optional</i>
+>
+>
+> List of log types to export to cloudwatch. The following log types are supported: audit, error, general, slowquery<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `[]`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `engine` (`string`) <i>optional</i>
+>
+>
+> Name of the database engine to be used for the DB cluster<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"postgresql"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `engine_version` (`string`) <i>optional</i>
+>
+>
+> Engine version of the Aurora global database<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"13.4"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `enhanced_monitoring_attributes` (`list(string)`) <i>optional</i>
+>
+>
+> Attributes used to format the Enhanced Monitoring IAM role. If this role hits IAM role length restrictions (max 64 characters), consider shortening these strings.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `list(string)`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    
+>    ```hcl
+>>
+>    [
+>
+>      "enhanced-monitoring"
+>
+>    ]
+>
+>    ```
+>    
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `enhanced_monitoring_role_enabled` (`bool`) <i>optional</i>
+>
+>
+> A boolean flag to enable/disable the creation of the enhanced monitoring IAM role. If set to `false`, the module will not create a new role and will use `rds_monitoring_role_arn` for enhanced monitoring<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `true`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `iam_database_authentication_enabled` (`bool`) <i>optional</i>
+>
+>
+> Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `intra_security_group_traffic_enabled` (`bool`) <i>optional</i>
+>
+>
+> Whether to allow traffic between resources inside the database's security group.<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `maintenance_window` (`string`) <i>optional</i>
+>
+>
+> Weekly time range during which system maintenance can occur, in UTC<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"wed:03:00-wed:04:00"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `performance_insights_enabled` (`bool`) <i>optional</i>
+>
+>
+> Whether to enable Performance Insights<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `publicly_accessible` (`bool`) <i>optional</i>
+>
+>
+> Set true to make this database accessible from the public internet<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `rds_monitoring_interval` (`number`) <i>optional</i>
+>
+>
+> The interval, in seconds, between points when enhanced monitoring metrics are collected for the DB instance. To disable collecting Enhanced Monitoring metrics, specify 0. The default is 0. Valid Values: 0, 1, 5, 10, 15, 30, 60<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `60`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `reader_dns_name_part` (`string`) <i>optional</i>
+>
+>
+> Part of DNS name added to module and cluster name for DNS for cluster reader<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"reader"`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `retention_period` (`number`) <i>optional</i>
+>
+>
+> Number of days to retain backups for<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `number`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `5`
+>   </dd>
+> </dl>
+>
+> </details>
+
+
+> ### `scaling_configuration` <i>optional</i>
+>
+>
+> List of nested attributes with scaling properties. Only valid when `engine_mode` is set to `serverless`. This is required for Serverless v1<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   list(object({
     auto_pause               = bool
     max_capacity             = number
     min_capacity             = number
     seconds_until_auto_pause = number
     timeout_action           = string
   }))
-  ```
-  
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `[]`
-  </dd>
-</dl>
-
-</details
-
----
+>   ```
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `[]`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `serverlessv2_scaling_configuration` <i>optional</i>
-
-
-Nested attribute with scaling properties for ServerlessV2. Only valid when `engine_mode` is set to `provisioned.` This is required for Serverless v2<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  
-
-  ```hcl
-  object({
+> ### `serverlessv2_scaling_configuration` <i>optional</i>
+>
+>
+> Nested attribute with scaling properties for ServerlessV2. Only valid when `engine_mode` is set to `provisioned.` This is required for Serverless v2<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   object({
     min_capacity = number
     max_capacity = number
   })
-  ```
-  
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
+>   ```
+>   
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `skip_final_snapshot` (`bool`) <i>optional</i>
+> ### `skip_final_snapshot` (`bool`) <i>optional</i>
+>
+>
+> Normally AWS makes a snapshot of the database before deleting it. Set this to `true` in order to skip this.<br/>
+>
+> NOTE: The final snapshot has a name derived from the cluster name. If you delete a cluster, get a final snapshot,<br/>
+>
+> then create a cluster of the same name, its final snapshot will fail with a name collision unless you delete<br/>
+>
+> the previous final snapshot first.<br/>
+>
+> <br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `false`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-Normally AWS makes a snapshot of the database before deleting it. Set this to `true` in order to skip this.<br/>
-NOTE: The final snapshot has a name derived from the cluster name. If you delete a cluster, get a final snapshot,<br/>
-then create a cluster of the same name, its final snapshot will fail with a name collision unless you delete<br/>
-the previous final snapshot first.<br/>
-<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `false`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `snapshot_identifier` (`string`) <i>optional</i>
+>
+>
+> Specifies whether or not to create this cluster from a snapshot<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `null`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `snapshot_identifier` (`string`) <i>optional</i>
+> ### `ssm_path_prefix` (`string`) <i>optional</i>
+>
+>
+> Top level SSM path prefix (without leading or trailing slash)<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"aurora-postgres"`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-Specifies whether or not to create this cluster from a snapshot<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `null`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `ssm_path_prefix` (`string`) <i>optional</i>
-
-
-Top level SSM path prefix (without leading or trailing slash)<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"aurora-postgres"`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `storage_encrypted` (`bool`) <i>optional</i>
+>
+>
+> Specifies whether the DB cluster is encrypted<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `bool`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `true`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
-### `storage_encrypted` (`bool`) <i>optional</i>
-
-
-Specifies whether the DB cluster is encrypted<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `bool`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `true`
-  </dd>
-</dl>
-
-</details
-
----
-
-
-### `vpc_component_name` (`string`) <i>optional</i>
-
-
-The name of the VPC component<br/>
-
-<details>
-<summary>Click to expand</summary>
-
-<dl>
-  <dt>Required</dt>
-  <dd>No</dd>
-  <dt>Type</dt>
-  <dd>
-  `string`
-  </dd>
-  <dt>Default value</dt>
-  <dd>
-  `"vpc"`
-  </dd>
-</dl>
-
-</details
-
----
+> ### `vpc_component_name` (`string`) <i>optional</i>
+>
+>
+> The name of the VPC component<br/>
+>
+>
+> <details>
+> <summary>Click to expand</summary>
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   `string`
+>  </dd>
+>  <dt>Default value</dt>
+>  <dd>
+>    `"vpc"`
+>   </dd>
+> </dl>
+>
+> </details>
 
 
 
