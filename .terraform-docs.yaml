@@ -162,7 +162,7 @@ content: |-
   <details>
   <summary>Click to expand</summary>
 
-  {{- range .Module.Inputs }}
+  {{ range .Module.Inputs }}
   {{- if and (has .Name $context_variables) }}
   {{ template "variableDescription" . }}
   {{- end }}
