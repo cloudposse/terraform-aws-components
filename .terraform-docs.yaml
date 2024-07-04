@@ -109,7 +109,32 @@ content: |-
   {{- end }}
   {{- end }}
 
+  {{ if ne (len .Module.Outputs) 0 -}}
+  ## Outputs
+
+  <dl>
+  {{- range .Module.Outputs }}
+    <dt><code>{{ .Name }}</code>{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}</dt>
+    <dd>
+
+      {{- $lines := regexSplit "\n" (tostring .Description | replace "OBSOLETE: " "" | default "n/a" ) -1 -}}
+      {{- range $lines }}
+      {{ . }}<br/>
+      {{- end }}
+
+    </dd>
+  {{- end }}
+  </dl>
+  {{- end }}
+
   ## Required Variables
+
+  Required variables are the minimum set of variables that must be set to use this module.
+
+  > [!IMPORTANT]
+  >
+  > To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+  >
 
   {{- range .Module.Inputs }}
   {{- if and (not (has .Name $context_variables)) .Required }}
@@ -145,23 +170,7 @@ content: |-
 
   </details>
 
-  {{ if ne (len .Module.Outputs) 0 -}}
-  ## Outputs
 
-  <dl>
-  {{- range .Module.Outputs }}
-    <dt><code>{{ .Name }}</code>{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}</dt>
-    <dd>
-
-      {{- $lines := regexSplit "\n" (tostring .Description | replace "OBSOLETE: " "" | default "n/a" ) -1 -}}
-      {{- range $lines }}
-      {{ . }}<br/>
-      {{- end }}
-
-    </dd>
-  {{- end }}
-  </dl>
-  {{- end }}
 
 formatter: "markdown document" # this is required
 version: ""
