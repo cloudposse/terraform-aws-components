@@ -110,6 +110,10 @@ Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not add
 This is for some rare cases where resources want additional configuration of tags<br/>
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -123,6 +127,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -134,6 +140,10 @@ in the order they appear in the list. New attributes are appended to the<br/>
 end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -147,6 +157,8 @@ and treated as a single ID element.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -159,6 +171,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -196,6 +212,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -205,6 +223,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -217,6 +239,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -237,6 +261,10 @@ Label values will be normalized before being passed to `format()` so they will b
 identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -250,6 +278,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -257,6 +287,10 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -270,6 +304,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -277,6 +313,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -290,6 +330,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -301,6 +343,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -314,6 +360,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -325,6 +373,10 @@ Does not affect keys of tags passed in via the `tags` input.<br/>
 Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -338,6 +390,8 @@ Default value: `title`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -348,6 +402,10 @@ The order in which the labels (ID elements) appear in the `id`.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -360,6 +418,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -374,6 +434,10 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -386,6 +450,8 @@ Default value: `lower`.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -402,6 +468,10 @@ Set to `[]` to suppress all generated tags.<br/>
   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -421,6 +491,8 @@ Set to `[]` to suppress all generated tags.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -431,6 +503,10 @@ ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/
 This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -443,6 +519,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -451,6 +529,10 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -463,6 +545,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -474,6 +558,10 @@ Terraform regular expression (regex) string.<br/>
 Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -486,6 +574,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -494,6 +584,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -506,6 +600,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -516,6 +612,10 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -529,6 +629,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -536,6 +638,10 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -549,7 +655,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -559,6 +668,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 The instance type to use for the Kafka brokers<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -571,6 +684,8 @@ The instance type to use for the Kafka brokers<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -581,6 +696,10 @@ The instance type to use for the Kafka brokers<br/>
 The desired Kafka software version.<br/>
 Refer to https://docs.aws.amazon.com/msk/latest/developerguide/supported-kafka-versions.html for more details<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -593,6 +712,8 @@ Refer to https://docs.aws.amazon.com/msk/latest/developerguide/supported-kafka-v
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -601,6 +722,10 @@ Refer to https://docs.aws.amazon.com/msk/latest/developerguide/supported-kafka-v
 
 
 AWS region<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -613,6 +738,8 @@ AWS region<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -621,6 +748,10 @@ AWS region<br/>
 
 
 The name of the Atmos VPC component<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -633,6 +764,8 @@ The name of the Atmos VPC component<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -650,6 +783,10 @@ for `security_group_id` which will be ignored, and the optional "key" which, if 
 For more info see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule<br/>
 and https://github.com/cloudposse/terraform-aws-security-group.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -663,6 +800,8 @@ and https://github.com/cloudposse/terraform-aws-security-group.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -672,6 +811,10 @@ and https://github.com/cloudposse/terraform-aws-security-group.<br/>
 If `true`, the created security group will allow egress on all ports and protocols to all IP addresses.<br/>
 If this is false and no egress rules are otherwise specified, then no egress will be allowed.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -684,6 +827,8 @@ If this is false and no egress rules are otherwise specified, then no egress wil
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -694,6 +839,10 @@ If this is false and no egress rules are otherwise specified, then no egress wil
 A list of IPv4 CIDRs to allow access to the security group created by this module.<br/>
 The length of this list must be known at "plan" time.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -706,6 +855,8 @@ The length of this list must be known at "plan" time.<br/>
   `[]`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -716,6 +867,10 @@ The length of this list must be known at "plan" time.<br/>
 A list of IDs of Security Groups to allow access to the security group created by this module.<br/>
 The length of this list must be known at "plan" time.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -728,6 +883,8 @@ The length of this list must be known at "plan" time.<br/>
   `[]`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -738,6 +895,10 @@ The length of this list must be known at "plan" time.<br/>
 A list of IDs of Security Groups to associate the created resource with, in addition to the created security group.<br/>
 These security groups will not be modified and, if `create_security_group` is `false`, must have rules providing the desired access.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -751,6 +912,8 @@ These security groups will not be modified and, if `create_security_group` is `f
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -758,6 +921,10 @@ These security groups will not be modified and, if `create_security_group` is `f
 
 
 To automatically expand your cluster's storage in response to increased usage, you can enable this. [More info](https://docs.aws.amazon.com/msk/latest/developerguide/msk-autoexpand.html)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -770,6 +937,8 @@ To automatically expand your cluster's storage in response to increased usage, y
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -783,6 +952,10 @@ Calculate this number by multiplying the `broker_per_zone` variable by the subne
 This variable is necessary to prevent the Terraform error:<br/>
 The "count" value depends on resource attributes that cannot be determined until apply, so Terraform cannot predict how many instances will be created.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -796,6 +969,8 @@ The "count" value depends on resource attributes that cannot be determined until
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -803,6 +978,10 @@ The "count" value depends on resource attributes that cannot be determined until
 
 
 Number of Kafka brokers per zone<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -816,6 +995,8 @@ Number of Kafka brokers per zone<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -823,6 +1004,10 @@ Number of Kafka brokers per zone<br/>
 
 
 The size in GiB of the EBS volume for the data drive on each broker node<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -836,6 +1021,8 @@ The size in GiB of the EBS volume for the data drive on each broker node<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -843,6 +1030,10 @@ The size in GiB of the EBS volume for the data drive on each broker node<br/>
 
 
 List of ACM Certificate Authority Amazon Resource Names (ARNs) to be used for TLS client authentication<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -856,6 +1047,8 @@ List of ACM Certificate Authority Amazon Resource Names (ARNs) to be used for TL
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -863,6 +1056,10 @@ List of ACM Certificate Authority Amazon Resource Names (ARNs) to be used for TL
 
 
 Enable unauthenticated access<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -876,6 +1073,8 @@ Enable unauthenticated access<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -883,6 +1082,10 @@ Enable unauthenticated access<br/>
 
 
 Encryption setting for data in transit between clients and brokers. Valid values: `TLS`, `TLS_PLAINTEXT`, and `PLAINTEXT`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -896,6 +1099,8 @@ Encryption setting for data in transit between clients and brokers. Valid values
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -903,6 +1108,10 @@ Encryption setting for data in transit between clients and brokers. Valid values
 
 
 Enable client authentication via IAM policies. Cannot be set to `true` at the same time as `client_tls_auth_enabled`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -915,6 +1124,8 @@ Enable client authentication via IAM policies. Cannot be set to `true` at the sa
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -923,6 +1134,10 @@ Enable client authentication via IAM policies. Cannot be set to `true` at the sa
 
 
 Enable SCRAM client authentication via AWS Secrets Manager. Cannot be set to `true` at the same time as `client_tls_auth_enabled`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -936,6 +1151,8 @@ Enable SCRAM client authentication via AWS Secrets Manager. Cannot be set to `tr
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -943,6 +1160,10 @@ Enable SCRAM client authentication via AWS Secrets Manager. Cannot be set to `tr
 
 
 List of AWS Secrets Manager secret ARNs for SCRAM authentication<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -956,6 +1177,8 @@ List of AWS Secrets Manager secret ARNs for SCRAM authentication<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -963,6 +1186,10 @@ List of AWS Secrets Manager secret ARNs for SCRAM authentication<br/>
 
 
 Enable the list of AWS Secrets Manager secret ARNs for SCRAM authentication<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -975,6 +1202,8 @@ Enable the list of AWS Secrets Manager secret ARNs for SCRAM authentication<br/>
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -983,6 +1212,10 @@ Enable the list of AWS Secrets Manager secret ARNs for SCRAM authentication<br/>
 
 
 Set `true` to enable the Client TLS Authentication<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -995,6 +1228,8 @@ Set `true` to enable the Client TLS Authentication<br/>
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1003,6 +1238,10 @@ Set `true` to enable the Client TLS Authentication<br/>
 
 
 Indicates whether you want to enable or disable streaming broker logs to Cloudwatch Logs<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1016,6 +1255,8 @@ Indicates whether you want to enable or disable streaming broker logs to Cloudwa
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1023,6 +1264,10 @@ Indicates whether you want to enable or disable streaming broker logs to Cloudwa
 
 
 Name of the Cloudwatch Log Group to deliver logs to<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1036,6 +1281,8 @@ Name of the Cloudwatch Log Group to deliver logs to<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1043,6 +1290,10 @@ Name of the Cloudwatch Log Group to deliver logs to<br/>
 
 
 Set `true` to create and configure a new security group. If false, `associated_security_group_ids` must be provided.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1056,6 +1307,8 @@ Set `true` to create and configure a new security group. If false, `associated_s
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1063,6 +1316,10 @@ Set `true` to create and configure a new security group. If false, `associated_s
 
 
 Custom Route53 DNS hostname for MSK brokers. Use `%%ID%%` key to specify brokers index in the hostname. Example: `kafka-broker%%ID%%.example.com`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1076,6 +1333,8 @@ Custom Route53 DNS hostname for MSK brokers. Use `%%ID%%` key to specify brokers
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1083,6 +1342,10 @@ Custom Route53 DNS hostname for MSK brokers. Use `%%ID%%` key to specify brokers
 
 
 The component name of `dns-delegated`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1096,6 +1359,8 @@ The component name of `dns-delegated`<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1103,6 +1368,10 @@ The component name of `dns-delegated`<br/>
 
 
 The environment name of `dns-delegated`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1116,6 +1385,8 @@ The environment name of `dns-delegated`<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1123,6 +1394,10 @@ The environment name of `dns-delegated`<br/>
 
 
 You may specify a KMS key short ID or ARN (it will always output an ARN) to use for encrypting your data at rest<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1136,6 +1411,8 @@ You may specify a KMS key short ID or ARN (it will always output an ARN) to use 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1143,6 +1420,10 @@ You may specify a KMS key short ID or ARN (it will always output an ARN) to use 
 
 
 Whether data communication among broker nodes is encrypted<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1156,6 +1437,8 @@ Whether data communication among broker nodes is encrypted<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1163,6 +1446,10 @@ Whether data communication among broker nodes is encrypted<br/>
 
 
 Specify the desired enhanced MSK CloudWatch monitoring level. Valid values: `DEFAULT`, `PER_BROKER`, and `PER_TOPIC_PER_BROKER`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1176,6 +1463,8 @@ Specify the desired enhanced MSK CloudWatch monitoring level. Valid values: `DEF
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1183,6 +1472,10 @@ Specify the desired enhanced MSK CloudWatch monitoring level. Valid values: `DEF
 
 
 Name of the Kinesis Data Firehose delivery stream to deliver logs to<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1196,6 +1489,8 @@ Name of the Kinesis Data Firehose delivery stream to deliver logs to<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1203,6 +1498,10 @@ Name of the Kinesis Data Firehose delivery stream to deliver logs to<br/>
 
 
 Indicates whether you want to enable or disable streaming broker logs to Kinesis Data Firehose<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1215,6 +1514,8 @@ Indicates whether you want to enable or disable streaming broker logs to Kinesis
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1226,6 +1527,10 @@ NOT RECOMMENDED. Create rules "inline" instead of as separate `aws_security_grou
 See [#20046](https://github.com/hashicorp/terraform-provider-aws/issues/20046) for one of several issues with inline rules.<br/>
 See [this post](https://github.com/hashicorp/terraform-provider-aws/pull/9032#issuecomment-639545250) for details on the difference between inline rules and rule resources.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1238,6 +1543,8 @@ See [this post](https://github.com/hashicorp/terraform-provider-aws/pull/9032#is
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1246,6 +1553,10 @@ See [this post](https://github.com/hashicorp/terraform-provider-aws/pull/9032#is
 
 
 Set `true` to enable the JMX Exporter<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1258,6 +1569,8 @@ Set `true` to enable the JMX Exporter<br/>
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1266,6 +1579,10 @@ Set `true` to enable the JMX Exporter<br/>
 
 
 Set `true` to enable the Node Exporter<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1278,6 +1595,8 @@ Set `true` to enable the Node Exporter<br/>
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1295,6 +1614,10 @@ but preserving the security group itself.<br/>
 it only keeps changes to the security group rules from triggering a replacement.<br/>
 See the [terraform-aws-security-group README](https://github.com/cloudposse/terraform-aws-security-group) for further discussion.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1308,6 +1631,8 @@ See the [terraform-aws-security-group README](https://github.com/cloudposse/terr
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1315,6 +1640,10 @@ See the [terraform-aws-security-group README](https://github.com/cloudposse/terr
 
 
 Contents of the server.properties file. Supported properties are documented in the [MSK Developer Guide](https://docs.aws.amazon.com/msk/latest/developerguide/msk-configuration-properties.html)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1328,6 +1657,8 @@ Contents of the server.properties file. Supported properties are documented in t
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1335,6 +1666,10 @@ Contents of the server.properties file. Supported properties are documented in t
 
 
 Enable public access to MSK cluster (given that all of the requirements are met)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1347,6 +1682,8 @@ Enable public access to MSK cluster (given that all of the requirements are met)
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1355,6 +1692,10 @@ Enable public access to MSK cluster (given that all of the requirements are met)
 
 
 Name of the S3 bucket to deliver logs to<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1368,6 +1709,8 @@ Name of the S3 bucket to deliver logs to<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1375,6 +1718,10 @@ Name of the S3 bucket to deliver logs to<br/>
 
 
  Indicates whether you want to enable or disable streaming broker logs to S3<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1388,6 +1735,8 @@ Name of the S3 bucket to deliver logs to<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1395,6 +1744,10 @@ Name of the S3 bucket to deliver logs to<br/>
 
 
 Prefix to append to the S3 folder name logs are delivered to<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1407,6 +1760,8 @@ Prefix to append to the S3 folder name logs are delivered to<br/>
   `""`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1419,6 +1774,10 @@ We only recommend setting this `false` if you are importing an existing security
 that you do not want replaced and therefore need full control over its name.<br/>
 Note that changing this value will always cause the security group to be replaced.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1432,6 +1791,8 @@ Note that changing this value will always cause the security group to be replace
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1439,6 +1800,10 @@ Note that changing this value will always cause the security group to be replace
 
 
 How long to wait for the security group to be created.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1452,6 +1817,8 @@ How long to wait for the security group to be created.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1461,6 +1828,10 @@ How long to wait for the security group to be created.<br/>
 How long to retry on `DependencyViolation` errors during security group deletion from<br/>
 lingering ENIs left by certain AWS services such as Elastic Load Balancing.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1474,6 +1845,8 @@ lingering ENIs left by certain AWS services such as Elastic Load Balancing.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1483,6 +1856,10 @@ lingering ENIs left by certain AWS services such as Elastic Load Balancing.<br/>
 The description to assign to the created Security Group.<br/>
 Warning: Changing the description causes the security group to be replaced.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1496,6 +1873,8 @@ Warning: Changing the description causes the security group to be replaced.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1506,6 +1885,10 @@ The name to assign to the created security group. Must be unique within the VPC.
 If not provided, will be derived from the `null-label.context` passed in.<br/>
 If `create_before_destroy` is true, will be used as a name prefix.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1519,6 +1902,8 @@ If `create_before_destroy` is true, will be used as a name prefix.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1526,6 +1911,10 @@ If `create_before_destroy` is true, will be used as a name prefix.<br/>
 
 
 The description to place on each security group rule. The %s will be replaced with the protocol name<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1539,6 +1928,8 @@ The description to place on each security group rule. The %s will be replaced wi
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1546,6 +1937,10 @@ The description to place on each security group rule. The %s will be replaced wi
 
 
 If the value is true, scale in is disabled and the target tracking policy won't remove capacity from the scalable resource<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1559,6 +1954,8 @@ If the value is true, scale in is disabled and the target tracking policy won't 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1566,6 +1963,10 @@ If the value is true, scale in is disabled and the target tracking policy won't 
 
 
 Maximum size the autoscaling policy can scale storage. Defaults to `broker_volume_size`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1579,6 +1980,8 @@ Maximum size the autoscaling policy can scale storage. Defaults to `broker_volum
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1586,6 +1989,10 @@ Maximum size the autoscaling policy can scale storage. Defaults to `broker_volum
 
 
 Percentage of storage used to trigger autoscaled storage increase<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1598,6 +2005,8 @@ Percentage of storage used to trigger autoscaled storage increase<br/>
   `60`
   </dd>
 </dl>
+
+</details
 
 ---
 

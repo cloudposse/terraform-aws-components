@@ -117,6 +117,10 @@ Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not add
 This is for some rare cases where resources want additional configuration of tags<br/>
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -130,6 +134,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -141,6 +147,10 @@ in the order they appear in the list. New attributes are appended to the<br/>
 end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -154,6 +164,8 @@ and treated as a single ID element.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -166,6 +178,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -203,6 +219,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -212,6 +230,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -224,6 +246,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -244,6 +268,10 @@ Label values will be normalized before being passed to `format()` so they will b
 identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -257,6 +285,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -264,6 +294,10 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -277,6 +311,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -284,6 +320,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -297,6 +337,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -308,6 +350,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -321,6 +367,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -332,6 +380,10 @@ Does not affect keys of tags passed in via the `tags` input.<br/>
 Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -345,6 +397,8 @@ Default value: `title`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -355,6 +409,10 @@ The order in which the labels (ID elements) appear in the `id`.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -367,6 +425,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -381,6 +441,10 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -393,6 +457,8 @@ Default value: `lower`.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -409,6 +475,10 @@ Set to `[]` to suppress all generated tags.<br/>
   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -428,6 +498,8 @@ Set to `[]` to suppress all generated tags.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -438,6 +510,10 @@ ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/
 This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -450,6 +526,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -458,6 +536,10 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -470,6 +552,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -481,6 +565,10 @@ Terraform regular expression (regex) string.<br/>
 Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -493,6 +581,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -501,6 +591,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -513,6 +607,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -523,6 +619,10 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -536,6 +636,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -543,6 +645,10 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -556,7 +662,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -566,6 +675,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 AWS Region<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -579,6 +692,8 @@ AWS Region<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -588,6 +703,10 @@ AWS Region<br/>
 
 
 Enables content-based deduplication for FIFO queues. For more information, see the [related documentation](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-exactly-once-processing)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -601,6 +720,8 @@ Enables content-based deduplication for FIFO queues. For more information, see t
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -608,6 +729,10 @@ Enables content-based deduplication for FIFO queues. For more information, see t
 
 
 Determines whether to create a redrive allow policy for the dead letter queue.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -621,6 +746,8 @@ Determines whether to create a redrive allow policy for the dead letter queue.<b
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -628,6 +755,10 @@ Determines whether to create a redrive allow policy for the dead letter queue.<b
 
 
 Specifies whether message deduplication occurs at the message group or queue level<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -641,6 +772,8 @@ Specifies whether message deduplication occurs at the message group or queue lev
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -648,6 +781,10 @@ Specifies whether message deduplication occurs at the message group or queue lev
 
 
 The time in seconds that the delivery of all messages in the queue will be delayed. An integer from 0 to 900 (15 minutes). The default for this attribute is 0 seconds.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -661,6 +798,8 @@ The time in seconds that the delivery of all messages in the queue will be delay
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -668,6 +807,10 @@ The time in seconds that the delivery of all messages in the queue will be delay
 
 
 Enables content-based deduplication for FIFO queues<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -681,6 +824,8 @@ Enables content-based deduplication for FIFO queues<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -688,6 +833,10 @@ Enables content-based deduplication for FIFO queues<br/>
 
 
 Specifies whether message deduplication occurs at the message group or queue level<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -701,6 +850,8 @@ Specifies whether message deduplication occurs at the message group or queue lev
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -708,6 +859,10 @@ Specifies whether message deduplication occurs at the message group or queue lev
 
 
 The time in seconds that the delivery of all messages in the queue will be delayed. An integer from 0 to 900 (15 minutes)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -721,6 +876,8 @@ The time in seconds that the delivery of all messages in the queue will be delay
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -728,6 +885,10 @@ The time in seconds that the delivery of all messages in the queue will be delay
 
 
 Boolean designating whether the Dead Letter Queue should be created by this component.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -741,6 +902,8 @@ Boolean designating whether the Dead Letter Queue should be created by this comp
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -748,6 +911,10 @@ Boolean designating whether the Dead Letter Queue should be created by this comp
 
 
 The length of time, in seconds, for which Amazon SQS can reuse a data key to encrypt or decrypt messages before calling AWS KMS again. An integer representing seconds, between 60 seconds (1 minute) and 86,400 seconds (24 hours)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -761,6 +928,8 @@ The length of time, in seconds, for which Amazon SQS can reuse a data key to enc
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -768,6 +937,10 @@ The length of time, in seconds, for which Amazon SQS can reuse a data key to enc
 
 
 The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CMK<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -781,6 +954,8 @@ The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CM
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -788,6 +963,10 @@ The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CM
 
 
 The number of times a message can be unsuccessfully dequeued before being moved to the Dead Letter Queue.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -801,6 +980,8 @@ The number of times a message can be unsuccessfully dequeued before being moved 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -808,6 +989,10 @@ The number of times a message can be unsuccessfully dequeued before being moved 
 
 
 The number of seconds Amazon SQS retains a message. Integer representing seconds, from 60 (1 minute) to 1209600 (14 days)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -821,6 +1006,8 @@ The number of seconds Amazon SQS retains a message. Integer representing seconds
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -828,6 +1015,10 @@ The number of seconds Amazon SQS retains a message. Integer representing seconds
 
 
 The suffix of the Dead Letter Queue.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -841,6 +1032,8 @@ The suffix of the Dead Letter Queue.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -848,6 +1041,10 @@ The suffix of the Dead Letter Queue.<br/>
 
 
 The time for which a ReceiveMessage call will wait for a message to arrive (long polling) before returning. An integer from 0 to 20 (seconds)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -861,6 +1058,8 @@ The time for which a ReceiveMessage call will wait for a message to arrive (long
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -868,6 +1067,10 @@ The time for which a ReceiveMessage call will wait for a message to arrive (long
 
 
 The JSON policy to set up the Dead Letter Queue redrive permission, see AWS docs.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -881,6 +1084,8 @@ The JSON policy to set up the Dead Letter Queue redrive permission, see AWS docs
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -888,6 +1093,10 @@ The JSON policy to set up the Dead Letter Queue redrive permission, see AWS docs
 
 
 Boolean to enable server-side encryption (SSE) of message content with SQS-owned encryption keys<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -901,6 +1110,8 @@ Boolean to enable server-side encryption (SSE) of message content with SQS-owned
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -908,6 +1119,10 @@ Boolean to enable server-side encryption (SSE) of message content with SQS-owned
 
 
 A mapping of additional tags to assign to the dead letter queue<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -921,6 +1136,8 @@ A mapping of additional tags to assign to the dead letter queue<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -928,6 +1145,10 @@ A mapping of additional tags to assign to the dead letter queue<br/>
 
 
 The visibility timeout for the queue. An integer from 0 to 43200 (12 hours)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -941,6 +1162,8 @@ The visibility timeout for the queue. An integer from 0 to 43200 (12 hours)<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -948,6 +1171,10 @@ The visibility timeout for the queue. An integer from 0 to 43200 (12 hours)<br/>
 
 
 Boolean designating a FIFO queue. If not set, it defaults to false making it standard.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -961,6 +1188,8 @@ Boolean designating a FIFO queue. If not set, it defaults to false making it sta
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -968,6 +1197,10 @@ Boolean designating a FIFO queue. If not set, it defaults to false making it sta
 
 
 Specifies whether the FIFO queue throughput quota applies to the entire queue or per message group. Valid values are perQueue and perMessageGroupId. This can be specified if fifo_queue is true.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -981,6 +1214,8 @@ Specifies whether the FIFO queue throughput quota applies to the entire queue or
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -991,6 +1226,10 @@ IAM policy as list of Terraform objects, compatible with Terraform `aws_iam_poli
 except that `source_policy_documents` and `override_policy_documents` are not included.<br/>
 Use inputs `iam_source_policy_documents` and `iam_override_policy_documents` for that.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1033,6 +1272,8 @@ Use inputs `iam_source_policy_documents` and `iam_override_policy_documents` for
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1040,6 +1281,10 @@ Use inputs `iam_source_policy_documents` and `iam_override_policy_documents` for
 
 
 Boolean designating whether the IAM policy should be limited to the current account.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1053,6 +1298,8 @@ Boolean designating whether the IAM policy should be limited to the current acco
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1060,6 +1307,10 @@ Boolean designating whether the IAM policy should be limited to the current acco
 
 
 The length of time, in seconds, for which Amazon SQS can reuse a data key to encrypt or decrypt messages before calling AWS KMS again. An integer representing seconds, between 60 seconds (1 minute) and 86,400 seconds (24 hours). The default is 300 (5 minutes).<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1073,6 +1324,8 @@ The length of time, in seconds, for which Amazon SQS can reuse a data key to enc
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1080,6 +1333,10 @@ The length of time, in seconds, for which Amazon SQS can reuse a data key to enc
 
 
 The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CMK. For more information, see Key Terms.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1093,6 +1350,8 @@ The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CM
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1100,6 +1359,10 @@ The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CM
 
 
 The limit of how many bytes a message can contain before Amazon SQS rejects it. An integer from 1024 bytes (1 KiB) up to 262144 bytes (256 KiB). The default for this attribute is 262144 (256 KiB).<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1113,6 +1376,8 @@ The limit of how many bytes a message can contain before Amazon SQS rejects it. 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1120,6 +1385,10 @@ The limit of how many bytes a message can contain before Amazon SQS rejects it. 
 
 
 The number of seconds Amazon SQS retains a message. Integer representing seconds, from 60 (1 minute) to 1209600 (14 days). The default for this attribute is 345600 (4 days).<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1133,6 +1402,8 @@ The number of seconds Amazon SQS retains a message. Integer representing seconds
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1140,6 +1411,10 @@ The number of seconds Amazon SQS retains a message. Integer representing seconds
 
 
 The time for which a ReceiveMessage call will wait for a message to arrive (long polling) before returning. An integer from 0 to 20 (seconds). The default for this attribute is 0, meaning that the call will return immediately.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1153,6 +1428,8 @@ The time for which a ReceiveMessage call will wait for a message to arrive (long
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1160,6 +1437,10 @@ The time for which a ReceiveMessage call will wait for a message to arrive (long
 
 
 Boolean to enable server-side encryption (SSE) of message content with SQS-owned encryption keys<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1173,6 +1454,8 @@ Boolean to enable server-side encryption (SSE) of message content with SQS-owned
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1180,6 +1463,10 @@ Boolean to enable server-side encryption (SSE) of message content with SQS-owned
 
 
 The visibility timeout for the queue. An integer from 0 to 43200 (12 hours). The default for this attribute is 30. For more information about visibility timeout, see AWS docs.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1192,6 +1479,8 @@ The visibility timeout for the queue. An integer from 0 to 43200 (12 hours). The
   `30`
   </dd>
 </dl>
+
+</details
 
 ---
 

@@ -62,6 +62,10 @@ Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not add
 This is for some rare cases where resources want additional configuration of tags<br/>
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -75,6 +79,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -86,6 +92,10 @@ in the order they appear in the list. New attributes are appended to the<br/>
 end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -99,6 +109,8 @@ and treated as a single ID element.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -111,6 +123,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -148,6 +164,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -157,6 +175,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -169,6 +191,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -189,6 +213,10 @@ Label values will be normalized before being passed to `format()` so they will b
 identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -202,6 +230,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -209,6 +239,10 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -222,6 +256,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -229,6 +265,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -242,6 +282,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -253,6 +295,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -266,6 +312,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -277,6 +325,10 @@ Does not affect keys of tags passed in via the `tags` input.<br/>
 Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -290,6 +342,8 @@ Default value: `title`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -300,6 +354,10 @@ The order in which the labels (ID elements) appear in the `id`.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -312,6 +370,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -326,6 +386,10 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -338,6 +402,8 @@ Default value: `lower`.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -354,6 +420,10 @@ Set to `[]` to suppress all generated tags.<br/>
   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -373,6 +443,8 @@ Set to `[]` to suppress all generated tags.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -383,6 +455,10 @@ ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/
 This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -395,6 +471,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -403,6 +481,10 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -415,6 +497,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -426,6 +510,10 @@ Terraform regular expression (regex) string.<br/>
 Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -438,6 +526,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -446,6 +536,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -458,6 +552,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -468,6 +564,10 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -481,6 +581,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -488,6 +590,10 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -501,7 +607,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -511,6 +620,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 AWS Region<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -524,6 +637,8 @@ AWS Region<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -533,6 +648,10 @@ AWS Region<br/>
 
 
 A boolean flag to enable/disable access_logs<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -546,6 +665,8 @@ A boolean flag to enable/disable access_logs<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -553,6 +674,10 @@ A boolean flag to enable/disable access_logs<br/>
 
 
 The S3 log bucket prefix<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -566,6 +691,8 @@ The S3 log bucket prefix<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -573,6 +700,10 @@ The S3 log bucket prefix<br/>
 
 
 An external S3 Bucket name to store access logs in. If specified, no logging bucket will be created.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -586,6 +717,8 @@ An external S3 Bucket name to store access logs in. If specified, no logging buc
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -593,6 +726,10 @@ An external S3 Bucket name to store access logs in. If specified, no logging buc
 
 
 Atmos `acm` component name<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -606,6 +743,8 @@ Atmos `acm` component name<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -613,6 +752,10 @@ Atmos `acm` component name<br/>
 
 
 A boolean that indicates all objects should be deleted from the ALB access logs S3 bucket so that the bucket can be destroyed without error<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -626,6 +769,8 @@ A boolean that indicates all objects should be deleted from the ALB access logs 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -633,6 +778,10 @@ A boolean that indicates all objects should be deleted from the ALB access logs 
 
 
 A boolean flag to enable/disable cross zone load balancing<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -646,6 +795,8 @@ A boolean flag to enable/disable cross zone load balancing<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -653,6 +804,10 @@ A boolean flag to enable/disable cross zone load balancing<br/>
 
 
 A boolean flag to enable/disable deletion protection for ALB<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -666,6 +821,8 @@ A boolean flag to enable/disable deletion protection for ALB<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -673,6 +830,10 @@ A boolean flag to enable/disable deletion protection for ALB<br/>
 
 
 The amount of time to wait in seconds before changing the state of a deregistering target to unused<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -686,6 +847,8 @@ The amount of time to wait in seconds before changing the state of a deregisteri
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -693,6 +856,10 @@ The amount of time to wait in seconds before changing the state of a deregisteri
 
 
 If `true`, use the ACM ARN created by the given `dns-delegated` component. Otherwise, use the ACM ARN created by the given `acm` component.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -706,6 +873,8 @@ If `true`, use the ACM ARN created by the given `dns-delegated` component. Other
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -713,6 +882,10 @@ If `true`, use the ACM ARN created by the given `dns-delegated` component. Other
 
 
 Atmos `dns-delegated` component name<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -726,6 +899,8 @@ Atmos `dns-delegated` component name<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -733,6 +908,10 @@ Atmos `dns-delegated` component name<br/>
 
 
 `dns-delegated` component environment name<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -746,6 +925,8 @@ Atmos `dns-delegated` component name<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -753,6 +934,10 @@ Atmos `dns-delegated` component name<br/>
 
 
 The number of consecutive health checks successes required before considering an unhealthy target healthy<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -766,6 +951,8 @@ The number of consecutive health checks successes required before considering an
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -773,6 +960,10 @@ The number of consecutive health checks successes required before considering an
 
 
 The duration in seconds in between health checks<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -786,6 +977,8 @@ The duration in seconds in between health checks<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -793,6 +986,10 @@ The duration in seconds in between health checks<br/>
 
 
 The HTTP response codes to indicate a healthy check<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -806,6 +1003,8 @@ The HTTP response codes to indicate a healthy check<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -813,6 +1012,10 @@ The HTTP response codes to indicate a healthy check<br/>
 
 
 The destination for the health check request<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -826,6 +1029,8 @@ The destination for the health check request<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -833,6 +1038,10 @@ The destination for the health check request<br/>
 
 
 The port to use for the healthcheck<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -846,6 +1055,8 @@ The port to use for the healthcheck<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -853,6 +1064,10 @@ The port to use for the healthcheck<br/>
 
 
 The amount of time to wait in seconds before failing a health check request<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -866,6 +1081,8 @@ The amount of time to wait in seconds before failing a health check request<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -873,6 +1090,10 @@ The amount of time to wait in seconds before failing a health check request<br/>
 
 
 The number of consecutive health check failures required before considering the target unhealthy<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -886,6 +1107,8 @@ The number of consecutive health check failures required before considering the 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -893,6 +1116,10 @@ The number of consecutive health check failures required before considering the 
 
 
 A boolean flag to enable/disable HTTP/2<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -905,6 +1132,8 @@ A boolean flag to enable/disable HTTP/2<br/>
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -913,6 +1142,10 @@ A boolean flag to enable/disable HTTP/2<br/>
 
 
 A boolean flag to enable/disable HTTP listener<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -926,6 +1159,8 @@ A boolean flag to enable/disable HTTP listener<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -933,6 +1168,10 @@ A boolean flag to enable/disable HTTP listener<br/>
 
 
 List of CIDR blocks to allow in HTTP security group<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -952,6 +1191,8 @@ List of CIDR blocks to allow in HTTP security group<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -959,6 +1200,10 @@ List of CIDR blocks to allow in HTTP security group<br/>
 
 
 List of prefix list IDs for allowing access to HTTP ingress security group<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -972,6 +1217,8 @@ List of prefix list IDs for allowing access to HTTP ingress security group<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -979,6 +1226,10 @@ List of prefix list IDs for allowing access to HTTP ingress security group<br/>
 
 
 The port for the HTTP listener<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -992,6 +1243,8 @@ The port for the HTTP listener<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -999,6 +1252,10 @@ The port for the HTTP listener<br/>
 
 
 A boolean flag to enable/disable HTTP redirect to HTTPS<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1011,6 +1268,8 @@ A boolean flag to enable/disable HTTP redirect to HTTPS<br/>
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1019,6 +1278,10 @@ A boolean flag to enable/disable HTTP redirect to HTTPS<br/>
 
 
 A boolean flag to enable/disable HTTPS listener<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1032,6 +1295,8 @@ A boolean flag to enable/disable HTTPS listener<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1039,6 +1304,10 @@ A boolean flag to enable/disable HTTPS listener<br/>
 
 
 List of CIDR blocks to allow in HTTPS security group<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1058,6 +1327,8 @@ List of CIDR blocks to allow in HTTPS security group<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1065,6 +1336,10 @@ List of CIDR blocks to allow in HTTPS security group<br/>
 
 
 List of prefix list IDs for allowing access to HTTPS ingress security group<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1078,6 +1353,8 @@ List of prefix list IDs for allowing access to HTTPS ingress security group<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1085,6 +1362,10 @@ List of prefix list IDs for allowing access to HTTPS ingress security group<br/>
 
 
 The port for the HTTPS listener<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1098,6 +1379,8 @@ The port for the HTTPS listener<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1105,6 +1388,10 @@ The port for the HTTPS listener<br/>
 
 
 The name of the SSL Policy for the listener<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1118,6 +1405,8 @@ The name of the SSL Policy for the listener<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1125,6 +1414,10 @@ The name of the SSL Policy for the listener<br/>
 
 
 The time in seconds that the connection is allowed to be idle<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1138,6 +1431,8 @@ The time in seconds that the connection is allowed to be idle<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1145,6 +1440,10 @@ The time in seconds that the connection is allowed to be idle<br/>
 
 
 A boolean flag to determine whether the ALB should be internal<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1158,6 +1457,8 @@ A boolean flag to determine whether the ALB should be internal<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1165,6 +1466,10 @@ A boolean flag to determine whether the ALB should be internal<br/>
 
 
 The type of IP addresses used by the subnets for your load balancer. The possible values are `ipv4` and `dualstack`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1178,6 +1483,8 @@ The type of IP addresses used by the subnets for your load balancer. The possibl
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1185,6 +1492,10 @@ The type of IP addresses used by the subnets for your load balancer. The possibl
 
 
 A boolean that indicates whether the s3 log bucket lifecycle rule should be enabled.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1198,6 +1509,8 @@ A boolean that indicates whether the s3 log bucket lifecycle rule should be enab
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1205,6 +1518,10 @@ A boolean that indicates whether the s3 log bucket lifecycle rule should be enab
 
 
 Target group sticky configuration<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1226,6 +1543,8 @@ Target group sticky configuration<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1233,6 +1552,10 @@ Target group sticky configuration<br/>
 
 
 The name for the default target group, uses a module label name if left empty<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1246,6 +1569,8 @@ The name for the default target group, uses a module label name if left empty<br
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1253,6 +1578,10 @@ The name for the default target group, uses a module label name if left empty<br
 
 
 The port for the default target group<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1266,6 +1595,8 @@ The port for the default target group<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1273,6 +1604,10 @@ The port for the default target group<br/>
 
 
 The protocol for the default target group HTTP or HTTPS<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1286,6 +1621,8 @@ The protocol for the default target group HTTP or HTTPS<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1293,6 +1630,10 @@ The protocol for the default target group HTTP or HTTPS<br/>
 
 
 The type (`instance`, `ip` or `lambda`) of targets that can be registered with the target group<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1306,6 +1647,8 @@ The type (`instance`, `ip` or `lambda`) of targets that can be registered with t
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1313,6 +1656,10 @@ The type (`instance`, `ip` or `lambda`) of targets that can be registered with t
 
 
 Atmos `vpc` component name<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1325,6 +1672,8 @@ Atmos `vpc` component name<br/>
   `"vpc"`
   </dd>
 </dl>
+
+</details
 
 ---
 

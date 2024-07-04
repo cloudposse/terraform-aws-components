@@ -8,6 +8,10 @@ content: |-
   {{- range $lines }}
   {{ . }}<br/>
   {{- end }}
+
+  <details>
+  <summary>Click to expand</summary>
+
   <dl>
     <dt>Required</dt>
     <dd>{{ ternary .Required "Yes" "No" }}</dd>
@@ -32,6 +36,8 @@ content: |-
     {{ end }}
     </dd>
   </dl>
+
+  </details
 
   ---
 
@@ -118,9 +124,10 @@ content: |-
   {{ template "variableDescription" . }}
   {{- end }}
   {{- end }}
+
   </details>
 
-  ### Required Inputs
+  ### Required Variables
 
   {{- range .Module.Inputs }}
   {{- if and (not (has .Name $context_variables)) .Required }}
@@ -132,7 +139,7 @@ content: |-
   {{ range .Module.Inputs }}{{ if not .Required }}{{ $optional = true -}}{{ end -}}{{ end -}}
 
   {{ if $optional -}}
-  ### Optional Inputs
+  ### Optional Variables
 
   {{- range .Module.Inputs }}
   {{- if and (not (has .Name $context_variables)) (not .Required) }}

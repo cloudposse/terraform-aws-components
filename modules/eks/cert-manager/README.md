@@ -111,6 +111,10 @@ Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not add
 This is for some rare cases where resources want additional configuration of tags<br/>
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -124,6 +128,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -135,6 +141,10 @@ in the order they appear in the list. New attributes are appended to the<br/>
 end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -148,6 +158,8 @@ and treated as a single ID element.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -160,6 +172,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -197,6 +213,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -206,6 +224,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -218,6 +240,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -238,6 +262,10 @@ Label values will be normalized before being passed to `format()` so they will b
 identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -251,6 +279,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -258,6 +288,10 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -271,6 +305,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -278,6 +314,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -291,6 +331,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -302,6 +344,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -315,6 +361,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -326,6 +374,10 @@ Does not affect keys of tags passed in via the `tags` input.<br/>
 Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -339,6 +391,8 @@ Default value: `title`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -349,6 +403,10 @@ The order in which the labels (ID elements) appear in the `id`.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -361,6 +419,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -375,6 +435,10 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -387,6 +451,8 @@ Default value: `lower`.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -403,6 +469,10 @@ Set to `[]` to suppress all generated tags.<br/>
   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -422,6 +492,8 @@ Set to `[]` to suppress all generated tags.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -432,6 +504,10 @@ ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/
 This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -444,6 +520,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -452,6 +530,10 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -464,6 +546,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -475,6 +559,10 @@ Terraform regular expression (regex) string.<br/>
 Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -487,6 +575,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -495,6 +585,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -507,6 +601,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -517,6 +613,10 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -530,6 +630,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -537,6 +639,10 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -550,7 +656,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -560,6 +669,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 The support email template format.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -572,6 +685,8 @@ The support email template format.<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -580,6 +695,10 @@ The support email template format.<br/>
 
 
 AWS Region<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -592,6 +711,8 @@ AWS Region<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -602,6 +723,10 @@ AWS Region<br/>
 
 
 If `true`, if any part of the installation process fails, all parts are treated as failed. Highly recommended to prevent cert-manager from getting into a wedged state. The wait flag will be set automatically if atomic is used.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -614,6 +739,8 @@ If `true`, if any part of the installation process fails, all parts are treated 
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -622,6 +749,10 @@ If `true`, if any part of the installation process fails, all parts are treated 
 
 
 Service Account for pods.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -635,6 +766,8 @@ Service Account for pods.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -642,6 +775,10 @@ Service Account for pods.<br/>
 
 
 Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -655,6 +792,8 @@ Chart name to be installed. The chart name can be local path, a URL to a chart, 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -662,6 +801,10 @@ Chart name to be installed. The chart name can be local path, a URL to a chart, 
 
 
 Specify the exact chart version to install. If this is not specified, the latest version is installed.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -674,6 +817,8 @@ Specify the exact chart version to install. If this is not specified, the latest
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -682,6 +827,10 @@ Specify the exact chart version to install. If this is not specified, the latest
 
 
 Set release description attribute (visible in the history).<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -695,6 +844,8 @@ Set release description attribute (visible in the history).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -702,6 +853,10 @@ Set release description attribute (visible in the history).<br/>
 
 
 Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -715,6 +870,8 @@ Chart name to be installed. The chart name can be local path, a URL to a chart, 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -722,6 +879,10 @@ Chart name to be installed. The chart name can be local path, a URL to a chart, 
 
 
 Specify the exact chart version to install. If this is not specified, the latest version is installed.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -734,6 +895,8 @@ Specify the exact chart version to install. If this is not specified, the latest
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -742,6 +905,10 @@ Specify the exact chart version to install. If this is not specified, the latest
 
 
 Set release description attribute (visible in the history).<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -754,6 +921,8 @@ Set release description attribute (visible in the history).<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -762,6 +931,10 @@ Set release description attribute (visible in the history).<br/>
 
 
 Repository URL where to locate the requested chart.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -775,6 +948,8 @@ Repository URL where to locate the requested chart.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -782,6 +957,10 @@ Repository URL where to locate the requested chart.<br/>
 
 
 Whether or not to use selfsigned issuer.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -795,6 +974,8 @@ Whether or not to use selfsigned issuer.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -802,6 +983,10 @@ Whether or not to use selfsigned issuer.<br/>
 
 
 Additional values to yamlencode as `helm_release` values for cert-manager-issuer.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -815,6 +1000,8 @@ Additional values to yamlencode as `helm_release` values for cert-manager-issuer
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -822,6 +1009,10 @@ Additional values to yamlencode as `helm_release` values for cert-manager-issuer
 
 
 Whether or not to enable metrics for cert-manager.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -835,6 +1026,8 @@ Whether or not to enable metrics for cert-manager.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -842,6 +1035,10 @@ Whether or not to enable metrics for cert-manager.<br/>
 
 
 Repository URL where to locate the requested chart.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -855,6 +1052,8 @@ Repository URL where to locate the requested chart.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -862,6 +1061,10 @@ Repository URL where to locate the requested chart.<br/>
 
 
 The cpu and memory of the cert manager's limits and requests.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -902,6 +1105,8 @@ The cpu and memory of the cert manager's limits and requests.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -909,6 +1114,10 @@ The cpu and memory of the cert manager's limits and requests.<br/>
 
 
 Additional values to yamlencode as `helm_release` values for cert-manager.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -922,6 +1131,8 @@ Additional values to yamlencode as `helm_release` values for cert-manager.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -929,6 +1140,10 @@ Additional values to yamlencode as `helm_release` values for cert-manager.<br/>
 
 
 If `true`, resources created in this deploy will be deleted when deploy fails. Highly recommended to prevent cert-manager from getting into a wedeged state.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -941,6 +1156,8 @@ If `true`, resources created in this deploy will be deleted when deploy fails. H
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -949,6 +1166,10 @@ If `true`, resources created in this deploy will be deleted when deploy fails. H
 
 
 Create the namespace if it does not yet exist. Defaults to `true`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -962,6 +1183,8 @@ Create the namespace if it does not yet exist. Defaults to `true`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -969,6 +1192,10 @@ Create the namespace if it does not yet exist. Defaults to `true`.<br/>
 
 
 The name of the eks component<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -982,6 +1209,8 @@ The name of the eks component<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -989,6 +1218,10 @@ The name of the eks component<br/>
 
 
 Enable storing of the rendered manifest for helm_release so the full diff of what is changing can been seen in the plan<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1001,6 +1234,8 @@ Enable storing of the rendered manifest for helm_release so the full diff of wha
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1011,6 +1246,10 @@ Enable storing of the rendered manifest for helm_release so the full diff of wha
 If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS cluster.<br/>
 Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1024,6 +1263,8 @@ Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1031,6 +1272,10 @@ Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
 
 
 The AWS config profile for `aws eks get-token` to use<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1044,6 +1289,8 @@ The AWS config profile for `aws eks get-token` to use<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1051,6 +1298,10 @@ The AWS config profile for `aws eks get-token` to use<br/>
 
 
 If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-token`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1063,6 +1314,8 @@ If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-to
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1073,6 +1326,10 @@ If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-to
 If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-token` to authenticate to the EKS cluster.<br/>
 Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1086,6 +1343,8 @@ Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1093,6 +1352,10 @@ Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
 
 
 The role ARN for `aws eks get-token` to use<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1106,6 +1369,8 @@ The role ARN for `aws eks get-token` to use<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1113,6 +1378,10 @@ The role ARN for `aws eks get-token` to use<br/>
 
 
 If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1125,6 +1394,8 @@ If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1135,6 +1406,10 @@ If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`
 Context to choose from the Kubernetes config file.<br/>
 If supplied, `kubeconfig_context_format` will be ignored.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1147,6 +1422,8 @@ If supplied, `kubeconfig_context_format` will be ignored.<br/>
   `""`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1158,6 +1435,10 @@ A format string to use for creating the `kubectl` context name when<br/>
 `kubeconfig_file_enabled` is `true` and `kubeconfig_context` is not supplied.<br/>
 Must include a single `%s` which will be replaced with the cluster name.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1171,6 +1452,8 @@ Must include a single `%s` which will be replaced with the cluster name.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1178,6 +1461,10 @@ Must include a single `%s` which will be replaced with the cluster name.<br/>
 
 
 The Kubernetes API version of the credentials returned by the `exec` auth plugin<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1191,6 +1478,8 @@ The Kubernetes API version of the credentials returned by the `exec` auth plugin
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1198,6 +1487,10 @@ The Kubernetes API version of the credentials returned by the `exec` auth plugin
 
 
 The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1211,6 +1504,8 @@ The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabl
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1218,6 +1513,10 @@ The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabl
 
 
 If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1231,6 +1530,8 @@ If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1238,6 +1539,10 @@ If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that
 
 
 The namespace to install the release into.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1251,6 +1556,8 @@ The namespace to install the release into.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1258,6 +1565,10 @@ The namespace to install the release into.<br/>
 
 
 Whether or not to use letsencrypt issuer and manager. If this is enabled, it will also provision an IAM role.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1271,6 +1582,8 @@ Whether or not to use letsencrypt issuer and manager. If this is enabled, it wil
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1278,6 +1591,10 @@ Whether or not to use letsencrypt issuer and manager. If this is enabled, it wil
 
 
 Time in seconds to wait for any individual kubernetes operation (like Jobs for hooks). Defaults to `300` seconds<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1291,6 +1608,8 @@ Time in seconds to wait for any individual kubernetes operation (like Jobs for h
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1298,6 +1617,10 @@ Time in seconds to wait for any individual kubernetes operation (like Jobs for h
 
 
 Set `true` to wait until all resources are in a ready state before marking the release as successful. Ignored if provisioning Issuers. It will wait for as long as `timeout`. Defaults to `true`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1310,6 +1633,8 @@ Set `true` to wait until all resources are in a ready state before marking the r
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 

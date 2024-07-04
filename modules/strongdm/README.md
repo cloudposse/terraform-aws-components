@@ -83,6 +83,10 @@ The following variables are defined in the `context.tf` file of this module and 
 
 
 Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -96,6 +100,8 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -103,6 +109,10 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 
 
 Additional attributes (e.g. `1`)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -116,6 +126,8 @@ Additional attributes (e.g. `1`)<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -128,6 +140,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -160,6 +176,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -169,6 +187,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -182,6 +204,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -189,6 +213,10 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -202,6 +230,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -209,6 +239,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -222,6 +256,8 @@ Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -233,6 +269,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for default, which is `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -246,6 +286,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -256,6 +298,10 @@ The letter case of label keys (`tag` names) (i.e. `name`, `namespace`, `environm
 Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -269,6 +315,8 @@ Default value: `title`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -279,6 +327,10 @@ The naming order of the id output and Name tag.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 5 elements, but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -292,6 +344,8 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -302,6 +356,10 @@ The letter case of output label values (also used in `tags` and `id`).<br/>
 Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Default value: `lower`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -314,6 +372,8 @@ Default value: `lower`.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -322,6 +382,10 @@ Default value: `lower`.<br/>
 
 
 Solution name, e.g. 'app' or 'jenkins'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -334,6 +398,8 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -342,6 +408,10 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 
 
 Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -354,6 +424,8 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -364,6 +436,10 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
 Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -376,6 +452,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -384,6 +462,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -397,6 +479,8 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -404,6 +488,10 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 
 
 Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -417,7 +505,10 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -427,6 +518,10 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 
 
 AWS Region<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -439,6 +534,8 @@ AWS Region<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -447,6 +544,10 @@ AWS Region<br/>
 
 
 Account (stage) housing SSM parameters<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -459,6 +560,8 @@ Account (stage) housing SSM parameters<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -467,6 +570,10 @@ Account (stage) housing SSM parameters<br/>
 
 
 AWS Region housing SSM parameters<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -479,6 +586,8 @@ AWS Region housing SSM parameters<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -489,6 +598,10 @@ AWS Region housing SSM parameters<br/>
 
 
 Set `true` to create roles (should only be set in one account)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -502,6 +615,8 @@ Set `true` to create roles (should only be set in one account)<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -509,6 +624,10 @@ Set `true` to create roles (should only be set in one account)<br/>
 
 
 DNS zone (e.g. example.com) into which to install the web host.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -522,6 +641,8 @@ DNS zone (e.g. example.com) into which to install the web host.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -529,6 +650,10 @@ DNS zone (e.g. example.com) into which to install the web host.<br/>
 
 
 Number of gateways to provision<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -542,6 +667,8 @@ Number of gateways to provision<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -549,6 +676,10 @@ Number of gateways to provision<br/>
 
 
 Set `true` to install a pair of gateways<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -562,6 +693,8 @@ Set `true` to install a pair of gateways<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -569,6 +702,10 @@ Set `true` to install a pair of gateways<br/>
 
 
 Set `true` to install a pair of relays<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -582,6 +719,8 @@ Set `true` to install a pair of relays<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -589,6 +728,10 @@ Set `true` to install a pair of relays<br/>
 
 
 AWS KMS alias used for encryption/decryption default is alias used in SSM<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -602,6 +745,8 @@ AWS KMS alias used for encryption/decryption default is alias used in SSM<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -609,6 +754,10 @@ AWS KMS alias used for encryption/decryption default is alias used in SSM<br/>
 
 
 The Kubernetes namespace to install the release into. Defaults to `default`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -622,6 +771,8 @@ The Kubernetes namespace to install the release into. Defaults to `default`.<br/
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -629,6 +780,10 @@ The Kubernetes namespace to install the release into. Defaults to `default`.<br/
 
 
 Set `true` to register nodes as SSH targets<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -642,6 +797,8 @@ Set `true` to register nodes as SSH targets<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -649,6 +806,10 @@ Set `true` to register nodes as SSH targets<br/>
 
 
 Number of relays to provision<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -661,6 +822,8 @@ Number of relays to provision<br/>
   `2`
   </dd>
 </dl>
+
+</details
 
 ---
 

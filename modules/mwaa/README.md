@@ -100,6 +100,10 @@ Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not add
 This is for some rare cases where resources want additional configuration of tags<br/>
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -113,6 +117,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -124,6 +130,10 @@ in the order they appear in the list. New attributes are appended to the<br/>
 end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -137,6 +147,8 @@ and treated as a single ID element.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -149,6 +161,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -186,6 +202,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -195,6 +213,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -207,6 +229,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -227,6 +251,10 @@ Label values will be normalized before being passed to `format()` so they will b
 identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -240,6 +268,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -247,6 +277,10 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -260,6 +294,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -267,6 +303,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -280,6 +320,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -291,6 +333,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -304,6 +350,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -315,6 +363,10 @@ Does not affect keys of tags passed in via the `tags` input.<br/>
 Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -328,6 +380,8 @@ Default value: `title`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -338,6 +392,10 @@ The order in which the labels (ID elements) appear in the `id`.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -350,6 +408,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -364,6 +424,10 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -376,6 +440,8 @@ Default value: `lower`.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -392,6 +458,10 @@ Set to `[]` to suppress all generated tags.<br/>
   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -411,6 +481,8 @@ Set to `[]` to suppress all generated tags.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -421,6 +493,10 @@ ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/
 This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -433,6 +509,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -441,6 +519,10 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -453,6 +535,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -464,6 +548,10 @@ Terraform regular expression (regex) string.<br/>
 Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -476,6 +564,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -484,6 +574,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -496,6 +590,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -506,6 +602,10 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -519,6 +619,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -526,6 +628,10 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -539,7 +645,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -549,6 +658,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 AWS Region<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -562,6 +675,8 @@ AWS Region<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -571,6 +686,10 @@ AWS Region<br/>
 
 
 The Airflow override options<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -584,6 +703,8 @@ The Airflow override options<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -591,6 +712,10 @@ The Airflow override options<br/>
 
 
 Airflow version of the MWAA environment, will be set by default to the latest version that MWAA supports.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -604,6 +729,8 @@ Airflow version of the MWAA environment, will be set by default to the latest ve
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -611,6 +738,10 @@ Airflow version of the MWAA environment, will be set by default to the latest ve
 
 
 List of stages to pull VPC ingress cidr and add to security group<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -631,6 +762,8 @@ List of stages to pull VPC ingress cidr and add to security group<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -638,6 +771,10 @@ List of stages to pull VPC ingress cidr and add to security group<br/>
 
 
 List of CIDR blocks to be allowed to connect to the MWAA cluster<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -650,6 +787,8 @@ List of CIDR blocks to be allowed to connect to the MWAA cluster<br/>
   `[]`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -658,6 +797,10 @@ List of CIDR blocks to be allowed to connect to the MWAA cluster<br/>
 
 
 A list of IDs of Security Groups to allow access to the security group created by this module.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -670,6 +813,8 @@ A list of IDs of Security Groups to allow access to the security group created b
   `[]`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -678,6 +823,10 @@ A list of IDs of Security Groups to allow access to the security group created b
 
 
 List of role ARNs to allow airflow web access<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -690,6 +839,8 @@ List of role ARNs to allow airflow web access<br/>
   `[]`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -698,6 +849,10 @@ List of role ARNs to allow airflow web access<br/>
 
 
 List of role names to allow airflow web access<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -711,6 +866,8 @@ List of role names to allow airflow web access<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -718,6 +875,10 @@ List of role names to allow airflow web access<br/>
 
 
 Enabling or disabling the creatation of a default IAM Role for AWS MWAA<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -730,6 +891,8 @@ Enabling or disabling the creatation of a default IAM Role for AWS MWAA<br/>
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -738,6 +901,10 @@ Enabling or disabling the creatation of a default IAM Role for AWS MWAA<br/>
 
 
 Enabling or disabling the creatation of an S3 bucket for AWS MWAA<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -751,6 +918,8 @@ Enabling or disabling the creatation of an S3 bucket for AWS MWAA<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -758,6 +927,10 @@ Enabling or disabling the creatation of an S3 bucket for AWS MWAA<br/>
 
 
 Enabling or disabling the collection of logs for processing DAGs<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -771,6 +944,8 @@ Enabling or disabling the collection of logs for processing DAGs<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -778,6 +953,10 @@ Enabling or disabling the collection of logs for processing DAGs<br/>
 
 
 DAG processing logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -791,6 +970,8 @@ DAG processing logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBU
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -798,6 +979,10 @@ DAG processing logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBU
 
 
 Path to dags in s3<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -811,6 +996,8 @@ Path to dags in s3<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -818,6 +1005,10 @@ Path to dags in s3<br/>
 
 
 Environment class for the cluster. Possible options are mw1.small, mw1.medium, mw1.large.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -831,6 +1022,8 @@ Environment class for the cluster. Possible options are mw1.small, mw1.medium, m
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -838,6 +1031,10 @@ Environment class for the cluster. Possible options are mw1.small, mw1.medium, m
 
 
 If `create_iam_role` is `false` then set this to the target MWAA execution role<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -851,6 +1048,8 @@ If `create_iam_role` is `false` then set this to the target MWAA execution role<
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -858,6 +1057,10 @@ If `create_iam_role` is `false` then set this to the target MWAA execution role<
 
 
 The maximum number of workers that can be automatically scaled up. Value need to be between 1 and 25.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -871,6 +1074,8 @@ The maximum number of workers that can be automatically scaled up. Value need to
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -878,6 +1083,10 @@ The maximum number of workers that can be automatically scaled up. Value need to
 
 
 The minimum number of workers that you want to run in your environment.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -891,6 +1100,8 @@ The minimum number of workers that you want to run in your environment.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -898,6 +1109,10 @@ The minimum number of workers that you want to run in your environment.<br/>
 
 
 The plugins.zip file version you want to use.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -910,6 +1125,8 @@ The plugins.zip file version you want to use.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -918,6 +1135,10 @@ The plugins.zip file version you want to use.<br/>
 
 
 The relative path to the plugins.zip file on your Amazon S3 storage bucket. For example, plugins.zip. If a relative path is provided in the request, then plugins_s3_object_version is required<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -930,6 +1151,8 @@ The relative path to the plugins.zip file on your Amazon S3 storage bucket. For 
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -938,6 +1161,10 @@ The relative path to the plugins.zip file on your Amazon S3 storage bucket. For 
 
 
 The requirements.txt file version you<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -950,6 +1177,8 @@ The requirements.txt file version you<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -958,6 +1187,10 @@ The requirements.txt file version you<br/>
 
 
 The relative path to the requirements.txt file on your Amazon S3 storage bucket. For example, requirements.txt. If a relative path is provided in the request, then requirements_s3_object_version is required<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -970,6 +1203,8 @@ The relative path to the requirements.txt file on your Amazon S3 storage bucket.
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -978,6 +1213,10 @@ The relative path to the requirements.txt file on your Amazon S3 storage bucket.
 
 
 Enabling or disabling the collection of logs for the schedulers<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -991,6 +1230,8 @@ Enabling or disabling the collection of logs for the schedulers<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -998,6 +1239,10 @@ Enabling or disabling the collection of logs for the schedulers<br/>
 
 
 Schedulers logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1011,6 +1256,8 @@ Schedulers logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1018,6 +1265,10 @@ Schedulers logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br
 
 
 Set this to the Amazon Resource Name (ARN) of your Amazon S3 storage bucket.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1031,6 +1282,8 @@ Set this to the Amazon Resource Name (ARN) of your Amazon S3 storage bucket.<br/
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1038,6 +1291,10 @@ Set this to the Amazon Resource Name (ARN) of your Amazon S3 storage bucket.<br/
 
 
 Enabling or disabling the collection of logs for DAG tasks<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1051,6 +1308,8 @@ Enabling or disabling the collection of logs for DAG tasks<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1058,6 +1317,10 @@ Enabling or disabling the collection of logs for DAG tasks<br/>
 
 
 DAG tasks logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1071,6 +1334,8 @@ DAG tasks logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1078,6 +1343,10 @@ DAG tasks logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/
 
 
 Specifies whether the webserver is accessible over the internet, PUBLIC_ONLY or PRIVATE_ONLY<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1091,6 +1360,8 @@ Specifies whether the webserver is accessible over the internet, PUBLIC_ONLY or 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1098,6 +1369,10 @@ Specifies whether the webserver is accessible over the internet, PUBLIC_ONLY or 
 
 
 Enabling or disabling the collection of logs for the webservers<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1111,6 +1386,8 @@ Enabling or disabling the collection of logs for the webservers<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1118,6 +1395,10 @@ Enabling or disabling the collection of logs for the webservers<br/>
 
 
 Webserver logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1131,6 +1412,8 @@ Webserver logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1138,6 +1421,10 @@ Webserver logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/
 
 
 Specifies the start date for the weekly maintenance window.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1151,6 +1438,8 @@ Specifies the start date for the weekly maintenance window.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1158,6 +1447,10 @@ Specifies the start date for the weekly maintenance window.<br/>
 
 
 Enabling or disabling the collection of logs for the workers<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1171,6 +1464,8 @@ Enabling or disabling the collection of logs for the workers<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1178,6 +1473,10 @@ Enabling or disabling the collection of logs for the workers<br/>
 
 
 Workers logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1190,6 +1489,8 @@ Workers logging level. Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG<br/>
   `"INFO"`
   </dd>
 </dl>
+
+</details
 
 ---
 

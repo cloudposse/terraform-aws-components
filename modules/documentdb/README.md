@@ -86,6 +86,10 @@ Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not add
 This is for some rare cases where resources want additional configuration of tags<br/>
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -99,6 +103,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -110,6 +116,10 @@ in the order they appear in the list. New attributes are appended to the<br/>
 end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -123,6 +133,8 @@ and treated as a single ID element.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -135,6 +147,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -172,6 +188,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -181,6 +199,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -193,6 +215,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -213,6 +237,10 @@ Label values will be normalized before being passed to `format()` so they will b
 identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -226,6 +254,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -233,6 +263,10 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -246,6 +280,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -253,6 +289,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -266,6 +306,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -277,6 +319,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -290,6 +336,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -301,6 +349,10 @@ Does not affect keys of tags passed in via the `tags` input.<br/>
 Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -314,6 +366,8 @@ Default value: `title`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -324,6 +378,10 @@ The order in which the labels (ID elements) appear in the `id`.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -336,6 +394,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -350,6 +410,10 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -362,6 +426,8 @@ Default value: `lower`.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -378,6 +444,10 @@ Set to `[]` to suppress all generated tags.<br/>
   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -397,6 +467,8 @@ Set to `[]` to suppress all generated tags.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -407,6 +479,10 @@ ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/
 This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -419,6 +495,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -427,6 +505,10 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -439,6 +521,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -450,6 +534,10 @@ Terraform regular expression (regex) string.<br/>
 Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -462,6 +550,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -470,6 +560,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -482,6 +576,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -492,6 +588,10 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -505,6 +605,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -512,6 +614,10 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -525,7 +631,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -535,6 +644,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 AWS Region.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -548,6 +661,8 @@ AWS Region.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -557,6 +672,10 @@ AWS Region.<br/>
 
 
 Specifies whether any cluster modifications are applied immediately, or during the next maintenance window<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -569,6 +688,8 @@ Specifies whether any cluster modifications are applied immediately, or during t
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -577,6 +698,10 @@ Specifies whether any cluster modifications are applied immediately, or during t
 
 
 Specifies whether any minor engine upgrades will be applied automatically to the DB instance during the maintenance window or not<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -590,6 +715,8 @@ Specifies whether any minor engine upgrades will be applied automatically to the
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -597,6 +724,10 @@ Specifies whether any minor engine upgrades will be applied automatically to the
 
 
 The family of the DocumentDB cluster parameter group. For more details, see https://docs.aws.amazon.com/documentdb/latest/developerguide/db-cluster-parameter-group-create.html<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -610,6 +741,8 @@ The family of the DocumentDB cluster parameter group. For more details, see http
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -617,6 +750,10 @@ The family of the DocumentDB cluster parameter group. For more details, see http
 
 
 List of DB parameters to apply<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -639,6 +776,8 @@ List of DB parameters to apply<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -646,6 +785,10 @@ List of DB parameters to apply<br/>
 
 
 Number of DB instances to create in the cluster<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -659,6 +802,8 @@ Number of DB instances to create in the cluster<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -666,6 +811,10 @@ Number of DB instances to create in the cluster<br/>
 
 
 DocumentDB port<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -679,6 +828,8 @@ DocumentDB port<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -686,6 +837,10 @@ DocumentDB port<br/>
 
 
 A value that indicates whether the DB cluster has deletion protection enabled<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -699,6 +854,8 @@ A value that indicates whether the DB cluster has deletion protection enabled<br
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -706,6 +863,10 @@ A value that indicates whether the DB cluster has deletion protection enabled<br
 
 
 Whether to add the Security Group managed by the EKS cluster in the same regional stack to the ingress allowlist of the DocumentDB cluster.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -719,6 +880,8 @@ Whether to add the Security Group managed by the EKS cluster in the same regiona
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -726,6 +889,10 @@ Whether to add the Security Group managed by the EKS cluster in the same regiona
 
 
 List of log types to export to cloudwatch. The following log types are supported: `audit`, `error`, `general`, `slowquery`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -739,6 +906,8 @@ List of log types to export to cloudwatch. The following log types are supported
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -746,6 +915,10 @@ List of log types to export to cloudwatch. The following log types are supported
 
 
 Specifies whether the DB cluster is encrypted<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -759,6 +932,8 @@ Specifies whether the DB cluster is encrypted<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -766,6 +941,10 @@ Specifies whether the DB cluster is encrypted<br/>
 
 
 The name of the database engine to be used for this DB cluster. Defaults to `docdb`. Valid values: `docdb`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -779,6 +958,8 @@ The name of the database engine to be used for this DB cluster. Defaults to `doc
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -786,6 +967,10 @@ The name of the database engine to be used for this DB cluster. Defaults to `doc
 
 
 The version number of the database engine to use<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -799,6 +984,8 @@ The version number of the database engine to use<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -806,6 +993,10 @@ The version number of the database engine to use<br/>
 
 
 The instance class to use. For more details, see https://docs.aws.amazon.com/documentdb/latest/developerguide/db-instance-classes.html#db-instance-class-specs<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -819,6 +1010,8 @@ The instance class to use. For more details, see https://docs.aws.amazon.com/doc
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -826,6 +1019,10 @@ The instance class to use. For more details, see https://docs.aws.amazon.com/doc
 
 
 (Required unless a snapshot_identifier is provided) Username for the master DB user<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -839,6 +1036,8 @@ The instance class to use. For more details, see https://docs.aws.amazon.com/doc
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -846,6 +1045,10 @@ The instance class to use. For more details, see https://docs.aws.amazon.com/doc
 
 
 Daily time range during which the backups happen<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -859,6 +1062,8 @@ Daily time range during which the backups happen<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -866,6 +1071,10 @@ Daily time range during which the backups happen<br/>
 
 
 The window to perform maintenance in. Syntax: `ddd:hh24:mi-ddd:hh24:mi`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -879,6 +1088,8 @@ The window to perform maintenance in. Syntax: `ddd:hh24:mi-ddd:hh24:mi`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -886,6 +1097,10 @@ The window to perform maintenance in. Syntax: `ddd:hh24:mi-ddd:hh24:mi`.<br/>
 
 
 Number of days to retain backups for<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -899,6 +1114,8 @@ Number of days to retain backups for<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -906,6 +1123,10 @@ Number of days to retain backups for<br/>
 
 
 Determines whether a final DB snapshot is created before the DB cluster is deleted<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -919,6 +1140,8 @@ Determines whether a final DB snapshot is created before the DB cluster is delet
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -926,6 +1149,10 @@ Determines whether a final DB snapshot is created before the DB cluster is delet
 
 
 Specifies whether or not to create this cluster from a snapshot. You can use either the name or ARN when specifying a DB cluster snapshot, or the ARN when specifying a DB snapshot<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -938,6 +1165,8 @@ Specifies whether or not to create this cluster from a snapshot. You can use eit
   `""`
   </dd>
 </dl>
+
+</details
 
 ---
 

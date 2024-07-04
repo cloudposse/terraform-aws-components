@@ -82,6 +82,10 @@ Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not add
 This is for some rare cases where resources want additional configuration of tags<br/>
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -95,6 +99,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -106,6 +112,10 @@ in the order they appear in the list. New attributes are appended to the<br/>
 end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -119,6 +129,8 @@ and treated as a single ID element.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -131,6 +143,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -168,6 +184,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -177,6 +195,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -189,6 +211,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -209,6 +233,10 @@ Label values will be normalized before being passed to `format()` so they will b
 identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -222,6 +250,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -229,6 +259,10 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -242,6 +276,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -249,6 +285,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -262,6 +302,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -273,6 +315,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -286,6 +332,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -297,6 +345,10 @@ Does not affect keys of tags passed in via the `tags` input.<br/>
 Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -310,6 +362,8 @@ Default value: `title`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -320,6 +374,10 @@ The order in which the labels (ID elements) appear in the `id`.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -332,6 +390,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -346,6 +406,10 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -358,6 +422,8 @@ Default value: `lower`.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -374,6 +440,10 @@ Set to `[]` to suppress all generated tags.<br/>
   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -393,6 +463,8 @@ Set to `[]` to suppress all generated tags.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -403,6 +475,10 @@ ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/
 This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -415,6 +491,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -423,6 +501,10 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -435,6 +517,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -446,6 +530,10 @@ Terraform regular expression (regex) string.<br/>
 Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -458,6 +546,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -466,6 +556,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -478,6 +572,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -488,6 +584,10 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -501,6 +601,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -508,6 +610,10 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -521,7 +627,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -531,6 +640,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 Glue catalog database component name where the table metadata resides. Used to get the Glue catalog database from the remote state<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -543,6 +656,8 @@ Glue catalog database component name where the table metadata resides. Used to g
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -551,6 +666,10 @@ Glue catalog database component name where the table metadata resides. Used to g
 
 
 AWS Region<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -563,6 +682,8 @@ AWS Region<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -573,6 +694,10 @@ AWS Region<br/>
 
 
 ID of the Glue Catalog and database to create the table in. If omitted, this defaults to the AWS Account ID plus the database name<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -585,6 +710,8 @@ ID of the Glue Catalog and database to create the table in. If omitted, this def
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -593,6 +720,10 @@ ID of the Glue Catalog and database to create the table in. If omitted, this def
 
 
 Description of the table<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -605,6 +736,8 @@ Description of the table<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -613,6 +746,10 @@ Description of the table<br/>
 
 
 Name of the table<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -626,6 +763,8 @@ Name of the table<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -633,6 +772,10 @@ Name of the table<br/>
 
 
 Glue IAM component name. Used to get the Glue IAM role from the remote state<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -646,6 +789,8 @@ Glue IAM component name. Used to get the Glue IAM role from the remote state<br/
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -653,6 +798,10 @@ Glue IAM component name. Used to get the Glue IAM role from the remote state<br/
 
 
 List of permissions granted to the principal. Refer to https://docs.aws.amazon.com/lake-formation/latest/dg/lf-permissions-reference.html for more details<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -672,6 +821,8 @@ List of permissions granted to the principal. Refer to https://docs.aws.amazon.c
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -679,6 +830,10 @@ List of permissions granted to the principal. Refer to https://docs.aws.amazon.c
 
 
 Whether to enable adding Lake Formation permissions to the IAM role that is used to access the Glue table<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -692,6 +847,8 @@ Whether to enable adding Lake Formation permissions to the IAM role that is used
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -699,6 +856,10 @@ Whether to enable adding Lake Formation permissions to the IAM role that is used
 
 
 Owner of the table<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -712,6 +873,8 @@ Owner of the table<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -719,6 +882,10 @@ Owner of the table<br/>
 
 
 Properties associated with this table, as a map of key-value pairs<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -732,6 +899,8 @@ Properties associated with this table, as a map of key-value pairs<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -739,6 +908,10 @@ Properties associated with this table, as a map of key-value pairs<br/>
 
 
 Configuration block for a maximum of 3 partition indexes<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -760,6 +933,8 @@ Configuration block for a maximum of 3 partition indexes<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -767,6 +942,10 @@ Configuration block for a maximum of 3 partition indexes<br/>
 
 
 Configuration block of columns by which the table is partitioned. Only primitive types are supported as partition keys<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -780,6 +959,8 @@ Configuration block of columns by which the table is partitioned. Only primitive
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -787,6 +968,10 @@ Configuration block of columns by which the table is partitioned. Only primitive
 
 
 Retention time for the table<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -800,6 +985,8 @@ Retention time for the table<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -807,6 +994,10 @@ Retention time for the table<br/>
 
 
 Configuration block for information about the physical storage of this table<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -820,6 +1011,8 @@ Configuration block for information about the physical storage of this table<br/
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -827,6 +1020,10 @@ Configuration block for information about the physical storage of this table<br/
 
 
 Type of this table (`EXTERNAL_TABLE`, `VIRTUAL_VIEW`, etc.). While optional, some Athena DDL queries such as `ALTER TABLE` and `SHOW CREATE TABLE` will fail if this argument is empty<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -840,6 +1037,8 @@ Type of this table (`EXTERNAL_TABLE`, `VIRTUAL_VIEW`, etc.). While optional, som
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -847,6 +1046,10 @@ Type of this table (`EXTERNAL_TABLE`, `VIRTUAL_VIEW`, etc.). While optional, som
 
 
 Configuration block of a target table for resource linking<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -869,6 +1072,8 @@ Configuration block of a target table for resource linking<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -876,6 +1081,10 @@ Configuration block of a target table for resource linking<br/>
 
 
 If the table is a view, the expanded text of the view; otherwise null<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -888,6 +1097,8 @@ If the table is a view, the expanded text of the view; otherwise null<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -896,6 +1107,10 @@ If the table is a view, the expanded text of the view; otherwise null<br/>
 
 
 If the table is a view, the original text of the view; otherwise null<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -908,6 +1123,8 @@ If the table is a view, the original text of the view; otherwise null<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 

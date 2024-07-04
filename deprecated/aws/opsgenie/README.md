@@ -124,6 +124,10 @@ The following variables are defined in the `context.tf` file of this module and 
 
 
 Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -137,6 +141,8 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -144,6 +150,10 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 
 
 Additional attributes (e.g. `1`)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -157,6 +167,8 @@ Additional attributes (e.g. `1`)<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -169,6 +181,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -217,6 +233,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -226,6 +244,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -239,6 +261,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -246,6 +270,10 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -259,6 +287,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -266,6 +296,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -279,6 +313,8 @@ Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -290,6 +326,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for default, which is `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -303,6 +343,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -313,6 +355,10 @@ The naming order of the id output and Name tag.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 5 elements, but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -326,6 +372,8 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -333,6 +381,10 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
 
 
 Solution name, e.g. 'app' or 'jenkins'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -345,6 +397,8 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -353,6 +407,10 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 
 
 Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -365,6 +423,8 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -375,6 +435,10 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
 Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -387,6 +451,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -395,6 +461,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -408,6 +478,8 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -415,6 +487,10 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 
 
 Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -428,7 +504,10 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -438,6 +517,10 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 
 
 AWS Region<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -451,6 +534,8 @@ AWS Region<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -460,6 +545,10 @@ AWS Region<br/>
 
 
 IAM Role ARN to use when importing a resource<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -473,6 +562,8 @@ IAM Role ARN to use when importing a resource<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -480,6 +571,10 @@ IAM Role ARN to use when importing a resource<br/>
 
 
 AWS KMS key used for writing to SSM<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -493,6 +588,8 @@ AWS KMS key used for writing to SSM<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -500,6 +597,10 @@ AWS KMS key used for writing to SSM<br/>
 
 
 SSM parameter name format<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -513,6 +614,8 @@ SSM parameter name format<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -520,6 +623,10 @@ SSM parameter name format<br/>
 
 
 SSM path<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -533,6 +640,8 @@ SSM path<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -540,6 +649,10 @@ SSM path<br/>
 
 
 The ID of the account where the Terraform remote state backend is provisioned<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -553,6 +666,8 @@ The ID of the account where the Terraform remote state backend is provisioned<br
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -560,6 +675,10 @@ The ID of the account where the Terraform remote state backend is provisioned<br
 
 
 Set to false to use the caller's role to access the Terraform remote state<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -573,6 +692,8 @@ Set to false to use the caller's role to access the Terraform remote state<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -580,6 +701,10 @@ Set to false to use the caller's role to access the Terraform remote state<br/>
 
 
 The name of the environment for Terraform state bucket<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -593,6 +718,8 @@ The name of the environment for Terraform state bucket<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -600,6 +727,10 @@ The name of the environment for Terraform state bucket<br/>
 
 
 The name of the stage for Terraform state bucket<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -613,6 +744,8 @@ The name of the stage for Terraform state bucket<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -620,6 +753,10 @@ The name of the stage for Terraform state bucket<br/>
 
 
 The ARN of the existing IAM Role to access the Terraform remote state. If not provided and `remote_state_assume_role` is `true`, a role will be constructed from `remote_state_role_arn_template`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -633,6 +770,8 @@ The ARN of the existing IAM Role to access the Terraform remote state. If not pr
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -640,6 +779,10 @@ The ARN of the existing IAM Role to access the Terraform remote state. If not pr
 
 
 IAM Role ARN template for accessing the Terraform remote state<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -653,6 +796,8 @@ IAM Role ARN template for accessing the Terraform remote state<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -660,6 +805,10 @@ IAM Role ARN template for accessing the Terraform remote state<br/>
 
 
 The name of the environment for Terraform state IAM role<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -673,6 +822,8 @@ The name of the environment for Terraform state IAM role<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -680,6 +831,10 @@ The name of the environment for Terraform state IAM role<br/>
 
 
 IAM Role name for accessing the Terraform remote state<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -693,6 +848,8 @@ IAM Role name for accessing the Terraform remote state<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -700,6 +857,10 @@ IAM Role name for accessing the Terraform remote state<br/>
 
 
 The name of the stage for Terraform state IAM role<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -712,6 +873,8 @@ The name of the stage for Terraform state IAM role<br/>
   `"root"`
   </dd>
 </dl>
+
+</details
 
 ---
 

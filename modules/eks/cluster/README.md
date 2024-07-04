@@ -562,6 +562,10 @@ Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not add
 This is for some rare cases where resources want additional configuration of tags<br/>
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -575,6 +579,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -586,6 +592,10 @@ in the order they appear in the list. New attributes are appended to the<br/>
 end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -599,6 +609,8 @@ and treated as a single ID element.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -611,6 +623,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -648,6 +664,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -657,6 +675,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -669,6 +691,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -689,6 +713,10 @@ Label values will be normalized before being passed to `format()` so they will b
 identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -702,6 +730,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -709,6 +739,10 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -722,6 +756,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -729,6 +765,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -742,6 +782,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -753,6 +795,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -766,6 +812,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -777,6 +825,10 @@ Does not affect keys of tags passed in via the `tags` input.<br/>
 Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -790,6 +842,8 @@ Default value: `title`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -800,6 +854,10 @@ The order in which the labels (ID elements) appear in the `id`.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -812,6 +870,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -826,6 +886,10 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -838,6 +902,8 @@ Default value: `lower`.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -854,6 +920,10 @@ Set to `[]` to suppress all generated tags.<br/>
   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -873,6 +943,8 @@ Set to `[]` to suppress all generated tags.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -883,6 +955,10 @@ ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/
 This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -895,6 +971,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -903,6 +981,10 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -915,6 +997,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -926,6 +1010,10 @@ Terraform regular expression (regex) string.<br/>
 Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -938,6 +1026,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -946,6 +1036,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -958,6 +1052,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -968,6 +1064,10 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -981,6 +1081,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -988,6 +1090,10 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1001,7 +1107,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -1011,6 +1120,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 AWS Region<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -1024,6 +1137,8 @@ AWS Region<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1033,6 +1148,10 @@ AWS Region<br/>
 
 
 Access configuration for the EKS cluster<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1054,6 +1173,8 @@ Access configuration for the EKS cluster<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1061,6 +1182,10 @@ Access configuration for the EKS cluster<br/>
 
 
 Manages [EKS addons](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1093,6 +1218,8 @@ Manages [EKS addons](https://registry.terraform.io/providers/hashicorp/aws/lates
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1102,6 +1229,10 @@ Manages [EKS addons](https://registry.terraform.io/providers/hashicorp/aws/lates
 If set `true` (recommended), all addons will depend on managed node groups provisioned by this component and therefore not be installed until nodes are provisioned.<br/>
 See [issue #170](https://github.com/cloudposse/terraform-aws-eks-cluster/issues/170) for more details.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1114,6 +1245,8 @@ See [issue #170](https://github.com/cloudposse/terraform-aws-eks-cluster/issues/
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1131,6 +1264,10 @@ e.g.<br/>
   tenant      = "core"<br/>
 }<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1144,6 +1281,8 @@ e.g.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1151,6 +1290,10 @@ e.g.<br/>
 
 
 List of CIDR blocks to be allowed to connect to the EKS cluster<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1163,6 +1306,8 @@ List of CIDR blocks to be allowed to connect to the EKS cluster<br/>
   `[]`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1171,6 +1316,10 @@ List of CIDR blocks to be allowed to connect to the EKS cluster<br/>
 
 
 List of Security Group IDs to be allowed to connect to the EKS cluster<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1183,6 +1332,8 @@ List of Security Group IDs to be allowed to connect to the EKS cluster<br/>
   `[]`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1195,6 +1346,10 @@ This input is included to avoid breaking existing configurations that set it to 
 a value of `false` is no longer allowed.<br/>
 This input is obsolete and will be removed in a future release.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1208,6 +1363,8 @@ This input is obsolete and will be removed in a future release.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1215,6 +1372,10 @@ This input is obsolete and will be removed in a future release.<br/>
 
 
 Type of Availability Zone abbreviation (either `fixed` or `short`) to use in names. See https://github.com/cloudposse/terraform-aws-utils for details.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1228,6 +1389,8 @@ Type of Availability Zone abbreviation (either `fixed` or `short`) to use in nam
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1239,6 +1402,10 @@ Can be the full name, e.g. `use1-az1`, or just the part after the AZ ID region c
 to allow reusable values across regions. Consider contention for resources and spot pricing in each AZ when selecting.<br/>
 Useful in some regions when using only some AZs and you want to use the same ones across multiple accounts.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1251,6 +1418,8 @@ Useful in some regions when using only some AZs and you want to use the same one
   `[]`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1263,6 +1432,10 @@ Ignored if `availability_zone_ids` is set.<br/>
 Can be the full name, e.g. `us-east-1a`, or just the part after the region, e.g. `a` to allow reusable values across regions.<br/>
 If not provided, resources will be provisioned in every zone with a private subnet in the VPC.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1276,6 +1449,8 @@ If not provided, resources will be provisioned in every zone with a private subn
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1283,6 +1458,10 @@ If not provided, resources will be provisioned in every zone with a private subn
 
 
 Set true to attach the required IAM policy for AWS SSM agent to each EC2 instance's IAM Role<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1296,6 +1475,8 @@ Set true to attach the required IAM policy for AWS SSM agent to each EC2 instanc
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1308,6 +1489,10 @@ IAM Role ARN corresponding to the permission set at the time Terraform runs. Thi
 when any changes are made to the AWS SSO configuration, invalidating the mapping, and requiring a<br/>
 `terraform apply` in this project to update the `aws-auth` ConfigMap and restore access.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1329,6 +1514,8 @@ when any changes are made to the AWS SSO configuration, invalidating the mapping
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1336,6 +1523,10 @@ when any changes are made to the AWS SSO configuration, invalidating the mapping
 
 
 List of `aws-team-roles` (in the target AWS account) to map to Kubernetes RBAC groups.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1357,6 +1548,8 @@ List of `aws-team-roles` (in the target AWS account) to map to Kubernetes RBAC g
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1364,6 +1557,10 @@ List of `aws-team-roles` (in the target AWS account) to map to Kubernetes RBAC g
 
 
 Set to `true` to enable Cluster Encryption Configuration<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1377,6 +1574,8 @@ Set to `true` to enable Cluster Encryption Configuration<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1384,6 +1583,10 @@ Set to `true` to enable Cluster Encryption Configuration<br/>
 
 
 Cluster Encryption Config KMS Key Resource argument - key deletion windows in days post destruction<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1397,6 +1600,8 @@ Cluster Encryption Config KMS Key Resource argument - key deletion windows in da
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1404,6 +1609,10 @@ Cluster Encryption Config KMS Key Resource argument - key deletion windows in da
 
 
 Cluster Encryption Config KMS Key Resource argument - enable kms key rotation<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1417,6 +1626,8 @@ Cluster Encryption Config KMS Key Resource argument - enable kms key rotation<br
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1424,6 +1635,10 @@ Cluster Encryption Config KMS Key Resource argument - enable kms key rotation<br
 
 
 KMS Key ID to use for cluster encryption config<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1437,6 +1652,8 @@ KMS Key ID to use for cluster encryption config<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1444,6 +1661,10 @@ KMS Key ID to use for cluster encryption config<br/>
 
 
 Cluster Encryption Config KMS Key Resource argument - key policy<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1457,6 +1678,8 @@ Cluster Encryption Config KMS Key Resource argument - key policy<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1464,6 +1687,10 @@ Cluster Encryption Config KMS Key Resource argument - key policy<br/>
 
 
 Cluster Encryption Config Resources to encrypt, e.g. `["secrets"]`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1483,6 +1710,8 @@ Cluster Encryption Config Resources to encrypt, e.g. `["secrets"]`<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1490,6 +1719,10 @@ Cluster Encryption Config Resources to encrypt, e.g. `["secrets"]`<br/>
 
 
 Indicates whether or not the Amazon EKS private API server endpoint is enabled. Default to AWS EKS resource and it is `false`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1503,6 +1736,8 @@ Indicates whether or not the Amazon EKS private API server endpoint is enabled. 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1510,6 +1745,10 @@ Indicates whether or not the Amazon EKS private API server endpoint is enabled. 
 
 
 Indicates whether or not the Amazon EKS public API server endpoint is enabled. Default to AWS EKS resource and it is `true`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1523,6 +1762,8 @@ Indicates whether or not the Amazon EKS public API server endpoint is enabled. D
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1530,6 +1771,10 @@ Indicates whether or not the Amazon EKS public API server endpoint is enabled. D
 
 
 Desired Kubernetes master version. If you do not specify a value, the latest available version is used<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1543,6 +1788,8 @@ Desired Kubernetes master version. If you do not specify a value, the latest ava
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1550,6 +1797,10 @@ Desired Kubernetes master version. If you do not specify a value, the latest ava
 
 
 Number of days to retain cluster logs. Requires `enabled_cluster_log_types` to be set. See https://docs.aws.amazon.com/en_us/eks/latest/userguide/control-plane-logs.html.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1563,6 +1814,8 @@ Number of days to retain cluster logs. Requires `enabled_cluster_log_types` to b
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1570,6 +1823,10 @@ Number of days to retain cluster logs. Requires `enabled_cluster_log_types` to b
 
 
 Whether or not to enable private subnets or both public and private subnets<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1583,6 +1840,8 @@ Whether or not to enable private subnets or both public and private subnets<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1590,6 +1849,10 @@ Whether or not to enable private subnets or both public and private subnets<br/>
 
 
 The cluster stage represented by a color; e.g. blue, green<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1603,6 +1866,8 @@ The cluster stage represented by a color; e.g. blue, green<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1610,6 +1875,10 @@ The cluster stage represented by a color; e.g. blue, green<br/>
 
 
 Set to `true` (not recommended) to deploy addons to Fargate instead of initial node pool<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1623,6 +1892,8 @@ Set to `true` (not recommended) to deploy addons to Fargate instead of initial n
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1630,6 +1901,10 @@ Set to `true` (not recommended) to deploy addons to Fargate instead of initial n
 
 
 A list of the desired control plane logging to enable. For more information, see https://docs.aws.amazon.com/en_us/eks/latest/userguide/control-plane-logs.html. Possible values [`api`, `audit`, `authenticator`, `controllerManager`, `scheduler`]<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1643,6 +1918,8 @@ A list of the desired control plane logging to enable. For more information, see
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1650,6 +1927,10 @@ A list of the desired control plane logging to enable. For more information, see
 
 
 Delimiter for the Kubernetes namespace in the IAM Role name for Fargate Profiles<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1663,6 +1944,8 @@ Delimiter for the Kubernetes namespace in the IAM Role name for Fargate Profiles
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1670,6 +1953,10 @@ Delimiter for the Kubernetes namespace in the IAM Role name for Fargate Profiles
 
 
 If provided, all Fargate Profiles IAM roles will be created with this permissions boundary attached<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1683,6 +1970,8 @@ If provided, all Fargate Profiles IAM roles will be created with this permission
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1690,6 +1979,10 @@ If provided, all Fargate Profiles IAM roles will be created with this permission
 
 
 Fargate Profiles config<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1711,6 +2004,8 @@ Fargate Profiles config<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1718,6 +2013,10 @@ Fargate Profiles config<br/>
 
 
 Flag to enable/disable creation of IAM role for EC2 Instance Profile that is attached to the nodes launched by Karpenter<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1730,6 +2029,8 @@ Flag to enable/disable creation of IAM role for EC2 Instance Profile that is att
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1748,6 +2049,10 @@ ensures that both the role and the instance profile have the same lifecycle,<br/
 and avoids AWS Provider issue [#32671](https://github.com/hashicorp/terraform-provider-aws/issues/32671).<br/>
 Use in conjunction with `eks/karpenter` component `legacy_create_karpenter_instance_profile`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1760,6 +2065,8 @@ Use in conjunction with `eks/karpenter` component `legacy_create_karpenter_insta
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1771,6 +2078,10 @@ Set to `false` for new clusters to create a single Fargate Pod Execution role fo
 Set to `true` for existing clusters to preserve the old behavior of creating<br/>
 a Fargate Pod Execution role for each Fargate Profile.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1783,6 +2094,8 @@ a Fargate Pod Execution role for each Fargate Profile.<br/>
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1791,6 +2104,10 @@ a Fargate Pod Execution role for each Fargate Profile.<br/>
 
 
 Set false to prevent the creation of EKS managed node groups.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1803,6 +2120,8 @@ Set false to prevent the creation of EKS managed node groups.<br/>
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1817,6 +2136,10 @@ supplied an empty list, but the list is no longer allowed to have entries.<br/>
 This component now only supports EKS access entries, which require full principal ARNs.<br/>
 This input is deprecated and will be removed in a future release.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1829,6 +2152,8 @@ This input is deprecated and will be removed in a future release.<br/>
   `[]`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1844,6 +2169,10 @@ had to be removed from the Role ARN. The path is now required.<br/>
 in a future release with a more flexible input structure that consolidates<br/>
 `map_additional_iam_roles` and `map_additional_iam_users`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1866,6 +2195,8 @@ in a future release with a more flexible input structure that consolidates<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1877,6 +2208,10 @@ Additional IAM roles to grant access to the cluster.<br/>
 in a future release with a more flexible input structure that consolidates<br/>
 `map_additional_iam_roles` and `map_additional_iam_users`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1899,6 +2234,8 @@ in a future release with a more flexible input structure that consolidates<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1915,6 +2252,10 @@ This input is deprecated and will be removed in a future release.<br/>
 In the future, this component will either have a way to separate Linux and Windows worker nodes,<br/>
 or drop support for unmanaged worker nodes entirely.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1928,6 +2269,8 @@ or drop support for unmanaged worker nodes entirely.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1935,6 +2278,10 @@ or drop support for unmanaged worker nodes entirely.<br/>
 
 
 Defaults for node groups in the cluster<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2033,6 +2380,8 @@ Defaults for node groups in the cluster<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2040,6 +2389,10 @@ Defaults for node groups in the cluster<br/>
 
 
 List of objects defining a node group for the cluster<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2137,6 +2490,8 @@ List of objects defining a node group for the cluster<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2144,6 +2499,10 @@ List of objects defining a node group for the cluster<br/>
 
 
 Create an IAM OIDC identity provider for the cluster, then you can create IAM roles to associate with a service account in the cluster, instead of using kiam or kube2iam. For more information, see https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2157,6 +2516,8 @@ Create an IAM OIDC identity provider for the cluster, then you can create IAM ro
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2164,6 +2525,10 @@ Create an IAM OIDC identity provider for the cluster, then you can create IAM ro
 
 
 Indicates which CIDR blocks can access the Amazon EKS public API server endpoint when enabled. EKS defaults this to a list with 0.0.0.0/0.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2183,6 +2548,8 @@ Indicates which CIDR blocks can access the Amazon EKS public API server endpoint
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2190,6 +2557,10 @@ Indicates which CIDR blocks can access the Amazon EKS public API server endpoint
 
 
 The tag used to find the private subnets to find by availability zone. If null, will be looked up in vpc outputs.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2203,6 +2574,8 @@ The tag used to find the private subnets to find by availability zone. If null, 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2210,6 +2583,10 @@ The tag used to find the private subnets to find by availability zone. If null, 
 
 
 The name of the vpc component<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2222,6 +2599,8 @@ The name of the vpc component<br/>
   `"vpc"`
   </dd>
 </dl>
+
+</details
 
 ---
 

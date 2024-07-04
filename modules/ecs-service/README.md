@@ -355,6 +355,10 @@ Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not add
 This is for some rare cases where resources want additional configuration of tags<br/>
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -368,6 +372,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -379,6 +385,10 @@ in the order they appear in the list. New attributes are appended to the<br/>
 end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -392,6 +402,8 @@ and treated as a single ID element.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -404,6 +416,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -441,6 +457,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -450,6 +468,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -462,6 +484,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -482,6 +506,10 @@ Label values will be normalized before being passed to `format()` so they will b
 identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -495,6 +523,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -502,6 +532,10 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -515,6 +549,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -522,6 +558,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -535,6 +575,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -546,6 +588,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -559,6 +605,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -570,6 +618,10 @@ Does not affect keys of tags passed in via the `tags` input.<br/>
 Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -583,6 +635,8 @@ Default value: `title`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -593,6 +647,10 @@ The order in which the labels (ID elements) appear in the `id`.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -605,6 +663,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -619,6 +679,10 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -631,6 +695,8 @@ Default value: `lower`.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -647,6 +713,10 @@ Set to `[]` to suppress all generated tags.<br/>
   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -666,6 +736,8 @@ Set to `[]` to suppress all generated tags.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -676,6 +748,10 @@ ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/
 This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -688,6 +764,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -696,6 +774,10 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -708,6 +790,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -719,6 +803,10 @@ Terraform regular expression (regex) string.<br/>
 Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -731,6 +819,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -739,6 +829,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -751,6 +845,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -761,6 +857,10 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -774,6 +874,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -781,6 +883,10 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -794,7 +900,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -804,6 +913,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 AWS Region<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -817,6 +930,8 @@ AWS Region<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -826,6 +941,10 @@ AWS Region<br/>
 
 
 Additional target routes to add to the ALB that point to this service. The only difference between this and `var.vanity_alias` is `var.vanity_alias` will create an alias record in Route 53 in the hosted zone in this account as well. `var.additional_targets` only adds the listener route to this service's target group.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -839,6 +958,8 @@ Additional target routes to add to the ALB that point to this service. The only 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -846,6 +967,10 @@ Additional target routes to add to the ALB that point to this service. The only 
 
 
 The configuration to use for the ALB, specifying which cluster alb configuration to use<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -859,6 +984,8 @@ The configuration to use for the ALB, specifying which cluster alb configuration
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -866,6 +993,10 @@ The configuration to use for the ALB, specifying which cluster alb configuration
 
 
 The name of the ALB this service should attach to<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -879,6 +1010,8 @@ The name of the ALB this service should attach to<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -886,6 +1019,10 @@ The name of the ALB this service should attach to<br/>
 
 
 The dimension to use to decide to autoscale<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -899,6 +1036,8 @@ The dimension to use to decide to autoscale<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -906,6 +1045,10 @@ The dimension to use to decide to autoscale<br/>
 
 
 Should this service autoscale using SNS alarams<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -919,6 +1062,8 @@ Should this service autoscale using SNS alarams<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -926,6 +1071,10 @@ Should this service autoscale using SNS alarams<br/>
 
 
 SSM parameter service name for use with chamber. This is used in chamber_format where /$chamber_service/$name/$container_name/$parameter would be the default.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -939,6 +1088,8 @@ SSM parameter service name for use with chamber. This is used in chamber_format 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -946,6 +1097,10 @@ SSM parameter service name for use with chamber. This is used in chamber_format 
 
 
 The attributes of the cluster name e.g. if the full name is `namespace-tenant-environment-dev-ecs-b2b` then the `cluster_name` is `ecs` and this value should be `b2b`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -959,6 +1114,8 @@ The attributes of the cluster name e.g. if the full name is `namespace-tenant-en
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -966,6 +1123,10 @@ The attributes of the cluster name e.g. if the full name is `namespace-tenant-en
 
 
 Feed inputs into container definition module<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1036,6 +1197,8 @@ Feed inputs into container definition module<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1043,6 +1206,10 @@ Feed inputs into container definition module<br/>
 
 
 A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High Alarm action<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1056,6 +1223,8 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High Alarm acti
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1063,6 +1232,10 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High Alarm acti
 
 
 Number of periods to evaluate for the alarm<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1076,6 +1249,8 @@ Number of periods to evaluate for the alarm<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1083,6 +1258,10 @@ Number of periods to evaluate for the alarm<br/>
 
 
 A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High OK action<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1096,6 +1275,8 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High OK action<
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1103,6 +1284,10 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High OK action<
 
 
 Duration in seconds to evaluate for the alarm<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1116,6 +1301,8 @@ Duration in seconds to evaluate for the alarm<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1123,6 +1310,10 @@ Duration in seconds to evaluate for the alarm<br/>
 
 
 The maximum percentage of CPU utilization average<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1136,6 +1327,8 @@ The maximum percentage of CPU utilization average<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1143,6 +1336,10 @@ The maximum percentage of CPU utilization average<br/>
 
 
 A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low Alarm action<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1156,6 +1353,8 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low Alarm actio
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1163,6 +1362,10 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low Alarm actio
 
 
 Number of periods to evaluate for the alarm<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1176,6 +1379,8 @@ Number of periods to evaluate for the alarm<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1183,6 +1388,10 @@ Number of periods to evaluate for the alarm<br/>
 
 
 A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low OK action<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1196,6 +1405,8 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low OK action<b
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1203,6 +1414,10 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low OK action<b
 
 
 Duration in seconds to evaluate for the alarm<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1216,6 +1431,8 @@ Duration in seconds to evaluate for the alarm<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1223,6 +1440,10 @@ Duration in seconds to evaluate for the alarm<br/>
 
 
 The minimum percentage of CPU utilization average<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1236,6 +1457,8 @@ The minimum percentage of CPU utilization average<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1243,6 +1466,10 @@ The minimum percentage of CPU utilization average<br/>
 
 
 The list of custom security group rules to add to the service security group<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1268,6 +1495,8 @@ The list of custom security group rules to add to the service security group<br/
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1275,6 +1504,10 @@ The list of custom security group rules to add to the service security group<br/
 
 
 Enable the Datadog Agent Sidecar<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1287,6 +1520,8 @@ Enable the Datadog Agent Sidecar<br/>
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1295,6 +1530,10 @@ Enable the Datadog Agent Sidecar<br/>
 
 
 Datadog logs can be sent via cloudwatch logs (and lambda) or firelens, set this to true to enable firelens via a sidecar container for fluentbit<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1308,6 +1547,8 @@ Datadog logs can be sent via cloudwatch logs (and lambda) or firelens, set this 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1315,6 +1556,10 @@ Datadog logs can be sent via cloudwatch logs (and lambda) or firelens, set this 
 
 
 Add Default tags to all logs sent to Datadog<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1328,6 +1573,8 @@ Add Default tags to all logs sent to Datadog<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1335,6 +1582,10 @@ Add Default tags to all logs sent to Datadog<br/>
 
 
 Tags to add to all logs sent to Datadog<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1348,6 +1599,8 @@ Tags to add to all logs sent to Datadog<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1355,6 +1608,10 @@ Tags to add to all logs sent to Datadog<br/>
 
 
 Enable the Datadog Agent Sidecar to send logs to aws cloudwatch group, requires `datadog_agent_sidecar_enabled` to be true<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1368,6 +1625,8 @@ Enable the Datadog Agent Sidecar to send logs to aws cloudwatch group, requires 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1375,6 +1634,10 @@ Enable the Datadog Agent Sidecar to send logs to aws cloudwatch group, requires 
 
 
 The region to use for the fully qualified ECR image URL. Defaults to the current region.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1388,6 +1651,8 @@ The region to use for the fully qualified ECR image URL. Defaults to the current
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1395,6 +1660,10 @@ The region to use for the fully qualified ECR image URL. Defaults to the current
 
 
 The ecr stage (account) name to use for the fully qualified ECR image URL.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1408,6 +1677,8 @@ The ecr stage (account) name to use for the fully qualified ECR image URL.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1415,6 +1686,10 @@ The ecr stage (account) name to use for the fully qualified ECR image URL.<br/>
 
 
 The name of the ECS Cluster this belongs to<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1428,6 +1703,8 @@ The name of the ECS Cluster this belongs to<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1435,6 +1712,10 @@ The name of the ECS Cluster this belongs to<br/>
 
 
 Specifies whether to enable Amazon ECS Exec for the tasks within the service<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1447,6 +1728,8 @@ Specifies whether to enable Amazon ECS Exec for the tasks within the service<br/
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1458,6 +1741,10 @@ Specifies whether to enable Amazon ECS Exec for the tasks within the service<br/
   ["cloudposse/infra-live"]. Can contain "*" as wildcard.<br/>
   If org part of repo name is omitted, "cloudposse" will be assumed.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1471,6 +1758,8 @@ Specifies whether to enable Amazon ECS Exec for the tasks within the service<br/
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1478,6 +1767,10 @@ Specifies whether to enable Amazon ECS Exec for the tasks within the service<br/
 
 
 Create IAM policies required for deployments with Ecspresso<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1491,6 +1784,8 @@ Create IAM policies required for deployments with Ecspresso<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1498,6 +1793,10 @@ Create IAM policies required for deployments with Ecspresso<br/>
 
 
 Additional attributes to add to the role name<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1510,6 +1809,8 @@ Additional attributes to add to the role name<br/>
   `[]`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1519,6 +1820,10 @@ Additional attributes to add to the role name<br/>
 
 Flag to toggle creation of an IAM Role that GitHub Actions can assume to access AWS resources<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1532,6 +1837,8 @@ Flag to toggle creation of an IAM Role that GitHub Actions can assume to access 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1539,6 +1846,10 @@ Flag to toggle creation of an IAM Role that GitHub Actions can assume to access 
 
 
 A list of IAM Role ARNs allowed to assume this cluster's GitHub OIDC role<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1552,6 +1863,8 @@ A list of IAM Role ARNs allowed to assume this cluster's GitHub OIDC role<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1559,6 +1872,10 @@ A list of IAM Role ARNs allowed to assume this cluster's GitHub OIDC role<br/>
 
 
 The number of consecutive health checks successes required before healthy<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1572,6 +1889,8 @@ The number of consecutive health checks successes required before healthy<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1579,6 +1898,10 @@ The number of consecutive health checks successes required before healthy<br/>
 
 
 The duration in seconds in between health checks<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1592,6 +1915,8 @@ The duration in seconds in between health checks<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1599,6 +1924,10 @@ The duration in seconds in between health checks<br/>
 
 
 The HTTP response codes to indicate a healthy check<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1612,6 +1941,8 @@ The HTTP response codes to indicate a healthy check<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1619,6 +1950,10 @@ The HTTP response codes to indicate a healthy check<br/>
 
 
 The destination for the health check request<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1632,6 +1967,8 @@ The destination for the health check request<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1639,6 +1976,10 @@ The destination for the health check request<br/>
 
 
 The port to use to connect with the target. Valid values are either ports 1-65536, or `traffic-port`. Defaults to `traffic-port`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1652,6 +1993,8 @@ The port to use to connect with the target. Valid values are either ports 1-6553
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1659,6 +2002,10 @@ The port to use to connect with the target. Valid values are either ports 1-6553
 
 
 The amount of time to wait in seconds before failing a health check request<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1672,6 +2019,8 @@ The amount of time to wait in seconds before failing a health check request<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1679,6 +2028,10 @@ The amount of time to wait in seconds before failing a health check request<br/>
 
 
 The number of consecutive health check failures required before unhealthy<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1692,6 +2045,8 @@ The number of consecutive health check failures required before unhealthy<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1699,6 +2054,10 @@ The number of consecutive health check failures required before unhealthy<br/>
 
 
 Which http protocol to use in outputs and SSM url params. This value is ignored if a load balancer is not used. If it is `null`, the redirect value from the ALB determines the protocol.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1712,6 +2071,8 @@ Which http protocol to use in outputs and SSM url params. This value is ignored 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1719,6 +2080,10 @@ Which http protocol to use in outputs and SSM url params. This value is ignored 
 
 
 If set to true will create IAM policy in AWS<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1732,6 +2097,8 @@ If set to true will create IAM policy in AWS<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1739,6 +2106,10 @@ If set to true will create IAM policy in AWS<br/>
 
 
 Map of IAM policy statements to use in the policy. This can be used with or instead of the `var.iam_source_json_url`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1752,6 +2123,8 @@ Map of IAM policy statements to use in the policy. This can be used with or inst
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1759,6 +2132,10 @@ Map of IAM policy statements to use in the policy. This can be used with or inst
 
 
 Enable Kinesis<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1772,6 +2149,8 @@ Enable Kinesis<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1779,6 +2158,10 @@ Enable Kinesis<br/>
 
 
 KMS alias name for SSM<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1792,6 +2175,8 @@ KMS alias name for SSM<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1799,6 +2184,10 @@ KMS alias name for SSM<br/>
 
 
 ID of KMS key<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1812,6 +2201,8 @@ ID of KMS key<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1819,6 +2210,10 @@ ID of KMS key<br/>
 
 
 Should this service act as catch all for all subdomain hosts of the vanity domain<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1832,6 +2227,8 @@ Should this service act as catch all for all subdomain hosts of the vanity domai
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1839,6 +2236,10 @@ Should this service act as catch all for all subdomain hosts of the vanity domai
 
 
 Feed inputs into cloudwatch logs module<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1852,6 +2253,8 @@ Feed inputs into cloudwatch logs module<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1859,6 +2262,10 @@ Feed inputs into cloudwatch logs module<br/>
 
 
 A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High Alarm action<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1872,6 +2279,8 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High Alarm a
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1879,6 +2288,10 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High Alarm a
 
 
 Number of periods to evaluate for the alarm<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1892,6 +2305,8 @@ Number of periods to evaluate for the alarm<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1899,6 +2314,10 @@ Number of periods to evaluate for the alarm<br/>
 
 
 A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High OK action<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1912,6 +2331,8 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High OK acti
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1919,6 +2340,10 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization High OK acti
 
 
 Duration in seconds to evaluate for the alarm<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1932,6 +2357,8 @@ Duration in seconds to evaluate for the alarm<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1939,6 +2366,10 @@ Duration in seconds to evaluate for the alarm<br/>
 
 
 The maximum percentage of Memory utilization average<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1952,6 +2383,8 @@ The maximum percentage of Memory utilization average<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1959,6 +2392,10 @@ The maximum percentage of Memory utilization average<br/>
 
 
 A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low Alarm action<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1972,6 +2409,8 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low Alarm ac
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1979,6 +2418,10 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low Alarm ac
 
 
 Number of periods to evaluate for the alarm<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1992,6 +2435,8 @@ Number of periods to evaluate for the alarm<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1999,6 +2444,10 @@ Number of periods to evaluate for the alarm<br/>
 
 
 A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low OK action<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2012,6 +2461,8 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low OK actio
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2019,6 +2470,10 @@ A list of ARNs (i.e. SNS Topic ARN) to notify on Memory Utilization Low OK actio
 
 
 Duration in seconds to evaluate for the alarm<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2032,6 +2487,8 @@ Duration in seconds to evaluate for the alarm<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2039,6 +2496,10 @@ Duration in seconds to evaluate for the alarm<br/>
 
 
 The minimum percentage of Memory utilization average<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2052,6 +2513,8 @@ The minimum percentage of Memory utilization average<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2059,6 +2522,10 @@ The minimum percentage of Memory utilization average<br/>
 
 
 The name of the NLB this service should attach to<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2072,6 +2539,8 @@ The name of the NLB this service should attach to<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2079,6 +2548,10 @@ The name of the NLB this service should attach to<br/>
 
 
 The name of the RDS database this service should allow access to<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2092,6 +2565,8 @@ The name of the RDS database this service should allow access to<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2099,6 +2574,10 @@ The name of the RDS database this service should allow access to<br/>
 
 
 Length of time data records are accessible after they are added to the stream<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2112,6 +2591,8 @@ Length of time data records are accessible after they are added to the stream<br
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2119,6 +2600,10 @@ Length of time data records are accessible after they are added to the stream<br
 
 
 The name of the S3 mirror component<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2132,6 +2617,8 @@ The name of the S3 mirror component<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2141,6 +2628,10 @@ The name of the S3 mirror component<br/>
 The list of Service Connect configurations.<br/>
 See `service_connect_configuration` docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#service_connect_configuration<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2179,6 +2670,8 @@ See `service_connect_configuration` docs https://registry.terraform.io/providers
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2188,6 +2681,10 @@ See `service_connect_configuration` docs https://registry.terraform.io/providers
 The list of Service Registries.<br/>
 See `service_registries` docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#service_registries<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2212,6 +2709,8 @@ See `service_registries` docs https://registry.terraform.io/providers/hashicorp/
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2219,6 +2718,10 @@ See `service_registries` docs https://registry.terraform.io/providers/hashicorp/
 
 
 Number of shards that the stream will use<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2232,6 +2735,8 @@ Number of shards that the stream will use<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2239,6 +2744,10 @@ Number of shards that the stream will use<br/>
 
 
 List of shard-level CloudWatch metrics which can be enabled for the stream<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2264,6 +2773,8 @@ List of shard-level CloudWatch metrics which can be enabled for the stream<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2271,6 +2782,10 @@ List of shard-level CloudWatch metrics which can be enabled for the stream<br/>
 
 
 If `true` create SSM keys for the database user and password.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2284,6 +2799,8 @@ If `true` create SSM keys for the database user and password.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2291,6 +2808,10 @@ If `true` create SSM keys for the database user and password.<br/>
 
 
 SSM path format. The values will will be used in the following order: `var.ssm_key_prefix`, `var.name`, `var.ssm_key_*`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2304,6 +2825,8 @@ SSM path format. The values will will be used in the following order: `var.ssm_k
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2311,6 +2834,10 @@ SSM path format. The values will will be used in the following order: `var.ssm_k
 
 
 SSM path prefix. Omit the leading forward slash `/`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2324,6 +2851,8 @@ SSM path prefix. Omit the leading forward slash `/`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2331,6 +2860,10 @@ SSM path prefix. Omit the leading forward slash `/`.<br/>
 
 
 The time period, in seconds, during which requests from a client should be routed to the same target. After this time period expires, the load balancer-generated cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2344,6 +2877,8 @@ The time period, in seconds, during which requests from a client should be route
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2351,6 +2886,10 @@ The time period, in seconds, during which requests from a client should be route
 
 
 Boolean to enable / disable `stickiness`. Default is `true`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2364,6 +2903,8 @@ Boolean to enable / disable `stickiness`. Default is `true`<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2371,6 +2912,10 @@ Boolean to enable / disable `stickiness`. Default is `true`<br/>
 
 
 The type of sticky sessions. The only current possible value is `lb_cookie`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2384,6 +2929,8 @@ The type of sticky sessions. The only current possible value is `lb_cookie`<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2391,6 +2938,10 @@ The type of sticky sessions. The only current possible value is `lb_cookie`<br/>
 
 
 Stream mode details for the Kinesis stream<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2404,6 +2955,8 @@ Stream mode details for the Kinesis stream<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2411,6 +2964,10 @@ Stream mode details for the Kinesis stream<br/>
 
 
 Feed inputs into ecs_alb_service_task module<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2516,6 +3073,8 @@ Feed inputs into ecs_alb_service_task module<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2523,6 +3082,10 @@ Feed inputs into ecs_alb_service_task module<br/>
 
 
 Whether or not to use the ECS task module<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2536,6 +3099,8 @@ Whether or not to use the ECS task module<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2547,6 +3112,10 @@ The names are arbitrary, but must be known at plan time. The purpose of the name
 is so that changes to one ARN do not cause a ripple effect on the other ARNs.<br/>
 If you cannot provide unique names known at plan time, use `task_exec_policy_arns` instead.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2560,6 +3129,8 @@ If you cannot provide unique names known at plan time, use `task_exec_policy_arn
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2567,6 +3138,10 @@ If you cannot provide unique names known at plan time, use `task_exec_policy_arn
 
 
 A component that outputs an iam_role module as 'role' for adding to the service as a whole.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2580,6 +3155,8 @@ A component that outputs an iam_role module as 'role' for adding to the service 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2587,6 +3164,10 @@ A component that outputs an iam_role module as 'role' for adding to the service 
 
 
 The IAM policy ARNs to attach to the ECS task IAM role<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2607,6 +3188,8 @@ The IAM policy ARNs to attach to the ECS task IAM role<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2614,6 +3197,10 @@ The IAM policy ARNs to attach to the ECS task IAM role<br/>
 
 
 A component that outputs security_group_id for adding to the service as a whole.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2627,6 +3214,8 @@ A component that outputs security_group_id for adding to the service as a whole.
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2634,6 +3223,10 @@ A component that outputs security_group_id for adding to the service as a whole.
 
 
 Unauthenticated path pattern to match<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2647,6 +3240,8 @@ Unauthenticated path pattern to match<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2654,6 +3249,10 @@ Unauthenticated path pattern to match<br/>
 
 
 The priority for the rules without authentication, between 1 and 50000 (1 being highest priority). Must be different from `authenticated_priority` since a listener can't have multiple rules with the same priority	<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2667,6 +3266,8 @@ The priority for the rules without authentication, between 1 and 50000 (1 being 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2674,6 +3275,10 @@ The priority for the rules without authentication, between 1 and 50000 (1 being 
 
 
 Whether use load balancer for the service<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2686,6 +3291,8 @@ Whether use load balancer for the service<br/>
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -2694,6 +3301,10 @@ Whether use load balancer for the service<br/>
 
 
 Use the RDS client security group<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2707,6 +3318,8 @@ Use the RDS client security group<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2714,6 +3327,10 @@ Use the RDS client security group<br/>
 
 
 The vanity aliases to use for the public LB.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2727,6 +3344,8 @@ The vanity aliases to use for the public LB.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2734,6 +3353,10 @@ The vanity aliases to use for the public LB.<br/>
 
 
 Whether to use the vanity domain alias for the service<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2747,6 +3370,8 @@ Whether to use the vanity domain alias for the service<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2754,6 +3379,10 @@ Whether to use the vanity domain alias for the service<br/>
 
 
 The component name to look up service domain remote-state on<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2767,6 +3396,8 @@ The component name to look up service domain remote-state on<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2774,6 +3405,10 @@ The component name to look up service domain remote-state on<br/>
 
 
 A json query to use to get the zone domain from the remote state. See <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2786,6 +3421,8 @@ A json query to use to get the zone domain from the remote state. See <br/>
   `".default_domain_name"`
   </dd>
 </dl>
+
+</details
 
 ---
 

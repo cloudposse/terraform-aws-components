@@ -393,6 +393,10 @@ Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not add
 This is for some rare cases where resources want additional configuration of tags<br/>
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -406,6 +410,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -417,6 +423,10 @@ in the order they appear in the list. New attributes are appended to the<br/>
 end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -430,6 +440,8 @@ and treated as a single ID element.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -442,6 +454,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -479,6 +495,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -488,6 +506,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -500,6 +522,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -520,6 +544,10 @@ Label values will be normalized before being passed to `format()` so they will b
 identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -533,6 +561,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -540,6 +570,10 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -553,6 +587,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -560,6 +596,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -573,6 +613,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -584,6 +626,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -597,6 +643,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -608,6 +656,10 @@ Does not affect keys of tags passed in via the `tags` input.<br/>
 Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -621,6 +673,8 @@ Default value: `title`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -631,6 +685,10 @@ The order in which the labels (ID elements) appear in the `id`.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -643,6 +701,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -657,6 +717,10 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -669,6 +733,8 @@ Default value: `lower`.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -685,6 +751,10 @@ Set to `[]` to suppress all generated tags.<br/>
   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -704,6 +774,8 @@ Set to `[]` to suppress all generated tags.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -714,6 +786,10 @@ ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/
 This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -726,6 +802,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -734,6 +812,10 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -746,6 +828,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -757,6 +841,10 @@ Terraform regular expression (regex) string.<br/>
 Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -769,6 +857,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -777,6 +867,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -789,6 +883,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -799,6 +895,10 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -812,6 +912,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -819,6 +921,10 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -832,7 +938,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -842,6 +951,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 Default autodeploy value for all stacks created by this project<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -855,6 +968,8 @@ Default autodeploy value for all stacks created by this project<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -862,6 +977,10 @@ Default autodeploy value for all stacks created by this project<br/>
 
 
 The Git repository name<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -874,6 +993,8 @@ The Git repository name<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -882,6 +1003,10 @@ The Git repository name<br/>
 
 
 AWS Region<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -894,6 +1019,8 @@ AWS Region<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -902,6 +1029,10 @@ AWS Region<br/>
 
 
 Full address & tag of the Spacelift runner image (e.g. on ECR)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -914,6 +1045,8 @@ Full address & tag of the Spacelift runner image (e.g. on ECR)<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -922,6 +1055,10 @@ Full address & tag of the Spacelift runner image (e.g. on ECR)<br/>
 
 
 The Spacelift API endpoint URL (e.g. https://example.app.spacelift.io)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -934,6 +1071,8 @@ The Spacelift API endpoint URL (e.g. https://example.app.spacelift.io)<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -942,6 +1081,10 @@ The Spacelift API endpoint URL (e.g. https://example.app.spacelift.io)<br/>
 
 
 Default Terraform version for all stacks created by this project<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -954,6 +1097,8 @@ Default Terraform version for all stacks created by this project<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -964,6 +1109,10 @@ Default Terraform version for all stacks created by this project<br/>
 
 
 Flag to enable/disable the global administrative push policy<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -976,6 +1125,8 @@ Flag to enable/disable the global administrative push policy<br/>
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -984,6 +1135,10 @@ Flag to enable/disable the global administrative push policy<br/>
 
 
 Flag to enable/disable administrative stack drift detection<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -996,6 +1151,8 @@ Flag to enable/disable administrative stack drift detection<br/>
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1004,6 +1161,10 @@ Flag to enable/disable administrative stack drift detection<br/>
 
 
 Flag to enable/disable administrative stack drift automatic reconciliation. If drift is detected and `reconcile` is turned on, Spacelift will create a tracked run to correct the drift<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1017,6 +1178,8 @@ Flag to enable/disable administrative stack drift automatic reconciliation. If d
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1024,6 +1187,10 @@ Flag to enable/disable administrative stack drift automatic reconciliation. If d
 
 
 List of cron expressions to schedule drift detection for the administrative stack<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1043,6 +1210,8 @@ List of cron expressions to schedule drift detection for the administrative stac
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1050,6 +1219,10 @@ List of cron expressions to schedule drift detection for the administrative stac
 
 
 Flag to enable/disable the global administrative trigger policy<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1063,6 +1236,8 @@ Flag to enable/disable the global administrative trigger policy<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1070,6 +1245,10 @@ Flag to enable/disable the global administrative trigger policy<br/>
 
 
 Specify the space ID for attachments (e.g. policies, contexts, etc.)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1083,6 +1262,8 @@ Specify the space ID for attachments (e.g. policies, contexts, etc.)<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1090,6 +1271,10 @@ Specify the space ID for attachments (e.g. policies, contexts, etc.)<br/>
 
 
 ARN of the AWS IAM role to assume and put its temporary credentials in the runtime environment<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1102,6 +1287,8 @@ ARN of the AWS IAM role to assume and put its temporary credentials in the runti
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1110,6 +1297,10 @@ ARN of the AWS IAM role to assume and put its temporary credentials in the runti
 
 
 Flag to enable/disable Spacelift to use AWS STS to assume the supplied IAM role and put its temporary credentials in the runtime environment<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1123,6 +1314,8 @@ Flag to enable/disable Spacelift to use AWS STS to assume the supplied IAM role 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1130,6 +1323,10 @@ Flag to enable/disable Spacelift to use AWS STS to assume the supplied IAM role 
 
 
 Custom external ID (works only for private workers). See https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html for more details<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1143,6 +1340,8 @@ Custom external ID (works only for private workers). See https://docs.aws.amazon
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1150,6 +1349,10 @@ Custom external ID (works only for private workers). See https://docs.aws.amazon
 
 
 Flag to enable/disable generating AWS credentials in the private worker after assuming the supplied IAM role<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1163,6 +1366,8 @@ Flag to enable/disable generating AWS credentials in the private worker after as
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1170,6 +1375,10 @@ Flag to enable/disable generating AWS credentials in the private worker after as
 
 
 List of before-init scripts<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1183,6 +1392,8 @@ List of before-init scripts<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1190,6 +1401,10 @@ List of before-init scripts<br/>
 
 
 Context filters to create stacks for specific context information. Valid lists are `namespaces`, `environments`, `tenants`, `stages`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1203,6 +1418,8 @@ Context filters to create stacks for specific context information. Valid lists a
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1210,6 +1427,10 @@ Context filters to create stacks for specific context information. Valid lists a
 
 
 Flag to enable/disable drift detection on the infrastructure stacks<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1222,6 +1443,8 @@ Flag to enable/disable drift detection on the infrastructure stacks<br/>
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1230,6 +1453,10 @@ Flag to enable/disable drift detection on the infrastructure stacks<br/>
 
 
 Flag to enable/disable infrastructure stacks drift automatic reconciliation. If drift is detected and `reconcile` is turned on, Spacelift will create a tracked run to correct the drift<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1243,6 +1470,8 @@ Flag to enable/disable infrastructure stacks drift automatic reconciliation. If 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1250,6 +1479,10 @@ Flag to enable/disable infrastructure stacks drift automatic reconciliation. If 
 
 
 List of cron expressions to schedule drift detection for the infrastructure stacks<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1269,6 +1502,8 @@ List of cron expressions to schedule drift detection for the infrastructure stac
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1276,6 +1511,10 @@ List of cron expressions to schedule drift detection for the infrastructure stac
 
 
 Set this to true if you're calling this module from outside of a Spacelift stack (e.g. the `complete` example)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1289,6 +1528,8 @@ Set this to true if you're calling this module from outside of a Spacelift stack
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1296,6 +1537,10 @@ Set this to true if you're calling this module from outside of a Spacelift stack
 
 
 The Git branch name<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1309,6 +1554,8 @@ The Git branch name<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1316,6 +1563,10 @@ The Git branch name<br/>
 
 
 The commit SHA for which to trigger a run. Requires `var.spacelift_run_enabled` to be set to `true`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1329,6 +1580,8 @@ The commit SHA for which to trigger a run. Requires `var.spacelift_run_enabled` 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1336,6 +1589,10 @@ The commit SHA for which to trigger a run. Requires `var.spacelift_run_enabled` 
 
 
 Flag to enable/disable infracost. If this is enabled, it will add infracost label to each stack. See [spacelift infracost](https://docs.spacelift.io/vendors/terraform/infracost) docs for more details.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1349,6 +1606,8 @@ Flag to enable/disable infracost. If this is enabled, it will add infracost labe
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1356,6 +1615,10 @@ Flag to enable/disable infracost. If this is enabled, it will add infracost labe
 
 
 List of available default policies to create in Spacelift (these policies will not be attached to Spacelift stacks by default, use `var.policies_enabled`)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1379,6 +1642,8 @@ List of available default policies to create in Spacelift (these policies will n
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1386,6 +1651,10 @@ List of available default policies to create in Spacelift (these policies will n
 
 
 List of existing policy IDs to attach to all Spacelift stacks. These policies must already exist in Spacelift<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1398,6 +1667,8 @@ List of existing policy IDs to attach to all Spacelift stacks. These policies mu
   `[]`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1406,6 +1677,10 @@ List of existing policy IDs to attach to all Spacelift stacks. These policies mu
 
 
 List of existing policy names to attach to all Spacelift stacks. These policies must exist at `modules/spacelift/rego-policies` OR `var.policies_by_name_path`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1419,6 +1694,8 @@ List of existing policy names to attach to all Spacelift stacks. These policies 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1426,6 +1703,10 @@ List of existing policy names to attach to all Spacelift stacks. These policies 
 
 
 Path to the catalog of external Rego policies. The Rego files must exist in the caller's code at the path. The module will create Spacelift policies from the external Rego definitions<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1439,6 +1720,8 @@ Path to the catalog of external Rego policies. The Rego files must exist in the 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1446,6 +1729,10 @@ Path to the catalog of external Rego policies. The Rego files must exist in the 
 
 
 DEPRECATED: Use `policies_by_id_enabled` instead. List of default policies created by this stack to attach to all Spacelift stacks<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1459,6 +1746,8 @@ DEPRECATED: Use `policies_by_id_enabled` instead. List of default policies creat
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1466,6 +1755,10 @@ DEPRECATED: Use `policies_by_id_enabled` instead. List of default policies creat
 
 
 The Spacelift Component Path<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1479,6 +1772,8 @@ The Spacelift Component Path<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1486,6 +1781,10 @@ The Spacelift Component Path<br/>
 
 
 Enable/disable creation of the `spacelift_run` resource<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1498,6 +1797,8 @@ Enable/disable creation of the `spacelift_run` resource<br/>
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1506,6 +1807,10 @@ Enable/disable creation of the `spacelift_run` resource<br/>
 
 
 If enabled, the `spacelift_stack_dependency` Spacelift resource will be used to create dependencies between stacks instead of using the `depends-on` labels. The `depends-on` labels will be removed from the stacks and the trigger policies for dependencies will be detached<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1519,6 +1824,8 @@ If enabled, the `spacelift_stack_dependency` Spacelift resource will be used to 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1526,6 +1833,10 @@ If enabled, the `spacelift_stack_dependency` Spacelift resource will be used to 
 
 
 Stack config path template<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1539,6 +1850,8 @@ Stack config path template<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1546,6 +1859,10 @@ Stack config path template<br/>
 
 
 Flag to enable/disable the stack destructor to destroy the resources of a stack before deleting the stack itself<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1559,6 +1876,8 @@ Flag to enable/disable the stack destructor to destroy the resources of a stack 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1566,6 +1885,10 @@ Flag to enable/disable the stack destructor to destroy the resources of a stack 
 
 
 Override the space ID for all stacks (unless the stack config has `dedicated_space` set to true). Otherwise, it will default to the admin stack's space.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1579,6 +1902,8 @@ Override the space ID for all stacks (unless the stack config has `dedicated_spa
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1586,6 +1911,10 @@ Override the space ID for all stacks (unless the stack config has `dedicated_spa
 
 
 A map of tags that will filter stack creation by the matching `tags` set in a component `vars` configuration.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1598,6 +1927,8 @@ A map of tags that will filter stack creation by the matching `tags` set in a co
   `{}`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1606,6 +1937,10 @@ A map of tags that will filter stack creation by the matching `tags` set in a co
 
 
 A map to determine which Terraform patch version to use for each minor version<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1619,6 +1954,8 @@ A map to determine which Terraform patch version to use for each minor version<b
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1626,6 +1963,10 @@ A map to determine which Terraform patch version to use for each minor version<b
 
 
 Map of worker pool names to worker pool IDs<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1638,6 +1979,8 @@ Map of worker pool names to worker pool IDs<br/>
   `{}`
   </dd>
 </dl>
+
+</details
 
 ---
 

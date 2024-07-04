@@ -227,6 +227,10 @@ Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not add
 This is for some rare cases where resources want additional configuration of tags<br/>
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -240,6 +244,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -251,6 +257,10 @@ in the order they appear in the list. New attributes are appended to the<br/>
 end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -264,6 +274,8 @@ and treated as a single ID element.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -276,6 +288,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -313,6 +329,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -322,6 +340,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -334,6 +356,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -354,6 +378,10 @@ Label values will be normalized before being passed to `format()` so they will b
 identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -367,6 +395,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -374,6 +404,10 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -387,6 +421,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -394,6 +430,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -407,6 +447,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -418,6 +460,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -431,6 +477,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -442,6 +490,10 @@ Does not affect keys of tags passed in via the `tags` input.<br/>
 Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -455,6 +507,8 @@ Default value: `title`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -465,6 +519,10 @@ The order in which the labels (ID elements) appear in the `id`.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -477,6 +535,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -491,6 +551,10 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -503,6 +567,8 @@ Default value: `lower`.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -519,6 +585,10 @@ Set to `[]` to suppress all generated tags.<br/>
   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -538,6 +608,8 @@ Set to `[]` to suppress all generated tags.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -548,6 +620,10 @@ ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/
 This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -560,6 +636,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -568,6 +646,10 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -580,6 +662,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -591,6 +675,10 @@ Terraform regular expression (regex) string.<br/>
 Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -603,6 +691,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -611,6 +701,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -623,6 +717,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -633,6 +729,10 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -646,6 +746,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -653,6 +755,10 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -666,7 +772,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -676,6 +785,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 DBParameterGroupFamily (e.g. `aurora5.6`, `aurora-mysql5.7` for Aurora MySQL databases). See https://stackoverflow.com/a/55819394 for help finding the right one to use.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -688,6 +801,8 @@ DBParameterGroupFamily (e.g. `aurora5.6`, `aurora-mysql5.7` for Aurora MySQL dat
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -696,6 +811,10 @@ DBParameterGroupFamily (e.g. `aurora5.6`, `aurora-mysql5.7` for Aurora MySQL dat
 
 
 Engine for Aurora database: `aurora` for MySQL 5.6, `aurora-mysql` for MySQL 5.7<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -708,6 +827,8 @@ Engine for Aurora database: `aurora` for MySQL 5.6, `aurora-mysql` for MySQL 5.7
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -716,6 +837,10 @@ Engine for Aurora database: `aurora` for MySQL 5.6, `aurora-mysql` for MySQL 5.7
 
 
 AWS Region<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -728,6 +853,8 @@ AWS Region<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -748,6 +875,10 @@ e.g.<br/>
 <br/>
 Defaults to the "vpc" component in the given account<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -771,6 +902,8 @@ Defaults to the "vpc" component in the given account<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -778,6 +911,10 @@ Defaults to the "vpc" component in the given account<br/>
 
 
 List of CIDR blocks to be allowed to connect to the RDS cluster<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -791,6 +928,8 @@ List of CIDR blocks to be allowed to connect to the RDS cluster<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -798,6 +937,10 @@ List of CIDR blocks to be allowed to connect to the RDS cluster<br/>
 
 
 List of DB cluster parameters to apply<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -820,6 +963,8 @@ List of DB cluster parameters to apply<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -827,6 +972,10 @@ List of DB cluster parameters to apply<br/>
 
 
 Engine Version for Aurora database.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -840,6 +989,8 @@ Engine Version for Aurora database.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -847,6 +998,10 @@ Engine Version for Aurora database.<br/>
 
 
 List of DB instance parameters to apply<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -869,6 +1024,8 @@ List of DB instance parameters to apply<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -876,6 +1033,10 @@ List of DB instance parameters to apply<br/>
 
 
 Automatically update the cluster when a new minor version is released<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -889,6 +1050,8 @@ Automatically update the cluster when a new minor version is released<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -896,6 +1059,10 @@ Automatically update the cluster when a new minor version is released<br/>
 
 
 The names of the eks components<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -915,6 +1082,8 @@ The names of the eks components<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -922,6 +1091,10 @@ The names of the eks components<br/>
 
 
 If `true`, do not assign a Replication Source to the Cluster. Set to `true` after manually promoting the cluster from a replica to a standalone cluster.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -934,6 +1107,8 @@ If `true`, do not assign a Replication Source to the Cluster. Set to `true` afte
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -942,6 +1117,10 @@ If `true`, do not assign a Replication Source to the Cluster. Set to `true` afte
 
 
 If `true`, create this DB cluster as a Read Replica.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -955,6 +1134,8 @@ If `true`, create this DB cluster as a Read Replica.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -962,6 +1143,10 @@ If `true`, create this DB cluster as a Read Replica.<br/>
 
 
 MySQL password for the admin user<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -974,6 +1159,8 @@ MySQL password for the admin user<br/>
   `""`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -982,6 +1169,10 @@ MySQL password for the admin user<br/>
 
 
 MySQL admin user name<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -995,6 +1186,8 @@ MySQL admin user name<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1002,6 +1195,10 @@ MySQL admin user name<br/>
 
 
 Number of days for which to retain backups<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1015,6 +1212,8 @@ Number of days for which to retain backups<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1022,6 +1221,10 @@ Number of days for which to retain backups<br/>
 
 
 Daily time range during which the backups happen<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1035,6 +1238,8 @@ Daily time range during which the backups happen<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1042,6 +1247,10 @@ Daily time range during which the backups happen<br/>
 
 
 MySQL cluster size<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1055,6 +1264,8 @@ MySQL cluster size<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1062,6 +1273,10 @@ MySQL cluster size<br/>
 
 
 Database name (default is not to create a database<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1075,6 +1290,8 @@ Database name (default is not to create a database<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1082,6 +1299,10 @@ Database name (default is not to create a database<br/>
 
 
 Set to `true` to protect the database from deletion<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1095,6 +1316,8 @@ Set to `true` to protect the database from deletion<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1102,6 +1325,10 @@ Set to `true` to protect the database from deletion<br/>
 
 
 List of log types to export to cloudwatch. The following log types are supported: audit, error, general, slowquery<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1124,6 +1351,8 @@ List of log types to export to cloudwatch. The following log types are supported
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1131,6 +1360,10 @@ List of log types to export to cloudwatch. The following log types are supported
 
 
 EC2 instance type for RDS MySQL cluster<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1144,6 +1377,8 @@ EC2 instance type for RDS MySQL cluster<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1151,6 +1386,10 @@ EC2 instance type for RDS MySQL cluster<br/>
 
 
 Weekly time range during which system maintenance can occur, in UTC<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1164,6 +1403,8 @@ Weekly time range during which system maintenance can occur, in UTC<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1171,6 +1412,10 @@ Weekly time range during which system maintenance can occur, in UTC<br/>
 
 
 MySQL solution name (part of cluster identifier)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1184,6 +1429,8 @@ MySQL solution name (part of cluster identifier)<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1191,6 +1438,10 @@ MySQL solution name (part of cluster identifier)<br/>
 
 
 Determines whether a final DB snapshot is created before the DB cluster is deleted<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1204,6 +1455,8 @@ Determines whether a final DB snapshot is created before the DB cluster is delet
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1211,6 +1464,10 @@ Determines whether a final DB snapshot is created before the DB cluster is delet
 
 
 Set to `true` to keep the database contents encrypted<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1224,6 +1481,8 @@ Set to `true` to keep the database contents encrypted<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1231,6 +1490,10 @@ Set to `true` to keep the database contents encrypted<br/>
 
 
 Set `true` to enable Performance Insights<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1244,6 +1507,8 @@ Set `true` to enable Performance Insights<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1251,6 +1516,10 @@ Set `true` to enable Performance Insights<br/>
 
 
 If this cluster is a read replica and no replication source is explicitly given, the component name for the primary cluster<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1264,6 +1533,8 @@ If this cluster is a read replica and no replication source is explicitly given,
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1271,6 +1542,10 @@ If this cluster is a read replica and no replication source is explicitly given,
 
 
 If this cluster is a read replica and no replication source is explicitly given, the region to look for a matching cluster<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1284,6 +1559,8 @@ If this cluster is a read replica and no replication source is explicitly given,
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1291,6 +1568,10 @@ If this cluster is a read replica and no replication source is explicitly given,
 
 
 Set to true to create the cluster in a public subnet<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1304,6 +1585,8 @@ Set to true to create the cluster in a public subnet<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1314,6 +1597,10 @@ ARN of a source DB cluster or DB instance if this DB cluster is to be created as
 If this value is empty and replication is enabled, remote state will attempt to find<br/>
 a matching cluster in the Primary DB Cluster's region<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1326,6 +1613,8 @@ a matching cluster in the Primary DB Cluster's region<br/>
   `""`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1337,6 +1626,10 @@ If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved fr
 `var.ssm_password_source` and the database username. If this value is not set,<br/>
 a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1350,6 +1643,8 @@ a default path will be created using the SSM path prefix and ID of the associate
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1357,6 +1652,10 @@ a default path will be created using the SSM path prefix and ID of the associate
 
 
 SSM path prefix<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1370,6 +1669,8 @@ SSM path prefix<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1377,6 +1678,10 @@ SSM path prefix<br/>
 
 
 The name of the VPC component<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1389,6 +1694,8 @@ The name of the VPC component<br/>
   `"vpc"`
   </dd>
 </dl>
+
+</details
 
 ---
 

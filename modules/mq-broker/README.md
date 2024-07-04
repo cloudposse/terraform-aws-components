@@ -69,6 +69,10 @@ The following variables are defined in the `context.tf` file of this module and 
 
 
 Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -82,6 +86,8 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -89,6 +95,10 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 
 
 Additional attributes (e.g. `1`)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -102,6 +112,8 @@ Additional attributes (e.g. `1`)<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -114,6 +126,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -146,6 +162,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -155,6 +173,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -168,6 +190,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -175,6 +199,10 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -188,6 +216,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -195,6 +225,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -208,6 +242,8 @@ Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -219,6 +255,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for default, which is `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -232,6 +272,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -242,6 +284,10 @@ The letter case of label keys (`tag` names) (i.e. `name`, `namespace`, `environm
 Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -255,6 +301,8 @@ Default value: `title`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -265,6 +313,10 @@ The naming order of the id output and Name tag.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 5 elements, but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -278,6 +330,8 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -288,6 +342,10 @@ The letter case of output label values (also used in `tags` and `id`).<br/>
 Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Default value: `lower`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -300,6 +358,8 @@ Default value: `lower`.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -308,6 +368,10 @@ Default value: `lower`.<br/>
 
 
 Solution name, e.g. 'app' or 'jenkins'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -320,6 +384,8 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -328,6 +394,10 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 
 
 Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -340,6 +410,8 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -350,6 +422,10 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
 Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -362,6 +438,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -370,6 +448,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -383,6 +465,8 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -390,6 +474,10 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 
 
 Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -403,7 +491,10 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -413,6 +504,10 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 
 
 AWS Region<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -426,6 +521,8 @@ AWS Region<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -435,6 +532,10 @@ AWS Region<br/>
 
 
 List of CIDR blocks that are allowed ingress to the broker's Security Group created in the module<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -447,6 +548,8 @@ List of CIDR blocks that are allowed ingress to the broker's Security Group crea
   `[]`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -455,6 +558,10 @@ List of CIDR blocks that are allowed ingress to the broker's Security Group crea
 
 
 List of security groups to be allowed to connect to the broker instance<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -468,6 +575,8 @@ List of security groups to be allowed to connect to the broker instance<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -475,6 +584,10 @@ List of security groups to be allowed to connect to the broker instance<br/>
 
 
 Specifies whether any cluster modifications are applied immediately, or during the next maintenance window<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -488,6 +601,8 @@ Specifies whether any cluster modifications are applied immediately, or during t
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -495,6 +610,10 @@ Specifies whether any cluster modifications are applied immediately, or during t
 
 
 Enables audit logging. User management action made using JMX or the ActiveMQ Web Console is logged<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -508,6 +627,8 @@ Enables audit logging. User management action made using JMX or the ActiveMQ Web
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -515,6 +636,10 @@ Enables audit logging. User management action made using JMX or the ActiveMQ Web
 
 
 Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -528,6 +653,8 @@ Enables automatic upgrades to new minor versions for brokers, as Apache releases
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -535,6 +662,10 @@ Enables automatic upgrades to new minor versions for brokers, as Apache releases
 
 
 The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY_MULTI_AZ<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -548,6 +679,8 @@ The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -555,6 +688,10 @@ The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY
 
 
 Flag to enable/disable Amazon MQ encryption at rest<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -568,6 +705,8 @@ Flag to enable/disable Amazon MQ encryption at rest<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -575,6 +714,10 @@ Flag to enable/disable Amazon MQ encryption at rest<br/>
 
 
 Type of broker engine, `ActiveMQ` or `RabbitMQ`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -588,6 +731,8 @@ Type of broker engine, `ActiveMQ` or `RabbitMQ`<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -595,6 +740,10 @@ Type of broker engine, `ActiveMQ` or `RabbitMQ`<br/>
 
 
 The version of the broker engine. See https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html for more details<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -608,6 +757,8 @@ The version of the broker engine. See https://docs.aws.amazon.com/amazon-mq/late
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -615,6 +766,10 @@ The version of the broker engine. See https://docs.aws.amazon.com/amazon-mq/late
 
 
 List of existing Security Group IDs to place the broker into. Set `use_existing_security_groups` to `true` to enable using `existing_security_groups` as Security Groups for the broker<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -628,6 +783,8 @@ List of existing Security Group IDs to place the broker into. Set `use_existing_
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -635,6 +792,10 @@ List of existing Security Group IDs to place the broker into. Set `use_existing_
 
 
 Enables general logging via CloudWatch<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -648,6 +809,8 @@ Enables general logging via CloudWatch<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -655,6 +818,10 @@ Enables general logging via CloudWatch<br/>
 
 
 The broker's instance type. e.g. mq.t2.micro or mq.m4.large<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -668,6 +835,8 @@ The broker's instance type. e.g. mq.t2.micro or mq.m4.large<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -675,6 +844,10 @@ The broker's instance type. e.g. mq.t2.micro or mq.m4.large<br/>
 
 
 ARN of the AWS KMS key used for Amazon MQ encryption<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -688,6 +861,8 @@ ARN of the AWS KMS key used for Amazon MQ encryption<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -695,6 +870,10 @@ ARN of the AWS KMS key used for Amazon MQ encryption<br/>
 
 
 ARN of the AWS KMS key used for SSM encryption<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -708,6 +887,8 @@ ARN of the AWS KMS key used for SSM encryption<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -715,6 +896,10 @@ ARN of the AWS KMS key used for SSM encryption<br/>
 
 
 The maintenance day of the week. e.g. MONDAY, TUESDAY, or WEDNESDAY<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -728,6 +913,8 @@ The maintenance day of the week. e.g. MONDAY, TUESDAY, or WEDNESDAY<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -735,6 +922,10 @@ The maintenance day of the week. e.g. MONDAY, TUESDAY, or WEDNESDAY<br/>
 
 
 The maintenance time, in 24-hour format. e.g. 02:00<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -748,6 +939,8 @@ The maintenance time, in 24-hour format. e.g. 02:00<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -755,6 +948,10 @@ The maintenance time, in 24-hour format. e.g. 02:00<br/>
 
 
 The maintenance time zone, in either the Country/City format, or the UTC offset format. e.g. CET<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -768,6 +965,8 @@ The maintenance time zone, in either the Country/City format, or the UTC offset 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -775,6 +974,10 @@ The maintenance time zone, in either the Country/City format, or the UTC offset 
 
 
 Admin password<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -787,6 +990,8 @@ Admin password<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -795,6 +1000,10 @@ Admin password<br/>
 
 
 Admin username<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -807,6 +1016,8 @@ Admin username<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -815,6 +1026,10 @@ Admin username<br/>
 
 
 Application password<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -827,6 +1042,8 @@ Application password<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -835,6 +1052,10 @@ Application password<br/>
 
 
 Application username<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -848,6 +1069,8 @@ Application username<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -855,6 +1078,10 @@ Application username<br/>
 
 
 Whether to overwrite an existing SSM parameter<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -868,6 +1095,8 @@ Whether to overwrite an existing SSM parameter<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -875,6 +1104,10 @@ Whether to overwrite an existing SSM parameter<br/>
 
 
 Whether to enable connections from applications outside of the VPC that hosts the broker's subnets<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -888,6 +1121,8 @@ Whether to enable connections from applications outside of the VPC that hosts th
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -895,6 +1130,10 @@ Whether to enable connections from applications outside of the VPC that hosts th
 
 
 SSM parameter name format<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -908,6 +1147,8 @@ SSM parameter name format<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -915,6 +1156,10 @@ SSM parameter name format<br/>
 
 
 SSM path<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -928,6 +1173,8 @@ SSM path<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -935,6 +1182,10 @@ SSM path<br/>
 
 
 Boolean to enable an AWS owned Key Management Service (KMS) Customer Master Key (CMK) for Amazon MQ encryption that is not in your account<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -948,6 +1199,8 @@ Boolean to enable an AWS owned Key Management Service (KMS) Customer Master Key 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -955,6 +1208,10 @@ Boolean to enable an AWS owned Key Management Service (KMS) Customer Master Key 
 
 
 Flag to enable/disable creation of Security Group in the module. Set to `true` to disable Security Group creation and provide a list of existing security Group IDs in `existing_security_groups` to place the broker into<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -967,6 +1224,8 @@ Flag to enable/disable creation of Security Group in the module. Set to `true` t
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 

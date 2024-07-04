@@ -111,6 +111,7 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
+
 </details>
 
 ### Required Inputs

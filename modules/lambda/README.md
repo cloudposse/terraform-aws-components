@@ -136,6 +136,10 @@ Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not add
 This is for some rare cases where resources want additional configuration of tags<br/>
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -149,6 +153,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -160,6 +166,10 @@ in the order they appear in the list. New attributes are appended to the<br/>
 end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -173,6 +183,8 @@ and treated as a single ID element.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -185,6 +197,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -222,6 +238,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -231,6 +249,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -243,6 +265,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -263,6 +287,10 @@ Label values will be normalized before being passed to `format()` so they will b
 identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -276,6 +304,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -283,6 +313,10 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -296,6 +330,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -303,6 +339,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -316,6 +356,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -327,6 +369,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -340,6 +386,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -351,6 +399,10 @@ Does not affect keys of tags passed in via the `tags` input.<br/>
 Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -364,6 +416,8 @@ Default value: `title`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -374,6 +428,10 @@ The order in which the labels (ID elements) appear in the `id`.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -386,6 +444,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -400,6 +460,10 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -412,6 +476,8 @@ Default value: `lower`.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -428,6 +494,10 @@ Set to `[]` to suppress all generated tags.<br/>
   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -447,6 +517,8 @@ Set to `[]` to suppress all generated tags.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -457,6 +529,10 @@ ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/
 This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -469,6 +545,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -477,6 +555,10 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -489,6 +571,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -500,6 +584,10 @@ Terraform regular expression (regex) string.<br/>
 Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -512,6 +600,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -520,6 +610,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -532,6 +626,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -542,6 +638,10 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -555,6 +655,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -562,6 +664,10 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -575,7 +681,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -585,6 +694,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 AWS Region<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -598,6 +711,8 @@ AWS Region<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -609,6 +724,10 @@ AWS Region<br/>
     Instruction set architecture for your Lambda function. Valid values are ["x86_64"] and ["arm64"].<br/>
     Default is ["x86_64"]. Removing this attribute, function's architecture stay the same.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -622,6 +741,8 @@ AWS Region<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -629,6 +750,10 @@ AWS Region<br/>
 
 
 The format of the S3 key to store the latest version/sha of the Lambda function. This is used with cicd_ssm_param_name. Defaults to 'stage/{stage}/lambda/{function_name}/%s.zip'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -641,6 +766,8 @@ The format of the S3 key to store the latest version/sha of the Lambda function.
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -649,6 +776,10 @@ The format of the S3 key to store the latest version/sha of the Lambda function.
 
 
 The name of the SSM parameter to store the latest version/sha of the Lambda function. This is used with cicd_s3_key_format<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -662,6 +793,8 @@ The name of the SSM parameter to store the latest version/sha of the Lambda func
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -669,6 +802,10 @@ The name of the SSM parameter to store the latest version/sha of the Lambda func
 
 
 Creates EventBridge (CloudWatch Events) rules for invoking the Lambda Function along with the required permissions.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -682,6 +819,8 @@ Creates EventBridge (CloudWatch Events) rules for invoking the Lambda Function a
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -689,6 +828,10 @@ Creates EventBridge (CloudWatch Events) rules for invoking the Lambda Function a
 
 
 Enable CloudWatch Lambda Insights for the Lambda Function.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -702,6 +845,8 @@ Enable CloudWatch Lambda Insights for the Lambda Function.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -709,6 +854,10 @@ Enable CloudWatch Lambda Insights for the Lambda Function.<br/>
 
 
 CloudWatch Logs subscription filter resources. Currently supports only Lambda functions as destinations.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -722,6 +871,8 @@ CloudWatch Logs subscription filter resources. Currently supports only Lambda fu
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -729,6 +880,10 @@ CloudWatch Logs subscription filter resources. Currently supports only Lambda fu
 
 
 The ARN of the KMS Key to use when encrypting log data.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -742,6 +897,8 @@ The ARN of the KMS Key to use when encrypting log data.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -752,6 +909,10 @@ The ARN of the KMS Key to use when encrypting log data.<br/>
   1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653, and 0. If you select 0, the events in the<br/>
   log group are always retained and never expire.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -765,6 +926,8 @@ The ARN of the KMS Key to use when encrypting log data.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -772,6 +935,10 @@ The ARN of the KMS Key to use when encrypting log data.<br/>
 
 
 ARNs of IAM policies to be attached to the Lambda role<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -785,6 +952,8 @@ ARNs of IAM policies to be attached to the Lambda role<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -795,6 +964,10 @@ ARNs of IAM policies to be attached to the Lambda role<br/>
   must be granted suitable access to write to the target object, which means allowing either the sns:Publish or<br/>
   sqs:SendMessage action on this ARN, depending on which service is targeted."<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -807,6 +980,8 @@ ARNs of IAM policies to be attached to the Lambda role<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -815,6 +990,10 @@ ARNs of IAM policies to be attached to the Lambda role<br/>
 
 
 Description of what the Lambda Function does.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -827,6 +1006,8 @@ Description of what the Lambda Function does.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -837,6 +1018,10 @@ Description of what the Lambda Function does.<br/>
   Creates event source mappings to allow the Lambda function to get events from Kinesis, DynamoDB and SQS. The IAM role<br/>
   of this Lambda function will be enhanced with necessary minimum permissions to get those events.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -850,6 +1035,8 @@ Description of what the Lambda Function does.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -857,6 +1044,10 @@ Description of what the Lambda Function does.<br/>
 
 
 The path to the function's deployment package within the local filesystem. If defined, The s3_-prefixed options and image_uri cannot be used.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -869,6 +1060,8 @@ The path to the function's deployment package within the local filesystem. If de
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -877,6 +1070,10 @@ The path to the function's deployment package within the local filesystem. If de
 
 
 Unique name for the Lambda Function.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -889,6 +1086,8 @@ Unique name for the Lambda Function.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -897,6 +1096,10 @@ Unique name for the Lambda Function.<br/>
 
 
 The function entrypoint in your code.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -910,6 +1113,8 @@ The function entrypoint in your code.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -917,6 +1122,10 @@ The function entrypoint in your code.<br/>
 
 
 IAM policy to attach to the Lambda role, specified as a Terraform object. This can be used with or instead of `var.policy_json`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -959,6 +1168,8 @@ IAM policy to attach to the Lambda role, specified as a Terraform object. This c
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -966,6 +1177,10 @@ IAM policy to attach to the Lambda role, specified as a Terraform object. This c
 
 
 Description of the IAM policy for the Lambda IAM role<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -979,6 +1194,8 @@ Description of the IAM policy for the Lambda IAM role<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -988,6 +1205,10 @@ Description of the IAM policy for the Lambda IAM role<br/>
   Ignore updates to the Lambda Function executed externally to the Terraform lifecycle. Set this to `true` if you're<br/>
   using CodeDeploy, aws CLI or other external tools to update the Lambda Function code."<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1000,6 +1221,8 @@ Description of the IAM policy for the Lambda IAM role<br/>
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1013,6 +1236,10 @@ Description of the IAM policy for the Lambda IAM role<br/>
   - *command* - The CMD for the docker image (type `list(string)`).<br/>
   - *working_directory* - The working directory for the docker image (type `string`).<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1026,6 +1253,8 @@ Description of the IAM policy for the Lambda IAM role<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1033,6 +1262,10 @@ Description of the IAM policy for the Lambda IAM role<br/>
 
 
 The ECR image URI containing the function's deployment package. Conflicts with `filename`, `s3_bucket_name`, `s3_key`, and `s3_object_version`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1046,6 +1279,8 @@ The ECR image URI containing the function's deployment package. Conflicts with `
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1058,6 +1293,10 @@ The ECR image URI containing the function's deployment package. Conflicts with `
   configuration and Terraform will show a perpetual difference of adding the key. To fix the perpetual difference,<br/>
   remove this configuration.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1071,6 +1310,8 @@ The ECR image URI containing the function's deployment package. Conflicts with `
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1078,6 +1319,10 @@ The ECR image URI containing the function's deployment package. Conflicts with `
 
 
 Enable Lambda@Edge for your Node.js or Python functions. The required trust relationship and publishing of function versions will be configured in this module.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1091,6 +1336,8 @@ Enable Lambda@Edge for your Node.js or Python functions. The required trust rela
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1098,6 +1345,10 @@ Enable Lambda@Edge for your Node.js or Python functions. The required trust rela
 
 
 Environment (e.g. ENV variables) configuration for the Lambda function enable you to dynamically pass settings to your function code and libraries.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1118,6 +1369,8 @@ Environment (e.g. ENV variables) configuration for the Lambda function enable yo
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1125,6 +1378,10 @@ Environment (e.g. ENV variables) configuration for the Lambda function enable yo
 
 
 List of Lambda Layer Version ARNs (maximum of 5) to attach to the Lambda Function.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1138,6 +1395,8 @@ List of Lambda Layer Version ARNs (maximum of 5) to attach to the Lambda Functio
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1145,6 +1404,10 @@ List of Lambda Layer Version ARNs (maximum of 5) to attach to the Lambda Functio
 
 
 Amount of memory in MB the Lambda Function can use at runtime.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1158,6 +1421,8 @@ Amount of memory in MB the Lambda Function can use at runtime.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1165,6 +1430,10 @@ Amount of memory in MB the Lambda Function can use at runtime.<br/>
 
 
 The Lambda deployment package type. Valid values are `Zip` and `Image`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1178,6 +1447,8 @@ The Lambda deployment package type. Valid values are `Zip` and `Image`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1185,6 +1456,10 @@ The Lambda deployment package type. Valid values are `Zip` and `Image`.<br/>
 
 
 ARN of the policy that is used to set the permissions boundary for the role<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1198,6 +1473,8 @@ ARN of the policy that is used to set the permissions boundary for the role<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1205,6 +1482,10 @@ ARN of the policy that is used to set the permissions boundary for the role<br/>
 
 
 IAM policy to attach to the Lambda role, specified as JSON. This can be used with or instead of `var.iam_policy`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1218,6 +1499,8 @@ IAM policy to attach to the Lambda role, specified as JSON. This can be used wit
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1225,6 +1508,10 @@ IAM policy to attach to the Lambda role, specified as JSON. This can be used wit
 
 
 Whether to publish creation/change as new Lambda Function Version.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1238,6 +1525,8 @@ Whether to publish creation/change as new Lambda Function Version.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1245,6 +1534,10 @@ Whether to publish creation/change as new Lambda Function Version.<br/>
 
 
 The amount of reserved concurrent executions for this lambda function. A value of 0 disables lambda from being triggered and -1 removes any concurrency limitations.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1258,6 +1551,8 @@ The amount of reserved concurrent executions for this lambda function. A value o
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1265,6 +1560,10 @@ The amount of reserved concurrent executions for this lambda function. A value o
 
 
 The runtime environment for the Lambda function you are uploading.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1277,6 +1576,8 @@ The runtime environment for the Lambda function you are uploading.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1287,6 +1588,10 @@ The runtime environment for the Lambda function you are uploading.<br/>
   The name suffix of the S3 bucket containing the function's deployment package. Conflicts with filename and image_uri.<br/>
   This bucket must reside in the same AWS region where you are creating the Lambda function.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1299,6 +1604,8 @@ The runtime environment for the Lambda function you are uploading.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1311,6 +1618,10 @@ The runtime environment for the Lambda function you are uploading.<br/>
 <br/>
   This is alternative to `var.s3_bucket_name` which formats the name for the current account.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1323,6 +1634,8 @@ The runtime environment for the Lambda function you are uploading.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1331,6 +1644,10 @@ The runtime environment for the Lambda function you are uploading.<br/>
 
 
 The S3 key of an object containing the function's deployment package. Conflicts with filename and image_uri.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1343,6 +1660,8 @@ The S3 key of an object containing the function's deployment package. Conflicts 
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1351,6 +1670,10 @@ The S3 key of an object containing the function's deployment package. Conflicts 
 
 
 The object version containing the function's deployment package. Conflicts with filename and image_uri.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1364,6 +1687,8 @@ The object version containing the function's deployment package. Conflicts with 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1371,6 +1696,10 @@ The object version containing the function's deployment package. Conflicts with 
 
 
 Creates subscriptions to SNS topics which trigger the Lambda Function. Required Lambda invocation permissions will be generated.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1384,6 +1713,8 @@ Creates subscriptions to SNS topics which trigger the Lambda Function. Required 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1394,6 +1725,10 @@ Creates subscriptions to SNS topics which trigger the Lambda Function. Required 
   filename or s3_key. The usual way to set this is filebase64sha256('file.zip') where 'file.zip' is the local filename<br/>
   of the lambda function source archive.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1407,6 +1742,8 @@ Creates subscriptions to SNS topics which trigger the Lambda Function. Required 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1417,6 +1754,10 @@ Creates subscriptions to SNS topics which trigger the Lambda Function. Required 
   with read permissions for those parameters. Parameters must start with a forward slash and can be encrypted with the<br/>
   default KMS key.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1430,6 +1771,8 @@ Creates subscriptions to SNS topics which trigger the Lambda Function. Required 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1437,6 +1780,10 @@ Creates subscriptions to SNS topics which trigger the Lambda Function. Required 
 
 
 The amount of time the Lambda Function has to run in seconds.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1450,6 +1797,8 @@ The amount of time the Lambda Function has to run in seconds.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1457,6 +1806,10 @@ The amount of time the Lambda Function has to run in seconds.<br/>
 
 
 Tracing config mode of the Lambda function. Can be either PassThrough or Active.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1470,6 +1823,8 @@ Tracing config mode of the Lambda function. Can be either PassThrough or Active.
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1479,6 +1834,10 @@ Tracing config mode of the Lambda function. Can be either PassThrough or Active.
   Provide this to allow your function to access your VPC (if both 'subnet_ids' and 'security_group_ids' are empty then<br/>
   vpc_config is considered to be empty or unset, see https://docs.aws.amazon.com/lambda/latest/dg/vpc.html for details).<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1500,6 +1859,8 @@ Tracing config mode of the Lambda function. Can be either PassThrough or Active.
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1507,6 +1868,10 @@ Tracing config mode of the Lambda function. Can be either PassThrough or Active.
 
 
 Zip Configuration for local file deployments<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1528,6 +1893,8 @@ Zip Configuration for local file deployments<br/>
   `{}`
   </dd>
 </dl>
+
+</details
 
 ---
 

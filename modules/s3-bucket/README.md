@@ -133,6 +133,10 @@ Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not add
 This is for some rare cases where resources want additional configuration of tags<br/>
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -146,6 +150,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -157,6 +163,10 @@ in the order they appear in the list. New attributes are appended to the<br/>
 end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -170,6 +180,8 @@ and treated as a single ID element.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -182,6 +194,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -219,6 +235,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -228,6 +246,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -240,6 +262,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -260,6 +284,10 @@ Label values will be normalized before being passed to `format()` so they will b
 identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -273,6 +301,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -280,6 +310,10 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -293,6 +327,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -300,6 +336,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -313,6 +353,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -324,6 +366,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -337,6 +383,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -348,6 +396,10 @@ Does not affect keys of tags passed in via the `tags` input.<br/>
 Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -361,6 +413,8 @@ Default value: `title`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -371,6 +425,10 @@ The order in which the labels (ID elements) appear in the `id`.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -383,6 +441,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -397,6 +457,10 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -409,6 +473,8 @@ Default value: `lower`.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -425,6 +491,10 @@ Set to `[]` to suppress all generated tags.<br/>
   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -444,6 +514,8 @@ Set to `[]` to suppress all generated tags.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -454,6 +526,10 @@ ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/
 This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -466,6 +542,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -474,6 +552,10 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -486,6 +568,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -497,6 +581,10 @@ Terraform regular expression (regex) string.<br/>
 Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -509,6 +597,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -517,6 +607,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -529,6 +623,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -539,6 +635,10 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -552,6 +652,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -559,6 +661,10 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -572,7 +678,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -582,6 +691,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 AWS Region<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -595,6 +708,8 @@ AWS Region<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -604,6 +719,10 @@ AWS Region<br/>
 
 
 The name of the environment where `account_map` is provisioned<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -617,6 +736,8 @@ The name of the environment where `account_map` is provisioned<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -624,6 +745,10 @@ The name of the environment where `account_map` is provisioned<br/>
 
 
 The name of the stage where `account_map` is provisioned<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -637,6 +762,8 @@ The name of the stage where `account_map` is provisioned<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -647,6 +774,10 @@ The name of the tenant where `account_map` is provisioned.<br/>
 <br/>
 If the `tenant` label is not used, leave this as `null`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -660,6 +791,8 @@ If the `tenant` label is not used, leave this as `null`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -669,6 +802,10 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 The [canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) to apply.<br/>
 We recommend `private` to avoid exposing sensitive information. Conflicts with `grants`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -682,6 +819,8 @@ We recommend `private` to avoid exposing sensitive information. Conflicts with `
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -689,6 +828,10 @@ We recommend `private` to avoid exposing sensitive information. Conflicts with `
 
 
 Set to `true` to prevent uploads of unencrypted objects to S3 bucket<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -701,6 +844,8 @@ Set to `true` to prevent uploads of unencrypted objects to S3 bucket<br/>
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -709,6 +854,10 @@ Set to `true` to prevent uploads of unencrypted objects to S3 bucket<br/>
 
 
 Set to `true` to require requests to use Secure Socket Layer (HTTPS/SSL). This will explicitly deny access to HTTP requests<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -722,6 +871,8 @@ Set to `true` to require requests to use Secure Socket Layer (HTTPS/SSL). This w
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -729,6 +880,10 @@ Set to `true` to require requests to use Secure Socket Layer (HTTPS/SSL). This w
 
 
 List of actions the user is permitted to perform on the S3 bucket<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -755,6 +910,8 @@ List of actions the user is permitted to perform on the S3 bucket<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -762,6 +919,10 @@ List of actions the user is permitted to perform on the S3 bucket<br/>
 
 
 Set to `false` to disable the blocking of new public access lists on the bucket<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -774,6 +935,8 @@ Set to `false` to disable the blocking of new public access lists on the bucket<
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -782,6 +945,10 @@ Set to `false` to disable the blocking of new public access lists on the bucket<
 
 
 Set to `false` to disable the blocking of new public policies on the bucket<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -794,6 +961,8 @@ Set to `false` to disable the blocking of new public policies on the bucket<br/>
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -804,6 +973,10 @@ Set to `false` to disable the blocking of new public policies on the bucket<br/>
 Set this to true to use Amazon S3 Bucket Keys for SSE-KMS, which reduce the cost of AWS KMS requests.<br/>
 For more information, see: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -817,6 +990,8 @@ For more information, see: https://docs.aws.amazon.com/AmazonS3/latest/userguide
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -824,6 +999,10 @@ For more information, see: https://docs.aws.amazon.com/AmazonS3/latest/userguide
 
 
 Bucket name. If provided, the bucket will be created with this name instead of generating the name from the context<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -837,6 +1016,8 @@ Bucket name. If provided, the bucket will be created with this name instead of g
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -844,6 +1025,10 @@ Bucket name. If provided, the bucket will be created with this name instead of g
 
 
 Specifies the allowed headers, methods, origins and exposed headers when using CORS on this bucket<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -868,6 +1053,8 @@ Specifies the allowed headers, methods, origins and exposed headers when using C
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -875,6 +1062,10 @@ Specifies the allowed headers, methods, origins and exposed headers when using C
 
 
 List of accounts names to assign as principals for the s3 bucket custom policy<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -887,6 +1078,8 @@ List of accounts names to assign as principals for the s3 bucket custom policy<b
   `[]`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -895,6 +1088,10 @@ List of accounts names to assign as principals for the s3 bucket custom policy<b
 
 
 List of S3 Actions for the custom policy<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -908,6 +1105,8 @@ List of S3 Actions for the custom policy<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -915,6 +1114,10 @@ List of S3 Actions for the custom policy<br/>
 
 
 Whether to enable or disable the custom policy. If enabled, the default policy will be ignored<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -927,6 +1130,8 @@ Whether to enable or disable the custom policy. If enabled, the default policy w
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -937,6 +1142,10 @@ Whether to enable or disable the custom policy. If enabled, the default policy w
 When `true`, permits a non-empty S3 bucket to be deleted by first deleting all objects in the bucket.<br/>
 THESE OBJECTS ARE NOT RECOVERABLE even if they were versioned and stored in Glacier.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -950,6 +1159,8 @@ THESE OBJECTS ARE NOT RECOVERABLE even if they were versioned and stored in Glac
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -959,6 +1170,10 @@ THESE OBJECTS ARE NOT RECOVERABLE even if they were versioned and stored in Glac
 A list of policy grants for the bucket, taking a list of permissions.<br/>
 Conflicts with `acl`. Set `acl` to `null` to use this.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -982,6 +1197,8 @@ Conflicts with `acl`. Set `acl` to `null` to use this.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -989,6 +1206,10 @@ Conflicts with `acl`. Set `acl` to `null` to use this.<br/>
 
 
 Map of IAM policy statements to use in the bucket policy.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1002,6 +1223,8 @@ Map of IAM policy statements to use in the bucket policy.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1009,6 +1232,10 @@ Map of IAM policy statements to use in the bucket policy.<br/>
 
 
 Set to `false` to disable the ignoring of public access lists on the bucket<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1022,6 +1249,8 @@ Set to `false` to disable the ignoring of public access lists on the bucket<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1029,6 +1258,10 @@ Set to `false` to disable the ignoring of public access lists on the bucket<br/>
 
 
 The AWS KMS master key ARN used for the `SSE-KMS` encryption. This can only be used when you set the value of `sse_algorithm` as `aws:kms`. The default aws/s3 AWS KMS master key is used if this element is absent while the `sse_algorithm` is `aws:kms`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1042,6 +1275,8 @@ The AWS KMS master key ARN used for the `SSE-KMS` encryption. This can only be u
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1049,6 +1284,10 @@ The AWS KMS master key ARN used for the `SSE-KMS` encryption. This can only be u
 
 
 A list of lifecycle V2 rules<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1081,6 +1320,8 @@ A list of lifecycle V2 rules<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1088,6 +1329,10 @@ A list of lifecycle V2 rules<br/>
 
 
 Bucket access logging configuration.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1109,6 +1354,8 @@ Bucket access logging configuration.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1116,6 +1363,10 @@ Bucket access logging configuration.<br/>
 
 
 Whether to render the logging bucket name, prepending context<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1129,6 +1380,8 @@ Whether to render the logging bucket name, prepending context<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1139,6 +1392,10 @@ The template for the template used to render Bucket Name for the Logging bucket.
 Default is appropriate when using `tenant` and default label order with `null-label`.<br/>
 Use `"%s-%s-%s-%%s"` when not using `tenant`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1152,6 +1409,8 @@ Use `"%s-%s-%s-%%s"` when not using `tenant`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1159,6 +1418,10 @@ Use `"%s-%s-%s-%%s"` when not using `tenant`.<br/>
 
 
 The template for the template used to render Bucket Prefix for the Logging bucket, uses the format `var.logging.prefix`/`var.name`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1172,6 +1435,8 @@ The template for the template used to render Bucket Prefix for the Logging bucke
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1179,6 +1444,10 @@ The template for the template used to render Bucket Prefix for the Logging bucke
 
 
 A configuration for S3 object locking. With S3 Object Lock, you can store objects using a `write once, read many` (WORM) model. Object Lock can help prevent objects from being deleted or overwritten for a fixed amount of time or indefinitely.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1201,6 +1470,8 @@ A configuration for S3 object locking. With S3 Object Lock, you can store object
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1208,6 +1479,10 @@ A configuration for S3 object locking. With S3 Object Lock, you can store object
 
 
 List of actions to permit `privileged_principal_arns` to perform on bucket and bucket prefixes (see `privileged_principal_arns`)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1221,6 +1496,8 @@ List of actions to permit `privileged_principal_arns` to perform on bucket and b
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1231,6 +1508,10 @@ List of maps. Each map has one key, an IAM Principal ARN, whose associated value
 a list of S3 path prefixes to grant `privileged_principal_actions` permissions for that principal,<br/>
 in addition to the bucket itself, which is automatically included. Prefixes should not begin with '/'.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1244,6 +1525,8 @@ in addition to the bucket itself, which is automatically included. Prefixes shou
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1251,6 +1534,10 @@ in addition to the bucket itself, which is automatically included. Prefixes shou
 
 
 Set to `false` to disable the restricting of making the bucket public<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1264,6 +1551,8 @@ Set to `false` to disable the restricting of making the bucket public<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1271,6 +1560,10 @@ Set to `false` to disable the restricting of making the bucket public<br/>
 
 
 Specifies the S3 object ownership control. Valid values are `ObjectWriter`, `BucketOwnerPreferred`, and 'BucketOwnerEnforced'.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1284,6 +1577,8 @@ Specifies the S3 object ownership control. Valid values are `ObjectWriter`, `Buc
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1294,6 +1589,10 @@ A single S3 bucket ARN to use for all replication rules.<br/>
 Note: The destination bucket can be specified in the replication rule itself<br/>
 (which allows for multiple destinations), in which case it will take precedence over this variable.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1307,6 +1606,8 @@ Note: The destination bucket can be specified in the replication rule itself<br/
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1314,6 +1615,10 @@ Note: The destination bucket can be specified in the replication rule itself<br/
 
 
 Set this to true and specify `s3_replication_rules` to enable replication. `versioning_enabled` must also be `true`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1327,6 +1632,8 @@ Set this to true and specify `s3_replication_rules` to enable replication. `vers
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1334,6 +1641,10 @@ Set this to true and specify `s3_replication_rules` to enable replication. `vers
 
 
 Specifies the replication rules for S3 bucket replication if enabled. You must also set s3_replication_enabled to true.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1347,6 +1658,8 @@ Specifies the replication rules for S3 bucket replication if enabled. You must a
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1354,6 +1667,10 @@ Specifies the replication rules for S3 bucket replication if enabled. You must a
 
 
 Cross-account IAM Role ARNs that will be allowed to perform S3 replication to this bucket (for replication within the same AWS account, it's not necessary to adjust the bucket policy).<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1366,6 +1683,8 @@ Cross-account IAM Role ARNs that will be allowed to perform S3 replication to th
   `[]`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1377,6 +1696,10 @@ List of IAM policy documents that are merged together into the exported document
 Statements defined in source_policy_documents or source_json must have unique SIDs.<br/>
 Statement having SIDs that match policy SIDs generated by this module will override them.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1390,6 +1713,8 @@ Statement having SIDs that match policy SIDs generated by this module will overr
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1397,6 +1722,10 @@ Statement having SIDs that match policy SIDs generated by this module will overr
 
 
 The server-side encryption algorithm to use. Valid values are `AES256` and `aws:kms`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1410,6 +1739,8 @@ The server-side encryption algorithm to use. Valid values are `AES256` and `aws:
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1417,6 +1748,10 @@ The server-side encryption algorithm to use. Valid values are `AES256` and `aws:
 
 
 Set this to true to enable S3 Transfer Acceleration for the bucket.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1429,6 +1764,8 @@ Set this to true to enable S3 Transfer Acceleration for the bucket.<br/>
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1437,6 +1774,10 @@ Set this to true to enable S3 Transfer Acceleration for the bucket.<br/>
 
 
 Set to `true` to create an IAM user with permission to access the bucket<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1450,6 +1791,8 @@ Set to `true` to create an IAM user with permission to access the bucket<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1457,6 +1800,10 @@ Set to `true` to create an IAM user with permission to access the bucket<br/>
 
 
 A state of versioning. Versioning is a means of keeping multiple variants of an object in the same bucket<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1470,6 +1817,8 @@ A state of versioning. Versioning is a means of keeping multiple variants of an 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1477,6 +1826,10 @@ A state of versioning. Versioning is a means of keeping multiple variants of an 
 
 
 Specifies the static website hosting configuration object.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1499,6 +1852,8 @@ Specifies the static website hosting configuration object.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 

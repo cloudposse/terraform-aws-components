@@ -526,6 +526,10 @@ Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not add
 This is for some rare cases where resources want additional configuration of tags<br/>
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -539,6 +543,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -550,6 +556,10 @@ in the order they appear in the list. New attributes are appended to the<br/>
 end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -563,6 +573,8 @@ and treated as a single ID element.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -575,6 +587,10 @@ Leave string and numeric variables as `null` to use default value.<br/>
 Individual variable settings (non-null) override settings in context object,<br/>
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -612,6 +628,8 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -621,6 +639,10 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -633,6 +655,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -653,6 +677,10 @@ Label values will be normalized before being passed to `format()` so they will b
 identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -666,6 +694,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -673,6 +703,10 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 
 Set to false to prevent the module from creating any resources<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -686,6 +720,8 @@ Set to false to prevent the module from creating any resources<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -693,6 +729,10 @@ Set to false to prevent the module from creating any resources<br/>
 
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -706,6 +746,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -717,6 +759,10 @@ Set to `0` for unlimited length.<br/>
 Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -730,6 +776,8 @@ Does not affect `id_full`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -741,6 +789,10 @@ Does not affect keys of tags passed in via the `tags` input.<br/>
 Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -754,6 +806,8 @@ Default value: `title`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -764,6 +818,10 @@ The order in which the labels (ID elements) appear in the `id`.<br/>
 Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -776,6 +834,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -790,6 +850,10 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -802,6 +866,8 @@ Default value: `lower`.<br/>
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -818,6 +884,10 @@ Set to `[]` to suppress all generated tags.<br/>
   Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -837,6 +907,8 @@ Set to `[]` to suppress all generated tags.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -847,6 +919,10 @@ ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/
 This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -859,6 +935,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -867,6 +945,10 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -879,6 +961,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -890,6 +974,10 @@ Terraform regular expression (regex) string.<br/>
 Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -902,6 +990,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -910,6 +1000,10 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -922,6 +1016,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -932,6 +1028,10 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -945,6 +1045,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -952,6 +1054,10 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -965,7 +1071,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
   </dd>
 </dl>
 
+</details
+
 ---
+
 
 
 </details>
@@ -975,6 +1084,10 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 GitHub Organization<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -987,6 +1100,8 @@ GitHub Organization<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -995,6 +1110,10 @@ GitHub Organization<br/>
 
 
 AWS Region.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -1007,6 +1126,8 @@ AWS Region.<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1015,6 +1136,10 @@ AWS Region.<br/>
 
 
 Account storing SSM parameters<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -1027,6 +1152,8 @@ Account storing SSM parameters<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1035,6 +1162,10 @@ Account storing SSM parameters<br/>
 
 
 AWS region storing SSM parameters<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>Yes</dd>
@@ -1047,6 +1178,8 @@ AWS region storing SSM parameters<br/>
   ``
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1057,6 +1190,10 @@ AWS region storing SSM parameters<br/>
 
 
 Toggles Admin user creation the deployed chart<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1069,6 +1206,8 @@ Toggles Admin user creation the deployed chart<br/>
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1077,6 +1216,10 @@ Toggles Admin user creation the deployed chart<br/>
 
 
 A name used in annotations to reuse an ALB (e.g. `argocd`) or to generate a new one<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1089,6 +1232,8 @@ A name used in annotations to reuse an ALB (e.g. `argocd`) or to generate a new 
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1097,6 +1242,10 @@ A name used in annotations to reuse an ALB (e.g. `argocd`) or to generate a new 
 
 
 The name of the bucket for ALB access logs. The bucket must have policy allowing the ELB logging principal<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1109,6 +1258,8 @@ The name of the bucket for ALB access logs. The bucket must have policy allowing
   `""`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1117,6 +1268,10 @@ The name of the bucket for ALB access logs. The bucket must have policy allowing
 
 
 `alb_logs_bucket` s3 bucket prefix<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1130,6 +1285,8 @@ The name of the bucket for ALB access logs. The bucket must have policy allowing
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1137,6 +1294,10 @@ The name of the bucket for ALB access logs. The bucket must have policy allowing
 
 
 The name of the ALB (e.g. `argocd`) provisioned by `alb-controller`. Works together with `var.alb_group_name`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1150,6 +1311,8 @@ The name of the ALB (e.g. `argocd`) provisioned by `alb-controller`. Works toget
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1157,6 +1320,10 @@ The name of the ALB (e.g. `argocd`) provisioned by `alb-controller`. Works toget
 
 
 Toggles anonymous user access using default RBAC setting (Defaults to read-only)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1170,6 +1337,8 @@ Toggles anonymous user access using default RBAC setting (Defaults to read-only)
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1177,6 +1346,10 @@ Toggles anonymous user access using default RBAC setting (Defaults to read-only)
 
 
 Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1190,6 +1363,8 @@ Chart name to be installed. The chart name can be local path, a URL to a chart, 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1197,6 +1372,10 @@ Chart name to be installed. The chart name can be local path, a URL to a chart, 
 
 
 Set release description attribute (visible in the history).<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1210,6 +1389,8 @@ Set release description attribute (visible in the history).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1217,6 +1398,10 @@ Set release description attribute (visible in the history).<br/>
 
 
 Repository URL where to locate the requested chart.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1230,6 +1415,8 @@ Repository URL where to locate the requested chart.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1237,6 +1424,10 @@ Repository URL where to locate the requested chart.<br/>
 
 
 Additional values to yamlencode as `helm_release` values for the argocd_apps chart<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1250,6 +1441,8 @@ Additional values to yamlencode as `helm_release` values for the argocd_apps cha
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1257,6 +1450,10 @@ Additional values to yamlencode as `helm_release` values for the argocd_apps cha
 
 
 Specify the exact chart version to install. If this is not specified, the latest version is installed.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1270,6 +1467,8 @@ Specify the exact chart version to install. If this is not specified, the latest
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1277,6 +1476,10 @@ Specify the exact chart version to install. If this is not specified, the latest
 
 
 Enable argocd apps<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1290,6 +1493,8 @@ Enable argocd apps<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1297,6 +1502,10 @@ Enable argocd apps<br/>
 
 
 ArgoCD create namespaces policy<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1310,6 +1519,8 @@ ArgoCD create namespaces policy<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1320,6 +1531,10 @@ Default ArgoCD RBAC default role.<br/>
 <br/>
 See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/#basic-built-in-roles for more information.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1332,6 +1547,8 @@ See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/#basic-built-i
   `"role:readonly"`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1350,6 +1567,10 @@ e.g.<br/>
 becomes: `g, idp-group-name, role:argocd-role-name`<br/>
 See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more information.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1371,6 +1592,8 @@ See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more info
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1381,6 +1604,10 @@ List of ArgoCD RBAC Permission strings to be added to the argocd-rbac configmap 
 <br/>
 See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more information.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1394,6 +1621,8 @@ See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more info
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1401,6 +1630,10 @@ See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/ for more info
 
 
 Map of objects defining an `argocd_repo` to configure.  The key is the name of the ArgoCD repository.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1423,6 +1656,8 @@ Map of objects defining an `argocd_repo` to configure.  The key is the name of t
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1430,6 +1665,10 @@ Map of objects defining an `argocd_repo` to configure.  The key is the name of t
 
 
 If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1443,6 +1682,8 @@ If set, installation process purges chart on fail. The wait flag will be set aut
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1450,6 +1691,10 @@ If set, installation process purges chart on fail. The wait flag will be set aut
 
 
 Certificate manager cluster issuer<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1463,6 +1708,8 @@ Certificate manager cluster issuer<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1470,6 +1717,10 @@ Certificate manager cluster issuer<br/>
 
 
 Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1483,6 +1734,8 @@ Chart name to be installed. The chart name can be local path, a URL to a chart, 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1490,6 +1743,10 @@ Chart name to be installed. The chart name can be local path, a URL to a chart, 
 
 
 Set release description attribute (visible in the history).<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1503,6 +1760,8 @@ Set release description attribute (visible in the history).<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1510,6 +1769,10 @@ Set release description attribute (visible in the history).<br/>
 
 
 Repository URL where to locate the requested chart.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1523,6 +1786,8 @@ Repository URL where to locate the requested chart.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1530,6 +1795,10 @@ Repository URL where to locate the requested chart.<br/>
 
 
 Additional values to yamlencode as `helm_release` values.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1543,6 +1812,8 @@ Additional values to yamlencode as `helm_release` values.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1550,6 +1821,10 @@ Additional values to yamlencode as `helm_release` values.<br/>
 
 
 Specify the exact chart version to install. If this is not specified, the latest version is installed.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1563,6 +1838,8 @@ Specify the exact chart version to install. If this is not specified, the latest
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1570,6 +1847,10 @@ Specify the exact chart version to install. If this is not specified, the latest
 
 
 Allow deletion of new resources created in this upgrade when upgrade fails.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1582,6 +1863,8 @@ Allow deletion of new resources created in this upgrade when upgrade fails.<br/>
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1593,6 +1876,10 @@ Allow deletion of new resources created in this upgrade when upgrade fails.<br/>
 <br/>
   Use this to create the GitHub Webhook for the given ArgoCD repo using the value created when `var.github_webhook_enabled` is `true`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1606,6 +1893,8 @@ Allow deletion of new resources created in this upgrade when upgrade fails.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1613,6 +1902,10 @@ Allow deletion of new resources created in this upgrade when upgrade fails.<br/>
 
 
 Create the namespace if it does not yet exist. Defaults to `false`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1626,6 +1919,8 @@ Create the namespace if it does not yet exist. Defaults to `false`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1633,6 +1928,10 @@ Create the namespace if it does not yet exist. Defaults to `false`.<br/>
 
 
 The name of the eks component<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1646,6 +1945,8 @@ The name of the eks component<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1653,6 +1954,10 @@ The name of the eks component<br/>
 
 
 Toggles Forecastle integration in the deployed chart<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1666,6 +1971,8 @@ Toggles Forecastle integration in the deployed chart<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1673,6 +1980,10 @@ Toggles Forecastle integration in the deployed chart<br/>
 
 
 This is the target GitHub base API endpoint. Providing a value is a requirement when working with GitHub Enterprise. It is optional to provide this value and it can also be sourced from the `GITHUB_BASE_URL` environment variable. The value must end with a slash, for example: `https://terraformtesting-ghe.westus.cloudapp.azure.com/`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1686,6 +1997,8 @@ This is the target GitHub base API endpoint. Providing a value is a requirement 
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1693,6 +2006,10 @@ This is the target GitHub base API endpoint. Providing a value is a requirement 
 
 
 Enable default GitHub commit statuses notifications (required for CD sync mode)<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1706,6 +2023,8 @@ Enable default GitHub commit statuses notifications (required for CD sync mode)<
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1713,6 +2032,10 @@ Enable default GitHub commit statuses notifications (required for CD sync mode)<
 
 
 Use the value of this variable as the GitHub token instead of reading it from SSM<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1725,6 +2048,8 @@ Use the value of this variable as the GitHub token instead of reading it from SS
   `null`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1736,6 +2061,10 @@ Use the value of this variable as the GitHub token instead of reading it from SS
 <br/>
   Use this to create a secret value and pass it to the argo-cd chart<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1749,6 +2078,8 @@ Use the value of this variable as the GitHub token instead of reading it from SS
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1756,6 +2087,10 @@ Use the value of this variable as the GitHub token instead of reading it from SS
 
 
 Enable storing of the rendered manifest for helm_release so the full diff of what is changing can been seen in the plan<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1769,6 +2104,8 @@ Enable storing of the rendered manifest for helm_release so the full diff of wha
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1776,6 +2113,10 @@ Enable storing of the rendered manifest for helm_release so the full diff of wha
 
 
 Host name to use for ingress and ALB<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1788,6 +2129,8 @@ Host name to use for ingress and ALB<br/>
   `""`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1798,6 +2141,10 @@ Host name to use for ingress and ALB<br/>
 If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS cluster.<br/>
 Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1811,6 +2158,8 @@ Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1818,6 +2167,10 @@ Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
 
 
 The AWS config profile for `aws eks get-token` to use<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1831,6 +2184,8 @@ The AWS config profile for `aws eks get-token` to use<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1838,6 +2193,10 @@ The AWS config profile for `aws eks get-token` to use<br/>
 
 
 If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-token`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1850,6 +2209,8 @@ If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-to
   `false`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1860,6 +2221,10 @@ If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-to
 If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-token` to authenticate to the EKS cluster.<br/>
 Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1873,6 +2238,8 @@ Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1880,6 +2247,10 @@ Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
 
 
 The role ARN for `aws eks get-token` to use<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1893,6 +2264,8 @@ The role ARN for `aws eks get-token` to use<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1900,6 +2273,10 @@ The role ARN for `aws eks get-token` to use<br/>
 
 
 If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1912,6 +2289,8 @@ If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1922,6 +2301,10 @@ If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`
 Context to choose from the Kubernetes config file.<br/>
 If supplied, `kubeconfig_context_format` will be ignored.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1934,6 +2317,8 @@ If supplied, `kubeconfig_context_format` will be ignored.<br/>
   `""`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -1945,6 +2330,10 @@ A format string to use for creating the `kubectl` context name when<br/>
 `kubeconfig_file_enabled` is `true` and `kubeconfig_context` is not supplied.<br/>
 Must include a single `%s` which will be replaced with the cluster name.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1958,6 +2347,8 @@ Must include a single `%s` which will be replaced with the cluster name.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1965,6 +2356,10 @@ Must include a single `%s` which will be replaced with the cluster name.<br/>
 
 
 The Kubernetes API version of the credentials returned by the `exec` auth plugin<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1978,6 +2373,8 @@ The Kubernetes API version of the credentials returned by the `exec` auth plugin
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -1985,6 +2382,10 @@ The Kubernetes API version of the credentials returned by the `exec` auth plugin
 
 
 The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true`<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -1998,6 +2399,8 @@ The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabl
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2005,6 +2408,10 @@ The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabl
 
 
 If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2018,6 +2425,8 @@ If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2025,6 +2434,10 @@ If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that
 
 
 The namespace to install the release into.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2038,6 +2451,8 @@ The namespace to install the release into.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2049,6 +2464,10 @@ Notification Triggers to configure.<br/>
 See: https://argocd-notifications.readthedocs.io/en/stable/triggers/<br/>
 See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L352)<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2082,6 +2501,8 @@ See: [Example value in argocd-notifications Helm Chart](https://github.com/argop
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2093,6 +2514,10 @@ Notification Templates to configure.<br/>
 See: https://argocd-notifications.readthedocs.io/en/stable/templates/<br/>
 See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L158)<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2125,6 +2550,8 @@ See: [Example value in argocd-notifications Helm Chart](https://github.com/argop
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2136,6 +2563,10 @@ Notification Triggers to configure.<br/>
 See: https://argocd-notifications.readthedocs.io/en/stable/triggers/<br/>
 See: [Example value in argocd-notifications Helm Chart](https://github.com/argoproj/argo-helm/blob/a0a74fb43d147073e41aadc3d88660b312d6d638/charts/argocd-notifications/values.yaml#L352)<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2160,6 +2591,8 @@ See: [Example value in argocd-notifications Helm Chart](https://github.com/argop
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2167,6 +2600,10 @@ See: [Example value in argocd-notifications Helm Chart](https://github.com/argop
 
 
 Toggles OIDC integration in the deployed chart<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2180,6 +2617,8 @@ Toggles OIDC integration in the deployed chart<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2187,6 +2626,10 @@ Toggles OIDC integration in the deployed chart<br/>
 
 
 OIDC issuer URL<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2199,6 +2642,8 @@ OIDC issuer URL<br/>
   `""`
   </dd>
 </dl>
+
+</details
 
 ---
 
@@ -2207,6 +2652,10 @@ OIDC issuer URL<br/>
 
 
 Name of the OIDC resource<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2220,6 +2669,8 @@ Name of the OIDC resource<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2227,6 +2678,10 @@ Name of the OIDC resource<br/>
 
 
 OIDC RBAC scopes to request<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2240,6 +2695,8 @@ OIDC RBAC scopes to request<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2247,6 +2704,10 @@ OIDC RBAC scopes to request<br/>
 
 
 Set of OIDC scopes to request<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2260,6 +2721,8 @@ Set of OIDC scopes to request<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2267,6 +2730,10 @@ Set of OIDC scopes to request<br/>
 
 
 Enable Service Account for pods.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2280,6 +2747,8 @@ Enable Service Account for pods.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2287,6 +2756,10 @@ Enable Service Account for pods.<br/>
 
 
 The cpu and memory of the deployment's limits and requests.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2314,6 +2787,8 @@ The cpu and memory of the deployment's limits and requests.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2321,6 +2796,10 @@ The cpu and memory of the deployment's limits and requests.<br/>
 
 
 Toggles SAML integration in the deployed chart<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2334,6 +2813,8 @@ Toggles SAML integration in the deployed chart<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2341,6 +2822,10 @@ Toggles SAML integration in the deployed chart<br/>
 
 
 SAML RBAC scopes to request<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2354,6 +2839,8 @@ SAML RBAC scopes to request<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2361,6 +2848,10 @@ SAML RBAC scopes to request<br/>
 
 
 SAML SSO providers components<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2382,6 +2873,8 @@ SAML SSO providers components<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2393,6 +2886,10 @@ Service type for exposing the ArgoCD service. The available type values and thei
   NodePort: Exposes the Service on each Node's IP at a static port (the NodePort).<br/>
   LoadBalancer: Exposes the Service externally using a cloud provider's load balancer.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2406,6 +2903,8 @@ Service type for exposing the ArgoCD service. The available type values and thei
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2416,6 +2915,10 @@ ArgoCD Slack notification configuration. Requires Slack Bot created with token s
 <br/>
 See: https://argocd-notifications.readthedocs.io/en/stable/services/slack/<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2439,6 +2942,8 @@ See: https://argocd-notifications.readthedocs.io/en/stable/services/slack/<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2446,6 +2951,10 @@ See: https://argocd-notifications.readthedocs.io/en/stable/services/slack/<br/>
 
 
 Whether or not to enable Slack notifications. See `var.slack_notifications.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2459,6 +2968,8 @@ Whether or not to enable Slack notifications. See `var.slack_notifications.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2466,6 +2977,10 @@ Whether or not to enable Slack notifications. See `var.slack_notifications.<br/>
 
 
 SSM path to the GitHub API key<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2479,6 +2994,8 @@ SSM path to the GitHub API key<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2486,6 +3003,10 @@ SSM path to the GitHub API key<br/>
 
 
 The SSM Parameter Store path for the ID of the IdP client<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2499,6 +3020,8 @@ The SSM Parameter Store path for the ID of the IdP client<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2506,6 +3029,10 @@ The SSM Parameter Store path for the ID of the IdP client<br/>
 
 
 The SSM Parameter Store path for the secret of the IdP client<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2519,6 +3046,8 @@ The SSM Parameter Store path for the secret of the IdP client<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2529,6 +3058,10 @@ Tenant of the account storing SSM parameters.<br/>
 <br/>
 If the tenant label is not used, leave this as null.<br/>
 <br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2542,6 +3075,8 @@ If the tenant label is not used, leave this as null.<br/>
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2549,6 +3084,10 @@ If the tenant label is not used, leave this as null.<br/>
 
 
 Time in seconds to wait for any individual kubernetes operation (like Jobs for hooks). Defaults to `300` seconds<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2562,6 +3101,8 @@ Time in seconds to wait for any individual kubernetes operation (like Jobs for h
   </dd>
 </dl>
 
+</details
+
 ---
 
 
@@ -2569,6 +3110,10 @@ Time in seconds to wait for any individual kubernetes operation (like Jobs for h
 
 
 Will wait until all resources are in a ready state before marking the release as successful. It will wait for as long as `timeout`. Defaults to `true`.<br/>
+
+<details>
+<summary>Click to expand</summary>
+
 <dl>
   <dt>Required</dt>
   <dd>No</dd>
@@ -2581,6 +3126,8 @@ Will wait until all resources are in a ready state before marking the release as
   `true`
   </dd>
 </dl>
+
+</details
 
 ---
 
