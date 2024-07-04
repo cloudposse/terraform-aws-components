@@ -488,6 +488,8 @@ The following variables are defined in the `context.tf` file of this module and 
 
 <details>
 <summary>Click to expand</summary>
+
+
 ### `additional_tag_map` (`map(string)`) <i>optional</i>
 
 
