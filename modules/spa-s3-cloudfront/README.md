@@ -247,6 +247,7 @@ AWS Region.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code></code>
@@ -270,6 +271,7 @@ When set to 'true' the s3 origin bucket will have public access block enabled.<b
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>true</code>
@@ -293,6 +295,7 @@ CloudFront Access Logs are to be delivered and is required. IGNORED when `cloudf
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>""</code>
@@ -319,6 +322,7 @@ For example, if this component produces an origin bucket named `eg-ue1-devplatfo
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -342,6 +346,7 @@ separate S3 bucket to receive CloudFront Access Logs.<br/>
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>true</code>
@@ -363,6 +368,7 @@ Prefix to use for CloudFront Access Log object keys. Defaults to no prefix.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>""</code>
@@ -384,6 +390,7 @@ Whether or not to dynamically render ${module.this.id} at the end of `var.cloudf
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -405,12 +412,13 @@ List of allowed methods (e.g. GET, PUT, POST, DELETE, HEAD) for AWS CloudFront.<
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    
 >
 >    ```hcl
->>
+>    >
 >    [
 >
 >      "DELETE",
@@ -450,6 +458,7 @@ Enable or disable AWS Shield Advanced protection for the CloudFront distribution
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -471,6 +480,7 @@ The name of the component used when deploying WAF ACL<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"waf"</code>
@@ -492,6 +502,7 @@ The environment where the WAF ACL for CloudFront distribution exists.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -517,6 +528,7 @@ to `var.waf_acl_environment`.<br/>
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>true</code>
@@ -538,12 +550,13 @@ List of cached methods (e.g. GET, PUT, POST, DELETE, HEAD).<br/>
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    
 >
 >    ```hcl
->>
+>    >
 >    [
 >
 >      "GET",
@@ -573,6 +586,7 @@ Compress content for web requests that include Accept-Encoding: gzip in the requ
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -605,6 +619,7 @@ List of one or more custom error response element maps.<br/>
 >
 >   
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -626,6 +641,7 @@ Object that CloudFront return when requests the root URL.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"index.html"</code>
@@ -647,6 +663,7 @@ Default amount of time (in seconds) that an object is in a CloudFront cache.<br/
 >   <dd>
 >   <code>number</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>60</code>
@@ -668,6 +685,7 @@ Amazon S3 returns this index document when requests are made to the root domain 
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"index.html"</code>
@@ -689,6 +707,7 @@ Set to true to enable an AAAA DNS record to be set as well as the A record.<br/>
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>true</code>
@@ -720,6 +739,7 @@ A config block that configures the CloudFront distribution with lambda@edge func
 >
 >   
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -741,6 +761,7 @@ Maximum amount of time (in seconds) that an object is in a CloudFront cache.<br/
 >   <dd>
 >   <code>number</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>31536000</code>
@@ -762,6 +783,7 @@ Minimum amount of time that you want objects to stay in CloudFront caches.<br/>
 >   <dd>
 >   <code>number</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>0</code>
@@ -783,6 +805,7 @@ Limit the protocol users can use to access content. One of `allow-all`, `https-o
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"redirect-to-https"</code>
@@ -804,6 +827,7 @@ Any comments you want to include about the distribution.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"Managed by Terraform"</code>
@@ -848,6 +872,7 @@ A list of additional custom website [origins](https://www.terraform.io/docs/prov
 >
 >   
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -869,6 +894,7 @@ The environment where `dns-delegated` component is deployed to<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"gbl"</code>
@@ -895,6 +921,7 @@ Setting `preview_environment_enabled` to `true` will cause this variable to be i
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -916,12 +943,13 @@ List of HTTP Status Codes to use as the origin group failover criteria.<br/>
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    
 >
 >    ```hcl
->>
+>    >
 >    [
 >
 >      403,
@@ -962,6 +990,7 @@ then it is expected that a bucket with the name `eg-uw1-devplatform-example-fail
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -989,6 +1018,7 @@ is set to `uw1`, then it is expected that a bucket with the name `eg-uw1-devplat
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"%v-%v-%v-%v-failover"</code>
@@ -1010,6 +1040,7 @@ Specifies whether you want CloudFront to forward all or no cookies to the origin
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"none"</code>
@@ -1031,12 +1062,13 @@ A list of whitelisted header values to forward to the origin (incompatible with 
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    
 >
 >    ```hcl
->>
+>    >
 >    [
 >
 >      "Access-Control-Request-Headers",
@@ -1071,6 +1103,7 @@ A list of whitelisted header values to forward to the origin (incompatible with 
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -1092,6 +1125,7 @@ Additional attributes to add to the role name<br/>
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -1114,6 +1148,7 @@ Flag to toggle creation of an IAM Role that GitHub Actions can assume to access 
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -1135,6 +1170,7 @@ The name of the component that deploys GitHub Runners, used in remote-state look
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"github-runners"</code>
@@ -1156,6 +1192,7 @@ A flag that is used to decide whether or not to include the GitHub Runner's IAM 
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>true</code>
@@ -1177,6 +1214,7 @@ The name of the environment where the CloudTrail bucket is provisioned<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"ue2"</code>
@@ -1198,6 +1236,7 @@ The stage name where the CloudTrail bucket is provisioned<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"auto"</code>
@@ -1219,6 +1258,7 @@ The tenant name where the GitHub Runners are provisioned<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1240,6 +1280,7 @@ The maximum HTTP version to support on the distribution. Allowed values are http
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"http2"</code>
@@ -1261,6 +1302,7 @@ The Lambda@Edge functions will be allowed to access the list of AWS SSM paramete
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -1294,6 +1336,7 @@ For more information, see: https://github.com/hashicorp/terraform-provider-aws/i
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"20m"</code>
@@ -1337,6 +1380,7 @@ This map will be deep merged with each enabled default function. Use deep merge 
 >
 >   
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>{}</code>
@@ -1361,6 +1405,7 @@ This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edg
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"index.handler"</code>
@@ -1385,6 +1430,7 @@ This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edg
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"nodejs16.x"</code>
@@ -1453,6 +1499,7 @@ Set `origin_request_policy_id` to `""` to use `origin_request_policy_name` for c
 >
 >   
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -1474,6 +1521,7 @@ Set to `true` in order to have the origin bucket require requests to use Secure 
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>true</code>
@@ -1495,12 +1543,13 @@ List of actions to permit `origin_deployment_principal_arns` to perform on bucke
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    
 >
 >    ```hcl
->>
+>    >
 >    [
 >
 >      "s3:PutObject",
@@ -1542,6 +1591,7 @@ List of role ARNs to grant deployment permissions to the origin Bucket.<br/>
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -1563,6 +1613,7 @@ When set to 'true' the origin Bucket will have aes256 encryption enabled by defa
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>true</code>
@@ -1584,6 +1635,7 @@ A boolean string that indicates all objects should be deleted from the origin Bu
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -1605,6 +1657,7 @@ Name of the existing S3 bucket where S3 Access Logs for the origin Bucket will b
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>""</code>
@@ -1631,6 +1684,7 @@ For example, if this component produces an origin bucket named `eg-ue1-devplatfo
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -1652,6 +1706,7 @@ Prefix to use for S3 Access Log object keys. Defaults to `logs/${module.this.id}
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>""</code>
@@ -1676,6 +1731,7 @@ Must be set explicitly if the access log bucket is being created at the same tim
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1697,6 +1753,7 @@ Enable or disable versioning for the origin Bucket. Versioning is a means of kee
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -1718,6 +1775,7 @@ Parent domain name of site to publish. Defaults to format(parent_zone_name_patte
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>""</code>
@@ -1753,6 +1811,7 @@ This variable implicitly affects the following variables:<br/>
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -1774,6 +1833,7 @@ Flag to enable/disable processing of the record to add to the DNS zone to comple
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>true</code>
@@ -1795,6 +1855,7 @@ Specifies the S3 object ownership control on the origin bucket. Valid values are
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"ObjectWriter"</code>
@@ -1820,6 +1881,7 @@ Setting `preview_environment_enabled` will implicitly set this to `true`.<br/>
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -1844,6 +1906,7 @@ This will make it much harder for people to bypass CloudFront and access the S3 
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -1865,6 +1928,7 @@ Fully qualified domain name of site to publish. Overrides site_subdomain and par
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>""</code>
@@ -1886,6 +1950,7 @@ Subdomain to plug into site_name_pattern to make site FQDN.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>""</code>
@@ -1919,6 +1984,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   <dd>
 >   <code>map(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>{}</code>
@@ -1944,6 +2010,7 @@ and treated as a single ID element.<br/>
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -1970,12 +2037,13 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   <dd>
 >   <code>any</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    
 >
 >    ```hcl
->>
+>    >
 >    {
 >
 >      "additional_tag_map": {},
@@ -2041,6 +2109,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -2074,6 +2143,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   <dd>
 >   <code>any</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>{}</code>
@@ -2095,6 +2165,7 @@ Set to false to prevent the module from creating any resources<br/>
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -2116,6 +2187,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -2141,6 +2213,7 @@ Does not affect `id_full`.<br/>
 >   <dd>
 >   <code>number</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -2166,6 +2239,7 @@ Default value: `title`.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -2190,6 +2264,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -2217,6 +2292,7 @@ Default value: `lower`.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -2246,12 +2322,13 @@ Set to `[]` to suppress all generated tags.<br/>
 >   <dd>
 >   <code>set(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    
 >
 >    ```hcl
->>
+>    >
 >    [
 >
 >      "default"
@@ -2282,6 +2359,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -2303,6 +2381,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -2327,6 +2406,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -2348,6 +2428,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -2371,6 +2452,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   <dd>
 >   <code>map(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>{}</code>
@@ -2392,6 +2474,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>

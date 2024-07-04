@@ -165,6 +165,7 @@ AWS region<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code></code>
@@ -188,6 +189,7 @@ Password for the master DB user. Required unless a snapshot_identifier is provid
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -209,6 +211,7 @@ Username for the master DB user. Required unless a snapshot_identifier is provid
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -230,6 +233,7 @@ Whether or not to enable major version upgrades which are applied during the mai
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -251,6 +255,7 @@ The cluster type to use. Either `single-node` or `multi-node`<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"single-node"</code>
@@ -272,6 +277,7 @@ Whether to allow all egress traffic or not<br/>
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>true</code>
@@ -293,6 +299,7 @@ Whether to use custom security group or not<br/>
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -328,6 +335,7 @@ An array of custom security groups to create and assign to the cluster.<br/>
 >
 >   
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -349,6 +357,7 @@ The name of the first database to be created when the cluster is created<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -370,6 +379,7 @@ The version of the Amazon Redshift engine to use. See https://docs.aws.amazon.co
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"1.0"</code>
@@ -391,6 +401,7 @@ KMS alias name for SSM<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"alias/aws/ssm"</code>
@@ -412,6 +423,7 @@ The node type to be provisioned for the cluster. See https://docs.aws.amazon.com
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"dc2.large"</code>
@@ -433,6 +445,7 @@ The number of compute nodes in the cluster. This parameter is required when the 
 >   <dd>
 >   <code>number</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>1</code>
@@ -454,6 +467,7 @@ The port number on which the cluster accepts incoming connections<br/>
 >   <dd>
 >   <code>number</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>5439</code>
@@ -475,6 +489,7 @@ If true, the cluster can be accessed from a public network<br/>
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -496,6 +511,7 @@ An array of security group IDs to associate with the endpoint.<br/>
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -517,6 +533,7 @@ If `true` create SSM keys for the database user and password.<br/>
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -538,6 +555,7 @@ SSM path format. The values will will be used in the following order: `var.ssm_k
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"/%v/%v/%v"</code>
@@ -559,6 +577,7 @@ The SSM key to save the hostname. See `var.ssm_path_format`.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"admin/db_hostname"</code>
@@ -580,6 +599,7 @@ The SSM key to save the password. See `var.ssm_path_format`.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"admin/db_password"</code>
@@ -601,6 +621,7 @@ The SSM key to save the port. See `var.ssm_path_format`.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"admin/db_port"</code>
@@ -622,6 +643,7 @@ SSM path prefix. Omit the leading forward slash `/`.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"redshift"</code>
@@ -643,6 +665,7 @@ The SSM key to save the user. See `var.ssm_path_format`.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"admin/db_user"</code>
@@ -664,6 +687,7 @@ Whether to use private or public subnets for the Redshift cluster<br/>
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>true</code>
@@ -697,6 +721,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   <dd>
 >   <code>map(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>{}</code>
@@ -722,6 +747,7 @@ and treated as a single ID element.<br/>
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -748,12 +774,13 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   <dd>
 >   <code>any</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    
 >
 >    ```hcl
->>
+>    >
 >    {
 >
 >      "additional_tag_map": {},
@@ -819,6 +846,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -852,6 +880,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   <dd>
 >   <code>any</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>{}</code>
@@ -873,6 +902,7 @@ Set to false to prevent the module from creating any resources<br/>
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -894,6 +924,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -919,6 +950,7 @@ Does not affect `id_full`.<br/>
 >   <dd>
 >   <code>number</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -944,6 +976,7 @@ Default value: `title`.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -968,6 +1001,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -995,6 +1029,7 @@ Default value: `lower`.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1024,12 +1059,13 @@ Set to `[]` to suppress all generated tags.<br/>
 >   <dd>
 >   <code>set(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    
 >
 >    ```hcl
->>
+>    >
 >    [
 >
 >      "default"
@@ -1060,6 +1096,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1081,6 +1118,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1105,6 +1143,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1126,6 +1165,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1149,6 +1189,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   <dd>
 >   <code>map(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>{}</code>
@@ -1170,6 +1211,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>

@@ -23,12 +23,13 @@ content: |-
   >
   >   {{ end }}
   >  </dd>
+  >
   >  <dt>Default value</dt>
   >  <dd>
   >    {{ if lt (len (split "\n" .GetValue)) 2 }}<code>{{ .GetValue }}</code>{{ else }}
   >
   >    ```hcl
-  >    {{- $lines := regexSplit "\n" .GetValue -1 -}}
+  >    {{ $lines := regexSplit "\n" .GetValue -1 -}}
   >    {{- range $lines }}
   >    {{ . }}
   >    {{- end }}

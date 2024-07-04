@@ -238,6 +238,7 @@ AWS Region<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code></code>
@@ -259,6 +260,7 @@ Key for subnet type tag to provide information about the type of subnets, e.g. `
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code></code>
@@ -282,6 +284,7 @@ When `true`, assign AWS generated IPv6 CIDR block to the VPC.  Conflicts with `i
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -307,6 +310,7 @@ Useful in some regions when using only some AZs and you want to use the same one
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -335,6 +339,7 @@ will be truncated. We recommend setting `availability_zones` and `max_subnet_cou
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -356,6 +361,7 @@ A list of Gateway VPC Endpoints to provision into the VPC. Only valid values are
 >   <dd>
 >   <code>set(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -377,6 +383,7 @@ A list of Interface VPC Endpoints to provision into the VPC.<br/>
 >   <dd>
 >   <code>set(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -411,6 +418,7 @@ Map keys must be known at `plan` time, and are only used to track changes.<br/>
 >
 >   
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>{}</code>
@@ -441,6 +449,7 @@ Timeouts (in `go` duration format) for creating and destroying IPv4 CIDR block a
 >
 >   
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -473,6 +482,7 @@ Lists may contain more CIDRs than needed.<br/>
 >
 >   
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -496,6 +506,7 @@ Either `ipv4_primary_cidr_block` or `ipv4_primary_cidr_block_association` must b
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -529,6 +540,7 @@ Additional CIDR blocks can be set via `ipv4_additional_cidr_block_associations`.
 >
 >   
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -550,6 +562,7 @@ Instances launched into a public subnet should be assigned a public IP address<b
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>true</code>
@@ -571,6 +584,7 @@ Sets the maximum amount of subnets to deploy. 0 will deploy a subnet for every p
 >   <dd>
 >   <code>number</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>0</code>
@@ -592,6 +606,7 @@ Enable or disable AWS Shield Advanced protection for NAT EIPs. If set to 'true',
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -613,6 +628,7 @@ Flag to enable/disable NAT gateways<br/>
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>true</code>
@@ -638,6 +654,7 @@ does not support NAT64. Use of a NAT gateway is recommended instead.<br/>
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -659,6 +676,7 @@ Flag to enable/disable NAT instances<br/>
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>false</code>
@@ -680,6 +698,7 @@ NAT Instance type<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"t3.micro"</code>
@@ -703,6 +722,7 @@ Since NAT gateways and instances must be created in public subnets, these will a
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>true</code>
@@ -725,6 +745,7 @@ The number of subnet of each type (public or private) to provision per Availabil
 >   <dd>
 >   <code>number</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>1</code>
@@ -750,12 +771,13 @@ If a list of names is provided, the list items will be used as keys in the outpu
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    
 >
 >    ```hcl
->>
+>    >
 >    [
 >
 >      "common"
@@ -783,6 +805,7 @@ The name of the environment where the VPC Flow Logs bucket is provisioned<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>""</code>
@@ -804,6 +827,7 @@ The stage (account) name where the VPC Flow Logs bucket is provisioned<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>""</code>
@@ -828,6 +852,7 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -849,6 +874,7 @@ Enable or disable the VPC Flow Logs<br/>
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>true</code>
@@ -870,6 +896,7 @@ The type of the logging destination. Valid values: `cloud-watch-logs`, `s3`<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"s3"</code>
@@ -891,6 +918,7 @@ The type of traffic to capture. Valid values: `ACCEPT`, `REJECT`, `ALL`<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>"ALL"</code>
@@ -924,6 +952,7 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   <dd>
 >   <code>map(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>{}</code>
@@ -949,6 +978,7 @@ and treated as a single ID element.<br/>
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>[]</code>
@@ -975,12 +1005,13 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   <dd>
 >   <code>any</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    
 >
 >    ```hcl
->>
+>    >
 >    {
 >
 >      "additional_tag_map": {},
@@ -1046,6 +1077,7 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1079,6 +1111,7 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   <dd>
 >   <code>any</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>{}</code>
@@ -1100,6 +1133,7 @@ Set to false to prevent the module from creating any resources<br/>
 >   <dd>
 >   <code>bool</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1121,6 +1155,7 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1146,6 +1181,7 @@ Does not affect `id_full`.<br/>
 >   <dd>
 >   <code>number</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1171,6 +1207,7 @@ Default value: `title`.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1195,6 +1232,7 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   <dd>
 >   <code>list(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1222,6 +1260,7 @@ Default value: `lower`.<br/>
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1251,12 +1290,13 @@ Set to `[]` to suppress all generated tags.<br/>
 >   <dd>
 >   <code>set(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    
 >
 >    ```hcl
->>
+>    >
 >    [
 >
 >      "default"
@@ -1287,6 +1327,7 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1308,6 +1349,7 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1332,6 +1374,7 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1353,6 +1396,7 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
@@ -1376,6 +1420,7 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   <dd>
 >   <code>map(string)</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>{}</code>
@@ -1397,6 +1442,7 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   <dd>
 >   <code>string</code>
 >  </dd>
+>
 >  <dt>Default value</dt>
 >  <dd>
 >    <code>null</code>
