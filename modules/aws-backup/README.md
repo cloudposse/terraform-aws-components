@@ -281,7 +281,44 @@ Name | Version | Source | Description
 
 
 
+## Outputs
+
+<dl>
+  <dt><code>backup_plan_arn</code></dt>
+  <dd>
+    Backup Plan ARN<br/>
+
+  </dd>
+  <dt><code>backup_plan_version</code></dt>
+  <dd>
+    Unique, randomly generated, Unicode, UTF-8 encoded string that serves as the version ID of the backup plan<br/>
+
+  </dd>
+  <dt><code>backup_selection_id</code></dt>
+  <dd>
+    Backup Selection ID<br/>
+
+  </dd>
+  <dt><code>backup_vault_arn</code></dt>
+  <dd>
+    Backup Vault ARN<br/>
+
+  </dd>
+  <dt><code>backup_vault_id</code></dt>
+  <dd>
+    Backup Vault ID<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -1067,36 +1104,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>backup_plan_arn</code></dt>
-  <dd>
-    Backup Plan ARN<br/>
-
-  </dd>
-  <dt><code>backup_plan_version</code></dt>
-  <dd>
-    Unique, randomly generated, Unicode, UTF-8 encoded string that serves as the version ID of the backup plan<br/>
-
-  </dd>
-  <dt><code>backup_selection_id</code></dt>
-  <dd>
-    Backup Selection ID<br/>
-
-  </dd>
-  <dt><code>backup_vault_arn</code></dt>
-  <dd>
-    Backup Vault ARN<br/>
-
-  </dd>
-  <dt><code>backup_vault_id</code></dt>
-  <dd>
-    Backup Vault ID<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

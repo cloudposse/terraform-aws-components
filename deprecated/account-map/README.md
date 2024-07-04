@@ -70,7 +70,126 @@ The following data sources are used by this module:
   - [`aws_organizations_organization.organization`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/organizations_organization) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>account_info_map</code></dt>
+  <dd>
+    A map from account name to various information about the account.<br/>
+    See the `account_info_map` output of `account` for more detail.<br/>
+    <br/>
+
+  </dd>
+  <dt><code>all_accounts</code></dt>
+  <dd>
+    A list of all accounts in the AWS Organization<br/>
+
+  </dd>
+  <dt><code>artifacts_account_account_name</code></dt>
+  <dd>
+    The short name for the artifacts account<br/>
+
+  </dd>
+  <dt><code>audit_account_account_name</code></dt>
+  <dd>
+    The short name for the audit account<br/>
+
+  </dd>
+  <dt><code>aws_partition</code></dt>
+  <dd>
+    The AWS "partition" to use when constructing resource ARNs<br/>
+
+  </dd>
+  <dt><code>cicd_profiles</code></dt>
+  <dd>
+    A list of all SSO profiles used by cicd platforms<br/>
+
+  </dd>
+  <dt><code>cicd_roles</code></dt>
+  <dd>
+    A list of all IAM roles used by cicd platforms<br/>
+
+  </dd>
+  <dt><code>dns_account_account_name</code></dt>
+  <dd>
+    The short name for the primary DNS account<br/>
+
+  </dd>
+  <dt><code>eks_accounts</code></dt>
+  <dd>
+    A list of all accounts in the AWS Organization that contain EKS clusters<br/>
+
+  </dd>
+  <dt><code>full_account_map</code></dt>
+  <dd>
+    The map of account name to account ID (number).<br/>
+
+  </dd>
+  <dt><code>helm_profiles</code></dt>
+  <dd>
+    A list of all SSO profiles used to run helm updates<br/>
+
+  </dd>
+  <dt><code>helm_roles</code></dt>
+  <dd>
+    A list of all IAM roles used to run helm updates<br/>
+
+  </dd>
+  <dt><code>iam_role_arn_templates</code></dt>
+  <dd>
+    Map of accounts to corresponding IAM Role ARN templates<br/>
+
+  </dd>
+  <dt><code>identity_account_account_name</code></dt>
+  <dd>
+    The short name for the account holding primary IAM roles<br/>
+
+  </dd>
+  <dt><code>non_eks_accounts</code></dt>
+  <dd>
+    A list of all accounts in the AWS Organization that do not contain EKS clusters<br/>
+
+  </dd>
+  <dt><code>org</code></dt>
+  <dd>
+    The name of the AWS Organization<br/>
+
+  </dd>
+  <dt><code>profiles_enabled</code></dt>
+  <dd>
+    Whether or not to enable profiles instead of roles for the backend<br/>
+
+  </dd>
+  <dt><code>root_account_account_name</code></dt>
+  <dd>
+    The short name for the root account<br/>
+
+  </dd>
+  <dt><code>root_account_aws_name</code></dt>
+  <dd>
+    The name of the root account as reported by AWS<br/>
+
+  </dd>
+  <dt><code>terraform_profiles</code></dt>
+  <dd>
+    A list of all SSO profiles used to run terraform updates<br/>
+
+  </dd>
+  <dt><code>terraform_roles</code></dt>
+  <dd>
+    A list of all IAM roles used to run terraform updates<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -825,118 +944,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>account_info_map</code></dt>
-  <dd>
-    A map from account name to various information about the account.<br/>
-    See the `account_info_map` output of `account` for more detail.<br/>
-    <br/>
-
-  </dd>
-  <dt><code>all_accounts</code></dt>
-  <dd>
-    A list of all accounts in the AWS Organization<br/>
-
-  </dd>
-  <dt><code>artifacts_account_account_name</code></dt>
-  <dd>
-    The short name for the artifacts account<br/>
-
-  </dd>
-  <dt><code>audit_account_account_name</code></dt>
-  <dd>
-    The short name for the audit account<br/>
-
-  </dd>
-  <dt><code>aws_partition</code></dt>
-  <dd>
-    The AWS "partition" to use when constructing resource ARNs<br/>
-
-  </dd>
-  <dt><code>cicd_profiles</code></dt>
-  <dd>
-    A list of all SSO profiles used by cicd platforms<br/>
-
-  </dd>
-  <dt><code>cicd_roles</code></dt>
-  <dd>
-    A list of all IAM roles used by cicd platforms<br/>
-
-  </dd>
-  <dt><code>dns_account_account_name</code></dt>
-  <dd>
-    The short name for the primary DNS account<br/>
-
-  </dd>
-  <dt><code>eks_accounts</code></dt>
-  <dd>
-    A list of all accounts in the AWS Organization that contain EKS clusters<br/>
-
-  </dd>
-  <dt><code>full_account_map</code></dt>
-  <dd>
-    The map of account name to account ID (number).<br/>
-
-  </dd>
-  <dt><code>helm_profiles</code></dt>
-  <dd>
-    A list of all SSO profiles used to run helm updates<br/>
-
-  </dd>
-  <dt><code>helm_roles</code></dt>
-  <dd>
-    A list of all IAM roles used to run helm updates<br/>
-
-  </dd>
-  <dt><code>iam_role_arn_templates</code></dt>
-  <dd>
-    Map of accounts to corresponding IAM Role ARN templates<br/>
-
-  </dd>
-  <dt><code>identity_account_account_name</code></dt>
-  <dd>
-    The short name for the account holding primary IAM roles<br/>
-
-  </dd>
-  <dt><code>non_eks_accounts</code></dt>
-  <dd>
-    A list of all accounts in the AWS Organization that do not contain EKS clusters<br/>
-
-  </dd>
-  <dt><code>org</code></dt>
-  <dd>
-    The name of the AWS Organization<br/>
-
-  </dd>
-  <dt><code>profiles_enabled</code></dt>
-  <dd>
-    Whether or not to enable profiles instead of roles for the backend<br/>
-
-  </dd>
-  <dt><code>root_account_account_name</code></dt>
-  <dd>
-    The short name for the root account<br/>
-
-  </dd>
-  <dt><code>root_account_aws_name</code></dt>
-  <dd>
-    The name of the root account as reported by AWS<br/>
-
-  </dd>
-  <dt><code>terraform_profiles</code></dt>
-  <dd>
-    A list of all SSO profiles used to run terraform updates<br/>
-
-  </dd>
-  <dt><code>terraform_roles</code></dt>
-  <dd>
-    A list of all IAM roles used to run terraform updates<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References

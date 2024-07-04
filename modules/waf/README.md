@@ -81,7 +81,34 @@ The following resources are used by this module:
 The following data sources are used by this module:
 
 
+## Outputs
+
+<dl>
+  <dt><code>arn</code></dt>
+  <dd>
+    The ARN of the WAF WebACL.<br/>
+
+  </dd>
+  <dt><code>id</code></dt>
+  <dd>
+    The ID of the WAF WebACL.<br/>
+
+  </dd>
+  <dt><code>logging_config_id</code></dt>
+  <dd>
+    The ARN of the WAFv2 Web ACL logging configuration.<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `acl_name` (`string`) <i>required</i>
 
 
@@ -2198,26 +2225,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>arn</code></dt>
-  <dd>
-    The ARN of the WAF WebACL.<br/>
-
-  </dd>
-  <dt><code>id</code></dt>
-  <dd>
-    The ID of the WAF WebACL.<br/>
-
-  </dd>
-  <dt><code>logging_config_id</code></dt>
-  <dd>
-    The ARN of the WAFv2 Web ACL logging configuration.<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

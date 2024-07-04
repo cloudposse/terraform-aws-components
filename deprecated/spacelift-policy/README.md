@@ -124,7 +124,24 @@ The following data sources are used by this module:
 
   - [`http_http.default`](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>policies</code></dt>
+  <dd>
+    All calculated policies<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `policies` (`any`) <i>required</i>
 
 
@@ -738,16 +755,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>policies</code></dt>
-  <dd>
-    All calculated policies<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References

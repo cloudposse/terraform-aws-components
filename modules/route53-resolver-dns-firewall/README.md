@@ -106,7 +106,44 @@ Name | Version | Source | Description
 
 
 
+## Outputs
+
+<dl>
+  <dt><code>domains</code></dt>
+  <dd>
+    Route 53 Resolver DNS Firewall domain configurations<br/>
+
+  </dd>
+  <dt><code>query_log_config</code></dt>
+  <dd>
+    Route 53 Resolver query logging configuration<br/>
+
+  </dd>
+  <dt><code>rule_group_associations</code></dt>
+  <dd>
+    Route 53 Resolver DNS Firewall rule group associations<br/>
+
+  </dd>
+  <dt><code>rule_groups</code></dt>
+  <dd>
+    Route 53 Resolver DNS Firewall rule groups<br/>
+
+  </dd>
+  <dt><code>rules</code></dt>
+  <dd>
+    Route 53 Resolver DNS Firewall rules<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `domains_config` <i>required</i>
 
 
@@ -817,36 +854,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>domains</code></dt>
-  <dd>
-    Route 53 Resolver DNS Firewall domain configurations<br/>
-
-  </dd>
-  <dt><code>query_log_config</code></dt>
-  <dd>
-    Route 53 Resolver query logging configuration<br/>
-
-  </dd>
-  <dt><code>rule_group_associations</code></dt>
-  <dd>
-    Route 53 Resolver DNS Firewall rule group associations<br/>
-
-  </dd>
-  <dt><code>rule_groups</code></dt>
-  <dd>
-    Route 53 Resolver DNS Firewall rule groups<br/>
-
-  </dd>
-  <dt><code>rules</code></dt>
-  <dd>
-    Route 53 Resolver DNS Firewall rules<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

@@ -75,7 +75,39 @@ Name | Version | Source | Description
 
 
 
+## Outputs
+
+<dl>
+  <dt><code>tgw_routes_home_region</code></dt>
+  <dd>
+    TGW Routes to the primary region<br/>
+
+  </dd>
+  <dt><code>tgw_routes_in_region</code></dt>
+  <dd>
+    TGW reoutes in this region<br/>
+
+  </dd>
+  <dt><code>vpc_routes_home</code></dt>
+  <dd>
+    VPC routes to the primary VPC<br/>
+
+  </dd>
+  <dt><code>vpc_routes_this</code></dt>
+  <dd>
+    This modules VPC routes<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `aws_region_abbreviation` (`string`) <i>required</i>
 
 
@@ -756,31 +788,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>tgw_routes_home_region</code></dt>
-  <dd>
-    TGW Routes to the primary region<br/>
-
-  </dd>
-  <dt><code>tgw_routes_in_region</code></dt>
-  <dd>
-    TGW reoutes in this region<br/>
-
-  </dd>
-  <dt><code>vpc_routes_home</code></dt>
-  <dd>
-    VPC routes to the primary VPC<br/>
-
-  </dd>
-  <dt><code>vpc_routes_this</code></dt>
-  <dd>
-    This modules VPC routes<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References

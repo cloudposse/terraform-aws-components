@@ -231,7 +231,59 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.support_access_trusted_advisor`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>delegated_role_arns</code></dt>
+  <dd>
+    List of delegated role ARNs<br/>
+
+  </dd>
+  <dt><code>delegated_role_name_role_arn_map</code></dt>
+  <dd>
+    Map of delegated role names to role ARNs<br/>
+
+  </dd>
+  <dt><code>delegated_role_names</code></dt>
+  <dd>
+    List of delegated role names<br/>
+
+  </dd>
+  <dt><code>delegated_roles_config</code></dt>
+  <dd>
+    Map of delegated role config with name, target arn, and description<br/>
+
+  </dd>
+  <dt><code>primary_roles_config</code></dt>
+  <dd>
+    Map of role config with name, target arn, and description<br/>
+
+  </dd>
+  <dt><code>role_arns</code></dt>
+  <dd>
+    List of role ARNs<br/>
+
+  </dd>
+  <dt><code>role_name_role_arn_map</code></dt>
+  <dd>
+    Map of role names to role ARNs<br/>
+
+  </dd>
+  <dt><code>role_names</code></dt>
+  <dd>
+    List of role names<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `delegated_roles_config` <i>required</i>
 
 
@@ -963,51 +1015,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>delegated_role_arns</code></dt>
-  <dd>
-    List of delegated role ARNs<br/>
-
-  </dd>
-  <dt><code>delegated_role_name_role_arn_map</code></dt>
-  <dd>
-    Map of delegated role names to role ARNs<br/>
-
-  </dd>
-  <dt><code>delegated_role_names</code></dt>
-  <dd>
-    List of delegated role names<br/>
-
-  </dd>
-  <dt><code>delegated_roles_config</code></dt>
-  <dd>
-    Map of delegated role config with name, target arn, and description<br/>
-
-  </dd>
-  <dt><code>primary_roles_config</code></dt>
-  <dd>
-    Map of role config with name, target arn, and description<br/>
-
-  </dd>
-  <dt><code>role_arns</code></dt>
-  <dd>
-    List of role ARNs<br/>
-
-  </dd>
-  <dt><code>role_name_role_arn_map</code></dt>
-  <dd>
-    Map of role names to role ARNs<br/>
-
-  </dd>
-  <dt><code>role_names</code></dt>
-  <dd>
-    List of role names<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 

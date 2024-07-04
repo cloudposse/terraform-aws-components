@@ -196,7 +196,34 @@ The following data sources are used by this module:
   - [`aws_caller_identity.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
   - [`aws_region.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>delegated_administrator_account_id</code></dt>
+  <dd>
+    The AWS Account ID of the AWS Organization delegated administrator account<br/>
+
+  </dd>
+  <dt><code>sns_topic_name</code></dt>
+  <dd>
+    The name of the SNS topic created by the component<br/>
+
+  </dd>
+  <dt><code>sns_topic_subscriptions</code></dt>
+  <dd>
+    The SNS topic subscriptions created by the component<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -1214,26 +1241,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>delegated_administrator_account_id</code></dt>
-  <dd>
-    The AWS Account ID of the AWS Organization delegated administrator account<br/>
-
-  </dd>
-  <dt><code>sns_topic_name</code></dt>
-  <dd>
-    The name of the SNS topic created by the component<br/>
-
-  </dd>
-  <dt><code>sns_topic_subscriptions</code></dt>
-  <dd>
-    The SNS topic subscriptions created by the component<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

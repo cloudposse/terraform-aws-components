@@ -101,7 +101,59 @@ The following data sources are used by this module:
   - [`aws_acm_certificate.additional_certs`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/acm_certificate) (data source)
   - [`aws_acm_certificate.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/acm_certificate) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>alb</code></dt>
+  <dd>
+    ALB outputs<br/>
+
+  </dd>
+  <dt><code>cluster_arn</code></dt>
+  <dd>
+    ECS cluster ARN<br/>
+
+  </dd>
+  <dt><code>cluster_name</code></dt>
+  <dd>
+    ECS Cluster Name<br/>
+
+  </dd>
+  <dt><code>private_subnet_ids</code></dt>
+  <dd>
+    Private subnet ids<br/>
+
+  </dd>
+  <dt><code>public_subnet_ids</code></dt>
+  <dd>
+    Public subnet ids<br/>
+
+  </dd>
+  <dt><code>records</code></dt>
+  <dd>
+    Record names<br/>
+
+  </dd>
+  <dt><code>security_group_id</code></dt>
+  <dd>
+    Security group id<br/>
+
+  </dd>
+  <dt><code>vpc_id</code></dt>
+  <dd>
+    VPC ID<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -1157,51 +1209,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>alb</code></dt>
-  <dd>
-    ALB outputs<br/>
-
-  </dd>
-  <dt><code>cluster_arn</code></dt>
-  <dd>
-    ECS cluster ARN<br/>
-
-  </dd>
-  <dt><code>cluster_name</code></dt>
-  <dd>
-    ECS Cluster Name<br/>
-
-  </dd>
-  <dt><code>private_subnet_ids</code></dt>
-  <dd>
-    Private subnet ids<br/>
-
-  </dd>
-  <dt><code>public_subnet_ids</code></dt>
-  <dd>
-    Public subnet ids<br/>
-
-  </dd>
-  <dt><code>records</code></dt>
-  <dd>
-    Record names<br/>
-
-  </dd>
-  <dt><code>security_group_id</code></dt>
-  <dd>
-    Security group id<br/>
-
-  </dd>
-  <dt><code>vpc_id</code></dt>
-  <dd>
-    VPC ID<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

@@ -64,7 +64,44 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.kms`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>log_group_arn</code></dt>
+  <dd>
+    ARN of the log group<br/>
+
+  </dd>
+  <dt><code>log_group_name</code></dt>
+  <dd>
+    Name of log group<br/>
+
+  </dd>
+  <dt><code>role_arn</code></dt>
+  <dd>
+    ARN of role to assume<br/>
+
+  </dd>
+  <dt><code>role_name</code></dt>
+  <dd>
+    Name of role to assume<br/>
+
+  </dd>
+  <dt><code>stream_arns</code></dt>
+  <dd>
+    ARN of the log stream<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -708,36 +745,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>log_group_arn</code></dt>
-  <dd>
-    ARN of the log group<br/>
-
-  </dd>
-  <dt><code>log_group_name</code></dt>
-  <dd>
-    Name of log group<br/>
-
-  </dd>
-  <dt><code>role_arn</code></dt>
-  <dd>
-    ARN of role to assume<br/>
-
-  </dd>
-  <dt><code>role_name</code></dt>
-  <dd>
-    Name of role to assume<br/>
-
-  </dd>
-  <dt><code>stream_arns</code></dt>
-  <dd>
-    ARN of the log stream<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

@@ -293,7 +293,64 @@ The following data sources are used by this module:
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
   - [`aws_security_groups.allowed`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/security_groups) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>admin_username</code></dt>
+  <dd>
+    Postgres admin username<br/>
+
+  </dd>
+  <dt><code>allowed_security_groups</code></dt>
+  <dd>
+    The resulting list of security group IDs that are allowed to connect to the Aurora Postgres cluster.<br/>
+
+  </dd>
+  <dt><code>cluster_identifier</code></dt>
+  <dd>
+    Postgres cluster identifier<br/>
+
+  </dd>
+  <dt><code>config_map</code></dt>
+  <dd>
+    Map containing information pertinent to a PostgreSQL client configuration.<br/>
+
+  </dd>
+  <dt><code>database_name</code></dt>
+  <dd>
+    Postgres database name<br/>
+
+  </dd>
+  <dt><code>kms_key_arn</code></dt>
+  <dd>
+    KMS key ARN for Aurora Postgres<br/>
+
+  </dd>
+  <dt><code>master_hostname</code></dt>
+  <dd>
+    Postgres master hostname<br/>
+
+  </dd>
+  <dt><code>replicas_hostname</code></dt>
+  <dd>
+    Postgres replicas hostname<br/>
+
+  </dd>
+  <dt><code>ssm_key_paths</code></dt>
+  <dd>
+    Names (key paths) of all SSM parameters stored for this cluster<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `cluster_name` (`string`) <i>required</i>
 
 
@@ -1931,56 +1988,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>admin_username</code></dt>
-  <dd>
-    Postgres admin username<br/>
-
-  </dd>
-  <dt><code>allowed_security_groups</code></dt>
-  <dd>
-    The resulting list of security group IDs that are allowed to connect to the Aurora Postgres cluster.<br/>
-
-  </dd>
-  <dt><code>cluster_identifier</code></dt>
-  <dd>
-    Postgres cluster identifier<br/>
-
-  </dd>
-  <dt><code>config_map</code></dt>
-  <dd>
-    Map containing information pertinent to a PostgreSQL client configuration.<br/>
-
-  </dd>
-  <dt><code>database_name</code></dt>
-  <dd>
-    Postgres database name<br/>
-
-  </dd>
-  <dt><code>kms_key_arn</code></dt>
-  <dd>
-    KMS key ARN for Aurora Postgres<br/>
-
-  </dd>
-  <dt><code>master_hostname</code></dt>
-  <dd>
-    Postgres master hostname<br/>
-
-  </dd>
-  <dt><code>replicas_hostname</code></dt>
-  <dd>
-    Postgres replicas hostname<br/>
-
-  </dd>
-  <dt><code>ssm_key_paths</code></dt>
-  <dd>
-    Names (key paths) of all SSM parameters stored for this cluster<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

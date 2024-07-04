@@ -58,7 +58,34 @@ Name | Version | Source | Description
 
 
 
+## Outputs
+
+<dl>
+  <dt><code>config_bucket_arn</code></dt>
+  <dd>
+    Config bucket ARN<br/>
+
+  </dd>
+  <dt><code>config_bucket_domain_name</code></dt>
+  <dd>
+    Config bucket FQDN<br/>
+
+  </dd>
+  <dt><code>config_bucket_id</code></dt>
+  <dd>
+    Config bucket ID<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -777,26 +804,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>config_bucket_arn</code></dt>
-  <dd>
-    Config bucket ARN<br/>
-
-  </dd>
-  <dt><code>config_bucket_domain_name</code></dt>
-  <dd>
-    Config bucket FQDN<br/>
-
-  </dd>
-  <dt><code>config_bucket_id</code></dt>
-  <dd>
-    Config bucket ID<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

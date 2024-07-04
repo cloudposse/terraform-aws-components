@@ -97,7 +97,29 @@ The following data sources are used by this module:
   - [`aws_eks_cluster_auth.eks`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>cert_manager_issuer_metadata</code></dt>
+  <dd>
+    Block status of the deployed release<br/>
+
+  </dd>
+  <dt><code>cert_manager_metadata</code></dt>
+  <dd>
+    Block status of the deployed release<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `cert_manager_issuer_support_email_template` (`string`) <i>required</i>
 
 
@@ -1412,21 +1434,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>cert_manager_issuer_metadata</code></dt>
-  <dd>
-    Block status of the deployed release<br/>
-
-  </dd>
-  <dt><code>cert_manager_metadata</code></dt>
-  <dd>
-    Block status of the deployed release<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

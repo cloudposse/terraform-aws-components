@@ -72,7 +72,49 @@ The following data sources are used by this module:
   - [`aws_ssm_parameter.user`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`aws_subnet.selected`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>connection_arn</code></dt>
+  <dd>
+    Glue connection ARN<br/>
+
+  </dd>
+  <dt><code>connection_id</code></dt>
+  <dd>
+    Glue connection ID<br/>
+
+  </dd>
+  <dt><code>connection_name</code></dt>
+  <dd>
+    Glue connection name<br/>
+
+  </dd>
+  <dt><code>security_group_arn</code></dt>
+  <dd>
+    The ARN of the Security Group associated with the Glue connection<br/>
+
+  </dd>
+  <dt><code>security_group_id</code></dt>
+  <dd>
+    The ID of the Security Group associated with the Glue connection<br/>
+
+  </dd>
+  <dt><code>security_group_name</code></dt>
+  <dd>
+    The name of the Security Group and associated with the Glue connection<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `connection_type` (`string`) <i>required</i>
 
 
@@ -1007,41 +1049,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>connection_arn</code></dt>
-  <dd>
-    Glue connection ARN<br/>
-
-  </dd>
-  <dt><code>connection_id</code></dt>
-  <dd>
-    Glue connection ID<br/>
-
-  </dd>
-  <dt><code>connection_name</code></dt>
-  <dd>
-    Glue connection name<br/>
-
-  </dd>
-  <dt><code>security_group_arn</code></dt>
-  <dd>
-    The ARN of the Security Group associated with the Glue connection<br/>
-
-  </dd>
-  <dt><code>security_group_id</code></dt>
-  <dd>
-    The ID of the Security Group associated with the Glue connection<br/>
-
-  </dd>
-  <dt><code>security_group_name</code></dt>
-  <dd>
-    The name of the Security Group and associated with the Glue connection<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

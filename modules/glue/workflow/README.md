@@ -46,7 +46,34 @@ Name | Version | Source | Description
 
 
 
+## Outputs
+
+<dl>
+  <dt><code>workflow_arn</code></dt>
+  <dd>
+    Glue workflow ARN<br/>
+
+  </dd>
+  <dt><code>workflow_id</code></dt>
+  <dd>
+    Glue workflow ID<br/>
+
+  </dd>
+  <dt><code>workflow_name</code></dt>
+  <dd>
+    Glue workflow name<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -660,26 +687,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>workflow_arn</code></dt>
-  <dd>
-    Glue workflow ARN<br/>
-
-  </dd>
-  <dt><code>workflow_id</code></dt>
-  <dd>
-    Glue workflow ID<br/>
-
-  </dd>
-  <dt><code>workflow_name</code></dt>
-  <dd>
-    Glue workflow name<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

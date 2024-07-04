@@ -134,7 +134,39 @@ The following data sources are used by this module:
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
   - [`aws_route53_zone.route53_zone`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>application_load_balancer_protections</code></dt>
+  <dd>
+    AWS Shield Advanced Protections for ALBs<br/>
+
+  </dd>
+  <dt><code>cloudfront_distribution_protections</code></dt>
+  <dd>
+    AWS Shield Advanced Protections for CloudFront Distributions<br/>
+
+  </dd>
+  <dt><code>elastic_ip_protections</code></dt>
+  <dd>
+    AWS Shield Advanced Protections for Elastic IPs<br/>
+
+  </dd>
+  <dt><code>route53_hosted_zone_protections</code></dt>
+  <dd>
+    AWS Shield Advanced Protections for Route53 Hosted Zones<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -769,31 +801,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>application_load_balancer_protections</code></dt>
-  <dd>
-    AWS Shield Advanced Protections for ALBs<br/>
-
-  </dd>
-  <dt><code>cloudfront_distribution_protections</code></dt>
-  <dd>
-    AWS Shield Advanced Protections for CloudFront Distributions<br/>
-
-  </dd>
-  <dt><code>elastic_ip_protections</code></dt>
-  <dd>
-    AWS Shield Advanced Protections for Elastic IPs<br/>
-
-  </dd>
-  <dt><code>route53_hosted_zone_protections</code></dt>
-  <dd>
-    AWS Shield Advanced Protections for Route53 Hosted Zones<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

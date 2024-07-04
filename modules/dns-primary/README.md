@@ -141,7 +141,29 @@ The following resources are used by this module:
 The following data sources are used by this module:
 
 
+## Outputs
+
+<dl>
+  <dt><code>acms</code></dt>
+  <dd>
+    ACM certificates for domains<br/>
+
+  </dd>
+  <dt><code>zones</code></dt>
+  <dd>
+    DNS zones<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -809,21 +831,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>acms</code></dt>
-  <dd>
-    ACM certificates for domains<br/>
-
-  </dd>
-  <dt><code>zones</code></dt>
-  <dd>
-    DNS zones<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

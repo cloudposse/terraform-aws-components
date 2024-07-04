@@ -76,7 +76,69 @@ The following resources are used by this module:
 The following data sources are used by this module:
 
 
+## Outputs
+
+<dl>
+  <dt><code>domain_arn</code></dt>
+  <dd>
+    ARN of the Elasticsearch domain<br/>
+
+  </dd>
+  <dt><code>domain_endpoint</code></dt>
+  <dd>
+    Domain-specific endpoint used to submit index, search, and data upload requests<br/>
+
+  </dd>
+  <dt><code>domain_hostname</code></dt>
+  <dd>
+    Elasticsearch domain hostname to submit index, search, and data upload requests<br/>
+
+  </dd>
+  <dt><code>domain_id</code></dt>
+  <dd>
+    Unique identifier for the Elasticsearch domain<br/>
+
+  </dd>
+  <dt><code>elasticsearch_user_iam_role_arn</code></dt>
+  <dd>
+    The ARN of the IAM role to allow access to Elasticsearch cluster<br/>
+
+  </dd>
+  <dt><code>elasticsearch_user_iam_role_name</code></dt>
+  <dd>
+    The name of the IAM role to allow access to Elasticsearch cluster<br/>
+
+  </dd>
+  <dt><code>kibana_endpoint</code></dt>
+  <dd>
+    Domain-specific endpoint for Kibana without https scheme<br/>
+
+  </dd>
+  <dt><code>kibana_hostname</code></dt>
+  <dd>
+    Kibana hostname<br/>
+
+  </dd>
+  <dt><code>master_password_ssm_key</code></dt>
+  <dd>
+    SSM key of Elasticsearch master password<br/>
+
+  </dd>
+  <dt><code>security_group_id</code></dt>
+  <dd>
+    Security Group ID to control access to the Elasticsearch domain<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `create_iam_service_linked_role` (`bool`) <i>required</i>
 
 
@@ -967,61 +1029,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>domain_arn</code></dt>
-  <dd>
-    ARN of the Elasticsearch domain<br/>
-
-  </dd>
-  <dt><code>domain_endpoint</code></dt>
-  <dd>
-    Domain-specific endpoint used to submit index, search, and data upload requests<br/>
-
-  </dd>
-  <dt><code>domain_hostname</code></dt>
-  <dd>
-    Elasticsearch domain hostname to submit index, search, and data upload requests<br/>
-
-  </dd>
-  <dt><code>domain_id</code></dt>
-  <dd>
-    Unique identifier for the Elasticsearch domain<br/>
-
-  </dd>
-  <dt><code>elasticsearch_user_iam_role_arn</code></dt>
-  <dd>
-    The ARN of the IAM role to allow access to Elasticsearch cluster<br/>
-
-  </dd>
-  <dt><code>elasticsearch_user_iam_role_name</code></dt>
-  <dd>
-    The name of the IAM role to allow access to Elasticsearch cluster<br/>
-
-  </dd>
-  <dt><code>kibana_endpoint</code></dt>
-  <dd>
-    Domain-specific endpoint for Kibana without https scheme<br/>
-
-  </dd>
-  <dt><code>kibana_hostname</code></dt>
-  <dd>
-    Kibana hostname<br/>
-
-  </dd>
-  <dt><code>master_password_ssm_key</code></dt>
-  <dd>
-    SSM key of Elasticsearch master password<br/>
-
-  </dd>
-  <dt><code>security_group_id</code></dt>
-  <dd>
-    Security Group ID to control access to the Elasticsearch domain<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

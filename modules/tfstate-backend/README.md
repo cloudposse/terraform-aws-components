@@ -157,7 +157,54 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.tfstate`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`awsutils_caller_identity.current`](https://registry.terraform.io/providers/cloudposse/awsutils/latest/docs/data-sources/caller_identity) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>tfstate_backend_access_role_arns</code></dt>
+  <dd>
+    IAM Role ARNs for accessing the Terraform State Backend<br/>
+
+  </dd>
+  <dt><code>tfstate_backend_dynamodb_table_arn</code></dt>
+  <dd>
+    Terraform state DynamoDB table ARN<br/>
+
+  </dd>
+  <dt><code>tfstate_backend_dynamodb_table_id</code></dt>
+  <dd>
+    Terraform state DynamoDB table ID<br/>
+
+  </dd>
+  <dt><code>tfstate_backend_dynamodb_table_name</code></dt>
+  <dd>
+    Terraform state DynamoDB table name<br/>
+
+  </dd>
+  <dt><code>tfstate_backend_s3_bucket_arn</code></dt>
+  <dd>
+    Terraform state S3 bucket ARN<br/>
+
+  </dd>
+  <dt><code>tfstate_backend_s3_bucket_domain_name</code></dt>
+  <dd>
+    Terraform state S3 bucket domain name<br/>
+
+  </dd>
+  <dt><code>tfstate_backend_s3_bucket_id</code></dt>
+  <dd>
+    Terraform state S3 bucket ID<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -827,46 +874,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>tfstate_backend_access_role_arns</code></dt>
-  <dd>
-    IAM Role ARNs for accessing the Terraform State Backend<br/>
-
-  </dd>
-  <dt><code>tfstate_backend_dynamodb_table_arn</code></dt>
-  <dd>
-    Terraform state DynamoDB table ARN<br/>
-
-  </dd>
-  <dt><code>tfstate_backend_dynamodb_table_id</code></dt>
-  <dd>
-    Terraform state DynamoDB table ID<br/>
-
-  </dd>
-  <dt><code>tfstate_backend_dynamodb_table_name</code></dt>
-  <dd>
-    Terraform state DynamoDB table name<br/>
-
-  </dd>
-  <dt><code>tfstate_backend_s3_bucket_arn</code></dt>
-  <dd>
-    Terraform state S3 bucket ARN<br/>
-
-  </dd>
-  <dt><code>tfstate_backend_s3_bucket_domain_name</code></dt>
-  <dd>
-    Terraform state S3 bucket domain name<br/>
-
-  </dd>
-  <dt><code>tfstate_backend_s3_bucket_id</code></dt>
-  <dd>
-    Terraform state S3 bucket ID<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

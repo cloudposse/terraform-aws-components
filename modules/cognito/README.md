@@ -80,7 +80,89 @@ The following resources are used by this module:
 The following data sources are used by this module:
 
 
+## Outputs
+
+<dl>
+  <dt><code>arn</code></dt>
+  <dd>
+    The ARN of the User Pool<br/>
+
+  </dd>
+  <dt><code>client_ids</code></dt>
+  <dd>
+    The ids of the User Pool clients<br/>
+
+  </dd>
+  <dt><code>client_ids_map</code></dt>
+  <dd>
+    The IDs map of the User Pool clients<br/>
+
+  </dd>
+  <dt><code>client_secrets</code></dt>
+  <dd>
+     The client secrets of the User Pool clients<br/>
+
+  </dd>
+  <dt><code>client_secrets_map</code></dt>
+  <dd>
+    The client secrets map of the User Pool clients<br/>
+
+  </dd>
+  <dt><code>creation_date</code></dt>
+  <dd>
+    The date the User Pool was created<br/>
+
+  </dd>
+  <dt><code>domain_app_version</code></dt>
+  <dd>
+    The app version for the domain<br/>
+
+  </dd>
+  <dt><code>domain_aws_account_id</code></dt>
+  <dd>
+    The AWS account ID for the User Pool domain<br/>
+
+  </dd>
+  <dt><code>domain_cloudfront_distribution_arn</code></dt>
+  <dd>
+    The ARN of the CloudFront distribution for the domain<br/>
+
+  </dd>
+  <dt><code>domain_s3_bucket</code></dt>
+  <dd>
+    The S3 bucket where the static files for the domain are stored<br/>
+
+  </dd>
+  <dt><code>endpoint</code></dt>
+  <dd>
+    The endpoint name of the User Pool. Example format: cognito-idp.REGION.amazonaws.com/xxxx_yyyyy<br/>
+
+  </dd>
+  <dt><code>id</code></dt>
+  <dd>
+    The ID of the User Pool<br/>
+
+  </dd>
+  <dt><code>last_modified_date</code></dt>
+  <dd>
+    The date the User Pool was last modified<br/>
+
+  </dd>
+  <dt><code>resource_servers_scope_identifiers</code></dt>
+  <dd>
+     A list of all scopes configured in the format identifier/scope_name<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -2571,81 +2653,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>arn</code></dt>
-  <dd>
-    The ARN of the User Pool<br/>
-
-  </dd>
-  <dt><code>client_ids</code></dt>
-  <dd>
-    The ids of the User Pool clients<br/>
-
-  </dd>
-  <dt><code>client_ids_map</code></dt>
-  <dd>
-    The IDs map of the User Pool clients<br/>
-
-  </dd>
-  <dt><code>client_secrets</code></dt>
-  <dd>
-     The client secrets of the User Pool clients<br/>
-
-  </dd>
-  <dt><code>client_secrets_map</code></dt>
-  <dd>
-    The client secrets map of the User Pool clients<br/>
-
-  </dd>
-  <dt><code>creation_date</code></dt>
-  <dd>
-    The date the User Pool was created<br/>
-
-  </dd>
-  <dt><code>domain_app_version</code></dt>
-  <dd>
-    The app version for the domain<br/>
-
-  </dd>
-  <dt><code>domain_aws_account_id</code></dt>
-  <dd>
-    The AWS account ID for the User Pool domain<br/>
-
-  </dd>
-  <dt><code>domain_cloudfront_distribution_arn</code></dt>
-  <dd>
-    The ARN of the CloudFront distribution for the domain<br/>
-
-  </dd>
-  <dt><code>domain_s3_bucket</code></dt>
-  <dd>
-    The S3 bucket where the static files for the domain are stored<br/>
-
-  </dd>
-  <dt><code>endpoint</code></dt>
-  <dd>
-    The endpoint name of the User Pool. Example format: cognito-idp.REGION.amazonaws.com/xxxx_yyyyy<br/>
-
-  </dd>
-  <dt><code>id</code></dt>
-  <dd>
-    The ID of the User Pool<br/>
-
-  </dd>
-  <dt><code>last_modified_date</code></dt>
-  <dd>
-    The date the User Pool was last modified<br/>
-
-  </dd>
-  <dt><code>resource_servers_scope_identifiers</code></dt>
-  <dd>
-     A list of all scopes configured in the format identifier/scope_name<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

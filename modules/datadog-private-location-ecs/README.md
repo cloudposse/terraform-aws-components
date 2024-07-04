@@ -103,7 +103,54 @@ The following resources are used by this module:
 The following data sources are used by this module:
 
 
+## Outputs
+
+<dl>
+  <dt><code>ecs_cluster_arn</code></dt>
+  <dd>
+    Selected ECS cluster ARN<br/>
+
+  </dd>
+  <dt><code>lb_arn</code></dt>
+  <dd>
+    Selected LB ARN<br/>
+
+  </dd>
+  <dt><code>lb_listener_https</code></dt>
+  <dd>
+    Selected LB HTTPS Listener<br/>
+
+  </dd>
+  <dt><code>lb_sg_id</code></dt>
+  <dd>
+    Selected LB SG ID<br/>
+
+  </dd>
+  <dt><code>subnet_ids</code></dt>
+  <dd>
+    Selected subnet IDs<br/>
+
+  </dd>
+  <dt><code>vpc_id</code></dt>
+  <dd>
+    Selected VPC ID<br/>
+
+  </dd>
+  <dt><code>vpc_sg_id</code></dt>
+  <dd>
+    Selected VPC SG ID<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -717,46 +764,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>ecs_cluster_arn</code></dt>
-  <dd>
-    Selected ECS cluster ARN<br/>
-
-  </dd>
-  <dt><code>lb_arn</code></dt>
-  <dd>
-    Selected LB ARN<br/>
-
-  </dd>
-  <dt><code>lb_listener_https</code></dt>
-  <dd>
-    Selected LB HTTPS Listener<br/>
-
-  </dd>
-  <dt><code>lb_sg_id</code></dt>
-  <dd>
-    Selected LB SG ID<br/>
-
-  </dd>
-  <dt><code>subnet_ids</code></dt>
-  <dd>
-    Selected subnet IDs<br/>
-
-  </dd>
-  <dt><code>vpc_id</code></dt>
-  <dd>
-    Selected VPC ID<br/>
-
-  </dd>
-  <dt><code>vpc_sg_id</code></dt>
-  <dd>
-    Selected VPC SG ID<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

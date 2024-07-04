@@ -402,7 +402,29 @@ The following data sources are used by this module:
   - [`aws_ssm_parameter.github_token`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`aws_ssm_parameter.image_pull_secret`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>metadata</code></dt>
+  <dd>
+    Block status of the deployed release<br/>
+
+  </dd>
+  <dt><code>runners</code></dt>
+  <dd>
+    Human-readable summary of the deployed runners<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `charts` <i>required</i>
 
 
@@ -1619,21 +1641,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>metadata</code></dt>
-  <dd>
-    Block status of the deployed release<br/>
-
-  </dd>
-  <dt><code>runners</code></dt>
-  <dd>
-    Human-readable summary of the deployed runners<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

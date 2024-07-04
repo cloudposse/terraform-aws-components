@@ -155,7 +155,29 @@ The following data sources are used by this module:
 
   - [`aws_eks_cluster_auth.eks`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>providers</code></dt>
+  <dd>
+    Deployed Karpenter AWSNodeTemplates<br/>
+
+  </dd>
+  <dt><code>provisioners</code></dt>
+  <dd>
+    Deployed Karpenter provisioners<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `provisioners` <i>required</i>
 
 
@@ -1053,21 +1075,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>providers</code></dt>
-  <dd>
-    Deployed Karpenter AWSNodeTemplates<br/>
-
-  </dd>
-  <dt><code>provisioners</code></dt>
-  <dd>
-    Deployed Karpenter provisioners<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

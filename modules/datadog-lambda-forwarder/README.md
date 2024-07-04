@@ -90,7 +90,49 @@ The following resources are used by this module:
 The following data sources are used by this module:
 
 
+## Outputs
+
+<dl>
+  <dt><code>lambda_forwarder_log_function_arn</code></dt>
+  <dd>
+    Datadog Lambda forwarder CloudWatch/S3 function ARN<br/>
+
+  </dd>
+  <dt><code>lambda_forwarder_log_function_name</code></dt>
+  <dd>
+    Datadog Lambda forwarder CloudWatch/S3 function name<br/>
+
+  </dd>
+  <dt><code>lambda_forwarder_rds_enhanced_monitoring_function_name</code></dt>
+  <dd>
+    Datadog Lambda forwarder RDS Enhanced Monitoring function name<br/>
+
+  </dd>
+  <dt><code>lambda_forwarder_rds_function_arn</code></dt>
+  <dd>
+    Datadog Lambda forwarder RDS Enhanced Monitoring function ARN<br/>
+
+  </dd>
+  <dt><code>lambda_forwarder_vpc_log_function_arn</code></dt>
+  <dd>
+    Datadog Lambda forwarder VPC Flow Logs function ARN<br/>
+
+  </dd>
+  <dt><code>lambda_forwarder_vpc_log_function_name</code></dt>
+  <dd>
+    Datadog Lambda forwarder VPC Flow Logs function name<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -1454,41 +1496,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>lambda_forwarder_log_function_arn</code></dt>
-  <dd>
-    Datadog Lambda forwarder CloudWatch/S3 function ARN<br/>
-
-  </dd>
-  <dt><code>lambda_forwarder_log_function_name</code></dt>
-  <dd>
-    Datadog Lambda forwarder CloudWatch/S3 function name<br/>
-
-  </dd>
-  <dt><code>lambda_forwarder_rds_enhanced_monitoring_function_name</code></dt>
-  <dd>
-    Datadog Lambda forwarder RDS Enhanced Monitoring function name<br/>
-
-  </dd>
-  <dt><code>lambda_forwarder_rds_function_arn</code></dt>
-  <dd>
-    Datadog Lambda forwarder RDS Enhanced Monitoring function ARN<br/>
-
-  </dd>
-  <dt><code>lambda_forwarder_vpc_log_function_arn</code></dt>
-  <dd>
-    Datadog Lambda forwarder VPC Flow Logs function ARN<br/>
-
-  </dd>
-  <dt><code>lambda_forwarder_vpc_log_function_name</code></dt>
-  <dd>
-    Datadog Lambda forwarder VPC Flow Logs function name<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

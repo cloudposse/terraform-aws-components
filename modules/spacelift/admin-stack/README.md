@@ -191,7 +191,34 @@ The following data sources are used by this module:
   - [`spacelift_stacks.this`](https://registry.terraform.io/providers/spacelift-io/spacelift/latest/docs/data-sources/stacks) (data source)
   - [`spacelift_worker_pools.this`](https://registry.terraform.io/providers/spacelift-io/spacelift/latest/docs/data-sources/worker_pools) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>child_stacks</code></dt>
+  <dd>
+    All children stacks managed by this component<br/>
+
+  </dd>
+  <dt><code>root_stack</code></dt>
+  <dd>
+    The root stack, if enabled and created by this component<br/>
+
+  </dd>
+  <dt><code>root_stack_id</code></dt>
+  <dd>
+    The stack id<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `component_root` (`string`) <i>required</i>
 
 
@@ -1914,25 +1941,5 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>child_stacks</code></dt>
-  <dd>
-    All children stacks managed by this component<br/>
-
-  </dd>
-  <dt><code>root_stack</code></dt>
-  <dd>
-    The root stack, if enabled and created by this component<br/>
-
-  </dd>
-  <dt><code>root_stack_id</code></dt>
-  <dd>
-    The stack id<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->

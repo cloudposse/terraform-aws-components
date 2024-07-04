@@ -62,7 +62,64 @@ The following data sources are used by this module:
   - [`aws_ssm_parameter.datadog_api_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`aws_ssm_parameter.datadog_app_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>api_key_ssm_arn</code></dt>
+  <dd>
+    Datadog API Key SSM ARN<br/>
+
+  </dd>
+  <dt><code>datadog_api_key</code></dt>
+  <dd>
+    Datadog API Key<br/>
+
+  </dd>
+  <dt><code>datadog_api_key_location</code></dt>
+  <dd>
+    The Datadog API key in the secrets store<br/>
+
+  </dd>
+  <dt><code>datadog_api_url</code></dt>
+  <dd>
+    Datadog API URL<br/>
+
+  </dd>
+  <dt><code>datadog_app_key</code></dt>
+  <dd>
+    Datadog APP Key<br/>
+
+  </dd>
+  <dt><code>datadog_app_key_location</code></dt>
+  <dd>
+    The Datadog APP key location in the secrets store<br/>
+
+  </dd>
+  <dt><code>datadog_secrets_store_type</code></dt>
+  <dd>
+    The type of the secrets store to use for Datadog API and APP keys<br/>
+
+  </dd>
+  <dt><code>datadog_site</code></dt>
+  <dd>
+    Datadog Site<br/>
+
+  </dd>
+  <dt><code>datadog_tags</code></dt>
+  <dd>
+    The Context Tags in datadog tag format (list of strings formated as 'key:value')<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 
 ## Optional Variables
 ### `global_environment_name` (`string`) <i>optional</i>
@@ -592,55 +649,5 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>api_key_ssm_arn</code></dt>
-  <dd>
-    Datadog API Key SSM ARN<br/>
-
-  </dd>
-  <dt><code>datadog_api_key</code></dt>
-  <dd>
-    Datadog API Key<br/>
-
-  </dd>
-  <dt><code>datadog_api_key_location</code></dt>
-  <dd>
-    The Datadog API key in the secrets store<br/>
-
-  </dd>
-  <dt><code>datadog_api_url</code></dt>
-  <dd>
-    Datadog API URL<br/>
-
-  </dd>
-  <dt><code>datadog_app_key</code></dt>
-  <dd>
-    Datadog APP Key<br/>
-
-  </dd>
-  <dt><code>datadog_app_key_location</code></dt>
-  <dd>
-    The Datadog APP key location in the secrets store<br/>
-
-  </dd>
-  <dt><code>datadog_secrets_store_type</code></dt>
-  <dd>
-    The type of the secrets store to use for Datadog API and APP keys<br/>
-
-  </dd>
-  <dt><code>datadog_site</code></dt>
-  <dd>
-    Datadog Site<br/>
-
-  </dd>
-  <dt><code>datadog_tags</code></dt>
-  <dd>
-    The Context Tags in datadog tag format (list of strings formated as 'key:value')<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->

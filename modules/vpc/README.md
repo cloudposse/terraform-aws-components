@@ -102,7 +102,129 @@ The following data sources are used by this module:
   - [`aws_caller_identity.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
   - [`aws_eip.eip`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eip) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>availability_zones</code></dt>
+  <dd>
+    List of Availability Zones where subnets were created<br/>
+
+  </dd>
+  <dt><code>az_private_subnets_map</code></dt>
+  <dd>
+    Map of AZ names to list of private subnet IDs in the AZs<br/>
+
+  </dd>
+  <dt><code>az_public_subnets_map</code></dt>
+  <dd>
+    Map of AZ names to list of public subnet IDs in the AZs<br/>
+
+  </dd>
+  <dt><code>interface_vpc_endpoints</code></dt>
+  <dd>
+    List of Interface VPC Endpoints in this VPC.<br/>
+
+  </dd>
+  <dt><code>max_subnet_count</code></dt>
+  <dd>
+    Maximum allowed number of subnets before all subnet CIDRs need to be recomputed<br/>
+
+  </dd>
+  <dt><code>nat_eip_protections</code></dt>
+  <dd>
+    List of AWS Shield Advanced Protections for NAT Elastic IPs.<br/>
+
+  </dd>
+  <dt><code>nat_gateway_ids</code></dt>
+  <dd>
+    NAT Gateway IDs<br/>
+
+  </dd>
+  <dt><code>nat_gateway_public_ips</code></dt>
+  <dd>
+    NAT Gateway public IPs<br/>
+
+  </dd>
+  <dt><code>nat_instance_ids</code></dt>
+  <dd>
+    NAT Instance IDs<br/>
+
+  </dd>
+  <dt><code>private_route_table_ids</code></dt>
+  <dd>
+    Private subnet route table IDs<br/>
+
+  </dd>
+  <dt><code>private_subnet_cidrs</code></dt>
+  <dd>
+    Private subnet CIDRs<br/>
+
+  </dd>
+  <dt><code>private_subnet_ids</code></dt>
+  <dd>
+    Private subnet IDs<br/>
+
+  </dd>
+  <dt><code>public_route_table_ids</code></dt>
+  <dd>
+    Public subnet route table IDs<br/>
+
+  </dd>
+  <dt><code>public_subnet_cidrs</code></dt>
+  <dd>
+    Public subnet CIDRs<br/>
+
+  </dd>
+  <dt><code>public_subnet_ids</code></dt>
+  <dd>
+    Public subnet IDs<br/>
+
+  </dd>
+  <dt><code>route_tables</code></dt>
+  <dd>
+    Route tables info map<br/>
+
+  </dd>
+  <dt><code>subnets</code></dt>
+  <dd>
+    Subnets info map<br/>
+
+  </dd>
+  <dt><code>vpc</code></dt>
+  <dd>
+    VPC info map<br/>
+
+  </dd>
+  <dt><code>vpc_cidr</code></dt>
+  <dd>
+    VPC CIDR<br/>
+
+  </dd>
+  <dt><code>vpc_default_network_acl_id</code></dt>
+  <dd>
+    The ID of the network ACL created by default on VPC creation<br/>
+
+  </dd>
+  <dt><code>vpc_default_security_group_id</code></dt>
+  <dd>
+    The ID of the security group created by default on VPC creation<br/>
+
+  </dd>
+  <dt><code>vpc_id</code></dt>
+  <dd>
+    VPC ID<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -1283,121 +1405,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>availability_zones</code></dt>
-  <dd>
-    List of Availability Zones where subnets were created<br/>
-
-  </dd>
-  <dt><code>az_private_subnets_map</code></dt>
-  <dd>
-    Map of AZ names to list of private subnet IDs in the AZs<br/>
-
-  </dd>
-  <dt><code>az_public_subnets_map</code></dt>
-  <dd>
-    Map of AZ names to list of public subnet IDs in the AZs<br/>
-
-  </dd>
-  <dt><code>interface_vpc_endpoints</code></dt>
-  <dd>
-    List of Interface VPC Endpoints in this VPC.<br/>
-
-  </dd>
-  <dt><code>max_subnet_count</code></dt>
-  <dd>
-    Maximum allowed number of subnets before all subnet CIDRs need to be recomputed<br/>
-
-  </dd>
-  <dt><code>nat_eip_protections</code></dt>
-  <dd>
-    List of AWS Shield Advanced Protections for NAT Elastic IPs.<br/>
-
-  </dd>
-  <dt><code>nat_gateway_ids</code></dt>
-  <dd>
-    NAT Gateway IDs<br/>
-
-  </dd>
-  <dt><code>nat_gateway_public_ips</code></dt>
-  <dd>
-    NAT Gateway public IPs<br/>
-
-  </dd>
-  <dt><code>nat_instance_ids</code></dt>
-  <dd>
-    NAT Instance IDs<br/>
-
-  </dd>
-  <dt><code>private_route_table_ids</code></dt>
-  <dd>
-    Private subnet route table IDs<br/>
-
-  </dd>
-  <dt><code>private_subnet_cidrs</code></dt>
-  <dd>
-    Private subnet CIDRs<br/>
-
-  </dd>
-  <dt><code>private_subnet_ids</code></dt>
-  <dd>
-    Private subnet IDs<br/>
-
-  </dd>
-  <dt><code>public_route_table_ids</code></dt>
-  <dd>
-    Public subnet route table IDs<br/>
-
-  </dd>
-  <dt><code>public_subnet_cidrs</code></dt>
-  <dd>
-    Public subnet CIDRs<br/>
-
-  </dd>
-  <dt><code>public_subnet_ids</code></dt>
-  <dd>
-    Public subnet IDs<br/>
-
-  </dd>
-  <dt><code>route_tables</code></dt>
-  <dd>
-    Route tables info map<br/>
-
-  </dd>
-  <dt><code>subnets</code></dt>
-  <dd>
-    Subnets info map<br/>
-
-  </dd>
-  <dt><code>vpc</code></dt>
-  <dd>
-    VPC info map<br/>
-
-  </dd>
-  <dt><code>vpc_cidr</code></dt>
-  <dd>
-    VPC CIDR<br/>
-
-  </dd>
-  <dt><code>vpc_default_network_acl_id</code></dt>
-  <dd>
-    The ID of the network ACL created by default on VPC creation<br/>
-
-  </dd>
-  <dt><code>vpc_default_security_group_id</code></dt>
-  <dd>
-    The ID of the security group created by default on VPC creation<br/>
-
-  </dd>
-  <dt><code>vpc_id</code></dt>
-  <dd>
-    VPC ID<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

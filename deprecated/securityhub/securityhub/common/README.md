@@ -138,7 +138,34 @@ The following data sources are used by this module:
   - [`aws_partition.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
   - [`aws_region.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>enabled_subscriptions</code></dt>
+  <dd>
+    A list of subscriptions that have been enabled<br/>
+
+  </dd>
+  <dt><code>sns_topic_name</code></dt>
+  <dd>
+    The SNS topic name that was created<br/>
+
+  </dd>
+  <dt><code>sns_topic_subscriptions</code></dt>
+  <dd>
+    The SNS topic subscriptions<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `central_resource_collector_account` (`string`) <i>required</i>
 
 
@@ -967,26 +994,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>enabled_subscriptions</code></dt>
-  <dd>
-    A list of subscriptions that have been enabled<br/>
-
-  </dd>
-  <dt><code>sns_topic_name</code></dt>
-  <dd>
-    The SNS topic name that was created<br/>
-
-  </dd>
-  <dt><code>sns_topic_subscriptions</code></dt>
-  <dd>
-    The SNS topic subscriptions<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References

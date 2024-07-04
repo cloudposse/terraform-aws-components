@@ -249,7 +249,34 @@ The following data sources are used by this module:
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
   - [`aws_ssoadmin_instances.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssoadmin_instances) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>group_ids</code></dt>
+  <dd>
+    Group IDs created for Identity Center<br/>
+
+  </dd>
+  <dt><code>permission_sets</code></dt>
+  <dd>
+    Permission sets<br/>
+
+  </dd>
+  <dt><code>sso_account_assignments</code></dt>
+  <dd>
+    SSO account assignments<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -913,26 +940,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>group_ids</code></dt>
-  <dd>
-    Group IDs created for Identity Center<br/>
-
-  </dd>
-  <dt><code>permission_sets</code></dt>
-  <dd>
-    Permission sets<br/>
-
-  </dd>
-  <dt><code>sso_account_assignments</code></dt>
-  <dd>
-    SSO account assignments<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

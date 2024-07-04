@@ -102,7 +102,39 @@ The following data sources are used by this module:
 
   - [`aws_route53_zone.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>arn</code></dt>
+  <dd>
+    The ARN of the certificate<br/>
+
+  </dd>
+  <dt><code>domain_name</code></dt>
+  <dd>
+    Certificate domain name<br/>
+
+  </dd>
+  <dt><code>domain_validation_options</code></dt>
+  <dd>
+    CNAME records that are added to the DNS zone to complete certificate validation<br/>
+
+  </dd>
+  <dt><code>id</code></dt>
+  <dd>
+    The ID of the certificate<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -970,31 +1002,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>arn</code></dt>
-  <dd>
-    The ARN of the certificate<br/>
-
-  </dd>
-  <dt><code>domain_name</code></dt>
-  <dd>
-    Certificate domain name<br/>
-
-  </dd>
-  <dt><code>domain_validation_options</code></dt>
-  <dd>
-    CNAME records that are added to the DNS zone to complete certificate validation<br/>
-
-  </dd>
-  <dt><code>id</code></dt>
-  <dd>
-    The ID of the certificate<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

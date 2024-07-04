@@ -159,7 +159,39 @@ The following data sources are used by this module:
 
   - [`aws_caller_identity.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>delegated_administrator_account_id</code></dt>
+  <dd>
+    The AWS Account ID of the AWS Organization delegated administrator account<br/>
+
+  </dd>
+  <dt><code>macie_account_id</code></dt>
+  <dd>
+    The ID of the Macie account created by the component<br/>
+
+  </dd>
+  <dt><code>macie_service_role_arn</code></dt>
+  <dd>
+    The Amazon Resource Name (ARN) of the service-linked role that allows Macie to monitor and analyze data in AWS resources for the account.<br/>
+
+  </dd>
+  <dt><code>member_account_ids</code></dt>
+  <dd>
+    The AWS Account IDs of the member accounts<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -908,31 +940,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>delegated_administrator_account_id</code></dt>
-  <dd>
-    The AWS Account ID of the AWS Organization delegated administrator account<br/>
-
-  </dd>
-  <dt><code>macie_account_id</code></dt>
-  <dd>
-    The ID of the Macie account created by the component<br/>
-
-  </dd>
-  <dt><code>macie_service_role_arn</code></dt>
-  <dd>
-    The Amazon Resource Name (ARN) of the service-linked role that allows Macie to monitor and analyze data in AWS resources for the account.<br/>
-
-  </dd>
-  <dt><code>member_account_ids</code></dt>
-  <dd>
-    The AWS Account IDs of the member accounts<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

@@ -548,7 +548,129 @@ The following data sources are used by this module:
   - [`aws_iam_roles.sso_roles`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_roles) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>availability_zones</code></dt>
+  <dd>
+    Availability Zones in which the cluster is provisioned<br/>
+
+  </dd>
+  <dt><code>eks_addons_versions</code></dt>
+  <dd>
+    Map of enabled EKS Addons names and versions<br/>
+
+  </dd>
+  <dt><code>eks_auth_worker_roles</code></dt>
+  <dd>
+    List of worker IAM roles that were included in the `auth-map` ConfigMap.<br/>
+
+  </dd>
+  <dt><code>eks_cluster_arn</code></dt>
+  <dd>
+    The Amazon Resource Name (ARN) of the cluster<br/>
+
+  </dd>
+  <dt><code>eks_cluster_certificate_authority_data</code></dt>
+  <dd>
+    The Kubernetes cluster certificate authority data<br/>
+
+  </dd>
+  <dt><code>eks_cluster_endpoint</code></dt>
+  <dd>
+    The endpoint for the Kubernetes API server<br/>
+
+  </dd>
+  <dt><code>eks_cluster_id</code></dt>
+  <dd>
+    The name of the cluster<br/>
+
+  </dd>
+  <dt><code>eks_cluster_identity_oidc_issuer</code></dt>
+  <dd>
+    The OIDC Identity issuer for the cluster<br/>
+
+  </dd>
+  <dt><code>eks_cluster_managed_security_group_id</code></dt>
+  <dd>
+    Security Group ID that was created by EKS for the cluster. EKS creates a Security Group and applies it to ENI that is attached to EKS Control Plane master nodes and to any managed workloads<br/>
+
+  </dd>
+  <dt><code>eks_cluster_version</code></dt>
+  <dd>
+    The Kubernetes server version of the cluster<br/>
+
+  </dd>
+  <dt><code>eks_managed_node_workers_role_arns</code></dt>
+  <dd>
+    List of ARNs for workers in managed node groups<br/>
+
+  </dd>
+  <dt><code>eks_node_group_arns</code></dt>
+  <dd>
+    List of all the node group ARNs in the cluster<br/>
+
+  </dd>
+  <dt><code>eks_node_group_count</code></dt>
+  <dd>
+    Count of the worker nodes<br/>
+
+  </dd>
+  <dt><code>eks_node_group_ids</code></dt>
+  <dd>
+    EKS Cluster name and EKS Node Group name separated by a colon<br/>
+
+  </dd>
+  <dt><code>eks_node_group_role_names</code></dt>
+  <dd>
+    List of worker nodes IAM role names<br/>
+
+  </dd>
+  <dt><code>eks_node_group_statuses</code></dt>
+  <dd>
+    Status of the EKS Node Group<br/>
+
+  </dd>
+  <dt><code>fargate_profile_role_arns</code></dt>
+  <dd>
+    Fargate Profile Role ARNs<br/>
+
+  </dd>
+  <dt><code>fargate_profile_role_names</code></dt>
+  <dd>
+    Fargate Profile Role names<br/>
+
+  </dd>
+  <dt><code>fargate_profiles</code></dt>
+  <dd>
+    Fargate Profiles<br/>
+
+  </dd>
+  <dt><code>karpenter_iam_role_arn</code></dt>
+  <dd>
+    Karpenter IAM Role ARN<br/>
+
+  </dd>
+  <dt><code>karpenter_iam_role_name</code></dt>
+  <dd>
+    Karpenter IAM Role name<br/>
+
+  </dd>
+  <dt><code>vpc_cidr</code></dt>
+  <dd>
+    The CIDR of the VPC where this cluster is deployed.<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -2360,121 +2482,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>availability_zones</code></dt>
-  <dd>
-    Availability Zones in which the cluster is provisioned<br/>
-
-  </dd>
-  <dt><code>eks_addons_versions</code></dt>
-  <dd>
-    Map of enabled EKS Addons names and versions<br/>
-
-  </dd>
-  <dt><code>eks_auth_worker_roles</code></dt>
-  <dd>
-    List of worker IAM roles that were included in the `auth-map` ConfigMap.<br/>
-
-  </dd>
-  <dt><code>eks_cluster_arn</code></dt>
-  <dd>
-    The Amazon Resource Name (ARN) of the cluster<br/>
-
-  </dd>
-  <dt><code>eks_cluster_certificate_authority_data</code></dt>
-  <dd>
-    The Kubernetes cluster certificate authority data<br/>
-
-  </dd>
-  <dt><code>eks_cluster_endpoint</code></dt>
-  <dd>
-    The endpoint for the Kubernetes API server<br/>
-
-  </dd>
-  <dt><code>eks_cluster_id</code></dt>
-  <dd>
-    The name of the cluster<br/>
-
-  </dd>
-  <dt><code>eks_cluster_identity_oidc_issuer</code></dt>
-  <dd>
-    The OIDC Identity issuer for the cluster<br/>
-
-  </dd>
-  <dt><code>eks_cluster_managed_security_group_id</code></dt>
-  <dd>
-    Security Group ID that was created by EKS for the cluster. EKS creates a Security Group and applies it to ENI that is attached to EKS Control Plane master nodes and to any managed workloads<br/>
-
-  </dd>
-  <dt><code>eks_cluster_version</code></dt>
-  <dd>
-    The Kubernetes server version of the cluster<br/>
-
-  </dd>
-  <dt><code>eks_managed_node_workers_role_arns</code></dt>
-  <dd>
-    List of ARNs for workers in managed node groups<br/>
-
-  </dd>
-  <dt><code>eks_node_group_arns</code></dt>
-  <dd>
-    List of all the node group ARNs in the cluster<br/>
-
-  </dd>
-  <dt><code>eks_node_group_count</code></dt>
-  <dd>
-    Count of the worker nodes<br/>
-
-  </dd>
-  <dt><code>eks_node_group_ids</code></dt>
-  <dd>
-    EKS Cluster name and EKS Node Group name separated by a colon<br/>
-
-  </dd>
-  <dt><code>eks_node_group_role_names</code></dt>
-  <dd>
-    List of worker nodes IAM role names<br/>
-
-  </dd>
-  <dt><code>eks_node_group_statuses</code></dt>
-  <dd>
-    Status of the EKS Node Group<br/>
-
-  </dd>
-  <dt><code>fargate_profile_role_arns</code></dt>
-  <dd>
-    Fargate Profile Role ARNs<br/>
-
-  </dd>
-  <dt><code>fargate_profile_role_names</code></dt>
-  <dd>
-    Fargate Profile Role names<br/>
-
-  </dd>
-  <dt><code>fargate_profiles</code></dt>
-  <dd>
-    Fargate Profiles<br/>
-
-  </dd>
-  <dt><code>karpenter_iam_role_arn</code></dt>
-  <dd>
-    Karpenter IAM Role ARN<br/>
-
-  </dd>
-  <dt><code>karpenter_iam_role_name</code></dt>
-  <dd>
-    Karpenter IAM Role name<br/>
-
-  </dd>
-  <dt><code>vpc_cidr</code></dt>
-  <dd>
-    The CIDR of the VPC where this cluster is deployed.<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

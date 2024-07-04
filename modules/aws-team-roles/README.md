@@ -216,7 +216,24 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.support_access_aggregated`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_iam_policy_document.support_access_trusted_advisor`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>role_name_role_arn_map</code></dt>
+  <dd>
+    Map of role names to role ARNs<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -831,16 +848,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>role_name_role_arn_map</code></dt>
-  <dd>
-    Map of role names to role ARNs<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

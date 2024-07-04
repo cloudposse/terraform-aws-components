@@ -79,7 +79,54 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.kms_key_cloudtrail`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>cloudtrail_arn</code></dt>
+  <dd>
+    CloudTrail ARN<br/>
+
+  </dd>
+  <dt><code>cloudtrail_home_region</code></dt>
+  <dd>
+    The region in which CloudTrail was created<br/>
+
+  </dd>
+  <dt><code>cloudtrail_id</code></dt>
+  <dd>
+    CloudTrail ID<br/>
+
+  </dd>
+  <dt><code>cloudtrail_logs_log_group_arn</code></dt>
+  <dd>
+    CloudTrail Logs log group ARN<br/>
+
+  </dd>
+  <dt><code>cloudtrail_logs_log_group_name</code></dt>
+  <dd>
+    CloudTrail Logs log group name<br/>
+
+  </dd>
+  <dt><code>cloudtrail_logs_role_arn</code></dt>
+  <dd>
+    CloudTrail Logs role ARN<br/>
+
+  </dd>
+  <dt><code>cloudtrail_logs_role_name</code></dt>
+  <dd>
+    CloudTrail Logs role name<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `cloudtrail_bucket_environment_name` (`string`) <i>required</i>
 
 
@@ -844,46 +891,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>cloudtrail_arn</code></dt>
-  <dd>
-    CloudTrail ARN<br/>
-
-  </dd>
-  <dt><code>cloudtrail_home_region</code></dt>
-  <dd>
-    The region in which CloudTrail was created<br/>
-
-  </dd>
-  <dt><code>cloudtrail_id</code></dt>
-  <dd>
-    CloudTrail ID<br/>
-
-  </dd>
-  <dt><code>cloudtrail_logs_log_group_arn</code></dt>
-  <dd>
-    CloudTrail Logs log group ARN<br/>
-
-  </dd>
-  <dt><code>cloudtrail_logs_log_group_name</code></dt>
-  <dd>
-    CloudTrail Logs log group name<br/>
-
-  </dd>
-  <dt><code>cloudtrail_logs_role_arn</code></dt>
-  <dd>
-    CloudTrail Logs role ARN<br/>
-
-  </dd>
-  <dt><code>cloudtrail_logs_role_name</code></dt>
-  <dd>
-    CloudTrail Logs role name<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

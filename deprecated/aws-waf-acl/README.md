@@ -77,7 +77,24 @@ The following resources are used by this module:
 The following data sources are used by this module:
 
 
+## Outputs
+
+<dl>
+  <dt><code>acl</code></dt>
+  <dd>
+    Information about the created WAF ACL<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `acl_name` (`string`) <i>required</i>
 
 
@@ -1227,16 +1244,6 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>acl</code></dt>
-  <dd>
-    Information about the created WAF ACL<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 

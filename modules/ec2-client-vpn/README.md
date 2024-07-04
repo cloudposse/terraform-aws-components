@@ -118,7 +118,44 @@ Name | Version | Source | Description
 
 
 
+## Outputs
+
+<dl>
+  <dt><code>client_configuration</code></dt>
+  <dd>
+    VPN Client Configuration file (.ovpn) contents that can be imported into AWS client vpn<br/>
+
+  </dd>
+  <dt><code>full_client_configuration</code></dt>
+  <dd>
+    Client configuration including client certificate and private key for mutual authentication<br/>
+
+  </dd>
+  <dt><code>vpn_endpoint_arn</code></dt>
+  <dd>
+    The ARN of the Client VPN Endpoint Connection.<br/>
+
+  </dd>
+  <dt><code>vpn_endpoint_dns_name</code></dt>
+  <dd>
+    The DNS Name of the Client VPN Endpoint Connection.<br/>
+
+  </dd>
+  <dt><code>vpn_endpoint_id</code></dt>
+  <dd>
+    The ID of the Client VPN Endpoint Connection.<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `authorization_rules` <i>required</i>
 
 
@@ -997,36 +1034,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>client_configuration</code></dt>
-  <dd>
-    VPN Client Configuration file (.ovpn) contents that can be imported into AWS client vpn<br/>
-
-  </dd>
-  <dt><code>full_client_configuration</code></dt>
-  <dd>
-    Client configuration including client certificate and private key for mutual authentication<br/>
-
-  </dd>
-  <dt><code>vpn_endpoint_arn</code></dt>
-  <dd>
-    The ARN of the Client VPN Endpoint Connection.<br/>
-
-  </dd>
-  <dt><code>vpn_endpoint_dns_name</code></dt>
-  <dd>
-    The DNS Name of the Client VPN Endpoint Connection.<br/>
-
-  </dd>
-  <dt><code>vpn_endpoint_id</code></dt>
-  <dd>
-    The ID of the Client VPN Endpoint Connection.<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

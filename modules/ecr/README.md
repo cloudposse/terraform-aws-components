@@ -96,7 +96,49 @@ The following data sources are used by this module:
 
   - [`aws_iam_policy_document.ecr_user`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>ecr_repo_arn_map</code></dt>
+  <dd>
+    Map of image names to ARNs<br/>
+
+  </dd>
+  <dt><code>ecr_repo_url_map</code></dt>
+  <dd>
+    Map of image names to URLs<br/>
+
+  </dd>
+  <dt><code>ecr_user_arn</code></dt>
+  <dd>
+    ECR user ARN<br/>
+
+  </dd>
+  <dt><code>ecr_user_name</code></dt>
+  <dd>
+    ECR user name<br/>
+
+  </dd>
+  <dt><code>ecr_user_unique_id</code></dt>
+  <dd>
+    ECR user unique ID assigned by AWS<br/>
+
+  </dd>
+  <dt><code>repository_host</code></dt>
+  <dd>
+    ECR repository name<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `enable_lifecycle_policy` (`bool`) <i>required</i>
 
 
@@ -836,41 +878,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>ecr_repo_arn_map</code></dt>
-  <dd>
-    Map of image names to ARNs<br/>
-
-  </dd>
-  <dt><code>ecr_repo_url_map</code></dt>
-  <dd>
-    Map of image names to URLs<br/>
-
-  </dd>
-  <dt><code>ecr_user_arn</code></dt>
-  <dd>
-    ECR user ARN<br/>
-
-  </dd>
-  <dt><code>ecr_user_name</code></dt>
-  <dd>
-    ECR user name<br/>
-
-  </dd>
-  <dt><code>ecr_user_unique_id</code></dt>
-  <dd>
-    ECR user unique ID assigned by AWS<br/>
-
-  </dd>
-  <dt><code>repository_host</code></dt>
-  <dd>
-    ECR repository name<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

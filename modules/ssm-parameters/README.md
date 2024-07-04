@@ -68,7 +68,24 @@ The following data sources are used by this module:
 
   - [`sops_file.source`](https://registry.terraform.io/providers/carlpett/sops/latest/docs/data-sources/file) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>created_params</code></dt>
+  <dd>
+    The keys of created SSM parameter store resources.<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `params` <i>required</i>
 
 
@@ -694,16 +711,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>created_params</code></dt>
-  <dd>
-    The keys of created SSM parameter store resources.<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

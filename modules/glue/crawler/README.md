@@ -58,7 +58,34 @@ Name | Version | Source | Description
 
 
 
+## Outputs
+
+<dl>
+  <dt><code>crawler_arn</code></dt>
+  <dd>
+    Crawler ARN<br/>
+
+  </dd>
+  <dt><code>crawler_id</code></dt>
+  <dd>
+    Crawler ID<br/>
+
+  </dd>
+  <dt><code>crawler_name</code></dt>
+  <dd>
+    Crawler name<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `glue_catalog_database_component_name` (`string`) <i>required</i>
 
 
@@ -1022,26 +1049,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>crawler_arn</code></dt>
-  <dd>
-    Crawler ARN<br/>
-
-  </dd>
-  <dt><code>crawler_id</code></dt>
-  <dd>
-    Crawler ID<br/>
-
-  </dd>
-  <dt><code>crawler_name</code></dt>
-  <dd>
-    Crawler name<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

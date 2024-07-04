@@ -344,7 +344,49 @@ The following data sources are used by this module:
   - [`opsgenie_team.existing`](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/data-sources/team) (data source)
   - [`opsgenie_user.team_members`](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/data-sources/user) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>escalation</code></dt>
+  <dd>
+    Escalation rules created<br/>
+
+  </dd>
+  <dt><code>integration</code></dt>
+  <dd>
+    Integrations created<br/>
+
+  </dd>
+  <dt><code>routing</code></dt>
+  <dd>
+    Routing rules created<br/>
+
+  </dd>
+  <dt><code>team_id</code></dt>
+  <dd>
+    Team ID<br/>
+
+  </dd>
+  <dt><code>team_members</code></dt>
+  <dd>
+    Team members<br/>
+
+  </dd>
+  <dt><code>team_name</code></dt>
+  <dd>
+    Team Name<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -1201,41 +1243,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>escalation</code></dt>
-  <dd>
-    Escalation rules created<br/>
-
-  </dd>
-  <dt><code>integration</code></dt>
-  <dd>
-    Integrations created<br/>
-
-  </dd>
-  <dt><code>routing</code></dt>
-  <dd>
-    Routing rules created<br/>
-
-  </dd>
-  <dt><code>team_id</code></dt>
-  <dd>
-    Team ID<br/>
-
-  </dd>
-  <dt><code>team_members</code></dt>
-  <dd>
-    Team members<br/>
-
-  </dd>
-  <dt><code>team_name</code></dt>
-  <dd>
-    Team Name<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

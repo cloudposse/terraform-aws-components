@@ -52,7 +52,39 @@ Name | Version | Source | Description
 
 
 
+## Outputs
+
+<dl>
+  <dt><code>dns_name</code></dt>
+  <dd>
+    DNS name of the Global Accelerator.<br/>
+
+  </dd>
+  <dt><code>listener_ids</code></dt>
+  <dd>
+    Global Accelerator Listener IDs.<br/>
+
+  </dd>
+  <dt><code>name</code></dt>
+  <dd>
+    Name of the Global Accelerator.<br/>
+
+  </dd>
+  <dt><code>static_ips</code></dt>
+  <dd>
+    Global Static IPs owned by the Global Accelerator.<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -744,31 +776,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>dns_name</code></dt>
-  <dd>
-    DNS name of the Global Accelerator.<br/>
-
-  </dd>
-  <dt><code>listener_ids</code></dt>
-  <dd>
-    Global Accelerator Listener IDs.<br/>
-
-  </dd>
-  <dt><code>name</code></dt>
-  <dd>
-    Name of the Global Accelerator.<br/>
-
-  </dd>
-  <dt><code>static_ips</code></dt>
-  <dd>
-    Global Static IPs owned by the Global Accelerator.<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

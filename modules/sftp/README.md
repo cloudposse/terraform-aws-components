@@ -65,7 +65,24 @@ The following data sources are used by this module:
   - [`aws_route53_zone.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) (data source)
   - [`aws_s3_bucket.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_bucket) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>sftp</code></dt>
+  <dd>
+    The SFTP module outputs<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `hosted_zone_suffix` (`string`) <i>required</i>
 
 
@@ -897,16 +914,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>sftp</code></dt>
-  <dd>
-    The SFTP module outputs<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

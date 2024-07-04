@@ -126,7 +126,44 @@ The following data sources are used by this module:
 
   - [`aws_ssm_parameter.snowflake_password`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>snowflake_account</code></dt>
+  <dd>
+    The Snowflake account ID.<br/>
+
+  </dd>
+  <dt><code>snowflake_region</code></dt>
+  <dd>
+    The AWS Region with the Snowflake account.<br/>
+
+  </dd>
+  <dt><code>snowflake_terraform_role</code></dt>
+  <dd>
+    The name of the role given to the Terraform service user.<br/>
+
+  </dd>
+  <dt><code>ssm_path_terraform_user_name</code></dt>
+  <dd>
+    The path to the SSM parameter for the Terraform user name.<br/>
+
+  </dd>
+  <dt><code>ssm_path_terraform_user_private_key</code></dt>
+  <dd>
+    The path to the SSM parameter for the Terraform user private key.<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -950,36 +987,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>snowflake_account</code></dt>
-  <dd>
-    The Snowflake account ID.<br/>
-
-  </dd>
-  <dt><code>snowflake_region</code></dt>
-  <dd>
-    The AWS Region with the Snowflake account.<br/>
-
-  </dd>
-  <dt><code>snowflake_terraform_role</code></dt>
-  <dd>
-    The name of the role given to the Terraform service user.<br/>
-
-  </dd>
-  <dt><code>ssm_path_terraform_user_name</code></dt>
-  <dd>
-    The path to the SSM parameter for the Terraform user name.<br/>
-
-  </dd>
-  <dt><code>ssm_path_terraform_user_private_key</code></dt>
-  <dd>
-    The path to the SSM parameter for the Terraform user private key.<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

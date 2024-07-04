@@ -349,7 +349,54 @@ The following data sources are used by this module:
   - [`aws_ssm_parameter.github_token`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`cloudinit_config.config`](https://registry.terraform.io/providers/hashicorp/cloudinit/latest/docs/data-sources/config) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>autoscaling_group_arn</code></dt>
+  <dd>
+    The Amazon Resource Name (ARN) of the Auto Scaling Group.<br/>
+
+  </dd>
+  <dt><code>autoscaling_group_name</code></dt>
+  <dd>
+    The name of the Auto Scaling Group.<br/>
+
+  </dd>
+  <dt><code>autoscaling_lifecycle_hook_name</code></dt>
+  <dd>
+    The name of the Lifecycle Hook for the Auto Scaling Group.<br/>
+
+  </dd>
+  <dt><code>eventbridge_rule_arn</code></dt>
+  <dd>
+    The ARN of the Eventbridge rule for the EC2 lifecycle transition.<br/>
+
+  </dd>
+  <dt><code>eventbridge_target_arn</code></dt>
+  <dd>
+    The ARN of the Eventbridge target corresponding to the Eventbridge rule for the EC2 lifecycle transition.<br/>
+
+  </dd>
+  <dt><code>iam_role_arn</code></dt>
+  <dd>
+    The ARN of the IAM role associated with the Autoscaling Group<br/>
+
+  </dd>
+  <dt><code>ssm_document_arn</code></dt>
+  <dd>
+    The ARN of the SSM document.<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `github_scope` (`string`) <i>required</i>
 
 
@@ -1599,46 +1646,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>autoscaling_group_arn</code></dt>
-  <dd>
-    The Amazon Resource Name (ARN) of the Auto Scaling Group.<br/>
-
-  </dd>
-  <dt><code>autoscaling_group_name</code></dt>
-  <dd>
-    The name of the Auto Scaling Group.<br/>
-
-  </dd>
-  <dt><code>autoscaling_lifecycle_hook_name</code></dt>
-  <dd>
-    The name of the Lifecycle Hook for the Auto Scaling Group.<br/>
-
-  </dd>
-  <dt><code>eventbridge_rule_arn</code></dt>
-  <dd>
-    The ARN of the Eventbridge rule for the EC2 lifecycle transition.<br/>
-
-  </dd>
-  <dt><code>eventbridge_target_arn</code></dt>
-  <dd>
-    The ARN of the Eventbridge target corresponding to the Eventbridge rule for the EC2 lifecycle transition.<br/>
-
-  </dd>
-  <dt><code>iam_role_arn</code></dt>
-  <dd>
-    The ARN of the IAM role associated with the Autoscaling Group<br/>
-
-  </dd>
-  <dt><code>ssm_document_arn</code></dt>
-  <dd>
-    The ARN of the SSM document.<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

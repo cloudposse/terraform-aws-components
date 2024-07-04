@@ -69,7 +69,29 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.assume_role`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_iam_policy_document.github_oidc_provider_assume`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>github_assume_role_policy</code></dt>
+  <dd>
+    JSON encoded string representing the "Assume Role" policy configured by the inputs<br/>
+
+  </dd>
+  <dt><code>policy_document</code></dt>
+  <dd>
+    JSON encoded string representing the "Assume Role" policy configured by the inputs<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 
 ## Optional Variables
 ### `allowed_permission_sets` (`map(list(string))`) <i>optional</i>
@@ -817,20 +839,5 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>github_assume_role_policy</code></dt>
-  <dd>
-    JSON encoded string representing the "Assume Role" policy configured by the inputs<br/>
-
-  </dd>
-  <dt><code>policy_document</code></dt>
-  <dd>
-    JSON encoded string representing the "Assume Role" policy configured by the inputs<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->

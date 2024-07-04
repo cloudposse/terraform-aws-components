@@ -74,7 +74,34 @@ The following data sources are used by this module:
 
   - [`aws_iam_policy_document.glue_job_aws_tools_access`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>job_arn</code></dt>
+  <dd>
+    Glue job ARN<br/>
+
+  </dd>
+  <dt><code>job_id</code></dt>
+  <dd>
+    Glue job ID<br/>
+
+  </dd>
+  <dt><code>job_name</code></dt>
+  <dd>
+    Glue job name<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -1042,26 +1069,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>job_arn</code></dt>
-  <dd>
-    Glue job ARN<br/>
-
-  </dd>
-  <dt><code>job_id</code></dt>
-  <dd>
-    Glue job ID<br/>
-
-  </dd>
-  <dt><code>job_name</code></dt>
-  <dd>
-    Glue job name<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

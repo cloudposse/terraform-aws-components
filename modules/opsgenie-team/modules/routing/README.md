@@ -47,7 +47,29 @@ The following data sources are used by this module:
   - [`opsgenie_service.incident_service`](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/data-sources/service) (data source)
   - [`opsgenie_team.default`](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/data-sources/team) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>service_incident_rule</code></dt>
+  <dd>
+    Service incident rules for incidents<br/>
+
+  </dd>
+  <dt><code>team_routing_rule</code></dt>
+  <dd>
+    Team routing rules for alerts<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `criteria` <i>required</i>
 
 
@@ -817,20 +839,5 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>service_incident_rule</code></dt>
-  <dd>
-    Service incident rules for incidents<br/>
-
-  </dd>
-  <dt><code>team_routing_rule</code></dt>
-  <dd>
-    Team routing rules for alerts<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->

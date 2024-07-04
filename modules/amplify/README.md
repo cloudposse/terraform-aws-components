@@ -176,7 +176,64 @@ The following data sources are used by this module:
 
   - [`aws_ssm_parameter.github_pat`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>arn</code></dt>
+  <dd>
+    Amplify App ARN <br/>
+
+  </dd>
+  <dt><code>backend_environments</code></dt>
+  <dd>
+    Created backend environments<br/>
+
+  </dd>
+  <dt><code>branch_names</code></dt>
+  <dd>
+    The names of the created Amplify branches<br/>
+
+  </dd>
+  <dt><code>default_domain</code></dt>
+  <dd>
+    Amplify App domain (non-custom)<br/>
+
+  </dd>
+  <dt><code>domain_association_arn</code></dt>
+  <dd>
+    ARN of the domain association<br/>
+
+  </dd>
+  <dt><code>domain_association_certificate_verification_dns_record</code></dt>
+  <dd>
+    The DNS record for certificate verification<br/>
+
+  </dd>
+  <dt><code>name</code></dt>
+  <dd>
+    Amplify App name<br/>
+
+  </dd>
+  <dt><code>sub_domains</code></dt>
+  <dd>
+    DNS records and the verified status for the subdomains<br/>
+
+  </dd>
+  <dt><code>webhooks</code></dt>
+  <dd>
+    Created webhooks<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -1290,56 +1347,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>arn</code></dt>
-  <dd>
-    Amplify App ARN <br/>
-
-  </dd>
-  <dt><code>backend_environments</code></dt>
-  <dd>
-    Created backend environments<br/>
-
-  </dd>
-  <dt><code>branch_names</code></dt>
-  <dd>
-    The names of the created Amplify branches<br/>
-
-  </dd>
-  <dt><code>default_domain</code></dt>
-  <dd>
-    Amplify App domain (non-custom)<br/>
-
-  </dd>
-  <dt><code>domain_association_arn</code></dt>
-  <dd>
-    ARN of the domain association<br/>
-
-  </dd>
-  <dt><code>domain_association_certificate_verification_dns_record</code></dt>
-  <dd>
-    The DNS record for certificate verification<br/>
-
-  </dd>
-  <dt><code>name</code></dt>
-  <dd>
-    Amplify App name<br/>
-
-  </dd>
-  <dt><code>sub_domains</code></dt>
-  <dd>
-    DNS records and the verified status for the subdomains<br/>
-
-  </dd>
-  <dt><code>webhooks</code></dt>
-  <dd>
-    Created webhooks<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

@@ -193,7 +193,49 @@ The following data sources are used by this module:
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
   - [`aws_route53_zone.root_zone`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>acm_ssm_parameter</code></dt>
+  <dd>
+    The SSM parameter for the ACM cert.<br/>
+
+  </dd>
+  <dt><code>certificate</code></dt>
+  <dd>
+    The ACM certificate information.<br/>
+
+  </dd>
+  <dt><code>default_dns_zone_id</code></dt>
+  <dd>
+    Default root DNS zone ID for the cluster<br/>
+
+  </dd>
+  <dt><code>default_domain_name</code></dt>
+  <dd>
+    Default root domain name (e.g. dev.example.net) for the cluster<br/>
+
+  </dd>
+  <dt><code>route53_hosted_zone_protections</code></dt>
+  <dd>
+    List of AWS Shield Advanced Protections for Route53 Hosted Zones.<br/>
+
+  </dd>
+  <dt><code>zones</code></dt>
+  <dd>
+    Subdomain and zone config<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -1013,41 +1055,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>acm_ssm_parameter</code></dt>
-  <dd>
-    The SSM parameter for the ACM cert.<br/>
-
-  </dd>
-  <dt><code>certificate</code></dt>
-  <dd>
-    The ACM certificate information.<br/>
-
-  </dd>
-  <dt><code>default_dns_zone_id</code></dt>
-  <dd>
-    Default root DNS zone ID for the cluster<br/>
-
-  </dd>
-  <dt><code>default_domain_name</code></dt>
-  <dd>
-    Default root domain name (e.g. dev.example.net) for the cluster<br/>
-
-  </dd>
-  <dt><code>route53_hosted_zone_protections</code></dt>
-  <dd>
-    List of AWS Shield Advanced Protections for Route53 Hosted Zones.<br/>
-
-  </dd>
-  <dt><code>zones</code></dt>
-  <dd>
-    Subdomain and zone config<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

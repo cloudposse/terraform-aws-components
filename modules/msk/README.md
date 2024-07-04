@@ -96,7 +96,119 @@ Name | Version | Source | Description
 
 
 
+## Outputs
+
+<dl>
+  <dt><code>bootstrap_brokers</code></dt>
+  <dd>
+    Comma separated list of one or more hostname:port pairs of Kafka brokers suitable to bootstrap connectivity to the Kafka cluster<br/>
+
+  </dd>
+  <dt><code>bootstrap_brokers_public_sasl_iam</code></dt>
+  <dd>
+    Comma separated list of one or more DNS names (or IP addresses) and SASL IAM port pairs for public access to the Kafka cluster using SASL/IAM<br/>
+
+  </dd>
+  <dt><code>bootstrap_brokers_public_sasl_scram</code></dt>
+  <dd>
+    Comma separated list of one or more DNS names (or IP addresses) and SASL SCRAM port pairs for public access to the Kafka cluster using SASL/SCRAM<br/>
+
+  </dd>
+  <dt><code>bootstrap_brokers_public_tls</code></dt>
+  <dd>
+    Comma separated list of one or more DNS names (or IP addresses) and TLS port pairs for public access to the Kafka cluster using TLS<br/>
+
+  </dd>
+  <dt><code>bootstrap_brokers_sasl_iam</code></dt>
+  <dd>
+    Comma separated list of one or more DNS names (or IP addresses) and SASL IAM port pairs for access to the Kafka cluster using SASL/IAM<br/>
+
+  </dd>
+  <dt><code>bootstrap_brokers_sasl_scram</code></dt>
+  <dd>
+    Comma separated list of one or more DNS names (or IP addresses) and SASL SCRAM port pairs for access to the Kafka cluster using SASL/SCRAM<br/>
+
+  </dd>
+  <dt><code>bootstrap_brokers_tls</code></dt>
+  <dd>
+    Comma separated list of one or more DNS names (or IP addresses) and TLS port pairs for access to the Kafka cluster using TLS<br/>
+
+  </dd>
+  <dt><code>broker_endpoints</code></dt>
+  <dd>
+    List of broker endpoints<br/>
+
+  </dd>
+  <dt><code>cluster_arn</code></dt>
+  <dd>
+    Amazon Resource Name (ARN) of the MSK cluster<br/>
+
+  </dd>
+  <dt><code>cluster_name</code></dt>
+  <dd>
+    The cluster name of the MSK cluster<br/>
+
+  </dd>
+  <dt><code>config_arn</code></dt>
+  <dd>
+    Amazon Resource Name (ARN) of the MSK configuration<br/>
+
+  </dd>
+  <dt><code>current_version</code></dt>
+  <dd>
+    Current version of the MSK Cluster<br/>
+
+  </dd>
+  <dt><code>hostnames</code></dt>
+  <dd>
+    List of MSK Cluster broker DNS hostnames<br/>
+
+  </dd>
+  <dt><code>latest_revision</code></dt>
+  <dd>
+    Latest revision of the MSK configuration<br/>
+
+  </dd>
+  <dt><code>security_group_arn</code></dt>
+  <dd>
+    The ARN of the created security group<br/>
+
+  </dd>
+  <dt><code>security_group_id</code></dt>
+  <dd>
+    The ID of the created security group<br/>
+
+  </dd>
+  <dt><code>security_group_name</code></dt>
+  <dd>
+    The name of the created security group<br/>
+
+  </dd>
+  <dt><code>storage_mode</code></dt>
+  <dd>
+    Storage mode for supported storage tiers<br/>
+
+  </dd>
+  <dt><code>zookeeper_connect_string</code></dt>
+  <dd>
+    Comma separated list of one or more hostname:port pairs to connect to the Apache Zookeeper cluster<br/>
+
+  </dd>
+  <dt><code>zookeeper_connect_string_tls</code></dt>
+  <dd>
+    Comma separated list of one or more hostname:port pairs to connect to the Apache Zookeeper cluster via TLS<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `broker_instance_type` (`string`) <i>required</i>
 
 
@@ -1700,111 +1812,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>bootstrap_brokers</code></dt>
-  <dd>
-    Comma separated list of one or more hostname:port pairs of Kafka brokers suitable to bootstrap connectivity to the Kafka cluster<br/>
-
-  </dd>
-  <dt><code>bootstrap_brokers_public_sasl_iam</code></dt>
-  <dd>
-    Comma separated list of one or more DNS names (or IP addresses) and SASL IAM port pairs for public access to the Kafka cluster using SASL/IAM<br/>
-
-  </dd>
-  <dt><code>bootstrap_brokers_public_sasl_scram</code></dt>
-  <dd>
-    Comma separated list of one or more DNS names (or IP addresses) and SASL SCRAM port pairs for public access to the Kafka cluster using SASL/SCRAM<br/>
-
-  </dd>
-  <dt><code>bootstrap_brokers_public_tls</code></dt>
-  <dd>
-    Comma separated list of one or more DNS names (or IP addresses) and TLS port pairs for public access to the Kafka cluster using TLS<br/>
-
-  </dd>
-  <dt><code>bootstrap_brokers_sasl_iam</code></dt>
-  <dd>
-    Comma separated list of one or more DNS names (or IP addresses) and SASL IAM port pairs for access to the Kafka cluster using SASL/IAM<br/>
-
-  </dd>
-  <dt><code>bootstrap_brokers_sasl_scram</code></dt>
-  <dd>
-    Comma separated list of one or more DNS names (or IP addresses) and SASL SCRAM port pairs for access to the Kafka cluster using SASL/SCRAM<br/>
-
-  </dd>
-  <dt><code>bootstrap_brokers_tls</code></dt>
-  <dd>
-    Comma separated list of one or more DNS names (or IP addresses) and TLS port pairs for access to the Kafka cluster using TLS<br/>
-
-  </dd>
-  <dt><code>broker_endpoints</code></dt>
-  <dd>
-    List of broker endpoints<br/>
-
-  </dd>
-  <dt><code>cluster_arn</code></dt>
-  <dd>
-    Amazon Resource Name (ARN) of the MSK cluster<br/>
-
-  </dd>
-  <dt><code>cluster_name</code></dt>
-  <dd>
-    The cluster name of the MSK cluster<br/>
-
-  </dd>
-  <dt><code>config_arn</code></dt>
-  <dd>
-    Amazon Resource Name (ARN) of the MSK configuration<br/>
-
-  </dd>
-  <dt><code>current_version</code></dt>
-  <dd>
-    Current version of the MSK Cluster<br/>
-
-  </dd>
-  <dt><code>hostnames</code></dt>
-  <dd>
-    List of MSK Cluster broker DNS hostnames<br/>
-
-  </dd>
-  <dt><code>latest_revision</code></dt>
-  <dd>
-    Latest revision of the MSK configuration<br/>
-
-  </dd>
-  <dt><code>security_group_arn</code></dt>
-  <dd>
-    The ARN of the created security group<br/>
-
-  </dd>
-  <dt><code>security_group_id</code></dt>
-  <dd>
-    The ID of the created security group<br/>
-
-  </dd>
-  <dt><code>security_group_name</code></dt>
-  <dd>
-    The name of the created security group<br/>
-
-  </dd>
-  <dt><code>storage_mode</code></dt>
-  <dd>
-    Storage mode for supported storage tiers<br/>
-
-  </dd>
-  <dt><code>zookeeper_connect_string</code></dt>
-  <dd>
-    Comma separated list of one or more hostname:port pairs to connect to the Apache Zookeeper cluster<br/>
-
-  </dd>
-  <dt><code>zookeeper_connect_string_tls</code></dt>
-  <dd>
-    Comma separated list of one or more hostname:port pairs to connect to the Apache Zookeeper cluster via TLS<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

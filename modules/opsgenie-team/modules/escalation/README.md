@@ -68,7 +68,29 @@ The following data sources are used by this module:
   - [`opsgenie_team.recipient`](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/data-sources/team) (data source)
   - [`opsgenie_user.recipient`](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/data-sources/user) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>escalation_id</code></dt>
+  <dd>
+    The ID of the Opsgenie Escalation<br/>
+
+  </dd>
+  <dt><code>escalation_name</code></dt>
+  <dd>
+    Name of the Opsgenie Escalation<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 
 ## Optional Variables
 ### `escalation` (`any`) <i>optional</i>
@@ -640,20 +662,5 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>escalation_id</code></dt>
-  <dd>
-    The ID of the Opsgenie Escalation<br/>
-
-  </dd>
-  <dt><code>escalation_name</code></dt>
-  <dd>
-    Name of the Opsgenie Escalation<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->

@@ -264,7 +264,49 @@ Name | Version | Source | Description
 
 
 
+## Outputs
+
+<dl>
+  <dt><code>az_subnet_endpoint_stats</code></dt>
+  <dd>
+    List of objects with each object having three items: AZ, subnet ID, VPC endpoint ID<br/>
+
+  </dd>
+  <dt><code>network_firewall_arn</code></dt>
+  <dd>
+    Network Firewall ARN<br/>
+
+  </dd>
+  <dt><code>network_firewall_name</code></dt>
+  <dd>
+    Network Firewall name<br/>
+
+  </dd>
+  <dt><code>network_firewall_policy_arn</code></dt>
+  <dd>
+    Network Firewall policy ARN<br/>
+
+  </dd>
+  <dt><code>network_firewall_policy_name</code></dt>
+  <dd>
+    Network Firewall policy name<br/>
+
+  </dd>
+  <dt><code>network_firewall_status</code></dt>
+  <dd>
+    Nested list of information about the current status of the Network Firewall<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -1200,41 +1242,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>az_subnet_endpoint_stats</code></dt>
-  <dd>
-    List of objects with each object having three items: AZ, subnet ID, VPC endpoint ID<br/>
-
-  </dd>
-  <dt><code>network_firewall_arn</code></dt>
-  <dd>
-    Network Firewall ARN<br/>
-
-  </dd>
-  <dt><code>network_firewall_name</code></dt>
-  <dd>
-    Network Firewall name<br/>
-
-  </dd>
-  <dt><code>network_firewall_policy_arn</code></dt>
-  <dd>
-    Network Firewall policy ARN<br/>
-
-  </dd>
-  <dt><code>network_firewall_policy_name</code></dt>
-  <dd>
-    Network Firewall policy name<br/>
-
-  </dd>
-  <dt><code>network_firewall_status</code></dt>
-  <dd>
-    Nested list of information about the current status of the Network Firewall<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

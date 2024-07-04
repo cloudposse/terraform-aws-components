@@ -85,7 +85,52 @@ The following data sources are used by this module:
   - [`aws_acm_certificate.issued`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/acm_certificate) (data source)
   - [`aws_route53_zone.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>arn</code></dt>
+  <dd>
+    The ARN of the REST API<br/>
+
+  </dd>
+  <dt><code>created_date</code></dt>
+  <dd>
+    The date the REST API was created<br/>
+
+  </dd>
+  <dt><code>execution_arn</code></dt>
+  <dd>
+        The execution ARN part to be used in lambda_permission's source_arn when allowing API Gateway to invoke a Lambda<br/>
+        function, e.g., arn:aws:execute-api:eu-west-2:123456789012:z4675bid1j, which can be concatenated with allowed stage,<br/>
+        method and resource path.The ARN of the Lambda function that will be executed.<br/>
+    <br/>
+
+  </dd>
+  <dt><code>id</code></dt>
+  <dd>
+    The ID of the REST API<br/>
+
+  </dd>
+  <dt><code>invoke_url</code></dt>
+  <dd>
+    The URL to invoke the REST API<br/>
+
+  </dd>
+  <dt><code>root_resource_id</code></dt>
+  <dd>
+    The resource ID of the REST API's root<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -846,44 +891,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>arn</code></dt>
-  <dd>
-    The ARN of the REST API<br/>
-
-  </dd>
-  <dt><code>created_date</code></dt>
-  <dd>
-    The date the REST API was created<br/>
-
-  </dd>
-  <dt><code>execution_arn</code></dt>
-  <dd>
-        The execution ARN part to be used in lambda_permission's source_arn when allowing API Gateway to invoke a Lambda<br/>
-        function, e.g., arn:aws:execute-api:eu-west-2:123456789012:z4675bid1j, which can be concatenated with allowed stage,<br/>
-        method and resource path.The ARN of the Lambda function that will be executed.<br/>
-    <br/>
-
-  </dd>
-  <dt><code>id</code></dt>
-  <dd>
-    The ID of the REST API<br/>
-
-  </dd>
-  <dt><code>invoke_url</code></dt>
-  <dd>
-    The URL to invoke the REST API<br/>
-
-  </dd>
-  <dt><code>root_resource_id</code></dt>
-  <dd>
-    The resource ID of the REST API's root<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

@@ -73,7 +73,44 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.kms_key_ses`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>smtp_password</code></dt>
+  <dd>
+    The SMTP password. This will be written to the state file in plain text.<br/>
+
+  </dd>
+  <dt><code>smtp_user</code></dt>
+  <dd>
+    Access key ID of the IAM user with permission to send emails from SES domain<br/>
+
+  </dd>
+  <dt><code>user_arn</code></dt>
+  <dd>
+    The ARN the IAM user with permission to send emails from SES domain<br/>
+
+  </dd>
+  <dt><code>user_name</code></dt>
+  <dd>
+    Normalized name of the IAM user with permission to send emails from SES domain<br/>
+
+  </dd>
+  <dt><code>user_unique_id</code></dt>
+  <dd>
+    The unique ID of the IAM user with permission to send emails from SES domain<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `domain_template` (`string`) <i>required</i>
 
 
@@ -666,36 +703,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>smtp_password</code></dt>
-  <dd>
-    The SMTP password. This will be written to the state file in plain text.<br/>
-
-  </dd>
-  <dt><code>smtp_user</code></dt>
-  <dd>
-    Access key ID of the IAM user with permission to send emails from SES domain<br/>
-
-  </dd>
-  <dt><code>user_arn</code></dt>
-  <dd>
-    The ARN the IAM user with permission to send emails from SES domain<br/>
-
-  </dd>
-  <dt><code>user_name</code></dt>
-  <dd>
-    Normalized name of the IAM user with permission to send emails from SES domain<br/>
-
-  </dd>
-  <dt><code>user_unique_id</code></dt>
-  <dd>
-    The unique ID of the IAM user with permission to send emails from SES domain<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

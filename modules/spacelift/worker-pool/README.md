@@ -177,7 +177,109 @@ The following data sources are used by this module:
   - [`aws_ssm_parameter.spacelift_key_secret`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`cloudinit_config.config`](https://registry.terraform.io/providers/hashicorp/cloudinit/latest/docs/data-sources/config) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>autoscaling_group_arn</code></dt>
+  <dd>
+    The ARN for this AutoScaling Group<br/>
+
+  </dd>
+  <dt><code>autoscaling_group_default_cooldown</code></dt>
+  <dd>
+    Time between a scaling activity and the succeeding scaling activity<br/>
+
+  </dd>
+  <dt><code>autoscaling_group_health_check_grace_period</code></dt>
+  <dd>
+    Time after instance comes into service before checking health<br/>
+
+  </dd>
+  <dt><code>autoscaling_group_health_check_type</code></dt>
+  <dd>
+    `EC2` or `ELB`. Controls how health checking is done<br/>
+
+  </dd>
+  <dt><code>autoscaling_group_id</code></dt>
+  <dd>
+    The autoscaling group id<br/>
+
+  </dd>
+  <dt><code>autoscaling_group_max_size</code></dt>
+  <dd>
+    The maximum size of the autoscale group<br/>
+
+  </dd>
+  <dt><code>autoscaling_group_min_size</code></dt>
+  <dd>
+    The minimum size of the autoscale group<br/>
+
+  </dd>
+  <dt><code>autoscaling_group_name</code></dt>
+  <dd>
+    The autoscaling group name<br/>
+
+  </dd>
+  <dt><code>iam_role_arn</code></dt>
+  <dd>
+    Spacelift IAM Role ARN<br/>
+
+  </dd>
+  <dt><code>iam_role_id</code></dt>
+  <dd>
+    Spacelift IAM Role ID<br/>
+
+  </dd>
+  <dt><code>iam_role_name</code></dt>
+  <dd>
+    Spacelift IAM Role name<br/>
+
+  </dd>
+  <dt><code>launch_template_arn</code></dt>
+  <dd>
+    The ARN of the launch template<br/>
+
+  </dd>
+  <dt><code>launch_template_id</code></dt>
+  <dd>
+    The ID of the launch template<br/>
+
+  </dd>
+  <dt><code>security_group_arn</code></dt>
+  <dd>
+    Spacelift Security Group ARN<br/>
+
+  </dd>
+  <dt><code>security_group_id</code></dt>
+  <dd>
+    Spacelift Security Group ID<br/>
+
+  </dd>
+  <dt><code>security_group_name</code></dt>
+  <dd>
+    Spacelift Security Group Name<br/>
+
+  </dd>
+  <dt><code>worker_pool_id</code></dt>
+  <dd>
+    Spacelift worker pool ID<br/>
+
+  </dd>
+  <dt><code>worker_pool_name</code></dt>
+  <dd>
+    Spacelift worker pool name<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `cpu_utilization_high_threshold_percent` (`number`) <i>required</i>
 
 
@@ -1821,101 +1923,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>autoscaling_group_arn</code></dt>
-  <dd>
-    The ARN for this AutoScaling Group<br/>
-
-  </dd>
-  <dt><code>autoscaling_group_default_cooldown</code></dt>
-  <dd>
-    Time between a scaling activity and the succeeding scaling activity<br/>
-
-  </dd>
-  <dt><code>autoscaling_group_health_check_grace_period</code></dt>
-  <dd>
-    Time after instance comes into service before checking health<br/>
-
-  </dd>
-  <dt><code>autoscaling_group_health_check_type</code></dt>
-  <dd>
-    `EC2` or `ELB`. Controls how health checking is done<br/>
-
-  </dd>
-  <dt><code>autoscaling_group_id</code></dt>
-  <dd>
-    The autoscaling group id<br/>
-
-  </dd>
-  <dt><code>autoscaling_group_max_size</code></dt>
-  <dd>
-    The maximum size of the autoscale group<br/>
-
-  </dd>
-  <dt><code>autoscaling_group_min_size</code></dt>
-  <dd>
-    The minimum size of the autoscale group<br/>
-
-  </dd>
-  <dt><code>autoscaling_group_name</code></dt>
-  <dd>
-    The autoscaling group name<br/>
-
-  </dd>
-  <dt><code>iam_role_arn</code></dt>
-  <dd>
-    Spacelift IAM Role ARN<br/>
-
-  </dd>
-  <dt><code>iam_role_id</code></dt>
-  <dd>
-    Spacelift IAM Role ID<br/>
-
-  </dd>
-  <dt><code>iam_role_name</code></dt>
-  <dd>
-    Spacelift IAM Role name<br/>
-
-  </dd>
-  <dt><code>launch_template_arn</code></dt>
-  <dd>
-    The ARN of the launch template<br/>
-
-  </dd>
-  <dt><code>launch_template_id</code></dt>
-  <dd>
-    The ID of the launch template<br/>
-
-  </dd>
-  <dt><code>security_group_arn</code></dt>
-  <dd>
-    Spacelift Security Group ARN<br/>
-
-  </dd>
-  <dt><code>security_group_id</code></dt>
-  <dd>
-    Spacelift Security Group ID<br/>
-
-  </dd>
-  <dt><code>security_group_name</code></dt>
-  <dd>
-    Spacelift Security Group Name<br/>
-
-  </dd>
-  <dt><code>worker_pool_id</code></dt>
-  <dd>
-    Spacelift worker pool ID<br/>
-
-  </dd>
-  <dt><code>worker_pool_name</code></dt>
-  <dd>
-    Spacelift worker pool name<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

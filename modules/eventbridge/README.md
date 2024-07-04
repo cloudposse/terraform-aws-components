@@ -77,7 +77,39 @@ The following data sources are used by this module:
 
   - [`aws_iam_policy_document.eventbridge_cloudwatch_logs_policy`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>cloudwatch_event_rule_arn</code></dt>
+  <dd>
+    The ARN of the CloudWatch Event Rule<br/>
+
+  </dd>
+  <dt><code>cloudwatch_event_rule_name</code></dt>
+  <dd>
+    The name of the CloudWatch Event Rule<br/>
+
+  </dd>
+  <dt><code>cloudwatch_logs_log_group_arn</code></dt>
+  <dd>
+    The ARN of the CloudWatch Log Group<br/>
+
+  </dd>
+  <dt><code>cloudwatch_logs_log_group_name</code></dt>
+  <dd>
+    The name of the CloudWatch Log Group<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -686,31 +718,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>cloudwatch_event_rule_arn</code></dt>
-  <dd>
-    The ARN of the CloudWatch Event Rule<br/>
-
-  </dd>
-  <dt><code>cloudwatch_event_rule_name</code></dt>
-  <dd>
-    The name of the CloudWatch Event Rule<br/>
-
-  </dd>
-  <dt><code>cloudwatch_logs_log_group_arn</code></dt>
-  <dd>
-    The ARN of the CloudWatch Log Group<br/>
-
-  </dd>
-  <dt><code>cloudwatch_logs_log_group_name</code></dt>
-  <dd>
-    The name of the CloudWatch Log Group<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

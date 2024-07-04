@@ -181,7 +181,39 @@ Name | Version | Source | Description
 
 
 
+## Outputs
+
+<dl>
+  <dt><code>datadog_synthetics_test_ids</code></dt>
+  <dd>
+    IDs of the created Datadog synthetic tests<br/>
+
+  </dd>
+  <dt><code>datadog_synthetics_test_maps</code></dt>
+  <dd>
+    Map (name: id) of the created Datadog synthetic tests<br/>
+
+  </dd>
+  <dt><code>datadog_synthetics_test_monitor_ids</code></dt>
+  <dd>
+    IDs of the monitors associated with the Datadog synthetics tests<br/>
+
+  </dd>
+  <dt><code>datadog_synthetics_test_names</code></dt>
+  <dd>
+    Names of the created Datadog synthetic tests<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -939,31 +971,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>datadog_synthetics_test_ids</code></dt>
-  <dd>
-    IDs of the created Datadog synthetic tests<br/>
-
-  </dd>
-  <dt><code>datadog_synthetics_test_maps</code></dt>
-  <dd>
-    Map (name: id) of the created Datadog synthetic tests<br/>
-
-  </dd>
-  <dt><code>datadog_synthetics_test_monitor_ids</code></dt>
-  <dd>
-    IDs of the monitors associated with the Datadog synthetics tests<br/>
-
-  </dd>
-  <dt><code>datadog_synthetics_test_names</code></dt>
-  <dd>
-    Names of the created Datadog synthetic tests<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

@@ -109,7 +109,34 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.main`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`cloudinit_config.config`](https://registry.terraform.io/providers/hashicorp/cloudinit/latest/docs/data-sources/config) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>autoscaling_group_id</code></dt>
+  <dd>
+    The AutoScaling Group ID<br/>
+
+  </dd>
+  <dt><code>iam_instance_profile</code></dt>
+  <dd>
+    Name of AWS IAM Instance Profile<br/>
+
+  </dd>
+  <dt><code>security_group_id</code></dt>
+  <dd>
+    ID on the AWS Security Group associated with the ASG<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -858,26 +885,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>autoscaling_group_id</code></dt>
-  <dd>
-    The AutoScaling Group ID<br/>
-
-  </dd>
-  <dt><code>iam_instance_profile</code></dt>
-  <dd>
-    Name of AWS IAM Instance Profile<br/>
-
-  </dd>
-  <dt><code>security_group_id</code></dt>
-  <dd>
-    ID on the AWS Security Group associated with the ASG<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

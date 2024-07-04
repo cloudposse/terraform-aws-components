@@ -236,7 +236,34 @@ The following data sources are used by this module:
   - [`aws_ssm_parameter.scim_endpoint_access_token`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`aws_ssm_parameter.scim_endpoint_url`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>arn</code></dt>
+  <dd>
+    ARN of the lambda function<br/>
+
+  </dd>
+  <dt><code>invoke_arn</code></dt>
+  <dd>
+    Invoke ARN of the lambda function<br/>
+
+  </dd>
+  <dt><code>qualified_arn</code></dt>
+  <dd>
+    ARN identifying your Lambda Function Version (if versioning is enabled via publish = true)<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `google_admin_email` (`string`) <i>required</i>
 
 
@@ -1060,26 +1087,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>arn</code></dt>
-  <dd>
-    ARN of the lambda function<br/>
-
-  </dd>
-  <dt><code>invoke_arn</code></dt>
-  <dd>
-    Invoke ARN of the lambda function<br/>
-
-  </dd>
-  <dt><code>qualified_arn</code></dt>
-  <dd>
-    ARN identifying your Lambda Function Version (if versioning is enabled via publish = true)<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

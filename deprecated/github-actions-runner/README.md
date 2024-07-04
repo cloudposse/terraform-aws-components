@@ -208,7 +208,44 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.github_action_runner_kms`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>kms_alias</code></dt>
+  <dd>
+    KMS alias<br/>
+
+  </dd>
+  <dt><code>kms_key_arn</code></dt>
+  <dd>
+    KMS key ARN<br/>
+
+  </dd>
+  <dt><code>release_name</code></dt>
+  <dd>
+    Name of the release<br/>
+
+  </dd>
+  <dt><code>release_namespace</code></dt>
+  <dd>
+    Namespace of the release<br/>
+
+  </dd>
+  <dt><code>service_account_role_arn</code></dt>
+  <dd>
+    Service Account role ARN<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -1362,36 +1399,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>kms_alias</code></dt>
-  <dd>
-    KMS alias<br/>
-
-  </dd>
-  <dt><code>kms_key_arn</code></dt>
-  <dd>
-    KMS key ARN<br/>
-
-  </dd>
-  <dt><code>release_name</code></dt>
-  <dd>
-    Name of the release<br/>
-
-  </dd>
-  <dt><code>release_namespace</code></dt>
-  <dd>
-    Namespace of the release<br/>
-
-  </dd>
-  <dt><code>service_account_role_arn</code></dt>
-  <dd>
-    Service Account role ARN<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References

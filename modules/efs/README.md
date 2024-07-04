@@ -75,7 +75,74 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.kms_key_efs`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>efs_arn</code></dt>
+  <dd>
+    EFS ARN<br/>
+
+  </dd>
+  <dt><code>efs_dns_name</code></dt>
+  <dd>
+    EFS DNS name<br/>
+
+  </dd>
+  <dt><code>efs_host</code></dt>
+  <dd>
+    DNS hostname for the EFS<br/>
+
+  </dd>
+  <dt><code>efs_id</code></dt>
+  <dd>
+    EFS ID<br/>
+
+  </dd>
+  <dt><code>efs_mount_target_dns_names</code></dt>
+  <dd>
+    List of EFS mount target DNS names<br/>
+
+  </dd>
+  <dt><code>efs_mount_target_ids</code></dt>
+  <dd>
+    List of EFS mount target IDs (one per Availability Zone)<br/>
+
+  </dd>
+  <dt><code>efs_mount_target_ips</code></dt>
+  <dd>
+    List of EFS mount target IPs (one per Availability Zone)<br/>
+
+  </dd>
+  <dt><code>efs_network_interface_ids</code></dt>
+  <dd>
+    List of mount target network interface IDs<br/>
+
+  </dd>
+  <dt><code>security_group_arn</code></dt>
+  <dd>
+    EFS Security Group ARN<br/>
+
+  </dd>
+  <dt><code>security_group_id</code></dt>
+  <dd>
+    EFS Security Group ID<br/>
+
+  </dd>
+  <dt><code>security_group_name</code></dt>
+  <dd>
+    EFS Security Group name<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `hostname_template` (`string`) <i>required</i>
 
 
@@ -793,66 +860,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>efs_arn</code></dt>
-  <dd>
-    EFS ARN<br/>
-
-  </dd>
-  <dt><code>efs_dns_name</code></dt>
-  <dd>
-    EFS DNS name<br/>
-
-  </dd>
-  <dt><code>efs_host</code></dt>
-  <dd>
-    DNS hostname for the EFS<br/>
-
-  </dd>
-  <dt><code>efs_id</code></dt>
-  <dd>
-    EFS ID<br/>
-
-  </dd>
-  <dt><code>efs_mount_target_dns_names</code></dt>
-  <dd>
-    List of EFS mount target DNS names<br/>
-
-  </dd>
-  <dt><code>efs_mount_target_ids</code></dt>
-  <dd>
-    List of EFS mount target IDs (one per Availability Zone)<br/>
-
-  </dd>
-  <dt><code>efs_mount_target_ips</code></dt>
-  <dd>
-    List of EFS mount target IPs (one per Availability Zone)<br/>
-
-  </dd>
-  <dt><code>efs_network_interface_ids</code></dt>
-  <dd>
-    List of mount target network interface IDs<br/>
-
-  </dd>
-  <dt><code>security_group_arn</code></dt>
-  <dd>
-    EFS Security Group ARN<br/>
-
-  </dd>
-  <dt><code>security_group_id</code></dt>
-  <dd>
-    EFS Security Group ID<br/>
-
-  </dd>
-  <dt><code>security_group_name</code></dt>
-  <dd>
-    EFS Security Group name<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

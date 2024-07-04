@@ -85,7 +85,54 @@ The following data sources are used by this module:
   - [`aws_eks_cluster_auth.eks`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) (data source)
   - [`aws_lb.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/lb) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>annotations</code></dt>
+  <dd>
+    The annotations of the Ingress<br/>
+
+  </dd>
+  <dt><code>group_name</code></dt>
+  <dd>
+    The value of `alb.ingress.kubernetes.io/group.name` of the Ingress<br/>
+
+  </dd>
+  <dt><code>host</code></dt>
+  <dd>
+    The name of the host used by the Ingress<br/>
+
+  </dd>
+  <dt><code>ingress_class</code></dt>
+  <dd>
+    The value of the `kubernetes.io/ingress.class` annotation of the Kubernetes Ingress<br/>
+
+  </dd>
+  <dt><code>load_balancer_name</code></dt>
+  <dd>
+    The name of the load balancer created by the Ingress<br/>
+
+  </dd>
+  <dt><code>load_balancer_scheme</code></dt>
+  <dd>
+    The value of the `alb.ingress.kubernetes.io/scheme` annotation of the Kubernetes Ingress<br/>
+
+  </dd>
+  <dt><code>message_body_length</code></dt>
+  <dd>
+    The length of the message body to ensure it's lower than the maximum limit<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `kubernetes_namespace` (`string`) <i>required</i>
 
 
@@ -1302,46 +1349,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>annotations</code></dt>
-  <dd>
-    The annotations of the Ingress<br/>
-
-  </dd>
-  <dt><code>group_name</code></dt>
-  <dd>
-    The value of `alb.ingress.kubernetes.io/group.name` of the Ingress<br/>
-
-  </dd>
-  <dt><code>host</code></dt>
-  <dd>
-    The name of the host used by the Ingress<br/>
-
-  </dd>
-  <dt><code>ingress_class</code></dt>
-  <dd>
-    The value of the `kubernetes.io/ingress.class` annotation of the Kubernetes Ingress<br/>
-
-  </dd>
-  <dt><code>load_balancer_name</code></dt>
-  <dd>
-    The name of the load balancer created by the Ingress<br/>
-
-  </dd>
-  <dt><code>load_balancer_scheme</code></dt>
-  <dd>
-    The value of the `alb.ingress.kubernetes.io/scheme` annotation of the Kubernetes Ingress<br/>
-
-  </dd>
-  <dt><code>message_body_length</code></dt>
-  <dd>
-    The length of the message body to ensure it's lower than the maximum limit<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

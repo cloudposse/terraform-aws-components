@@ -68,7 +68,16 @@ The following resources are used by this module:
 The following data sources are used by this module:
 
 
+
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -703,7 +712,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References

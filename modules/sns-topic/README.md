@@ -91,7 +91,64 @@ Name | Version | Source | Description
 
 
 
+## Outputs
+
+<dl>
+  <dt><code>dead_letter_queue_arn</code></dt>
+  <dd>
+    The ARN of the dead letter queue.<br/>
+
+  </dd>
+  <dt><code>dead_letter_queue_id</code></dt>
+  <dd>
+    The ID for the created dead letter queue. Same as the URL.<br/>
+
+  </dd>
+  <dt><code>dead_letter_queue_name</code></dt>
+  <dd>
+    The name for the created dead letter queue.<br/>
+
+  </dd>
+  <dt><code>dead_letter_queue_url</code></dt>
+  <dd>
+    The URL for the created dead letter SQS queue.<br/>
+
+  </dd>
+  <dt><code>sns_topic_arn</code></dt>
+  <dd>
+    SNS topic ARN.<br/>
+
+  </dd>
+  <dt><code>sns_topic_id</code></dt>
+  <dd>
+    SNS topic ID.<br/>
+
+  </dd>
+  <dt><code>sns_topic_name</code></dt>
+  <dd>
+    SNS topic name.<br/>
+
+  </dd>
+  <dt><code>sns_topic_owner</code></dt>
+  <dd>
+    SNS topic owner.<br/>
+
+  </dd>
+  <dt><code>sns_topic_subscriptions</code></dt>
+  <dd>
+    SNS topic subscription.<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -993,56 +1050,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>dead_letter_queue_arn</code></dt>
-  <dd>
-    The ARN of the dead letter queue.<br/>
-
-  </dd>
-  <dt><code>dead_letter_queue_id</code></dt>
-  <dd>
-    The ID for the created dead letter queue. Same as the URL.<br/>
-
-  </dd>
-  <dt><code>dead_letter_queue_name</code></dt>
-  <dd>
-    The name for the created dead letter queue.<br/>
-
-  </dd>
-  <dt><code>dead_letter_queue_url</code></dt>
-  <dd>
-    The URL for the created dead letter SQS queue.<br/>
-
-  </dd>
-  <dt><code>sns_topic_arn</code></dt>
-  <dd>
-    SNS topic ARN.<br/>
-
-  </dd>
-  <dt><code>sns_topic_id</code></dt>
-  <dd>
-    SNS topic ID.<br/>
-
-  </dd>
-  <dt><code>sns_topic_name</code></dt>
-  <dd>
-    SNS topic name.<br/>
-
-  </dd>
-  <dt><code>sns_topic_owner</code></dt>
-  <dd>
-    SNS topic owner.<br/>
-
-  </dd>
-  <dt><code>sns_topic_subscriptions</code></dt>
-  <dd>
-    SNS topic subscription.<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

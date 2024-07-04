@@ -119,7 +119,44 @@ The following data sources are used by this module:
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
   - [`template_file.bucket_policy`](https://registry.terraform.io/providers/cloudposse/template/latest/docs/data-sources/file) (data source)
 
+## Outputs
+
+<dl>
+  <dt><code>bucket_arn</code></dt>
+  <dd>
+    Bucket ARN<br/>
+
+  </dd>
+  <dt><code>bucket_domain_name</code></dt>
+  <dd>
+    Bucket domain name<br/>
+
+  </dd>
+  <dt><code>bucket_id</code></dt>
+  <dd>
+    Bucket ID<br/>
+
+  </dd>
+  <dt><code>bucket_region</code></dt>
+  <dd>
+    Bucket region<br/>
+
+  </dd>
+  <dt><code>bucket_regional_domain_name</code></dt>
+  <dd>
+    Bucket region-specific domain name<br/>
+
+  </dd>
+</dl>
+
 ## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
 ### `region` (`string`) <i>required</i>
 
 
@@ -1611,36 +1648,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 
 
 </details>
-
-## Outputs
-
-<dl>
-  <dt><code>bucket_arn</code></dt>
-  <dd>
-    Bucket ARN<br/>
-
-  </dd>
-  <dt><code>bucket_domain_name</code></dt>
-  <dd>
-    Bucket domain name<br/>
-
-  </dd>
-  <dt><code>bucket_id</code></dt>
-  <dd>
-    Bucket ID<br/>
-
-  </dd>
-  <dt><code>bucket_region</code></dt>
-  <dd>
-    Bucket region<br/>
-
-  </dd>
-  <dt><code>bucket_regional_domain_name</code></dt>
-  <dd>
-    Bucket region-specific domain name<br/>
-
-  </dd>
-</dl>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 
