@@ -86,15 +86,13 @@ The following data sources are used by this module:
   - [`aws_ami.amazon_linux_2`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) (data source)
   - [`aws_ssm_parameter.zscaler_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`template_file.userdata`](https://registry.terraform.io/providers/cloudposse/template/latest/docs/data-sources/file) (data source)
-
+---
 ### Required Variables
 ### `region` (`string`) <i>required</i>
 
 
 AWS region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -109,18 +107,16 @@ AWS region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `ami_owner` (`string`) <i>optional</i>
 
 
 The owner of the AMI used for the ZScaler EC2 instances.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -135,7 +131,6 @@ The owner of the AMI used for the ZScaler EC2 instances.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ami_regex` (`string`) <i>optional</i>
@@ -143,8 +138,6 @@ The owner of the AMI used for the ZScaler EC2 instances.<br/>
 
 The regex used to match the latest AMI to be used for the ZScaler EC2 instances.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -159,7 +152,6 @@ The regex used to match the latest AMI to be used for the ZScaler EC2 instances.
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `aws_ssm_enabled` (`bool`) <i>optional</i>
@@ -167,8 +159,6 @@ The regex used to match the latest AMI to be used for the ZScaler EC2 instances.
 
 Set true to install the AWS SSM agent on each EC2 instances.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -183,7 +173,6 @@ Set true to install the AWS SSM agent on each EC2 instances.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `instance_type` (`string`) <i>optional</i>
@@ -191,8 +180,6 @@ Set true to install the AWS SSM agent on each EC2 instances.<br/>
 
 The instance family to use for the ZScaler EC2 instances.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -207,7 +194,6 @@ The instance family to use for the ZScaler EC2 instances.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `secrets_store_type` (`string`) <i>optional</i>
@@ -215,8 +201,6 @@ The instance family to use for the ZScaler EC2 instances.<br/>
 
 Secret store type for Zscaler provisioning keys. Valid values: `SSM`, `ASM` (but `ASM` not currently supported)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -231,7 +215,6 @@ Secret store type for Zscaler provisioning keys. Valid values: `SSM`, `ASM` (but
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `security_group_rules` (`list(any)`) <i>optional</i>
@@ -242,8 +225,6 @@ The values of map is fully complated with `aws_security_group_rule` resource.<br
 To get more info see [security_group_rule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -286,7 +267,6 @@ To get more info see [security_group_rule](https://registry.terraform.io/provide
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `zscaler_count` (`number`) <i>optional</i>
@@ -294,8 +274,6 @@ To get more info see [security_group_rule](https://registry.terraform.io/provide
 
 The number of Zscaler instances.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -310,7 +288,6 @@ The number of Zscaler instances.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `zscaler_key` (`string`) <i>optional</i>
@@ -318,8 +295,6 @@ The number of Zscaler instances.<br/>
 
 SSM key (without leading `/`) for the Zscaler provisioning key secret.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -334,10 +309,10 @@ SSM key (without leading `/`) for the Zscaler provisioning key secret.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -349,8 +324,6 @@ The following variables are defined in the `context.tf` file of this module and 
 
 Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -365,7 +338,6 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -373,8 +345,6 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 
 Additional attributes (e.g. `1`)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -389,7 +359,6 @@ Additional attributes (e.g. `1`)<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -402,8 +371,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -456,7 +423,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -466,8 +432,6 @@ Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `at
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -482,7 +446,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -490,8 +453,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -506,7 +467,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -514,8 +474,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -530,7 +488,6 @@ Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -542,8 +499,6 @@ Set to `null` for default, which is `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -558,7 +513,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -569,8 +523,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -585,7 +537,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -596,8 +547,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 5 elements, but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -612,7 +561,6 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -623,8 +571,6 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -639,7 +585,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -647,8 +592,6 @@ Default value: `lower`.<br/>
 
 Solution name, e.g. 'app' or 'jenkins'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -663,7 +606,6 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -671,8 +613,6 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 
 Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -687,7 +627,6 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -697,8 +636,6 @@ Regex to replace chars with empty string in `namespace`, `environment`, `stage` 
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -713,7 +650,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -721,8 +657,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -737,7 +671,6 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -745,8 +678,6 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 
 Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -761,7 +692,6 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

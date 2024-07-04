@@ -68,15 +68,13 @@ The following resources are used by this module:
 
 The following data sources are used by this module:
 
-
+---
 ### Required Variables
 ### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -91,18 +89,16 @@ AWS Region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `account_map_tenant` (`string`) <i>optional</i>
 
 
 The tenant where the `account_map` component required by remote-state is deployed<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -117,7 +113,6 @@ The tenant where the `account_map` component required by remote-state is deploye
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `administrator_account` (`string`) <i>optional</i>
@@ -125,8 +120,6 @@ The tenant where the `account_map` component required by remote-state is deploye
 
 The name of the account that is the GuardDuty administrator account<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -141,7 +134,6 @@ The name of the account that is the GuardDuty administrator account<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `global_environment` (`string`) <i>optional</i>
@@ -149,8 +141,6 @@ The name of the account that is the GuardDuty administrator account<br/>
 
 Global environment name<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -165,7 +155,6 @@ Global environment name<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `privileged` (`bool`) <i>optional</i>
@@ -173,8 +162,6 @@ Global environment name<br/>
 
 True if the default provider already has access to the backend<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -189,7 +176,6 @@ True if the default provider already has access to the backend<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `root_account_stage` (`string`) <i>optional</i>
@@ -197,8 +183,6 @@ True if the default provider already has access to the backend<br/>
 
 The stage name for the Organization root (management) account<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -213,10 +197,10 @@ The stage name for the Organization root (management) account<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -231,8 +215,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -247,7 +229,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -259,8 +240,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -275,7 +254,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -288,8 +266,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -352,7 +328,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -362,8 +337,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -378,7 +351,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -398,8 +370,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -414,7 +384,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -422,8 +391,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -438,7 +405,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -446,8 +412,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -462,7 +426,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -474,8 +437,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -490,7 +451,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -502,8 +462,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -518,7 +476,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -529,8 +486,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -545,7 +500,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -559,8 +513,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -575,7 +527,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -591,8 +542,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -619,7 +568,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -630,8 +578,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -646,7 +592,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -654,8 +599,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -670,7 +613,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -681,8 +623,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -697,7 +637,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -705,8 +644,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -721,7 +658,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -731,8 +667,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -747,7 +681,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -755,8 +688,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -771,7 +702,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

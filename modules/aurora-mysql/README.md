@@ -213,15 +213,13 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.kms_key_rds`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
   - [`aws_ssm_parameter.password`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
-
+---
 ### Required Variables
 ### `aurora_mysql_cluster_family` (`string`) <i>required</i>
 
 
 DBParameterGroupFamily (e.g. `aurora5.6`, `aurora-mysql5.7` for Aurora MySQL databases). See https://stackoverflow.com/a/55819394 for help finding the right one to use.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -236,7 +234,6 @@ DBParameterGroupFamily (e.g. `aurora5.6`, `aurora-mysql5.7` for Aurora MySQL dat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `aurora_mysql_engine` (`string`) <i>required</i>
@@ -244,8 +241,6 @@ DBParameterGroupFamily (e.g. `aurora5.6`, `aurora-mysql5.7` for Aurora MySQL dat
 
 Engine for Aurora database: `aurora` for MySQL 5.6, `aurora-mysql` for MySQL 5.7<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -260,7 +255,6 @@ Engine for Aurora database: `aurora` for MySQL 5.6, `aurora-mysql` for MySQL 5.7
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `region` (`string`) <i>required</i>
@@ -268,8 +262,6 @@ Engine for Aurora database: `aurora` for MySQL 5.6, `aurora-mysql` for MySQL 5.7
 
 AWS Region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -284,10 +276,10 @@ AWS Region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `allow_ingress_from_vpc_accounts` <i>optional</i>
 
@@ -304,8 +296,6 @@ e.g.<br/>
 Defaults to the "vpc" component in the given account<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -331,7 +321,6 @@ Defaults to the "vpc" component in the given account<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
@@ -339,8 +328,6 @@ Defaults to the "vpc" component in the given account<br/>
 
 List of CIDR blocks to be allowed to connect to the RDS cluster<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -355,7 +342,6 @@ List of CIDR blocks to be allowed to connect to the RDS cluster<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `aurora_mysql_cluster_parameters` <i>optional</i>
@@ -363,8 +349,6 @@ List of CIDR blocks to be allowed to connect to the RDS cluster<br/>
 
 List of DB cluster parameters to apply<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -389,7 +373,6 @@ List of DB cluster parameters to apply<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `aurora_mysql_engine_version` (`string`) <i>optional</i>
@@ -397,8 +380,6 @@ List of DB cluster parameters to apply<br/>
 
 Engine Version for Aurora database.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -413,7 +394,6 @@ Engine Version for Aurora database.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `aurora_mysql_instance_parameters` <i>optional</i>
@@ -421,8 +401,6 @@ Engine Version for Aurora database.<br/>
 
 List of DB instance parameters to apply<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -447,7 +425,6 @@ List of DB instance parameters to apply<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `auto_minor_version_upgrade` (`bool`) <i>optional</i>
@@ -455,8 +432,6 @@ List of DB instance parameters to apply<br/>
 
 Automatically update the cluster when a new minor version is released<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -471,7 +446,6 @@ Automatically update the cluster when a new minor version is released<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `eks_component_names` (`set(string)`) <i>optional</i>
@@ -479,8 +453,6 @@ Automatically update the cluster when a new minor version is released<br/>
 
 The names of the eks components<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -507,7 +479,6 @@ The names of the eks components<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `is_promoted_read_replica` (`bool`) <i>optional</i>
@@ -515,8 +486,6 @@ The names of the eks components<br/>
 
 If `true`, do not assign a Replication Source to the Cluster. Set to `true` after manually promoting the cluster from a replica to a standalone cluster.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -531,7 +500,6 @@ If `true`, do not assign a Replication Source to the Cluster. Set to `true` afte
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `is_read_replica` (`bool`) <i>optional</i>
@@ -539,8 +507,6 @@ If `true`, do not assign a Replication Source to the Cluster. Set to `true` afte
 
 If `true`, create this DB cluster as a Read Replica.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -555,7 +521,6 @@ If `true`, create this DB cluster as a Read Replica.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mysql_admin_password` (`string`) <i>optional</i>
@@ -563,8 +528,6 @@ If `true`, create this DB cluster as a Read Replica.<br/>
 
 MySQL password for the admin user<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -579,7 +542,6 @@ MySQL password for the admin user<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mysql_admin_user` (`string`) <i>optional</i>
@@ -587,8 +549,6 @@ MySQL password for the admin user<br/>
 
 MySQL admin user name<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -603,7 +563,6 @@ MySQL admin user name<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mysql_backup_retention_period` (`number`) <i>optional</i>
@@ -611,8 +570,6 @@ MySQL admin user name<br/>
 
 Number of days for which to retain backups<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -627,7 +584,6 @@ Number of days for which to retain backups<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mysql_backup_window` (`string`) <i>optional</i>
@@ -635,8 +591,6 @@ Number of days for which to retain backups<br/>
 
 Daily time range during which the backups happen<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -651,7 +605,6 @@ Daily time range during which the backups happen<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mysql_cluster_size` (`string`) <i>optional</i>
@@ -659,8 +612,6 @@ Daily time range during which the backups happen<br/>
 
 MySQL cluster size<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -675,7 +626,6 @@ MySQL cluster size<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mysql_db_name` (`string`) <i>optional</i>
@@ -683,8 +633,6 @@ MySQL cluster size<br/>
 
 Database name (default is not to create a database<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -699,7 +647,6 @@ Database name (default is not to create a database<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mysql_deletion_protection` (`string`) <i>optional</i>
@@ -707,8 +654,6 @@ Database name (default is not to create a database<br/>
 
 Set to `true` to protect the database from deletion<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -723,7 +668,6 @@ Set to `true` to protect the database from deletion<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mysql_enabled_cloudwatch_logs_exports` (`list(string)`) <i>optional</i>
@@ -731,8 +675,6 @@ Set to `true` to protect the database from deletion<br/>
 
 List of log types to export to cloudwatch. The following log types are supported: audit, error, general, slowquery<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -765,7 +707,6 @@ List of log types to export to cloudwatch. The following log types are supported
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mysql_instance_type` (`string`) <i>optional</i>
@@ -773,8 +714,6 @@ List of log types to export to cloudwatch. The following log types are supported
 
 EC2 instance type for RDS MySQL cluster<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -789,7 +728,6 @@ EC2 instance type for RDS MySQL cluster<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mysql_maintenance_window` (`string`) <i>optional</i>
@@ -797,8 +735,6 @@ EC2 instance type for RDS MySQL cluster<br/>
 
 Weekly time range during which system maintenance can occur, in UTC<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -813,7 +749,6 @@ Weekly time range during which system maintenance can occur, in UTC<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mysql_name` (`string`) <i>optional</i>
@@ -821,8 +756,6 @@ Weekly time range during which system maintenance can occur, in UTC<br/>
 
 MySQL solution name (part of cluster identifier)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -837,7 +770,6 @@ MySQL solution name (part of cluster identifier)<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mysql_skip_final_snapshot` (`string`) <i>optional</i>
@@ -845,8 +777,6 @@ MySQL solution name (part of cluster identifier)<br/>
 
 Determines whether a final DB snapshot is created before the DB cluster is deleted<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -861,7 +791,6 @@ Determines whether a final DB snapshot is created before the DB cluster is delet
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mysql_storage_encrypted` (`string`) <i>optional</i>
@@ -869,8 +798,6 @@ Determines whether a final DB snapshot is created before the DB cluster is delet
 
 Set to `true` to keep the database contents encrypted<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -885,7 +812,6 @@ Set to `true` to keep the database contents encrypted<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `performance_insights_enabled` (`bool`) <i>optional</i>
@@ -893,8 +819,6 @@ Set to `true` to keep the database contents encrypted<br/>
 
 Set `true` to enable Performance Insights<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -909,7 +833,6 @@ Set `true` to enable Performance Insights<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `primary_cluster_component` (`string`) <i>optional</i>
@@ -917,8 +840,6 @@ Set `true` to enable Performance Insights<br/>
 
 If this cluster is a read replica and no replication source is explicitly given, the component name for the primary cluster<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -933,7 +854,6 @@ If this cluster is a read replica and no replication source is explicitly given,
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `primary_cluster_region` (`string`) <i>optional</i>
@@ -941,8 +861,6 @@ If this cluster is a read replica and no replication source is explicitly given,
 
 If this cluster is a read replica and no replication source is explicitly given, the region to look for a matching cluster<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -957,7 +875,6 @@ If this cluster is a read replica and no replication source is explicitly given,
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `publicly_accessible` (`bool`) <i>optional</i>
@@ -965,8 +882,6 @@ If this cluster is a read replica and no replication source is explicitly given,
 
 Set to true to create the cluster in a public subnet<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -981,7 +896,6 @@ Set to true to create the cluster in a public subnet<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `replication_source_identifier` (`string`) <i>optional</i>
@@ -992,8 +906,6 @@ If this value is empty and replication is enabled, remote state will attempt to 
 a matching cluster in the Primary DB Cluster's region<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1008,7 +920,6 @@ a matching cluster in the Primary DB Cluster's region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_password_source` (`string`) <i>optional</i>
@@ -1019,8 +930,6 @@ If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved fr
 a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1035,7 +944,6 @@ a default path will be created using the SSM path prefix and ID of the associate
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_path_prefix` (`string`) <i>optional</i>
@@ -1043,8 +951,6 @@ a default path will be created using the SSM path prefix and ID of the associate
 
 SSM path prefix<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1059,7 +965,6 @@ SSM path prefix<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `vpc_component_name` (`string`) <i>optional</i>
@@ -1067,8 +972,6 @@ SSM path prefix<br/>
 
 The name of the VPC component<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1083,10 +986,10 @@ The name of the VPC component<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -1101,8 +1004,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1117,7 +1018,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -1129,8 +1029,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1145,7 +1043,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -1158,8 +1055,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1222,7 +1117,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -1232,8 +1126,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1248,7 +1140,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -1268,8 +1159,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1284,7 +1173,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -1292,8 +1180,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1308,7 +1194,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -1316,8 +1201,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1332,7 +1215,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -1344,8 +1226,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1360,7 +1240,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -1372,8 +1251,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1388,7 +1265,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -1399,8 +1275,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1415,7 +1289,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -1429,8 +1302,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1445,7 +1316,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -1461,8 +1331,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1489,7 +1357,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -1500,8 +1367,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1516,7 +1381,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -1524,8 +1388,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1540,7 +1402,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -1551,8 +1412,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1567,7 +1426,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -1575,8 +1433,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1591,7 +1447,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -1601,8 +1456,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1617,7 +1470,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -1625,8 +1477,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1641,7 +1491,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

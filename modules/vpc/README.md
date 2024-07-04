@@ -102,15 +102,13 @@ The following data sources are used by this module:
 
   - [`aws_caller_identity.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
   - [`aws_eip.eip`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eip) (data source)
-
+---
 ### Required Variables
 ### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -125,7 +123,6 @@ AWS Region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `subnet_type_tag_key` (`string`) <i>required</i>
@@ -133,8 +130,6 @@ AWS Region<br/>
 
 Key for subnet type tag to provide information about the type of subnets, e.g. `cpco/subnet/type=private` or `cpcp/subnet/type=public`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -149,18 +144,16 @@ Key for subnet type tag to provide information about the type of subnets, e.g. `
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `assign_generated_ipv6_cidr_block` (`bool`) <i>optional</i>
 
 
 When `true`, assign AWS generated IPv6 CIDR block to the VPC.  Conflicts with `ipv6_ipam_pool_id`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -175,7 +168,6 @@ When `true`, assign AWS generated IPv6 CIDR block to the VPC.  Conflicts with `i
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `availability_zone_ids` (`list(string)`) <i>optional</i>
@@ -187,8 +179,6 @@ to allow reusable values across regions. Consider contention for resources and s
 Useful in some regions when using only some AZs and you want to use the same ones across multiple accounts.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -203,7 +193,6 @@ Useful in some regions when using only some AZs and you want to use the same one
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `availability_zones` (`list(string)`) <i>optional</i>
@@ -218,8 +207,6 @@ will be truncated. We recommend setting `availability_zones` and `max_subnet_cou
 (not computed) values for predictability, consistency, and stability.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -234,7 +221,6 @@ will be truncated. We recommend setting `availability_zones` and `max_subnet_cou
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `gateway_vpc_endpoints` (`set(string)`) <i>optional</i>
@@ -242,8 +228,6 @@ will be truncated. We recommend setting `availability_zones` and `max_subnet_cou
 
 A list of Gateway VPC Endpoints to provision into the VPC. Only valid values are "dynamodb" and "s3".<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -258,7 +242,6 @@ A list of Gateway VPC Endpoints to provision into the VPC. Only valid values are
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `interface_vpc_endpoints` (`set(string)`) <i>optional</i>
@@ -266,8 +249,6 @@ A list of Gateway VPC Endpoints to provision into the VPC. Only valid values are
 
 A list of Interface VPC Endpoints to provision into the VPC.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -282,7 +263,6 @@ A list of Interface VPC Endpoints to provision into the VPC.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ipv4_additional_cidr_block_associations` <i>optional</i>
@@ -293,8 +273,6 @@ IPv4 CIDR blocks to assign to the VPC.<br/>
 Map keys must be known at `plan` time, and are only used to track changes.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -319,7 +297,6 @@ Map keys must be known at `plan` time, and are only used to track changes.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ipv4_cidr_block_association_timeouts` <i>optional</i>
@@ -327,8 +304,6 @@ Map keys must be known at `plan` time, and are only used to track changes.<br/>
 
 Timeouts (in `go` duration format) for creating and destroying IPv4 CIDR block associations<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -352,7 +327,6 @@ Timeouts (in `go` duration format) for creating and destroying IPv4 CIDR block a
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ipv4_cidrs` <i>optional</i>
@@ -362,8 +336,6 @@ Lists of CIDRs to assign to subnets. Order of CIDRs in the lists must not change
 Lists may contain more CIDRs than needed.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -387,7 +359,6 @@ Lists may contain more CIDRs than needed.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ipv4_primary_cidr_block` (`string`) <i>optional</i>
@@ -397,8 +368,6 @@ The primary IPv4 CIDR block for the VPC.<br/>
 Either `ipv4_primary_cidr_block` or `ipv4_primary_cidr_block_association` must be set, but not both.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -413,7 +382,6 @@ Either `ipv4_primary_cidr_block` or `ipv4_primary_cidr_block_association` must b
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ipv4_primary_cidr_block_association` <i>optional</i>
@@ -424,8 +392,6 @@ One of `ipv4_primary_cidr_block` or `ipv4_primary_cidr_block_association` must b
 Additional CIDR blocks can be set via `ipv4_additional_cidr_block_associations`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -449,7 +415,6 @@ Additional CIDR blocks can be set via `ipv4_additional_cidr_block_associations`.
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `map_public_ip_on_launch` (`bool`) <i>optional</i>
@@ -457,8 +422,6 @@ Additional CIDR blocks can be set via `ipv4_additional_cidr_block_associations`.
 
 Instances launched into a public subnet should be assigned a public IP address<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -473,7 +436,6 @@ Instances launched into a public subnet should be assigned a public IP address<b
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `max_subnet_count` (`number`) <i>optional</i>
@@ -481,8 +443,6 @@ Instances launched into a public subnet should be assigned a public IP address<b
 
 Sets the maximum amount of subnets to deploy. 0 will deploy a subnet for every provided availability zone (in `region_availability_zones` variable) within the region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -497,7 +457,6 @@ Sets the maximum amount of subnets to deploy. 0 will deploy a subnet for every p
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `nat_eip_aws_shield_protection_enabled` (`bool`) <i>optional</i>
@@ -505,8 +464,6 @@ Sets the maximum amount of subnets to deploy. 0 will deploy a subnet for every p
 
 Enable or disable AWS Shield Advanced protection for NAT EIPs. If set to 'true', a subscription to AWS Shield Advanced must exist in this account.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -521,7 +478,6 @@ Enable or disable AWS Shield Advanced protection for NAT EIPs. If set to 'true',
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `nat_gateway_enabled` (`bool`) <i>optional</i>
@@ -529,8 +485,6 @@ Enable or disable AWS Shield Advanced protection for NAT EIPs. If set to 'true',
 
 Flag to enable/disable NAT gateways<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -545,7 +499,6 @@ Flag to enable/disable NAT gateways<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `nat_instance_ami_id` (`list(string)`) <i>optional</i>
@@ -557,8 +510,6 @@ will be used. NOTE: The Official NAT instance AMI is being phased out and<br/>
 does not support NAT64. Use of a NAT gateway is recommended instead.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -573,7 +524,6 @@ does not support NAT64. Use of a NAT gateway is recommended instead.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `nat_instance_enabled` (`bool`) <i>optional</i>
@@ -581,8 +531,6 @@ does not support NAT64. Use of a NAT gateway is recommended instead.<br/>
 
 Flag to enable/disable NAT instances<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -597,7 +545,6 @@ Flag to enable/disable NAT instances<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `nat_instance_type` (`string`) <i>optional</i>
@@ -605,8 +552,6 @@ Flag to enable/disable NAT instances<br/>
 
 NAT Instance type<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -621,7 +566,6 @@ NAT Instance type<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `public_subnets_enabled` (`bool`) <i>optional</i>
@@ -631,8 +575,6 @@ If false, do not create public subnets.<br/>
 Since NAT gateways and instances must be created in public subnets, these will also not be created when `false`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -647,7 +589,6 @@ Since NAT gateways and instances must be created in public subnets, these will a
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `subnets_per_az_count` (`number`) <i>optional</i>
@@ -656,8 +597,6 @@ Since NAT gateways and instances must be created in public subnets, these will a
 The number of subnet of each type (public or private) to provision per Availability Zone.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -672,7 +611,6 @@ The number of subnet of each type (public or private) to provision per Availabil
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `subnets_per_az_names` (`list(string)`) <i>optional</i>
@@ -684,8 +622,6 @@ If a list of names is provided, the list items will be used as keys in the outpu
 `named_private_route_table_ids_map` and `named_public_route_table_ids_map`<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -712,7 +648,6 @@ If a list of names is provided, the list items will be used as keys in the outpu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `vpc_flow_logs_bucket_environment_name` (`string`) <i>optional</i>
@@ -720,8 +655,6 @@ If a list of names is provided, the list items will be used as keys in the outpu
 
 The name of the environment where the VPC Flow Logs bucket is provisioned<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -736,7 +669,6 @@ The name of the environment where the VPC Flow Logs bucket is provisioned<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `vpc_flow_logs_bucket_stage_name` (`string`) <i>optional</i>
@@ -744,8 +676,6 @@ The name of the environment where the VPC Flow Logs bucket is provisioned<br/>
 
 The stage (account) name where the VPC Flow Logs bucket is provisioned<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -760,7 +690,6 @@ The stage (account) name where the VPC Flow Logs bucket is provisioned<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `vpc_flow_logs_bucket_tenant_name` (`string`) <i>optional</i>
@@ -771,8 +700,6 @@ The name of the tenant where the VPC Flow Logs bucket is provisioned.<br/>
 If the `tenant` label is not used, leave this as `null`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -787,7 +714,6 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `vpc_flow_logs_enabled` (`bool`) <i>optional</i>
@@ -795,8 +721,6 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 
 Enable or disable the VPC Flow Logs<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -811,7 +735,6 @@ Enable or disable the VPC Flow Logs<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `vpc_flow_logs_log_destination_type` (`string`) <i>optional</i>
@@ -819,8 +742,6 @@ Enable or disable the VPC Flow Logs<br/>
 
 The type of the logging destination. Valid values: `cloud-watch-logs`, `s3`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -835,7 +756,6 @@ The type of the logging destination. Valid values: `cloud-watch-logs`, `s3`<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `vpc_flow_logs_traffic_type` (`string`) <i>optional</i>
@@ -843,8 +763,6 @@ The type of the logging destination. Valid values: `cloud-watch-logs`, `s3`<br/>
 
 The type of traffic to capture. Valid values: `ACCEPT`, `REJECT`, `ALL`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -859,10 +777,10 @@ The type of traffic to capture. Valid values: `ACCEPT`, `REJECT`, `ALL`<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -877,8 +795,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -893,7 +809,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -905,8 +820,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -921,7 +834,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -934,8 +846,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -998,7 +908,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -1008,8 +917,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1024,7 +931,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -1044,8 +950,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1060,7 +964,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -1068,8 +971,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1084,7 +985,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -1092,8 +992,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1108,7 +1006,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -1120,8 +1017,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1136,7 +1031,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -1148,8 +1042,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1164,7 +1056,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -1175,8 +1066,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1191,7 +1080,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -1205,8 +1093,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1221,7 +1107,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -1237,8 +1122,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1265,7 +1148,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -1276,8 +1158,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1292,7 +1172,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -1300,8 +1179,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1316,7 +1193,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -1327,8 +1203,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1343,7 +1217,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -1351,8 +1224,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1367,7 +1238,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -1377,8 +1247,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1393,7 +1261,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -1401,8 +1268,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1417,7 +1282,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

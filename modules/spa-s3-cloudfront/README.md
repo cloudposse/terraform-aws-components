@@ -186,15 +186,13 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.additional_lambda_edge_permission`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_iam_policy_document.github_actions_iam_policy`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_s3_bucket.failover_bucket`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_bucket) (data source)
-
+---
 ### Required Variables
 ### `region` (`string`) <i>required</i>
 
 
 AWS Region.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -209,18 +207,16 @@ AWS Region.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `block_origin_public_access_enabled` (`bool`) <i>optional</i>
 
 
 When set to 'true' the s3 origin bucket will have public access block enabled.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -235,7 +231,6 @@ When set to 'true' the s3 origin bucket will have public access block enabled.<b
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_access_log_bucket_name` (`string`) <i>optional</i>
@@ -245,8 +240,6 @@ When `cloudfront_access_log_create_bucket` is `false`, this is the name of the e
 CloudFront Access Logs are to be delivered and is required. IGNORED when `cloudfront_access_log_create_bucket` is `true`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -261,7 +254,6 @@ CloudFront Access Logs are to be delivered and is required. IGNORED when `cloudf
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_access_log_bucket_name_rendering_enabled` (`bool`) <i>optional</i>
@@ -274,8 +266,6 @@ For example, if this component produces an origin bucket named `eg-ue1-devplatfo
 `example-cloudfront-access-logs`, then the bucket name will be rendered to be `eg-ue1-devplatform-example-cloudfront-access-logs`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -290,7 +280,6 @@ For example, if this component produces an origin bucket named `eg-ue1-devplatfo
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_access_log_create_bucket` (`bool`) <i>optional</i>
@@ -300,8 +289,6 @@ When `true` and `cloudfront_access_logging_enabled` is also true, this module wi
 separate S3 bucket to receive CloudFront Access Logs.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -316,7 +303,6 @@ separate S3 bucket to receive CloudFront Access Logs.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_access_log_prefix` (`string`) <i>optional</i>
@@ -324,8 +310,6 @@ separate S3 bucket to receive CloudFront Access Logs.<br/>
 
 Prefix to use for CloudFront Access Log object keys. Defaults to no prefix.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -340,7 +324,6 @@ Prefix to use for CloudFront Access Log object keys. Defaults to no prefix.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_access_log_prefix_rendering_enabled` (`bool`) <i>optional</i>
@@ -348,8 +331,6 @@ Prefix to use for CloudFront Access Log object keys. Defaults to no prefix.<br/>
 
 Whether or not to dynamically render ${module.this.id} at the end of `var.cloudfront_access_log_prefix`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -364,7 +345,6 @@ Whether or not to dynamically render ${module.this.id} at the end of `var.cloudf
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_allowed_methods` (`list(string)`) <i>optional</i>
@@ -372,8 +352,6 @@ Whether or not to dynamically render ${module.this.id} at the end of `var.cloudf
 
 List of allowed methods (e.g. GET, PUT, POST, DELETE, HEAD) for AWS CloudFront.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -412,7 +390,6 @@ List of allowed methods (e.g. GET, PUT, POST, DELETE, HEAD) for AWS CloudFront.<
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_aws_shield_protection_enabled` (`bool`) <i>optional</i>
@@ -420,8 +397,6 @@ List of allowed methods (e.g. GET, PUT, POST, DELETE, HEAD) for AWS CloudFront.<
 
 Enable or disable AWS Shield Advanced protection for the CloudFront distribution. If set to 'true', a subscription to AWS Shield Advanced must exist in this account.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -436,7 +411,6 @@ Enable or disable AWS Shield Advanced protection for the CloudFront distribution
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_aws_waf_component_name` (`string`) <i>optional</i>
@@ -444,8 +418,6 @@ Enable or disable AWS Shield Advanced protection for the CloudFront distribution
 
 The name of the component used when deploying WAF ACL<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -460,7 +432,6 @@ The name of the component used when deploying WAF ACL<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_aws_waf_environment` (`string`) <i>optional</i>
@@ -468,8 +439,6 @@ The name of the component used when deploying WAF ACL<br/>
 
 The environment where the WAF ACL for CloudFront distribution exists.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -484,7 +453,6 @@ The environment where the WAF ACL for CloudFront distribution exists.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_aws_waf_protection_enabled` (`bool`) <i>optional</i>
@@ -496,8 +464,6 @@ This assumes that the `aws-waf-acl-default-cloudfront` component has been deploy
 to `var.waf_acl_environment`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -512,7 +478,6 @@ to `var.waf_acl_environment`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_cached_methods` (`list(string)`) <i>optional</i>
@@ -520,8 +485,6 @@ to `var.waf_acl_environment`.<br/>
 
 List of cached methods (e.g. GET, PUT, POST, DELETE, HEAD).<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -550,7 +513,6 @@ List of cached methods (e.g. GET, PUT, POST, DELETE, HEAD).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_compress` (`bool`) <i>optional</i>
@@ -558,8 +520,6 @@ List of cached methods (e.g. GET, PUT, POST, DELETE, HEAD).<br/>
 
 Compress content for web requests that include Accept-Encoding: gzip in the request header.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -574,7 +534,6 @@ Compress content for web requests that include Accept-Encoding: gzip in the requ
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_custom_error_response` <i>optional</i>
@@ -582,8 +541,6 @@ Compress content for web requests that include Accept-Encoding: gzip in the requ
 
 List of one or more custom error response element maps.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -609,7 +566,6 @@ List of one or more custom error response element maps.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_default_root_object` (`string`) <i>optional</i>
@@ -617,8 +573,6 @@ List of one or more custom error response element maps.<br/>
 
 Object that CloudFront return when requests the root URL.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -633,7 +587,6 @@ Object that CloudFront return when requests the root URL.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_default_ttl` (`number`) <i>optional</i>
@@ -641,8 +594,6 @@ Object that CloudFront return when requests the root URL.<br/>
 
 Default amount of time (in seconds) that an object is in a CloudFront cache.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -657,7 +608,6 @@ Default amount of time (in seconds) that an object is in a CloudFront cache.<br/
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_index_document` (`string`) <i>optional</i>
@@ -665,8 +615,6 @@ Default amount of time (in seconds) that an object is in a CloudFront cache.<br/
 
 Amazon S3 returns this index document when requests are made to the root domain or any of the subfolders.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -681,7 +629,6 @@ Amazon S3 returns this index document when requests are made to the root domain 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_ipv6_enabled` (`bool`) <i>optional</i>
@@ -689,8 +636,6 @@ Amazon S3 returns this index document when requests are made to the root domain 
 
 Set to true to enable an AAAA DNS record to be set as well as the A record.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -705,7 +650,6 @@ Set to true to enable an AAAA DNS record to be set as well as the A record.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_lambda_function_association` <i>optional</i>
@@ -713,8 +657,6 @@ Set to true to enable an AAAA DNS record to be set as well as the A record.<br/>
 
 A config block that configures the CloudFront distribution with lambda@edge functions for specific events.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -739,7 +681,6 @@ A config block that configures the CloudFront distribution with lambda@edge func
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_max_ttl` (`number`) <i>optional</i>
@@ -747,8 +688,6 @@ A config block that configures the CloudFront distribution with lambda@edge func
 
 Maximum amount of time (in seconds) that an object is in a CloudFront cache.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -763,7 +702,6 @@ Maximum amount of time (in seconds) that an object is in a CloudFront cache.<br/
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_min_ttl` (`number`) <i>optional</i>
@@ -771,8 +709,6 @@ Maximum amount of time (in seconds) that an object is in a CloudFront cache.<br/
 
 Minimum amount of time that you want objects to stay in CloudFront caches.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -787,7 +723,6 @@ Minimum amount of time that you want objects to stay in CloudFront caches.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudfront_viewer_protocol_policy` (`string`) <i>optional</i>
@@ -795,8 +730,6 @@ Minimum amount of time that you want objects to stay in CloudFront caches.<br/>
 
 Limit the protocol users can use to access content. One of `allow-all`, `https-only`, or `redirect-to-https`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -811,7 +744,6 @@ Limit the protocol users can use to access content. One of `allow-all`, `https-o
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `comment` (`string`) <i>optional</i>
@@ -819,8 +751,6 @@ Limit the protocol users can use to access content. One of `allow-all`, `https-o
 
 Any comments you want to include about the distribution.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -835,7 +765,6 @@ Any comments you want to include about the distribution.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `custom_origins` <i>optional</i>
@@ -844,8 +773,6 @@ Any comments you want to include about the distribution.<br/>
 A list of additional custom website [origins](https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments) for this distribution.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -882,7 +809,6 @@ A list of additional custom website [origins](https://www.terraform.io/docs/prov
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dns_delegated_environment_name` (`string`) <i>optional</i>
@@ -890,8 +816,6 @@ A list of additional custom website [origins](https://www.terraform.io/docs/prov
 
 The environment where `dns-delegated` component is deployed to<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -906,7 +830,6 @@ The environment where `dns-delegated` component is deployed to<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `external_aliases` (`list(string)`) <i>optional</i>
@@ -919,8 +842,6 @@ Setting `process_domain_validation_options` to true may cause the component to f
 Setting `preview_environment_enabled` to `true` will cause this variable to be ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -935,7 +856,6 @@ Setting `preview_environment_enabled` to `true` will cause this variable to be i
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `failover_criteria_status_codes` (`list(string)`) <i>optional</i>
@@ -943,8 +863,6 @@ Setting `preview_environment_enabled` to `true` will cause this variable to be i
 
 List of HTTP Status Codes to use as the origin group failover criteria.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -977,7 +895,6 @@ List of HTTP Status Codes to use as the origin group failover criteria.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `failover_s3_origin_environment` (`string`) <i>optional</i>
@@ -992,8 +909,6 @@ For example, if this component creates an origin of name `eg-ue1-devplatform-exa
 then it is expected that a bucket with the name `eg-uw1-devplatform-example-failover` exists in `us-west-1`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1008,7 +923,6 @@ then it is expected that a bucket with the name `eg-uw1-devplatform-example-fail
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `failover_s3_origin_format` (`string`) <i>optional</i>
@@ -1022,8 +936,6 @@ For example, if this component creates an origin of name `eg-ue1-devplatform-exa
 is set to `uw1`, then it is expected that a bucket with the name `eg-uw1-devplatform-example-failover` exists in `us-west-1`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1038,7 +950,6 @@ is set to `uw1`, then it is expected that a bucket with the name `eg-uw1-devplat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `forward_cookies` (`string`) <i>optional</i>
@@ -1046,8 +957,6 @@ is set to `uw1`, then it is expected that a bucket with the name `eg-uw1-devplat
 
 Specifies whether you want CloudFront to forward all or no cookies to the origin. Can be 'all' or 'none'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1062,7 +971,6 @@ Specifies whether you want CloudFront to forward all or no cookies to the origin
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `forward_header_values` (`list(string)`) <i>optional</i>
@@ -1070,8 +978,6 @@ Specifies whether you want CloudFront to forward all or no cookies to the origin
 
 A list of whitelisted header values to forward to the origin (incompatible with `cache_policy_id`)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1102,7 +1008,6 @@ A list of whitelisted header values to forward to the origin (incompatible with 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `github_actions_allowed_repos` (`list(string)`) <i>optional</i>
@@ -1113,8 +1018,6 @@ A list of whitelisted header values to forward to the origin (incompatible with 
   If org part of repo name is omitted, "cloudposse" will be assumed.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1129,7 +1032,6 @@ A list of whitelisted header values to forward to the origin (incompatible with 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `github_actions_iam_role_attributes` (`list(string)`) <i>optional</i>
@@ -1137,8 +1039,6 @@ A list of whitelisted header values to forward to the origin (incompatible with 
 
 Additional attributes to add to the role name<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1153,7 +1053,6 @@ Additional attributes to add to the role name<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `github_actions_iam_role_enabled` (`bool`) <i>optional</i>
@@ -1162,8 +1061,6 @@ Additional attributes to add to the role name<br/>
 Flag to toggle creation of an IAM Role that GitHub Actions can assume to access AWS resources<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1178,7 +1075,6 @@ Flag to toggle creation of an IAM Role that GitHub Actions can assume to access 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `github_runners_component_name` (`string`) <i>optional</i>
@@ -1186,8 +1082,6 @@ Flag to toggle creation of an IAM Role that GitHub Actions can assume to access 
 
 The name of the component that deploys GitHub Runners, used in remote-state lookup<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1202,7 +1096,6 @@ The name of the component that deploys GitHub Runners, used in remote-state look
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `github_runners_deployment_principal_arn_enabled` (`bool`) <i>optional</i>
@@ -1210,8 +1103,6 @@ The name of the component that deploys GitHub Runners, used in remote-state look
 
 A flag that is used to decide whether or not to include the GitHub Runner's IAM role in origin_deployment_principal_arns list<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1226,7 +1117,6 @@ A flag that is used to decide whether or not to include the GitHub Runner's IAM 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `github_runners_environment_name` (`string`) <i>optional</i>
@@ -1234,8 +1124,6 @@ A flag that is used to decide whether or not to include the GitHub Runner's IAM 
 
 The name of the environment where the CloudTrail bucket is provisioned<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1250,7 +1138,6 @@ The name of the environment where the CloudTrail bucket is provisioned<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `github_runners_stage_name` (`string`) <i>optional</i>
@@ -1258,8 +1145,6 @@ The name of the environment where the CloudTrail bucket is provisioned<br/>
 
 The stage name where the CloudTrail bucket is provisioned<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1274,7 +1159,6 @@ The stage name where the CloudTrail bucket is provisioned<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `github_runners_tenant_name` (`string`) <i>optional</i>
@@ -1282,8 +1166,6 @@ The stage name where the CloudTrail bucket is provisioned<br/>
 
 The tenant name where the GitHub Runners are provisioned<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1298,7 +1180,6 @@ The tenant name where the GitHub Runners are provisioned<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `http_version` (`string`) <i>optional</i>
@@ -1306,8 +1187,6 @@ The tenant name where the GitHub Runners are provisioned<br/>
 
 The maximum HTTP version to support on the distribution. Allowed values are http1.1, http2, http2and3 and http3<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1322,7 +1201,6 @@ The maximum HTTP version to support on the distribution. Allowed values are http
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `lambda_edge_allowed_ssm_parameters` (`list(string)`) <i>optional</i>
@@ -1330,8 +1208,6 @@ The maximum HTTP version to support on the distribution. Allowed values are http
 
 The Lambda@Edge functions will be allowed to access the list of AWS SSM parameter with these ARNs<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1346,7 +1222,6 @@ The Lambda@Edge functions will be allowed to access the list of AWS SSM paramete
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `lambda_edge_destruction_delay` (`string`) <i>optional</i>
@@ -1366,8 +1241,6 @@ around 15 minutes until the Lambda@Edge function is available for deletion, in m
 For more information, see: https://github.com/hashicorp/terraform-provider-aws/issues/1721.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1382,7 +1255,6 @@ For more information, see: https://github.com/hashicorp/terraform-provider-aws/i
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `lambda_edge_functions` <i>optional</i>
@@ -1395,8 +1267,6 @@ The key of this map is the name of the Lambda@Edge function.<br/>
 This map will be deep merged with each enabled default function. Use deep merge to change or overwrite specific values passed by those function objects.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1428,7 +1298,6 @@ This map will be deep merged with each enabled default function. Use deep merge 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `lambda_edge_handler` (`string`) <i>optional</i>
@@ -1439,8 +1308,6 @@ The default Lambda@Edge handler for all functions.<br/>
 This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edge_functions` and can be overwritten for any individual function.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1455,7 +1322,6 @@ This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edg
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `lambda_edge_runtime` (`string`) <i>optional</i>
@@ -1466,8 +1332,6 @@ The default Lambda@Edge runtime for all functions.<br/>
 This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edge_functions` and can be overwritten for any individual function.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1482,7 +1346,6 @@ This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edg
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ordered_cache` <i>optional</i>
@@ -1495,8 +1358,6 @@ Set `cache_policy_id` to `""` to use `cache_policy_name` for creating a new poli
 Set `origin_request_policy_id` to `""` to use `origin_request_policy_name` for creating a new policy. At least one of the two must be set.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1553,7 +1414,6 @@ Set `origin_request_policy_id` to `""` to use `origin_request_policy_name` for c
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `origin_allow_ssl_requests_only` (`bool`) <i>optional</i>
@@ -1561,8 +1421,6 @@ Set `origin_request_policy_id` to `""` to use `origin_request_policy_name` for c
 
 Set to `true` in order to have the origin bucket require requests to use Secure Socket Layer (HTTPS/SSL). This will explicitly deny access to HTTP requests<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1577,7 +1435,6 @@ Set to `true` in order to have the origin bucket require requests to use Secure 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `origin_deployment_actions` (`list(string)`) <i>optional</i>
@@ -1585,8 +1442,6 @@ Set to `true` in order to have the origin bucket require requests to use Secure 
 
 List of actions to permit `origin_deployment_principal_arns` to perform on bucket and bucket prefixes (see `origin_deployment_principal_arns`)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1627,7 +1482,6 @@ List of actions to permit `origin_deployment_principal_arns` to perform on bucke
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `origin_deployment_principal_arns` (`list(string)`) <i>optional</i>
@@ -1635,8 +1489,6 @@ List of actions to permit `origin_deployment_principal_arns` to perform on bucke
 
 List of role ARNs to grant deployment permissions to the origin Bucket.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1651,7 +1503,6 @@ List of role ARNs to grant deployment permissions to the origin Bucket.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `origin_encryption_enabled` (`bool`) <i>optional</i>
@@ -1659,8 +1510,6 @@ List of role ARNs to grant deployment permissions to the origin Bucket.<br/>
 
 When set to 'true' the origin Bucket will have aes256 encryption enabled by default.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1675,7 +1524,6 @@ When set to 'true' the origin Bucket will have aes256 encryption enabled by defa
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `origin_force_destroy` (`bool`) <i>optional</i>
@@ -1683,8 +1531,6 @@ When set to 'true' the origin Bucket will have aes256 encryption enabled by defa
 
 A boolean string that indicates all objects should be deleted from the origin Bucket so that the Bucket can be destroyed without error. These objects are not recoverable.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1699,7 +1545,6 @@ A boolean string that indicates all objects should be deleted from the origin Bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `origin_s3_access_log_bucket_name` (`string`) <i>optional</i>
@@ -1707,8 +1552,6 @@ A boolean string that indicates all objects should be deleted from the origin Bu
 
 Name of the existing S3 bucket where S3 Access Logs for the origin Bucket will be delivered. Default is not to enable S3 Access Logging for the origin Bucket.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1723,7 +1566,6 @@ Name of the existing S3 bucket where S3 Access Logs for the origin Bucket will b
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `origin_s3_access_log_bucket_name_rendering_enabled` (`bool`) <i>optional</i>
@@ -1736,8 +1578,6 @@ For example, if this component produces an origin bucket named `eg-ue1-devplatfo
 `example-s3-access-logs`, then the bucket name will be rendered to be `eg-ue1-devplatform-example-s3-access-logs`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1752,7 +1592,6 @@ For example, if this component produces an origin bucket named `eg-ue1-devplatfo
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `origin_s3_access_log_prefix` (`string`) <i>optional</i>
@@ -1760,8 +1599,6 @@ For example, if this component produces an origin bucket named `eg-ue1-devplatfo
 
 Prefix to use for S3 Access Log object keys. Defaults to `logs/${module.this.id}`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1776,7 +1613,6 @@ Prefix to use for S3 Access Log object keys. Defaults to `logs/${module.this.id}
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `origin_s3_access_logging_enabled` (`bool`) <i>optional</i>
@@ -1787,8 +1623,6 @@ Defaults to `false` if `origin_s3_access_log_bucket_name` is empty (the default)
 Must be set explicitly if the access log bucket is being created at the same time as this module is being invoked.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1803,7 +1637,6 @@ Must be set explicitly if the access log bucket is being created at the same tim
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `origin_versioning_enabled` (`bool`) <i>optional</i>
@@ -1811,8 +1644,6 @@ Must be set explicitly if the access log bucket is being created at the same tim
 
 Enable or disable versioning for the origin Bucket. Versioning is a means of keeping multiple variants of an object in the same bucket.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1827,7 +1658,6 @@ Enable or disable versioning for the origin Bucket. Versioning is a means of kee
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `parent_zone_name` (`string`) <i>optional</i>
@@ -1835,8 +1665,6 @@ Enable or disable versioning for the origin Bucket. Versioning is a means of kee
 
 Parent domain name of site to publish. Defaults to format(parent_zone_name_pattern, stage, environment).<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1851,7 +1679,6 @@ Parent domain name of site to publish. Defaults to format(parent_zone_name_patte
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `preview_environment_enabled` (`bool`) <i>optional</i>
@@ -1873,8 +1700,6 @@ This variable implicitly affects the following variables:<br/>
 * `cloudfront_lambda_function_association`<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1889,7 +1714,6 @@ This variable implicitly affects the following variables:<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `process_domain_validation_options` (`bool`) <i>optional</i>
@@ -1897,8 +1721,6 @@ This variable implicitly affects the following variables:<br/>
 
 Flag to enable/disable processing of the record to add to the DNS zone to complete certificate validation<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1913,7 +1735,6 @@ Flag to enable/disable processing of the record to add to the DNS zone to comple
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `s3_object_ownership` (`string`) <i>optional</i>
@@ -1921,8 +1742,6 @@ Flag to enable/disable processing of the record to add to the DNS zone to comple
 
 Specifies the S3 object ownership control on the origin bucket. Valid values are `ObjectWriter`, `BucketOwnerPreferred`, and 'BucketOwnerEnforced'.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1937,7 +1756,6 @@ Specifies the S3 object ownership control on the origin bucket. Valid values are
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `s3_website_enabled` (`bool`) <i>optional</i>
@@ -1949,8 +1767,6 @@ and to use that website as the origin.<br/>
 Setting `preview_environment_enabled` will implicitly set this to `true`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1965,7 +1781,6 @@ Setting `preview_environment_enabled` will implicitly set this to `true`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `s3_website_password_enabled` (`bool`) <i>optional</i>
@@ -1976,8 +1791,6 @@ HTTP request in order to access the website, and CloudFront will be configured t
 This will make it much harder for people to bypass CloudFront and access the S3 website directly via its website endpoint.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1992,7 +1805,6 @@ This will make it much harder for people to bypass CloudFront and access the S3 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `site_fqdn` (`string`) <i>optional</i>
@@ -2000,8 +1812,6 @@ This will make it much harder for people to bypass CloudFront and access the S3 
 
 Fully qualified domain name of site to publish. Overrides site_subdomain and parent_zone_name.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2016,7 +1826,6 @@ Fully qualified domain name of site to publish. Overrides site_subdomain and par
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `site_subdomain` (`string`) <i>optional</i>
@@ -2024,8 +1833,6 @@ Fully qualified domain name of site to publish. Overrides site_subdomain and par
 
 Subdomain to plug into site_name_pattern to make site FQDN.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2040,10 +1847,10 @@ Subdomain to plug into site_name_pattern to make site FQDN.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -2058,8 +1865,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2074,7 +1879,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -2086,8 +1890,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2102,7 +1904,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -2115,8 +1916,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2179,7 +1978,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -2189,8 +1987,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2205,7 +2001,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -2225,8 +2020,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2241,7 +2034,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -2249,8 +2041,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2265,7 +2055,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -2273,8 +2062,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2289,7 +2076,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -2301,8 +2087,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2317,7 +2101,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -2329,8 +2112,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2345,7 +2126,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -2356,8 +2136,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2372,7 +2150,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -2386,8 +2163,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2402,7 +2177,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -2418,8 +2192,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2446,7 +2218,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -2457,8 +2228,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2473,7 +2242,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -2481,8 +2249,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2497,7 +2263,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -2508,8 +2273,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2524,7 +2287,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -2532,8 +2294,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2548,7 +2308,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -2558,8 +2317,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2574,7 +2331,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -2582,8 +2338,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2598,7 +2352,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

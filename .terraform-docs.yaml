@@ -9,8 +9,6 @@ content: |-
   {{ . }}<br/>
   {{- end }}
 
-  > <details>
-  > <summary>Click to expand</summary>
   >
   > <dl>
   >   <dt>Required</dt>
@@ -40,7 +38,6 @@ content: |-
   >   </dd>
   > </dl>
   >
-  > </details>
 
   {{ end -}}
 
@@ -112,7 +109,7 @@ content: |-
     {{- end }}
   {{- end }}
   {{- end }}
-
+  ---
   ### Required Variables
 
   {{- range .Module.Inputs }}
@@ -125,6 +122,7 @@ content: |-
   {{ range .Module.Inputs }}{{ if not .Required }}{{ $optional = true -}}{{ end -}}{{ end -}}
 
   {{ if $optional -}}
+  ---
   ### Optional Variables
 
   {{- range .Module.Inputs }}
@@ -134,6 +132,7 @@ content: |-
   {{ end -}}
   {{ end }}
 
+  ---
   ### Context Variables
 
   The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.

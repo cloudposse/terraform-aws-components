@@ -349,15 +349,13 @@ The following data sources are used by this module:
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
   - [`aws_ssm_parameter.github_token`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`cloudinit_config.config`](https://registry.terraform.io/providers/hashicorp/cloudinit/latest/docs/data-sources/config) (data source)
-
+---
 ### Required Variables
 ### `github_scope` (`string`) <i>required</i>
 
 
 Scope of the runner (e.g. `cloudposse/example` for repo or `cloudposse` for org)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -372,7 +370,6 @@ Scope of the runner (e.g. `cloudposse/example` for repo or `cloudposse` for org)
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `max_size` (`number`) <i>required</i>
@@ -380,8 +377,6 @@ Scope of the runner (e.g. `cloudposse/example` for repo or `cloudposse` for org)
 
 The maximum size of the autoscale group<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -396,7 +391,6 @@ The maximum size of the autoscale group<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `min_size` (`number`) <i>required</i>
@@ -404,8 +398,6 @@ The maximum size of the autoscale group<br/>
 
 The minimum size of the autoscale group<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -420,7 +412,6 @@ The minimum size of the autoscale group<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `region` (`string`) <i>required</i>
@@ -428,8 +419,6 @@ The minimum size of the autoscale group<br/>
 
 AWS Region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -444,18 +433,16 @@ AWS Region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `account_map_environment_name` (`string`) <i>optional</i>
 
 
 The name of the environment where `account_map` is provisioned<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -470,7 +457,6 @@ The name of the environment where `account_map` is provisioned<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `account_map_stage_name` (`string`) <i>optional</i>
@@ -478,8 +464,6 @@ The name of the environment where `account_map` is provisioned<br/>
 
 The name of the stage where `account_map` is provisioned<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -494,7 +478,6 @@ The name of the stage where `account_map` is provisioned<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `account_map_tenant_name` (`string`) <i>optional</i>
@@ -505,8 +488,6 @@ The name of the tenant where `account_map` is provisioned.<br/>
 If the `tenant` label is not used, leave this as `null`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -521,7 +502,6 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ami_filter` (`map(list(string))`) <i>optional</i>
@@ -529,8 +509,6 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 
 Map of lists used to look up the AMI which will be used for the GitHub Actions Runner.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -561,7 +539,6 @@ Map of lists used to look up the AMI which will be used for the GitHub Actions R
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ami_owners` (`list(string)`) <i>optional</i>
@@ -569,8 +546,6 @@ Map of lists used to look up the AMI which will be used for the GitHub Actions R
 
 The list of owners used to select the AMI of action runner instances.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -597,7 +572,6 @@ The list of owners used to select the AMI of action runner instances.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `block_device_mappings` <i>optional</i>
@@ -605,8 +579,6 @@ The list of owners used to select the AMI of action runner instances.<br/>
 
 Specify volumes to attach to the instance besides the volumes specified by the AMI<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -640,7 +612,6 @@ Specify volumes to attach to the instance besides the volumes specified by the A
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cpu_utilization_high_evaluation_periods` (`number`) <i>optional</i>
@@ -648,8 +619,6 @@ Specify volumes to attach to the instance besides the volumes specified by the A
 
 The number of periods over which data is compared to the specified threshold<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -664,7 +633,6 @@ The number of periods over which data is compared to the specified threshold<br/
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cpu_utilization_high_period_seconds` (`number`) <i>optional</i>
@@ -672,8 +640,6 @@ The number of periods over which data is compared to the specified threshold<br/
 
 The period in seconds over which the specified statistic is applied<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -688,7 +654,6 @@ The period in seconds over which the specified statistic is applied<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cpu_utilization_high_threshold_percent` (`number`) <i>optional</i>
@@ -696,8 +661,6 @@ The period in seconds over which the specified statistic is applied<br/>
 
 The value against which the specified statistic is compared<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -712,7 +675,6 @@ The value against which the specified statistic is compared<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cpu_utilization_low_evaluation_periods` (`number`) <i>optional</i>
@@ -720,8 +682,6 @@ The value against which the specified statistic is compared<br/>
 
 The number of periods over which data is compared to the specified threshold<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -736,7 +696,6 @@ The number of periods over which data is compared to the specified threshold<br/
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cpu_utilization_low_period_seconds` (`number`) <i>optional</i>
@@ -744,8 +703,6 @@ The number of periods over which data is compared to the specified threshold<br/
 
 The period in seconds over which the specified statistic is applied<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -760,7 +717,6 @@ The period in seconds over which the specified statistic is applied<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cpu_utilization_low_threshold_percent` (`number`) <i>optional</i>
@@ -768,8 +724,6 @@ The period in seconds over which the specified statistic is applied<br/>
 
 The value against which the specified statistic is compared<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -784,7 +738,6 @@ The value against which the specified statistic is compared<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `default_cooldown` (`number`) <i>optional</i>
@@ -792,8 +745,6 @@ The value against which the specified statistic is compared<br/>
 
 The amount of time, in seconds, after a scaling activity completes before another scaling activity can start<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -808,7 +759,6 @@ The amount of time, in seconds, after a scaling activity completes before anothe
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `docker_compose_version` (`string`) <i>optional</i>
@@ -816,8 +766,6 @@ The amount of time, in seconds, after a scaling activity completes before anothe
 
 The version of docker-compose to install<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -832,7 +780,6 @@ The version of docker-compose to install<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `instance_type` (`string`) <i>optional</i>
@@ -840,8 +787,6 @@ The version of docker-compose to install<br/>
 
 Default instance type for the action runner.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -856,7 +801,6 @@ Default instance type for the action runner.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `max_instance_lifetime` (`number`) <i>optional</i>
@@ -864,8 +808,6 @@ Default instance type for the action runner.<br/>
 
 The maximum amount of time, in seconds, that an instance can be in service, values must be either equal to 0 or between 604800 and 31536000 seconds<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -880,7 +822,6 @@ The maximum amount of time, in seconds, that an instance can be in service, valu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mixed_instances_policy` <i>optional</i>
@@ -888,8 +829,6 @@ The maximum amount of time, in seconds, that an instance can be in service, valu
 
 Policy to use a mixed group of on-demand/spot of differing types. Launch template is automatically generated. https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html#mixed_instances_policy-1<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -923,7 +862,6 @@ Policy to use a mixed group of on-demand/spot of differing types. Launch templat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `runner_group` (`string`) <i>optional</i>
@@ -931,8 +869,6 @@ Policy to use a mixed group of on-demand/spot of differing types. Launch templat
 
 GitHub runner group<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -947,7 +883,6 @@ GitHub runner group<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `runner_labels` (`list(string)`) <i>optional</i>
@@ -955,8 +890,6 @@ GitHub runner group<br/>
 
 List of labels to add to the GitHub Runner (e.g. 'Amazon Linux 2').<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -971,7 +904,6 @@ List of labels to add to the GitHub Runner (e.g. 'Amazon Linux 2').<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `runner_role_additional_policy_arns` (`list(string)`) <i>optional</i>
@@ -979,8 +911,6 @@ List of labels to add to the GitHub Runner (e.g. 'Amazon Linux 2').<br/>
 
 List of policy ARNs that will be attached to the runners' default role on creation in addition to the defaults<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -995,7 +925,6 @@ List of policy ARNs that will be attached to the runners' default role on creati
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `runner_version` (`string`) <i>optional</i>
@@ -1003,8 +932,6 @@ List of policy ARNs that will be attached to the runners' default role on creati
 
 GitHub runner release version<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1019,7 +946,6 @@ GitHub runner release version<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `scale_down_cooldown_seconds` (`number`) <i>optional</i>
@@ -1027,8 +953,6 @@ GitHub runner release version<br/>
 
 The amount of time, in seconds, after a scaling activity completes and before the next scaling activity can start<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1043,7 +967,6 @@ The amount of time, in seconds, after a scaling activity completes and before th
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_parameter_name_format` (`string`) <i>optional</i>
@@ -1051,8 +974,6 @@ The amount of time, in seconds, after a scaling activity completes and before th
 
 SSM parameter name format<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1067,7 +988,6 @@ SSM parameter name format<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_path` (`string`) <i>optional</i>
@@ -1075,8 +995,6 @@ SSM parameter name format<br/>
 
 GitHub token SSM path<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1091,7 +1009,6 @@ GitHub token SSM path<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_path_key` (`string`) <i>optional</i>
@@ -1099,8 +1016,6 @@ GitHub token SSM path<br/>
 
 GitHub token SSM path key<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1115,7 +1030,6 @@ GitHub token SSM path key<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `userdata_post_install` (`string`) <i>optional</i>
@@ -1123,8 +1037,6 @@ GitHub token SSM path key<br/>
 
 Shell script to run post installation of github action runner<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1139,7 +1051,6 @@ Shell script to run post installation of github action runner<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `userdata_pre_install` (`string`) <i>optional</i>
@@ -1147,8 +1058,6 @@ Shell script to run post installation of github action runner<br/>
 
 Shell script to run before installation of github action runner<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1163,7 +1072,6 @@ Shell script to run before installation of github action runner<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `wait_for_capacity_timeout` (`string`) <i>optional</i>
@@ -1171,8 +1079,6 @@ Shell script to run before installation of github action runner<br/>
 
 A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. (See also Waiting for Capacity below.) Setting this to '0' causes Terraform to skip all Capacity Waiting behavior<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1187,10 +1093,10 @@ A maximum duration that Terraform should wait for ASG instances to be healthy be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -1205,8 +1111,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1221,7 +1125,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -1233,8 +1136,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1249,7 +1150,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -1262,8 +1162,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1326,7 +1224,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -1336,8 +1233,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1352,7 +1247,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -1372,8 +1266,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1388,7 +1280,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -1396,8 +1287,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1412,7 +1301,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -1420,8 +1308,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1436,7 +1322,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -1448,8 +1333,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1464,7 +1347,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -1476,8 +1358,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1492,7 +1372,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -1503,8 +1382,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1519,7 +1396,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -1533,8 +1409,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1549,7 +1423,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -1565,8 +1438,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1593,7 +1464,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -1604,8 +1474,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1620,7 +1488,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -1628,8 +1495,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1644,7 +1509,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -1655,8 +1519,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1671,7 +1533,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -1679,8 +1540,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1695,7 +1554,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -1705,8 +1563,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1721,7 +1577,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -1729,8 +1584,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1745,7 +1598,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

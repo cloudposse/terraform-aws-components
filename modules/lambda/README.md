@@ -122,15 +122,13 @@ The following data sources are used by this module:
 
   - [`archive_file.lambdazip`](https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file) (data source)
   - [`aws_ssm_parameter.cicd_ssm_param`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
-
+---
 ### Required Variables
 ### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -145,10 +143,10 @@ AWS Region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `architectures` (`list(string)`) <i>optional</i>
 
@@ -157,8 +155,6 @@ AWS Region<br/>
     Default is ["x86_64"]. Removing this attribute, function's architecture stay the same.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -173,7 +169,6 @@ AWS Region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cicd_s3_key_format` (`string`) <i>optional</i>
@@ -181,8 +176,6 @@ AWS Region<br/>
 
 The format of the S3 key to store the latest version/sha of the Lambda function. This is used with cicd_ssm_param_name. Defaults to 'stage/{stage}/lambda/{function_name}/%s.zip'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -197,7 +190,6 @@ The format of the S3 key to store the latest version/sha of the Lambda function.
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cicd_ssm_param_name` (`string`) <i>optional</i>
@@ -205,8 +197,6 @@ The format of the S3 key to store the latest version/sha of the Lambda function.
 
 The name of the SSM parameter to store the latest version/sha of the Lambda function. This is used with cicd_s3_key_format<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -221,7 +211,6 @@ The name of the SSM parameter to store the latest version/sha of the Lambda func
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudwatch_event_rules` (`map(any)`) <i>optional</i>
@@ -229,8 +218,6 @@ The name of the SSM parameter to store the latest version/sha of the Lambda func
 
 Creates EventBridge (CloudWatch Events) rules for invoking the Lambda Function along with the required permissions.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -245,7 +232,6 @@ Creates EventBridge (CloudWatch Events) rules for invoking the Lambda Function a
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudwatch_lambda_insights_enabled` (`bool`) <i>optional</i>
@@ -253,8 +239,6 @@ Creates EventBridge (CloudWatch Events) rules for invoking the Lambda Function a
 
 Enable CloudWatch Lambda Insights for the Lambda Function.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -269,7 +253,6 @@ Enable CloudWatch Lambda Insights for the Lambda Function.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudwatch_log_subscription_filters` (`map(any)`) <i>optional</i>
@@ -277,8 +260,6 @@ Enable CloudWatch Lambda Insights for the Lambda Function.<br/>
 
 CloudWatch Logs subscription filter resources. Currently supports only Lambda functions as destinations.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -293,7 +274,6 @@ CloudWatch Logs subscription filter resources. Currently supports only Lambda fu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudwatch_logs_kms_key_arn` (`string`) <i>optional</i>
@@ -301,8 +281,6 @@ CloudWatch Logs subscription filter resources. Currently supports only Lambda fu
 
 The ARN of the KMS Key to use when encrypting log data.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -317,7 +295,6 @@ The ARN of the KMS Key to use when encrypting log data.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudwatch_logs_retention_in_days` (`number`) <i>optional</i>
@@ -328,8 +305,6 @@ The ARN of the KMS Key to use when encrypting log data.<br/>
   log group are always retained and never expire.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -344,7 +319,6 @@ The ARN of the KMS Key to use when encrypting log data.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `custom_iam_policy_arns` (`set(string)`) <i>optional</i>
@@ -352,8 +326,6 @@ The ARN of the KMS Key to use when encrypting log data.<br/>
 
 ARNs of IAM policies to be attached to the Lambda role<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -368,7 +340,6 @@ ARNs of IAM policies to be attached to the Lambda role<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dead_letter_config_target_arn` (`string`) <i>optional</i>
@@ -379,8 +350,6 @@ ARNs of IAM policies to be attached to the Lambda role<br/>
   sqs:SendMessage action on this ARN, depending on which service is targeted."<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -395,7 +364,6 @@ ARNs of IAM policies to be attached to the Lambda role<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `description` (`string`) <i>optional</i>
@@ -403,8 +371,6 @@ ARNs of IAM policies to be attached to the Lambda role<br/>
 
 Description of what the Lambda Function does.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -419,7 +385,6 @@ Description of what the Lambda Function does.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `event_source_mappings` (`any`) <i>optional</i>
@@ -429,8 +394,6 @@ Description of what the Lambda Function does.<br/>
   of this Lambda function will be enhanced with necessary minimum permissions to get those events.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -445,7 +408,6 @@ Description of what the Lambda Function does.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `filename` (`string`) <i>optional</i>
@@ -453,8 +415,6 @@ Description of what the Lambda Function does.<br/>
 
 The path to the function's deployment package within the local filesystem. If defined, The s3_-prefixed options and image_uri cannot be used.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -469,7 +429,6 @@ The path to the function's deployment package within the local filesystem. If de
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `function_name` (`string`) <i>optional</i>
@@ -477,8 +436,6 @@ The path to the function's deployment package within the local filesystem. If de
 
 Unique name for the Lambda Function.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -493,7 +450,6 @@ Unique name for the Lambda Function.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `handler` (`string`) <i>optional</i>
@@ -501,8 +457,6 @@ Unique name for the Lambda Function.<br/>
 
 The function entrypoint in your code.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -517,7 +471,6 @@ The function entrypoint in your code.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `iam_policy` <i>optional</i>
@@ -525,8 +478,6 @@ The function entrypoint in your code.<br/>
 
 IAM policy to attach to the Lambda role, specified as a Terraform object. This can be used with or instead of `var.policy_json`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -571,7 +522,6 @@ IAM policy to attach to the Lambda role, specified as a Terraform object. This c
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `iam_policy_description` (`string`) <i>optional</i>
@@ -579,8 +529,6 @@ IAM policy to attach to the Lambda role, specified as a Terraform object. This c
 
 Description of the IAM policy for the Lambda IAM role<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -595,7 +543,6 @@ Description of the IAM policy for the Lambda IAM role<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ignore_external_function_updates` (`bool`) <i>optional</i>
@@ -605,8 +552,6 @@ Description of the IAM policy for the Lambda IAM role<br/>
   using CodeDeploy, aws CLI or other external tools to update the Lambda Function code."<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -621,7 +566,6 @@ Description of the IAM policy for the Lambda IAM role<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `image_config` (`any`) <i>optional</i>
@@ -634,8 +578,6 @@ Description of the IAM policy for the Lambda IAM role<br/>
   - *working_directory* - The working directory for the docker image (type `string`).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -650,7 +592,6 @@ Description of the IAM policy for the Lambda IAM role<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `image_uri` (`string`) <i>optional</i>
@@ -658,8 +599,6 @@ Description of the IAM policy for the Lambda IAM role<br/>
 
 The ECR image URI containing the function's deployment package. Conflicts with `filename`, `s3_bucket_name`, `s3_key`, and `s3_object_version`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -674,7 +613,6 @@ The ECR image URI containing the function's deployment package. Conflicts with `
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kms_key_arn` (`string`) <i>optional</i>
@@ -687,8 +625,6 @@ The ECR image URI containing the function's deployment package. Conflicts with `
   remove this configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -703,7 +639,6 @@ The ECR image URI containing the function's deployment package. Conflicts with `
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `lambda_at_edge_enabled` (`bool`) <i>optional</i>
@@ -711,8 +646,6 @@ The ECR image URI containing the function's deployment package. Conflicts with `
 
 Enable Lambda@Edge for your Node.js or Python functions. The required trust relationship and publishing of function versions will be configured in this module.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -727,7 +660,6 @@ Enable Lambda@Edge for your Node.js or Python functions. The required trust rela
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `lambda_environment` <i>optional</i>
@@ -735,8 +667,6 @@ Enable Lambda@Edge for your Node.js or Python functions. The required trust rela
 
 Environment (e.g. ENV variables) configuration for the Lambda function enable you to dynamically pass settings to your function code and libraries.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -759,7 +689,6 @@ Environment (e.g. ENV variables) configuration for the Lambda function enable yo
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `layers` (`list(string)`) <i>optional</i>
@@ -767,8 +696,6 @@ Environment (e.g. ENV variables) configuration for the Lambda function enable yo
 
 List of Lambda Layer Version ARNs (maximum of 5) to attach to the Lambda Function.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -783,7 +710,6 @@ List of Lambda Layer Version ARNs (maximum of 5) to attach to the Lambda Functio
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `memory_size` (`number`) <i>optional</i>
@@ -791,8 +717,6 @@ List of Lambda Layer Version ARNs (maximum of 5) to attach to the Lambda Functio
 
 Amount of memory in MB the Lambda Function can use at runtime.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -807,7 +731,6 @@ Amount of memory in MB the Lambda Function can use at runtime.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `package_type` (`string`) <i>optional</i>
@@ -815,8 +738,6 @@ Amount of memory in MB the Lambda Function can use at runtime.<br/>
 
 The Lambda deployment package type. Valid values are `Zip` and `Image`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -831,7 +752,6 @@ The Lambda deployment package type. Valid values are `Zip` and `Image`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `permissions_boundary` (`string`) <i>optional</i>
@@ -839,8 +759,6 @@ The Lambda deployment package type. Valid values are `Zip` and `Image`.<br/>
 
 ARN of the policy that is used to set the permissions boundary for the role<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -855,7 +773,6 @@ ARN of the policy that is used to set the permissions boundary for the role<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `policy_json` (`string`) <i>optional</i>
@@ -863,8 +780,6 @@ ARN of the policy that is used to set the permissions boundary for the role<br/>
 
 IAM policy to attach to the Lambda role, specified as JSON. This can be used with or instead of `var.iam_policy`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -879,7 +794,6 @@ IAM policy to attach to the Lambda role, specified as JSON. This can be used wit
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `publish` (`bool`) <i>optional</i>
@@ -887,8 +801,6 @@ IAM policy to attach to the Lambda role, specified as JSON. This can be used wit
 
 Whether to publish creation/change as new Lambda Function Version.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -903,7 +815,6 @@ Whether to publish creation/change as new Lambda Function Version.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `reserved_concurrent_executions` (`number`) <i>optional</i>
@@ -911,8 +822,6 @@ Whether to publish creation/change as new Lambda Function Version.<br/>
 
 The amount of reserved concurrent executions for this lambda function. A value of 0 disables lambda from being triggered and -1 removes any concurrency limitations.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -927,7 +836,6 @@ The amount of reserved concurrent executions for this lambda function. A value o
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `runtime` (`string`) <i>optional</i>
@@ -935,8 +843,6 @@ The amount of reserved concurrent executions for this lambda function. A value o
 
 The runtime environment for the Lambda function you are uploading.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -951,7 +857,6 @@ The runtime environment for the Lambda function you are uploading.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `s3_bucket_name` (`string`) <i>optional</i>
@@ -961,8 +866,6 @@ The runtime environment for the Lambda function you are uploading.<br/>
   This bucket must reside in the same AWS region where you are creating the Lambda function.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -977,7 +880,6 @@ The runtime environment for the Lambda function you are uploading.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `s3_full_bucket_name` (`string`) <i>optional</i>
@@ -989,8 +891,6 @@ The runtime environment for the Lambda function you are uploading.<br/>
   This is alternative to `var.s3_bucket_name` which formats the name for the current account.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1005,7 +905,6 @@ The runtime environment for the Lambda function you are uploading.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `s3_key` (`string`) <i>optional</i>
@@ -1013,8 +912,6 @@ The runtime environment for the Lambda function you are uploading.<br/>
 
 The S3 key of an object containing the function's deployment package. Conflicts with filename and image_uri.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1029,7 +926,6 @@ The S3 key of an object containing the function's deployment package. Conflicts 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `s3_object_version` (`string`) <i>optional</i>
@@ -1037,8 +933,6 @@ The S3 key of an object containing the function's deployment package. Conflicts 
 
 The object version containing the function's deployment package. Conflicts with filename and image_uri.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1053,7 +947,6 @@ The object version containing the function's deployment package. Conflicts with 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `sns_subscriptions` (`map(any)`) <i>optional</i>
@@ -1061,8 +954,6 @@ The object version containing the function's deployment package. Conflicts with 
 
 Creates subscriptions to SNS topics which trigger the Lambda Function. Required Lambda invocation permissions will be generated.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1077,7 +968,6 @@ Creates subscriptions to SNS topics which trigger the Lambda Function. Required 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `source_code_hash` (`string`) <i>optional</i>
@@ -1088,8 +978,6 @@ Creates subscriptions to SNS topics which trigger the Lambda Function. Required 
   of the lambda function source archive.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1104,7 +992,6 @@ Creates subscriptions to SNS topics which trigger the Lambda Function. Required 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_parameter_names` (`list(string)`) <i>optional</i>
@@ -1115,8 +1002,6 @@ Creates subscriptions to SNS topics which trigger the Lambda Function. Required 
   default KMS key.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1131,7 +1016,6 @@ Creates subscriptions to SNS topics which trigger the Lambda Function. Required 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `timeout` (`number`) <i>optional</i>
@@ -1139,8 +1023,6 @@ Creates subscriptions to SNS topics which trigger the Lambda Function. Required 
 
 The amount of time the Lambda Function has to run in seconds.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1155,7 +1037,6 @@ The amount of time the Lambda Function has to run in seconds.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tracing_config_mode` (`string`) <i>optional</i>
@@ -1163,8 +1044,6 @@ The amount of time the Lambda Function has to run in seconds.<br/>
 
 Tracing config mode of the Lambda function. Can be either PassThrough or Active.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1179,7 +1058,6 @@ Tracing config mode of the Lambda function. Can be either PassThrough or Active.
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `vpc_config` <i>optional</i>
@@ -1189,8 +1067,6 @@ Tracing config mode of the Lambda function. Can be either PassThrough or Active.
   vpc_config is considered to be empty or unset, see https://docs.aws.amazon.com/lambda/latest/dg/vpc.html for details).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1214,7 +1090,6 @@ Tracing config mode of the Lambda function. Can be either PassThrough or Active.
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `zip` <i>optional</i>
@@ -1222,8 +1097,6 @@ Tracing config mode of the Lambda function. Can be either PassThrough or Active.
 
 Zip Configuration for local file deployments<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1248,10 +1121,10 @@ Zip Configuration for local file deployments<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -1266,8 +1139,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1282,7 +1153,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -1294,8 +1164,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1310,7 +1178,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -1323,8 +1190,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1387,7 +1252,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -1397,8 +1261,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1413,7 +1275,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -1433,8 +1294,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1449,7 +1308,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -1457,8 +1315,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1473,7 +1329,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -1481,8 +1336,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1497,7 +1350,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -1509,8 +1361,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1525,7 +1375,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -1537,8 +1386,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1553,7 +1400,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -1564,8 +1410,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1580,7 +1424,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -1594,8 +1437,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1610,7 +1451,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -1626,8 +1466,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1654,7 +1492,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -1665,8 +1502,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1681,7 +1516,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -1689,8 +1523,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1705,7 +1537,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -1716,8 +1547,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1732,7 +1561,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -1740,8 +1568,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1756,7 +1582,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -1766,8 +1591,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1782,7 +1605,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -1790,8 +1612,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1806,7 +1626,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

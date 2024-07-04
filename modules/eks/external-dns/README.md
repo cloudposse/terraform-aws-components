@@ -93,15 +93,13 @@ The following data sources are used by this module:
 
   - [`aws_eks_cluster_auth.eks`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
-
+---
 ### Required Variables
 ### `chart` (`string`) <i>required</i>
 
 
 Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -116,7 +114,6 @@ Chart name to be installed. The chart name can be local path, a URL to a chart, 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `chart_repository` (`string`) <i>required</i>
@@ -124,8 +121,6 @@ Chart name to be installed. The chart name can be local path, a URL to a chart, 
 
 Repository URL where to locate the requested chart.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -140,7 +135,6 @@ Repository URL where to locate the requested chart.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kubernetes_namespace` (`string`) <i>required</i>
@@ -148,8 +142,6 @@ Repository URL where to locate the requested chart.<br/>
 
 The namespace to install the release into.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -164,7 +156,6 @@ The namespace to install the release into.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `region` (`string`) <i>required</i>
@@ -172,8 +163,6 @@ The namespace to install the release into.<br/>
 
 AWS Region.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -188,18 +177,16 @@ AWS Region.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `atomic` (`bool`) <i>optional</i>
 
 
 If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -214,7 +201,6 @@ If set, installation process purges chart on fail. The wait flag will be set aut
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `chart_description` (`string`) <i>optional</i>
@@ -222,8 +208,6 @@ If set, installation process purges chart on fail. The wait flag will be set aut
 
 Set release description attribute (visible in the history).<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -238,7 +222,6 @@ Set release description attribute (visible in the history).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `chart_values` (`any`) <i>optional</i>
@@ -246,8 +229,6 @@ Set release description attribute (visible in the history).<br/>
 
 Addition map values to yamlencode as `helm_release` values.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -262,7 +243,6 @@ Addition map values to yamlencode as `helm_release` values.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `chart_version` (`string`) <i>optional</i>
@@ -270,8 +250,6 @@ Addition map values to yamlencode as `helm_release` values.<br/>
 
 Specify the exact chart version to install. If this is not specified, the latest version is installed.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -286,7 +264,6 @@ Specify the exact chart version to install. If this is not specified, the latest
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cleanup_on_fail` (`bool`) <i>optional</i>
@@ -294,8 +271,6 @@ Specify the exact chart version to install. If this is not specified, the latest
 
 Allow deletion of new resources created in this upgrade when upgrade fails.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -310,7 +285,6 @@ Allow deletion of new resources created in this upgrade when upgrade fails.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `crd_enabled` (`bool`) <i>optional</i>
@@ -318,8 +292,6 @@ Allow deletion of new resources created in this upgrade when upgrade fails.<br/>
 
 Install and use the integrated DNSEndpoint CRD.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -334,7 +306,6 @@ Install and use the integrated DNSEndpoint CRD.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `create_namespace` (`bool`) <i>optional</i>
@@ -342,8 +313,6 @@ Install and use the integrated DNSEndpoint CRD.<br/>
 
 Create the namespace if it does not yet exist. Defaults to `false`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -358,7 +327,6 @@ Create the namespace if it does not yet exist. Defaults to `false`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dns_gbl_delegated_environment_name` (`string`) <i>optional</i>
@@ -366,8 +334,6 @@ Create the namespace if it does not yet exist. Defaults to `false`.<br/>
 
 The name of the environment where global `dns_delegated` is provisioned<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -382,7 +348,6 @@ The name of the environment where global `dns_delegated` is provisioned<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dns_gbl_primary_environment_name` (`string`) <i>optional</i>
@@ -390,8 +355,6 @@ The name of the environment where global `dns_delegated` is provisioned<br/>
 
 The name of the environment where global `dns_primary` is provisioned<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -406,7 +369,6 @@ The name of the environment where global `dns_primary` is provisioned<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `eks_component_name` (`string`) <i>optional</i>
@@ -414,8 +376,6 @@ The name of the environment where global `dns_primary` is provisioned<br/>
 
 The name of the eks component<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -430,7 +390,6 @@ The name of the eks component<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `helm_manifest_experiment_enabled` (`bool`) <i>optional</i>
@@ -438,8 +397,6 @@ The name of the eks component<br/>
 
 Enable storing of the rendered manifest for helm_release so the full diff of what is changing can been seen in the plan<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -454,7 +411,6 @@ Enable storing of the rendered manifest for helm_release so the full diff of wha
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `istio_enabled` (`bool`) <i>optional</i>
@@ -462,8 +418,6 @@ Enable storing of the rendered manifest for helm_release so the full diff of wha
 
 Add istio gateways to monitored sources.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -478,7 +432,6 @@ Add istio gateways to monitored sources.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kube_data_auth_enabled` (`bool`) <i>optional</i>
@@ -488,8 +441,6 @@ If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS 
 Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -504,7 +455,6 @@ Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kube_exec_auth_aws_profile` (`string`) <i>optional</i>
@@ -512,8 +462,6 @@ Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
 
 The AWS config profile for `aws eks get-token` to use<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -528,7 +476,6 @@ The AWS config profile for `aws eks get-token` to use<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kube_exec_auth_aws_profile_enabled` (`bool`) <i>optional</i>
@@ -536,8 +483,6 @@ The AWS config profile for `aws eks get-token` to use<br/>
 
 If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-token`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -552,7 +497,6 @@ If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-to
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kube_exec_auth_enabled` (`bool`) <i>optional</i>
@@ -562,8 +506,6 @@ If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-to
 Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -578,7 +520,6 @@ Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kube_exec_auth_role_arn` (`string`) <i>optional</i>
@@ -586,8 +527,6 @@ Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
 
 The role ARN for `aws eks get-token` to use<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -602,7 +541,6 @@ The role ARN for `aws eks get-token` to use<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kube_exec_auth_role_arn_enabled` (`bool`) <i>optional</i>
@@ -610,8 +548,6 @@ The role ARN for `aws eks get-token` to use<br/>
 
 If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -626,7 +562,6 @@ If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kubeconfig_context` (`string`) <i>optional</i>
@@ -636,8 +571,6 @@ Context to choose from the Kubernetes config file.<br/>
 If supplied, `kubeconfig_context_format` will be ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -652,7 +585,6 @@ If supplied, `kubeconfig_context_format` will be ignored.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kubeconfig_context_format` (`string`) <i>optional</i>
@@ -663,8 +595,6 @@ A format string to use for creating the `kubectl` context name when<br/>
 Must include a single `%s` which will be replaced with the cluster name.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -679,7 +609,6 @@ Must include a single `%s` which will be replaced with the cluster name.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kubeconfig_exec_auth_api_version` (`string`) <i>optional</i>
@@ -687,8 +616,6 @@ Must include a single `%s` which will be replaced with the cluster name.<br/>
 
 The Kubernetes API version of the credentials returned by the `exec` auth plugin<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -703,7 +630,6 @@ The Kubernetes API version of the credentials returned by the `exec` auth plugin
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kubeconfig_file` (`string`) <i>optional</i>
@@ -711,8 +637,6 @@ The Kubernetes API version of the credentials returned by the `exec` auth plugin
 
 The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -727,7 +651,6 @@ The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabl
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kubeconfig_file_enabled` (`bool`) <i>optional</i>
@@ -735,8 +658,6 @@ The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabl
 
 If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -751,7 +672,6 @@ If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `metrics_enabled` (`bool`) <i>optional</i>
@@ -759,8 +679,6 @@ If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that
 
 Whether or not to enable metrics in the helm chart.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -775,7 +693,6 @@ Whether or not to enable metrics in the helm chart.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `policy` (`string`) <i>optional</i>
@@ -783,8 +700,6 @@ Whether or not to enable metrics in the helm chart.<br/>
 
 Modify how DNS records are synchronized between sources and providers (options: sync, upsert-only)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -799,7 +714,6 @@ Modify how DNS records are synchronized between sources and providers (options: 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `publish_internal_services` (`bool`) <i>optional</i>
@@ -807,8 +721,6 @@ Modify how DNS records are synchronized between sources and providers (options: 
 
 Allow external-dns to publish DNS records for ClusterIP services<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -823,7 +735,6 @@ Allow external-dns to publish DNS records for ClusterIP services<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `rbac_enabled` (`bool`) <i>optional</i>
@@ -831,8 +742,6 @@ Allow external-dns to publish DNS records for ClusterIP services<br/>
 
 Service Account for pods.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -847,7 +756,6 @@ Service Account for pods.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `resources` <i>optional</i>
@@ -855,8 +763,6 @@ Service Account for pods.<br/>
 
 The cpu and memory of the deployment's limits and requests.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -912,7 +818,6 @@ The cpu and memory of the deployment's limits and requests.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `timeout` (`number`) <i>optional</i>
@@ -920,8 +825,6 @@ The cpu and memory of the deployment's limits and requests.<br/>
 
 Time in seconds to wait for any individual kubernetes operation (like Jobs for hooks). Defaults to `300` seconds<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -936,7 +839,6 @@ Time in seconds to wait for any individual kubernetes operation (like Jobs for h
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `txt_prefix` (`string`) <i>optional</i>
@@ -944,8 +846,6 @@ Time in seconds to wait for any individual kubernetes operation (like Jobs for h
 
 Prefix to create a TXT record with a name following the pattern prefix.`<CNAME record>`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -960,7 +860,6 @@ Prefix to create a TXT record with a name following the pattern prefix.`<CNAME r
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `wait` (`bool`) <i>optional</i>
@@ -968,8 +867,6 @@ Prefix to create a TXT record with a name following the pattern prefix.`<CNAME r
 
 Will wait until all resources are in a ready state before marking the release as successful. It will wait for as long as `timeout`. Defaults to `true`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -984,10 +881,10 @@ Will wait until all resources are in a ready state before marking the release as
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -1002,8 +899,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1018,7 +913,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -1030,8 +924,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1046,7 +938,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -1059,8 +950,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1123,7 +1012,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -1133,8 +1021,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1149,7 +1035,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -1169,8 +1054,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1185,7 +1068,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -1193,8 +1075,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1209,7 +1089,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -1217,8 +1096,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1233,7 +1110,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -1245,8 +1121,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1261,7 +1135,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -1273,8 +1146,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1289,7 +1160,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -1300,8 +1170,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1316,7 +1184,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -1330,8 +1197,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1346,7 +1211,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -1362,8 +1226,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1390,7 +1252,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -1401,8 +1262,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1417,7 +1276,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -1425,8 +1283,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1441,7 +1297,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -1452,8 +1307,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1468,7 +1321,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -1476,8 +1328,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1492,7 +1342,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -1502,8 +1351,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1518,7 +1365,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -1526,8 +1372,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1542,7 +1386,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

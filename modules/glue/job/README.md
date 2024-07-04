@@ -74,15 +74,13 @@ The following resources are used by this module:
 The following data sources are used by this module:
 
   - [`aws_iam_policy_document.glue_job_aws_tools_access`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
-
+---
 ### Required Variables
 ### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -97,18 +95,16 @@ AWS Region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `command` (`map(any)`) <i>optional</i>
 
 
 The command of the job<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -123,7 +119,6 @@ The command of the job<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `connections` (`list(string)`) <i>optional</i>
@@ -131,8 +126,6 @@ The command of the job<br/>
 
 The list of connections used for this job<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -147,7 +140,6 @@ The list of connections used for this job<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `default_arguments` (`map(string)`) <i>optional</i>
@@ -155,8 +147,6 @@ The list of connections used for this job<br/>
 
 The map of default arguments for the job. You can specify arguments here that your own job-execution script consumes, as well as arguments that AWS Glue itself consumes<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -171,7 +161,6 @@ The map of default arguments for the job. You can specify arguments here that yo
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `execution_property` <i>optional</i>
@@ -179,8 +168,6 @@ The map of default arguments for the job. You can specify arguments here that yo
 
 Execution property of the job<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -204,7 +191,6 @@ Execution property of the job<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `glue_iam_component_name` (`string`) <i>optional</i>
@@ -212,8 +198,6 @@ Execution property of the job<br/>
 
 Glue IAM component name. Used to get the Glue IAM role from the remote state<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -228,7 +212,6 @@ Glue IAM component name. Used to get the Glue IAM role from the remote state<br/
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `glue_job_command_name` (`string`) <i>optional</i>
@@ -236,8 +219,6 @@ Glue IAM component name. Used to get the Glue IAM role from the remote state<br/
 
 The name of the job command. Defaults to glueetl. Use pythonshell for Python Shell Job Type, or gluestreaming for Streaming Job Type. max_capacity needs to be set if pythonshell is chosen<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -252,7 +233,6 @@ The name of the job command. Defaults to glueetl. Use pythonshell for Python She
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `glue_job_command_python_version` (`number`) <i>optional</i>
@@ -260,8 +240,6 @@ The name of the job command. Defaults to glueetl. Use pythonshell for Python She
 
 The Python version being used to execute a Python shell job. Allowed values are 2, 3 or 3.9. Version 3 refers to Python 3.6<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -276,7 +254,6 @@ The Python version being used to execute a Python shell job. Allowed values are 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `glue_job_s3_bucket_component_name` (`string`) <i>optional</i>
@@ -284,8 +261,6 @@ The Python version being used to execute a Python shell job. Allowed values are 
 
 Glue job S3 bucket component name. Used to get the remote state of the S3 bucket where the Glue job script is located<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -300,7 +275,6 @@ Glue job S3 bucket component name. Used to get the remote state of the S3 bucket
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `glue_job_s3_bucket_script_path` (`string`) <i>optional</i>
@@ -308,8 +282,6 @@ Glue job S3 bucket component name. Used to get the remote state of the S3 bucket
 
 Glue job script path in the S3 bucket<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -324,7 +296,6 @@ Glue job script path in the S3 bucket<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `glue_version` (`string`) <i>optional</i>
@@ -332,8 +303,6 @@ Glue job script path in the S3 bucket<br/>
 
 The version of Glue to use<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -348,7 +317,6 @@ The version of Glue to use<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `job_description` (`string`) <i>optional</i>
@@ -356,8 +324,6 @@ The version of Glue to use<br/>
 
 Glue job description<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -372,7 +338,6 @@ Glue job description<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `job_name` (`string`) <i>optional</i>
@@ -380,8 +345,6 @@ Glue job description<br/>
 
 Glue job name. If not provided, the name will be generated from the context<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -396,7 +359,6 @@ Glue job name. If not provided, the name will be generated from the context<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `max_capacity` (`number`) <i>optional</i>
@@ -404,8 +366,6 @@ Glue job name. If not provided, the name will be generated from the context<br/>
 
 The maximum number of AWS Glue data processing units (DPUs) that can be allocated when the job runs. Required when `pythonshell` is set, accept either 0.0625 or 1.0. Use `number_of_workers` and `worker_type` arguments instead with `glue_version` 2.0 and above<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -420,7 +380,6 @@ The maximum number of AWS Glue data processing units (DPUs) that can be allocate
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `max_retries` (`number`) <i>optional</i>
@@ -428,8 +387,6 @@ The maximum number of AWS Glue data processing units (DPUs) that can be allocate
 
  The maximum number of times to retry the job if it fails<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -444,7 +401,6 @@ The maximum number of AWS Glue data processing units (DPUs) that can be allocate
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `non_overridable_arguments` (`map(string)`) <i>optional</i>
@@ -452,8 +408,6 @@ The maximum number of AWS Glue data processing units (DPUs) that can be allocate
 
 Non-overridable arguments for this job, specified as name-value pairs<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -468,7 +422,6 @@ Non-overridable arguments for this job, specified as name-value pairs<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `notification_property` <i>optional</i>
@@ -476,8 +429,6 @@ Non-overridable arguments for this job, specified as name-value pairs<br/>
 
 Notification property of the job<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -501,7 +452,6 @@ Notification property of the job<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `number_of_workers` (`number`) <i>optional</i>
@@ -509,8 +459,6 @@ Notification property of the job<br/>
 
 The number of workers of a defined `worker_type` that are allocated when a job runs<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -525,7 +473,6 @@ The number of workers of a defined `worker_type` that are allocated when a job r
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `security_configuration` (`string`) <i>optional</i>
@@ -533,8 +480,6 @@ The number of workers of a defined `worker_type` that are allocated when a job r
 
 The name of the Security Configuration to be associated with the job<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -549,7 +494,6 @@ The name of the Security Configuration to be associated with the job<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `timeout` (`number`) <i>optional</i>
@@ -557,8 +501,6 @@ The name of the Security Configuration to be associated with the job<br/>
 
 The job timeout in minutes. The default is 2880 minutes (48 hours) for `glueetl` and `pythonshell` jobs, and `null` (unlimted) for `gluestreaming` jobs<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -573,7 +515,6 @@ The job timeout in minutes. The default is 2880 minutes (48 hours) for `glueetl`
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `worker_type` (`string`) <i>optional</i>
@@ -581,8 +522,6 @@ The job timeout in minutes. The default is 2880 minutes (48 hours) for `glueetl`
 
 The type of predefined worker that is allocated when a job runs. Accepts a value of `Standard`, `G.1X`, or `G.2X`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -597,10 +536,10 @@ The type of predefined worker that is allocated when a job runs. Accepts a value
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -615,8 +554,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -631,7 +568,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -643,8 +579,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -659,7 +593,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -672,8 +605,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -736,7 +667,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -746,8 +676,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -762,7 +690,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -782,8 +709,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -798,7 +723,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -806,8 +730,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -822,7 +744,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -830,8 +751,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -846,7 +765,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -858,8 +776,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -874,7 +790,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -886,8 +801,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -902,7 +815,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -913,8 +825,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -929,7 +839,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -943,8 +852,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -959,7 +866,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -975,8 +881,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1003,7 +907,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -1014,8 +917,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1030,7 +931,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -1038,8 +938,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1054,7 +952,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -1065,8 +962,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1081,7 +976,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -1089,8 +983,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1105,7 +997,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -1115,8 +1006,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1131,7 +1020,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -1139,8 +1027,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1155,7 +1041,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

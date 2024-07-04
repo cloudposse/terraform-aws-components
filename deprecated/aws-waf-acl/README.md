@@ -77,15 +77,13 @@ The following resources are used by this module:
 
 The following data sources are used by this module:
 
-
+---
 ### Required Variables
 ### `acl_name` (`string`) <i>required</i>
 
 
 Friendly name of the ACL. The ACL ARN will be stored in SSM under {ssm_path_prefix}/{acl_name}/arn<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -100,7 +98,6 @@ Friendly name of the ACL. The ACL ARN will be stored in SSM under {ssm_path_pref
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `region` (`string`) <i>required</i>
@@ -108,8 +105,6 @@ Friendly name of the ACL. The ACL ARN will be stored in SSM under {ssm_path_pref
 
 AWS Region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -124,10 +119,10 @@ AWS Region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `association_resource_arns` (`list(string)`) <i>optional</i>
 
@@ -136,8 +131,6 @@ A list of ARNs of the resources to associate with the web ACL.<br/>
 This must be an ARN of an Application Load Balancer or an Amazon API Gateway stage.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -152,7 +145,6 @@ This must be an ARN of an Application Load Balancer or an Amazon API Gateway sta
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `byte_match_statement_rules` (`list(any)`) <i>optional</i>
@@ -188,8 +180,6 @@ visibility_config:<br/>
     Whether AWS WAF should store a sampling of the web requests that match the rules.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -204,7 +194,6 @@ visibility_config:<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `default_action` (`string`) <i>optional</i>
@@ -212,8 +201,6 @@ visibility_config:<br/>
 
 Specifies that AWS WAF should allow requests by default. Possible values: `allow`, `block`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -228,7 +215,6 @@ Specifies that AWS WAF should allow requests by default. Possible values: `allow
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `description` (`string`) <i>optional</i>
@@ -236,8 +222,6 @@ Specifies that AWS WAF should allow requests by default. Possible values: `allow
 
 A friendly description of the WebACL.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -252,7 +236,6 @@ A friendly description of the WebACL.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `geo_match_statement_rules` (`list(any)`) <i>optional</i>
@@ -290,8 +273,6 @@ visibility_config:<br/>
     Whether AWS WAF should store a sampling of the web requests that match the rules.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -306,7 +287,6 @@ visibility_config:<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ip_set_reference_statement_rules` (`list(any)`) <i>optional</i>
@@ -347,8 +327,6 @@ visibility_config:<br/>
     Whether AWS WAF should store a sampling of the web requests that match the rules.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -363,7 +341,6 @@ visibility_config:<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `log_destination_configs` (`list(string)`) <i>optional</i>
@@ -371,8 +348,6 @@ visibility_config:<br/>
 
 The Amazon Kinesis Data Firehose ARNs.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -387,7 +362,6 @@ The Amazon Kinesis Data Firehose ARNs.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `managed_rule_group_statement_rules` (`list(any)`) <i>optional</i>
@@ -425,8 +399,6 @@ visibility_config:<br/>
     Whether AWS WAF should store a sampling of the web requests that match the rules.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -441,7 +413,6 @@ visibility_config:<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `rate_based_statement_rules` (`list(any)`) <i>optional</i>
@@ -483,8 +454,6 @@ visibility_config:<br/>
     Whether AWS WAF should store a sampling of the web requests that match the rules.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -499,7 +468,6 @@ visibility_config:<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `redacted_fields` <i>optional</i>
@@ -520,8 +488,6 @@ single_header:<br/>
   The list of names of the query headers to redact.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -547,7 +513,6 @@ single_header:<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_pattern_set_reference_statement_rules` (`list(any)`) <i>optional</i>
@@ -585,8 +550,6 @@ visibility_config:<br/>
     Whether AWS WAF should store a sampling of the web requests that match the rules.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -601,7 +564,6 @@ visibility_config:<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `rule_group_reference_statement_rules` (`list(any)`) <i>optional</i>
@@ -639,8 +601,6 @@ visibility_config:<br/>
     Whether AWS WAF should store a sampling of the web requests that match the rules.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -655,7 +615,6 @@ visibility_config:<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `scope` (`string`) <i>optional</i>
@@ -666,8 +625,6 @@ Possible values are `CLOUDFRONT` or `REGIONAL`.<br/>
 To work with CloudFront, you must also specify the region us-east-1 (N. Virginia) on the AWS provider.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -682,7 +639,6 @@ To work with CloudFront, you must also specify the region us-east-1 (N. Virginia
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `size_constraint_statement_rules` (`list(any)`) <i>optional</i>
@@ -724,8 +680,6 @@ visibility_config:<br/>
     Whether AWS WAF should store a sampling of the web requests that match the rules.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -740,7 +694,6 @@ visibility_config:<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `sqli_match_statement_rules` (`list(any)`) <i>optional</i>
@@ -777,8 +730,6 @@ visibility_config:<br/>
     Whether AWS WAF should store a sampling of the web requests that match the rules.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -793,7 +744,6 @@ visibility_config:<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_path_prefix` (`string`) <i>optional</i>
@@ -801,8 +751,6 @@ visibility_config:<br/>
 
 SSM path prefix (with leading but not trailing slash) under which to store all WAF info<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -817,7 +765,6 @@ SSM path prefix (with leading but not trailing slash) under which to store all W
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `visibility_config` (`map(string)`) <i>optional</i>
@@ -833,8 +780,6 @@ sampled_requests_enabled:<br/>
   Whether AWS WAF should store a sampling of the web requests that match the rules.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -849,7 +794,6 @@ sampled_requests_enabled:<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `xss_match_statement_rules` (`list(any)`) <i>optional</i>
@@ -885,8 +829,6 @@ visibility_config:<br/>
     Whether AWS WAF should store a sampling of the web requests that match the rules.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -901,10 +843,10 @@ visibility_config:<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -916,8 +858,6 @@ The following variables are defined in the `context.tf` file of this module and 
 
 Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -932,7 +872,6 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -940,8 +879,6 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 
 Additional attributes (e.g. `1`)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -956,7 +893,6 @@ Additional attributes (e.g. `1`)<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -969,8 +905,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1023,7 +957,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -1033,8 +966,6 @@ Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `at
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1049,7 +980,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -1057,8 +987,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1073,7 +1001,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -1081,8 +1008,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1097,7 +1022,6 @@ Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -1109,8 +1033,6 @@ Set to `null` for default, which is `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1125,7 +1047,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -1136,8 +1057,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1152,7 +1071,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -1163,8 +1081,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 5 elements, but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1179,7 +1095,6 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -1190,8 +1105,6 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1206,7 +1119,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -1214,8 +1126,6 @@ Default value: `lower`.<br/>
 
 Solution name, e.g. 'app' or 'jenkins'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1230,7 +1140,6 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -1238,8 +1147,6 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 
 Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1254,7 +1161,6 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -1264,8 +1170,6 @@ Regex to replace chars with empty string in `namespace`, `environment`, `stage` 
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1280,7 +1184,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -1288,8 +1191,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1304,7 +1205,6 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -1312,8 +1212,6 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 
 Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1328,7 +1226,6 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

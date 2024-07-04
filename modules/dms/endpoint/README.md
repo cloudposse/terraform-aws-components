@@ -110,15 +110,13 @@ The following data sources are used by this module:
 
   - [`aws_ssm_parameter.password`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`aws_ssm_parameter.username`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
-
+---
 ### Required Variables
 ### `endpoint_type` (`string`) <i>required</i>
 
 
 Type of endpoint. Valid values are `source`, `target`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -133,7 +131,6 @@ Type of endpoint. Valid values are `source`, `target`<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `engine_name` (`string`) <i>required</i>
@@ -141,8 +138,6 @@ Type of endpoint. Valid values are `source`, `target`<br/>
 
 Type of engine for the endpoint. Valid values are `aurora`, `aurora-postgresql`, `azuredb`, `db2`, `docdb`, `dynamodb`, `elasticsearch`, `kafka`, `kinesis`, `mariadb`, `mongodb`, `mysql`, `opensearch`, `oracle`, `postgres`, `redshift`, `s3`, `sqlserver`, `sybase`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -157,7 +152,6 @@ Type of engine for the endpoint. Valid values are `aurora`, `aurora-postgresql`,
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `region` (`string`) <i>required</i>
@@ -165,8 +159,6 @@ Type of engine for the endpoint. Valid values are `aurora`, `aurora-postgresql`,
 
 AWS Region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -181,18 +173,16 @@ AWS Region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `certificate_arn` (`string`) <i>optional</i>
 
 
 Certificate ARN<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -207,7 +197,6 @@ Certificate ARN<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `database_name` (`string`) <i>optional</i>
@@ -215,8 +204,6 @@ Certificate ARN<br/>
 
 Name of the endpoint database<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -231,7 +218,6 @@ Name of the endpoint database<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `elasticsearch_settings` (`map(any)`) <i>optional</i>
@@ -239,8 +225,6 @@ Name of the endpoint database<br/>
 
 Configuration block for OpenSearch settings<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -255,7 +239,6 @@ Configuration block for OpenSearch settings<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `extra_connection_attributes` (`string`) <i>optional</i>
@@ -263,8 +246,6 @@ Configuration block for OpenSearch settings<br/>
 
 Additional attributes associated with the connection to the source database<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -279,7 +260,6 @@ Additional attributes associated with the connection to the source database<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kafka_settings` (`map(any)`) <i>optional</i>
@@ -287,8 +267,6 @@ Additional attributes associated with the connection to the source database<br/>
 
 Configuration block for Kafka settings<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -303,7 +281,6 @@ Configuration block for Kafka settings<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kinesis_settings` (`map(any)`) <i>optional</i>
@@ -311,8 +288,6 @@ Configuration block for Kafka settings<br/>
 
 Configuration block for Kinesis settings<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -327,7 +302,6 @@ Configuration block for Kinesis settings<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kms_key_arn` (`string`) <i>optional</i>
@@ -335,8 +309,6 @@ Configuration block for Kinesis settings<br/>
 
 (Required when engine_name is `mongodb`, optional otherwise). ARN for the KMS key that will be used to encrypt the connection parameters. If you do not specify a value for `kms_key_arn`, then AWS DMS will use your default encryption key<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -351,7 +323,6 @@ Configuration block for Kinesis settings<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mongodb_settings` (`map(any)`) <i>optional</i>
@@ -359,8 +330,6 @@ Configuration block for Kinesis settings<br/>
 
 Configuration block for MongoDB settings<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -375,7 +344,6 @@ Configuration block for MongoDB settings<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `password` (`string`) <i>optional</i>
@@ -383,8 +351,6 @@ Configuration block for MongoDB settings<br/>
 
 Password to be used to login to the endpoint database<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -399,7 +365,6 @@ Password to be used to login to the endpoint database<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `password_path` (`string`) <i>optional</i>
@@ -407,8 +372,6 @@ Password to be used to login to the endpoint database<br/>
 
 If set, the path in AWS SSM Parameter Store to fetch the password for the DMS admin user<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -423,7 +386,6 @@ If set, the path in AWS SSM Parameter Store to fetch the password for the DMS ad
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `port` (`number`) <i>optional</i>
@@ -431,8 +393,6 @@ If set, the path in AWS SSM Parameter Store to fetch the password for the DMS ad
 
 Port used by the endpoint database<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -447,7 +407,6 @@ Port used by the endpoint database<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `redshift_settings` (`map(any)`) <i>optional</i>
@@ -455,8 +414,6 @@ Port used by the endpoint database<br/>
 
 Configuration block for Redshift settings<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -471,7 +428,6 @@ Configuration block for Redshift settings<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `s3_settings` (`map(any)`) <i>optional</i>
@@ -479,8 +435,6 @@ Configuration block for Redshift settings<br/>
 
 Configuration block for S3 settings<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -495,7 +449,6 @@ Configuration block for S3 settings<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `secrets_manager_access_role_arn` (`string`) <i>optional</i>
@@ -503,8 +456,6 @@ Configuration block for S3 settings<br/>
 
 ARN of the IAM role that specifies AWS DMS as the trusted entity and has the required permissions to access the value in SecretsManagerSecret<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -519,7 +470,6 @@ ARN of the IAM role that specifies AWS DMS as the trusted entity and has the req
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `secrets_manager_arn` (`string`) <i>optional</i>
@@ -527,8 +477,6 @@ ARN of the IAM role that specifies AWS DMS as the trusted entity and has the req
 
 Full ARN, partial ARN, or friendly name of the SecretsManagerSecret that contains the endpoint connection details. Supported only for engine_name as aurora, aurora-postgresql, mariadb, mongodb, mysql, oracle, postgres, redshift or sqlserver<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -543,7 +491,6 @@ Full ARN, partial ARN, or friendly name of the SecretsManagerSecret that contain
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `server_name` (`string`) <i>optional</i>
@@ -551,8 +498,6 @@ Full ARN, partial ARN, or friendly name of the SecretsManagerSecret that contain
 
 Host name of the database server<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -567,7 +512,6 @@ Host name of the database server<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `service_access_role` (`string`) <i>optional</i>
@@ -575,8 +519,6 @@ Host name of the database server<br/>
 
 ARN used by the service access IAM role for DynamoDB endpoints<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -591,7 +533,6 @@ ARN used by the service access IAM role for DynamoDB endpoints<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssl_mode` (`string`) <i>optional</i>
@@ -599,8 +540,6 @@ ARN used by the service access IAM role for DynamoDB endpoints<br/>
 
 The SSL mode to use for the connection. Can be one of `none`, `require`, `verify-ca`, `verify-full`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -615,7 +554,6 @@ The SSL mode to use for the connection. Can be one of `none`, `require`, `verify
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `username` (`string`) <i>optional</i>
@@ -623,8 +561,6 @@ The SSL mode to use for the connection. Can be one of `none`, `require`, `verify
 
 User name to be used to login to the endpoint database<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -639,7 +575,6 @@ User name to be used to login to the endpoint database<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `username_path` (`string`) <i>optional</i>
@@ -647,8 +582,6 @@ User name to be used to login to the endpoint database<br/>
 
 If set, the path in AWS SSM Parameter Store to fetch the username for the DMS admin user<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -663,10 +596,10 @@ If set, the path in AWS SSM Parameter Store to fetch the username for the DMS ad
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -681,8 +614,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -697,7 +628,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -709,8 +639,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -725,7 +653,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -738,8 +665,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -802,7 +727,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -812,8 +736,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -828,7 +750,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -848,8 +769,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -864,7 +783,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -872,8 +790,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -888,7 +804,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -896,8 +811,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -912,7 +825,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -924,8 +836,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -940,7 +850,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -952,8 +861,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -968,7 +875,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -979,8 +885,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -995,7 +899,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -1009,8 +912,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1025,7 +926,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -1041,8 +941,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1069,7 +967,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -1080,8 +977,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1096,7 +991,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -1104,8 +998,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1120,7 +1012,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -1131,8 +1022,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1147,7 +1036,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -1155,8 +1043,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1171,7 +1057,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -1181,8 +1066,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1197,7 +1080,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -1205,8 +1087,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1221,7 +1101,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

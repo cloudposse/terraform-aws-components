@@ -148,15 +148,13 @@ The following data sources are used by this module:
 
   - [`aws_caller_identity.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
   - [`aws_iam_policy_document.kms_key_rds`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
-
+---
 ### Required Variables
 ### `allocated_storage` (`number`) <i>required</i>
 
 
 The allocated storage in GBs<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -171,7 +169,6 @@ The allocated storage in GBs<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `database_name` (`string`) <i>required</i>
@@ -179,8 +176,6 @@ The allocated storage in GBs<br/>
 
 The name of the database to create when the DB instance is created<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -195,7 +190,6 @@ The name of the database to create when the DB instance is created<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `database_port` (`number`) <i>required</i>
@@ -203,8 +197,6 @@ The name of the database to create when the DB instance is created<br/>
 
 Database port (_e.g._ `3306` for `MySQL`). Used in the DB Security Group to allow access to the DB instance from the provided `security_group_ids`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -219,7 +211,6 @@ Database port (_e.g._ `3306` for `MySQL`). Used in the DB Security Group to allo
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `db_parameter_group` (`string`) <i>required</i>
@@ -227,8 +218,6 @@ Database port (_e.g._ `3306` for `MySQL`). Used in the DB Security Group to allo
 
 The DB parameter group family name. The value depends on DB engine used. See [DBParameterGroupFamily](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBParameterGroup.html#API_CreateDBParameterGroup_RequestParameters) for instructions on how to retrieve applicable value.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -243,7 +232,6 @@ The DB parameter group family name. The value depends on DB engine used. See [DB
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `engine` (`string`) <i>required</i>
@@ -251,8 +239,6 @@ The DB parameter group family name. The value depends on DB engine used. See [DB
 
 Database engine type<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -267,7 +253,6 @@ Database engine type<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `engine_version` (`string`) <i>required</i>
@@ -275,8 +260,6 @@ Database engine type<br/>
 
 Database engine version, depends on engine type<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -291,7 +274,6 @@ Database engine version, depends on engine type<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `instance_class` (`string`) <i>required</i>
@@ -299,8 +281,6 @@ Database engine version, depends on engine type<br/>
 
 Class of RDS instance<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -315,7 +295,6 @@ Class of RDS instance<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `region` (`string`) <i>required</i>
@@ -323,8 +302,6 @@ Class of RDS instance<br/>
 
 AWS Region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -339,18 +316,16 @@ AWS Region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `allow_major_version_upgrade` (`bool`) <i>optional</i>
 
 
 Allow major version upgrade<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -365,7 +340,6 @@ Allow major version upgrade<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
@@ -373,8 +347,6 @@ Allow major version upgrade<br/>
 
 The whitelisted CIDRs which to allow `ingress` traffic to the DB instance<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -389,7 +361,6 @@ The whitelisted CIDRs which to allow `ingress` traffic to the DB instance<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `apply_immediately` (`bool`) <i>optional</i>
@@ -397,8 +368,6 @@ The whitelisted CIDRs which to allow `ingress` traffic to the DB instance<br/>
 
 Specifies whether any database modifications are applied immediately, or during the next maintenance window<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -413,7 +382,6 @@ Specifies whether any database modifications are applied immediately, or during 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `associate_security_group_ids` (`list(string)`) <i>optional</i>
@@ -421,8 +389,6 @@ Specifies whether any database modifications are applied immediately, or during 
 
 The IDs of the existing security groups to associate with the DB instance<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -437,7 +403,6 @@ The IDs of the existing security groups to associate with the DB instance<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `auto_minor_version_upgrade` (`bool`) <i>optional</i>
@@ -445,8 +410,6 @@ The IDs of the existing security groups to associate with the DB instance<br/>
 
 Allow automated minor version upgrade (e.g. from Postgres 9.5.3 to Postgres 9.5.4)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -461,7 +424,6 @@ Allow automated minor version upgrade (e.g. from Postgres 9.5.3 to Postgres 9.5.
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `availability_zone` (`string`) <i>optional</i>
@@ -469,8 +431,6 @@ Allow automated minor version upgrade (e.g. from Postgres 9.5.3 to Postgres 9.5.
 
 The AZ for the RDS instance. Specify one of `subnet_ids`, `db_subnet_group_name` or `availability_zone`. If `availability_zone` is provided, the instance will be placed into the default VPC or EC2 Classic<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -485,7 +445,6 @@ The AZ for the RDS instance. Specify one of `subnet_ids`, `db_subnet_group_name`
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `backup_retention_period` (`number`) <i>optional</i>
@@ -493,8 +452,6 @@ The AZ for the RDS instance. Specify one of `subnet_ids`, `db_subnet_group_name`
 
 Backup retention period in days. Must be > 0 to enable backups<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -509,7 +466,6 @@ Backup retention period in days. Must be > 0 to enable backups<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `backup_window` (`string`) <i>optional</i>
@@ -517,8 +473,6 @@ Backup retention period in days. Must be > 0 to enable backups<br/>
 
 When AWS can perform DB snapshots, can't overlap with maintenance window<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -533,7 +487,6 @@ When AWS can perform DB snapshots, can't overlap with maintenance window<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ca_cert_identifier` (`string`) <i>optional</i>
@@ -541,8 +494,6 @@ When AWS can perform DB snapshots, can't overlap with maintenance window<br/>
 
 The identifier of the CA certificate for the DB instance<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -557,7 +508,6 @@ The identifier of the CA certificate for the DB instance<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `charset_name` (`string`) <i>optional</i>
@@ -565,8 +515,6 @@ The identifier of the CA certificate for the DB instance<br/>
 
 The character set name to use for DB encoding. [Oracle & Microsoft SQL only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance#character_set_name). For other engines use `db_parameter`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -581,7 +529,6 @@ The character set name to use for DB encoding. [Oracle & Microsoft SQL only](htt
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `client_security_group_enabled` (`bool`) <i>optional</i>
@@ -589,8 +536,6 @@ The character set name to use for DB encoding. [Oracle & Microsoft SQL only](htt
 
 create a client security group and include in attached default security group<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -605,7 +550,6 @@ create a client security group and include in attached default security group<br
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `copy_tags_to_snapshot` (`bool`) <i>optional</i>
@@ -613,8 +557,6 @@ create a client security group and include in attached default security group<br
 
 Copy tags from DB to a snapshot<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -629,7 +571,6 @@ Copy tags from DB to a snapshot<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `database_password` (`string`) <i>optional</i>
@@ -637,8 +578,6 @@ Copy tags from DB to a snapshot<br/>
 
 Database password for the admin user<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -653,7 +592,6 @@ Database password for the admin user<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `database_user` (`string`) <i>optional</i>
@@ -661,8 +599,6 @@ Database password for the admin user<br/>
 
 Database admin user name<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -677,7 +613,6 @@ Database admin user name<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `db_options` <i>optional</i>
@@ -685,8 +620,6 @@ Database admin user name<br/>
 
 A list of DB options to apply with an option group. Depends on DB engine<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -718,7 +651,6 @@ A list of DB options to apply with an option group. Depends on DB engine<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `db_parameter` <i>optional</i>
@@ -726,8 +658,6 @@ A list of DB options to apply with an option group. Depends on DB engine<br/>
 
 A list of DB parameters to apply. Note that parameters may differ from a DB family to another<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -752,7 +682,6 @@ A list of DB parameters to apply. Note that parameters may differ from a DB fami
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `db_subnet_group_name` (`string`) <i>optional</i>
@@ -760,8 +689,6 @@ A list of DB parameters to apply. Note that parameters may differ from a DB fami
 
 Name of DB subnet group. DB instance will be created in the VPC associated with the DB subnet group. Specify one of `subnet_ids`, `db_subnet_group_name` or `availability_zone`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -776,7 +703,6 @@ Name of DB subnet group. DB instance will be created in the VPC associated with 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `deletion_protection` (`bool`) <i>optional</i>
@@ -784,8 +710,6 @@ Name of DB subnet group. DB instance will be created in the VPC associated with 
 
 Set to true to enable deletion protection on the RDS instance<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -800,7 +724,6 @@ Set to true to enable deletion protection on the RDS instance<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dns_gbl_delegated_environment_name` (`string`) <i>optional</i>
@@ -808,8 +731,6 @@ Set to true to enable deletion protection on the RDS instance<br/>
 
 The name of the environment where global `dns_delegated` is provisioned<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -824,7 +745,6 @@ The name of the environment where global `dns_delegated` is provisioned<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dns_zone_id` (`string`) <i>optional</i>
@@ -832,8 +752,6 @@ The name of the environment where global `dns_delegated` is provisioned<br/>
 
 The ID of the DNS Zone in Route53 where a new DNS record will be created for the DB host name<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -848,7 +766,6 @@ The ID of the DNS Zone in Route53 where a new DNS record will be created for the
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled_cloudwatch_logs_exports` (`list(string)`) <i>optional</i>
@@ -856,8 +773,6 @@ The ID of the DNS Zone in Route53 where a new DNS record will be created for the
 
 List of log types to enable for exporting to CloudWatch logs. If omitted, no logs will be exported. Valid values (depending on engine): alert, audit, error, general, listener, slowquery, trace, postgresql (PostgreSQL), upgrade (PostgreSQL).<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -872,7 +787,6 @@ List of log types to enable for exporting to CloudWatch logs. If omitted, no log
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `final_snapshot_identifier` (`string`) <i>optional</i>
@@ -880,8 +794,6 @@ List of log types to enable for exporting to CloudWatch logs. If omitted, no log
 
 Final snapshot identifier e.g.: some-db-final-snapshot-2019-06-26-06-05<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -896,7 +808,6 @@ Final snapshot identifier e.g.: some-db-final-snapshot-2019-06-26-06-05<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `host_name` (`string`) <i>optional</i>
@@ -904,8 +815,6 @@ Final snapshot identifier e.g.: some-db-final-snapshot-2019-06-26-06-05<br/>
 
 The DB host name created in Route53<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -920,7 +829,6 @@ The DB host name created in Route53<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `iam_database_authentication_enabled` (`bool`) <i>optional</i>
@@ -928,8 +836,6 @@ The DB host name created in Route53<br/>
 
 Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -944,7 +850,6 @@ Specifies whether or mappings of AWS Identity and Access Management (IAM) accoun
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `iops` (`number`) <i>optional</i>
@@ -952,8 +857,6 @@ Specifies whether or mappings of AWS Identity and Access Management (IAM) accoun
 
 The amount of provisioned IOPS. Setting this implies a storage_type of 'io1'. Default is 0 if rds storage type is not 'io1'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -968,7 +871,6 @@ The amount of provisioned IOPS. Setting this implies a storage_type of 'io1'. De
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kms_alias_name_ssm` (`string`) <i>optional</i>
@@ -976,8 +878,6 @@ The amount of provisioned IOPS. Setting this implies a storage_type of 'io1'. De
 
 KMS alias name for SSM<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -992,7 +892,6 @@ KMS alias name for SSM<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kms_key_arn` (`string`) <i>optional</i>
@@ -1000,8 +899,6 @@ KMS alias name for SSM<br/>
 
 The ARN of the existing KMS key to encrypt storage<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1016,7 +913,6 @@ The ARN of the existing KMS key to encrypt storage<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `license_model` (`string`) <i>optional</i>
@@ -1024,8 +920,6 @@ The ARN of the existing KMS key to encrypt storage<br/>
 
 License model for this DB. Optional, but required for some DB Engines. Valid values: license-included | bring-your-own-license | general-public-license<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1040,7 +934,6 @@ License model for this DB. Optional, but required for some DB Engines. Valid val
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `maintenance_window` (`string`) <i>optional</i>
@@ -1048,8 +941,6 @@ License model for this DB. Optional, but required for some DB Engines. Valid val
 
 The window to perform maintenance in. Syntax: 'ddd:hh24:mi-ddd:hh24:mi' UTC <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1064,7 +955,6 @@ The window to perform maintenance in. Syntax: 'ddd:hh24:mi-ddd:hh24:mi' UTC <br/
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `major_engine_version` (`string`) <i>optional</i>
@@ -1072,8 +962,6 @@ The window to perform maintenance in. Syntax: 'ddd:hh24:mi-ddd:hh24:mi' UTC <br/
 
 Database MAJOR engine version, depends on engine type<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1088,7 +976,6 @@ Database MAJOR engine version, depends on engine type<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `max_allocated_storage` (`number`) <i>optional</i>
@@ -1096,8 +983,6 @@ Database MAJOR engine version, depends on engine type<br/>
 
 The upper limit to which RDS can automatically scale the storage in GBs<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1112,7 +997,6 @@ The upper limit to which RDS can automatically scale the storage in GBs<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `monitoring_interval` (`string`) <i>optional</i>
@@ -1120,8 +1004,6 @@ The upper limit to which RDS can automatically scale the storage in GBs<br/>
 
 The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance. To disable collecting Enhanced Monitoring metrics, specify 0. Valid Values are 0, 1, 5, 10, 15, 30, 60.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1136,7 +1018,6 @@ The interval, in seconds, between points when Enhanced Monitoring metrics are co
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `monitoring_role_arn` (`string`) <i>optional</i>
@@ -1144,8 +1025,6 @@ The interval, in seconds, between points when Enhanced Monitoring metrics are co
 
 The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to CloudWatch Logs<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1160,7 +1039,6 @@ The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `multi_az` (`bool`) <i>optional</i>
@@ -1168,8 +1046,6 @@ The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to
 
 Set to true if multi AZ deployment must be supported<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1184,7 +1060,6 @@ Set to true if multi AZ deployment must be supported<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `option_group_name` (`string`) <i>optional</i>
@@ -1192,8 +1067,6 @@ Set to true if multi AZ deployment must be supported<br/>
 
 Name of the DB option group to associate<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1208,7 +1081,6 @@ Name of the DB option group to associate<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `parameter_group_name` (`string`) <i>optional</i>
@@ -1216,8 +1088,6 @@ Name of the DB option group to associate<br/>
 
 Name of the DB parameter group to associate<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1232,7 +1102,6 @@ Name of the DB parameter group to associate<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `performance_insights_enabled` (`bool`) <i>optional</i>
@@ -1240,8 +1109,6 @@ Name of the DB parameter group to associate<br/>
 
 Specifies whether Performance Insights are enabled.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1256,7 +1123,6 @@ Specifies whether Performance Insights are enabled.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `performance_insights_kms_key_id` (`string`) <i>optional</i>
@@ -1264,8 +1130,6 @@ Specifies whether Performance Insights are enabled.<br/>
 
 The ARN for the KMS key to encrypt Performance Insights data. Once KMS key is set, it can never be changed.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1280,7 +1144,6 @@ The ARN for the KMS key to encrypt Performance Insights data. Once KMS key is se
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `performance_insights_retention_period` (`number`) <i>optional</i>
@@ -1288,8 +1151,6 @@ The ARN for the KMS key to encrypt Performance Insights data. Once KMS key is se
 
 The amount of time in days to retain Performance Insights data. Either 7 (7 days) or 731 (2 years).<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1304,7 +1165,6 @@ The amount of time in days to retain Performance Insights data. Either 7 (7 days
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `publicly_accessible` (`bool`) <i>optional</i>
@@ -1312,8 +1172,6 @@ The amount of time in days to retain Performance Insights data. Either 7 (7 days
 
 Determines if database can be publicly available (NOT recommended)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1328,7 +1186,6 @@ Determines if database can be publicly available (NOT recommended)<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `replicate_source_db` (`any`) <i>optional</i>
@@ -1336,8 +1193,6 @@ Determines if database can be publicly available (NOT recommended)<br/>
 
 If the rds db instance is a replica, supply the source database identifier here<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1352,7 +1207,6 @@ If the rds db instance is a replica, supply the source database identifier here<
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `security_group_ids` (`list(string)`) <i>optional</i>
@@ -1360,8 +1214,6 @@ If the rds db instance is a replica, supply the source database identifier here<
 
 The IDs of the security groups from which to allow `ingress` traffic to the DB instance<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1376,7 +1228,6 @@ The IDs of the security groups from which to allow `ingress` traffic to the DB i
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `skip_final_snapshot` (`bool`) <i>optional</i>
@@ -1384,8 +1235,6 @@ The IDs of the security groups from which to allow `ingress` traffic to the DB i
 
 If true (default), no snapshot will be made before deleting DB<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1400,7 +1249,6 @@ If true (default), no snapshot will be made before deleting DB<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `snapshot_identifier` (`string`) <i>optional</i>
@@ -1408,8 +1256,6 @@ If true (default), no snapshot will be made before deleting DB<br/>
 
 Snapshot identifier e.g: rds:production-2019-06-26-06-05. If specified, the module create cluster from the snapshot<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1424,7 +1270,6 @@ Snapshot identifier e.g: rds:production-2019-06-26-06-05. If specified, the modu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_enabled` (`bool`) <i>optional</i>
@@ -1432,8 +1277,6 @@ Snapshot identifier e.g: rds:production-2019-06-26-06-05. If specified, the modu
 
 If `true` create SSM keys for the database user and password.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1448,7 +1291,6 @@ If `true` create SSM keys for the database user and password.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_key_format` (`string`) <i>optional</i>
@@ -1456,8 +1298,6 @@ If `true` create SSM keys for the database user and password.<br/>
 
 SSM path format. The values will will be used in the following order: `var.ssm_key_prefix`, `var.name`, `var.ssm_key_*`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1472,7 +1312,6 @@ SSM path format. The values will will be used in the following order: `var.ssm_k
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_key_hostname` (`string`) <i>optional</i>
@@ -1480,8 +1319,6 @@ SSM path format. The values will will be used in the following order: `var.ssm_k
 
 The SSM key to save the hostname. See `var.ssm_path_format`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1496,7 +1333,6 @@ The SSM key to save the hostname. See `var.ssm_path_format`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_key_password` (`string`) <i>optional</i>
@@ -1504,8 +1340,6 @@ The SSM key to save the hostname. See `var.ssm_path_format`.<br/>
 
 The SSM key to save the password. See `var.ssm_path_format`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1520,7 +1354,6 @@ The SSM key to save the password. See `var.ssm_path_format`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_key_port` (`string`) <i>optional</i>
@@ -1528,8 +1361,6 @@ The SSM key to save the password. See `var.ssm_path_format`.<br/>
 
 The SSM key to save the port. See `var.ssm_path_format`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1544,7 +1375,6 @@ The SSM key to save the port. See `var.ssm_path_format`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_key_prefix` (`string`) <i>optional</i>
@@ -1552,8 +1382,6 @@ The SSM key to save the port. See `var.ssm_path_format`.<br/>
 
 SSM path prefix. Omit the leading forward slash `/`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1568,7 +1396,6 @@ SSM path prefix. Omit the leading forward slash `/`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_key_user` (`string`) <i>optional</i>
@@ -1576,8 +1403,6 @@ SSM path prefix. Omit the leading forward slash `/`.<br/>
 
 The SSM key to save the user. See `var.ssm_path_format`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1592,7 +1417,6 @@ The SSM key to save the user. See `var.ssm_path_format`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `storage_encrypted` (`bool`) <i>optional</i>
@@ -1600,8 +1424,6 @@ The SSM key to save the user. See `var.ssm_path_format`.<br/>
 
 (Optional) Specifies whether the DB instance is encrypted. The default is false if not specified<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1616,7 +1438,6 @@ The SSM key to save the user. See `var.ssm_path_format`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `storage_throughput` (`number`) <i>optional</i>
@@ -1624,8 +1445,6 @@ The SSM key to save the user. See `var.ssm_path_format`.<br/>
 
 The storage throughput value for the DB instance. Can only be set when `storage_type` is `gp3`. Cannot be specified if the `allocated_storage` value is below a per-engine threshold.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1640,7 +1459,6 @@ The storage throughput value for the DB instance. Can only be set when `storage_
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `storage_type` (`string`) <i>optional</i>
@@ -1648,8 +1466,6 @@ The storage throughput value for the DB instance. Can only be set when `storage_
 
 One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned IOPS SSD)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1664,7 +1480,6 @@ One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `timezone` (`string`) <i>optional</i>
@@ -1672,8 +1487,6 @@ One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned
 
 Time zone of the DB instance. timezone is currently only supported by Microsoft SQL Server. The timezone can only be set on creation. See [MSSQL User Guide](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.TimeZone) for more information.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1688,7 +1501,6 @@ Time zone of the DB instance. timezone is currently only supported by Microsoft 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `use_dns_delegated` (`bool`) <i>optional</i>
@@ -1696,8 +1508,6 @@ Time zone of the DB instance. timezone is currently only supported by Microsoft 
 
 Use the dns-delegated dns_zone_id<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1712,7 +1522,6 @@ Use the dns-delegated dns_zone_id<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `use_eks_security_group` (`bool`) <i>optional</i>
@@ -1720,8 +1529,6 @@ Use the dns-delegated dns_zone_id<br/>
 
 Use the eks default security group<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1736,7 +1543,6 @@ Use the eks default security group<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `use_private_subnets` (`bool`) <i>optional</i>
@@ -1744,8 +1550,6 @@ Use the eks default security group<br/>
 
 Use private subnets<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1760,10 +1564,10 @@ Use private subnets<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -1778,8 +1582,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1794,7 +1596,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -1806,8 +1607,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1822,7 +1621,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -1835,8 +1633,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1899,7 +1695,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -1909,8 +1704,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1925,7 +1718,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -1945,8 +1737,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1961,7 +1751,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -1969,8 +1758,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1985,7 +1772,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -1993,8 +1779,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2009,7 +1793,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -2021,8 +1804,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2037,7 +1818,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -2049,8 +1829,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2065,7 +1843,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -2076,8 +1853,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2092,7 +1867,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -2106,8 +1880,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2122,7 +1894,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -2138,8 +1909,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2166,7 +1935,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -2177,8 +1945,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2193,7 +1959,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -2201,8 +1966,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2217,7 +1980,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -2228,8 +1990,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2244,7 +2004,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -2252,8 +2011,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2268,7 +2025,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -2278,8 +2034,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2294,7 +2048,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -2302,8 +2055,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2318,7 +2069,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

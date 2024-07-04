@@ -176,15 +176,13 @@ The following resources are used by this module:
 The following data sources are used by this module:
 
   - [`aws_ssm_parameter.github_pat`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
-
+---
 ### Required Variables
 ### `region` (`string`) <i>required</i>
 
 
 AWS region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -199,18 +197,16 @@ AWS region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `auto_branch_creation_config` <i>optional</i>
 
 
 The automated branch creation configuration for the Amplify app<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -242,7 +238,6 @@ The automated branch creation configuration for the Amplify app<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `auto_branch_creation_patterns` (`list(string)`) <i>optional</i>
@@ -250,8 +245,6 @@ The automated branch creation configuration for the Amplify app<br/>
 
 The automated branch creation glob patterns for the Amplify app<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -266,7 +259,6 @@ The automated branch creation glob patterns for the Amplify app<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `basic_auth_credentials` (`string`) <i>optional</i>
@@ -274,8 +266,6 @@ The automated branch creation glob patterns for the Amplify app<br/>
 
 The credentials for basic authorization for the Amplify app<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -290,7 +280,6 @@ The credentials for basic authorization for the Amplify app<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `build_spec` (`string`) <i>optional</i>
@@ -300,8 +289,6 @@ The [build specification](https://docs.aws.amazon.com/amplify/latest/userguide/b
 If not provided then it will use the `amplify.yml` at the root of your project / branch.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -316,7 +303,6 @@ If not provided then it will use the `amplify.yml` at the root of your project /
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `certificate_verification_dns_record_enabled` (`bool`) <i>optional</i>
@@ -326,8 +312,6 @@ Whether or not to create DNS records for SSL certificate validation.<br/>
 If using the DNS zone from `dns-delegated`, the SSL certificate is already validated, and this variable must be set to `false`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -342,7 +326,6 @@ If using the DNS zone from `dns-delegated`, the SSL certificate is already valid
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `custom_rules` <i>optional</i>
@@ -350,8 +333,6 @@ If using the DNS zone from `dns-delegated`, the SSL certificate is already valid
 
 The custom rules to apply to the Amplify App<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -377,7 +358,6 @@ The custom rules to apply to the Amplify App<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `description` (`string`) <i>optional</i>
@@ -385,8 +365,6 @@ The custom rules to apply to the Amplify App<br/>
 
 The description for the Amplify app<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -401,7 +379,6 @@ The description for the Amplify app<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dns_delegated_component_name` (`string`) <i>optional</i>
@@ -409,8 +386,6 @@ The description for the Amplify app<br/>
 
 The component name of `dns-delegated`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -425,7 +400,6 @@ The component name of `dns-delegated`<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dns_delegated_environment_name` (`string`) <i>optional</i>
@@ -433,8 +407,6 @@ The component name of `dns-delegated`<br/>
 
 The environment name of `dns-delegated`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -449,7 +421,6 @@ The environment name of `dns-delegated`<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `domain_config` <i>optional</i>
@@ -457,8 +428,6 @@ The environment name of `dns-delegated`<br/>
 
 Amplify custom domain configuration<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -487,7 +456,6 @@ Amplify custom domain configuration<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enable_auto_branch_creation` (`bool`) <i>optional</i>
@@ -495,8 +463,6 @@ Amplify custom domain configuration<br/>
 
 Enables automated branch creation for the Amplify app<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -511,7 +477,6 @@ Enables automated branch creation for the Amplify app<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enable_basic_auth` (`bool`) <i>optional</i>
@@ -521,8 +486,6 @@ Enables basic authorization for the Amplify app.<br/>
 This will apply to all branches that are part of this app.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -537,7 +500,6 @@ This will apply to all branches that are part of this app.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enable_branch_auto_build` (`bool`) <i>optional</i>
@@ -545,8 +507,6 @@ This will apply to all branches that are part of this app.<br/>
 
 Enables auto-building of branches for the Amplify App<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -561,7 +521,6 @@ Enables auto-building of branches for the Amplify App<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enable_branch_auto_deletion` (`bool`) <i>optional</i>
@@ -569,8 +528,6 @@ Enables auto-building of branches for the Amplify App<br/>
 
 Automatically disconnects a branch in the Amplify Console when you delete a branch from your Git repository<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -585,7 +542,6 @@ Automatically disconnects a branch in the Amplify Console when you delete a bran
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment_variables` (`map(string)`) <i>optional</i>
@@ -593,8 +549,6 @@ Automatically disconnects a branch in the Amplify Console when you delete a bran
 
 The environment variables for the Amplify app<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -609,7 +563,6 @@ The environment variables for the Amplify app<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environments` <i>optional</i>
@@ -617,8 +570,6 @@ The environment variables for the Amplify app<br/>
 
 The configuration of the environments for the Amplify App<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -658,7 +609,6 @@ The configuration of the environments for the Amplify App<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `github_personal_access_token_secret_path` (`string`) <i>optional</i>
@@ -666,8 +616,6 @@ The configuration of the environments for the Amplify App<br/>
 
 Path to the GitHub personal access token in AWS Parameter Store<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -682,7 +630,6 @@ Path to the GitHub personal access token in AWS Parameter Store<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `iam_service_role_actions` (`list(string)`) <i>optional</i>
@@ -692,8 +639,6 @@ List of IAM policy actions for the AWS Identity and Access Management (IAM) serv
 If not provided, the default set of actions will be used for the role if the variable `iam_service_role_enabled` is set to `true`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -708,7 +653,6 @@ If not provided, the default set of actions will be used for the role if the var
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `iam_service_role_arn` (`list(string)`) <i>optional</i>
@@ -718,8 +662,6 @@ The AWS Identity and Access Management (IAM) service role for the Amplify app.<b
 If not provided, a new role will be created if the variable `iam_service_role_enabled` is set to `true`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -734,7 +676,6 @@ If not provided, a new role will be created if the variable `iam_service_role_en
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `iam_service_role_enabled` (`bool`) <i>optional</i>
@@ -742,8 +683,6 @@ If not provided, a new role will be created if the variable `iam_service_role_en
 
 Flag to create the IAM service role for the Amplify app<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -758,7 +697,6 @@ Flag to create the IAM service role for the Amplify app<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `oauth_token` (`string`) <i>optional</i>
@@ -769,8 +707,6 @@ The OAuth token is used to create a webhook and a read-only deploy key.<br/>
 The OAuth token is not stored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -785,7 +721,6 @@ The OAuth token is not stored.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `platform` (`string`) <i>optional</i>
@@ -793,8 +728,6 @@ The OAuth token is not stored.<br/>
 
 The platform or framework for the Amplify app<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -809,7 +742,6 @@ The platform or framework for the Amplify app<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `repository` (`string`) <i>optional</i>
@@ -817,8 +749,6 @@ The platform or framework for the Amplify app<br/>
 
 The repository for the Amplify app<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -833,7 +763,6 @@ The repository for the Amplify app<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `subdomains_dns_records_enabled` (`bool`) <i>optional</i>
@@ -841,8 +770,6 @@ The repository for the Amplify app<br/>
 
 Whether or not to create DNS records for the Amplify app custom subdomains<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -857,10 +784,10 @@ Whether or not to create DNS records for the Amplify app custom subdomains<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -875,8 +802,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -891,7 +816,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -903,8 +827,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -919,7 +841,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -932,8 +853,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -996,7 +915,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -1006,8 +924,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1022,7 +938,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -1042,8 +957,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1058,7 +971,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -1066,8 +978,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1082,7 +992,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -1090,8 +999,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1106,7 +1013,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -1118,8 +1024,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1134,7 +1038,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -1146,8 +1049,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1162,7 +1063,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -1173,8 +1073,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1189,7 +1087,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -1203,8 +1100,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1219,7 +1114,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -1235,8 +1129,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1263,7 +1155,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -1274,8 +1165,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1290,7 +1179,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -1298,8 +1186,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1314,7 +1200,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -1325,8 +1210,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1341,7 +1224,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -1349,8 +1231,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1365,7 +1245,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -1375,8 +1254,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1391,7 +1268,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -1399,8 +1275,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1415,7 +1289,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

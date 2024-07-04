@@ -85,15 +85,13 @@ The following data sources are used by this module:
 
   - [`aws_eks_cluster_auth.eks`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) (data source)
   - [`aws_lb.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/lb) (data source)
-
+---
 ### Required Variables
 ### `kubernetes_namespace` (`string`) <i>required</i>
 
 
 The namespace to install the release into.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -108,7 +106,6 @@ The namespace to install the release into.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `region` (`string`) <i>required</i>
@@ -116,8 +113,6 @@ The namespace to install the release into.<br/>
 
 AWS Region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -132,18 +127,16 @@ AWS Region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `additional_annotations` (`map(any)`) <i>optional</i>
 
 
 Additional annotations to add to the Kubernetes ingress<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -158,7 +151,6 @@ Additional annotations to add to the Kubernetes ingress<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `alb_access_logs_enabled` (`bool`) <i>optional</i>
@@ -166,8 +158,6 @@ Additional annotations to add to the Kubernetes ingress<br/>
 
 Whether or not to enable access logs for the ALB<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -182,7 +172,6 @@ Whether or not to enable access logs for the ALB<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `alb_access_logs_s3_bucket_name` (`string`) <i>optional</i>
@@ -190,8 +179,6 @@ Whether or not to enable access logs for the ALB<br/>
 
 The name of the S3 bucket to store the access logs in<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -206,7 +193,6 @@ The name of the S3 bucket to store the access logs in<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `alb_access_logs_s3_bucket_prefix` (`string`) <i>optional</i>
@@ -214,8 +200,6 @@ The name of the S3 bucket to store the access logs in<br/>
 
 The prefix to use when storing the access logs<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -230,7 +214,6 @@ The prefix to use when storing the access logs<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `alb_group_name` (`string`) <i>optional</i>
@@ -238,8 +221,6 @@ The prefix to use when storing the access logs<br/>
 
 The name of the alb group<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -254,7 +235,6 @@ The name of the alb group<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `create_namespace` (`bool`) <i>optional</i>
@@ -262,8 +242,6 @@ The name of the alb group<br/>
 
 Create the namespace if it does not yet exist. Defaults to `false`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -278,7 +256,6 @@ Create the namespace if it does not yet exist. Defaults to `false`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `default_annotations` (`map(any)`) <i>optional</i>
@@ -286,8 +263,6 @@ Create the namespace if it does not yet exist. Defaults to `false`.<br/>
 
 Default annotations to add to the Kubernetes ingress<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -322,7 +297,6 @@ Default annotations to add to the Kubernetes ingress<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dns_delegated_component_name` (`string`) <i>optional</i>
@@ -330,8 +304,6 @@ Default annotations to add to the Kubernetes ingress<br/>
 
 The name of the `dns_delegated` component<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -346,7 +318,6 @@ The name of the `dns_delegated` component<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dns_delegated_environment_name` (`string`) <i>optional</i>
@@ -354,8 +325,6 @@ The name of the `dns_delegated` component<br/>
 
 Global environment name<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -370,7 +339,6 @@ Global environment name<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `eks_component_name` (`string`) <i>optional</i>
@@ -378,8 +346,6 @@ Global environment name<br/>
 
 The name of the `eks` component<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -394,7 +360,6 @@ The name of the `eks` component<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `fixed_response_config` (`map(any)`) <i>optional</i>
@@ -402,8 +367,6 @@ The name of the `eks` component<br/>
 
 Configuration to overwrite the defaults such as `contentType`, `statusCode`, and `messageBody`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -418,7 +381,6 @@ Configuration to overwrite the defaults such as `contentType`, `statusCode`, and
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `fixed_response_template` (`string`) <i>optional</i>
@@ -426,8 +388,6 @@ Configuration to overwrite the defaults such as `contentType`, `statusCode`, and
 
 Fixed response template to service as a default backend<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -442,7 +402,6 @@ Fixed response template to service as a default backend<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `fixed_response_vars` (`map(any)`) <i>optional</i>
@@ -450,8 +409,6 @@ Fixed response template to service as a default backend<br/>
 
 The templatefile vars to use for the fixed response template<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -478,7 +435,6 @@ The templatefile vars to use for the fixed response template<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `global_accelerator_component_name` (`string`) <i>optional</i>
@@ -486,8 +442,6 @@ The templatefile vars to use for the fixed response template<br/>
 
 The name of the `global_accelerator` component<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -502,7 +456,6 @@ The name of the `global_accelerator` component<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `global_accelerator_enabled` (`bool`) <i>optional</i>
@@ -510,8 +463,6 @@ The name of the `global_accelerator` component<br/>
 
 Whether or not Global Accelerator Endpoint Group should be provisioned for the load balancer<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -526,7 +477,6 @@ Whether or not Global Accelerator Endpoint Group should be provisioned for the l
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kube_data_auth_enabled` (`bool`) <i>optional</i>
@@ -536,8 +486,6 @@ If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS 
 Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -552,7 +500,6 @@ Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kube_exec_auth_aws_profile` (`string`) <i>optional</i>
@@ -560,8 +507,6 @@ Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
 
 The AWS config profile for `aws eks get-token` to use<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -576,7 +521,6 @@ The AWS config profile for `aws eks get-token` to use<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kube_exec_auth_aws_profile_enabled` (`bool`) <i>optional</i>
@@ -584,8 +528,6 @@ The AWS config profile for `aws eks get-token` to use<br/>
 
 If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-token`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -600,7 +542,6 @@ If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-to
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kube_exec_auth_enabled` (`bool`) <i>optional</i>
@@ -610,8 +551,6 @@ If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-to
 Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -626,7 +565,6 @@ Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kube_exec_auth_role_arn` (`string`) <i>optional</i>
@@ -634,8 +572,6 @@ Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
 
 The role ARN for `aws eks get-token` to use<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -650,7 +586,6 @@ The role ARN for `aws eks get-token` to use<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kube_exec_auth_role_arn_enabled` (`bool`) <i>optional</i>
@@ -658,8 +593,6 @@ The role ARN for `aws eks get-token` to use<br/>
 
 If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -674,7 +607,6 @@ If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kubeconfig_context` (`string`) <i>optional</i>
@@ -682,8 +614,6 @@ If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`
 
 Context to choose from the Kubernetes kube config file<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -698,7 +628,6 @@ Context to choose from the Kubernetes kube config file<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kubeconfig_exec_auth_api_version` (`string`) <i>optional</i>
@@ -706,8 +635,6 @@ Context to choose from the Kubernetes kube config file<br/>
 
 The Kubernetes API version of the credentials returned by the `exec` auth plugin<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -722,7 +649,6 @@ The Kubernetes API version of the credentials returned by the `exec` auth plugin
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kubeconfig_file` (`string`) <i>optional</i>
@@ -730,8 +656,6 @@ The Kubernetes API version of the credentials returned by the `exec` auth plugin
 
 The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -746,7 +670,6 @@ The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabl
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kubeconfig_file_enabled` (`bool`) <i>optional</i>
@@ -754,8 +677,6 @@ The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabl
 
 If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -770,7 +691,6 @@ If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kubernetes_service_enabled` (`bool`) <i>optional</i>
@@ -778,8 +698,6 @@ If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that
 
 Whether or not to enable a default kubernetes service<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -794,7 +712,6 @@ Whether or not to enable a default kubernetes service<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kubernetes_service_path` (`string`) <i>optional</i>
@@ -802,8 +719,6 @@ Whether or not to enable a default kubernetes service<br/>
 
 The kubernetes default service's path if enabled<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -818,7 +733,6 @@ The kubernetes default service's path if enabled<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kubernetes_service_port` (`number`) <i>optional</i>
@@ -826,8 +740,6 @@ The kubernetes default service's path if enabled<br/>
 
 The kubernetes default service's port if enabled<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -842,7 +754,6 @@ The kubernetes default service's port if enabled<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `waf_component_name` (`string`) <i>optional</i>
@@ -850,8 +761,6 @@ The kubernetes default service's port if enabled<br/>
 
 The name of the `waf` component<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -866,7 +775,6 @@ The name of the `waf` component<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `waf_enabled` (`bool`) <i>optional</i>
@@ -874,8 +782,6 @@ The name of the `waf` component<br/>
 
 Whether or not WAF ACL annotation should be provisioned for the load balancer<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -890,10 +796,10 @@ Whether or not WAF ACL annotation should be provisioned for the load balancer<br
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -908,8 +814,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -924,7 +828,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -936,8 +839,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -952,7 +853,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -965,8 +865,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1029,7 +927,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -1039,8 +936,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1055,7 +950,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -1075,8 +969,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1091,7 +983,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -1099,8 +990,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1115,7 +1004,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -1123,8 +1011,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1139,7 +1025,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -1151,8 +1036,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1167,7 +1050,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -1179,8 +1061,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1195,7 +1075,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -1206,8 +1085,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1222,7 +1099,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -1236,8 +1112,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1252,7 +1126,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -1268,8 +1141,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1296,7 +1167,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -1307,8 +1177,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1323,7 +1191,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -1331,8 +1198,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1347,7 +1212,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -1358,8 +1222,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1374,7 +1236,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -1382,8 +1243,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1398,7 +1257,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -1408,8 +1266,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1424,7 +1280,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -1432,8 +1287,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1448,7 +1301,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

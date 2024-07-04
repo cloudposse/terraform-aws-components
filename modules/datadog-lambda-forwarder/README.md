@@ -90,15 +90,13 @@ The following resources are used by this module:
 
 The following data sources are used by this module:
 
-
+---
 ### Required Variables
 ### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -113,10 +111,10 @@ AWS Region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `cloudwatch_forwarder_event_patterns` <i>optional</i>
 
@@ -140,8 +138,6 @@ cloudwatch_forwarder_event_rules = {<br/>
 ```<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -172,7 +168,6 @@ cloudwatch_forwarder_event_rules = {<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cloudwatch_forwarder_log_groups` (`map(map(string))`) <i>optional</i>
@@ -181,8 +176,6 @@ cloudwatch_forwarder_event_rules = {<br/>
     Map of CloudWatch Log Groups with a filter pattern that the Lambda forwarder will send logs from. For example: { mysql1 = { name = "/aws/rds/maincluster", filter_pattern = "" }<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -197,7 +190,6 @@ cloudwatch_forwarder_event_rules = {<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context_tags` (`set(string)`) <i>optional</i>
@@ -205,8 +197,6 @@ cloudwatch_forwarder_event_rules = {<br/>
 
 List of context tags to add to each monitor<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -239,7 +229,6 @@ List of context tags to add to each monitor<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context_tags_enabled` (`bool`) <i>optional</i>
@@ -247,8 +236,6 @@ List of context tags to add to each monitor<br/>
 
 Whether to add context tags to add to each monitor<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -263,7 +250,6 @@ Whether to add context tags to add to each monitor<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `datadog_forwarder_lambda_environment_variables` (`map(string)`) <i>optional</i>
@@ -271,8 +257,6 @@ Whether to add context tags to add to each monitor<br/>
 
 Map of environment variables to pass to the Lambda Function<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -287,7 +271,6 @@ Map of environment variables to pass to the Lambda Function<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dd_api_key_kms_ciphertext_blob` (`string`) <i>optional</i>
@@ -295,8 +278,6 @@ Map of environment variables to pass to the Lambda Function<br/>
 
 CiphertextBlob stored in environment variable DD_KMS_API_KEY used by the lambda function, along with the KMS key, to decrypt Datadog API key<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -311,7 +292,6 @@ CiphertextBlob stored in environment variable DD_KMS_API_KEY used by the lambda 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dd_artifact_filename` (`string`) <i>optional</i>
@@ -319,8 +299,6 @@ CiphertextBlob stored in environment variable DD_KMS_API_KEY used by the lambda 
 
 The Datadog artifact filename minus extension<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -335,7 +313,6 @@ The Datadog artifact filename minus extension<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dd_forwarder_version` (`string`) <i>optional</i>
@@ -343,8 +320,6 @@ The Datadog artifact filename minus extension<br/>
 
 Version tag of Datadog lambdas to use. https://github.com/DataDog/datadog-serverless-functions/releases<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -359,7 +334,6 @@ Version tag of Datadog lambdas to use. https://github.com/DataDog/datadog-server
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dd_module_name` (`string`) <i>optional</i>
@@ -367,8 +341,6 @@ Version tag of Datadog lambdas to use. https://github.com/DataDog/datadog-server
 
 The Datadog GitHub repository name<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -383,7 +355,6 @@ The Datadog GitHub repository name<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dd_tags_map` (`map(string)`) <i>optional</i>
@@ -391,8 +362,6 @@ The Datadog GitHub repository name<br/>
 
 A map of Datadog tags to apply to all logs forwarded to Datadog<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -407,7 +376,6 @@ A map of Datadog tags to apply to all logs forwarded to Datadog<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `forwarder_lambda_debug_enabled` (`bool`) <i>optional</i>
@@ -415,8 +383,6 @@ A map of Datadog tags to apply to all logs forwarded to Datadog<br/>
 
 Whether to enable or disable debug for the Lambda forwarder<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -431,7 +397,6 @@ Whether to enable or disable debug for the Lambda forwarder<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `forwarder_log_artifact_url` (`string`) <i>optional</i>
@@ -439,8 +404,6 @@ Whether to enable or disable debug for the Lambda forwarder<br/>
 
 The URL for the code of the Datadog forwarder for Logs. It can be a local file, URL or git repo<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -455,7 +418,6 @@ The URL for the code of the Datadog forwarder for Logs. It can be a local file, 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `forwarder_log_enabled` (`bool`) <i>optional</i>
@@ -463,8 +425,6 @@ The URL for the code of the Datadog forwarder for Logs. It can be a local file, 
 
 Flag to enable or disable Datadog log forwarder<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -479,7 +439,6 @@ Flag to enable or disable Datadog log forwarder<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `forwarder_log_layers` (`list(string)`) <i>optional</i>
@@ -487,8 +446,6 @@ Flag to enable or disable Datadog log forwarder<br/>
 
 List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog log forwarder lambda function<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -503,7 +460,6 @@ List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog log forwar
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `forwarder_log_retention_days` (`number`) <i>optional</i>
@@ -511,8 +467,6 @@ List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog log forwar
 
 Number of days to retain Datadog forwarder lambda execution logs. One of [0 1 3 5 7 14 30 60 90 120 150 180 365 400 545 731 1827 3653]<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -527,7 +481,6 @@ Number of days to retain Datadog forwarder lambda execution logs. One of [0 1 3 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `forwarder_rds_artifact_url` (`string`) <i>optional</i>
@@ -535,8 +488,6 @@ Number of days to retain Datadog forwarder lambda execution logs. One of [0 1 3 
 
 The URL for the code of the Datadog forwarder for RDS. It can be a local file, url or git repo<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -551,7 +502,6 @@ The URL for the code of the Datadog forwarder for RDS. It can be a local file, u
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `forwarder_rds_enabled` (`bool`) <i>optional</i>
@@ -559,8 +509,6 @@ The URL for the code of the Datadog forwarder for RDS. It can be a local file, u
 
 Flag to enable or disable Datadog RDS enhanced monitoring forwarder<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -575,7 +523,6 @@ Flag to enable or disable Datadog RDS enhanced monitoring forwarder<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `forwarder_rds_filter_pattern` (`string`) <i>optional</i>
@@ -583,8 +530,6 @@ Flag to enable or disable Datadog RDS enhanced monitoring forwarder<br/>
 
 Filter pattern for Lambda forwarder RDS<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -599,7 +544,6 @@ Filter pattern for Lambda forwarder RDS<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `forwarder_rds_layers` (`list(string)`) <i>optional</i>
@@ -607,8 +551,6 @@ Filter pattern for Lambda forwarder RDS<br/>
 
 List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog RDS enhanced monitoring lambda function<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -623,7 +565,6 @@ List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog RDS enhanc
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `forwarder_vpc_logs_artifact_url` (`string`) <i>optional</i>
@@ -631,8 +572,6 @@ List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog RDS enhanc
 
 The URL for the code of the Datadog forwarder for VPC Logs. It can be a local file, url or git repo<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -647,7 +586,6 @@ The URL for the code of the Datadog forwarder for VPC Logs. It can be a local fi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `forwarder_vpc_logs_enabled` (`bool`) <i>optional</i>
@@ -655,8 +593,6 @@ The URL for the code of the Datadog forwarder for VPC Logs. It can be a local fi
 
 Flag to enable or disable Datadog VPC flow log forwarder<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -671,7 +607,6 @@ Flag to enable or disable Datadog VPC flow log forwarder<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `forwarder_vpc_logs_layers` (`list(string)`) <i>optional</i>
@@ -679,8 +614,6 @@ Flag to enable or disable Datadog VPC flow log forwarder<br/>
 
 List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog VPC flow log forwarder lambda function<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -695,7 +628,6 @@ List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog VPC flow l
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `forwarder_vpclogs_filter_pattern` (`string`) <i>optional</i>
@@ -703,8 +635,6 @@ List of Lambda Layer Version ARNs (maximum of 5) to attach to Datadog VPC flow l
 
 Filter pattern for Lambda forwarder VPC Logs<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -719,7 +649,6 @@ Filter pattern for Lambda forwarder VPC Logs<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kms_key_id` (`string`) <i>optional</i>
@@ -727,8 +656,6 @@ Filter pattern for Lambda forwarder VPC Logs<br/>
 
 Optional KMS key ID to encrypt Datadog Lambda function logs<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -743,7 +670,6 @@ Optional KMS key ID to encrypt Datadog Lambda function logs<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `lambda_arn_enabled` (`bool`) <i>optional</i>
@@ -751,8 +677,6 @@ Optional KMS key ID to encrypt Datadog Lambda function logs<br/>
 
 Enable adding the Lambda Arn to this account integration<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -767,7 +691,6 @@ Enable adding the Lambda Arn to this account integration<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `lambda_policy_source_json` (`string`) <i>optional</i>
@@ -775,8 +698,6 @@ Enable adding the Lambda Arn to this account integration<br/>
 
 Additional IAM policy document that can optionally be passed and merged with the created policy document<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -791,7 +712,6 @@ Additional IAM policy document that can optionally be passed and merged with the
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `lambda_reserved_concurrent_executions` (`number`) <i>optional</i>
@@ -799,8 +719,6 @@ Additional IAM policy document that can optionally be passed and merged with the
 
 Amount of reserved concurrent executions for the lambda function. A value of 0 disables Lambda from being triggered and -1 removes any concurrency limitations. Defaults to Unreserved Concurrency Limits -1<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -815,7 +733,6 @@ Amount of reserved concurrent executions for the lambda function. A value of 0 d
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `lambda_runtime` (`string`) <i>optional</i>
@@ -823,8 +740,6 @@ Amount of reserved concurrent executions for the lambda function. A value of 0 d
 
 Runtime environment for Datadog Lambda<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -839,7 +754,6 @@ Runtime environment for Datadog Lambda<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `log_collection_services` (`list(string)`) <i>optional</i>
@@ -847,8 +761,6 @@ Runtime environment for Datadog Lambda<br/>
 
 List of log collection services to enable<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -889,7 +801,6 @@ List of log collection services to enable<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `s3_bucket_kms_arns` (`list(string)`) <i>optional</i>
@@ -897,8 +808,6 @@ List of log collection services to enable<br/>
 
 List of KMS key ARNs for s3 bucket encryption<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -913,7 +822,6 @@ List of KMS key ARNs for s3 bucket encryption<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `s3_buckets` (`list(string)`) <i>optional</i>
@@ -921,8 +829,6 @@ List of KMS key ARNs for s3 bucket encryption<br/>
 
 The names of S3 buckets to forward logs to Datadog<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -937,7 +843,6 @@ The names of S3 buckets to forward logs to Datadog<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `s3_buckets_with_prefixes` (`map(object({ bucket_name : string, bucket_prefix : string }))`) <i>optional</i>
@@ -945,8 +850,6 @@ The names of S3 buckets to forward logs to Datadog<br/>
 
 The names S3 buckets and prefix to forward logs to Datadog<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -961,7 +864,6 @@ The names S3 buckets and prefix to forward logs to Datadog<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `security_group_ids` (`list(string)`) <i>optional</i>
@@ -969,8 +871,6 @@ The names S3 buckets and prefix to forward logs to Datadog<br/>
 
 List of security group IDs to use when the Lambda Function runs in a VPC<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -985,7 +885,6 @@ List of security group IDs to use when the Lambda Function runs in a VPC<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `subnet_ids` (`list(string)`) <i>optional</i>
@@ -993,8 +892,6 @@ List of security group IDs to use when the Lambda Function runs in a VPC<br/>
 
 List of subnet IDs to use when deploying the Lambda Function in a VPC<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1009,7 +906,6 @@ List of subnet IDs to use when deploying the Lambda Function in a VPC<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tracing_config_mode` (`string`) <i>optional</i>
@@ -1017,8 +913,6 @@ List of subnet IDs to use when deploying the Lambda Function in a VPC<br/>
 
 Can be either PassThrough or Active. If PassThrough, Lambda will only trace the request from an upstream service if it contains a tracing header with 'sampled=1'. If Active, Lambda will respect any tracing header it receives from an upstream service<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1033,7 +927,6 @@ Can be either PassThrough or Active. If PassThrough, Lambda will only trace the 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `vpclogs_cloudwatch_log_group` (`string`) <i>optional</i>
@@ -1041,8 +934,6 @@ Can be either PassThrough or Active. If PassThrough, Lambda will only trace the 
 
 The name of the CloudWatch Log Group for VPC flow logs<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1057,10 +948,10 @@ The name of the CloudWatch Log Group for VPC flow logs<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -1075,8 +966,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1091,7 +980,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -1103,8 +991,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1119,7 +1005,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -1132,8 +1017,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1196,7 +1079,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -1206,8 +1088,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1222,7 +1102,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -1242,8 +1121,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1258,7 +1135,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -1266,8 +1142,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1282,7 +1156,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -1290,8 +1163,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1306,7 +1177,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -1318,8 +1188,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1334,7 +1202,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -1346,8 +1213,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1362,7 +1227,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -1373,8 +1237,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1389,7 +1251,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -1403,8 +1264,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1419,7 +1278,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -1435,8 +1293,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1463,7 +1319,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -1474,8 +1329,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1490,7 +1343,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -1498,8 +1350,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1514,7 +1364,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -1525,8 +1374,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1541,7 +1388,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -1549,8 +1395,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1565,7 +1409,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -1575,8 +1418,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1591,7 +1432,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -1599,8 +1439,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1615,7 +1453,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

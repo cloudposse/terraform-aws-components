@@ -293,15 +293,13 @@ The following data sources are used by this module:
   - [`aws_iam_policy_document.kms_key_rds`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) (data source)
   - [`aws_partition.current`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) (data source)
   - [`aws_security_groups.allowed`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/security_groups) (data source)
-
+---
 ### Required Variables
 ### `cluster_name` (`string`) <i>required</i>
 
 
 Short name for this cluster<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -316,7 +314,6 @@ Short name for this cluster<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cluster_size` (`number`) <i>required</i>
@@ -324,8 +321,6 @@ Short name for this cluster<br/>
 
 Postgres cluster size<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -340,7 +335,6 @@ Postgres cluster size<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `engine_mode` (`string`) <i>required</i>
@@ -348,8 +342,6 @@ Postgres cluster size<br/>
 
 The database engine mode. Valid values: `global`, `multimaster`, `parallelquery`, `provisioned`, `serverless`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -364,7 +356,6 @@ The database engine mode. Valid values: `global`, `multimaster`, `parallelquery`
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `instance_type` (`string`) <i>required</i>
@@ -372,8 +363,6 @@ The database engine mode. Valid values: `global`, `multimaster`, `parallelquery`
 
 EC2 instance type for Postgres cluster<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -388,7 +377,6 @@ EC2 instance type for Postgres cluster<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `region` (`string`) <i>required</i>
@@ -396,8 +384,6 @@ EC2 instance type for Postgres cluster<br/>
 
 AWS Region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -412,18 +398,16 @@ AWS Region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `admin_password` (`string`) <i>optional</i>
 
 
 Postgres password for the admin user<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -438,7 +422,6 @@ Postgres password for the admin user<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `admin_user` (`string`) <i>optional</i>
@@ -446,8 +429,6 @@ Postgres password for the admin user<br/>
 
 Postgres admin user name<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -462,7 +443,6 @@ Postgres admin user name<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `allow_ingress_from_vpc_accounts` <i>optional</i>
@@ -479,8 +459,6 @@ e.g.<br/>
 Defaults to the "vpc" component in the given account<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -506,7 +484,6 @@ Defaults to the "vpc" component in the given account<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `allow_major_version_upgrade` (`bool`) <i>optional</i>
@@ -514,8 +491,6 @@ Defaults to the "vpc" component in the given account<br/>
 
 Enable to allow major engine version upgrades when changing engine versions. Defaults to false.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -530,7 +505,6 @@ Enable to allow major engine version upgrades when changing engine versions. Def
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
@@ -538,8 +512,6 @@ Enable to allow major engine version upgrades when changing engine versions. Def
 
 List of CIDRs allowed to access the database (in addition to security groups and subnets)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -554,7 +526,6 @@ List of CIDRs allowed to access the database (in addition to security groups and
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `allowed_security_group_names` (`list(string)`) <i>optional</i>
@@ -562,8 +533,6 @@ List of CIDRs allowed to access the database (in addition to security groups and
 
 List of security group names (tags) that should be allowed access to the database<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -578,7 +547,6 @@ List of security group names (tags) that should be allowed access to the databas
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `autoscaling_enabled` (`bool`) <i>optional</i>
@@ -586,8 +554,6 @@ List of security group names (tags) that should be allowed access to the databas
 
 Whether to enable cluster autoscaling<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -602,7 +568,6 @@ Whether to enable cluster autoscaling<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `autoscaling_max_capacity` (`number`) <i>optional</i>
@@ -610,8 +575,6 @@ Whether to enable cluster autoscaling<br/>
 
 Maximum number of instances to be maintained by the autoscaler<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -626,7 +589,6 @@ Maximum number of instances to be maintained by the autoscaler<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `autoscaling_min_capacity` (`number`) <i>optional</i>
@@ -634,8 +596,6 @@ Maximum number of instances to be maintained by the autoscaler<br/>
 
 Minimum number of instances to be maintained by the autoscaler<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -650,7 +610,6 @@ Minimum number of instances to be maintained by the autoscaler<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `autoscaling_policy_type` (`string`) <i>optional</i>
@@ -658,8 +617,6 @@ Minimum number of instances to be maintained by the autoscaler<br/>
 
 Autoscaling policy type. `TargetTrackingScaling` and `StepScaling` are supported<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -674,7 +631,6 @@ Autoscaling policy type. `TargetTrackingScaling` and `StepScaling` are supported
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `autoscaling_scale_in_cooldown` (`number`) <i>optional</i>
@@ -682,8 +638,6 @@ Autoscaling policy type. `TargetTrackingScaling` and `StepScaling` are supported
 
 The amount of time, in seconds, after a scaling activity completes and before the next scaling down activity can start. Default is 300s<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -698,7 +652,6 @@ The amount of time, in seconds, after a scaling activity completes and before th
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `autoscaling_scale_out_cooldown` (`number`) <i>optional</i>
@@ -706,8 +659,6 @@ The amount of time, in seconds, after a scaling activity completes and before th
 
 The amount of time, in seconds, after a scaling activity completes and before the next scaling up activity can start. Default is 300s<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -722,7 +673,6 @@ The amount of time, in seconds, after a scaling activity completes and before th
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `autoscaling_target_metrics` (`string`) <i>optional</i>
@@ -730,8 +680,6 @@ The amount of time, in seconds, after a scaling activity completes and before th
 
 The metrics type to use. If this value isn't provided the default is CPU utilization<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -746,7 +694,6 @@ The metrics type to use. If this value isn't provided the default is CPU utiliza
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `autoscaling_target_value` (`number`) <i>optional</i>
@@ -754,8 +701,6 @@ The metrics type to use. If this value isn't provided the default is CPU utiliza
 
 The target value to scale with respect to target metrics<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -770,7 +715,6 @@ The target value to scale with respect to target metrics<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `backup_window` (`string`) <i>optional</i>
@@ -778,8 +722,6 @@ The target value to scale with respect to target metrics<br/>
 
 Daily time range during which the backups happen, UTC<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -794,7 +736,6 @@ Daily time range during which the backups happen, UTC<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ca_cert_identifier` (`string`) <i>optional</i>
@@ -802,8 +743,6 @@ Daily time range during which the backups happen, UTC<br/>
 
 The identifier of the CA certificate for the DB instance<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -818,7 +757,6 @@ The identifier of the CA certificate for the DB instance<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cluster_dns_name_part` (`string`) <i>optional</i>
@@ -826,8 +764,6 @@ The identifier of the CA certificate for the DB instance<br/>
 
 Part of DNS name added to module and cluster name for DNS for cluster endpoint<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -842,7 +778,6 @@ Part of DNS name added to module and cluster name for DNS for cluster endpoint<b
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cluster_family` (`string`) <i>optional</i>
@@ -850,8 +785,6 @@ Part of DNS name added to module and cluster name for DNS for cluster endpoint<b
 
 Family of the DB parameter group. Valid values for Aurora PostgreSQL: `aurora-postgresql9.6`, `aurora-postgresql10`, `aurora-postgresql11`, `aurora-postgresql12`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -866,7 +799,6 @@ Family of the DB parameter group. Valid values for Aurora PostgreSQL: `aurora-po
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cluster_parameters` <i>optional</i>
@@ -874,8 +806,6 @@ Family of the DB parameter group. Valid values for Aurora PostgreSQL: `aurora-po
 
 List of DB cluster parameters to apply<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -900,7 +830,6 @@ List of DB cluster parameters to apply<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `database_name` (`string`) <i>optional</i>
@@ -908,8 +837,6 @@ List of DB cluster parameters to apply<br/>
 
 Name for an automatically created database on cluster creation. An empty name will generate a db name.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -924,7 +851,6 @@ Name for an automatically created database on cluster creation. An empty name wi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `database_port` (`number`) <i>optional</i>
@@ -932,8 +858,6 @@ Name for an automatically created database on cluster creation. An empty name wi
 
 Database port<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -948,7 +872,6 @@ Database port<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `deletion_protection` (`bool`) <i>optional</i>
@@ -956,8 +879,6 @@ Database port<br/>
 
 Specifies whether the Cluster should have deletion protection enabled. The database can't be deleted when this value is set to `true`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -972,7 +893,6 @@ Specifies whether the Cluster should have deletion protection enabled. The datab
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dns_gbl_delegated_environment_name` (`string`) <i>optional</i>
@@ -980,8 +900,6 @@ Specifies whether the Cluster should have deletion protection enabled. The datab
 
 The name of the environment where global `dns_delegated` is provisioned<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -996,7 +914,6 @@ The name of the environment where global `dns_delegated` is provisioned<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `eks_component_names` (`set(string)`) <i>optional</i>
@@ -1004,8 +921,6 @@ The name of the environment where global `dns_delegated` is provisioned<br/>
 
 The names of the eks components<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1032,7 +947,6 @@ The names of the eks components<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `eks_security_group_enabled` (`bool`) <i>optional</i>
@@ -1040,8 +954,6 @@ The names of the eks components<br/>
 
 Use the eks default security group<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1056,7 +968,6 @@ Use the eks default security group<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled_cloudwatch_logs_exports` (`list(string)`) <i>optional</i>
@@ -1064,8 +975,6 @@ Use the eks default security group<br/>
 
 List of log types to export to cloudwatch. The following log types are supported: audit, error, general, slowquery<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1080,7 +989,6 @@ List of log types to export to cloudwatch. The following log types are supported
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `engine` (`string`) <i>optional</i>
@@ -1088,8 +996,6 @@ List of log types to export to cloudwatch. The following log types are supported
 
 Name of the database engine to be used for the DB cluster<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1104,7 +1010,6 @@ Name of the database engine to be used for the DB cluster<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `engine_version` (`string`) <i>optional</i>
@@ -1112,8 +1017,6 @@ Name of the database engine to be used for the DB cluster<br/>
 
 Engine version of the Aurora global database<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1128,7 +1031,6 @@ Engine version of the Aurora global database<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enhanced_monitoring_attributes` (`list(string)`) <i>optional</i>
@@ -1136,8 +1038,6 @@ Engine version of the Aurora global database<br/>
 
 Attributes used to format the Enhanced Monitoring IAM role. If this role hits IAM role length restrictions (max 64 characters), consider shortening these strings.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1164,7 +1064,6 @@ Attributes used to format the Enhanced Monitoring IAM role. If this role hits IA
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enhanced_monitoring_role_enabled` (`bool`) <i>optional</i>
@@ -1172,8 +1071,6 @@ Attributes used to format the Enhanced Monitoring IAM role. If this role hits IA
 
 A boolean flag to enable/disable the creation of the enhanced monitoring IAM role. If set to `false`, the module will not create a new role and will use `rds_monitoring_role_arn` for enhanced monitoring<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1188,7 +1085,6 @@ A boolean flag to enable/disable the creation of the enhanced monitoring IAM rol
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `iam_database_authentication_enabled` (`bool`) <i>optional</i>
@@ -1196,8 +1092,6 @@ A boolean flag to enable/disable the creation of the enhanced monitoring IAM rol
 
 Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1212,7 +1106,6 @@ Specifies whether or mappings of AWS Identity and Access Management (IAM) accoun
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `intra_security_group_traffic_enabled` (`bool`) <i>optional</i>
@@ -1220,8 +1113,6 @@ Specifies whether or mappings of AWS Identity and Access Management (IAM) accoun
 
 Whether to allow traffic between resources inside the database's security group.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1236,7 +1127,6 @@ Whether to allow traffic between resources inside the database's security group.
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `maintenance_window` (`string`) <i>optional</i>
@@ -1244,8 +1134,6 @@ Whether to allow traffic between resources inside the database's security group.
 
 Weekly time range during which system maintenance can occur, in UTC<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1260,7 +1148,6 @@ Weekly time range during which system maintenance can occur, in UTC<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `performance_insights_enabled` (`bool`) <i>optional</i>
@@ -1268,8 +1155,6 @@ Weekly time range during which system maintenance can occur, in UTC<br/>
 
 Whether to enable Performance Insights<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1284,7 +1169,6 @@ Whether to enable Performance Insights<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `publicly_accessible` (`bool`) <i>optional</i>
@@ -1292,8 +1176,6 @@ Whether to enable Performance Insights<br/>
 
 Set true to make this database accessible from the public internet<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1308,7 +1190,6 @@ Set true to make this database accessible from the public internet<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `rds_monitoring_interval` (`number`) <i>optional</i>
@@ -1316,8 +1197,6 @@ Set true to make this database accessible from the public internet<br/>
 
 The interval, in seconds, between points when enhanced monitoring metrics are collected for the DB instance. To disable collecting Enhanced Monitoring metrics, specify 0. The default is 0. Valid Values: 0, 1, 5, 10, 15, 30, 60<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1332,7 +1211,6 @@ The interval, in seconds, between points when enhanced monitoring metrics are co
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `reader_dns_name_part` (`string`) <i>optional</i>
@@ -1340,8 +1218,6 @@ The interval, in seconds, between points when enhanced monitoring metrics are co
 
 Part of DNS name added to module and cluster name for DNS for cluster reader<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1356,7 +1232,6 @@ Part of DNS name added to module and cluster name for DNS for cluster reader<br/
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `retention_period` (`number`) <i>optional</i>
@@ -1364,8 +1239,6 @@ Part of DNS name added to module and cluster name for DNS for cluster reader<br/
 
 Number of days to retain backups for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1380,7 +1253,6 @@ Number of days to retain backups for<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `scaling_configuration` <i>optional</i>
@@ -1388,8 +1260,6 @@ Number of days to retain backups for<br/>
 
 List of nested attributes with scaling properties. Only valid when `engine_mode` is set to `serverless`. This is required for Serverless v1<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1416,7 +1286,6 @@ List of nested attributes with scaling properties. Only valid when `engine_mode`
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `serverlessv2_scaling_configuration` <i>optional</i>
@@ -1424,8 +1293,6 @@ List of nested attributes with scaling properties. Only valid when `engine_mode`
 
 Nested attribute with scaling properties for ServerlessV2. Only valid when `engine_mode` is set to `provisioned.` This is required for Serverless v2<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1449,7 +1316,6 @@ Nested attribute with scaling properties for ServerlessV2. Only valid when `engi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `skip_final_snapshot` (`bool`) <i>optional</i>
@@ -1461,8 +1327,6 @@ then create a cluster of the same name, its final snapshot will fail with a name
 the previous final snapshot first.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1477,7 +1341,6 @@ the previous final snapshot first.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `snapshot_identifier` (`string`) <i>optional</i>
@@ -1485,8 +1348,6 @@ the previous final snapshot first.<br/>
 
 Specifies whether or not to create this cluster from a snapshot<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1501,7 +1362,6 @@ Specifies whether or not to create this cluster from a snapshot<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_path_prefix` (`string`) <i>optional</i>
@@ -1509,8 +1369,6 @@ Specifies whether or not to create this cluster from a snapshot<br/>
 
 Top level SSM path prefix (without leading or trailing slash)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1525,7 +1383,6 @@ Top level SSM path prefix (without leading or trailing slash)<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `storage_encrypted` (`bool`) <i>optional</i>
@@ -1533,8 +1390,6 @@ Top level SSM path prefix (without leading or trailing slash)<br/>
 
 Specifies whether the DB cluster is encrypted<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1549,7 +1404,6 @@ Specifies whether the DB cluster is encrypted<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `vpc_component_name` (`string`) <i>optional</i>
@@ -1557,8 +1411,6 @@ Specifies whether the DB cluster is encrypted<br/>
 
 The name of the VPC component<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1573,10 +1425,10 @@ The name of the VPC component<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -1591,8 +1443,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1607,7 +1457,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -1619,8 +1468,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1635,7 +1482,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -1648,8 +1494,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1712,7 +1556,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -1722,8 +1565,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1738,7 +1579,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -1758,8 +1598,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1774,7 +1612,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -1782,8 +1619,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1798,7 +1633,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -1806,8 +1640,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1822,7 +1654,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -1834,8 +1665,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1850,7 +1679,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -1862,8 +1690,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1878,7 +1704,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -1889,8 +1714,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1905,7 +1728,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -1919,8 +1741,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1935,7 +1755,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -1951,8 +1770,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1979,7 +1796,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -1990,8 +1806,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2006,7 +1820,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -2014,8 +1827,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2030,7 +1841,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -2041,8 +1851,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2057,7 +1865,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -2065,8 +1872,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2081,7 +1886,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -2091,8 +1895,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2107,7 +1909,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -2115,8 +1916,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2131,7 +1930,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

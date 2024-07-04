@@ -58,15 +58,13 @@ Name | Version | Source | Description
 
 
 
-
+---
 ### Required Variables
 ### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -81,18 +79,16 @@ AWS Region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
 
 
 List of CIDR blocks that are allowed ingress to the broker's Security Group created in the module<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -107,7 +103,6 @@ List of CIDR blocks that are allowed ingress to the broker's Security Group crea
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `allowed_security_groups` (`list(string)`) <i>optional</i>
@@ -115,8 +110,6 @@ List of CIDR blocks that are allowed ingress to the broker's Security Group crea
 
 List of security groups to be allowed to connect to the broker instance<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -131,7 +124,6 @@ List of security groups to be allowed to connect to the broker instance<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `apply_immediately` (`bool`) <i>optional</i>
@@ -139,8 +131,6 @@ List of security groups to be allowed to connect to the broker instance<br/>
 
 Specifies whether any cluster modifications are applied immediately, or during the next maintenance window<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -155,7 +145,6 @@ Specifies whether any cluster modifications are applied immediately, or during t
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `audit_log_enabled` (`bool`) <i>optional</i>
@@ -163,8 +152,6 @@ Specifies whether any cluster modifications are applied immediately, or during t
 
 Enables audit logging. User management action made using JMX or the ActiveMQ Web Console is logged<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -179,7 +166,6 @@ Enables audit logging. User management action made using JMX or the ActiveMQ Web
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `auto_minor_version_upgrade` (`bool`) <i>optional</i>
@@ -187,8 +173,6 @@ Enables audit logging. User management action made using JMX or the ActiveMQ Web
 
 Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -203,7 +187,6 @@ Enables automatic upgrades to new minor versions for brokers, as Apache releases
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `deployment_mode` (`string`) <i>optional</i>
@@ -211,8 +194,6 @@ Enables automatic upgrades to new minor versions for brokers, as Apache releases
 
 The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY_MULTI_AZ<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -227,7 +208,6 @@ The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `encryption_enabled` (`bool`) <i>optional</i>
@@ -235,8 +215,6 @@ The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY
 
 Flag to enable/disable Amazon MQ encryption at rest<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -251,7 +229,6 @@ Flag to enable/disable Amazon MQ encryption at rest<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `engine_type` (`string`) <i>optional</i>
@@ -259,8 +236,6 @@ Flag to enable/disable Amazon MQ encryption at rest<br/>
 
 Type of broker engine, `ActiveMQ` or `RabbitMQ`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -275,7 +250,6 @@ Type of broker engine, `ActiveMQ` or `RabbitMQ`<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `engine_version` (`string`) <i>optional</i>
@@ -283,8 +257,6 @@ Type of broker engine, `ActiveMQ` or `RabbitMQ`<br/>
 
 The version of the broker engine. See https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html for more details<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -299,7 +271,6 @@ The version of the broker engine. See https://docs.aws.amazon.com/amazon-mq/late
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `existing_security_groups` (`list(string)`) <i>optional</i>
@@ -307,8 +278,6 @@ The version of the broker engine. See https://docs.aws.amazon.com/amazon-mq/late
 
 List of existing Security Group IDs to place the broker into. Set `use_existing_security_groups` to `true` to enable using `existing_security_groups` as Security Groups for the broker<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -323,7 +292,6 @@ List of existing Security Group IDs to place the broker into. Set `use_existing_
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `general_log_enabled` (`bool`) <i>optional</i>
@@ -331,8 +299,6 @@ List of existing Security Group IDs to place the broker into. Set `use_existing_
 
 Enables general logging via CloudWatch<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -347,7 +313,6 @@ Enables general logging via CloudWatch<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `host_instance_type` (`string`) <i>optional</i>
@@ -355,8 +320,6 @@ Enables general logging via CloudWatch<br/>
 
 The broker's instance type. e.g. mq.t2.micro or mq.m4.large<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -371,7 +334,6 @@ The broker's instance type. e.g. mq.t2.micro or mq.m4.large<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kms_mq_key_arn` (`string`) <i>optional</i>
@@ -379,8 +341,6 @@ The broker's instance type. e.g. mq.t2.micro or mq.m4.large<br/>
 
 ARN of the AWS KMS key used for Amazon MQ encryption<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -395,7 +355,6 @@ ARN of the AWS KMS key used for Amazon MQ encryption<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kms_ssm_key_arn` (`string`) <i>optional</i>
@@ -403,8 +362,6 @@ ARN of the AWS KMS key used for Amazon MQ encryption<br/>
 
 ARN of the AWS KMS key used for SSM encryption<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -419,7 +376,6 @@ ARN of the AWS KMS key used for SSM encryption<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `maintenance_day_of_week` (`string`) <i>optional</i>
@@ -427,8 +383,6 @@ ARN of the AWS KMS key used for SSM encryption<br/>
 
 The maintenance day of the week. e.g. MONDAY, TUESDAY, or WEDNESDAY<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -443,7 +397,6 @@ The maintenance day of the week. e.g. MONDAY, TUESDAY, or WEDNESDAY<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `maintenance_time_of_day` (`string`) <i>optional</i>
@@ -451,8 +404,6 @@ The maintenance day of the week. e.g. MONDAY, TUESDAY, or WEDNESDAY<br/>
 
 The maintenance time, in 24-hour format. e.g. 02:00<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -467,7 +418,6 @@ The maintenance time, in 24-hour format. e.g. 02:00<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `maintenance_time_zone` (`string`) <i>optional</i>
@@ -475,8 +425,6 @@ The maintenance time, in 24-hour format. e.g. 02:00<br/>
 
 The maintenance time zone, in either the Country/City format, or the UTC offset format. e.g. CET<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -491,7 +439,6 @@ The maintenance time zone, in either the Country/City format, or the UTC offset 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mq_admin_password` (`string`) <i>optional</i>
@@ -499,8 +446,6 @@ The maintenance time zone, in either the Country/City format, or the UTC offset 
 
 Admin password<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -515,7 +460,6 @@ Admin password<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mq_admin_user` (`string`) <i>optional</i>
@@ -523,8 +467,6 @@ Admin password<br/>
 
 Admin username<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -539,7 +481,6 @@ Admin username<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mq_application_password` (`string`) <i>optional</i>
@@ -547,8 +488,6 @@ Admin username<br/>
 
 Application password<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -563,7 +502,6 @@ Application password<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mq_application_user` (`string`) <i>optional</i>
@@ -571,8 +509,6 @@ Application password<br/>
 
 Application username<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -587,7 +523,6 @@ Application username<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `overwrite_ssm_parameter` (`bool`) <i>optional</i>
@@ -595,8 +530,6 @@ Application username<br/>
 
 Whether to overwrite an existing SSM parameter<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -611,7 +544,6 @@ Whether to overwrite an existing SSM parameter<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `publicly_accessible` (`bool`) <i>optional</i>
@@ -619,8 +551,6 @@ Whether to overwrite an existing SSM parameter<br/>
 
 Whether to enable connections from applications outside of the VPC that hosts the broker's subnets<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -635,7 +565,6 @@ Whether to enable connections from applications outside of the VPC that hosts th
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_parameter_name_format` (`string`) <i>optional</i>
@@ -643,8 +572,6 @@ Whether to enable connections from applications outside of the VPC that hosts th
 
 SSM parameter name format<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -659,7 +586,6 @@ SSM parameter name format<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ssm_path` (`string`) <i>optional</i>
@@ -667,8 +593,6 @@ SSM parameter name format<br/>
 
 SSM path<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -683,7 +607,6 @@ SSM path<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `use_aws_owned_key` (`bool`) <i>optional</i>
@@ -691,8 +614,6 @@ SSM path<br/>
 
 Boolean to enable an AWS owned Key Management Service (KMS) Customer Master Key (CMK) for Amazon MQ encryption that is not in your account<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -707,7 +628,6 @@ Boolean to enable an AWS owned Key Management Service (KMS) Customer Master Key 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `use_existing_security_groups` (`bool`) <i>optional</i>
@@ -715,8 +635,6 @@ Boolean to enable an AWS owned Key Management Service (KMS) Customer Master Key 
 
 Flag to enable/disable creation of Security Group in the module. Set to `true` to disable Security Group creation and provide a list of existing security Group IDs in `existing_security_groups` to place the broker into<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -731,10 +649,10 @@ Flag to enable/disable creation of Security Group in the module. Set to `true` t
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -746,8 +664,6 @@ The following variables are defined in the `context.tf` file of this module and 
 
 Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -762,7 +678,6 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -770,8 +685,6 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 
 Additional attributes (e.g. `1`)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -786,7 +699,6 @@ Additional attributes (e.g. `1`)<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -799,8 +711,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -853,7 +763,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -863,8 +772,6 @@ Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `at
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -879,7 +786,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -887,8 +793,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -903,7 +807,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -911,8 +814,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -927,7 +828,6 @@ Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -939,8 +839,6 @@ Set to `null` for default, which is `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -955,7 +853,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -966,8 +863,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -982,7 +877,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -993,8 +887,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 5 elements, but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1009,7 +901,6 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -1020,8 +911,6 @@ Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1036,7 +925,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -1044,8 +932,6 @@ Default value: `lower`.<br/>
 
 Solution name, e.g. 'app' or 'jenkins'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1060,7 +946,6 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -1068,8 +953,6 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 
 Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1084,7 +967,6 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -1094,8 +976,6 @@ Regex to replace chars with empty string in `namespace`, `environment`, `stage` 
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1110,7 +990,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -1118,8 +997,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1134,7 +1011,6 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -1142,8 +1018,6 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 
 Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1158,7 +1032,6 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

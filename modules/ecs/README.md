@@ -101,15 +101,13 @@ The following data sources are used by this module:
 
   - [`aws_acm_certificate.additional_certs`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/acm_certificate) (data source)
   - [`aws_acm_certificate.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/acm_certificate) (data source)
-
+---
 ### Required Variables
 ### `region` (`string`) <i>required</i>
 
 
 AWS Region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -124,18 +122,16 @@ AWS Region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `acm_certificate_domain` (`string`) <i>optional</i>
 
 
 Domain to get the ACM cert to use on the ALB.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -150,7 +146,6 @@ Domain to get the ACM cert to use on the ALB.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `acm_certificate_domain_suffix` (`string`) <i>optional</i>
@@ -158,8 +153,6 @@ Domain to get the ACM cert to use on the ALB.<br/>
 
 Domain suffix to use with dns delegated HZ to get the ACM cert to use on the ALB<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -174,7 +167,6 @@ Domain suffix to use with dns delegated HZ to get the ACM cert to use on the ALB
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `alb_configuration` (`map(any)`) <i>optional</i>
@@ -182,8 +174,6 @@ Domain suffix to use with dns delegated HZ to get the ACM cert to use on the ALB
 
 Map of multiple ALB configurations.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -198,7 +188,6 @@ Map of multiple ALB configurations.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `alb_ingress_cidr_blocks_http` (`list(string)`) <i>optional</i>
@@ -206,8 +195,6 @@ Map of multiple ALB configurations.<br/>
 
 List of CIDR blocks allowed to access environment over HTTP<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -234,7 +221,6 @@ List of CIDR blocks allowed to access environment over HTTP<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `alb_ingress_cidr_blocks_https` (`list(string)`) <i>optional</i>
@@ -242,8 +228,6 @@ List of CIDR blocks allowed to access environment over HTTP<br/>
 
 List of CIDR blocks allowed to access environment over HTTPS<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -270,7 +254,6 @@ List of CIDR blocks allowed to access environment over HTTPS<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
@@ -278,8 +261,6 @@ List of CIDR blocks allowed to access environment over HTTPS<br/>
 
 List of CIDR blocks to be allowed to connect to the ECS cluster<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -294,7 +275,6 @@ List of CIDR blocks to be allowed to connect to the ECS cluster<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `allowed_security_groups` (`list(string)`) <i>optional</i>
@@ -302,8 +282,6 @@ List of CIDR blocks to be allowed to connect to the ECS cluster<br/>
 
 List of Security Group IDs to be allowed to connect to the ECS cluster<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -318,7 +296,6 @@ List of Security Group IDs to be allowed to connect to the ECS cluster<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `capacity_providers_ec2` <i>optional</i>
@@ -326,8 +303,6 @@ List of Security Group IDs to be allowed to connect to the ECS cluster<br/>
 
 EC2 autoscale groups capacity providers<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -466,7 +441,6 @@ EC2 autoscale groups capacity providers<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `capacity_providers_fargate` (`bool`) <i>optional</i>
@@ -474,8 +448,6 @@ EC2 autoscale groups capacity providers<br/>
 
 Use FARGATE capacity provider<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -490,7 +462,6 @@ Use FARGATE capacity provider<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `capacity_providers_fargate_spot` (`bool`) <i>optional</i>
@@ -498,8 +469,6 @@ Use FARGATE capacity provider<br/>
 
 Use FARGATE_SPOT capacity provider<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -514,7 +483,6 @@ Use FARGATE_SPOT capacity provider<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `container_insights_enabled` (`bool`) <i>optional</i>
@@ -522,8 +490,6 @@ Use FARGATE_SPOT capacity provider<br/>
 
 Whether or not to enable container insights<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -538,7 +504,6 @@ Whether or not to enable container insights<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dns_delegated_component_name` (`string`) <i>optional</i>
@@ -546,8 +511,6 @@ Whether or not to enable container insights<br/>
 
 Use this component name to read from the remote state to get the dns_delegated zone ID<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -562,7 +525,6 @@ Use this component name to read from the remote state to get the dns_delegated z
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dns_delegated_environment_name` (`string`) <i>optional</i>
@@ -570,8 +532,6 @@ Use this component name to read from the remote state to get the dns_delegated z
 
 Use this environment name to read from the remote state to get the dns_delegated zone ID<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -586,7 +546,6 @@ Use this environment name to read from the remote state to get the dns_delegated
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dns_delegated_stage_name` (`string`) <i>optional</i>
@@ -594,8 +553,6 @@ Use this environment name to read from the remote state to get the dns_delegated
 
 Use this stage name to read from the remote state to get the dns_delegated zone ID<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -610,7 +567,6 @@ Use this stage name to read from the remote state to get the dns_delegated zone 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `internal_enabled` (`bool`) <i>optional</i>
@@ -618,8 +574,6 @@ Use this stage name to read from the remote state to get the dns_delegated zone 
 
 Whether to create an internal load balancer for services in this cluster<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -634,7 +588,6 @@ Whether to create an internal load balancer for services in this cluster<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `maintenance_page_path` (`string`) <i>optional</i>
@@ -642,8 +595,6 @@ Whether to create an internal load balancer for services in this cluster<br/>
 
 The path from this directory to the text/html page to use as the maintenance page. Must be within 1024 characters<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -658,7 +609,6 @@ The path from this directory to the text/html page to use as the maintenance pag
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `route53_enabled` (`bool`) <i>optional</i>
@@ -666,8 +616,6 @@ The path from this directory to the text/html page to use as the maintenance pag
 
 Whether or not to create a route53 record for the ALB<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -682,7 +630,6 @@ Whether or not to create a route53 record for the ALB<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `route53_record_name` (`string`) <i>optional</i>
@@ -690,8 +637,6 @@ Whether or not to create a route53 record for the ALB<br/>
 
 The route53 record name<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -706,10 +651,10 @@ The route53 record name<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -724,8 +669,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -740,7 +683,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -752,8 +694,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -768,7 +708,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -781,8 +720,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -845,7 +782,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -855,8 +791,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -871,7 +805,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -891,8 +824,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -907,7 +838,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -915,8 +845,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -931,7 +859,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -939,8 +866,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -955,7 +880,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -967,8 +891,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -983,7 +905,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -995,8 +916,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1011,7 +930,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -1022,8 +940,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1038,7 +954,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -1052,8 +967,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1068,7 +981,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -1084,8 +996,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1112,7 +1022,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -1123,8 +1032,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1139,7 +1046,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -1147,8 +1053,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1163,7 +1067,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -1174,8 +1077,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1190,7 +1091,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -1198,8 +1098,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1214,7 +1112,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -1224,8 +1121,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1240,7 +1135,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -1248,8 +1142,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1264,7 +1156,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

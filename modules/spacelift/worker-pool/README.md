@@ -177,15 +177,13 @@ The following data sources are used by this module:
   - [`aws_ssm_parameter.spacelift_key_id`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`aws_ssm_parameter.spacelift_key_secret`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
   - [`cloudinit_config.config`](https://registry.terraform.io/providers/hashicorp/cloudinit/latest/docs/data-sources/config) (data source)
-
+---
 ### Required Variables
 ### `cpu_utilization_high_threshold_percent` (`number`) <i>required</i>
 
 
 CPU utilization high threshold<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -200,7 +198,6 @@ CPU utilization high threshold<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `cpu_utilization_low_threshold_percent` (`number`) <i>required</i>
@@ -208,8 +205,6 @@ CPU utilization high threshold<br/>
 
 CPU utilization low threshold<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -224,7 +219,6 @@ CPU utilization low threshold<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ecr_repo_name` (`string`) <i>required</i>
@@ -232,8 +226,6 @@ CPU utilization low threshold<br/>
 
 ECR repository name<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -248,7 +240,6 @@ ECR repository name<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `max_size` (`number`) <i>required</i>
@@ -256,8 +247,6 @@ ECR repository name<br/>
 
 The maximum size of the autoscale group<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -272,7 +261,6 @@ The maximum size of the autoscale group<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `min_size` (`number`) <i>required</i>
@@ -280,8 +268,6 @@ The maximum size of the autoscale group<br/>
 
 The minimum size of the autoscale group<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -296,7 +282,6 @@ The minimum size of the autoscale group<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `region` (`string`) <i>required</i>
@@ -304,8 +289,6 @@ The minimum size of the autoscale group<br/>
 
 AWS Region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -320,7 +303,6 @@ AWS Region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `spacelift_api_endpoint` (`string`) <i>required</i>
@@ -328,8 +310,6 @@ AWS Region<br/>
 
 The Spacelift API endpoint URL (e.g. https://example.app.spacelift.io)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -344,7 +324,6 @@ The Spacelift API endpoint URL (e.g. https://example.app.spacelift.io)<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `wait_for_capacity_timeout` (`string`) <i>required</i>
@@ -352,8 +331,6 @@ The Spacelift API endpoint URL (e.g. https://example.app.spacelift.io)<br/>
 
 A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. (See also Waiting for Capacity below.) Setting this to '0' causes Terraform to skip all Capacity Waiting behavior<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -368,18 +345,16 @@ A maximum duration that Terraform should wait for ASG instances to be healthy be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `account_map_environment_name` (`string`) <i>optional</i>
 
 
 The name of the environment where `account_map` is provisioned<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -394,7 +369,6 @@ The name of the environment where `account_map` is provisioned<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `account_map_stage_name` (`string`) <i>optional</i>
@@ -402,8 +376,6 @@ The name of the environment where `account_map` is provisioned<br/>
 
 The name of the stage where `account_map` is provisioned<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -418,7 +390,6 @@ The name of the stage where `account_map` is provisioned<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `account_map_tenant_name` (`string`) <i>optional</i>
@@ -429,8 +400,6 @@ The name of the tenant where `account_map` is provisioned.<br/>
 If the `tenant` label is not used, leave this as `null`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -445,7 +414,6 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `architecture` (`list(string)`) <i>optional</i>
@@ -453,8 +421,6 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 
 OS architecture of the EC2 instance AMI<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -481,7 +447,6 @@ OS architecture of the EC2 instance AMI<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `aws_config_file` (`string`) <i>optional</i>
@@ -489,8 +454,6 @@ OS architecture of the EC2 instance AMI<br/>
 
 The AWS_CONFIG_FILE used by the worker. Can be overridden by `/.spacelift/config.yml`.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -505,7 +468,6 @@ The AWS_CONFIG_FILE used by the worker. Can be overridden by `/.spacelift/config
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `aws_profile` (`string`) <i>optional</i>
@@ -515,8 +477,6 @@ The AWS_PROFILE used by the worker. If not specified, `"${var.namespace}-identit
 Can be overridden by `/.spacelift/config.yml`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -531,7 +491,6 @@ Can be overridden by `/.spacelift/config.yml`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `block_device_mappings` <i>optional</i>
@@ -539,8 +498,6 @@ Can be overridden by `/.spacelift/config.yml`.<br/>
 
 Specify volumes to attach to the instance besides the volumes specified by the AMI<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -574,7 +531,6 @@ Specify volumes to attach to the instance besides the volumes specified by the A
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `custom_spacelift_ami` (`bool`) <i>optional</i>
@@ -582,8 +538,6 @@ Specify volumes to attach to the instance besides the volumes specified by the A
 
 Custom spacelift AMI<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -598,7 +552,6 @@ Custom spacelift AMI<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `default_cooldown` (`number`) <i>optional</i>
@@ -606,8 +559,6 @@ Custom spacelift AMI<br/>
 
 The amount of time, in seconds, after a scaling activity completes before another scaling activity can start<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -622,7 +573,6 @@ The amount of time, in seconds, after a scaling activity completes before anothe
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `desired_capacity` (`number`) <i>optional</i>
@@ -630,8 +580,6 @@ The amount of time, in seconds, after a scaling activity completes before anothe
 
 The number of Amazon EC2 instances that should be running in the group, if not set will use `min_size` as value<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -646,7 +594,6 @@ The number of Amazon EC2 instances that should be running in the group, if not s
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ebs_optimized` (`bool`) <i>optional</i>
@@ -654,8 +601,6 @@ The number of Amazon EC2 instances that should be running in the group, if not s
 
 If true, the launched EC2 instance will be EBS-optimized<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -670,7 +615,6 @@ If true, the launched EC2 instance will be EBS-optimized<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ecr_environment_name` (`string`) <i>optional</i>
@@ -678,8 +622,6 @@ If true, the launched EC2 instance will be EBS-optimized<br/>
 
 The name of the environment where `ecr` is provisioned<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -694,7 +636,6 @@ The name of the environment where `ecr` is provisioned<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ecr_region` (`string`) <i>optional</i>
@@ -702,8 +643,6 @@ The name of the environment where `ecr` is provisioned<br/>
 
 AWS region that contains the ECR infrastructure repo<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -718,7 +657,6 @@ AWS region that contains the ECR infrastructure repo<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ecr_stage_name` (`string`) <i>optional</i>
@@ -726,8 +664,6 @@ AWS region that contains the ECR infrastructure repo<br/>
 
 The name of the stage where `ecr` is provisioned<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -742,7 +678,6 @@ The name of the stage where `ecr` is provisioned<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ecr_tenant_name` (`string`) <i>optional</i>
@@ -753,8 +688,6 @@ The name of the tenant where `ecr` is provisioned.<br/>
 If the `tenant` label is not used, leave this as `null`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -769,7 +702,6 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `github_netrc_enabled` (`bool`) <i>optional</i>
@@ -777,8 +709,6 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 
 Whether to create a GitHub .netrc file so Spacelift can clone private GitHub repositories.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -793,7 +723,6 @@ Whether to create a GitHub .netrc file so Spacelift can clone private GitHub rep
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `github_netrc_ssm_path_token` (`string`) <i>optional</i>
@@ -801,8 +730,6 @@ Whether to create a GitHub .netrc file so Spacelift can clone private GitHub rep
 
 If `github_netrc` is enabled, this is the SSM path to retrieve the GitHub token.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -817,7 +744,6 @@ If `github_netrc` is enabled, this is the SSM path to retrieve the GitHub token.
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `github_netrc_ssm_path_user` (`string`) <i>optional</i>
@@ -825,8 +751,6 @@ If `github_netrc` is enabled, this is the SSM path to retrieve the GitHub token.
 
 If `github_netrc` is enabled, this is the SSM path to retrieve the GitHub user<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -841,7 +765,6 @@ If `github_netrc` is enabled, this is the SSM path to retrieve the GitHub user<b
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `health_check_grace_period` (`number`) <i>optional</i>
@@ -849,8 +772,6 @@ If `github_netrc` is enabled, this is the SSM path to retrieve the GitHub user<b
 
 Time (in seconds) after instance comes into service before checking health<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -865,7 +786,6 @@ Time (in seconds) after instance comes into service before checking health<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `health_check_type` (`string`) <i>optional</i>
@@ -873,8 +793,6 @@ Time (in seconds) after instance comes into service before checking health<br/>
 
 Controls how health checking is done. Valid values are `EC2` or `ELB`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -889,7 +807,6 @@ Controls how health checking is done. Valid values are `EC2` or `ELB`<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `iam_attributes` (`list(string)`) <i>optional</i>
@@ -897,8 +814,6 @@ Controls how health checking is done. Valid values are `EC2` or `ELB`<br/>
 
 Additional attributes to add to the IDs of the IAM role and policy<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -913,7 +828,6 @@ Additional attributes to add to the IDs of the IAM role and policy<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `infracost_api_token_ssm_path` (`string`) <i>optional</i>
@@ -921,8 +835,6 @@ Additional attributes to add to the IDs of the IAM role and policy<br/>
 
 This is the SSM path to retrieve and set the INFRACOST_API_TOKEN environment variable<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -937,7 +849,6 @@ This is the SSM path to retrieve and set the INFRACOST_API_TOKEN environment var
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `infracost_cli_args` (`string`) <i>optional</i>
@@ -945,8 +856,6 @@ This is the SSM path to retrieve and set the INFRACOST_API_TOKEN environment var
 
 These are the CLI args passed to infracost<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -961,7 +870,6 @@ These are the CLI args passed to infracost<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `infracost_enabled` (`bool`) <i>optional</i>
@@ -969,8 +877,6 @@ These are the CLI args passed to infracost<br/>
 
 Whether to enable infracost for Spacelift stacks<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -985,7 +891,6 @@ Whether to enable infracost for Spacelift stacks<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `infracost_warn_on_failure` (`bool`) <i>optional</i>
@@ -993,8 +898,6 @@ Whether to enable infracost for Spacelift stacks<br/>
 
 A failure executing Infracost, or a non-zero exit code being returned from the command will cause runs to fail. If this is true, this will only warn instead of failing the stack.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1009,7 +912,6 @@ A failure executing Infracost, or a non-zero exit code being returned from the c
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `instance_lifetime` (`number`) <i>optional</i>
@@ -1017,8 +919,6 @@ A failure executing Infracost, or a non-zero exit code being returned from the c
 
 Number of seconds after which the instance will be terminated. The default is set to 14 days.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1033,7 +933,6 @@ Number of seconds after which the instance will be terminated. The default is se
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `instance_refresh` <i>optional</i>
@@ -1041,8 +940,6 @@ Number of seconds after which the instance will be terminated. The default is se
 
 The instance refresh definition. If this block is configured, an Instance Refresh will be started when the Auto Scaling Group is updated<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1072,7 +969,6 @@ The instance refresh definition. If this block is configured, an Instance Refres
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `instance_type` (`string`) <i>optional</i>
@@ -1080,8 +976,6 @@ The instance refresh definition. If this block is configured, an Instance Refres
 
 EC2 instance type to use for workers<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1096,7 +990,6 @@ EC2 instance type to use for workers<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `launch_template_version` (`string`) <i>optional</i>
@@ -1104,8 +997,6 @@ EC2 instance type to use for workers<br/>
 
 Launch template version to use for workers. Note that instance refresh settings are IGNORED unless template version is empty<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1120,7 +1011,6 @@ Launch template version to use for workers. Note that instance refresh settings 
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `mixed_instances_policy` <i>optional</i>
@@ -1128,8 +1018,6 @@ Launch template version to use for workers. Note that instance refresh settings 
 
 Policy to use a mixed group of on-demand/spot of different types. Launch template is automatically generated. https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html#mixed_instances_policy-1<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1163,7 +1051,6 @@ Policy to use a mixed group of on-demand/spot of different types. Launch templat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `scale_down_cooldown_seconds` (`number`) <i>optional</i>
@@ -1171,8 +1058,6 @@ Policy to use a mixed group of on-demand/spot of different types. Launch templat
 
 The amount of time, in seconds, after a scaling activity completes and before the next scaling activity can start<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1187,7 +1072,6 @@ The amount of time, in seconds, after a scaling activity completes and before th
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `space_name` (`string`) <i>optional</i>
@@ -1195,8 +1079,6 @@ The amount of time, in seconds, after a scaling activity completes and before th
 
 The name of the Space to create the worker pool in<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1211,7 +1093,6 @@ The name of the Space to create the worker pool in<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `spacelift_agents_per_node` (`number`) <i>optional</i>
@@ -1219,8 +1100,6 @@ The name of the Space to create the worker pool in<br/>
 
 Number of Spacelift agents to run on one worker node. NOTE: This affects billable units. Spacelift charges per agent.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1235,7 +1114,6 @@ Number of Spacelift agents to run on one worker node. NOTE: This affects billabl
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `spacelift_ami_id` (`string`) <i>optional</i>
@@ -1243,8 +1121,6 @@ Number of Spacelift agents to run on one worker node. NOTE: This affects billabl
 
 AMI ID of Spacelift worker pool image<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1259,7 +1135,6 @@ AMI ID of Spacelift worker pool image<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `spacelift_aws_account_id` (`string`) <i>optional</i>
@@ -1267,8 +1142,6 @@ AMI ID of Spacelift worker pool image<br/>
 
 AWS Account ID owned by Spacelift<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1283,7 +1156,6 @@ AWS Account ID owned by Spacelift<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `spacelift_domain_name` (`string`) <i>optional</i>
@@ -1291,8 +1163,6 @@ AWS Account ID owned by Spacelift<br/>
 
 Top-level domain name to use for pulling the launcher binary<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1307,7 +1177,6 @@ Top-level domain name to use for pulling the launcher binary<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `spacelift_runner_image` (`string`) <i>optional</i>
@@ -1315,8 +1184,6 @@ Top-level domain name to use for pulling the launcher binary<br/>
 
 URL of ECR image to use for Spacelift<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1331,7 +1198,6 @@ URL of ECR image to use for Spacelift<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `spacelift_spaces_component_name` (`string`) <i>optional</i>
@@ -1339,8 +1205,6 @@ URL of ECR image to use for Spacelift<br/>
 
 The name of the spacelift spaces component<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1355,7 +1219,6 @@ The name of the spacelift spaces component<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `spacelift_spaces_environment_name` (`string`) <i>optional</i>
@@ -1363,8 +1226,6 @@ The name of the spacelift spaces component<br/>
 
 The environment name of the spacelift spaces component<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1379,7 +1240,6 @@ The environment name of the spacelift spaces component<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `spacelift_spaces_stage_name` (`string`) <i>optional</i>
@@ -1387,8 +1247,6 @@ The environment name of the spacelift spaces component<br/>
 
 The stage name of the spacelift spaces component<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1403,7 +1261,6 @@ The stage name of the spacelift spaces component<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `spacelift_spaces_tenant_name` (`string`) <i>optional</i>
@@ -1411,8 +1268,6 @@ The stage name of the spacelift spaces component<br/>
 
 The tenant name of the spacelift spaces component<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1427,7 +1282,6 @@ The tenant name of the spacelift spaces component<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `termination_policies` (`list(string)`) <i>optional</i>
@@ -1435,8 +1289,6 @@ The tenant name of the spacelift spaces component<br/>
 
 A list of policies to decide how the instances in the auto scale group should be terminated. The allowed values are `OldestInstance`, `NewestInstance`, `OldestLaunchConfiguration`, `ClosestToNextInstanceHour`, `Default`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1463,10 +1315,10 @@ A list of policies to decide how the instances in the auto scale group should be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -1481,8 +1333,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1497,7 +1347,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -1509,8 +1358,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1525,7 +1372,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -1538,8 +1384,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1602,7 +1446,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -1612,8 +1455,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1628,7 +1469,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -1648,8 +1488,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1664,7 +1502,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -1672,8 +1509,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1688,7 +1523,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -1696,8 +1530,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1712,7 +1544,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -1724,8 +1555,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1740,7 +1569,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -1752,8 +1580,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1768,7 +1594,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -1779,8 +1604,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1795,7 +1618,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -1809,8 +1631,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1825,7 +1645,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -1841,8 +1660,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1869,7 +1686,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -1880,8 +1696,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1896,7 +1710,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -1904,8 +1717,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1920,7 +1731,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -1931,8 +1741,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1947,7 +1755,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -1955,8 +1762,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1971,7 +1776,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -1981,8 +1785,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1997,7 +1799,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -2005,8 +1806,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -2021,7 +1820,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 

@@ -76,7 +76,7 @@ The following resources are used by this module:
 
 The following data sources are used by this module:
 
-
+---
 ### Required Variables
 ### `create_iam_service_linked_role` (`bool`) <i>required</i>
 
@@ -86,8 +86,6 @@ Set this to `false` if you already have an ElasticSearch cluster created in the 
 See https://github.com/terraform-providers/terraform-provider-aws/issues/5218 for more information.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -102,7 +100,6 @@ See https://github.com/terraform-providers/terraform-provider-aws/issues/5218 fo
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dedicated_master_enabled` (`bool`) <i>required</i>
@@ -110,8 +107,6 @@ See https://github.com/terraform-providers/terraform-provider-aws/issues/5218 fo
 
 Indicates whether dedicated master nodes are enabled for the cluster<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -126,7 +121,6 @@ Indicates whether dedicated master nodes are enabled for the cluster<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `domain_hostname_enabled` (`bool`) <i>required</i>
@@ -134,8 +128,6 @@ Indicates whether dedicated master nodes are enabled for the cluster<br/>
 
 Explicit flag to enable creating a DNS hostname for ES. If `true`, then `var.dns_zone_id` is required.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -150,7 +142,6 @@ Explicit flag to enable creating a DNS hostname for ES. If `true`, then `var.dns
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `ebs_volume_size` (`number`) <i>required</i>
@@ -158,8 +149,6 @@ Explicit flag to enable creating a DNS hostname for ES. If `true`, then `var.dns
 
 EBS volumes for data storage in GB<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -174,7 +163,6 @@ EBS volumes for data storage in GB<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `elasticsearch_subdomain_name` (`string`) <i>required</i>
@@ -182,8 +170,6 @@ EBS volumes for data storage in GB<br/>
 
 The name of the subdomain for Elasticsearch in the DNS zone (_e.g._ `elasticsearch`, `ui`, `ui-es`, `search-ui`)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -198,7 +184,6 @@ The name of the subdomain for Elasticsearch in the DNS zone (_e.g._ `elasticsear
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `elasticsearch_version` (`string`) <i>required</i>
@@ -206,8 +191,6 @@ The name of the subdomain for Elasticsearch in the DNS zone (_e.g._ `elasticsear
 
 Version of Elasticsearch to deploy (_e.g._ `7.1`, `6.8`, `6.7`, `6.5`, `6.4`, `6.3`, `6.2`, `6.0`, `5.6`, `5.5`, `5.3`, `5.1`, `2.3`, `1.5`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -222,7 +205,6 @@ Version of Elasticsearch to deploy (_e.g._ `7.1`, `6.8`, `6.7`, `6.5`, `6.4`, `6
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `encrypt_at_rest_enabled` (`bool`) <i>required</i>
@@ -230,8 +212,6 @@ Version of Elasticsearch to deploy (_e.g._ `7.1`, `6.8`, `6.7`, `6.5`, `6.4`, `6
 
 Whether to enable encryption at rest<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -246,7 +226,6 @@ Whether to enable encryption at rest<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `instance_type` (`string`) <i>required</i>
@@ -254,8 +233,6 @@ Whether to enable encryption at rest<br/>
 
 The type of the instance<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -270,7 +247,6 @@ The type of the instance<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kibana_hostname_enabled` (`bool`) <i>required</i>
@@ -278,8 +254,6 @@ The type of the instance<br/>
 
 Explicit flag to enable creating a DNS hostname for Kibana. If `true`, then `var.dns_zone_id` is required.<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -294,7 +268,6 @@ Explicit flag to enable creating a DNS hostname for Kibana. If `true`, then `var
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `kibana_subdomain_name` (`string`) <i>required</i>
@@ -302,8 +275,6 @@ Explicit flag to enable creating a DNS hostname for Kibana. If `true`, then `var
 
 The name of the subdomain for Kibana in the DNS zone (_e.g._ `kibana`, `ui`, `ui-es`, `search-ui`, `kibana.elasticsearch`)<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -318,7 +289,6 @@ The name of the subdomain for Kibana in the DNS zone (_e.g._ `kibana`, `ui`, `ui
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `region` (`string`) <i>required</i>
@@ -326,8 +296,6 @@ The name of the subdomain for Kibana in the DNS zone (_e.g._ `kibana`, `ui`, `ui
 
 AWS region<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -342,18 +310,16 @@ AWS region<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Optional Variables
 ### `dedicated_master_count` (`number`) <i>optional</i>
 
 
 Number of dedicated master nodes in the cluster<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -368,7 +334,6 @@ Number of dedicated master nodes in the cluster<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dedicated_master_type` (`string`) <i>optional</i>
@@ -376,8 +341,6 @@ Number of dedicated master nodes in the cluster<br/>
 
 Instance type of the dedicated master nodes in the cluster<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -392,7 +355,6 @@ Instance type of the dedicated master nodes in the cluster<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `dns_delegated_environment_name` (`string`) <i>optional</i>
@@ -400,8 +362,6 @@ Instance type of the dedicated master nodes in the cluster<br/>
 
 The name of the environment where the `dns-delegated` component is deployed<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -416,7 +376,6 @@ The name of the environment where the `dns-delegated` component is deployed<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `elasticsearch_iam_actions` (`list(string)`) <i>optional</i>
@@ -424,8 +383,6 @@ The name of the environment where the `dns-delegated` component is deployed<br/>
 
 List of actions to allow for the IAM roles, _e.g._ `es:ESHttpGet`, `es:ESHttpPut`, `es:ESHttpPost`<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -462,7 +419,6 @@ List of actions to allow for the IAM roles, _e.g._ `es:ESHttpGet`, `es:ESHttpPut
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `elasticsearch_iam_role_arns` (`list(string)`) <i>optional</i>
@@ -470,8 +426,6 @@ List of actions to allow for the IAM roles, _e.g._ `es:ESHttpGet`, `es:ESHttpPut
 
 List of additional IAM role ARNs to permit access to the Elasticsearch domain<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -486,7 +440,6 @@ List of additional IAM role ARNs to permit access to the Elasticsearch domain<br
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `elasticsearch_password` (`string`) <i>optional</i>
@@ -494,8 +447,6 @@ List of additional IAM role ARNs to permit access to the Elasticsearch domain<br
 
 Password for the elasticsearch user<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -510,10 +461,10 @@ Password for the elasticsearch user<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
+---
 ### Context Variables
 
 The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
@@ -528,8 +479,6 @@ This is for some rare cases where resources want additional configuration of tag
 and therefore take a list of maps with tag key, value, and additional configuration.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -544,7 +493,6 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `attributes` (`list(string)`) <i>optional</i>
@@ -556,8 +504,6 @@ end of the list. The elements of the list are joined by the `delimiter`<br/>
 and treated as a single ID element.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -572,7 +518,6 @@ and treated as a single ID element.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `context` (`any`) <i>optional</i>
@@ -585,8 +530,6 @@ Individual variable settings (non-null) override settings in context object,<br/
 except for attributes, tags, and additional_tag_map, which are merged.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -649,7 +592,6 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `delimiter` (`string`) <i>optional</i>
@@ -659,8 +601,6 @@ Delimiter to be used between ID elements.<br/>
 Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -675,7 +615,6 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `descriptor_formats` (`any`) <i>optional</i>
@@ -695,8 +634,6 @@ identical to how they appear in `id`.<br/>
 Default is `{}` (`descriptors` output will be empty).<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -711,7 +648,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `enabled` (`bool`) <i>optional</i>
@@ -719,8 +655,6 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 
 Set to false to prevent the module from creating any resources<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -735,7 +669,6 @@ Set to false to prevent the module from creating any resources<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `environment` (`string`) <i>optional</i>
@@ -743,8 +676,6 @@ Set to false to prevent the module from creating any resources<br/>
 
 ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -759,7 +690,6 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `id_length_limit` (`number`) <i>optional</i>
@@ -771,8 +701,6 @@ Set to `null` for keep the existing setting, which defaults to `0`.<br/>
 Does not affect `id_full`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -787,7 +715,6 @@ Does not affect `id_full`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_key_case` (`string`) <i>optional</i>
@@ -799,8 +726,6 @@ Possible values: `lower`, `title`, `upper`.<br/>
 Default value: `title`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -815,7 +740,6 @@ Default value: `title`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_order` (`list(string)`) <i>optional</i>
@@ -826,8 +750,6 @@ Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
 You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -842,7 +764,6 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `label_value_case` (`string`) <i>optional</i>
@@ -856,8 +777,6 @@ Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
 Default value: `lower`.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -872,7 +791,6 @@ Default value: `lower`.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `labels_as_tags` (`set(string)`) <i>optional</i>
@@ -888,8 +806,6 @@ Set to `[]` to suppress all generated tags.<br/>
   changed in later chained modules. Attempts to change it will be silently ignored.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -916,7 +832,6 @@ Set to `[]` to suppress all generated tags.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `name` (`string`) <i>optional</i>
@@ -927,8 +842,6 @@ This is the only ID element not also included as a `tag`.<br/>
 The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -943,7 +856,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `namespace` (`string`) <i>optional</i>
@@ -951,8 +863,6 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 
 ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -967,7 +877,6 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `regex_replace_chars` (`string`) <i>optional</i>
@@ -978,8 +887,6 @@ Characters matching the regex will be removed from the ID elements.<br/>
 If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -994,7 +901,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `stage` (`string`) <i>optional</i>
@@ -1002,8 +908,6 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 
 ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1018,7 +922,6 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tags` (`map(string)`) <i>optional</i>
@@ -1028,8 +931,6 @@ Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
 Neither the tag keys nor the tag values will be modified by this module.<br/>
 <br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1044,7 +945,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 ### `tenant` (`string`) <i>optional</i>
@@ -1052,8 +952,6 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 
 ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
 
-> <details>
-> <summary>Click to expand</summary>
 >
 > <dl>
 >   <dt>Required</dt>
@@ -1068,7 +966,6 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   </dd>
 > </dl>
 >
-> </details>
 
 
 
