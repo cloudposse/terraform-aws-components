@@ -45,10 +45,10 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/iam-roles`](../account-map/modules/iam-roles)) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
-`kms_key_logs` | [![0.12.1](https://img.shields.io/badge/0.12.1-success.svg?style=for-the-badge)]([`cloudposse/kms-key/aws`](https://registry.terraform.io/modules/cloudposse/kms-key/aws/0.12.1)) | [`cloudposse/kms-key/aws`](https://registry.terraform.io/modules/cloudposse/kms-key/aws/0.12.1) | n/a
-`logs` | [![0.6.5](https://img.shields.io/badge/0.6.5-success.svg?style=for-the-badge)]([`cloudposse/cloudwatch-logs/aws`](https://registry.terraform.io/modules/cloudposse/cloudwatch-logs/aws/0.6.5)) | [`cloudposse/cloudwatch-logs/aws`](https://registry.terraform.io/modules/cloudposse/cloudwatch-logs/aws/0.6.5) | n/a
-`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)]([`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0)) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`kms_key_logs` | [![0.12.1](https://img.shields.io/badge/____0.12.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/kms-key/aws/0.12.1) | [`cloudposse/kms-key/aws`](https://registry.terraform.io/modules/cloudposse/kms-key/aws/0.12.1) | n/a
+`logs` | [![0.6.5](https://img.shields.io/badge/_____0.6.5-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/cloudwatch-logs/aws/0.6.5) | [`cloudposse/cloudwatch-logs/aws`](https://registry.terraform.io/modules/cloudposse/cloudwatch-logs/aws/0.6.5) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources

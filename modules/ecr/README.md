@@ -75,11 +75,11 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`ecr` | [![0.36.0](https://img.shields.io/badge/0.36.0-success.svg?style=for-the-badge)]([`cloudposse/ecr/aws`](https://registry.terraform.io/modules/cloudposse/ecr/aws/0.36.0)) | [`cloudposse/ecr/aws`](https://registry.terraform.io/modules/cloudposse/ecr/aws/0.36.0) | n/a
-`full_access` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/roles-to-principals`](../account-map/modules/roles-to-principals)) | [`../account-map/modules/roles-to-principals`](../account-map/modules/roles-to-principals) | n/a
-`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/iam-roles`](../account-map/modules/iam-roles)) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
-`readonly_access` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/roles-to-principals`](../account-map/modules/roles-to-principals)) | [`../account-map/modules/roles-to-principals`](../account-map/modules/roles-to-principals) | n/a
-`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)]([`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0)) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`ecr` | [![0.36.0](https://img.shields.io/badge/____0.36.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/ecr/aws/0.36.0) | [`cloudposse/ecr/aws`](https://registry.terraform.io/modules/cloudposse/ecr/aws/0.36.0) | n/a
+`full_access` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../account-map/modules/roles-to-principals) | [`../account-map/modules/roles-to-principals`](../account-map/modules/roles-to-principals) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`readonly_access` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../account-map/modules/roles-to-principals) | [`../account-map/modules/roles-to-principals`](../account-map/modules/roles-to-principals) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources

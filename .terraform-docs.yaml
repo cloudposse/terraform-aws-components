@@ -73,15 +73,15 @@ content: |-
   {{ range .Module.ModuleCalls }}
   {{- $baseUrl := "https://registry.terraform.io/modules" -}}
   {{ if contains "../" .Source -}}
-  `{{ .Name }}` | [![{{ .Version | default "latest" }}](https://img.shields.io/badge/{{ .Version | default "latest" | replace " " "_" }}-success.svg?style=for-the-badge)]({{ printf "[`%s`](%s)" .Source .Source }}) | {{ printf "[`%s`](%s)" .Source .Source }} | {{ tostring .Description | default "n/a" }}
+  `{{ .Name }}` | [![{{ .Version | default "latest" }}](https://img.shields.io/badge/{{ printf "%10s" (.Version | default "latest") | replace " " "_" }}-success.svg?style=for-the-badge)]({{ .Source }}) | {{ printf "[`%s`](%s)" .Source .Source }} | {{ tostring .Description | default "n/a" }}
   {{ else if contains "//" .Source -}}
     {{- $moduleParts := regexSplit "//" .Source 2 -}}
     {{- $moduleName := first $moduleParts -}}
     {{- $submodulePath := last $moduleParts | replace "modules/" "" -}}
     {{- /* https://registry.terraform.io/modules/cloudposse/stack-config/yaml/latest/submodules/remote-state */ -}}
-    `{{ .Name }}` | [![{{ .Version | default "latest" }}](https://img.shields.io/badge/{{ .Version | default "latest" | replace " " "_" }}-success.svg?style=for-the-badge)]({{ printf "[`%s`](%s/%s/%s/submodules/%s)" .Source $baseUrl $moduleName .Version $submodulePath }}) | {{ printf "[`%s`](%s/%s/%s/submodules/%s)" .Source $baseUrl $moduleName .Version $submodulePath }} | {{ tostring .Description | default "n/a" }}
+    `{{ .Name }}` | [![{{ .Version | default "latest" }}](https://img.shields.io/badge/{{ printf "%10s" (.Version | default "latest") | replace " " "_" }}-success.svg?style=for-the-badge)]({{ printf "%s/%s/%s/submodules/%s" $baseUrl $moduleName .Version $submodulePath }}) | {{ printf "[`%s`](%s/%s/%s/submodules/%s)" .Source $baseUrl $moduleName .Version $submodulePath }} | {{ tostring .Description | default "n/a" }}
   {{ else -}}
-    `{{ .Name }}` | [![{{ .Version | default "latest" }}](https://img.shields.io/badge/{{ .Version | default "latest" | replace " " "_" }}-success.svg?style=for-the-badge)]({{ printf "[`%s`](%s/%s/%s)" .Source $baseUrl .Source .Version }}) | {{ printf "[`%s`](%s/%s/%s)" .Source $baseUrl .Source .Version }} | {{ tostring .Description | default "n/a" }}
+    `{{ .Name }}` | [![{{ .Version | default "latest" }}](https://img.shields.io/badge/{{ printf "%10s" (.Version | default "latest") | replace " " "_" }}-success.svg?style=for-the-badge)]({{ printf "%s/%s/%s" $baseUrl .Source .Version }}) | {{ printf "[`%s`](%s/%s/%s)" .Source $baseUrl .Source .Version }} | {{ tostring .Description | default "n/a" }}
   {{ end }}
   {{- end -}}
   {{- end -}}

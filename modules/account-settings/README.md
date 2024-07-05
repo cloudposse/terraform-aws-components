@@ -93,11 +93,11 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`budgets` | [![0.2.1](https://img.shields.io/badge/0.2.1-success.svg?style=for-the-badge)]([`cloudposse/budgets/aws`](https://registry.terraform.io/modules/cloudposse/budgets/aws/0.2.1)) | [`cloudposse/budgets/aws`](https://registry.terraform.io/modules/cloudposse/budgets/aws/0.2.1) | n/a
-`iam_account_settings` | [![0.5.0](https://img.shields.io/badge/0.5.0-success.svg?style=for-the-badge)]([`cloudposse/iam-account-settings/aws`](https://registry.terraform.io/modules/cloudposse/iam-account-settings/aws/0.5.0)) | [`cloudposse/iam-account-settings/aws`](https://registry.terraform.io/modules/cloudposse/iam-account-settings/aws/0.5.0) | IAM Account Settings provides a CIS-compliant IAM Password Policy out of the box It also sets the account alias for the current account.
-`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/iam-roles`](../account-map/modules/iam-roles)) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
-`service_quotas` | [![0.1.0](https://img.shields.io/badge/0.1.0-success.svg?style=for-the-badge)]([`cloudposse/service-quotas/aws`](https://registry.terraform.io/modules/cloudposse/service-quotas/aws/0.1.0)) | [`cloudposse/service-quotas/aws`](https://registry.terraform.io/modules/cloudposse/service-quotas/aws/0.1.0) | n/a
-`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)]([`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0)) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`budgets` | [![0.2.1](https://img.shields.io/badge/_____0.2.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/budgets/aws/0.2.1) | [`cloudposse/budgets/aws`](https://registry.terraform.io/modules/cloudposse/budgets/aws/0.2.1) | n/a
+`iam_account_settings` | [![0.5.0](https://img.shields.io/badge/_____0.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/iam-account-settings/aws/0.5.0) | [`cloudposse/iam-account-settings/aws`](https://registry.terraform.io/modules/cloudposse/iam-account-settings/aws/0.5.0) | IAM Account Settings provides a CIS-compliant IAM Password Policy out of the box It also sets the account alias for the current account.
+`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`service_quotas` | [![0.1.0](https://img.shields.io/badge/_____0.1.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/service-quotas/aws/0.1.0) | [`cloudposse/service-quotas/aws`](https://registry.terraform.io/modules/cloudposse/service-quotas/aws/0.1.0) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources

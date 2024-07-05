@@ -45,9 +45,9 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/iam-roles`](../account-map/modules/iam-roles)) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
-`iam_roles_network` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/iam-roles`](../account-map/modules/iam-roles)) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
-`this` | [![0.24.1](https://img.shields.io/badge/0.24.1-success.svg?style=for-the-badge)]([`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1)) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`iam_roles_network` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`this` | [![0.24.1](https://img.shields.io/badge/____0.24.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | n/a
 
 
 ## Resources

@@ -96,9 +96,9 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/iam-roles`](../account-map/modules/iam-roles)) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
-`opsgenie_config` | [![0.9.0](https://img.shields.io/badge/0.9.0-success.svg?style=for-the-badge)]([`git::https://github.com/cloudposse/terraform-opsgenie-incident-management.git//modules/config`](https://registry.terraform.io/modules/git::https:/0.9.0/submodules/github.com/cloudposse/terraform-opsgenie-incident-management.git//config)) | [`git::https://github.com/cloudposse/terraform-opsgenie-incident-management.git//modules/config`](https://registry.terraform.io/modules/git::https:/0.9.0/submodules/github.com/cloudposse/terraform-opsgenie-incident-management.git//config) | n/a
-`this` | [![tags/0.21.0](https://img.shields.io/badge/tags/0.21.0-success.svg?style=for-the-badge)]([`git::https://github.com/cloudposse/terraform-null-label.git`](https://registry.terraform.io/modules/git::https:/tags/0.21.0/submodules/github.com/cloudposse/terraform-null-label.git)) | [`git::https://github.com/cloudposse/terraform-null-label.git`](https://registry.terraform.io/modules/git::https:/tags/0.21.0/submodules/github.com/cloudposse/terraform-null-label.git) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`opsgenie_config` | [![0.9.0](https://img.shields.io/badge/_____0.9.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/git::https:/0.9.0/submodules/github.com/cloudposse/terraform-opsgenie-incident-management.git//config) | [`git::https://github.com/cloudposse/terraform-opsgenie-incident-management.git//modules/config`](https://registry.terraform.io/modules/git::https:/0.9.0/submodules/github.com/cloudposse/terraform-opsgenie-incident-management.git//config) | n/a
+`this` | [![tags/0.21.0](https://img.shields.io/badge/tags/0.21.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/git::https:/tags/0.21.0/submodules/github.com/cloudposse/terraform-null-label.git) | [`git::https://github.com/cloudposse/terraform-null-label.git`](https://registry.terraform.io/modules/git::https:/tags/0.21.0/submodules/github.com/cloudposse/terraform-null-label.git) | n/a
 
 
 ## Resources

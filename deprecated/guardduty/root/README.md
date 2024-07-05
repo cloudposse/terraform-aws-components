@@ -50,10 +50,10 @@ Please see instructions in [guardduty/common/README](../common/README.md) for in
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`account_map` | [![1.4.2](https://img.shields.io/badge/1.4.2-success.svg?style=for-the-badge)]([`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.2/submodules/remote-state)) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.2/submodules/remote-state) | n/a
-`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles)) | [`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles) | n/a
-`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)]([`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0)) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`utils` | [![1.3.0](https://img.shields.io/badge/1.3.0-success.svg?style=for-the-badge)]([`cloudposse/utils/aws`](https://registry.terraform.io/modules/cloudposse/utils/aws/1.3.0)) | [`cloudposse/utils/aws`](https://registry.terraform.io/modules/cloudposse/utils/aws/1.3.0) | n/a
+`account_map` | [![1.4.2](https://img.shields.io/badge/_____1.4.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.2/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.2/submodules/remote-state) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../../account-map/modules/iam-roles) | [`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`utils` | [![1.3.0](https://img.shields.io/badge/_____1.3.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/utils/aws/1.3.0) | [`cloudposse/utils/aws`](https://registry.terraform.io/modules/cloudposse/utils/aws/1.3.0) | n/a
 
 
 ## Resources

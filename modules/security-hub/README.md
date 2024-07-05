@@ -174,10 +174,10 @@ atmos terraform apply security-hub/org-settings/uw1 -s core-uw1-security
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`account_map` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)]([`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state)) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
-`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/iam-roles`](../account-map/modules/iam-roles)) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
-`security_hub` | [![0.10.0](https://img.shields.io/badge/0.10.0-success.svg?style=for-the-badge)]([`cloudposse/security-hub/aws`](https://registry.terraform.io/modules/cloudposse/security-hub/aws/0.10.0)) | [`cloudposse/security-hub/aws`](https://registry.terraform.io/modules/cloudposse/security-hub/aws/0.10.0) | If we are running in the AWS Org designated administrator account, enable Security Hub and optionally enable standards and finding aggregation
-`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)]([`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0)) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`account_map` | [![1.5.0](https://img.shields.io/badge/_____1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`security_hub` | [![0.10.0](https://img.shields.io/badge/____0.10.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/security-hub/aws/0.10.0) | [`cloudposse/security-hub/aws`](https://registry.terraform.io/modules/cloudposse/security-hub/aws/0.10.0) | If we are running in the AWS Org designated administrator account, enable Security Hub and optionally enable standards and finding aggregation
+`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources
