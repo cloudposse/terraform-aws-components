@@ -101,8 +101,8 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `http` | >= 3.0 |
-| `spacelift` | >= 0.1.31 |
+| [`http`](https://registry.terraform.io/providers/http/latest) | >= 3.0 |
+| [`spacelift`](https://registry.terraform.io/providers/spacelift/latest) | >= 0.1.31 |
 
 
 ## Modules

@@ -271,9 +271,9 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.66.1 |
-| `jq` | >=0.2.0 |
-| `template` | >= 2.2 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.66.1 |
+| [`jq`](https://registry.terraform.io/providers/jq/latest) | >=0.2.0 |
+| [`template`](https://registry.terraform.io/providers/template/latest) | >= 2.2 |
 
 
 ## Modules

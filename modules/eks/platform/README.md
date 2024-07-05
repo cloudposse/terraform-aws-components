@@ -65,7 +65,7 @@ That would read `group_name` from `eks/alb-controller-ingress-group` component o
 
 | Provider | Version |
 | --- | --- |
-| `jq` | >= 0.2.1 |
+| [`jq`](https://registry.terraform.io/providers/jq/latest) | >= 0.2.1 |
 
 
 ## Modules

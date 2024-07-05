@@ -132,8 +132,8 @@ atmos terraform apply macie/org-settings/ue1 -s core-ue1-security
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 5.0 |
-| `awsutils` | >= 0.17.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 5.0 |
+| [`awsutils`](https://registry.terraform.io/providers/awsutils/latest) | >= 0.17.0 |
 
 
 ## Modules

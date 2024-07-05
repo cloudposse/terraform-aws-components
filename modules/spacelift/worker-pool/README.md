@@ -136,9 +136,9 @@ role. This is done by adding `iam_role_arn` from the output to the `trusted_role
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.9.0 |
-| `cloudinit` | >= 2.2.0 |
-| `spacelift` | >= 0.1.2 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
+| [`cloudinit`](https://registry.terraform.io/providers/cloudinit/latest) | >= 2.2.0 |
+| [`spacelift`](https://registry.terraform.io/providers/spacelift/latest) | >= 0.1.2 |
 
 
 ## Modules

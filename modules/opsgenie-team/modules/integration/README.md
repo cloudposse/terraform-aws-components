@@ -19,7 +19,7 @@ This module creates an OpsGenie integrations for a team. By Default, it creates 
 
 | Provider | Version |
 | --- | --- |
-| `opsgenie` | >= 0.6.7 |
+| [`opsgenie`](https://registry.terraform.io/providers/opsgenie/latest) | >= 0.6.7 |
 
 
 ## Modules

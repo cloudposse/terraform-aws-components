@@ -46,8 +46,8 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.9.0 |
-| `random` | >= 3.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
+| [`random`](https://registry.terraform.io/providers/random/latest) | >= 3.0 |
 
 
 ## Modules

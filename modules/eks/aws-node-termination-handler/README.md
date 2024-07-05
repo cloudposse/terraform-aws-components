@@ -61,8 +61,8 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.0 |
-| `kubernetes` | >= 2.0, != 2.21.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.0 |
+| [`kubernetes`](https://registry.terraform.io/providers/kubernetes/latest) | >= 2.0, != 2.21.0 |
 
 
 ## Modules

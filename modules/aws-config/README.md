@@ -176,7 +176,7 @@ atmos terraform plan aws-config-{each region} --stack {each region}-{each stage}
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.0 |
 
 
 ## Modules

@@ -61,7 +61,7 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `datadog` | >= 3.3.0 |
+| [`datadog`](https://registry.terraform.io/providers/datadog/latest) | >= 3.3.0 |
 
 
 ## Modules

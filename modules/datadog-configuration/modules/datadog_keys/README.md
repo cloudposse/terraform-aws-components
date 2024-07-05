@@ -36,7 +36,7 @@ provider "datadog" {
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.0 |
+| [`aws`](https://registry.terraform.io/providers/aws.dd_api_keys/latest) | >= 4.0 |
 
 
 ## Modules

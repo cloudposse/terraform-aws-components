@@ -80,7 +80,7 @@ Inspector to meet the specific requirements and compliance standards of your app
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.9.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
 
 
 ## Modules

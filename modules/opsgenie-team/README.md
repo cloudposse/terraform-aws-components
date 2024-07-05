@@ -308,9 +308,9 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.9.0 |
-| `datadog` | >= 3.3.0 |
-| `opsgenie` | >= 0.6.7 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
+| [`datadog`](https://registry.terraform.io/providers/datadog/latest) | >= 3.3.0 |
+| [`opsgenie`](https://registry.terraform.io/providers/opsgenie/latest) | >= 0.6.7 |
 
 
 ## Modules

@@ -44,8 +44,8 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.0 |
-| `sops` | >= 0.5, < 1.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.0 |
+| [`sops`](https://registry.terraform.io/providers/sops/latest) | >= 0.5, < 1.0 |
 
 
 ## Modules

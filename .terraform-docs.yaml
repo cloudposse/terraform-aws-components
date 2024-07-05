@@ -61,7 +61,7 @@ content: |-
   | Provider | Version |
   | --- | --- |
   {{- range .Module.Providers }}
-  | `{{ .Name }}` | {{ tostring .Version | default "latest" }} |
+  | [`{{ .Name }}`](https://registry.terraform.io/providers/{{ .FullName }}/latest) | {{ tostring .Version | default "latest" }} |
   {{- end }}
   {{ end }}
 

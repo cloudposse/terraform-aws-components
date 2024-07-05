@@ -144,8 +144,8 @@ Environment variables:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.0 |
-| `datadog` | >= 3.3.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.0 |
+| [`datadog`](https://registry.terraform.io/providers/datadog/latest) | >= 3.3.0 |
 
 
 ## Modules

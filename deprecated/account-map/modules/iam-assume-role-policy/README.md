@@ -40,7 +40,7 @@ resource "aws_iam_role" "default" {
 
 | Provider | Version |
 | --- | --- |
-| `aws` | latest |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | latest |
 
 
 ## Modules

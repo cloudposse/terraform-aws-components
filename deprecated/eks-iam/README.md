@@ -42,8 +42,8 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 3.0 |
-| `terraform` | latest |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 3.0 |
+| [`terraform`](https://registry.terraform.io/providers/terraform/latest) | latest |
 
 
 ## Modules

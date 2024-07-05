@@ -35,10 +35,10 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 3.0 |
-| `aws` | >= 3.0 |
-| `helm` | >= 2.2.0 |
-| `sdm` | >= 1.0.19 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 3.0 |
+| [`aws`](https://registry.terraform.io/providers/aws.api_keys/latest) | >= 3.0 |
+| [`helm`](https://registry.terraform.io/providers/helm/latest) | >= 2.2.0 |
+| [`sdm`](https://registry.terraform.io/providers/sdm/latest) | >= 1.0.19 |
 
 
 ## Modules

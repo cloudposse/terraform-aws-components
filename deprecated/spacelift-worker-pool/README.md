@@ -92,9 +92,9 @@ the output to the `trusted_role_arns` list for the `spacelift` role in `aws-team
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.9.0 |
-| `cloudinit` | >= 2.2.0 |
-| `spacelift` | >= 0.1.2 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
+| [`cloudinit`](https://registry.terraform.io/providers/cloudinit/latest) | >= 2.2.0 |
+| [`spacelift`](https://registry.terraform.io/providers/spacelift/latest) | >= 0.1.2 |
 
 
 ## Modules

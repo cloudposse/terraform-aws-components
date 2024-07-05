@@ -40,8 +40,8 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.0 |
-| `time` | >= 0.11.1 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.0 |
+| [`time`](https://registry.terraform.io/providers/time/latest) | >= 0.11.1 |
 
 
 ## Modules

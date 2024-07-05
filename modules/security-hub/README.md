@@ -166,8 +166,8 @@ atmos terraform apply security-hub/org-settings/uw1 -s core-uw1-security
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 5.0 |
-| `awsutils` | >= 0.16.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 5.0 |
+| [`awsutils`](https://registry.terraform.io/providers/awsutils/latest) | >= 0.16.0 |
 
 
 ## Modules

@@ -79,8 +79,8 @@ atmos terraform apply guardduty/common-uw1 -s core-uw1-security
 
 | Provider | Version |
 | --- | --- |
-| `aws` | latest |
-| `awsutils` | latest |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | latest |
+| [`awsutils`](https://registry.terraform.io/providers/awsutils/latest) | latest |
 
 
 ## Modules

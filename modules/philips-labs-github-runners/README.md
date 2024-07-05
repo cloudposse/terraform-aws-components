@@ -91,7 +91,7 @@ the component, and available via the `webhook` output under `endpoint`.
 
 | Provider | Version |
 | --- | --- |
-| `random` | >= 3.0 |
+| [`random`](https://registry.terraform.io/providers/random/latest) | >= 3.0 |
 
 
 ## Modules

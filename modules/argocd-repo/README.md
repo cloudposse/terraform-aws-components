@@ -95,9 +95,9 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.0 |
-| `github` | >= 4.0 |
-| `tls` | >= 3.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.0 |
+| [`github`](https://registry.terraform.io/providers/github/latest) | >= 4.0 |
+| [`tls`](https://registry.terraform.io/providers/tls/latest) | >= 3.0 |
 
 
 ## Modules

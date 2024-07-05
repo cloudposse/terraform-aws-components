@@ -68,9 +68,9 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.9.0 |
-| `local` | >= 1.3 |
-| `utils` | >= 1.10.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
+| [`local`](https://registry.terraform.io/providers/local/latest) | >= 1.3 |
+| [`utils`](https://registry.terraform.io/providers/utils/latest) | >= 1.10.0 |
 
 
 ## Modules

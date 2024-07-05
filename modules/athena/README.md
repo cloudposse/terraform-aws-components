@@ -127,7 +127,7 @@ the `audit` account must have access to the KMS key used to encrypt CloudTrails 
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.0 |
 
 
 ## Modules

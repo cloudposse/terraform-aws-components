@@ -43,9 +43,9 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.0 |
-| `grafana` | >= 2.18.0 |
-| `http` | >= 3.4.2 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.0 |
+| [`grafana`](https://registry.terraform.io/providers/grafana/latest) | >= 2.18.0 |
+| [`http`](https://registry.terraform.io/providers/http/latest) | >= 3.4.2 |
 
 
 ## Modules

@@ -80,7 +80,7 @@ provider "datadog" {
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.9.0 |
+| [`aws`](https://registry.terraform.io/providers/aws.api_keys/latest) | >= 4.9.0 |
 
 
 ## Modules

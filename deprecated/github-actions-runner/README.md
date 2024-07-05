@@ -169,7 +169,7 @@ _NOTE_: configure the desired cluster in Geodesic using `set-cluster account` (w
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 3.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 3.0 |
 
 
 ## Modules

@@ -94,8 +94,8 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `archive` | >= 2.3.0 |
-| `aws` | >= 4.9.0 |
+| [`archive`](https://registry.terraform.io/providers/archive/latest) | >= 2.3.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
 
 
 ## Modules

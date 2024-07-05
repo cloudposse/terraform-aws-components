@@ -122,8 +122,8 @@ eks/storage-class:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.9.0 |
-| `kubernetes` | >= 2.22.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
+| [`kubernetes`](https://registry.terraform.io/providers/kubernetes/latest) | >= 2.22.0 |
 
 
 ## Modules

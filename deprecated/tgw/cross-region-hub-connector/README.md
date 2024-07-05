@@ -46,8 +46,8 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.0 |
-| `aws` | >= 4.0 |
+| [`aws`](https://registry.terraform.io/providers/aws.tgw_home_region/latest) | >= 4.0 |
+| [`aws`](https://registry.terraform.io/providers/aws.tgw_this_region/latest) | >= 4.0 |
 
 
 ## Modules

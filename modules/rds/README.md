@@ -111,8 +111,8 @@ Example - I want a new instance `rds-example-new` to be provisioned from a snaps
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.0 |
-| `random` | >= 2.3 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.0 |
+| [`random`](https://registry.terraform.io/providers/random/latest) | >= 2.3 |
 
 
 ## Modules

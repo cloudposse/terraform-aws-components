@@ -90,8 +90,8 @@ in that component's README.
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.0 |
-| `github` | >= 4.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.0 |
+| [`github`](https://registry.terraform.io/providers/github/latest) | >= 4.0 |
 
 
 ## Modules

@@ -87,10 +87,10 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 3.0 |
-| `random` | >= 2.3 |
-| `snowflake` | >= 0.25 |
-| `tls` | >= 3.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 3.0 |
+| [`random`](https://registry.terraform.io/providers/random/latest) | >= 2.3 |
+| [`snowflake`](https://registry.terraform.io/providers/snowflake/latest) | >= 0.25 |
+| [`tls`](https://registry.terraform.io/providers/tls/latest) | >= 3.0 |
 
 
 ## Modules

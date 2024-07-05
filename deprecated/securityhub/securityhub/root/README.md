@@ -46,7 +46,7 @@ Please see instructions in [securityhub/README](../common/README.md) for informa
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.0 |
 
 
 ## Modules

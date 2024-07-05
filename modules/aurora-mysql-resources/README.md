@@ -72,8 +72,8 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.0 |
-| `mysql` | >= 3.0.22 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.0 |
+| [`mysql`](https://registry.terraform.io/providers/mysql/latest) | >= 3.0.22 |
 
 
 ## Modules

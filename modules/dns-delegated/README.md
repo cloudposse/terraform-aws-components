@@ -158,8 +158,8 @@ Takeaway
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.9.0 |
-| `aws` | >= 4.9.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
+| [`aws`](https://registry.terraform.io/providers/aws.primary/latest) | >= 4.9.0 |
 
 
 ## Modules

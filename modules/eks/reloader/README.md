@@ -47,9 +47,9 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.9.0 |
-| `helm` | >= 2.0 |
-| `kubernetes` | >= 2.7.1, != 2.21.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
+| [`helm`](https://registry.terraform.io/providers/helm/latest) | >= 2.0 |
+| [`kubernetes`](https://registry.terraform.io/providers/kubernetes/latest) | >= 2.7.1, != 2.21.0 |
 
 
 ## Modules

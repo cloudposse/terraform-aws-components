@@ -84,8 +84,8 @@ that type in the specified schema.
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.9.0 |
-| `postgresql` | >= 1.17.1 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
+| [`postgresql`](https://registry.terraform.io/providers/postgresql/latest) | >= 1.17.1 |
 
 
 ## Modules

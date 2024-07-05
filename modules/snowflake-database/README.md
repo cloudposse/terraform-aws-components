@@ -58,8 +58,8 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 3.0 |
-| `snowflake` | >= 0.25 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 3.0 |
+| [`snowflake`](https://registry.terraform.io/providers/snowflake/latest) | >= 0.25 |
 
 
 ## Modules

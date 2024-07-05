@@ -130,8 +130,8 @@ terraform:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.9.0 |
-| `awsutils` | >= 0.16.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
+| [`awsutils`](https://registry.terraform.io/providers/awsutils/latest) | >= 0.16.0 |
 
 
 ## Modules

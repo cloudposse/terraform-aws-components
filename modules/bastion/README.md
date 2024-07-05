@@ -76,8 +76,8 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.0 |
-| `cloudinit` | >= 2.2 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.0 |
+| [`cloudinit`](https://registry.terraform.io/providers/cloudinit/latest) | >= 2.2 |
 
 
 ## Modules

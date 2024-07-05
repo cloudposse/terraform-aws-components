@@ -196,7 +196,7 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `aws` | ~> 4 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ~> 4 |
 
 
 ## Modules

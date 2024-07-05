@@ -156,8 +156,8 @@ components:
 
 | Provider | Version |
 | --- | --- |
-| `null` | >= 3.0 |
-| `spacelift` | >= 0.1.31 |
+| [`null`](https://registry.terraform.io/providers/null/latest) | >= 3.0 |
+| [`spacelift`](https://registry.terraform.io/providers/spacelift/latest) | >= 0.1.31 |
 
 
 ## Modules

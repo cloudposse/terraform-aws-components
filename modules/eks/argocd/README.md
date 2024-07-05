@@ -468,11 +468,11 @@ Reference: https://stackoverflow.com/questions/75046330/argo-cd-error-server-sec
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.0 |
-| `aws` | >= 4.0 |
-| `github` | >= 4.0 |
-| `kubernetes` | >= 2.9.0, != 2.21.0 |
-| `random` | >= 3.5 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.0 |
+| [`aws`](https://registry.terraform.io/providers/aws.config_secrets/latest) | >= 4.0 |
+| [`github`](https://registry.terraform.io/providers/github/latest) | >= 4.0 |
+| [`kubernetes`](https://registry.terraform.io/providers/kubernetes/latest) | >= 2.9.0, != 2.21.0 |
+| [`random`](https://registry.terraform.io/providers/random/latest) | >= 3.5 |
 
 
 ## Modules

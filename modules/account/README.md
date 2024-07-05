@@ -402,7 +402,7 @@ atmos terraform apply account --stack gbl-root
 
 | Provider | Version |
 | --- | --- |
-| `aws` | >= 4.9.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
 
 
 ## Modules
