@@ -18,84 +18,719 @@ components:
 
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.2.0 |
-| <a name="requirement_sdm"></a> [sdm](#requirement\_sdm) | >= 1.0.19 |
+
+
+## Version Requirements
+
+| Requirement | Version |
+| --- | --- |
+| `terraform` | ![>= 0.13.0](https://img.shields.io/badge/>=_0.13.0-success.svg?style=for-the-badge) |
+| `aws` | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
+| `helm` | ![>= 2.2.0](https://img.shields.io/badge/>=_2.2.0-success.svg?style=for-the-badge) |
+| `sdm` | ![>= 1.0.19](https://img.shields.io/badge/>=_1.0.19-success.svg?style=for-the-badge) |
+
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
-| <a name="provider_aws.api_keys"></a> [aws.api\_keys](#provider\_aws.api\_keys) | >= 3.0 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.2.0 |
-| <a name="provider_sdm"></a> [sdm](#provider\_sdm) | >= 1.0.19 |
+| Provider | Version |
+| --- | --- |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
+| [`helm`](https://registry.terraform.io/providers/helm/latest) | ![>= 2.2.0](https://img.shields.io/badge/>=_2.2.0-success.svg?style=for-the-badge) |
+| [`sdm`](https://registry.terraform.io/providers/sdm/latest) | ![>= 1.0.19](https://img.shields.io/badge/>=_1.0.19-success.svg?style=for-the-badge) |
+
 
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_iam_roles_network"></a> [iam\_roles\_network](#module\_iam\_roles\_network) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.24.1 |
+Name | Version | Source | Description
+--- | --- | --- | ---
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`iam_roles_network` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`this` | [![0.24.1](https://img.shields.io/badge/0.24.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | n/a
+
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [aws_ssm_parameter.gateway_tokens](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
-| [aws_ssm_parameter.relay_tokens](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
-| [aws_ssm_parameter.ssh_admin_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
-| [helm_release.cleanup](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [helm_release.gateway](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [helm_release.node](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [helm_release.relay](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [sdm_node.gateway](https://registry.terraform.io/providers/strongdm/sdm/latest/docs/resources/node) | resource |
-| [sdm_node.relay](https://registry.terraform.io/providers/strongdm/sdm/latest/docs/resources/node) | resource |
-| [aws_ssm_parameter.api_access_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameter.api_secret_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameter.ssh_admin_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+The following resources are used by this module:
 
-## Inputs
+  - [`aws_ssm_parameter.gateway_tokens`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(main.tf#50)
+  - [`aws_ssm_parameter.relay_tokens`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(main.tf#60)
+  - [`aws_ssm_parameter.ssh_admin_token`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) (resource)(main.tf#70)
+  - [`helm_release.cleanup`](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)(helm.tf#67)
+  - [`helm_release.gateway`](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)(helm.tf#1)
+  - [`helm_release.node`](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)(helm.tf#40)
+  - [`helm_release.relay`](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)(helm.tf#23)
+  - [`sdm_node.gateway`](https://registry.terraform.io/providers/strongdm/sdm/latest/docs/resources/node) (resource)(main.tf#29)
+  - [`sdm_node.relay`](https://registry.terraform.io/providers/strongdm/sdm/latest/docs/resources/node) (resource)(main.tf#43)
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional tags for appending to tags\_as\_list\_of\_maps. Not added to `tags`. | `map(string)` | `{}` | no |
-| <a name="input_attributes"></a> [attributes](#input\_attributes) | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
-| <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
-| <a name="input_create_roles"></a> [create\_roles](#input\_create\_roles) | Set `true` to create roles (should only be set in one account) | `bool` | `false` | no |
-| <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| <a name="input_dns_zone"></a> [dns\_zone](#input\_dns\_zone) | DNS zone (e.g. example.com) into which to install the web host. | `string` | `null` | no |
-| <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_gateway_count"></a> [gateway\_count](#input\_gateway\_count) | Number of gateways to provision | `number` | `2` | no |
-| <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for default, which is `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_install_gateway"></a> [install\_gateway](#input\_install\_gateway) | Set `true` to install a pair of gateways | `bool` | `false` | no |
-| <a name="input_install_relay"></a> [install\_relay](#input\_install\_relay) | Set `true` to install a pair of relays | `bool` | `true` | no |
-| <a name="input_kms_alias_name"></a> [kms\_alias\_name](#input\_kms\_alias\_name) | AWS KMS alias used for encryption/decryption default is alias used in SSM | `string` | `"alias/aws/ssm"` | no |
-| <a name="input_kubernetes_namespace"></a> [kubernetes\_namespace](#input\_kubernetes\_namespace) | The Kubernetes namespace to install the release into. Defaults to `default`. | `string` | `null` | no |
-| <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | The letter case of label keys (`tag` names) (i.e. `name`, `namespace`, `environment`, `stage`, `attributes`) to use in `tags`.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
-| <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The naming order of the id output and Name tag.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 5 elements, but at least one must be present. | `list(string)` | `null` | no |
-| <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | The letter case of output label values (also used in `tags` and `id`).<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Default value: `lower`. | `string` | `null` | no |
-| <a name="input_name"></a> [name](#input\_name) | Solution name, e.g. 'app' or 'jenkins' | `string` | `null` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp' | `string` | `null` | no |
-| <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
-| <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_register_nodes"></a> [register\_nodes](#input\_register\_nodes) | Set `true` to register nodes as SSH targets | `bool` | `true` | no |
-| <a name="input_relay_count"></a> [relay\_count](#input\_relay\_count) | Number of relays to provision | `number` | `2` | no |
-| <a name="input_ssm_account"></a> [ssm\_account](#input\_ssm\_account) | Account (stage) housing SSM parameters | `string` | n/a | yes |
-| <a name="input_ssm_region"></a> [ssm\_region](#input\_ssm\_region) | AWS Region housing SSM parameters | `string` | n/a | yes |
-| <a name="input_stage"></a> [stage](#input\_stage) | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
+## Data Sources
 
-## Outputs
+The following data sources are used by this module:
 
-No outputs.
+  - [`aws_ssm_parameter.api_access_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
+  - [`aws_ssm_parameter.api_secret_key`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
+  - [`aws_ssm_parameter.ssh_admin_token`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
+
+
+
+## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
+### `region` (`string`) <i>required</i>
+
+
+AWS Region<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
+>   </dd>
+> </dl>
+>
+
+
+### `ssm_account` (`string`) <i>required</i>
+
+
+Account (stage) housing SSM parameters<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
+>   </dd>
+> </dl>
+>
+
+
+### `ssm_region` (`string`) <i>required</i>
+
+
+AWS Region housing SSM parameters<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
+>   </dd>
+> </dl>
+>
+
+
+
+## Optional Variables
+### `create_roles` (`bool`) <i>optional</i>
+
+
+Set `true` to create roles (should only be set in one account)<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `dns_zone` (`string`) <i>optional</i>
+
+
+DNS zone (e.g. example.com) into which to install the web host.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `gateway_count` (`number`) <i>optional</i>
+
+
+Number of gateways to provision<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>2</code>
+>   </dd>
+> </dl>
+>
+
+
+### `install_gateway` (`bool`) <i>optional</i>
+
+
+Set `true` to install a pair of gateways<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `install_relay` (`bool`) <i>optional</i>
+
+
+Set `true` to install a pair of relays<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `kms_alias_name` (`string`) <i>optional</i>
+
+
+AWS KMS alias used for encryption/decryption default is alias used in SSM<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"alias/aws/ssm"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `kubernetes_namespace` (`string`) <i>optional</i>
+
+
+The Kubernetes namespace to install the release into. Defaults to `default`.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `register_nodes` (`bool`) <i>optional</i>
+
+
+Set `true` to register nodes as SSH targets<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `relay_count` (`number`) <i>optional</i>
+
+
+Number of relays to provision<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>2</code>
+>   </dd>
+> </dl>
+>
+
+
+
+## Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
+
+<details>
+<summary>Click to expand</summary>
+
+
+### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `attributes` (`list(string)`) <i>optional</i>
+
+
+Additional attributes (e.g. `1`)<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
+>   </dd>
+> </dl>
+>
+
+
+### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>any</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   {
+>     "additional_tag_map": {},
+>     "attributes": [],
+>     "delimiter": null,
+>     "enabled": true,
+>     "environment": null,
+>     "id_length_limit": null,
+>     "label_key_case": null,
+>     "label_order": [],
+>     "label_value_case": null,
+>     "name": null,
+>     "namespace": null,
+>     "regex_replace_chars": null,
+>     "stage": null,
+>     "tags": {}
+>   }
+>   ```
+>
+>   </dd>
+> </dl>
+>
+
+
+### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `environment` (`string`) <i>optional</i>
+
+
+Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for default, which is `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `label_key_case` (`string`) <i>optional</i>
+
+
+The letter case of label keys (`tag` names) (i.e. `name`, `namespace`, `environment`, `stage`, `attributes`) to use in `tags`.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `label_order` (`list(string)`) <i>optional</i>
+
+
+The naming order of the id output and Name tag.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 5 elements, but at least one must be present.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `label_value_case` (`string`) <i>optional</i>
+
+
+The letter case of output label values (also used in `tags` and `id`).<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Default value: `lower`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `name` (`string`) <i>optional</i>
+
+
+Solution name, e.g. 'app' or 'jenkins'<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `namespace` (`string`) <i>optional</i>
+
+
+Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `stage` (`string`) <i>optional</i>
+
+
+Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+
+</details>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

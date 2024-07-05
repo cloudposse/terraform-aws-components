@@ -52,98 +52,1180 @@ components:
 
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+
+
+## Version Requirements
+
+| Requirement | Version |
+| --- | --- |
+| `terraform` | ![>= 1.3.0](https://img.shields.io/badge/>=_1.3.0-success.svg?style=for-the-badge) |
+| `aws` | ![>= 4.0](https://img.shields.io/badge/>=_4.0-success.svg?style=for-the-badge) |
+
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
+| Provider | Version |
+| --- | --- |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ![>= 4.0](https://img.shields.io/badge/>=_4.0-success.svg?style=for-the-badge) |
+
 
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_alb"></a> [alb](#module\_alb) | cloudposse/alb/aws | 1.11.1 |
-| <a name="module_cluster"></a> [cluster](#module\_cluster) | cloudposse/ecs-cluster/aws | 0.4.1 |
-| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_target_group_label"></a> [target\_group\_label](#module\_target\_group\_label) | cloudposse/label/null | 0.25.0 |
-| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+Name | Version | Source | Description
+--- | --- | --- | ---
+`alb` | [![1.11.1](https://img.shields.io/badge/1.11.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/alb/aws/1.11.1) | [`cloudposse/alb/aws`](https://registry.terraform.io/modules/cloudposse/alb/aws/1.11.1) | n/a
+`cluster` | [![0.4.1](https://img.shields.io/badge/0.4.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/ecs-cluster/aws/0.4.1) | [`cloudposse/ecs-cluster/aws`](https://registry.terraform.io/modules/cloudposse/ecs-cluster/aws/0.4.1) | n/a
+`dns_delegated` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`target_group_label` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | This is used due to the short limit on target group names i.e. 32 characters
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`vpc` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [aws_lb_listener_certificate.additional_certs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener_certificate) | resource |
-| [aws_route53_record.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
-| [aws_security_group.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
-| [aws_security_group_rule.egress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
-| [aws_security_group_rule.ingress_cidr](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
-| [aws_security_group_rule.ingress_security_groups](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
-| [aws_acm_certificate.additional_certs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/acm_certificate) | data source |
-| [aws_acm_certificate.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/acm_certificate) | data source |
+The following resources are used by this module:
 
-## Inputs
+  - [`aws_lb_listener_certificate.additional_certs`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener_certificate) (resource)(main.tf#241)
+  - [`aws_route53_record.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) (resource)(main.tf#146)
+  - [`aws_security_group.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) (resource)(main.tf#33)
+  - [`aws_security_group_rule.egress`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) (resource)(main.tf#60)
+  - [`aws_security_group_rule.ingress_cidr`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) (resource)(main.tf#40)
+  - [`aws_security_group_rule.ingress_security_groups`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) (resource)(main.tf#50)
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_acm_certificate_domain"></a> [acm\_certificate\_domain](#input\_acm\_certificate\_domain) | Domain to get the ACM cert to use on the ALB. | `string` | `null` | no |
-| <a name="input_acm_certificate_domain_suffix"></a> [acm\_certificate\_domain\_suffix](#input\_acm\_certificate\_domain\_suffix) | Domain suffix to use with dns delegated HZ to get the ACM cert to use on the ALB | `string` | `null` | no |
-| <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_alb_configuration"></a> [alb\_configuration](#input\_alb\_configuration) | Map of multiple ALB configurations. | `map(any)` | `{}` | no |
-| <a name="input_alb_ingress_cidr_blocks_http"></a> [alb\_ingress\_cidr\_blocks\_http](#input\_alb\_ingress\_cidr\_blocks\_http) | List of CIDR blocks allowed to access environment over HTTP | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
-| <a name="input_alb_ingress_cidr_blocks_https"></a> [alb\_ingress\_cidr\_blocks\_https](#input\_alb\_ingress\_cidr\_blocks\_https) | List of CIDR blocks allowed to access environment over HTTPS | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
-| <a name="input_allowed_cidr_blocks"></a> [allowed\_cidr\_blocks](#input\_allowed\_cidr\_blocks) | List of CIDR blocks to be allowed to connect to the ECS cluster | `list(string)` | `[]` | no |
-| <a name="input_allowed_security_groups"></a> [allowed\_security\_groups](#input\_allowed\_security\_groups) | List of Security Group IDs to be allowed to connect to the ECS cluster | `list(string)` | `[]` | no |
-| <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_capacity_providers_ec2"></a> [capacity\_providers\_ec2](#input\_capacity\_providers\_ec2) | EC2 autoscale groups capacity providers | <pre>map(object({<br>    instance_type                        = string<br>    max_size                             = number<br>    security_group_ids                   = optional(list(string), [])<br>    min_size                             = optional(number, 0)<br>    image_id                             = optional(string)<br>    instance_initiated_shutdown_behavior = optional(string, "terminate")<br>    key_name                             = optional(string, "")<br>    user_data                            = optional(string, "")<br>    enable_monitoring                    = optional(bool, true)<br>    instance_warmup_period               = optional(number, 300)<br>    maximum_scaling_step_size            = optional(number, 1)<br>    minimum_scaling_step_size            = optional(number, 1)<br>    target_capacity_utilization          = optional(number, 100)<br>    ebs_optimized                        = optional(bool, false)<br>    block_device_mappings = optional(list(object({<br>      device_name  = string<br>      no_device    = bool<br>      virtual_name = string<br>      ebs = object({<br>        delete_on_termination = bool<br>        encrypted             = bool<br>        iops                  = number<br>        kms_key_id            = string<br>        snapshot_id           = string<br>        volume_size           = number<br>        volume_type           = string<br>      })<br>    })), [])<br>    instance_market_options = optional(object({<br>      market_type = string<br>      spot_options = object({<br>        block_duration_minutes         = number<br>        instance_interruption_behavior = string<br>        max_price                      = number<br>        spot_instance_type             = string<br>        valid_until                    = string<br>      })<br>    }))<br>    instance_refresh = optional(object({<br>      strategy = string<br>      preferences = optional(object({<br>        instance_warmup        = optional(number, null)<br>        min_healthy_percentage = optional(number, null)<br>        skip_matching          = optional(bool, null)<br>        auto_rollback          = optional(bool, null)<br>      }), null)<br>      triggers = optional(list(string), [])<br>    }))<br>    mixed_instances_policy = optional(object({<br>      instances_distribution = object({<br>        on_demand_allocation_strategy            = string<br>        on_demand_base_capacity                  = number<br>        on_demand_percentage_above_base_capacity = number<br>        spot_allocation_strategy                 = string<br>        spot_instance_pools                      = number<br>        spot_max_price                           = string<br>      })<br>      }), {<br>      instances_distribution = null<br>    })<br>    placement = optional(object({<br>      affinity          = string<br>      availability_zone = string<br>      group_name        = string<br>      host_id           = string<br>      tenancy           = string<br>    }))<br>    credit_specification = optional(object({<br>      cpu_credits = string<br>    }))<br>    elastic_gpu_specifications = optional(object({<br>      type = string<br>    }))<br>    disable_api_termination   = optional(bool, false)<br>    default_cooldown          = optional(number, 300)<br>    health_check_grace_period = optional(number, 300)<br>    force_delete              = optional(bool, false)<br>    termination_policies      = optional(list(string), ["Default"])<br>    suspended_processes       = optional(list(string), [])<br>    placement_group           = optional(string, "")<br>    metrics_granularity       = optional(string, "1Minute")<br>    enabled_metrics = optional(list(string), [<br>      "GroupMinSize",<br>      "GroupMaxSize",<br>      "GroupDesiredCapacity",<br>      "GroupInServiceInstances",<br>      "GroupPendingInstances",<br>      "GroupStandbyInstances",<br>      "GroupTerminatingInstances",<br>      "GroupTotalInstances",<br>      "GroupInServiceCapacity",<br>      "GroupPendingCapacity",<br>      "GroupStandbyCapacity",<br>      "GroupTerminatingCapacity",<br>      "GroupTotalCapacity",<br>      "WarmPoolDesiredCapacity",<br>      "WarmPoolWarmedCapacity",<br>      "WarmPoolPendingCapacity",<br>      "WarmPoolTerminatingCapacity",<br>      "WarmPoolTotalCapacity",<br>      "GroupAndWarmPoolDesiredCapacity",<br>      "GroupAndWarmPoolTotalCapacity",<br>    ])<br>    wait_for_capacity_timeout            = optional(string, "10m")<br>    service_linked_role_arn              = optional(string, "")<br>    metadata_http_endpoint_enabled       = optional(bool, true)<br>    metadata_http_put_response_hop_limit = optional(number, 2)<br>    metadata_http_tokens_required        = optional(bool, true)<br>    metadata_http_protocol_ipv6_enabled  = optional(bool, false)<br>    tag_specifications_resource_types    = optional(set(string), ["instance", "volume"])<br>    max_instance_lifetime                = optional(number, null)<br>    capacity_rebalance                   = optional(bool, false)<br>    warm_pool = optional(object({<br>      pool_state                  = string<br>      min_size                    = number<br>      max_group_prepared_capacity = number<br>    }))<br>  }))</pre> | `{}` | no |
-| <a name="input_capacity_providers_fargate"></a> [capacity\_providers\_fargate](#input\_capacity\_providers\_fargate) | Use FARGATE capacity provider | `bool` | `true` | no |
-| <a name="input_capacity_providers_fargate_spot"></a> [capacity\_providers\_fargate\_spot](#input\_capacity\_providers\_fargate\_spot) | Use FARGATE\_SPOT capacity provider | `bool` | `false` | no |
-| <a name="input_container_insights_enabled"></a> [container\_insights\_enabled](#input\_container\_insights\_enabled) | Whether or not to enable container insights | `bool` | `true` | no |
-| <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
-| <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_dns_delegated_component_name"></a> [dns\_delegated\_component\_name](#input\_dns\_delegated\_component\_name) | Use this component name to read from the remote state to get the dns\_delegated zone ID | `string` | `"dns-delegated"` | no |
-| <a name="input_dns_delegated_environment_name"></a> [dns\_delegated\_environment\_name](#input\_dns\_delegated\_environment\_name) | Use this environment name to read from the remote state to get the dns\_delegated zone ID | `string` | `"gbl"` | no |
-| <a name="input_dns_delegated_stage_name"></a> [dns\_delegated\_stage\_name](#input\_dns\_delegated\_stage\_name) | Use this stage name to read from the remote state to get the dns\_delegated zone ID | `string` | `null` | no |
-| <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_internal_enabled"></a> [internal\_enabled](#input\_internal\_enabled) | Whether to create an internal load balancer for services in this cluster | `bool` | `false` | no |
-| <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
-| <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
-| <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
-| <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_maintenance_page_path"></a> [maintenance\_page\_path](#input\_maintenance\_page\_path) | The path from this directory to the text/html page to use as the maintenance page. Must be within 1024 characters | `string` | `"templates/503_example.html"` | no |
-| <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
-| <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_route53_enabled"></a> [route53\_enabled](#input\_route53\_enabled) | Whether or not to create a route53 record for the ALB | `bool` | `true` | no |
-| <a name="input_route53_record_name"></a> [route53\_record\_name](#input\_route53\_record\_name) | The route53 record name | `string` | `"*"` | no |
-| <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
-| <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
+## Data Sources
+
+The following data sources are used by this module:
+
+  - [`aws_acm_certificate.additional_certs`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/acm_certificate) (data source)
+  - [`aws_acm_certificate.default`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/acm_certificate) (data source)
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_alb"></a> [alb](#output\_alb) | ALB outputs |
-| <a name="output_cluster_arn"></a> [cluster\_arn](#output\_cluster\_arn) | ECS cluster ARN |
-| <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | ECS Cluster Name |
-| <a name="output_private_subnet_ids"></a> [private\_subnet\_ids](#output\_private\_subnet\_ids) | Private subnet ids |
-| <a name="output_public_subnet_ids"></a> [public\_subnet\_ids](#output\_public\_subnet\_ids) | Public subnet ids |
-| <a name="output_records"></a> [records](#output\_records) | Record names |
-| <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | Security group id |
-| <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | VPC ID |
+<dl>
+  <dt><code>alb</code></dt>
+  <dd>
+
+  
+  ALB outputs<br/>
+
+  </dd>
+  <dt><code>cluster_arn</code></dt>
+  <dd>
+
+  
+  ECS cluster ARN<br/>
+
+  </dd>
+  <dt><code>cluster_name</code></dt>
+  <dd>
+
+  
+  ECS Cluster Name<br/>
+
+  </dd>
+  <dt><code>private_subnet_ids</code></dt>
+  <dd>
+
+  
+  Private subnet ids<br/>
+
+  </dd>
+  <dt><code>public_subnet_ids</code></dt>
+  <dd>
+
+  
+  Public subnet ids<br/>
+
+  </dd>
+  <dt><code>records</code></dt>
+  <dd>
+
+  
+  Record names<br/>
+
+  </dd>
+  <dt><code>security_group_id</code></dt>
+  <dd>
+
+  
+  Security group id<br/>
+
+  </dd>
+  <dt><code>vpc_id</code></dt>
+  <dd>
+
+  
+  VPC ID<br/>
+
+  </dd>
+</dl>
+
+## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
+### `region` (`string`) <i>required</i>
+
+
+AWS Region<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
+>   </dd>
+> </dl>
+>
+
+
+
+## Optional Variables
+### `acm_certificate_domain` (`string`) <i>optional</i>
+
+
+Domain to get the ACM cert to use on the ALB.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `acm_certificate_domain_suffix` (`string`) <i>optional</i>
+
+
+Domain suffix to use with dns delegated HZ to get the ACM cert to use on the ALB<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `alb_configuration` (`map(any)`) <i>optional</i>
+
+
+Map of multiple ALB configurations.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(any)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `alb_ingress_cidr_blocks_http` (`list(string)`) <i>optional</i>
+
+
+List of CIDR blocks allowed to access environment over HTTP<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   [
+>     "0.0.0.0/0"
+>   ]
+>   ```
+>
+>   </dd>
+> </dl>
+>
+
+
+### `alb_ingress_cidr_blocks_https` (`list(string)`) <i>optional</i>
+
+
+List of CIDR blocks allowed to access environment over HTTPS<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   [
+>     "0.0.0.0/0"
+>   ]
+>   ```
+>
+>   </dd>
+> </dl>
+>
+
+
+### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
+
+
+List of CIDR blocks to be allowed to connect to the ECS cluster<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
+>   </dd>
+> </dl>
+>
+
+
+### `allowed_security_groups` (`list(string)`) <i>optional</i>
+
+
+List of Security Group IDs to be allowed to connect to the ECS cluster<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
+>   </dd>
+> </dl>
+>
+
+
+### `capacity_providers_ec2` <i>optional</i>
+
+
+EC2 autoscale groups capacity providers<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   map(object({
+    instance_type                        = string
+    max_size                             = number
+    security_group_ids                   = optional(list(string), [])
+    min_size                             = optional(number, 0)
+    image_id                             = optional(string)
+    instance_initiated_shutdown_behavior = optional(string, "terminate")
+    key_name                             = optional(string, "")
+    user_data                            = optional(string, "")
+    enable_monitoring                    = optional(bool, true)
+    instance_warmup_period               = optional(number, 300)
+    maximum_scaling_step_size            = optional(number, 1)
+    minimum_scaling_step_size            = optional(number, 1)
+    target_capacity_utilization          = optional(number, 100)
+    ebs_optimized                        = optional(bool, false)
+    block_device_mappings = optional(list(object({
+      device_name  = string
+      no_device    = bool
+      virtual_name = string
+      ebs = object({
+        delete_on_termination = bool
+        encrypted             = bool
+        iops                  = number
+        kms_key_id            = string
+        snapshot_id           = string
+        volume_size           = number
+        volume_type           = string
+      })
+    })), [])
+    instance_market_options = optional(object({
+      market_type = string
+      spot_options = object({
+        block_duration_minutes         = number
+        instance_interruption_behavior = string
+        max_price                      = number
+        spot_instance_type             = string
+        valid_until                    = string
+      })
+    }))
+    instance_refresh = optional(object({
+      strategy = string
+      preferences = optional(object({
+        instance_warmup        = optional(number, null)
+        min_healthy_percentage = optional(number, null)
+        skip_matching          = optional(bool, null)
+        auto_rollback          = optional(bool, null)
+      }), null)
+      triggers = optional(list(string), [])
+    }))
+    mixed_instances_policy = optional(object({
+      instances_distribution = object({
+        on_demand_allocation_strategy            = string
+        on_demand_base_capacity                  = number
+        on_demand_percentage_above_base_capacity = number
+        spot_allocation_strategy                 = string
+        spot_instance_pools                      = number
+        spot_max_price                           = string
+      })
+      }), {
+      instances_distribution = null
+    })
+    placement = optional(object({
+      affinity          = string
+      availability_zone = string
+      group_name        = string
+      host_id           = string
+      tenancy           = string
+    }))
+    credit_specification = optional(object({
+      cpu_credits = string
+    }))
+    elastic_gpu_specifications = optional(object({
+      type = string
+    }))
+    disable_api_termination   = optional(bool, false)
+    default_cooldown          = optional(number, 300)
+    health_check_grace_period = optional(number, 300)
+    force_delete              = optional(bool, false)
+    termination_policies      = optional(list(string), ["Default"])
+    suspended_processes       = optional(list(string), [])
+    placement_group           = optional(string, "")
+    metrics_granularity       = optional(string, "1Minute")
+    enabled_metrics = optional(list(string), [
+      "GroupMinSize",
+      "GroupMaxSize",
+      "GroupDesiredCapacity",
+      "GroupInServiceInstances",
+      "GroupPendingInstances",
+      "GroupStandbyInstances",
+      "GroupTerminatingInstances",
+      "GroupTotalInstances",
+      "GroupInServiceCapacity",
+      "GroupPendingCapacity",
+      "GroupStandbyCapacity",
+      "GroupTerminatingCapacity",
+      "GroupTotalCapacity",
+      "WarmPoolDesiredCapacity",
+      "WarmPoolWarmedCapacity",
+      "WarmPoolPendingCapacity",
+      "WarmPoolTerminatingCapacity",
+      "WarmPoolTotalCapacity",
+      "GroupAndWarmPoolDesiredCapacity",
+      "GroupAndWarmPoolTotalCapacity",
+    ])
+    wait_for_capacity_timeout            = optional(string, "10m")
+    service_linked_role_arn              = optional(string, "")
+    metadata_http_endpoint_enabled       = optional(bool, true)
+    metadata_http_put_response_hop_limit = optional(number, 2)
+    metadata_http_tokens_required        = optional(bool, true)
+    metadata_http_protocol_ipv6_enabled  = optional(bool, false)
+    tag_specifications_resource_types    = optional(set(string), ["instance", "volume"])
+    max_instance_lifetime                = optional(number, null)
+    capacity_rebalance                   = optional(bool, false)
+    warm_pool = optional(object({
+      pool_state                  = string
+      min_size                    = number
+      max_group_prepared_capacity = number
+    }))
+  }))
+>   ```
+>
+>   
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `capacity_providers_fargate` (`bool`) <i>optional</i>
+
+
+Use FARGATE capacity provider<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `capacity_providers_fargate_spot` (`bool`) <i>optional</i>
+
+
+Use FARGATE_SPOT capacity provider<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `container_insights_enabled` (`bool`) <i>optional</i>
+
+
+Whether or not to enable container insights<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `dns_delegated_component_name` (`string`) <i>optional</i>
+
+
+Use this component name to read from the remote state to get the dns_delegated zone ID<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"dns-delegated"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `dns_delegated_environment_name` (`string`) <i>optional</i>
+
+
+Use this environment name to read from the remote state to get the dns_delegated zone ID<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"gbl"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `dns_delegated_stage_name` (`string`) <i>optional</i>
+
+
+Use this stage name to read from the remote state to get the dns_delegated zone ID<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `internal_enabled` (`bool`) <i>optional</i>
+
+
+Whether to create an internal load balancer for services in this cluster<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `maintenance_page_path` (`string`) <i>optional</i>
+
+
+The path from this directory to the text/html page to use as the maintenance page. Must be within 1024 characters<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"templates/503_example.html"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `route53_enabled` (`bool`) <i>optional</i>
+
+
+Whether or not to create a route53 record for the ALB<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `route53_record_name` (`string`) <i>optional</i>
+
+
+The route53 record name<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"*"</code>
+>   </dd>
+> </dl>
+>
+
+
+
+## Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
+
+<details>
+<summary>Click to expand</summary>
+
+
+### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+This is for some rare cases where resources want additional configuration of tags<br/>
+and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `attributes` (`list(string)`) <i>optional</i>
+
+
+ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+in the order they appear in the list. New attributes are appended to the<br/>
+end of the list. The elements of the list are joined by the `delimiter`<br/>
+and treated as a single ID element.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
+>   </dd>
+> </dl>
+>
+
+
+### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>any</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   {
+>     "additional_tag_map": {},
+>     "attributes": [],
+>     "delimiter": null,
+>     "descriptor_formats": {},
+>     "enabled": true,
+>     "environment": null,
+>     "id_length_limit": null,
+>     "label_key_case": null,
+>     "label_order": [],
+>     "label_value_case": null,
+>     "labels_as_tags": [
+>       "unset"
+>     ],
+>     "name": null,
+>     "namespace": null,
+>     "regex_replace_chars": null,
+>     "stage": null,
+>     "tags": {},
+>     "tenant": null
+>   }
+>   ```
+>
+>   </dd>
+> </dl>
+>
+
+
+### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between ID elements.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `descriptor_formats` (`any`) <i>optional</i>
+
+
+Describe additional descriptors to be output in the `descriptors` output map.<br/>
+Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+`{<br/>
+   format = string<br/>
+   labels = list(string)<br/>
+}`<br/>
+(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+`format` is a Terraform format string to be passed to the `format()` function.<br/>
+`labels` is a list of labels, in order, to pass to `format()` function.<br/>
+Label values will be normalized before being passed to `format()` so they will be<br/>
+identical to how they appear in `id`.<br/>
+Default is `{}` (`descriptors` output will be empty).<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>any</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `environment` (`string`) <i>optional</i>
+
+
+ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `label_key_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+Does not affect keys of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `label_order` (`list(string)`) <i>optional</i>
+
+
+The order in which the labels (ID elements) appear in the `id`.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `label_value_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of ID elements (labels) as included in `id`,<br/>
+set as tag values, and output by this module individually.<br/>
+Does not affect values of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+Default value: `lower`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `labels_as_tags` (`set(string)`) <i>optional</i>
+
+
+Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+Default is to include all labels.<br/>
+Tags with empty values will not be included in the `tags` output.<br/>
+Set to `[]` to suppress all generated tags.<br/>
+**Notes:**<br/>
+  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>set(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   [
+>     "default"
+>   ]
+>   ```
+>
+>   </dd>
+> </dl>
+>
+
+
+### `name` (`string`) <i>optional</i>
+
+
+ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+This is the only ID element not also included as a `tag`.<br/>
+The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `namespace` (`string`) <i>optional</i>
+
+
+ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Terraform regular expression (regex) string.<br/>
+Characters matching the regex will be removed from the ID elements.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `stage` (`string`) <i>optional</i>
+
+
+ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+Neither the tag keys nor the tag values will be modified by this module.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `tenant` (`string`) <i>optional</i>
+
+
+ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+
+</details>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

@@ -70,128 +70,1830 @@ components:
 
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 
-## Providers
 
-No providers.
+## Version Requirements
+
+| Requirement | Version |
+| --- | --- |
+| `terraform` | ![>= 1.0.0](https://img.shields.io/badge/>=_1.0.0-success.svg?style=for-the-badge) |
+| `aws` | ![>= 4.9.0](https://img.shields.io/badge/>=_4.9.0-success.svg?style=for-the-badge) |
+
+
+
 
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_kafka"></a> [kafka](#module\_kafka) | cloudposse/msk-apache-kafka-cluster/aws | 2.3.0 |
-| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+Name | Version | Source | Description
+--- | --- | --- | ---
+`dns_delegated` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`kafka` | [![2.3.0](https://img.shields.io/badge/2.3.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/msk-apache-kafka-cluster/aws/2.3.0) | [`cloudposse/msk-apache-kafka-cluster/aws`](https://registry.terraform.io/modules/cloudposse/msk-apache-kafka-cluster/aws/2.3.0) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`vpc` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 
-## Resources
 
-No resources.
 
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_additional_security_group_rules"></a> [additional\_security\_group\_rules](#input\_additional\_security\_group\_rules) | A list of Security Group rule objects to add to the created security group, in addition to the ones<br>this module normally creates. (To suppress the module's rules, set `create_security_group` to false<br>and supply your own security group(s) via `associated_security_group_ids`.)<br>The keys and values of the objects are fully compatible with the `aws_security_group_rule` resource, except<br>for `security_group_id` which will be ignored, and the optional "key" which, if provided, must be unique and known at "plan" time.<br>For more info see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule<br>and https://github.com/cloudposse/terraform-aws-security-group. | `list(any)` | `[]` | no |
-| <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_allow_all_egress"></a> [allow\_all\_egress](#input\_allow\_all\_egress) | If `true`, the created security group will allow egress on all ports and protocols to all IP addresses.<br>If this is false and no egress rules are otherwise specified, then no egress will be allowed. | `bool` | `true` | no |
-| <a name="input_allowed_cidr_blocks"></a> [allowed\_cidr\_blocks](#input\_allowed\_cidr\_blocks) | A list of IPv4 CIDRs to allow access to the security group created by this module.<br>The length of this list must be known at "plan" time. | `list(string)` | `[]` | no |
-| <a name="input_allowed_security_group_ids"></a> [allowed\_security\_group\_ids](#input\_allowed\_security\_group\_ids) | A list of IDs of Security Groups to allow access to the security group created by this module.<br>The length of this list must be known at "plan" time. | `list(string)` | `[]` | no |
-| <a name="input_associated_security_group_ids"></a> [associated\_security\_group\_ids](#input\_associated\_security\_group\_ids) | A list of IDs of Security Groups to associate the created resource with, in addition to the created security group.<br>These security groups will not be modified and, if `create_security_group` is `false`, must have rules providing the desired access. | `list(string)` | `[]` | no |
-| <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_autoscaling_enabled"></a> [autoscaling\_enabled](#input\_autoscaling\_enabled) | To automatically expand your cluster's storage in response to increased usage, you can enable this. [More info](https://docs.aws.amazon.com/msk/latest/developerguide/msk-autoexpand.html) | `bool` | `true` | no |
-| <a name="input_broker_dns_records_count"></a> [broker\_dns\_records\_count](#input\_broker\_dns\_records\_count) | This variable specifies how many DNS records to create for the broker endpoints in the DNS zone provided in the `zone_id` variable.<br>This corresponds to the total number of broker endpoints created by the module.<br>Calculate this number by multiplying the `broker_per_zone` variable by the subnet count.<br>This variable is necessary to prevent the Terraform error:<br>The "count" value depends on resource attributes that cannot be determined until apply, so Terraform cannot predict how many instances will be created. | `number` | `0` | no |
-| <a name="input_broker_instance_type"></a> [broker\_instance\_type](#input\_broker\_instance\_type) | The instance type to use for the Kafka brokers | `string` | n/a | yes |
-| <a name="input_broker_per_zone"></a> [broker\_per\_zone](#input\_broker\_per\_zone) | Number of Kafka brokers per zone | `number` | `1` | no |
-| <a name="input_broker_volume_size"></a> [broker\_volume\_size](#input\_broker\_volume\_size) | The size in GiB of the EBS volume for the data drive on each broker node | `number` | `1000` | no |
-| <a name="input_certificate_authority_arns"></a> [certificate\_authority\_arns](#input\_certificate\_authority\_arns) | List of ACM Certificate Authority Amazon Resource Names (ARNs) to be used for TLS client authentication | `list(string)` | `[]` | no |
-| <a name="input_client_allow_unauthenticated"></a> [client\_allow\_unauthenticated](#input\_client\_allow\_unauthenticated) | Enable unauthenticated access | `bool` | `false` | no |
-| <a name="input_client_broker"></a> [client\_broker](#input\_client\_broker) | Encryption setting for data in transit between clients and brokers. Valid values: `TLS`, `TLS_PLAINTEXT`, and `PLAINTEXT` | `string` | `"TLS"` | no |
-| <a name="input_client_sasl_iam_enabled"></a> [client\_sasl\_iam\_enabled](#input\_client\_sasl\_iam\_enabled) | Enable client authentication via IAM policies. Cannot be set to `true` at the same time as `client_tls_auth_enabled` | `bool` | `false` | no |
-| <a name="input_client_sasl_scram_enabled"></a> [client\_sasl\_scram\_enabled](#input\_client\_sasl\_scram\_enabled) | Enable SCRAM client authentication via AWS Secrets Manager. Cannot be set to `true` at the same time as `client_tls_auth_enabled` | `bool` | `false` | no |
-| <a name="input_client_sasl_scram_secret_association_arns"></a> [client\_sasl\_scram\_secret\_association\_arns](#input\_client\_sasl\_scram\_secret\_association\_arns) | List of AWS Secrets Manager secret ARNs for SCRAM authentication | `list(string)` | `[]` | no |
-| <a name="input_client_sasl_scram_secret_association_enabled"></a> [client\_sasl\_scram\_secret\_association\_enabled](#input\_client\_sasl\_scram\_secret\_association\_enabled) | Enable the list of AWS Secrets Manager secret ARNs for SCRAM authentication | `bool` | `true` | no |
-| <a name="input_client_tls_auth_enabled"></a> [client\_tls\_auth\_enabled](#input\_client\_tls\_auth\_enabled) | Set `true` to enable the Client TLS Authentication | `bool` | `false` | no |
-| <a name="input_cloudwatch_logs_enabled"></a> [cloudwatch\_logs\_enabled](#input\_cloudwatch\_logs\_enabled) | Indicates whether you want to enable or disable streaming broker logs to Cloudwatch Logs | `bool` | `false` | no |
-| <a name="input_cloudwatch_logs_log_group"></a> [cloudwatch\_logs\_log\_group](#input\_cloudwatch\_logs\_log\_group) | Name of the Cloudwatch Log Group to deliver logs to | `string` | `null` | no |
-| <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
-| <a name="input_create_security_group"></a> [create\_security\_group](#input\_create\_security\_group) | Set `true` to create and configure a new security group. If false, `associated_security_group_ids` must be provided. | `bool` | `true` | no |
-| <a name="input_custom_broker_dns_name"></a> [custom\_broker\_dns\_name](#input\_custom\_broker\_dns\_name) | Custom Route53 DNS hostname for MSK brokers. Use `%%ID%%` key to specify brokers index in the hostname. Example: `kafka-broker%%ID%%.example.com` | `string` | `null` | no |
-| <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_dns_delegated_component_name"></a> [dns\_delegated\_component\_name](#input\_dns\_delegated\_component\_name) | The component name of `dns-delegated` | `string` | `"dns-delegated"` | no |
-| <a name="input_dns_delegated_environment_name"></a> [dns\_delegated\_environment\_name](#input\_dns\_delegated\_environment\_name) | The environment name of `dns-delegated` | `string` | `"gbl"` | no |
-| <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
-| <a name="input_encryption_at_rest_kms_key_arn"></a> [encryption\_at\_rest\_kms\_key\_arn](#input\_encryption\_at\_rest\_kms\_key\_arn) | You may specify a KMS key short ID or ARN (it will always output an ARN) to use for encrypting your data at rest | `string` | `""` | no |
-| <a name="input_encryption_in_cluster"></a> [encryption\_in\_cluster](#input\_encryption\_in\_cluster) | Whether data communication among broker nodes is encrypted | `bool` | `true` | no |
-| <a name="input_enhanced_monitoring"></a> [enhanced\_monitoring](#input\_enhanced\_monitoring) | Specify the desired enhanced MSK CloudWatch monitoring level. Valid values: `DEFAULT`, `PER_BROKER`, and `PER_TOPIC_PER_BROKER` | `string` | `"DEFAULT"` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_firehose_delivery_stream"></a> [firehose\_delivery\_stream](#input\_firehose\_delivery\_stream) | Name of the Kinesis Data Firehose delivery stream to deliver logs to | `string` | `""` | no |
-| <a name="input_firehose_logs_enabled"></a> [firehose\_logs\_enabled](#input\_firehose\_logs\_enabled) | Indicates whether you want to enable or disable streaming broker logs to Kinesis Data Firehose | `bool` | `false` | no |
-| <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_inline_rules_enabled"></a> [inline\_rules\_enabled](#input\_inline\_rules\_enabled) | NOT RECOMMENDED. Create rules "inline" instead of as separate `aws_security_group_rule` resources.<br>See [#20046](https://github.com/hashicorp/terraform-provider-aws/issues/20046) for one of several issues with inline rules.<br>See [this post](https://github.com/hashicorp/terraform-provider-aws/pull/9032#issuecomment-639545250) for details on the difference between inline rules and rule resources. | `bool` | `false` | no |
-| <a name="input_jmx_exporter_enabled"></a> [jmx\_exporter\_enabled](#input\_jmx\_exporter\_enabled) | Set `true` to enable the JMX Exporter | `bool` | `false` | no |
-| <a name="input_kafka_version"></a> [kafka\_version](#input\_kafka\_version) | The desired Kafka software version.<br>Refer to https://docs.aws.amazon.com/msk/latest/developerguide/supported-kafka-versions.html for more details | `string` | n/a | yes |
-| <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
-| <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
-| <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
-| <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_node_exporter_enabled"></a> [node\_exporter\_enabled](#input\_node\_exporter\_enabled) | Set `true` to enable the Node Exporter | `bool` | `false` | no |
-| <a name="input_preserve_security_group_id"></a> [preserve\_security\_group\_id](#input\_preserve\_security\_group\_id) | When `false` and `security_group_create_before_destroy` is `true`, changes to security group rules<br>cause a new security group to be created with the new rules, and the existing security group is then<br>replaced with the new one, eliminating any service interruption.<br>When `true` or when changing the value (from `false` to `true` or from `true` to `false`),<br>existing security group rules will be deleted before new ones are created, resulting in a service interruption,<br>but preserving the security group itself.<br>**NOTE:** Setting this to `true` does not guarantee the security group will never be replaced,<br>it only keeps changes to the security group rules from triggering a replacement.<br>See the [terraform-aws-security-group README](https://github.com/cloudposse/terraform-aws-security-group) for further discussion. | `bool` | `false` | no |
-| <a name="input_properties"></a> [properties](#input\_properties) | Contents of the server.properties file. Supported properties are documented in the [MSK Developer Guide](https://docs.aws.amazon.com/msk/latest/developerguide/msk-configuration-properties.html) | `map(string)` | `{}` | no |
-| <a name="input_public_access_enabled"></a> [public\_access\_enabled](#input\_public\_access\_enabled) | Enable public access to MSK cluster (given that all of the requirements are met) | `bool` | `false` | no |
-| <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
-| <a name="input_region"></a> [region](#input\_region) | AWS region | `string` | n/a | yes |
-| <a name="input_s3_logs_bucket"></a> [s3\_logs\_bucket](#input\_s3\_logs\_bucket) | Name of the S3 bucket to deliver logs to | `string` | `""` | no |
-| <a name="input_s3_logs_enabled"></a> [s3\_logs\_enabled](#input\_s3\_logs\_enabled) | Indicates whether you want to enable or disable streaming broker logs to S3 | `bool` | `false` | no |
-| <a name="input_s3_logs_prefix"></a> [s3\_logs\_prefix](#input\_s3\_logs\_prefix) | Prefix to append to the S3 folder name logs are delivered to | `string` | `""` | no |
-| <a name="input_security_group_create_before_destroy"></a> [security\_group\_create\_before\_destroy](#input\_security\_group\_create\_before\_destroy) | Set `true` to enable terraform `create_before_destroy` behavior on the created security group.<br>We only recommend setting this `false` if you are importing an existing security group<br>that you do not want replaced and therefore need full control over its name.<br>Note that changing this value will always cause the security group to be replaced. | `bool` | `true` | no |
-| <a name="input_security_group_create_timeout"></a> [security\_group\_create\_timeout](#input\_security\_group\_create\_timeout) | How long to wait for the security group to be created. | `string` | `"10m"` | no |
-| <a name="input_security_group_delete_timeout"></a> [security\_group\_delete\_timeout](#input\_security\_group\_delete\_timeout) | How long to retry on `DependencyViolation` errors during security group deletion from<br>lingering ENIs left by certain AWS services such as Elastic Load Balancing. | `string` | `"15m"` | no |
-| <a name="input_security_group_description"></a> [security\_group\_description](#input\_security\_group\_description) | The description to assign to the created Security Group.<br>Warning: Changing the description causes the security group to be replaced. | `string` | `"Managed by Terraform"` | no |
-| <a name="input_security_group_name"></a> [security\_group\_name](#input\_security\_group\_name) | The name to assign to the created security group. Must be unique within the VPC.<br>If not provided, will be derived from the `null-label.context` passed in.<br>If `create_before_destroy` is true, will be used as a name prefix. | `list(string)` | `[]` | no |
-| <a name="input_security_group_rule_description"></a> [security\_group\_rule\_description](#input\_security\_group\_rule\_description) | The description to place on each security group rule. The %s will be replaced with the protocol name | `string` | `"Allow inbound %s traffic"` | no |
-| <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
-| <a name="input_storage_autoscaling_disable_scale_in"></a> [storage\_autoscaling\_disable\_scale\_in](#input\_storage\_autoscaling\_disable\_scale\_in) | If the value is true, scale in is disabled and the target tracking policy won't remove capacity from the scalable resource | `bool` | `false` | no |
-| <a name="input_storage_autoscaling_max_capacity"></a> [storage\_autoscaling\_max\_capacity](#input\_storage\_autoscaling\_max\_capacity) | Maximum size the autoscaling policy can scale storage. Defaults to `broker_volume_size` | `number` | `null` | no |
-| <a name="input_storage_autoscaling_target_value"></a> [storage\_autoscaling\_target\_value](#input\_storage\_autoscaling\_target\_value) | Percentage of storage used to trigger autoscaled storage increase | `number` | `60` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
-| <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_vpc_component_name"></a> [vpc\_component\_name](#input\_vpc\_component\_name) | The name of the Atmos VPC component | `string` | n/a | yes |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_bootstrap_brokers"></a> [bootstrap\_brokers](#output\_bootstrap\_brokers) | Comma separated list of one or more hostname:port pairs of Kafka brokers suitable to bootstrap connectivity to the Kafka cluster |
-| <a name="output_bootstrap_brokers_public_sasl_iam"></a> [bootstrap\_brokers\_public\_sasl\_iam](#output\_bootstrap\_brokers\_public\_sasl\_iam) | Comma separated list of one or more DNS names (or IP addresses) and SASL IAM port pairs for public access to the Kafka cluster using SASL/IAM |
-| <a name="output_bootstrap_brokers_public_sasl_scram"></a> [bootstrap\_brokers\_public\_sasl\_scram](#output\_bootstrap\_brokers\_public\_sasl\_scram) | Comma separated list of one or more DNS names (or IP addresses) and SASL SCRAM port pairs for public access to the Kafka cluster using SASL/SCRAM |
-| <a name="output_bootstrap_brokers_public_tls"></a> [bootstrap\_brokers\_public\_tls](#output\_bootstrap\_brokers\_public\_tls) | Comma separated list of one or more DNS names (or IP addresses) and TLS port pairs for public access to the Kafka cluster using TLS |
-| <a name="output_bootstrap_brokers_sasl_iam"></a> [bootstrap\_brokers\_sasl\_iam](#output\_bootstrap\_brokers\_sasl\_iam) | Comma separated list of one or more DNS names (or IP addresses) and SASL IAM port pairs for access to the Kafka cluster using SASL/IAM |
-| <a name="output_bootstrap_brokers_sasl_scram"></a> [bootstrap\_brokers\_sasl\_scram](#output\_bootstrap\_brokers\_sasl\_scram) | Comma separated list of one or more DNS names (or IP addresses) and SASL SCRAM port pairs for access to the Kafka cluster using SASL/SCRAM |
-| <a name="output_bootstrap_brokers_tls"></a> [bootstrap\_brokers\_tls](#output\_bootstrap\_brokers\_tls) | Comma separated list of one or more DNS names (or IP addresses) and TLS port pairs for access to the Kafka cluster using TLS |
-| <a name="output_broker_endpoints"></a> [broker\_endpoints](#output\_broker\_endpoints) | List of broker endpoints |
-| <a name="output_cluster_arn"></a> [cluster\_arn](#output\_cluster\_arn) | Amazon Resource Name (ARN) of the MSK cluster |
-| <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | The cluster name of the MSK cluster |
-| <a name="output_config_arn"></a> [config\_arn](#output\_config\_arn) | Amazon Resource Name (ARN) of the MSK configuration |
-| <a name="output_current_version"></a> [current\_version](#output\_current\_version) | Current version of the MSK Cluster |
-| <a name="output_hostnames"></a> [hostnames](#output\_hostnames) | List of MSK Cluster broker DNS hostnames |
-| <a name="output_latest_revision"></a> [latest\_revision](#output\_latest\_revision) | Latest revision of the MSK configuration |
-| <a name="output_security_group_arn"></a> [security\_group\_arn](#output\_security\_group\_arn) | The ARN of the created security group |
-| <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | The ID of the created security group |
-| <a name="output_security_group_name"></a> [security\_group\_name](#output\_security\_group\_name) | The name of the created security group |
-| <a name="output_storage_mode"></a> [storage\_mode](#output\_storage\_mode) | Storage mode for supported storage tiers |
-| <a name="output_zookeeper_connect_string"></a> [zookeeper\_connect\_string](#output\_zookeeper\_connect\_string) | Comma separated list of one or more hostname:port pairs to connect to the Apache Zookeeper cluster |
-| <a name="output_zookeeper_connect_string_tls"></a> [zookeeper\_connect\_string\_tls](#output\_zookeeper\_connect\_string\_tls) | Comma separated list of one or more hostname:port pairs to connect to the Apache Zookeeper cluster via TLS |
+<dl>
+  <dt><code>bootstrap_brokers</code></dt>
+  <dd>
+
+  
+  Comma separated list of one or more hostname:port pairs of Kafka brokers suitable to bootstrap connectivity to the Kafka cluster<br/>
+
+  </dd>
+  <dt><code>bootstrap_brokers_public_sasl_iam</code></dt>
+  <dd>
+
+  
+  Comma separated list of one or more DNS names (or IP addresses) and SASL IAM port pairs for public access to the Kafka cluster using SASL/IAM<br/>
+
+  </dd>
+  <dt><code>bootstrap_brokers_public_sasl_scram</code></dt>
+  <dd>
+
+  
+  Comma separated list of one or more DNS names (or IP addresses) and SASL SCRAM port pairs for public access to the Kafka cluster using SASL/SCRAM<br/>
+
+  </dd>
+  <dt><code>bootstrap_brokers_public_tls</code></dt>
+  <dd>
+
+  
+  Comma separated list of one or more DNS names (or IP addresses) and TLS port pairs for public access to the Kafka cluster using TLS<br/>
+
+  </dd>
+  <dt><code>bootstrap_brokers_sasl_iam</code></dt>
+  <dd>
+
+  
+  Comma separated list of one or more DNS names (or IP addresses) and SASL IAM port pairs for access to the Kafka cluster using SASL/IAM<br/>
+
+  </dd>
+  <dt><code>bootstrap_brokers_sasl_scram</code></dt>
+  <dd>
+
+  
+  Comma separated list of one or more DNS names (or IP addresses) and SASL SCRAM port pairs for access to the Kafka cluster using SASL/SCRAM<br/>
+
+  </dd>
+  <dt><code>bootstrap_brokers_tls</code></dt>
+  <dd>
+
+  
+  Comma separated list of one or more DNS names (or IP addresses) and TLS port pairs for access to the Kafka cluster using TLS<br/>
+
+  </dd>
+  <dt><code>broker_endpoints</code></dt>
+  <dd>
+
+  
+  List of broker endpoints<br/>
+
+  </dd>
+  <dt><code>cluster_arn</code></dt>
+  <dd>
+
+  
+  Amazon Resource Name (ARN) of the MSK cluster<br/>
+
+  </dd>
+  <dt><code>cluster_name</code></dt>
+  <dd>
+
+  
+  The cluster name of the MSK cluster<br/>
+
+  </dd>
+  <dt><code>config_arn</code></dt>
+  <dd>
+
+  
+  Amazon Resource Name (ARN) of the MSK configuration<br/>
+
+  </dd>
+  <dt><code>current_version</code></dt>
+  <dd>
+
+  
+  Current version of the MSK Cluster<br/>
+
+  </dd>
+  <dt><code>hostnames</code></dt>
+  <dd>
+
+  
+  List of MSK Cluster broker DNS hostnames<br/>
+
+  </dd>
+  <dt><code>latest_revision</code></dt>
+  <dd>
+
+  
+  Latest revision of the MSK configuration<br/>
+
+  </dd>
+  <dt><code>security_group_arn</code></dt>
+  <dd>
+
+  
+  The ARN of the created security group<br/>
+
+  </dd>
+  <dt><code>security_group_id</code></dt>
+  <dd>
+
+  
+  The ID of the created security group<br/>
+
+  </dd>
+  <dt><code>security_group_name</code></dt>
+  <dd>
+
+  
+  The name of the created security group<br/>
+
+  </dd>
+  <dt><code>storage_mode</code></dt>
+  <dd>
+
+  
+  Storage mode for supported storage tiers<br/>
+
+  </dd>
+  <dt><code>zookeeper_connect_string</code></dt>
+  <dd>
+
+  
+  Comma separated list of one or more hostname:port pairs to connect to the Apache Zookeeper cluster<br/>
+
+  </dd>
+  <dt><code>zookeeper_connect_string_tls</code></dt>
+  <dd>
+
+  
+  Comma separated list of one or more hostname:port pairs to connect to the Apache Zookeeper cluster via TLS<br/>
+
+  </dd>
+</dl>
+
+## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
+### `broker_instance_type` (`string`) <i>required</i>
+
+
+The instance type to use for the Kafka brokers<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
+>   </dd>
+> </dl>
+>
+
+
+### `kafka_version` (`string`) <i>required</i>
+
+
+The desired Kafka software version.<br/>
+Refer to https://docs.aws.amazon.com/msk/latest/developerguide/supported-kafka-versions.html for more details<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
+>   </dd>
+> </dl>
+>
+
+
+### `region` (`string`) <i>required</i>
+
+
+AWS region<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
+>   </dd>
+> </dl>
+>
+
+
+### `vpc_component_name` (`string`) <i>required</i>
+
+
+The name of the Atmos VPC component<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
+>   </dd>
+> </dl>
+>
+
+
+
+## Optional Variables
+### `additional_security_group_rules` (`list(any)`) <i>optional</i>
+
+
+A list of Security Group rule objects to add to the created security group, in addition to the ones<br/>
+this module normally creates. (To suppress the module's rules, set `create_security_group` to false<br/>
+and supply your own security group(s) via `associated_security_group_ids`.)<br/>
+The keys and values of the objects are fully compatible with the `aws_security_group_rule` resource, except<br/>
+for `security_group_id` which will be ignored, and the optional "key" which, if provided, must be unique and known at "plan" time.<br/>
+For more info see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule<br/>
+and https://github.com/cloudposse/terraform-aws-security-group.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(any)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
+>   </dd>
+> </dl>
+>
+
+
+### `allow_all_egress` (`bool`) <i>optional</i>
+
+
+If `true`, the created security group will allow egress on all ports and protocols to all IP addresses.<br/>
+If this is false and no egress rules are otherwise specified, then no egress will be allowed.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `allowed_cidr_blocks` (`list(string)`) <i>optional</i>
+
+
+A list of IPv4 CIDRs to allow access to the security group created by this module.<br/>
+The length of this list must be known at "plan" time.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
+>   </dd>
+> </dl>
+>
+
+
+### `allowed_security_group_ids` (`list(string)`) <i>optional</i>
+
+
+A list of IDs of Security Groups to allow access to the security group created by this module.<br/>
+The length of this list must be known at "plan" time.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
+>   </dd>
+> </dl>
+>
+
+
+### `associated_security_group_ids` (`list(string)`) <i>optional</i>
+
+
+A list of IDs of Security Groups to associate the created resource with, in addition to the created security group.<br/>
+These security groups will not be modified and, if `create_security_group` is `false`, must have rules providing the desired access.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
+>   </dd>
+> </dl>
+>
+
+
+### `autoscaling_enabled` (`bool`) <i>optional</i>
+
+
+To automatically expand your cluster's storage in response to increased usage, you can enable this. [More info](https://docs.aws.amazon.com/msk/latest/developerguide/msk-autoexpand.html)<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `broker_dns_records_count` (`number`) <i>optional</i>
+
+
+This variable specifies how many DNS records to create for the broker endpoints in the DNS zone provided in the `zone_id` variable.<br/>
+This corresponds to the total number of broker endpoints created by the module.<br/>
+Calculate this number by multiplying the `broker_per_zone` variable by the subnet count.<br/>
+This variable is necessary to prevent the Terraform error:<br/>
+The "count" value depends on resource attributes that cannot be determined until apply, so Terraform cannot predict how many instances will be created.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>0</code>
+>   </dd>
+> </dl>
+>
+
+
+### `broker_per_zone` (`number`) <i>optional</i>
+
+
+Number of Kafka brokers per zone<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>1</code>
+>   </dd>
+> </dl>
+>
+
+
+### `broker_volume_size` (`number`) <i>optional</i>
+
+
+The size in GiB of the EBS volume for the data drive on each broker node<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>1000</code>
+>   </dd>
+> </dl>
+>
+
+
+### `certificate_authority_arns` (`list(string)`) <i>optional</i>
+
+
+List of ACM Certificate Authority Amazon Resource Names (ARNs) to be used for TLS client authentication<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
+>   </dd>
+> </dl>
+>
+
+
+### `client_allow_unauthenticated` (`bool`) <i>optional</i>
+
+
+Enable unauthenticated access<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `client_broker` (`string`) <i>optional</i>
+
+
+Encryption setting for data in transit between clients and brokers. Valid values: `TLS`, `TLS_PLAINTEXT`, and `PLAINTEXT`<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"TLS"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `client_sasl_iam_enabled` (`bool`) <i>optional</i>
+
+
+Enable client authentication via IAM policies. Cannot be set to `true` at the same time as `client_tls_auth_enabled`<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `client_sasl_scram_enabled` (`bool`) <i>optional</i>
+
+
+Enable SCRAM client authentication via AWS Secrets Manager. Cannot be set to `true` at the same time as `client_tls_auth_enabled`<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `client_sasl_scram_secret_association_arns` (`list(string)`) <i>optional</i>
+
+
+List of AWS Secrets Manager secret ARNs for SCRAM authentication<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
+>   </dd>
+> </dl>
+>
+
+
+### `client_sasl_scram_secret_association_enabled` (`bool`) <i>optional</i>
+
+
+Enable the list of AWS Secrets Manager secret ARNs for SCRAM authentication<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `client_tls_auth_enabled` (`bool`) <i>optional</i>
+
+
+Set `true` to enable the Client TLS Authentication<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `cloudwatch_logs_enabled` (`bool`) <i>optional</i>
+
+
+Indicates whether you want to enable or disable streaming broker logs to Cloudwatch Logs<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `cloudwatch_logs_log_group` (`string`) <i>optional</i>
+
+
+Name of the Cloudwatch Log Group to deliver logs to<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `create_security_group` (`bool`) <i>optional</i>
+
+
+Set `true` to create and configure a new security group. If false, `associated_security_group_ids` must be provided.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `custom_broker_dns_name` (`string`) <i>optional</i>
+
+
+Custom Route53 DNS hostname for MSK brokers. Use `%%ID%%` key to specify brokers index in the hostname. Example: `kafka-broker%%ID%%.example.com`<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `dns_delegated_component_name` (`string`) <i>optional</i>
+
+
+The component name of `dns-delegated`<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"dns-delegated"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `dns_delegated_environment_name` (`string`) <i>optional</i>
+
+
+The environment name of `dns-delegated`<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"gbl"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `encryption_at_rest_kms_key_arn` (`string`) <i>optional</i>
+
+
+You may specify a KMS key short ID or ARN (it will always output an ARN) to use for encrypting your data at rest<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
+>   </dd>
+> </dl>
+>
+
+
+### `encryption_in_cluster` (`bool`) <i>optional</i>
+
+
+Whether data communication among broker nodes is encrypted<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `enhanced_monitoring` (`string`) <i>optional</i>
+
+
+Specify the desired enhanced MSK CloudWatch monitoring level. Valid values: `DEFAULT`, `PER_BROKER`, and `PER_TOPIC_PER_BROKER`<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"DEFAULT"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `firehose_delivery_stream` (`string`) <i>optional</i>
+
+
+Name of the Kinesis Data Firehose delivery stream to deliver logs to<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
+>   </dd>
+> </dl>
+>
+
+
+### `firehose_logs_enabled` (`bool`) <i>optional</i>
+
+
+Indicates whether you want to enable or disable streaming broker logs to Kinesis Data Firehose<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `inline_rules_enabled` (`bool`) <i>optional</i>
+
+
+NOT RECOMMENDED. Create rules "inline" instead of as separate `aws_security_group_rule` resources.<br/>
+See [#20046](https://github.com/hashicorp/terraform-provider-aws/issues/20046) for one of several issues with inline rules.<br/>
+See [this post](https://github.com/hashicorp/terraform-provider-aws/pull/9032#issuecomment-639545250) for details on the difference between inline rules and rule resources.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `jmx_exporter_enabled` (`bool`) <i>optional</i>
+
+
+Set `true` to enable the JMX Exporter<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `node_exporter_enabled` (`bool`) <i>optional</i>
+
+
+Set `true` to enable the Node Exporter<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `preserve_security_group_id` (`bool`) <i>optional</i>
+
+
+When `false` and `security_group_create_before_destroy` is `true`, changes to security group rules<br/>
+cause a new security group to be created with the new rules, and the existing security group is then<br/>
+replaced with the new one, eliminating any service interruption.<br/>
+When `true` or when changing the value (from `false` to `true` or from `true` to `false`),<br/>
+existing security group rules will be deleted before new ones are created, resulting in a service interruption,<br/>
+but preserving the security group itself.<br/>
+**NOTE:** Setting this to `true` does not guarantee the security group will never be replaced,<br/>
+it only keeps changes to the security group rules from triggering a replacement.<br/>
+See the [terraform-aws-security-group README](https://github.com/cloudposse/terraform-aws-security-group) for further discussion.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `properties` (`map(string)`) <i>optional</i>
+
+
+Contents of the server.properties file. Supported properties are documented in the [MSK Developer Guide](https://docs.aws.amazon.com/msk/latest/developerguide/msk-configuration-properties.html)<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `public_access_enabled` (`bool`) <i>optional</i>
+
+
+Enable public access to MSK cluster (given that all of the requirements are met)<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `s3_logs_bucket` (`string`) <i>optional</i>
+
+
+Name of the S3 bucket to deliver logs to<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
+>   </dd>
+> </dl>
+>
+
+
+### `s3_logs_enabled` (`bool`) <i>optional</i>
+
+
+ Indicates whether you want to enable or disable streaming broker logs to S3<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `s3_logs_prefix` (`string`) <i>optional</i>
+
+
+Prefix to append to the S3 folder name logs are delivered to<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
+>   </dd>
+> </dl>
+>
+
+
+### `security_group_create_before_destroy` (`bool`) <i>optional</i>
+
+
+Set `true` to enable terraform `create_before_destroy` behavior on the created security group.<br/>
+We only recommend setting this `false` if you are importing an existing security group<br/>
+that you do not want replaced and therefore need full control over its name.<br/>
+Note that changing this value will always cause the security group to be replaced.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `security_group_create_timeout` (`string`) <i>optional</i>
+
+
+How long to wait for the security group to be created.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"10m"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `security_group_delete_timeout` (`string`) <i>optional</i>
+
+
+How long to retry on `DependencyViolation` errors during security group deletion from<br/>
+lingering ENIs left by certain AWS services such as Elastic Load Balancing.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"15m"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `security_group_description` (`string`) <i>optional</i>
+
+
+The description to assign to the created Security Group.<br/>
+Warning: Changing the description causes the security group to be replaced.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"Managed by Terraform"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `security_group_name` (`list(string)`) <i>optional</i>
+
+
+The name to assign to the created security group. Must be unique within the VPC.<br/>
+If not provided, will be derived from the `null-label.context` passed in.<br/>
+If `create_before_destroy` is true, will be used as a name prefix.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
+>   </dd>
+> </dl>
+>
+
+
+### `security_group_rule_description` (`string`) <i>optional</i>
+
+
+The description to place on each security group rule. The %s will be replaced with the protocol name<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"Allow inbound %s traffic"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `storage_autoscaling_disable_scale_in` (`bool`) <i>optional</i>
+
+
+If the value is true, scale in is disabled and the target tracking policy won't remove capacity from the scalable resource<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `storage_autoscaling_max_capacity` (`number`) <i>optional</i>
+
+
+Maximum size the autoscaling policy can scale storage. Defaults to `broker_volume_size`<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `storage_autoscaling_target_value` (`number`) <i>optional</i>
+
+
+Percentage of storage used to trigger autoscaled storage increase<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>60</code>
+>   </dd>
+> </dl>
+>
+
+
+
+## Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
+
+<details>
+<summary>Click to expand</summary>
+
+
+### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+This is for some rare cases where resources want additional configuration of tags<br/>
+and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `attributes` (`list(string)`) <i>optional</i>
+
+
+ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+in the order they appear in the list. New attributes are appended to the<br/>
+end of the list. The elements of the list are joined by the `delimiter`<br/>
+and treated as a single ID element.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
+>   </dd>
+> </dl>
+>
+
+
+### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>any</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   {
+>     "additional_tag_map": {},
+>     "attributes": [],
+>     "delimiter": null,
+>     "descriptor_formats": {},
+>     "enabled": true,
+>     "environment": null,
+>     "id_length_limit": null,
+>     "label_key_case": null,
+>     "label_order": [],
+>     "label_value_case": null,
+>     "labels_as_tags": [
+>       "unset"
+>     ],
+>     "name": null,
+>     "namespace": null,
+>     "regex_replace_chars": null,
+>     "stage": null,
+>     "tags": {},
+>     "tenant": null
+>   }
+>   ```
+>
+>   </dd>
+> </dl>
+>
+
+
+### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between ID elements.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `descriptor_formats` (`any`) <i>optional</i>
+
+
+Describe additional descriptors to be output in the `descriptors` output map.<br/>
+Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+`{<br/>
+   format = string<br/>
+   labels = list(string)<br/>
+}`<br/>
+(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+`format` is a Terraform format string to be passed to the `format()` function.<br/>
+`labels` is a list of labels, in order, to pass to `format()` function.<br/>
+Label values will be normalized before being passed to `format()` so they will be<br/>
+identical to how they appear in `id`.<br/>
+Default is `{}` (`descriptors` output will be empty).<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>any</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `environment` (`string`) <i>optional</i>
+
+
+ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `label_key_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+Does not affect keys of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `label_order` (`list(string)`) <i>optional</i>
+
+
+The order in which the labels (ID elements) appear in the `id`.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `label_value_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of ID elements (labels) as included in `id`,<br/>
+set as tag values, and output by this module individually.<br/>
+Does not affect values of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+Default value: `lower`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `labels_as_tags` (`set(string)`) <i>optional</i>
+
+
+Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+Default is to include all labels.<br/>
+Tags with empty values will not be included in the `tags` output.<br/>
+Set to `[]` to suppress all generated tags.<br/>
+**Notes:**<br/>
+  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>set(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   [
+>     "default"
+>   ]
+>   ```
+>
+>   </dd>
+> </dl>
+>
+
+
+### `name` (`string`) <i>optional</i>
+
+
+ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+This is the only ID element not also included as a `tag`.<br/>
+The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `namespace` (`string`) <i>optional</i>
+
+
+ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Terraform regular expression (regex) string.<br/>
+Characters matching the regex will be removed from the ID elements.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `stage` (`string`) <i>optional</i>
+
+
+ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+Neither the tag keys nor the tag values will be modified by this module.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `tenant` (`string`) <i>optional</i>
+
+
+ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+
+</details>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

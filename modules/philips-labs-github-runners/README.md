@@ -74,80 +74,829 @@ the component, and available via the `webhook` output under `endpoint`.
 
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
-| <a name="requirement_local"></a> [local](#requirement\_local) | >= 2.4.0 |
-| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.0 |
+
+
+## Version Requirements
+
+| Requirement | Version |
+| --- | --- |
+| `terraform` | ![>= 1.0.0](https://img.shields.io/badge/>=_1.0.0-success.svg?style=for-the-badge) |
+| `aws` | ![>= 4.9.0](https://img.shields.io/badge/>=_4.9.0-success.svg?style=for-the-badge) |
+| `local` | ![>= 2.4.0](https://img.shields.io/badge/>=_2.4.0-success.svg?style=for-the-badge) |
+| `random` | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
+
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_random"></a> [random](#provider\_random) | >= 3.0 |
+| Provider | Version |
+| --- | --- |
+| [`random`](https://registry.terraform.io/providers/random/latest) | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
+
 
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_github_runner"></a> [github\_runner](#module\_github\_runner) | philips-labs/github-runner/aws | 5.4.2 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_module_artifact"></a> [module\_artifact](#module\_module\_artifact) | cloudposse/module-artifact/external | 0.8.0 |
-| <a name="module_store_read"></a> [store\_read](#module\_store\_read) | cloudposse/ssm-parameter-store/aws | 0.11.0 |
-| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_webhook_github_app"></a> [webhook\_github\_app](#module\_webhook\_github\_app) | philips-labs/github-runner/aws//modules/webhook-github-app | 5.4.2 |
+Name | Version | Source | Description
+--- | --- | --- | ---
+`github_runner` | [![5.4.2](https://img.shields.io/badge/5.4.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/philips-labs/github-runner/aws/5.4.2) | [`philips-labs/github-runner/aws`](https://registry.terraform.io/modules/philips-labs/github-runner/aws/5.4.2) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`module_artifact` | [![0.8.0](https://img.shields.io/badge/0.8.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/module-artifact/external/0.8.0) | [`cloudposse/module-artifact/external`](https://registry.terraform.io/modules/cloudposse/module-artifact/external/0.8.0) | n/a
+`store_read` | [![0.11.0](https://img.shields.io/badge/0.11.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/ssm-parameter-store/aws/0.11.0) | [`cloudposse/ssm-parameter-store/aws`](https://registry.terraform.io/modules/cloudposse/ssm-parameter-store/aws/0.11.0) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`vpc` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`webhook_github_app` | [![5.4.2](https://img.shields.io/badge/5.4.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/philips-labs/github-runner/aws/5.4.2/submodules/webhook-github-app) | [`philips-labs/github-runner/aws//modules/webhook-github-app`](https://registry.terraform.io/modules/philips-labs/github-runner/aws/5.4.2/submodules/webhook-github-app) | n/a
+
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [random_id.webhook_secret](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
+The following resources are used by this module:
 
-## Inputs
+  - [`random_id.webhook_secret`](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) (resource)(main.tf#33)
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
-| <a name="input_create_service_linked_role_spot"></a> [create\_service\_linked\_role\_spot](#input\_create\_service\_linked\_role\_spot) | (optional) create the service linked role for spot instances that is required by the scale-up lambda. | `bool` | `true` | no |
-| <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_enable_update_github_app_webhook"></a> [enable\_update\_github\_app\_webhook](#input\_enable\_update\_github\_app\_webhook) | Enable updating the github app webhook | `bool` | `false` | no |
-| <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_github_app_id_ssm_path"></a> [github\_app\_id\_ssm\_path](#input\_github\_app\_id\_ssm\_path) | Path to the github app id in SSM | `string` | `"/pl-github-runners/id"` | no |
-| <a name="input_github_app_key_ssm_path"></a> [github\_app\_key\_ssm\_path](#input\_github\_app\_key\_ssm\_path) | Path to the github key in SSM | `string` | `"/pl-github-runners/key"` | no |
-| <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_instance_target_capacity_type"></a> [instance\_target\_capacity\_type](#input\_instance\_target\_capacity\_type) | Default lifecycle used for runner instances, can be either `spot` or `on-demand`. | `string` | `"spot"` | no |
-| <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
-| <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
-| <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
-| <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
-| <a name="input_region"></a> [region](#input\_region) | AWS region | `string` | n/a | yes |
-| <a name="input_release_version"></a> [release\_version](#input\_release\_version) | Version of the application | `string` | `"v5.4.0"` | no |
-| <a name="input_runner_extra_labels"></a> [runner\_extra\_labels](#input\_runner\_extra\_labels) | Extra (custom) labels for the runners (GitHub). Labels checks on the webhook can be enforced by setting `enable_workflow_job_labels_check`. GitHub read-only labels should not be provided. | `list(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_scale_up_reserved_concurrent_executions"></a> [scale\_up\_reserved\_concurrent\_executions](#input\_scale\_up\_reserved\_concurrent\_executions) | Amount of reserved concurrent executions for the scale-up lambda function. A value of 0 disables lambda from being triggered and -1 removes any concurrency limitations. | `number` | `-1` | no |
-| <a name="input_ssm_paths"></a> [ssm\_paths](#input\_ssm\_paths) | The root path used in SSM to store configuration and secrets. | <pre>object({<br>    root       = optional(string, "github-action-runners")<br>    app        = optional(string, "app")<br>    runners    = optional(string, "runners")<br>    use_prefix = optional(bool, true)<br>  })</pre> | `{}` | no |
-| <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
-| <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
+## Data Sources
+
+The following data sources are used by this module:
+
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_github_runners"></a> [github\_runners](#output\_github\_runners) | Information about the GitHub runners. |
-| <a name="output_queues"></a> [queues](#output\_queues) | Information about the GitHub runner queues. Such as `build_queue_arn` the ARN of the SQS queue to use for the build queue. |
-| <a name="output_ssm_parameters"></a> [ssm\_parameters](#output\_ssm\_parameters) | Information about the SSM parameters to use to register the runner. |
-| <a name="output_webhook"></a> [webhook](#output\_webhook) | Information about the webhook to use to register the runner. |
+<dl>
+  <dt><code>github_runners</code></dt>
+  <dd>
+
+  
+  Information about the GitHub runners.<br/>
+
+  </dd>
+  <dt><code>queues</code></dt>
+  <dd>
+
+  
+  Information about the GitHub runner queues. Such as `build_queue_arn` the ARN of the SQS queue to use for the build queue.<br/>
+
+  </dd>
+  <dt><code>ssm_parameters</code></dt>
+  <dd>
+
+  
+  Information about the SSM parameters to use to register the runner.<br/>
+
+  </dd>
+  <dt><code>webhook</code></dt>
+  <dd>
+
+  
+  Information about the webhook to use to register the runner.<br/>
+
+  </dd>
+</dl>
+
+## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
+### `region` (`string`) <i>required</i>
+
+
+AWS region<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
+>   </dd>
+> </dl>
+>
+
+
+
+## Optional Variables
+### `create_service_linked_role_spot` (`bool`) <i>optional</i>
+
+
+(optional) create the service linked role for spot instances that is required by the scale-up lambda.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `enable_update_github_app_webhook` (`bool`) <i>optional</i>
+
+
+Enable updating the github app webhook<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `github_app_id_ssm_path` (`string`) <i>optional</i>
+
+
+Path to the github app id in SSM<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"/pl-github-runners/id"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `github_app_key_ssm_path` (`string`) <i>optional</i>
+
+
+Path to the github key in SSM<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"/pl-github-runners/key"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `instance_target_capacity_type` (`string`) <i>optional</i>
+
+
+Default lifecycle used for runner instances, can be either `spot` or `on-demand`.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"spot"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `release_version` (`string`) <i>optional</i>
+
+
+Version of the application<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"v5.4.0"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `runner_extra_labels` (`list(string)`) <i>optional</i>
+
+
+Extra (custom) labels for the runners (GitHub). Labels checks on the webhook can be enforced by setting `enable_workflow_job_labels_check`. GitHub read-only labels should not be provided.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   [
+>     "default"
+>   ]
+>   ```
+>
+>   </dd>
+> </dl>
+>
+
+
+### `scale_up_reserved_concurrent_executions` (`number`) <i>optional</i>
+
+
+Amount of reserved concurrent executions for the scale-up lambda function. A value of 0 disables lambda from being triggered and -1 removes any concurrency limitations.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>-1</code>
+>   </dd>
+> </dl>
+>
+
+
+### `ssm_paths` <i>optional</i>
+
+
+The root path used in SSM to store configuration and secrets.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   object({
+    root       = optional(string, "github-action-runners")
+    app        = optional(string, "app")
+    runners    = optional(string, "runners")
+    use_prefix = optional(bool, true)
+  })
+>   ```
+>
+>   
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+
+## Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
+
+<details>
+<summary>Click to expand</summary>
+
+
+### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+This is for some rare cases where resources want additional configuration of tags<br/>
+and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `attributes` (`list(string)`) <i>optional</i>
+
+
+ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+in the order they appear in the list. New attributes are appended to the<br/>
+end of the list. The elements of the list are joined by the `delimiter`<br/>
+and treated as a single ID element.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
+>   </dd>
+> </dl>
+>
+
+
+### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>any</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   {
+>     "additional_tag_map": {},
+>     "attributes": [],
+>     "delimiter": null,
+>     "descriptor_formats": {},
+>     "enabled": true,
+>     "environment": null,
+>     "id_length_limit": null,
+>     "label_key_case": null,
+>     "label_order": [],
+>     "label_value_case": null,
+>     "labels_as_tags": [
+>       "unset"
+>     ],
+>     "name": null,
+>     "namespace": null,
+>     "regex_replace_chars": null,
+>     "stage": null,
+>     "tags": {},
+>     "tenant": null
+>   }
+>   ```
+>
+>   </dd>
+> </dl>
+>
+
+
+### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between ID elements.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `descriptor_formats` (`any`) <i>optional</i>
+
+
+Describe additional descriptors to be output in the `descriptors` output map.<br/>
+Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+`{<br/>
+   format = string<br/>
+   labels = list(string)<br/>
+}`<br/>
+(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+`format` is a Terraform format string to be passed to the `format()` function.<br/>
+`labels` is a list of labels, in order, to pass to `format()` function.<br/>
+Label values will be normalized before being passed to `format()` so they will be<br/>
+identical to how they appear in `id`.<br/>
+Default is `{}` (`descriptors` output will be empty).<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>any</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `environment` (`string`) <i>optional</i>
+
+
+ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `label_key_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+Does not affect keys of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `label_order` (`list(string)`) <i>optional</i>
+
+
+The order in which the labels (ID elements) appear in the `id`.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `label_value_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of ID elements (labels) as included in `id`,<br/>
+set as tag values, and output by this module individually.<br/>
+Does not affect values of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+Default value: `lower`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `labels_as_tags` (`set(string)`) <i>optional</i>
+
+
+Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+Default is to include all labels.<br/>
+Tags with empty values will not be included in the `tags` output.<br/>
+Set to `[]` to suppress all generated tags.<br/>
+**Notes:**<br/>
+  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>set(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   [
+>     "default"
+>   ]
+>   ```
+>
+>   </dd>
+> </dl>
+>
+
+
+### `name` (`string`) <i>optional</i>
+
+
+ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+This is the only ID element not also included as a `tag`.<br/>
+The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `namespace` (`string`) <i>optional</i>
+
+
+ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Terraform regular expression (regex) string.<br/>
+Characters matching the regex will be removed from the ID elements.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `stage` (`string`) <i>optional</i>
+
+
+ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+Neither the tag keys nor the tag values will be modified by this module.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `tenant` (`string`) <i>optional</i>
+
+
+ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+
+</details>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

@@ -475,109 +475,1582 @@ documentation for further details.
 
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.0 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.0, != 2.21.0 |
+
+
+## Version Requirements
+
+| Requirement | Version |
+| --- | --- |
+| `terraform` | ![>= 1.3.0](https://img.shields.io/badge/>=_1.3.0-success.svg?style=for-the-badge) |
+| `aws` | ![>= 4.9.0](https://img.shields.io/badge/>=_4.9.0-success.svg?style=for-the-badge) |
+| `helm` | ![>= 2.0](https://img.shields.io/badge/>=_2.0-success.svg?style=for-the-badge) |
+| `kubernetes` | ![>= 2.0, != 2.21.0](https://img.shields.io/badge/>=_2.0,_!=_2.21.0-success.svg?style=for-the-badge) |
+
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9.0 |
+| Provider | Version |
+| --- | --- |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ![>= 4.9.0](https://img.shields.io/badge/>=_4.9.0-success.svg?style=for-the-badge) |
+
 
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_actions_runner"></a> [actions\_runner](#module\_actions\_runner) | cloudposse/helm-release/aws | 0.10.1 |
-| <a name="module_actions_runner_controller"></a> [actions\_runner\_controller](#module\_actions\_runner\_controller) | cloudposse/helm-release/aws | 0.10.1 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
-| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
+Name | Version | Source | Description
+--- | --- | --- | ---
+`actions_runner` | [![0.10.1](https://img.shields.io/badge/0.10.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/helm-release/aws/0.10.1) | [`cloudposse/helm-release/aws`](https://registry.terraform.io/modules/cloudposse/helm-release/aws/0.10.1) | n/a
+`actions_runner_controller` | [![0.10.1](https://img.shields.io/badge/0.10.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/helm-release/aws/0.10.1) | [`cloudposse/helm-release/aws`](https://registry.terraform.io/modules/cloudposse/helm-release/aws/0.10.1) | n/a
+`eks` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../../account-map/modules/iam-roles) | [`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
-| [aws_ssm_parameter.docker_config_json](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameter.github_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameter.github_webhook_secret_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+The following resources are used by this module:
 
-## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_atomic"></a> [atomic](#input\_atomic) | If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used. | `bool` | `true` | no |
-| <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_chart"></a> [chart](#input\_chart) | Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended. | `string` | n/a | yes |
-| <a name="input_chart_description"></a> [chart\_description](#input\_chart\_description) | Set release description attribute (visible in the history). | `string` | `null` | no |
-| <a name="input_chart_repository"></a> [chart\_repository](#input\_chart\_repository) | Repository URL where to locate the requested chart. | `string` | n/a | yes |
-| <a name="input_chart_values"></a> [chart\_values](#input\_chart\_values) | Additional values to yamlencode as `helm_release` values. | `any` | `{}` | no |
-| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Specify the exact chart version to install. If this is not specified, the latest version is installed. | `string` | `null` | no |
-| <a name="input_cleanup_on_fail"></a> [cleanup\_on\_fail](#input\_cleanup\_on\_fail) | Allow deletion of new resources created in this upgrade when upgrade fails. | `bool` | `true` | no |
-| <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
-| <a name="input_context_tags_enabled"></a> [context\_tags\_enabled](#input\_context\_tags\_enabled) | Whether or not to include all context tags as labels for each runner | `bool` | `false` | no |
-| <a name="input_controller_replica_count"></a> [controller\_replica\_count](#input\_controller\_replica\_count) | The number of replicas of the runner-controller to run. | `number` | `2` | no |
-| <a name="input_create_namespace"></a> [create\_namespace](#input\_create\_namespace) | Create the namespace if it does not yet exist. Defaults to `false`. | `bool` | `null` | no |
-| <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_docker_config_json_enabled"></a> [docker\_config\_json\_enabled](#input\_docker\_config\_json\_enabled) | Whether the Docker config JSON is enabled | `bool` | `false` | no |
-| <a name="input_eks_component_name"></a> [eks\_component\_name](#input\_eks\_component\_name) | The name of the eks component | `string` | `"eks/cluster"` | no |
-| <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_existing_kubernetes_secret_name"></a> [existing\_kubernetes\_secret\_name](#input\_existing\_kubernetes\_secret\_name) | If you are going to create the Kubernetes Secret the runner-controller will use<br>by some means (such as SOPS) outside of this component, set the name of the secret<br>here and it will be used. In this case, this component will not create a secret<br>and you can leave the secret-related inputs with their default (empty) values.<br>The same secret will be used by both the runner-controller and the webhook-server. | `string` | `""` | no |
-| <a name="input_github_app_id"></a> [github\_app\_id](#input\_github\_app\_id) | The ID of the GitHub App to use for the runner controller. | `string` | `""` | no |
-| <a name="input_github_app_installation_id"></a> [github\_app\_installation\_id](#input\_github\_app\_installation\_id) | The "Installation ID" of the GitHub App to use for the runner controller. | `string` | `""` | no |
-| <a name="input_helm_manifest_experiment_enabled"></a> [helm\_manifest\_experiment\_enabled](#input\_helm\_manifest\_experiment\_enabled) | Enable storing of the rendered manifest for helm\_release so the full diff of what is changing can been seen in the plan | `bool` | `false` | no |
-| <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_kube_data_auth_enabled"></a> [kube\_data\_auth\_enabled](#input\_kube\_data\_auth\_enabled) | If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`. | `bool` | `false` | no |
-| <a name="input_kube_exec_auth_aws_profile"></a> [kube\_exec\_auth\_aws\_profile](#input\_kube\_exec\_auth\_aws\_profile) | The AWS config profile for `aws eks get-token` to use | `string` | `""` | no |
-| <a name="input_kube_exec_auth_aws_profile_enabled"></a> [kube\_exec\_auth\_aws\_profile\_enabled](#input\_kube\_exec\_auth\_aws\_profile\_enabled) | If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-token` | `bool` | `false` | no |
-| <a name="input_kube_exec_auth_enabled"></a> [kube\_exec\_auth\_enabled](#input\_kube\_exec\_auth\_enabled) | If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-token` to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`. | `bool` | `true` | no |
-| <a name="input_kube_exec_auth_role_arn"></a> [kube\_exec\_auth\_role\_arn](#input\_kube\_exec\_auth\_role\_arn) | The role ARN for `aws eks get-token` to use | `string` | `""` | no |
-| <a name="input_kube_exec_auth_role_arn_enabled"></a> [kube\_exec\_auth\_role\_arn\_enabled](#input\_kube\_exec\_auth\_role\_arn\_enabled) | If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token` | `bool` | `true` | no |
-| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes config file.<br>If supplied, `kubeconfig_context_format` will be ignored. | `string` | `""` | no |
-| <a name="input_kubeconfig_context_format"></a> [kubeconfig\_context\_format](#input\_kubeconfig\_context\_format) | A format string to use for creating the `kubectl` context name when<br>`kubeconfig_file_enabled` is `true` and `kubeconfig_context` is not supplied.<br>Must include a single `%s` which will be replaced with the cluster name. | `string` | `""` | no |
-| <a name="input_kubeconfig_exec_auth_api_version"></a> [kubeconfig\_exec\_auth\_api\_version](#input\_kubeconfig\_exec\_auth\_api\_version) | The Kubernetes API version of the credentials returned by the `exec` auth plugin | `string` | `"client.authentication.k8s.io/v1beta1"` | no |
-| <a name="input_kubeconfig_file"></a> [kubeconfig\_file](#input\_kubeconfig\_file) | The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true` | `string` | `""` | no |
-| <a name="input_kubeconfig_file_enabled"></a> [kubeconfig\_file\_enabled](#input\_kubeconfig\_file\_enabled) | If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster | `bool` | `false` | no |
-| <a name="input_kubernetes_namespace"></a> [kubernetes\_namespace](#input\_kubernetes\_namespace) | The namespace to install the release into. | `string` | n/a | yes |
-| <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
-| <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
-| <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
-| <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_rbac_enabled"></a> [rbac\_enabled](#input\_rbac\_enabled) | Service Account for pods. | `bool` | `true` | no |
-| <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
-| <a name="input_region"></a> [region](#input\_region) | AWS Region. | `string` | n/a | yes |
-| <a name="input_resources"></a> [resources](#input\_resources) | The cpu and memory of the deployment's limits and requests. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | n/a | yes |
-| <a name="input_runners"></a> [runners](#input\_runners) | Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in<br>kebab-case.<br><br>For example:<pre>hcl<br>organization_runner = {<br>  type = "organization" # can be either 'organization' or 'repository'<br>  dind_enabled: true # A Docker daemon will be started in the runner Pod<br>  image: summerwind/actions-runner-dind # If dind_enabled=false, set this to 'summerwind/actions-runner'<br>  scope = "ACME"  # org name for Organization runners, repo name for Repository runners<br>  group = "core-automation" # Optional. Assigns the runners to a runner group, for access control.<br>  scale_down_delay_seconds = 300<br>  min_replicas = 1<br>  max_replicas = 5<br>  labels = [<br>    "Ubuntu",<br>    "core-automation",<br>  ]<br>}</pre> | <pre>map(object({<br>    type            = string<br>    scope           = string<br>    group           = optional(string, null)<br>    image           = optional(string, "summerwind/actions-runner-dind")<br>    dind_enabled    = optional(bool, true)<br>    node_selector   = optional(map(string), {})<br>    pod_annotations = optional(map(string), {})<br><br>    # running_pod_annotations are only applied to the pods once they start running a job<br>    running_pod_annotations = optional(map(string), {})<br><br>    # affinity is too complex to model. Whatever you assigned affinity will be copied<br>    # to the runner Pod spec.<br>    affinity = optional(any)<br><br>    tolerations = optional(list(object({<br>      key      = string<br>      operator = string<br>      value    = optional(string, null)<br>      effect   = string<br>    })), [])<br>    scale_down_delay_seconds = optional(number, 300)<br>    min_replicas             = number<br>    max_replicas             = number<br>    busy_metrics = optional(object({<br>      scale_up_threshold    = string<br>      scale_down_threshold  = string<br>      scale_up_adjustment   = optional(string)<br>      scale_down_adjustment = optional(string)<br>      scale_up_factor       = optional(string)<br>      scale_down_factor     = optional(string)<br>    }))<br>    webhook_driven_scaling_enabled = optional(bool, true)<br>    # The name `webhook_startup_timeout` is misleading.<br>    # It is actually the duration after which a job will be considered completed,<br>    # (and the runner killed) even if the webhook has not received a "job completed" event.<br>    # This is to ensure that if an event is missed, it does not leave the runner running forever.<br>    # Set it long enough to cover the longest job you expect to run and then some.<br>    # See https://github.com/actions/actions-runner-controller/blob/9afd93065fa8b1f87296f0dcdf0c2753a0548cb7/docs/automatically-scaling-runners.md?plain=1#L264-L268<br>    webhook_startup_timeout     = optional(string, "1h")<br>    pull_driven_scaling_enabled = optional(bool, false)<br>    labels                      = optional(list(string), [])<br>    docker_storage              = optional(string, null)<br>    # storage is deprecated in favor of docker_storage, since it is only storage for the Docker daemon<br>    storage     = optional(string, null)<br>    pvc_enabled = optional(bool, false)<br>    resources = optional(object({<br>      limits = optional(object({<br>        cpu               = optional(string, "1")<br>        memory            = optional(string, "1Gi")<br>        ephemeral_storage = optional(string, "10Gi")<br>      }), {})<br>      requests = optional(object({<br>        cpu               = optional(string, "500m")<br>        memory            = optional(string, "256Mi")<br>        ephemeral_storage = optional(string, "1Gi")<br>      }), {})<br>    }), {})<br>  }))</pre> | n/a | yes |
-| <a name="input_s3_bucket_arns"></a> [s3\_bucket\_arns](#input\_s3\_bucket\_arns) | List of ARNs of S3 Buckets to which the runners will have read-write access to. | `list(string)` | `[]` | no |
-| <a name="input_ssm_docker_config_json_path"></a> [ssm\_docker\_config\_json\_path](#input\_ssm\_docker\_config\_json\_path) | SSM path to the Docker config JSON | `string` | `null` | no |
-| <a name="input_ssm_github_secret_path"></a> [ssm\_github\_secret\_path](#input\_ssm\_github\_secret\_path) | The path in SSM to the GitHub app private key file contents or GitHub PAT token. | `string` | `""` | no |
-| <a name="input_ssm_github_webhook_secret_token_path"></a> [ssm\_github\_webhook\_secret\_token\_path](#input\_ssm\_github\_webhook\_secret\_token\_path) | The path in SSM to the GitHub Webhook Secret token. | `string` | `""` | no |
-| <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
-| <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_timeout"></a> [timeout](#input\_timeout) | Time in seconds to wait for any individual kubernetes operation (like Jobs for hooks). Defaults to `300` seconds | `number` | `null` | no |
-| <a name="input_wait"></a> [wait](#input\_wait) | Will wait until all resources are in a ready state before marking the release as successful. It will wait for as long as `timeout`. Defaults to `true`. | `bool` | `null` | no |
-| <a name="input_webhook"></a> [webhook](#input\_webhook) | Configuration for the GitHub Webhook Server.<br>`hostname_template` is the `format()` string to use to generate the hostname via `format(var.hostname_template, var.tenant, var.stage, var.environment)`"<br>Typically something like `"echo.%[3]v.%[2]v.example.com"`.<br>`queue_limit` is the maximum number of webhook events that can be queued up for processing by the autoscaler.<br>When the queue gets full, webhook events will be dropped (status 500). | <pre>object({<br>    enabled           = bool<br>    hostname_template = string<br>    queue_limit       = optional(number, 1000)<br>  })</pre> | <pre>{<br>  "enabled": false,<br>  "hostname_template": null,<br>  "queue_limit": 1000<br>}</pre> | no |
+## Data Sources
+
+The following data sources are used by this module:
+
+  - [`aws_eks_cluster_auth.eks`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) (data source)
+  - [`aws_ssm_parameter.docker_config_json`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
+  - [`aws_ssm_parameter.github_token`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
+  - [`aws_ssm_parameter.github_webhook_secret_token`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) (data source)
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
-| <a name="output_metadata_action_runner_releases"></a> [metadata\_action\_runner\_releases](#output\_metadata\_action\_runner\_releases) | Block statuses of the deployed actions-runner chart releases |
-| <a name="output_webhook_payload_url"></a> [webhook\_payload\_url](#output\_webhook\_payload\_url) | Payload URL for GitHub webhook |
+<dl>
+  <dt><code>metadata</code></dt>
+  <dd>
+
+  
+  Block status of the deployed release<br/>
+
+  </dd>
+  <dt><code>metadata_action_runner_releases</code></dt>
+  <dd>
+
+  
+  Block statuses of the deployed actions-runner chart releases<br/>
+
+  </dd>
+  <dt><code>webhook_payload_url</code></dt>
+  <dd>
+
+  
+  Payload URL for GitHub webhook<br/>
+
+  </dd>
+</dl>
+
+## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
+### `chart` (`string`) <i>required</i>
+
+
+Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if `repository` is specified. It is also possible to use the `<repository>/<chart>` format here if you are running Terraform on a system that the repository has been added to with `helm repo add` but this is not recommended.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
+>   </dd>
+> </dl>
+>
+
+
+### `chart_repository` (`string`) <i>required</i>
+
+
+Repository URL where to locate the requested chart.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
+>   </dd>
+> </dl>
+>
+
+
+### `kubernetes_namespace` (`string`) <i>required</i>
+
+
+The namespace to install the release into.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
+>   </dd>
+> </dl>
+>
+
+
+### `region` (`string`) <i>required</i>
+
+
+AWS Region.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
+>   </dd>
+> </dl>
+>
+
+
+### `resources` <i>required</i>
+
+
+The cpu and memory of the deployment's limits and requests.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   object({
+    limits = object({
+      cpu    = string
+      memory = string
+    })
+    requests = object({
+      cpu    = string
+      memory = string
+    })
+  })
+>   ```
+>
+>   
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
+>   </dd>
+> </dl>
+>
+
+
+### `runners` <i>required</i>
+
+
+Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in<br/>
+kebab-case.<br/>
+<br/>
+For example:<br/>
+<br/>
+```hcl<br/>
+organization_runner = {<br/>
+  type = "organization" # can be either 'organization' or 'repository'<br/>
+  dind_enabled: true # A Docker daemon will be started in the runner Pod<br/>
+  image: summerwind/actions-runner-dind # If dind_enabled=false, set this to 'summerwind/actions-runner'<br/>
+  scope = "ACME"  # org name for Organization runners, repo name for Repository runners<br/>
+  group = "core-automation" # Optional. Assigns the runners to a runner group, for access control.<br/>
+  scale_down_delay_seconds = 300<br/>
+  min_replicas = 1<br/>
+  max_replicas = 5<br/>
+  labels = [<br/>
+    "Ubuntu",<br/>
+    "core-automation",<br/>
+  ]<br/>
+}<br/>
+```<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>Yes</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   map(object({
+    type            = string
+    scope           = string
+    group           = optional(string, null)
+    image           = optional(string, "summerwind/actions-runner-dind")
+    dind_enabled    = optional(bool, true)
+    node_selector   = optional(map(string), {})
+    pod_annotations = optional(map(string), {})
+
+    # running_pod_annotations are only applied to the pods once they start running a job
+    running_pod_annotations = optional(map(string), {})
+
+    # affinity is too complex to model. Whatever you assigned affinity will be copied
+    # to the runner Pod spec.
+    affinity = optional(any)
+
+    tolerations = optional(list(object({
+      key      = string
+      operator = string
+      value    = optional(string, null)
+      effect   = string
+    })), [])
+    scale_down_delay_seconds = optional(number, 300)
+    min_replicas             = number
+    max_replicas             = number
+    busy_metrics = optional(object({
+      scale_up_threshold    = string
+      scale_down_threshold  = string
+      scale_up_adjustment   = optional(string)
+      scale_down_adjustment = optional(string)
+      scale_up_factor       = optional(string)
+      scale_down_factor     = optional(string)
+    }))
+    webhook_driven_scaling_enabled = optional(bool, true)
+    # The name `webhook_startup_timeout` is misleading.
+    # It is actually the duration after which a job will be considered completed,
+    # (and the runner killed) even if the webhook has not received a "job completed" event.
+    # This is to ensure that if an event is missed, it does not leave the runner running forever.
+    # Set it long enough to cover the longest job you expect to run and then some.
+    # See https://github.com/actions/actions-runner-controller/blob/9afd93065fa8b1f87296f0dcdf0c2753a0548cb7/docs/automatically-scaling-runners.md?plain=1#L264-L268
+    webhook_startup_timeout     = optional(string, "1h")
+    pull_driven_scaling_enabled = optional(bool, false)
+    labels                      = optional(list(string), [])
+    docker_storage              = optional(string, null)
+    # storage is deprecated in favor of docker_storage, since it is only storage for the Docker daemon
+    storage     = optional(string, null)
+    pvc_enabled = optional(bool, false)
+    resources = optional(object({
+      limits = optional(object({
+        cpu               = optional(string, "1")
+        memory            = optional(string, "1Gi")
+        ephemeral_storage = optional(string, "10Gi")
+      }), {})
+      requests = optional(object({
+        cpu               = optional(string, "500m")
+        memory            = optional(string, "256Mi")
+        ephemeral_storage = optional(string, "1Gi")
+      }), {})
+    }), {})
+  }))
+>   ```
+>
+>   
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
+>   </dd>
+> </dl>
+>
+
+
+
+## Optional Variables
+### `atomic` (`bool`) <i>optional</i>
+
+
+If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `chart_description` (`string`) <i>optional</i>
+
+
+Set release description attribute (visible in the history).<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `chart_values` (`any`) <i>optional</i>
+
+
+Additional values to yamlencode as `helm_release` values.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>any</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `chart_version` (`string`) <i>optional</i>
+
+
+Specify the exact chart version to install. If this is not specified, the latest version is installed.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `cleanup_on_fail` (`bool`) <i>optional</i>
+
+
+Allow deletion of new resources created in this upgrade when upgrade fails.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `context_tags_enabled` (`bool`) <i>optional</i>
+
+
+Whether or not to include all context tags as labels for each runner<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `controller_replica_count` (`number`) <i>optional</i>
+
+
+The number of replicas of the runner-controller to run.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>2</code>
+>   </dd>
+> </dl>
+>
+
+
+### `create_namespace` (`bool`) <i>optional</i>
+
+
+Create the namespace if it does not yet exist. Defaults to `false`.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `docker_config_json_enabled` (`bool`) <i>optional</i>
+
+
+Whether the Docker config JSON is enabled<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `eks_component_name` (`string`) <i>optional</i>
+
+
+The name of the eks component<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"eks/cluster"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `existing_kubernetes_secret_name` (`string`) <i>optional</i>
+
+
+If you are going to create the Kubernetes Secret the runner-controller will use<br/>
+by some means (such as SOPS) outside of this component, set the name of the secret<br/>
+here and it will be used. In this case, this component will not create a secret<br/>
+and you can leave the secret-related inputs with their default (empty) values.<br/>
+The same secret will be used by both the runner-controller and the webhook-server.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
+>   </dd>
+> </dl>
+>
+
+
+### `github_app_id` (`string`) <i>optional</i>
+
+
+The ID of the GitHub App to use for the runner controller.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
+>   </dd>
+> </dl>
+>
+
+
+### `github_app_installation_id` (`string`) <i>optional</i>
+
+
+The "Installation ID" of the GitHub App to use for the runner controller.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
+>   </dd>
+> </dl>
+>
+
+
+### `helm_manifest_experiment_enabled` (`bool`) <i>optional</i>
+
+
+Enable storing of the rendered manifest for helm_release so the full diff of what is changing can been seen in the plan<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `kube_data_auth_enabled` (`bool`) <i>optional</i>
+
+
+If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS cluster.<br/>
+Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `kube_exec_auth_aws_profile` (`string`) <i>optional</i>
+
+
+The AWS config profile for `aws eks get-token` to use<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
+>   </dd>
+> </dl>
+>
+
+
+### `kube_exec_auth_aws_profile_enabled` (`bool`) <i>optional</i>
+
+
+If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-token`<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `kube_exec_auth_enabled` (`bool`) <i>optional</i>
+
+
+If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-token` to authenticate to the EKS cluster.<br/>
+Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `kube_exec_auth_role_arn` (`string`) <i>optional</i>
+
+
+The role ARN for `aws eks get-token` to use<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
+>   </dd>
+> </dl>
+>
+
+
+### `kube_exec_auth_role_arn_enabled` (`bool`) <i>optional</i>
+
+
+If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `kubeconfig_context` (`string`) <i>optional</i>
+
+
+Context to choose from the Kubernetes config file.<br/>
+If supplied, `kubeconfig_context_format` will be ignored.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
+>   </dd>
+> </dl>
+>
+
+
+### `kubeconfig_context_format` (`string`) <i>optional</i>
+
+
+A format string to use for creating the `kubectl` context name when<br/>
+`kubeconfig_file_enabled` is `true` and `kubeconfig_context` is not supplied.<br/>
+Must include a single `%s` which will be replaced with the cluster name.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
+>   </dd>
+> </dl>
+>
+
+
+### `kubeconfig_exec_auth_api_version` (`string`) <i>optional</i>
+
+
+The Kubernetes API version of the credentials returned by the `exec` auth plugin<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"client.authentication.k8s.io/v1beta1"</code>
+>   </dd>
+> </dl>
+>
+
+
+### `kubeconfig_file` (`string`) <i>optional</i>
+
+
+The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true`<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
+>   </dd>
+> </dl>
+>
+
+
+### `kubeconfig_file_enabled` (`bool`) <i>optional</i>
+
+
+If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
+>   </dd>
+> </dl>
+>
+
+
+### `rbac_enabled` (`bool`) <i>optional</i>
+
+
+Service Account for pods.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
+>   </dd>
+> </dl>
+>
+
+
+### `s3_bucket_arns` (`list(string)`) <i>optional</i>
+
+
+List of ARNs of S3 Buckets to which the runners will have read-write access to.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
+>   </dd>
+> </dl>
+>
+
+
+### `ssm_docker_config_json_path` (`string`) <i>optional</i>
+
+
+SSM path to the Docker config JSON<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `ssm_github_secret_path` (`string`) <i>optional</i>
+
+
+The path in SSM to the GitHub app private key file contents or GitHub PAT token.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
+>   </dd>
+> </dl>
+>
+
+
+### `ssm_github_webhook_secret_token_path` (`string`) <i>optional</i>
+
+
+The path in SSM to the GitHub Webhook Secret token.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
+>   </dd>
+> </dl>
+>
+
+
+### `timeout` (`number`) <i>optional</i>
+
+
+Time in seconds to wait for any individual kubernetes operation (like Jobs for hooks). Defaults to `300` seconds<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `wait` (`bool`) <i>optional</i>
+
+
+Will wait until all resources are in a ready state before marking the release as successful. It will wait for as long as `timeout`. Defaults to `true`.<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `webhook` <i>optional</i>
+
+
+Configuration for the GitHub Webhook Server.<br/>
+`hostname_template` is the `format()` string to use to generate the hostname via `format(var.hostname_template, var.tenant, var.stage, var.environment)`"<br/>
+Typically something like `"echo.%[3]v.%[2]v.example.com"`.<br/>
+`queue_limit` is the maximum number of webhook events that can be queued up for processing by the autoscaler.<br/>
+When the queue gets full, webhook events will be dropped (status 500).<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   object({
+    enabled           = bool
+    hostname_template = string
+    queue_limit       = optional(number, 1000)
+  })
+>   ```
+>
+>   
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   {
+>     "enabled": false,
+>     "hostname_template": null,
+>     "queue_limit": 1000
+>   }
+>   ```
+>
+>   </dd>
+> </dl>
+>
+
+
+
+## Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
+
+<details>
+<summary>Click to expand</summary>
+
+
+### `additional_tag_map` (`map(string)`) <i>optional</i>
+
+
+Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>
+This is for some rare cases where resources want additional configuration of tags<br/>
+and therefore take a list of maps with tag key, value, and additional configuration.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `attributes` (`list(string)`) <i>optional</i>
+
+
+ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>
+in the order they appear in the list. New attributes are appended to the<br/>
+end of the list. The elements of the list are joined by the `delimiter`<br/>
+and treated as a single ID element.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
+>   </dd>
+> </dl>
+>
+
+
+### `context` (`any`) <i>optional</i>
+
+
+Single object for setting entire context at once.<br/>
+See description of individual variables for details.<br/>
+Leave string and numeric variables as `null` to use default value.<br/>
+Individual variable settings (non-null) override settings in context object,<br/>
+except for attributes, tags, and additional_tag_map, which are merged.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>any</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   {
+>     "additional_tag_map": {},
+>     "attributes": [],
+>     "delimiter": null,
+>     "descriptor_formats": {},
+>     "enabled": true,
+>     "environment": null,
+>     "id_length_limit": null,
+>     "label_key_case": null,
+>     "label_order": [],
+>     "label_value_case": null,
+>     "labels_as_tags": [
+>       "unset"
+>     ],
+>     "name": null,
+>     "namespace": null,
+>     "regex_replace_chars": null,
+>     "stage": null,
+>     "tags": {},
+>     "tenant": null
+>   }
+>   ```
+>
+>   </dd>
+> </dl>
+>
+
+
+### `delimiter` (`string`) <i>optional</i>
+
+
+Delimiter to be used between ID elements.<br/>
+Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `descriptor_formats` (`any`) <i>optional</i>
+
+
+Describe additional descriptors to be output in the `descriptors` output map.<br/>
+Map of maps. Keys are names of descriptors. Values are maps of the form<br/>
+`{<br/>
+   format = string<br/>
+   labels = list(string)<br/>
+}`<br/>
+(Type is `any` so the map values can later be enhanced to provide additional options.)<br/>
+`format` is a Terraform format string to be passed to the `format()` function.<br/>
+`labels` is a list of labels, in order, to pass to `format()` function.<br/>
+Label values will be normalized before being passed to `format()` so they will be<br/>
+identical to how they appear in `id`.<br/>
+Default is `{}` (`descriptors` output will be empty).<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>any</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `enabled` (`bool`) <i>optional</i>
+
+
+Set to false to prevent the module from creating any resources<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>bool</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `environment` (`string`) <i>optional</i>
+
+
+ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT'<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `id_length_limit` (`number`) <i>optional</i>
+
+
+Limit `id` to this many characters (minimum 6).<br/>
+Set to `0` for unlimited length.<br/>
+Set to `null` for keep the existing setting, which defaults to `0`.<br/>
+Does not affect `id_full`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>number</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `label_key_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br/>
+Does not affect keys of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper`.<br/>
+Default value: `title`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `label_order` (`list(string)`) <i>optional</i>
+
+
+The order in which the labels (ID elements) appear in the `id`.<br/>
+Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br/>
+You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>list(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `label_value_case` (`string`) <i>optional</i>
+
+
+Controls the letter case of ID elements (labels) as included in `id`,<br/>
+set as tag values, and output by this module individually.<br/>
+Does not affect values of tags passed in via the `tags` input.<br/>
+Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br/>
+Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br/>
+Default value: `lower`.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `labels_as_tags` (`set(string)`) <i>optional</i>
+
+
+Set of labels (ID elements) to include as tags in the `tags` output.<br/>
+Default is to include all labels.<br/>
+Tags with empty values will not be included in the `tags` output.<br/>
+Set to `[]` to suppress all generated tags.<br/>
+**Notes:**<br/>
+  The value of the `name` tag, if included, will be the `id`, not the `name`.<br/>
+  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br/>
+  changed in later chained modules. Attempts to change it will be silently ignored.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>set(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   
+>
+>   ```hcl
+>   [
+>     "default"
+>   ]
+>   ```
+>
+>   </dd>
+> </dl>
+>
+
+
+### `name` (`string`) <i>optional</i>
+
+
+ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br/>
+This is the only ID element not also included as a `tag`.<br/>
+The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `namespace` (`string`) <i>optional</i>
+
+
+ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `regex_replace_chars` (`string`) <i>optional</i>
+
+
+Terraform regular expression (regex) string.<br/>
+Characters matching the regex will be removed from the ID elements.<br/>
+If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `stage` (`string`) <i>optional</i>
+
+
+ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+### `tags` (`map(string)`) <i>optional</i>
+
+
+Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>
+Neither the tag keys nor the tag values will be modified by this module.<br/>
+<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>map(string)</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
+>   </dd>
+> </dl>
+>
+
+
+### `tenant` (`string`) <i>optional</i>
+
+
+ID element _(Rarely used, not included by default)_. A customer identifier, indicating who this instance of a resource is for<br/>
+
+>
+> <dl>
+>   <dt>Required</dt>
+>   <dd>No</dd>
+>   <dt>Type</dt>
+>   <dd>
+>   <code>string</code>
+>   </dd>
+>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
+>   </dd>
+> </dl>
+>
+
+
+
+</details>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 

@@ -70,44 +70,94 @@ atmos terraform apply guardduty/common-uw1 -s core-uw1-security
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-No requirements.
+
+
+
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
-| <a name="provider_awsutils"></a> [awsutils](#provider\_awsutils) | n/a |
+| Provider | Version |
+| --- | --- |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge) |
+| [`awsutils`](https://registry.terraform.io/providers/awsutils/latest) | ![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge) |
+
 
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
-| <a name="module_guardduty"></a> [guardduty](#module\_guardduty) | cloudposse/guardduty/aws | 0.5.0 |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
+Name | Version | Source | Description
+--- | --- | --- | ---
+`account_map` | [![1.4.2](https://img.shields.io/badge/1.4.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.2/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.2/submodules/remote-state) | n/a
+`guardduty` | [![0.5.0](https://img.shields.io/badge/0.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/guardduty/aws/0.5.0) | [`cloudposse/guardduty/aws`](https://registry.terraform.io/modules/cloudposse/guardduty/aws/0.5.0) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../../account-map/modules/iam-roles) | [`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles) | n/a
+
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [awsutils_guardduty_organization_settings.this](https://registry.terraform.io/providers/hashicorp/awsutils/latest/docs/resources/guardduty_organization_settings) | resource |
-| [aws_caller_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+The following resources are used by this module:
 
-## Inputs
+  - [`awsutils_guardduty_organization_settings.this`](https://registry.terraform.io/providers/hashicorp/awsutils/latest/docs/resources/guardduty_organization_settings) (resource)(main.tf#30)
 
-No inputs.
+## Data Sources
+
+The following data sources are used by this module:
+
+  - [`aws_caller_identity.this`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_guardduty_detector_arn"></a> [guardduty\_detector\_arn](#output\_guardduty\_detector\_arn) | GuardDuty detector ARN |
-| <a name="output_guardduty_detector_id"></a> [guardduty\_detector\_id](#output\_guardduty\_detector\_id) | GuardDuty detector ID |
-| <a name="output_sns_topic_name"></a> [sns\_topic\_name](#output\_sns\_topic\_name) | SNS topic name |
-| <a name="output_sns_topic_subscriptions"></a> [sns\_topic\_subscriptions](#output\_sns\_topic\_subscriptions) | SNS topic subscriptions |
+<dl>
+  <dt><code>guardduty_detector_arn</code></dt>
+  <dd>
+
+  
+  GuardDuty detector ARN<br/>
+
+  </dd>
+  <dt><code>guardduty_detector_id</code></dt>
+  <dd>
+
+  
+  GuardDuty detector ID<br/>
+
+  </dd>
+  <dt><code>sns_topic_name</code></dt>
+  <dd>
+
+  
+  SNS topic name<br/>
+
+  </dd>
+  <dt><code>sns_topic_subscriptions</code></dt>
+  <dd>
+
+  
+  SNS topic subscriptions<br/>
+
+  </dd>
+</dl>
+
+## Required Variables
+
+Required variables are the minimum set of variables that must be set to use this module.
+
+> [!IMPORTANT]
+>
+> To customize the names and tags of the resources created by this module, see the [context variables](#context-variables).
+>
+
+
+
+## Context Variables
+
+The following variables are defined in the `context.tf` file of this module and part of the [terraform-null-label](https://registry.terraform.io/modules/cloudposse/label/null) pattern. These are identical in all Cloud Posse modules.
+
+<details>
+<summary>Click to expand</summary>
+
+
+
+</details>
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## References
