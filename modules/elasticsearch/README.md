@@ -81,52 +81,52 @@ The following data sources are used by this module:
 <dl>
   <dt><code>domain_arn</code></dt>
   <dd>
-    ARN of the Elasticsearch domain<br/>
+  ARN of the Elasticsearch domain<br/>
 
   </dd>
   <dt><code>domain_endpoint</code></dt>
   <dd>
-    Domain-specific endpoint used to submit index, search, and data upload requests<br/>
+  Domain-specific endpoint used to submit index, search, and data upload requests<br/>
 
   </dd>
   <dt><code>domain_hostname</code></dt>
   <dd>
-    Elasticsearch domain hostname to submit index, search, and data upload requests<br/>
+  Elasticsearch domain hostname to submit index, search, and data upload requests<br/>
 
   </dd>
   <dt><code>domain_id</code></dt>
   <dd>
-    Unique identifier for the Elasticsearch domain<br/>
+  Unique identifier for the Elasticsearch domain<br/>
 
   </dd>
   <dt><code>elasticsearch_user_iam_role_arn</code></dt>
   <dd>
-    The ARN of the IAM role to allow access to Elasticsearch cluster<br/>
+  The ARN of the IAM role to allow access to Elasticsearch cluster<br/>
 
   </dd>
   <dt><code>elasticsearch_user_iam_role_name</code></dt>
   <dd>
-    The name of the IAM role to allow access to Elasticsearch cluster<br/>
+  The name of the IAM role to allow access to Elasticsearch cluster<br/>
 
   </dd>
   <dt><code>kibana_endpoint</code></dt>
   <dd>
-    Domain-specific endpoint for Kibana without https scheme<br/>
+  Domain-specific endpoint for Kibana without https scheme<br/>
 
   </dd>
   <dt><code>kibana_hostname</code></dt>
   <dd>
-    Kibana hostname<br/>
+  Kibana hostname<br/>
 
   </dd>
   <dt><code>master_password_ssm_key</code></dt>
   <dd>
-    SSM key of Elasticsearch master password<br/>
+  SSM key of Elasticsearch master password<br/>
 
   </dd>
   <dt><code>security_group_id</code></dt>
   <dd>
-    Security Group ID to control access to the Elasticsearch domain<br/>
+  Security Group ID to control access to the Elasticsearch domain<br/>
 
   </dd>
 </dl>
@@ -154,11 +154,11 @@ See https://github.com/terraform-providers/terraform-provider-aws/issues/5218 fo
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -176,11 +176,11 @@ Indicates whether dedicated master nodes are enabled for the cluster<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -198,11 +198,11 @@ Explicit flag to enable creating a DNS hostname for ES. If `true`, then `var.dns
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -220,11 +220,11 @@ EBS volumes for data storage in GB<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -242,11 +242,11 @@ The name of the subdomain for Elasticsearch in the DNS zone (_e.g._ `elasticsear
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -264,11 +264,11 @@ Version of Elasticsearch to deploy (_e.g._ `7.1`, `6.8`, `6.7`, `6.5`, `6.4`, `6
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -286,11 +286,11 @@ Whether to enable encryption at rest<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -308,11 +308,11 @@ The type of the instance<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -330,11 +330,11 @@ Explicit flag to enable creating a DNS hostname for Kibana. If `true`, then `var
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -352,11 +352,11 @@ The name of the subdomain for Kibana in the DNS zone (_e.g._ `kibana`, `ui`, `ui
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -374,11 +374,11 @@ AWS region<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -398,11 +398,11 @@ Number of dedicated master nodes in the cluster<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>0</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>0</code>
 >   </dd>
 > </dl>
 >
@@ -420,11 +420,11 @@ Instance type of the dedicated master nodes in the cluster<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"t2.small.elasticsearch"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"t2.small.elasticsearch"</code>
 >   </dd>
 > </dl>
 >
@@ -442,11 +442,11 @@ The name of the environment where the `dns-delegated` component is deployed<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"gbl"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"gbl"</code>
 >   </dd>
 > </dl>
 >
@@ -464,22 +464,22 @@ List of actions to allow for the IAM roles, _e.g._ `es:ESHttpGet`, `es:ESHttpPut
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "es:ESHttpGet",
->      "es:ESHttpPut",
->      "es:ESHttpPost",
->      "es:ESHttpHead",
->      "es:Describe*",
->      "es:List*"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "es:ESHttpGet",
+>     "es:ESHttpPut",
+>     "es:ESHttpPost",
+>     "es:ESHttpHead",
+>     "es:Describe*",
+>     "es:List*"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -498,11 +498,11 @@ List of additional IAM role ARNs to permit access to the Elasticsearch domain<br
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -520,11 +520,11 @@ Password for the elasticsearch user<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>""</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
 >   </dd>
 > </dl>
 >
@@ -554,11 +554,11 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -580,11 +580,11 @@ and treated as a single ID element.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -607,35 +607,35 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    {
->      "additional_tag_map": {},
->      "attributes": [],
->      "delimiter": null,
->      "descriptor_formats": {},
->      "enabled": true,
->      "environment": null,
->      "id_length_limit": null,
->      "label_key_case": null,
->      "label_order": [],
->      "label_value_case": null,
->      "labels_as_tags": [
->        "unset"
->      ],
->      "name": null,
->      "namespace": null,
->      "regex_replace_chars": null,
->      "stage": null,
->      "tags": {},
->      "tenant": null
->    }
->    ```
+>   ```hcl
+>   {
+>     "additional_tag_map": {},
+>     "attributes": [],
+>     "delimiter": null,
+>     "descriptor_formats": {},
+>     "enabled": true,
+>     "environment": null,
+>     "id_length_limit": null,
+>     "label_key_case": null,
+>     "label_order": [],
+>     "label_value_case": null,
+>     "labels_as_tags": [
+>       "unset"
+>     ],
+>     "name": null,
+>     "namespace": null,
+>     "regex_replace_chars": null,
+>     "stage": null,
+>     "tags": {},
+>     "tenant": null
+>   }
+>   ```
 >
 >   </dd>
 > </dl>
@@ -656,11 +656,11 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -690,11 +690,11 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -712,11 +712,11 @@ Set to false to prevent the module from creating any resources<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -734,11 +734,11 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -760,11 +760,11 @@ Does not affect `id_full`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -786,11 +786,11 @@ Default value: `title`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -811,11 +811,11 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -839,11 +839,11 @@ Default value: `lower`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -869,17 +869,17 @@ Set to `[]` to suppress all generated tags.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>set(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "default"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "default"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -901,11 +901,11 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -923,11 +923,11 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -948,11 +948,11 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -970,11 +970,11 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -994,11 +994,11 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -1016,11 +1016,11 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >

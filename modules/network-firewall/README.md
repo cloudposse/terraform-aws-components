@@ -269,32 +269,32 @@ Name | Version | Source | Description
 <dl>
   <dt><code>az_subnet_endpoint_stats</code></dt>
   <dd>
-    List of objects with each object having three items: AZ, subnet ID, VPC endpoint ID<br/>
+  List of objects with each object having three items: AZ, subnet ID, VPC endpoint ID<br/>
 
   </dd>
   <dt><code>network_firewall_arn</code></dt>
   <dd>
-    Network Firewall ARN<br/>
+  Network Firewall ARN<br/>
 
   </dd>
   <dt><code>network_firewall_name</code></dt>
   <dd>
-    Network Firewall name<br/>
+  Network Firewall name<br/>
 
   </dd>
   <dt><code>network_firewall_policy_arn</code></dt>
   <dd>
-    Network Firewall policy ARN<br/>
+  Network Firewall policy ARN<br/>
 
   </dd>
   <dt><code>network_firewall_policy_name</code></dt>
   <dd>
-    Network Firewall policy name<br/>
+  Network Firewall policy name<br/>
 
   </dd>
   <dt><code>network_firewall_status</code></dt>
   <dd>
-    Nested list of information about the current status of the Network Firewall<br/>
+  Nested list of information about the current status of the Network Firewall<br/>
 
   </dd>
 </dl>
@@ -319,11 +319,11 @@ AWS Region<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -341,11 +341,11 @@ Rule group configuration. Refer to [networkfirewall_rule_group](https://registry
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -363,11 +363,11 @@ The name of a VPC component where the Network Firewall is provisioned<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -387,11 +387,11 @@ Alert logs bucket component name<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -409,11 +409,11 @@ A boolean flag indicating whether it is possible to delete the firewall<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -431,11 +431,11 @@ A boolean flag indicating whether it is possible to change the associated firewa
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -453,11 +453,11 @@ Firewall subnet name<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"firewall"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"firewall"</code>
 >   </dd>
 > </dl>
 >
@@ -475,11 +475,11 @@ Flow logs bucket component name<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -497,11 +497,11 @@ Flag to enable/disable Network Firewall Flow and Alert Logs<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -519,11 +519,11 @@ AWS Network Firewall description. If not provided, the Network Firewall name wil
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -543,11 +543,11 @@ Changing the name will cause the Firewall to be deleted and recreated.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -567,11 +567,11 @@ Changing the name will cause the policy to be deleted and recreated.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -589,11 +589,11 @@ Indicates how to manage the order of stateful rule evaluation for the policy. Va
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -611,17 +611,17 @@ Default stateful actions<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "aws:alert_strict"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "aws:alert_strict"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -649,11 +649,11 @@ Set of configuration blocks describing the custom action definitions that are av
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -671,17 +671,17 @@ Default stateless actions<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "aws:forward_to_sfe"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "aws:forward_to_sfe"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -700,17 +700,17 @@ Default stateless actions for fragmented packets<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "aws:forward_to_sfe"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "aws:forward_to_sfe"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -729,11 +729,11 @@ A boolean flag indicating whether it is possible to change the associated subnet
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -763,11 +763,11 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -789,11 +789,11 @@ and treated as a single ID element.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -816,35 +816,35 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    {
->      "additional_tag_map": {},
->      "attributes": [],
->      "delimiter": null,
->      "descriptor_formats": {},
->      "enabled": true,
->      "environment": null,
->      "id_length_limit": null,
->      "label_key_case": null,
->      "label_order": [],
->      "label_value_case": null,
->      "labels_as_tags": [
->        "unset"
->      ],
->      "name": null,
->      "namespace": null,
->      "regex_replace_chars": null,
->      "stage": null,
->      "tags": {},
->      "tenant": null
->    }
->    ```
+>   ```hcl
+>   {
+>     "additional_tag_map": {},
+>     "attributes": [],
+>     "delimiter": null,
+>     "descriptor_formats": {},
+>     "enabled": true,
+>     "environment": null,
+>     "id_length_limit": null,
+>     "label_key_case": null,
+>     "label_order": [],
+>     "label_value_case": null,
+>     "labels_as_tags": [
+>       "unset"
+>     ],
+>     "name": null,
+>     "namespace": null,
+>     "regex_replace_chars": null,
+>     "stage": null,
+>     "tags": {},
+>     "tenant": null
+>   }
+>   ```
 >
 >   </dd>
 > </dl>
@@ -865,11 +865,11 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -899,11 +899,11 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -921,11 +921,11 @@ Set to false to prevent the module from creating any resources<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -943,11 +943,11 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -969,11 +969,11 @@ Does not affect `id_full`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -995,11 +995,11 @@ Default value: `title`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1020,11 +1020,11 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1048,11 +1048,11 @@ Default value: `lower`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1078,17 +1078,17 @@ Set to `[]` to suppress all generated tags.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>set(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "default"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "default"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -1110,11 +1110,11 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1132,11 +1132,11 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1157,11 +1157,11 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1179,11 +1179,11 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1203,11 +1203,11 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -1225,11 +1225,11 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >

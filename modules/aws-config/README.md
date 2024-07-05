@@ -214,22 +214,22 @@ The following data sources are used by this module:
 <dl>
   <dt><code>aws_config_configuration_recorder_id</code></dt>
   <dd>
-    The ID of the AWS Config Recorder<br/>
+  The ID of the AWS Config Recorder<br/>
 
   </dd>
   <dt><code>aws_config_iam_role</code></dt>
   <dd>
-    The ARN of the IAM Role used for AWS Config<br/>
+  The ARN of the IAM Role used for AWS Config<br/>
 
   </dd>
   <dt><code>storage_bucket_arn</code></dt>
   <dd>
-    Storage Config bucket ARN<br/>
+  Storage Config bucket ARN<br/>
 
   </dd>
   <dt><code>storage_bucket_id</code></dt>
   <dd>
-    Storage Config bucket ID<br/>
+  Storage Config bucket ID<br/>
 
   </dd>
 </dl>
@@ -254,11 +254,11 @@ The name of the account that is the centralized aggregation account.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -276,11 +276,11 @@ The environment of the AWS Config S3 Bucket<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -298,11 +298,11 @@ The stage of the AWS Config S3 Bucket<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -320,11 +320,11 @@ The region that collects AWS Config data for global resources such as IAM<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -342,11 +342,11 @@ AWS Region<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -366,11 +366,11 @@ AWS Region<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>""</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
 >   </dd>
 > </dl>
 >
@@ -388,11 +388,11 @@ AZ abbreviation type, `fixed` or `short`<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"fixed"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"fixed"</code>
 >   </dd>
 > </dl>
 >
@@ -410,11 +410,11 @@ AZ abbreviation type, `fixed` or `short`<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>""</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
 >   </dd>
 > </dl>
 >
@@ -465,11 +465,11 @@ https://github.com/awslabs/aws-config-rules/tree/master/aws-config-conformance-p
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -487,11 +487,11 @@ Flag to indicate whether an IAM Role should be created to grant the proper permi
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -509,11 +509,11 @@ The default scope of the conformance pack. Valid values are `account` and `organ
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"account"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"account"</code>
 >   </dd>
 > </dl>
 >
@@ -531,11 +531,11 @@ The account IDs of other accounts that will send their AWS Configuration or Secu
 >   <dt>Type</dt>
 >   <dd>
 >   <code>set(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -553,11 +553,11 @@ Global environment name<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"gbl"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"gbl"</code>
 >   </dd>
 > </dl>
 >
@@ -582,11 +582,11 @@ http://docs.aws.amazon.com/config/latest/developerguide/iamrole-permissions.html
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -604,11 +604,11 @@ The name of the environment where the IAM roles are provisioned<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"gbl"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"gbl"</code>
 >   </dd>
 > </dl>
 >
@@ -657,11 +657,11 @@ managed_rules = {<br/>
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -679,11 +679,11 @@ True if the default provider already has access to the backend<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -701,11 +701,11 @@ The stage name for the Organization root (master) account<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"root"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"root"</code>
 >   </dd>
 > </dl>
 >
@@ -735,11 +735,11 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -761,11 +761,11 @@ and treated as a single ID element.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -788,35 +788,35 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    {
->      "additional_tag_map": {},
->      "attributes": [],
->      "delimiter": null,
->      "descriptor_formats": {},
->      "enabled": true,
->      "environment": null,
->      "id_length_limit": null,
->      "label_key_case": null,
->      "label_order": [],
->      "label_value_case": null,
->      "labels_as_tags": [
->        "unset"
->      ],
->      "name": null,
->      "namespace": null,
->      "regex_replace_chars": null,
->      "stage": null,
->      "tags": {},
->      "tenant": null
->    }
->    ```
+>   ```hcl
+>   {
+>     "additional_tag_map": {},
+>     "attributes": [],
+>     "delimiter": null,
+>     "descriptor_formats": {},
+>     "enabled": true,
+>     "environment": null,
+>     "id_length_limit": null,
+>     "label_key_case": null,
+>     "label_order": [],
+>     "label_value_case": null,
+>     "labels_as_tags": [
+>       "unset"
+>     ],
+>     "name": null,
+>     "namespace": null,
+>     "regex_replace_chars": null,
+>     "stage": null,
+>     "tags": {},
+>     "tenant": null
+>   }
+>   ```
 >
 >   </dd>
 > </dl>
@@ -837,11 +837,11 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -871,11 +871,11 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -893,11 +893,11 @@ Set to false to prevent the module from creating any resources<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -915,11 +915,11 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -941,11 +941,11 @@ Does not affect `id_full`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -967,11 +967,11 @@ Default value: `title`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -992,11 +992,11 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1020,11 +1020,11 @@ Default value: `lower`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1050,17 +1050,17 @@ Set to `[]` to suppress all generated tags.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>set(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "default"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "default"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -1082,11 +1082,11 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1104,11 +1104,11 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1129,11 +1129,11 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1151,11 +1151,11 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1175,11 +1175,11 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -1197,11 +1197,11 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >

@@ -107,112 +107,112 @@ The following data sources are used by this module:
 <dl>
   <dt><code>availability_zones</code></dt>
   <dd>
-    List of Availability Zones where subnets were created<br/>
+  List of Availability Zones where subnets were created<br/>
 
   </dd>
   <dt><code>az_private_subnets_map</code></dt>
   <dd>
-    Map of AZ names to list of private subnet IDs in the AZs<br/>
+  Map of AZ names to list of private subnet IDs in the AZs<br/>
 
   </dd>
   <dt><code>az_public_subnets_map</code></dt>
   <dd>
-    Map of AZ names to list of public subnet IDs in the AZs<br/>
+  Map of AZ names to list of public subnet IDs in the AZs<br/>
 
   </dd>
   <dt><code>interface_vpc_endpoints</code></dt>
   <dd>
-    List of Interface VPC Endpoints in this VPC.<br/>
+  List of Interface VPC Endpoints in this VPC.<br/>
 
   </dd>
   <dt><code>max_subnet_count</code></dt>
   <dd>
-    Maximum allowed number of subnets before all subnet CIDRs need to be recomputed<br/>
+  Maximum allowed number of subnets before all subnet CIDRs need to be recomputed<br/>
 
   </dd>
   <dt><code>nat_eip_protections</code></dt>
   <dd>
-    List of AWS Shield Advanced Protections for NAT Elastic IPs.<br/>
+  List of AWS Shield Advanced Protections for NAT Elastic IPs.<br/>
 
   </dd>
   <dt><code>nat_gateway_ids</code></dt>
   <dd>
-    NAT Gateway IDs<br/>
+  NAT Gateway IDs<br/>
 
   </dd>
   <dt><code>nat_gateway_public_ips</code></dt>
   <dd>
-    NAT Gateway public IPs<br/>
+  NAT Gateway public IPs<br/>
 
   </dd>
   <dt><code>nat_instance_ids</code></dt>
   <dd>
-    NAT Instance IDs<br/>
+  NAT Instance IDs<br/>
 
   </dd>
   <dt><code>private_route_table_ids</code></dt>
   <dd>
-    Private subnet route table IDs<br/>
+  Private subnet route table IDs<br/>
 
   </dd>
   <dt><code>private_subnet_cidrs</code></dt>
   <dd>
-    Private subnet CIDRs<br/>
+  Private subnet CIDRs<br/>
 
   </dd>
   <dt><code>private_subnet_ids</code></dt>
   <dd>
-    Private subnet IDs<br/>
+  Private subnet IDs<br/>
 
   </dd>
   <dt><code>public_route_table_ids</code></dt>
   <dd>
-    Public subnet route table IDs<br/>
+  Public subnet route table IDs<br/>
 
   </dd>
   <dt><code>public_subnet_cidrs</code></dt>
   <dd>
-    Public subnet CIDRs<br/>
+  Public subnet CIDRs<br/>
 
   </dd>
   <dt><code>public_subnet_ids</code></dt>
   <dd>
-    Public subnet IDs<br/>
+  Public subnet IDs<br/>
 
   </dd>
   <dt><code>route_tables</code></dt>
   <dd>
-    Route tables info map<br/>
+  Route tables info map<br/>
 
   </dd>
   <dt><code>subnets</code></dt>
   <dd>
-    Subnets info map<br/>
+  Subnets info map<br/>
 
   </dd>
   <dt><code>vpc</code></dt>
   <dd>
-    VPC info map<br/>
+  VPC info map<br/>
 
   </dd>
   <dt><code>vpc_cidr</code></dt>
   <dd>
-    VPC CIDR<br/>
+  VPC CIDR<br/>
 
   </dd>
   <dt><code>vpc_default_network_acl_id</code></dt>
   <dd>
-    The ID of the network ACL created by default on VPC creation<br/>
+  The ID of the network ACL created by default on VPC creation<br/>
 
   </dd>
   <dt><code>vpc_default_security_group_id</code></dt>
   <dd>
-    The ID of the security group created by default on VPC creation<br/>
+  The ID of the security group created by default on VPC creation<br/>
 
   </dd>
   <dt><code>vpc_id</code></dt>
   <dd>
-    VPC ID<br/>
+  VPC ID<br/>
 
   </dd>
 </dl>
@@ -237,11 +237,11 @@ AWS Region<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -259,11 +259,11 @@ Key for subnet type tag to provide information about the type of subnets, e.g. `
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -283,11 +283,11 @@ When `true`, assign AWS generated IPv6 CIDR block to the VPC.  Conflicts with `i
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -309,11 +309,11 @@ Useful in some regions when using only some AZs and you want to use the same one
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -338,11 +338,11 @@ will be truncated. We recommend setting `availability_zones` and `max_subnet_cou
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -360,11 +360,11 @@ A list of Gateway VPC Endpoints to provision into the VPC. Only valid values are
 >   <dt>Type</dt>
 >   <dd>
 >   <code>set(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -382,11 +382,11 @@ A list of Interface VPC Endpoints to provision into the VPC.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>set(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -417,11 +417,11 @@ Map keys must be known at `plan` time, and are only used to track changes.<br/>
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -448,11 +448,11 @@ Timeouts (in `go` duration format) for creating and destroying IPv4 CIDR block a
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -481,11 +481,11 @@ Lists may contain more CIDRs than needed.<br/>
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -505,11 +505,11 @@ Either `ipv4_primary_cidr_block` or `ipv4_primary_cidr_block_association` must b
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -539,11 +539,11 @@ Additional CIDR blocks can be set via `ipv4_additional_cidr_block_associations`.
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -561,11 +561,11 @@ Instances launched into a public subnet should be assigned a public IP address<b
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -583,11 +583,11 @@ Sets the maximum amount of subnets to deploy. 0 will deploy a subnet for every p
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>0</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>0</code>
 >   </dd>
 > </dl>
 >
@@ -605,11 +605,11 @@ Enable or disable AWS Shield Advanced protection for NAT EIPs. If set to 'true',
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -627,11 +627,11 @@ Flag to enable/disable NAT gateways<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -653,11 +653,11 @@ does not support NAT64. Use of a NAT gateway is recommended instead.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -675,11 +675,11 @@ Flag to enable/disable NAT instances<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -697,11 +697,11 @@ NAT Instance type<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"t3.micro"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"t3.micro"</code>
 >   </dd>
 > </dl>
 >
@@ -721,11 +721,11 @@ Since NAT gateways and instances must be created in public subnets, these will a
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -744,11 +744,11 @@ The number of subnet of each type (public or private) to provision per Availabil
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>1</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>1</code>
 >   </dd>
 > </dl>
 >
@@ -770,17 +770,17 @@ If a list of names is provided, the list items will be used as keys in the outpu
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "common"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "common"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -799,11 +799,11 @@ The name of the environment where the VPC Flow Logs bucket is provisioned<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>""</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
 >   </dd>
 > </dl>
 >
@@ -821,11 +821,11 @@ The stage (account) name where the VPC Flow Logs bucket is provisioned<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>""</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
 >   </dd>
 > </dl>
 >
@@ -846,11 +846,11 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -868,11 +868,11 @@ Enable or disable the VPC Flow Logs<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -890,11 +890,11 @@ The type of the logging destination. Valid values: `cloud-watch-logs`, `s3`<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"s3"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"s3"</code>
 >   </dd>
 > </dl>
 >
@@ -912,11 +912,11 @@ The type of traffic to capture. Valid values: `ACCEPT`, `REJECT`, `ALL`<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"ALL"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"ALL"</code>
 >   </dd>
 > </dl>
 >
@@ -946,11 +946,11 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -972,11 +972,11 @@ and treated as a single ID element.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -999,35 +999,35 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    {
->      "additional_tag_map": {},
->      "attributes": [],
->      "delimiter": null,
->      "descriptor_formats": {},
->      "enabled": true,
->      "environment": null,
->      "id_length_limit": null,
->      "label_key_case": null,
->      "label_order": [],
->      "label_value_case": null,
->      "labels_as_tags": [
->        "unset"
->      ],
->      "name": null,
->      "namespace": null,
->      "regex_replace_chars": null,
->      "stage": null,
->      "tags": {},
->      "tenant": null
->    }
->    ```
+>   ```hcl
+>   {
+>     "additional_tag_map": {},
+>     "attributes": [],
+>     "delimiter": null,
+>     "descriptor_formats": {},
+>     "enabled": true,
+>     "environment": null,
+>     "id_length_limit": null,
+>     "label_key_case": null,
+>     "label_order": [],
+>     "label_value_case": null,
+>     "labels_as_tags": [
+>       "unset"
+>     ],
+>     "name": null,
+>     "namespace": null,
+>     "regex_replace_chars": null,
+>     "stage": null,
+>     "tags": {},
+>     "tenant": null
+>   }
+>   ```
 >
 >   </dd>
 > </dl>
@@ -1048,11 +1048,11 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1082,11 +1082,11 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -1104,11 +1104,11 @@ Set to false to prevent the module from creating any resources<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1126,11 +1126,11 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1152,11 +1152,11 @@ Does not affect `id_full`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1178,11 +1178,11 @@ Default value: `title`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1203,11 +1203,11 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1231,11 +1231,11 @@ Default value: `lower`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1261,17 +1261,17 @@ Set to `[]` to suppress all generated tags.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>set(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "default"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "default"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -1293,11 +1293,11 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1315,11 +1315,11 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1340,11 +1340,11 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1362,11 +1362,11 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1386,11 +1386,11 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -1408,11 +1408,11 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >

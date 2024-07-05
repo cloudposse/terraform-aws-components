@@ -118,52 +118,52 @@ The following data sources are used by this module:
 <dl>
   <dt><code>alert_policies</code></dt>
   <dd>
-    Alert policies<br/>
+  Alert policies<br/>
 
   </dd>
   <dt><code>api_integrations</code></dt>
   <dd>
-    API integrations<br/>
+  API integrations<br/>
 
   </dd>
   <dt><code>escalations</code></dt>
   <dd>
-    Escalations<br/>
+  Escalations<br/>
 
   </dd>
   <dt><code>existing_users</code></dt>
   <dd>
-    Existing Users<br/>
+  Existing Users<br/>
 
   </dd>
   <dt><code>notification_policies</code></dt>
   <dd>
-    Notification policies<br/>
+  Notification policies<br/>
 
   </dd>
   <dt><code>service_incident_rule_ids</code></dt>
   <dd>
-    Service Incident Rule IDs<br/>
+  Service Incident Rule IDs<br/>
 
   </dd>
   <dt><code>services</code></dt>
   <dd>
-    Services<br/>
+  Services<br/>
 
   </dd>
   <dt><code>team_routing_rules</code></dt>
   <dd>
-    Team routing rules<br/>
+  Team routing rules<br/>
 
   </dd>
   <dt><code>teams</code></dt>
   <dd>
-    Teams<br/>
+  Teams<br/>
 
   </dd>
   <dt><code>users</code></dt>
   <dd>
-    Users<br/>
+  Users<br/>
 
   </dd>
 </dl>
@@ -188,11 +188,11 @@ AWS Region<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -212,11 +212,11 @@ IAM Role ARN to use when importing a resource<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -234,11 +234,11 @@ AWS KMS key used for writing to SSM<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"alias/aws/ssm"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"alias/aws/ssm"</code>
 >   </dd>
 > </dl>
 >
@@ -256,11 +256,11 @@ SSM parameter name format<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"/%s/%s"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"/%s/%s"</code>
 >   </dd>
 > </dl>
 >
@@ -278,11 +278,11 @@ SSM path<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"opsgenie"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"opsgenie"</code>
 >   </dd>
 > </dl>
 >
@@ -300,11 +300,11 @@ The ID of the account where the Terraform remote state backend is provisioned<br
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>""</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
 >   </dd>
 > </dl>
 >
@@ -322,11 +322,11 @@ Set to false to use the caller's role to access the Terraform remote state<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -344,11 +344,11 @@ The name of the environment for Terraform state bucket<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>""</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
 >   </dd>
 > </dl>
 >
@@ -366,11 +366,11 @@ The name of the stage for Terraform state bucket<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"root"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"root"</code>
 >   </dd>
 > </dl>
 >
@@ -388,11 +388,11 @@ The ARN of the existing IAM Role to access the Terraform remote state. If not pr
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>""</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
 >   </dd>
 > </dl>
 >
@@ -410,11 +410,11 @@ IAM Role ARN template for accessing the Terraform remote state<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"arn:aws:iam::%s:role/%s-%s-%s-%s"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"arn:aws:iam::%s:role/%s-%s-%s-%s"</code>
 >   </dd>
 > </dl>
 >
@@ -432,11 +432,11 @@ The name of the environment for Terraform state IAM role<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"gbl"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"gbl"</code>
 >   </dd>
 > </dl>
 >
@@ -454,11 +454,11 @@ IAM Role name for accessing the Terraform remote state<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"terraform"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"terraform"</code>
 >   </dd>
 > </dl>
 >
@@ -476,11 +476,11 @@ The name of the stage for Terraform state IAM role<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"root"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"root"</code>
 >   </dd>
 > </dl>
 >
@@ -507,11 +507,11 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -529,11 +529,11 @@ Additional attributes (e.g. `1`)<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -575,28 +575,28 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    {
->      "additional_tag_map": {},
->      "attributes": [],
->      "delimiter": null,
->      "enabled": true,
->      "environment": null,
->      "id_length_limit": null,
->      "label_order": [],
->      "name": null,
->      "namespace": null,
->      "regex_replace_chars": null,
->      "stage": null,
->      "tags": {}
->    }
->    ```
+>   ```hcl
+>   {
+>     "additional_tag_map": {},
+>     "attributes": [],
+>     "delimiter": null,
+>     "enabled": true,
+>     "environment": null,
+>     "id_length_limit": null,
+>     "label_order": [],
+>     "name": null,
+>     "namespace": null,
+>     "regex_replace_chars": null,
+>     "stage": null,
+>     "tags": {}
+>   }
+>   ```
 >
 >   </dd>
 > </dl>
@@ -617,11 +617,11 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -639,11 +639,11 @@ Set to false to prevent the module from creating any resources<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -661,11 +661,11 @@ Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -687,11 +687,11 @@ Does not affect `id_full`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -712,11 +712,11 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -734,11 +734,11 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -756,11 +756,11 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -780,11 +780,11 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -802,11 +802,11 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -824,11 +824,11 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >

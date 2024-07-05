@@ -63,82 +63,82 @@ Name | Version | Source | Description
 <dl>
   <dt><code>broker_arn</code></dt>
   <dd>
-    AmazonMQ broker ARN<br/>
+  AmazonMQ broker ARN<br/>
 
   </dd>
   <dt><code>broker_id</code></dt>
   <dd>
-    AmazonMQ broker ID<br/>
+  AmazonMQ broker ID<br/>
 
   </dd>
   <dt><code>primary_amqp_ssl_endpoint</code></dt>
   <dd>
-    AmazonMQ primary AMQP+SSL endpoint<br/>
+  AmazonMQ primary AMQP+SSL endpoint<br/>
 
   </dd>
   <dt><code>primary_console_url</code></dt>
   <dd>
-    AmazonMQ active web console URL<br/>
+  AmazonMQ active web console URL<br/>
 
   </dd>
   <dt><code>primary_ip_address</code></dt>
   <dd>
-    AmazonMQ primary IP address<br/>
+  AmazonMQ primary IP address<br/>
 
   </dd>
   <dt><code>primary_mqtt_ssl_endpoint</code></dt>
   <dd>
-    AmazonMQ primary MQTT+SSL endpoint<br/>
+  AmazonMQ primary MQTT+SSL endpoint<br/>
 
   </dd>
   <dt><code>primary_ssl_endpoint</code></dt>
   <dd>
-    AmazonMQ primary SSL endpoint<br/>
+  AmazonMQ primary SSL endpoint<br/>
 
   </dd>
   <dt><code>primary_stomp_ssl_endpoint</code></dt>
   <dd>
-    AmazonMQ primary STOMP+SSL endpoint<br/>
+  AmazonMQ primary STOMP+SSL endpoint<br/>
 
   </dd>
   <dt><code>primary_wss_endpoint</code></dt>
   <dd>
-    AmazonMQ primary WSS endpoint<br/>
+  AmazonMQ primary WSS endpoint<br/>
 
   </dd>
   <dt><code>secondary_amqp_ssl_endpoint</code></dt>
   <dd>
-    AmazonMQ secondary AMQP+SSL endpoint<br/>
+  AmazonMQ secondary AMQP+SSL endpoint<br/>
 
   </dd>
   <dt><code>secondary_console_url</code></dt>
   <dd>
-    AmazonMQ secondary web console URL<br/>
+  AmazonMQ secondary web console URL<br/>
 
   </dd>
   <dt><code>secondary_ip_address</code></dt>
   <dd>
-    AmazonMQ secondary IP address<br/>
+  AmazonMQ secondary IP address<br/>
 
   </dd>
   <dt><code>secondary_mqtt_ssl_endpoint</code></dt>
   <dd>
-    AmazonMQ secondary MQTT+SSL endpoint<br/>
+  AmazonMQ secondary MQTT+SSL endpoint<br/>
 
   </dd>
   <dt><code>secondary_ssl_endpoint</code></dt>
   <dd>
-    AmazonMQ secondary SSL endpoint<br/>
+  AmazonMQ secondary SSL endpoint<br/>
 
   </dd>
   <dt><code>secondary_stomp_ssl_endpoint</code></dt>
   <dd>
-    AmazonMQ secondary STOMP+SSL endpoint<br/>
+  AmazonMQ secondary STOMP+SSL endpoint<br/>
 
   </dd>
   <dt><code>secondary_wss_endpoint</code></dt>
   <dd>
-    AmazonMQ secondary WSS endpoint<br/>
+  AmazonMQ secondary WSS endpoint<br/>
 
   </dd>
 </dl>
@@ -163,11 +163,11 @@ AWS Region<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -187,11 +187,11 @@ List of CIDR blocks that are allowed ingress to the broker's Security Group crea
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -209,11 +209,11 @@ List of security groups to be allowed to connect to the broker instance<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -231,11 +231,11 @@ Specifies whether any cluster modifications are applied immediately, or during t
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -253,11 +253,11 @@ Enables audit logging. User management action made using JMX or the ActiveMQ Web
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -275,11 +275,11 @@ Enables automatic upgrades to new minor versions for brokers, as Apache releases
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -297,11 +297,11 @@ The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"ACTIVE_STANDBY_MULTI_AZ"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"ACTIVE_STANDBY_MULTI_AZ"</code>
 >   </dd>
 > </dl>
 >
@@ -319,11 +319,11 @@ Flag to enable/disable Amazon MQ encryption at rest<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -341,11 +341,11 @@ Type of broker engine, `ActiveMQ` or `RabbitMQ`<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"ActiveMQ"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"ActiveMQ"</code>
 >   </dd>
 > </dl>
 >
@@ -363,11 +363,11 @@ The version of the broker engine. See https://docs.aws.amazon.com/amazon-mq/late
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"5.15.14"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"5.15.14"</code>
 >   </dd>
 > </dl>
 >
@@ -385,11 +385,11 @@ List of existing Security Group IDs to place the broker into. Set `use_existing_
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -407,11 +407,11 @@ Enables general logging via CloudWatch<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -429,11 +429,11 @@ The broker's instance type. e.g. mq.t2.micro or mq.m4.large<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"mq.t3.micro"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"mq.t3.micro"</code>
 >   </dd>
 > </dl>
 >
@@ -451,11 +451,11 @@ ARN of the AWS KMS key used for Amazon MQ encryption<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -473,11 +473,11 @@ ARN of the AWS KMS key used for SSM encryption<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"alias/aws/ssm"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"alias/aws/ssm"</code>
 >   </dd>
 > </dl>
 >
@@ -495,11 +495,11 @@ The maintenance day of the week. e.g. MONDAY, TUESDAY, or WEDNESDAY<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"SUNDAY"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"SUNDAY"</code>
 >   </dd>
 > </dl>
 >
@@ -517,11 +517,11 @@ The maintenance time, in 24-hour format. e.g. 02:00<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"03:00"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"03:00"</code>
 >   </dd>
 > </dl>
 >
@@ -539,11 +539,11 @@ The maintenance time zone, in either the Country/City format, or the UTC offset 
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"UTC"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"UTC"</code>
 >   </dd>
 > </dl>
 >
@@ -561,11 +561,11 @@ Admin password<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -583,11 +583,11 @@ Admin username<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -605,11 +605,11 @@ Application password<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -627,11 +627,11 @@ Application username<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -649,11 +649,11 @@ Whether to overwrite an existing SSM parameter<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -671,11 +671,11 @@ Whether to enable connections from applications outside of the VPC that hosts th
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -693,11 +693,11 @@ SSM parameter name format<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"/%s/%s"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"/%s/%s"</code>
 >   </dd>
 > </dl>
 >
@@ -715,11 +715,11 @@ SSM path<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"mq"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"mq"</code>
 >   </dd>
 > </dl>
 >
@@ -737,11 +737,11 @@ Boolean to enable an AWS owned Key Management Service (KMS) Customer Master Key 
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -759,11 +759,11 @@ Flag to enable/disable creation of Security Group in the module. Set to `true` t
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -790,11 +790,11 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -812,11 +812,11 @@ Additional attributes (e.g. `1`)<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -839,30 +839,30 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    {
->      "additional_tag_map": {},
->      "attributes": [],
->      "delimiter": null,
->      "enabled": true,
->      "environment": null,
->      "id_length_limit": null,
->      "label_key_case": null,
->      "label_order": [],
->      "label_value_case": null,
->      "name": null,
->      "namespace": null,
->      "regex_replace_chars": null,
->      "stage": null,
->      "tags": {}
->    }
->    ```
+>   ```hcl
+>   {
+>     "additional_tag_map": {},
+>     "attributes": [],
+>     "delimiter": null,
+>     "enabled": true,
+>     "environment": null,
+>     "id_length_limit": null,
+>     "label_key_case": null,
+>     "label_order": [],
+>     "label_value_case": null,
+>     "name": null,
+>     "namespace": null,
+>     "regex_replace_chars": null,
+>     "stage": null,
+>     "tags": {}
+>   }
+>   ```
 >
 >   </dd>
 > </dl>
@@ -883,11 +883,11 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -905,11 +905,11 @@ Set to false to prevent the module from creating any resources<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -927,11 +927,11 @@ Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -953,11 +953,11 @@ Does not affect `id_full`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -978,11 +978,11 @@ Default value: `title`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1003,11 +1003,11 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1028,11 +1028,11 @@ Default value: `lower`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1050,11 +1050,11 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1072,11 +1072,11 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1096,11 +1096,11 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1118,11 +1118,11 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1140,11 +1140,11 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >

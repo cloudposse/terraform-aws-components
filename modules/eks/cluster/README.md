@@ -553,112 +553,112 @@ The following data sources are used by this module:
 <dl>
   <dt><code>availability_zones</code></dt>
   <dd>
-    Availability Zones in which the cluster is provisioned<br/>
+  Availability Zones in which the cluster is provisioned<br/>
 
   </dd>
   <dt><code>eks_addons_versions</code></dt>
   <dd>
-    Map of enabled EKS Addons names and versions<br/>
+  Map of enabled EKS Addons names and versions<br/>
 
   </dd>
   <dt><code>eks_auth_worker_roles</code></dt>
   <dd>
-    List of worker IAM roles that were included in the `auth-map` ConfigMap.<br/>
+  List of worker IAM roles that were included in the `auth-map` ConfigMap.<br/>
 
   </dd>
   <dt><code>eks_cluster_arn</code></dt>
   <dd>
-    The Amazon Resource Name (ARN) of the cluster<br/>
+  The Amazon Resource Name (ARN) of the cluster<br/>
 
   </dd>
   <dt><code>eks_cluster_certificate_authority_data</code></dt>
   <dd>
-    The Kubernetes cluster certificate authority data<br/>
+  The Kubernetes cluster certificate authority data<br/>
 
   </dd>
   <dt><code>eks_cluster_endpoint</code></dt>
   <dd>
-    The endpoint for the Kubernetes API server<br/>
+  The endpoint for the Kubernetes API server<br/>
 
   </dd>
   <dt><code>eks_cluster_id</code></dt>
   <dd>
-    The name of the cluster<br/>
+  The name of the cluster<br/>
 
   </dd>
   <dt><code>eks_cluster_identity_oidc_issuer</code></dt>
   <dd>
-    The OIDC Identity issuer for the cluster<br/>
+  The OIDC Identity issuer for the cluster<br/>
 
   </dd>
   <dt><code>eks_cluster_managed_security_group_id</code></dt>
   <dd>
-    Security Group ID that was created by EKS for the cluster. EKS creates a Security Group and applies it to ENI that is attached to EKS Control Plane master nodes and to any managed workloads<br/>
+  Security Group ID that was created by EKS for the cluster. EKS creates a Security Group and applies it to ENI that is attached to EKS Control Plane master nodes and to any managed workloads<br/>
 
   </dd>
   <dt><code>eks_cluster_version</code></dt>
   <dd>
-    The Kubernetes server version of the cluster<br/>
+  The Kubernetes server version of the cluster<br/>
 
   </dd>
   <dt><code>eks_managed_node_workers_role_arns</code></dt>
   <dd>
-    List of ARNs for workers in managed node groups<br/>
+  List of ARNs for workers in managed node groups<br/>
 
   </dd>
   <dt><code>eks_node_group_arns</code></dt>
   <dd>
-    List of all the node group ARNs in the cluster<br/>
+  List of all the node group ARNs in the cluster<br/>
 
   </dd>
   <dt><code>eks_node_group_count</code></dt>
   <dd>
-    Count of the worker nodes<br/>
+  Count of the worker nodes<br/>
 
   </dd>
   <dt><code>eks_node_group_ids</code></dt>
   <dd>
-    EKS Cluster name and EKS Node Group name separated by a colon<br/>
+  EKS Cluster name and EKS Node Group name separated by a colon<br/>
 
   </dd>
   <dt><code>eks_node_group_role_names</code></dt>
   <dd>
-    List of worker nodes IAM role names<br/>
+  List of worker nodes IAM role names<br/>
 
   </dd>
   <dt><code>eks_node_group_statuses</code></dt>
   <dd>
-    Status of the EKS Node Group<br/>
+  Status of the EKS Node Group<br/>
 
   </dd>
   <dt><code>fargate_profile_role_arns</code></dt>
   <dd>
-    Fargate Profile Role ARNs<br/>
+  Fargate Profile Role ARNs<br/>
 
   </dd>
   <dt><code>fargate_profile_role_names</code></dt>
   <dd>
-    Fargate Profile Role names<br/>
+  Fargate Profile Role names<br/>
 
   </dd>
   <dt><code>fargate_profiles</code></dt>
   <dd>
-    Fargate Profiles<br/>
+  Fargate Profiles<br/>
 
   </dd>
   <dt><code>karpenter_iam_role_arn</code></dt>
   <dd>
-    Karpenter IAM Role ARN<br/>
+  Karpenter IAM Role ARN<br/>
 
   </dd>
   <dt><code>karpenter_iam_role_name</code></dt>
   <dd>
-    Karpenter IAM Role name<br/>
+  Karpenter IAM Role name<br/>
 
   </dd>
   <dt><code>vpc_cidr</code></dt>
   <dd>
-    The CIDR of the VPC where this cluster is deployed.<br/>
+  The CIDR of the VPC where this cluster is deployed.<br/>
 
   </dd>
 </dl>
@@ -683,11 +683,11 @@ AWS Region<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -716,11 +716,11 @@ Access configuration for the EKS cluster<br/>
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -758,11 +758,11 @@ Manages [EKS addons](https://registry.terraform.io/providers/hashicorp/aws/lates
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -782,11 +782,11 @@ See [issue #170](https://github.com/cloudposse/terraform-aws-eks-cluster/issues/
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -813,11 +813,11 @@ e.g.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -835,11 +835,11 @@ List of CIDR blocks to be allowed to connect to the EKS cluster<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -857,11 +857,11 @@ List of Security Group IDs to be allowed to connect to the EKS cluster<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -883,11 +883,11 @@ This input is obsolete and will be removed in a future release.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -905,11 +905,11 @@ Type of Availability Zone abbreviation (either `fixed` or `short`) to use in nam
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"fixed"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"fixed"</code>
 >   </dd>
 > </dl>
 >
@@ -931,11 +931,11 @@ Useful in some regions when using only some AZs and you want to use the same one
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -957,11 +957,11 @@ If not provided, resources will be provisioned in every zone with a private subn
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -979,11 +979,11 @@ Set true to attach the required IAM policy for AWS SSM agent to each EC2 instanc
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -1015,11 +1015,11 @@ when any changes are made to the AWS SSO configuration, invalidating the mapping
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -1046,11 +1046,11 @@ List of `aws-team-roles` (in the target AWS account) to map to Kubernetes RBAC g
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -1068,11 +1068,11 @@ Set to `true` to enable Cluster Encryption Configuration<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -1090,11 +1090,11 @@ Cluster Encryption Config KMS Key Resource argument - key deletion windows in da
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>10</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>10</code>
 >   </dd>
 > </dl>
 >
@@ -1112,11 +1112,11 @@ Cluster Encryption Config KMS Key Resource argument - enable kms key rotation<br
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -1134,11 +1134,11 @@ KMS Key ID to use for cluster encryption config<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>""</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
 >   </dd>
 > </dl>
 >
@@ -1156,11 +1156,11 @@ Cluster Encryption Config KMS Key Resource argument - key policy<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1178,17 +1178,17 @@ Cluster Encryption Config Resources to encrypt, e.g. `["secrets"]`<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "secrets"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "secrets"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -1207,11 +1207,11 @@ Indicates whether or not the Amazon EKS private API server endpoint is enabled. 
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -1229,11 +1229,11 @@ Indicates whether or not the Amazon EKS public API server endpoint is enabled. D
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -1251,11 +1251,11 @@ Desired Kubernetes master version. If you do not specify a value, the latest ava
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1273,11 +1273,11 @@ Number of days to retain cluster logs. Requires `enabled_cluster_log_types` to b
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>0</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>0</code>
 >   </dd>
 > </dl>
 >
@@ -1295,11 +1295,11 @@ Whether or not to enable private subnets or both public and private subnets<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -1317,11 +1317,11 @@ The cluster stage represented by a color; e.g. blue, green<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>""</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
 >   </dd>
 > </dl>
 >
@@ -1339,11 +1339,11 @@ Set to `true` (not recommended) to deploy addons to Fargate instead of initial n
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -1361,11 +1361,11 @@ A list of the desired control plane logging to enable. For more information, see
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -1383,11 +1383,11 @@ Delimiter for the Kubernetes namespace in the IAM Role name for Fargate Profiles
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"-"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"-"</code>
 >   </dd>
 > </dl>
 >
@@ -1405,11 +1405,11 @@ If provided, all Fargate Profiles IAM roles will be created with this permission
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1436,11 +1436,11 @@ Fargate Profiles config<br/>
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -1458,11 +1458,11 @@ Flag to enable/disable creation of IAM role for EC2 Instance Profile that is att
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -1490,11 +1490,11 @@ Use in conjunction with `eks/karpenter` component `legacy_create_karpenter_insta
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -1515,11 +1515,11 @@ a Fargate Pod Execution role for each Fargate Profile.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -1537,11 +1537,11 @@ Set false to prevent the creation of EKS managed node groups.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -1565,11 +1565,11 @@ This input is deprecated and will be removed in a future release.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -1604,11 +1604,11 @@ in a future release with a more flexible input structure that consolidates<br/>
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -1640,11 +1640,11 @@ in a future release with a more flexible input structure that consolidates<br/>
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -1671,11 +1671,11 @@ or drop support for unmanaged worker nodes entirely.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -1759,31 +1759,31 @@ Defaults for node groups in the cluster<br/>
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    {
->      "block_device_map": {
->        "/dev/xvda": {
->          "ebs": {
->            "encrypted": true,
->            "volume_size": 20,
->            "volume_type": "gp2"
->          }
->        }
->      },
->      "desired_group_size": 1,
->      "instance_types": [
->        "t3.medium"
->      ],
->      "kubernetes_version": null,
->      "max_group_size": 100
->    }
->    ```
+>   ```hcl
+>   {
+>     "block_device_map": {
+>       "/dev/xvda": {
+>         "ebs": {
+>           "encrypted": true,
+>           "volume_size": 20,
+>           "volume_type": "gp2"
+>         }
+>       }
+>     },
+>     "desired_group_size": 1,
+>     "instance_types": [
+>       "t3.medium"
+>     ],
+>     "kubernetes_version": null,
+>     "max_group_size": 100
+>   }
+>   ```
 >
 >   </dd>
 > </dl>
@@ -1887,11 +1887,11 @@ List of objects defining a node group for the cluster<br/>
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -1909,11 +1909,11 @@ Create an IAM OIDC identity provider for the cluster, then you can create IAM ro
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -1931,17 +1931,17 @@ Indicates which CIDR blocks can access the Amazon EKS public API server endpoint
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "0.0.0.0/0"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "0.0.0.0/0"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -1960,11 +1960,11 @@ The tag used to find the private subnets to find by availability zone. If null, 
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1982,11 +1982,11 @@ The name of the vpc component<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"vpc"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"vpc"</code>
 >   </dd>
 > </dl>
 >
@@ -2016,11 +2016,11 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -2042,11 +2042,11 @@ and treated as a single ID element.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -2069,35 +2069,35 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    {
->      "additional_tag_map": {},
->      "attributes": [],
->      "delimiter": null,
->      "descriptor_formats": {},
->      "enabled": true,
->      "environment": null,
->      "id_length_limit": null,
->      "label_key_case": null,
->      "label_order": [],
->      "label_value_case": null,
->      "labels_as_tags": [
->        "unset"
->      ],
->      "name": null,
->      "namespace": null,
->      "regex_replace_chars": null,
->      "stage": null,
->      "tags": {},
->      "tenant": null
->    }
->    ```
+>   ```hcl
+>   {
+>     "additional_tag_map": {},
+>     "attributes": [],
+>     "delimiter": null,
+>     "descriptor_formats": {},
+>     "enabled": true,
+>     "environment": null,
+>     "id_length_limit": null,
+>     "label_key_case": null,
+>     "label_order": [],
+>     "label_value_case": null,
+>     "labels_as_tags": [
+>       "unset"
+>     ],
+>     "name": null,
+>     "namespace": null,
+>     "regex_replace_chars": null,
+>     "stage": null,
+>     "tags": {},
+>     "tenant": null
+>   }
+>   ```
 >
 >   </dd>
 > </dl>
@@ -2118,11 +2118,11 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -2152,11 +2152,11 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -2174,11 +2174,11 @@ Set to false to prevent the module from creating any resources<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -2196,11 +2196,11 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -2222,11 +2222,11 @@ Does not affect `id_full`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -2248,11 +2248,11 @@ Default value: `title`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -2273,11 +2273,11 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -2301,11 +2301,11 @@ Default value: `lower`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -2331,17 +2331,17 @@ Set to `[]` to suppress all generated tags.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>set(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "default"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "default"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -2363,11 +2363,11 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -2385,11 +2385,11 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -2410,11 +2410,11 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -2432,11 +2432,11 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -2456,11 +2456,11 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -2478,11 +2478,11 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >

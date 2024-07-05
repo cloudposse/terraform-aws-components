@@ -75,109 +75,109 @@ The following data sources are used by this module:
 <dl>
   <dt><code>account_info_map</code></dt>
   <dd>
-    A map from account name to various information about the account.<br/>
-    See the `account_info_map` output of `account` for more detail.<br/>
-    <br/>
+  A map from account name to various information about the account.<br/>
+  See the `account_info_map` output of `account` for more detail.<br/>
+  <br/>
 
   </dd>
   <dt><code>all_accounts</code></dt>
   <dd>
-    A list of all accounts in the AWS Organization<br/>
+  A list of all accounts in the AWS Organization<br/>
 
   </dd>
   <dt><code>artifacts_account_account_name</code></dt>
   <dd>
-    The short name for the artifacts account<br/>
+  The short name for the artifacts account<br/>
 
   </dd>
   <dt><code>audit_account_account_name</code></dt>
   <dd>
-    The short name for the audit account<br/>
+  The short name for the audit account<br/>
 
   </dd>
   <dt><code>aws_partition</code></dt>
   <dd>
-    The AWS "partition" to use when constructing resource ARNs<br/>
+  The AWS "partition" to use when constructing resource ARNs<br/>
 
   </dd>
   <dt><code>cicd_profiles</code></dt>
   <dd>
-    A list of all SSO profiles used by cicd platforms<br/>
+  A list of all SSO profiles used by cicd platforms<br/>
 
   </dd>
   <dt><code>cicd_roles</code></dt>
   <dd>
-    A list of all IAM roles used by cicd platforms<br/>
+  A list of all IAM roles used by cicd platforms<br/>
 
   </dd>
   <dt><code>dns_account_account_name</code></dt>
   <dd>
-    The short name for the primary DNS account<br/>
+  The short name for the primary DNS account<br/>
 
   </dd>
   <dt><code>eks_accounts</code></dt>
   <dd>
-    A list of all accounts in the AWS Organization that contain EKS clusters<br/>
+  A list of all accounts in the AWS Organization that contain EKS clusters<br/>
 
   </dd>
   <dt><code>full_account_map</code></dt>
   <dd>
-    The map of account name to account ID (number).<br/>
+  The map of account name to account ID (number).<br/>
 
   </dd>
   <dt><code>helm_profiles</code></dt>
   <dd>
-    A list of all SSO profiles used to run helm updates<br/>
+  A list of all SSO profiles used to run helm updates<br/>
 
   </dd>
   <dt><code>helm_roles</code></dt>
   <dd>
-    A list of all IAM roles used to run helm updates<br/>
+  A list of all IAM roles used to run helm updates<br/>
 
   </dd>
   <dt><code>iam_role_arn_templates</code></dt>
   <dd>
-    Map of accounts to corresponding IAM Role ARN templates<br/>
+  Map of accounts to corresponding IAM Role ARN templates<br/>
 
   </dd>
   <dt><code>identity_account_account_name</code></dt>
   <dd>
-    The short name for the account holding primary IAM roles<br/>
+  The short name for the account holding primary IAM roles<br/>
 
   </dd>
   <dt><code>non_eks_accounts</code></dt>
   <dd>
-    A list of all accounts in the AWS Organization that do not contain EKS clusters<br/>
+  A list of all accounts in the AWS Organization that do not contain EKS clusters<br/>
 
   </dd>
   <dt><code>org</code></dt>
   <dd>
-    The name of the AWS Organization<br/>
+  The name of the AWS Organization<br/>
 
   </dd>
   <dt><code>profiles_enabled</code></dt>
   <dd>
-    Whether or not to enable profiles instead of roles for the backend<br/>
+  Whether or not to enable profiles instead of roles for the backend<br/>
 
   </dd>
   <dt><code>root_account_account_name</code></dt>
   <dd>
-    The short name for the root account<br/>
+  The short name for the root account<br/>
 
   </dd>
   <dt><code>root_account_aws_name</code></dt>
   <dd>
-    The name of the root account as reported by AWS<br/>
+  The name of the root account as reported by AWS<br/>
 
   </dd>
   <dt><code>terraform_profiles</code></dt>
   <dd>
-    A list of all SSO profiles used to run terraform updates<br/>
+  A list of all SSO profiles used to run terraform updates<br/>
 
   </dd>
   <dt><code>terraform_roles</code></dt>
   <dd>
-    A list of all IAM roles used to run terraform updates<br/>
+  A list of all IAM roles used to run terraform updates<br/>
 
   </dd>
 </dl>
@@ -202,11 +202,11 @@ AWS Region<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -224,11 +224,11 @@ The name of the root account as reported by AWS<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -248,11 +248,11 @@ The stage name for the artifacts account<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"artifacts"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"artifacts"</code>
 >   </dd>
 > </dl>
 >
@@ -270,11 +270,11 @@ The stage name for the audit account<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"audit"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"audit"</code>
 >   </dd>
 > </dl>
 >
@@ -292,11 +292,11 @@ The stage name for the primary DNS account<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"dns"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"dns"</code>
 >   </dd>
 > </dl>
 >
@@ -314,11 +314,11 @@ Global environment name<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"gbl"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"gbl"</code>
 >   </dd>
 > </dl>
 >
@@ -345,11 +345,11 @@ need to be updated to reflect the new number of labels.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"arn:%s:iam::%s:role/%s-%s-%s-%s-%%s"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"arn:%s:iam::%s:role/%s-%s-%s-%s-%%s"</code>
 >   </dd>
 > </dl>
 >
@@ -367,11 +367,11 @@ The stage name for the account holding primary IAM roles<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"identity"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"identity"</code>
 >   </dd>
 > </dl>
 >
@@ -395,11 +395,11 @@ need to be updated to reflect the new number of labels.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"%s-%s-%s-%s-%s"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"%s-%s-%s-%s-%s"</code>
 >   </dd>
 > </dl>
 >
@@ -417,11 +417,11 @@ Whether or not to enable profiles instead of roles for the backend. If true, pro
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -439,11 +439,11 @@ The stage name for the root account<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"root"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"root"</code>
 >   </dd>
 > </dl>
 >
@@ -473,11 +473,11 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -499,11 +499,11 @@ and treated as a single ID element.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -526,35 +526,35 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    {
->      "additional_tag_map": {},
->      "attributes": [],
->      "delimiter": null,
->      "descriptor_formats": {},
->      "enabled": true,
->      "environment": null,
->      "id_length_limit": null,
->      "label_key_case": null,
->      "label_order": [],
->      "label_value_case": null,
->      "labels_as_tags": [
->        "unset"
->      ],
->      "name": null,
->      "namespace": null,
->      "regex_replace_chars": null,
->      "stage": null,
->      "tags": {},
->      "tenant": null
->    }
->    ```
+>   ```hcl
+>   {
+>     "additional_tag_map": {},
+>     "attributes": [],
+>     "delimiter": null,
+>     "descriptor_formats": {},
+>     "enabled": true,
+>     "environment": null,
+>     "id_length_limit": null,
+>     "label_key_case": null,
+>     "label_order": [],
+>     "label_value_case": null,
+>     "labels_as_tags": [
+>       "unset"
+>     ],
+>     "name": null,
+>     "namespace": null,
+>     "regex_replace_chars": null,
+>     "stage": null,
+>     "tags": {},
+>     "tenant": null
+>   }
+>   ```
 >
 >   </dd>
 > </dl>
@@ -575,11 +575,11 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -609,11 +609,11 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -631,11 +631,11 @@ Set to false to prevent the module from creating any resources<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -653,11 +653,11 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -679,11 +679,11 @@ Does not affect `id_full`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -705,11 +705,11 @@ Default value: `title`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -730,11 +730,11 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -758,11 +758,11 @@ Default value: `lower`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -788,17 +788,17 @@ Set to `[]` to suppress all generated tags.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>set(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "default"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "default"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -820,11 +820,11 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -842,11 +842,11 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -867,11 +867,11 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -889,11 +889,11 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -913,11 +913,11 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -935,11 +935,11 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >

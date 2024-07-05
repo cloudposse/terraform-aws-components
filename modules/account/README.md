@@ -437,117 +437,117 @@ The following data sources are used by this module:
 <dl>
   <dt><code>account_arns</code></dt>
   <dd>
-    List of account ARNs (excluding root account)<br/>
+  List of account ARNs (excluding root account)<br/>
 
   </dd>
   <dt><code>account_ids</code></dt>
   <dd>
-    List of account IDs (excluding root account)<br/>
+  List of account IDs (excluding root account)<br/>
 
   </dd>
   <dt><code>account_info_map</code></dt>
   <dd>
-    Map of account names to<br/>
-      eks: boolean, account hosts at least one EKS cluster<br/>
-      id: account id (number)<br/>
-      stage: (optional) the account "stage"<br/>
-      tenant: (optional) the account "tenant"<br/>
-    <br/>
+  Map of account names to<br/>
+    eks: boolean, account hosts at least one EKS cluster<br/>
+    id: account id (number)<br/>
+    stage: (optional) the account "stage"<br/>
+    tenant: (optional) the account "tenant"<br/>
+  <br/>
 
   </dd>
   <dt><code>account_names_account_arns</code></dt>
   <dd>
-    Map of account names to account ARNs (excluding root account)<br/>
+  Map of account names to account ARNs (excluding root account)<br/>
 
   </dd>
   <dt><code>account_names_account_ids</code></dt>
   <dd>
-    Map of account names to account IDs (excluding root account)<br/>
+  Map of account names to account IDs (excluding root account)<br/>
 
   </dd>
   <dt><code>account_names_account_scp_arns</code></dt>
   <dd>
-    Map of account names to SCP ARNs for accounts with SCPs<br/>
+  Map of account names to SCP ARNs for accounts with SCPs<br/>
 
   </dd>
   <dt><code>account_names_account_scp_ids</code></dt>
   <dd>
-    Map of account names to SCP IDs for accounts with SCPs<br/>
+  Map of account names to SCP IDs for accounts with SCPs<br/>
 
   </dd>
   <dt><code>eks_accounts</code></dt>
   <dd>
-    List of EKS accounts<br/>
+  List of EKS accounts<br/>
 
   </dd>
   <dt><code>non_eks_accounts</code></dt>
   <dd>
-    List of non EKS accounts<br/>
+  List of non EKS accounts<br/>
 
   </dd>
   <dt><code>organization_arn</code></dt>
   <dd>
-    Organization ARN<br/>
+  Organization ARN<br/>
 
   </dd>
   <dt><code>organization_id</code></dt>
   <dd>
-    Organization ID<br/>
+  Organization ID<br/>
 
   </dd>
   <dt><code>organization_master_account_arn</code></dt>
   <dd>
-    Organization master account ARN<br/>
+  Organization master account ARN<br/>
 
   </dd>
   <dt><code>organization_master_account_email</code></dt>
   <dd>
-    Organization master account email<br/>
+  Organization master account email<br/>
 
   </dd>
   <dt><code>organization_master_account_id</code></dt>
   <dd>
-    Organization master account ID<br/>
+  Organization master account ID<br/>
 
   </dd>
   <dt><code>organization_scp_arn</code></dt>
   <dd>
-    Organization Service Control Policy ARN<br/>
+  Organization Service Control Policy ARN<br/>
 
   </dd>
   <dt><code>organization_scp_id</code></dt>
   <dd>
-    Organization Service Control Policy ID<br/>
+  Organization Service Control Policy ID<br/>
 
   </dd>
   <dt><code>organizational_unit_arns</code></dt>
   <dd>
-    List of Organizational Unit ARNs<br/>
+  List of Organizational Unit ARNs<br/>
 
   </dd>
   <dt><code>organizational_unit_ids</code></dt>
   <dd>
-    List of Organizational Unit IDs<br/>
+  List of Organizational Unit IDs<br/>
 
   </dd>
   <dt><code>organizational_unit_names_organizational_unit_arns</code></dt>
   <dd>
-    Map of Organizational Unit names to Organizational Unit ARNs<br/>
+  Map of Organizational Unit names to Organizational Unit ARNs<br/>
 
   </dd>
   <dt><code>organizational_unit_names_organizational_unit_ids</code></dt>
   <dd>
-    Map of Organizational Unit names to Organizational Unit IDs<br/>
+  Map of Organizational Unit names to Organizational Unit IDs<br/>
 
   </dd>
   <dt><code>organizational_unit_names_organizational_unit_scp_arns</code></dt>
   <dd>
-    Map of OU names to SCP ARNs<br/>
+  Map of OU names to SCP ARNs<br/>
 
   </dd>
   <dt><code>organizational_unit_names_organizational_unit_scp_ids</code></dt>
   <dd>
-    Map of OU names to SCP IDs<br/>
+  Map of OU names to SCP IDs<br/>
 
   </dd>
 </dl>
@@ -572,11 +572,11 @@ Email address format for the accounts (e.g. `aws+%s@example.com`)<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -594,11 +594,11 @@ List of AWS service principal names for which you want to enable integration wit
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -616,11 +616,11 @@ List of Organizations policy types to enable in the Organization Root. Organizat
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -638,11 +638,11 @@ Organization, Organizational Units and Accounts configuration<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -660,11 +660,11 @@ AWS Region<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -682,11 +682,11 @@ List of paths to Service Control Policy configurations<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -706,11 +706,11 @@ If set to `ALLOW`, the new account enables IAM users to access account billing i
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"DENY"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"DENY"</code>
 >   </dd>
 > </dl>
 >
@@ -728,11 +728,11 @@ A boolean flag indicating whether to create an Organization or use the existing 
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -762,11 +762,11 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -788,11 +788,11 @@ and treated as a single ID element.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -815,35 +815,35 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    {
->      "additional_tag_map": {},
->      "attributes": [],
->      "delimiter": null,
->      "descriptor_formats": {},
->      "enabled": true,
->      "environment": null,
->      "id_length_limit": null,
->      "label_key_case": null,
->      "label_order": [],
->      "label_value_case": null,
->      "labels_as_tags": [
->        "unset"
->      ],
->      "name": null,
->      "namespace": null,
->      "regex_replace_chars": null,
->      "stage": null,
->      "tags": {},
->      "tenant": null
->    }
->    ```
+>   ```hcl
+>   {
+>     "additional_tag_map": {},
+>     "attributes": [],
+>     "delimiter": null,
+>     "descriptor_formats": {},
+>     "enabled": true,
+>     "environment": null,
+>     "id_length_limit": null,
+>     "label_key_case": null,
+>     "label_order": [],
+>     "label_value_case": null,
+>     "labels_as_tags": [
+>       "unset"
+>     ],
+>     "name": null,
+>     "namespace": null,
+>     "regex_replace_chars": null,
+>     "stage": null,
+>     "tags": {},
+>     "tenant": null
+>   }
+>   ```
 >
 >   </dd>
 > </dl>
@@ -864,11 +864,11 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -898,11 +898,11 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -920,11 +920,11 @@ Set to false to prevent the module from creating any resources<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -942,11 +942,11 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -968,11 +968,11 @@ Does not affect `id_full`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -994,11 +994,11 @@ Default value: `title`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1019,11 +1019,11 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1047,11 +1047,11 @@ Default value: `lower`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1077,17 +1077,17 @@ Set to `[]` to suppress all generated tags.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>set(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "default"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "default"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -1109,11 +1109,11 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1131,11 +1131,11 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1156,11 +1156,11 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1178,11 +1178,11 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1202,11 +1202,11 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -1224,11 +1224,11 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >

@@ -137,92 +137,92 @@ The following data sources are used by this module:
 <dl>
   <dt><code>autoscaling_group_arn</code></dt>
   <dd>
-    The ARN for this AutoScaling Group<br/>
+  The ARN for this AutoScaling Group<br/>
 
   </dd>
   <dt><code>autoscaling_group_default_cooldown</code></dt>
   <dd>
-    Time between a scaling activity and the succeeding scaling activity<br/>
+  Time between a scaling activity and the succeeding scaling activity<br/>
 
   </dd>
   <dt><code>autoscaling_group_health_check_grace_period</code></dt>
   <dd>
-    Time after instance comes into service before checking health<br/>
+  Time after instance comes into service before checking health<br/>
 
   </dd>
   <dt><code>autoscaling_group_health_check_type</code></dt>
   <dd>
-    `EC2` or `ELB`. Controls how health checking is done<br/>
+  `EC2` or `ELB`. Controls how health checking is done<br/>
 
   </dd>
   <dt><code>autoscaling_group_id</code></dt>
   <dd>
-    The autoscaling group id<br/>
+  The autoscaling group id<br/>
 
   </dd>
   <dt><code>autoscaling_group_max_size</code></dt>
   <dd>
-    The maximum size of the autoscale group<br/>
+  The maximum size of the autoscale group<br/>
 
   </dd>
   <dt><code>autoscaling_group_min_size</code></dt>
   <dd>
-    The minimum size of the autoscale group<br/>
+  The minimum size of the autoscale group<br/>
 
   </dd>
   <dt><code>autoscaling_group_name</code></dt>
   <dd>
-    The autoscaling group name<br/>
+  The autoscaling group name<br/>
 
   </dd>
   <dt><code>iam_role_arn</code></dt>
   <dd>
-    Spacelift IAM Role ARN<br/>
+  Spacelift IAM Role ARN<br/>
 
   </dd>
   <dt><code>iam_role_id</code></dt>
   <dd>
-    Spacelift IAM Role ID<br/>
+  Spacelift IAM Role ID<br/>
 
   </dd>
   <dt><code>iam_role_name</code></dt>
   <dd>
-    Spacelift IAM Role name<br/>
+  Spacelift IAM Role name<br/>
 
   </dd>
   <dt><code>launch_template_arn</code></dt>
   <dd>
-    The ARN of the launch template<br/>
+  The ARN of the launch template<br/>
 
   </dd>
   <dt><code>launch_template_id</code></dt>
   <dd>
-    The ID of the launch template<br/>
+  The ID of the launch template<br/>
 
   </dd>
   <dt><code>security_group_arn</code></dt>
   <dd>
-    Spacelift Security Group ARN<br/>
+  Spacelift Security Group ARN<br/>
 
   </dd>
   <dt><code>security_group_id</code></dt>
   <dd>
-    Spacelift Security Group ID<br/>
+  Spacelift Security Group ID<br/>
 
   </dd>
   <dt><code>security_group_name</code></dt>
   <dd>
-    Spacelift Security Group Name<br/>
+  Spacelift Security Group Name<br/>
 
   </dd>
   <dt><code>worker_pool_id</code></dt>
   <dd>
-    Spacelift worker pool ID<br/>
+  Spacelift worker pool ID<br/>
 
   </dd>
   <dt><code>worker_pool_name</code></dt>
   <dd>
-    Spacelift worker pool name<br/>
+  Spacelift worker pool name<br/>
 
   </dd>
 </dl>
@@ -247,11 +247,11 @@ CPU utilization high threshold<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -269,11 +269,11 @@ CPU utilization low threshold<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -291,11 +291,11 @@ ECR repository name<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -313,11 +313,11 @@ The maximum size of the autoscale group<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -335,11 +335,11 @@ The minimum size of the autoscale group<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -357,11 +357,11 @@ AWS Region<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -379,11 +379,11 @@ The Spacelift API endpoint URL (e.g. https://example.app.spacelift.io)<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -401,11 +401,11 @@ A maximum duration that Terraform should wait for ASG instances to be healthy be
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -425,11 +425,11 @@ The name of the environment where `account_map` is provisioned<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"gbl"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"gbl"</code>
 >   </dd>
 > </dl>
 >
@@ -447,11 +447,11 @@ The name of the stage where `account_map` is provisioned<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"root"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"root"</code>
 >   </dd>
 > </dl>
 >
@@ -472,11 +472,11 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -494,11 +494,11 @@ The AWS_CONFIG_FILE used by the worker. Can be overridden by `/.spacelift/config
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"/etc/aws-config/aws-config-spacelift"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"/etc/aws-config/aws-config-spacelift"</code>
 >   </dd>
 > </dl>
 >
@@ -518,11 +518,11 @@ Can be overridden by `/.spacelift/config.yml`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -559,11 +559,11 @@ Specify volumes to attach to the instance besides the volumes specified by the A
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -581,11 +581,11 @@ Custom spacelift AMI<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -603,11 +603,11 @@ The amount of time, in seconds, after a scaling activity completes before anothe
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>300</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>300</code>
 >   </dd>
 > </dl>
 >
@@ -625,11 +625,11 @@ The number of Amazon EC2 instances that should be running in the group, if not s
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -647,11 +647,11 @@ If true, the launched EC2 instance will be EBS-optimized<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -669,11 +669,11 @@ The name of the environment where `ecr` is provisioned<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>""</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
 >   </dd>
 > </dl>
 >
@@ -691,11 +691,11 @@ AWS region that contains the ECR infrastructure repo<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>""</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
 >   </dd>
 > </dl>
 >
@@ -713,11 +713,11 @@ The name of the stage where `ecr` is provisioned<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"artifacts"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"artifacts"</code>
 >   </dd>
 > </dl>
 >
@@ -738,11 +738,11 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -760,11 +760,11 @@ Whether to create a GitHub .netrc file so Spacelift can clone private GitHub rep
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -782,11 +782,11 @@ If `github_netrc` is enabled, this is the SSM path to retrieve the GitHub token.
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"/github/token"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"/github/token"</code>
 >   </dd>
 > </dl>
 >
@@ -804,11 +804,11 @@ If `github_netrc` is enabled, this is the SSM path to retrieve the GitHub user<b
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"/github/user"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"/github/user"</code>
 >   </dd>
 > </dl>
 >
@@ -826,11 +826,11 @@ Time (in seconds) after instance comes into service before checking health<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>300</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>300</code>
 >   </dd>
 > </dl>
 >
@@ -848,11 +848,11 @@ Controls how health checking is done. Valid values are `EC2` or `ELB`<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"EC2"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"EC2"</code>
 >   </dd>
 > </dl>
 >
@@ -870,11 +870,11 @@ Additional attributes to add to the IDs of the IAM role and policy<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -892,11 +892,11 @@ AWS Profile name to use when importing a resource<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -914,11 +914,11 @@ IAM Role ARN to use when importing a resource<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -936,11 +936,11 @@ This is the SSM path to retrieve and set the INFRACOST_API_TOKEN environment var
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"/infracost/token"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"/infracost/token"</code>
 >   </dd>
 > </dl>
 >
@@ -958,11 +958,11 @@ These are the CLI args passed to infracost<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>""</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
 >   </dd>
 > </dl>
 >
@@ -980,11 +980,11 @@ Whether to enable infracost for Spacelift stacks<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>false</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>false</code>
 >   </dd>
 > </dl>
 >
@@ -1002,11 +1002,11 @@ A failure executing Infracost, or a non-zero exit code being returned from the c
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>true</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>true</code>
 >   </dd>
 > </dl>
 >
@@ -1037,11 +1037,11 @@ The instance refresh definition. If this block is configured, an Instance Refres
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1059,11 +1059,11 @@ EC2 instance type to use for workers<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"r5n.large"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"r5n.large"</code>
 >   </dd>
 > </dl>
 >
@@ -1100,11 +1100,11 @@ Policy to use a mixed group of on-demand/spot of different types. Launch templat
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1122,11 +1122,11 @@ The amount of time, in seconds, after a scaling activity completes and before th
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>300</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>300</code>
 >   </dd>
 > </dl>
 >
@@ -1144,11 +1144,11 @@ Number of Spacelift agents to run on one worker node<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>1</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>1</code>
 >   </dd>
 > </dl>
 >
@@ -1166,11 +1166,11 @@ AMI ID of Spacelift worker pool image<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1188,11 +1188,11 @@ AWS Account ID owned by Spacelift<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"643313122712"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"643313122712"</code>
 >   </dd>
 > </dl>
 >
@@ -1210,11 +1210,11 @@ Top-level domain name to use for pulling the launcher binary<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"spacelift.io"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"spacelift.io"</code>
 >   </dd>
 > </dl>
 >
@@ -1232,11 +1232,11 @@ URL of ECR image to use for Spacelift<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>""</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
 >   </dd>
 > </dl>
 >
@@ -1254,17 +1254,17 @@ A list of policies to decide how the instances in the auto scale group should be
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "OldestLaunchConfiguration"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "OldestLaunchConfiguration"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -1295,11 +1295,11 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -1321,11 +1321,11 @@ and treated as a single ID element.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -1348,35 +1348,35 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    {
->      "additional_tag_map": {},
->      "attributes": [],
->      "delimiter": null,
->      "descriptor_formats": {},
->      "enabled": true,
->      "environment": null,
->      "id_length_limit": null,
->      "label_key_case": null,
->      "label_order": [],
->      "label_value_case": null,
->      "labels_as_tags": [
->        "unset"
->      ],
->      "name": null,
->      "namespace": null,
->      "regex_replace_chars": null,
->      "stage": null,
->      "tags": {},
->      "tenant": null
->    }
->    ```
+>   ```hcl
+>   {
+>     "additional_tag_map": {},
+>     "attributes": [],
+>     "delimiter": null,
+>     "descriptor_formats": {},
+>     "enabled": true,
+>     "environment": null,
+>     "id_length_limit": null,
+>     "label_key_case": null,
+>     "label_order": [],
+>     "label_value_case": null,
+>     "labels_as_tags": [
+>       "unset"
+>     ],
+>     "name": null,
+>     "namespace": null,
+>     "regex_replace_chars": null,
+>     "stage": null,
+>     "tags": {},
+>     "tenant": null
+>   }
+>   ```
 >
 >   </dd>
 > </dl>
@@ -1397,11 +1397,11 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1431,11 +1431,11 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -1453,11 +1453,11 @@ Set to false to prevent the module from creating any resources<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1475,11 +1475,11 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1501,11 +1501,11 @@ Does not affect `id_full`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1527,11 +1527,11 @@ Default value: `title`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1552,11 +1552,11 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1580,11 +1580,11 @@ Default value: `lower`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1610,17 +1610,17 @@ Set to `[]` to suppress all generated tags.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>set(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "default"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "default"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -1642,11 +1642,11 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1664,11 +1664,11 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1689,11 +1689,11 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1711,11 +1711,11 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1735,11 +1735,11 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -1757,11 +1757,11 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >

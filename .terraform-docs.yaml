@@ -22,18 +22,18 @@ content: |-
   >   ```
   >
   >   {{ end }}
-  >  </dd>
+  >   </dd>
   >
-  >  <dt>Default value</dt>
-  >  <dd>
-  >    {{ if lt (len (split "\n" .GetValue)) 2 }}<code>{{ .GetValue }}</code>{{ else }}
+  >   <dt>Default value</dt>
+  >   <dd>
+  >   {{ if lt (len (split "\n" .GetValue)) 2 }}<code>{{ .GetValue | default "unset" }}</code>{{ else }}
   >
-  >    ```hcl
-       {{- $lines := regexSplit "\n" .GetValue -1 -}}
-       {{- range $lines }}
-  >    {{ . }}
-       {{- end }}
-  >    ```
+  >   ```hcl
+      {{- $lines := regexSplit "\n" .GetValue -1 -}}
+      {{- range $lines }}
+  >   {{ . }}
+      {{- end }}
+  >   ```
   >
       {{- end }}
   >   </dd>
@@ -118,10 +118,10 @@ content: |-
     <dt><code>{{ .Name }}</code>{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}</dt>
     <dd>
 
-      {{- $lines := regexSplit "\n" (tostring .Description | replace "OBSOLETE: " "" | default "n/a" ) -1 -}}
-      {{- range $lines }}
-      {{ . }}<br/>
-      {{- end }}
+    {{- $lines := regexSplit "\n" (tostring .Description | replace "OBSOLETE: " "" | default "n/a" ) -1 -}}
+    {{- range $lines }}
+    {{ . }}<br/>
+    {{- end }}
 
     </dd>
   {{- end }}

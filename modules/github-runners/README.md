@@ -354,37 +354,37 @@ The following data sources are used by this module:
 <dl>
   <dt><code>autoscaling_group_arn</code></dt>
   <dd>
-    The Amazon Resource Name (ARN) of the Auto Scaling Group.<br/>
+  The Amazon Resource Name (ARN) of the Auto Scaling Group.<br/>
 
   </dd>
   <dt><code>autoscaling_group_name</code></dt>
   <dd>
-    The name of the Auto Scaling Group.<br/>
+  The name of the Auto Scaling Group.<br/>
 
   </dd>
   <dt><code>autoscaling_lifecycle_hook_name</code></dt>
   <dd>
-    The name of the Lifecycle Hook for the Auto Scaling Group.<br/>
+  The name of the Lifecycle Hook for the Auto Scaling Group.<br/>
 
   </dd>
   <dt><code>eventbridge_rule_arn</code></dt>
   <dd>
-    The ARN of the Eventbridge rule for the EC2 lifecycle transition.<br/>
+  The ARN of the Eventbridge rule for the EC2 lifecycle transition.<br/>
 
   </dd>
   <dt><code>eventbridge_target_arn</code></dt>
   <dd>
-    The ARN of the Eventbridge target corresponding to the Eventbridge rule for the EC2 lifecycle transition.<br/>
+  The ARN of the Eventbridge target corresponding to the Eventbridge rule for the EC2 lifecycle transition.<br/>
 
   </dd>
   <dt><code>iam_role_arn</code></dt>
   <dd>
-    The ARN of the IAM role associated with the Autoscaling Group<br/>
+  The ARN of the IAM role associated with the Autoscaling Group<br/>
 
   </dd>
   <dt><code>ssm_document_arn</code></dt>
   <dd>
-    The ARN of the SSM document.<br/>
+  The ARN of the SSM document.<br/>
 
   </dd>
 </dl>
@@ -409,11 +409,11 @@ Scope of the runner (e.g. `cloudposse/example` for repo or `cloudposse` for org)
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -431,11 +431,11 @@ The maximum size of the autoscale group<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -453,11 +453,11 @@ The minimum size of the autoscale group<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -475,11 +475,11 @@ AWS Region<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code></code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>unset</code>
 >   </dd>
 > </dl>
 >
@@ -499,11 +499,11 @@ The name of the environment where `account_map` is provisioned<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"gbl"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"gbl"</code>
 >   </dd>
 > </dl>
 >
@@ -521,11 +521,11 @@ The name of the stage where `account_map` is provisioned<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"root"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"root"</code>
 >   </dd>
 > </dl>
 >
@@ -546,11 +546,11 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -568,19 +568,19 @@ Map of lists used to look up the AMI which will be used for the GitHub Actions R
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(list(string))</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    {
->      "name": [
->        "amzn2-ami-hvm-2.*-x86_64-ebs"
->      ]
->    }
->    ```
+>   ```hcl
+>   {
+>     "name": [
+>       "amzn2-ami-hvm-2.*-x86_64-ebs"
+>     ]
+>   }
+>   ```
 >
 >   </dd>
 > </dl>
@@ -599,17 +599,17 @@ The list of owners used to select the AMI of action runner instances.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "amazon"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "amazon"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -647,11 +647,11 @@ Specify volumes to attach to the instance besides the volumes specified by the A
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -669,11 +669,11 @@ The number of periods over which data is compared to the specified threshold<br/
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>2</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>2</code>
 >   </dd>
 > </dl>
 >
@@ -691,11 +691,11 @@ The period in seconds over which the specified statistic is applied<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>300</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>300</code>
 >   </dd>
 > </dl>
 >
@@ -713,11 +713,11 @@ The value against which the specified statistic is compared<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>90</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>90</code>
 >   </dd>
 > </dl>
 >
@@ -735,11 +735,11 @@ The number of periods over which data is compared to the specified threshold<br/
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>2</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>2</code>
 >   </dd>
 > </dl>
 >
@@ -757,11 +757,11 @@ The period in seconds over which the specified statistic is applied<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>300</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>300</code>
 >   </dd>
 > </dl>
 >
@@ -779,11 +779,11 @@ The value against which the specified statistic is compared<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>10</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>10</code>
 >   </dd>
 > </dl>
 >
@@ -801,11 +801,11 @@ The amount of time, in seconds, after a scaling activity completes before anothe
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>300</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>300</code>
 >   </dd>
 > </dl>
 >
@@ -823,11 +823,11 @@ The version of docker-compose to install<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"1.29.2"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"1.29.2"</code>
 >   </dd>
 > </dl>
 >
@@ -845,11 +845,11 @@ Default instance type for the action runner.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"m5.large"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"m5.large"</code>
 >   </dd>
 > </dl>
 >
@@ -867,11 +867,11 @@ The maximum amount of time, in seconds, that an instance can be in service, valu
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -908,11 +908,11 @@ Policy to use a mixed group of on-demand/spot of differing types. Launch templat
 >   ```
 >
 >   
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -930,11 +930,11 @@ GitHub runner group<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"default"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"default"</code>
 >   </dd>
 > </dl>
 >
@@ -952,11 +952,11 @@ List of labels to add to the GitHub Runner (e.g. 'Amazon Linux 2').<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -974,11 +974,11 @@ List of policy ARNs that will be attached to the runners' default role on creati
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -996,11 +996,11 @@ GitHub runner release version<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"2.288.1"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"2.288.1"</code>
 >   </dd>
 > </dl>
 >
@@ -1018,11 +1018,11 @@ The amount of time, in seconds, after a scaling activity completes and before th
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>300</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>300</code>
 >   </dd>
 > </dl>
 >
@@ -1040,11 +1040,11 @@ SSM parameter name format<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"/%s/%s"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"/%s/%s"</code>
 >   </dd>
 > </dl>
 >
@@ -1062,11 +1062,11 @@ GitHub token SSM path<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"github"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"github"</code>
 >   </dd>
 > </dl>
 >
@@ -1084,11 +1084,11 @@ GitHub token SSM path key<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"registration-token"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"registration-token"</code>
 >   </dd>
 > </dl>
 >
@@ -1106,11 +1106,11 @@ Shell script to run post installation of github action runner<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>""</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
 >   </dd>
 > </dl>
 >
@@ -1128,11 +1128,11 @@ Shell script to run before installation of github action runner<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>""</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>""</code>
 >   </dd>
 > </dl>
 >
@@ -1150,11 +1150,11 @@ A maximum duration that Terraform should wait for ASG instances to be healthy be
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>"10m"</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>"10m"</code>
 >   </dd>
 > </dl>
 >
@@ -1184,11 +1184,11 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -1210,11 +1210,11 @@ and treated as a single ID element.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>[]</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>[]</code>
 >   </dd>
 > </dl>
 >
@@ -1237,35 +1237,35 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    {
->      "additional_tag_map": {},
->      "attributes": [],
->      "delimiter": null,
->      "descriptor_formats": {},
->      "enabled": true,
->      "environment": null,
->      "id_length_limit": null,
->      "label_key_case": null,
->      "label_order": [],
->      "label_value_case": null,
->      "labels_as_tags": [
->        "unset"
->      ],
->      "name": null,
->      "namespace": null,
->      "regex_replace_chars": null,
->      "stage": null,
->      "tags": {},
->      "tenant": null
->    }
->    ```
+>   ```hcl
+>   {
+>     "additional_tag_map": {},
+>     "attributes": [],
+>     "delimiter": null,
+>     "descriptor_formats": {},
+>     "enabled": true,
+>     "environment": null,
+>     "id_length_limit": null,
+>     "label_key_case": null,
+>     "label_order": [],
+>     "label_value_case": null,
+>     "labels_as_tags": [
+>       "unset"
+>     ],
+>     "name": null,
+>     "namespace": null,
+>     "regex_replace_chars": null,
+>     "stage": null,
+>     "tags": {},
+>     "tenant": null
+>   }
+>   ```
 >
 >   </dd>
 > </dl>
@@ -1286,11 +1286,11 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1320,11 +1320,11 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>any</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -1342,11 +1342,11 @@ Set to false to prevent the module from creating any resources<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>bool</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1364,11 +1364,11 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1390,11 +1390,11 @@ Does not affect `id_full`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>number</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1416,11 +1416,11 @@ Default value: `title`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1441,11 +1441,11 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >   <dt>Type</dt>
 >   <dd>
 >   <code>list(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1469,11 +1469,11 @@ Default value: `lower`.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1499,17 +1499,17 @@ Set to `[]` to suppress all generated tags.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>set(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    
+>   <dt>Default value</dt>
+>   <dd>
+>   
 >
->    ```hcl
->    [
->      "default"
->    ]
->    ```
+>   ```hcl
+>   [
+>     "default"
+>   ]
+>   ```
 >
 >   </dd>
 > </dl>
@@ -1531,11 +1531,11 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1553,11 +1553,11 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1578,11 +1578,11 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1600,11 +1600,11 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
@@ -1624,11 +1624,11 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >   <dt>Type</dt>
 >   <dd>
 >   <code>map(string)</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>{}</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>{}</code>
 >   </dd>
 > </dl>
 >
@@ -1646,11 +1646,11 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >   <dt>Type</dt>
 >   <dd>
 >   <code>string</code>
->  </dd>
+>   </dd>
 >
->  <dt>Default value</dt>
->  <dd>
->    <code>null</code>
+>   <dt>Default value</dt>
+>   <dd>
+>   <code>null</code>
 >   </dd>
 > </dl>
 >
