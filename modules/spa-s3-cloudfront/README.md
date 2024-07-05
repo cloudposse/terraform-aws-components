@@ -154,17 +154,17 @@ components:
 Name | Version | Source | Description
 --- | --- | --- | ---
 `acm_request_certificate` | 0.18.0 | [`cloudposse/acm-request-certificate/aws`](https://registry.terraform.io/modules/cloudposse/acm-request-certificate/aws/0.18.0) | Create an ACM and explicitly set it to us-east-1 (requirement of CloudFront)
-`dns_delegated` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`dns_delegated` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 `gha_assume_role` | latest | [`../account-map/modules/team-assume-role-policy`](https://registry.terraform.io/modules/../account-map/modules/team-assume-role-policy/) | n/a
 `gha_role_name` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`github_runners` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`github_runners` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 `iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
-`lambda_edge` | 0.92.0 | [`cloudposse/cloudfront-s3-cdn/aws//modules/lambda@edge`](https://registry.terraform.io/modules/cloudposse/cloudfront-s3-cdn/aws/modules/lambda@edge/0.92.0) | n/a
-`lambda_edge_functions` | 1.0.2 | [`cloudposse/config/yaml//modules/deepmerge`](https://registry.terraform.io/modules/cloudposse/config/yaml/modules/deepmerge/1.0.2) | n/a
+`lambda_edge` | 0.92.0 | [`cloudposse/cloudfront-s3-cdn/aws//modules/lambda@edge`](https://registry.terraform.io/modules/cloudposse/cloudfront-s3-cdn/aws/0.92.0/submodules/lambda@edge) | n/a
+`lambda_edge_functions` | 1.0.2 | [`cloudposse/config/yaml//modules/deepmerge`](https://registry.terraform.io/modules/cloudposse/config/yaml/1.0.2/submodules/deepmerge) | n/a
 `spa_web` | 0.95.0 | [`cloudposse/cloudfront-s3-cdn/aws`](https://registry.terraform.io/modules/cloudposse/cloudfront-s3-cdn/aws/0.95.0) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 `utils` | 1.3.0 | [`cloudposse/utils/aws`](https://registry.terraform.io/modules/cloudposse/utils/aws/1.3.0) | n/a
-`waf` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`waf` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 
 
 ## Resources

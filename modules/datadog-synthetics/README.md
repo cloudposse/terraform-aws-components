@@ -171,9 +171,9 @@ The configuration files are processed and transformed in the following order:
 Name | Version | Source | Description
 --- | --- | --- | ---
 `datadog_configuration` | latest | [`../datadog-configuration/modules/datadog_keys`](https://registry.terraform.io/modules/../datadog-configuration/modules/datadog_keys/) | n/a
-`datadog_synthetics` | 1.3.0 | [`cloudposse/platform/datadog//modules/synthetics`](https://registry.terraform.io/modules/cloudposse/platform/datadog/modules/synthetics/1.3.0) | n/a
-`datadog_synthetics_merge` | 1.0.2 | [`cloudposse/config/yaml//modules/deepmerge`](https://registry.terraform.io/modules/cloudposse/config/yaml/modules/deepmerge/1.0.2) | n/a
-`datadog_synthetics_private_location` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`datadog_synthetics` | 1.3.0 | [`cloudposse/platform/datadog//modules/synthetics`](https://registry.terraform.io/modules/cloudposse/platform/datadog/1.3.0/submodules/synthetics) | n/a
+`datadog_synthetics_merge` | 1.0.2 | [`cloudposse/config/yaml//modules/deepmerge`](https://registry.terraform.io/modules/cloudposse/config/yaml/1.0.2/submodules/deepmerge) | n/a
+`datadog_synthetics_private_location` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 `datadog_synthetics_yaml_config` | 1.0.2 | [`cloudposse/config/yaml`](https://registry.terraform.io/modules/cloudposse/config/yaml/1.0.2) | Convert all Datadog synthetics from YAML config to Terraform map
 `iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a

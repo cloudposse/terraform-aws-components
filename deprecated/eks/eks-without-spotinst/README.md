@@ -76,15 +76,15 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`delegated_roles` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.4.1) | n/a
-`eks` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.4.1) | Yes, this is self-referential. It obtains the previous state of the cluster so that we can add to it rather than overwrite it (specifically the aws-auth configMap)
+`delegated_roles` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | n/a
+`eks` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | Yes, this is self-referential. It obtains the previous state of the cluster so that we can add to it rather than overwrite it (specifically the aws-auth configMap)
 `eks_cluster` | 0.44.0 | [`cloudposse/eks-cluster/aws`](https://registry.terraform.io/modules/cloudposse/eks-cluster/aws/0.44.0) | n/a
 `iam_roles` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
-`primary_roles` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.4.1) | n/a
+`primary_roles` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | n/a
 `region_node_group` | latest | [`./modules/node_group_by_region`](https://registry.terraform.io/modules/./modules/node_group_by_region/) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`vpc` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.4.1) | n/a
-`vpc_ingress` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.4.1) | n/a
+`vpc` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | n/a
+`vpc_ingress` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | n/a
 
 
 

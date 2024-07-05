@@ -50,12 +50,12 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`glue_connection` | 0.4.0 | [`cloudposse/glue/aws//modules/glue-connection`](https://registry.terraform.io/modules/cloudposse/glue/aws/modules/glue-connection/0.4.0) | n/a
+`glue_connection` | 0.4.0 | [`cloudposse/glue/aws//modules/glue-connection`](https://registry.terraform.io/modules/cloudposse/glue/aws/0.4.0/submodules/glue-connection) | n/a
 `iam_roles` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
 `security_group` | 2.2.0 | [`cloudposse/security-group/aws`](https://registry.terraform.io/modules/cloudposse/security-group/aws/2.2.0) | n/a
 `target_security_group` | 2.2.0 | [`cloudposse/security-group/aws`](https://registry.terraform.io/modules/cloudposse/security-group/aws/2.2.0) | This allows adding the necessary Security Group rules for Glue to communicate with Redshift
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 
 
 ## Resources

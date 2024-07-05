@@ -167,9 +167,9 @@ atmos terraform apply guardduty/org-settings/uw1 -s core-uw1-security
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`account_map` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`account_map` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 `guardduty` | 0.5.0 | [`cloudposse/guardduty/aws`](https://registry.terraform.io/modules/cloudposse/guardduty/aws/0.5.0) | If we are are in the AWS Org designated administrator account, enable the GuardDuty detector and optionally create an SNS topic for notifications and CloudWatch event rules for findings
-`guardduty_delegated_detector` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`guardduty_delegated_detector` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 `iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 

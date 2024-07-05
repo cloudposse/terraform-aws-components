@@ -51,7 +51,7 @@ Name | Version | Source | Description
 --- | --- | --- | ---
 `allowed_role_map` | latest | [`../../../account-map/modules/roles-to-principals`](https://registry.terraform.io/modules/../../../account-map/modules/roles-to-principals/) | n/a
 `denied_role_map` | latest | [`../../../account-map/modules/roles-to-principals`](https://registry.terraform.io/modules/../../../account-map/modules/roles-to-principals/) | n/a
-`github_oidc_provider` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`github_oidc_provider` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 

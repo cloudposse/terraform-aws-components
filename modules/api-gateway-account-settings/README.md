@@ -47,7 +47,7 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`api_gateway_account_settings` | 0.3.1 | [`cloudposse/api-gateway/aws//modules/account-settings`](https://registry.terraform.io/modules/cloudposse/api-gateway/aws/modules/account-settings/0.3.1) | n/a
+`api_gateway_account_settings` | 0.3.1 | [`cloudposse/api-gateway/aws//modules/account-settings`](https://registry.terraform.io/modules/cloudposse/api-gateway/aws/0.3.1/submodules/account-settings) | n/a
 `iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 

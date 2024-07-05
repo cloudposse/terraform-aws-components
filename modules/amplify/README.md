@@ -159,7 +159,7 @@ Name | Version | Source | Description
 --- | --- | --- | ---
 `amplify_app` | 0.2.1 | [`cloudposse/amplify-app/aws`](https://registry.terraform.io/modules/cloudposse/amplify-app/aws/0.2.1) | n/a
 `certificate_verification_dns_record` | 0.12.3 | [`cloudposse/route53-cluster-hostname/aws`](https://registry.terraform.io/modules/cloudposse/route53-cluster-hostname/aws/0.12.3) | Create the SSL certificate validation record
-`dns_delegated` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`dns_delegated` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 `iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
 `subdomains_dns_record` | 0.12.3 | [`cloudposse/route53-cluster-hostname/aws`](https://registry.terraform.io/modules/cloudposse/route53-cluster-hostname/aws/0.12.3) | Create DNS records for the subdomains
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a

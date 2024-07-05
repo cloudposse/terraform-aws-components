@@ -84,8 +84,8 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`policy` | 1.6.0 | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-policy`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/modules/spacelift-policy/1.6.0) | n/a
-`space` | 1.6.0 | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-space`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/modules/spacelift-space/1.6.0) | n/a
+`policy` | 1.6.0 | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-policy`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-policy) | n/a
+`space` | 1.6.0 | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-space`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-space) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 

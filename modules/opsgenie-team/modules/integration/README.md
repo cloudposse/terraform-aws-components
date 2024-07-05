@@ -26,7 +26,7 @@ This module creates an OpsGenie integrations for a team. By Default, it creates 
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`api_integration` | 0.16.0 | [`cloudposse/incident-management/opsgenie//modules/api_integration`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/modules/api_integration/0.16.0) | n/a
+`api_integration` | 0.16.0 | [`cloudposse/incident-management/opsgenie//modules/api_integration`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/api_integration) | n/a
 `integration_name` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | Fully qualified integration name normalized
 `ssm_parameter_store` | 0.11.0 | [`cloudposse/ssm-parameter-store/aws`](https://registry.terraform.io/modules/cloudposse/ssm-parameter-store/aws/0.11.0) | Populate SSM Parameter Store with API Keys for OpsGenie API Integrations. These keys can either be used when setting up OpsGenie integrations manually, Or they can be used programmatically, if their respective Terraform provider supports it.
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a

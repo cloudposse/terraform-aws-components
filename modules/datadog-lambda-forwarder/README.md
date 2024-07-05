@@ -68,7 +68,7 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`datadog-integration` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`datadog-integration` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 `datadog_configuration` | latest | [`../datadog-configuration/modules/datadog_keys`](https://registry.terraform.io/modules/../datadog-configuration/modules/datadog_keys/) | n/a
 `datadog_lambda_forwarder` | 1.5.3 | [`cloudposse/datadog-lambda-forwarder/aws`](https://registry.terraform.io/modules/cloudposse/datadog-lambda-forwarder/aws/1.5.3) | n/a
 `iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a

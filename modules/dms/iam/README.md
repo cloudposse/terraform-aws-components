@@ -42,7 +42,7 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`dms_iam` | 0.1.1 | [`cloudposse/dms/aws//modules/dms-iam`](https://registry.terraform.io/modules/cloudposse/dms/aws/modules/dms-iam/0.1.1) | n/a
+`dms_iam` | 0.1.1 | [`cloudposse/dms/aws//modules/dms-iam`](https://registry.terraform.io/modules/cloudposse/dms/aws/0.1.1/submodules/dms-iam) | n/a
 `iam_roles` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 

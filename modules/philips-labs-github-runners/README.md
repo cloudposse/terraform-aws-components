@@ -103,8 +103,8 @@ Name | Version | Source | Description
 `module_artifact` | 0.8.0 | [`cloudposse/module-artifact/external`](https://registry.terraform.io/modules/cloudposse/module-artifact/external/0.8.0) | n/a
 `store_read` | 0.11.0 | [`cloudposse/ssm-parameter-store/aws`](https://registry.terraform.io/modules/cloudposse/ssm-parameter-store/aws/0.11.0) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
-`webhook_github_app` | 5.4.2 | [`philips-labs/github-runner/aws//modules/webhook-github-app`](https://registry.terraform.io/modules/philips-labs/github-runner/aws/modules/webhook-github-app/5.4.2) | n/a
+`vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`webhook_github_app` | 5.4.2 | [`philips-labs/github-runner/aws//modules/webhook-github-app`](https://registry.terraform.io/modules/philips-labs/github-runner/aws/5.4.2/submodules/webhook-github-app) | n/a
 
 
 ## Resources

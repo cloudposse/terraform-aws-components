@@ -321,11 +321,11 @@ Name | Version | Source | Description
 `escalation` | latest | [`./modules/escalation`](https://registry.terraform.io/modules/./modules/escalation/) | n/a
 `iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
 `integration` | latest | [`./modules/integration`](https://registry.terraform.io/modules/./modules/integration/) | n/a
-`members_merge` | 1.0.2 | [`cloudposse/config/yaml//modules/deepmerge`](https://registry.terraform.io/modules/cloudposse/config/yaml/modules/deepmerge/1.0.2) | n/a
+`members_merge` | 1.0.2 | [`cloudposse/config/yaml//modules/deepmerge`](https://registry.terraform.io/modules/cloudposse/config/yaml/1.0.2/submodules/deepmerge) | n/a
 `routing` | latest | [`./modules/routing`](https://registry.terraform.io/modules/./modules/routing/) | n/a
-`schedule` | 0.16.0 | [`cloudposse/incident-management/opsgenie//modules/schedule`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/modules/schedule/0.16.0) | n/a
-`service` | 0.16.0 | [`cloudposse/incident-management/opsgenie//modules/service`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/modules/service/0.16.0) | n/a
-`team` | 0.16.0 | [`cloudposse/incident-management/opsgenie//modules/team`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/modules/team/0.16.0) | n/a
+`schedule` | 0.16.0 | [`cloudposse/incident-management/opsgenie//modules/schedule`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/schedule) | n/a
+`service` | 0.16.0 | [`cloudposse/incident-management/opsgenie//modules/service`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/service) | n/a
+`team` | 0.16.0 | [`cloudposse/incident-management/opsgenie//modules/team`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/team) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 

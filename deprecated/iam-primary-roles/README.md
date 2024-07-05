@@ -203,10 +203,10 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`account_map` | 0.22.2 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/0.22.2) | n/a
+`account_map` | 0.22.2 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/0.22.2/submodules/remote-state) | n/a
 `assume_role` | latest | [`../../modules/account-map/modules/iam-assume-role-policy`](https://registry.terraform.io/modules/../../modules/account-map/modules/iam-assume-role-policy/) | n/a
 `iam_roles` | latest | [`../../modules/account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../modules/account-map/modules/iam-roles/) | n/a
-`sso` | 0.22.2 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/0.22.2) | n/a
+`sso` | 0.22.2 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/0.22.2/submodules/remote-state) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 

@@ -205,8 +205,8 @@ to ensure clean messaging on OpsGenie incidents in Statuspage.
 Name | Version | Source | Description
 --- | --- | --- | ---
 `datadog_configuration` | latest | [`../datadog-configuration/modules/datadog_keys`](https://registry.terraform.io/modules/../datadog-configuration/modules/datadog_keys/) | n/a
-`datadog_monitors` | 1.4.1 | [`cloudposse/platform/datadog//modules/monitors`](https://registry.terraform.io/modules/cloudposse/platform/datadog/modules/monitors/1.4.1) | n/a
-`datadog_monitors_merge` | 1.0.2 | [`cloudposse/config/yaml//modules/deepmerge`](https://registry.terraform.io/modules/cloudposse/config/yaml/modules/deepmerge/1.0.2) | n/a
+`datadog_monitors` | 1.4.1 | [`cloudposse/platform/datadog//modules/monitors`](https://registry.terraform.io/modules/cloudposse/platform/datadog/1.4.1/submodules/monitors) | n/a
+`datadog_monitors_merge` | 1.0.2 | [`cloudposse/config/yaml//modules/deepmerge`](https://registry.terraform.io/modules/cloudposse/config/yaml/1.0.2/submodules/deepmerge) | n/a
 `iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
 `local_datadog_monitors_yaml_config` | 1.0.2 | [`cloudposse/config/yaml`](https://registry.terraform.io/modules/cloudposse/config/yaml/1.0.2) | n/a
 `remote_datadog_monitors_yaml_config` | 1.0.2 | [`cloudposse/config/yaml`](https://registry.terraform.io/modules/cloudposse/config/yaml/1.0.2) | Convert all Datadog Monitors from YAML config to Terraform map with token replacement using `parameters`

@@ -75,8 +75,9 @@ content: |-
   {{ if contains "//" .Source -}}
     {{- $moduleParts := regexSplit "//" .Source 2 -}}
     {{- $moduleName := first $moduleParts -}}
-    {{- $submodulePath := last $moduleParts -}}
-    `{{ .Name }}` | {{ .Version | default "latest" }} | {{ printf "[`%s`](%s/%s/%s/%s)" .Source $baseUrl $moduleName $submodulePath .Version }} | {{ tostring .Description | default "n/a" }}
+    {{- $submodulePath := last $moduleParts | replace "modules/" "" -}}
+    {{- /* https://registry.terraform.io/modules/cloudposse/stack-config/yaml/latest/submodules/remote-state */ -}}
+    `{{ .Name }}` | {{ .Version | default "latest" }} | {{ printf "[`%s`](%s/%s/%s/submodules/%s)" .Source $baseUrl $moduleName .Version $submodulePath }} | {{ tostring .Description | default "n/a" }}
   {{ else -}}
     `{{ .Name }}` | {{ .Version | default "latest" }} | {{ printf "[`%s`](%s/%s/%s)" .Source $baseUrl .Source .Version }} | {{ tostring .Description | default "n/a" }}
   {{ end }}

@@ -84,8 +84,8 @@ Name | Version | Source | Description
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 `utils` | 1.3.0 | [`cloudposse/utils/aws`](https://registry.terraform.io/modules/cloudposse/utils/aws/1.3.0) | n/a
 `vpc` | 2.1.0 | [`cloudposse/vpc/aws`](https://registry.terraform.io/modules/cloudposse/vpc/aws/2.1.0) | n/a
-`vpc_endpoints` | 2.1.0 | [`cloudposse/vpc/aws//modules/vpc-endpoints`](https://registry.terraform.io/modules/cloudposse/vpc/aws/modules/vpc-endpoints/2.1.0) | n/a
-`vpc_flow_logs_bucket` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`vpc_endpoints` | 2.1.0 | [`cloudposse/vpc/aws//modules/vpc-endpoints`](https://registry.terraform.io/modules/cloudposse/vpc/aws/2.1.0/submodules/vpc-endpoints) | n/a
+`vpc_flow_logs_bucket` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 
 
 ## Resources

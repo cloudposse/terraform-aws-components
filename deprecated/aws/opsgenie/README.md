@@ -97,8 +97,8 @@ components:
 Name | Version | Source | Description
 --- | --- | --- | ---
 `iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
-`opsgenie_config` | 0.9.0 | [`git::https://github.com/cloudposse/terraform-opsgenie-incident-management.git//modules/config`](https://registry.terraform.io/modules/git::https:/github.com/cloudposse/terraform-opsgenie-incident-management.git//modules/config/0.9.0) | n/a
-`this` | tags/0.21.0 | [`git::https://github.com/cloudposse/terraform-null-label.git`](https://registry.terraform.io/modules/git::https:/github.com/cloudposse/terraform-null-label.git/tags/0.21.0) | n/a
+`opsgenie_config` | 0.9.0 | [`git::https://github.com/cloudposse/terraform-opsgenie-incident-management.git//modules/config`](https://registry.terraform.io/modules/git::https:/0.9.0/submodules/github.com/cloudposse/terraform-opsgenie-incident-management.git//config) | n/a
+`this` | tags/0.21.0 | [`git::https://github.com/cloudposse/terraform-null-label.git`](https://registry.terraform.io/modules/git::https:/tags/0.21.0/submodules/github.com/cloudposse/terraform-null-label.git) | n/a
 
 
 ## Resources

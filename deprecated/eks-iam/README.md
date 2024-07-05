@@ -55,7 +55,7 @@ Name | Version | Source | Description
 `cert-manager` | latest | [`./modules/service-account`](https://registry.terraform.io/modules/./modules/service-account/) | n/a
 `external-dns` | latest | [`./modules/service-account`](https://registry.terraform.io/modules/./modules/service-account/) | n/a
 `iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
-`this` | tags/0.21.0 | [`git::https://github.com/cloudposse/terraform-null-label.git`](https://registry.terraform.io/modules/git::https:/github.com/cloudposse/terraform-null-label.git/tags/0.21.0) | n/a
+`this` | tags/0.21.0 | [`git::https://github.com/cloudposse/terraform-null-label.git`](https://registry.terraform.io/modules/git::https:/tags/0.21.0/submodules/github.com/cloudposse/terraform-null-label.git) | n/a
 
 
 ## Resources

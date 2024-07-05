@@ -54,12 +54,12 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`dns_delegated` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`dns_delegated` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 `elasticsearch` | 0.42.0 | [`cloudposse/elasticsearch/aws`](https://registry.terraform.io/modules/cloudposse/elasticsearch/aws/0.42.0) | n/a
 `elasticsearch_log_cleanup` | 0.14.0 | [`cloudposse/lambda-elasticsearch-cleanup/aws`](https://registry.terraform.io/modules/cloudposse/lambda-elasticsearch-cleanup/aws/0.14.0) | n/a
 `iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 
 
 ## Resources

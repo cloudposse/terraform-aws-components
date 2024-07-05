@@ -56,21 +56,21 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`account_map` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.4.1) | n/a
+`account_map` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | n/a
 `az_abbreviation` | 1.0.0 | [`cloudposse/utils/aws`](https://registry.terraform.io/modules/cloudposse/utils/aws/1.0.0) | n/a
 `iam_role_tgw_home_region` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
 `iam_role_tgw_this_region` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
 `iam_roles` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
-`tgw_cross_region_connector` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.4.1) | n/a
-`tgw_home_region` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.4.1) | n/a
+`tgw_cross_region_connector` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | n/a
+`tgw_home_region` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | n/a
 `tgw_routes_home_region` | latest | [`./modules/tgw_routes`](https://registry.terraform.io/modules/./modules/tgw_routes/) | n/a
 `tgw_routes_this_region` | latest | [`./modules/tgw_routes`](https://registry.terraform.io/modules/./modules/tgw_routes/) | n/a
-`tgw_this_region` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.4.1) | n/a
+`tgw_this_region` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 `vpc_routes_home` | latest | [`./modules/vpc_routes`](https://registry.terraform.io/modules/./modules/vpc_routes/) | n/a
 `vpc_routes_this` | latest | [`./modules/vpc_routes`](https://registry.terraform.io/modules/./modules/vpc_routes/) | n/a
-`vpcs_home_region` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.4.1) | n/a
-`vpcs_this_region` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.4.1) | n/a
+`vpcs_home_region` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | n/a
+`vpcs_this_region` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | n/a
 
 
 

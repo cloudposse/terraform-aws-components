@@ -48,10 +48,10 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`glue_catalog_database` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
-`glue_catalog_table` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
-`glue_crawler` | 0.4.0 | [`cloudposse/glue/aws//modules/glue-crawler`](https://registry.terraform.io/modules/cloudposse/glue/aws/modules/glue-crawler/0.4.0) | n/a
-`glue_iam_role` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`glue_catalog_database` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`glue_catalog_table` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`glue_crawler` | 0.4.0 | [`cloudposse/glue/aws//modules/glue-crawler`](https://registry.terraform.io/modules/cloudposse/glue/aws/0.4.0/submodules/glue-crawler) | n/a
+`glue_iam_role` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 `iam_roles` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 

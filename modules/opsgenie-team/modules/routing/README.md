@@ -28,9 +28,9 @@ or not.
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`service_incident_rule` | 0.16.0 | [`cloudposse/incident-management/opsgenie//modules/service_incident_rule`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/modules/service_incident_rule/0.16.0) | n/a
-`serviceless_incident_rule` | 0.16.0 | [`cloudposse/incident-management/opsgenie//modules/service_incident_rule`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/modules/service_incident_rule/0.16.0) | n/a
-`team_routing_rule` | 0.16.0 | [`cloudposse/incident-management/opsgenie//modules/team_routing_rule`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/modules/team_routing_rule/0.16.0) | n/a
+`service_incident_rule` | 0.16.0 | [`cloudposse/incident-management/opsgenie//modules/service_incident_rule`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/service_incident_rule) | n/a
+`serviceless_incident_rule` | 0.16.0 | [`cloudposse/incident-management/opsgenie//modules/service_incident_rule`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/service_incident_rule) | n/a
+`team_routing_rule` | 0.16.0 | [`cloudposse/incident-management/opsgenie//modules/team_routing_rule`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/team_routing_rule) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 

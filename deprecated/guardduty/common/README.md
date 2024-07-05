@@ -87,7 +87,7 @@ atmos terraform apply guardduty/common-uw1 -s core-uw1-security
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`account_map` | 1.4.2 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.4.2) | n/a
+`account_map` | 1.4.2 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.2/submodules/remote-state) | n/a
 `guardduty` | 0.5.0 | [`cloudposse/guardduty/aws`](https://registry.terraform.io/modules/cloudposse/guardduty/aws/0.5.0) | n/a
 `iam_roles` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
 

@@ -93,7 +93,7 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`dms_endpoint` | 0.1.1 | [`cloudposse/dms/aws//modules/dms-endpoint`](https://registry.terraform.io/modules/cloudposse/dms/aws/modules/dms-endpoint/0.1.1) | n/a
+`dms_endpoint` | 0.1.1 | [`cloudposse/dms/aws//modules/dms-endpoint`](https://registry.terraform.io/modules/cloudposse/dms/aws/0.1.1/submodules/dms-endpoint) | n/a
 `iam_roles` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 

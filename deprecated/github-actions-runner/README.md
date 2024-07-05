@@ -178,12 +178,12 @@ Name | Version | Source | Description
 --- | --- | --- | ---
 `actions_runner` | 0.3.1 | [`cloudposse/helm-release/aws`](https://registry.terraform.io/modules/cloudposse/helm-release/aws/0.3.1) | n/a
 `actions_runner_controller` | 0.3.1 | [`cloudposse/helm-release/aws`](https://registry.terraform.io/modules/cloudposse/helm-release/aws/0.3.1) | You cannot have a directory with the same name as the chart you are installing from repo https://github.com/hashicorp/terraform-provider-helm/issues/735
-`eks` | 0.22.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/0.22.0) | n/a
+`eks` | 0.22.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/0.22.0/submodules/remote-state) | n/a
 `eks_iam_policy` | 0.2.2 | [`cloudposse/iam-policy/aws`](https://registry.terraform.io/modules/cloudposse/iam-policy/aws/0.2.2) | n/a
 `eks_iam_role` | 0.10.3 | [`cloudposse/eks-iam-role/aws`](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/0.10.3) | n/a
 `github_action_controller_label` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 `github_action_helm_label` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`iam_primary_roles` | 0.22.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/0.22.0) | n/a
+`iam_primary_roles` | 0.22.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/0.22.0/submodules/remote-state) | n/a
 `iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 

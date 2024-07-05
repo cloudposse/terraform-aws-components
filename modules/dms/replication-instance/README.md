@@ -61,11 +61,11 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`dms_replication_instance` | 0.1.1 | [`cloudposse/dms/aws//modules/dms-replication-instance`](https://registry.terraform.io/modules/cloudposse/dms/aws/modules/dms-replication-instance/0.1.1) | n/a
+`dms_replication_instance` | 0.1.1 | [`cloudposse/dms/aws//modules/dms-replication-instance`](https://registry.terraform.io/modules/cloudposse/dms/aws/0.1.1/submodules/dms-replication-instance) | n/a
 `iam_roles` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
 `security_group` | 1.0.1 | [`cloudposse/security-group/aws`](https://registry.terraform.io/modules/cloudposse/security-group/aws/1.0.1) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 
 
 

@@ -183,13 +183,13 @@ atmos terraform plan aws-config-{each region} --stack {each region}-{each stage}
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`account_map` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`account_map` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 `aws_config` | 1.1.0 | [`cloudposse/config/aws`](https://registry.terraform.io/modules/cloudposse/config/aws/1.1.0) | n/a
 `aws_config_label` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`aws_team_roles` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
-`config_bucket` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
-`conformance_pack` | 1.1.0 | [`cloudposse/config/aws//modules/conformance-pack`](https://registry.terraform.io/modules/cloudposse/config/aws/modules/conformance-pack/1.1.0) | n/a
-`global_collector_region` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/modules/remote-state/1.5.0) | n/a
+`aws_team_roles` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`config_bucket` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`conformance_pack` | 1.1.0 | [`cloudposse/config/aws//modules/conformance-pack`](https://registry.terraform.io/modules/cloudposse/config/aws/1.1.0/submodules/conformance-pack) | n/a
+`global_collector_region` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 `iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
 `org_conformance_pack` | latest | [`./modules/org-conformance-pack`](https://registry.terraform.io/modules/./modules/org-conformance-pack/) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a

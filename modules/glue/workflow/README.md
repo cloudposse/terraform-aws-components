@@ -39,7 +39,7 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`glue_workflow` | 0.4.0 | [`cloudposse/glue/aws//modules/glue-workflow`](https://registry.terraform.io/modules/cloudposse/glue/aws/modules/glue-workflow/0.4.0) | n/a
+`glue_workflow` | 0.4.0 | [`cloudposse/glue/aws//modules/glue-workflow`](https://registry.terraform.io/modules/cloudposse/glue/aws/0.4.0/submodules/glue-workflow) | n/a
 `iam_roles` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
 `this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
