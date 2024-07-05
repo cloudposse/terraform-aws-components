@@ -108,7 +108,8 @@ Chart name to be installed. The chart name can be local path, a URL to a chart, 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -129,7 +130,8 @@ The namespace to install the release into.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -150,7 +152,8 @@ AWS Region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -173,7 +176,8 @@ If set, installation process purges chart on fail. The wait flag will be set aut
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -194,7 +198,8 @@ Specify the exact chart version to install. If this is not specified, the latest
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -215,7 +220,8 @@ Allow deletion of new resources created in this upgrade when upgrade fails.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -236,7 +242,8 @@ Create the Kubernetes namespace if it does not yet exist<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -257,7 +264,8 @@ Set release description attribute (visible in the history).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -278,7 +286,8 @@ The name of the eks component<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"eks/cluster"</code>>   </dd>
+>    <code>"eks/cluster"</code>
+>   </dd>
 > </dl>
 >
 
@@ -299,7 +308,8 @@ Enable storing of the rendered manifest for helm_release so the full diff of wha
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -322,7 +332,8 @@ Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -343,7 +354,8 @@ The AWS config profile for `aws eks get-token` to use<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -364,7 +376,8 @@ If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-to
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -387,7 +400,8 @@ Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -408,7 +422,8 @@ The role ARN for `aws eks get-token` to use<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -429,7 +444,8 @@ If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token`
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -452,7 +468,8 @@ If supplied, `kubeconfig_context_format` will be ignored.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -476,7 +493,8 @@ Must include a single `%s` which will be replaced with the cluster name.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -497,7 +515,8 @@ The Kubernetes API version of the credentials returned by the `exec` auth plugin
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"client.authentication.k8s.io/v1beta1"</code>>   </dd>
+>    <code>"client.authentication.k8s.io/v1beta1"</code>
+>   </dd>
 > </dl>
 >
 
@@ -518,7 +537,8 @@ The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabl
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -539,7 +559,8 @@ If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -560,7 +581,8 @@ Repository URL where to locate the requested chart.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -581,7 +603,8 @@ Time in seconds to wait for any individual kubernetes operation (like Jobs for h
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -602,7 +625,8 @@ YAML-valid specification of values to be passed to the helm_release resource<br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -623,7 +647,8 @@ Will wait until all resources are in a ready state before marking the release as
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -656,7 +681,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -681,7 +707,8 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -709,51 +736,31 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    {
->
 >      "additional_tag_map": {},
->
 >      "attributes": [],
->
 >      "delimiter": null,
->
 >      "descriptor_formats": {},
->
 >      "enabled": true,
->
 >      "environment": null,
->
 >      "id_length_limit": null,
->
 >      "label_key_case": null,
->
 >      "label_order": [],
->
 >      "label_value_case": null,
->
 >      "labels_as_tags": [
->
 >        "unset"
->
 >      ],
->
 >      "name": null,
->
 >      "namespace": null,
->
 >      "regex_replace_chars": null,
->
 >      "stage": null,
->
 >      "tags": {},
->
 >      "tenant": null
->
 >    }
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -776,7 +783,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -809,7 +817,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -830,7 +839,8 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -851,7 +861,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -876,7 +887,8 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -901,7 +913,8 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -925,7 +938,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -952,7 +966,8 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -983,15 +998,13 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    [
->
 >      "default"
->
 >    ]
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -1015,7 +1028,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1036,7 +1050,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1060,7 +1075,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1081,7 +1097,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1104,7 +1121,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1125,7 +1143,8 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 

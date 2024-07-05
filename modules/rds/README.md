@@ -257,7 +257,8 @@ The allocated storage in GBs<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -278,7 +279,8 @@ The name of the database to create when the DB instance is created<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -299,7 +301,8 @@ Database port (_e.g._ `3306` for `MySQL`). Used in the DB Security Group to allo
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -320,7 +323,8 @@ The DB parameter group family name. The value depends on DB engine used. See [DB
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -341,7 +345,8 @@ Database engine type<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -362,7 +367,8 @@ Database engine version, depends on engine type<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -383,7 +389,8 @@ Class of RDS instance<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -404,7 +411,8 @@ AWS Region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -427,7 +435,8 @@ Allow major version upgrade<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -448,7 +457,8 @@ The whitelisted CIDRs which to allow `ingress` traffic to the DB instance<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -469,7 +479,8 @@ Specifies whether any database modifications are applied immediately, or during 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -490,7 +501,8 @@ The IDs of the existing security groups to associate with the DB instance<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -511,7 +523,8 @@ Allow automated minor version upgrade (e.g. from Postgres 9.5.3 to Postgres 9.5.
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -532,7 +545,8 @@ The AZ for the RDS instance. Specify one of `subnet_ids`, `db_subnet_group_name`
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -553,7 +567,8 @@ Backup retention period in days. Must be > 0 to enable backups<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>0</code>>   </dd>
+>    <code>0</code>
+>   </dd>
 > </dl>
 >
 
@@ -574,7 +589,8 @@ When AWS can perform DB snapshots, can't overlap with maintenance window<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"22:00-03:00"</code>>   </dd>
+>    <code>"22:00-03:00"</code>
+>   </dd>
 > </dl>
 >
 
@@ -595,7 +611,8 @@ The identifier of the CA certificate for the DB instance<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -616,7 +633,8 @@ The character set name to use for DB encoding. [Oracle & Microsoft SQL only](htt
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -637,7 +655,8 @@ create a client security group and include in attached default security group<br
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -658,7 +677,8 @@ Copy tags from DB to a snapshot<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -679,7 +699,8 @@ Database password for the admin user<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -700,7 +721,8 @@ Database admin user name<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -738,7 +760,8 @@ A list of DB options to apply with an option group. Depends on DB engine<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -769,7 +792,8 @@ A list of DB parameters to apply. Note that parameters may differ from a DB fami
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -790,7 +814,8 @@ Name of DB subnet group. DB instance will be created in the VPC associated with 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -811,7 +836,8 @@ Set to true to enable deletion protection on the RDS instance<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -832,7 +858,8 @@ The name of the environment where global `dns_delegated` is provisioned<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"gbl"</code>>   </dd>
+>    <code>"gbl"</code>
+>   </dd>
 > </dl>
 >
 
@@ -853,7 +880,8 @@ The ID of the DNS Zone in Route53 where a new DNS record will be created for the
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -874,7 +902,8 @@ List of log types to enable for exporting to CloudWatch logs. If omitted, no log
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -895,7 +924,8 @@ Final snapshot identifier e.g.: some-db-final-snapshot-2019-06-26-06-05<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -916,7 +946,8 @@ The DB host name created in Route53<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"db"</code>>   </dd>
+>    <code>"db"</code>
+>   </dd>
 > </dl>
 >
 
@@ -937,7 +968,8 @@ Specifies whether or mappings of AWS Identity and Access Management (IAM) accoun
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -958,7 +990,8 @@ The amount of provisioned IOPS. Setting this implies a storage_type of 'io1'. De
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>0</code>>   </dd>
+>    <code>0</code>
+>   </dd>
 > </dl>
 >
 
@@ -979,7 +1012,8 @@ KMS alias name for SSM<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"alias/aws/ssm"</code>>   </dd>
+>    <code>"alias/aws/ssm"</code>
+>   </dd>
 > </dl>
 >
 
@@ -1000,7 +1034,8 @@ The ARN of the existing KMS key to encrypt storage<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1021,7 +1056,8 @@ License model for this DB. Optional, but required for some DB Engines. Valid val
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1042,7 +1078,8 @@ The window to perform maintenance in. Syntax: 'ddd:hh24:mi-ddd:hh24:mi' UTC <br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"Mon:03:00-Mon:04:00"</code>>   </dd>
+>    <code>"Mon:03:00-Mon:04:00"</code>
+>   </dd>
 > </dl>
 >
 
@@ -1063,7 +1100,8 @@ Database MAJOR engine version, depends on engine type<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1084,7 +1122,8 @@ The upper limit to which RDS can automatically scale the storage in GBs<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>0</code>>   </dd>
+>    <code>0</code>
+>   </dd>
 > </dl>
 >
 
@@ -1105,7 +1144,8 @@ The interval, in seconds, between points when Enhanced Monitoring metrics are co
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"0"</code>>   </dd>
+>    <code>"0"</code>
+>   </dd>
 > </dl>
 >
 
@@ -1126,7 +1166,8 @@ The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1147,7 +1188,8 @@ Set to true if multi AZ deployment must be supported<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -1168,7 +1210,8 @@ Name of the DB option group to associate<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1189,7 +1232,8 @@ Name of the DB parameter group to associate<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1210,7 +1254,8 @@ Specifies whether Performance Insights are enabled.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -1231,7 +1276,8 @@ The ARN for the KMS key to encrypt Performance Insights data. Once KMS key is se
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1252,7 +1298,8 @@ The amount of time in days to retain Performance Insights data. Either 7 (7 days
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>7</code>>   </dd>
+>    <code>7</code>
+>   </dd>
 > </dl>
 >
 
@@ -1273,7 +1320,8 @@ Determines if database can be publicly available (NOT recommended)<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -1294,7 +1342,8 @@ If the rds db instance is a replica, supply the source database identifier here<
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1315,7 +1364,8 @@ The IDs of the security groups from which to allow `ingress` traffic to the DB i
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -1336,7 +1386,8 @@ If true (default), no snapshot will be made before deleting DB<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -1357,7 +1408,8 @@ Snapshot identifier e.g: rds:production-2019-06-26-06-05. If specified, the modu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1378,7 +1430,8 @@ If `true` create SSM keys for the database user and password.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -1399,7 +1452,8 @@ SSM path format. The values will will be used in the following order: `var.ssm_k
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/%v/%v/%v"</code>>   </dd>
+>    <code>"/%v/%v/%v"</code>
+>   </dd>
 > </dl>
 >
 
@@ -1420,7 +1474,8 @@ The SSM key to save the hostname. See `var.ssm_path_format`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"admin/db_hostname"</code>>   </dd>
+>    <code>"admin/db_hostname"</code>
+>   </dd>
 > </dl>
 >
 
@@ -1441,7 +1496,8 @@ The SSM key to save the password. See `var.ssm_path_format`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"admin/db_password"</code>>   </dd>
+>    <code>"admin/db_password"</code>
+>   </dd>
 > </dl>
 >
 
@@ -1462,7 +1518,8 @@ The SSM key to save the port. See `var.ssm_path_format`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"admin/db_port"</code>>   </dd>
+>    <code>"admin/db_port"</code>
+>   </dd>
 > </dl>
 >
 
@@ -1483,7 +1540,8 @@ SSM path prefix. Omit the leading forward slash `/`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"rds"</code>>   </dd>
+>    <code>"rds"</code>
+>   </dd>
 > </dl>
 >
 
@@ -1504,7 +1562,8 @@ The SSM key to save the user. See `var.ssm_path_format`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"admin/db_user"</code>>   </dd>
+>    <code>"admin/db_user"</code>
+>   </dd>
 > </dl>
 >
 
@@ -1525,7 +1584,8 @@ The SSM key to save the user. See `var.ssm_path_format`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -1546,7 +1606,8 @@ The storage throughput value for the DB instance. Can only be set when `storage_
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1567,7 +1628,8 @@ One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"standard"</code>>   </dd>
+>    <code>"standard"</code>
+>   </dd>
 > </dl>
 >
 
@@ -1588,7 +1650,8 @@ Time zone of the DB instance. timezone is currently only supported by Microsoft 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1609,7 +1672,8 @@ Use the dns-delegated dns_zone_id<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -1630,7 +1694,8 @@ Use the eks default security group<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -1651,7 +1716,8 @@ Use private subnets<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -1684,7 +1750,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1709,7 +1776,8 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -1737,51 +1805,31 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    {
->
 >      "additional_tag_map": {},
->
 >      "attributes": [],
->
 >      "delimiter": null,
->
 >      "descriptor_formats": {},
->
 >      "enabled": true,
->
 >      "environment": null,
->
 >      "id_length_limit": null,
->
 >      "label_key_case": null,
->
 >      "label_order": [],
->
 >      "label_value_case": null,
->
 >      "labels_as_tags": [
->
 >        "unset"
->
 >      ],
->
 >      "name": null,
->
 >      "namespace": null,
->
 >      "regex_replace_chars": null,
->
 >      "stage": null,
->
 >      "tags": {},
->
 >      "tenant": null
->
 >    }
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -1804,7 +1852,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1837,7 +1886,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1858,7 +1908,8 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1879,7 +1930,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1904,7 +1956,8 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1929,7 +1982,8 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1953,7 +2007,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1980,7 +2035,8 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2011,15 +2067,13 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    [
->
 >      "default"
->
 >    ]
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -2043,7 +2097,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2064,7 +2119,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2088,7 +2144,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2109,7 +2166,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2132,7 +2190,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -2153,7 +2212,8 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 

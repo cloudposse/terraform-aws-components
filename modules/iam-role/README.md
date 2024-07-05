@@ -118,7 +118,8 @@ AWS Region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -139,7 +140,8 @@ The description of the IAM role that is visible in the IAM role manager<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -164,19 +166,15 @@ The IAM action to be granted by the AssumeRole policy<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    [
->
 >      "sts:AssumeRole",
->
 >      "sts:SetSourceIdentity",
->
 >      "sts:TagSession"
->
 >    ]
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -207,7 +205,8 @@ List of conditions for the assume role policy<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -228,7 +227,8 @@ Create EC2 Instance Profile for the role<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -249,7 +249,8 @@ List of managed policies to attach to created role<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -270,7 +271,8 @@ The maximum session duration (in seconds) for the role. Can have a value from 1 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>3600</code>>   </dd>
+>    <code>3600</code>
+>   </dd>
 > </dl>
 >
 
@@ -291,7 +293,8 @@ Path to the role and policy. See [IAM Identifiers](https://docs.aws.amazon.com/I
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/"</code>>   </dd>
+>    <code>"/"</code>
+>   </dd>
 > </dl>
 >
 
@@ -312,7 +315,8 @@ ARN of the policy that is used to set the permissions boundary for the role<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -333,7 +337,8 @@ The description of the IAM policy that is visible in the IAM policy manager<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -354,7 +359,8 @@ Number of policy documents (length of policy_documents list)<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>1</code>>   </dd>
+>    <code>1</code>
+>   </dd>
 > </dl>
 >
 
@@ -375,7 +381,8 @@ List of JSON IAM policy documents<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -396,7 +403,8 @@ The name of the IAM policy that is visible in the IAM policy manager<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -417,7 +425,8 @@ Map of service name as key and a list of ARNs to allow assuming the role as valu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -438,7 +447,8 @@ Enable/disable tags on IAM roles and policies<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -461,7 +471,8 @@ Otherwise, `var.name` will be used for the IAM role name.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -494,7 +505,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -519,7 +531,8 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -547,51 +560,31 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    {
->
 >      "additional_tag_map": {},
->
 >      "attributes": [],
->
 >      "delimiter": null,
->
 >      "descriptor_formats": {},
->
 >      "enabled": true,
->
 >      "environment": null,
->
 >      "id_length_limit": null,
->
 >      "label_key_case": null,
->
 >      "label_order": [],
->
 >      "label_value_case": null,
->
 >      "labels_as_tags": [
->
 >        "unset"
->
 >      ],
->
 >      "name": null,
->
 >      "namespace": null,
->
 >      "regex_replace_chars": null,
->
 >      "stage": null,
->
 >      "tags": {},
->
 >      "tenant": null
->
 >    }
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -614,7 +607,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -647,7 +641,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -668,7 +663,8 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -689,7 +685,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -714,7 +711,8 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -739,7 +737,8 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -763,7 +762,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -790,7 +790,8 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -821,15 +822,13 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    [
->
 >      "default"
->
 >    ]
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -853,7 +852,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -874,7 +874,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -898,7 +899,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -919,7 +921,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -942,7 +945,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -963,7 +967,8 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 

@@ -118,7 +118,8 @@ AWS Region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -141,7 +142,8 @@ The command of the job<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -162,7 +164,8 @@ The list of connections used for this job<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -183,7 +186,8 @@ The map of default arguments for the job. You can specify arguments here that yo
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -213,7 +217,8 @@ Execution property of the job<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -234,7 +239,8 @@ Glue IAM component name. Used to get the Glue IAM role from the remote state<br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"glue/iam"</code>>   </dd>
+>    <code>"glue/iam"</code>
+>   </dd>
 > </dl>
 >
 
@@ -255,7 +261,8 @@ The name of the job command. Defaults to glueetl. Use pythonshell for Python She
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"glueetl"</code>>   </dd>
+>    <code>"glueetl"</code>
+>   </dd>
 > </dl>
 >
 
@@ -276,7 +283,8 @@ The Python version being used to execute a Python shell job. Allowed values are 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>3</code>>   </dd>
+>    <code>3</code>
+>   </dd>
 > </dl>
 >
 
@@ -297,7 +305,8 @@ Glue job S3 bucket component name. Used to get the remote state of the S3 bucket
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -318,7 +327,8 @@ Glue job script path in the S3 bucket<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -339,7 +349,8 @@ The version of Glue to use<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"2.0"</code>>   </dd>
+>    <code>"2.0"</code>
+>   </dd>
 > </dl>
 >
 
@@ -360,7 +371,8 @@ Glue job description<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -381,7 +393,8 @@ Glue job name. If not provided, the name will be generated from the context<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -402,7 +415,8 @@ The maximum number of AWS Glue data processing units (DPUs) that can be allocate
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -423,7 +437,8 @@ The maximum number of AWS Glue data processing units (DPUs) that can be allocate
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -444,7 +459,8 @@ Non-overridable arguments for this job, specified as name-value pairs<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -474,7 +490,8 @@ Notification property of the job<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -495,7 +512,8 @@ The number of workers of a defined `worker_type` that are allocated when a job r
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -516,7 +534,8 @@ The name of the Security Configuration to be associated with the job<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -537,7 +556,8 @@ The job timeout in minutes. The default is 2880 minutes (48 hours) for `glueetl`
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>2880</code>>   </dd>
+>    <code>2880</code>
+>   </dd>
 > </dl>
 >
 
@@ -558,7 +578,8 @@ The type of predefined worker that is allocated when a job runs. Accepts a value
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -591,7 +612,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -616,7 +638,8 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -644,51 +667,31 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    {
->
 >      "additional_tag_map": {},
->
 >      "attributes": [],
->
 >      "delimiter": null,
->
 >      "descriptor_formats": {},
->
 >      "enabled": true,
->
 >      "environment": null,
->
 >      "id_length_limit": null,
->
 >      "label_key_case": null,
->
 >      "label_order": [],
->
 >      "label_value_case": null,
->
 >      "labels_as_tags": [
->
 >        "unset"
->
 >      ],
->
 >      "name": null,
->
 >      "namespace": null,
->
 >      "regex_replace_chars": null,
->
 >      "stage": null,
->
 >      "tags": {},
->
 >      "tenant": null
->
 >    }
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -711,7 +714,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -744,7 +748,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -765,7 +770,8 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -786,7 +792,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -811,7 +818,8 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -836,7 +844,8 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -860,7 +869,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -887,7 +897,8 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -918,15 +929,13 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    [
->
 >      "default"
->
 >    ]
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -950,7 +959,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -971,7 +981,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -995,7 +1006,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1016,7 +1028,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1039,7 +1052,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1060,7 +1074,8 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 

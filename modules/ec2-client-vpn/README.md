@@ -184,7 +184,8 @@ List of objects describing the authorization rules for the Client VPN. Each Targ
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -205,7 +206,8 @@ Network CIDR to use for clients<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -226,7 +228,8 @@ Names of stream used for logging<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -247,7 +250,8 @@ Name of organization to use in private certificate<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -268,7 +272,8 @@ VPN Endpoints are region-specific. This identifies the region. AWS Region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -291,7 +296,8 @@ List of security groups to attach to the client vpn network associations<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -313,7 +319,8 @@ One of `certificate-authentication` or `federated-authentication`<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"certificate-authentication"</code>>   </dd>
+>    <code>"certificate-authentication"</code>
+>   </dd>
 > </dl>
 >
 
@@ -334,7 +341,8 @@ Unique Common Name for CA self-signed certificate<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -355,7 +363,8 @@ Information about the DNS servers to be used for DNS resolution. A Client VPN en
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -376,7 +385,8 @@ Flag to determine whether to export the client certificate with the VPN configur
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -397,7 +407,8 @@ Enables or disables Client VPN Cloudwatch logging.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -418,7 +429,8 @@ Number of days you want to retain log events in the log group<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>30</code>>   </dd>
+>    <code>30</code>
+>   </dd>
 > </dl>
 >
 
@@ -439,7 +451,8 @@ Unique Common Name for Root self-signed certificate<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -460,7 +473,8 @@ Optional SAML metadata document. Must include this or `saml_provider_arn`<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -481,7 +495,8 @@ Optional SAML provider ARN. Must include this or `saml_metadata_document`<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -502,7 +517,8 @@ Unique Common Name for Server self-signed certificate<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -523,7 +539,8 @@ Indicates whether split-tunnel is enabled on VPN endpoint. Default value is fals
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -556,7 +573,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -581,7 +599,8 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -609,51 +628,31 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    {
->
 >      "additional_tag_map": {},
->
 >      "attributes": [],
->
 >      "delimiter": null,
->
 >      "descriptor_formats": {},
->
 >      "enabled": true,
->
 >      "environment": null,
->
 >      "id_length_limit": null,
->
 >      "label_key_case": null,
->
 >      "label_order": [],
->
 >      "label_value_case": null,
->
 >      "labels_as_tags": [
->
 >        "unset"
->
 >      ],
->
 >      "name": null,
->
 >      "namespace": null,
->
 >      "regex_replace_chars": null,
->
 >      "stage": null,
->
 >      "tags": {},
->
 >      "tenant": null
->
 >    }
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -676,7 +675,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -709,7 +709,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -730,7 +731,8 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -751,7 +753,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -776,7 +779,8 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -801,7 +805,8 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -825,7 +830,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -852,7 +858,8 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -883,15 +890,13 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    [
->
 >      "default"
->
 >    ]
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -915,7 +920,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -936,7 +942,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -960,7 +967,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -981,7 +989,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1004,7 +1013,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1025,7 +1035,8 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 

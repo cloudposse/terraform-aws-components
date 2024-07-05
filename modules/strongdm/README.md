@@ -98,7 +98,8 @@ AWS Region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -119,7 +120,8 @@ Account (stage) housing SSM parameters<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -140,7 +142,8 @@ AWS Region housing SSM parameters<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -163,7 +166,8 @@ Set `true` to create roles (should only be set in one account)<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -184,7 +188,8 @@ DNS zone (e.g. example.com) into which to install the web host.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -205,7 +210,8 @@ Number of gateways to provision<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>2</code>>   </dd>
+>    <code>2</code>
+>   </dd>
 > </dl>
 >
 
@@ -226,7 +232,8 @@ Set `true` to install a pair of gateways<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -247,7 +254,8 @@ Set `true` to install a pair of relays<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -268,7 +276,8 @@ AWS KMS alias used for encryption/decryption default is alias used in SSM<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"alias/aws/ssm"</code>>   </dd>
+>    <code>"alias/aws/ssm"</code>
+>   </dd>
 > </dl>
 >
 
@@ -289,7 +298,8 @@ The Kubernetes namespace to install the release into. Defaults to `default`.<br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -310,7 +320,8 @@ Set `true` to register nodes as SSH targets<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -331,7 +342,8 @@ Number of relays to provision<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>2</code>>   </dd>
+>    <code>2</code>
+>   </dd>
 > </dl>
 >
 
@@ -361,7 +373,8 @@ Additional tags for appending to tags_as_list_of_maps. Not added to `tags`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -382,7 +395,8 @@ Additional attributes (e.g. `1`)<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -410,41 +424,26 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    {
->
 >      "additional_tag_map": {},
->
 >      "attributes": [],
->
 >      "delimiter": null,
->
 >      "enabled": true,
->
 >      "environment": null,
->
 >      "id_length_limit": null,
->
 >      "label_key_case": null,
->
 >      "label_order": [],
->
 >      "label_value_case": null,
->
 >      "name": null,
->
 >      "namespace": null,
->
 >      "regex_replace_chars": null,
->
 >      "stage": null,
->
 >      "tags": {}
->
 >    }
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -467,7 +466,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -488,7 +488,8 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -509,7 +510,8 @@ Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -534,7 +536,8 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -558,7 +561,8 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -582,7 +586,8 @@ You can omit any of the 5 elements, but at least one must be present.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -606,7 +611,8 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -627,7 +633,8 @@ Solution name, e.g. 'app' or 'jenkins'<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -648,7 +655,8 @@ Namespace, which could be your organization name or abbreviation, e.g. 'eg' or '
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -671,7 +679,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -692,7 +701,8 @@ Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'r
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -713,7 +723,8 @@ Additional tags (e.g. `map('BusinessUnit','XYZ')`<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 

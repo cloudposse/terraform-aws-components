@@ -30,12 +30,12 @@ content: |-
   >
   >    ```hcl
        {{- $lines := regexSplit "\n" .GetValue -1 -}}
-  >    {{- range $lines }}
+       {{- range $lines }}
   >    {{ . }}
-  >    {{- end }}
+       {{- end }}
   >    ```
   >
-      {{- end -}}
+      {{- end }}
   >   </dd>
   > </dl>
   >

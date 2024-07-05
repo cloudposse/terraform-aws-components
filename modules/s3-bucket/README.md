@@ -173,7 +173,8 @@ AWS Region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -196,7 +197,8 @@ The name of the environment where `account_map` is provisioned<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"gbl"</code>>   </dd>
+>    <code>"gbl"</code>
+>   </dd>
 > </dl>
 >
 
@@ -217,7 +219,8 @@ The name of the stage where `account_map` is provisioned<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"root"</code>>   </dd>
+>    <code>"root"</code>
+>   </dd>
 > </dl>
 >
 
@@ -241,7 +244,8 @@ If the `tenant` label is not used, leave this as `null`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -264,7 +268,8 @@ We recommend `private` to avoid exposing sensitive information. Conflicts with `
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"private"</code>>   </dd>
+>    <code>"private"</code>
+>   </dd>
 > </dl>
 >
 
@@ -285,7 +290,8 @@ Set to `true` to prevent uploads of unencrypted objects to S3 bucket<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -306,7 +312,8 @@ Set to `true` to require requests to use Secure Socket Layer (HTTPS/SSL). This w
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -329,29 +336,20 @@ List of actions the user is permitted to perform on the S3 bucket<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    [
->
 >      "s3:PutObject",
->
 >      "s3:PutObjectAcl",
->
 >      "s3:GetObject",
->
 >      "s3:DeleteObject",
->
 >      "s3:ListBucket",
->
 >      "s3:ListBucketMultipartUploads",
->
 >      "s3:GetBucketLocation",
->
 >      "s3:AbortMultipartUpload"
->
 >    ]
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -372,7 +370,8 @@ Set to `false` to disable the blocking of new public access lists on the bucket<
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -393,7 +392,8 @@ Set to `false` to disable the blocking of new public policies on the bucket<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -416,7 +416,8 @@ For more information, see: https://docs.aws.amazon.com/AmazonS3/latest/userguide
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -437,7 +438,8 @@ Bucket name. If provided, the bucket will be created with this name instead of g
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -470,7 +472,8 @@ Specifies the allowed headers, methods, origins and exposed headers when using C
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -491,7 +494,8 @@ List of accounts names to assign as principals for the s3 bucket custom policy<b
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -512,7 +516,8 @@ List of S3 Actions for the custom policy<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -533,7 +538,8 @@ Whether to enable or disable the custom policy. If enabled, the default policy w
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -556,7 +562,8 @@ THESE OBJECTS ARE NOT RECOVERABLE even if they were versioned and stored in Glac
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -590,7 +597,8 @@ Conflicts with `acl`. Set `acl` to `null` to use this.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -611,7 +619,8 @@ Map of IAM policy statements to use in the bucket policy.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -632,7 +641,8 @@ Set to `false` to disable the ignoring of public access lists on the bucket<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -653,7 +663,8 @@ The AWS KMS master key ARN used for the `SSE-KMS` encryption. This can only be u
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -694,7 +705,8 @@ A list of lifecycle V2 rules<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -724,7 +736,8 @@ Bucket access logging configuration.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -745,7 +758,8 @@ Whether to render the logging bucket name, prepending context<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -769,7 +783,8 @@ Use `"%s-%s-%s-%%s"` when not using `tenant`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"%s-%s-%s-%s-%s"</code>>   </dd>
+>    <code>"%s-%s-%s-%s-%s"</code>
+>   </dd>
 > </dl>
 >
 
@@ -790,7 +805,8 @@ The template for the template used to render Bucket Prefix for the Logging bucke
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"%s/%s/"</code>>   </dd>
+>    <code>"%s/%s/"</code>
+>   </dd>
 > </dl>
 >
 
@@ -821,7 +837,8 @@ A configuration for S3 object locking. With S3 Object Lock, you can store object
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -842,7 +859,8 @@ List of actions to permit `privileged_principal_arns` to perform on bucket and b
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -866,7 +884,8 @@ in addition to the bucket itself, which is automatically included. Prefixes shou
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -887,7 +906,8 @@ Set to `false` to disable the restricting of making the bucket public<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -908,7 +928,8 @@ Specifies the S3 object ownership control. Valid values are `ObjectWriter`, `Buc
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"ObjectWriter"</code>>   </dd>
+>    <code>"ObjectWriter"</code>
+>   </dd>
 > </dl>
 >
 
@@ -932,7 +953,8 @@ Note: The destination bucket can be specified in the replication rule itself<br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -953,7 +975,8 @@ Set this to true and specify `s3_replication_rules` to enable replication. `vers
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -974,7 +997,8 @@ Specifies the replication rules for S3 bucket replication if enabled. You must a
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -995,7 +1019,8 @@ Cross-account IAM Role ARNs that will be allowed to perform S3 replication to th
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -1019,7 +1044,8 @@ Statement having SIDs that match policy SIDs generated by this module will overr
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -1040,7 +1066,8 @@ The server-side encryption algorithm to use. Valid values are `AES256` and `aws:
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"AES256"</code>>   </dd>
+>    <code>"AES256"</code>
+>   </dd>
 > </dl>
 >
 
@@ -1061,7 +1088,8 @@ Set this to true to enable S3 Transfer Acceleration for the bucket.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -1082,7 +1110,8 @@ Set to `true` to create an IAM user with permission to access the bucket<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -1103,7 +1132,8 @@ A state of versioning. Versioning is a means of keeping multiple variants of an 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -1135,7 +1165,8 @@ Specifies the static website hosting configuration object.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1168,7 +1199,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1193,7 +1225,8 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -1221,51 +1254,31 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    {
->
 >      "additional_tag_map": {},
->
 >      "attributes": [],
->
 >      "delimiter": null,
->
 >      "descriptor_formats": {},
->
 >      "enabled": true,
->
 >      "environment": null,
->
 >      "id_length_limit": null,
->
 >      "label_key_case": null,
->
 >      "label_order": [],
->
 >      "label_value_case": null,
->
 >      "labels_as_tags": [
->
 >        "unset"
->
 >      ],
->
 >      "name": null,
->
 >      "namespace": null,
->
 >      "regex_replace_chars": null,
->
 >      "stage": null,
->
 >      "tags": {},
->
 >      "tenant": null
->
 >    }
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -1288,7 +1301,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1321,7 +1335,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1342,7 +1357,8 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1363,7 +1379,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1388,7 +1405,8 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1413,7 +1431,8 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1437,7 +1456,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1464,7 +1484,8 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1495,15 +1516,13 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    [
->
 >      "default"
->
 >    ]
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -1527,7 +1546,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1548,7 +1568,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1572,7 +1593,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1593,7 +1615,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1616,7 +1639,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1637,7 +1661,8 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 

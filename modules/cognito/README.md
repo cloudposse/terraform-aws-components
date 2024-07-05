@@ -179,7 +179,8 @@ AWS region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -202,7 +203,8 @@ The configuration for AdminCreateUser requests<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -223,7 +225,8 @@ Set to `true` if only the administrator is allowed to create user profiles. Set 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -244,7 +247,8 @@ The message template for email messages. Must contain `{username}` and `{####}` 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"{username}, your temporary password is `{####}`"</code>>   </dd>
+>    <code>"{username}, your temporary password is `{####}`"</code>
+>   </dd>
 > </dl>
 >
 
@@ -265,7 +269,8 @@ The subject line for email messages<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"Your verification code"</code>>   </dd>
+>    <code>"Your verification code"</code>
+>   </dd>
 > </dl>
 >
 
@@ -286,7 +291,8 @@ The message template for SMS messages. Must contain `{username}` and `{####}` pl
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"Your username is {username} and temporary password is `{####}`"</code>>   </dd>
+>    <code>"Your username is {username} and temporary password is `{####}`"</code>
+>   </dd>
 > </dl>
 >
 
@@ -307,7 +313,8 @@ Attributes supported as an alias for this user pool. Possible values: phone_numb
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -328,7 +335,8 @@ The attributes to be auto-verified. Possible values: email, phone_number<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -349,7 +357,8 @@ Time limit, between 5 minutes and 1 day, after which the access token is no long
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>60</code>>   </dd>
+>    <code>60</code>
+>   </dd>
 > </dl>
 >
 
@@ -370,7 +379,8 @@ List of allowed OAuth flows (code, implicit, client_credentials)<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -391,7 +401,8 @@ Whether the client is allowed to follow the OAuth protocol when interacting with
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -412,7 +423,8 @@ List of allowed OAuth scopes (phone, email, openid, profile, and aws.cognito.sig
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -433,7 +445,8 @@ List of allowed callback URLs for the identity providers<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -454,7 +467,8 @@ The default redirect URI. Must be in the list of callback URLs<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -475,7 +489,8 @@ List of authentication flows (ADMIN_NO_SRP_AUTH, CUSTOM_AUTH_FLOW_ONLY, USER_PAS
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -496,7 +511,8 @@ Should an application secret be generated<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -517,7 +533,8 @@ Time limit, between 5 minutes and 1 day, after which the ID token is no longer v
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>60</code>>   </dd>
+>    <code>60</code>
+>   </dd>
 > </dl>
 >
 
@@ -538,7 +555,8 @@ List of allowed logout URLs for the identity providers<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -559,7 +577,8 @@ The name of the application client<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -580,7 +599,8 @@ Choose which errors and responses are returned by Cognito APIs during authentica
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -601,7 +621,8 @@ List of user pool attributes the application client can read from<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -622,7 +643,8 @@ The time limit in days refresh tokens are valid for. Must be between 60 minutes 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>30</code>>   </dd>
+>    <code>30</code>
+>   </dd>
 > </dl>
 >
 
@@ -643,7 +665,8 @@ List of provider names for the identity providers that are supported on this cli
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -666,19 +689,15 @@ Configuration block for units in which the validity times are represented in. Va
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    {
->
 >      "access_token": "minutes",
->
 >      "id_token": "minutes",
->
 >      "refresh_token": "days"
->
 >    }
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -699,7 +718,8 @@ List of user pool attributes the application client can write to<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -720,7 +740,8 @@ User Pool clients configuration<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -741,7 +762,8 @@ User Pool clients configuration<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"INACTIVE"</code>>   </dd>
+>    <code>"INACTIVE"</code>
+>   </dd>
 > </dl>
 >
 
@@ -762,7 +784,8 @@ The configuration for the user pool's device tracking<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -783,7 +806,8 @@ Indicates whether a challenge is required on a new device. Only applicable to a 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -804,7 +828,8 @@ If true, a device is only remembered on user prompt<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -825,7 +850,8 @@ Cognito User Pool domain<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -846,7 +872,8 @@ The ARN of an ISSUED ACM certificate in `us-east-1` for a custom domain<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -867,7 +894,8 @@ Email configuration<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -888,7 +916,8 @@ Instruct Cognito to either use its built-in functionality or Amazon SES to send 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"COGNITO_DEFAULT"</code>>   </dd>
+>    <code>"COGNITO_DEFAULT"</code>
+>   </dd>
 > </dl>
 >
 
@@ -909,7 +938,8 @@ Sender’s email address or sender’s display name with their email address (e.
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -930,7 +960,8 @@ The REPLY-TO email address<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -951,7 +982,8 @@ The ARN of the email configuration source<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -972,7 +1004,8 @@ A string representing the email verification message<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -993,7 +1026,8 @@ A string representing the email verification subject<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1014,7 +1048,8 @@ Cognito Identity Providers configuration<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -1035,7 +1070,8 @@ Configuration for the AWS Lambda triggers associated with the User Pool<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1056,7 +1092,8 @@ The ARN of the lambda creating an authentication challenge<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1077,7 +1114,8 @@ A custom email sender AWS Lambda trigger<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1098,7 +1136,8 @@ AWS Lambda trigger custom message<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1119,7 +1158,8 @@ A custom SMS sender AWS Lambda trigger<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1140,7 +1180,8 @@ Authentication challenge<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1161,7 +1202,8 @@ The Amazon Resource Name of Key Management Service Customer master keys. Amazon 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1182,7 +1224,8 @@ A post-authentication AWS Lambda trigger<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1203,7 +1246,8 @@ A post-confirmation AWS Lambda trigger<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1224,7 +1268,8 @@ A pre-authentication AWS Lambda trigger<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1245,7 +1290,8 @@ A pre-registration AWS Lambda trigger<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1266,7 +1312,8 @@ Allow to customize identity token claims before token generation<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1287,7 +1334,8 @@ The user migration Lambda config type<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1308,7 +1356,8 @@ Verifies the authentication challenge response<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1329,7 +1378,8 @@ Multi-factor authentication configuration. Must be one of the following values (
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"OFF"</code>>   </dd>
+>    <code>"OFF"</code>
+>   </dd>
 > </dl>
 >
 
@@ -1350,7 +1400,8 @@ A container with the number schema attributes of a user pool. Maximum of 50 attr
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -1384,7 +1435,8 @@ User Pool password policy configuration<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1405,7 +1457,8 @@ The minimum password length<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>8</code>>   </dd>
+>    <code>8</code>
+>   </dd>
 > </dl>
 >
 
@@ -1426,7 +1479,8 @@ Whether you have required users to use at least one lowercase letter in their pa
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -1447,7 +1501,8 @@ Whether you have required users to use at least one number in their password<br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -1468,7 +1523,8 @@ Whether you have required users to use at least one symbol in their password<br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -1489,7 +1545,8 @@ Whether you have required users to use at least one uppercase letter in their pa
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -1510,7 +1567,8 @@ Password policy temporary password validity_days<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>7</code>>   </dd>
+>    <code>7</code>
+>   </dd>
 > </dl>
 >
 
@@ -1531,7 +1589,8 @@ List of account recovery options<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -1552,7 +1611,8 @@ Resource server identifier<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1573,7 +1633,8 @@ Resource server name<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1594,7 +1655,8 @@ Resource server scope description<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1615,7 +1677,8 @@ Resource server scope name<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1636,7 +1699,8 @@ Resource servers configuration<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -1657,7 +1721,8 @@ A container with the schema attributes of a User Pool. Maximum of 50 attributes<
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -1678,7 +1743,8 @@ A string representing the SMS authentication message<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1699,7 +1765,8 @@ SMS configuration<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1720,7 +1787,8 @@ The external ID used in IAM role trust relationships<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1741,7 +1809,8 @@ The ARN of the Amazon SNS caller. This is usually the IAM role that you've given
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -1762,7 +1831,8 @@ A string representing the SMS verification message<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1783,7 +1853,8 @@ Configuration block for software token MFA. `mfa_configuration` must also be ena
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1804,7 +1875,8 @@ If `true`, and if `mfa_configuration` is also enabled, multi-factor authenticati
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -1825,7 +1897,8 @@ A container with the string schema attributes of a user pool. Maximum of 50 attr
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -1846,7 +1919,8 @@ The user account expiration limit, in days, after which the account is no longer
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>7</code>>   </dd>
+>    <code>7</code>
+>   </dd>
 > </dl>
 >
 
@@ -1867,7 +1941,8 @@ The description of the user group<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1888,7 +1963,8 @@ The name of the user group<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1909,7 +1985,8 @@ The precedence of the user group<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1930,7 +2007,8 @@ The ARN of the IAM role to be associated with the user group<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1951,7 +2029,8 @@ User groups configuration<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -1972,7 +2051,8 @@ Configuration block for user pool add-ons to enable user pool advanced security 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1993,7 +2073,8 @@ The mode for advanced security, must be one of `OFF`, `AUDIT` or `ENFORCED`<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2014,7 +2095,8 @@ User pool name. If not provided, the name will be generated from the context<br/
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2035,7 +2117,8 @@ Specifies whether email addresses or phone numbers can be specified as usernames
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2056,7 +2139,8 @@ The Username Configuration. Setting `case_sensitive` specifies whether username 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -2077,7 +2161,8 @@ The verification message templates configuration<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -2098,7 +2183,8 @@ The default email option. Must be either `CONFIRM_WITH_CODE` or `CONFIRM_WITH_LI
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2119,7 +2205,8 @@ The email message template for sending a confirmation link to the user, it must 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2140,7 +2227,8 @@ The subject line for the email message template for sending a confirmation link 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2173,7 +2261,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -2198,7 +2287,8 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -2226,51 +2316,31 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    {
->
 >      "additional_tag_map": {},
->
 >      "attributes": [],
->
 >      "delimiter": null,
->
 >      "descriptor_formats": {},
->
 >      "enabled": true,
->
 >      "environment": null,
->
 >      "id_length_limit": null,
->
 >      "label_key_case": null,
->
 >      "label_order": [],
->
 >      "label_value_case": null,
->
 >      "labels_as_tags": [
->
 >        "unset"
->
 >      ],
->
 >      "name": null,
->
 >      "namespace": null,
->
 >      "regex_replace_chars": null,
->
 >      "stage": null,
->
 >      "tags": {},
->
 >      "tenant": null
->
 >    }
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -2293,7 +2363,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2326,7 +2397,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -2347,7 +2419,8 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2368,7 +2441,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2393,7 +2467,8 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2418,7 +2493,8 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2442,7 +2518,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2469,7 +2546,8 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2500,15 +2578,13 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    [
->
 >      "default"
->
 >    ]
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -2532,7 +2608,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2553,7 +2630,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2577,7 +2655,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2598,7 +2677,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -2621,7 +2701,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -2642,7 +2723,8 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 

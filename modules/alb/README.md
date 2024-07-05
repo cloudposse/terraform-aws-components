@@ -137,7 +137,8 @@ AWS Region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -160,7 +161,8 @@ A boolean flag to enable/disable access_logs<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -181,7 +183,8 @@ The S3 log bucket prefix<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -202,7 +205,8 @@ An external S3 Bucket name to store access logs in. If specified, no logging buc
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -223,7 +227,8 @@ Atmos `acm` component name<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"acm"</code>>   </dd>
+>    <code>"acm"</code>
+>   </dd>
 > </dl>
 >
 
@@ -244,7 +249,8 @@ A boolean that indicates all objects should be deleted from the ALB access logs 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -265,7 +271,8 @@ A boolean flag to enable/disable cross zone load balancing<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -286,7 +293,8 @@ A boolean flag to enable/disable deletion protection for ALB<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -307,7 +315,8 @@ The amount of time to wait in seconds before changing the state of a deregisteri
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>15</code>>   </dd>
+>    <code>15</code>
+>   </dd>
 > </dl>
 >
 
@@ -328,7 +337,8 @@ If `true`, use the ACM ARN created by the given `dns-delegated` component. Other
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -349,7 +359,8 @@ Atmos `dns-delegated` component name<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"dns-delegated"</code>>   </dd>
+>    <code>"dns-delegated"</code>
+>   </dd>
 > </dl>
 >
 
@@ -370,7 +381,8 @@ Atmos `dns-delegated` component name<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -391,7 +403,8 @@ The number of consecutive health checks successes required before considering an
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>2</code>>   </dd>
+>    <code>2</code>
+>   </dd>
 > </dl>
 >
 
@@ -412,7 +425,8 @@ The duration in seconds in between health checks<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>15</code>>   </dd>
+>    <code>15</code>
+>   </dd>
 > </dl>
 >
 
@@ -433,7 +447,8 @@ The HTTP response codes to indicate a healthy check<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"200-399"</code>>   </dd>
+>    <code>"200-399"</code>
+>   </dd>
 > </dl>
 >
 
@@ -454,7 +469,8 @@ The destination for the health check request<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"/"</code>>   </dd>
+>    <code>"/"</code>
+>   </dd>
 > </dl>
 >
 
@@ -475,7 +491,8 @@ The port to use for the healthcheck<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"traffic-port"</code>>   </dd>
+>    <code>"traffic-port"</code>
+>   </dd>
 > </dl>
 >
 
@@ -496,7 +513,8 @@ The amount of time to wait in seconds before failing a health check request<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>10</code>>   </dd>
+>    <code>10</code>
+>   </dd>
 > </dl>
 >
 
@@ -517,7 +535,8 @@ The number of consecutive health check failures required before considering the 
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>2</code>>   </dd>
+>    <code>2</code>
+>   </dd>
 > </dl>
 >
 
@@ -538,7 +557,8 @@ A boolean flag to enable/disable HTTP/2<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -559,7 +579,8 @@ A boolean flag to enable/disable HTTP listener<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -582,15 +603,13 @@ List of CIDR blocks to allow in HTTP security group<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    [
->
 >      "0.0.0.0/0"
->
 >    ]
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -611,7 +630,8 @@ List of prefix list IDs for allowing access to HTTP ingress security group<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -632,7 +652,8 @@ The port for the HTTP listener<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>80</code>>   </dd>
+>    <code>80</code>
+>   </dd>
 > </dl>
 >
 
@@ -653,7 +674,8 @@ A boolean flag to enable/disable HTTP redirect to HTTPS<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -674,7 +696,8 @@ A boolean flag to enable/disable HTTPS listener<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -697,15 +720,13 @@ List of CIDR blocks to allow in HTTPS security group<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    [
->
 >      "0.0.0.0/0"
->
 >    ]
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -726,7 +747,8 @@ List of prefix list IDs for allowing access to HTTPS ingress security group<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -747,7 +769,8 @@ The port for the HTTPS listener<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>443</code>>   </dd>
+>    <code>443</code>
+>   </dd>
 > </dl>
 >
 
@@ -768,7 +791,8 @@ The name of the SSL Policy for the listener<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"ELBSecurityPolicy-TLS13-1-2-2021-06"</code>>   </dd>
+>    <code>"ELBSecurityPolicy-TLS13-1-2-2021-06"</code>
+>   </dd>
 > </dl>
 >
 
@@ -789,7 +813,8 @@ The time in seconds that the connection is allowed to be idle<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>60</code>>   </dd>
+>    <code>60</code>
+>   </dd>
 > </dl>
 >
 
@@ -810,7 +835,8 @@ A boolean flag to determine whether the ALB should be internal<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -831,7 +857,8 @@ The type of IP addresses used by the subnets for your load balancer. The possibl
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"ipv4"</code>>   </dd>
+>    <code>"ipv4"</code>
+>   </dd>
 > </dl>
 >
 
@@ -852,7 +879,8 @@ A boolean that indicates whether the s3 log bucket lifecycle rule should be enab
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -882,7 +910,8 @@ Target group sticky configuration<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -903,7 +932,8 @@ The name for the default target group, uses a module label name if left empty<br
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>""</code>>   </dd>
+>    <code>""</code>
+>   </dd>
 > </dl>
 >
 
@@ -924,7 +954,8 @@ The port for the default target group<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>80</code>>   </dd>
+>    <code>80</code>
+>   </dd>
 > </dl>
 >
 
@@ -945,7 +976,8 @@ The protocol for the default target group HTTP or HTTPS<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"HTTP"</code>>   </dd>
+>    <code>"HTTP"</code>
+>   </dd>
 > </dl>
 >
 
@@ -966,7 +998,8 @@ The type (`instance`, `ip` or `lambda`) of targets that can be registered with t
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"ip"</code>>   </dd>
+>    <code>"ip"</code>
+>   </dd>
 > </dl>
 >
 
@@ -987,7 +1020,8 @@ Atmos `vpc` component name<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"vpc"</code>>   </dd>
+>    <code>"vpc"</code>
+>   </dd>
 > </dl>
 >
 
@@ -1020,7 +1054,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1045,7 +1080,8 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -1073,51 +1109,31 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    {
->
 >      "additional_tag_map": {},
->
 >      "attributes": [],
->
 >      "delimiter": null,
->
 >      "descriptor_formats": {},
->
 >      "enabled": true,
->
 >      "environment": null,
->
 >      "id_length_limit": null,
->
 >      "label_key_case": null,
->
 >      "label_order": [],
->
 >      "label_value_case": null,
->
 >      "labels_as_tags": [
->
 >        "unset"
->
 >      ],
->
 >      "name": null,
->
 >      "namespace": null,
->
 >      "regex_replace_chars": null,
->
 >      "stage": null,
->
 >      "tags": {},
->
 >      "tenant": null
->
 >    }
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -1140,7 +1156,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1173,7 +1190,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1194,7 +1212,8 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1215,7 +1234,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1240,7 +1260,8 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1265,7 +1286,8 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1289,7 +1311,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1316,7 +1339,8 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1347,15 +1371,13 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    [
->
 >      "default"
->
 >    ]
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -1379,7 +1401,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1400,7 +1423,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1424,7 +1448,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1445,7 +1470,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1468,7 +1494,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1489,7 +1516,8 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 

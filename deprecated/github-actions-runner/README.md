@@ -262,7 +262,8 @@ AWS Region<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -283,7 +284,8 @@ List of maps to create runners from<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code></code>>   </dd>
+>    <code></code>
+>   </dd>
 > </dl>
 >
 
@@ -306,7 +308,8 @@ Default choice if not defined in autoscale_types<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"low_concurrency"</code>>   </dd>
+>    <code>"low_concurrency"</code>
+>   </dd>
 > </dl>
 >
 
@@ -345,35 +348,23 @@ Map to define HRA CRD scaling configurations<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    {
->
 >      "low_concurrency": {
->
 >        "maxReplicas": 8,
->
 >        "metrics": {
->
 >          "scaleDownAdjustment": 1,
->
 >          "scaleDownThreshold": 0.3,
->
 >          "scaleUpAdjustment": 1,
->
 >          "scaleUpThreshold": 0.75,
->
 >          "type": "PercentageRunnersBusy"
->
 >        },
->
 >        "minReplicas": 1
->
 >      }
->
 >    }
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -394,7 +385,8 @@ Image to use for controller<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"summerwind/actions-runner-controller"</code>>   </dd>
+>    <code>"summerwind/actions-runner-controller"</code>
+>   </dd>
 > </dl>
 >
 
@@ -415,7 +407,8 @@ Tag to use for controller image<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"v0.19.0"</code>>   </dd>
+>    <code>"v0.19.0"</code>
+>   </dd>
 > </dl>
 >
 
@@ -436,7 +429,8 @@ Controller Helm chart name.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"actions-runner-controller"</code>>   </dd>
+>    <code>"actions-runner-controller"</code>
+>   </dd>
 > </dl>
 >
 
@@ -457,7 +451,8 @@ Controller kubernetes namespace.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"actions-runner-system"</code>>   </dd>
+>    <code>"actions-runner-system"</code>
+>   </dd>
 > </dl>
 >
 
@@ -478,7 +473,8 @@ Controller kubernetes namespace created if not present<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>true</code>>   </dd>
+>    <code>true</code>
+>   </dd>
 > </dl>
 >
 
@@ -499,7 +495,8 @@ Controller Helm chart release name.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"actions-runner-controller"</code>>   </dd>
+>    <code>"actions-runner-controller"</code>
+>   </dd>
 > </dl>
 >
 
@@ -520,7 +517,8 @@ Controller Helm chart repository name.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"https://actions-runner-controller.github.io/actions-runner-controller"</code>>   </dd>
+>    <code>"https://actions-runner-controller.github.io/actions-runner-controller"</code>
+>   </dd>
 > </dl>
 >
 
@@ -541,7 +539,8 @@ Additional values to yamlencode as `helm_release` values.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -562,7 +561,8 @@ Controller Helm chart version.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"0.12.8"</code>>   </dd>
+>    <code>"0.12.8"</code>
+>   </dd>
 > </dl>
 >
 
@@ -583,7 +583,8 @@ IAM policy for the service account. Required if `var.iam_role_enabled` is `true`
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -604,7 +605,8 @@ The name of the environment where global `iam_primary_roles` is provisioned<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"gbl"</code>>   </dd>
+>    <code>"gbl"</code>
+>   </dd>
 > </dl>
 >
 
@@ -625,7 +627,8 @@ The name of the stage where `iam_primary_roles` is provisioned<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"identity"</code>>   </dd>
+>    <code>"identity"</code>
+>   </dd>
 > </dl>
 >
 
@@ -646,7 +649,8 @@ Whether to create an IAM role. Setting this to `true` will also replace any occu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>false</code>>   </dd>
+>    <code>false</code>
+>   </dd>
 > </dl>
 >
 
@@ -667,7 +671,8 @@ IAM source json policy to download. This will be used as the `source_json` meani
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -688,7 +693,8 @@ AWS Profile name to use when importing a resource<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -709,7 +715,8 @@ IAM Role ARN to use when importing a resource<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -730,7 +737,8 @@ Controller Helm chart name.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"actions-runner"</code>>   </dd>
+>    <code>"actions-runner"</code>
+>   </dd>
 > </dl>
 >
 
@@ -751,7 +759,8 @@ Additional values to yamlencode as `helm_release` values.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -772,7 +781,8 @@ Default choice if not defined in runner_configurations<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>"small"</code>>   </dd>
+>    <code>"small"</code>
+>   </dd>
 > </dl>
 >
 
@@ -812,37 +822,24 @@ Map to define resources limits and requests<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    {
->
 >      "small": {
->
 >        "resources": {
->
 >          "limits": {
->
 >            "cpu": "3",
->
 >            "memory": "12Gi"
->
 >          },
->
 >          "requests": {
->
 >            "cpu": "1",
->
 >            "memory": "1Gi"
->
 >          }
->
 >        }
->
 >      }
->
 >    }
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -863,7 +860,8 @@ Kubernetes ServiceAccount name. Required if `var.iam_role_enabled` is `true`.<br
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -884,7 +882,8 @@ Kubernetes Namespace where service account is deployed. Required if `var.iam_rol
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -917,7 +916,8 @@ and therefore take a list of maps with tag key, value, and additional configurat
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -942,7 +942,8 @@ and treated as a single ID element.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>[]</code>>   </dd>
+>    <code>[]</code>
+>   </dd>
 > </dl>
 >
 
@@ -970,51 +971,31 @@ except for attributes, tags, and additional_tag_map, which are merged.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    {
->
 >      "additional_tag_map": {},
->
 >      "attributes": [],
->
 >      "delimiter": null,
->
 >      "descriptor_formats": {},
->
 >      "enabled": true,
->
 >      "environment": null,
->
 >      "id_length_limit": null,
->
 >      "label_key_case": null,
->
 >      "label_order": [],
->
 >      "label_value_case": null,
->
 >      "labels_as_tags": [
->
 >        "unset"
->
 >      ],
->
 >      "name": null,
->
 >      "namespace": null,
->
 >      "regex_replace_chars": null,
->
 >      "stage": null,
->
 >      "tags": {},
->
 >      "tenant": null
->
 >    }
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -1037,7 +1018,8 @@ Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1070,7 +1052,8 @@ Default is `{}` (`descriptors` output will be empty).<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1091,7 +1074,8 @@ Set to false to prevent the module from creating any resources<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1112,7 +1096,8 @@ ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'st
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1137,7 +1122,8 @@ Does not affect `id_full`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1162,7 +1148,8 @@ Default value: `title`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1186,7 +1173,8 @@ You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1213,7 +1201,8 @@ Default value: `lower`.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1244,15 +1233,13 @@ Set to `[]` to suppress all generated tags.<br/>
 >  <dd>
 >    
 >
->    ```hcl>
+>    ```hcl
 >    [
->
 >      "default"
->
 >    ]
->
 >    ```
->>   </dd>
+>
+>   </dd>
 > </dl>
 >
 
@@ -1276,7 +1263,8 @@ The "name" tag is set to the full `id` string. There is no tag with the value of
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1297,7 +1285,8 @@ ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp'
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1321,7 +1310,8 @@ If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyph
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1342,7 +1332,8 @@ ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'bu
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
@@ -1365,7 +1356,8 @@ Neither the tag keys nor the tag values will be modified by this module.<br/>
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>{}</code>>   </dd>
+>    <code>{}</code>
+>   </dd>
 > </dl>
 >
 
@@ -1386,7 +1378,8 @@ ID element _(Rarely used, not included by default)_. A customer identifier, indi
 >
 >  <dt>Default value</dt>
 >  <dd>
->    <code>null</code>>   </dd>
+>    <code>null</code>
+>   </dd>
 > </dl>
 >
 
