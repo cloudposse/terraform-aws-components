@@ -57,21 +57,29 @@ Name | Version | Source | Description
 <dl>
   <dt><code>dns_name</code></dt>
   <dd>
+
+  
   DNS name of the Global Accelerator.<br/>
 
   </dd>
   <dt><code>listener_ids</code></dt>
   <dd>
+
+  
   Global Accelerator Listener IDs.<br/>
 
   </dd>
   <dt><code>name</code></dt>
   <dd>
+
+  
   Name of the Global Accelerator.<br/>
 
   </dd>
   <dt><code>static_ips</code></dt>
   <dd>
+
+  
   Global Static IPs owned by the Global Accelerator.<br/>
 
   </dd>

@@ -384,6 +384,8 @@ The following data sources are used by this module:
 <dl>
   <dt><code>stacks</code></dt>
   <dd>
+
+  
   Spacelift stacks<br/>
 
   </dd>

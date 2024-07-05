@@ -517,6 +517,8 @@ The following data sources are used by this module:
 <dl>
   <dt><code>github_webhook_value</code></dt>
   <dd>
+
+  
   The value of the GitHub webhook secret used for ArgoCD<br/>
 
   </dd>

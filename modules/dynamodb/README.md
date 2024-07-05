@@ -58,46 +58,64 @@ Name | Version | Source | Description
 <dl>
   <dt><code>global_secondary_index_names</code></dt>
   <dd>
+
+  
   DynamoDB global secondary index names<br/>
 
   </dd>
   <dt><code>hash_key</code></dt>
   <dd>
+
+  
   DynamoDB table hash key<br/>
 
   </dd>
   <dt><code>local_secondary_index_names</code></dt>
   <dd>
+
+  
   DynamoDB local secondary index names<br/>
 
   </dd>
   <dt><code>range_key</code></dt>
   <dd>
+
+  
   DynamoDB table range key<br/>
 
   </dd>
   <dt><code>table_arn</code></dt>
   <dd>
+
+  
   DynamoDB table ARN<br/>
 
   </dd>
   <dt><code>table_id</code></dt>
   <dd>
+
+  
   DynamoDB table ID<br/>
 
   </dd>
   <dt><code>table_name</code></dt>
   <dd>
+
+  
   DynamoDB table name<br/>
 
   </dd>
   <dt><code>table_stream_arn</code></dt>
   <dd>
+
+  
   DynamoDB table stream ARN<br/>
 
   </dd>
   <dt><code>table_stream_label</code></dt>
   <dd>
+
+  
   DynamoDB table stream label<br/>
 
   </dd>

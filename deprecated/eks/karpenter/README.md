@@ -396,11 +396,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>instance_profile</code></dt>
   <dd>
+
+  
   Provisioned EC2 Instance Profile for nodes launched by Karpenter<br/>
 
   </dd>
   <dt><code>metadata</code></dt>
   <dd>
+
+  
   Block status of the deployed release<br/>
 
   </dd>

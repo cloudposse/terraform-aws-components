@@ -80,56 +80,78 @@ The following data sources are used by this module:
 <dl>
   <dt><code>efs_arn</code></dt>
   <dd>
+
+  
   EFS ARN<br/>
 
   </dd>
   <dt><code>efs_dns_name</code></dt>
   <dd>
+
+  
   EFS DNS name<br/>
 
   </dd>
   <dt><code>efs_host</code></dt>
   <dd>
+
+  
   DNS hostname for the EFS<br/>
 
   </dd>
   <dt><code>efs_id</code></dt>
   <dd>
+
+  
   EFS ID<br/>
 
   </dd>
   <dt><code>efs_mount_target_dns_names</code></dt>
   <dd>
+
+  
   List of EFS mount target DNS names<br/>
 
   </dd>
   <dt><code>efs_mount_target_ids</code></dt>
   <dd>
+
+  
   List of EFS mount target IDs (one per Availability Zone)<br/>
 
   </dd>
   <dt><code>efs_mount_target_ips</code></dt>
   <dd>
+
+  
   List of EFS mount target IPs (one per Availability Zone)<br/>
 
   </dd>
   <dt><code>efs_network_interface_ids</code></dt>
   <dd>
+
+  
   List of mount target network interface IDs<br/>
 
   </dd>
   <dt><code>security_group_arn</code></dt>
   <dd>
+
+  
   EFS Security Group ARN<br/>
 
   </dd>
   <dt><code>security_group_id</code></dt>
   <dd>
+
+  
   EFS Security Group ID<br/>
 
   </dd>
   <dt><code>security_group_name</code></dt>
   <dd>
+
+  
   EFS Security Group name<br/>
 
   </dd>

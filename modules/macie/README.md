@@ -164,21 +164,29 @@ The following data sources are used by this module:
 <dl>
   <dt><code>delegated_administrator_account_id</code></dt>
   <dd>
+
+  
   The AWS Account ID of the AWS Organization delegated administrator account<br/>
 
   </dd>
   <dt><code>macie_account_id</code></dt>
   <dd>
+
+  
   The ID of the Macie account created by the component<br/>
 
   </dd>
   <dt><code>macie_service_role_arn</code></dt>
   <dd>
+
+  
   The Amazon Resource Name (ARN) of the service-linked role that allows Macie to monitor and analyze data in AWS resources for the account.<br/>
 
   </dd>
   <dt><code>member_account_ids</code></dt>
   <dd>
+
+  
   The AWS Account IDs of the member accounts<br/>
 
   </dd>

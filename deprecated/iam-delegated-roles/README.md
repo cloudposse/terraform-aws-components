@@ -218,11 +218,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>role_long_name_policy_arn_map</code></dt>
   <dd>
+
+  
   Map of role long names to attached IAM Policy ARNs<br/>
 
   </dd>
   <dt><code>role_name_role_arn_map</code></dt>
   <dd>
+
+  
   Map of role names to role ARNs<br/>
 
   </dd>

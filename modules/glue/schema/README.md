@@ -54,36 +54,50 @@ Name | Version | Source | Description
 <dl>
   <dt><code>latest_schema_version</code></dt>
   <dd>
+
+  
   The latest version of the schema associated with the returned schema definition<br/>
 
   </dd>
   <dt><code>next_schema_version</code></dt>
   <dd>
+
+  
   The next version of the schema associated with the returned schema definition<br/>
 
   </dd>
   <dt><code>registry_name</code></dt>
   <dd>
+
+  
   Glue registry name<br/>
 
   </dd>
   <dt><code>schema_arn</code></dt>
   <dd>
+
+  
   Glue schema ARN<br/>
 
   </dd>
   <dt><code>schema_checkpoint</code></dt>
   <dd>
+
+  
   The version number of the checkpoint (the last time the compatibility mode was changed)<br/>
 
   </dd>
   <dt><code>schema_id</code></dt>
   <dd>
+
+  
   Glue schema ID<br/>
 
   </dd>
   <dt><code>schema_name</code></dt>
   <dd>
+
+  
   Glue schema name<br/>
 
   </dd>

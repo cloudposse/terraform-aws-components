@@ -525,16 +525,22 @@ The following data sources are used by this module:
 <dl>
   <dt><code>metadata</code></dt>
   <dd>
+
+  
   Block status of the deployed release<br/>
 
   </dd>
   <dt><code>metadata_action_runner_releases</code></dt>
   <dd>
+
+  
   Block statuses of the deployed actions-runner chart releases<br/>
 
   </dd>
   <dt><code>webhook_payload_url</code></dt>
   <dd>
+
+  
   Payload URL for GitHub webhook<br/>
 
   </dd>

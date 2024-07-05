@@ -354,36 +354,50 @@ The following data sources are used by this module:
 <dl>
   <dt><code>autoscaling_group_arn</code></dt>
   <dd>
+
+  
   The Amazon Resource Name (ARN) of the Auto Scaling Group.<br/>
 
   </dd>
   <dt><code>autoscaling_group_name</code></dt>
   <dd>
+
+  
   The name of the Auto Scaling Group.<br/>
 
   </dd>
   <dt><code>autoscaling_lifecycle_hook_name</code></dt>
   <dd>
+
+  
   The name of the Lifecycle Hook for the Auto Scaling Group.<br/>
 
   </dd>
   <dt><code>eventbridge_rule_arn</code></dt>
   <dd>
+
+  
   The ARN of the Eventbridge rule for the EC2 lifecycle transition.<br/>
 
   </dd>
   <dt><code>eventbridge_target_arn</code></dt>
   <dd>
+
+  
   The ARN of the Eventbridge target corresponding to the Eventbridge rule for the EC2 lifecycle transition.<br/>
 
   </dd>
   <dt><code>iam_role_arn</code></dt>
   <dd>
+
+  
   The ARN of the IAM role associated with the Autoscaling Group<br/>
 
   </dd>
   <dt><code>ssm_document_arn</code></dt>
   <dd>
+
+  
   The ARN of the SSM document.<br/>
 
   </dd>

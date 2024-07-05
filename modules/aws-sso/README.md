@@ -254,16 +254,22 @@ The following data sources are used by this module:
 <dl>
   <dt><code>group_ids</code></dt>
   <dd>
+
+  
   Group IDs created for Identity Center<br/>
 
   </dd>
   <dt><code>permission_sets</code></dt>
   <dd>
+
+  
   Permission sets<br/>
 
   </dd>
   <dt><code>sso_account_assignments</code></dt>
   <dd>
+
+  
   SSO account assignments<br/>
 
   </dd>

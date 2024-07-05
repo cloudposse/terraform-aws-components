@@ -102,11 +102,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>cert_manager_issuer_metadata</code></dt>
   <dd>
+
+  
   Block status of the deployed release<br/>
 
   </dd>
   <dt><code>cert_manager_metadata</code></dt>
   <dd>
+
+  
   Block status of the deployed release<br/>
 
   </dd>

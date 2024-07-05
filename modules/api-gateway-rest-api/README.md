@@ -90,16 +90,22 @@ The following data sources are used by this module:
 <dl>
   <dt><code>arn</code></dt>
   <dd>
+
+  
   The ARN of the REST API<br/>
 
   </dd>
   <dt><code>created_date</code></dt>
   <dd>
+
+  
   The date the REST API was created<br/>
 
   </dd>
   <dt><code>execution_arn</code></dt>
   <dd>
+
+  
       The execution ARN part to be used in lambda_permission's source_arn when allowing API Gateway to invoke a Lambda<br/>
       function, e.g., arn:aws:execute-api:eu-west-2:123456789012:z4675bid1j, which can be concatenated with allowed stage,<br/>
       method and resource path.The ARN of the Lambda function that will be executed.<br/>
@@ -108,16 +114,22 @@ The following data sources are used by this module:
   </dd>
   <dt><code>id</code></dt>
   <dd>
+
+  
   The ID of the REST API<br/>
 
   </dd>
   <dt><code>invoke_url</code></dt>
   <dd>
+
+  
   The URL to invoke the REST API<br/>
 
   </dd>
   <dt><code>root_resource_id</code></dt>
   <dd>
+
+  
   The resource ID of the REST API's root<br/>
 
   </dd>

@@ -80,21 +80,29 @@ Name | Version | Source | Description
 <dl>
   <dt><code>tgw_routes_home_region</code></dt>
   <dd>
+
+  
   TGW Routes to the primary region<br/>
 
   </dd>
   <dt><code>tgw_routes_in_region</code></dt>
   <dd>
+
+  
   TGW reoutes in this region<br/>
 
   </dd>
   <dt><code>vpc_routes_home</code></dt>
   <dd>
+
+  
   VPC routes to the primary VPC<br/>
 
   </dd>
   <dt><code>vpc_routes_this</code></dt>
   <dd>
+
+  
   This modules VPC routes<br/>
 
   </dd>

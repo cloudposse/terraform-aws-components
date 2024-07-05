@@ -241,16 +241,22 @@ The following data sources are used by this module:
 <dl>
   <dt><code>arn</code></dt>
   <dd>
+
+  
   ARN of the lambda function<br/>
 
   </dd>
   <dt><code>invoke_arn</code></dt>
   <dd>
+
+  
   Invoke ARN of the lambda function<br/>
 
   </dd>
   <dt><code>qualified_arn</code></dt>
   <dd>
+
+  
   ARN identifying your Lambda Function Version (if versioning is enabled via publish = true)<br/>
 
   </dd>

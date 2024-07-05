@@ -70,6 +70,8 @@ The following data sources are used by this module:
 <dl>
   <dt><code>sftp</code></dt>
   <dd>
+
+  
   The SFTP module outputs<br/>
 
   </dd>

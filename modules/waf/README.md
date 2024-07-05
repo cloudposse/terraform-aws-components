@@ -86,16 +86,22 @@ The following data sources are used by this module:
 <dl>
   <dt><code>arn</code></dt>
   <dd>
+
+  
   The ARN of the WAF WebACL.<br/>
 
   </dd>
   <dt><code>id</code></dt>
   <dd>
+
+  
   The ID of the WAF WebACL.<br/>
 
   </dd>
   <dt><code>logging_config_id</code></dt>
   <dd>
+
+  
   The ARN of the WAFv2 Web ACL logging configuration.<br/>
 
   </dd>

@@ -131,26 +131,36 @@ The following data sources are used by this module:
 <dl>
   <dt><code>snowflake_account</code></dt>
   <dd>
+
+  
   The Snowflake account ID.<br/>
 
   </dd>
   <dt><code>snowflake_region</code></dt>
   <dd>
+
+  
   The AWS Region with the Snowflake account.<br/>
 
   </dd>
   <dt><code>snowflake_terraform_role</code></dt>
   <dd>
+
+  
   The name of the role given to the Terraform service user.<br/>
 
   </dd>
   <dt><code>ssm_path_terraform_user_name</code></dt>
   <dd>
+
+  
   The path to the SSM parameter for the Terraform user name.<br/>
 
   </dd>
   <dt><code>ssm_path_terraform_user_private_key</code></dt>
   <dd>
+
+  
   The path to the SSM parameter for the Terraform user private key.<br/>
 
   </dd>

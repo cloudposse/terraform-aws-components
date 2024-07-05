@@ -150,11 +150,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>hostname</code></dt>
   <dd>
+
+  
   Hostname of the deployed echo server<br/>
 
   </dd>
   <dt><code>metadata</code></dt>
   <dd>
+
+  
   Block status of the deployed release<br/>
 
   </dd>

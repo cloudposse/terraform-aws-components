@@ -60,16 +60,22 @@ Name | Version | Source | Description
 <dl>
   <dt><code>trigger_arn</code></dt>
   <dd>
+
+  
   Glue trigger ARN<br/>
 
   </dd>
   <dt><code>trigger_id</code></dt>
   <dd>
+
+  
   Glue trigger ID<br/>
 
   </dd>
   <dt><code>trigger_name</code></dt>
   <dd>
+
+  
   Glue trigger name<br/>
 
   </dd>

@@ -77,31 +77,43 @@ The following data sources are used by this module:
 <dl>
   <dt><code>connection_arn</code></dt>
   <dd>
+
+  
   Glue connection ARN<br/>
 
   </dd>
   <dt><code>connection_id</code></dt>
   <dd>
+
+  
   Glue connection ID<br/>
 
   </dd>
   <dt><code>connection_name</code></dt>
   <dd>
+
+  
   Glue connection name<br/>
 
   </dd>
   <dt><code>security_group_arn</code></dt>
   <dd>
+
+  
   The ARN of the Security Group associated with the Glue connection<br/>
 
   </dd>
   <dt><code>security_group_id</code></dt>
   <dd>
+
+  
   The ID of the Security Group associated with the Glue connection<br/>
 
   </dd>
   <dt><code>security_group_name</code></dt>
   <dd>
+
+  
   The name of the Security Group and associated with the Glue connection<br/>
 
   </dd>

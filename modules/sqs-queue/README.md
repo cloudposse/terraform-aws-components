@@ -108,6 +108,8 @@ The following data sources are used by this module:
 <dl>
   <dt><code>sqs_queue</code></dt>
   <dd>
+
+  
   The SQS queue.<br/>
 
   </dd>

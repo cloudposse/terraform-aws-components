@@ -137,91 +137,127 @@ The following data sources are used by this module:
 <dl>
   <dt><code>autoscaling_group_arn</code></dt>
   <dd>
+
+  
   The ARN for this AutoScaling Group<br/>
 
   </dd>
   <dt><code>autoscaling_group_default_cooldown</code></dt>
   <dd>
+
+  
   Time between a scaling activity and the succeeding scaling activity<br/>
 
   </dd>
   <dt><code>autoscaling_group_health_check_grace_period</code></dt>
   <dd>
+
+  
   Time after instance comes into service before checking health<br/>
 
   </dd>
   <dt><code>autoscaling_group_health_check_type</code></dt>
   <dd>
+
+  
   `EC2` or `ELB`. Controls how health checking is done<br/>
 
   </dd>
   <dt><code>autoscaling_group_id</code></dt>
   <dd>
+
+  
   The autoscaling group id<br/>
 
   </dd>
   <dt><code>autoscaling_group_max_size</code></dt>
   <dd>
+
+  
   The maximum size of the autoscale group<br/>
 
   </dd>
   <dt><code>autoscaling_group_min_size</code></dt>
   <dd>
+
+  
   The minimum size of the autoscale group<br/>
 
   </dd>
   <dt><code>autoscaling_group_name</code></dt>
   <dd>
+
+  
   The autoscaling group name<br/>
 
   </dd>
   <dt><code>iam_role_arn</code></dt>
   <dd>
+
+  
   Spacelift IAM Role ARN<br/>
 
   </dd>
   <dt><code>iam_role_id</code></dt>
   <dd>
+
+  
   Spacelift IAM Role ID<br/>
 
   </dd>
   <dt><code>iam_role_name</code></dt>
   <dd>
+
+  
   Spacelift IAM Role name<br/>
 
   </dd>
   <dt><code>launch_template_arn</code></dt>
   <dd>
+
+  
   The ARN of the launch template<br/>
 
   </dd>
   <dt><code>launch_template_id</code></dt>
   <dd>
+
+  
   The ID of the launch template<br/>
 
   </dd>
   <dt><code>security_group_arn</code></dt>
   <dd>
+
+  
   Spacelift Security Group ARN<br/>
 
   </dd>
   <dt><code>security_group_id</code></dt>
   <dd>
+
+  
   Spacelift Security Group ID<br/>
 
   </dd>
   <dt><code>security_group_name</code></dt>
   <dd>
+
+  
   Spacelift Security Group Name<br/>
 
   </dd>
   <dt><code>worker_pool_id</code></dt>
   <dd>
+
+  
   Spacelift worker pool ID<br/>
 
   </dd>
   <dt><code>worker_pool_name</code></dt>
   <dd>
+
+  
   Spacelift worker pool name<br/>
 
   </dd>

@@ -59,31 +59,43 @@ Name | Version | Source | Description
 <dl>
   <dt><code>access_role_arn</code></dt>
   <dd>
+
+  
   If enabled with `var.allowed_account_id`, the Role ARN used for accessing Amazon Managed Prometheus in this account<br/>
 
   </dd>
   <dt><code>id</code></dt>
   <dd>
+
+  
   The ID of this component deployment<br/>
 
   </dd>
   <dt><code>workspace_arn</code></dt>
   <dd>
+
+  
   The ARN of this Amazon Managed Prometheus workspace<br/>
 
   </dd>
   <dt><code>workspace_endpoint</code></dt>
   <dd>
+
+  
   The endpoint URL of this Amazon Managed Prometheus workspace<br/>
 
   </dd>
   <dt><code>workspace_id</code></dt>
   <dd>
+
+  
   The ID of this Amazon Managed Prometheus workspace<br/>
 
   </dd>
   <dt><code>workspace_region</code></dt>
   <dd>
+
+  
   The region where this workspace is deployed<br/>
 
   </dd>

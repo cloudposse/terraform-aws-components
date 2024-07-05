@@ -236,41 +236,57 @@ The following data sources are used by this module:
 <dl>
   <dt><code>delegated_role_arns</code></dt>
   <dd>
+
+  
   List of delegated role ARNs<br/>
 
   </dd>
   <dt><code>delegated_role_name_role_arn_map</code></dt>
   <dd>
+
+  
   Map of delegated role names to role ARNs<br/>
 
   </dd>
   <dt><code>delegated_role_names</code></dt>
   <dd>
+
+  
   List of delegated role names<br/>
 
   </dd>
   <dt><code>delegated_roles_config</code></dt>
   <dd>
+
+  
   Map of delegated role config with name, target arn, and description<br/>
 
   </dd>
   <dt><code>primary_roles_config</code></dt>
   <dd>
+
+  
   Map of role config with name, target arn, and description<br/>
 
   </dd>
   <dt><code>role_arns</code></dt>
   <dd>
+
+  
   List of role ARNs<br/>
 
   </dd>
   <dt><code>role_name_role_arn_map</code></dt>
   <dd>
+
+  
   Map of role names to role ARNs<br/>
 
   </dd>
   <dt><code>role_names</code></dt>
   <dd>
+
+  
   List of role names<br/>
 
   </dd>

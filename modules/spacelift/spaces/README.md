@@ -96,11 +96,15 @@ Name | Version | Source | Description
 <dl>
   <dt><code>policies</code></dt>
   <dd>
+
+  
   The policies created by this component<br/>
 
   </dd>
   <dt><code>spaces</code></dt>
   <dd>
+
+  
   The spaces created by this component<br/>
 
   </dd>

@@ -349,31 +349,43 @@ The following data sources are used by this module:
 <dl>
   <dt><code>escalation</code></dt>
   <dd>
+
+  
   Escalation rules created<br/>
 
   </dd>
   <dt><code>integration</code></dt>
   <dd>
+
+  
   Integrations created<br/>
 
   </dd>
   <dt><code>routing</code></dt>
   <dd>
+
+  
   Routing rules created<br/>
 
   </dd>
   <dt><code>team_id</code></dt>
   <dd>
+
+  
   Team ID<br/>
 
   </dd>
   <dt><code>team_members</code></dt>
   <dd>
+
+  
   Team members<br/>
 
   </dd>
   <dt><code>team_name</code></dt>
   <dd>
+
+  
   Team Name<br/>
 
   </dd>

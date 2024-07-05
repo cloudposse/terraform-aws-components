@@ -139,41 +139,57 @@ The following data sources are used by this module:
 <dl>
   <dt><code>deploy_keys_ssm_path_format</code></dt>
   <dd>
+
+  
   SSM Parameter Store path format for the repository's deploy keys<br/>
 
   </dd>
   <dt><code>deploy_keys_ssm_paths</code></dt>
   <dd>
+
+  
   SSM Parameter Store paths for the repository's deploy keys<br/>
 
   </dd>
   <dt><code>repository</code></dt>
   <dd>
+
+  
   Repository name<br/>
 
   </dd>
   <dt><code>repository_default_branch</code></dt>
   <dd>
+
+  
   Repository default branch<br/>
 
   </dd>
   <dt><code>repository_description</code></dt>
   <dd>
+
+  
   Repository description<br/>
 
   </dd>
   <dt><code>repository_git_clone_url</code></dt>
   <dd>
+
+  
   Repository git clone URL<br/>
 
   </dd>
   <dt><code>repository_ssh_clone_url</code></dt>
   <dd>
+
+  
   Repository SSH clone URL<br/>
 
   </dd>
   <dt><code>repository_url</code></dt>
   <dd>
+
+  
   Repository URL<br/>
 
   </dd>

@@ -107,21 +107,29 @@ The following data sources are used by this module:
 <dl>
   <dt><code>arn</code></dt>
   <dd>
+
+  
   The ARN of the certificate<br/>
 
   </dd>
   <dt><code>domain_name</code></dt>
   <dd>
+
+  
   Certificate domain name<br/>
 
   </dd>
   <dt><code>domain_validation_options</code></dt>
   <dd>
+
+  
   CNAME records that are added to the DNS zone to complete certificate validation<br/>
 
   </dd>
   <dt><code>id</code></dt>
   <dd>
+
+  
   The ID of the certificate<br/>
 
   </dd>

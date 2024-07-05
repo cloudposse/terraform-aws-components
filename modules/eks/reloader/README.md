@@ -79,6 +79,8 @@ The following data sources are used by this module:
 <dl>
   <dt><code>metadata</code></dt>
   <dd>
+
+  
   Block status of the deployed release<br/>
 
   </dd>

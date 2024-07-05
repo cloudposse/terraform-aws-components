@@ -85,26 +85,36 @@ The following data sources are used by this module:
 <dl>
   <dt><code>basic_auth_username</code></dt>
   <dd>
+
+  
   If enabled, the username for basic auth<br/>
 
   </dd>
   <dt><code>id</code></dt>
   <dd>
+
+  
   The ID of this deployment<br/>
 
   </dd>
   <dt><code>metadata</code></dt>
   <dd>
+
+  
   Block status of the deployed release<br/>
 
   </dd>
   <dt><code>ssm_path_basic_auth_password</code></dt>
   <dd>
+
+  
   If enabled, the path in AWS SSM to find the password for basic auth<br/>
 
   </dd>
   <dt><code>url</code></dt>
   <dd>
+
+  
   The hostname used for this Loki deployment<br/>
 
   </dd>

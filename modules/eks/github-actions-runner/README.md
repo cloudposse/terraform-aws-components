@@ -407,11 +407,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>metadata</code></dt>
   <dd>
+
+  
   Block status of the deployed release<br/>
 
   </dd>
   <dt><code>runners</code></dt>
   <dd>
+
+  
   Human-readable summary of the deployed runners<br/>
 
   </dd>

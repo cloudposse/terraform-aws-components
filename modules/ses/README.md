@@ -78,26 +78,36 @@ The following data sources are used by this module:
 <dl>
   <dt><code>smtp_password</code></dt>
   <dd>
+
+  
   The SMTP password. This will be written to the state file in plain text.<br/>
 
   </dd>
   <dt><code>smtp_user</code></dt>
   <dd>
+
+  
   Access key ID of the IAM user with permission to send emails from SES domain<br/>
 
   </dd>
   <dt><code>user_arn</code></dt>
   <dd>
+
+  
   The ARN the IAM user with permission to send emails from SES domain<br/>
 
   </dd>
   <dt><code>user_name</code></dt>
   <dd>
+
+  
   Normalized name of the IAM user with permission to send emails from SES domain<br/>
 
   </dd>
   <dt><code>user_unique_id</code></dt>
   <dd>
+
+  
   The unique ID of the IAM user with permission to send emails from SES domain<br/>
 
   </dd>

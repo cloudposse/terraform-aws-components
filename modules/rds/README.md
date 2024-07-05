@@ -153,81 +153,113 @@ The following data sources are used by this module:
 <dl>
   <dt><code>exports</code></dt>
   <dd>
+
+  
   Map of exports for use in deployment configuration templates<br/>
 
   </dd>
   <dt><code>kms_key_alias</code></dt>
   <dd>
+
+  
   The KMS key alias<br/>
 
   </dd>
   <dt><code>psql_helper</code></dt>
   <dd>
+
+  
   A helper output to use with psql for connecting to this RDS instance.<br/>
 
   </dd>
   <dt><code>rds_address</code></dt>
   <dd>
+
+  
   Address of the instance<br/>
 
   </dd>
   <dt><code>rds_arn</code></dt>
   <dd>
+
+  
   ARN of the instance<br/>
 
   </dd>
   <dt><code>rds_database_ssm_key_prefix</code></dt>
   <dd>
+
+  
   SSM prefix<br/>
 
   </dd>
   <dt><code>rds_endpoint</code></dt>
   <dd>
+
+  
   DNS Endpoint of the instance<br/>
 
   </dd>
   <dt><code>rds_hostname</code></dt>
   <dd>
+
+  
   DNS host name of the instance<br/>
 
   </dd>
   <dt><code>rds_id</code></dt>
   <dd>
+
+  
   ID of the instance<br/>
 
   </dd>
   <dt><code>rds_name</code></dt>
   <dd>
+
+  
   RDS DB name<br/>
 
   </dd>
   <dt><code>rds_option_group_id</code></dt>
   <dd>
+
+  
   ID of the Option Group<br/>
 
   </dd>
   <dt><code>rds_parameter_group_id</code></dt>
   <dd>
+
+  
   ID of the Parameter Group<br/>
 
   </dd>
   <dt><code>rds_port</code></dt>
   <dd>
+
+  
   RDS DB port<br/>
 
   </dd>
   <dt><code>rds_resource_id</code></dt>
   <dd>
+
+  
   The RDS Resource ID of this instance.<br/>
 
   </dd>
   <dt><code>rds_security_group_id</code></dt>
   <dd>
+
+  
   ID of the Security Group<br/>
 
   </dd>
   <dt><code>rds_subnet_group_id</code></dt>
   <dd>
+
+  
   ID of the created Subnet Group<br/>
 
   </dd>

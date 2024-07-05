@@ -84,36 +84,50 @@ The following data sources are used by this module:
 <dl>
   <dt><code>cloudtrail_arn</code></dt>
   <dd>
+
+  
   CloudTrail ARN<br/>
 
   </dd>
   <dt><code>cloudtrail_home_region</code></dt>
   <dd>
+
+  
   The region in which CloudTrail was created<br/>
 
   </dd>
   <dt><code>cloudtrail_id</code></dt>
   <dd>
+
+  
   CloudTrail ID<br/>
 
   </dd>
   <dt><code>cloudtrail_logs_log_group_arn</code></dt>
   <dd>
+
+  
   CloudTrail Logs log group ARN<br/>
 
   </dd>
   <dt><code>cloudtrail_logs_log_group_name</code></dt>
   <dd>
+
+  
   CloudTrail Logs log group name<br/>
 
   </dd>
   <dt><code>cloudtrail_logs_role_arn</code></dt>
   <dd>
+
+  
   CloudTrail Logs role ARN<br/>
 
   </dd>
   <dt><code>cloudtrail_logs_role_name</code></dt>
   <dd>
+
+  
   CloudTrail Logs role name<br/>
 
   </dd>

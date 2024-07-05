@@ -105,11 +105,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>additional_grants</code></dt>
   <dd>
+
+  
   Additional DB users created<br/>
 
   </dd>
   <dt><code>additional_users</code></dt>
   <dd>
+
+  
   Additional DB users created<br/>
 
   </dd>

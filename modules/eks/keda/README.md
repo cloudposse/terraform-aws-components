@@ -74,46 +74,64 @@ The following data sources are used by this module:
 <dl>
   <dt><code>metadata</code></dt>
   <dd>
+
+  
   Block status of the deployed release.<br/>
 
   </dd>
   <dt><code>service_account_name</code></dt>
   <dd>
+
+  
   Kubernetes Service Account name<br/>
 
   </dd>
   <dt><code>service_account_namespace</code></dt>
   <dd>
+
+  
   Kubernetes Service Account namespace<br/>
 
   </dd>
   <dt><code>service_account_policy_arn</code></dt>
   <dd>
+
+  
   IAM policy ARN<br/>
 
   </dd>
   <dt><code>service_account_policy_id</code></dt>
   <dd>
+
+  
   IAM policy ID<br/>
 
   </dd>
   <dt><code>service_account_policy_name</code></dt>
   <dd>
+
+  
   IAM policy name<br/>
 
   </dd>
   <dt><code>service_account_role_arn</code></dt>
   <dd>
+
+  
   IAM role ARN<br/>
 
   </dd>
   <dt><code>service_account_role_name</code></dt>
   <dd>
+
+  
   IAM role name<br/>
 
   </dd>
   <dt><code>service_account_role_unique_id</code></dt>
   <dd>
+
+  
   IAM role unique ID<br/>
 
   </dd>

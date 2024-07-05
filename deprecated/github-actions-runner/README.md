@@ -213,26 +213,36 @@ The following data sources are used by this module:
 <dl>
   <dt><code>kms_alias</code></dt>
   <dd>
+
+  
   KMS alias<br/>
 
   </dd>
   <dt><code>kms_key_arn</code></dt>
   <dd>
+
+  
   KMS key ARN<br/>
 
   </dd>
   <dt><code>release_name</code></dt>
   <dd>
+
+  
   Name of the release<br/>
 
   </dd>
   <dt><code>release_namespace</code></dt>
   <dd>
+
+  
   Namespace of the release<br/>
 
   </dd>
   <dt><code>service_account_role_arn</code></dt>
   <dd>
+
+  
   Service Account role ARN<br/>
 
   </dd>

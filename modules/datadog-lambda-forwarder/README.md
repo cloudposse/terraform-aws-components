@@ -95,31 +95,43 @@ The following data sources are used by this module:
 <dl>
   <dt><code>lambda_forwarder_log_function_arn</code></dt>
   <dd>
+
+  
   Datadog Lambda forwarder CloudWatch/S3 function ARN<br/>
 
   </dd>
   <dt><code>lambda_forwarder_log_function_name</code></dt>
   <dd>
+
+  
   Datadog Lambda forwarder CloudWatch/S3 function name<br/>
 
   </dd>
   <dt><code>lambda_forwarder_rds_enhanced_monitoring_function_name</code></dt>
   <dd>
+
+  
   Datadog Lambda forwarder RDS Enhanced Monitoring function name<br/>
 
   </dd>
   <dt><code>lambda_forwarder_rds_function_arn</code></dt>
   <dd>
+
+  
   Datadog Lambda forwarder RDS Enhanced Monitoring function ARN<br/>
 
   </dd>
   <dt><code>lambda_forwarder_vpc_log_function_arn</code></dt>
   <dd>
+
+  
   Datadog Lambda forwarder VPC Flow Logs function ARN<br/>
 
   </dd>
   <dt><code>lambda_forwarder_vpc_log_function_name</code></dt>
   <dd>
+
+  
   Datadog Lambda forwarder VPC Flow Logs function name<br/>
 
   </dd>

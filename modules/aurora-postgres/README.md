@@ -298,46 +298,64 @@ The following data sources are used by this module:
 <dl>
   <dt><code>admin_username</code></dt>
   <dd>
+
+  
   Postgres admin username<br/>
 
   </dd>
   <dt><code>allowed_security_groups</code></dt>
   <dd>
+
+  
   The resulting list of security group IDs that are allowed to connect to the Aurora Postgres cluster.<br/>
 
   </dd>
   <dt><code>cluster_identifier</code></dt>
   <dd>
+
+  
   Postgres cluster identifier<br/>
 
   </dd>
   <dt><code>config_map</code></dt>
   <dd>
+
+  
   Map containing information pertinent to a PostgreSQL client configuration.<br/>
 
   </dd>
   <dt><code>database_name</code></dt>
   <dd>
+
+  
   Postgres database name<br/>
 
   </dd>
   <dt><code>kms_key_arn</code></dt>
   <dd>
+
+  
   KMS key ARN for Aurora Postgres<br/>
 
   </dd>
   <dt><code>master_hostname</code></dt>
   <dd>
+
+  
   Postgres master hostname<br/>
 
   </dd>
   <dt><code>replicas_hostname</code></dt>
   <dd>
+
+  
   Postgres replicas hostname<br/>
 
   </dd>
   <dt><code>ssm_key_paths</code></dt>
   <dd>
+
+  
   Names (key paths) of all SSM parameters stored for this cluster<br/>
 
   </dd>

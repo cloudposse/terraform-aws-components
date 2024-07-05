@@ -75,11 +75,15 @@ Name | Version | Source | Description
 <dl>
   <dt><code>dms_replication_instance_arn</code></dt>
   <dd>
+
+  
   DMS replication instance ARN<br/>
 
   </dd>
   <dt><code>dms_replication_instance_id</code></dt>
   <dd>
+
+  
   DMS replication instance ID<br/>
 
   </dd>

@@ -72,6 +72,8 @@ The following data sources are used by this module:
 <dl>
   <dt><code>ssm_path_grafana_api_key</code></dt>
   <dd>
+
+  
   The path in AWS SSM to the Grafana API Key provisioned with this component<br/>
 
   </dd>

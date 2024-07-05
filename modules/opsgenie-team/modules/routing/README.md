@@ -52,11 +52,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>service_incident_rule</code></dt>
   <dd>
+
+  
   Service incident rules for incidents<br/>
 
   </dd>
   <dt><code>team_routing_rule</code></dt>
   <dd>
+
+  
   Team routing rules for alerts<br/>
 
   </dd>

@@ -111,26 +111,36 @@ Name | Version | Source | Description
 <dl>
   <dt><code>domains</code></dt>
   <dd>
+
+  
   Route 53 Resolver DNS Firewall domain configurations<br/>
 
   </dd>
   <dt><code>query_log_config</code></dt>
   <dd>
+
+  
   Route 53 Resolver query logging configuration<br/>
 
   </dd>
   <dt><code>rule_group_associations</code></dt>
   <dd>
+
+  
   Route 53 Resolver DNS Firewall rule group associations<br/>
 
   </dd>
   <dt><code>rule_groups</code></dt>
   <dd>
+
+  
   Route 53 Resolver DNS Firewall rule groups<br/>
 
   </dd>
   <dt><code>rules</code></dt>
   <dd>
+
+  
   Route 53 Resolver DNS Firewall rules<br/>
 
   </dd>

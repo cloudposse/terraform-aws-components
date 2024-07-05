@@ -108,11 +108,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>clusterrole_username</code></dt>
   <dd>
+
+  
   The username of the ClusterRole used to give the scraper in-cluster permissions<br/>
 
   </dd>
   <dt><code>scraper_role_arn</code></dt>
   <dd>
+
+  
   The Amazon Resource Name (ARN) of the IAM role that provides permissions for the scraper to discover, collect, and produce metrics<br/>
 
   </dd>

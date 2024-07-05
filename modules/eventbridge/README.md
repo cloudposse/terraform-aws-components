@@ -82,21 +82,29 @@ The following data sources are used by this module:
 <dl>
   <dt><code>cloudwatch_event_rule_arn</code></dt>
   <dd>
+
+  
   The ARN of the CloudWatch Event Rule<br/>
 
   </dd>
   <dt><code>cloudwatch_event_rule_name</code></dt>
   <dd>
+
+  
   The name of the CloudWatch Event Rule<br/>
 
   </dd>
   <dt><code>cloudwatch_logs_log_group_arn</code></dt>
   <dd>
+
+  
   The ARN of the CloudWatch Log Group<br/>
 
   </dd>
   <dt><code>cloudwatch_logs_log_group_name</code></dt>
   <dd>
+
+  
   The name of the CloudWatch Log Group<br/>
 
   </dd>

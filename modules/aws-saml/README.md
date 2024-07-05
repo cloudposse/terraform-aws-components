@@ -70,16 +70,22 @@ The following data sources are used by this module:
 <dl>
   <dt><code>okta_api_users</code></dt>
   <dd>
+
+  
   Map of OKTA API Users<br/>
 
   </dd>
   <dt><code>saml_provider_arns</code></dt>
   <dd>
+
+  
   Map of SAML provider names to provider ARNs<br/>
 
   </dd>
   <dt><code>saml_provider_assume_role_policy</code></dt>
   <dd>
+
+  
   JSON "assume role" policy document to use for roles allowed to log in via SAML<br/>
 
   </dd>

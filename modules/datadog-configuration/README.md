@@ -114,31 +114,43 @@ The following data sources are used by this module:
 <dl>
   <dt><code>datadog_api_key_location</code></dt>
   <dd>
+
+  
   The Datadog API key in the secrets store<br/>
 
   </dd>
   <dt><code>datadog_api_url</code></dt>
   <dd>
+
+  
   The URL of the Datadog API<br/>
 
   </dd>
   <dt><code>datadog_app_key_location</code></dt>
   <dd>
+
+  
   The Datadog APP key location in the secrets store<br/>
 
   </dd>
   <dt><code>datadog_secrets_store_type</code></dt>
   <dd>
+
+  
   The type of the secrets store to use for Datadog API and APP keys<br/>
 
   </dd>
   <dt><code>datadog_site</code></dt>
   <dd>
+
+  
   The Datadog site to use<br/>
 
   </dd>
   <dt><code>region</code></dt>
   <dd>
+
+  
   The region where the keys will be created<br/>
 
   </dd>

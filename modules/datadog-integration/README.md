@@ -72,16 +72,22 @@ The following data sources are used by this module:
 <dl>
   <dt><code>aws_account_id</code></dt>
   <dd>
+
+  
   AWS Account ID of the IAM Role for the Datadog integration<br/>
 
   </dd>
   <dt><code>aws_role_name</code></dt>
   <dd>
+
+  
   Name of the AWS IAM Role for the Datadog integration<br/>
 
   </dd>
   <dt><code>datadog_external_id</code></dt>
   <dd>
+
+  
   Datadog integration external ID<br/>
 
   </dd>

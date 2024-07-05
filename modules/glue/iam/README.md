@@ -53,16 +53,22 @@ Name | Version | Source | Description
 <dl>
   <dt><code>role_arn</code></dt>
   <dd>
+
+  
   The ARN of the Glue role<br/>
 
   </dd>
   <dt><code>role_id</code></dt>
   <dd>
+
+  
   The ID of the Glue role<br/>
 
   </dd>
   <dt><code>role_name</code></dt>
   <dd>
+
+  
   The name of the Glue role<br/>
 
   </dd>

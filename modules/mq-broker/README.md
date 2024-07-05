@@ -63,81 +63,113 @@ Name | Version | Source | Description
 <dl>
   <dt><code>broker_arn</code></dt>
   <dd>
+
+  
   AmazonMQ broker ARN<br/>
 
   </dd>
   <dt><code>broker_id</code></dt>
   <dd>
+
+  
   AmazonMQ broker ID<br/>
 
   </dd>
   <dt><code>primary_amqp_ssl_endpoint</code></dt>
   <dd>
+
+  
   AmazonMQ primary AMQP+SSL endpoint<br/>
 
   </dd>
   <dt><code>primary_console_url</code></dt>
   <dd>
+
+  
   AmazonMQ active web console URL<br/>
 
   </dd>
   <dt><code>primary_ip_address</code></dt>
   <dd>
+
+  
   AmazonMQ primary IP address<br/>
 
   </dd>
   <dt><code>primary_mqtt_ssl_endpoint</code></dt>
   <dd>
+
+  
   AmazonMQ primary MQTT+SSL endpoint<br/>
 
   </dd>
   <dt><code>primary_ssl_endpoint</code></dt>
   <dd>
+
+  
   AmazonMQ primary SSL endpoint<br/>
 
   </dd>
   <dt><code>primary_stomp_ssl_endpoint</code></dt>
   <dd>
+
+  
   AmazonMQ primary STOMP+SSL endpoint<br/>
 
   </dd>
   <dt><code>primary_wss_endpoint</code></dt>
   <dd>
+
+  
   AmazonMQ primary WSS endpoint<br/>
 
   </dd>
   <dt><code>secondary_amqp_ssl_endpoint</code></dt>
   <dd>
+
+  
   AmazonMQ secondary AMQP+SSL endpoint<br/>
 
   </dd>
   <dt><code>secondary_console_url</code></dt>
   <dd>
+
+  
   AmazonMQ secondary web console URL<br/>
 
   </dd>
   <dt><code>secondary_ip_address</code></dt>
   <dd>
+
+  
   AmazonMQ secondary IP address<br/>
 
   </dd>
   <dt><code>secondary_mqtt_ssl_endpoint</code></dt>
   <dd>
+
+  
   AmazonMQ secondary MQTT+SSL endpoint<br/>
 
   </dd>
   <dt><code>secondary_ssl_endpoint</code></dt>
   <dd>
+
+  
   AmazonMQ secondary SSL endpoint<br/>
 
   </dd>
   <dt><code>secondary_stomp_ssl_endpoint</code></dt>
   <dd>
+
+  
   AmazonMQ secondary STOMP+SSL endpoint<br/>
 
   </dd>
   <dt><code>secondary_wss_endpoint</code></dt>
   <dd>
+
+  
   AmazonMQ secondary WSS endpoint<br/>
 
   </dd>

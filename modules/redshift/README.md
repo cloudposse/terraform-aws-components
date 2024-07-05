@@ -94,51 +94,71 @@ The following data sources are used by this module:
 <dl>
   <dt><code>arn</code></dt>
   <dd>
+
+  
   Amazon Resource Name (ARN) of cluster<br/>
 
   </dd>
   <dt><code>cluster_identifier</code></dt>
   <dd>
+
+  
   The Cluster Identifier<br/>
 
   </dd>
   <dt><code>cluster_security_groups</code></dt>
   <dd>
+
+  
   The security groups associated with the cluster<br/>
 
   </dd>
   <dt><code>database_name</code></dt>
   <dd>
+
+  
   The name of the default database in the Cluster<br/>
 
   </dd>
   <dt><code>dns_name</code></dt>
   <dd>
+
+  
   The DNS name of the cluster<br/>
 
   </dd>
   <dt><code>endpoint</code></dt>
   <dd>
+
+  
   The connection endpoint<br/>
 
   </dd>
   <dt><code>id</code></dt>
   <dd>
+
+  
   The Redshift Cluster ID<br/>
 
   </dd>
   <dt><code>port</code></dt>
   <dd>
+
+  
   The Port the cluster responds on<br/>
 
   </dd>
   <dt><code>redshift_database_ssm_key_prefix</code></dt>
   <dd>
+
+  
   SSM prefix<br/>
 
   </dd>
   <dt><code>vpc_security_group_ids</code></dt>
   <dd>
+
+  
   The VPC security group IDs associated with the cluster<br/>
 
   </dd>

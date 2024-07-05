@@ -90,36 +90,50 @@ The following data sources are used by this module:
 <dl>
   <dt><code>annotations</code></dt>
   <dd>
+
+  
   The annotations of the Ingress<br/>
 
   </dd>
   <dt><code>group_name</code></dt>
   <dd>
+
+  
   The value of `alb.ingress.kubernetes.io/group.name` of the Ingress<br/>
 
   </dd>
   <dt><code>host</code></dt>
   <dd>
+
+  
   The name of the host used by the Ingress<br/>
 
   </dd>
   <dt><code>ingress_class</code></dt>
   <dd>
+
+  
   The value of the `kubernetes.io/ingress.class` annotation of the Kubernetes Ingress<br/>
 
   </dd>
   <dt><code>load_balancer_name</code></dt>
   <dd>
+
+  
   The name of the load balancer created by the Ingress<br/>
 
   </dd>
   <dt><code>load_balancer_scheme</code></dt>
   <dd>
+
+  
   The value of the `alb.ingress.kubernetes.io/scheme` annotation of the Kubernetes Ingress<br/>
 
   </dd>
   <dt><code>message_body_length</code></dt>
   <dd>
+
+  
   The length of the message body to ensure it's lower than the maximum limit<br/>
 
   </dd>

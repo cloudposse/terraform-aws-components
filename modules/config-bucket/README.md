@@ -63,16 +63,22 @@ Name | Version | Source | Description
 <dl>
   <dt><code>config_bucket_arn</code></dt>
   <dd>
+
+  
   Config bucket ARN<br/>
 
   </dd>
   <dt><code>config_bucket_domain_name</code></dt>
   <dd>
+
+  
   Config bucket FQDN<br/>
 
   </dd>
   <dt><code>config_bucket_id</code></dt>
   <dd>
+
+  
   Config bucket ID<br/>
 
   </dd>

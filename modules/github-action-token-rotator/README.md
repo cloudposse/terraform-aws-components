@@ -62,6 +62,8 @@ Name | Version | Source | Description
 <dl>
   <dt><code>github_action_token_rotator</code></dt>
   <dd>
+
+  
   GitHub action token rotator module outputs.<br/>
 
   </dd>

@@ -65,11 +65,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>okta_api_users</code></dt>
   <dd>
+
+  
   Map of OKTA API Users<br/>
 
   </dd>
   <dt><code>saml_provider_arns</code></dt>
   <dd>
+
+  
   Map of SAML provider names to provider ARNs<br/>
 
   </dd>

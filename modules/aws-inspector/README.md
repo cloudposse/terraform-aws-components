@@ -108,6 +108,8 @@ The following data sources are used by this module:
 <dl>
   <dt><code>inspector</code></dt>
   <dd>
+
+  
   The AWS Inspector module outputs<br/>
 
   </dd>

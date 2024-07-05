@@ -89,6 +89,8 @@ Name | Version | Source | Description
 <dl>
   <dt><code>role</code></dt>
   <dd>
+
+  
   IAM role module outputs<br/>
 
   </dd>

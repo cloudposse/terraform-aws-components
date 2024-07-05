@@ -160,11 +160,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>providers</code></dt>
   <dd>
+
+  
   Deployed Karpenter AWSNodeTemplates<br/>
 
   </dd>
   <dt><code>provisioners</code></dt>
   <dd>
+
+  
   Deployed Karpenter provisioners<br/>
 
   </dd>

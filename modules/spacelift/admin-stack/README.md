@@ -196,16 +196,22 @@ The following data sources are used by this module:
 <dl>
   <dt><code>child_stacks</code></dt>
   <dd>
+
+  
   All children stacks managed by this component<br/>
 
   </dd>
   <dt><code>root_stack</code></dt>
   <dd>
+
+  
   The root stack, if enabled and created by this component<br/>
 
   </dd>
   <dt><code>root_stack_id</code></dt>
   <dd>
+
+  
   The stack id<br/>
 
   </dd>

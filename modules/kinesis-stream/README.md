@@ -75,16 +75,22 @@ Name | Version | Source | Description
 <dl>
   <dt><code>name</code></dt>
   <dd>
+
+  
   Name of the Kinesis stream.<br/>
 
   </dd>
   <dt><code>shard_count</code></dt>
   <dd>
+
+  
   Number of shards provisioned.<br/>
 
   </dd>
   <dt><code>stream_arn</code></dt>
   <dd>
+
+  
   ARN of the the Kinesis stream.<br/>
 
   </dd>

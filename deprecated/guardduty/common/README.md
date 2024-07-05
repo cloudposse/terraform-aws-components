@@ -109,21 +109,29 @@ The following data sources are used by this module:
 <dl>
   <dt><code>guardduty_detector_arn</code></dt>
   <dd>
+
+  
   GuardDuty detector ARN<br/>
 
   </dd>
   <dt><code>guardduty_detector_id</code></dt>
   <dd>
+
+  
   GuardDuty detector ID<br/>
 
   </dd>
   <dt><code>sns_topic_name</code></dt>
   <dd>
+
+  
   SNS topic name<br/>
 
   </dd>
   <dt><code>sns_topic_subscriptions</code></dt>
   <dd>
+
+  
   SNS topic subscriptions<br/>
 
   </dd>

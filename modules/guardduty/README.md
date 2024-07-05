@@ -193,26 +193,36 @@ The following data sources are used by this module:
 <dl>
   <dt><code>delegated_administrator_account_id</code></dt>
   <dd>
+
+  
   The AWS Account ID of the AWS Organization delegated administrator account<br/>
 
   </dd>
   <dt><code>guardduty_detector_arn</code></dt>
   <dd>
+
+  
   The ARN of the GuardDuty detector created by the component<br/>
 
   </dd>
   <dt><code>guardduty_detector_id</code></dt>
   <dd>
+
+  
   The ID of the GuardDuty detector created by the component<br/>
 
   </dd>
   <dt><code>sns_topic_name</code></dt>
   <dd>
+
+  
   The name of the SNS topic created by the component<br/>
 
   </dd>
   <dt><code>sns_topic_subscriptions</code></dt>
   <dd>
+
+  
   The SNS topic subscriptions created by the component<br/>
 
   </dd>

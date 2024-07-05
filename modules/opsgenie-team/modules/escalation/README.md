@@ -73,11 +73,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>escalation_id</code></dt>
   <dd>
+
+  
   The ID of the Opsgenie Escalation<br/>
 
   </dd>
   <dt><code>escalation_name</code></dt>
   <dd>
+
+  
   Name of the Opsgenie Escalation<br/>
 
   </dd>

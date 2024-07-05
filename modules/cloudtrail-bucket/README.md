@@ -56,16 +56,22 @@ Name | Version | Source | Description
 <dl>
   <dt><code>cloudtrail_bucket_arn</code></dt>
   <dd>
+
+  
   CloudTrail S3 bucket ARN<br/>
 
   </dd>
   <dt><code>cloudtrail_bucket_domain_name</code></dt>
   <dd>
+
+  
   CloudTrail S3 bucket domain name<br/>
 
   </dd>
   <dt><code>cloudtrail_bucket_id</code></dt>
   <dd>
+
+  
   CloudTrail S3 bucket ID<br/>
 
   </dd>

@@ -54,16 +54,22 @@ Name | Version | Source | Description
 <dl>
   <dt><code>dms_cloudwatch_logs_role_arn</code></dt>
   <dd>
+
+  
   DMS CloudWatch Logs role ARN<br/>
 
   </dd>
   <dt><code>dms_redshift_s3_role_arn</code></dt>
   <dd>
+
+  
   DMS Redshift S3 role ARN<br/>
 
   </dd>
   <dt><code>dms_vpc_management_role_arn</code></dt>
   <dd>
+
+  
   DMS VPC management role ARN<br/>
 
   </dd>

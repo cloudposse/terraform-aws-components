@@ -214,21 +214,29 @@ The following data sources are used by this module:
 <dl>
   <dt><code>aws_config_configuration_recorder_id</code></dt>
   <dd>
+
+  
   The ID of the AWS Config Recorder<br/>
 
   </dd>
   <dt><code>aws_config_iam_role</code></dt>
   <dd>
+
+  
   The ARN of the IAM Role used for AWS Config<br/>
 
   </dd>
   <dt><code>storage_bucket_arn</code></dt>
   <dd>
+
+  
   Storage Config bucket ARN<br/>
 
   </dd>
   <dt><code>storage_bucket_id</code></dt>
   <dd>
+
+  
   Storage Config bucket ID<br/>
 
   </dd>

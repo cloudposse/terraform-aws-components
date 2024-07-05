@@ -114,16 +114,22 @@ The following data sources are used by this module:
 <dl>
   <dt><code>autoscaling_group_id</code></dt>
   <dd>
+
+  
   The AutoScaling Group ID<br/>
 
   </dd>
   <dt><code>iam_instance_profile</code></dt>
   <dd>
+
+  
   Name of AWS IAM Instance Profile<br/>
 
   </dd>
   <dt><code>security_group_id</code></dt>
   <dd>
+
+  
   ID on the AWS Security Group associated with the ASG<br/>
 
   </dd>

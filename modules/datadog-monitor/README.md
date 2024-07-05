@@ -220,6 +220,8 @@ Name | Version | Source | Description
 <dl>
   <dt><code>datadog_monitor_names</code></dt>
   <dd>
+
+  
   Names of the created Datadog monitors<br/>
 
   </dd>

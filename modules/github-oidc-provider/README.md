@@ -101,6 +101,8 @@ The following data sources are used by this module:
 <dl>
   <dt><code>oidc_provider_arn</code></dt>
   <dd>
+
+  
   GitHub OIDC provider ARN<br/>
 
   </dd>

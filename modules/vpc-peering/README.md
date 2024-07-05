@@ -219,6 +219,8 @@ The following data sources are used by this module:
 <dl>
   <dt><code>vpc_peering</code></dt>
   <dd>
+
+  
   VPC peering outputs<br/>
 
   </dd>

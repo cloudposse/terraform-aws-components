@@ -55,11 +55,15 @@ Name | Version | Source | Description
 <dl>
   <dt><code>vpc_flow_logs_bucket_arn</code></dt>
   <dd>
+
+  
   VPC Flow Logs bucket ARN<br/>
 
   </dd>
   <dt><code>vpc_flow_logs_bucket_id</code></dt>
   <dd>
+
+  
   VPC Flow Logs bucket ID<br/>
 
   </dd>

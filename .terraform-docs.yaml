@@ -118,7 +118,7 @@ content: |-
     <dt><code>{{ .Name }}</code>{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}</dt>
     <dd>
 
-    {{- $lines := regexSplit "\n" (tostring .Description | replace "OBSOLETE: " "" | default "n/a" ) -1 -}}
+    {{ $lines := regexSplit "\n" (tostring .Description | replace "OBSOLETE: " "" | default "n/a" ) -1 -}}
     {{- range $lines }}
     {{ . }}<br/>
     {{- end }}

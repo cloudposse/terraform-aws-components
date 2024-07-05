@@ -198,31 +198,43 @@ The following data sources are used by this module:
 <dl>
   <dt><code>acm_ssm_parameter</code></dt>
   <dd>
+
+  
   The SSM parameter for the ACM cert.<br/>
 
   </dd>
   <dt><code>certificate</code></dt>
   <dd>
+
+  
   The ACM certificate information.<br/>
 
   </dd>
   <dt><code>default_dns_zone_id</code></dt>
   <dd>
+
+  
   Default root DNS zone ID for the cluster<br/>
 
   </dd>
   <dt><code>default_domain_name</code></dt>
   <dd>
+
+  
   Default root domain name (e.g. dev.example.net) for the cluster<br/>
 
   </dd>
   <dt><code>route53_hosted_zone_protections</code></dt>
   <dd>
+
+  
   List of AWS Shield Advanced Protections for Route53 Hosted Zones.<br/>
 
   </dd>
   <dt><code>zones</code></dt>
   <dd>
+
+  
   Subdomain and zone config<br/>
 
   </dd>

@@ -106,41 +106,57 @@ The following data sources are used by this module:
 <dl>
   <dt><code>alb</code></dt>
   <dd>
+
+  
   ALB outputs<br/>
 
   </dd>
   <dt><code>cluster_arn</code></dt>
   <dd>
+
+  
   ECS cluster ARN<br/>
 
   </dd>
   <dt><code>cluster_name</code></dt>
   <dd>
+
+  
   ECS Cluster Name<br/>
 
   </dd>
   <dt><code>private_subnet_ids</code></dt>
   <dd>
+
+  
   Private subnet ids<br/>
 
   </dd>
   <dt><code>public_subnet_ids</code></dt>
   <dd>
+
+  
   Public subnet ids<br/>
 
   </dd>
   <dt><code>records</code></dt>
   <dd>
+
+  
   Record names<br/>
 
   </dd>
   <dt><code>security_group_id</code></dt>
   <dd>
+
+  
   Security group id<br/>
 
   </dd>
   <dt><code>vpc_id</code></dt>
   <dd>
+
+  
   VPC ID<br/>
 
   </dd>

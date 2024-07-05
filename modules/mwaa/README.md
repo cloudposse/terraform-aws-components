@@ -91,51 +91,71 @@ The following data sources are used by this module:
 <dl>
   <dt><code>arn</code></dt>
   <dd>
+
+  
   ARN of MWAA environment.<br/>
 
   </dd>
   <dt><code>created_at</code></dt>
   <dd>
+
+  
   The Created At date of the Amazon MWAA Environment<br/>
 
   </dd>
   <dt><code>execution_role_arn</code></dt>
   <dd>
+
+  
   IAM Role ARN for Amazon MWAA Execution Role<br/>
 
   </dd>
   <dt><code>logging_configuration</code></dt>
   <dd>
+
+  
   The Logging Configuration of the MWAA Environment<br/>
 
   </dd>
   <dt><code>s3_bucket_arn</code></dt>
   <dd>
+
+  
   ID of S3 bucket.<br/>
 
   </dd>
   <dt><code>security_group_id</code></dt>
   <dd>
+
+  
   ID of the MWAA Security Group(s)<br/>
 
   </dd>
   <dt><code>service_role_arn</code></dt>
   <dd>
+
+  
   The Service Role ARN of the Amazon MWAA Environment<br/>
 
   </dd>
   <dt><code>status</code></dt>
   <dd>
+
+  
   The status of the Amazon MWAA Environment<br/>
 
   </dd>
   <dt><code>tags_all</code></dt>
   <dd>
+
+  
   A map of tags assigned to the resource, including those inherited from the provider for the Amazon MWAA Environment<br/>
 
   </dd>
   <dt><code>webserver_url</code></dt>
   <dd>
+
+  
   The webserver URL of the Amazon MWAA Environment<br/>
 
   </dd>

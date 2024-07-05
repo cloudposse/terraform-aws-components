@@ -82,26 +82,36 @@ The following data sources are used by this module:
 <dl>
   <dt><code>ebs_csi_driver_controller_role_arn</code></dt>
   <dd>
+
+  
   The Name of the EBS CSI driver controller IAM role ARN<br/>
 
   </dd>
   <dt><code>ebs_csi_driver_controller_role_name</code></dt>
   <dd>
+
+  
   The Name of the EBS CSI driver controller IAM role name<br/>
 
   </dd>
   <dt><code>ebs_csi_driver_controller_role_policy_arn</code></dt>
   <dd>
+
+  
   The Name of the EBS CSI driver controller IAM role policy ARN<br/>
 
   </dd>
   <dt><code>ebs_csi_driver_controller_role_policy_name</code></dt>
   <dd>
+
+  
   The Name of the EBS CSI driver controller IAM role policy name<br/>
 
   </dd>
   <dt><code>ebs_csi_driver_name</code></dt>
   <dd>
+
+  
   The Name of the EBS CSI driver<br/>
 
   </dd>

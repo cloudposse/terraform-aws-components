@@ -183,21 +183,29 @@ The following data sources are used by this module:
 <dl>
   <dt><code>role_arns</code></dt>
   <dd>
+
+  
   List of role ARNs<br/>
 
   </dd>
   <dt><code>team_name_role_arn_map</code></dt>
   <dd>
+
+  
   Map of team names to role ARNs<br/>
 
   </dd>
   <dt><code>team_names</code></dt>
   <dd>
+
+  
   List of team names<br/>
 
   </dd>
   <dt><code>teams_config</code></dt>
   <dd>
+
+  
   Map of team config with name, target arn, and description<br/>
 
   </dd>

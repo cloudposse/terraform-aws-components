@@ -92,11 +92,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>workspace_endpoint</code></dt>
   <dd>
+
+  
   The returned URL of the Amazon Managed Grafana workspace<br/>
 
   </dd>
   <dt><code>workspace_id</code></dt>
   <dd>
+
+  
   The ID of the Amazon Managed Grafana workspace<br/>
 
   </dd>

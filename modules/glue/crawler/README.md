@@ -63,16 +63,22 @@ Name | Version | Source | Description
 <dl>
   <dt><code>crawler_arn</code></dt>
   <dd>
+
+  
   Crawler ARN<br/>
 
   </dd>
   <dt><code>crawler_id</code></dt>
   <dd>
+
+  
   Crawler ID<br/>
 
   </dd>
   <dt><code>crawler_name</code></dt>
   <dd>
+
+  
   Crawler name<br/>
 
   </dd>

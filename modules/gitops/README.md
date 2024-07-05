@@ -102,11 +102,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>github_actions_iam_role_arn</code></dt>
   <dd>
+
+  
   ARN of IAM role for GitHub Actions<br/>
 
   </dd>
   <dt><code>github_actions_iam_role_name</code></dt>
   <dd>
+
+  
   Name of IAM role for GitHub Actions<br/>
 
   </dd>

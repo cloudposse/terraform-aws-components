@@ -191,36 +191,50 @@ The following data sources are used by this module:
 <dl>
   <dt><code>cloudfront_distribution_alias</code></dt>
   <dd>
+
+  
   Cloudfront Distribution Alias Record.<br/>
 
   </dd>
   <dt><code>cloudfront_distribution_domain_name</code></dt>
   <dd>
+
+  
   Cloudfront Distribution Domain Name.<br/>
 
   </dd>
   <dt><code>failover_s3_bucket_name</code></dt>
   <dd>
+
+  
   Failover Origin bucket name, if enabled.<br/>
 
   </dd>
   <dt><code>github_actions_iam_role_arn</code></dt>
   <dd>
+
+  
   ARN of IAM role for GitHub Actions<br/>
 
   </dd>
   <dt><code>github_actions_iam_role_name</code></dt>
   <dd>
+
+  
   Name of IAM role for GitHub Actions<br/>
 
   </dd>
   <dt><code>origin_s3_bucket_arn</code></dt>
   <dd>
+
+  
   Origin bucket ARN.<br/>
 
   </dd>
   <dt><code>origin_s3_bucket_name</code></dt>
   <dd>
+
+  
   Origin bucket name.<br/>
 
   </dd>

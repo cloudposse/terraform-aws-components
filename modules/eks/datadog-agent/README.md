@@ -223,11 +223,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>cluster_checks</code></dt>
   <dd>
+
+  
   Cluster Checks for the cluster<br/>
 
   </dd>
   <dt><code>metadata</code></dt>
   <dd>
+
+  
   Block status of the deployed release<br/>
 
   </dd>

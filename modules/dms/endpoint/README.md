@@ -115,11 +115,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>dms_endpoint_arn</code></dt>
   <dd>
+
+  
   DMS endpoint ARN<br/>
 
   </dd>
   <dt><code>dms_endpoint_id</code></dt>
   <dd>
+
+  
   DMS endpoint ID<br/>
 
   </dd>

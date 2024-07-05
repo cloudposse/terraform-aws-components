@@ -75,31 +75,43 @@ Name | Version | Source | Description
 <dl>
   <dt><code>eks</code></dt>
   <dd>
+
+  
   Accounts with EKS and EKSs information<br/>
 
   </dd>
   <dt><code>tgw_config</code></dt>
   <dd>
+
+  
   Transit Gateway config<br/>
 
   </dd>
   <dt><code>transit_gateway_arn</code></dt>
   <dd>
+
+  
   Transit Gateway ARN<br/>
 
   </dd>
   <dt><code>transit_gateway_id</code></dt>
   <dd>
+
+  
   Transit Gateway ID<br/>
 
   </dd>
   <dt><code>transit_gateway_route_table_id</code></dt>
   <dd>
+
+  
   Transit Gateway route table ID<br/>
 
   </dd>
   <dt><code>vpcs</code></dt>
   <dd>
+
+  
   Accounts with VPC and VPCs information<br/>
 
   </dd>

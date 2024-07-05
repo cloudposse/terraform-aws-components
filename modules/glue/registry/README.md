@@ -51,16 +51,22 @@ Name | Version | Source | Description
 <dl>
   <dt><code>registry_arn</code></dt>
   <dd>
+
+  
   Glue registry ARN<br/>
 
   </dd>
   <dt><code>registry_id</code></dt>
   <dd>
+
+  
   Glue registry ID<br/>
 
   </dd>
   <dt><code>registry_name</code></dt>
   <dd>
+
+  
   Glue registry name<br/>
 
   </dd>

@@ -98,6 +98,8 @@ The following data sources are used by this module:
 <dl>
   <dt><code>quotas</code></dt>
   <dd>
+
+  
   Full report on all service quotas managed by this component.<br/>
 
   </dd>

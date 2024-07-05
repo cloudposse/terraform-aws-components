@@ -186,21 +186,29 @@ Name | Version | Source | Description
 <dl>
   <dt><code>datadog_synthetics_test_ids</code></dt>
   <dd>
+
+  
   IDs of the created Datadog synthetic tests<br/>
 
   </dd>
   <dt><code>datadog_synthetics_test_maps</code></dt>
   <dd>
+
+  
   Map (name: id) of the created Datadog synthetic tests<br/>
 
   </dd>
   <dt><code>datadog_synthetics_test_monitor_ids</code></dt>
   <dd>
+
+  
   IDs of the monitors associated with the Datadog synthetics tests<br/>
 
   </dd>
   <dt><code>datadog_synthetics_test_names</code></dt>
   <dd>
+
+  
   Names of the created Datadog synthetic tests<br/>
 
   </dd>

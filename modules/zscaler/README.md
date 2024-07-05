@@ -91,11 +91,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>instance_id</code></dt>
   <dd>
+
+  
   Instance ID<br/>
 
   </dd>
   <dt><code>private_ip</code></dt>
   <dd>
+
+  
   Private IP of the instance<br/>
 
   </dd>

@@ -221,6 +221,8 @@ The following data sources are used by this module:
 <dl>
   <dt><code>role_name_role_arn_map</code></dt>
   <dd>
+
+  
   Map of role names to role ARNs<br/>
 
   </dd>

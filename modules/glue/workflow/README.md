@@ -51,16 +51,22 @@ Name | Version | Source | Description
 <dl>
   <dt><code>workflow_arn</code></dt>
   <dd>
+
+  
   Glue workflow ARN<br/>
 
   </dd>
   <dt><code>workflow_id</code></dt>
   <dd>
+
+  
   Glue workflow ID<br/>
 
   </dd>
   <dt><code>workflow_name</code></dt>
   <dd>
+
+  
   Glue workflow name<br/>
 
   </dd>

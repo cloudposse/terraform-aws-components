@@ -124,26 +124,36 @@ The following data sources are used by this module:
 <dl>
   <dt><code>bucket_arn</code></dt>
   <dd>
+
+  
   Bucket ARN<br/>
 
   </dd>
   <dt><code>bucket_domain_name</code></dt>
   <dd>
+
+  
   Bucket domain name<br/>
 
   </dd>
   <dt><code>bucket_id</code></dt>
   <dd>
+
+  
   Bucket ID<br/>
 
   </dd>
   <dt><code>bucket_region</code></dt>
   <dd>
+
+  
   Bucket region<br/>
 
   </dd>
   <dt><code>bucket_regional_domain_name</code></dt>
   <dd>
+
+  
   Bucket region-specific domain name<br/>
 
   </dd>

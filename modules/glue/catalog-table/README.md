@@ -73,16 +73,22 @@ The following data sources are used by this module:
 <dl>
   <dt><code>catalog_table_arn</code></dt>
   <dd>
+
+  
   Catalog table ARN<br/>
 
   </dd>
   <dt><code>catalog_table_id</code></dt>
   <dd>
+
+  
   Catalog table ID<br/>
 
   </dd>
   <dt><code>catalog_table_name</code></dt>
   <dd>
+
+  
   Catalog table name<br/>
 
   </dd>

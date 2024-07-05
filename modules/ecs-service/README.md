@@ -346,91 +346,127 @@ The following data sources are used by this module:
 <dl>
   <dt><code>ecs_cluster_arn</code></dt>
   <dd>
+
+  
   Selected ECS cluster ARN<br/>
 
   </dd>
   <dt><code>environment_map</code></dt>
   <dd>
+
+  
   Environment variables to pass to the container, this is a map of key/value pairs, where the key is `containerName,variableName`<br/>
 
   </dd>
   <dt><code>full_domain</code></dt>
   <dd>
+
+  
   Domain to respond to GET requests<br/>
 
   </dd>
   <dt><code>github_actions_iam_role_arn</code></dt>
   <dd>
+
+  
   ARN of IAM role for GitHub Actions<br/>
 
   </dd>
   <dt><code>github_actions_iam_role_name</code></dt>
   <dd>
+
+  
   Name of IAM role for GitHub Actions<br/>
 
   </dd>
   <dt><code>lb_arn</code></dt>
   <dd>
+
+  
   Selected LB ARN<br/>
 
   </dd>
   <dt><code>lb_listener_https</code></dt>
   <dd>
+
+  
   Selected LB HTTPS Listener<br/>
 
   </dd>
   <dt><code>lb_sg_id</code></dt>
   <dd>
+
+  
   Selected LB SG ID<br/>
 
   </dd>
   <dt><code>logs</code></dt>
   <dd>
+
+  
   Output of cloudwatch logs module<br/>
 
   </dd>
   <dt><code>service_image</code></dt>
   <dd>
+
+  
   The image of the service container<br/>
 
   </dd>
   <dt><code>ssm_key_prefix</code></dt>
   <dd>
+
+  
   SSM prefix<br/>
 
   </dd>
   <dt><code>ssm_parameters</code></dt>
   <dd>
+
+  
   SSM parameters for the ECS Service<br/>
 
   </dd>
   <dt><code>subnet_ids</code></dt>
   <dd>
+
+  
   Selected subnet IDs<br/>
 
   </dd>
   <dt><code>task_definition_arn</code></dt>
   <dd>
+
+  
   The task definition ARN<br/>
 
   </dd>
   <dt><code>task_definition_revision</code></dt>
   <dd>
+
+  
   The task definition revision<br/>
 
   </dd>
   <dt><code>task_template</code></dt>
   <dd>
+
+  
   The task template rendered<br/>
 
   </dd>
   <dt><code>vpc_id</code></dt>
   <dd>
+
+  
   Selected VPC ID<br/>
 
   </dd>
   <dt><code>vpc_sg_id</code></dt>
   <dd>
+
+  
   Selected VPC SG ID<br/>
 
   </dd>

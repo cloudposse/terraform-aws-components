@@ -79,16 +79,22 @@ The following data sources are used by this module:
 <dl>
   <dt><code>job_arn</code></dt>
   <dd>
+
+  
   Glue job ARN<br/>
 
   </dd>
   <dt><code>job_id</code></dt>
   <dd>
+
+  
   Glue job ID<br/>
 
   </dd>
   <dt><code>job_name</code></dt>
   <dd>
+
+  
   Glue job name<br/>
 
   </dd>

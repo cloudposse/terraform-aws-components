@@ -49,11 +49,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>ssm_path</code></dt>
   <dd>
+
+  
   Full SSM path of the team integration key<br/>
 
   </dd>
   <dt><code>type</code></dt>
   <dd>
+
+  
   Type of the team integration<br/>
 
   </dd>

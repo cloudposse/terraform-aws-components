@@ -269,31 +269,43 @@ Name | Version | Source | Description
 <dl>
   <dt><code>az_subnet_endpoint_stats</code></dt>
   <dd>
+
+  
   List of objects with each object having three items: AZ, subnet ID, VPC endpoint ID<br/>
 
   </dd>
   <dt><code>network_firewall_arn</code></dt>
   <dd>
+
+  
   Network Firewall ARN<br/>
 
   </dd>
   <dt><code>network_firewall_name</code></dt>
   <dd>
+
+  
   Network Firewall name<br/>
 
   </dd>
   <dt><code>network_firewall_policy_arn</code></dt>
   <dd>
+
+  
   Network Firewall policy ARN<br/>
 
   </dd>
   <dt><code>network_firewall_policy_name</code></dt>
   <dd>
+
+  
   Network Firewall policy name<br/>
 
   </dd>
   <dt><code>network_firewall_status</code></dt>
   <dd>
+
+  
   Nested list of information about the current status of the Network Firewall<br/>
 
   </dd>

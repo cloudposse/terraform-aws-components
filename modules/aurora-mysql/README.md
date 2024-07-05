@@ -218,61 +218,85 @@ The following data sources are used by this module:
 <dl>
   <dt><code>aurora_mysql_cluster_arn</code></dt>
   <dd>
+
+  
   The ARN of Aurora cluster<br/>
 
   </dd>
   <dt><code>aurora_mysql_cluster_id</code></dt>
   <dd>
+
+  
   The ID of Aurora cluster<br/>
 
   </dd>
   <dt><code>aurora_mysql_cluster_name</code></dt>
   <dd>
+
+  
   Aurora MySQL cluster identifier<br/>
 
   </dd>
   <dt><code>aurora_mysql_endpoint</code></dt>
   <dd>
+
+  
   Aurora MySQL endpoint<br/>
 
   </dd>
   <dt><code>aurora_mysql_master_hostname</code></dt>
   <dd>
+
+  
   Aurora MySQL DB master hostname<br/>
 
   </dd>
   <dt><code>aurora_mysql_master_password</code></dt>
   <dd>
+
+  
   Location of admin password in SSM<br/>
 
   </dd>
   <dt><code>aurora_mysql_master_password_ssm_key</code></dt>
   <dd>
+
+  
   SSM key for admin password<br/>
 
   </dd>
   <dt><code>aurora_mysql_master_username</code></dt>
   <dd>
+
+  
   Aurora MySQL username for the master DB user<br/>
 
   </dd>
   <dt><code>aurora_mysql_reader_endpoint</code></dt>
   <dd>
+
+  
   Aurora MySQL reader endpoint<br/>
 
   </dd>
   <dt><code>aurora_mysql_replicas_hostname</code></dt>
   <dd>
+
+  
   Aurora MySQL replicas hostname<br/>
 
   </dd>
   <dt><code>cluster_domain</code></dt>
   <dd>
+
+  
   Cluster DNS name<br/>
 
   </dd>
   <dt><code>kms_key_arn</code></dt>
   <dd>
+
+  
   KMS key ARN for Aurora MySQL<br/>
 
   </dd>

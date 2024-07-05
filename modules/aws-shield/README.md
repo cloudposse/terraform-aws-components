@@ -139,21 +139,29 @@ The following data sources are used by this module:
 <dl>
   <dt><code>application_load_balancer_protections</code></dt>
   <dd>
+
+  
   AWS Shield Advanced Protections for ALBs<br/>
 
   </dd>
   <dt><code>cloudfront_distribution_protections</code></dt>
   <dd>
+
+  
   AWS Shield Advanced Protections for CloudFront Distributions<br/>
 
   </dd>
   <dt><code>elastic_ip_protections</code></dt>
   <dd>
+
+  
   AWS Shield Advanced Protections for Elastic IPs<br/>
 
   </dd>
   <dt><code>route53_hosted_zone_protections</code></dt>
   <dd>
+
+  
   AWS Shield Advanced Protections for Route53 Hosted Zones<br/>
 
   </dd>

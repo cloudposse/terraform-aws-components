@@ -69,26 +69,36 @@ The following data sources are used by this module:
 <dl>
   <dt><code>log_group_arn</code></dt>
   <dd>
+
+  
   ARN of the log group<br/>
 
   </dd>
   <dt><code>log_group_name</code></dt>
   <dd>
+
+  
   Name of log group<br/>
 
   </dd>
   <dt><code>role_arn</code></dt>
   <dd>
+
+  
   ARN of role to assume<br/>
 
   </dd>
   <dt><code>role_name</code></dt>
   <dd>
+
+  
   Name of role to assume<br/>
 
   </dd>
   <dt><code>stream_arns</code></dt>
   <dd>
+
+  
   ARN of the log stream<br/>
 
   </dd>

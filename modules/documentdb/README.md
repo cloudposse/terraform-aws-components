@@ -77,51 +77,71 @@ The following data sources are used by this module:
 <dl>
   <dt><code>arn</code></dt>
   <dd>
+
+  
   Amazon Resource Name (ARN) of the cluster<br/>
 
   </dd>
   <dt><code>cluster_name</code></dt>
   <dd>
+
+  
   Cluster Identifier<br/>
 
   </dd>
   <dt><code>endpoint</code></dt>
   <dd>
+
+  
   Endpoint of the DocumentDB cluster<br/>
 
   </dd>
   <dt><code>master_host</code></dt>
   <dd>
+
+  
   DB master hostname<br/>
 
   </dd>
   <dt><code>master_username</code></dt>
   <dd>
+
+  
   Username for the master DB user<br/>
 
   </dd>
   <dt><code>reader_endpoint</code></dt>
   <dd>
+
+  
   A read-only endpoint of the DocumentDB cluster, automatically load-balanced across replicas<br/>
 
   </dd>
   <dt><code>replicas_host</code></dt>
   <dd>
+
+  
   DB replicas hostname<br/>
 
   </dd>
   <dt><code>security_group_arn</code></dt>
   <dd>
+
+  
   ARN of the DocumentDB cluster Security Group<br/>
 
   </dd>
   <dt><code>security_group_id</code></dt>
   <dd>
+
+  
   ID of the DocumentDB cluster Security Group<br/>
 
   </dd>
   <dt><code>security_group_name</code></dt>
   <dd>
+
+  
   Name of the DocumentDB cluster Security Group<br/>
 
   </dd>

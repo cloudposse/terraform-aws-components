@@ -286,26 +286,36 @@ Name | Version | Source | Description
 <dl>
   <dt><code>backup_plan_arn</code></dt>
   <dd>
+
+  
   Backup Plan ARN<br/>
 
   </dd>
   <dt><code>backup_plan_version</code></dt>
   <dd>
+
+  
   Unique, randomly generated, Unicode, UTF-8 encoded string that serves as the version ID of the backup plan<br/>
 
   </dd>
   <dt><code>backup_selection_id</code></dt>
   <dd>
+
+  
   Backup Selection ID<br/>
 
   </dd>
   <dt><code>backup_vault_arn</code></dt>
   <dd>
+
+  
   Backup Vault ARN<br/>
 
   </dd>
   <dt><code>backup_vault_id</code></dt>
   <dd>
+
+  
   Backup Vault ID<br/>
 
   </dd>

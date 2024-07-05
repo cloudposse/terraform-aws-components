@@ -143,16 +143,22 @@ The following data sources are used by this module:
 <dl>
   <dt><code>enabled_subscriptions</code></dt>
   <dd>
+
+  
   A list of subscriptions that have been enabled<br/>
 
   </dd>
   <dt><code>sns_topic_name</code></dt>
   <dd>
+
+  
   The SNS topic name that was created<br/>
 
   </dd>
   <dt><code>sns_topic_subscriptions</code></dt>
   <dd>
+
+  
   The SNS topic subscriptions<br/>
 
   </dd>

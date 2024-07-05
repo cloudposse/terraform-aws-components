@@ -118,21 +118,29 @@ The following data sources are used by this module:
 <dl>
   <dt><code>additional_databases</code></dt>
   <dd>
+
+  
   Additional databases<br/>
 
   </dd>
   <dt><code>additional_grants</code></dt>
   <dd>
+
+  
   Additional grants<br/>
 
   </dd>
   <dt><code>additional_schemas</code></dt>
   <dd>
+
+  
   Additional schemas<br/>
 
   </dd>
   <dt><code>additional_users</code></dt>
   <dd>
+
+  
   Additional users<br/>
 
   </dd>

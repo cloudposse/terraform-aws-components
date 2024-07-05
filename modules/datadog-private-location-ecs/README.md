@@ -108,36 +108,50 @@ The following data sources are used by this module:
 <dl>
   <dt><code>ecs_cluster_arn</code></dt>
   <dd>
+
+  
   Selected ECS cluster ARN<br/>
 
   </dd>
   <dt><code>lb_arn</code></dt>
   <dd>
+
+  
   Selected LB ARN<br/>
 
   </dd>
   <dt><code>lb_listener_https</code></dt>
   <dd>
+
+  
   Selected LB HTTPS Listener<br/>
 
   </dd>
   <dt><code>lb_sg_id</code></dt>
   <dd>
+
+  
   Selected LB SG ID<br/>
 
   </dd>
   <dt><code>subnet_ids</code></dt>
   <dd>
+
+  
   Selected subnet IDs<br/>
 
   </dd>
   <dt><code>vpc_id</code></dt>
   <dd>
+
+  
   Selected VPC ID<br/>
 
   </dd>
   <dt><code>vpc_sg_id</code></dt>
   <dd>
+
+  
   Selected VPC SG ID<br/>
 
   </dd>

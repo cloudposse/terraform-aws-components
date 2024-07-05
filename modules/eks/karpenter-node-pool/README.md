@@ -186,11 +186,15 @@ The following data sources are used by this module:
 <dl>
   <dt><code>ec2_node_classes</code></dt>
   <dd>
+
+  
   Deployed Karpenter EC2NodeClass<br/>
 
   </dd>
   <dt><code>node_pools</code></dt>
   <dd>
+
+  
   Deployed Karpenter NodePool<br/>
 
   </dd>

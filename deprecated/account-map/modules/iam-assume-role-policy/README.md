@@ -70,6 +70,8 @@ The following data sources are used by this module:
 <dl>
   <dt><code>policy_document</code></dt>
   <dd>
+
+  
   JSON encoded string representing the "Assume Role" policy configured by the inputs<br/>
 
   </dd>

@@ -82,6 +82,8 @@ The following data sources are used by this module:
 <dl>
   <dt><code>aws_ec2_transit_gateway_peering_attachment_id</code></dt>
   <dd>
+
+  
   Transit Gateway Peering Attachment ID<br/>
 
   </dd>

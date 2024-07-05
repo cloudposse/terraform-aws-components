@@ -59,6 +59,8 @@ Name | Version | Source | Description
 <dl>
   <dt><code>role_arn</code></dt>
   <dd>
+
+  
   Role ARN of the API Gateway logging role<br/>
 
   </dd>
