@@ -78,26 +78,26 @@ components:
 
 | Requirement | Version |
 | --- | --- |
-| `terraform` | >= 0.12 |
-| `aws` | >= 2.0 |
-| `local` | >= 1.3 |
-| `opsgenie` | >= 0.5.0 |
-| `template` | >= 2.0 |
+| `terraform` | ![>= 0.12](https://img.shields.io/badge/>=_0.12-success.svg?style=for-the-badge) |
+| `aws` | ![>= 2.0](https://img.shields.io/badge/>=_2.0-success.svg?style=for-the-badge) |
+| `local` | ![>= 1.3](https://img.shields.io/badge/>=_1.3-success.svg?style=for-the-badge) |
+| `opsgenie` | ![>= 0.5.0](https://img.shields.io/badge/>=_0.5.0-success.svg?style=for-the-badge) |
+| `template` | ![>= 2.0](https://img.shields.io/badge/>=_2.0-success.svg?style=for-the-badge) |
 
 
 ## Providers
 
 | Provider | Version |
 | --- | --- |
-| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 2.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ![>= 2.0](https://img.shields.io/badge/>=_2.0-success.svg?style=for-the-badge) |
 
 
 ## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
-`opsgenie_config` | [![0.9.0](https://img.shields.io/badge/_____0.9.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/git::https:/0.9.0/submodules/github.com/cloudposse/terraform-opsgenie-incident-management.git//config) | [`git::https://github.com/cloudposse/terraform-opsgenie-incident-management.git//modules/config`](https://registry.terraform.io/modules/git::https:/0.9.0/submodules/github.com/cloudposse/terraform-opsgenie-incident-management.git//config) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`opsgenie_config` | [![0.9.0](https://img.shields.io/badge/0.9.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/git::https:/0.9.0/submodules/github.com/cloudposse/terraform-opsgenie-incident-management.git//config) | [`git::https://github.com/cloudposse/terraform-opsgenie-incident-management.git//modules/config`](https://registry.terraform.io/modules/git::https:/0.9.0/submodules/github.com/cloudposse/terraform-opsgenie-incident-management.git//config) | n/a
 `this` | [![tags/0.21.0](https://img.shields.io/badge/tags/0.21.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/git::https:/tags/0.21.0/submodules/github.com/cloudposse/terraform-null-label.git) | [`git::https://github.com/cloudposse/terraform-null-label.git`](https://registry.terraform.io/modules/git::https:/tags/0.21.0/submodules/github.com/cloudposse/terraform-null-label.git) | n/a
 
 

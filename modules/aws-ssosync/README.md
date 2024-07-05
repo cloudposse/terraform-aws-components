@@ -190,27 +190,27 @@ https://github.com/awslabs/ssosync/issues/91
 
 | Requirement | Version |
 | --- | --- |
-| `terraform` | >= 1.0.0 |
-| `archive` | >= 2.3.0 |
-| `aws` | >= 4.0 |
-| `null` | >= 3.0 |
+| `terraform` | ![>= 1.0.0](https://img.shields.io/badge/>=_1.0.0-success.svg?style=for-the-badge) |
+| `archive` | ![>= 2.3.0](https://img.shields.io/badge/>=_2.3.0-success.svg?style=for-the-badge) |
+| `aws` | ![>= 4.0](https://img.shields.io/badge/>=_4.0-success.svg?style=for-the-badge) |
+| `null` | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
 
 
 ## Providers
 
 | Provider | Version |
 | --- | --- |
-| [`archive`](https://registry.terraform.io/providers/archive/latest) | >= 2.3.0 |
-| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.0 |
-| [`null`](https://registry.terraform.io/providers/null/latest) | >= 3.0 |
+| [`archive`](https://registry.terraform.io/providers/archive/latest) | ![>= 2.3.0](https://img.shields.io/badge/>=_2.3.0-success.svg?style=for-the-badge) |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ![>= 4.0](https://img.shields.io/badge/>=_4.0-success.svg?style=for-the-badge) |
+| [`null`](https://registry.terraform.io/providers/null/latest) | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
 
 
 ## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`ssosync_artifact` | [![0.8.0](https://img.shields.io/badge/_____0.8.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/module-artifact/external/0.8.0) | [`cloudposse/module-artifact/external`](https://registry.terraform.io/modules/cloudposse/module-artifact/external/0.8.0) | n/a
-`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`ssosync_artifact` | [![0.8.0](https://img.shields.io/badge/0.8.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/module-artifact/external/0.8.0) | [`cloudposse/module-artifact/external`](https://registry.terraform.io/modules/cloudposse/module-artifact/external/0.8.0) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources

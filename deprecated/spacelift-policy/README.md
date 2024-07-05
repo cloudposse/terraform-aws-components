@@ -92,24 +92,24 @@ components:
 
 | Requirement | Version |
 | --- | --- |
-| `terraform` | >= 1.3 |
-| `http` | >= 3.0 |
-| `spacelift` | >= 0.1.31 |
+| `terraform` | ![>= 1.3](https://img.shields.io/badge/>=_1.3-success.svg?style=for-the-badge) |
+| `http` | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
+| `spacelift` | ![>= 0.1.31](https://img.shields.io/badge/>=_0.1.31-success.svg?style=for-the-badge) |
 
 
 ## Providers
 
 | Provider | Version |
 | --- | --- |
-| [`http`](https://registry.terraform.io/providers/http/latest) | >= 3.0 |
-| [`spacelift`](https://registry.terraform.io/providers/spacelift/latest) | >= 0.1.31 |
+| [`http`](https://registry.terraform.io/providers/http/latest) | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
+| [`spacelift`](https://registry.terraform.io/providers/spacelift/latest) | ![>= 0.1.31](https://img.shields.io/badge/>=_0.1.31-success.svg?style=for-the-badge) |
 
 
 ## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources

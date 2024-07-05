@@ -79,17 +79,17 @@ atmos terraform apply guardduty/common-uw1 -s core-uw1-security
 
 | Provider | Version |
 | --- | --- |
-| [`aws`](https://registry.terraform.io/providers/aws/latest) | latest |
-| [`awsutils`](https://registry.terraform.io/providers/awsutils/latest) | latest |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge) |
+| [`awsutils`](https://registry.terraform.io/providers/awsutils/latest) | ![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge) |
 
 
 ## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`account_map` | [![1.4.2](https://img.shields.io/badge/_____1.4.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.2/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.2/submodules/remote-state) | n/a
-`guardduty` | [![0.5.0](https://img.shields.io/badge/_____0.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/guardduty/aws/0.5.0) | [`cloudposse/guardduty/aws`](https://registry.terraform.io/modules/cloudposse/guardduty/aws/0.5.0) | n/a
-`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../../account-map/modules/iam-roles) | [`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles) | n/a
+`account_map` | [![1.4.2](https://img.shields.io/badge/1.4.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.2/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.2/submodules/remote-state) | n/a
+`guardduty` | [![0.5.0](https://img.shields.io/badge/0.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/guardduty/aws/0.5.0) | [`cloudposse/guardduty/aws`](https://registry.terraform.io/modules/cloudposse/guardduty/aws/0.5.0) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../../account-map/modules/iam-roles) | [`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles) | n/a
 
 
 ## Resources

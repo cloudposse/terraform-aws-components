@@ -298,35 +298,35 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 
 | Requirement | Version |
 | --- | --- |
-| `terraform` | >= 1.3.0 |
-| `aws` | >= 4.9.0 |
-| `datadog` | >= 3.3.0 |
-| `opsgenie` | >= 0.6.7 |
+| `terraform` | ![>= 1.3.0](https://img.shields.io/badge/>=_1.3.0-success.svg?style=for-the-badge) |
+| `aws` | ![>= 4.9.0](https://img.shields.io/badge/>=_4.9.0-success.svg?style=for-the-badge) |
+| `datadog` | ![>= 3.3.0](https://img.shields.io/badge/>=_3.3.0-success.svg?style=for-the-badge) |
+| `opsgenie` | ![>= 0.6.7](https://img.shields.io/badge/>=_0.6.7-success.svg?style=for-the-badge) |
 
 
 ## Providers
 
 | Provider | Version |
 | --- | --- |
-| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
-| [`datadog`](https://registry.terraform.io/providers/datadog/latest) | >= 3.3.0 |
-| [`opsgenie`](https://registry.terraform.io/providers/opsgenie/latest) | >= 0.6.7 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ![>= 4.9.0](https://img.shields.io/badge/>=_4.9.0-success.svg?style=for-the-badge) |
+| [`datadog`](https://registry.terraform.io/providers/datadog/latest) | ![>= 3.3.0](https://img.shields.io/badge/>=_3.3.0-success.svg?style=for-the-badge) |
+| [`opsgenie`](https://registry.terraform.io/providers/opsgenie/latest) | ![>= 0.6.7](https://img.shields.io/badge/>=_0.6.7-success.svg?style=for-the-badge) |
 
 
 ## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`datadog_configuration` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../datadog-configuration/modules/datadog_keys) | [`../datadog-configuration/modules/datadog_keys`](../datadog-configuration/modules/datadog_keys) | n/a
-`escalation` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/./modules/escalation/) | [`./modules/escalation`](https://registry.terraform.io/modules/./modules/escalation/) | n/a
-`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
-`integration` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/./modules/integration/) | [`./modules/integration`](https://registry.terraform.io/modules/./modules/integration/) | n/a
-`members_merge` | [![1.0.2](https://img.shields.io/badge/_____1.0.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/config/yaml/1.0.2/submodules/deepmerge) | [`cloudposse/config/yaml//modules/deepmerge`](https://registry.terraform.io/modules/cloudposse/config/yaml/1.0.2/submodules/deepmerge) | n/a
-`routing` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/./modules/routing/) | [`./modules/routing`](https://registry.terraform.io/modules/./modules/routing/) | n/a
-`schedule` | [![0.16.0](https://img.shields.io/badge/____0.16.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/schedule) | [`cloudposse/incident-management/opsgenie//modules/schedule`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/schedule) | n/a
-`service` | [![0.16.0](https://img.shields.io/badge/____0.16.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/service) | [`cloudposse/incident-management/opsgenie//modules/service`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/service) | n/a
-`team` | [![0.16.0](https://img.shields.io/badge/____0.16.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/team) | [`cloudposse/incident-management/opsgenie//modules/team`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/team) | n/a
-`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`datadog_configuration` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../datadog-configuration/modules/datadog_keys) | [`../datadog-configuration/modules/datadog_keys`](../datadog-configuration/modules/datadog_keys) | n/a
+`escalation` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/./modules/escalation/) | [`./modules/escalation`](https://registry.terraform.io/modules/./modules/escalation/) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`integration` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/./modules/integration/) | [`./modules/integration`](https://registry.terraform.io/modules/./modules/integration/) | n/a
+`members_merge` | [![1.0.2](https://img.shields.io/badge/1.0.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/config/yaml/1.0.2/submodules/deepmerge) | [`cloudposse/config/yaml//modules/deepmerge`](https://registry.terraform.io/modules/cloudposse/config/yaml/1.0.2/submodules/deepmerge) | n/a
+`routing` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/./modules/routing/) | [`./modules/routing`](https://registry.terraform.io/modules/./modules/routing/) | n/a
+`schedule` | [![0.16.0](https://img.shields.io/badge/0.16.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/schedule) | [`cloudposse/incident-management/opsgenie//modules/schedule`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/schedule) | n/a
+`service` | [![0.16.0](https://img.shields.io/badge/0.16.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/service) | [`cloudposse/incident-management/opsgenie//modules/service`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/service) | n/a
+`team` | [![0.16.0](https://img.shields.io/badge/0.16.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/team) | [`cloudposse/incident-management/opsgenie//modules/team`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/team) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources

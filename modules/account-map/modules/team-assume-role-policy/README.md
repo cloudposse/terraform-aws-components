@@ -42,17 +42,17 @@ resource "aws_iam_role" "default" {
 
 | Provider | Version |
 | --- | --- |
-| [`aws`](https://registry.terraform.io/providers/aws/latest) | latest |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge) |
 
 
 ## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`allowed_role_map` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../../../account-map/modules/roles-to-principals) | [`../../../account-map/modules/roles-to-principals`](../../../account-map/modules/roles-to-principals) | n/a
-`denied_role_map` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../../../account-map/modules/roles-to-principals) | [`../../../account-map/modules/roles-to-principals`](../../../account-map/modules/roles-to-principals) | n/a
-`github_oidc_provider` | [![1.5.0](https://img.shields.io/badge/_____1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
-`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`allowed_role_map` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../../../account-map/modules/roles-to-principals) | [`../../../account-map/modules/roles-to-principals`](../../../account-map/modules/roles-to-principals) | n/a
+`denied_role_map` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../../../account-map/modules/roles-to-principals) | [`../../../account-map/modules/roles-to-principals`](../../../account-map/modules/roles-to-principals) | n/a
+`github_oidc_provider` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources

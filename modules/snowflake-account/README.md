@@ -76,36 +76,36 @@ components:
 
 | Requirement | Version |
 | --- | --- |
-| `terraform` | >= 1.0.0 |
-| `aws` | >= 3.0 |
-| `random` | >= 2.3 |
-| `snowflake` | >= 0.25 |
-| `tls` | >= 3.0 |
+| `terraform` | ![>= 1.0.0](https://img.shields.io/badge/>=_1.0.0-success.svg?style=for-the-badge) |
+| `aws` | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
+| `random` | ![>= 2.3](https://img.shields.io/badge/>=_2.3-success.svg?style=for-the-badge) |
+| `snowflake` | ![>= 0.25](https://img.shields.io/badge/>=_0.25-success.svg?style=for-the-badge) |
+| `tls` | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
 
 
 ## Providers
 
 | Provider | Version |
 | --- | --- |
-| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 3.0 |
-| [`random`](https://registry.terraform.io/providers/random/latest) | >= 2.3 |
-| [`snowflake`](https://registry.terraform.io/providers/snowflake/latest) | >= 0.25 |
-| [`tls`](https://registry.terraform.io/providers/tls/latest) | >= 3.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
+| [`random`](https://registry.terraform.io/providers/random/latest) | ![>= 2.3](https://img.shields.io/badge/>=_2.3-success.svg?style=for-the-badge) |
+| [`snowflake`](https://registry.terraform.io/providers/snowflake/latest) | ![>= 0.25](https://img.shields.io/badge/>=_0.25-success.svg?style=for-the-badge) |
+| [`tls`](https://registry.terraform.io/providers/tls/latest) | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
 
 
 ## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`account` | [![1.5.0](https://img.shields.io/badge/_____1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
-`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
-`introspection` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | introspection module will contain the additional tags
-`snowflake_account` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`snowflake_role` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | The identifier must start with an alphabetic character and cannot contain spaces or special characters unless the entire identifier string is enclosed in double quotes (e.g. "My object"). Identifiers enclosed in double quotes are also case-sensitive.
-`snowflake_warehouse` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | Identifier for the virtual warehouse; must be unique for your account. In addition, the identifier must start with an alphabetic character and cannot contain spaces or special characters unless the entire identifier string is enclosed in double quotes (e.g. "My object" ).
-`ssm_parameters` | [![0.9.1](https://img.shields.io/badge/_____0.9.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/ssm-parameter-store/aws/0.9.1) | [`cloudposse/ssm-parameter-store/aws`](https://registry.terraform.io/modules/cloudposse/ssm-parameter-store/aws/0.9.1) | n/a
-`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`utils` | [![0.8.1](https://img.shields.io/badge/_____0.8.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/utils/aws/0.8.1) | [`cloudposse/utils/aws`](https://registry.terraform.io/modules/cloudposse/utils/aws/0.8.1) | n/a
+`account` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`introspection` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | introspection module will contain the additional tags
+`snowflake_account` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`snowflake_role` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | The identifier must start with an alphabetic character and cannot contain spaces or special characters unless the entire identifier string is enclosed in double quotes (e.g. "My object"). Identifiers enclosed in double quotes are also case-sensitive.
+`snowflake_warehouse` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | Identifier for the virtual warehouse; must be unique for your account. In addition, the identifier must start with an alphabetic character and cannot contain spaces or special characters unless the entire identifier string is enclosed in double quotes (e.g. "My object" ).
+`ssm_parameters` | [![0.9.1](https://img.shields.io/badge/0.9.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/ssm-parameter-store/aws/0.9.1) | [`cloudposse/ssm-parameter-store/aws`](https://registry.terraform.io/modules/cloudposse/ssm-parameter-store/aws/0.9.1) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`utils` | [![0.8.1](https://img.shields.io/badge/0.8.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/utils/aws/0.8.1) | [`cloudposse/utils/aws`](https://registry.terraform.io/modules/cloudposse/utils/aws/0.8.1) | n/a
 
 
 ## Resources

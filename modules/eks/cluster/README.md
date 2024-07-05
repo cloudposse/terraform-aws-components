@@ -486,39 +486,39 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 
 | Requirement | Version |
 | --- | --- |
-| `terraform` | >= 1.3.0 |
-| `aws` | >= 4.9.0 |
-| `random` | >= 3.0 |
+| `terraform` | ![>= 1.3.0](https://img.shields.io/badge/>=_1.3.0-success.svg?style=for-the-badge) |
+| `aws` | ![>= 4.9.0](https://img.shields.io/badge/>=_4.9.0-success.svg?style=for-the-badge) |
+| `random` | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
 
 
 ## Providers
 
 | Provider | Version |
 | --- | --- |
-| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
-| [`random`](https://registry.terraform.io/providers/random/latest) | >= 3.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ![>= 4.9.0](https://img.shields.io/badge/>=_4.9.0-success.svg?style=for-the-badge) |
+| [`random`](https://registry.terraform.io/providers/random/latest) | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
 
 
 ## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`aws_ebs_csi_driver_eks_iam_role` | [![2.1.1](https://img.shields.io/badge/_____2.1.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/2.1.1) | [`cloudposse/eks-iam-role/aws`](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/2.1.1) | n/a
-`aws_ebs_csi_driver_fargate_profile` | [![1.3.0](https://img.shields.io/badge/_____1.3.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | [`cloudposse/eks-fargate-profile/aws`](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | n/a
-`aws_efs_csi_driver_eks_iam_role` | [![2.1.1](https://img.shields.io/badge/_____2.1.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/2.1.1) | [`cloudposse/eks-iam-role/aws`](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/2.1.1) | n/a
-`coredns_fargate_profile` | [![1.3.0](https://img.shields.io/badge/_____1.3.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | [`cloudposse/eks-fargate-profile/aws`](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | n/a
-`eks_cluster` | [![4.1.0](https://img.shields.io/badge/_____4.1.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-cluster/aws/4.1.0) | [`cloudposse/eks-cluster/aws`](https://registry.terraform.io/modules/cloudposse/eks-cluster/aws/4.1.0) | n/a
-`fargate_pod_execution_role` | [![1.3.0](https://img.shields.io/badge/_____1.3.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | [`cloudposse/eks-fargate-profile/aws`](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | n/a
-`fargate_profile` | [![1.3.0](https://img.shields.io/badge/_____1.3.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | [`cloudposse/eks-fargate-profile/aws`](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | ############################################################################## ## Both New and Legacy behavior, use caution when modifying ##############################################################################
-`iam_arns` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../../account-map/modules/roles-to-principals) | [`../../account-map/modules/roles-to-principals`](../../account-map/modules/roles-to-principals) | n/a
-`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../../account-map/modules/iam-roles) | [`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles) | n/a
-`karpenter_label` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`region_node_group` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/./modules/node_group_by_region/) | [`./modules/node_group_by_region`](https://registry.terraform.io/modules/./modules/node_group_by_region/) | n/a
-`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`utils` | [![1.3.0](https://img.shields.io/badge/_____1.3.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/utils/aws/1.3.0) | [`cloudposse/utils/aws`](https://registry.terraform.io/modules/cloudposse/utils/aws/1.3.0) | n/a
-`vpc` | [![1.5.0](https://img.shields.io/badge/_____1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
-`vpc_cni_eks_iam_role` | [![2.1.1](https://img.shields.io/badge/_____2.1.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/2.1.1) | [`cloudposse/eks-iam-role/aws`](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/2.1.1) | n/a
-`vpc_ingress` | [![1.5.0](https://img.shields.io/badge/_____1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`aws_ebs_csi_driver_eks_iam_role` | [![2.1.1](https://img.shields.io/badge/2.1.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/2.1.1) | [`cloudposse/eks-iam-role/aws`](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/2.1.1) | n/a
+`aws_ebs_csi_driver_fargate_profile` | [![1.3.0](https://img.shields.io/badge/1.3.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | [`cloudposse/eks-fargate-profile/aws`](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | n/a
+`aws_efs_csi_driver_eks_iam_role` | [![2.1.1](https://img.shields.io/badge/2.1.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/2.1.1) | [`cloudposse/eks-iam-role/aws`](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/2.1.1) | n/a
+`coredns_fargate_profile` | [![1.3.0](https://img.shields.io/badge/1.3.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | [`cloudposse/eks-fargate-profile/aws`](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | n/a
+`eks_cluster` | [![4.1.0](https://img.shields.io/badge/4.1.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-cluster/aws/4.1.0) | [`cloudposse/eks-cluster/aws`](https://registry.terraform.io/modules/cloudposse/eks-cluster/aws/4.1.0) | n/a
+`fargate_pod_execution_role` | [![1.3.0](https://img.shields.io/badge/1.3.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | [`cloudposse/eks-fargate-profile/aws`](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | n/a
+`fargate_profile` | [![1.3.0](https://img.shields.io/badge/1.3.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | [`cloudposse/eks-fargate-profile/aws`](https://registry.terraform.io/modules/cloudposse/eks-fargate-profile/aws/1.3.0) | ############################################################################## ## Both New and Legacy behavior, use caution when modifying ##############################################################################
+`iam_arns` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../../account-map/modules/roles-to-principals) | [`../../account-map/modules/roles-to-principals`](../../account-map/modules/roles-to-principals) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../../account-map/modules/iam-roles) | [`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles) | n/a
+`karpenter_label` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`region_node_group` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/./modules/node_group_by_region/) | [`./modules/node_group_by_region`](https://registry.terraform.io/modules/./modules/node_group_by_region/) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`utils` | [![1.3.0](https://img.shields.io/badge/1.3.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/utils/aws/1.3.0) | [`cloudposse/utils/aws`](https://registry.terraform.io/modules/cloudposse/utils/aws/1.3.0) | n/a
+`vpc` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`vpc_cni_eks_iam_role` | [![2.1.1](https://img.shields.io/badge/2.1.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/2.1.1) | [`cloudposse/eks-iam-role/aws`](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/2.1.1) | n/a
+`vpc_ingress` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 
 
 ## Resources

@@ -394,26 +394,26 @@ atmos terraform apply account --stack gbl-root
 
 | Requirement | Version |
 | --- | --- |
-| `terraform` | >= 1.0.0 |
-| `aws` | >= 4.9.0 |
+| `terraform` | ![>= 1.0.0](https://img.shields.io/badge/>=_1.0.0-success.svg?style=for-the-badge) |
+| `aws` | ![>= 4.9.0](https://img.shields.io/badge/>=_4.9.0-success.svg?style=for-the-badge) |
 
 
 ## Providers
 
 | Provider | Version |
 | --- | --- |
-| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ![>= 4.9.0](https://img.shields.io/badge/>=_4.9.0-success.svg?style=for-the-badge) |
 
 
 ## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`accounts_service_control_policies` | [![0.9.2](https://img.shields.io/badge/_____0.9.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/service-control-policies/aws/0.9.2) | [`cloudposse/service-control-policies/aws`](https://registry.terraform.io/modules/cloudposse/service-control-policies/aws/0.9.2) | Provision Accounts Service Control Policies
-`organization_service_control_policies` | [![0.9.2](https://img.shields.io/badge/_____0.9.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/service-control-policies/aws/0.9.2) | [`cloudposse/service-control-policies/aws`](https://registry.terraform.io/modules/cloudposse/service-control-policies/aws/0.9.2) | Provision Organization Service Control Policy
-`organizational_units_service_control_policies` | [![0.9.2](https://img.shields.io/badge/_____0.9.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/service-control-policies/aws/0.9.2) | [`cloudposse/service-control-policies/aws`](https://registry.terraform.io/modules/cloudposse/service-control-policies/aws/0.9.2) | Provision Organizational Units Service Control Policies
-`service_control_policy_statements_yaml_config` | [![1.0.2](https://img.shields.io/badge/_____1.0.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/config/yaml/1.0.2) | [`cloudposse/config/yaml`](https://registry.terraform.io/modules/cloudposse/config/yaml/1.0.2) | Convert all Service Control Policy statements from YAML config to Terraform list
-`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`accounts_service_control_policies` | [![0.9.2](https://img.shields.io/badge/0.9.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/service-control-policies/aws/0.9.2) | [`cloudposse/service-control-policies/aws`](https://registry.terraform.io/modules/cloudposse/service-control-policies/aws/0.9.2) | Provision Accounts Service Control Policies
+`organization_service_control_policies` | [![0.9.2](https://img.shields.io/badge/0.9.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/service-control-policies/aws/0.9.2) | [`cloudposse/service-control-policies/aws`](https://registry.terraform.io/modules/cloudposse/service-control-policies/aws/0.9.2) | Provision Organization Service Control Policy
+`organizational_units_service_control_policies` | [![0.9.2](https://img.shields.io/badge/0.9.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/service-control-policies/aws/0.9.2) | [`cloudposse/service-control-policies/aws`](https://registry.terraform.io/modules/cloudposse/service-control-policies/aws/0.9.2) | Provision Organizational Units Service Control Policies
+`service_control_policy_statements_yaml_config` | [![1.0.2](https://img.shields.io/badge/1.0.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/config/yaml/1.0.2) | [`cloudposse/config/yaml`](https://registry.terraform.io/modules/cloudposse/config/yaml/1.0.2) | Convert all Service Control Policy statements from YAML config to Terraform list
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources

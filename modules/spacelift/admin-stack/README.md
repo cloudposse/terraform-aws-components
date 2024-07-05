@@ -145,32 +145,32 @@ components:
 
 | Requirement | Version |
 | --- | --- |
-| `terraform` | >= 1.3 |
-| `aws` | >= 4.0 |
-| `null` | >= 3.0 |
-| `spacelift` | >= 0.1.31 |
-| `utils` | >= 1.14.0 |
+| `terraform` | ![>= 1.3](https://img.shields.io/badge/>=_1.3-success.svg?style=for-the-badge) |
+| `aws` | ![>= 4.0](https://img.shields.io/badge/>=_4.0-success.svg?style=for-the-badge) |
+| `null` | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
+| `spacelift` | ![>= 0.1.31](https://img.shields.io/badge/>=_0.1.31-success.svg?style=for-the-badge) |
+| `utils` | ![>= 1.14.0](https://img.shields.io/badge/>=_1.14.0-success.svg?style=for-the-badge) |
 
 
 ## Providers
 
 | Provider | Version |
 | --- | --- |
-| [`null`](https://registry.terraform.io/providers/null/latest) | >= 3.0 |
-| [`spacelift`](https://registry.terraform.io/providers/spacelift/latest) | >= 0.1.31 |
+| [`null`](https://registry.terraform.io/providers/null/latest) | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
+| [`spacelift`](https://registry.terraform.io/providers/spacelift/latest) | ![>= 0.1.31](https://img.shields.io/badge/>=_0.1.31-success.svg?style=for-the-badge) |
 
 
 ## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`all_admin_stacks_config` | [![1.5.0](https://img.shields.io/badge/_____1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.5.0/submodules/spacelift-stacks-from-atmos-config) | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.5.0/submodules/spacelift-stacks-from-atmos-config) | This gets the atmos stack config for all of the administrative stacks
-`child_stack` | [![1.6.0](https://img.shields.io/badge/_____1.6.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-stack) | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-stack) | n/a
-`child_stacks_config` | [![1.5.0](https://img.shields.io/badge/_____1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.5.0/submodules/spacelift-stacks-from-atmos-config) | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.5.0/submodules/spacelift-stacks-from-atmos-config) | Get all of the stack configurations from the atmos config that matched the context_filters and create a stack for each one.
-`root_admin_stack` | [![1.6.0](https://img.shields.io/badge/_____1.6.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-stack) | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-stack) | n/a
-`root_admin_stack_config` | [![1.5.0](https://img.shields.io/badge/_____1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.5.0/submodules/spacelift-stacks-from-atmos-config) | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.5.0/submodules/spacelift-stacks-from-atmos-config) | The root admin stack is a special stack that is used to manage all of the other admin stacks in the the Spacelift organization. This stack is denoted by setting the root_administrative property to true in the atmos config. Only one such stack is allowed in the Spacelift organization.
-`spaces` | [![1.5.0](https://img.shields.io/badge/_____1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
-`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`all_admin_stacks_config` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.5.0/submodules/spacelift-stacks-from-atmos-config) | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.5.0/submodules/spacelift-stacks-from-atmos-config) | This gets the atmos stack config for all of the administrative stacks
+`child_stack` | [![1.6.0](https://img.shields.io/badge/1.6.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-stack) | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-stack) | n/a
+`child_stacks_config` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.5.0/submodules/spacelift-stacks-from-atmos-config) | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.5.0/submodules/spacelift-stacks-from-atmos-config) | Get all of the stack configurations from the atmos config that matched the context_filters and create a stack for each one.
+`root_admin_stack` | [![1.6.0](https://img.shields.io/badge/1.6.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-stack) | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-stack) | n/a
+`root_admin_stack_config` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.5.0/submodules/spacelift-stacks-from-atmos-config) | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.5.0/submodules/spacelift-stacks-from-atmos-config) | The root admin stack is a special stack that is used to manage all of the other admin stacks in the the Spacelift organization. This stack is denoted by setting the root_administrative property to true in the atmos config. Only one such stack is allowed in the Spacelift organization.
+`spaces` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources

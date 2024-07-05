@@ -42,28 +42,28 @@ components:
 
 | Requirement | Version |
 | --- | --- |
-| `terraform` | >= 0.14.9 |
-| `aws` | >= 3.36 |
-| `external` | >= 2.1 |
-| `local` | >= 2.1 |
-| `template` | >= 2.2 |
-| `utils` | >= 0.3 |
+| `terraform` | ![>= 0.14.9](https://img.shields.io/badge/>=_0.14.9-success.svg?style=for-the-badge) |
+| `aws` | ![>= 3.36](https://img.shields.io/badge/>=_3.36-success.svg?style=for-the-badge) |
+| `external` | ![>= 2.1](https://img.shields.io/badge/>=_2.1-success.svg?style=for-the-badge) |
+| `local` | ![>= 2.1](https://img.shields.io/badge/>=_2.1-success.svg?style=for-the-badge) |
+| `template` | ![>= 2.2](https://img.shields.io/badge/>=_2.2-success.svg?style=for-the-badge) |
+| `utils` | ![>= 0.3](https://img.shields.io/badge/>=_0.3-success.svg?style=for-the-badge) |
 
 
 ## Providers
 
 | Provider | Version |
 | --- | --- |
-| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 3.36 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ![>= 3.36](https://img.shields.io/badge/>=_3.36-success.svg?style=for-the-badge) |
 
 
 ## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`aws_waf` | [![0.0.1](https://img.shields.io/badge/_____0.0.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/waf/aws/0.0.1) | [`cloudposse/waf/aws`](https://registry.terraform.io/modules/cloudposse/waf/aws/0.0.1) | n/a
-`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
-`this` | [![0.24.1](https://img.shields.io/badge/____0.24.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | n/a
+`aws_waf` | [![0.0.1](https://img.shields.io/badge/0.0.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/waf/aws/0.0.1) | [`cloudposse/waf/aws`](https://registry.terraform.io/modules/cloudposse/waf/aws/0.0.1) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`this` | [![0.24.1](https://img.shields.io/badge/0.24.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | n/a
 
 
 ## Resources

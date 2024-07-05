@@ -160,32 +160,32 @@ _NOTE_: configure the desired cluster in Geodesic using `set-cluster account` (w
 
 | Requirement | Version |
 | --- | --- |
-| `terraform` | >= 1.0.0 |
-| `aws` | >= 3.0 |
-| `helm` | >= 2.0 |
+| `terraform` | ![>= 1.0.0](https://img.shields.io/badge/>=_1.0.0-success.svg?style=for-the-badge) |
+| `aws` | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
+| `helm` | ![>= 2.0](https://img.shields.io/badge/>=_2.0-success.svg?style=for-the-badge) |
 
 
 ## Providers
 
 | Provider | Version |
 | --- | --- |
-| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 3.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
 
 
 ## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`actions_runner` | [![0.3.1](https://img.shields.io/badge/_____0.3.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/helm-release/aws/0.3.1) | [`cloudposse/helm-release/aws`](https://registry.terraform.io/modules/cloudposse/helm-release/aws/0.3.1) | n/a
-`actions_runner_controller` | [![0.3.1](https://img.shields.io/badge/_____0.3.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/helm-release/aws/0.3.1) | [`cloudposse/helm-release/aws`](https://registry.terraform.io/modules/cloudposse/helm-release/aws/0.3.1) | You cannot have a directory with the same name as the chart you are installing from repo https://github.com/hashicorp/terraform-provider-helm/issues/735
-`eks` | [![0.22.0](https://img.shields.io/badge/____0.22.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/0.22.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/0.22.0/submodules/remote-state) | n/a
-`eks_iam_policy` | [![0.2.2](https://img.shields.io/badge/_____0.2.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/iam-policy/aws/0.2.2) | [`cloudposse/iam-policy/aws`](https://registry.terraform.io/modules/cloudposse/iam-policy/aws/0.2.2) | n/a
-`eks_iam_role` | [![0.10.3](https://img.shields.io/badge/____0.10.3-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/0.10.3) | [`cloudposse/eks-iam-role/aws`](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/0.10.3) | n/a
-`github_action_controller_label` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`github_action_helm_label` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`iam_primary_roles` | [![0.22.0](https://img.shields.io/badge/____0.22.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/0.22.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/0.22.0/submodules/remote-state) | n/a
-`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
-`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`actions_runner` | [![0.3.1](https://img.shields.io/badge/0.3.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/helm-release/aws/0.3.1) | [`cloudposse/helm-release/aws`](https://registry.terraform.io/modules/cloudposse/helm-release/aws/0.3.1) | n/a
+`actions_runner_controller` | [![0.3.1](https://img.shields.io/badge/0.3.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/helm-release/aws/0.3.1) | [`cloudposse/helm-release/aws`](https://registry.terraform.io/modules/cloudposse/helm-release/aws/0.3.1) | You cannot have a directory with the same name as the chart you are installing from repo https://github.com/hashicorp/terraform-provider-helm/issues/735
+`eks` | [![0.22.0](https://img.shields.io/badge/0.22.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/0.22.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/0.22.0/submodules/remote-state) | n/a
+`eks_iam_policy` | [![0.2.2](https://img.shields.io/badge/0.2.2-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/iam-policy/aws/0.2.2) | [`cloudposse/iam-policy/aws`](https://registry.terraform.io/modules/cloudposse/iam-policy/aws/0.2.2) | n/a
+`eks_iam_role` | [![0.10.3](https://img.shields.io/badge/0.10.3-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/0.10.3) | [`cloudposse/eks-iam-role/aws`](https://registry.terraform.io/modules/cloudposse/eks-iam-role/aws/0.10.3) | n/a
+`github_action_controller_label` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`github_action_helm_label` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`iam_primary_roles` | [![0.22.0](https://img.shields.io/badge/0.22.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/0.22.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/0.22.0/submodules/remote-state) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources

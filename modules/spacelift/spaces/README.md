@@ -73,9 +73,9 @@ components:
 
 | Requirement | Version |
 | --- | --- |
-| `terraform` | >= 1.3 |
-| `aws` | >= 4.0 |
-| `spacelift` | >= 0.1.31 |
+| `terraform` | ![>= 1.3](https://img.shields.io/badge/>=_1.3-success.svg?style=for-the-badge) |
+| `aws` | ![>= 4.0](https://img.shields.io/badge/>=_4.0-success.svg?style=for-the-badge) |
+| `spacelift` | ![>= 0.1.31](https://img.shields.io/badge/>=_0.1.31-success.svg?style=for-the-badge) |
 
 
 
@@ -84,9 +84,9 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`policy` | [![1.6.0](https://img.shields.io/badge/_____1.6.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-policy) | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-policy`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-policy) | n/a
-`space` | [![1.6.0](https://img.shields.io/badge/_____1.6.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-space) | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-space`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-space) | n/a
-`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`policy` | [![1.6.0](https://img.shields.io/badge/1.6.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-policy) | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-policy`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-policy) | n/a
+`space` | [![1.6.0](https://img.shields.io/badge/1.6.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-space) | [`cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-space`](https://registry.terraform.io/modules/cloudposse/cloud-infrastructure-automation/spacelift/1.6.0/submodules/spacelift-space) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 

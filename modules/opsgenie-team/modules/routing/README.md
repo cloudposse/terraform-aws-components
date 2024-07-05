@@ -13,25 +13,25 @@ or not.
 
 | Requirement | Version |
 | --- | --- |
-| `terraform` | >= 1.0 |
-| `opsgenie` | >= 0.6.7 |
+| `terraform` | ![>= 1.0](https://img.shields.io/badge/>=_1.0-success.svg?style=for-the-badge) |
+| `opsgenie` | ![>= 0.6.7](https://img.shields.io/badge/>=_0.6.7-success.svg?style=for-the-badge) |
 
 
 ## Providers
 
 | Provider | Version |
 | --- | --- |
-| [`opsgenie`](https://registry.terraform.io/providers/opsgenie/latest) | >= 0.6.7 |
+| [`opsgenie`](https://registry.terraform.io/providers/opsgenie/latest) | ![>= 0.6.7](https://img.shields.io/badge/>=_0.6.7-success.svg?style=for-the-badge) |
 
 
 ## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`service_incident_rule` | [![0.16.0](https://img.shields.io/badge/____0.16.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/service_incident_rule) | [`cloudposse/incident-management/opsgenie//modules/service_incident_rule`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/service_incident_rule) | n/a
-`serviceless_incident_rule` | [![0.16.0](https://img.shields.io/badge/____0.16.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/service_incident_rule) | [`cloudposse/incident-management/opsgenie//modules/service_incident_rule`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/service_incident_rule) | n/a
-`team_routing_rule` | [![0.16.0](https://img.shields.io/badge/____0.16.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/team_routing_rule) | [`cloudposse/incident-management/opsgenie//modules/team_routing_rule`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/team_routing_rule) | n/a
-`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`service_incident_rule` | [![0.16.0](https://img.shields.io/badge/0.16.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/service_incident_rule) | [`cloudposse/incident-management/opsgenie//modules/service_incident_rule`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/service_incident_rule) | n/a
+`serviceless_incident_rule` | [![0.16.0](https://img.shields.io/badge/0.16.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/service_incident_rule) | [`cloudposse/incident-management/opsgenie//modules/service_incident_rule`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/service_incident_rule) | n/a
+`team_routing_rule` | [![0.16.0](https://img.shields.io/badge/0.16.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/team_routing_rule) | [`cloudposse/incident-management/opsgenie//modules/team_routing_rule`](https://registry.terraform.io/modules/cloudposse/incident-management/opsgenie/0.16.0/submodules/team_routing_rule) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources

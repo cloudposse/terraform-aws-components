@@ -36,11 +36,11 @@ components:
 
 | Requirement | Version |
 | --- | --- |
-| `terraform` | >= 0.13.0 |
-| `aws` | >= 3.0 |
-| `local` | >= 1.3 |
-| `template` | >= 2.2 |
-| `utils` | >= 1.10.0 |
+| `terraform` | ![>= 0.13.0](https://img.shields.io/badge/>=_0.13.0-success.svg?style=for-the-badge) |
+| `aws` | ![>= 3.0](https://img.shields.io/badge/>=_3.0-success.svg?style=for-the-badge) |
+| `local` | ![>= 1.3](https://img.shields.io/badge/>=_1.3-success.svg?style=for-the-badge) |
+| `template` | ![>= 2.2](https://img.shields.io/badge/>=_2.2-success.svg?style=for-the-badge) |
+| `utils` | ![>= 1.10.0](https://img.shields.io/badge/>=_1.10.0-success.svg?style=for-the-badge) |
 
 
 
@@ -49,11 +49,11 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`eks` | [![1.5.0](https://img.shields.io/badge/_____1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
-`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
-`mq_broker` | [![0.14.0](https://img.shields.io/badge/____0.14.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/mq-broker/aws/0.14.0) | [`cloudposse/mq-broker/aws`](https://registry.terraform.io/modules/cloudposse/mq-broker/aws/0.14.0) | n/a
-`this` | [![0.24.1](https://img.shields.io/badge/____0.24.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | n/a
-`vpc` | [![1.5.0](https://img.shields.io/badge/_____1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`eks` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`mq_broker` | [![0.14.0](https://img.shields.io/badge/0.14.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/mq-broker/aws/0.14.0) | [`cloudposse/mq-broker/aws`](https://registry.terraform.io/modules/cloudposse/mq-broker/aws/0.14.0) | n/a
+`this` | [![0.24.1](https://img.shields.io/badge/0.24.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | n/a
+`vpc` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 
 
 

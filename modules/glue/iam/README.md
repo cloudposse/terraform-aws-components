@@ -30,9 +30,9 @@ components:
 
 | Requirement | Version |
 | --- | --- |
-| `terraform` | >= 1.3.0 |
-| `aws` | >= 4.0 |
-| `utils` | >= 1.15.0 |
+| `terraform` | ![>= 1.3.0](https://img.shields.io/badge/>=_1.3.0-success.svg?style=for-the-badge) |
+| `aws` | ![>= 4.0](https://img.shields.io/badge/>=_4.0-success.svg?style=for-the-badge) |
+| `utils` | ![>= 1.15.0](https://img.shields.io/badge/>=_1.15.0-success.svg?style=for-the-badge) |
 
 
 
@@ -41,9 +41,9 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`iam_role` | [![0.19.0](https://img.shields.io/badge/____0.19.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/iam-role/aws/0.19.0) | [`cloudposse/iam-role/aws`](https://registry.terraform.io/modules/cloudposse/iam-role/aws/0.19.0) | n/a
-`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../../account-map/modules/iam-roles) | [`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles) | n/a
-`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`iam_role` | [![0.19.0](https://img.shields.io/badge/0.19.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/iam-role/aws/0.19.0) | [`cloudposse/iam-role/aws`](https://registry.terraform.io/modules/cloudposse/iam-role/aws/0.19.0) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../../account-map/modules/iam-roles) | [`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 

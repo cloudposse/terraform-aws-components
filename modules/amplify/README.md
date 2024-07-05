@@ -142,27 +142,27 @@ atmos terraform apply amplify/example -s <stack>
 
 | Requirement | Version |
 | --- | --- |
-| `terraform` | >= 1.3.0 |
-| `aws` | >= 4.9.0 |
+| `terraform` | ![>= 1.3.0](https://img.shields.io/badge/>=_1.3.0-success.svg?style=for-the-badge) |
+| `aws` | ![>= 4.9.0](https://img.shields.io/badge/>=_4.9.0-success.svg?style=for-the-badge) |
 
 
 ## Providers
 
 | Provider | Version |
 | --- | --- |
-| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 4.9.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | ![>= 4.9.0](https://img.shields.io/badge/>=_4.9.0-success.svg?style=for-the-badge) |
 
 
 ## Modules
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`amplify_app` | [![0.2.1](https://img.shields.io/badge/_____0.2.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/amplify-app/aws/0.2.1) | [`cloudposse/amplify-app/aws`](https://registry.terraform.io/modules/cloudposse/amplify-app/aws/0.2.1) | n/a
-`certificate_verification_dns_record` | [![0.12.3](https://img.shields.io/badge/____0.12.3-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/route53-cluster-hostname/aws/0.12.3) | [`cloudposse/route53-cluster-hostname/aws`](https://registry.terraform.io/modules/cloudposse/route53-cluster-hostname/aws/0.12.3) | Create the SSL certificate validation record
-`dns_delegated` | [![1.5.0](https://img.shields.io/badge/_____1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
-`iam_roles` | [![latest](https://img.shields.io/badge/____latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
-`subdomains_dns_record` | [![0.12.3](https://img.shields.io/badge/____0.12.3-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/route53-cluster-hostname/aws/0.12.3) | [`cloudposse/route53-cluster-hostname/aws`](https://registry.terraform.io/modules/cloudposse/route53-cluster-hostname/aws/0.12.3) | Create DNS records for the subdomains
-`this` | [![0.25.0](https://img.shields.io/badge/____0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`amplify_app` | [![0.2.1](https://img.shields.io/badge/0.2.1-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/amplify-app/aws/0.2.1) | [`cloudposse/amplify-app/aws`](https://registry.terraform.io/modules/cloudposse/amplify-app/aws/0.2.1) | n/a
+`certificate_verification_dns_record` | [![0.12.3](https://img.shields.io/badge/0.12.3-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/route53-cluster-hostname/aws/0.12.3) | [`cloudposse/route53-cluster-hostname/aws`](https://registry.terraform.io/modules/cloudposse/route53-cluster-hostname/aws/0.12.3) | Create the SSL certificate validation record
+`dns_delegated` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)](../account-map/modules/iam-roles) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`subdomains_dns_record` | [![0.12.3](https://img.shields.io/badge/0.12.3-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/route53-cluster-hostname/aws/0.12.3) | [`cloudposse/route53-cluster-hostname/aws`](https://registry.terraform.io/modules/cloudposse/route53-cluster-hostname/aws/0.12.3) | Create DNS records for the subdomains
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources
