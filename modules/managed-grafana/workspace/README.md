@@ -68,12 +68,12 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`iam_roles` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
-`managed_grafana` | 0.1.0 | [`cloudposse/managed-grafana/aws`](https://registry.terraform.io/modules/cloudposse/managed-grafana/aws/0.1.0) | n/a
-`prometheus` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
-`security_group` | 2.2.0 | [`cloudposse/security-group/aws`](https://registry.terraform.io/modules/cloudposse/security-group/aws/2.2.0) | n/a
-`this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`vpc` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles)) | [`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles) | n/a
+`managed_grafana` | [![0.1.0](https://img.shields.io/badge/0.1.0-success.svg?style=for-the-badge)]([`cloudposse/managed-grafana/aws`](https://registry.terraform.io/modules/cloudposse/managed-grafana/aws/0.1.0)) | [`cloudposse/managed-grafana/aws`](https://registry.terraform.io/modules/cloudposse/managed-grafana/aws/0.1.0) | n/a
+`prometheus` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)]([`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state)) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`security_group` | [![2.2.0](https://img.shields.io/badge/2.2.0-success.svg?style=for-the-badge)]([`cloudposse/security-group/aws`](https://registry.terraform.io/modules/cloudposse/security-group/aws/2.2.0)) | [`cloudposse/security-group/aws`](https://registry.terraform.io/modules/cloudposse/security-group/aws/2.2.0) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)]([`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0)) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`vpc` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)]([`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state)) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
 
 
 ## Resources

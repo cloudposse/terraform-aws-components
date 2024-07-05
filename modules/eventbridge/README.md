@@ -59,10 +59,10 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`cloudwatch_event` | 0.7.0 | [`cloudposse/cloudwatch-events/aws`](https://registry.terraform.io/modules/cloudposse/cloudwatch-events/aws/0.7.0) | n/a
-`cloudwatch_logs` | 0.6.8 | [`cloudposse/cloudwatch-logs/aws`](https://registry.terraform.io/modules/cloudposse/cloudwatch-logs/aws/0.6.8) | n/a
-`iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
-`this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`cloudwatch_event` | [![0.7.0](https://img.shields.io/badge/0.7.0-success.svg?style=for-the-badge)]([`cloudposse/cloudwatch-events/aws`](https://registry.terraform.io/modules/cloudposse/cloudwatch-events/aws/0.7.0)) | [`cloudposse/cloudwatch-events/aws`](https://registry.terraform.io/modules/cloudposse/cloudwatch-events/aws/0.7.0) | n/a
+`cloudwatch_logs` | [![0.6.8](https://img.shields.io/badge/0.6.8-success.svg?style=for-the-badge)]([`cloudposse/cloudwatch-logs/aws`](https://registry.terraform.io/modules/cloudposse/cloudwatch-logs/aws/0.6.8)) | [`cloudposse/cloudwatch-logs/aws`](https://registry.terraform.io/modules/cloudposse/cloudwatch-logs/aws/0.6.8) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/iam-roles`](../account-map/modules/iam-roles)) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)]([`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0)) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources

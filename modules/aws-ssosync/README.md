@@ -209,8 +209,8 @@ https://github.com/awslabs/ssosync/issues/91
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`ssosync_artifact` | 0.8.0 | [`cloudposse/module-artifact/external`](https://registry.terraform.io/modules/cloudposse/module-artifact/external/0.8.0) | n/a
-`this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`ssosync_artifact` | [![0.8.0](https://img.shields.io/badge/0.8.0-success.svg?style=for-the-badge)]([`cloudposse/module-artifact/external`](https://registry.terraform.io/modules/cloudposse/module-artifact/external/0.8.0)) | [`cloudposse/module-artifact/external`](https://registry.terraform.io/modules/cloudposse/module-artifact/external/0.8.0) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)]([`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0)) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources

@@ -60,12 +60,12 @@ atmos terraform apply tgw/hub -s <tenant>-<environment>-network
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`account_map` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | n/a
-`eks` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | n/a
-`iam_roles` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
-`tgw_hub` | 0.9.1 | [`cloudposse/transit-gateway/aws`](https://registry.terraform.io/modules/cloudposse/transit-gateway/aws/0.9.1) | n/a
-`this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`vpc` | 1.4.1 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | n/a
+`account_map` | [![1.4.1](https://img.shields.io/badge/1.4.1-success.svg?style=for-the-badge)]([`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state)) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | n/a
+`eks` | [![1.4.1](https://img.shields.io/badge/1.4.1-success.svg?style=for-the-badge)]([`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state)) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles)) | [`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles) | n/a
+`tgw_hub` | [![0.9.1](https://img.shields.io/badge/0.9.1-success.svg?style=for-the-badge)]([`cloudposse/transit-gateway/aws`](https://registry.terraform.io/modules/cloudposse/transit-gateway/aws/0.9.1)) | [`cloudposse/transit-gateway/aws`](https://registry.terraform.io/modules/cloudposse/transit-gateway/aws/0.9.1) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)]([`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0)) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`vpc` | [![1.4.1](https://img.shields.io/badge/1.4.1-success.svg?style=for-the-badge)]([`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state)) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.4.1/submodules/remote-state) | n/a
 
 
 

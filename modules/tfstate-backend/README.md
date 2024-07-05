@@ -138,10 +138,10 @@ terraform:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`assume_role` | latest | [`../account-map/modules/team-assume-role-policy`](https://registry.terraform.io/modules/../account-map/modules/team-assume-role-policy/) | n/a
-`label` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
-`tfstate_backend` | 1.1.0 | [`cloudposse/tfstate-backend/aws`](https://registry.terraform.io/modules/cloudposse/tfstate-backend/aws/1.1.0) | n/a
-`this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`assume_role` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/team-assume-role-policy`](../account-map/modules/team-assume-role-policy)) | [`../account-map/modules/team-assume-role-policy`](../account-map/modules/team-assume-role-policy) | n/a
+`label` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)]([`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0)) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`tfstate_backend` | [![1.1.0](https://img.shields.io/badge/1.1.0-success.svg?style=for-the-badge)]([`cloudposse/tfstate-backend/aws`](https://registry.terraform.io/modules/cloudposse/tfstate-backend/aws/1.1.0)) | [`cloudposse/tfstate-backend/aws`](https://registry.terraform.io/modules/cloudposse/tfstate-backend/aws/1.1.0) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)]([`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0)) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources

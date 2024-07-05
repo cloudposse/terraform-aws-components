@@ -221,15 +221,15 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`account_map` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
-`iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
-`iam_roles_root` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
-`permission_sets` | 1.1.1 | [`cloudposse/sso/aws//modules/permission-sets`](https://registry.terraform.io/modules/cloudposse/sso/aws/1.1.1/submodules/permission-sets) | n/a
-`role_map` | latest | [`../account-map/modules/roles-to-principals`](https://registry.terraform.io/modules/../account-map/modules/roles-to-principals/) | n/a
-`sso_account_assignments` | 1.1.1 | [`cloudposse/sso/aws//modules/account-assignments`](https://registry.terraform.io/modules/cloudposse/sso/aws/1.1.1/submodules/account-assignments) | n/a
-`sso_account_assignments_root` | 1.1.1 | [`cloudposse/sso/aws//modules/account-assignments`](https://registry.terraform.io/modules/cloudposse/sso/aws/1.1.1/submodules/account-assignments) | n/a
-`tfstate` | 1.5.0 | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
-`this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`account_map` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)]([`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state)) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/iam-roles`](../account-map/modules/iam-roles)) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`iam_roles_root` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/iam-roles`](../account-map/modules/iam-roles)) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`permission_sets` | [![1.1.1](https://img.shields.io/badge/1.1.1-success.svg?style=for-the-badge)]([`cloudposse/sso/aws//modules/permission-sets`](https://registry.terraform.io/modules/cloudposse/sso/aws/1.1.1/submodules/permission-sets)) | [`cloudposse/sso/aws//modules/permission-sets`](https://registry.terraform.io/modules/cloudposse/sso/aws/1.1.1/submodules/permission-sets) | n/a
+`role_map` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/roles-to-principals`](../account-map/modules/roles-to-principals)) | [`../account-map/modules/roles-to-principals`](../account-map/modules/roles-to-principals) | n/a
+`sso_account_assignments` | [![1.1.1](https://img.shields.io/badge/1.1.1-success.svg?style=for-the-badge)]([`cloudposse/sso/aws//modules/account-assignments`](https://registry.terraform.io/modules/cloudposse/sso/aws/1.1.1/submodules/account-assignments)) | [`cloudposse/sso/aws//modules/account-assignments`](https://registry.terraform.io/modules/cloudposse/sso/aws/1.1.1/submodules/account-assignments) | n/a
+`sso_account_assignments_root` | [![1.1.1](https://img.shields.io/badge/1.1.1-success.svg?style=for-the-badge)]([`cloudposse/sso/aws//modules/account-assignments`](https://registry.terraform.io/modules/cloudposse/sso/aws/1.1.1/submodules/account-assignments)) | [`cloudposse/sso/aws//modules/account-assignments`](https://registry.terraform.io/modules/cloudposse/sso/aws/1.1.1/submodules/account-assignments) | n/a
+`tfstate` | [![1.5.0](https://img.shields.io/badge/1.5.0-success.svg?style=for-the-badge)]([`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state)) | [`cloudposse/stack-config/yaml//modules/remote-state`](https://registry.terraform.io/modules/cloudposse/stack-config/yaml/1.5.0/submodules/remote-state) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)]([`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0)) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources

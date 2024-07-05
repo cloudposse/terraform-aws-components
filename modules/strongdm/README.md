@@ -36,7 +36,7 @@ components:
 | Provider | Version |
 | --- | --- |
 | [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 3.0 |
-| [`aws`](https://registry.terraform.io/providers/aws.api_keys/latest) | >= 3.0 |
+| [`aws`](https://registry.terraform.io/providers/aws/latest) | >= 3.0 |
 | [`helm`](https://registry.terraform.io/providers/helm/latest) | >= 2.2.0 |
 | [`sdm`](https://registry.terraform.io/providers/sdm/latest) | >= 1.0.19 |
 
@@ -45,9 +45,9 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
-`iam_roles_network` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
-`this` | 0.24.1 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/iam-roles`](../account-map/modules/iam-roles)) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`iam_roles_network` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/iam-roles`](../account-map/modules/iam-roles)) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`this` | [![0.24.1](https://img.shields.io/badge/0.24.1-success.svg?style=for-the-badge)]([`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1)) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.24.1) | n/a
 
 
 ## Resources

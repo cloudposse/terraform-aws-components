@@ -39,9 +39,9 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`glue_workflow` | 0.4.0 | [`cloudposse/glue/aws//modules/glue-workflow`](https://registry.terraform.io/modules/cloudposse/glue/aws/0.4.0/submodules/glue-workflow) | n/a
-`iam_roles` | latest | [`../../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../../account-map/modules/iam-roles/) | n/a
-`this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`glue_workflow` | [![0.4.0](https://img.shields.io/badge/0.4.0-success.svg?style=for-the-badge)]([`cloudposse/glue/aws//modules/glue-workflow`](https://registry.terraform.io/modules/cloudposse/glue/aws/0.4.0/submodules/glue-workflow)) | [`cloudposse/glue/aws//modules/glue-workflow`](https://registry.terraform.io/modules/cloudposse/glue/aws/0.4.0/submodules/glue-workflow) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles)) | [`../../account-map/modules/iam-roles`](../../account-map/modules/iam-roles) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)]([`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0)) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 

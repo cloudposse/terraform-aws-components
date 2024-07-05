@@ -48,9 +48,9 @@ components:
 
 Name | Version | Source | Description
 --- | --- | --- | ---
-`iam_roles` | latest | [`../account-map/modules/iam-roles`](https://registry.terraform.io/modules/../account-map/modules/iam-roles/) | n/a
-`okta_api_user` | latest | [`./modules/okta-user`](https://registry.terraform.io/modules/./modules/okta-user/) | n/a
-`this` | 0.25.0 | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
+`iam_roles` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`../account-map/modules/iam-roles`](../account-map/modules/iam-roles)) | [`../account-map/modules/iam-roles`](../account-map/modules/iam-roles) | n/a
+`okta_api_user` | [![latest](https://img.shields.io/badge/latest-success.svg?style=for-the-badge)]([`./modules/okta-user`](https://registry.terraform.io/modules/./modules/okta-user/)) | [`./modules/okta-user`](https://registry.terraform.io/modules/./modules/okta-user/) | n/a
+`this` | [![0.25.0](https://img.shields.io/badge/0.25.0-success.svg?style=for-the-badge)]([`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0)) | [`cloudposse/label/null`](https://registry.terraform.io/modules/cloudposse/label/null/0.25.0) | n/a
 
 
 ## Resources
