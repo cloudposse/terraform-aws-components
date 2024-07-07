@@ -172,6 +172,19 @@ variable "runners" {
     scale_down_delay_seconds = optional(number, 300)
     min_replicas             = number
     max_replicas             = number
+    # Scheduled overrides. See https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#scheduled-overrides
+    # Order is important. The earlier entry is prioritized higher than later entries. So you usually define
+    # one-time overrides at the top of your list, then yearly, monthly, weekly, and lastly daily overrides.
+    scheduled_overrides = optional(list(object({
+      start_time   = string # ISO 8601 format, eg,  "2021-06-01T00:00:00+09:00"
+      end_time     = string # ISO 8601 format, eg,  "2021-06-01T00:00:00+09:00"
+      min_replicas = optional(number)
+      max_replicas = optional(number)
+      recurrence_rule = optional(object({
+        frequency  = string           # One of Daily, Weekly, Monthly, Yearly
+        until_time = optional(string) # ISO 8601 format time after which the schedule will no longer apply
+      }))
+    })), [])
     busy_metrics = optional(object({
       scale_up_threshold    = string
       scale_down_threshold  = string
@@ -181,19 +194,34 @@ variable "runners" {
       scale_down_factor     = optional(string)
     }))
     webhook_driven_scaling_enabled = optional(bool, true)
-    # The name `webhook_startup_timeout` is misleading.
-    # It is actually the duration after which a job will be considered completed,
-    # (and the runner killed) even if the webhook has not received a "job completed" event.
+    # max_duration is the duration after which a job will be considered completed,
+    # even if the webhook has not received a "job completed" event.
     # This is to ensure that if an event is missed, it does not leave the runner running forever.
     # Set it long enough to cover the longest job you expect to run and then some.
     # See https://github.com/actions/actions-runner-controller/blob/9afd93065fa8b1f87296f0dcdf0c2753a0548cb7/docs/automatically-scaling-runners.md?plain=1#L264-L268
-    webhook_startup_timeout     = optional(string, "1h")
+    # Defaults to 1 hour programmatically (to be able to detect if both max_duration and webhook_startup_timeout are set).
+    max_duration = optional(string)
+    # The name `webhook_startup_timeout` was misleading and has been deprecated.
+    # It has been renamed `max_duration`.
+    webhook_startup_timeout = optional(string)
+    # Adjust the time (in seconds) to wait for the Docker in Docker daemon to become responsive.
+    wait_for_docker_seconds     = optional(string, "")
     pull_driven_scaling_enabled = optional(bool, false)
     labels                      = optional(list(string), [])
-    docker_storage              = optional(string, null)
+    # If not null, `docker_storage` specifies the size (as `go` string) of
+    # an ephemeral (default storage class) Persistent Volume to allocate for the Docker daemon.
+    # Takes precedence over `tmpfs_enabled` for the Docker daemon storage.
+    docker_storage = optional(string, null)
     # storage is deprecated in favor of docker_storage, since it is only storage for the Docker daemon
-    storage     = optional(string, null)
+    storage = optional(string, null)
+    # If `pvc_enabled` is true, a Persistent Volume Claim will be created for the runner
+    # and mounted at /home/runner/work/shared. This is useful for sharing data between runners.
     pvc_enabled = optional(bool, false)
+    # If `tmpfs_enabled` is `true`, both the runner and the docker daemon will use a tmpfs volume,
+    # meaning that all data will be stored in RAM rather than on disk, bypassing disk I/O limitations,
+    # but what would have been disk usage is now additional memory usage. You must specify memory
+    # requests and limits when using tmpfs or else the Pod will likely crash the Node.
+    tmpfs_enabled = optional(bool)
     resources = optional(object({
       limits = optional(object({
         cpu               = optional(string, "1")
