@@ -153,6 +153,9 @@ module "actions_runner_controller" {
         enabled                   = var.webhook.enabled
         queueLimit                = var.webhook.queue_limit
         useRunnerGroupsVisibility = local.runner_groups_enabled
+        secret = {
+          create = local.create_secret
+        }
         ingress = {
           enabled = var.webhook.enabled
           hosts = [
@@ -230,10 +233,13 @@ module "actions_runner" {
       scale_down_delay_seconds       = each.value.scale_down_delay_seconds
       min_replicas                   = each.value.min_replicas
       max_replicas                   = each.value.max_replicas
+      scheduled_overrides            = each.value.scheduled_overrides
       webhook_driven_scaling_enabled = each.value.webhook_driven_scaling_enabled
-      webhook_startup_timeout        = lookup(each.value, "webhook_startup_timeout", "")
+      max_duration                   = coalesce(each.value.webhook_startup_timeout, each.value.max_duration, "1h")
+      wait_for_docker_seconds        = each.value.wait_for_docker_seconds
       pull_driven_scaling_enabled    = each.value.pull_driven_scaling_enabled
       pvc_enabled                    = each.value.pvc_enabled
+      tmpfs_enabled                  = each.value.tmpfs_enabled
       node_selector                  = each.value.node_selector
       affinity                       = each.value.affinity
       tolerations                    = each.value.tolerations

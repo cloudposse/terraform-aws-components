@@ -24,7 +24,7 @@ image: summerwind/actions-runner-dind
 
 pvc_enabled: false
 webhook_driven_scaling_enabled: true
-webhook_startup_timeout: "90m"
+max_duration: "90m"
 pull_driven_scaling_enabled: false
 #labels:
 #  - "Ubuntu"
