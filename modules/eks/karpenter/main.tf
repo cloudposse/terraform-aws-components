@@ -77,7 +77,7 @@ module "karpenter" {
   service_account_role_arn_annotation_enabled = true
 
   iam_role_enabled            = true
-  iam_source_policy_documents = [local.controller_policy_v1alpha_json, local.controller_policy_json]
+  iam_source_policy_documents = [local.controller_policy_json]
 
   values = compact([
     yamlencode({
