@@ -13,8 +13,10 @@
 # v1alpha API tag "karpenter.sh/provisioner-name" and to manage the EC2 Instance Profile
 # created by the EKS cluster component.
 #
-# WARNING: it is important that the SID values do not conflict with the SID values in the
-# controller-policy.tf file, otherwise they will be overwritten.
+# We create a separate policy and attach it separately to the Karpenter controller role
+# because the main policy is near the 6,144 character limit for an IAM policy, and
+# adding this to it can push it over. See:
+#   https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entities
 #
 
 locals {
@@ -35,10 +37,10 @@ locals {
               ],
               "Condition": {
                 "StringEquals": {
-                  "aws:ResourceTag/kubernetes.io/cluster/${local.eks_cluster_id}": "owned"
+                  "ec2:ResourceTag/karpenter.k8s.aws/cluster": "${local.eks_cluster_id}"
                 },
                 "StringLike": {
-                  "aws:ResourceTag/karpenter.sh/provisioner-name": "*"
+                  "ec2:ResourceTag/karpenter.sh/provisioner-name": "*"
                 }
               }
             },
@@ -64,4 +66,24 @@ locals {
           ]
         }
   EndOfPolicy
+}
+
+# We create a separate policy and attach it separately to the Karpenter controller role
+# because the main policy is near the 6,144 character limit for an IAM policy, and
+# adding this to it can push it over. See:
+#   https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entities
+resource "aws_iam_policy" "v1alpha" {
+  count = local.enabled ? 1 : 0
+
+  name        = "${module.this.id}-v1alpha"
+  description = "Legacy Karpenter controller policy for v1alpha workloads"
+  policy      = local.controller_policy_v1alpha_json
+  tags        = module.this.tags
+}
+
+resource "aws_iam_role_policy_attachment" "v1alpha" {
+  count = local.enabled ? 1 : 0
+
+  role       = module.karpenter.service_account_role_name
+  policy_arn = one(aws_iam_policy.v1alpha[*].arn)
 }

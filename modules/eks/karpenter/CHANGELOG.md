@@ -1,6 +1,36 @@
+## Components [PR #1076](https://github.com/cloudposse/terraform-aws-components/pull/1076)
+
+#### Bugfix
+
+- Fixed issues with IAM Policy support for cleaning up `v1alpha` resources.
+
+With the previous release of this component, we encouraged users to delete their `v1alpha` Karpenter resources before
+upgrading to `v1beta`. However, certain things, such as EC2 Instance Profiles, would not be deleted by Terraform because
+they were created or modified by the Karpenter controller.
+
+To enable the `v1beta` Karpenter controller to clean up these resources, we added a second IAM Policy to the official
+Karpenter IAM Policy document. This second policy allows the Karpenter controller to delete the `v1alpha` resources.
+However, there were 2 problems with that.
+
+First, the policy was subtly incorrect, and did not, in fact, allow the Karpenter controller to delete all the
+resources. This has been fixed.
+
+Second, a long EKS cluster name could cause the Karpenter IRSA's policy to exceed the maximum character limit for an IAM
+Policy. This has also been fixed by making the `v1alpha` policy a separate managed policy attached to the Karpenter
+controller's role, rather than merging the statements into the `v1beta` policy. This change also avoids potential
+conflicts with policy SIDs.
+
+:::note Innocuous Changes
+
+Terraform will show IAM Policy changes, including deletion of statements from the existing policy and creation of a new
+policy. This is expected and innocuous. The IAM Policy has been split into 2 to avoid exceeding length limits, but the
+current (`v1beta`) policy remains the same and the now separate (`v1alpha`) policy has been corrected.
+
+:::
+
 ## Version 1.445.0
 
-Components PR #1039
+Components [PR #1039](https://github.com/cloudposse/terraform-aws-components/pull/1039)
 
 :::warning Major Breaking Changes
 
