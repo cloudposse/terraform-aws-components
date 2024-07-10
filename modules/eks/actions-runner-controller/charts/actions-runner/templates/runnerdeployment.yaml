@@ -12,6 +12,7 @@ we explicitly convert to boolean based on the string value */}}
        We keep the logic here in case we need to revert to the sidecar option. */}}
 {{- $use_dind_in_runner := $use_dind }}
 {{- if $use_pvc }}
+---
 # Persistent Volumes can be used for image caching
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -95,8 +96,8 @@ data:
       printf "Annotated pod at %s with annotations:\n  '%s'\n" "$AT" '{{ . | toJson }}'
     fi
 
----
 {{ end }}
+---
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
 metadata:

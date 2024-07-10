@@ -1,4 +1,6 @@
-## Components [PR #1076](https://github.com/cloudposse/terraform-aws-components/pull/1076)
+## Release 1.470.0
+
+Components PR [#1076](https://github.com/cloudposse/terraform-aws-components/pull/1076)
 
 - Allow specifying elements of `spec.template.spec.kubelet`
 - Make taint values optional
