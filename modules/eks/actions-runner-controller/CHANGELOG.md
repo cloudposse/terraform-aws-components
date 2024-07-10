@@ -1,4 +1,15 @@
-## PR [#1075](https://github.com/cloudposse/terraform-aws-components/pull/1075)
+## Release 1.470.1
+
+Components PR [#1077](https://github.com/cloudposse/terraform-aws-components/pull/1077)
+
+Bugfix:
+
+- Fix templating of document separators in Helm chart template. Affects users who are not using
+  `running_pod_annotations`.
+
+## Release 1.470.0
+
+Components PR [#1075](https://github.com/cloudposse/terraform-aws-components/pull/1075)
 
 New Features:
 
