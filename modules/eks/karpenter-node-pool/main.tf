@@ -8,6 +8,11 @@ locals {
   public_subnet_ids  = module.vpc.outputs.public_subnet_ids
 
   node_pools = { for k, v in var.node_pools : k => v if local.enabled }
+  kubelets_specs_filtered = { for k, v in local.node_pools : k => {
+    for kk, vv in v.kubelet : kk => vv if vv != null
+    }
+  }
+  kubelet_specs = { for k, v in local.kubelets_specs_filtered : k => v if length(v) > 0 }
 }
 
 # https://karpenter.sh/docs/concepts/nodepools/
@@ -40,8 +45,8 @@ resource "kubernetes_manifest" "node_pool" {
       )
       template = {
         metadata = {
-          labels      = each.value.labels
-          annotations = each.value.annotations
+          labels      = coalesce(each.value.labels, {})
+          annotations = coalesce(each.value.annotations, {})
         }
         spec = merge({
           nodeClassRef = {
@@ -64,6 +69,9 @@ resource "kubernetes_manifest" "node_pool" {
           },
           try(length(each.value.startup_taints), 0) == 0 ? {} : {
             startupTaints = each.value.startup_taints
+          },
+          try(local.kubelet_specs[each.key], null) == null ? {} : {
+            kubelet = local.kubelet_specs[each.key]
           }
         )
       }

@@ -1,4 +1,19 @@
-## PR [#821](https://github.com/cloudposse/terraform-aws-components/pull/821)
+## Release 1.466.0
+
+PR [#1070](https://github.com/cloudposse/terraform-aws-components/pull/1070)
+
+Change default for `default_ingress_ip_address_type` from `dualstack` to `ipv4`. When `dualstack` is configured, the
+Ingress will fail if the VPC does not have an IPv6 CIDR block, which is still a common case. When `ipv4` is configured,
+the Ingress will work with only an IPv4 CIDR block, and simply will not use IPv6 if it exists. This makes `ipv4` the
+more conservative default.
+
+## Release 1.432.0
+
+Better support for Kubeconfig authentication
+
+## Release 1.289.1
+
+PR [#821](https://github.com/cloudposse/terraform-aws-components/pull/821)
 
 ### Update IAM Policy and Change How it is Managed
 

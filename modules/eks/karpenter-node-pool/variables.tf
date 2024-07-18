@@ -77,12 +77,12 @@ variable "node_pools" {
     taints = optional(list(object({
       key    = string
       effect = string
-      value  = string
+      value  = optional(string)
     })))
     startup_taints = optional(list(object({
       key    = string
       effect = string
-      value  = string
+      value  = optional(string)
     })))
     # Karpenter node metadata options. See https://karpenter.sh/docs/concepts/nodeclasses/#specmetadataoptions for more details
     metadata_options = optional(object({
@@ -120,6 +120,12 @@ variable "node_pools" {
       # Operators like "Exists" and "DoesNotExist" do not require a value
       values = optional(list(string))
     }))
+    # Any values for spec.template.spec.kubelet allowed by Karpenter.
+    # Not fully specified, because they are subject to change.
+    # See:
+    #   https://karpenter.sh/docs/concepts/nodepools/#spectemplatespeckubelet
+    #   https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/
+    kubelet = optional(any, {})
   }))
   description = "Configuration for node pools. See code for details."
   nullable    = false

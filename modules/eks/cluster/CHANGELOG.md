@@ -1,4 +1,23 @@
-## Components PR [#1069](https://github.com/cloudposse/terraform-aws-components/pull/1069)
+## Release 1.468.0
+
+PR [#1072](https://github.com/cloudposse/terraform-aws-components/pull/1072)
+
+Bugfix:
+
+- Correctly map AWS SSO Permission Sets referenced by `aws_sso_permission_sets_rbac` to IAM Role ARNs.
+- Broken in Release 1.431.1: Update to use AWS Auth API
+
+## Release 1.467.0
+
+PR [#1071](https://github.com/cloudposse/terraform-aws-components/pull/1071)
+
+Bugfix: Update `cloudposse/eks-node-group/aws` to v3.0.1.
+
+- Fixes failure to create userdata for AL2 and Windows when using it to run `bootstrap.sh`.
+
+## Release 1.465.0
+
+Components PR [#1069](https://github.com/cloudposse/terraform-aws-components/pull/1069)
 
 Update `cloudposse/eks-node-group/aws` to v3.0.0
 
@@ -24,7 +43,9 @@ script.
 This support should be considered an `alpha` version, as it may change when support for Amazon Linux 2023 is added, and
 does not work with Bottlerocket.
 
-## Breaking Changes: Components PR [#1033](https://github.com/cloudposse/terraform-aws-components/pull/1033)
+## Release 1.431.1: Breaking Changes
+
+Components PR [#1033](https://github.com/cloudposse/terraform-aws-components/pull/1033)
 
 ### Major Breaking Changes
 
@@ -117,18 +138,18 @@ rakkess
 See this error:
 
 ```plaintext
-To work with module.eks_cluster.kubernetes_config_map.aws_auth_ignore_changes[0] (orphan) its original provider configuration
+To work with module.eks_cluster.kubernetes_config_map.aws_auth[0] (orphan) its original provider configuration
 ```
 
 Note, in other documentation, the exact "address" of the orphaned resource may be different, and the documentation may
 say to refer to the address of the resource in the error message. In this case, because we are using this component as
-the root module, the address should be exactly as shown above. (Possibly ending with `aws_auth[0]` instead of
-`aws_auth_ignore_changes[0]`.)
+the root module, the address should be exactly as shown above. (Possibly ending with `aws_auth_ignore_changes[0]`
+instead of `aws_auth[0]`.)
 
 3. Remove the orphaned resource from the state file with
 
 ```
-atmos terraform state rm eks/cluster 'module.eks_cluster.kubernetes_config_map.aws_auth_ignore_changes[0]' -s <stack_name>
+atmos terraform state rm eks/cluster 'module.eks_cluster.kubernetes_config_map.aws_auth[0]' -s <stack_name>
 ```
 
 4. `atmos terraform plan eks/cluster -s <stack_name>`

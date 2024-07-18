@@ -1,23 +1,24 @@
 authSecret:
   create: false
-  name: controller-manager
+  # Use default name, or set via var.existing_kubernetes_secret_name
 scope:
   # If true, the controller will only watch custom resources in a single namespace,
   # which by default is the namespace the controller is in.
   # This provides the ability to run multiple controllers in different namespaces
   # with different TOKENS to get around GitHub API rate limits, among other things.
   singleNamespace: true
-syncPeriod: 120s
+# syncPeriod sets the period in which the controller reconciles the desired runners count.
+# The default value is 60 seconds.
+# syncPeriod: 120s
 
 githubWebhookServer:
   enabled: false
-  syncPeriod: 120s
   secret:
     # Webhook secret, used to authenticate incoming webhook events from GitHub
     # When using Sops, stored in same SopsSecret as authSecret under key `github_webhook_secret_token`
+    # with name set via var.existing_kubernetes_secret_name. Otherwise, use default name.
     enabled: true
     create: false
-    name: "controller-manager"
   useRunnerGroupsVisibility: false
   ingress:
     enabled: false
