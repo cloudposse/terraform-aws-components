@@ -27,6 +27,7 @@ locals {
 
 locals {
   trusted_github_repos_regexp = "^(?:(?P<org>[^://]*)\\/)?(?P<repo>[^://]*):?(?P<branch>[^://]*)?$"
+
   trusted_github_repos_sub    = [for r in var.trusted_github_repos : regex(local.trusted_github_repos_regexp, r)]
 
   github_repos_sub = [
