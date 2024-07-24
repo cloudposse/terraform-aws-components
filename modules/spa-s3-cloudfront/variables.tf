@@ -66,6 +66,29 @@ variable "s3_object_ownership" {
   description = "Specifies the S3 object ownership control on the origin bucket. Valid values are `ObjectWriter`, `BucketOwnerPreferred`, and 'BucketOwnerEnforced'."
 }
 
+variable "s3_origins" {
+  type = list(object({
+    domain_name = string
+    origin_id   = string
+    origin_path = string
+    s3_origin_config = object({
+      origin_access_identity = string
+    })
+  }))
+  default     = []
+  description = <<-EOT
+    A list of S3 [origins](https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments) (in addition to the one created by this component) for this distribution.
+    S3 buckets configured as websites are `custom_origins`, not `s3_origins`.
+    Specifying `s3_origin_config.origin_access_identity` as `null` or `""` will have it translated to the `origin_access_identity` used by the origin created by this component.
+    EOT
+}
+
+variable "origin_bucket" {
+  type        = string
+  default     = null
+  description = "Name of an existing S3 bucket to use as the origin. If this is not provided, this component will create a new s3 bucket using `var.name` and other context related inputs"
+}
+
 variable "origin_s3_access_logging_enabled" {
   type        = bool
   default     = null
