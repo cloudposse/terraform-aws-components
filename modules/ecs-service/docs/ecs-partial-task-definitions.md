@@ -75,7 +75,7 @@ This also means that when something goes wrong, it becomes harder to troubleshoo
 
    ```yaml
    components:
-     Terraform:
+     terraform:
        s3-bucket/defaults:
          metadata:
            type: abstract
@@ -168,32 +168,32 @@ This also means that when something goes wrong, it becomes harder to troubleshoo
    repository and calling them from the application repository. The application repository should only contain the
    workflows `main-branch.yaml`, `release.yaml` and `feature-branch.yml`.
 
-   <br/>To enable Partial Task Definitions in the workflows, the call to
-   [`cloudposse/github-action-run-ecspresso` (link)](https://github.com/cloudposse-examples/app-on-ecs/blob/main/.github/workflows/workflow-cd-ecspresso.yml#L133-L147)
-   should have the input `mirror_to_s3_bucket` set to the S3 bucket name. the variable `use_partial_taskdefinition`
-   should be set to `'true'`
+<br/>To enable Partial Task Definitions in the workflows, the call to
+[`cloudposse/github-action-run-ecspresso` (link)](https://github.com/cloudposse-examples/app-on-ecs/blob/main/.github/workflows/workflow-cd-ecspresso.yml#L133-L147)
+should have the input `mirror_to_s3_bucket` set to the S3 bucket name. the variable `use_partial_taskdefinition` should
+be set to `'true'`
 
-     <details><summary> Example GitHub Action Step </summary>
+  <details><summary> Example GitHub Action Step </summary>
 
-   ```yaml
-   - name: Deploy
-     uses: cloudposse/github-action-deploy-ecspresso@0.6.0
-     continue-on-error: true
-     if: ${{ steps.db_migrate.outcome != 'failure' }}
-     id: deploy
-     with:
-       image: ${{ steps.image.outputs.out }}
-       image-tag: ${{ inputs.tag }}
-       region: ${{ steps.environment.outputs.region }}
-       operation: deploy
-       debug: false
-       cluster: ${{ steps.environment.outputs.cluster }}
-       application: ${{ steps.environment.outputs.name }}
-       taskdef-path: ${{ inputs.path }}
-       mirror_to_s3_bucket: ${{ steps.environment.outputs.s3-bucket }}
-       use_partial_taskdefinition: "true"
-       timeout: 10m
-   ```
+```yaml
+- name: Deploy
+  uses: cloudposse/github-action-deploy-ecspresso@0.6.0
+  continue-on-error: true
+  if: ${{ steps.db_migrate.outcome != 'failure' }}
+  id: deploy
+  with:
+    image: ${{ steps.image.outputs.out }}
+    image-tag: ${{ inputs.tag }}
+    region: ${{ steps.environment.outputs.region }}
+    operation: deploy
+    debug: false
+    cluster: ${{ steps.environment.outputs.cluster }}
+    application: ${{ steps.environment.outputs.name }}
+    taskdef-path: ${{ inputs.path }}
+    mirror_to_s3_bucket: ${{ steps.environment.outputs.s3-bucket }}
+    use_partial_taskdefinition: "true"
+    timeout: 10m
+```
 
    </details>
 
