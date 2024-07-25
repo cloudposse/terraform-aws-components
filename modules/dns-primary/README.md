@@ -93,7 +93,9 @@ components:
                 YourVeryLongStringGoesHere
 ```
 
-:::info Use the [acm](https://docs.cloudposse.com/components/library/aws/acm) component for more advanced certificate
+:::info
+
+Use the [acm](https://docs.cloudposse.com/components/library/aws/acm) component for more advanced certificate
 requirements.
 
 :::
