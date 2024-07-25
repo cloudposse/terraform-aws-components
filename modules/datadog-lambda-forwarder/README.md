@@ -154,7 +154,7 @@ components:
 
 ## References
 
-- Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys
+- Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys)
 - [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/datadog-lambda-forwarder) -
   Cloud Posse's upstream component
 
