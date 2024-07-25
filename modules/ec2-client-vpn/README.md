@@ -86,7 +86,9 @@ A browser will launch and allow you to connect to the VPN.
     client vpn is deployed (e.g. `ue2-corp`)
 1.  Use `nmap` to test if the port is `open`. If the port is `filtered` then it's not open.
 
-        nmap -p <PORT> <HOST>
+```console
+nmap -p <PORT> <HOST>
+```
 
 Successful tests have been seen with MSK and RDS.
 

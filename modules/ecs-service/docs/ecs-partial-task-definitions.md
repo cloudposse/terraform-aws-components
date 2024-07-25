@@ -71,11 +71,13 @@ This also means that when something goes wrong, it becomes harder to troubleshoo
 
    <br/>This bucket should be in the same account as the ECS Cluster.
 
-   <br/><details><summary>S3 Bucket Default Definition</summary>
+   <br/>
+   <details>
+   <summary>S3 Bucket Default Definition</summary>
 
    ```yaml
    components:
-     Terraform:
+     terraform:
        s3-bucket/defaults:
          metadata:
            type: abstract
@@ -114,7 +116,7 @@ This also means that when something goes wrong, it becomes harder to troubleshoo
                noncurrent_version_expiration: {}
    ```
 
-    </details>
+   </details>
 
    ```yaml
    import:
@@ -173,7 +175,8 @@ This also means that when something goes wrong, it becomes harder to troubleshoo
    should have the input `mirror_to_s3_bucket` set to the S3 bucket name. the variable `use_partial_taskdefinition`
    should be set to `'true'`
 
-     <details><summary> Example GitHub Action Step </summary>
+   <details>
+   <summary> Example GitHub Action Step </summary>
 
    ```yaml
    - name: Deploy

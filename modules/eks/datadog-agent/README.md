@@ -105,8 +105,11 @@ for `<integration name>.yaml`.
 
 #### Sample Yaml
 
-:::caution The key of a filename must match datadog docs, which is `<INTEGRATION_NAME>.yaml`
+:::caution
+
+The key of a filename must match datadog docs, which is `<INTEGRATION_NAME>.yaml`
 [Datadog Cluster Checks](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files)
+
 :::
 
 Cluster Checks **can** be used for external URL testing (loadbalancer endpoints), whereas annotations **must** be used
