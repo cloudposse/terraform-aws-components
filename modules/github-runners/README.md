@@ -2,7 +2,9 @@
 
 This component is responsible for provisioning EC2 instances for GitHub runners.
 
-:::info We also have a similar component based on
+:::info
+
+We also have a similar component based on
 [actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller) for Kubernetes.
 
 :::
@@ -177,9 +179,11 @@ permissions “mode” for Self-hosted runners to Read-Only. The instructions fo
 
 ### Creating Registration Token
 
-:::info We highly recommend using a GitHub Application with the github-action-token-rotator module to generate the
-Registration Token. This will ensure that the token is rotated and that the token is stored in SSM Parameter Store
-encrypted with KMS.
+:::info
+
+We highly recommend using a GitHub Application with the github-action-token-rotator module to generate the Registration
+Token. This will ensure that the token is rotated and that the token is stored in SSM Parameter Store encrypted with
+KMS.
 
 :::
 
