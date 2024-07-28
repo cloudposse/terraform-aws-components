@@ -2,7 +2,7 @@
 content: |-
   {{- $context_variables := list "context" "enabled" "namespace" "tenant" "environment" "stage" "name" "delimiter" "attributes" "tags" "additional_tag_map" "label_order" "regex_replace_chars" "id_length_limit" "label_key_case" "label_value_case" "descriptor_formats" "labels_as_tags" -}}
   {{- define "variableDescription" -}}
-  ### `{{ .Name }}`{{ if lt (len (split "\n" (tostring .Type))) 2 }} (`{{ tostring .Type }}`){{end}} <i>{{ ternary .Required "required" "optional" }}</i>{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}
+  ### `{{ .Name }}`{{ if lt (len (split "\n" (tostring .Type))) 2 }} (`{{ tostring .Type }}`){{end}} <i>{{ ternary .Required "required" "optional" }}</i>{{ if contains "OBSOLETE: " (tostring .Description) }} <img src="https://img.shields.io/badge/OBSOLETE-f44336.svg?style=for-the-badge"/>{{ end }}
 
   {{ $lines := regexSplit "\n" (tostring .Description | replace "OBSOLETE: " "") -1 -}}
   {{- range $lines }}
@@ -118,7 +118,7 @@ content: |-
 
   <dl>
   {{- range .Module.Outputs }}
-    <dt><code>{{ .Name }}</code>{{ if contains "OBSOLETE: " (tostring .Description) }} <strong>OBSOLETE</strong>{{ end }}</dt>
+    <dt><code>{{ .Name }}</code>{{ if contains "OBSOLETE: " (tostring .Description) }} <img src="https://img.shields.io/badge/OBSOLETE-f44336.svg?style=for-the-badge"/>{{ end }}</dt>
     <dd>
 
     {{ $lines := regexSplit "\n" (tostring .Description | replace "OBSOLETE: " "" | default "n/a" ) -1 -}}
