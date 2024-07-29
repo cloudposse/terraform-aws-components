@@ -1,9 +1,9 @@
 ---
 title: "Component: `glue/iam`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/glue/iam
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component provisions IAM roles for AWS Glue.

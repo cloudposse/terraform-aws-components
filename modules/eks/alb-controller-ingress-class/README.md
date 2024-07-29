@@ -1,9 +1,10 @@
 ---
 title: "Component: `eks/alb-controller-ingress-class`"
 tags:
-  - component
+  - component/eks/alb-controller-ingress-class
   - layer/eks
-  - aws
+  - provider/aws
+  - provider/helm
 ---
 
 This component deploys a Kubernetes `IngressClass` resource for the AWS Load Balancer Controller. This is not often

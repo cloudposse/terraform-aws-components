@@ -1,9 +1,9 @@
 ---
 title: "Component: `dms/iam`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/dms/iam
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component provisions IAM roles required for DMS.

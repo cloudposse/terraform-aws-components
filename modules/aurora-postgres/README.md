@@ -1,9 +1,9 @@
 ---
 title: "Component: `aurora-postgres`"
 tags:
-  - component
+  - component/aurora-postgres
   - layer/data
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning Aurora Postgres RDS clusters. It seeds relevant database information

@@ -1,9 +1,9 @@
 ---
 title: "Component: `github-action-token-rotator`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/github-action-token-rotator
+  - layer/github
+  - provider/aws
 ---
 
 This component is responsible for provisioning

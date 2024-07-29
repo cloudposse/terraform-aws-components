@@ -1,9 +1,9 @@
 ---
 title: "Component: `aws-backup`"
 tags:
-  - component
+  - component/aws-backup
   - layer/data
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning an AWS Backup Plan. It creates a schedule for backing up given ARNs.

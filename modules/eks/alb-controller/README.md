@@ -1,9 +1,10 @@
 ---
 title: "Component: `eks/alb-controller`"
 tags:
-  - component
+  - component/eks/alb-controller
   - layer/eks
-  - aws
+  - provider/aws
+  - provider/helm
 ---
 
 This component creates a Helm release for

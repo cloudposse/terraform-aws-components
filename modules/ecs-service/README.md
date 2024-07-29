@@ -1,9 +1,9 @@
 ---
 title: "Component: `ecs-service`"
 tags:
-  - component
+  - component/ecs-service
   - layer/ecs
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for creating an ECS service.

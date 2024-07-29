@@ -1,9 +1,9 @@
 ---
 title: "Component: `ses`"
 tags:
-  - component
+  - component/ses
   - layer/addons
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning SES to act as an SMTP gateway. The credentials used for sending email can

@@ -1,9 +1,9 @@
 ---
 title: "Component: `athena`"
 tags:
-  - component
+  - component/athena
   - layer/data
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning an Amazon Athena workgroup, databases, and related resources.

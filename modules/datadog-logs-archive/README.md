@@ -1,9 +1,10 @@
 ---
 title: "Component: `datadog-logs-archive`"
 tags:
-  - component
-  - layer/monitoring
-  - aws
+  - component/datadog-logs-archive
+  - layer/datadog
+  - provider/aws
+  - provider/datadog
 ---
 
 This component is responsible for provisioning Datadog Log Archives. It creates a single log archive pipeline for each

@@ -1,9 +1,10 @@
 ---
 title: "Component: `eks/metrics-server`"
 tags:
-  - component
+  - component/eks/metrics-server
   - layer/eks
-  - aws
+  - provider/aws
+  - provider/helm
 ---
 
 This component creates a Helm release for [metrics-server](https://github.com/kubernetes-sigs/metrics-server) is a

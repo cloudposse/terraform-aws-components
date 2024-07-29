@@ -2,8 +2,8 @@
 title: "Component: `spacelift`"
 tags:
   - layer/spacelift
-  - aws
-  - spacelift
+  - provider/aws
+  - provider/spacelift
 ---
 
 These components are responsible for setting up Spacelift and include three components: `spacelift/admin-stack`,

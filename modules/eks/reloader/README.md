@@ -1,9 +1,10 @@
 ---
 title: "Component: `eks/reloader`"
 tags:
-  - component
+  - component/eks/reloader
   - layer/eks
-  - aws
+  - provider/aws
+  - provider/helm
 ---
 
 This component installs the [Stakater Reloader](https://github.com/stakater/Reloader) for EKS clusters. `reloader` can

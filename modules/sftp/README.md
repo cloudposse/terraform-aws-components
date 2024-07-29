@@ -1,9 +1,9 @@
 ---
 title: "Component: `sftp`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/sftp
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component is responsible for provisioning SFTP Endpoints.

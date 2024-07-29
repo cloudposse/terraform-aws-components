@@ -1,9 +1,9 @@
 ---
 title: "Component: `kinesis-stream`"
 tags:
-  - component
+  - component/kinesis-stream
   - layer/addons
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning an Amazon Kinesis data stream.

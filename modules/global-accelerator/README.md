@@ -1,9 +1,9 @@
 ---
 title: "Component: `global-accelerator`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/global-accelerator
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component is responsible for provisioning AWS Global Accelerator and its listeners.

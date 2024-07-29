@@ -1,9 +1,9 @@
 ---
 title: "Component: `github-runners`"
 tags:
-  - component
+  - component/github-runners
   - layer/github
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning EC2 instances for GitHub runners.

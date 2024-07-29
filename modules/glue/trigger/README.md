@@ -1,9 +1,9 @@
 ---
 title: "Component: `glue/trigger`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/glue/trigger
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component provisions Glue triggers.

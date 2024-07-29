@@ -1,9 +1,9 @@
 ---
 title: "Component: `aws-config`"
 tags:
-  - component
-  - layer/compliance
-  - aws
+  - component/aws-config
+  - layer/security-and-compliance
+  - provider/aws
 ---
 
 This component is responsible for configuring AWS Config.

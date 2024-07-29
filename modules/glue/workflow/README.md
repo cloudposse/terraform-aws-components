@@ -1,9 +1,9 @@
 ---
 title: "Component: `glue/workflow`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/glue/workflow
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component provisions Glue workflows.

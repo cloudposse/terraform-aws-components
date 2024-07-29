@@ -1,9 +1,9 @@
 ---
 title: "Component: `api-gateway-account-settings`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/api-gateway-account-settings
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component is responsible for setting the global, regional settings required to allow API Gateway to write to

@@ -1,9 +1,10 @@
 ---
 title: "Component: `eks/karpenter-node-pool`"
 tags:
-  - component
+  - component/eks/karpenter-node-pool
   - layer/eks
-  - aws
+  - provider/aws
+  - provider/helm
 ---
 
 This component deploys [Karpenter NodePools](https://karpenter.sh/docs/concepts/nodepools/) to an EKS cluster.

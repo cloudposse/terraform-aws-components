@@ -1,9 +1,10 @@
 ---
 title: "Component: `eks/aws-node-termination-handler`"
 tags:
-  - component
+  - component/eks/aws-node-termination-handler
   - layer/eks
-  - aws
+  - provider/aws
+  - provider/helm
 ---
 
 This component creates a Helm release for

@@ -1,10 +1,10 @@
 ---
 title: "Component: `snowflake-account`"
 tags:
-  - component
-  - layer/TODO
-  - aws
-  - snowflake
+  - component/snowflake-account
+  - layer/unassigned
+  - provider/aws
+  - provider/snowflake
 ---
 
 This component sets up the requirements for all other Snowflake components, including creating the Terraform service

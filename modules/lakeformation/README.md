@@ -1,9 +1,9 @@
 ---
 title: "Component: `lakeformation`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/lakeformation
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component is responsible for provisioning Amazon Lake Formation resources.

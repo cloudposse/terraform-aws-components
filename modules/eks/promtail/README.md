@@ -1,9 +1,10 @@
 ---
 title: "Component: `eks/promtail`"
 tags:
-  - component
-  - layer/monitoring
-  - aws
+  - component/eks/promtail
+  - layer/grafana
+  - provider/aws
+  - provider/helm
 ---
 
 Promtail is an agent which ships the contents of local logs to a Loki instance.

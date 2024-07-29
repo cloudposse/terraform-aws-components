@@ -1,9 +1,10 @@
 ---
 title: "Component: `account`"
 tags:
-  - component
-  - layer/baseline
-  - aws
+  - component/account
+  - layer/accounts
+  - provider/aws
+  - privileged
 ---
 
 This component is responsible for provisioning the full account hierarchy along with Organizational Units (OUs). It

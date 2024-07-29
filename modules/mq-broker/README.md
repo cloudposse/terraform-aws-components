@@ -1,9 +1,9 @@
 ---
 title: "Component: `mq-broker`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/mq-broker
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component is responsible for provisioning an AmazonMQ broker and corresponding security group.

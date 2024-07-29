@@ -1,9 +1,9 @@
 ---
 title: "Component: `eks/cluster`"
 tags:
-  - component
+  - component/eks/cluster
   - layer/eks
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning an end-to-end EKS Cluster, including managed node groups and Fargate

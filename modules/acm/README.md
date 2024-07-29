@@ -1,12 +1,12 @@
 ---
 title: "Component: `acm`"
 tags:
-  - component
+  - component/acm
   - layer/network
   - layer/eks
   - layer/ecs
   - layer/release_engineering
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for requesting an ACM certificate for a domain and adding a CNAME record to the DNS zone

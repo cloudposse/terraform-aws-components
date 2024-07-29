@@ -1,9 +1,9 @@
 ---
 title: "Component: `rds`"
 tags:
-  - component
+  - component/rds
   - layer/data
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning an RDS instance. It seeds relevant database information (hostnames,

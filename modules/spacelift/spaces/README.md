@@ -1,10 +1,10 @@
 ---
 title: "Component: `spacelift/spaces`"
 tags:
-  - component
+  - component/spacelift/spaces
   - layer/spacelift
-  - aws
-  - spacelift
+  - provider/aws
+  - provider/spacelift
 ---
 
 This component is responsible for creating and managing the [spaces](https://docs.spacelift.io/concepts/spaces/) in the

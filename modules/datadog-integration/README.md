@@ -1,9 +1,10 @@
 ---
 title: "Component: `datadog-integration`"
 tags:
-  - component
-  - layer/monitoring
-  - aws
+  - component/datadog-integration
+  - layer/datadog
+  - provider/aws
+  - provider/datadog
 ---
 
 This component is responsible for provisioning Datadog AWS integrations. It depends on the `datadog-configuration`

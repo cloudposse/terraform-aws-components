@@ -1,9 +1,9 @@
 ---
 title: "Component: `mwaa`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/mwaa
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component provisions Amazon managed workflows for Apache Airflow.

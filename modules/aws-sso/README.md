@@ -1,9 +1,10 @@
 ---
 title: "Component: `aws-sso`"
 tags:
-  - component
+  - component/aws-sso
   - layer/identity
-  - aws
+  - provider/aws
+  - privileged
 ---
 
 This component is responsible for creating [AWS SSO Permission Sets][1] and creating AWS SSO Account Assignments, that

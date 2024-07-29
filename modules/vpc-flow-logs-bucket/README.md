@@ -1,9 +1,9 @@
 ---
 title: "Component: `vpc-flow-logs-bucket`"
 tags:
-  - component
+  - component/vpc-flow-logs-bucket
   - layer/network
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning an encrypted S3 bucket which is configured to receive VPC Flow Logs.

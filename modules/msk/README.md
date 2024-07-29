@@ -1,9 +1,9 @@
 ---
 title: "Component: `msk`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/msk
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component is responsible for provisioning [Amazon Managed Streaming](https://aws.amazon.com/msk/) clusters for

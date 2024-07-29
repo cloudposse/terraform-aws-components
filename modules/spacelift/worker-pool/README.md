@@ -1,10 +1,10 @@
 ---
 title: "Component: `spacelift/worker-pool`"
 tags:
-  - component
+  - component/spacelift/worker-pool
   - layer/spacelift
-  - aws
-  - spacelift
+  - provider/aws
+  - provider/spacelift
 ---
 
 This component is responsible for provisioning Spacelift worker pools.

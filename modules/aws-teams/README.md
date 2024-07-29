@@ -1,9 +1,10 @@
 ---
 title: "Component: `aws-teams`"
 tags:
-  - component
+  - component/aws-teams
   - layer/identity
-  - aws
+  - provider/aws
+  - privileged
 ---
 
 This component is responsible for provisioning all primary user and system roles into the centralized identity account.

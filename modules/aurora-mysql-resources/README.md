@@ -1,9 +1,9 @@
 ---
 title: "Component: `aurora-mysql-resources`"
 tags:
-  - component
+  - component/aurora-mysql-resources
   - layer/data
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning Aurora MySQL resources: additional databases, users, permissions, grants,

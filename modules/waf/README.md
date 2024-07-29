@@ -1,9 +1,9 @@
 ---
 title: "Component: `waf`"
 tags:
-  - component
-  - layer/compliance
-  - aws
+  - component/waf
+  - layer/addons
+  - provider/aws
 ---
 
 This component is responsible for provisioning an AWS Web Application Firewall (WAF) with an associated managed rule

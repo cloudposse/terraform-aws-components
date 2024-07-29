@@ -1,9 +1,9 @@
 ---
 title: "Component: `alb`"
 tags:
-  - component
+  - component/alb
   - layer/ecs
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning a generic Application Load Balancer. It depends on the `vpc` and

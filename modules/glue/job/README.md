@@ -1,9 +1,9 @@
 ---
 title: "Component: `glue/job`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/glue/job
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component provisions Glue jobs.

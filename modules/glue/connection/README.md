@@ -1,9 +1,9 @@
 ---
 title: "Component: `glue/connection`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/glue/connection
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component provisions Glue connections.

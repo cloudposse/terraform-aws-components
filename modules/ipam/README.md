@@ -1,9 +1,9 @@
 ---
 title: "Component: `ipam`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/ipam
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component is responsible for provisioning IPAM per region in a centralized account.

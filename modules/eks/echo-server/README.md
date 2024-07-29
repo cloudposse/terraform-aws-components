@@ -1,9 +1,10 @@
 ---
 title: "Component: `eks/echo-server`"
 tags:
-  - component
+  - component/eks/echo-server
   - layer/eks
-  - aws
+  - provider/aws
+  - provider/echo-server
 ---
 
 This is copied from

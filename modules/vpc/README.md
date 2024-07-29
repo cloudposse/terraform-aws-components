@@ -1,9 +1,9 @@
 ---
 title: "Component: `vpc`"
 tags:
-  - component
+  - component/vpc
   - layer/network
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning a VPC and corresponding Subnets. Additionally, VPC Flow Logs can

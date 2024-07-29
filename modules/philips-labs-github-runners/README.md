@@ -1,9 +1,9 @@
 ---
 title: "Component: `philips-labs-github-runners`"
 tags:
-  - component
+  - component/philips-labs-github-runners
   - layer/github
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning the surrounding infrastructure for the github runners.

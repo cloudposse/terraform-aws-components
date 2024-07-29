@@ -1,9 +1,9 @@
 ---
 title: "Component: `dns-delegated`"
 tags:
-  - component
+  - component/dns-delegated
   - layer/network
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning a DNS zone which delegates nameservers to the DNS zone in the primary DNS

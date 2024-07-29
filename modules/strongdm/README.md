@@ -1,9 +1,9 @@
 ---
 title: "Component: `strongdm`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/strongdm
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component provisions [strongDM](https://www.strongdm.com/) gateway, relay and roles

@@ -1,9 +1,9 @@
 ---
 title: "Component: `dns-primary`"
 tags:
-  - component
+  - component/dns-primary
   - layer/network
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning the primary DNS zones into an AWS account. By convention, we typically

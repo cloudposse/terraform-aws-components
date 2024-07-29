@@ -1,9 +1,9 @@
 ---
 title: "Component: `sso-saml-provider`"
 tags:
-  - component
-  - layer/release_engineering
-  - aws
+  - component/sso-saml-provider
+  - layer/software-delivery
+  - provider/aws
 ---
 
 This component reads sso credentials from SSM Parameter store and provides them as outputs

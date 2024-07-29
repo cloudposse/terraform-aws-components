@@ -1,9 +1,9 @@
 ---
 title: "Component: `glue/crawler`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/glue/crawler
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component provisions Glue crawlers.

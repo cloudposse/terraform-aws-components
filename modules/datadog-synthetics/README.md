@@ -1,9 +1,10 @@
 ---
 title: "Component: `datadog-synthetics`"
 tags:
-  - component
-  - layer/monitoring
-  - aws
+  - component/datadog-synthetics
+  - layer/datadog
+  - provider/aws
+  - provider/datadog
 ---
 
 This component provides the ability to implement

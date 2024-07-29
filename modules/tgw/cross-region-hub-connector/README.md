@@ -1,9 +1,9 @@
 ---
 title: "Component: `tgw/cross-region-hub-connector`"
 tags:
-  - component
+  - component/tgw/cross-region-hub-connector
   - layer/network
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning an

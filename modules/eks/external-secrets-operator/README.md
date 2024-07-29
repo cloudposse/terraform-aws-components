@@ -1,9 +1,10 @@
 ---
 title: "Component: `eks/external-secrets-operator`"
 tags:
-  - component
+  - component/eks/external-secrets-operator
   - layer/eks
-  - aws
+  - provider/aws
+  - provider/helm
 ---
 
 This component (ESO) is used to create an external `SecretStore` configured to synchronize secrets from AWS SSM

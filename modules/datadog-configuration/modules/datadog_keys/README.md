@@ -1,9 +1,10 @@
 ---
 title: "Component: `datadog_keys`"
 tags:
-  - component
-  - layer/monitoring
-  - datadog
+  - component/datadog_keys
+  - layer/datadog
+  - provider/datadog
+  - provider/aws
 ---
 
 Useful submodule for other modules to quickly configure the datadog provider

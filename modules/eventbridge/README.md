@@ -1,9 +1,9 @@
 ---
 title: "Component: `eventbridge`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/eventbridge
+  - layer/unassigned
+  - provider/aws
 ---
 
 The `eventbridge` component is a Terraform module that defines a CloudWatch EventBridge rule. The rule is pointed at

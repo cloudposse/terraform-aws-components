@@ -1,9 +1,9 @@
 ---
 title: "Component: `network-firewall`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/network-firewall
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component is responsible for provisioning [AWS Network Firewall](https://aws.amazon.com/network-firewal) resources,

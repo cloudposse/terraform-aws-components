@@ -1,9 +1,9 @@
 ---
 title: "Component: `github-webhook`"
 tags:
-  - component
-  - layer/release_engineering
-  - aws
+  - component/github-webhook
+  - layer/software-delivery
+  - provider/aws
 ---
 
 This component provisions a GitHub webhook for a single GitHub repository.

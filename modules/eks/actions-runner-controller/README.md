@@ -1,9 +1,10 @@
 ---
 title: "Component: `eks/actions-runner-controller`"
 tags:
-  - component
+  - component/eks/actions-runner-controller
   - layer/github
-  - aws
+  - provider/aws
+  - provider/helm
 ---
 
 This component creates a Helm release for

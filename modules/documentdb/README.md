@@ -1,9 +1,9 @@
 ---
 title: "Component: `documentdb`"
 tags:
-  - component
+  - component/documentdb
   - layer/data
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning DocumentDB clusters.

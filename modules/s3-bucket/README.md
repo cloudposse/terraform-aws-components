@@ -1,9 +1,10 @@
 ---
 title: "Component: `s3-bucket`"
 tags:
-  - component
+  - component/s3-bucket
   - layer/addons
-  - aws
+  - layer/gitops
+  - provider/aws
 ---
 
 This component is responsible for provisioning S3 buckets.

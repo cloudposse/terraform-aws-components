@@ -1,9 +1,9 @@
 ---
 title: "Component: `glue/schema`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/glue/schema
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component provisions Glue schemas.

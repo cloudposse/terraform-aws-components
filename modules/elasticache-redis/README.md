@@ -1,9 +1,9 @@
 ---
 title: "Component: `elasticache-redis`"
 tags:
-  - component
+  - component/elasticache-redis
   - layer/data
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning [ElastiCache Redis](https://aws.amazon.com/elasticache/redis/) clusters.

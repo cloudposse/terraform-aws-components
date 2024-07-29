@@ -1,9 +1,9 @@
 ---
 title: "Component: `glue/catalog-table`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/glue/catalog-table
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component provisions Glue catalog tables.

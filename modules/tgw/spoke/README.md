@@ -1,9 +1,9 @@
 ---
 title: "Component: `tgw/spoke`"
 tags:
-  - component
+  - component/tgw/spoke
   - layer/network
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning [AWS Transit Gateway](https://aws.amazon.com/transit-gateway) attachments

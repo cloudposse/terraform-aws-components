@@ -1,9 +1,9 @@
 ---
 title: "Component: `guardduty`"
 tags:
-  - component
-  - layer/compliance
-  - aws
+  - component/guardduty
+  - layer/security-and-compliance
+  - provider/aws
 ---
 
 This component is responsible for configuring GuardDuty within an AWS Organization.

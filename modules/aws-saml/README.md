@@ -1,9 +1,10 @@
 ---
 title: "Component: `aws-saml`"
 tags:
-  - component
+  - component/aws-saml
   - layer/identity
-  - aws
+  - provider/aws
+  - priviliged
 ---
 
 This component is responsible for provisioning SAML metadata into AWS IAM as new SAML providers. Additionally, for an

@@ -1,9 +1,10 @@
 ---
 title: "Component: `tfstate-backend`"
 tags:
-  - component
-  - layer/baseline
-  - aws
+  - component/tfstate-backend
+  - layer/foundation
+  - provider/aws
+  - privileged
 ---
 
 This component is responsible for provisioning an S3 Bucket and DynamoDB table that follow security best practices for

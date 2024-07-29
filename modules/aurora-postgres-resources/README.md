@@ -1,9 +1,9 @@
 ---
 title: "Component: `aurora-postgres-resources`"
 tags:
-  - component
+  - component/aurora-postgres-resources
   - layer/data
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning Aurora Postgres resources: additional databases, users, permissions,

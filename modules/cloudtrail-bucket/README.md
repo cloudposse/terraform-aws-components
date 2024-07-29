@@ -1,9 +1,9 @@
 ---
 title: "Component: `cloudtrail-bucket`"
 tags:
-  - component
-  - layer/baseline
-  - aws
+  - component/cloudtrail-bucket
+  - layer/foundational
+  - provider/aws
 ---
 
 This component is responsible for provisioning a bucket for storing cloudtrail logs for auditing purposes. It's expected

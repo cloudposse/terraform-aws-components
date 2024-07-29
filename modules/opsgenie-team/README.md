@@ -1,9 +1,9 @@
 ---
 title: "Component: `opsgenie-team`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/opsgenie-team
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component is responsible for provisioning Opsgenie teams and related services, rules, schedules.

@@ -1,10 +1,10 @@
 ---
 title: "Component: `efs`"
 tags:
-  - component
+  - component/efs
   - layer/data
   - layer/eks
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning an [EFS](https://aws.amazon.com/efs/) Network File System with KMS

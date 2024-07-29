@@ -1,9 +1,9 @@
 ---
 title: "Component: `aws-inspector2`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/aws-inspector2
+  - layer/security-and-compliance
+  - provider/aws
 ---
 
 This component is responsible for configuring Inspector V2 within an AWS Organization.

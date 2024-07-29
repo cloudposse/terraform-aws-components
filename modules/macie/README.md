@@ -1,9 +1,9 @@
 ---
 title: "Component: `macie`"
 tags:
-  - component
-  - layer/compliance
-  - aws
+  - component/macie
+  - layer/security-and-compliance
+  - provider/aws
 ---
 
 This component is responsible for configuring Macie within an AWS Organization.

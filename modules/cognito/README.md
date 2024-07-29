@@ -1,9 +1,9 @@
 ---
 title: "Component: `cognito`"
 tags:
-  - component
+  - component/cognito
   - layer/addons
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning and managing AWS Cognito resources.

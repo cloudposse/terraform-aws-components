@@ -1,9 +1,9 @@
 ---
 title: "Component: `route53-resolver-dns-firewall`"
 tags:
-  - component
-  - layer/TODO
-  - aws
+  - component/route53-resolver-dns-firewall
+  - layer/unassigned
+  - provider/aws
 ---
 
 This component is responsible for provisioning

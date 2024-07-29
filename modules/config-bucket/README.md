@@ -1,9 +1,9 @@
 ---
 title: "Component: `config-bucket`"
 tags:
-  - component
+  - component/config-bucket
   - layer/compliance
-  - aws
+  - provider/aws
 ---
 
 This module creates an S3 bucket suitable for storing `AWS Config` data.

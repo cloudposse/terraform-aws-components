@@ -1,9 +1,9 @@
 ---
 title: "Component: `iam-service-linked-roles`"
 tags:
-  - component
+  - component/iam-service-linked-roles
   - layer/eks
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for provisioning

@@ -1,9 +1,10 @@
 ---
 title: "Component: `eks/loki`"
 tags:
-  - component
-  - layer/monitoring
-  - aws
+  - component/eks/loki
+  - layer/grafana
+  - provider/aws
+  - provider/helm
 ---
 
 Grafana Loki is a set of resources that can be combined into a fully featured logging stack. Unlike other logging

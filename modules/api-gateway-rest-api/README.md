@@ -1,9 +1,9 @@
 ---
 title: "Component: `api-gateway-rest-api`"
 tags:
-  - component
+  - component/api-gateway-rest-api
   - layer/addons
-  - aws
+  - provider/aws
 ---
 
 This component is responsible for deploying an API Gateway REST API.

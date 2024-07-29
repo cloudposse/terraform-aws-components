@@ -1,9 +1,10 @@
 ---
 title: "Component: `cloudwatch-logs`"
 tags:
-  - component
+  - component/cloudwatch-logs
   - layer/baseline
-  - aws
+  - layer/security-and-compliance
+  - provider/aws
 ---
 
 This component is responsible for creation of CloudWatch Log Streams and Log Groups.
