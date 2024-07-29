@@ -1,4 +1,10 @@
-# Component: `glue/job`
+---
+title: "Component: `glue/job`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component provisions Glue jobs.
 

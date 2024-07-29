@@ -1,4 +1,10 @@
-# Component: `bastion`
+---
+title: "Component: `bastion`"
+tags:
+  - component
+  - layer/network
+  - aws
+---
 
 This component is responsible for provisioning a generic Bastion host within an ASG with parameterized `user_data` and
 support for AWS SSM Session Manager for remote access with IAM authentication.

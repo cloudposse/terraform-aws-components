@@ -1,4 +1,10 @@
-# Component: `eks/platform`
+---
+title: "Component: `eks/platform`"
+tags:
+  - component
+  - layer/release_engineering
+  - aws
+---
 
 This component maps another components' outputs into SSM parameter store to declare platform context used by CI/CD
 workflows.

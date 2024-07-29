@@ -1,4 +1,10 @@
-# Component: `eks/cert-manager`
+---
+title: "Component: `eks/cert-manager`"
+tags:
+  - component
+  - layer/eks
+  - aws
+---
 
 This component creates a Helm release for [cert-manager](https://github.com/jetstack/cert-manager) on a Kubernetes
 cluster. [cert-manager](https://github.com/jetstack/cert-manager) is a Kubernetes addon that provisions X.509

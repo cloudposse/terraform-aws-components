@@ -1,4 +1,10 @@
-# Component: `amplify`
+---
+title: "Component: `amplify`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component is responsible for provisioning AWS Amplify apps, backend environments, branches, domain associations,
 and webhooks.

@@ -1,4 +1,11 @@
-# Component: `spacelift/worker-pool`
+---
+title: "Component: `spacelift/worker-pool`"
+tags:
+  - component
+  - layer/spacelift
+  - aws
+  - spacelift
+---
 
 This component is responsible for provisioning Spacelift worker pools.
 

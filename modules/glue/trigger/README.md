@@ -1,4 +1,10 @@
-# Component: `glue/trigger`
+---
+title: "Component: `glue/trigger`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component provisions Glue triggers.
 

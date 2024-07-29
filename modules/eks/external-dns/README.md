@@ -1,4 +1,10 @@
-# Component: `eks/external-dns`
+---
+title: "Component: `eks/external-dns`"
+tags:
+  - component
+  - layer/eks
+  - aws
+---
 
 This component creates a Helm deployment for [external-dns](https://github.com/bitnami/bitnami-docker-external-dns) on a
 Kubernetes cluster. [external-dns](https://github.com/bitnami/bitnami-docker-external-dns) is a Kubernetes addon that

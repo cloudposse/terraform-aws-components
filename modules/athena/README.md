@@ -1,4 +1,10 @@
-# Component: `athena`
+---
+title: "Component: `athena`"
+tags:
+  - component
+  - layer/data
+  - aws
+---
 
 This component is responsible for provisioning an Amazon Athena workgroup, databases, and related resources.
 

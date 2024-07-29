@@ -1,4 +1,11 @@
-# Component: `datadog-monitor`
+---
+title: "Component: `datadog-monitor`"
+tags:
+  - component
+  - layer/monitoring
+  - aws
+  - datadog
+---
 
 This component is responsible for provisioning Datadog monitors and assigning Datadog roles to the monitors.
 

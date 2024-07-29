@@ -1,4 +1,11 @@
-# Component: `gitops`
+---
+title: "Component: `gitops`"
+tags:
+  - component
+  - layer/gitops
+  - aws
+  - deprecated
+---
 
 This component is used to deploy GitHub OIDC roles for accessing the `gitops` Team. We use this team to run Terraform
 from GitHub Actions.

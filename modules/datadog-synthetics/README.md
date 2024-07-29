@@ -1,4 +1,10 @@
-# Component: `datadog-synthetics`
+---
+title: "Component: `datadog-synthetics`"
+tags:
+  - component
+  - layer/monitoring
+  - aws
+---
 
 This component provides the ability to implement
 [Datadog synthetic tests](https://docs.datadoghq.com/synthetics/guide/).

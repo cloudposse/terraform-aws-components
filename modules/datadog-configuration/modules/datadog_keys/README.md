@@ -1,4 +1,10 @@
-# Submodule `datadog_keys`
+---
+title: "Component: `datadog_keys`"
+tags:
+  - component
+  - layer/monitoring
+  - datadog
+---
 
 Useful submodule for other modules to quickly configure the datadog provider
 

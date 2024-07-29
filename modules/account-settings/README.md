@@ -1,11 +1,13 @@
 ---
 title: "Component: `account-settings`"
 tags:
-- component
-- layer/foundation
+  - component
+  - layer/baseline
+  - aws
 ---
 
-This component is responsible for provisioning account level settings: IAM password policy, AWS Account Alias, EBS encryption, and Service Quotas.
+This component is responsible for provisioning account level settings: IAM password policy, AWS Account Alias, EBS
+encryption, and Service Quotas.
 
 ## Usage
 

@@ -1,4 +1,10 @@
-# Component: `eks/alb-controller`
+---
+title: "Component: `eks/alb-controller`"
+tags:
+  - component
+  - layer/eks
+  - aws
+---
 
 This component creates a Helm release for
 [alb-controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) on an EKS cluster.

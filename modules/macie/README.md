@@ -1,4 +1,10 @@
-# Component: `macie`
+---
+title: "Component: `macie`"
+tags:
+  - component
+  - layer/compliance
+  - aws
+---
 
 This component is responsible for configuring Macie within an AWS Organization.
 

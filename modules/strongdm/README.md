@@ -1,4 +1,10 @@
-# Component: `strongdm`
+---
+title: "Component: `strongdm`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component provisions [strongDM](https://www.strongdm.com/) gateway, relay and roles
 

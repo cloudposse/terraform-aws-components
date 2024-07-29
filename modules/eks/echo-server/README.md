@@ -1,4 +1,10 @@
-# Component: `eks/echo-server`
+---
+title: "Component: `eks/echo-server`"
+tags:
+  - component
+  - layer/eks
+  - aws
+---
 
 This is copied from
 [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/echo-server).

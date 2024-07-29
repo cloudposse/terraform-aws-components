@@ -1,4 +1,10 @@
-# Component: `dns-primary`
+---
+title: "Component: `dns-primary`"
+tags:
+  - component
+  - layer/network
+  - aws
+---
 
 This component is responsible for provisioning the primary DNS zones into an AWS account. By convention, we typically
 provision the primary DNS zones in the `dns` account. The primary account for branded zones (e.g. `example.com`),

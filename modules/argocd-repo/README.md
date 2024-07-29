@@ -1,4 +1,10 @@
-# Component: `argocd-repo`
+---
+title: "Component: `argocd-repo`"
+tags:
+  - component
+  - layer/release_engineering
+  - aws
+---
 
 This component is responsible for creating and managing an ArgoCD desired state repository.
 

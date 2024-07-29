@@ -1,4 +1,10 @@
-# Component: `dms/endpoint`
+---
+title: "Component: `dms/endpoint`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component provisions DMS endpoints.
 

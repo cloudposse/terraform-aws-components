@@ -1,4 +1,10 @@
-# Component: `eks/karpenter-node-pool`
+---
+title: "Component: `eks/karpenter-node-pool`"
+tags:
+  - component
+  - layer/eks
+  - aws
+---
 
 This component deploys [Karpenter NodePools](https://karpenter.sh/docs/concepts/nodepools/) to an EKS cluster.
 

@@ -1,4 +1,10 @@
-# Component: `iam-role`
+---
+title: "Component: `iam-role`"
+tags:
+  - component
+  - layer/addons
+  - aws
+---
 
 This component is responsible for provisioning simple IAM roles. If a more complicated IAM role and policy are desired
 then it is better to use a separate component specific to that role.

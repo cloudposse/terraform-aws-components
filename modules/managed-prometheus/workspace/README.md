@@ -1,4 +1,10 @@
-# Component: `managed-prometheus/workspace`
+---
+title: "Component: `managed-prometheus/workspace`"
+tags:
+  - component
+  - layer/monitoring
+  - aws
+---
 
 This component is responsible for provisioning a workspace for Amazon Managed Service for Prometheus, also known as
 Amazon Managed Prometheus (AMP).

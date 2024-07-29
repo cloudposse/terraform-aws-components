@@ -1,4 +1,10 @@
-# Component: `s3-bucket`
+---
+title: "Component: `s3-bucket`"
+tags:
+  - component
+  - layer/addons
+  - aws
+---
 
 This component is responsible for provisioning S3 buckets.
 

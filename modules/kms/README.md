@@ -1,4 +1,10 @@
-# Component: `kms`
+---
+title: "Component: `kms`"
+tags:
+  - component
+  - layer/addons
+  - aws
+---
 
 This component is responsible for provisioning a KMS Key.
 

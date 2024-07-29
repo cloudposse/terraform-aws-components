@@ -1,4 +1,11 @@
-# Component: `datadog-agent`
+---
+title: "Component: `eks/datadog-agent`"
+tags:
+  - component
+  - layer/monitoring
+  - aws
+  - datadog
+---
 
 This component installs the `datadog-agent` for EKS clusters.
 

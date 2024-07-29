@@ -1,4 +1,10 @@
-# Component: `lambda`
+---
+title: "Component: `sso-saml-provider`"
+tags:
+  - component
+  - layer/release_engineering
+  - aws
+---
 
 This component is responsible for provisioning Lambda functions.
 

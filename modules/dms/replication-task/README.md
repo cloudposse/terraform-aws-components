@@ -1,4 +1,10 @@
-# Component: `dms/replication-task`
+---
+title: "Component: `dms/replication-task`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component provisions DMS replication tasks.
 

@@ -1,4 +1,10 @@
-# Component: `github-action-token-rotator`
+---
+title: "Component: `github-action-token-rotator`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component is responsible for provisioning
 [Github Action Token Rotator](https://github.com/cloudposse/terraform-aws-github-action-token-rotator).

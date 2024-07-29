@@ -1,4 +1,10 @@
-# Component: `cross-region-hub-connector`
+---
+title: "Component: `tgw/cross-region-hub-connector`"
+tags:
+  - component
+  - layer/network
+  - aws
+---
 
 This component is responsible for provisioning an
 [AWS Transit Gateway Peering Connection](https://aws.amazon.com/transit-gateway) to connect TGWs from different accounts

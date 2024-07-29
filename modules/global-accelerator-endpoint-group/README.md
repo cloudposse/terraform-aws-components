@@ -1,4 +1,10 @@
-# Component: `global-accelerator`
+---
+title: "Component: `global-accelerator-endpoint-group`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component is responsible for provisioning a Global Accelerator Endpoint Group.
 

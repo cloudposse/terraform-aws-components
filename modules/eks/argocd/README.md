@@ -1,4 +1,10 @@
-# Component: `argocd`
+---
+title: "Component: `eks/argocd`"
+tags:
+  - component
+  - layer/release_engineering
+  - aws
+---
 
 This component is responsible for provisioning [Argo CD](https://argoproj.github.io/cd/).
 

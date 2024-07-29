@@ -1,4 +1,10 @@
-# Component: `dms/replication-instance`
+---
+title: "Component: `dms/replication-instance`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component provisions DMS replication instances.
 

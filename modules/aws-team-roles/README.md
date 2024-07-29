@@ -1,4 +1,10 @@
-# Component: `aws-team-roles`
+---
+title: "Component: `aws-team-roles`"
+tags:
+  - component
+  - layer/identity
+  - aws
+---
 
 This component is responsible for provisioning user and system IAM roles outside the `identity` account. It sets them up
 to be assumed from the "team" roles defined in the `identity` account by [the `aws-teams` component](../aws-teams)

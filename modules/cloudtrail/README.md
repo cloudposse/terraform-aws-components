@@ -1,4 +1,10 @@
-# Component: `cloudtrail`
+---
+title: "Component: `cloudtrail`"
+tags:
+  - component
+  - layer/baseline
+  - aws
+---
 
 This component is responsible for provisioning cloudtrail auditing in an individual account. It's expected to be used
 alongside

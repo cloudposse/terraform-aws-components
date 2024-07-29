@@ -1,4 +1,10 @@
-# Component: `msk/cluster`
+---
+title: "Component: `msk`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component is responsible for provisioning [Amazon Managed Streaming](https://aws.amazon.com/msk/) clusters for
 [Apache Kafka](https://aws.amazon.com/msk/what-is-kafka/).

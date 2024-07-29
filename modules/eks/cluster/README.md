@@ -1,4 +1,10 @@
-# Component: `eks/cluster`
+---
+title: "Component: `eks/cluster`"
+tags:
+  - component
+  - layer/eks
+  - aws
+---
 
 This component is responsible for provisioning an end-to-end EKS Cluster, including managed node groups and Fargate
 profiles.
@@ -191,9 +197,9 @@ components:
               #          Also, it is only supported for AL2 and some Windows AMIs, not BottleRocket or AL2023.
               # Kubernetes docs: https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/
               kubelet_extra_args: >-
-                --kube-reserved cpu=100m,memory=0.6Gi,ephemeral-storage=1Gi
-                --system-reserved cpu=100m,memory=0.2Gi,ephemeral-storage=1Gi
-                --eviction-hard memory.available<200Mi,nodefs.available<10%,imagefs.available<15%
+                --kube-reserved cpu=100m,memory=0.6Gi,ephemeral-storage=1Gi --system-reserved
+                cpu=100m,memory=0.2Gi,ephemeral-storage=1Gi --eviction-hard
+                memory.available<200Mi,nodefs.available<10%,imagefs.available<15%
             block_device_map:
               # EBS volume for local ephemeral storage
               # IGNORED if legacy `disk_encryption_enabled` or `disk_size` are set!

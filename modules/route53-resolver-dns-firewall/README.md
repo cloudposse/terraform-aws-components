@@ -1,4 +1,10 @@
-# Component: `route53-resolver-dns-firewall`
+---
+title: "Component: `route53-resolver-dns-firewall`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component is responsible for provisioning
 [Route 53 Resolver DNS Firewall](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-dns-firewall.html)

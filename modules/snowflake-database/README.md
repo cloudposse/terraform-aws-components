@@ -1,4 +1,9 @@
-# Component: `snowflake-database`
+---
+title: "Component: `snowflake-database`"
+tags:
+  - component
+  - aws
+---
 
 All data in Snowflake is stored in database tables, logically structured as collections of columns and rows. This
 component will create and control a Snowflake database, schema, and set of tables.

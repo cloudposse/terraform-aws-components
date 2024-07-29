@@ -1,4 +1,9 @@
-# Component: `aws-inspector`
+---
+title: "Component: `aws-inspector`"
+tags:
+  - component
+  - aws
+---
 
 This component is responsible for provisioning an
 [AWS Inspector](https://docs.aws.amazon.com/inspector/latest/user/what-is-inspector.html) by installing the

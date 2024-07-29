@@ -1,4 +1,10 @@
-# Component: `spa-s3-cloudfront`
+---
+title: "Component: `spa-s3-cloudfront`"
+tags:
+  - component
+  - layer/addons
+  - aws
+---
 
 This component is responsible for provisioning:
 

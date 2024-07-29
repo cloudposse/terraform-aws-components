@@ -1,4 +1,10 @@
-# Component: `glue/crawler`
+---
+title: "Component: `glue/crawler`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component provisions Glue crawlers.
 

@@ -1,4 +1,10 @@
-# Component: `sns-topic`
+---
+title: "Component: `sns-topic`"
+tags:
+  - component
+  - layer/addons
+  - aws
+---
 
 This component is responsible for provisioning an SNS topic.
 

@@ -1,4 +1,11 @@
-# Component: `aws-ssosync`
+---
+title: "Component: `aws-ssosync`"
+tags:
+  - component
+  - layer/identity
+  - aws
+  - gsuite
+---
 
 Deploys [AWS ssosync](https://github.com/awslabs/ssosync) to sync Google Groups with AWS SSO.
 

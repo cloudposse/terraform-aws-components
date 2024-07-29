@@ -1,4 +1,10 @@
-# Component: `cognito`
+---
+title: "Component: `cognito`"
+tags:
+  - component
+  - layer/addons
+  - aws
+---
 
 This component is responsible for provisioning and managing AWS Cognito resources.
 

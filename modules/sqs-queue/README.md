@@ -1,4 +1,10 @@
-# Component: `sqs-queue`
+---
+title: "Component: `sqs-queue`"
+tags:
+  - component
+  - layer/addons
+  - aws
+---
 
 This component is responsible for creating an SQS queue.
 

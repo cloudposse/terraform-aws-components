@@ -1,4 +1,10 @@
-# Component: `dynamodb`
+---
+title: "Component: `dynamodb`"
+tags:
+  - component
+  - layer/data
+  - aws
+---
 
 This component is responsible for provisioning a DynamoDB table.
 

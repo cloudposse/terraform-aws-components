@@ -1,4 +1,11 @@
-# Component: `datadog-synthetics-private-location`
+---
+title: "Component: `datadog-synthetics-private-location`"
+tags:
+  - component
+  - layer/monitoring
+  - aws
+  - datadog
+---
 
 This component provisions a Datadog synthetics private location on Datadog and a private location agent on EKS cluster.
 

@@ -1,4 +1,10 @@
-# Component: `sftp`
+---
+title: "Component: `sftp`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component is responsible for provisioning SFTP Endpoints.
 

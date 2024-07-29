@@ -1,4 +1,10 @@
-# Component: `ecs`
+---
+title: "Component: `ecs`"
+tags:
+  - component
+  - layer/ecs
+  - aws
+---
 
 This component is responsible for provisioning an ECS Cluster and associated load balancer.
 

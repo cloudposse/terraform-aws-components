@@ -1,4 +1,10 @@
-# Component: `cloudwatch-logs`
+---
+title: "Component: `cloudwatch-logs`"
+tags:
+  - component
+  - layer/baseline
+  - aws
+---
 
 This component is responsible for creation of CloudWatch Log Streams and Log Groups.
 

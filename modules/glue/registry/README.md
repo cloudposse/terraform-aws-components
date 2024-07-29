@@ -1,4 +1,10 @@
-# Component: `glue/registry`
+---
+title: "Component: `glue/registry`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component provisions Glue registries.
 

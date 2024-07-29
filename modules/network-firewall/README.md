@@ -1,4 +1,10 @@
-# Component: `network-firewall`
+---
+title: "Component: `network-firewall`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component is responsible for provisioning [AWS Network Firewall](https://aws.amazon.com/network-firewal) resources,
 including Network Firewall, firewall policy, rule groups, and logging configuration.

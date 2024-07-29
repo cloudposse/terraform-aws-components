@@ -1,4 +1,10 @@
-# Component: `ipam`
+---
+title: "Component: `ipam`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component is responsible for provisioning IPAM per region in a centralized account.
 

@@ -1,4 +1,10 @@
-# Component: `iam-service-linked-roles`
+---
+title: "Component: `iam-service-linked-roles`"
+tags:
+  - component
+  - layer/eks
+  - aws
+---
 
 This component is responsible for provisioning
 [IAM Service-Linked Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html).

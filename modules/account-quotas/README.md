@@ -1,8 +1,9 @@
 ---
 title: "Component: `account-quotas`"
 tags:
-- component
-- layer/foundation
+  - component
+  - layer/baseline
+  - aws
 ---
 
 This component is responsible for requesting service quota increases. We recommend making requests here rather than in

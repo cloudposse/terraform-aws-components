@@ -1,8 +1,8 @@
 ---
 title: "Component: `account-map`"
 tags:
-- component
-- layer/foundation
+  - component
+  - layer/baseline
 ---
 
 This component is responsible for provisioning information only: it simply populates Terraform state with data (account

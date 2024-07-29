@@ -1,11 +1,13 @@
 ---
 title: "Component: `alb`"
 tags:
-- component
-- layer/network-and-dns
+  - component
+  - layer/ecs
+  - aws
 ---
 
-This component is responsible for provisioning a generic Application Load Balancer. It depends on the `vpc` and `dns-delegated` components.
+This component is responsible for provisioning a generic Application Load Balancer. It depends on the `vpc` and
+`dns-delegated` components.
 
 ## Usage
 

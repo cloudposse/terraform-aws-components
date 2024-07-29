@@ -1,4 +1,10 @@
-# Component: `managed-grafana/dashboard`
+---
+title: "Component: `managed-grafana/dashboard`"
+tags:
+  - component
+  - layer/monitoring
+  - aws
+---
 
 This component is responsible for provisioning a dashboard an Amazon Managed Grafana workspace.
 

@@ -1,4 +1,10 @@
-# Component: `lakeformation`
+---
+title: "Component: `lakeformation`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component is responsible for provisioning Amazon Lake Formation resources.
 

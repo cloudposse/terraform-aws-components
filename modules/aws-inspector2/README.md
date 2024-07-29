@@ -1,4 +1,10 @@
-# Component: `aws-inspector2`
+---
+title: "Component: `aws-inspector2`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component is responsible for configuring Inspector V2 within an AWS Organization.
 

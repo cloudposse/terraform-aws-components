@@ -1,4 +1,10 @@
-# Component: `managed-grafana/api-key`
+---
+title: "Component: `managed-grafana/api-key`"
+tags:
+  - component
+  - layer/monitoring
+  - aws
+---
 
 This component is responsible for provisioning an API Key for an Amazon Managed Grafana workspace.
 

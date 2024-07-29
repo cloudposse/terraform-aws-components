@@ -1,4 +1,10 @@
-# Component: `glue/connection`
+---
+title: "Component: `glue/connection`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component provisions Glue connections.
 

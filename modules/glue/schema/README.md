@@ -1,4 +1,10 @@
-# Component: `glue/schema`
+---
+title: "Component: `glue/schema`"
+tags:
+  - component
+  - layer/TODO
+  - aws
+---
 
 This component provisions Glue schemas.
 

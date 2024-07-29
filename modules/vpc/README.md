@@ -1,4 +1,10 @@
-# Component: `vpc`
+---
+title: "Component: `vpc`"
+tags:
+  - component
+  - layer/network
+  - aws
+---
 
 This component is responsible for provisioning a VPC and corresponding Subnets. Additionally, VPC Flow Logs can
 optionally be enabled for auditing purposes. See the existing VPC configuration documentation for the provisioned

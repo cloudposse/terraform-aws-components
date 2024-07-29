@@ -1,4 +1,10 @@
-# Component: `github-oidc-provider`
+---
+title: "Component: `github-oidc-provider`"
+tags:
+  - component
+  - layer/github
+  - aws
+---
 
 This component is responsible for authorizing the GitHub OIDC provider as an Identity provider for an AWS account. It is
 meant to be used in concert with `aws-teams` and `aws-team-roles` and/or with `github-actions-iam-role.mixin.tf`
