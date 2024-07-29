@@ -2,7 +2,7 @@
 title: "Component: `cloudtrail-bucket`"
 tags:
   - component/cloudtrail-bucket
-  - layer/foundational
+  - layer/foundation
   - provider/aws
 ---
 

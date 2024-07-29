@@ -3,9 +3,6 @@ title: "Component: `acm`"
 tags:
   - component/acm
   - layer/network
-  - layer/eks
-  - layer/ecs
-  - layer/release_engineering
   - provider/aws
 ---
 

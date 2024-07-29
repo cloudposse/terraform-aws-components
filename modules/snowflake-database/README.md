@@ -2,7 +2,7 @@
 title: "Component: `snowflake-database`"
 tags:
   - component/snowflake-database
-  - layers/unassigned
+  - layer/unassigned
   - provider/aws
   - provider/snowflake
 ---

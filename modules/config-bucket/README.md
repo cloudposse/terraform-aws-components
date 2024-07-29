@@ -2,7 +2,7 @@
 title: "Component: `config-bucket`"
 tags:
   - component/config-bucket
-  - layer/compliance
+  - layer/security-and-compliance
   - provider/aws
 ---
 
