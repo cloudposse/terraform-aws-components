@@ -30,7 +30,7 @@ variable "grant_types" {
 variable "logo_uri" {
   type        = string
   description = "Logo URI"
-  default     = "" # TODO Add default logo
+  default     = "https://cloudposse.com/wp-content/uploads/2017/07/CloudPosse2-TRANSAPRENT.png"
 }
 
 variable "app_type" {

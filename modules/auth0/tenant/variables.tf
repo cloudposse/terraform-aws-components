@@ -12,7 +12,7 @@ variable "friendly_name" {
 variable "picture_url" {
   type        = string
   description = "The URL of the picture to be displayed in the Auth0 Universal Login page."
-  default     = "" # TODO provide a default here
+  default     = "https://cloudposse.com/wp-content/uploads/2017/07/CloudPosse2-TRANSAPRENT.png"
 }
 
 variable "support_email" {
