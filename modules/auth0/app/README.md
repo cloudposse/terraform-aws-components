@@ -121,7 +121,9 @@ components:
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_auth0_client_id"></a> [auth0\_client\_id](#output\_auth0\_client\_id) | The ID of the Auth0 client |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 
