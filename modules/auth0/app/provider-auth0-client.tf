@@ -63,7 +63,7 @@ module "iam_roles_auth0_provider" {
 
   environment = length(var.auth0_tenant_environment_name) > 0 ? var.auth0_tenant_environment_name : module.this.environment
   stage       = length(var.auth0_tenant_stage_name) > 0 ? var.auth0_tenant_stage_name : module.this.stage
-  tenant      = length(var.auth0_tenant_tenant_name) > 0 ? var.auth0_tenant_tenant_name : module.this
+  tenant      = length(var.auth0_tenant_tenant_name) > 0 ? var.auth0_tenant_tenant_name : module.this.tenant
 
   context = module.this.context
 }
