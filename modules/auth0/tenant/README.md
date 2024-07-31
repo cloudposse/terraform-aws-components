@@ -1,7 +1,7 @@
 # Component: `auth0/tenant`
 
-This component configures an Auth0 tenant. This component is used to configure authentication for the Terraform provider
-for Auth0 and to configure the Auth0 tenant itself.
+This component configures an [Auth0](https://auth0.com/docs/) tenant. This component is used to configure authentication
+for the Terraform provider for Auth0 and to configure the Auth0 tenant itself.
 
 ## Usage
 
@@ -26,11 +26,11 @@ components:
 Chicken before the egg...
 
 The Auth0 tenant must exist before we can manage it with Terraform. In order to create the Auth0 application used by the
-Terraform Auth0 Provider, we must first create the Auth0 tenant. Then once we have the Auth0 provider configured, we can
-import the tenant into Terraform. However, the tenant is not a resource identifiable by an ID within the Auth0
-Management API! We can nevertheless import it using a random string. On first run, we import the existing tenant using a
-random string. It does not matter what this value is. Terraform will use the same tenant as the Auth0 application for
-the Terraform Auth0 Provider.
+[Auth0 Terraform provider](https://registry.terraform.io/providers/auth0/auth0/latest/), we must first create the Auth0
+tenant. Then once we have the Auth0 provider configured, we can import the tenant into Terraform. However, the tenant is
+not a resource identifiable by an ID within the Auth0 Management API! We can nevertheless import it using a random
+string. On first run, we import the existing tenant using a random string. It does not matter what this value is.
+Terraform will use the same tenant as the Auth0 application for the Terraform Auth0 Provider.
 
 Create the Auth0 tenant now using the Auth0 Management API or the Auth0 Dashboard following
 [the Auth0 create tenants documentation](https://auth0.com/docs/get-started/auth0-overview/create-tenants).
@@ -111,6 +111,7 @@ add the following parameters to the `plat-prod` account in `us-west-2`:
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_allowed_logout_urls"></a> [allowed\_logout\_urls](#input\_allowed\_logout\_urls) | The URLs that Auth0 can redirect to after logout. | `list(string)` | `[]` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
+| <a name="input_auth0_debug"></a> [auth0\_debug](#input\_auth0\_debug) | Enable debug mode for the Auth0 provider | `bool` | `true` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_default_redirection_uri"></a> [default\_redirection\_uri](#input\_default\_redirection\_uri) | The default redirection URI. | `string` | `""` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
@@ -134,6 +135,7 @@ add the following parameters to the `plat-prod` account in `us-west-2`:
 | <a name="input_no_disclose_enterprise_connections"></a> [no\_disclose\_enterprise\_connections](#input\_no\_disclose\_enterprise\_connections) | Whether to disclose enterprise connections. | `bool` | `false` | no |
 | <a name="input_oidc_logout_prompt_enabled"></a> [oidc\_logout\_prompt\_enabled](#input\_oidc\_logout\_prompt\_enabled) | Whether the OIDC logout prompt is enabled. | `bool` | `false` | no |
 | <a name="input_picture_url"></a> [picture\_url](#input\_picture\_url) | The URL of the picture to be displayed in the Auth0 Universal Login page. | `string` | `""` | no |
+| <a name="input_provider_ssm_base_path"></a> [provider\_ssm\_base\_path](#input\_provider\_ssm\_base\_path) | The base path for the SSM parameters. If not defined, this is set to the module context ID. This is also required when `var.enabled` is set to `false` | `string` | `""` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_sandbox_version"></a> [sandbox\_version](#input\_sandbox\_version) | The sandbox version. | `string` | `"18"` | no |
@@ -161,5 +163,7 @@ add the following parameters to the `plat-prod` account in `us-west-2`:
 
 - [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/auth0) -
   Cloud Posse's upstream component
+- [Auth0 Terraform Provider](https://registry.terraform.io/providers/auth0/auth0/latest/)
+- [Auth0 Documentation](https://auth0.com/docs/)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

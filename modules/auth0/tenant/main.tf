@@ -67,11 +67,11 @@ resource "aws_route53_record" "this" {
 
   zone_id = module.dns_gbl_delegated.outputs.default_dns_zone_id
   name    = local.domain_name
-  type    = upper(auth0_custom_domain.this[0].verification[0].methods[0].name)
+  type    = try(upper(auth0_custom_domain.this[0].verification[0].methods[0].name), null)
   ttl     = "300"
-  records = [
-    auth0_custom_domain.this[0].verification[0].methods[0].record,
-  ]
+  records = local.enabled ? [
+    auth0_custom_domain.this[0].verification[0].methods[0].record
+  ] : []
 }
 
 resource "auth0_custom_domain_verification" "this" {

@@ -1,7 +1,7 @@
 # Component: `auth0/app`
 
-Auth0 Application component. Auth0 is a third-party service that provides authentication and authorization as a service.
-It is typically used to to authenticate users.
+Auth0 Application component. [Auth0](https://auth0.com/docs/) is a third-party service that provides authentication and
+authorization as a service. It is typically used to to authenticate users.
 
 An Auth0 application is a client that can request authentication and authorization from an Auth0 server. Auth0
 applications can be of different types, such as regular web applications, single-page applications, machine-to-machine
@@ -10,8 +10,8 @@ applications, and others. Each application has a set of allowed origins, allowed
 ## Usage
 
 Before deploying this component, you need to deploy the `auth0/tenant` component. This components with authenticate with
-the Auth0 Terraform provider using the Auth0 tenant's client ID and client secret configured with the `auth0/tenant`
-component.
+the [Auth0 Terraform provider](https://registry.terraform.io/providers/auth0/auth0/latest/) using the Auth0 tenant's
+client ID and client secret configured with the `auth0/tenant` component.
 
 **Stack Level**: Global
 
@@ -89,6 +89,7 @@ components:
 | <a name="input_allowed_origins"></a> [allowed\_origins](#input\_allowed\_origins) | Allowed Origins | `list(string)` | `[]` | no |
 | <a name="input_app_type"></a> [app\_type](#input\_app\_type) | Auth0 Application Type | `string` | `"regular_web"` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
+| <a name="input_auth0_debug"></a> [auth0\_debug](#input\_auth0\_debug) | Enable debug mode for the Auth0 provider | `bool` | `true` | no |
 | <a name="input_auth0_tenant_component_name"></a> [auth0\_tenant\_component\_name](#input\_auth0\_tenant\_component\_name) | The name of the component | `string` | `"auth0/tenant"` | no |
 | <a name="input_auth0_tenant_environment_name"></a> [auth0\_tenant\_environment\_name](#input\_auth0\_tenant\_environment\_name) | The name of the environment where the Auth0 tenant component is deployed. Defaults to the environment of the current stack. | `string` | `""` | no |
 | <a name="input_auth0_tenant_stage_name"></a> [auth0\_tenant\_stage\_name](#input\_auth0\_tenant\_stage\_name) | The name of the stage where the Auth0 tenant component is deployed. Defaults to the stage of the current stack. | `string` | `""` | no |
@@ -123,7 +124,7 @@ components:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_auth0_client_id"></a> [auth0\_client\_id](#output\_auth0\_client\_id) | The ID of the Auth0 client |
+| <a name="output_auth0_client_id"></a> [auth0\_client\_id](#output\_auth0\_client\_id) | The Auth0 Application Client ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- prettier-ignore-end -->
 
@@ -131,5 +132,7 @@ components:
 
 - [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/auth0) -
   Cloud Posse's upstream component
+- [Auth0 Terraform Provider](https://registry.terraform.io/providers/auth0/auth0/latest/)
+- [Auth0 Documentation](https://auth0.com/docs/)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
