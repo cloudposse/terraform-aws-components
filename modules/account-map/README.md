@@ -74,6 +74,7 @@ components:
 |------|--------|---------|
 | <a name="module_accounts"></a> [accounts](#module\_accounts) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_atmos"></a> [atmos](#module\_atmos) | cloudposse/label/null | 0.25.0 |
+| <a name="module_introspection"></a> [introspection](#module\_introspection) | cloudposse/label/null | 0.25.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -115,6 +116,7 @@ components:
 | <a name="input_profiles_enabled"></a> [profiles\_enabled](#input\_profiles\_enabled) | Whether or not to enable profiles instead of roles for the backend. If true, profile must be set. If false, role\_arn must be set. | `bool` | `false` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
+| <a name="input_required_tags"></a> [required\_tags](#input\_required\_tags) | List of required tag names | `list(string)` | `[]` | no |
 | <a name="input_root_account_account_name"></a> [root\_account\_account\_name](#input\_root\_account\_account\_name) | The short name for the root account | `string` | `"root"` | no |
 | <a name="input_root_account_aws_name"></a> [root\_account\_aws\_name](#input\_root\_account\_aws\_name) | The name of the root account as reported by AWS | `string` | n/a | yes |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
