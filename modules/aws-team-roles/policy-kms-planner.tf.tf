@@ -11,7 +11,18 @@ data "aws_iam_policy_document" "kms_planner_access" {
     actions = [
       "kms:Decrypt",
     ]
-    resources = [
+    
+    # Only allow decryption of SSM parameters.
+    # To further restrict to specific parameters, add conditions on the value of 
+    #   kms:EncryptionContext:PARAMETER_ARN
+    # See https://docs.aws.amazon.com/kms/latest/developerguide/services-parameter-store.html#parameter-store-encryption-context
+    condition {
+      test     = "Null"
+      variable = "kms:EncryptionContext:PARAMETER_ARN"
+      values   = ["false"]
+     }
+     
+     resources = [
       "*"
     ]
   }
