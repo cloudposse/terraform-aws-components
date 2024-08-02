@@ -8,6 +8,7 @@ data "aws_iam_policy_document" "kms_planner_access" {
   statement {
     sid    = "AllowKMSDecrypt"
     effect = "Allow"
+
     actions = [
       "kms:Decrypt",
     ]
