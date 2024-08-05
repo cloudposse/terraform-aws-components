@@ -82,7 +82,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_policy"></a> [policy](#module\_policy) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-policy | 1.6.0 |
+| <a name="module_policy"></a> [policy](#module\_policy) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-policy | 1.7.0 |
 | <a name="module_space"></a> [space](#module\_space) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-space | 1.6.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -109,7 +109,7 @@ No resources.
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
-| <a name="input_spaces"></a> [spaces](#input\_spaces) | A map of all Spaces to create in Spacelift | <pre>map(object({<br>    parent_space_id  = string,<br>    description      = optional(string),<br>    inherit_entities = optional(bool, false),<br>    labels           = optional(set(string), []),<br>    policies = optional(map(object({<br>      body             = optional(string),<br>      body_url         = optional(string),<br>      body_url_version = optional(string, "master"),<br>      type             = optional(string),<br>      labels           = optional(set(string), []),<br>    })), {}),<br>  }))</pre> | n/a | yes |
+| <a name="input_spaces"></a> [spaces](#input\_spaces) | A map of all Spaces to create in Spacelift | <pre>map(object({<br>    parent_space_id  = string,<br>    description      = optional(string),<br>    inherit_entities = optional(bool, false),<br>    labels           = optional(set(string), []),<br>    policies = optional(map(object({<br>      body             = optional(string),<br>      body_url         = optional(string),<br>      body_url_version = optional(string, "master"),<br>      body_file_path  = optional(string),<br>      type             = optional(string),<br>      labels           = optional(set(string), []),<br>    })), {}),<br>  }))</pre> | n/a | yes |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
