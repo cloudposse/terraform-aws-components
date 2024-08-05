@@ -62,7 +62,6 @@ module "policy" {
   body             = each.value.body
   body_url         = each.value.body_url
   body_url_version = each.value.body_url_version
-  # todo terraform docs this
   body_file_path   = each.value.body_file_path
   type             = each.value.type
   labels           = each.value.labels
