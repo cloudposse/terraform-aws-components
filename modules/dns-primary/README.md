@@ -93,7 +93,7 @@ components:
                 YourVeryLongStringGoesHere
 ```
 
-> **Tip:**
+> [!TIP]
 >
 > Use the [acm](https://docs.cloudposse.com/components/library/aws/acm) component for more advanced certificate
 > requirements.
