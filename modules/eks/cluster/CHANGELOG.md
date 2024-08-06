@@ -49,13 +49,11 @@ Components PR [#1033](https://github.com/cloudposse/terraform-aws-components/pul
 
 ### Major Breaking Changes
 
-:::warning Major Breaking Changes, Manual Intervention Required
-
-This release includes a major breaking change that requires manual intervention to migrate existing clusters. The change
-is necessary to support the new AWS Access Control API, which is more secure and more reliable than the old `aws-auth`
-ConfigMap.
-
-:::
+> [!WARNING] Major Breaking Changes, Manual Intervention Required
+>
+> This release includes a major breaking change that requires manual intervention to migrate existing clusters. The
+> change is necessary to support the new AWS Access Control API, which is more secure and more reliable than the old
+> `aws-auth` ConfigMap.
 
 This release drops support for the `aws-auth` ConfigMap and switches to managing access control with the new AWS Access
 Control API. This change allows for more secure and reliable access control, and removes the requirement that Terraform
@@ -65,18 +63,16 @@ In this release, this component only supports assigning "team roles" to Kubernet
 Access Policies is not yet implemented. However, if you specify `system:masters` as a group, that will be translated
 into assigning the `AmazonEKSClusterAdminPolicy` to the role. Any other `system:*` group will cause an error.
 
-:::tip Network Access Considerations
-
-Previously, this component required network access to the EKS control plane to manage the `aws-auth` ConfigMap. This
-meant having the EKS control plane accessible from the public internet, or using a bastion host or VPN to access the
-control plane. With the new AWS Access Control API, Terraform operations on the EKS cluster no longer require network
-access to the EKS control plane.
-
-This may seem like it makes it easier to secure the EKS control plane, but Terraform users will still require network
-access to the EKS control plane to manage any deployments or other Kubernetes resources in the cluster. This means that
-this upgrade does not substantially change the need for network access.
-
-:::
+> [!TIP] Network Access Considerations
+>
+> Previously, this component required network access to the EKS control plane to manage the `aws-auth` ConfigMap. This
+> meant having the EKS control plane accessible from the public internet, or using a bastion host or VPN to access the
+> control plane. With the new AWS Access Control API, Terraform operations on the EKS cluster no longer require network
+> access to the EKS control plane.
+>
+> This may seem like it makes it easier to secure the EKS control plane, but Terraform users will still require network
+> access to the EKS control plane to manage any deployments or other Kubernetes resources in the cluster. This means
+> that this upgrade does not substantially change the need for network access.
 
 ### Minor Changes
 
@@ -94,12 +90,10 @@ Full details of the migration process can be found in the `cloudposse/terraform-
 [migration document](https://github.com/cloudposse/terraform-aws-eks-cluster/blob/main/docs/migration-v3-v4.md). This
 section is a streamlined version for users of this `eks/cluster` component.
 
-:::important
-
-The commands below assume the component is named "eks/cluster". If you are using a different name, replace "eks/cluster"
-with the correct component name.
-
-:::
+> [!IMPORTANT]
+>
+> The commands below assume the component is named "eks/cluster". If you are using a different name, replace
+> "eks/cluster" with the correct component name.
 
 #### Prepare for Migration
 
