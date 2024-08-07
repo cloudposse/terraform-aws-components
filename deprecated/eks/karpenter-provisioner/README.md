@@ -2,7 +2,7 @@
 
 > [!WARNING]
 >
-> This component is DEPRECATED
+> #### This component is DEPRECATED
 >
 > With v1beta1 of Karpenter, the `provisioner` component is deprecated.
 > Please use the `eks/karpenter-node-group` component instead.
