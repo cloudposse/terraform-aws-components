@@ -3,14 +3,14 @@
 This component is responsible for provisioning an end-to-end EKS Cluster, including managed node groups and Fargate
 profiles.
 
-:::note Windows not supported
-
-This component has not been tested with Windows worker nodes of any launch type. Although upstream modules support
-Windows nodes, there are likely issues around incorrect or insufficient IAM permissions or other configuration that
-would need to be resolved for this component to properly configure the upstream modules for Windows nodes. If you need
-Windows nodes, please experiment and be on the lookout for issues, and then report any issues to Cloud Posse.
-
-:::
+> [!NOTE]
+>
+> #### Windows not supported
+>
+> This component has not been tested with Windows worker nodes of any launch type. Although upstream modules support
+> Windows nodes, there are likely issues around incorrect or insufficient IAM permissions or other configuration that
+> would need to be resolved for this component to properly configure the upstream modules for Windows nodes. If you need
+> Windows nodes, please experiment and be on the lookout for issues, and then report any issues to Cloud Posse.
 
 ## Usage
 
@@ -191,9 +191,9 @@ components:
               #          Also, it is only supported for AL2 and some Windows AMIs, not BottleRocket or AL2023.
               # Kubernetes docs: https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/
               kubelet_extra_args: >-
-                --kube-reserved cpu=100m,memory=0.6Gi,ephemeral-storage=1Gi
-                --system-reserved cpu=100m,memory=0.2Gi,ephemeral-storage=1Gi
-                --eviction-hard memory.available<200Mi,nodefs.available<10%,imagefs.available<15%
+                --kube-reserved cpu=100m,memory=0.6Gi,ephemeral-storage=1Gi --system-reserved
+                cpu=100m,memory=0.2Gi,ephemeral-storage=1Gi --eviction-hard
+                memory.available<200Mi,nodefs.available<10%,imagefs.available<15%
             block_device_map:
               # EBS volume for local ephemeral storage
               # IGNORED if legacy `disk_encryption_enabled` or `disk_size` are set!
@@ -294,14 +294,12 @@ You can also view the release and support timeline for
 EKS clusters support “Addons” that can be automatically installed on a cluster. Install these addons with the
 [`var.addons` input](https://docs.cloudposse.com/components/library/aws/eks/cluster/#input_addons).
 
-:::info
-
-Run the following command to see all available addons, their type, and their publisher. You can also see the URL for
-addons that are available through the AWS Marketplace. Replace 1.27 with the version of your cluster. See
-[Creating an addon](https://docs.aws.amazon.com/eks/latest/userguide/managing-add-ons.html#creating-an-add-on) for more
-details.
-
-:::
+> [!TIP]
+>
+> Run the following command to see all available addons, their type, and their publisher. You can also see the URL for
+> addons that are available through the AWS Marketplace. Replace 1.27 with the version of your cluster. See
+> [Creating an addon](https://docs.aws.amazon.com/eks/latest/userguide/managing-add-ons.html#creating-an-add-on) for
+> more details.
 
 ```shell
 EKS_K8S_VERSION=1.29 # replace with your cluster version
@@ -309,12 +307,10 @@ aws eks describe-addon-versions --kubernetes-version $EKS_K8S_VERSION \
   --query 'addons[].{MarketplaceProductUrl: marketplaceInformation.productUrl, Name: addonName, Owner: owner Publisher: publisher, Type: type}' --output table
 ```
 
-:::info
-
-You can see which versions are available for each addon by executing the following commands. Replace 1.29 with the
-version of your cluster.
-
-:::
+> [!TIP]
+>
+> You can see which versions are available for each addon by executing the following commands. Replace 1.29 with the
+> version of your cluster.
 
 ```shell
 EKS_K8S_VERSION=1.29 # replace with your cluster version
@@ -394,16 +390,14 @@ addons:
     addon_version: "v1.8.7-eksbuild.1"
 ```
 
-:::warning
-
-Addons may not be suitable for all use-cases! For example, if you are deploying Karpenter to Fargate and using Karpenter
-to provision all nodes, these nodes will never be available before the cluster component is deployed if you are using
-the CoreDNS addon (for example).
-
-This is one of the reasons we recommend deploying a managed node group: to ensure that the addons will become fully
-functional during deployment of the cluster.
-
-:::
+> [!WARNING]
+>
+> Addons may not be suitable for all use-cases! For example, if you are deploying Karpenter to Fargate and using
+> Karpenter to provision all nodes, these nodes will never be available before the cluster component is deployed if you
+> are using the CoreDNS addon (for example).
+>
+> This is one of the reasons we recommend deploying a managed node group: to ensure that the addons will become fully
+> functional during deployment of the cluster.
 
 For more information on upgrading EKS Addons, see
 ["How to Upgrade EKS Cluster Addons"](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons/)

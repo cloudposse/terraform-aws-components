@@ -94,12 +94,12 @@ The process of provisioning Karpenter on an EKS cluster consists of 3 steps.
 
 ### 1. Provision EKS IAM Role for Nodes Launched by Karpenter
 
-:::note VPC assumptions being made
-
-We assume you've already created a VPC using our [VPC component](/modules/vpc) and have private subnets already set up.
-The Karpenter node pools will be launched in the private subnets.
-
-:::
+> [!NOTE]
+>
+> #### VPC assumptions being made
+>
+> We assume you've already created a VPC using our [VPC component](/modules/vpc) and have private subnets already set
+> up. The Karpenter node pools will be launched in the private subnets.
 
 EKS IAM Role for Nodes launched by Karpenter are provisioned by the `eks/cluster` component. (EKS can also provision a
 Fargate Profile for Karpenter, but deploying Karpenter to Fargate is not recommended.):
@@ -116,11 +116,9 @@ components:
         karpenter_iam_role_enabled: true
 ```
 
-:::note Authorization
-
-- The AWS Auth API for EKS is used to authorize the Karpenter controller to interact with the EKS cluster.
-
-:::
+> [!NOTE]
+>
+> The AWS Auth API for EKS is used to authorize the Karpenter controller to interact with the EKS cluster.
 
 Karpenter is installed using a Helm chart. The Helm chart installs the Karpenter controller and a webhook pod as a
 Deployment that needs to run before the controller can be used for scaling your cluster. We recommend a minimum of one
@@ -189,12 +187,12 @@ In this step, we provision the `components/terraform/eks/karpenter-node-pool` co
 [NodePools](https://karpenter.sh/v0.36/getting-started/getting-started-with-karpenter/#5-create-nodepool) using the
 `kubernetes_manifest` resource.
 
-:::note Why use a separate component for NodePools?
-
-We create the NodePools as a separate component since the CRDs for the NodePools are created by the Karpenter component.
-This helps manage dependencies.
-
-:::
+> [!TIP]
+>
+> #### Why use a separate component for NodePools?
+>
+> We create the NodePools as a separate component since the CRDs for the NodePools are created by the Karpenter
+> component. This helps manage dependencies.
 
 First, create an abstract component for the `eks/karpenter-node-pool` component:
 
@@ -287,13 +285,13 @@ interruption events include:
 - Instance Terminating Events
 - Instance Stopping Events
 
-:::info Interruption Handler vs. Termination Handler
-
-The Node Interruption Handler is not the same as the Node Termination Handler. The latter is always enabled and cleanly
-shuts down the node in 2 minutes in response to a Node Termination event. The former gets advance notice that a node
-will soon be terminated, so it can have 5-10 minutes to shut down a node.
-
-:::
+> [!TIP]
+>
+> #### Interruption Handler vs. Termination Handler
+>
+> The Node Interruption Handler is not the same as the Node Termination Handler. The latter is always enabled and
+> cleanly shuts down the node in 2 minutes in response to a Node Termination event. The former gets advance notice that
+> a node will soon be terminated, so it can have 5-10 minutes to shut down a node.
 
 For more details, see refer to the [Karpenter docs](https://karpenter.sh/v0.32/concepts/disruption/#interruption) and
 [FAQ](https://karpenter.sh/v0.32/faq/#interruption-handling)

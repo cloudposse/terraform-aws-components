@@ -42,11 +42,11 @@ in Terraform. Follow the
 [Auth0 provider documentation](https://registry.terraform.io/providers/auth0/auth0/latest/docs/guides/quickstart) to
 create a Machine to Machine application.
 
-:::tip Machine to Machine App Name
-
-Use the Context Label format for the machine name for consistency. For example, `acme-plat-gbl-prod-auth0-provider`.
-
-:::
+> [!TIP]
+>
+> #### Machine to Machine App Name
+>
+> Use the Context Label format for the machine name for consistency. For example, `acme-plat-gbl-prod-auth0-provider`.
 
 After creating the Machine to Machine application, add the app's domain, client ID, and client secret to AWS Systems
 Manager Parameter Store in the same account and region as this component deployment. The path for the parameters are

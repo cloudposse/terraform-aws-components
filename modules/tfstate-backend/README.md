@@ -10,14 +10,12 @@ wish to restrict who can read the production Terraform state backend S3 bucket. 
 all Terraform users require read access to the most sensitive accounts, such as `root` and `audit`, in order to read
 security configuration information, so careful planning is required when architecting backend splits.
 
-:::info
-
-Part of cold start, so it has to initially be run with `SuperAdmin`, multiple
-times: to create the S3 bucket and then to move the state into it. Follow
-the guide **[here](https://docs.cloudposse.com/reference-architecture/how-to-guides/implementation/enterprise/implement-aws-cold-start/#provision-tfstate-backend-component)**
-to get started.
-
-:::
+> [!TIP]
+>
+> Part of cold start, so it has to initially be run with `SuperAdmin`, multiple times: to create the S3 bucket and then
+> to move the state into it. Follow the guide
+> **[here](https://docs.cloudposse.com/reference-architecture/how-to-guides/implementation/enterprise/implement-aws-cold-start/#provision-tfstate-backend-component)**
+> to get started.
 
 ### Access Control
 
@@ -58,9 +56,9 @@ access. You can configure who is allowed to assume these roles.
 
 - For convenience, the component automatically grants access to the backend to the user deploying it. This is helpful
   because it allows that user, presumably SuperAdmin, to deploy the normal components that expect the user does not have
-  direct access to Terraform state, without requiring custom configuration. However, you may want to explicitly
-  grant SuperAdmin access to the backend in the `allowed_principal_arns` configuration, to ensure that SuperAdmin
-  can always access the backend, even if the component is later updated by the `root-admin` role.
+  direct access to Terraform state, without requiring custom configuration. However, you may want to explicitly grant
+  SuperAdmin access to the backend in the `allowed_principal_arns` configuration, to ensure that SuperAdmin can always
+  access the backend, even if the component is later updated by the `root-admin` role.
 
 ### Quotas
 

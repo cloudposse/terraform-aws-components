@@ -22,27 +22,27 @@ Policy. This has also been fixed by making the `v1alpha` policy a separate manag
 controller's role, rather than merging the statements into the `v1beta` policy. This change also avoids potential
 conflicts with policy SIDs.
 
-:::note Innocuous Changes
-
-Terraform will show IAM Policy changes, including deletion of statements from the existing policy and creation of a new
-policy. This is expected and innocuous. The IAM Policy has been split into 2 to avoid exceeding length limits, but the
-current (`v1beta`) policy remains the same and the now separate (`v1alpha`) policy has been corrected.
-
-:::
+> [!NOTE]
+>
+> #### Innocuous Changes
+>
+> Terraform will show IAM Policy changes, including deletion of statements from the existing policy and creation of a
+> new policy. This is expected and innocuous. The IAM Policy has been split into 2 to avoid exceeding length limits, but
+> the current (`v1beta`) policy remains the same and the now separate (`v1alpha`) policy has been corrected.
 
 ## Version 1.445.0
 
 Components [PR #1039](https://github.com/cloudposse/terraform-aws-components/pull/1039)
 
-:::warning Major Breaking Changes
-
-Karpenter at version v0.33.0 transitioned from the `v1alpha` API to the `v1beta` API with many breaking changes. This
-component (`eks/karpenter`) changed as well, dropping support for the `v1alpha` API and adding support for the `v1beta`
-API. At the same time, the corresponding `eks/karpenter-provisioner` component was replaced with the
-`eks/karpenter-node-pool` component. The old components remain available under the
-[`deprecated/`](https://github.com/cloudposse/terraform-aws-components/tree/main/deprecated) directory.
-
-:::
+> [!WARNING]
+>
+> #### Major Breaking Changes
+>
+> Karpenter at version v0.33.0 transitioned from the `v1alpha` API to the `v1beta` API with many breaking changes. This
+> component (`eks/karpenter`) changed as well, dropping support for the `v1alpha` API and adding support for the
+> `v1beta` API. At the same time, the corresponding `eks/karpenter-provisioner` component was replaced with the
+> `eks/karpenter-node-pool` component. The old components remain available under the
+> [`deprecated/`](https://github.com/cloudposse/terraform-aws-components/tree/main/deprecated) directory.
 
 The full list of changes in Karpenter is too extensive to repeat here. See the
 [Karpenter v1beta Migration Guide](https://karpenter.sh/v0.32/upgrading/v1beta1-migration/) and the
@@ -106,18 +106,16 @@ kubectl annotate crd awsnodetemplates.karpenter.k8s.aws provisioners.karpenter.s
 kubectl annotate crd awsnodetemplates.karpenter.k8s.aws provisioners.karpenter.sh meta.helm.sh/release-namespace=karpenter --overwrite
 ```
 
-:::info
-
-Previously the `karpenter-crd-upgrade` script included deploying the `karpenter-crd` chart. Now that this chart is moved
-to Terraform, that helm deployment is no longer necessary.
-
-For reference, the `karpenter-crd` chart can be installed with helm with the following:
-
-```bash
-helm upgrade --install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version "$VERSION" --namespace karpenter
-```
-
-:::
+> [!NOTE]
+>
+> Previously the `karpenter-crd-upgrade` script included deploying the `karpenter-crd` chart. Now that this chart is
+> moved to Terraform, that helm deployment is no longer necessary.
+>
+> For reference, the `karpenter-crd` chart can be installed with helm with the following:
+>
+> ```bash
+> helm upgrade --install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version "$VERSION" --namespace karpenter
+> ```
 
 Now that the CRDs are upgraded, the component is ready to be applied. Apply the `eks/karpenter` component and then apply
 `eks/karpenter-provisioner`.

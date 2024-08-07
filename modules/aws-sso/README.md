@@ -32,14 +32,12 @@ recommended `gbl-root` stack.
 
 ### Google Workspace
 
-:::important
-
-> Your identity source is currently configured as 'External identity provider'. To add new groups or edit their
-> memberships, you must do this using your external identity provider.
-
-Groups _cannot_ be created with ClickOps in the AWS console and instead must be created with AWS API.
-
-:::
+> [!IMPORTANT]
+>
+> > Your identity source is currently configured as 'External identity provider'. To add new groups or edit their
+> > memberships, you must do this using your external identity provider.
+>
+> Groups _cannot_ be created with ClickOps in the AWS console and instead must be created with AWS API.
 
 Google Workspace is now supported by AWS Identity Center, but Group creation is not automatically handled. After
 [configuring SAML and SCIM with Google Workspace and IAM Identity Center following the AWS documentation](https://docs.aws.amazon.com/singlesignon/latest/userguide/gs-gwp.html),
