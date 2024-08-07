@@ -6,7 +6,7 @@ This utilizes
 to assign accounts to various roles. It is also compatible with the
 [GitHub Actions IAM Role mixin](https://github.com/cloudposse/terraform-aws-components/blob/master/mixins/github-actions-iam-role/README-github-action-iam-role.md).
 
-> [!CAUTION]
+> [!WARNING]
 >
 > Older versions of our reference architecture have an`eks-iam` component that needs to be updated to provide sufficient
 > IAM roles to allow pods to pull from ECR repos

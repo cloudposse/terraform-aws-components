@@ -176,7 +176,7 @@ SuperAdmin) credentials you have saved in 1Password.
 
 #### Request an increase in the maximum number of accounts allowed
 
-> [!CAUTION]
+> [!WARNING]
 >
 > Make sure your support plan for the _root_ account was upgraded to the "Business" level (or Higher). This is necessary
 > to expedite the quota increase requests, which could take several days on a basic support plan. Without it, AWS

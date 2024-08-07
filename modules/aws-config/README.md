@@ -79,7 +79,7 @@ Before deploying this AWS Config component `config-bucket` and `cloudtrail-bucke
 This component has a `default_scope` variable for configuring if it will be an organization-wide or account-level
 component by default. Note that this can be overridden by the `scope` variable in the `conformance_packs` items.
 
-> [!INFO]
+> [!TIP]
 >
 > Using the account default_scope
 >
@@ -87,7 +87,7 @@ component by default. Note that this can be overridden by the `scope` variable i
 > regions. If an individual `conformance_packs` item has `scope` set to `organization`, that particular pack will be
 > deployed to the organization level.
 
-> [!INFO]
+> [!TIP]
 >
 > Using the organization default_scope
 >

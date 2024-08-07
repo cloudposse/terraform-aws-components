@@ -105,7 +105,7 @@ for `<integration name>.yaml`.
 
 #### Sample Yaml
 
-> [!CAUTION]
+> [!WARNING]
 >
 > The key of a filename must match datadog docs, which is `<INTEGRATION_NAME>.yaml` >
 > [Datadog Cluster Checks](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files)
