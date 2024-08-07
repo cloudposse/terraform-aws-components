@@ -20,25 +20,25 @@ Some of the key features of AWS Config include:
 - Notifications and alerts: AWS Config can send notifications and alerts when changes are made to your AWS resources
   that could impact their compliance or security posture.
 
-:::caution AWS Config Limitations
-
-You'll also want to be aware of some limitations with AWS Config:
-
-- The maximum number of AWS Config rules that can be evaluated in a single account is 1000.
-  - This can be mitigated by removing rules that are duplicated across packs. You'll have to manually search for these
-    duplicates.
-  - You can also look for rules that do not apply to any resources and remove those. You'll have to manually click
-    through rules in the AWS Config interface to see which rules are not being evaluated.
-  - If you end up still needing more than 1000 rules, one recommendation is to only run packs on a schedule with a
-    lambda that removes the pack after results are collected. If you had different schedule for each day of the week,
-    that would mean 7000 rules over the week. The aggregators would not be able to handle this, so you would need to
-    make sure to store them somewhere else (i.e. S3) so the findings are not lost.
-  - See the
-    [Audit Manager docs](https://aws.amazon.com/blogs/mt/integrate-across-the-three-lines-model-part-2-transform-aws-config-conformance-packs-into-aws-audit-manager-assessments/)
-    if you think you would like to convert conformance packs to custom Audit Manager assessments.
-- The maximum number of AWS Config conformance packs that can be created in a single account is 50.
-
-:::
+> [!WARNING]
+>
+> AWS Config Limitations
+>
+> You'll also want to be aware of some limitations with AWS Config:
+>
+> - The maximum number of AWS Config rules that can be evaluated in a single account is 1000.
+>   - This can be mitigated by removing rules that are duplicated across packs. You'll have to manually search for these
+>     duplicates.
+>   - You can also look for rules that do not apply to any resources and remove those. You'll have to manually click
+>     through rules in the AWS Config interface to see which rules are not being evaluated.
+>   - If you end up still needing more than 1000 rules, one recommendation is to only run packs on a schedule with a
+>     lambda that removes the pack after results are collected. If you had different schedule for each day of the week,
+>     that would mean 7000 rules over the week. The aggregators would not be able to handle this, so you would need to
+>     make sure to store them somewhere else (i.e. S3) so the findings are not lost.
+>   - See the
+>     [Audit Manager docs](https://aws.amazon.com/blogs/mt/integrate-across-the-three-lines-model-part-2-transform-aws-config-conformance-packs-into-aws-audit-manager-assessments/)
+>     if you think you would like to convert conformance packs to custom Audit Manager assessments.
+> - The maximum number of AWS Config conformance packs that can be created in a single account is 50.
 
 Overall, AWS Config provides you with a powerful toolset to help you monitor and manage the configurations of your AWS
 resources, ensuring that they remain compliant, secure, and properly configured over time.
@@ -79,21 +79,22 @@ Before deploying this AWS Config component `config-bucket` and `cloudtrail-bucke
 This component has a `default_scope` variable for configuring if it will be an organization-wide or account-level
 component by default. Note that this can be overridden by the `scope` variable in the `conformance_packs` items.
 
-:::info Using the account default_scope
+> [!INFO]
+>
+> Using the account default_scope
+>
+> If default_scope == `account`, AWS Config is regional AWS service, so this component needs to be deployed to all
+> regions. If an individual `conformance_packs` item has `scope` set to `organization`, that particular pack will be
+> deployed to the organization level.
 
-If default_scope == `account`, AWS Config is regional AWS service, so this component needs to be deployed to all
-regions. If an individual `conformance_packs` item has `scope` set to `organization`, that particular pack will be
-deployed to the organization level.
-
-:::
-
-:::info Using the organization default_scope
-
-If default_scope == `organization`, AWS Config is global unless overriden in the `conformance_packs` items. You will
-need to update your org to allow the `config-multiaccountsetup.amazonaws.com` service access principal for this to work.
-If you are using our `account` component, just add that principal to the `aws_service_access_principals` variable.
-
-:::
+> [!INFO]
+>
+> Using the organization default_scope
+>
+> If default_scope == `organization`, AWS Config is global unless overriden in the `conformance_packs` items. You will
+> need to update your org to allow the `config-multiaccountsetup.amazonaws.com` service access principal for this to
+> work. If you are using our `account` component, just add that principal to the `aws_service_access_principals`
+> variable.
 
 At the AWS Organizational level, the Components designate an account to be the `central collection account` and a single
 region to be the `central collection region` so that compliance information can be aggregated into a central location.
