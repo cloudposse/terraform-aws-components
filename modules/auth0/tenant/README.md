@@ -44,7 +44,7 @@ create a Machine to Machine application.
 
 > [!TIP]
 >
-> Machine to Machine App Name
+> #### Machine to Machine App Name
 >
 > Use the Context Label format for the machine name for consistency. For example, `acme-plat-gbl-prod-auth0-provider`.
 
