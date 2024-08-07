@@ -22,7 +22,7 @@ Some of the key features of AWS Config include:
 
 > [!WARNING]
 >
-> AWS Config Limitations
+> #### AWS Config Limitations
 >
 > You'll also want to be aware of some limitations with AWS Config:
 >
@@ -81,7 +81,7 @@ component by default. Note that this can be overridden by the `scope` variable i
 
 > [!TIP]
 >
-> Using the account default_scope
+> #### Using the account default_scope
 >
 > If default_scope == `account`, AWS Config is regional AWS service, so this component needs to be deployed to all
 > regions. If an individual `conformance_packs` item has `scope` set to `organization`, that particular pack will be
@@ -89,7 +89,7 @@ component by default. Note that this can be overridden by the `scope` variable i
 
 > [!TIP]
 >
-> Using the organization default_scope
+> #### Using the organization default_scope
 >
 > If default_scope == `organization`, AWS Config is global unless overriden in the `conformance_packs` items. You will
 > need to update your org to allow the `config-multiaccountsetup.amazonaws.com` service access principal for this to

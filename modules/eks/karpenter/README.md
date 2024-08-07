@@ -96,7 +96,7 @@ The process of provisioning Karpenter on an EKS cluster consists of 3 steps.
 
 > [!NOTE]
 >
-> VPC assumptions being made
+> #### VPC assumptions being made
 >
 > We assume you've already created a VPC using our [VPC component](/modules/vpc) and have private subnets already set
 > up. The Karpenter node pools will be launched in the private subnets.
@@ -189,7 +189,7 @@ In this step, we provision the `components/terraform/eks/karpenter-node-pool` co
 
 > [!TIP]
 >
-> Why use a separate component for NodePools?
+> #### Why use a separate component for NodePools?
 >
 > We create the NodePools as a separate component since the CRDs for the NodePools are created by the Karpenter
 > component. This helps manage dependencies.
@@ -287,7 +287,7 @@ interruption events include:
 
 > [!TIP]
 >
-> Interruption Handler vs. Termination Handler
+> #### Interruption Handler vs. Termination Handler
 >
 > The Node Interruption Handler is not the same as the Node Termination Handler. The latter is always enabled and
 > cleanly shuts down the node in 2 minutes in response to a Node Termination event. The former gets advance notice that

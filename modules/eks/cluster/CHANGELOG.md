@@ -51,7 +51,7 @@ Components PR [#1033](https://github.com/cloudposse/terraform-aws-components/pul
 
 > [!WARNING]
 >
-> Major Breaking Changes, Manual Intervention Required
+> #### Major Breaking Changes, Manual Intervention Required
 >
 > This release includes a major breaking change that requires manual intervention to migrate existing clusters. The
 > change is necessary to support the new AWS Access Control API, which is more secure and more reliable than the old
@@ -67,7 +67,7 @@ into assigning the `AmazonEKSClusterAdminPolicy` to the role. Any other `system:
 
 > [!TIP]
 >
-> Network Access Considerations
+> #### Network Access Considerations
 >
 > Previously, this component required network access to the EKS control plane to manage the `aws-auth` ConfigMap. This
 > meant having the EKS control plane accessible from the public internet, or using a bastion host or VPN to access the

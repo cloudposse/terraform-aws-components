@@ -24,7 +24,7 @@ conflicts with policy SIDs.
 
 > [!NOTE]
 >
-> Innocuous Changes
+> #### Innocuous Changes
 >
 > Terraform will show IAM Policy changes, including deletion of statements from the existing policy and creation of a
 > new policy. This is expected and innocuous. The IAM Policy has been split into 2 to avoid exceeding length limits, but
@@ -36,7 +36,7 @@ Components [PR #1039](https://github.com/cloudposse/terraform-aws-components/pul
 
 > [!WARNING]
 >
-> Major Breaking Changes
+> #### Major Breaking Changes
 >
 > Karpenter at version v0.33.0 transitioned from the `v1alpha` API to the `v1beta` API with many breaking changes. This
 > component (`eks/karpenter`) changed as well, dropping support for the `v1alpha` API and adding support for the

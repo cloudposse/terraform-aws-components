@@ -78,7 +78,7 @@ instance, so it is the CPU that remains the limiting factor in how many Runners 
 
 > [!WARNING]
 >
-> You must configure a memory request for the runner Pod
+> #### You must configure a memory request for the runner Pod
 >
 > When using `tmpfs_enabled`, you must configure a memory request for the runner Pod. If you do not, a single Pod would
 > be allowed to consume half the Node's memory just for its disk storage.

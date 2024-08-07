@@ -323,7 +323,7 @@ configuration in the `gbl-root` stack.
 
 > [!TIP]
 >
-> You must wait until your quota increase request has been granted
+> #### You must wait until your quota increase request has been granted
 >
 > If you try to create the accounts before the quota increase is granted, you can expect to see failures like
 > `ACCOUNT_NUMBER_LIMIT_EXCEEDED`.

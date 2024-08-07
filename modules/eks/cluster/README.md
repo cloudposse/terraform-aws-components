@@ -5,7 +5,7 @@ profiles.
 
 > [!NOTE]
 >
-> Windows not supported
+> #### Windows not supported
 >
 > This component has not been tested with Windows worker nodes of any launch type. Although upstream modules support
 > Windows nodes, there are likely issues around incorrect or insufficient IAM permissions or other configuration that
