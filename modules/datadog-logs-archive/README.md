@@ -1,4 +1,11 @@
-# Component: `datadog-logs-archive`
+---
+title: "Component: `datadog-logs-archive`"
+tags:
+  - component/datadog-logs-archive
+  - layer/datadog
+  - provider/aws
+  - provider/datadog
+---
 
 This component is responsible for provisioning Datadog Log Archives. It creates a single log archive pipeline for each
 AWS account. If the `catchall` flag is set, it creates a catchall archive within the same S3 bucket.

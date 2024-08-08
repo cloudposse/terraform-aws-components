@@ -1,4 +1,10 @@
-# Component: `github-webhook`
+---
+title: "Component: `github-webhook`"
+tags:
+  - component/github-webhook
+  - layer/software-delivery
+  - provider/aws
+---
 
 This component provisions a GitHub webhook for a single GitHub repository.
 

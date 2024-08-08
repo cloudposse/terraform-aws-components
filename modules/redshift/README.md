@@ -1,4 +1,10 @@
-# Component: `redshift`
+---
+title: "Component: `redshift`"
+tags:
+  - component/redshift
+  - layer/data
+  - provider/aws
+---
 
 This component is responsible for provisioning a RedShift instance. It seeds relevant database information (hostnames,
 username, password, etc.) into AWS SSM Parameter Store.

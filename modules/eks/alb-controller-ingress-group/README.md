@@ -1,4 +1,11 @@
-# Component `eks/alb-controller-ingress-group`
+---
+title: "Component: `eks/alb-controller-ingress-group`"
+tags:
+  - component/eks/alb-controller-ingress-group
+  - layer/eks
+  - provider/aws
+  - provider/helm
+---
 
 This component provisions a Kubernetes Service that creates an ALB for a specific [IngressGroup].
 

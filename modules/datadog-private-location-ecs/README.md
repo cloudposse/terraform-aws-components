@@ -1,4 +1,11 @@
-# Component: `datadog-private-location-ecs`
+---
+title: "Component: `datadog-private-location-ecs`"
+tags:
+  - component/datadog-private-location-ecs
+  - layer/datadog
+  - provider/aws
+  - provider/datadog
+---
 
 This component is responsible for creating a datadog private location and deploying it to ECS (EC2 / Fargate)
 

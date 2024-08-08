@@ -1,4 +1,11 @@
-# Component: `actions-runner-controller`
+---
+title: "Component: `eks/actions-runner-controller`"
+tags:
+  - component/eks/actions-runner-controller
+  - layer/github
+  - provider/aws
+  - provider/helm
+---
 
 This component creates a Helm release for
 [actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller) on an EKS cluster.

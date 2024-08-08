@@ -1,4 +1,10 @@
-# Component: `ec2-instance`
+---
+title: "Component: `ec2-instance`"
+tags:
+  - component/ec2-instance
+  - layer/addons
+  - provider/aws
+---
 
 This component is responsible for provisioning a single EC2 instance.
 

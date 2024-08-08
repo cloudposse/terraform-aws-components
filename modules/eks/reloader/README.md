@@ -1,4 +1,11 @@
-# Component: `eks/reloader`
+---
+title: "Component: `eks/reloader`"
+tags:
+  - component/eks/reloader
+  - layer/eks
+  - provider/aws
+  - provider/helm
+---
 
 This component installs the [Stakater Reloader](https://github.com/stakater/Reloader) for EKS clusters. `reloader` can
 watch `ConfigMap`s and `Secret`s for changes and use these to trigger rolling upgrades on pods and their associated

@@ -1,4 +1,10 @@
-# Component: `glue/connection`
+---
+title: "Component: `glue/connection`"
+tags:
+  - component/glue/connection
+  - layer/unassigned
+  - provider/aws
+---
 
 This component provisions Glue connections.
 

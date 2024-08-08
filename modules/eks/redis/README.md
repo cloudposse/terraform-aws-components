@@ -1,4 +1,11 @@
-# Component: `eks/redis`
+---
+title: "Component: `eks/redis`"
+tags:
+  - component/eks/redis
+  - layer/data
+  - provider/aws
+  - provider/helm
+---
 
 This component installs `redis` for EKS clusters. This is a Self Hosted Redis Cluster installed on EKS.
 

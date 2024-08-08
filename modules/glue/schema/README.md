@@ -1,4 +1,10 @@
-# Component: `glue/schema`
+---
+title: "Component: `glue/schema`"
+tags:
+  - component/glue/schema
+  - layer/unassigned
+  - provider/aws
+---
 
 This component provisions Glue schemas.
 

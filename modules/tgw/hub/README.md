@@ -1,4 +1,10 @@
-# Component: `tgw/hub`
+---
+title: "Component: `tgw/hub`"
+tags:
+  - component/tgw/hub
+  - layer/network
+  - provider/aws
+---
 
 This component is responsible for provisioning an [AWS Transit Gateway](https://aws.amazon.com/transit-gateway) `hub`
 that acts as a centralized gateway for connecting VPCs from other `spoke` accounts.

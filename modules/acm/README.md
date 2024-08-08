@@ -1,4 +1,10 @@
-# Component: `acm`
+---
+title: "Component: `acm`"
+tags:
+  - component/acm
+  - layer/network
+  - provider/aws
+---
 
 This component is responsible for requesting an ACM certificate for a domain and adding a CNAME record to the DNS zone
 to complete certificate validation.

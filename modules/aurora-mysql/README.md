@@ -1,4 +1,10 @@
-# Component: `aurora-mysql`
+---
+title: "Component: `aurora-mysql`"
+tags:
+  - component/aurora-mysql
+  - layer/data
+  - provider/aws
+---
 
 This component is responsible for provisioning Aurora MySQL RDS clusters. It seeds relevant database information
 (hostnames, username, password, etc.) into AWS SSM Parameter Store.

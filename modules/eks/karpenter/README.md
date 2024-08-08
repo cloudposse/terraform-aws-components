@@ -1,4 +1,11 @@
-# Component: `eks/karpenter`
+---
+title: "Component: `eks/karpenter`"
+tags:
+  - component/eks/karpenter
+  - layer/eks
+  - provider/aws
+  - provider/helm
+---
 
 This component provisions [Karpenter](https://karpenter.sh) on an EKS cluster. It requires at least version 0.32.0 of
 Karpenter, though you are encouraged to use the latest version.

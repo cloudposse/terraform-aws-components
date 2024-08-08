@@ -1,4 +1,11 @@
-# Component: `keda`
+---
+title: "Component: `eks/keda`"
+tags:
+  - component/eks/keda
+  - layer/eks
+  - provider/aws
+  - provider/helm
+---
 
 This component is used to install the KEDA operator.
 

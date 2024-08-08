@@ -1,4 +1,10 @@
-# Component: `dms/iam`
+---
+title: "Component: `dms/iam`"
+tags:
+  - component/dms/iam
+  - layer/unassigned
+  - provider/aws
+---
 
 This component provisions IAM roles required for DMS.
 

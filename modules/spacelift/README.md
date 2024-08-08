@@ -1,4 +1,10 @@
-# Spacelift
+---
+title: "Component: `spacelift`"
+tags:
+  - layer/spacelift
+  - provider/aws
+  - provider/spacelift
+---
 
 These components are responsible for setting up Spacelift and include three components: `spacelift/admin-stack`,
 `spacelift/spaces`, and `spacelift/worker-pool`.

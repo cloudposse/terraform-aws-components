@@ -1,4 +1,10 @@
-# Component: `glue/job`
+---
+title: "Component: `glue/job`"
+tags:
+  - component/glue/job
+  - layer/unassigned
+  - provider/aws
+---
 
 This component provisions Glue jobs.
 

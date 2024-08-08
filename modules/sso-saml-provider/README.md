@@ -1,4 +1,10 @@
-# Component: `sso-saml-provider`
+---
+title: "Component: `sso-saml-provider`"
+tags:
+  - component/sso-saml-provider
+  - layer/software-delivery
+  - provider/aws
+---
 
 This component reads sso credentials from SSM Parameter store and provides them as outputs
 

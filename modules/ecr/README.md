@@ -1,4 +1,10 @@
-# Component: `ecr`
+---
+title: "Component: `ecr`"
+tags:
+  - component/ecr
+  - layer/baseline
+  - provider/aws
+---
 
 This component is responsible for provisioning repositories, lifecycle rules, and permissions for streamlined ECR usage.
 This utilizes

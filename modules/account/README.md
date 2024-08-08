@@ -1,4 +1,11 @@
-# Component: `account`
+---
+title: "Component: `account`"
+tags:
+  - component/account
+  - layer/accounts
+  - provider/aws
+  - privileged
+---
 
 This component is responsible for provisioning the full account hierarchy along with Organizational Units (OUs). It
 includes the ability to associate Service Control Policies (SCPs) to the Organization, each Organizational Unit and
