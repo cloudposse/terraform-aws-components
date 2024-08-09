@@ -10,12 +10,12 @@ wish to restrict who can read the production Terraform state backend S3 bucket. 
 all Terraform users require read access to the most sensitive accounts, such as `root` and `audit`, in order to read
 security configuration information, so careful planning is required when architecting backend splits.
 
-> [!TIP]
->
-> Part of cold start, so it has to initially be run with `SuperAdmin`, multiple times: to create the S3 bucket and then
-> to move the state into it. Follow the guide
-> **[here](https://docs.cloudposse.com/reference-architecture/how-to-guides/implementation/enterprise/implement-aws-cold-start/#provision-tfstate-backend-component)**
-> to get started.
+## Prerequisites
+
+- This component assumes you are using the `aws-teams` and `aws-team-roles` components.
+- Before the IAM roles are provisioned, you'll want to run this component with `access_roles_enabled` set to `false` to
+  prevent errors due to missing role ARNs. After the `aws-teams` and `aws-team-roles` components have been deployed, you
+  can run this component again with `access_roles_enabled` set to `true` to update the bucket and dynamodb policies.
 
 ### Access Control
 
