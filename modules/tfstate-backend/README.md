@@ -13,9 +13,11 @@ security configuration information, so careful planning is required when archite
 ## Prerequisites
 
 - This component assumes you are using the `aws-teams` and `aws-team-roles` components.
-- Before the IAM roles are provisioned, you'll want to run this component with `access_roles_enabled` set to `false` to
-  prevent errors due to missing role ARNs. After the `aws-teams` and `aws-team-roles` components have been deployed, you
-  can run this component again with `access_roles_enabled` set to `true` to update the bucket and dynamodb policies.
+- Before the `account` and `account-map` components are deployed for the first time, you'll want to run this component with `access_roles_enabled` set to `false` to
+  prevent errors due to missing IAM Role ARNs. 
+  This will enable only enough access to the Terraform state for you to finish provisioning accounts and roles.
+  After those components have been deployed, you will want to
+ run this component again with `access_roles_enabled` set to `true` to provide the complete access as configured in the stacks. 
 
 ### Access Control
 
