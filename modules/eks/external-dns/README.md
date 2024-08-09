@@ -45,6 +45,13 @@ components:
         #   aws:
         #     batchChangeSize: 1000
         chart_values: {}
+        # Extra hosted zones to lookup and support by component name
+        dns_components:
+          - component: dns-primary
+          - component: dns-delegated
+          - component: dns-delegated/abc
+          - component: dns-delegated/123
+            environment: "gbl" # Optional (default "gbl")
 ```
 
 <!-- prettier-ignore-start -->
