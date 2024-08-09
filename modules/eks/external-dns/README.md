@@ -45,6 +45,13 @@ components:
         #   aws:
         #     batchChangeSize: 1000
         chart_values: {}
+        # Extra hosted zones to lookup and support by component name
+        dns_components:
+          - component: dns-primary
+          - component: dns-delegated
+          - component: dns-delegated/abc
+          - component: dns-delegated/123
+            environment: "gbl" # Optional (default "gbl")
 ```
 
 <!-- prettier-ignore-start -->
@@ -68,6 +75,7 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_additional_dns_components"></a> [additional\_dns\_components](#module\_additional\_dns\_components) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_dns_gbl_primary"></a> [dns\_gbl\_primary](#module\_dns\_gbl\_primary) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
@@ -100,6 +108,7 @@ components:
 | <a name="input_create_namespace"></a> [create\_namespace](#input\_create\_namespace) | Create the namespace if it does not yet exist. Defaults to `false`. | `bool` | `null` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
+| <a name="input_dns_components"></a> [dns\_components](#input\_dns\_components) | A list of additional DNS components to search for ZoneIDs | <pre>list(object({<br>    component   = string,<br>    environment = optional(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_dns_gbl_delegated_environment_name"></a> [dns\_gbl\_delegated\_environment\_name](#input\_dns\_gbl\_delegated\_environment\_name) | The name of the environment where global `dns_delegated` is provisioned | `string` | `"gbl"` | no |
 | <a name="input_dns_gbl_primary_environment_name"></a> [dns\_gbl\_primary\_environment\_name](#input\_dns\_gbl\_primary\_environment\_name) | The name of the environment where global `dns_primary` is provisioned | `string` | `"gbl"` | no |
 | <a name="input_eks_component_name"></a> [eks\_component\_name](#input\_eks\_component\_name) | The name of the eks component | `string` | `"eks/cluster"` | no |
