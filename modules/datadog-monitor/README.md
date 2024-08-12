@@ -259,10 +259,7 @@ No resources.
 
 ## Related How-to Guides
 
-- [How to Onboard a New Service with Datadog and OpsGenie](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-onboard-a-new-service-with-datadog-and-opsgenie)
-- [How to Sign Up for Datadog?](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-sign-up-for-datadog)
-- [How to use Datadog Metrics for Horizontal Pod Autoscaling (HPA)](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-use-datadog-metrics-for-horizontal-pod-autoscaling-hpa)
-- [How to Implement SRE with Datadog](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-implement-sre-with-datadog)
+- [How to Monitor Everything with Datadog](https://docs.cloudposse.com/layers/monitoring/datadog/)
 
 ## Component Dependencies
 
