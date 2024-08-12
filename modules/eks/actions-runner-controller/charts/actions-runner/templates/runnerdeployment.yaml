@@ -153,6 +153,7 @@ spec:
         - name: RUNNER_WORKDIR
           value: "/runner-tmpfs/_work"
         {{- end }}
+
       # You could reserve nodes for runners by labeling and tainting nodes with
       #   node-role.kubernetes.io/actions-runner
       # and then adding the following to this RunnerDeployment
@@ -226,14 +227,22 @@ spec:
         limits:
           cpu: {{ .Values.resources.limits.cpu }}
           memory: {{ .Values.resources.limits.memory }}
+          {{- if index .Values.resources.limits "ephemeral-storage" }}
+          ephemeral-storage: {{ index .Values.resources.limits "ephemeral-storage" }}
+          {{- else }}
           {{- if index .Values.resources.limits "ephemeral_storage" }}
           ephemeral-storage: {{ .Values.resources.limits.ephemeral_storage }}
+          {{- end }}
           {{- end }}
         requests:
           cpu: {{ .Values.resources.requests.cpu }}
           memory: {{ .Values.resources.requests.memory }}
+          {{- if index .Values.resources.requests "ephemeral-storage" }}
+          ephemeral-storage: {{ index .Values.resources.requests "ephemeral-storage" }}
+          {{- else }}
           {{- if index .Values.resources.requests "ephemeral_storage" }}
           ephemeral-storage: {{ .Values.resources.requests.ephemeral_storage }}
+          {{- end }}
           {{- end }}
       {{- if and (not $use_dind_in_runner) (or .Values.docker_storage $use_tmpfs) }}
       {{- /* dockerVolumeMounts are mounted into the docker sidecar, and ignored if running with dockerdWithinRunnerContainer */}}
