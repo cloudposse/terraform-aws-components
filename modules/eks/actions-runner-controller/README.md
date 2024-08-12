@@ -384,9 +384,11 @@ scale down to zero before finishing all the jobs, leaving some waiting indefinit
 the `max_duration` to a time long enough to cover the full time a job may have to wait between the time it is queued and
 the time it finishes, assuming that the HRA scales up the pool by 1 and runs the job on the new runner.
 
-:::info If there are more jobs queued than there are runners allowed by `maxReplicas`, the timeout timer does not start
-on the capacity reservation until enough reservations ahead of it are removed for it to be considered as representing
-and active job. Although there are some edge cases regarding `max_duration` that seem not to be covered properly (see
+:::info
+
+If there are more jobs queued than there are runners allowed by `maxReplicas`, the timeout timer does not start on the
+capacity reservation until enough reservations ahead of it are removed for it to be considered as representing and
+active job. Although there are some edge cases regarding `max_duration` that seem not to be covered properly (see
 [actions-runner-controller issue #2466](https://github.com/actions/actions-runner-controller/issues/2466)), they only
 merit adding a few extra minutes to the timeout.
 
