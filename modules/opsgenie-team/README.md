@@ -387,7 +387,9 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 
 ## Related How-to Guides
 
-- [Manage Incidents with OpsGenie](https://docs.cloudposse.com/layers/alerting/opsgenie/)
+[See OpsGenie in the Reference Architecture](https://docs.cloudposse.com/layers/alerting/opsgenie/)
+
+<CategoryList path="/layers/alerting/opsgenie/" />
 
 ## References
 
