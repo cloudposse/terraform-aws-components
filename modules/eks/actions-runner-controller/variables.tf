@@ -148,13 +148,14 @@ variable "runners" {
   EOT
 
   type = map(object({
-    type            = string
-    scope           = string
-    group           = optional(string, null)
-    image           = optional(string, "summerwind/actions-runner-dind")
-    dind_enabled    = optional(bool, true)
-    node_selector   = optional(map(string), {})
-    pod_annotations = optional(map(string), {})
+    type                = string
+    scope               = string
+    group               = optional(string, null)
+    image               = optional(string, "summerwind/actions-runner-dind")
+    auto_update_enabled = optional(bool, true)
+    dind_enabled        = optional(bool, true)
+    node_selector       = optional(map(string), {})
+    pod_annotations     = optional(map(string), {})
 
     # running_pod_annotations are only applied to the pods once they start running a job
     running_pod_annotations = optional(map(string), {})
