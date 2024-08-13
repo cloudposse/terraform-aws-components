@@ -148,13 +148,14 @@ variable "runners" {
   EOT
 
   type = map(object({
-    type            = string
-    scope           = string
-    group           = optional(string, null)
-    image           = optional(string, "summerwind/actions-runner-dind")
-    dind_enabled    = optional(bool, true)
-    node_selector   = optional(map(string), {})
-    pod_annotations = optional(map(string), {})
+    type                = string
+    scope               = string
+    group               = optional(string, null)
+    image               = optional(string, "summerwind/actions-runner-dind")
+    auto_update_enabled = optional(bool, true)
+    dind_enabled        = optional(bool, true)
+    node_selector       = optional(map(string), {})
+    pod_annotations     = optional(map(string), {})
 
     # running_pod_annotations are only applied to the pods once they start running a job
     running_pod_annotations = optional(map(string), {})
@@ -224,13 +225,19 @@ variable "runners" {
     tmpfs_enabled = optional(bool)
     resources = optional(object({
       limits = optional(object({
-        cpu               = optional(string, "1")
-        memory            = optional(string, "1Gi")
+        cpu    = optional(string, "1")
+        memory = optional(string, "1Gi")
+        # ephemeral-storage is the Kubernetes name, but `ephemeral_storage` is the gomplate name,
+        # so allow either. If both are specified, `ephemeral-storage` takes precedence.
+        ephemeral-storage = optional(string)
         ephemeral_storage = optional(string, "10Gi")
       }), {})
       requests = optional(object({
-        cpu               = optional(string, "500m")
-        memory            = optional(string, "256Mi")
+        cpu    = optional(string, "500m")
+        memory = optional(string, "256Mi")
+        # ephemeral-storage is the Kubernetes name, but `ephemeral_storage` is the gomplate name,
+        # so allow either. If both are specified, `ephemeral-storage` takes precedence.
+        ephemeral-storage = optional(string)
         ephemeral_storage = optional(string, "1Gi")
       }), {})
     }), {})

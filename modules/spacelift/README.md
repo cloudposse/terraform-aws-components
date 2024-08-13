@@ -128,11 +128,9 @@ components:
 
 #### Deployment
 
-:::info
-
-The following steps assume that you've already authenticated with Spacelift locally.
-
-:::
+> [!TIP]
+>
+> The following steps assume that you've already authenticated with Spacelift locally.
 
 First deploy Spaces and policies with the `spaces` component:
 
@@ -159,12 +157,10 @@ following:
 + core-ue1-auto-spacelift-worker-pool
 ```
 
-:::info
-
-The `spacelift/worker-pool` component is deployed to a specific tenant, stage, and region but is still deployed by the
-root administrator stack. Verify the administrator stack by checking the `managed-by:` label.
-
-:::
+> [!TIP]
+>
+> The `spacelift/worker-pool` component is deployed to a specific tenant, stage, and region but is still deployed by the
+> root administrator stack. Verify the administrator stack by checking the `managed-by:` label.
 
 Finally, deploy the Spacelift Worker Pool (change the stack-slug to match your configuration):
 

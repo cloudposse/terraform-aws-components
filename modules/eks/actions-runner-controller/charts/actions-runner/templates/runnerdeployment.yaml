@@ -139,12 +139,21 @@ spec:
         # to report its status and deregister itself from the runner pool.
         - name: RUNNER_GRACEFUL_STOP_TIMEOUT
           value: "80"
+        - name: DISABLE_RUNNER_UPDATE
+          value: "{{ printf "%v" (not .Values.auto_update_enabled) }}"
         {{- with .Values.wait_for_docker_seconds }}
         # If Docker is taking too long to start (which is likely due to some other performance issue),
         # increase the timeout from the default of 120 seconds.
         - name: WAIT_FOR_DOCKER_SECONDS
           value: "{{ . }}"
         {{- end }}
+        {{- if $use_tmpfs }}
+        - name: RUNNER_HOME
+          value: "/runner-tmpfs"
+        - name: RUNNER_WORKDIR
+          value: "/runner-tmpfs/_work"
+        {{- end }}
+
       # You could reserve nodes for runners by labeling and tainting nodes with
       #   node-role.kubernetes.io/actions-runner
       # and then adding the following to this RunnerDeployment
@@ -206,6 +215,7 @@ spec:
         {{- end }}
       # dockerdWithinRunnerContainer = false means access to a Docker daemon is provided by a sidecar container.
       dockerdWithinRunnerContainer: {{ $use_dind_in_runner }}
+      dockerEnabled: {{ $use_dind }}
       image: {{ .Values.image | quote }}
       imagePullPolicy: IfNotPresent
       {{- if  $use_dockerconfig }}
@@ -217,14 +227,22 @@ spec:
         limits:
           cpu: {{ .Values.resources.limits.cpu }}
           memory: {{ .Values.resources.limits.memory }}
+          {{- if index .Values.resources.limits "ephemeral-storage" }}
+          ephemeral-storage: {{ index .Values.resources.limits "ephemeral-storage" }}
+          {{- else }}
           {{- if index .Values.resources.limits "ephemeral_storage" }}
           ephemeral-storage: {{ .Values.resources.limits.ephemeral_storage }}
+          {{- end }}
           {{- end }}
         requests:
           cpu: {{ .Values.resources.requests.cpu }}
           memory: {{ .Values.resources.requests.memory }}
+          {{- if index .Values.resources.requests "ephemeral-storage" }}
+          ephemeral-storage: {{ index .Values.resources.requests "ephemeral-storage" }}
+          {{- else }}
           {{- if index .Values.resources.requests "ephemeral_storage" }}
           ephemeral-storage: {{ .Values.resources.requests.ephemeral_storage }}
+          {{- end }}
           {{- end }}
       {{- if and (not $use_dind_in_runner) (or .Values.docker_storage $use_tmpfs) }}
       {{- /* dockerVolumeMounts are mounted into the docker sidecar, and ignored if running with dockerdWithinRunnerContainer */}}
@@ -251,14 +269,14 @@ spec:
         {{- if $use_tmpfs }}
         - mountPath: /tmp
           name: tmp
-        - mountPath: /runner/_work
-          name: work
+        - mountPath: /runner-tmpfs
+          name: runner-tmpfs
         {{- end }}
       {{- end }}{{/* End of volumeMounts */}}
       {{- if or (and $use_dind (or .Values.docker_storage $use_tmpfs)) $use_pvc $use_dockerconfig (not (empty .Values.running_pod_annotations)) }}
       volumes:
         {{- if $use_tmpfs }}
-        - name: work
+        - name: runner-tmpfs
           emptyDir:
             medium: Memory
         - name: tmp

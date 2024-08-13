@@ -12,12 +12,10 @@ This utilizes
 to assign accounts to various roles. It is also compatible with the
 [GitHub Actions IAM Role mixin](https://github.com/cloudposse/terraform-aws-components/blob/master/mixins/github-actions-iam-role/README-github-action-iam-role.md).
 
-:::caution
-
-Older versions of our reference architecture have an`eks-iam` component that needs to be updated to provide sufficient
-IAM roles to allow pods to pull from ECR repos
-
-:::
+> [!WARNING]
+>
+> Older versions of our reference architecture have an`eks-iam` component that needs to be updated to provide sufficient
+> IAM roles to allow pods to pull from ECR repos
 
 ## Usage
 
@@ -142,9 +140,9 @@ components:
 
 ## Related
 
-- [Decide How to distribute Docker Images](https://docs.cloudposse.com/reference-architecture/design-decisions/foundational-platform/decide-how-to-distribute-docker-images)
+- [Decide How to distribute Docker Images](https://docs.cloudposse.com/layers/software-delivery/design-decisions/decide-how-to-distribute-docker-images/)
 
-- [Decide on ECR Strategy](https://docs.cloudposse.com/reference-architecture/design-decisions/foundational-platform/decide-on-ecr-strategy)
+- [Decide on ECR Strategy](https://docs.cloudposse.com/layers/project/design-decisions/decide-on-ecr-strategy/)
 
 ## References
 
