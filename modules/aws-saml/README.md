@@ -1,11 +1,12 @@
 ---
-title: "Component: `aws-saml`"
 tags:
   - component/aws-saml
   - layer/identity
   - provider/aws
   - priviliged
 ---
+
+# Component: `aws-saml`
 
 This component is responsible for provisioning SAML metadata into AWS IAM as new SAML providers. Additionally, for an
 Okta integration (`okta` must be mentioned in the key given to the `saml_providers` input) it creates an Okta API user

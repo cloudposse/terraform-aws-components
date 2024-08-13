@@ -1,10 +1,11 @@
 ---
-title: "Component: `aws-inspector2`"
 tags:
   - component/aws-inspector2
   - layer/security-and-compliance
   - provider/aws
 ---
+
+# Component: `aws-inspector2`
 
 This component is responsible for configuring Inspector V2 within an AWS Organization.
 

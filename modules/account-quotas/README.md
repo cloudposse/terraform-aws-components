@@ -1,10 +1,11 @@
 ---
-title: "Component: `account-quotas`"
 tags:
   - component/account-quotas
   - layer/foundation
   - provider/aws
 ---
+
+# Component: `account-quotas`
 
 This component is responsible for requesting service quota increases. We recommend making requests here rather than in
 `account-settings` because `account-settings` is a restricted component that can only be applied by SuperAdmin.

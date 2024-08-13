@@ -1,11 +1,12 @@
 ---
-title: "Component: `datadog-synthetics`"
 tags:
   - component/datadog-synthetics
   - layer/datadog
   - provider/aws
   - provider/datadog
 ---
+
+# Component: `datadog-synthetics`
 
 This component provides the ability to implement
 [Datadog synthetic tests](https://docs.datadoghq.com/synthetics/guide/).

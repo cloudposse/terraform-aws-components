@@ -1,11 +1,12 @@
 ---
-title: "Component: `aws-sso`"
 tags:
   - component/aws-sso
   - layer/identity
   - provider/aws
   - privileged
 ---
+
+# Component: `aws-sso`
 
 This component is responsible for creating [AWS SSO Permission Sets][1] and creating AWS SSO Account Assignments, that
 is, assigning IdP (Okta) groups and/or users to AWS SSO permission sets in specific AWS Accounts.

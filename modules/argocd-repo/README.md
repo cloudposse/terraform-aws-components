@@ -1,11 +1,12 @@
 ---
-title: "Component: `argocd-repo`"
 tags:
   - component/argocd-repo
   - layer/software-delivery
   - provider/aws
   - provider/github
 ---
+
+# Component: `argocd-repo`
 
 This component is responsible for creating and managing an ArgoCD desired state repository.
 

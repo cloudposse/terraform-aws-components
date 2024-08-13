@@ -1,10 +1,11 @@
 ---
-title: "Component: `tgw/spoke`"
 tags:
   - component/tgw/spoke
   - layer/network
   - provider/aws
 ---
+
+# Component: `tgw/spoke`
 
 This component is responsible for provisioning [AWS Transit Gateway](https://aws.amazon.com/transit-gateway) attachments
 to connect VPCs in a `spoke` account to different accounts through a central `hub`.

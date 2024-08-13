@@ -1,10 +1,11 @@
 ---
-title: "Component: `ipam`"
 tags:
   - component/ipam
   - layer/unassigned
   - provider/aws
 ---
+
+# Component: `ipam`
 
 This component is responsible for provisioning IPAM per region in a centralized account.
 

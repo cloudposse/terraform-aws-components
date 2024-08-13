@@ -1,10 +1,11 @@
 ---
-title: "Component: `waf`"
 tags:
   - component/waf
   - layer/addons
   - provider/aws
 ---
+
+# Component: `waf`
 
 This component is responsible for provisioning an AWS Web Application Firewall (WAF) with an associated managed rule
 group.

@@ -1,10 +1,11 @@
 ---
-title: "Component: `zscaler`"
 tags:
   - component/zscaler
   - layer/unassigned
   - provider/aws
 ---
+
+# Component: `zscaler`
 
 This component is responsible for provisioning ZScaler Private Access Connector instances on Amazon Linux 2 AMIs.
 

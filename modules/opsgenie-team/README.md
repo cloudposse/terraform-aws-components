@@ -1,10 +1,11 @@
 ---
-title: "Component: `opsgenie-team`"
 tags:
   - component/opsgenie-team
   - layer/unassigned
   - provider/aws
 ---
+
+# Component: `opsgenie-team`
 
 This component is responsible for provisioning Opsgenie teams and related services, rules, schedules.
 

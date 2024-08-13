@@ -1,10 +1,11 @@
 ---
-title: "Component: `ec2-client-vpn`"
 tags:
   - component/ec2-client-vpn
   - layer/network
   - provider/aws
 ---
+
+# Component: `ec2-client-vpn`
 
 This component is responsible for provisioning VPN Client Endpoints.
 

@@ -1,10 +1,11 @@
 ---
-title: "Component: `rds`"
 tags:
   - component/rds
   - layer/data
   - provider/aws
 ---
+
+# Component: `rds`
 
 This component is responsible for provisioning an RDS instance. It seeds relevant database information (hostnames,
 username, password, etc.) into AWS SSM Parameter Store.

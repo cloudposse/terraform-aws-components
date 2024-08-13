@@ -1,11 +1,12 @@
 ---
-title: "Component: `eks/prometheus-scraper`"
 tags:
   - component/eks/prometheus-scraper
   - layer/grafana
   - provider/aws
   - provider/helm
 ---
+
+# Component: `eks/prometheus-scraper`
 
 This component provisions the an Amazon Managed collector or scraper to connect Amazon Managed Prometheus (AMP) with an
 EKS cluster.

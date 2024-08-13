@@ -1,11 +1,12 @@
 ---
-title: "Component: `dynamodb`"
 tags:
   - component/dynamodb
   - layer/data
   - layer/gitops
   - provider/aws
 ---
+
+# Component: `dynamodb`
 
 This component is responsible for provisioning a DynamoDB table.
 

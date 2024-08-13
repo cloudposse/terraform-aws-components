@@ -1,10 +1,11 @@
 ---
-title: "Component: `dms/replication-instance`"
 tags:
   - component/dms/replication-instance
   - layer/unassigned
   - provider/aws
 ---
+
+# Component: `dms/replication-instance`
 
 This component provisions DMS replication instances.
 

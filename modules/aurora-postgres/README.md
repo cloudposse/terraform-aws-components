@@ -1,10 +1,11 @@
 ---
-title: "Component: `aurora-postgres`"
 tags:
   - component/aurora-postgres
   - layer/data
   - provider/aws
 ---
+
+# Component: `aurora-postgres`
 
 This component is responsible for provisioning Aurora Postgres RDS clusters. It seeds relevant database information
 (hostnames, username, password, etc.) into AWS SSM Parameter Store.

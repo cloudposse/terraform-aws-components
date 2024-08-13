@@ -1,11 +1,12 @@
 ---
-title: "Component: `account-map`"
 tags:
   - component/account-map
   - layer/accounts
   - provider/aws
   - privileged
 ---
+
+# Component: `account-map`
 
 This component is responsible for provisioning information only: it simply populates Terraform state with data (account
 ids, groups, and roles) that other root modules need via outputs.

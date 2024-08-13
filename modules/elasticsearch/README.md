@@ -1,10 +1,11 @@
 ---
-title: "Component: `elasticsearch`"
 tags:
   - component/elasticsearch
   - layer/data
   - provider/aws
 ---
+
+# Component: `elasticsearch`
 
 This component is responsible for provisioning an Elasticsearch cluster with built-in integrations with Kibana and
 Logstash.

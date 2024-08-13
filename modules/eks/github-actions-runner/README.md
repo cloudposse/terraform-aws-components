@@ -1,11 +1,12 @@
 ---
-title: "Component: `eks/github-actions-runner`"
 tags:
   - component/eks/github-actions-runner
   - layer/github
   - provider/aws
   - provider/helm
 ---
+
+# Component: `eks/github-actions-runner`
 
 This component deploys self-hosted GitHub Actions Runners and a
 [Controller](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/quickstart-for-actions-runner-controller#introduction)

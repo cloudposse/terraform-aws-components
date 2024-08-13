@@ -1,11 +1,12 @@
 ---
-title: "Component: `efs`"
 tags:
   - component/efs
   - layer/data
   - layer/eks
   - provider/aws
 ---
+
+# Component: `efs`
 
 This component is responsible for provisioning an [EFS](https://aws.amazon.com/efs/) Network File System with KMS
 encryption-at-rest. EFS is an excellent choice as the default block storage for EKS clusters so that volumes are not

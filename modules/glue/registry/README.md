@@ -1,10 +1,11 @@
 ---
-title: "Component: `glue/registry`"
 tags:
   - component/glue/registry
   - layer/unassigned
   - provider/aws
 ---
+
+# Component: `glue/registry`
 
 This component provisions Glue registries.
 

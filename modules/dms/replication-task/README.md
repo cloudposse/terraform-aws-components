@@ -1,10 +1,11 @@
 ---
-title: "Component: `dms/replication-task`"
 tags:
   - component/dms/replication-task
   - layer/unassigned
   - provider/aws
 ---
+
+# Component: `dms/replication-task`
 
 This component provisions DMS replication tasks.
 

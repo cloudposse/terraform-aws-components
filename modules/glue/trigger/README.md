@@ -1,10 +1,11 @@
 ---
-title: "Component: `glue/trigger`"
 tags:
   - component/glue/trigger
   - layer/unassigned
   - provider/aws
 ---
+
+# Component: `glue/trigger`
 
 This component provisions Glue triggers.
 

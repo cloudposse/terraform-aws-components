@@ -1,11 +1,12 @@
 ---
-title: "Component: `eks/loki`"
 tags:
   - component/eks/loki
   - layer/grafana
   - provider/aws
   - provider/helm
 ---
+
+# Component: `eks/loki`
 
 Grafana Loki is a set of resources that can be combined into a fully featured logging stack. Unlike other logging
 systems, Loki is built around the idea of only indexing metadata about your logs: labels (just like Prometheus labels).

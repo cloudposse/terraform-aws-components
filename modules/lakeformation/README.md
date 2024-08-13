@@ -1,10 +1,11 @@
 ---
-title: "Component: `lakeformation`"
 tags:
   - component/lakeformation
   - layer/unassigned
   - provider/aws
 ---
+
+# Component: `lakeformation`
 
 This component is responsible for provisioning Amazon Lake Formation resources.
 

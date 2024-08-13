@@ -1,10 +1,11 @@
 ---
-title: "Component: `amplify`"
 tags:
   - component/amplify
   - layer/unassigned
   - provider/aws
 ---
+
+# Component: `amplify`
 
 This component is responsible for provisioning AWS Amplify apps, backend environments, branches, domain associations,
 and webhooks.
