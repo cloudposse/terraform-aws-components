@@ -18,16 +18,14 @@ profiles.
 
 Here's an example snippet for how to use this component.
 
-This example expects the [Cloud Posse Reference Architecture](https://docs.cloudposse.com/reference-architecture/)
-Identity and Network designs deployed for mapping users to EKS service roles and granting access in a private network.
-In addition, this example has the GitHub OIDC integration added and makes use of Karpenter to dynamically scale cluster
-nodes.
+This example expects the [Cloud Posse Reference Architecture](https://docs.cloudposse.com/) Identity and Network designs
+deployed for mapping users to EKS service roles and granting access in a private network. In addition, this example has
+the GitHub OIDC integration added and makes use of Karpenter to dynamically scale cluster nodes.
 
-For more on these requirements, see
-[Identity Reference Architecture](https://docs.cloudposse.com/reference-architecture/quickstart/iam-identity/),
-[Network Reference Architecture](https://docs.cloudposse.com/reference-architecture/scaffolding/setup/network/), the
-[GitHub OIDC component](https://docs.cloudposse.com/components/catalog/aws/github-oidc-provider/), and the
-[Karpenter component](https://docs.cloudposse.com/components/catalog/aws/eks/karpenter/).
+For more on these requirements, see [Identity Reference Architecture](https://docs.cloudposse.com/layers/identity/),
+[Network Reference Architecture](https://docs.cloudposse.com/layers/network/), the
+[GitHub OIDC component](https://docs.cloudposse.com/components/library/aws/github-oidc-provider/), and the
+[Karpenter component](https://docs.cloudposse.com/components/library/aws/eks/karpenter/).
 
 ### Mixin pattern for Kubernetes version
 
@@ -400,7 +398,7 @@ addons:
 > functional during deployment of the cluster.
 
 For more information on upgrading EKS Addons, see
-["How to Upgrade EKS Cluster Addons"](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons/)
+["How to Upgrade EKS Cluster Addons"](https://docs.cloudposse.com/learn/maintenance/upgrades/how-to-upgrade-eks-cluster-addons/)
 
 ### Adding and Configuring a new EKS Addon
 
@@ -630,13 +628,7 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 
 ## Related How-to Guides
 
-- [How to Load Test in AWS](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-load-test-in-aws)
-- [How to Tune EKS with AWS Managed Node Groups](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-tune-eks-with-aws-managed-node-groups)
-- [How to Keep Everything Up to Date](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-keep-everything-up-to-date)
-- [How to Tune SpotInst Parameters for EKS](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-tune-spotinst-parameters-for-eks)
-- [How to Upgrade EKS Cluster Addons](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons)
-- [How to Upgrade EKS](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks)
-- [EBS CSI Migration FAQ](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi-migration-faq.html)
+- [EKS Foundational Platform](https://docs.cloudposse.com/layers/eks/)
 
 ## References
 

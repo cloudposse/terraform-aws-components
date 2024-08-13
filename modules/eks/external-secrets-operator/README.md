@@ -194,6 +194,6 @@ components:
 
 ## References
 
-- [Secrets Management Strategy](https://docs.cloudposse.com/reference-architecture/design-decisions/cold-start/decide-on-secrets-management-strategy-for-terraform/)
+- [Secrets Management Strategy](https://docs.cloudposse.com/layers/project/design-decisions/decide-on-secrets-management-strategy-for-terraform)
 - https://external-secrets.io/v0.5.9/
 - https://external-secrets.io/v0.5.9/provider-aws-parameter-store/
