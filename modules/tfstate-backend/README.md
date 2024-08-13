@@ -32,7 +32,6 @@ security configuration information, so careful planning is required when archite
   enough access to the Terraform state for you to finish provisioning accounts and roles. After those components have
   been deployed, you will want to run this component again with `access_roles_enabled` set to `true` to provide the
   complete access as configured in the stacks.
-  > > > > > > > main
 
 ### Access Control
 
