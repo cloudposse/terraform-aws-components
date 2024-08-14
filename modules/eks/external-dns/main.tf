@@ -98,7 +98,7 @@ module "external_dns" {
       publishInternalServices = var.publish_internal_services
       txtOwnerId              = local.txt_owner
       txtPrefix               = local.txt_prefix
-      source                  = local.sources
+      sources                 = local.sources
     }),
     # hardcoded values
     file("${path.module}/resources/values.yaml"),
