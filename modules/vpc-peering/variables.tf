@@ -43,6 +43,12 @@ variable "requester_vpc_id" {
   default     = null
 }
 
+variable "requester_role_arn" {
+  type        = string
+  description = "Requestor AWS assume role ARN, if not provided it will be assumed to be the current terraform role."
+  default     = null
+}
+
 variable "requester_allow_remote_vpc_dns_resolution" {
   type        = bool
   description = "Allow requester VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the accepter VPC"
