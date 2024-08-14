@@ -1,7 +1,7 @@
 locals {
   enabled = module.this.enabled
 
-  requester_vpc_id = module.requester_vpc.outputs.vpc_id
+  requester_vpc_id = coalesce(var.requester_vpc_id, module.requester_vpc.outputs.vpc_id)
 
   accepter_aws_assume_role_arn = var.accepter_stage_name != null ? module.iam_roles.terraform_role_arns[var.accepter_stage_name] : var.accepter_aws_assume_role_arn
 }
