@@ -396,8 +396,6 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 
 [See OpsGenie in the Reference Architecture](https://docs.cloudposse.com/layers/alerting/opsgenie/)
 
-<CategoryList path="/layers/alerting/opsgenie/" />
-
 ## References
 
 - [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/opsgenie-team) -
