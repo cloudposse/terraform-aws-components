@@ -1,3 +1,10 @@
+---
+tags:
+  - component/github-action-token-rotator
+  - layer/github
+  - provider/aws
+---
+
 # Component: `github-action-token-rotator`
 
 This component is responsible for provisioning

@@ -1,3 +1,11 @@
+---
+tags:
+  - component/eks/external-dns
+  - layer/eks
+  - provider/aws
+  - provider/helm
+---
+
 # Component: `eks/external-dns`
 
 This component creates a Helm deployment for [external-dns](https://github.com/bitnami/bitnami-docker-external-dns) on a

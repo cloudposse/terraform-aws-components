@@ -1,3 +1,11 @@
+---
+tags:
+  - component/datadog-monitor
+  - layer/datadog
+  - provider/aws
+  - provider/datadog
+---
+
 # Component: `datadog-monitor`
 
 This component is responsible for provisioning Datadog monitors and assigning Datadog roles to the monitors.

@@ -1,3 +1,11 @@
+---
+tags:
+  - component/datadog-lambda-forwarder
+  - layer/datadog
+  - provider/aws
+  - provider/datadog
+---
+
 # Component: `datadog-lambda-forwarder`
 
 This component is responsible for provision all the necessary infrastructure to deploy

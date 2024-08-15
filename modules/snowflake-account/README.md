@@ -1,3 +1,11 @@
+---
+tags:
+  - component/snowflake-account
+  - layer/unassigned
+  - provider/aws
+  - provider/snowflake
+---
+
 # Component: `snowflake-account`
 
 This component sets up the requirements for all other Snowflake components, including creating the Terraform service

@@ -1,3 +1,10 @@
+---
+tags:
+  - component/glue/job
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `glue/job`
 
 This component provisions Glue jobs.

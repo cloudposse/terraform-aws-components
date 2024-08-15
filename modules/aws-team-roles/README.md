@@ -1,3 +1,11 @@
+---
+tags:
+  - component/aws-team-roles
+  - layer/identity
+  - provider/aws
+  - privileged
+---
+
 # Component: `aws-team-roles`
 
 This component is responsible for provisioning user and system IAM roles outside the `identity` account. It sets them up

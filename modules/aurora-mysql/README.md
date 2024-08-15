@@ -1,3 +1,10 @@
+---
+tags:
+  - component/aurora-mysql
+  - layer/data
+  - provider/aws
+---
+
 # Component: `aurora-mysql`
 
 This component is responsible for provisioning Aurora MySQL RDS clusters. It seeds relevant database information

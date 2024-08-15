@@ -1,3 +1,10 @@
+---
+tags:
+  - component/opsgenie-team
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `opsgenie-team`
 
 This component is responsible for provisioning Opsgenie teams and related services, rules, schedules.
@@ -388,8 +395,6 @@ Track the issue: https://github.com/opsgenie/terraform-provider-opsgenie/issues/
 ## Related How-to Guides
 
 [See OpsGenie in the Reference Architecture](https://docs.cloudposse.com/layers/alerting/opsgenie/)
-
-<CategoryList path="/layers/alerting/opsgenie/" />
 
 ## References
 

@@ -1,3 +1,10 @@
+---
+tags:
+  - component/network-firewall
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `network-firewall`
 
 This component is responsible for provisioning [AWS Network Firewall](https://aws.amazon.com/network-firewal) resources,

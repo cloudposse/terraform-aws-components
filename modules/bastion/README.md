@@ -1,3 +1,10 @@
+---
+tags:
+  - component/bastion
+  - layer/network
+  - provider/aws
+---
+
 # Component: `bastion`
 
 This component is responsible for provisioning a generic Bastion host within an ASG with parameterized `user_data` and

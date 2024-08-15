@@ -1,3 +1,10 @@
+---
+tags:
+  - component/route53-resolver-dns-firewall
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `route53-resolver-dns-firewall`
 
 This component is responsible for provisioning

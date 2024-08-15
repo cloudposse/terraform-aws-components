@@ -1,3 +1,11 @@
+---
+tags:
+  - component/tfstate-backend
+  - layer/foundation
+  - provider/aws
+  - privileged
+---
+
 # Component: `tfstate-backend`
 
 This component is responsible for provisioning an S3 Bucket and DynamoDB table that follow security best practices for
@@ -12,12 +20,19 @@ security configuration information, so careful planning is required when archite
 
 ## Prerequisites
 
+> [!TIP]
+>
+> Part of cold start, so it has to initially be run with `SuperAdmin`, multiple times: to create the S3 bucket and then
+> to move the state into it. Follow the guide
+> **[here](https://docs.cloudposse.com/layers/accounts/tutorials/manual-configuration/#provision-tfstate-backend-component)**
+> to get started.
+
 - This component assumes you are using the `aws-teams` and `aws-team-roles` components.
-- Before the `account` and `account-map` components are deployed for the first time, you'll want to run this component with `access_roles_enabled` set to `false` to
-  prevent errors due to missing IAM Role ARNs. 
-  This will enable only enough access to the Terraform state for you to finish provisioning accounts and roles.
-  After those components have been deployed, you will want to
- run this component again with `access_roles_enabled` set to `true` to provide the complete access as configured in the stacks. 
+- Before the `account` and `account-map` components are deployed for the first time, you'll want to run this component
+  with `access_roles_enabled` set to `false` to prevent errors due to missing IAM Role ARNs. This will enable only
+  enough access to the Terraform state for you to finish provisioning accounts and roles. After those components have
+  been deployed, you will want to run this component again with `access_roles_enabled` set to `true` to provide the
+  complete access as configured in the stacks.
 
 ### Access Control
 
