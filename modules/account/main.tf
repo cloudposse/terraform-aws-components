@@ -1,3 +1,4 @@
+
 locals {
   # Organization config map
   organization = lookup(var.organization_config, "organization", {})
