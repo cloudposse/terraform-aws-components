@@ -183,6 +183,7 @@ module "organization_service_control_policies" {
 }
 
 # Provision Accounts Service Control Policies
+# Provision Accounts Service Control Policies
 module "accounts_service_control_policies" {
   source  = "cloudposse/service-control-policies/aws"
   version = "0.9.2"
