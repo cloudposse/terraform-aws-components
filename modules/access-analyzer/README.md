@@ -52,7 +52,7 @@ components:
       vars:
         enabled: true
         global_environment: gbl
-        account_map_tenant: dev
+        account_map_tenant: core
         root_account_stage: root
         delegated_administrator_account_name: dev-mgt
         accessanalyzer_service_principal: "access-analyzer.amazonaws.com"
