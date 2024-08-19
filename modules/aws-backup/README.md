@@ -1,3 +1,10 @@
+---
+tags:
+  - component/aws-backup
+  - layer/data
+  - provider/aws
+---
+
 # Component: `aws-backup`
 
 This component is responsible for provisioning an AWS Backup Plan. It creates a schedule for backing up given ARNs.
@@ -335,4 +342,4 @@ No resources.
 
 ## Related How-to Guides
 
-- [How to Enable Cross-Region Backups in AWS-Backup](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-enable-cross-region-backups-in-aws-backup)
+- [How to Enable Cross-Region Backups in AWS-Backup](https://docs.cloudposse.com/layers/data/tutorials/how-to-enable-cross-region-backups-in-aws-backup/)

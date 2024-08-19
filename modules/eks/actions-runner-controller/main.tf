@@ -225,6 +225,7 @@ module "actions_runner" {
       type                           = each.value.type
       scope                          = each.value.scope
       image                          = each.value.image
+      auto_update_enabled            = each.value.auto_update_enabled
       dind_enabled                   = each.value.dind_enabled
       service_account_role_arn       = module.actions_runner_controller.service_account_role_arn
       resources                      = each.value.resources

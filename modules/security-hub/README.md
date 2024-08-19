@@ -1,3 +1,10 @@
+---
+tags:
+  - component/security-hub
+  - layer/security-and-compliance
+  - provider/aws
+---
+
 # Component: `security-hub`
 
 This component is responsible for configuring Security Hub within an AWS Organization.

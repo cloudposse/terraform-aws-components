@@ -1,3 +1,10 @@
+---
+tags:
+  - component/managed-prometheus/workspace
+  - layer/grafana
+  - provider/aws
+---
+
 # Component: `managed-prometheus/workspace`
 
 This component is responsible for provisioning a workspace for Amazon Managed Service for Prometheus, also known as

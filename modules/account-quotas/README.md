@@ -1,3 +1,10 @@
+---
+tags:
+  - component/account-quotas
+  - layer/foundation
+  - provider/aws
+---
+
 # Component: `account-quotas`
 
 This component is responsible for requesting service quota increases. We recommend making requests here rather than in

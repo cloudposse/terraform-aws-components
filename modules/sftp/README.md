@@ -1,3 +1,10 @@
+---
+tags:
+  - component/sftp
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `sftp`
 
 This component is responsible for provisioning SFTP Endpoints.

@@ -1,3 +1,11 @@
+---
+tags:
+  - component/eks/alb-controller
+  - layer/eks
+  - provider/aws
+  - provider/helm
+---
+
 # Component: `eks/alb-controller`
 
 This component creates a Helm release for

@@ -1,3 +1,10 @@
+---
+tags:
+  - component/kms
+  - layer/addons
+  - provider/aws
+---
+
 # Component: `kms`
 
 This component is responsible for provisioning a KMS Key.

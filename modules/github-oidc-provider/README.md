@@ -1,3 +1,11 @@
+---
+tags:
+  - component/github-oidc-provider
+  - layer/github
+  - provider/aws
+  - privileged
+---
+
 # Component: `github-oidc-provider`
 
 This component is responsible for authorizing the GitHub OIDC provider as an Identity provider for an AWS account. It is

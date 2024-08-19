@@ -1,16 +1,21 @@
+---
+tags:
+  - component/account
+  - layer/accounts
+  - provider/aws
+  - privileged
+---
+
 # Component: `account`
 
 This component is responsible for provisioning the full account hierarchy along with Organizational Units (OUs). It
 includes the ability to associate Service Control Policies (SCPs) to the Organization, each Organizational Unit and
 account.
 
-:::info
-
-Part of a
-[cold start](https://docs.cloudposse.com/reference-architecture/how-to-guides/implementation/enterprise/implement-aws-cold-start)
-so it has to be initially run with `SuperAdmin` role.
-
-:::
+> [!NOTE]
+>
+> Part of a [cold start](https://docs.cloudposse.com/layers/accounts/prepare-aws-organization/) so it has to be
+> initially run with `SuperAdmin` role.
 
 In addition, it enables
 [AWS IAM Access Analyzer](https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html), which helps
@@ -178,15 +183,13 @@ SuperAdmin) credentials you have saved in 1Password.
 
 #### Request an increase in the maximum number of accounts allowed
 
-:::caution
-
-Make sure your support plan for the _root_ account was upgraded to the "Business" level (or Higher). This is necessary
-to expedite the quota increase requests, which could take several days on a basic support plan. Without it, AWS support
-will claim that since we’re not currently utilizing any of the resources, so they do not want to approve the requests.
-AWS support is not aware of your other organization. If AWS still gives you problems, please escalate to your AWS TAM.
-See [AWS](https://docs.cloudposse.com/reference-architecture/reference/aws).
-
-:::
+> [!WARNING]
+>
+> Make sure your support plan for the _root_ account was upgraded to the "Business" level (or Higher). This is necessary
+> to expedite the quota increase requests, which could take several days on a basic support plan. Without it, AWS
+> support will claim that since we’re not currently utilizing any of the resources, so they do not want to approve the
+> requests. AWS support is not aware of your other organization. If AWS still gives you problems, please escalate to
+> your AWS TAM.
 
 1. From the region list, select "US East (N. Virginia) us-east-1".
 
@@ -318,21 +321,19 @@ atmos terraform import account --stack core-gbl-root 'aws_organizations_organiza
 AWS accounts and organizational units are generated dynamically by the `terraform/account` component using the
 configuration in the `gbl-root` stack.
 
-:::info _**Special note:**_
+> [!IMPORTANT]
+>
+> In the rare case where you will need to be enabling non-default AWS Regions, temporarily comment out the
+> `DenyRootAccountAccess` service control policy setting in `gbl-root.yaml`. You will restore it later, after enabling
+> the optional Regions. See related:
+> [Decide on Opting Into Non-default Regions](https://docs.cloudposse.com/layers/network/design-decisions/decide-on-opting-into-non-default-regions/)
 
-In the rare case where you will need to be enabling non-default AWS Regions, temporarily comment out the
-`DenyRootAccountAccess` service control policy setting in `gbl-root.yaml`. You will restore it later, after enabling the
-optional Regions. See related:
-[Decide on Opting Into Non-default Regions](https://docs.cloudposse.com/reference-architecture/design-decisions/cold-start/decide-on-opting-into-non-default-regions)
-
-:::
-
-:::caution You must wait until your quota increase request has been granted
-
-If you try to create the accounts before the quota increase is granted, you can expect to see failures like
-`ACCOUNT_NUMBER_LIMIT_EXCEEDED`.
-
-:::
+> [!TIP]
+>
+> #### You must wait until your quota increase request has been granted
+>
+> If you try to create the accounts before the quota increase is granted, you can expect to see failures like
+> `ACCOUNT_NUMBER_LIMIT_EXCEEDED`.
 
 In the Geodesic shell, execute the following commands to provision AWS Organizational Units and AWS accounts:
 

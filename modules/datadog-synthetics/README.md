@@ -1,3 +1,11 @@
+---
+tags:
+  - component/datadog-synthetics
+  - layer/datadog
+  - provider/aws
+  - provider/datadog
+---
+
 # Component: `datadog-synthetics`
 
 This component provides the ability to implement

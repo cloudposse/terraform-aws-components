@@ -1,3 +1,10 @@
+---
+tags:
+  - component/aws-shield
+  - layer/security-and-compliance
+  - provider/aws
+---
+
 # Component: `aws-shield`
 
 This component is responsible for enabling AWS Shield Advanced Protection for the following resources:

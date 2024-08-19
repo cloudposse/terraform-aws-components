@@ -1,3 +1,10 @@
+---
+tags:
+  - component/iam-service-linked-roles
+  - layer/eks
+  - provider/aws
+---
+
 # Component: `iam-service-linked-roles`
 
 This component is responsible for provisioning

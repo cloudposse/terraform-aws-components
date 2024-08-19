@@ -1,3 +1,11 @@
+---
+tags:
+  - component/eks/cert-manager
+  - layer/eks
+  - provider/aws
+  - provider/helm
+---
+
 # Component: `eks/cert-manager`
 
 This component creates a Helm release for [cert-manager](https://github.com/jetstack/cert-manager) on a Kubernetes
