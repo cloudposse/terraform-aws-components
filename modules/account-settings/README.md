@@ -1,3 +1,11 @@
+---
+tags:
+  - component/account-settings
+  - layer/accounts
+  - provider/aws
+  - privileged
+---
+
 # Component: `account-settings`
 
 This component is responsible for provisioning account level settings: IAM password policy, AWS Account Alias, EBS

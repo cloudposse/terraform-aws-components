@@ -1,3 +1,10 @@
+---
+tags:
+  - component/kinesis-stream
+  - layer/addons
+  - provider/aws
+---
+
 # Component: `kinesis-stream`
 
 This component is responsible for provisioning an Amazon Kinesis data stream.

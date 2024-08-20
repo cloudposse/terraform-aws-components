@@ -1,4 +1,13 @@
-# Component: `datadog-agent`
+---
+tags:
+  - component/eks/datadog-agent
+  - layer/datadog
+  - provider/aws
+  - provider/helm
+  - provider/datadog
+---
+
+# Component: `eks/datadog-agent`
 
 This component installs the `datadog-agent` for EKS clusters.
 
@@ -105,9 +114,10 @@ for `<integration name>.yaml`.
 
 #### Sample Yaml
 
-:::caution The key of a filename must match datadog docs, which is `<INTEGRATION_NAME>.yaml`
-[Datadog Cluster Checks](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files)
-:::
+> [!WARNING]
+>
+> The key of a filename must match datadog docs, which is `<INTEGRATION_NAME>.yaml` >
+> [Datadog Cluster Checks](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files)
 
 Cluster Checks **can** be used for external URL testing (loadbalancer endpoints), whereas annotations **must** be used
 for kubernetes services.

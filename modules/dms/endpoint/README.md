@@ -1,3 +1,10 @@
+---
+tags:
+  - component/dms/endpoint
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `dms/endpoint`
 
 This component provisions DMS endpoints.

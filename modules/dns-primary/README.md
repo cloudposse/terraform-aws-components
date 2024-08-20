@@ -1,3 +1,10 @@
+---
+tags:
+  - component/dns-primary
+  - layer/network
+  - provider/aws
+---
+
 # Component: `dns-primary`
 
 This component is responsible for provisioning the primary DNS zones into an AWS account. By convention, we typically
@@ -93,10 +100,10 @@ components:
                 YourVeryLongStringGoesHere
 ```
 
-:::info Use the [acm](https://docs.cloudposse.com/components/library/aws/acm) component for more advanced certificate
-requirements.
-
-:::
+> [!TIP]
+>
+> Use the [acm](https://docs.cloudposse.com/components/library/aws/acm) component for more advanced certificate
+> requirements.
 
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

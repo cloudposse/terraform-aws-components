@@ -1,3 +1,10 @@
+---
+tags:
+  - component/tgw/hub
+  - layer/network
+  - provider/aws
+---
+
 # Component: `tgw/hub`
 
 This component is responsible for provisioning an [AWS Transit Gateway](https://aws.amazon.com/transit-gateway) `hub`

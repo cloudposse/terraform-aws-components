@@ -1,3 +1,10 @@
+---
+tags:
+  - component/aws-inspector
+  - layer/security-and-compliance
+  - provider/aws
+---
+
 # Component: `aws-inspector`
 
 This component is responsible for provisioning an

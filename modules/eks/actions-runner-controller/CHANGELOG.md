@@ -76,12 +76,12 @@ of memory allocated to the runner Pod to account for this. This is generally not
 small enough amount of disk space that it can be reasonably stored in the RAM allocated to a single CPU in an EC2
 instance, so it is the CPU that remains the limiting factor in how many Runners can be run on an instance.
 
-:::warning You must configure a memory request for the runner Pod
-
-When using `tmpfs_enabled`, you must configure a memory request for the runner Pod. If you do not, a single Pod would be
-allowed to consume half the Node's memory just for its disk storage.
-
-:::
+> [!WARNING]
+>
+> #### You must configure a memory request for the runner Pod
+>
+> When using `tmpfs_enabled`, you must configure a memory request for the runner Pod. If you do not, a single Pod would
+> be allowed to consume half the Node's memory just for its disk storage.
 
 #### Configure startup timeout via `wait_for_docker_seconds`
 

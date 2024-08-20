@@ -1,3 +1,11 @@
+---
+tags:
+  - component/managed-grafana/workspace
+  - layer/grafana
+  - provider/aws
+  - provider/grafana
+---
+
 # Component: `managed-grafana/workspace`
 
 This component is responsible for provisioning an Amazon Managed Grafana workspace.
@@ -36,7 +44,7 @@ components:
             stage: dev
 ```
 
-> [!NOTE] 
+> [!NOTE]
 >
 > We would prefer to have a custom URL for the provisioned Grafana workspace, but at the moment it's not supported
 > natively and implementation would be non-trivial. We will continue to monitor that Issue and consider alternatives,

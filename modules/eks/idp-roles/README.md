@@ -1,3 +1,11 @@
+---
+tags:
+  - component/eks/idp-roles
+  - layer/eks
+  - provider/aws
+  - provider/helm
+---
+
 # Component: `eks/idp-roles`
 
 This component installs the `idp-roles` for EKS clusters. These identity provider roles specify severl pre-determined

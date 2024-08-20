@@ -1,4 +1,12 @@
-# Component: `argocd`
+---
+tags:
+  - component/eks/argocd
+  - layer/software-delivery
+  - provider/aws
+  - provider/helm
+---
+
+# Component: `eks/argocd`
 
 This component is responsible for provisioning [Argo CD](https://argoproj.github.io/cd/).
 

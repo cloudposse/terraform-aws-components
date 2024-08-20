@@ -1,3 +1,11 @@
+---
+tags:
+  - component/tfstate-backend
+  - layer/foundation
+  - provider/aws
+  - privileged
+---
+
 # Component: `tfstate-backend`
 
 This component is responsible for provisioning an S3 Bucket and DynamoDB table that follow security best practices for
@@ -10,14 +18,21 @@ wish to restrict who can read the production Terraform state backend S3 bucket. 
 all Terraform users require read access to the most sensitive accounts, such as `root` and `audit`, in order to read
 security configuration information, so careful planning is required when architecting backend splits.
 
-:::info
+## Prerequisites
 
-Part of cold start, so it has to initially be run with `SuperAdmin`, multiple
-times: to create the S3 bucket and then to move the state into it. Follow
-the guide **[here](https://docs.cloudposse.com/reference-architecture/how-to-guides/implementation/enterprise/implement-aws-cold-start/#provision-tfstate-backend-component)**
-to get started.
+> [!TIP]
+>
+> Part of cold start, so it has to initially be run with `SuperAdmin`, multiple times: to create the S3 bucket and then
+> to move the state into it. Follow the guide
+> **[here](https://docs.cloudposse.com/layers/accounts/tutorials/manual-configuration/#provision-tfstate-backend-component)**
+> to get started.
 
-:::
+- This component assumes you are using the `aws-teams` and `aws-team-roles` components.
+- Before the `account` and `account-map` components are deployed for the first time, you'll want to run this component
+  with `access_roles_enabled` set to `false` to prevent errors due to missing IAM Role ARNs. This will enable only
+  enough access to the Terraform state for you to finish provisioning accounts and roles. After those components have
+  been deployed, you will want to run this component again with `access_roles_enabled` set to `true` to provide the
+  complete access as configured in the stacks.
 
 ### Access Control
 
@@ -58,9 +73,9 @@ access. You can configure who is allowed to assume these roles.
 
 - For convenience, the component automatically grants access to the backend to the user deploying it. This is helpful
   because it allows that user, presumably SuperAdmin, to deploy the normal components that expect the user does not have
-  direct access to Terraform state, without requiring custom configuration. However, you may want to explicitly
-  grant SuperAdmin access to the backend in the `allowed_principal_arns` configuration, to ensure that SuperAdmin
-  can always access the backend, even if the component is later updated by the `root-admin` role.
+  direct access to Terraform state, without requiring custom configuration. However, you may want to explicitly grant
+  SuperAdmin access to the backend in the `allowed_principal_arns` configuration, to ensure that SuperAdmin can always
+  access the backend, even if the component is later updated by the `root-admin` role.
 
 ### Quotas
 
@@ -143,7 +158,10 @@ terraform:
 | Name | Type |
 |------|------|
 | [aws_iam_role.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_arn.cold_start_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/arn) | data source |
+| [aws_iam_policy_document.cold_start_assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.tfstate](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
 | [awsutils_caller_identity.current](https://registry.terraform.io/providers/cloudposse/awsutils/latest/docs/data-sources/caller_identity) | data source |
 
 ## Inputs
@@ -151,7 +169,7 @@ terraform:
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_roles"></a> [access\_roles](#input\_access\_roles) | Map of access roles to create (key is role name, use "default" for same as component). See iam-assume-role-policy module for details. | <pre>map(object({<br>    write_enabled           = bool<br>    allowed_roles           = map(list(string))<br>    denied_roles            = map(list(string))<br>    allowed_principal_arns  = list(string)<br>    denied_principal_arns   = list(string)<br>    allowed_permission_sets = map(list(string))<br>    denied_permission_sets  = map(list(string))<br>  }))</pre> | `{}` | no |
-| <a name="input_access_roles_enabled"></a> [access\_roles\_enabled](#input\_access\_roles\_enabled) | Enable creation of access roles. Set false for cold start (before account-map has been created). | `bool` | `true` | no |
+| <a name="input_access_roles_enabled"></a> [access\_roles\_enabled](#input\_access\_roles\_enabled) | Enable access roles to be assumed. Set `false` for cold start (before account-map has been created),<br>because the role to ARN mapping has not yet been created.<br>Note that the current caller and any `allowed_principal_arns` will always be allowed to assume the role. | `bool` | `true` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |

@@ -1,4 +1,11 @@
-# Transit Gateway: `tgw`
+---
+tags:
+  - component/tgw
+  - layer/network
+  - provider/aws
+---
+
+# Component: `tgw`
 
 AWS Transit Gateway connects your Amazon Virtual Private Clouds (VPCs) and on-premises networks through a central hub.
 This connection simplifies your network and puts an end to complex peering relationships. Transit Gateway acts as a

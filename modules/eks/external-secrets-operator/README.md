@@ -1,4 +1,12 @@
-# Component: `external-secrets-operator`
+---
+tags:
+  - component/eks/external-secrets-operator
+  - layer/eks
+  - provider/aws
+  - provider/helm
+---
+
+# Component: `eks/external-secrets-operator`
 
 This component (ESO) is used to create an external `SecretStore` configured to synchronize secrets from AWS SSM
 Parameter store as Kubernetes Secrets within the cluster. Per the operator pattern, the `external-secret-operator` pods
@@ -194,6 +202,6 @@ components:
 
 ## References
 
-- [Secrets Management Strategy](https://docs.cloudposse.com/reference-architecture/design-decisions/cold-start/decide-on-secrets-management-strategy-for-terraform/)
+- [Secrets Management Strategy](https://docs.cloudposse.com/layers/project/design-decisions/decide-on-secrets-management-strategy-for-terraform)
 - https://external-secrets.io/v0.5.9/
 - https://external-secrets.io/v0.5.9/provider-aws-parameter-store/

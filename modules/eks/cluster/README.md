@@ -1,16 +1,23 @@
+---
+tags:
+  - component/eks/cluster
+  - layer/eks
+  - provider/aws
+---
+
 # Component: `eks/cluster`
 
 This component is responsible for provisioning an end-to-end EKS Cluster, including managed node groups and Fargate
 profiles.
 
-:::note Windows not supported
-
-This component has not been tested with Windows worker nodes of any launch type. Although upstream modules support
-Windows nodes, there are likely issues around incorrect or insufficient IAM permissions or other configuration that
-would need to be resolved for this component to properly configure the upstream modules for Windows nodes. If you need
-Windows nodes, please experiment and be on the lookout for issues, and then report any issues to Cloud Posse.
-
-:::
+> [!NOTE]
+>
+> #### Windows not supported
+>
+> This component has not been tested with Windows worker nodes of any launch type. Although upstream modules support
+> Windows nodes, there are likely issues around incorrect or insufficient IAM permissions or other configuration that
+> would need to be resolved for this component to properly configure the upstream modules for Windows nodes. If you need
+> Windows nodes, please experiment and be on the lookout for issues, and then report any issues to Cloud Posse.
 
 ## Usage
 
@@ -18,16 +25,14 @@ Windows nodes, please experiment and be on the lookout for issues, and then repo
 
 Here's an example snippet for how to use this component.
 
-This example expects the [Cloud Posse Reference Architecture](https://docs.cloudposse.com/reference-architecture/)
-Identity and Network designs deployed for mapping users to EKS service roles and granting access in a private network.
-In addition, this example has the GitHub OIDC integration added and makes use of Karpenter to dynamically scale cluster
-nodes.
+This example expects the [Cloud Posse Reference Architecture](https://docs.cloudposse.com/) Identity and Network designs
+deployed for mapping users to EKS service roles and granting access in a private network. In addition, this example has
+the GitHub OIDC integration added and makes use of Karpenter to dynamically scale cluster nodes.
 
-For more on these requirements, see
-[Identity Reference Architecture](https://docs.cloudposse.com/reference-architecture/quickstart/iam-identity/),
-[Network Reference Architecture](https://docs.cloudposse.com/reference-architecture/scaffolding/setup/network/), the
-[GitHub OIDC component](https://docs.cloudposse.com/components/catalog/aws/github-oidc-provider/), and the
-[Karpenter component](https://docs.cloudposse.com/components/catalog/aws/eks/karpenter/).
+For more on these requirements, see [Identity Reference Architecture](https://docs.cloudposse.com/layers/identity/),
+[Network Reference Architecture](https://docs.cloudposse.com/layers/network/), the
+[GitHub OIDC component](https://docs.cloudposse.com/components/library/aws/github-oidc-provider/), and the
+[Karpenter component](https://docs.cloudposse.com/components/library/aws/eks/karpenter/).
 
 ### Mixin pattern for Kubernetes version
 
@@ -191,9 +196,9 @@ components:
               #          Also, it is only supported for AL2 and some Windows AMIs, not BottleRocket or AL2023.
               # Kubernetes docs: https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/
               kubelet_extra_args: >-
-                --kube-reserved cpu=100m,memory=0.6Gi,ephemeral-storage=1Gi
-                --system-reserved cpu=100m,memory=0.2Gi,ephemeral-storage=1Gi
-                --eviction-hard memory.available<200Mi,nodefs.available<10%,imagefs.available<15%
+                --kube-reserved cpu=100m,memory=0.6Gi,ephemeral-storage=1Gi --system-reserved
+                cpu=100m,memory=0.2Gi,ephemeral-storage=1Gi --eviction-hard
+                memory.available<200Mi,nodefs.available<10%,imagefs.available<15%
             block_device_map:
               # EBS volume for local ephemeral storage
               # IGNORED if legacy `disk_encryption_enabled` or `disk_size` are set!
@@ -294,14 +299,12 @@ You can also view the release and support timeline for
 EKS clusters support “Addons” that can be automatically installed on a cluster. Install these addons with the
 [`var.addons` input](https://docs.cloudposse.com/components/library/aws/eks/cluster/#input_addons).
 
-:::info
-
-Run the following command to see all available addons, their type, and their publisher. You can also see the URL for
-addons that are available through the AWS Marketplace. Replace 1.27 with the version of your cluster. See
-[Creating an addon](https://docs.aws.amazon.com/eks/latest/userguide/managing-add-ons.html#creating-an-add-on) for more
-details.
-
-:::
+> [!TIP]
+>
+> Run the following command to see all available addons, their type, and their publisher. You can also see the URL for
+> addons that are available through the AWS Marketplace. Replace 1.27 with the version of your cluster. See
+> [Creating an addon](https://docs.aws.amazon.com/eks/latest/userguide/managing-add-ons.html#creating-an-add-on) for
+> more details.
 
 ```shell
 EKS_K8S_VERSION=1.29 # replace with your cluster version
@@ -309,12 +312,10 @@ aws eks describe-addon-versions --kubernetes-version $EKS_K8S_VERSION \
   --query 'addons[].{MarketplaceProductUrl: marketplaceInformation.productUrl, Name: addonName, Owner: owner Publisher: publisher, Type: type}' --output table
 ```
 
-:::info
-
-You can see which versions are available for each addon by executing the following commands. Replace 1.29 with the
-version of your cluster.
-
-:::
+> [!TIP]
+>
+> You can see which versions are available for each addon by executing the following commands. Replace 1.29 with the
+> version of your cluster.
 
 ```shell
 EKS_K8S_VERSION=1.29 # replace with your cluster version
@@ -394,19 +395,17 @@ addons:
     addon_version: "v1.8.7-eksbuild.1"
 ```
 
-:::warning
-
-Addons may not be suitable for all use-cases! For example, if you are deploying Karpenter to Fargate and using Karpenter
-to provision all nodes, these nodes will never be available before the cluster component is deployed if you are using
-the CoreDNS addon (for example).
-
-This is one of the reasons we recommend deploying a managed node group: to ensure that the addons will become fully
-functional during deployment of the cluster.
-
-:::
+> [!WARNING]
+>
+> Addons may not be suitable for all use-cases! For example, if you are deploying Karpenter to Fargate and using
+> Karpenter to provision all nodes, these nodes will never be available before the cluster component is deployed if you
+> are using the CoreDNS addon (for example).
+>
+> This is one of the reasons we recommend deploying a managed node group: to ensure that the addons will become fully
+> functional during deployment of the cluster.
 
 For more information on upgrading EKS Addons, see
-["How to Upgrade EKS Cluster Addons"](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons/)
+["How to Upgrade EKS Cluster Addons"](https://docs.cloudposse.com/learn/maintenance/upgrades/how-to-upgrade-eks-cluster-addons/)
 
 ### Adding and Configuring a new EKS Addon
 
@@ -636,13 +635,7 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 
 ## Related How-to Guides
 
-- [How to Load Test in AWS](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-load-test-in-aws)
-- [How to Tune EKS with AWS Managed Node Groups](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-tune-eks-with-aws-managed-node-groups)
-- [How to Keep Everything Up to Date](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-keep-everything-up-to-date)
-- [How to Tune SpotInst Parameters for EKS](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-tune-spotinst-parameters-for-eks)
-- [How to Upgrade EKS Cluster Addons](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons)
-- [How to Upgrade EKS](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks)
-- [EBS CSI Migration FAQ](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi-migration-faq.html)
+- [EKS Foundational Platform](https://docs.cloudposse.com/layers/eks/)
 
 ## References
 

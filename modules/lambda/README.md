@@ -1,4 +1,11 @@
-# Component: `lambda`
+---
+tags:
+  - component/sso-saml-provider
+  - layer/software-delivery
+  - provider/aws
+---
+
+# Component: `sso-saml-provider`
 
 This component is responsible for provisioning Lambda functions.
 
