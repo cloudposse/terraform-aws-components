@@ -25,6 +25,12 @@ variable "auth0_tenant_tenant_name" {
   default     = ""
 }
 
+locals {
+  auth0_tenant_environment_name = length(var.auth0_tenant_environment_name) > 0 ? var.auth0_tenant_environment_name : module.this.environment
+  auth0_tenant_stage_name       = length(var.auth0_tenant_stage_name) > 0 ? var.auth0_tenant_stage_name : module.this.stage
+  auth0_tenant_tenant_name      = length(var.auth0_tenant_tenant_name) > 0 ? var.auth0_tenant_tenant_name : module.this.tenant
+}
+
 module "auth0_tenant" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
   version = "1.5.0"
@@ -33,9 +39,9 @@ module "auth0_tenant" {
 
   component = var.auth0_tenant_component_name
 
-  environment = length(var.auth0_tenant_environment_name) > 0 ? var.auth0_tenant_environment_name : module.this.environment
-  stage       = length(var.auth0_tenant_stage_name) > 0 ? var.auth0_tenant_stage_name : module.this.stage
-  tenant      = length(var.auth0_tenant_tenant_name) > 0 ? var.auth0_tenant_tenant_name : module.this.tenant
+  environment = local.auth0_tenant_environment_name
+  stage       = local.auth0_tenant_stage_name
+  tenant      = local.auth0_tenant_tenant_name
 }
 
 #
@@ -61,9 +67,9 @@ provider "aws" {
 module "iam_roles_auth0_provider" {
   source = "../../account-map/modules/iam-roles"
 
-  environment = length(var.auth0_tenant_environment_name) > 0 ? var.auth0_tenant_environment_name : module.this.environment
-  stage       = length(var.auth0_tenant_stage_name) > 0 ? var.auth0_tenant_stage_name : module.this.stage
-  tenant      = length(var.auth0_tenant_tenant_name) > 0 ? var.auth0_tenant_tenant_name : module.this.tenant
+  environment = local.auth0_tenant_environment_name
+  stage       = local.auth0_tenant_stage_name
+  tenant      = local.auth0_tenant_tenant_name
 
   context = module.this.context
 }
@@ -98,4 +104,46 @@ provider "auth0" {
   client_id     = data.aws_ssm_parameter.auth0_client_id.value
   client_secret = data.aws_ssm_parameter.auth0_client_secret.value
   debug         = var.auth0_debug
+}
+
+#
+# Finally if enabled, create a duplicate of the AWS SSM parameters for Auth0 in this account.
+#
+variable "create_auth0_ssm_parameters_enabled" {
+  description = "Whether or not to create a duplicate of the AWS SSM parameter for the Auth0 domain, client ID, and client secret in this account."
+  type        = bool
+  default     = false
+}
+
+module "auth0_ssm_parameters" {
+  source  = "cloudposse/ssm-parameter-store/aws"
+  version = "0.13.0"
+
+  enabled = local.enabled && var.create_auth0_ssm_parameters_enabled
+
+  parameter_write = [
+    {
+      name        = module.auth0_tenant[0].outputs.domain_ssm_path
+      value       = data.aws_ssm_parameter.auth0_domain.value
+      type        = "SecureString"
+      overwrite   = "true"
+      description = "Auth0 domain value for the Auth0 ${local.auth0_tenant_tenant_name}-${local.auth0_tenant_environment_name}-${local.auth0_tenant_stage_name} tenant"
+    },
+    {
+      name        = module.auth0_tenant[0].outputs.client_id_ssm_path
+      value       = data.aws_ssm_parameter.auth0_client_id.value
+      type        = "SecureString"
+      overwrite   = "true"
+      description = "Auth0 client ID for the Auth0 ${local.auth0_tenant_tenant_name}-${local.auth0_tenant_environment_name}-${local.auth0_tenant_stage_name} tenant"
+    },
+    {
+      name        = module.auth0_tenant[0].outputs.client_secret_ssm_path
+      value       = data.aws_ssm_parameter.auth0_client_secret.value
+      type        = "SecureString"
+      overwrite   = "true"
+      description = "Auth0 client secret for the Auth0 ${local.auth0_tenant_tenant_name}-${local.auth0_tenant_environment_name}-${local.auth0_tenant_stage_name} tenant"
+    },
+  ]
+
+  context = module.this.context
 }

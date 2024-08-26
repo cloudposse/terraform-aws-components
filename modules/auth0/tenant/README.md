@@ -42,11 +42,11 @@ in Terraform. Follow the
 [Auth0 provider documentation](https://registry.terraform.io/providers/auth0/auth0/latest/docs/guides/quickstart) to
 create a Machine to Machine application.
 
-> [!TIP]
->
-> #### Machine to Machine App Name
->
-> Use the Context Label format for the machine name for consistency. For example, `acme-plat-gbl-prod-auth0-provider`.
+:::tip Machine to Machine App Name
+
+Use the Context Label format for the machine name for consistency. For example, `acme-plat-gbl-prod-auth0-provider`.
+
+:::
 
 After creating the Machine to Machine application, add the app's domain, client ID, and client secret to AWS Systems
 Manager Parameter Store in the same account and region as this component deployment. The path for the parameters are
@@ -98,11 +98,13 @@ add the following parameters to the `plat-prod` account in `us-west-2`:
 |------|------|
 | [auth0_custom_domain.this](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/custom_domain) | resource |
 | [auth0_custom_domain_verification.this](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/custom_domain_verification) | resource |
+| [auth0_email_provider.this](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/email_provider) | resource |
 | [auth0_tenant.this](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/tenant) | resource |
 | [aws_route53_record.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_ssm_parameter.auth0_client_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.auth0_client_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.auth0_domain](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+| [aws_ssm_parameter.sendgrid_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 
 ## Inputs
 
@@ -119,6 +121,8 @@ add the following parameters to the `plat-prod` account in `us-west-2`:
 | <a name="input_disable_clickjack_protection_headers"></a> [disable\_clickjack\_protection\_headers](#input\_disable\_clickjack\_protection\_headers) | Whether to disable clickjack protection headers. | `bool` | `true` | no |
 | <a name="input_disable_fields_map_fix"></a> [disable\_fields\_map\_fix](#input\_disable\_fields\_map\_fix) | Whether to disable fields map fix. | `bool` | `false` | no |
 | <a name="input_disable_management_api_sms_obfuscation"></a> [disable\_management\_api\_sms\_obfuscation](#input\_disable\_management\_api\_sms\_obfuscation) | Whether to disable management API SMS obfuscation. | `bool` | `false` | no |
+| <a name="input_email_provider_default_from_address"></a> [email\_provider\_default\_from\_address](#input\_email\_provider\_default\_from\_address) | The default from address for the email provider. | `string` | `""` | no |
+| <a name="input_email_provider_name"></a> [email\_provider\_name](#input\_email\_provider\_name) | The name of the email provider. If not defined, no email provider will be created. | `string` | `""` | no |
 | <a name="input_enable_public_signup_user_exists_error"></a> [enable\_public\_signup\_user\_exists\_error](#input\_enable\_public\_signup\_user\_exists\_error) | Whether to enable public signup user exists error. | `bool` | `true` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_enabled_locales"></a> [enabled\_locales](#input\_enabled\_locales) | The enabled locales. | `list(string)` | <pre>[<br>  "en"<br>]</pre> | no |
@@ -139,6 +143,7 @@ add the following parameters to the `plat-prod` account in `us-west-2`:
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_sandbox_version"></a> [sandbox\_version](#input\_sandbox\_version) | The sandbox version. | `string` | `"18"` | no |
+| <a name="input_sendgrid_api_key_ssm_path"></a> [sendgrid\_api\_key\_ssm\_path](#input\_sendgrid\_api\_key\_ssm\_path) | The SSM path to the SendGrid API key. Only required if `email_provider_name` is `sendgrid`. | `string` | `""` | no |
 | <a name="input_session_cookie_mode"></a> [session\_cookie\_mode](#input\_session\_cookie\_mode) | The session cookie mode. | `string` | `"persistent"` | no |
 | <a name="input_session_lifetime"></a> [session\_lifetime](#input\_session\_lifetime) | The session lifetime in hours. | `number` | `168` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
