@@ -42,11 +42,11 @@ in Terraform. Follow the
 [Auth0 provider documentation](https://registry.terraform.io/providers/auth0/auth0/latest/docs/guides/quickstart) to
 create a Machine to Machine application.
 
-> [!TIP]
->
-> #### Machine to Machine App Name
->
-> Use the Context Label format for the machine name for consistency. For example, `acme-plat-gbl-prod-auth0-provider`.
+:::tip Machine to Machine App Name
+
+Use the Context Label format for the machine name for consistency. For example, `acme-plat-gbl-prod-auth0-provider`.
+
+:::
 
 After creating the Machine to Machine application, add the app's domain, client ID, and client secret to AWS Systems
 Manager Parameter Store in the same account and region as this component deployment. The path for the parameters are
@@ -99,6 +99,7 @@ add the following parameters to the `plat-prod` account in `us-west-2`:
 | [auth0_custom_domain.this](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/custom_domain) | resource |
 | [auth0_custom_domain_verification.this](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/custom_domain_verification) | resource |
 | [auth0_email_provider.this](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/email_provider) | resource |
+| [auth0_prompt.this](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/prompt) | resource |
 | [auth0_tenant.this](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/tenant) | resource |
 | [aws_route53_record.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_ssm_parameter.auth0_client_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
@@ -114,6 +115,7 @@ add the following parameters to the `plat-prod` account in `us-west-2`:
 | <a name="input_allowed_logout_urls"></a> [allowed\_logout\_urls](#input\_allowed\_logout\_urls) | The URLs that Auth0 can redirect to after logout. | `list(string)` | `[]` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_auth0_debug"></a> [auth0\_debug](#input\_auth0\_debug) | Enable debug mode for the Auth0 provider | `bool` | `true` | no |
+| <a name="input_auth0_prompt_experience"></a> [auth0\_prompt\_experience](#input\_auth0\_prompt\_experience) | Which prompt login experience to use. Options include classic and new. | `string` | `"new"` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_default_redirection_uri"></a> [default\_redirection\_uri](#input\_default\_redirection\_uri) | The default redirection URI. | `string` | `""` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |

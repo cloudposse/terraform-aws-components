@@ -126,3 +126,9 @@ variable "sendgrid_api_key_ssm_path" {
   description = "The SSM path to the SendGrid API key. Only required if `email_provider_name` is `sendgrid`."
   default     = ""
 }
+
+variable "auth0_prompt_experience" {
+  type        = string
+  description = "Which prompt login experience to use. Options include classic and new."
+  default     = "new"
+}

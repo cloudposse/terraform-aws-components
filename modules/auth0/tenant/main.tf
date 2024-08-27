@@ -89,6 +89,12 @@ resource "auth0_custom_domain_verification" "this" {
   ]
 }
 
+resource "auth0_prompt" "this" {
+  count = local.enabled ? 1 : 0
+
+  universal_login_experience = var.auth0_prompt_experience
+}
+
 data "aws_ssm_parameter" "sendgrid_api_key" {
   count = local.email_provider_enabled ? 1 : 0
 
