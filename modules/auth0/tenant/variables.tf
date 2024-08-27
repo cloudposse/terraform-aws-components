@@ -108,3 +108,27 @@ variable "oidc_logout_prompt_enabled" {
   description = "Whether the OIDC logout prompt is enabled."
   default     = false
 }
+
+variable "email_provider_name" {
+  type        = string
+  description = "The name of the email provider. If not defined, no email provider will be created."
+  default     = ""
+}
+
+variable "email_provider_default_from_address" {
+  type        = string
+  description = "The default from address for the email provider."
+  default     = ""
+}
+
+variable "sendgrid_api_key_ssm_path" {
+  type        = string
+  description = "The SSM path to the SendGrid API key. Only required if `email_provider_name` is `sendgrid`."
+  default     = ""
+}
+
+variable "auth0_prompt_experience" {
+  type        = string
+  description = "Which prompt login experience to use. Options include classic and new."
+  default     = "new"
+}

@@ -98,11 +98,14 @@ add the following parameters to the `plat-prod` account in `us-west-2`:
 |------|------|
 | [auth0_custom_domain.this](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/custom_domain) | resource |
 | [auth0_custom_domain_verification.this](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/custom_domain_verification) | resource |
+| [auth0_email_provider.this](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/email_provider) | resource |
+| [auth0_prompt.this](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/prompt) | resource |
 | [auth0_tenant.this](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/tenant) | resource |
 | [aws_route53_record.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_ssm_parameter.auth0_client_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.auth0_client_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.auth0_domain](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+| [aws_ssm_parameter.sendgrid_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 
 ## Inputs
 
@@ -112,6 +115,7 @@ add the following parameters to the `plat-prod` account in `us-west-2`:
 | <a name="input_allowed_logout_urls"></a> [allowed\_logout\_urls](#input\_allowed\_logout\_urls) | The URLs that Auth0 can redirect to after logout. | `list(string)` | `[]` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_auth0_debug"></a> [auth0\_debug](#input\_auth0\_debug) | Enable debug mode for the Auth0 provider | `bool` | `true` | no |
+| <a name="input_auth0_prompt_experience"></a> [auth0\_prompt\_experience](#input\_auth0\_prompt\_experience) | Which prompt login experience to use. Options include classic and new. | `string` | `"new"` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_default_redirection_uri"></a> [default\_redirection\_uri](#input\_default\_redirection\_uri) | The default redirection URI. | `string` | `""` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
@@ -119,6 +123,8 @@ add the following parameters to the `plat-prod` account in `us-west-2`:
 | <a name="input_disable_clickjack_protection_headers"></a> [disable\_clickjack\_protection\_headers](#input\_disable\_clickjack\_protection\_headers) | Whether to disable clickjack protection headers. | `bool` | `true` | no |
 | <a name="input_disable_fields_map_fix"></a> [disable\_fields\_map\_fix](#input\_disable\_fields\_map\_fix) | Whether to disable fields map fix. | `bool` | `false` | no |
 | <a name="input_disable_management_api_sms_obfuscation"></a> [disable\_management\_api\_sms\_obfuscation](#input\_disable\_management\_api\_sms\_obfuscation) | Whether to disable management API SMS obfuscation. | `bool` | `false` | no |
+| <a name="input_email_provider_default_from_address"></a> [email\_provider\_default\_from\_address](#input\_email\_provider\_default\_from\_address) | The default from address for the email provider. | `string` | `""` | no |
+| <a name="input_email_provider_name"></a> [email\_provider\_name](#input\_email\_provider\_name) | The name of the email provider. If not defined, no email provider will be created. | `string` | `""` | no |
 | <a name="input_enable_public_signup_user_exists_error"></a> [enable\_public\_signup\_user\_exists\_error](#input\_enable\_public\_signup\_user\_exists\_error) | Whether to enable public signup user exists error. | `bool` | `true` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_enabled_locales"></a> [enabled\_locales](#input\_enabled\_locales) | The enabled locales. | `list(string)` | <pre>[<br>  "en"<br>]</pre> | no |
@@ -139,6 +145,7 @@ add the following parameters to the `plat-prod` account in `us-west-2`:
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_sandbox_version"></a> [sandbox\_version](#input\_sandbox\_version) | The sandbox version. | `string` | `"18"` | no |
+| <a name="input_sendgrid_api_key_ssm_path"></a> [sendgrid\_api\_key\_ssm\_path](#input\_sendgrid\_api\_key\_ssm\_path) | The SSM path to the SendGrid API key. Only required if `email_provider_name` is `sendgrid`. | `string` | `""` | no |
 | <a name="input_session_cookie_mode"></a> [session\_cookie\_mode](#input\_session\_cookie\_mode) | The session cookie mode. | `string` | `"persistent"` | no |
 | <a name="input_session_lifetime"></a> [session\_lifetime](#input\_session\_lifetime) | The session lifetime in hours. | `number` | `168` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
