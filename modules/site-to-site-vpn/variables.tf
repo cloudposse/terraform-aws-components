@@ -39,7 +39,7 @@ variable "vpn_connection_static_routes_only" {
 
 variable "vpn_connection_static_routes_destinations" {
   type        = list(string)
-  description = "List of CIDR blocks to be used as destination for static routes. Routes to destinations will be propagated to the route tables defined in `route_table_ids`"
+  description = "List of CIDR blocks to be used as destination for static routes. Routes to destinations will be propagated to the VPC route tables"
   default     = []
   nullable    = false
 }
@@ -133,7 +133,7 @@ variable "vpn_connection_tunnel1_preshared_key" {
 
 variable "vpn_connection_tunnel1_startup_action" {
   type        = string
-  description = "The action to take when the establishing the tunnel for the first VPN connection. By default, your customer gateway device must initiate the IKE negotiation and bring up the tunnel. Specify start for AWS to initiate the IKE negotiation. Valid values are `add` | `start`"
+  description = "The action to take when the establishing the tunnel for the first VPN connection. By default, your customer gateway device must initiate the IKE negotiation and bring up the tunnel. Specify `start` for AWS to initiate the IKE negotiation. Valid values are `add` | `start`"
   default     = "add"
   nullable    = false
 }
@@ -222,7 +222,7 @@ variable "vpn_connection_tunnel2_preshared_key" {
 
 variable "vpn_connection_tunnel2_startup_action" {
   type        = string
-  description = "The action to take when the establishing the tunnel for the second VPN connection. By default, your customer gateway device must initiate the IKE negotiation and bring up the tunnel. Specify start for AWS to initiate the IKE negotiation. Valid values are `add` | `start`"
+  description = "The action to take when the establishing the tunnel for the second VPN connection. By default, your customer gateway device must initiate the IKE negotiation and bring up the tunnel. Specify `start` for AWS to initiate the IKE negotiation. Valid values are `add` | `start`"
   default     = "add"
   nullable    = false
 }
@@ -256,7 +256,7 @@ variable "transit_gateway_enabled" {
 
 variable "transit_gateway_route_table_id" {
   type        = string
-  description = "The ID of the route table for the transit gateway that you want to associate + propogate the VPN connection's TGW attachment"
+  description = "The ID of the route table for the transit gateway that you want to associate + propagate the VPN connection's TGW attachment"
   default     = null
 }
 
@@ -270,7 +270,23 @@ variable "transit_gateway_routes" {
   nullable    = false
 }
 
+variable "preshared_key_enabled" {
+  type        = bool
+  description = "Flag to enable adding the preshared keys to the VPN connection"
+  default     = true
+  nullable    = false
+}
+
+variable "ssm_enabled" {
+  type        = bool
+  description = "Flag to enable saving the `tunnel1_preshared_key` and `tunnel2_preshared_key` in the SSM Parameter Store"
+  default     = false
+  nullable    = false
+}
+
 variable "ssm_path_prefix" {
   type        = string
   description = "SSM Key path prefix for the associated SSM parameters"
+  default     = ""
+  nullable    = false
 }

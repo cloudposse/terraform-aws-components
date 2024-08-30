@@ -1,6 +1,18 @@
 locals {
   enabled     = module.this.enabled
   vpc_outputs = module.vpc.outputs
+
+  preshared_key_enabled = local.enabled && var.preshared_key_enabled
+
+  tunnel1_preshared_key = local.preshared_key_enabled ? (
+    length(var.vpn_connection_tunnel1_preshared_key) > 0 ? var.vpn_connection_tunnel1_preshared_key :
+    one(random_password.tunnel1_preshared_key[*].result)
+  ) : null
+
+  tunnel2_preshared_key = local.preshared_key_enabled ? (
+    length(var.vpn_connection_tunnel2_preshared_key) > 0 ? var.vpn_connection_tunnel2_preshared_key :
+    one(random_password.tunnel2_preshared_key[*].result)
+  ) : null
 }
 
 module "site_to_site_vpn" {
@@ -49,4 +61,24 @@ module "site_to_site_vpn" {
   transit_gateway_routes                              = var.transit_gateway_routes
 
   context = module.this.context
+}
+
+resource "random_password" "tunnel1_preshared_key" {
+  count = local.preshared_key_enabled && length(var.vpn_connection_tunnel1_preshared_key) == 0 ? 1 : 0
+
+  length = 60
+  # Leave special characters out to avoid quoting and other issues.
+  # Special characters have no additional security compared to increasing length.
+  special          = false
+  override_special = "!#$%^&*()<>-_"
+}
+
+resource "random_password" "tunnel2_preshared_key" {
+  count = local.preshared_key_enabled && length(var.vpn_connection_tunnel2_preshared_key) == 0 ? 1 : 0
+
+  length = 60
+  # Leave special characters out to avoid quoting and other issues.
+  # Special characters have no additional security compared to increasing length.
+  special          = false
+  override_special = "!#$%^&*()<>-_"
 }

@@ -1,30 +1,9 @@
 locals {
-  tunnel1_preshared_key = length(var.vpn_connection_tunnel1_preshared_key) > 0 ? var.vpn_connection_tunnel1_preshared_key : join("", random_password.tunnel1_preshared_key[*].result)
-  tunnel2_preshared_key = length(var.vpn_connection_tunnel2_preshared_key) > 0 ? var.vpn_connection_tunnel2_preshared_key : join("", random_password.tunnel2_preshared_key[*].result)
-}
-
-resource "random_password" "tunnel1_preshared_key" {
-  count = length(var.vpn_connection_tunnel1_preshared_key) > 0 ? 0 : 1
-
-  length = 60
-  # Leave special characters out to avoid quoting and other issues.
-  # Special characters have no additional security compared to increasing length.
-  special          = false
-  override_special = "!#$%^&*()<>-_"
-}
-
-resource "random_password" "tunnel2_preshared_key" {
-  count = length(var.vpn_connection_tunnel2_preshared_key) > 0 ? 0 : 1
-
-  length = 60
-  # Leave special characters out to avoid quoting and other issues.
-  # Special characters have no additional security compared to increasing length.
-  special          = false
-  override_special = "!#$%^&*()<>-_"
+  ssm_enabled = local.enabled && var.ssm_enabled
 }
 
 resource "aws_ssm_parameter" "tunnel1_preshared_key" {
-  count = length(var.vpn_connection_tunnel1_preshared_key) > 0 ? 0 : 1
+  count = local.ssm_enabled && local.preshared_key_enabled ? 0 : 1
 
   name        = format("%s/%s", var.ssm_path_prefix, "tunnel1_preshared_key")
   value       = local.tunnel1_preshared_key
@@ -35,7 +14,7 @@ resource "aws_ssm_parameter" "tunnel1_preshared_key" {
 }
 
 resource "aws_ssm_parameter" "tunnel2_preshared_key" {
-  count = length(var.vpn_connection_tunnel2_preshared_key) > 0 ? 0 : 1
+  count = local.ssm_enabled && local.preshared_key_enabled ? 0 : 1
 
   name        = format("%s/%s", var.ssm_path_prefix, "tunnel2_preshared_key")
   value       = local.tunnel2_preshared_key
