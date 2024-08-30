@@ -13,12 +13,14 @@ The other (customer) side can be any VPN gateway endpoint, e.g. a hardware devic
 
 The component provisions the following resources:
 
-- AWS Virtual Private Gateway (a representation of "this (AWS) side" of the tunnel). Usually just requires a VPC ID
+- AWS Virtual Private Gateway (a representation of "this (AWS) side" of the tunnel)
 
-- AWS Customer Gateway (a representation of the "other side" of the tunnel). Usually just requires
-  a `/32` public IP of the VPN endpoint)
+- AWS Customer Gateway (a representation of the "other side" of the tunnel). It requires:
+  - The gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN). Valid values are from `1` to
+    `2147483647`
+  - `/32` public IP of the VPN endpoint
 
-- AWS Site-To-Site VPN connection - creates two tunnels for redundancy and requires:
+- AWS Site-To-Site VPN connection - creates two VPN tunnels for redundancy. It requires:
   - The IP CIDR ranges on each side of the tunnel
   - Pre-shared Keys for each tunnel (2 total; will be auto-generated if not provided; saved into SSM Parameter Store)
   - (Optional) IP CIDR ranges to be used inside each tunnel (2 total)
@@ -71,6 +73,8 @@ components:
         vpn_connection_local_ipv4_network_cidr: 10.10.20.0/23
         vpn_connection_remote_ipv4_network_cidr: 10.10.0.0/23
         transit_gateway_enabled: false
+        vpn_connection_tunnel1_cloudwatch_log_enabled: false
+        vpn_connection_tunnel2_cloudwatch_log_enabled: false
 ```
 
 ## Amazon side Autonomous System Number (ASN)
