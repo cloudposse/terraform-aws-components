@@ -11,13 +11,6 @@ variable "vpc_component_name" {
   nullable    = false
 }
 
-variable "vpn_gateway_amazon_side_asn" {
-  type        = number
-  description = "The Autonomous System Number (ASN) for the Amazon side of the VPN gateway. If you don't specify an ASN, the Virtual Private Gateway is created with the default ASN"
-  default     = 64512
-  nullable    = false
-}
-
 variable "customer_gateway_bgp_asn" {
   type        = number
   description = "The Customer Gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN)"
@@ -26,8 +19,15 @@ variable "customer_gateway_bgp_asn" {
 
 variable "customer_gateway_ip_address" {
   type        = string
-  description = "The IP address of the Customer Gateway's Internet-routable external interface. Set to `null` to not create the Customer Gateway"
+  description = "The IPv4 address for the Customer Gateway device's outside interface. Set to `null` to not create the Customer Gateway"
   default     = null
+}
+
+variable "vpn_gateway_amazon_side_asn" {
+  type        = number
+  description = "The Autonomous System Number (ASN) for the Amazon side of the VPN Gateway. If you don't specify an ASN, the Virtual Private Gateway is created with the default ASN"
+  default     = null
+  nullable    = false
 }
 
 variable "vpn_connection_static_routes_only" {

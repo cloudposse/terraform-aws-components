@@ -11,14 +11,18 @@ This component provisions a [Site-To-Site VPN](https://aws.amazon.com/vpn/site-t
 target AWS VPC on one side of the tunnel.
 The other (customer) side can be any VPN gateway endpoint, e.g. a hardware device, other cloud VPN, etc.
 
+AWS Site-to-Site VPN is a fully-managed service that creates a secure connection between your data center or branch
+office and your AWS resources using IP Security (IPSec) tunnels. When using Site-to-Site VPN, you can connect to both
+your Amazon Virtual Private Clouds (VPC) as well as AWS Transit Gateway, and two tunnels per connection are used for
+increased redundancy.
+
 The component provisions the following resources:
 
 - AWS Virtual Private Gateway (a representation of "this (AWS) side" of the tunnel)
 
 - AWS Customer Gateway (a representation of the "other side" of the tunnel). It requires:
-  - The gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN). Valid values are from `1` to
-    `2147483647`
-  - `/32` public IP of the VPN endpoint
+  - The gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN)
+  - `/32` IP of the VPN endpoint
 
 - AWS Site-To-Site VPN connection - creates two VPN tunnels for redundancy. It requires:
   - The IP CIDR ranges on each side of the tunnel
@@ -60,30 +64,30 @@ components:
       vars:
         enabled: true
         name: "site-to-site-vpn"
-        ssm_path_prefix: "site-to-site-vpn"
+        ssm_path_prefix: "/site-to-site-vpn"
         vpc_component_name: vpc
-        vpn_gateway_amazon_side_asn: 64512
         customer_gateway_bgp_asn: 65000
+        customer_gateway_ip_address: 20.200.30.0
+        vpn_gateway_amazon_side_asn: 64512
         vpn_connection_static_routes_only: true
         vpn_connection_tunnel1_inside_cidr: 169.254.20.0/30
         vpn_connection_tunnel2_inside_cidr: 169.254.21.0/30
         vpn_connection_static_routes_destinations:
           - 10.10.20.0/23
-        customer_gateway_ip_address: xx.xxx.xx.xx
-        vpn_connection_local_ipv4_network_cidr: 10.10.20.0/23
-        vpn_connection_remote_ipv4_network_cidr: 10.10.0.0/23
+        vpn_connection_local_ipv4_network_cidr: 10.100.128.0/24
+        vpn_connection_remote_ipv4_network_cidr: 10.10.80.0/23
         transit_gateway_enabled: false
         vpn_connection_tunnel1_cloudwatch_log_enabled: false
         vpn_connection_tunnel2_cloudwatch_log_enabled: false
-```
+`````
 
 ## Amazon side Autonomous System Number (ASN)
 
 The variable `vpn_gateway_amazon_side_asn` (Amazon side Autonomous System Number) is not strictly required when creating
-an AWS VPN Gateway. If you do not specify amazon_side_asn during the creation of the VPN Gateway, AWS will automatically
+an AWS VPN Gateway. If you do not specify Amazon side ASN during the creation of the VPN Gateway, AWS will automatically
 assign a default ASN (which is 7224 for the Amazon side of the VPN).
 
-However, specifying amazon_side_asn can be important if you need to integrate the VPN with an on-premises network that
+However, specifying Amazon side ASN can be important if you need to integrate the VPN with an on-premises network that
 uses Border Gateway Protocol (BGP) and you want to avoid ASN conflicts or require a specific ASN for routing policies.
 
 If your use case involves BGP peering, and you need a specific ASN for the Amazon side, then you should explicitly set
@@ -97,6 +101,12 @@ Provision the `site-to-site-vpn` component by executing the following commands:
 atmos terraform plan site-to-site-vpn -s <stack>
 atmos terraform apply site-to-site-vpn -s <stack>
 ```
+
+## References
+
+- https://aws.amazon.com/vpn/site-to-site-vpn
+- https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html
+- https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_VpnTunnelOptionsSpecification.html
 
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -140,7 +150,7 @@ atmos terraform apply site-to-site-vpn -s <stack>
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_customer_gateway_bgp_asn"></a> [customer\_gateway\_bgp\_asn](#input\_customer\_gateway\_bgp\_asn) | The Customer Gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN) | `number` | n/a | yes |
-| <a name="input_customer_gateway_ip_address"></a> [customer\_gateway\_ip\_address](#input\_customer\_gateway\_ip\_address) | The IP address of the Customer Gateway's Internet-routable external interface. Set to `null` to not create the Customer Gateway | `string` | `null` | no |
+| <a name="input_customer_gateway_ip_address"></a> [customer\_gateway\_ip\_address](#input\_customer\_gateway\_ip\_address) | The IPv4 address for the Customer Gateway device's outside interface. Set to `null` to not create the Customer Gateway | `string` | `null` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
@@ -194,7 +204,7 @@ atmos terraform apply site-to-site-vpn -s <stack>
 | <a name="input_vpn_connection_tunnel2_phase2_integrity_algorithms"></a> [vpn\_connection\_tunnel2\_phase2\_integrity\_algorithms](#input\_vpn\_connection\_tunnel2\_phase2\_integrity\_algorithms) | One or more integrity algorithms that are permitted for the second VPN tunnel for phase 2 IKE negotiations. Valid values are SHA1 \| SHA2-256 \| SHA2-384 \| SHA2-512 | `list(string)` | `[]` | no |
 | <a name="input_vpn_connection_tunnel2_preshared_key"></a> [vpn\_connection\_tunnel2\_preshared\_key](#input\_vpn\_connection\_tunnel2\_preshared\_key) | The preshared key of the second VPN tunnel. The preshared key must be between 8 and 64 characters in length and cannot start with zero. Allowed characters are alphanumeric characters, periods(.) and underscores(\_) | `string` | `null` | no |
 | <a name="input_vpn_connection_tunnel2_startup_action"></a> [vpn\_connection\_tunnel2\_startup\_action](#input\_vpn\_connection\_tunnel2\_startup\_action) | The action to take when the establishing the tunnel for the second VPN connection. By default, your customer gateway device must initiate the IKE negotiation and bring up the tunnel. Specify start for AWS to initiate the IKE negotiation. Valid values are `add` \| `start` | `string` | `"add"` | no |
-| <a name="input_vpn_gateway_amazon_side_asn"></a> [vpn\_gateway\_amazon\_side\_asn](#input\_vpn\_gateway\_amazon\_side\_asn) | The Autonomous System Number (ASN) for the Amazon side of the VPN gateway. If you don't specify an ASN, the Virtual Private Gateway is created with the default ASN | `number` | `64512` | no |
+| <a name="input_vpn_gateway_amazon_side_asn"></a> [vpn\_gateway\_amazon\_side\_asn](#input\_vpn\_gateway\_amazon\_side\_asn) | The Autonomous System Number (ASN) for the Amazon side of the VPN Gateway. If you don't specify an ASN, the Virtual Private Gateway is created with the default ASN | `number` | `null` | no |
 
 ## Outputs
 
