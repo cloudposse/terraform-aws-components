@@ -18,25 +18,25 @@ increased redundancy.
 
 The component provisions the following resources:
 
-- AWS Virtual Private Gateway (a representation of "this (AWS) side" of the tunnel)
+- AWS Virtual Private Gateway (a representation of the AWS side of the tunnel)
 
-- AWS Customer Gateway (a representation of the "other side" of the tunnel). It requires:
+- AWS Customer Gateway (a representation of the other (remote) side of the tunnel). It requires:
   - The gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN)
   - `/32` IP of the VPN endpoint
 
-- AWS Site-To-Site VPN connection - creates two VPN tunnels for redundancy. It requires:
+- AWS Site-To-Site VPN connection. It creates two VPN tunnels for redundancy and requires:
   - The IP CIDR ranges on each side of the tunnel
-  - Pre-shared Keys for each tunnel (2 total; will be auto-generated if not provided; saved into SSM Parameter Store)
-  - (Optional) IP CIDR ranges to be used inside each tunnel (2 total)
+  - Pre-shared Keys for each tunnel (can be auto-generated if not provided and saved into SSM Parameter Store)
+  - (Optional) IP CIDR ranges to be used inside each VPN tunnel
 
 - Route table entries to direct the appropriate traffic from the local VPC to the other side of the tunnel
 
 ## Post-tunnel creation requirements
 
-Once the site-to-site VPN resources are deployed, we need to send the VPN configuration
-from AWS side to the administrator of the "other side" of the VPN connection. To do this:
+Once the site-to-site VPN resources are deployed, you need to send the VPN configuration
+from AWS side to the administrator of the remote side of the VPN connection. To do this:
 
-1. Determine the infrastructure that will be used for the "other side", specifically:
+1. Determine the infrastructure that will be used for the remote side, specifically:
 
 - Vendor
 - Platform
@@ -49,7 +49,7 @@ from AWS side to the administrator of the "other side" of the VPN connection. To
 1. Select the VPN connection that was created via this component
 1. On the top right, click the `Download Configuration` button
 1. Enter the information you obtained and click `Download`
-1. Send the configuration file to the administrator of the "other side"
+1. Send the configuration file to the administrator of the remote side of the tunnel
 
 ## Usage
 
