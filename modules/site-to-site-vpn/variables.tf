@@ -21,7 +21,6 @@ variable "vpn_gateway_amazon_side_asn" {
 variable "customer_gateway_bgp_asn" {
   type        = number
   description = "The Customer Gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN)"
-  default     = 65000
   nullable    = false
 }
 
