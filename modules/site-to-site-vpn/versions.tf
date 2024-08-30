@@ -6,5 +6,9 @@ terraform {
       source  = "hashicorp/aws"
       version = ">= 4.0"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = ">= 2.2"
+    }
   }
 }
