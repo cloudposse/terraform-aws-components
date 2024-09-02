@@ -8,7 +8,7 @@ locals {
 
 module "memorydb" {
   source  = "cloudposse/memorydb/aws"
-  version = "0.0.1"
+  version = "0.1.0"
 
   node_type                  = var.node_type
   num_shards                 = var.num_shards
