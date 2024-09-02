@@ -69,8 +69,8 @@ components:
         customer_gateway_ip_address: 20.200.30.0
         vpn_gateway_amazon_side_asn: 64512
         vpn_connection_static_routes_only: true
-        vpn_connection_tunnel1_inside_cidr: 169.254.20.0/28
-        vpn_connection_tunnel2_inside_cidr: 169.254.21.0/28
+        vpn_connection_tunnel1_inside_cidr: 169.254.20.0/30
+        vpn_connection_tunnel2_inside_cidr: 169.254.21.0/30
         vpn_connection_local_ipv4_network_cidr: 10.100.128.0/24
         vpn_connection_remote_ipv4_network_cidr: 10.10.80.0/24
         vpn_connection_static_routes_destinations:
