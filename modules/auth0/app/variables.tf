@@ -62,3 +62,15 @@ variable "jwt_alg" {
   description = "JWT Algorithm"
   default     = "RS256"
 }
+
+variable "provider_ssm_base_path" {
+  type        = string
+  description = "The base path for the SSM parameters. If not defined, this is set to the module context ID. This is also required when `var.enabled` is set to `false`"
+  default     = ""
+}
+
+variable "authentication_method" {
+  type        = string
+  description = "The authentication method for the client credentials"
+  default     = "client_secret_post"
+}
