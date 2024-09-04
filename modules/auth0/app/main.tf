@@ -43,7 +43,7 @@ module "auth0_ssm_parameters" {
   parameter_write = [
     {
       name        = local.client_id_ssm_path
-      value       = auth0_client.this[0].client_id
+      value       = try(auth0_client.this[0].client_id, "")
       type        = "SecureString"
       overwrite   = "true"
       description = "Auth0 client ID for the Auth0 ${module.this.id} application"
