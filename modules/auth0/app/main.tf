@@ -50,7 +50,7 @@ module "auth0_ssm_parameters" {
     },
     {
       name        = local.client_secret_ssm_path
-      value       = auth0_client_credentials.this[0].client_secret
+      value       = try(auth0_client_credentials.this[0].client_secret, "")
       type        = "SecureString"
       overwrite   = "true"
       description = "Auth0 client secret for the Auth0 ${module.this.id} application"
