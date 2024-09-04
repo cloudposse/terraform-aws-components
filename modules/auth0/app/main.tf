@@ -30,7 +30,7 @@ resource "auth0_client" "this" {
 resource "auth0_client_credentials" "this" {
   count = local.enabled ? 1 : 0
 
-  client_id             = auth0_client.this[0].client_id
+  client_id             = try(auth0_client.this[0].client_id, "")
   authentication_method = var.authentication_method
 }
 
