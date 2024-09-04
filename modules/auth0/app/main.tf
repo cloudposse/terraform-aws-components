@@ -1,7 +1,8 @@
 locals {
   enabled = module.this.enabled
 
-  client_id_ssm_path     = local.enabled && length(var.provider_ssm_base_path) == 0 ? "/${module.this.id}/client_id" : "/${var.provider_ssm_base_path}/client_id"
+  ssm_path                  = coalesce(var.provider_ssm_base_path, module.this.id)
+  client_id_ssm_path  =  format("/%s/client_id", local.ssm_path)
   client_secret_ssm_path = local.enabled && length(var.provider_ssm_base_path) == 0 ? "/${module.this.id}/client_secret" : "/${var.provider_ssm_base_path}/client_secret"
 }
 
