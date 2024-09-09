@@ -1,7 +1,7 @@
 locals {
   enabled = module.this.enabled
 
-  ssm_path               = coalesce(var.provider_ssm_base_path, module.this.id)
+  ssm_path               = coalesce(var.ssm_base_path, module.this.id)
   client_id_ssm_path     = format("/%s/client_id", local.ssm_path)
   client_secret_ssm_path = format("/%s/client_secret", local.ssm_path)
 }
