@@ -17,6 +17,11 @@ client ID and client secret configured with the `auth0/tenant` component.
 
 Here's an example snippet for how to use this component.
 
+> [!IMPORTANT]
+>
+> Be sure that the context ID does not overlap with the context ID of other Auth0 components, such as `auth0/tenant`. We
+> use this ID to generate the SSM parameter names.
+
 ```yaml
 # stacks/catalog/auth0/app.yaml
 components:
@@ -24,7 +29,7 @@ components:
     auth0/app:
       vars:
         enabled: true
-        name: "auth0"
+        name: "auth0-app"
 
         # We can centralize plat-sandbox, plat-dev, and plat-staging all use a "nonprod" Auth0 tenant, which is deployed in plat-staging.
         auth0_tenant_stage_name: "plat-staging"
@@ -115,9 +120,9 @@ components:
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_oidc_conformant"></a> [oidc\_conformant](#input\_oidc\_conformant) | OIDC Conformant | `bool` | `true` | no |
-| <a name="input_provider_ssm_base_path"></a> [provider\_ssm\_base\_path](#input\_provider\_ssm\_base\_path) | The base path for the SSM parameters. If not defined, this is set to the module context ID. This is also required when `var.enabled` is set to `false` | `string` | `""` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
+| <a name="input_ssm_base_path"></a> [ssm\_base\_path](#input\_ssm\_base\_path) | The base path for the SSM parameters. If not defined, this is set to the module context ID. This is also required when `var.enabled` is set to `false` | `string` | `""` | no |
 | <a name="input_sso"></a> [sso](#input\_sso) | Single Sign-On for the Auth0 app | `bool` | `true` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
