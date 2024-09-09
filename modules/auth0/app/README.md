@@ -17,6 +17,11 @@ client ID and client secret configured with the `auth0/tenant` component.
 
 Here's an example snippet for how to use this component.
 
+> [!IMPORTANT]
+>
+> Be sure that the context ID does not overlap with the context ID of other Auth0 components, such as `auth0/tenant`. We
+> use this ID to generate the SSM parameter names.
+
 ```yaml
 # stacks/catalog/auth0/app.yaml
 components:
@@ -24,7 +29,7 @@ components:
     auth0/app:
       vars:
         enabled: true
-        name: "auth0"
+        name: "auth0-app"
 
         # We can centralize plat-sandbox, plat-dev, and plat-staging all use a "nonprod" Auth0 tenant, which is deployed in plat-staging.
         auth0_tenant_stage_name: "plat-staging"

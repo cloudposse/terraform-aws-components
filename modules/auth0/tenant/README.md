@@ -16,6 +16,7 @@ components:
     auth0/tenant:
       vars:
         enabled: true
+        # Make sure this name does not conflict with other Auth0 components, such as `auth0/app`
         name: auth0
         support_email: "tech@acme.com"
         support_url: "https://acme.com"
@@ -60,6 +61,11 @@ auth0_client_secret_ssm_path = "/${module.this.id}/client_secret"
 
 For example, if we're deploying `auth0/tenant` into `plat-gbl-prod` and my default region is `us-west-2`, then I would
 add the following parameters to the `plat-prod` account in `us-west-2`:
+
+> [!IMPORTANT]
+>
+> Be sure that this AWS SSM parameter path does not conflict with SSM parameters used by other Auth0 components, such as
+> `auth0/app`. In both components, the SSM parameter paths are defined by the component deployment's context ID.
 
 ```
 /acme-plat-gbl-prod-auth0/domain
