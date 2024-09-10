@@ -48,9 +48,13 @@ module "external_secrets_operator" {
         actions = [
           "ssm:GetParameter*"
         ]
-        resources = [for parameter_store_path in var.parameter_store_paths : (
-          "arn:aws:ssm:${var.region}:${local.account}:parameter/${parameter_store_path}/*"
-        )]
+        resources = concat(
+          [for parameter_store_path in var.parameter_store_paths : (
+            "arn:aws:ssm:${var.region}:${local.account}:parameter/${parameter_store_path}/*"
+          )],
+          [for parameter_store_path in var.parameter_store_paths : (
+            "arn:aws:ssm:${var.region}:${local.account}:parameter/${parameter_store_path}"
+        )])
       },
       {
         sid    = "DescribeParameters"
