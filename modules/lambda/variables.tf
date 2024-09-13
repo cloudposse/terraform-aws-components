@@ -173,6 +173,16 @@ variable "runtime" {
   description = "The runtime environment for the Lambda function you are uploading."
   default     = null
 }
+variable "s3_full_bucket_name" {
+  type        = string
+  description = <<EOF
+  The full name of the S3 bucket containing the function's deployment package. Conflicts with filename and image_uri.
+  This bucket must reside in the same AWS region where you are creating the Lambda function.
+
+  This is alternative to `var.s3_bucket_name` which formats the name for the current account.
+  EOF
+  default     = null
+}
 
 variable "s3_bucket_name" {
   type        = string
@@ -311,4 +321,17 @@ variable "zip" {
   })
   description = "Zip Configuration for local file deployments"
   default     = {}
+}
+
+
+variable "cicd_ssm_param_name" {
+  type        = string
+  description = "The name of the SSM parameter to store the latest version/sha of the Lambda function. This is used with cicd_s3_key_format"
+  default     = null
+}
+
+variable "cicd_s3_key_format" {
+  type        = string
+  description = "The format of the S3 key to store the latest version/sha of the Lambda function. This is used with cicd_ssm_param_name. Defaults to 'stage/{stage}/lambda/{function_name}/%s.zip'"
+  default     = null
 }

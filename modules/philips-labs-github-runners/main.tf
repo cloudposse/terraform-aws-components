@@ -1,9 +1,8 @@
 locals {
-  enabled     = var.enabled
-  version     = var.enabled ? var.release_version : null
-  lambda_repo = "https://github.com/philips-labs/terraform-aws-github-runner"
+  enabled = module.this.enabled
+  version = local.enabled ? var.release_version : null
 
-  lambdas = var.enabled ? {
+  lambdas = local.enabled ? {
     webhook = {
       name = "webhook.zip"
       tag  = local.version
@@ -55,7 +54,7 @@ module "github_runner" {
   count = local.enabled ? 1 : 0
 
   source  = "philips-labs/github-runner/aws"
-  version = "5.4.0"
+  version = "5.4.2"
 
   depends_on = [module.module_artifact]
 
@@ -77,7 +76,9 @@ module "github_runner" {
 
   enable_organization_runners             = true
   enable_ssm_on_runners                   = true
-  create_service_linked_role_spot         = true
+  ssm_paths                               = var.ssm_paths
+  instance_target_capacity_type           = var.instance_target_capacity_type
+  create_service_linked_role_spot         = var.create_service_linked_role_spot
   enable_fifo_build_queue                 = true
   scale_up_reserved_concurrent_executions = var.scale_up_reserved_concurrent_executions
 
@@ -94,11 +95,9 @@ module "github_runner" {
 }
 
 module "webhook_github_app" {
-  count = local.enabled && var.enable_update_github_app_webhook ? 1 : 0
-  ## See README.md for more info on why we use this source instead of:
-  # source = "philips-labs/github-runner/aws//modules/webhook-github-app"
-  # version = "5.4.0"
-  source = "./modules/webhook-github-app"
+  count   = local.enabled && var.enable_update_github_app_webhook ? 1 : 0
+  source  = "philips-labs/github-runner/aws//modules/webhook-github-app"
+  version = "5.4.2"
 
   depends_on = [module.github_runner]
 

@@ -30,6 +30,12 @@ variable "cluster_context" {
       value  = string
       effect = string
     }))
+    node_userdata = object({
+      before_cluster_joining_userdata = optional(string)
+      bootstrap_extra_args            = optional(string)
+      kubelet_extra_args              = optional(string)
+      after_cluster_joining_userdata  = optional(string)
+    })
     kubernetes_version    = string
     module_depends_on     = any
     resources_to_tag      = list(string)

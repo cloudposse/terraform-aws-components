@@ -1,3 +1,10 @@
+---
+tags:
+  - component/dms/replication-task
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `dms/replication-task`
 
 This component provisions DMS replication tasks.
@@ -37,6 +44,7 @@ components:
         table_mappings_file: "config/replication-task-table-mappings-example.json"
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -104,10 +112,11 @@ No resources.
 | <a name="output_dms_replication_task_arn"></a> [dms\_replication\_task\_arn](#output\_dms\_replication\_task\_arn) | DMS replication task ARN |
 | <a name="output_dms_replication_task_id"></a> [dms\_replication\_task\_id](#output\_dms\_replication\_task\_id) | DMS replication task ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/dms/modules/dms-replication-task) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dms/modules/dms-replication-task) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

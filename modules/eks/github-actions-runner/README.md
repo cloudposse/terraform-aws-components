@@ -1,97 +1,102 @@
-# Component: `github-actions-runner`
+---
+tags:
+  - component/eks/github-actions-runner
+  - layer/github
+  - provider/aws
+  - provider/helm
+---
 
-This component deploys self-hosted GitHub Actions Runners and a [Controller](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/quickstart-for-actions-runner-controller#introduction)
-on an EKS cluster, using "[runner scale sets](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#runner-scale-set)".
+# Component: `eks/github-actions-runner`
 
-This solution is supported by GitHub and supersedes the [actions-runner-controller](https://github.com/actions/actions-runner-controller/blob/master/docs/about-arc.md) developed
-by Summerwind and deployed by Cloud Posse's [actions-runner-controller](https://docs.cloudposse.com/components/library/aws/eks/actions-runner-controller/) component.
+This component deploys self-hosted GitHub Actions Runners and a
+[Controller](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/quickstart-for-actions-runner-controller#introduction)
+on an EKS cluster, using
+"[runner scale sets](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#runner-scale-set)".
+
+This solution is supported by GitHub and supersedes the
+[actions-runner-controller](https://github.com/actions/actions-runner-controller/blob/master/docs/about-arc.md)
+developed by Summerwind and deployed by Cloud Posse's
+[actions-runner-controller](https://docs.cloudposse.com/components/library/aws/eks/actions-runner-controller/)
+component.
 
 ### Current limitations
 
-The runner image used by Runner Sets contains [no more packages than are necessary](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#about-the-runner-container-image)
-to run the runner. This is in contrast to the Summerwind implementation, which
-contains some commonly needed packages like `build-essential`, `curl`, `wget`,
-`git`, and `jq`, and the GitHub hosted images which contain a robust set of tools.
-(This is a limitation of the official Runner Sets implementation, not this
-component per se.) You will need to
-install any tools you need in your workflows, either as part of your workflow
-(recommended), by maintaining a [custom runner image](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#creating-your-own-runner-image), or by running
-such steps in a [separate container](https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container)
-that has the tools pre-installed. Many tools have publicly available actions
-to install them, such as `actions/setup-node` to install NodeJS or `dcarbone/install-jq-action`
-to install `jq`. You can also install packages using `awalsh128/cache-apt-pkgs-action`,
-which has the advantage of being able to skip the installation if the package
-is already installed, so you can more efficiently run the same workflow on
-GitHub hosted as well as self-hosted runners.
+The runner image used by Runner Sets contains
+[no more packages than are necessary](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#about-the-runner-container-image)
+to run the runner. This is in contrast to the Summerwind implementation, which contains some commonly needed packages
+like `build-essential`, `curl`, `wget`, `git`, and `jq`, and the GitHub hosted images which contain a robust set of
+tools. (This is a limitation of the official Runner Sets implementation, not this component per se.) You will need to
+install any tools you need in your workflows, either as part of your workflow (recommended), by maintaining a
+[custom runner image](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#creating-your-own-runner-image),
+or by running such steps in a
+[separate container](https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container) that has the tools
+pre-installed. Many tools have publicly available actions to install them, such as `actions/setup-node` to install
+NodeJS or `dcarbone/install-jq-action` to install `jq`. You can also install packages using
+`awalsh128/cache-apt-pkgs-action`, which has the advantage of being able to skip the installation if the package is
+already installed, so you can more efficiently run the same workflow on GitHub hosted as well as self-hosted runners.
 
 :::info
-There are (as of this writing) open feature requests to add some
-commonly needed packages to the official Runner Sets runner image. You can
-upvote these
-requests [here](https://github.com/actions/actions-runner-controller/discussions/3168)
-and [here](https://github.com/orgs/community/discussions/80868) to help get them
-implemented.
+
+There are (as of this writing) open feature requests to add some commonly needed packages to the official Runner Sets
+runner image. You can upvote these requests
+[here](https://github.com/actions/actions-runner-controller/discussions/3168) and
+[here](https://github.com/orgs/community/discussions/80868) to help get them implemented.
 
 :::
 
-In the current version of this component, only "dind" (Docker in Docker) mode has been tested.
-Support for "kubernetes" mode is provided, but has not been validated.
+In the current version of this component, only "dind" (Docker in Docker) mode has been tested. Support for "kubernetes"
+mode is provided, but has not been validated.
 
-Many elements in the Controller chart are not directly configurable by named inputs.
-To configure them, you can use the `controller.chart_values` input or create a
-`resources/values-controller.yaml` file in the component to supply values.
+Many elements in the Controller chart are not directly configurable by named inputs. To configure them, you can use the
+`controller.chart_values` input or create a `resources/values-controller.yaml` file in the component to supply values.
 
-Almost all the features of the Runner Scale Set chart are configurable by named inputs.
-The exceptions are:
+Almost all the features of the Runner Scale Set chart are configurable by named inputs. The exceptions are:
+
 - There is no specific input for specifying an outbound HTTP proxy.
-- There is no specific input for supplying a [custom certificate authority (CA) certificate](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#custom-tls-certificates)
+- There is no specific input for supplying a
+  [custom certificate authority (CA) certificate](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#custom-tls-certificates)
   to use when connecting to GitHub Enterprise Server.
 
-You can specify these values by creating a `resources/values-runner.yaml` file
-in the component and setting values as shown by the default Helm [values.yaml](https://github.com/actions/actions-runner-controller/blob/master/charts/gha-runner-scale-set/values.yaml),
+You can specify these values by creating a `resources/values-runner.yaml` file in the component and setting values as
+shown by the default Helm
+[values.yaml](https://github.com/actions/actions-runner-controller/blob/master/charts/gha-runner-scale-set/values.yaml),
 and they will be applied to all runners.
 
 Currently, this component has some additional limitations. In particular:
-- The controller and all runners and listeners share the Image Pull Secrets.
-You cannot use different ones for different runners.
-- All the runners use the same GitHub secret (app or PAT). Using a GitHub app
-  is preferred anyway, and the single GitHub app serves the entire organization.
+
+- The controller and all runners and listeners share the Image Pull Secrets. You cannot use different ones for different
+  runners.
+- All the runners use the same GitHub secret (app or PAT). Using a GitHub app is preferred anyway, and the single GitHub
+  app serves the entire organization.
 - Only one controller is supported per cluster, though it can have multiple replicas.
 
-These limitations could be addressed if there is demand. Contact [Cloud Posse Professional Services](https://cloudposse.com/professional-services/)
-if you would be interested in sponsoring the development of any of these features.
+These limitations could be addressed if there is demand. Contact
+[Cloud Posse Professional Services](https://cloudposse.com/professional-services/) if you would be interested in
+sponsoring the development of any of these features.
 
 ### Ephemeral work storage
 
-The runners are configured to use ephemeral storage for workspaces, but the
-details and defaults can be a bit confusing.
+The runners are configured to use ephemeral storage for workspaces, but the details and defaults can be a bit confusing.
 
-When running in "dind" ("Docker in Docker") mode, the default is to use `emptyDir`, which
-means space on the `kubelet` base directory, which is usually the root disk. You
-can manage the amount of storage allowed to be used with `ephemeral_storage` requests and limits,
-or you can just let it use whatever free space there is on the root disk.
+When running in "dind" ("Docker in Docker") mode, the default is to use `emptyDir`, which means space on the `kubelet`
+base directory, which is usually the root disk. You can manage the amount of storage allowed to be used with
+`ephemeral_storage` requests and limits, or you can just let it use whatever free space there is on the root disk.
 
-When running in `kubernetes` mode, the only supported local disk storage is an
-ephemeral `PersistentVolumeClaim`, which causes a separate disk to be allocated
-for the runner pod. This disk is ephemeral, and will be deleted when the runner
-pod is deleted. When combined with the recommended ephemeral runner
-configuration, this means that a new disk will be created for each job, and
-deleted when the job is complete. That is a lot of overhead and will slow things
-down somewhat.
+When running in `kubernetes` mode, the only supported local disk storage is an ephemeral `PersistentVolumeClaim`, which
+causes a separate disk to be allocated for the runner pod. This disk is ephemeral, and will be deleted when the runner
+pod is deleted. When combined with the recommended ephemeral runner configuration, this means that a new disk will be
+created for each job, and deleted when the job is complete. That is a lot of overhead and will slow things down
+somewhat.
 
+The size of the attached PersistentVolume is controlled by `ephemeral_pvc_storage` (a Kubernetes size string like "1G")
+and the kind of storage is controlled by `ephemeral_pvc_storage_class` (which can be omitted to use the cluster default
+storage class).
 
-The size of the attached PersistentVolume is controlled
-by `ephemeral_pvc_storage` (a Kubernetes size string like "1G") and the kind of
-storage is controlled by `ephemeral_pvc_storage_class`
-(which can be omitted to use the cluster default storage class).
+This mode is also optionally available when using `dind`. To enable it, set `ephemeral_pvc_storage` to the desired size.
+Leave `ephemeral_pvc_storage` at the default value of `null` to use `emptyDir` storage (recommended).
 
-This mode is also optionally available when using `dind`. To enable it, set
-`ephemeral_pvc_storage` to the desired size. Leave `ephemeral_pvc_storage` at
-the default value of `null` to use `emptyDir` storage (recommended).
-
-Beware that using a PVC may significantly increase the startup of the runner.
-If you are using a PVC, you may want to keep idle runners available so that
-jobs can be started without waiting for a new runner to start.
+Beware that using a PVC may significantly increase the startup of the runner. If you are using a PVC, you may want to
+keep idle runners available so that jobs can be started without waiting for a new runner to start.
 
 ## Usage
 
@@ -183,61 +188,51 @@ components:
                 cpu: 4000m
                 memory: 7680Mi
                 ephemeral-storage: 40G
-
 ```
 
 ### Authentication and Secrets
 
-The GitHub Action Runners need to authenticate to GitHub in order to do such
-things as register runners and pickup jobs. You can authenticate using either
-a [GitHub App](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/authenticating-to-the-github-api#authenticating-arc-with-a-github-app)
-or a [Personal Access Token (classic)](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/authenticating-to-the-github-api#authenticating-arc-with-a-personal-access-token-classic).
-The preferred way to authenticate is by _creating_ and _installing_ a GitHub
-App. This is the recommended approach as it allows for much more restricted
-access than using a Personal Access Token (classic), and the Action Runners do
-not currently support using a fine-grained Personal Access Token.
-
+The GitHub Action Runners need to authenticate to GitHub in order to do such things as register runners and pickup jobs.
+You can authenticate using either a
+[GitHub App](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/authenticating-to-the-github-api#authenticating-arc-with-a-github-app)
+or a
+[Personal Access Token (classic)](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/authenticating-to-the-github-api#authenticating-arc-with-a-personal-access-token-classic).
+The preferred way to authenticate is by _creating_ and _installing_ a GitHub App. This is the recommended approach as it
+allows for much more restricted access than using a Personal Access Token (classic), and the Action Runners do not
+currently support using a fine-grained Personal Access Token.
 
 #### Site note about SSM and Regions
 
-This component supports using AWS SSM to store and retrieve secrets. SSM
-parameters are regional, so if you want to deploy to multiple regions
-you have 2 choices:
+This component supports using AWS SSM to store and retrieve secrets. SSM parameters are regional, so if you want to
+deploy to multiple regions you have 2 choices:
 
-1. Create the secrets in each region. This is the most robust approach, but
-   requires you to create the secrets in each region and keep them in sync.
-2. Create the secrets in one region and use the `ssm_region` input to specify
-   the region where they are stored. This is the easiest approach, but does add
-   some obstacles to managing deployments during a region outage. If the region
-   where the secrets are stored goes down, there will be no impact on runners in
-   other regions, but you will not be able to deploy new runners or modify
-   existing runners until the SSM region is restored or until you set up SSM
-   parameters in a new region.
+1. Create the secrets in each region. This is the most robust approach, but requires you to create the secrets in each
+   region and keep them in sync.
+2. Create the secrets in one region and use the `ssm_region` input to specify the region where they are stored. This is
+   the easiest approach, but does add some obstacles to managing deployments during a region outage. If the region where
+   the secrets are stored goes down, there will be no impact on runners in other regions, but you will not be able to
+   deploy new runners or modify existing runners until the SSM region is restored or until you set up SSM parameters in
+   a new region.
 
-Alternatively, you can create Kubernetes secrets outside of this component
-(perhaps using [SOPS](https://github.com/getsops/sops)) and reference them by
-name. We describe here how to save the secrets to SSM, but you can save the
-secrets wherever and however you want to, as long as you deploy them as
-Kubernetes secret the runners can reference. If you store them in SSM, this
-component will take care of the rest, but the standard Terraform caveat applies:
-any secrets referenced by Terraform will be stored unencrypted in the Terraform
-state file.
+Alternatively, you can create Kubernetes secrets outside of this component (perhaps using
+[SOPS](https://github.com/getsops/sops)) and reference them by name. We describe here how to save the secrets to SSM,
+but you can save the secrets wherever and however you want to, as long as you deploy them as Kubernetes secret the
+runners can reference. If you store them in SSM, this component will take care of the rest, but the standard Terraform
+caveat applies: any secrets referenced by Terraform will be stored unencrypted in the Terraform state file.
 
 #### Creating and Using a GitHub App
 
-Follow the instructions [here](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/authenticating-to-the-github-api#authenticating-arc-with-a-github-app) to create and install a GitHub App
-for the runners to use for authentication.
+Follow the instructions
+[here](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/authenticating-to-the-github-api#authenticating-arc-with-a-github-app)
+to create and install a GitHub App for the runners to use for authentication.
 
-At the App creation stage, you will be asked to generate a private key. This is
-the private key that will be used to authenticate the Action Runner. Download
-the file and store the contents in SSM using the following command, adjusting
-the profile, region, and file name. The profile should be the `terraform` role in the
-account to which you are deploying the runner controller. The region should be
-the region where you are deploying the primary runner controller. If you are
-deploying runners to multiple regions, they can all reference the same SSM
-parameter by using the `ssm_region` input to specify the region where they are
-stored. The file name (argument to `cat`) should be the name of the private key
-file you downloaded.
+At the App creation stage, you will be asked to generate a private key. This is the private key that will be used to
+authenticate the Action Runner. Download the file and store the contents in SSM using the following command, adjusting
+the profile, region, and file name. The profile should be the `terraform` role in the account to which you are deploying
+the runner controller. The region should be the region where you are deploying the primary runner controller. If you are
+deploying runners to multiple regions, they can all reference the same SSM parameter by using the `ssm_region` input to
+specify the region where they are stored. The file name (argument to `cat`) should be the name of the private key file
+you downloaded.
 
 ```
 # Adjust profile name and region to suit your environment, use file name you chose for key
@@ -250,17 +245,17 @@ You can verify the file was correctly written to SSM by matching the private key
 AWS_PROFILE=acme-core-gbl-auto-terraform AWS_REGION=us-west-2 chamber read -q github-action-runners github-auth-secret | openssl rsa -in - -pubout -outform DER | openssl sha256 -binary | openssl base64
 ```
 
-At this stage, record the Application ID and the private key fingerprint in your secrets manager (e.g. 1Password).
-You may want to record the private key as well, or you may consider it sufficient to have it in SSM.
-You will need the Application ID to configure the runner controller, and want the fingerprint to verify the private key.
-(You can see the fingerprint in the GitHub App settings, under "Private keys".)
+At this stage, record the Application ID and the private key fingerprint in your secrets manager (e.g. 1Password). You
+may want to record the private key as well, or you may consider it sufficient to have it in SSM. You will need the
+Application ID to configure the runner controller, and want the fingerprint to verify the private key. (You can see the
+fingerprint in the GitHub App settings, under "Private keys".)
 
-Proceed to install the GitHub App in the organization or repository you want to use the runner controller for,
-and record the Installation ID (the final numeric part of the URL, as explained in the instructions
-linked above) in your secrets manager. You will need the Installation ID to configure the runner controller.
+Proceed to install the GitHub App in the organization or repository you want to use the runner controller for, and
+record the Installation ID (the final numeric part of the URL, as explained in the instructions linked above) in your
+secrets manager. You will need the Installation ID to configure the runner controller.
 
-In your stack configuration, set the following variables, making sure to quote the values so they are
-treated as strings, not numbers.
+In your stack configuration, set the following variables, making sure to quote the values so they are treated as
+strings, not numbers.
 
 ```
 github_app_id: "12345"
@@ -269,10 +264,11 @@ github_app_installation_id: "12345"
 
 #### OR (obsolete): Creating and Using a Personal Access Token (classic)
 
-Though not recommended, you can use a Personal Access Token (classic) to
-authenticate the runners. To do so, create a PAT (classic) as described in the [GitHub Documentation](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/authenticating-to-the-github-api#authenticating-arc-with-a-personal-access-token-classic).
-Save this to the value specified by `ssm_github_token_path` using the following command, adjusting the
-  AWS profile and region as explained above:
+Though not recommended, you can use a Personal Access Token (classic) to authenticate the runners. To do so, create a
+PAT (classic) as described in the
+[GitHub Documentation](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/authenticating-to-the-github-api#authenticating-arc-with-a-personal-access-token-classic).
+Save this to the value specified by `ssm_github_token_path` using the following command, adjusting the AWS profile and
+region as explained above:
 
 ```
 AWS_PROFILE=acme-core-gbl-auto-terraform AWS_REGION=us-west-2 chamber write github-action-runners github-auth-secret -- "<PAT>"
@@ -280,22 +276,23 @@ AWS_PROFILE=acme-core-gbl-auto-terraform AWS_REGION=us-west-2 chamber write gith
 
 ### Using Runner Groups
 
-GitHub supports grouping runners into distinct [Runner Groups](https://docs.github.com/en/actions/hosting-your-own-runners/managing-access-to-self-hosted-runners-using-groups), which allow you to have different access controls
-for different runners. Read the linked documentation about creating and configuring Runner Groups, which you must do
-through the GitHub Web UI. If you choose to create Runner Groups, you can assign one or more Runner Sets (from the
-`runners` map) to groups (only one group per runner set, but multiple sets can be in the same group) by including
-`group: <Runner Group Name>` in the runner configuration. We recommend including it immediately after `github_url`.
-
+GitHub supports grouping runners into distinct
+[Runner Groups](https://docs.github.com/en/actions/hosting-your-own-runners/managing-access-to-self-hosted-runners-using-groups),
+which allow you to have different access controls for different runners. Read the linked documentation about creating
+and configuring Runner Groups, which you must do through the GitHub Web UI. If you choose to create Runner Groups, you
+can assign one or more Runner Sets (from the `runners` map) to groups (only one group per runner set, but multiple sets
+can be in the same group) by including `group: <Runner Group Name>` in the runner configuration. We recommend including
+it immediately after `github_url`.
 
 ### Interaction with Karpenter or other EKS autoscaling solutions
 
-Kubernetes cluster autoscaling solutions generally expect that a Pod runs a service that can be terminated on one
-Node and restarted on another with only a short duration needed to finish processing any in-flight requests. When
-the cluster is resized, the cluster autoscaler will do just that. However, GitHub Action Runner Jobs do not fit this
-model. If a Pod is terminated in the middle of a job, the job is lost. The likelihood of this happening is increased
-by the fact that the Action Runner Controller Autoscaler is expanding and contracting the size of the Runner Pool on
-a regular basis, causing the cluster autoscaler to more frequently want to scale up or scale down the EKS cluster,
-and, consequently, to move Pods around.
+Kubernetes cluster autoscaling solutions generally expect that a Pod runs a service that can be terminated on one Node
+and restarted on another with only a short duration needed to finish processing any in-flight requests. When the cluster
+is resized, the cluster autoscaler will do just that. However, GitHub Action Runner Jobs do not fit this model. If a Pod
+is terminated in the middle of a job, the job is lost. The likelihood of this happening is increased by the fact that
+the Action Runner Controller Autoscaler is expanding and contracting the size of the Runner Pool on a regular basis,
+causing the cluster autoscaler to more frequently want to scale up or scale down the EKS cluster, and, consequently, to
+move Pods around.
 
 To handle these kinds of situations, Karpenter respects an annotation on the Pod:
 
@@ -307,63 +304,61 @@ spec:
         karpenter.sh/do-not-evict: "true"
 ```
 
-When you set this annotation on the Pod, Karpenter will not voluntarily evict it. This means that the Pod will stay on the Node
-it is on, and the Node it is on will not be considered for deprovisioning (scale down). This is good because it means that the Pod
-will not be terminated in the middle of a job. However, it also means that the Node the Pod is on will remain running
-until the Pod is terminated, even if the node is underutilized and Karpenter would like to get rid of it.
+When you set this annotation on the Pod, Karpenter will not voluntarily evict it. This means that the Pod will stay on
+the Node it is on, and the Node it is on will not be considered for deprovisioning (scale down). This is good because it
+means that the Pod will not be terminated in the middle of a job. However, it also means that the Node the Pod is on
+will remain running until the Pod is terminated, even if the node is underutilized and Karpenter would like to get rid
+of it.
 
 Since the Runner Pods terminate at the end of the job, this is not a problem for the Pods actually running jobs.
 However, if you have set `minReplicas > 0`, then you have some Pods that are just idling, waiting for jobs to be
-assigned to them. These Pods are exactly the kind of Pods you want terminated and moved when the cluster is underutilized.
-Therefore, when you set `minReplicas > 0`, you should **NOT** set `karpenter.sh/do-not-evict: "true"` on the Pod.
-
+assigned to them. These Pods are exactly the kind of Pods you want terminated and moved when the cluster is
+underutilized. Therefore, when you set `minReplicas > 0`, you should **NOT** set `karpenter.sh/do-not-evict: "true"` on
+the Pod.
 
 ### Updating CRDs
 
-When updating the chart or application version
-of `gha-runner-scale-set-controller`, it is possible you will need to install
-new CRDs. Such a requirement should be indicated in
-the `gha-runner-scale-set-controller` release notes and may require some
-adjustment to this component.
+When updating the chart or application version of `gha-runner-scale-set-controller`, it is possible you will need to
+install new CRDs. Such a requirement should be indicated in the `gha-runner-scale-set-controller` release notes and may
+require some adjustment to this component.
 
-This component uses `helm` to manage the deployment, and `helm` will not auto-update CRDs.
-If new CRDs are needed, follow the instructions in the release notes for the Helm chart
-or `gha-runner-scale-set-controller` itself.
-
-
+This component uses `helm` to manage the deployment, and `helm` will not auto-update CRDs. If new CRDs are needed,
+follow the instructions in the release notes for the Helm chart or `gha-runner-scale-set-controller` itself.
 
 ### Useful Reference
 
-- Runner Scale Set Controller's Helm chart [values.yaml](https://github.com/actions/actions-runner-controller/blob/master/charts/gha-runner-scale-set-controller/values.yaml)
-- Runner Scale Set's Helm chart [values.yaml](https://github.com/actions/actions-runner-controller/blob/master/charts/gha-runner-scale-set/values.yaml)
-- Runner Scale Set's [Docker image](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#about-the-runner-container-image) and [how to create your own](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#creating-your-own-runner-image)
+- Runner Scale Set Controller's Helm chart
+  [values.yaml](https://github.com/actions/actions-runner-controller/blob/master/charts/gha-runner-scale-set-controller/values.yaml)
+- Runner Scale Set's Helm chart
+  [values.yaml](https://github.com/actions/actions-runner-controller/blob/master/charts/gha-runner-scale-set/values.yaml)
+- Runner Scale Set's
+  [Docker image](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#about-the-runner-container-image)
+  and
+  [how to create your own](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#creating-your-own-runner-image)
 
-When reviewing documentation, code, issues, etc. for self-hosted GitHub action runners
-or the Actions Runner Controller (ARC), keep in mind that there are 2 implementations
-going by that name. The original implementation, which is now deprecated, uses
-the `actions.summerwind.dev` API group, and is at times called the Summerwind
-or Legacy implementation. It is primarily described by documentation in the
-[actions/actions-runner-controller](https://github.com/actions/actions-runner-controller)
-GitHub repository itself.
+When reviewing documentation, code, issues, etc. for self-hosted GitHub action runners or the Actions Runner Controller
+(ARC), keep in mind that there are 2 implementations going by that name. The original implementation, which is now
+deprecated, uses the `actions.summerwind.dev` API group, and is at times called the Summerwind or Legacy implementation.
+It is primarily described by documentation in the
+[actions/actions-runner-controller](https://github.com/actions/actions-runner-controller) GitHub repository itself.
 
-The new implementation, which is the one this component
-uses, uses the `actions.github.com` API group, and is at times called the GitHub
-implementation or "Runner Scale Sets" implementation. The new implementation is
-described in the official [GitHub documentation](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller).
+The new implementation, which is the one this component uses, uses the `actions.github.com` API group, and is at times
+called the GitHub implementation or "Runner Scale Sets" implementation. The new implementation is described in the
+official
+[GitHub documentation](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller).
 
-Feature requests about the new implementation are officially
-directed to the [Actions category of GitHub community discussion](https://github.com/orgs/community/discussions/categories/actions).
-However, Q&A and community support is directed to the `actions/actions-runner-controller`
-repo's [Discussion section](https://github.com/actions/actions-runner-controller/discussions),
-though beware that discussions about the old implementation are mixed in with
-discussions about the new implementation.
+Feature requests about the new implementation are officially directed to the
+[Actions category of GitHub community discussion](https://github.com/orgs/community/discussions/categories/actions).
+However, Q&A and community support is directed to the `actions/actions-runner-controller` repo's
+[Discussion section](https://github.com/actions/actions-runner-controller/discussions), though beware that discussions
+about the old implementation are mixed in with discussions about the new implementation.
 
-Bug reports for the new implementation are still filed under the `actions/actions-runner-controller`
-repo's [Issues](https://github.com/actions/actions-runner-controller/issues) tab,
-though again, these are mixed in with bug reports for the old implementation.
-Look for the `gha-runner-scale-set` label to find issues specific to the new
+Bug reports for the new implementation are still filed under the `actions/actions-runner-controller` repo's
+[Issues](https://github.com/actions/actions-runner-controller/issues) tab, though again, these are mixed in with bug
+reports for the old implementation. Look for the `gha-runner-scale-set` label to find issues specific to the new
 implementation.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -435,7 +430,8 @@ implementation.
 | <a name="input_kube_exec_auth_enabled"></a> [kube\_exec\_auth\_enabled](#input\_kube\_exec\_auth\_enabled) | If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-token` to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`. | `bool` | `true` | no |
 | <a name="input_kube_exec_auth_role_arn"></a> [kube\_exec\_auth\_role\_arn](#input\_kube\_exec\_auth\_role\_arn) | The role ARN for `aws eks get-token` to use | `string` | `""` | no |
 | <a name="input_kube_exec_auth_role_arn_enabled"></a> [kube\_exec\_auth\_role\_arn\_enabled](#input\_kube\_exec\_auth\_role\_arn\_enabled) | If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token` | `bool` | `true` | no |
-| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes kube config file | `string` | `""` | no |
+| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes config file.<br>If supplied, `kubeconfig_context_format` will be ignored. | `string` | `""` | no |
+| <a name="input_kubeconfig_context_format"></a> [kubeconfig\_context\_format](#input\_kubeconfig\_context\_format) | A format string to use for creating the `kubectl` context name when<br>`kubeconfig_file_enabled` is `true` and `kubeconfig_context` is not supplied.<br>Must include a single `%s` which will be replaced with the cluster name. | `string` | `""` | no |
 | <a name="input_kubeconfig_exec_auth_api_version"></a> [kubeconfig\_exec\_auth\_api\_version](#input\_kubeconfig\_exec\_auth\_api\_version) | The Kubernetes API version of the credentials returned by the `exec` auth plugin | `string` | `"client.authentication.k8s.io/v1beta1"` | no |
 | <a name="input_kubeconfig_file"></a> [kubeconfig\_file](#input\_kubeconfig\_file) | The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true` | `string` | `""` | no |
 | <a name="input_kubeconfig_file_enabled"></a> [kubeconfig\_file\_enabled](#input\_kubeconfig\_file\_enabled) | If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster | `bool` | `false` | no |
@@ -462,10 +458,12 @@ implementation.
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 | <a name="output_runners"></a> [runners](#output\_runners) | Human-readable summary of the deployed runners |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/eks/actions-runner-controller) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/actions-runner-controller) -
+  Cloud Posse's upstream component
 - [alb-controller](https://artifacthub.io/packages/helm/aws/aws-load-balancer-controller) - Helm Chart
 - [alb-controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) - AWS Load Balancer Controller
 - [actions-runner-controller Webhook Driven Scaling](https://github.com/actions-runner-controller/actions-runner-controller/blob/master/docs/detailed-docs.md#webhook-driven-scaling)

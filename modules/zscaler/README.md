@@ -1,8 +1,17 @@
+---
+tags:
+  - component/zscaler
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `zscaler`
 
 This component is responsible for provisioning ZScaler Private Access Connector instances on Amazon Linux 2 AMIs.
 
-Prior to provisioning this component, it is required that a SecureString SSM Parameter containing the ZScaler App Connector Provisioning Key is populated in each account corresponding to the regional stack the component is deployed to, with the name of the SSM Parameter matching the value of `var.zscaler_key`.
+Prior to provisioning this component, it is required that a SecureString SSM Parameter containing the ZScaler App
+Connector Provisioning Key is populated in each account corresponding to the regional stack the component is deployed
+to, with the name of the SSM Parameter matching the value of `var.zscaler_key`.
 
 This parameter should be populated using `chamber`, which is included in the geodesic image:
 
@@ -10,7 +19,8 @@ This parameter should be populated using `chamber`, which is included in the geo
 chamber write zscaler key <value>
 ```
 
-Where `<value>` is the ZScaler App Connector Provisioning Key. For more information on how to generate this key, see: [ZScaler documentation on Configuring App Connectors](https://help.zscaler.com/zpa/configuring-connectors).
+Where `<value>` is the ZScaler App Connector Provisioning Key. For more information on how to generate this key, see:
+[ZScaler documentation on Configuring App Connectors](https://help.zscaler.com/zpa/configuring-connectors).
 
 ## Usage
 
@@ -26,7 +36,8 @@ components:
         zscaler_count: 2
 ```
 
-Preferably, regional stack configurations can be kept _DRY_ by importing `catalog/zscaler` via the `imports` list at the top of the configuration.
+Preferably, regional stack configurations can be kept _DRY_ by importing `catalog/zscaler` via the `imports` list at the
+top of the configuration.
 
 ```
 import:
@@ -34,6 +45,7 @@ import:
   - catalog/zscaler
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -106,8 +118,11 @@ import:
 | <a name="output_instance_id"></a> [instance\_id](#output\_instance\_id) | Instance ID |
 | <a name="output_private_ip"></a> [private\_ip](#output\_private\_ip) | Private IP of the instance |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/zscaler) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/zscaler) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

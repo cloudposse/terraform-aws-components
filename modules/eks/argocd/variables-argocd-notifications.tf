@@ -63,10 +63,6 @@ variable "notifications_notifiers" {
             value = string
           })
         ), [])
-        basicAuth = optional(object({
-          username = string
-          password = string
-        }))
         insecureSkipVerify = optional(bool, false)
       })
     ))

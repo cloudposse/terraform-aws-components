@@ -111,6 +111,7 @@ data "aws_iam_policy_document" "github_actions_iam_ecspresso_policy" {
     effect = "Allow"
     actions = [
       "ecs:RegisterTaskDefinition",
+      "ecs:TagResource",
       "ecs:DescribeTaskDefinition",
       "ecs:DescribeTasks",
       "application-autoscaling:DescribeScalableTargets"
@@ -163,7 +164,9 @@ data "aws_iam_policy_document" "github_actions_iam_ecspresso_policy" {
     content {
       effect = "Allow"
       actions = [
-        "s3:PutObject"
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:HeadObject",
       ]
       resources = [
         format("%s/%s/%s/*", lookup(module.s3[0].outputs, "bucket_arn", null), module.ecs_cluster.outputs.cluster_name, module.this.id)

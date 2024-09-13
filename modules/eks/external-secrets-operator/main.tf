@@ -48,9 +48,13 @@ module "external_secrets_operator" {
         actions = [
           "ssm:GetParameter*"
         ]
-        resources = [for parameter_store_path in var.parameter_store_paths : (
-          "arn:aws:ssm:${var.region}:${local.account}:parameter/${parameter_store_path}/*"
-        )]
+        resources = concat(
+          [for parameter_store_path in var.parameter_store_paths : (
+            "arn:aws:ssm:${var.region}:${local.account}:parameter/${parameter_store_path}/*"
+          )],
+          [for parameter_store_path in var.parameter_store_paths : (
+            "arn:aws:ssm:${var.region}:${local.account}:parameter/${parameter_store_path}"
+        )])
       },
       {
         sid    = "DescribeParameters"
@@ -62,7 +66,17 @@ module "external_secrets_operator" {
           "arn:aws:ssm:${var.region}:${local.account}:*"
         ]
       }],
-      local.overridable_additional_iam_policy_statements
+      local.overridable_additional_iam_policy_statements,
+      length(var.kms_aliases_allow_decrypt) > 0 ? [
+        {
+          sid    = "DecryptKMS"
+          effect = "Allow"
+          actions = [
+            "kms:Decrypt"
+          ]
+          resources = local.kms_aliases_target_arns
+        }
+      ] : []
     )
   }]
 
@@ -132,4 +146,13 @@ module "external_ssm_secrets" {
     # CRDs from external_secrets_operator need to be installed first
     module.external_secrets_operator,
   ]
+}
+
+data "aws_kms_alias" "kms_aliases" {
+  for_each = { for i, v in var.kms_aliases_allow_decrypt : v => v }
+  name     = each.value
+}
+
+locals {
+  kms_aliases_target_arns = [for k, v in data.aws_kms_alias.kms_aliases : data.aws_kms_alias.kms_aliases[k].target_key_arn]
 }

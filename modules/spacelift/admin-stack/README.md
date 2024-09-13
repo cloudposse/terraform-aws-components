@@ -1,3 +1,11 @@
+---
+tags:
+  - component/spacelift/admin-stack
+  - layer/spacelift
+  - provider/aws
+  - provider/spacelift
+---
+
 # Component: `spacelift/admin-stack`
 
 This component is responsible for creating an administrative [stack](https://docs.spacelift.io/concepts/stack/) and its
@@ -9,7 +17,8 @@ The component uses a series of `context_filters` to select atmos component insta
 
 **Stack Level**: Global
 
-The following are example snippets of how to use this component. For more on Spacelift admin stack usage, see the [Spacelift README](https://docs.cloudposse.com/components/library/aws/spacelift/)
+The following are example snippets of how to use this component. For more on Spacelift admin stack usage, see the
+[Spacelift README](https://docs.cloudposse.com/components/library/aws/spacelift/)
 
 First define the default configuration for any admin stack:
 
@@ -135,6 +144,7 @@ components:
           - TRIGGER Dependencies
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -235,7 +245,7 @@ components:
 | <a name="input_root_stack_policy_attachments"></a> [root\_stack\_policy\_attachments](#input\_root\_stack\_policy\_attachments) | List of policy attachments to attach to the root admin stack | `set(string)` | `[]` | no |
 | <a name="input_runner_image"></a> [runner\_image](#input\_runner\_image) | The full image name and tag of the Docker image to use in Spacelift | `string` | `null` | no |
 | <a name="input_showcase"></a> [showcase](#input\_showcase) | Showcase settings | `map(any)` | `null` | no |
-| <a name="input_space_id"></a> [space\_id](#input\_space\_id) | Place the stack in the specified space\_id. | `string` | `"root"` | no |
+| <a name="input_space_id"></a> [space\_id](#input\_space\_id) | Place the stack in the specified space\_id | `string` | `"root"` | no |
 | <a name="input_spacelift_run_enabled"></a> [spacelift\_run\_enabled](#input\_spacelift\_run\_enabled) | Enable/disable creation of the `spacelift_run` resource | `bool` | `false` | no |
 | <a name="input_spacelift_spaces_component_name"></a> [spacelift\_spaces\_component\_name](#input\_spacelift\_spaces\_component\_name) | The component name of the spacelift spaces component | `string` | `"spacelift/spaces"` | no |
 | <a name="input_spacelift_spaces_environment_name"></a> [spacelift\_spaces\_environment\_name](#input\_spacelift\_spaces\_environment\_name) | The environment name of the spacelift spaces component | `string` | `null` | no |
@@ -265,3 +275,4 @@ components:
 | <a name="output_root_stack"></a> [root\_stack](#output\_root\_stack) | The root stack, if enabled and created by this component |
 | <a name="output_root_stack_id"></a> [root\_stack\_id](#output\_root\_stack\_id) | The stack id |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->

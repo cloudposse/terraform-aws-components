@@ -11,7 +11,9 @@ locals {
   # using an aws_iam_policy resource and then map it to the name you want to use in the
   # YAML configuration by adding an entry in `custom_policy_map`.
   supplied_custom_policy_map = {
-    eks_viewer = try(aws_iam_policy.eks_viewer[0].arn, null)
+    eks_viewer  = try(aws_iam_policy.eks_viewer[0].arn, null)
+    vpn_planner = try(aws_iam_policy.vpn_planner[0].arn, null)
+    kms_planner = try(aws_iam_policy.kms_planner[0].arn, null)
   }
   custom_policy_map = merge(local.supplied_custom_policy_map, local.overridable_additional_custom_policy_map)
 

@@ -1,24 +1,31 @@
+---
+tags:
+  - component/ecr
+  - layer/baseline
+  - provider/aws
+---
+
 # Component: `ecr`
 
 This component is responsible for provisioning repositories, lifecycle rules, and permissions for streamlined ECR usage.
-This utilizes [the roles-to-principals submodule](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/account-map/modules/roles-to-principals)
+This utilizes
+[the roles-to-principals submodule](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/account-map/modules/roles-to-principals)
 to assign accounts to various roles. It is also compatible with the
 [GitHub Actions IAM Role mixin](https://github.com/cloudposse/terraform-aws-components/blob/master/mixins/github-actions-iam-role/README-github-action-iam-role.md).
 
-
-:::caution
-Older versions of our reference architecture have an`eks-iam` component that needs to be updated to provide sufficient IAM roles to allow pods to pull from ECR repos
-
-:::
+> [!WARNING]
+>
+> Older versions of our reference architecture have an`eks-iam` component that needs to be updated to provide sufficient
+> IAM roles to allow pods to pull from ECR repos
 
 ## Usage
 
 **Stack Level**: Regional
 
 Here's an example snippet for how to use this component. This component is normally only applied once as the resources
-it creates are globally accessible, but you may want to create ECRs in multiple regions for redundancy.
-This is typically provisioned via the stack for the "artifact" account (typically `auto`, `artifact`, or `corp`)
-in the primary region.
+it creates are globally accessible, but you may want to create ECRs in multiple regions for redundancy. This is
+typically provisioned via the stack for the "artifact" account (typically `auto`, `artifact`, or `corp`) in the primary
+region.
 
 ```yaml
 components:
@@ -40,10 +47,10 @@ components:
           - microservice-c
         read_write_account_role_map:
           identity:
-          - admin
-          - cicd
+            - admin
+            - cicd
           automation:
-          - admin
+            - admin
         read_only_account_role_map:
           corp: ["*"]
           dev: ["*"]
@@ -51,6 +58,7 @@ components:
           stage: ["*"]
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -129,15 +137,17 @@ components:
 | <a name="output_ecr_user_unique_id"></a> [ecr\_user\_unique\_id](#output\_ecr\_user\_unique\_id) | ECR user unique ID assigned by AWS |
 | <a name="output_repository_host"></a> [repository\_host](#output\_repository\_host) | ECR repository name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## Related
 
-- [Decide How to distribute Docker Images](https://docs.cloudposse.com/reference-architecture/design-decisions/foundational-platform/decide-how-to-distribute-docker-images)
+- [Decide How to distribute Docker Images](https://docs.cloudposse.com/layers/software-delivery/design-decisions/decide-how-to-distribute-docker-images/)
 
-- [Decide on ECR Strategy](https://docs.cloudposse.com/reference-architecture/design-decisions/foundational-platform/decide-on-ecr-strategy)
+- [Decide on ECR Strategy](https://docs.cloudposse.com/layers/project/design-decisions/decide-on-ecr-strategy/)
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/ecr) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/ecr) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

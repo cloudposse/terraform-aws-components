@@ -1,7 +1,14 @@
-# Component: `msk/cluster`
+---
+tags:
+  - component/msk
+  - layer/unassigned
+  - provider/aws
+---
 
-This component is responsible for provisioning [Amazon Managed Streaming](https://aws.amazon.com/msk/)
-clusters for [Apache Kafka](https://aws.amazon.com/msk/what-is-kafka/).
+# Component: `msk`
+
+This component is responsible for provisioning [Amazon Managed Streaming](https://aws.amazon.com/msk/) clusters for
+[Apache Kafka](https://aws.amazon.com/msk/what-is-kafka/).
 
 ## Usage
 
@@ -12,7 +19,6 @@ Here's an example snippet for how to use this component.
 ```yaml
 components:
   terraform:
-
     msk:
       metadata:
         component: "msk"
@@ -69,6 +75,7 @@ components:
         allowed_cidr_blocks: []
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -193,6 +200,7 @@ No resources.
 | <a name="output_zookeeper_connect_string"></a> [zookeeper\_connect\_string](#output\_zookeeper\_connect\_string) | Comma separated list of one or more hostname:port pairs to connect to the Apache Zookeeper cluster |
 | <a name="output_zookeeper_connect_string_tls"></a> [zookeeper\_connect\_string\_tls](#output\_zookeeper\_connect\_string\_tls) | Comma separated list of one or more hostname:port pairs to connect to the Apache Zookeeper cluster via TLS |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 

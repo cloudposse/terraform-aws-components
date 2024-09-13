@@ -1,3 +1,11 @@
+---
+tags:
+  - component/spacelift/worker-pool
+  - layer/spacelift
+  - provider/aws
+  - provider/spacelift
+---
+
 # Component: `spacelift/worker-pool`
 
 This component is responsible for provisioning Spacelift worker pools.
@@ -11,8 +19,7 @@ assume the role via `trusted_role_arns`), and have the following AWS managed IAM
 - AWSXRayDaemonWriteAccess
 - CloudWatchAgentServerPolicy
 
-Among other things, this allows workers with SSM agent installed to
-be accessed via SSM Session Manager.
+Among other things, this allows workers with SSM agent installed to be accessed via SSM Session Manager.
 
 ```bash
 aws ssm start-session --target <instance-id>
@@ -75,11 +82,11 @@ components:
 
 ### Impacts on billing
 
-While scaling the workload for Spacelift, keep in mind that each agent connection counts
-against your quota of self-hosted workers. The number of EC2 instances you have running is _not_
-going to affect your Spacelift bill. As an example, if you had 3 EC2 instances in your Spacelift
-worker pool, and you configured `spacelift_agents_per_node` to be `3`, you would see your Spacelift
-bill report 9 agents being run. Take care while configuring the worker pool for your Spacelift infrastructure.
+While scaling the workload for Spacelift, keep in mind that each agent connection counts against your quota of
+self-hosted workers. The number of EC2 instances you have running is _not_ going to affect your Spacelift bill. As an
+example, if you had 3 EC2 instances in your Spacelift worker pool, and you configured `spacelift_agents_per_node` to be
+`3`, you would see your Spacelift bill report 9 agents being run. Take care while configuring the worker pool for your
+Spacelift infrastructure.
 
 ## Configuration
 
@@ -92,9 +99,9 @@ has read-only access to the ECR repository.
 
 Prior to deployment, the API key must exist in SSM. The key must have admin permissions.
 
-To generate the key, please follow [these
-instructions](https://docs.spacelift.io/integrations/api.html#spacelift-api-key-token). Once generated, write the API
-key ID and secret to the SSM key store at the following locations within the same AWS account and region where the
+To generate the key, please follow
+[these instructions](https://docs.spacelift.io/integrations/api.html#spacelift-api-key-token). Once generated, write the
+API key ID and secret to the SSM key store at the following locations within the same AWS account and region where the
 Spacelift worker pool will reside.
 
 | Key     | SSM Path                | Type           |
@@ -118,6 +125,7 @@ After provisioning the component, you must give the created instance role permis
 role. This is done by adding `iam_role_arn` from the output to the `trusted_role_arns` list for the `spacelift` role in
 `aws-teams`.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -174,6 +182,7 @@ role. This is done by adding `iam_role_arn` from the output to the `trusted_role
 | <a name="input_account_map_stage_name"></a> [account\_map\_stage\_name](#input\_account\_map\_stage\_name) | The name of the stage where `account_map` is provisioned | `string` | `"root"` | no |
 | <a name="input_account_map_tenant_name"></a> [account\_map\_tenant\_name](#input\_account\_map\_tenant\_name) | The name of the tenant where `account_map` is provisioned.<br><br>If the `tenant` label is not used, leave this as `null`. | `string` | `null` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
+| <a name="input_architecture"></a> [architecture](#input\_architecture) | OS architecture of the EC2 instance AMI | `list(string)` | <pre>[<br>  "x86_64"<br>]</pre> | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_aws_config_file"></a> [aws\_config\_file](#input\_aws\_config\_file) | The AWS\_CONFIG\_FILE used by the worker. Can be overridden by `/.spacelift/config.yml`. | `string` | `"/etc/aws-config/aws-config-spacelift"` | no |
 | <a name="input_aws_profile"></a> [aws\_profile](#input\_aws\_profile) | The AWS\_PROFILE used by the worker. If not specified, `"${var.namespace}-identity"` will be used.<br>Can be overridden by `/.spacelift/config.yml`. | `string` | `null` | no |
@@ -205,13 +214,14 @@ role. This is done by adding `iam_role_arn` from the output to the `trusted_role
 | <a name="input_infracost_cli_args"></a> [infracost\_cli\_args](#input\_infracost\_cli\_args) | These are the CLI args passed to infracost | `string` | `""` | no |
 | <a name="input_infracost_enabled"></a> [infracost\_enabled](#input\_infracost\_enabled) | Whether to enable infracost for Spacelift stacks | `bool` | `false` | no |
 | <a name="input_infracost_warn_on_failure"></a> [infracost\_warn\_on\_failure](#input\_infracost\_warn\_on\_failure) | A failure executing Infracost, or a non-zero exit code being returned from the command will cause runs to fail. If this is true, this will only warn instead of failing the stack. | `bool` | `true` | no |
+| <a name="input_instance_lifetime"></a> [instance\_lifetime](#input\_instance\_lifetime) | Number of seconds after which the instance will be terminated. The default is set to 14 days. | `number` | `1209600` | no |
 | <a name="input_instance_refresh"></a> [instance\_refresh](#input\_instance\_refresh) | The instance refresh definition. If this block is configured, an Instance Refresh will be started when the Auto Scaling Group is updated | <pre>object({<br>    strategy = string<br>    preferences = object({<br>      instance_warmup        = optional(number, null)<br>      min_healthy_percentage = optional(number, null)<br>      skip_matching          = optional(bool, null)<br>      auto_rollback          = optional(bool, null)<br>    })<br>    triggers = optional(list(string), [])<br>  })</pre> | `null` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | EC2 instance type to use for workers | `string` | `"r5n.large"` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_launch_template_version"></a> [launch\_template\_version](#input\_launch\_template\_version) | Launch template version to use for workers | `string` | `"$Latest"` | no |
+| <a name="input_launch_template_version"></a> [launch\_template\_version](#input\_launch\_template\_version) | Launch template version to use for workers. Note that instance refresh settings are IGNORED unless template version is empty | `string` | `"$Latest"` | no |
 | <a name="input_max_size"></a> [max\_size](#input\_max\_size) | The maximum size of the autoscale group | `number` | n/a | yes |
 | <a name="input_min_size"></a> [min\_size](#input\_min\_size) | The minimum size of the autoscale group | `number` | n/a | yes |
 | <a name="input_mixed_instances_policy"></a> [mixed\_instances\_policy](#input\_mixed\_instances\_policy) | Policy to use a mixed group of on-demand/spot of different types. Launch template is automatically generated. https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html#mixed_instances_policy-1 | <pre>object({<br>    instances_distribution = object({<br>      on_demand_allocation_strategy            = string<br>      on_demand_base_capacity                  = number<br>      on_demand_percentage_above_base_capacity = number<br>      spot_allocation_strategy                 = string<br>      spot_instance_pools                      = number<br>      spot_max_price                           = string<br>    })<br>    override = list(object({<br>      instance_type     = string<br>      weighted_capacity = number<br>    }))<br>  })</pre> | `null` | no |
@@ -260,10 +270,13 @@ role. This is done by adding `iam_role_arn` from the output to the `trusted_role
 | <a name="output_worker_pool_id"></a> [worker\_pool\_id](#output\_worker\_pool\_id) | Spacelift worker pool ID |
 | <a name="output_worker_pool_name"></a> [worker\_pool\_name](#output\_worker\_pool\_name) | Spacelift worker pool name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-- [cloudposse/terraform-spacelift-cloud-infrastructure-automation](https://github.com/cloudposse/terraform-spacelift-cloud-infrastructure-automation) - Cloud Posse's related upstream component
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/spacelift-worker-pool) - Cloud Posse's upstream component
+- [cloudposse/terraform-spacelift-cloud-infrastructure-automation](https://github.com/cloudposse/terraform-spacelift-cloud-infrastructure-automation) -
+  Cloud Posse's related upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/spacelift-worker-pool) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

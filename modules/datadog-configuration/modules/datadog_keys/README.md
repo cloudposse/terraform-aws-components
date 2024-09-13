@@ -1,4 +1,12 @@
-# Submodule `datadog_keys`
+---
+tags:
+  - component/datadog_keys
+  - layer/datadog
+  - provider/datadog
+  - provider/aws
+---
+
+# Component: `datadog_keys`
 
 Useful submodule for other modules to quickly configure the datadog provider
 
@@ -19,6 +27,7 @@ provider "datadog" {
 }
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -88,3 +97,4 @@ provider "datadog" {
 | <a name="output_datadog_site"></a> [datadog\_site](#output\_datadog\_site) | Datadog Site |
 | <a name="output_datadog_tags"></a> [datadog\_tags](#output\_datadog\_tags) | The Context Tags in datadog tag format (list of strings formated as 'key:value') |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->

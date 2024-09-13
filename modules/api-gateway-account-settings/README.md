@@ -1,8 +1,20 @@
+---
+tags:
+  - component/api-gateway-account-settings
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `api-gateway-account-settings`
 
-This component is responsible for setting the global, regional settings required to allow API Gateway to write to CloudWatch logs.
+This component is responsible for setting the global, regional settings required to allow API Gateway to write to
+CloudWatch logs.
 
-Every AWS region you want to deploy an API Gateway to must be configured with an IAM Role that gives API Gateway permissions to create and write to CloudWatch logs. Without this configuration, API Gateway will not be able to send logs to CloudWatch. This configuration is done once per region regardless of the number of API Gateways deployed in that region. This module creates an IAM role, assigns it the necessary permissions to write logs and sets it as the "CloudWatch log role ARN" in the API Gateway configuration.
+Every AWS region you want to deploy an API Gateway to must be configured with an IAM Role that gives API Gateway
+permissions to create and write to CloudWatch logs. Without this configuration, API Gateway will not be able to send
+logs to CloudWatch. This configuration is done once per region regardless of the number of API Gateways deployed in that
+region. This module creates an IAM role, assigns it the necessary permissions to write logs and sets it as the
+"CloudWatch log role ARN" in the API Gateway configuration.
 
 ## Usage
 
@@ -23,6 +35,7 @@ components:
           Service: api-gateway
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -77,9 +90,11 @@ No resources.
 |------|-------------|
 | <a name="output_role_arn"></a> [role\_arn](#output\_role\_arn) | Role ARN of the API Gateway logging role |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/api-gateway-settings) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/api-gateway-settings) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

@@ -1,3 +1,10 @@
+---
+tags:
+  - component/dms/endpoint
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `dms/endpoint`
 
 This component provisions DMS endpoints.
@@ -69,6 +76,7 @@ components:
           - target
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -151,10 +159,11 @@ components:
 | <a name="output_dms_endpoint_arn"></a> [dms\_endpoint\_arn](#output\_dms\_endpoint\_arn) | DMS endpoint ARN |
 | <a name="output_dms_endpoint_id"></a> [dms\_endpoint\_id](#output\_dms\_endpoint\_id) | DMS endpoint ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/dms/modules/dms-endpoint) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dms/modules/dms-endpoint) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
