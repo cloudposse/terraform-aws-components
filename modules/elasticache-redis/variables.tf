@@ -65,6 +65,12 @@ variable "automatic_failover_enabled" {
   description = "Enable automatic failover"
 }
 
+variable "auto_minor_version_upgrade" {
+  type        = bool
+  description = "Specifies whether minor version engine upgrades will be applied automatically to the underlying Cache Cluster instances during the maintenance window. Only supported if the engine version is 6 or higher."
+  default     = false
+}
+
 variable "cloudwatch_metric_alarms_enabled" {
   type        = bool
   description = "Boolean flag to enable/disable CloudWatch metrics alarms"

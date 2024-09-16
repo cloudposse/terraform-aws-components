@@ -10,7 +10,7 @@ locals {
 
 module "redis" {
   source  = "cloudposse/elasticache-redis/aws"
-  version = "1.2.2"
+  version = "1.4.1"
 
   name = var.cluster_name
 
@@ -20,6 +20,7 @@ module "redis" {
   apply_immediately                    = var.cluster_attributes.apply_immediately
   at_rest_encryption_enabled           = var.cluster_attributes.at_rest_encryption_enabled
   auth_token                           = local.auth_token
+  auto_minor_version_upgrade           = var.cluster_attributes.auto_minor_version_upgrade
   automatic_failover_enabled           = var.cluster_attributes.automatic_failover_enabled
   availability_zones                   = var.cluster_attributes.availability_zones
   multi_az_enabled                     = var.cluster_attributes.multi_az_enabled
