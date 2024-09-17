@@ -52,7 +52,7 @@ path is not used, e.g. `datadog.monitoring.svc.cluster.local.`
 
 ### Note for Bottlerocket users
 
-If you are using Bottlerocket, you will want to uncomment the following from `vaules.yaml` or add it to your `values`
+If you are using Bottlerocket, you will want to uncomment the following from `values.yaml` or add it to your `values`
 input:
 
 ```yaml

@@ -49,7 +49,7 @@ assume-role acme-platform-gbl-sandbox-admin
 chamber write app MY_KEY my-value
 ```
 
-See `docs/recipies.md` for more information on managing secrets.
+See `docs/recipes.md` for more information on managing secrets.
 
 ## Usage
 

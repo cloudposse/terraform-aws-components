@@ -81,7 +81,7 @@ variable "rds_parameter_group_name" {
 variable "rds_multi_az" {
   type        = string
   default     = "false"
-  description = "Run instaces in multiple az"
+  description = "Run instances in multiple az"
 }
 
 variable "rds_storage_type" {

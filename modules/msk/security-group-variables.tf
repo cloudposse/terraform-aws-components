@@ -6,7 +6,7 @@
 # because of the tight integration with the module using it.
 ##
 # Delete this top comment block, except for the first line (version number),
-# REMOVE COMMENTS below that are intended for the initial implementor and not maintainers or end users.
+# REMOVE COMMENTS below that are intended for the initial implementer and not maintainers or end users.
 #
 # This file provides the standard inputs that all Cloud Posse Open Source
 # Terraform module that create AWS Security Groups should implement.

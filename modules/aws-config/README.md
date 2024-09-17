@@ -98,7 +98,7 @@ component by default. Note that this can be overridden by the `scope` variable i
 >
 > #### Using the organization default_scope
 >
-> If default_scope == `organization`, AWS Config is global unless overriden in the `conformance_packs` items. You will
+> If default_scope == `organization`, AWS Config is global unless overridden in the `conformance_packs` items. You will
 > need to update your org to allow the `config-multiaccountsetup.amazonaws.com` service access principal for this to
 > work. If you are using our `account` component, just add that principal to the `aws_service_access_principals`
 > variable.

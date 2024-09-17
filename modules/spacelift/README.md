@@ -78,8 +78,8 @@ terraform:
 
 ### Spacelift `root` Space
 
-The `root` Space in Spacelift is responsible for deploying the root adminstrator stack, `admin-stack`, and the Spaces
-component, `spaces`. This Spaces component also includes Spacelift policies. Since the root adminstrator stack is unique
+The `root` Space in Spacelift is responsible for deploying the root administrator stack, `admin-stack`, and the Spaces
+component, `spaces`. This Spaces component also includes Spacelift policies. Since the root administrator stack is unique
 to tenants, we modify the stack context to create a unique stack slug, `root-gbl-spacelift`.
 
 `stacks/orgs/NAMESPACE/spacelift.yaml`:
@@ -147,7 +147,7 @@ Next, deploy the `root` `admin-stack` with the following:
 atmos terraform apply admin-stack -s root-gbl-spacelift
 ```
 
-Now in the Spacelift UI, you should see the administrator stacks created. Typically these should look similiar to the
+Now in the Spacelift UI, you should see the administrator stacks created. Typically these should look similar to the
 following:
 
 ```diff
@@ -173,7 +173,7 @@ atmos terraform apply spacelift/worker-pool -s core-ue1-auto
 
 A tenant-specific Space in Spacelift, such as `core` or `plat`, includes the administrator stack for that specific Space
 and _all_ components in the given tenant. This administrator stack uses `var.context_filters` to select all components
-in the given tenant and create Spacelift stacks for each. Similar to the root adminstrator stack, we again create a
+in the given tenant and create Spacelift stacks for each. Similar to the root administrator stack, we again create a
 unique stack slug for each tenant. For example `core-gbl-spacelift` or `plat-gbl-spacelift`.
 
 For example, configure a `core` administrator stack with `stacks/orgs/NAMESPACE/core/spacelift.yaml`.
