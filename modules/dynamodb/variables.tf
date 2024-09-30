@@ -174,6 +174,12 @@ variable "replicas" {
   description = "List of regions to create a replica table in"
 }
 
+variable "deletion_protection_enabled" {
+  type        = bool
+  default     = false
+  description = "Enable/disable DynamoDB table deletion protection"
+}
+
 variable "import_table" {
   type = object({
     # Valid values are GZIP, ZSTD and NONE
