@@ -1,5 +1,45 @@
 # CHANGELOG
 
+## 1.498.0
+
+
+
+<details>
+  <summary>feat: support delete protection for dynamodb @brett-au (#1118)</summary>
+
+  ## what
+
+<!--
+- Describe high-level what changed as a result of these commits (i.e. in plain-english, what do these changes mean?)
+- Use bullet points to be concise and to the point.
+-->
+
+terraform-aws-dynamodb v0.36.0 supports delete protection on the table.  This Pull request exposes that upstream variable
+
+
+## why
+
+<!--
+- Provide the justifications for the changes (e.g. business case).
+- Describe why these changes were made (e.g. why do these commits fix the problem?)
+- Use bullet points to be concise and to the point.
+-->
+
+Delete safe dynamodb tables in the dynamo component
+
+## references
+
+<!--
+- Link to any supporting github issues or helpful documentation to add some context (e.g. stackoverflow).
+- Use `closes #123`, if this PR closes a GitHub issue `#123`
+-->
+
+https://github.com/cloudposse/terraform-aws-dynamodb/blob/0.36.0/variables.tf#L184-L188
+
+</details>
+
+
+
 ## 1.298.0 (2023-08-28T20:56:25Z)
 
 <details>
