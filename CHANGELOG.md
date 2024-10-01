@@ -531,7 +531,7 @@ Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0
 ### 🐛 Bug Fixes
 
 <details>
-  <summary>Karpenter bugfix, EKS add-ons to mangaed node group @Nuru (#816)</summary>
+  <summary>Karpenter bugfix, EKS add-ons to managed node group @Nuru (#816)</summary>
 
 ### what
 
@@ -553,7 +553,7 @@ Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0
 
 ### what
 
-- Upsteam the latest `ecs-service` component
+- Upstream the latest `ecs-service` component
 
 ### why
 
@@ -820,7 +820,7 @@ Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0
 
 ### why
 
-- to help future implementors of CloudPosse's architectures
+- to help future implementers of CloudPosse's architectures
 
 ### references
 
@@ -841,7 +841,7 @@ Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0
 
 - fix incorrect shape for one of the items in `aws_team_roles_rbac`
 - improve consistency
-- remove variables that are not appliable for the component
+- remove variables that are not applicable for the component
 
 ### references
 
@@ -3840,7 +3840,7 @@ N/A
 ### what
 
 - bumped ecr
-- remove unnecssary variable
+- remove unnecessary variable
 
 ### why
 
@@ -4627,7 +4627,7 @@ NOTE: I don't know if the default of `default` is valid or if it is `Default`. I
 
 ### what
 
-- Bump Versin of EC2 Client VPN
+- Bump Version of EC2 Client VPN
 
 ### why
 
@@ -4758,7 +4758,7 @@ This is an alternative way of deprovisioning - proactive one.
 
 ```
 There is another way to configure Karpenter to deprovision nodes called Consolidation.
-This mode is preferred for workloads such as microservices and is imcompatible with setting
+This mode is preferred for workloads such as microservices and is incompatible with setting
 up the ttlSecondsAfterEmpty . When set in consolidation mode Karpenter works to actively
 reduce cluster cost by identifying when nodes can be removed as their workloads will run
 on other nodes in the cluster and when nodes can be replaced with cheaper variants due

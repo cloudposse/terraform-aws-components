@@ -30,7 +30,7 @@ variable "region" {
 
 variable "max_subnet_count" {
   default     = 0
-  description = "Sets the maximum amount of subnets to deploy.  0 will deploy a subnet for every provided availablility zone (in `availability_zones` variable) within the region"
+  description = "Sets the maximum amount of subnets to deploy.  0 will deploy a subnet for every provided availability zone (in `availability_zones` variable) within the region"
 }
 
 variable "availability_zones" {
