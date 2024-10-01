@@ -1,8 +1,17 @@
+---
+tags:
+  - component/aurora-mysql-resources
+  - layer/data
+  - provider/aws
+---
+
 # Component: `aurora-mysql-resources`
 
-This component is responsible for provisioning Aurora MySQL resources: additional databases, users, permissions, grants, etc.
+This component is responsible for provisioning Aurora MySQL resources: additional databases, users, permissions, grants,
+etc.
 
-NOTE: Creating additional users (including read-only users) and databases requires Spacelift, since that action to be done via the mysql provider, and by default only the automation account is whitelisted by the Aurora cluster.
+NOTE: Creating additional users (including read-only users) and databases requires Spacelift, since that action to be
+done via the mysql provider, and by default only the automation account is whitelisted by the Aurora cluster.
 
 ## Usage
 
@@ -10,7 +19,8 @@ NOTE: Creating additional users (including read-only users) and databases requir
 
 Here's an example snippet for how to use this component.
 
-`stacks/catalog/aurora-mysql/resources/defaults.yaml` file (base component for Aurora MySQL Resources with default settings):
+`stacks/catalog/aurora-mysql/resources/defaults.yaml` file (base component for Aurora MySQL Resources with default
+settings):
 
 ```yaml
 components:
@@ -22,8 +32,10 @@ components:
         enabled: true
 ```
 
-Example (not actual)
-`stacks/uw2-dev.yaml` file (override the default settings for the cluster resources in the `dev` account, create an additional database and user):
+Example (not actual):
+
+`stacks/uw2-dev.yaml` file (override the default settings for the cluster resources in the `dev` account, create an
+additional database and user):
 
 ```yaml
 import:
@@ -43,12 +55,13 @@ components:
             db_user: example
             db_password: ""
             grants:
-              - grant: [ "ALL" ]
+              - grant: ["ALL"]
                 db: example
                 object_type: database
                 schema: null
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -124,10 +137,11 @@ components:
 | <a name="output_additional_grants"></a> [additional\_grants](#output\_additional\_grants) | Additional DB users created |
 | <a name="output_additional_users"></a> [additional\_users](#output\_additional\_users) | Additional DB users created |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/aurora-mysql-resources) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aurora-mysql-resources) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

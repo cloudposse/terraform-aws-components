@@ -1,11 +1,19 @@
+---
+tags:
+  - component/cloudtrail
+  - layer/foundation
+  - provider/aws
+---
+
 # Component: `cloudtrail`
 
-This component is responsible for provisioning cloudtrail auditing in an individual account. It's expected to be used alongside
-[the `cloudtrail-bucket` component](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/cloudtrail-bucket)
+This component is responsible for provisioning cloudtrail auditing in an individual account. It's expected to be used
+alongside
+[the `cloudtrail-bucket` component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/cloudtrail-bucket)
 as it utilizes that bucket via remote state.
 
-This component can either be deployed selectively to various accounts with `is_organization_trail=false`, or alternatively
-created in all accounts if deployed to the management account `is_organization_trail=true`.
+This component can either be deployed selectively to various accounts with `is_organization_trail=false`, or
+alternatively created in all accounts if deployed to the management account `is_organization_trail=true`.
 
 ## Usage
 
@@ -27,6 +35,7 @@ components:
         is_organization_trail: true
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -113,9 +122,11 @@ components:
 | <a name="output_cloudtrail_logs_role_arn"></a> [cloudtrail\_logs\_role\_arn](#output\_cloudtrail\_logs\_role\_arn) | CloudTrail Logs role ARN |
 | <a name="output_cloudtrail_logs_role_name"></a> [cloudtrail\_logs\_role\_name](#output\_cloudtrail\_logs\_role\_name) | CloudTrail Logs role name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/cloudtrail) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/cloudtrail) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

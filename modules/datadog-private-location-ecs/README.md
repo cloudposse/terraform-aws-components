@@ -1,3 +1,11 @@
+---
+tags:
+  - component/datadog-private-location-ecs
+  - layer/datadog
+  - provider/aws
+  - provider/datadog
+---
+
 # Component: `datadog-private-location-ecs`
 
 This component is responsible for creating a datadog private location and deploying it to ECS (EC2 / Fargate)
@@ -55,9 +63,9 @@ components:
               logDriver: awslogs
               options: {}
             port_mappings: []
-
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -132,8 +140,11 @@ components:
 | <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | Selected VPC ID |
 | <a name="output_vpc_sg_id"></a> [vpc\_sg\_id](#output\_vpc\_sg\_id) | Selected VPC SG ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/ecs-service) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/ecs-service) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

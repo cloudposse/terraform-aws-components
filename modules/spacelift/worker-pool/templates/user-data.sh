@@ -3,22 +3,30 @@
 spacelift() { (
   set -e
 
-  $(aws --region ${ecr_region} ecr get-login --registry-ids ${ecr_account_id} --no-include-email)
-  docker pull ${spacelift_runner_image}
-
   echo "Updating packages (security)" | tee -a /var/log/spacelift/info.log
   yum update-minimal --security -y 1>>/var/log/spacelift/info.log 2>>/var/log/spacelift/error.log
 
-%{ if github_netrc_enabled }
+  if ! which docker-credential-ecr-login; then
+    yum install -y amazon-ecr-credential-helper
+  fi
+  # Due to https://github.com/docker/cli/issues/2738
+  # we need to create the config.json file for all users
+  for home in /root $(ls /home); do
+    mkdir -p $home/.docker
+    echo '{"credsStore": "ecr-login"}' >$home/.docker/config.json
+  done
+  docker pull ${spacelift_runner_image}
+
+  %{ if github_netrc_enabled }
   export GITHUB_TOKEN=$(aws ssm get-parameters --region=${region} --name ${github_netrc_ssm_path_token} --with-decryption --query "Parameters[0].Value" --output text)
   export GITHUB_USER=$(aws ssm get-parameters --region=${region} --name ${github_netrc_ssm_path_user} --with-decryption --query "Parameters[0].Value" --output text)
 
   # Allows downloading terraform modules using a GitHub PAT
   NETRC_FILE="/root/.netrc"
   echo "Creating $NETRC_FILE"
-  printf "machine github.com\n" > "$NETRC_FILE"
-  printf "login %s\n" "$GITHUB_USER" >> "$NETRC_FILE"
-  printf "password %s\n" "$GITHUB_TOKEN" >> "$NETRC_FILE"
+  printf "machine github.com\n" >"$NETRC_FILE"
+  printf "login %s\n" "$GITHUB_USER" >>"$NETRC_FILE"
+  printf "password %s\n" "$GITHUB_TOKEN" >>"$NETRC_FILE"
   echo "Created $NETRC_FILE"
 
   # Converts ssh clones into https clones to take advantage of the GitHub PAT
@@ -34,17 +42,19 @@ spacelift() { (
 
   # Mount the .netrc and .gitconfig files into the container
   export SPACELIFT_WORKER_EXTRA_MOUNTS=$NETRC_FILE:/conf/.netrc,$GIT_CONFIG:/conf/.gitconfig
-%{ endif }
-%{ if infracost_enabled }
+  %{ endif }
+
+  %{ if infracost_enabled }
   export INFRACOST_API_KEY=$(aws ssm get-parameters --region=${region} --name ${infracost_api_token_ssm_path} --with-decryption --query "Parameters[0].Value" --output text)
   export INFRACOST_CLI_ARGS=${infracost_cli_args}
   export INFRACOST_WARN_ON_FAILURE=${infracost_warn_on_failure}
-%{ endif }
+  %{ endif }
+
   export SPACELIFT_POOL_PRIVATE_KEY=${spacelift_worker_pool_private_key}
   export SPACELIFT_TOKEN=${spacelift_worker_pool_config}
-	# This is a comma separated list of all the environment variables to read from the env file
+  # This is a comma separated list of all the environment variables to read from the env file
   export SPACELIFT_WHITELIST_ENVS=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,AWS_SESSION_TOKEN,AWS_SDK_LOAD_CONFIG,AWS_CONFIG_FILE,AWS_PROFILE,GITHUB_TOKEN,INFRACOST_API_KEY,ATMOS_BASE_PATH,TF_VAR_terraform_user
-	# This is a comma separated list of all the sensitive environment variables that will show up masked if printed during a run
+  # This is a comma separated list of all the sensitive environment variables that will show up masked if printed during a run
   export SPACELIFT_MASK_ENVS=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,AWS_SESSION_TOKEN,GITHUB_TOKEN,INFRACOST_API_KEY
   export SPACELIFT_LAUNCHER_LOGS_TIMEOUT=30m
   export SPACELIFT_LAUNCHER_RUN_TIMEOUT=120m
@@ -77,23 +87,23 @@ spacelift() { (
   sudo mkdir -p "/etc/spacelift"
   sudo touch "$env_file"
   sudo chmod 744 "$env_file"
-  printf "SPACELIFT_POOL_PRIVATE_KEY=%s\n" "$SPACELIFT_POOL_PRIVATE_KEY" > "$env_file"
-  printf "SPACELIFT_TOKEN=%s\n" "$SPACELIFT_TOKEN" >> "$env_file"
-  printf "SPACELIFT_WHITELIST_ENVS=%s\n" "$SPACELIFT_WHITELIST_ENVS" >> "$env_file"
-  printf "SPACELIFT_MASK_ENVS=%s\n" "$SPACELIFT_MASK_ENVS" >> "$env_file"
-  printf "SPACELIFT_LAUNCHER_LOGS_TIMEOUT=%s\n" "$SPACELIFT_LAUNCHER_LOGS_TIMEOUT" >> "$env_file"
-  printf "SPACELIFT_LAUNCHER_RUN_TIMEOUT=%s\n" "$SPACELIFT_LAUNCHER_RUN_TIMEOUT" >> "$env_file"
-  printf "SPACELIFT_METADATA_instance_id=%s\n" "$SPACELIFT_METADATA_instance_id" >> "$env_file"
-  printf "SPACELIFT_METADATA_asg_id=%s\n" "$SPACELIFT_METADATA_asg_id" >> "$env_file"
-  printf "AWS_SDK_LOAD_CONFIG=%s\n" "$TMP_AWS_SDK_LOAD_CONFIG" >> "$env_file"
-  printf "AWS_CONFIG_FILE=%s\n" "$TMP_AWS_CONFIG_FILE" >> "$env_file"
-  printf "AWS_PROFILE=%s\n" "$TMP_AWS_PROFILE" >> "$env_file"
-  printf "ATMOS_BASE_PATH=%s\n" "/mnt/workspace/source" >> "$env_file"
-  printf "TF_VAR_terraform_user=%s\n" "spacelift" >> "$env_file"
-  [[ ! -z "$GITHUB_TOKEN" ]] &&  printf "GITHUB_TOKEN=%s\n" "$GITHUB_TOKEN" >> "$env_file"
-  [[ ! -z "$GITHUB_USER" ]] &&  printf "GITHUB_USER=%s\n" "$GITHUB_USER" >> "$env_file"
-  [[ ! -z "$SPACELIFT_WORKER_EXTRA_MOUNTS" ]] && printf "SPACELIFT_WORKER_EXTRA_MOUNTS=%s\n" "$SPACELIFT_WORKER_EXTRA_MOUNTS" >> "$env_file"
-  [[ ! -z "$INFRACOST_API_KEY" ]] && printf "INFRACOST_API_KEY=%s\n" "$INFRACOST_API_KEY" >> "$env_file"
+  printf "SPACELIFT_POOL_PRIVATE_KEY=%s\n" "$SPACELIFT_POOL_PRIVATE_KEY" >"$env_file"
+  printf "SPACELIFT_TOKEN=%s\n" "$SPACELIFT_TOKEN" >>"$env_file"
+  printf "SPACELIFT_WHITELIST_ENVS=%s\n" "$SPACELIFT_WHITELIST_ENVS" >>"$env_file"
+  printf "SPACELIFT_MASK_ENVS=%s\n" "$SPACELIFT_MASK_ENVS" >>"$env_file"
+  printf "SPACELIFT_LAUNCHER_LOGS_TIMEOUT=%s\n" "$SPACELIFT_LAUNCHER_LOGS_TIMEOUT" >>"$env_file"
+  printf "SPACELIFT_LAUNCHER_RUN_TIMEOUT=%s\n" "$SPACELIFT_LAUNCHER_RUN_TIMEOUT" >>"$env_file"
+  printf "SPACELIFT_METADATA_instance_id=%s\n" "$SPACELIFT_METADATA_instance_id" >>"$env_file"
+  printf "SPACELIFT_METADATA_asg_id=%s\n" "$SPACELIFT_METADATA_asg_id" >>"$env_file"
+  printf "AWS_SDK_LOAD_CONFIG=%s\n" "$TMP_AWS_SDK_LOAD_CONFIG" >>"$env_file"
+  printf "AWS_CONFIG_FILE=%s\n" "$TMP_AWS_CONFIG_FILE" >>"$env_file"
+  printf "AWS_PROFILE=%s\n" "$TMP_AWS_PROFILE" >>"$env_file"
+  printf "ATMOS_BASE_PATH=%s\n" "/mnt/workspace/source" >>"$env_file"
+  printf "TF_VAR_terraform_user=%s\n" "spacelift" >>"$env_file"
+  [[ ! -z "$GITHUB_TOKEN" ]] && printf "GITHUB_TOKEN=%s\n" "$GITHUB_TOKEN" >>"$env_file"
+  [[ ! -z "$GITHUB_USER" ]] && printf "GITHUB_USER=%s\n" "$GITHUB_USER" >>"$env_file"
+  [[ ! -z "$SPACELIFT_WORKER_EXTRA_MOUNTS" ]] && printf "SPACELIFT_WORKER_EXTRA_MOUNTS=%s\n" "$SPACELIFT_WORKER_EXTRA_MOUNTS" >>"$env_file"
+  [[ ! -z "$INFRACOST_API_KEY" ]] && printf "INFRACOST_API_KEY=%s\n" "$INFRACOST_API_KEY" >>"$env_file"
 
   echo "Enabling Spacelift agent services" | tee -a /var/log/spacelift/info.log
   sudo systemctl enable spacelift@{1..${spacelift_agents_per_node}}.service

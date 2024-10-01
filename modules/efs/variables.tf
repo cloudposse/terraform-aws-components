@@ -46,3 +46,16 @@ variable "eks_component_names" {
   description = "The names of the eks components"
   default     = ["eks/cluster"]
 }
+
+variable "additional_security_group_rules" {
+  type        = list(any)
+  default     = []
+  description = <<-EOT
+    A list of Security Group rule objects to add to the created security group, in addition to the ones
+    this module normally creates. (To suppress the module's rules, set `create_security_group` to false
+    and supply your own security group via `associated_security_group_ids`.)
+    The keys and values of the objects are fully compatible with the `aws_security_group_rule` resource, except
+    for `security_group_id` which will be ignored, and the optional "key" which, if provided, must be unique and known at "plan" time.
+    To get more info see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule .
+    EOT
+}

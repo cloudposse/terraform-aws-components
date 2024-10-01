@@ -1,8 +1,17 @@
+---
+tags:
+  - component/zscaler
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `zscaler`
 
 This component is responsible for provisioning ZScaler Private Access Connector instances on Amazon Linux 2 AMIs.
 
-Prior to provisioning this component, it is required that a SecureString SSM Parameter containing the ZScaler App Connector Provisioning Key is populated in each account corresponding to the regional stack the component is deployed to, with the name of the SSM Parameter matching the value of `var.zscaler_key`.
+Prior to provisioning this component, it is required that a SecureString SSM Parameter containing the ZScaler App
+Connector Provisioning Key is populated in each account corresponding to the regional stack the component is deployed
+to, with the name of the SSM Parameter matching the value of `var.zscaler_key`.
 
 This parameter should be populated using `chamber`, which is included in the geodesic image:
 
@@ -10,7 +19,8 @@ This parameter should be populated using `chamber`, which is included in the geo
 chamber write zscaler key <value>
 ```
 
-Where `<value>` is the ZScaler App Connector Provisioning Key. For more information on how to generate this key, see: [ZScaler documentation on Configuring App Connectors](https://help.zscaler.com/zpa/configuring-connectors).
+Where `<value>` is the ZScaler App Connector Provisioning Key. For more information on how to generate this key, see:
+[ZScaler documentation on Configuring App Connectors](https://help.zscaler.com/zpa/configuring-connectors).
 
 ## Usage
 
@@ -26,7 +36,8 @@ components:
         zscaler_count: 2
 ```
 
-Preferably, regional stack configurations can be kept _DRY_ by importing `catalog/zscaler` via the `imports` list at the top of the configuration.
+Preferably, regional stack configurations can be kept _DRY_ by importing `catalog/zscaler` via the `imports` list at the
+top of the configuration.
 
 ```
 import:
@@ -34,6 +45,7 @@ import:
   - catalog/zscaler
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -93,7 +105,7 @@ import:
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS region | `string` | n/a | yes |
 | <a name="input_secrets_store_type"></a> [secrets\_store\_type](#input\_secrets\_store\_type) | Secret store type for Zscaler provisioning keys. Valid values: `SSM`, `ASM` (but `ASM` not currently supported) | `string` | `"SSM"` | no |
-| <a name="input_security_group_rules"></a> [security\_group\_rules](#input\_security\_group\_rules) | A list of maps of Security Group rules.<br>The values of map is fully complated with `aws_security_group_rule` resource.<br>To get more info see [security\_group\_rule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule). | `list(any)` | <pre>[<br>  {<br>    "cidr_blocks": [<br>      "0.0.0.0/0"<br>    ],<br>    "from_port": 0,<br>    "protocol": "-1",<br>    "to_port": 65535,<br>    "type": "egress"<br>  }<br>]</pre> | no |
+| <a name="input_security_group_rules"></a> [security\_group\_rules](#input\_security\_group\_rules) | A list of maps of Security Group rules.<br>The values of map is fully completed with `aws_security_group_rule` resource.<br>To get more info see [security\_group\_rule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule). | `list(any)` | <pre>[<br>  {<br>    "cidr_blocks": [<br>      "0.0.0.0/0"<br>    ],<br>    "from_port": 0,<br>    "protocol": "-1",<br>    "to_port": 65535,<br>    "type": "egress"<br>  }<br>]</pre> | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
 | <a name="input_zscaler_count"></a> [zscaler\_count](#input\_zscaler\_count) | The number of Zscaler instances. | `number` | `1` | no |
@@ -106,8 +118,11 @@ import:
 | <a name="output_instance_id"></a> [instance\_id](#output\_instance\_id) | Instance ID |
 | <a name="output_private_ip"></a> [private\_ip](#output\_private\_ip) | Private IP of the instance |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/zscaler) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/zscaler) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

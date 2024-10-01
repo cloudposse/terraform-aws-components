@@ -1,8 +1,17 @@
-# Component `eks/alb-controller-ingress-group`
+---
+tags:
+  - component/eks/alb-controller-ingress-group
+  - layer/eks
+  - provider/aws
+  - provider/helm
+---
+
+# Component: `eks/alb-controller-ingress-group`
 
 This component provisions a Kubernetes Service that creates an ALB for a specific [IngressGroup].
 
-An [IngressGroup] is a feature of the [alb-controller] which allows multiple Kubernetes Ingresses to share the same Application Load Balancer.
+An [IngressGroup] is a feature of the [alb-controller] which allows multiple Kubernetes Ingresses to share the same
+Application Load Balancer.
 
 ## Usage
 
@@ -15,8 +24,8 @@ import:
   - catalog/eks/alb-controller-ingress-group
 ```
 
-The default catalog values `e.g. stacks/catalog/eks/alb-controller-ingress-group.yaml`
-will create a Kubernetes Service in the `default` namespace with an [IngressGroup] named `alb-controller-ingress-group`.
+The default catalog values `e.g. stacks/catalog/eks/alb-controller-ingress-group.yaml` will create a Kubernetes Service
+in the `default` namespace with an [IngressGroup] named `alb-controller-ingress-group`.
 
 ```yaml
 components:
@@ -33,6 +42,7 @@ components:
         name: alb-controller-ingress-group
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -85,7 +95,7 @@ components:
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_create_namespace"></a> [create\_namespace](#input\_create\_namespace) | Create the namespace if it does not yet exist. Defaults to `false`. | `bool` | `false` | no |
-| <a name="input_default_annotations"></a> [default\_annotations](#input\_default\_annotations) | Default annotations to add to the Kubernetes ingress | `map(any)` | <pre>{<br>  "alb.ingress.kubernetes.io/listen-ports": "[{\"HTTP\": 80}, {\"HTTPS\": 443}]",<br>  "alb.ingress.kubernetes.io/scheme": "internet-facing",<br>  "alb.ingress.kubernetes.io/target-type": "ip",<br>  "kubernetes.io/ingress.class": "alb"<br>}</pre> | no |
+| <a name="input_default_annotations"></a> [default\_annotations](#input\_default\_annotations) | Default annotations to add to the Kubernetes ingress | `map(any)` | <pre>{<br>  "alb.ingress.kubernetes.io/listen-ports": "[{\"HTTP\": 80}, {\"HTTPS\": 443}]",<br>  "alb.ingress.kubernetes.io/scheme": "internet-facing",<br>  "alb.ingress.kubernetes.io/ssl-policy": "ELBSecurityPolicy-TLS13-1-2-2021-06",<br>  "alb.ingress.kubernetes.io/target-type": "ip",<br>  "kubernetes.io/ingress.class": "alb"<br>}</pre> | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_dns_delegated_component_name"></a> [dns\_delegated\_component\_name](#input\_dns\_delegated\_component\_name) | The name of the `dns_delegated` component | `string` | `"dns-delegated"` | no |
@@ -139,12 +149,15 @@ components:
 | <a name="output_load_balancer_scheme"></a> [load\_balancer\_scheme](#output\_load\_balancer\_scheme) | The value of the `alb.ingress.kubernetes.io/scheme` annotation of the Kubernetes Ingress |
 | <a name="output_message_body_length"></a> [message\_body\_length](#output\_message\_body\_length) | The length of the message body to ensure it's lower than the maximum limit |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/eks/alb-controller-ingress-group) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/alb-controller-ingress-group) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
 
-[IngressGroup]: <https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/#ingressgroup>
-[alb-controller]: <https://github.com/kubernetes-sigs/aws-load-balancer-controller>
+[ingressgroup]:
+  https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/#ingressgroup
+[alb-controller]: https://github.com/kubernetes-sigs/aws-load-balancer-controller

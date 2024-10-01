@@ -40,5 +40,5 @@ output "datadog_api_key_location" {
 
 output "datadog_tags" {
   value       = local.dd_tags
-  description = "The Context Tags in datadog tag format (list of strings formated as 'key:value')"
+  description = "The Context Tags in datadog tag format (list of strings formatted as 'key:value')"
 }

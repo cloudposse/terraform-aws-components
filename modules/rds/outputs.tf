@@ -1,3 +1,15 @@
+locals {
+  ssm_path_as_list        = split("/", local.rds_database_password_path)
+  ssm_path_app            = trim(join("/", slice(local.ssm_path_as_list, 0, length(local.ssm_path_as_list) - 1)), "/")
+  ssm_path_password_value = element(local.ssm_path_as_list, length(local.ssm_path_as_list) - 1)
+  psql_message            = <<EOT
+  Use the following to connect to this RDS instance:
+  (You must have access to read the SSM parameter, have access to the private network if necessary, and have security group access)
+
+  PGPASSWORD=$(chamber read ${local.ssm_path_app} ${local.ssm_path_password_value} -q) psql --host=${module.rds_instance.instance_address} --port=${var.database_port} --username=${local.database_user} --dbname=${var.database_name}
+  EOT
+}
+
 output "rds_name" {
   value       = local.enabled ? var.database_name : null
   description = "RDS DB name"
@@ -65,4 +77,14 @@ output "exports" {
     }
   }
   description = "Map of exports for use in deployment configuration templates"
+}
+
+output "psql_helper" {
+  value       = local.psql_access_enabled ? local.psql_message : ""
+  description = "A helper output to use with psql for connecting to this RDS instance."
+}
+
+output "kms_key_alias" {
+  value       = module.kms_key_rds.alias_name
+  description = "The KMS key alias"
 }

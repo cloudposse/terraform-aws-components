@@ -1,11 +1,13 @@
 locals {
   ingress_nginx_enabled = var.ingress_type == "nginx" ? true : false
   ingress_alb_enabled   = var.ingress_type == "alb" ? true : false
+
+  hostname = module.this.enabled ? format(var.hostname_template, var.tenant, var.stage, var.environment) : null
 }
 
 module "echo_server" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.10.0"
+  version = "0.10.1"
 
   name  = module.this.name
   chart = "${path.module}/charts/echo-server"
@@ -29,7 +31,7 @@ module "echo_server" {
   set = [
     {
       name  = "ingress.hostname"
-      value = format(var.hostname_template, var.tenant, var.stage, var.environment)
+      value = local.hostname
       type  = "auto"
     },
     {
@@ -38,18 +40,8 @@ module "echo_server" {
       type  = "auto"
     },
     {
-      name  = "ingress.alb.group_name"
-      value = module.alb.outputs.group_name
-      type  = "auto"
-    },
-    {
       name  = "ingress.alb.enabled"
       value = local.ingress_alb_enabled
-      type  = "auto"
-    },
-    {
-      name  = "ingress.alb.scheme"
-      value = module.alb.outputs.load_balancer_scheme
       type  = "auto"
     },
   ]

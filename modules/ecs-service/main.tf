@@ -14,10 +14,12 @@ locals {
     for container in module.container_definition :
     container.json_map_object
     ],
-    [for container in module.datadog_container_definition :
+    [
+      for container in module.datadog_container_definition :
       container.json_map_object
     ],
-    var.datadog_log_method_is_firelens ? [for container in module.datadog_fluent_bit_container_definition :
+    var.datadog_log_method_is_firelens ? [
+      for container in module.datadog_fluent_bit_container_definition :
       container.json_map_object
     ] : [],
   )
@@ -40,6 +42,31 @@ locals {
   } : {}
 
   task = merge(var.task, local.task_s3)
+
+  efs_component_volumes = lookup(local.task, "efs_component_volumes", [])
+  efs_component_map = {
+    for efs in local.efs_component_volumes : efs["name"] => efs
+  }
+  efs_component_remote_state = {
+    for efs in local.efs_component_volumes : efs["name"] => module.efs[efs["name"]].outputs
+  }
+  efs_component_merged = [
+    for efs_volume_name, efs_component_output in local.efs_component_remote_state : {
+      host_path = local.efs_component_map[efs_volume_name].host_path
+      name      = efs_volume_name
+      efs_volume_configuration = [
+        #again this is a hardcoded array because AWS does not support multiple configurations per volume
+        {
+          file_system_id          = efs_component_output.efs_id
+          root_directory          = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].root_directory
+          transit_encryption      = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].transit_encryption
+          transit_encryption_port = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].transit_encryption_port
+          authorization_config    = local.efs_component_map[efs_volume_name].efs_volume_configuration[0].authorization_config
+        }
+      ]
+    }
+  ]
+  efs_volumes = concat(lookup(local.task, "efs_volumes", []), local.efs_component_merged)
 }
 
 data "aws_s3_objects" "mirror" {
@@ -83,19 +110,28 @@ module "roles_to_principals" {
 }
 
 locals {
-  container_chamber = { for name, result in data.aws_ssm_parameters_by_path.default :
+  container_chamber = {
+    for name, result in data.aws_ssm_parameters_by_path.default :
     name => { for key, value in zipmap(result.names, result.values) : element(reverse(split("/", key)), 0) => value }
   }
 
-  container_aliases = { for name, settings in var.containers :
+  container_aliases = {
+    for name, settings in var.containers :
     settings["name"] => name if local.enabled
   }
 
-  container_s3 = { for item in lookup(local.task_definition_s3, "containerDefinitions", []) :
+  container_s3 = {
+    for item in lookup(local.task_definition_s3, "containerDefinitions", []) :
     local.container_aliases[item.name] => { container_definition = item }
   }
 
-  containers = { for name, settings in var.containers :
+  containers_priority_terraform = {
+    for name, settings in var.containers :
+    name => merge(local.container_chamber[name], lookup(local.container_s3, name, {}), settings, )
+    if local.enabled
+  }
+  containers_priority_s3 = {
+    for name, settings in var.containers :
     name => merge(settings, local.container_chamber[name], lookup(local.container_s3, name, {}))
     if local.enabled
   }
@@ -137,13 +173,18 @@ locals {
     for k, v in data.template_file.envs :
     k => v.rendered
   }
+  map_secrets = { for k, v in local.containers_priority_terraform : k => lookup(v, "map_secrets", null) != null ? zipmap(
+    keys(lookup(v, "map_secrets", null)),
+    formatlist("%s/%s", format("arn:aws:ssm:%s:%s:parameter", var.region, module.roles_to_principals.full_account_map[format("%s-%s", var.tenant, var.stage)]),
+    values(lookup(v, "map_secrets", null)))
+  ) : null }
 }
 
 module "container_definition" {
   source  = "cloudposse/ecs-container-definition/aws"
-  version = "0.60.0"
+  version = "0.61.1"
 
-  for_each = { for k, v in local.containers : k => v if local.enabled }
+  for_each = { for k, v in local.containers_priority_terraform : k => v if local.enabled }
 
   container_name = each.value["name"]
 
@@ -151,8 +192,8 @@ module "container_definition" {
     "%s.dkr.ecr.%s.amazonaws.com/%s",
     module.roles_to_principals.full_account_map[var.ecr_stage_name],
     coalesce(var.ecr_region, var.region),
-    lookup(each.value, "ecr_image", null)
-  ) : lookup(each.value, "image")
+    lookup(local.containers_priority_s3[each.key], "ecr_image", null)
+  ) : lookup(local.containers_priority_s3[each.key], "image")
 
   container_memory             = each.value["memory"]
   container_memory_reservation = each.value["memory_reservation"]
@@ -172,14 +213,12 @@ module "container_definition" {
       "DD_SERVICE_NAME"        = var.name,
       "DD_ENV"                 = var.stage,
       "DD_PROFILING_EXPORTERS" = "agent"
-    } : {}
+    } : {},
+    lookup(each.value, "map_environment", null)
   ) : null
 
-  map_secrets = lookup(each.value, "map_secrets", null) != null ? zipmap(
-    keys(lookup(each.value, "map_secrets", null)),
-    formatlist("%s/%s", format("arn:aws:ssm:%s:%s:parameter", var.region, module.roles_to_principals.full_account_map[format("%s-%s", var.tenant, var.stage)]),
-    values(lookup(each.value, "map_secrets", null)))
-  ) : null
+  map_secrets = local.map_secrets[each.key]
+
   port_mappings        = each.value["port_mappings"]
   command              = each.value["command"]
   entrypoint           = each.value["entrypoint"]
@@ -195,7 +234,7 @@ module "container_definition" {
     options = tomap({
       awslogs-region        = var.region,
       awslogs-group         = local.awslogs_group,
-      awslogs-stream-prefix = var.name,
+      awslogs-stream-prefix = coalesce(each.value["name"], each.key),
     })
     # if we are not using awslogs, we execute this line, which if we have dd enabled, means we are using firelens, so merge that config in.
   }) : merge(lookup(each.value, "log_configuration", {}), local.datadog_logconfiguration_firelens)
@@ -204,7 +243,8 @@ module "container_definition" {
 
 
   # escape hatch for anything not specifically described above or unsupported by the upstream module
-  container_definition = lookup(each.value, "container_definition", {})
+  # March 2024: Removing this as it always prioritizes the s3 task definition
+  #  container_definition = lookup(each.value, "container_definition", {})
 }
 
 locals {
@@ -214,7 +254,7 @@ locals {
 
 module "ecs_alb_service_task" {
   source  = "cloudposse/ecs-alb-service-task/aws"
-  version = "0.71.0"
+  version = "0.72.0"
 
   count = local.enabled ? 1 : 0
 
@@ -265,15 +305,39 @@ module "ecs_alb_service_task" {
   circuit_breaker_rollback_enabled   = lookup(local.task, "circuit_breaker_rollback_enabled", true)
   task_policy_arns                   = var.iam_policy_enabled ? concat(var.task_policy_arns, aws_iam_policy.default[*].arn) : var.task_policy_arns
   ecs_service_enabled                = lookup(local.task, "ecs_service_enabled", true)
-  bind_mount_volumes                 = lookup(local.task, "bind_mount_volumes", [])
   task_role_arn                      = lookup(local.task, "task_role_arn", one(module.iam_role[*]["outputs"]["role"]["arn"]))
   capacity_provider_strategies       = lookup(local.task, "capacity_provider_strategies")
+
+  task_exec_policy_arns_map = var.task_exec_policy_arns_map
+
+  efs_volumes        = local.efs_volumes
+  docker_volumes     = lookup(local.task, "docker_volumes", [])
+  fsx_volumes        = lookup(local.task, "fsx_volumes", [])
+  bind_mount_volumes = lookup(local.task, "bind_mount_volumes", [])
+
+  exec_enabled                   = var.exec_enabled
+  service_connect_configurations = local.service_connect_configurations
+  service_registries             = local.service_discovery
 
   depends_on = [
     module.alb_ingress
   ]
 
   context = module.this.context
+}
+
+resource "aws_security_group_rule" "custom_sg_rules" {
+  for_each = local.enabled && var.custom_security_group_rules != [] ? {
+    for sg_rule in var.custom_security_group_rules :
+    format("%s_%s_%s", sg_rule.protocol, sg_rule.from_port, sg_rule.to_port) => sg_rule
+  } : {}
+  description       = each.value.description
+  type              = each.value.type
+  from_port         = each.value.from_port
+  to_port           = each.value.to_port
+  protocol          = each.value.protocol
+  cidr_blocks       = each.value.cidr_blocks
+  security_group_id = one(module.ecs_alb_service_task[*].service_security_group_id)
 }
 
 module "alb_ingress" {
@@ -284,8 +348,10 @@ module "alb_ingress" {
 
   vpc_id                        = local.vpc_id
   unauthenticated_listener_arns = [local.lb_listener_https_arn]
-  unauthenticated_hosts         = var.lb_catch_all ? [format("*.%s", var.vanity_domain), local.full_domain] : [local.full_domain]
-  unauthenticated_paths         = flatten(var.unauthenticated_paths)
+  unauthenticated_hosts = var.lb_catch_all ? [format("*.%s", var.vanity_domain), local.full_domain] : concat([
+    local.full_domain
+  ], var.vanity_alias, var.additional_targets)
+  unauthenticated_paths = flatten(var.unauthenticated_paths)
   # When set to catch-all, make priority super high to make sure last to match
   unauthenticated_priority     = var.lb_catch_all ? 99 : var.unauthenticated_priority
   default_target_group_enabled = true
@@ -493,4 +559,36 @@ resource "aws_kinesis_stream" "default" {
       stream_mode_details
     ]
   }
+}
+
+data "aws_ecs_task_definition" "created_task" {
+  count           = local.s3_mirroring_enabled ? 1 : 0
+  task_definition = module.ecs_alb_service_task[0].task_definition_family
+  depends_on = [
+    module.ecs_alb_service_task
+  ]
+}
+
+locals {
+  created_task_definition = local.s3_mirroring_enabled ? data.aws_ecs_task_definition.created_task[0] : {}
+  task_template = local.s3_mirroring_enabled ? {
+    containerDefinitions = local.container_definition
+    family               = lookup(local.created_task_definition, "family", null),
+    taskRoleArn          = lookup(local.created_task_definition, "task_role_arn", null),
+    executionRoleArn     = lookup(local.created_task_definition, "execution_role_arn", null),
+    networkMode          = lookup(local.created_task_definition, "network_mode", null),
+    # we explicitly do not put the volumes here. That should be merged in by GHA
+    requiresCompatibilities = [lookup(local.task, "launch_type", "FARGATE")]
+    cpu                     = tostring(lookup(local.task, "task_cpu", null))
+    memory                  = tostring(lookup(local.task, "task_memory", null))
+
+  } : null
+}
+
+resource "aws_s3_bucket_object" "task_definition_template" {
+  count                  = local.s3_mirroring_enabled ? 1 : 0
+  bucket                 = lookup(module.s3[0].outputs, "bucket_id", null)
+  key                    = format("%s/%s/task-template.json", module.ecs_cluster.outputs.cluster_name, module.this.id)
+  content                = jsonencode(local.task_template)
+  server_side_encryption = "AES256"
 }

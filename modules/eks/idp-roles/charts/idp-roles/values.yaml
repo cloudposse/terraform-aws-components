@@ -27,3 +27,8 @@ poweruser_client_role: "idp:poweruser"
 observer_crb_name: "idp-observer"
 observer_cluster_role: "idp-observer"
 observer_client_role: "idp:observer"
+
+# Reader
+reader_crb_name: "idp-reader"
+reader_cluster_role: "idp-reader"
+reader_client_role: "idp:reader"

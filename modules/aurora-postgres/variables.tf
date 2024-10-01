@@ -55,6 +55,18 @@ variable "engine_version" {
   default     = "13.4"
 }
 
+variable "allow_major_version_upgrade" {
+  type        = bool
+  default     = false
+  description = "Enable to allow major engine version upgrades when changing engine versions. Defaults to false."
+}
+
+variable "ca_cert_identifier" {
+  description = "The identifier of the CA certificate for the DB instance"
+  type        = string
+  default     = null
+}
+
 variable "engine_mode" {
   type        = string
   description = "The database engine mode. Valid values: `global`, `multimaster`, `parallelquery`, `provisioned`, `serverless`"
@@ -64,13 +76,6 @@ variable "cluster_family" {
   type        = string
   description = "Family of the DB parameter group. Valid values for Aurora PostgreSQL: `aurora-postgresql9.6`, `aurora-postgresql10`, `aurora-postgresql11`, `aurora-postgresql12`"
   default     = "aurora-postgresql13"
-}
-
-# AWS KMS alias used for encryption/decryption of SSM secure strings
-variable "kms_alias_name_ssm" {
-  type        = string
-  default     = "alias/aws/ssm"
-  description = "KMS alias name for SSM"
 }
 
 variable "database_port" {
@@ -144,12 +149,6 @@ variable "reader_dns_name_part" {
   type        = string
   description = "Part of DNS name added to module and cluster name for DNS for cluster reader"
   default     = "reader"
-}
-
-variable "additional_databases" {
-  type        = set(string)
-  default     = []
-  description = "Additional databases to be created with the cluster"
 }
 
 variable "ssm_path_prefix" {
@@ -260,6 +259,12 @@ variable "snapshot_identifier" {
   description = "Specifies whether or not to create this cluster from a snapshot"
 }
 
+variable "allowed_security_group_names" {
+  type        = list(string)
+  description = "List of security group names (tags) that should be allowed access to the database"
+  default     = []
+}
+
 variable "eks_security_group_enabled" {
   type        = bool
   description = "Use the eks default security group"
@@ -293,16 +298,6 @@ variable "allow_ingress_from_vpc_accounts" {
   EOF
 }
 
-variable "ssm_password_source" {
-  type        = string
-  default     = ""
-  description = <<-EOT
-    If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved from SSM using
-    `var.ssm_password_source` and the database username. If this value is not set,
-    a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster.
-    EOT
-}
-
 variable "vpc_component_name" {
   type        = string
   default     = "vpc"
@@ -328,4 +323,32 @@ variable "serverlessv2_scaling_configuration" {
   })
   default     = null
   description = "Nested attribute with scaling properties for ServerlessV2. Only valid when `engine_mode` is set to `provisioned.` This is required for Serverless v2"
+}
+
+variable "intra_security_group_traffic_enabled" {
+  type        = bool
+  default     = false
+  description = "Whether to allow traffic between resources inside the database's security group."
+}
+
+variable "cluster_parameters" {
+  type = list(object({
+    apply_method = string
+    name         = string
+    value        = string
+  }))
+  default     = []
+  description = "List of DB cluster parameters to apply"
+}
+
+variable "retention_period" {
+  type        = number
+  default     = 5
+  description = "Number of days to retain backups for"
+}
+
+variable "backup_window" {
+  type        = string
+  default     = "07:00-09:00"
+  description = "Daily time range during which the backups happen, UTC"
 }
