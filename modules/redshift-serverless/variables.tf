@@ -130,6 +130,7 @@ variable "custom_sg_rules" {
     cidr_blocks = list(string)
     description = string
   }))
-  default = []
+  default     = []
+  description = "Custom security group rules"
 
 }
