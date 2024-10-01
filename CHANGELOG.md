@@ -2,12 +2,10 @@
 
 ## 1.498.0
 
-
-
 <details>
   <summary>feat: support delete protection for dynamodb @brett-au (#1118)</summary>
 
-  ## what
+## what
 
 <!--
 - Describe high-level what changed as a result of these commits (i.e. in plain-english, what do these changes mean?)
@@ -36,6 +34,21 @@ Delete safe dynamodb tables in the dynamo component
 
 https://github.com/cloudposse/terraform-aws-dynamodb/blob/0.36.0/variables.tf#L184-L188
 
+</details>
+
+## 1.497.0
+
+<details>
+  <summary>Fix Update changelog workflow @goruha (#1116)</summary>
+
+  ## what
+* Fix modules path from `components/terraform` to `modules`
+
+## why 
+* It seems that `components/terraform` was testing value. In actual repo components are in `modules` directory
+
+## references
+* DEV-2556 Investigate release issues with terraform-aws-components
 </details>
 
 
