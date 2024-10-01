@@ -2,7 +2,7 @@
 
 ### Drop `lambda_edge_redirect_404`
 
-This PRs removes the `lambda_edge_redirect_404` functionality because it leads to significat costs. Use native
+This PRs removes the `lambda_edge_redirect_404` functionality because it leads to significant costs. Use native
 CloudFront error pages configs instead.
 
 ```yaml

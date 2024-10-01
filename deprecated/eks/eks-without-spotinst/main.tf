@@ -56,7 +56,7 @@ module "eks_cluster" {
   # exec_auth is more reliable than data_auth when the aws CLI is available
   # Details at https://github.com/cloudposse/terraform-aws-eks-cluster/releases/tag/0.42.0
   kube_exec_auth_enabled = !var.kubeconfig_file_enabled
-  # If using `exec` method (recommended) for authentication, provide an explict
+  # If using `exec` method (recommended) for authentication, provide an explicit
   # IAM role ARN to exec as for authentication to EKS cluster.
   kube_exec_auth_role_arn         = coalesce(var.import_role_arn, module.iam_roles.terraform_role_arn)
   kube_exec_auth_role_arn_enabled = true

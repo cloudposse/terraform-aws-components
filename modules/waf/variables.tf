@@ -107,6 +107,119 @@ variable "token_domains" {
   default     = null
 }
 
+# Logging configuration
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl_logging_configuration.html
+variable "log_destination_configs" {
+  type        = list(string)
+  default     = []
+  description = "The Amazon Kinesis Data Firehose, CloudWatch Log log group, or S3 bucket Amazon Resource Names (ARNs) that you want to associate with the web ACL"
+}
+
+variable "redacted_fields" {
+  type = map(object({
+    method        = optional(bool, false)
+    uri_path      = optional(bool, false)
+    query_string  = optional(bool, false)
+    single_header = optional(list(string), null)
+  }))
+  default     = {}
+  description = <<-DOC
+    The parts of the request that you want to keep out of the logs.
+    You can only specify one of the following: `method`, `query_string`, `single_header`, or `uri_path`
+
+    method:
+      Whether to enable redaction of the HTTP method.
+      The method indicates the type of operation that the request is asking the origin to perform.
+    uri_path:
+      Whether to enable redaction of the URI path.
+      This is the part of a web request that identifies a resource.
+    query_string:
+      Whether to enable redaction of the query string.
+      This is the part of a URL that appears after a `?` character, if any.
+    single_header:
+      The list of names of the query headers to redact.
+  DOC
+  nullable    = false
+}
+
+variable "logging_filter" {
+  type = object({
+    default_behavior = string
+    filter = list(object({
+      behavior    = string
+      requirement = string
+      condition = list(object({
+        action_condition = optional(object({
+          action = string
+        }), null)
+        label_name_condition = optional(object({
+          label_name = string
+        }), null)
+      }))
+    }))
+  })
+  default     = null
+  description = <<-DOC
+    A configuration block that specifies which web requests are kept in the logs and which are dropped.
+    You can filter on the rule action and on the web request labels that were applied by matching rules during web ACL evaluation.
+  DOC
+}
+
+# Association resources
+variable "association_resource_arns" {
+  type        = list(string)
+  default     = []
+  description = <<-DOC
+    A list of ARNs of the resources to associate with the web ACL.
+    This must be an ARN of an Application Load Balancer, Amazon API Gateway stage, or AWS AppSync.
+
+    Do not use this variable to associate a Cloudfront Distribution.
+    Instead, you should use the `web_acl_id` property on the `cloudfront_distribution` resource.
+    For more details, refer to https://docs.aws.amazon.com/waf/latest/APIReference/API_AssociateWebACL.html
+  DOC
+  nullable    = false
+}
+
+variable "alb_names" {
+  description = "list of ALB names to associate with the web ACL."
+  type        = list(string)
+  default     = []
+  nullable    = false
+}
+
+variable "alb_tags" {
+  description = "list of tags to match one or more ALBs to associate with the web ACL."
+  type        = list(map(string))
+  default     = []
+  nullable    = false
+}
+
+variable "association_resource_component_selectors" {
+  type = list(object({
+    component            = string
+    namespace            = optional(string, null)
+    tenant               = optional(string, null)
+    environment          = optional(string, null)
+    stage                = optional(string, null)
+    component_arn_output = string
+  }))
+  default     = []
+  description = <<-DOC
+    A list of Atmos component selectors to get from the remote state and associate their ARNs with the web ACL.
+    The components must be Application Load Balancers, Amazon API Gateway stages, or AWS AppSync.
+
+    component:
+      Atmos component name
+    component_arn_output:
+      The component output that defines the component ARN
+
+    Do not use this variable to select a Cloudfront Distribution component.
+    Instead, you should use the `web_acl_id` property on the `cloudfront_distribution` resource.
+    For more details, refer to https://docs.aws.amazon.com/waf/latest/APIReference/API_AssociateWebACL.html
+  DOC
+  nullable    = false
+}
+
 # Rules
 variable "byte_match_statement_rules" {
   type = list(object({
