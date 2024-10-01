@@ -55,7 +55,7 @@ variable "organization_management_account_name" {
 }
 
 variable "member_association_excludes" {
-  description = "List of account names to exlude from Amazon Inspector member association"
+  description = "List of account names to exclude from Amazon Inspector member association"
   type        = list(string)
   default     = []
 }
@@ -71,7 +71,7 @@ variable "admin_delegated" {
   default     = false
   description = <<DOC
   A flag to indicate if the AWS Organization-wide settings should be created. This can only be done after the GuardDuty
-  Admininstrator account has already been delegated from the AWS Org Management account (usually 'root'). See the
+  Administrator account has already been delegated from the AWS Org Management account (usually 'root'). See the
   Deployment section of the README for more information.
   DOC
 }

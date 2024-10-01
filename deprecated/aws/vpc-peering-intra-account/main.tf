@@ -22,12 +22,12 @@ module "vpc_peering" {
   attributes = var.attributes
   tags       = var.tags
 
-  requestor_vpc_id   = var.requestor_vpc_id
-  requestor_vpc_tags = var.requestor_vpc_tags
+  requester_vpc_id   = var.requester_vpc_id
+  requester_vpc_tags = var.requester_vpc_tags
   acceptor_vpc_id    = var.acceptor_vpc_id
   acceptor_vpc_tags  = var.acceptor_vpc_tags
   auto_accept        = var.auto_accept
 
   acceptor_allow_remote_vpc_dns_resolution  = var.acceptor_allow_remote_vpc_dns_resolution
-  requestor_allow_remote_vpc_dns_resolution = var.requestor_allow_remote_vpc_dns_resolution
+  requester_allow_remote_vpc_dns_resolution = var.requester_allow_remote_vpc_dns_resolution
 }

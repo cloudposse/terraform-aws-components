@@ -7,7 +7,7 @@ variable "efs_enabled" {
 variable "kops_dns_zone_id" {
   type        = string
   default     = ""
-  description = "DNS Zone ID for kops. EFS DNS entries will be added to this zone. If empyty, zone ID will be retrieved from SSM Parameter store"
+  description = "DNS Zone ID for kops. EFS DNS entries will be added to this zone. If empty, zone ID will be retrieved from SSM Parameter store"
 }
 
 variable "efs_encrypted" {

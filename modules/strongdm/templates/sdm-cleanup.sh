@@ -15,7 +15,7 @@ function test_ssh_host() {
 function deregister_server_by_id() {
 	# Unfortunately, this uses a fuzzy search, where "ip-10-123-11-2" matches "ip-10-123-11-22" as well,
 	# and the command gives an error saying that there are 2 matches and
-	# you need to specify --all to delete all of them. Nice safeguard, but it means we neeed to use the
+	# you need to specify --all to delete all of them. Nice safeguard, but it means we need to use the
 	# fixed-length ID in order to safely delete a single server.
 	sdm admin ssh delete "$1"
 }

@@ -109,7 +109,7 @@ Once they are added, and properly configured, the new checks show up in the netw
 
 **Please note:** the yaml file name doesn't matter, but the root key inside which is `something.yaml` does matter. this
 is following
-[datadogs docs](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files)
+[datadog's docs](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files)
 for `<integration name>.yaml`.
 
 #### Sample Yaml

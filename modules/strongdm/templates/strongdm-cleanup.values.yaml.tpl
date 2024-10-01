@@ -61,7 +61,7 @@ resources:
     # A PodDisruptionBudget is necessary for deployments in the `kube-system` namespace in order
     # to allow the pod to be moved and the node to be shut down.
     # See https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-types-of-pods-can-prevent-ca-from-removing-a-node
-    # We use a PodDisruptionBudget rather than an annotation so that other auto scalers,
+    # We use a PodDisruptionBudget rather than an annotation so that other autoscalers,
     # such as the Spotinst Ocean Controller, are more likely to take it into account.
     kind: PodDisruptionBudget
     metadata:

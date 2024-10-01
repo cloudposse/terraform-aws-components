@@ -127,7 +127,7 @@ update:
         dry_run: no
 ```
 
-For the full documentation on how to use the Component Updater GitHub Action, please see the [Atmos Intergations](https://atmos.tools/integrations/github-actions/component-updater) documentation.
+For the full documentation on how to use the Component Updater GitHub Action, please see the [Atmos Integrations](https://atmos.tools/integrations/github-actions/component-updater) documentation.
 
 ## Using `pre-commit` Hooks
 

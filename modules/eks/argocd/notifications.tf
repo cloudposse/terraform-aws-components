@@ -21,7 +21,7 @@ module "notifications_templates" {
   maps = [
     var.notifications_templates,
     local.github_notifications_enabled ? {
-      app-deploy-succeded = {
+      app-deploy-succeeded = {
         message = "Application {{ .app.metadata.name }} is now running new version of deployments manifests."
         webhook = {
           app-repo-github-commit-status = {
@@ -240,11 +240,11 @@ locals {
         send    = ["app-deploy-started"]
       }
     ],
-    on-deploy-succeded = [
+    on-deploy-succeeded = [
       {
         when    = "app.status.operationState.phase == 'Succeeded' and app.status.health.status == 'Healthy'"
         oncePer = "app.status.sync.revision"
-        send    = ["app-deploy-succeded"]
+        send    = ["app-deploy-succeeded"]
       }
     ],
     on-deploy-failed = [

@@ -125,7 +125,7 @@ resource "snowflake_role_grants" "grant_system_roles" {
 
   role_name = "ACCOUNTADMIN"
 
-  # Snowflake resource names are enclosed in quotes intentionally per Idenitier Requirements:
+  # Snowflake resource names are enclosed in quotes intentionally per Identifier Requirements:
   # https://docs.snowflake.com/en/sql-reference/identifiers-syntax.html#identifier-requirements
   roles = [
     "${snowflake_role.terraform[0].name}",
@@ -137,7 +137,7 @@ resource "snowflake_role_grants" "grant_custom_roles" {
 
   role_name = snowflake_role.terraform[0].name
 
-  # Snowflake resource names are enclosed in quotes intentionally per Idenitier Requirements:
+  # Snowflake resource names are enclosed in quotes intentionally per Identifier Requirements:
   # https://docs.snowflake.com/en/sql-reference/identifiers-syntax.html#identifier-requirements
   users = [
     "${snowflake_user.terraform[0].name}",

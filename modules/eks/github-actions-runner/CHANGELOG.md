@@ -71,7 +71,7 @@ components:
       vars:
         # This first set of values you can just copy from here.
         # However, if you had customized the standard Helm configuration
-        # (such things as `cleanup_on_fail`, `atmoic`, or `timeout`), you
+        # (such things as `cleanup_on_fail`, `atomic`, or `timeout`), you
         # now need to do that per chart under the `charts` input.
         enabled: true
         name: "gha-runner-controller"
@@ -99,7 +99,7 @@ components:
         github_app_id: "250828"
         github_app_installation_id: "30395627"
 
-        # These values require some converstion from the `actions-runner-controller` configuration
+        # These values require some conversion from the `actions-runner-controller` configuration
         # Set `create_github_kubernetes_secret` to `true` if `existing_kubernetes_secret_name` was not set, `false` otherwise.
         create_github_kubernetes_secret: true
         # If `existing_kubernetes_secret_name` was set, copy the setting to `github_kubernetes_secret_name` here.

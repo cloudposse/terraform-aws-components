@@ -9,12 +9,12 @@ variable "admin_delegated" {
   default     = false
   description = <<DOC
   A flag to indicate if the AWS Organization-wide settings should be created. This can only be done after the GuardDuty
-  Admininstrator account has already been delegated from the AWS Org Management account (usually 'root'). See the
+  Administrator account has already been delegated from the AWS Org Management account (usually 'root'). See the
   Deployment section of the README for more information.
   DOC
 }
 
-variable "delegated_admininstrator_component_name" {
+variable "delegated_administrator_component_name" {
   type        = string
   default     = "macie/delegated-administrator"
   description = "The name of the component that created the Macie account."

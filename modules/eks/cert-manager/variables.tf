@@ -142,7 +142,7 @@ variable "timeout" {
 
 variable "cleanup_on_fail" {
   type        = bool
-  description = "If `true`, resources created in this deploy will be deleted when deploy fails. Highly recommended to prevent cert-manager from getting into a wedeged state."
+  description = "If `true`, resources created in this deploy will be deleted when deploy fails. Highly recommended to prevent cert-manager from getting into a wedged state."
   default     = true
 }
 

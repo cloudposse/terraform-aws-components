@@ -91,7 +91,7 @@ following structure:
   syncing Okta with AWS SSO.
 - The permission sets are defined (by convention) in files names `policy-<permission-set-name>.tf` in the `aws-sso`
   component. The definition includes the name of the permission set. See
-  `components/terraform/aws-sso/policy-AdminstratorAccess.tf` for an example.
+  `components/terraform/aws-sso/policy-AdministratorAccess.tf` for an example.
 
 #### `identity_roles_accessible`
 

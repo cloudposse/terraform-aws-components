@@ -21,7 +21,7 @@ variable "name" {
 variable "region" {
   type        = string
   default     = ""
-  description = "AWS region for resources. Can be overriden by `resource_region` and `state_store_region`"
+  description = "AWS region for resources. Can be overridden by `resource_region` and `state_store_region`"
 }
 
 variable "state_store_region" {
@@ -165,7 +165,7 @@ variable "vpc_chamber_parameter_name" {
   default = "/%s/%s_%s"
 }
 
-variable "vpc_paramter_prefix" {
+variable "vpc_parameter_prefix" {
   default     = "vpc_common"
   description = "parameter name prefix to use when looking up VPC parameters in chamber"
 }

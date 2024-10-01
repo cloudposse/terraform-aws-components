@@ -98,7 +98,7 @@ Example - I want a new instance `rds-example-new` to be provisioned from a snaps
 1. Use the console to copy the snapshot to a new name using the above provisioned kms key
 1. Add `snapshot_identifier` variable to `rds-example-new` catalog and specify the newly copied snapshot that used the
    above key
-1. Post provisioning, remove the `snapshot_idenfier` variable and verify terraform runs clean for the copied instance
+1. Post provisioning, remove the `snapshot_identifier` variable and verify terraform runs clean for the copied instance
 
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

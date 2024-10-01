@@ -178,7 +178,7 @@ variable "elasticsearch_iam_role_max_session_duration" {
 variable "kibana_subdomain_name" {
   type        = string
   default     = "kibana-elasticsearch"
-  description = "Kubana subdomain"
+  description = "Kibana subdomain"
 }
 
 variable "elasticsearch_subdomain_name" {

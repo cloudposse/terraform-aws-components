@@ -123,7 +123,7 @@ variable "spot_percentage" {
 variable "utilize_reserved_instances" {
   type        = bool
   default     = false
-  description = "If Reserved instances exist, OCean will utilize them before launching Spot instances"
+  description = "If Reserved instances exist, Ocean will utilize them before launching Spot instances"
 }
 
 variable "draining_timeout" {
@@ -156,7 +156,7 @@ variable "autoscale_down_num_of_units" {
   description = "The number of evaluation periods that should accumulate before a scale down action takes place"
 }
 
-variable "autoscale_resource_max_vpcu" {
+variable "autoscale_resource_max_vcpu" {
   type        = number
   default     = 20000
   description = "The maximum cpu in vCPU units that can be allocated to the cluster"

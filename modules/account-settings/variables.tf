@@ -50,7 +50,7 @@ variable "budgets_slack_channel" {
 
 variable "budgets_slack_username" {
   type        = string
-  description = "The username that will appear on Slack messages. Only used when `budegets_notifications_enabled` is `true`"
+  description = "The username that will appear on Slack messages. Only used when `budgets_notifications_enabled` is `true`"
   default     = ""
 }
 

@@ -425,7 +425,7 @@ variable "stickiness_enabled" {
 variable "autoscaling_enabled" {
   type        = bool
   default     = true
-  description = "Should this service autoscale using SNS alarams"
+  description = "Should this service autoscale using SNS alarms"
 }
 
 variable "autoscaling_dimension" {

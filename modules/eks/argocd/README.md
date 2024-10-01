@@ -153,7 +153,7 @@ components:
           workspace_enabled: true
           depends_on:
             - argocd-applicationset
-            - tenant-gbl-corp-argocd-depoy-non-prod
+            - tenant-gbl-corp-argocd-deploy-non-prod
       vars:
         enabled: true
         alb_group_name: argocd
@@ -267,7 +267,7 @@ jobs:
           role-to-assume: arn:aws:iam::123456789012:role/github-action-worker
       - name: Build
         shell: bash
-        run: docker build -t some.docker.repo/acme/app . & docker push some.docker.repo/acmo/app
+        run: docker build -t some.docker.repo/acme/app . & docker push some.docker.repo/acme/app
       - name: Checkout Argo Configuration
         uses: actions/checkout@v3
         with:

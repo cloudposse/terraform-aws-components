@@ -76,12 +76,12 @@ module "utility_subnets" {
 #
 data "aws_ssm_parameter" "vpc_id" {
   count = var.create_vpc == "true" ? 0 : 1
-  name  = format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_paramter_prefix, "vpc_id")
+  name  = format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_parameter_prefix, "vpc_id")
 }
 
 data "aws_ssm_parameter" "vpc_cidr_block" {
   count = var.create_vpc == "true" ? 0 : 1
-  name  = format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_paramter_prefix, "cidr_block")
+  name  = format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_parameter_prefix, "cidr_block")
 }
 
 ###
@@ -89,37 +89,37 @@ data "aws_ssm_parameter" "vpc_cidr_block" {
 #
 data "aws_ssm_parameter" "availability_zones" {
   count = var.create_vpc == "true" ? 0 : 1
-  name  = format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_paramter_prefix, "availability_zones")
+  name  = format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_parameter_prefix, "availability_zones")
 }
 
 # List of NAT gateways from private subnet to public, one per subnet, which is one per availability zone
 data "aws_ssm_parameter" "nat_gateways" {
   count = var.create_vpc == "false" && var.use_shared_nat_gateways == "true" ? 1 : 0
-  name  = format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_paramter_prefix, "nat_gateways")
+  name  = format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_parameter_prefix, "nat_gateways")
 }
 
 # List of private subnet CIDR blocks, one per availability zone
 data "aws_ssm_parameter" "private_subnet_cidrs" {
   count = var.create_vpc == "true" ? 0 : 1
-  name  = format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_paramter_prefix, "private_subnet_cidrs")
+  name  = format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_parameter_prefix, "private_subnet_cidrs")
 }
 
 # List of private subnet AWS IDs, one per availability zone
 data "aws_ssm_parameter" "private_subnet_ids" {
   count = var.create_vpc == "true" ? 0 : 1
-  name  = format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_paramter_prefix, "private_subnet_ids")
+  name  = format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_parameter_prefix, "private_subnet_ids")
 }
 
 # List of public subnet CIDR blocks, one per availability zone
 data "aws_ssm_parameter" "public_subnet_cidrs" {
   count = var.create_vpc == "true" ? 0 : 1
-  name  = format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_paramter_prefix, "public_subnet_cidrs")
+  name  = format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_parameter_prefix, "public_subnet_cidrs")
 }
 
 # List of public subnet AWS IDs, one per availability zone
 data "aws_ssm_parameter" "public_subnet_ids" {
   count = var.create_vpc == "true" ? 0 : 1
-  name  = format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_paramter_prefix, "public_subnet_ids")
+  name  = format(var.vpc_chamber_parameter_name, var.vpc_chamber_service, var.vpc_parameter_prefix, "public_subnet_ids")
 }
 
 #

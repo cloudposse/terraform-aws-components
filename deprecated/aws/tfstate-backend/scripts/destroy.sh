@@ -27,7 +27,7 @@ rm -rf .terraform
 # Disable S3 state backend so that we use local state file
 sed -Ei 's/^(\s+backend\s+)/#\1/' main.tf
 
-# Reintialize TF state without backend, using local `terraform.tfstate`
+# Reinitialize TF state without backend, using local `terraform.tfstate`
 terraform init
 
 # Destroy terraform state. Note, only buckets that were created with `force_destroy=true` will successfully be destroyed.

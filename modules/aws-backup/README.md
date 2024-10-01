@@ -18,7 +18,7 @@ Here's an example snippet for how to use this component.
 ### Component Abstraction and Separation
 
 By separating the "common" settings from the component, we can first provision the IAM Role and AWS Backup Vault to
-prepare resources for future use without incuring cost.
+prepare resources for future use without incurring cost.
 
 For example, `stacks/catalog/aws-backup/common`:
 

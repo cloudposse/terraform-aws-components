@@ -168,8 +168,8 @@ variable "github_notifications" {
   default = [
     "notifications.argoproj.io/subscribe.on-deploy-started.app-repo-github-commit-status: \"\"",
     "notifications.argoproj.io/subscribe.on-deploy-started.argocd-repo-github-commit-status: \"\"",
-    "notifications.argoproj.io/subscribe.on-deploy-succeded.app-repo-github-commit-status: \"\"",
-    "notifications.argoproj.io/subscribe.on-deploy-succeded.argocd-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-succeeded.app-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-succeeded.argocd-repo-github-commit-status: \"\"",
     "notifications.argoproj.io/subscribe.on-deploy-failed.app-repo-github-commit-status: \"\"",
     "notifications.argoproj.io/subscribe.on-deploy-failed.argocd-repo-github-commit-status: \"\"",
   ]

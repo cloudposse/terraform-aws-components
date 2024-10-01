@@ -374,7 +374,7 @@ component.
 :::info Pro Tip!
 
 [Atmos Workflows](https://atmos.tools/core-concepts/workflows/) make applying and destroying Transit Gateway much
-easier! For example, to destroy components in the correct order, use a workflow similiar to the following:
+easier! For example, to destroy components in the correct order, use a workflow similar to the following:
 
 ```yaml
 # stacks/workflows/network.yaml

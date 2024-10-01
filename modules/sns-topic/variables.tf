@@ -14,7 +14,7 @@ variable "subscribers" {
     raw_message_delivery = bool
     # Boolean indicating whether or not to enable raw message delivery (the original message is directly passed, not wrapped in JSON with the original message in the message property) (default is false)
   }))
-  description = "Required configuration for subscibres to SNS topic."
+  description = "Required configuration for subscribers to SNS topic."
   default     = {}
 }
 
@@ -61,7 +61,7 @@ variable "sns_topic_policy_json" {
 }
 
 # Enabling sqs_dlq_enabled won't be effective.
-# SNS subscription - redrive policy parameter is not yet avaialable in TF - waiting for PR https://github.com/terraform-providers/terraform-provider-aws/issues/10931
+# SNS subscription - redrive policy parameter is not yet available in TF - waiting for PR https://github.com/terraform-providers/terraform-provider-aws/issues/10931
 variable "sqs_dlq_enabled" {
   type        = bool
   description = "Enable delivery of failed notifications to SQS and monitor messages in queue."

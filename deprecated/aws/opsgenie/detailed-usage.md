@@ -329,4 +329,4 @@ __NOTE:__ We will be using `example-service` as an example.
    If the condition matches, we create an incident and assign it to the team, the members of which get notifications about the incident.
 
   - Provision the `datadog-monitor` and `opsgenie` projects with Terraform.
-    Datadog will monitor the `example-servise` with the provisioned monitors and send alerts to Opsgenie.
+    Datadog will monitor the `example-service` with the provisioned monitors and send alerts to Opsgenie.

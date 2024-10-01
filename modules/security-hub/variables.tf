@@ -9,7 +9,7 @@ variable "admin_delegated" {
   default     = false
   description = <<DOC
   A flag to indicate if the AWS Organization-wide settings should be created. This can only be done after the Security
-  Hub Admininstrator account has already been delegated from the AWS Org Management account (usually 'root'). See the
+  Hub Administrator account has already been delegated from the AWS Org Management account (usually 'root'). See the
   Deployment section of the README for more information.
   DOC
 }
@@ -28,7 +28,7 @@ variable "auto_enable_organization_members" {
 
 variable "cloudwatch_event_rule_pattern_detail_type" {
   type        = string
-  default     = "ecurity Hub Findings - Imported"
+  default     = "Security Hub Findings - Imported"
   description = <<-DOC
   The detail-type pattern used to match events that will be sent to SNS.
 
@@ -74,7 +74,7 @@ variable "enabled_standards" {
 }
 
 variable "finding_aggregation_region" {
-  description = "If finding aggreation is enabled, the region that collects findings"
+  description = "If finding aggregation is enabled, the region that collects findings"
   type        = string
   default     = null
 }

@@ -59,10 +59,10 @@ region that existed before March 2019 and to any regions that have been opted-in
 In the examples below, we assume that the AWS Organization Management account is `root` and the AWS Organization
 Delegated Administrator account is `security`, both in the `core` tenant.
 
-### Deploy to Delegated Admininstrator Account
+### Deploy to Delegated Administrator Account
 
 First, the component is deployed to the
-[Delegated Admininstrator](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_organizations.html) account in each
+[Delegated Administrator](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_organizations.html) account in each
 region in order to configure the central GuardDuty detector that each account will send its findings to.
 
 ```yaml
@@ -89,9 +89,9 @@ atmos terraform apply guardduty/delegated-administrator/uw1 -s core-uw1-security
 ### Deploy to Organization Management (root) Account
 
 Next, the component is deployed to the AWS Organization Management, a/k/a `root`, Account in order to set the AWS
-Organization Designated Admininstrator account.
+Organization Designated Administrator account.
 
-Note that you must use the `SuperAdmin` permissions as we are deploying to the AWS Organization Managment account. Since
+Note that you must use the `SuperAdmin` permissions as we are deploying to the AWS Organization Management account. Since
 we are using the `SuperAdmin` user, it will already have access to the state bucket, so we set the `role_arn` of the
 backend config to null and set `var.privileged` to `true`.
 
@@ -190,14 +190,14 @@ atmos terraform apply guardduty/org-settings/uw1 -s core-uw1-security
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_map_tenant"></a> [account\_map\_tenant](#input\_account\_map\_tenant) | The tenant where the `account_map` component required by remote-state is deployed | `string` | `"core"` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_admin_delegated"></a> [admin\_delegated](#input\_admin\_delegated) | A flag to indicate if the AWS Organization-wide settings should be created. This can only be done after the GuardDuty<br>  Admininstrator account has already been delegated from the AWS Org Management account (usually 'root'). See the<br>  Deployment section of the README for more information. | `bool` | `false` | no |
+| <a name="input_admin_delegated"></a> [admin\_delegated](#input\_admin\_delegated) | A flag to indicate if the AWS Organization-wide settings should be created. This can only be done after the GuardDuty<br>  Administrator account has already been delegated from the AWS Org Management account (usually 'root'). See the<br>  Deployment section of the README for more information. | `bool` | `false` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_auto_enable_organization_members"></a> [auto\_enable\_organization\_members](#input\_auto\_enable\_organization\_members) | Indicates the auto-enablement configuration of GuardDuty for the member accounts in the organization. Valid values are `ALL`, `NEW`, `NONE`.<br><br>For more information, see:<br>https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_organization_configuration#auto_enable_organization_members | `string` | `"NEW"` | no |
 | <a name="input_cloudwatch_enabled"></a> [cloudwatch\_enabled](#input\_cloudwatch\_enabled) | Flag to indicate whether CloudWatch logging should be enabled for GuardDuty | `bool` | `false` | no |
 | <a name="input_cloudwatch_event_rule_pattern_detail_type"></a> [cloudwatch\_event\_rule\_pattern\_detail\_type](#input\_cloudwatch\_event\_rule\_pattern\_detail\_type) | The detail-type pattern used to match events that will be sent to SNS.<br><br>For more information, see:<br>https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html<br>https://docs.aws.amazon.com/eventbridge/latest/userguide/event-types.html<br>https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_findings_cloudwatch.html | `string` | `"GuardDuty Finding"` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_create_sns_topic"></a> [create\_sns\_topic](#input\_create\_sns\_topic) | Flag to indicate whether an SNS topic should be created for notifications. If you want to send findings to a new SNS<br>topic, set this to true and provide a valid configuration for subscribers. | `bool` | `false` | no |
-| <a name="input_delegated_admininstrator_component_name"></a> [delegated\_admininstrator\_component\_name](#input\_delegated\_admininstrator\_component\_name) | The name of the component that created the GuardDuty detector. | `string` | `"guardduty/delegated-administrator"` | no |
+| <a name="input_delegated_administrator_component_name"></a> [delegated\_administrator\_component\_name](#input\_delegated\_administrator\_component\_name) | The name of the component that created the GuardDuty detector. | `string` | `"guardduty/delegated-administrator"` | no |
 | <a name="input_delegated_administrator_account_name"></a> [delegated\_administrator\_account\_name](#input\_delegated\_administrator\_account\_name) | The name of the account that is the AWS Organization Delegated Administrator account | `string` | `"core-security"` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |

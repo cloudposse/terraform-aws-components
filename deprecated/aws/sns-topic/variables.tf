@@ -37,7 +37,7 @@ variable "subscribers" {
     endpoint_auto_confirms = bool
     # Boolean indicating whether the end point is capable of auto confirming subscription e.g., PagerDuty (default is false)
   }))
-  description = "Required configuration for subscibres to SNS topic."
+  description = "Required configuration for subscribers to SNS topic."
   default     = {}
 }
 

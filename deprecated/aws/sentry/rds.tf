@@ -47,13 +47,13 @@ variable "postgres_rds_instance_iam_database_authentication_enabled" {
 
 variable "postgres_rds_instance_cluster_dns_name" {
   type        = string
-  description = "Name of the cluster CNAME record to create in the parent DNS zone specified by `zone_name`. If left empty, the name will be auto-asigned using the format `master.var.postgres_rds_instance_name`"
+  description = "Name of the cluster CNAME record to create in the parent DNS zone specified by `zone_name`. If left empty, the name will be auto-assigned using the format `master.var.postgres_rds_instance_name`"
   default     = ""
 }
 
 variable "postgres_rds_instance_replicas_dns_name" {
   type        = string
-  description = "Name of the reader endpoint CNAME record to create in the parent DNS zone specified by `zone_name`. If left empty, the name will be auto-asigned using the format `replicas.var.postgres_rds_instance_name`"
+  description = "Name of the reader endpoint CNAME record to create in the parent DNS zone specified by `zone_name`. If left empty, the name will be auto-assigned using the format `replicas.var.postgres_rds_instance_name`"
   default     = ""
 }
 

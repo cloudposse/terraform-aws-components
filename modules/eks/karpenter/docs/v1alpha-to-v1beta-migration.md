@@ -132,7 +132,7 @@ Specifically, `provisioner` input has been renamed `node_pools`. Within that inp
   the NodePool.
 - The old `ttl_seconds_after_empty` is now `disruption.consolidate_after`.
 - The old `ttl_seconds_until_expired` is now `disruption.max_instance_lifetime` to align with the EC2 Auto Scaling Group
-  terminology, although Karpenter calles it `expiresAfter`.
+  terminology, although Karpenter calls it `expiresAfter`.
 - `spec.template.spec.kubelet` settings are not yet supported by this component.
 - `settings.aws.enablePodENI` and `settings.aws.enableENILimitedPodDensity`, which you may have previously set via
   `chart_values`, have been dropped by Karpenter.
@@ -166,7 +166,7 @@ component, and does not need to be set via `chart_values`.
   other reason to have more than 2 replicas in most cases.
 
 - The lifecycle settings `consolidation`, `ttl_seconds_after_empty` and `ttl_seconds_until_expired` have been moved to
-  the `disruption` input. Unfortunately, the documentation for the Karpetner Disruption spec is lacking, so read the
+  the `disruption` input. Unfortunately, the documentation for the Karpenter Disruption spec is lacking, so read the
   comments in the code for the `disruption` input for details. The short story is:
 
   - `consolidation` is now enabled by default. To disable it, set `disruption.consolidate_after` to `"Never"`.

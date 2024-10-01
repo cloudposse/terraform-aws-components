@@ -72,7 +72,7 @@ set-cluster <cluster-name> admin # replace admin with other role name if desired
 kubectl get storageclass $SC_NAME -o yaml
 ```
 
-You can then match that configuration, except that you cannot omit `allow_volume_exansion`.
+You can then match that configuration, except that you cannot omit `allow_volume_expansion`.
 
 ```yaml
 ebs_storage_classes:

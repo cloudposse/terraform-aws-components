@@ -91,7 +91,7 @@ Example deployment with primary cluster deployed to us-east-1 in a `platform-dev
 ## Disaster Recovery with Cross-Region Replication
 
 This component is designed to support cross-region replication with continuous replication. If enabled and deployed, a
-secondary cluster will be deployed in a different region than the primary cluster. This approach is highly aggresive and
+secondary cluster will be deployed in a different region than the primary cluster. This approach is highly aggressive and
 costly, but in a disaster scenario where the primary cluster fails, the secondary cluster can be promoted to take its
 place. Follow these steps to handle a Disaster Recovery.
 
@@ -154,14 +154,14 @@ https://github.com/hashicorp/terraform-provider-aws/issues/6749
 Instead, promote the Replicate cluster with the AWS CLI command:
 `aws rds promote-read-replica-db-cluster --db-cluster-identifier <identifier>`
 
-After promoting the replica, update the stack configuration to prevent future Terrafrom runs from re-enabling
+After promoting the replica, update the stack configuration to prevent future Terraform runs from re-enabling
 replication. In this example, modify `stacks/catalog/aurora-mysql/replica/defaults.yaml`
 
 ```yaml
 is_promoted_read_replica: true
 ```
 
-Reploying the component should show no changes. For example,
+Redeploying the component should show no changes. For example,
 `atmos terraform apply aurora-mysql/dev -s platform-use2-dev`
 
 <!-- prettier-ignore-start -->

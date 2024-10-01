@@ -114,7 +114,7 @@ resource "spotinst_ocean_aws" "default" {
     }
 
     resource_limits {
-      max_vcpu       = var.autoscale_resource_max_vpcu
+      max_vcpu       = var.autoscale_resource_max_vcpu
       max_memory_gib = var.autoscale_resource_memory_gib
     }
   }

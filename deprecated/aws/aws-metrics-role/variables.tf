@@ -18,7 +18,7 @@ variable "namespace" {
 variable "cloudwatch_namespace" {
   type        = string
   default     = ""
-  description = "Kubernetes namespace in which to deploy prometheus-cloudwatch-exporter. Default is no namespacer created."
+  description = "Kubernetes namespace in which to deploy prometheus-cloudwatch-exporter. Default is no namespace created."
 }
 
 variable "stage" {
@@ -44,7 +44,7 @@ variable "kops_cluster_name" {
 
 variable "assume_role_permitted_roles" {
   type        = string
-  description = "Roles that are permitted to assume thie role. One of 'kiam', 'nodes', 'masters', or 'both' (nodes + masters)."
+  description = "Roles that are permitted to assume this role. One of 'kiam', 'nodes', 'masters', or 'both' (nodes + masters)."
   default     = "kiam"
 }
 

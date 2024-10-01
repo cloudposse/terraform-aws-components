@@ -25,7 +25,7 @@ components:
   - `on-deploy-started`
     - `app-repo-github-commit-status`
     - `argocd-repo-github-commit-status`
-  - `on-deploy-succeded`
+  - `on-deploy-succeeded`
     - `app-repo-github-commit-status`
     - `argocd-repo-github-commit-status`
   - `on-deploy-failed`

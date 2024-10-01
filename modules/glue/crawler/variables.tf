@@ -42,7 +42,7 @@ variable "jdbc_target" {
 
   # Using `type = list(any)` since some of the the fields are optional and we don't want to force the caller to specify all of them and set to `null` those not used
   type        = list(any)
-  description = "List of nested JBDC target arguments"
+  description = "List of nested JDBC target arguments"
   default     = null
 }
 

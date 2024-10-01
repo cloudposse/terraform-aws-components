@@ -86,7 +86,7 @@ components:
 
 ### Finding Aurora Engine Version
 
-Use the following to query the AWS API by `engine-mode`. Both provisioned and Serverless v2 use the `privisoned` engine
+Use the following to query the AWS API by `engine-mode`. Both provisioned and Serverless v2 use the `provisioned` engine
 mode, whereas only Serverless v1 uses the `serverless` engine mode.
 
 ```bash

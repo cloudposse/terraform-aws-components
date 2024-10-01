@@ -74,7 +74,7 @@ This is a race condition. Rerun `terraform apply`.
 ### ObjectNotFoundException: No scalable target registered for service namespace
 
 ```sh
-Error putting scaling policy: ObjectNotFoundException: No scalable target registered for service namespace: ecs, resource ID: service/cpco-testing-fargate/eg-exapmle-fargate-atlantis, scalable dimension: ecs:service:DesiredCount
+Error putting scaling policy: ObjectNotFoundException: No scalable target registered for service namespace: ecs, resource ID: service/cpco-testing-fargate/eg-example-fargate-atlantis, scalable dimension: ecs:service:DesiredCount
 ````
 
 This is a race condition. Rerun `terraform apply`.

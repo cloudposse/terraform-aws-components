@@ -18,7 +18,7 @@ A second bucket is created for cloudtrail, and a cloudtrail is configured to mon
 activity to the cloudtrail bucket. To forward these cloudtrail logs to datadog, the cloudtrail bucket's id must be added
 to the s3_buckets key for our datadog-lambda-forwarder component.
 
-Both buckets support object lock, with overrideable defaults of COMPLIANCE mode with a duration of 7 days.
+Both buckets support object lock, with overridable defaults of COMPLIANCE mode with a duration of 7 days.
 
 ## Prerequisites
 

@@ -22,6 +22,6 @@ module "vpc_peering" {
   delimiter        = var.delimiter
   attributes       = ["${compact(concat(var.attributes, list("peering")))}"]
   tags             = var.tags
-  requestor_vpc_id = data.aws_vpc.eks_vpc.id
+  requester_vpc_id = data.aws_vpc.eks_vpc.id
   acceptor_vpc_id  = data.aws_vpc.backing_services_vpc.id
 }

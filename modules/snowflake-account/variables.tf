@@ -39,7 +39,7 @@ variable "default_warehouse_size" {
 
 variable "terraform_user_first_name" {
   type        = string
-  default     = "Terrafrom"
+  default     = "Terraform"
   description = "Snowflake Terraform first name given with User creation"
 }
 

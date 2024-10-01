@@ -37,7 +37,7 @@ Components PR [#1046](https://github.com/cloudposse/terraform-aws-components/pul
 
 Added support for passing extra arguments to `kubelet` and other startup modifications supported by EKS on Amazon Linux
 2 via the
-[`bootsrap.sh`](https://github.com/awslabs/amazon-eks-ami/blob/d87c6c49638216907cbd6630b6cadfd4825aed20/templates/al2/runtime/bootstrap.sh)
+[`bootstrap.sh`](https://github.com/awslabs/amazon-eks-ami/blob/d87c6c49638216907cbd6630b6cadfd4825aed20/templates/al2/runtime/bootstrap.sh)
 script.
 
 This support should be considered an `alpha` version, as it may change when support for Amazon Linux 2023 is added, and
@@ -535,7 +535,7 @@ cluster to all of the Availability Zones in which the VPC has private subnets.
 
 Previously, this module created a separate Fargate Pod Execution Role for each Fargate Profile it created. This is
 unnecessary, excessive, and can cause problems due to name collisions, but is otherwise merely inefficient, so it is not
-important to fix this on existiong, working clusters. This update brings a feature that causes the module to create at
+important to fix this on existing, working clusters. This update brings a feature that causes the module to create at
 most 1 Fargate Pod Execution Role per cluster.
 
 **This change is recommended for all NEW clusters, but only NEW clusters**. Because it is a breaking change, it is not

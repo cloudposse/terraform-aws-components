@@ -1,7 +1,7 @@
 locals {
   enabled = module.this.enabled
 
-  # This will be used as the name of the ClusterRole and binded User
+  # This will be used as the name of the ClusterRole and bound User
   aps_clusterrole_identity = module.this.id
 
   # Amazon EKS requires a different format for this ARN. You must adjust the format of the returned ARN

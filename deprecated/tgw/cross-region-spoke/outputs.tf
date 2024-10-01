@@ -5,7 +5,7 @@ output "vpc_routes_this" {
 
 output "tgw_routes_in_region" {
   value       = module.tgw_routes_this_region
-  description = "TGW reoutes in this region"
+  description = "TGW routes in this region"
 }
 
 output "vpc_routes_home" {

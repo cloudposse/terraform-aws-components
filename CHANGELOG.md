@@ -456,12 +456,12 @@ Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0
   - `datadog-configuration` better handling of `enabled = false`
   - `datadog-integration` move "module count" back to "module" for better compatibility and maintainability, see
     `datadog-integration/CHANGELOG.md`
-  - `datadog-lambda-forwared` fix issues around `enable = false` and incomplete destruction of resources (particularly
+  - `datadog-lambda-forwarder` fix issues around `enable = false` and incomplete destruction of resources (particularly
     log groups) see `datadog-lambda-forwarder/CHANGELOG.md`
   - Cleanup `datadog-monitor` see `datadog-monitor/CHANGELOG.md` for details. Possible breaking change in that several
     inputs have been removed, but they were previously ignored anyway, so no infrastructure change should result from
     you simply removing any inputs you had for the removed inputs.
-  - Update `datadog-sythetics` dependency `remote-state` version
+  - Update `datadog-synthetics` dependency `remote-state` version
   - `datadog-synthetics-private-location` migrate control of namespace to `helm-release` module. Possible destruction
     and recreation of component on upgrade. See CHANGELOG.md
 
@@ -512,7 +512,7 @@ Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0
 ### 🐛 Bug Fixes
 
 <details>
-  <summary>Karpenter bugfix, EKS add-ons to mangaed node group @Nuru (#816)</summary>
+  <summary>Karpenter bugfix, EKS add-ons to managed node group @Nuru (#816)</summary>
 
 ### what
 
@@ -534,7 +534,7 @@ Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0
 
 ### what
 
-- Upsteam the latest `ecs-service` component
+- Upstream the latest `ecs-service` component
 
 ### why
 
@@ -628,7 +628,7 @@ Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0
 ### why
 
 - regressions with argocd notifications caused github actions to timeout
-- `deployment_id` no longer needed for fascilitating communication between gha and ArgoCD
+- `deployment_id` no longer needed for facilitating communication between gha and ArgoCD
 - application urls were incorrect and problematic during troubleshooting
 
 </details>
@@ -822,7 +822,7 @@ Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0
 
 - fix incorrect shape for one of the items in `aws_team_roles_rbac`
 - improve consistency
-- remove variables that are not appliable for the component
+- remove variables that are not applicable for the component
 
 ### references
 
@@ -1395,7 +1395,7 @@ previous restriction is both not needed and actually hinders desired operation.
 
 - [eks/karpenter-provisioner]:
   - Implement `metadata_options`
-  - Avoid Terraform errors by marking Provisoner `spec.requirements` a computed field
+  - Avoid Terraform errors by marking Provisioner `spec.requirements` a computed field
   - Add explicit error message about Consolidation and TTL Seconds After Empty being mutually exclusive
   - Add `instance-category` and `instance-generation` to example in README
   - Make many inputs optional
@@ -1940,7 +1940,7 @@ This update is recommended for all customers wanting to use **_any_** component 
 ### what
 
 - BREAKING CHANGE: Actually use variable `function_name` to set the lambda function name.
-- Make the variable `function_name` optional. When not set, the old null-lable-derived name will be use.
+- Make the variable `function_name` optional. When not set, the old null-label-derived name will be use.
 - Allow IAM policy to be specified in a custom terraform object as an alternative to JSON.
 
 ### why
@@ -3731,7 +3731,7 @@ https://cloudposse.atlassian.net/browse/DEV-835
 
 ### why
 
-- Majority of echosystem support is currently `amd64`
+- Majority of ecosystem support is currently `amd64`
 - `tolerations.value` is option in Kubernetes spec
 
 ### references
@@ -3821,7 +3821,7 @@ N/A
 ### what
 
 - bumped ecr
-- remove unnecssary variable
+- remove unnecessary variable
 
 ### why
 
@@ -3877,7 +3877,7 @@ N/A
 
 ### what
 
-- Uses Datdaog Configuration as it's source of datadog variables
+- Uses DataDog Configuration as it's source of datadog variables
 - Now supports `enabled: false` on a team to destroy it.
 
 </details>
@@ -4608,7 +4608,7 @@ NOTE: I don't know if the default of `default` is valid or if it is `Default`. I
 
 ### what
 
-- Bump Versin of EC2 Client VPN
+- Bump Version of EC2 Client VPN
 
 ### why
 
@@ -4739,7 +4739,7 @@ This is an alternative way of deprovisioning - proactive one.
 
 ```
 There is another way to configure Karpenter to deprovision nodes called Consolidation.
-This mode is preferred for workloads such as microservices and is imcompatible with setting
+This mode is preferred for workloads such as microservices and is incompatible with setting
 up the ttlSecondsAfterEmpty . When set in consolidation mode Karpenter works to actively
 reduce cluster cost by identifying when nodes can be removed as their workloads will run
 on other nodes in the cluster and when nodes can be replaced with cheaper variants due

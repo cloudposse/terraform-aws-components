@@ -96,7 +96,7 @@ usage: |-
   > <summary><strong>Watch demo of using Atmos with Terraform</strong></summary>
   > <img src="https://github.com/cloudposse/atmos/blob/master/docs/demo.gif?raw=true"/><br/>
   > <strong>Example of running <a href="https://atmos.tools"><code>atmos</code></a> to manage infrastructure from our <a href="https://atmos.tools/quick-start/">Quick Start</a> tutorial.</strong>
-  > </detalis>
+  > </details>
 
   Generally, you can use these components in [Atmos](https://atmos.tools/core-concepts/components/) by adding something like the following
   code into your [stack manifest](https://atmos.tools/core-concepts/stacks/):
@@ -147,7 +147,7 @@ usage: |-
           dry_run: no
   ```
 
-  For the full documentation on how to use the Component Updater GitHub Action, please see the [Atmos Intergations](https://atmos.tools/integrations/github-actions/component-updater) documentation.
+  For the full documentation on how to use the Component Updater GitHub Action, please see the [Atmos Integrations](https://atmos.tools/integrations/github-actions/component-updater) documentation.
 
   ## Using `pre-commit` Hooks
 
