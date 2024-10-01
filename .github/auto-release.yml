@@ -37,8 +37,7 @@ categories:
 change-template: |
   <details>
     <summary>$TITLE @$AUTHOR (#$NUMBER)</summary>
-
-    $BODY
+  $BODY
   </details>
 
 template: |
