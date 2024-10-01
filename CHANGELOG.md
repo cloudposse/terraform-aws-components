@@ -1,5 +1,54 @@
 # CHANGELOG
 
+## 1.504.0
+
+
+
+<details>
+  <summary>feat: allow vulnerability scanning of Argo repository and implement ignore changes for non-change drift @RoseSecurity (#1120)</summary>
+## what
+
+- Attempted to refactor code to ensure changes don't occur on each run (did not resolve)
+- Opened an issue with [GitHub](https://github.com/integrations/terraform-provider-github/issues/2243) but is still in the triaging state
+- This is a quick fix for addressing the following non-change
+
+```console
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # github_branch_protection.default[0] will be updated in-place
+  ~ resource "github_branch_protection" "default" {
+        id                              = "XXXXXXX"
+        # (10 unchanged attributes hidden)
+
+      ~ restrict_pushes {
+          ~ push_allowances  = [
+              + "XXXXXXX",
+            ]
+```
+
+## why
+
+- [X] Adds lifecycle meta-argument for ignoring changes to `push_allowances`
+- [X] Enable vulnerability alerting for vulnerable dependencies by default to address `tfsec` findings
+
+## Testing
+
+- [X] Validated with `atmos validate stacks` 
+- [X] Performed successful `atmos terraform deploy` on component
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.502.0` @github-actions (#1126)</summary>
+Update Changelog for [`1.502.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.502.0)
+</details>
+
+
+
 ## 1.502.0
 
 
