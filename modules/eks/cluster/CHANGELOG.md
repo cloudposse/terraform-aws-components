@@ -424,7 +424,7 @@ Previously, this module added `identity` roles configured by the `aws_teams_rbac
 This never worked, and so now `aws_teams_rbac` is ignored. When upgrading, you may see these roles being removed from
 the `aws-auth`: this is expected and harmless.
 
-### Better support for Manged Node Group Block Device Specifications
+### Better support for Managed Node Group Block Device Specifications
 
 Previously, this module only supported specifying the disk size and encryption state for the root volume of Managed Node
 Groups. Now, the full set of block device specifications is supported, including the ability to specify the device name.

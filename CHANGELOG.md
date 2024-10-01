@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## 1.497.0
+
+
+
+<details>
+  <summary>Fix Update changelog workflow @goruha (#1116)</summary>
+
+  ## what
+* Fix modules path from `components/terraform` to `modules`
+
+## why 
+* It seems that `components/terraform` was testing value. In actual repo components are in `modules` directory
+
+## references
+* DEV-2556 Investigate release issues with terraform-aws-components
+</details>
+
+
+
 ## 1.298.0 (2023-08-28T20:56:25Z)
 
 <details>
@@ -801,7 +820,7 @@ Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0
 
 ### why
 
-- to help future implementors of CloudPosse's architectures
+- to help future implementers of CloudPosse's architectures
 
 ### references
 

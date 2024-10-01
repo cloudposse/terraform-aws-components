@@ -33,7 +33,7 @@ unintended and a security risk.
 
 **IMPORTANT**: Account Name building blocks (such as tenant, stage, environment) must not contain dashes. Doing so will
 lead to unpredictable resource names as a `-` is the default delimiter. Additionally, account names must be lower case
-alpha-numeric with no special characters. For example:
+alphanumeric with no special characters. For example:
 
 | Key              | Value           | Correctness |
 | ---------------- | --------------- | ----------- |
