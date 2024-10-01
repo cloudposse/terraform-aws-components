@@ -94,11 +94,11 @@ jobs:
 
             function trimPath(relativePath) {
               return relativePath
-                .replace('components/terraform/', '')
+                .replace('modules/', '')
                 .replace('/CHANGELOG.md', '');
             }
 
-            const currentChangeLogFiles = findChangelogs('./current/components');
+            const currentChangeLogFiles = findChangelogs('./current/modules');
             const components = [];
 
             for (let i = 0; i < currentChangeLogFiles.length; i++) {

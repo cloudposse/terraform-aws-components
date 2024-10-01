@@ -274,7 +274,7 @@ following tips:
 
 ## The GitHub Registration Token is valid, but the Runners are not registering with GitHub
 
-If you first deployed the `github-action-token-rotator` component initally with an invalid configuration and then
+If you first deployed the `github-action-token-rotator` component initially with an invalid configuration and then
 deployed the `github-runners` component, the instance runners will have failed to register with GitHub.
 
 After you correct `github-action-token-rotator` and have a valid GitHub Registration Token in SSM, _destroy and

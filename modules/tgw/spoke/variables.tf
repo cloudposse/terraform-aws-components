@@ -99,7 +99,7 @@ variable "cross_region_hub_connector_components" {
   description = <<-EOT
   A map of cross-region hub connector components that provide this spoke with the appropriate Transit Gateway attachments IDs.
   - The key should be the environment that the remote VPC is located in.
-  - The component is the name of the compoent in the remote region (e.g. `tgw/cross-region-hub-connector`)
+  - The component is the name of the component in the remote region (e.g. `tgw/cross-region-hub-connector`)
   - The environment is the region that the cross-region-hub-connector is deployed in.
   e.g. the following would configure a component called `tgw/cross-region-hub-connector/use1` that is deployed in the
   If use2 is the primary region, the following would be its configuration:

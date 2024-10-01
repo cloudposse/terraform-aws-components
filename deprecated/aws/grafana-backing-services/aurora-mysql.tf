@@ -87,7 +87,7 @@ resource "random_string" "mysql_admin_password" {
 #  "Read SSM parameter to get allowed CIDR blocks"
 data "aws_ssm_parameter" "allowed_cidr_blocks" {
   # The data source will throw an error if it cannot find the parameter,
-  # so do not reference it unless it is neeeded.
+  # so do not reference it unless it is needed.
   count = local.allowed_cidr_blocks_use_ssm ? 1 : 0
 
   # name = substr(mysql_cluster_allowed_cidr_blocks, 0, 1) == "/" ? mysql_cluster_allowed_cidr_blocks : "/aws/service/global-infrastructure/version"
@@ -97,7 +97,7 @@ data "aws_ssm_parameter" "allowed_cidr_blocks" {
 #  "Read SSM parameter to get allowed VPC ID"
 data "aws_ssm_parameter" "vpc_id" {
   # The data source will throw an error if it cannot find the parameter,
-  # so do not reference it unless it is neeeded.
+  # so do not reference it unless it is needed.
   count = local.vpc_id_use_ssm ? 1 : 0
   name  = var.vpc_id
 }
@@ -105,7 +105,7 @@ data "aws_ssm_parameter" "vpc_id" {
 #  "Read SSM parameter to get allowed VPC subnet IDs"
 data "aws_ssm_parameter" "vpc_subnet_ids" {
   # The data source will throw an error if it cannot find the parameter,
-  # so do not reference it unless it is neeeded.
+  # so do not reference it unless it is needed.
   count = local.vpc_subnet_ids_use_ssm ? 1 : 0
   name  = var.vpc_subnet_ids
 }

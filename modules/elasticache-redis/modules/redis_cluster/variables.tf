@@ -60,6 +60,7 @@ variable "cluster_attributes" {
     transit_encryption_enabled      = bool
     apply_immediately               = bool
     automatic_failover_enabled      = bool
+    auto_minor_version_upgrade      = bool
     auth_token_enabled              = bool
   })
   description = "Cluster attributes"

@@ -8,7 +8,7 @@ locals {
   access_roles_enabled      = local.enabled && var.access_roles_enabled
   cold_start_access_enabled = local.enabled && !var.access_roles_enabled
 
-  # Technically, `eks_role_arn` is incorrect, becuse it strips any path from the ARN,
+  # Technically, `eks_role_arn` is incorrect, because it strips any path from the ARN,
   # but since we do not expect there to be a path in the role ARN (as opposed to perhaps an attached IAM policy),
   # it is OK. The advantage of using `eks_role_arn` is that it converts and Assumed Role ARN from STS, like
   #    arn:aws:sts::123456789012:assumed-role/acme-core-gbl-root-admin/aws-go-sdk-1722029959251053170

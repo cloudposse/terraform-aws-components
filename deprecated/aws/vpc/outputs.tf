@@ -23,7 +23,7 @@ output "cidr_block" {
 }
 
 output "availability_zones" {
-  description = "Comma-separated string list of avaialbility zones where subnets have been created"
+  description = "Comma-separated string list of availability zones where subnets have been created"
   value       = aws_ssm_parameter.availability_zones.value
 }
 
