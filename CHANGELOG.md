@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 1.503.0
+
+
+
+<details>
+  <summary>Upstream `redshift-serverless` @Benbentwo (#838)</summary>
+## what
+
+- Upstream redshift-serverless
+
+</details>
+
+
+
 ## 1.501.0
 
 <details>
