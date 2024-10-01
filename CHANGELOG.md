@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## 1.501.0
+
+<details>
+  <summary>Fix release changelog space issue @goruha (#1122)</summary>
+## what
+* Fix release changelog space issue
+
+![CleanShot 2024-10-01 at 12 27 42@2x](https://github.com/user-attachments/assets/2d42740a-1d5d-4990-94ac-eb49bdfe4c32)
+
+## why
+* Have nice changelog
+
+## references
+* https://github.com/cloudposse/terraform-aws-components/pull/1117/files#diff-06572a96a58dc510037d5efa622f9bec8519bc1beab13c9f251e97e657a9d4edR10
+
+
 ## 1.500.0
 
 
@@ -10,8 +26,6 @@
 - [eks/datadog-agent](https://docs.cloudposse.com/components/library/aws/eks/datadog-agent#changelog)
 - [eks/github-actions-runner](https://docs.cloudposse.com/components/library/aws/eks/github-actions-runner#changelog)
 - [spa-s3-cloudfront](https://docs.cloudposse.com/components/library/aws/spa-s3-cloudfront#changelog)
-
-
 
 
 <details>
