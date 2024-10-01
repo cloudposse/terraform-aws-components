@@ -2,8 +2,6 @@
 
 ## 1.501.0
 
-
-
 <details>
   <summary>Fix release changelog space issue @goruha (#1122)</summary>
 ## what
@@ -16,6 +14,53 @@
 
 ## references
 * https://github.com/cloudposse/terraform-aws-components/pull/1117/files#diff-06572a96a58dc510037d5efa622f9bec8519bc1beab13c9f251e97e657a9d4edR10
+
+
+## 1.500.0
+
+
+
+## Affected Components
+- [eks/argocd](https://docs.cloudposse.com/components/library/aws/eks/argocd#changelog)
+- [eks/cluster](https://docs.cloudposse.com/components/library/aws/eks/cluster#changelog)
+- [eks/datadog-agent](https://docs.cloudposse.com/components/library/aws/eks/datadog-agent#changelog)
+- [eks/github-actions-runner](https://docs.cloudposse.com/components/library/aws/eks/github-actions-runner#changelog)
+- [spa-s3-cloudfront](https://docs.cloudposse.com/components/library/aws/spa-s3-cloudfront#changelog)
+
+
+<details>
+  <summary>add additional waf features @mcalhoun (#791)</summary>
+
+  ## what
+* Add the ability to specify a list of ALBs to attach WAF to
+* Add the ability to specify a list of tags to target ALBs to attach WAF to
+
+## why
+* To provider greater flexibility in attaching WAF to ALBs
+</details>
+
+<details>
+  <summary>Update Changelog for `1.499.0` @github-actions (#1123)</summary>
+
+  Update Changelog for [`1.499.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.499.0)
+</details>
+
+<details>
+  <summary>docs: fix typos using `codespell` @RoseSecurity (#1114)</summary>
+
+  ## what and why
+
+> [!NOTE]
+> Feel free to close this PR if the changes are not worth the review. I won't be offended
+
+- For context, I wanted to clean up some of the documentation in our repository, which identified several typos in our variables and READMEs. I decided to use `codespell` to automate this process and thought it might be useful for a quick cleanup here!
+
+### usage
+
+```sh
+codespell -w
+```
+
 </details>
 
 
