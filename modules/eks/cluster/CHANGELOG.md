@@ -37,7 +37,7 @@ Components PR [#1046](https://github.com/cloudposse/terraform-aws-components/pul
 
 Added support for passing extra arguments to `kubelet` and other startup modifications supported by EKS on Amazon Linux
 2 via the
-[`bootsrap.sh`](https://github.com/awslabs/amazon-eks-ami/blob/d87c6c49638216907cbd6630b6cadfd4825aed20/templates/al2/runtime/bootstrap.sh)
+[`bootstrap.sh`](https://github.com/awslabs/amazon-eks-ami/blob/d87c6c49638216907cbd6630b6cadfd4825aed20/templates/al2/runtime/bootstrap.sh)
 script.
 
 This support should be considered an `alpha` version, as it may change when support for Amazon Linux 2023 is added, and
@@ -424,7 +424,7 @@ Previously, this module added `identity` roles configured by the `aws_teams_rbac
 This never worked, and so now `aws_teams_rbac` is ignored. When upgrading, you may see these roles being removed from
 the `aws-auth`: this is expected and harmless.
 
-### Better support for Manged Node Group Block Device Specifications
+### Better support for Managed Node Group Block Device Specifications
 
 Previously, this module only supported specifying the disk size and encryption state for the root volume of Managed Node
 Groups. Now, the full set of block device specifications is supported, including the ability to specify the device name.

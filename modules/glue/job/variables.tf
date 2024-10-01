@@ -47,7 +47,7 @@ variable "security_configuration" {
 
 variable "timeout" {
   type        = number
-  description = "The job timeout in minutes. The default is 2880 minutes (48 hours) for `glueetl` and `pythonshell` jobs, and `null` (unlimted) for `gluestreaming` jobs"
+  description = "The job timeout in minutes. The default is 2880 minutes (48 hours) for `glueetl` and `pythonshell` jobs, and `null` (unlimited) for `gluestreaming` jobs"
   default     = 2880
 }
 
