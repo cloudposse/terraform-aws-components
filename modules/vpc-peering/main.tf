@@ -1,7 +1,7 @@
 locals {
   enabled = module.this.enabled
 
-  requester_vpc_id = module.requester_vpc.outputs.vpc_id
+  requester_vpc_id = coalesce(var.requester_vpc_id, one(module.requester_vpc[*].outputs.vpc_id))
 
   accepter_aws_assume_role_arn = var.accepter_stage_name != null ? module.iam_roles.terraform_role_arns[var.accepter_stage_name] : var.accepter_aws_assume_role_arn
 }
@@ -24,7 +24,7 @@ module "vpc_peering" {
   auto_accept = var.auto_accept
 
   requester_allow_remote_vpc_dns_resolution = var.requester_allow_remote_vpc_dns_resolution
-  requester_aws_assume_role_arn             = module.iam_roles.terraform_role_arn
+  requester_aws_assume_role_arn             = coalesce(var.requester_role_arn, module.iam_roles.terraform_role_arn)
   requester_region                          = var.region
   requester_vpc_id                          = local.requester_vpc_id
 

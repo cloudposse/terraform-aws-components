@@ -8,11 +8,8 @@ on:
       - production
 
 jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: cloudposse/github-action-auto-release@v1
-        with:
-          prerelease: false
-          publish: true
-          config-name: auto-release.yml
+  auto:
+    uses: cloudposse/.github/.github/workflows/shared-auto-release.yml@main
+    with:
+      publish: true
+    secrets: inherit

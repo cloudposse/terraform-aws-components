@@ -1,3 +1,10 @@
+---
+tags:
+  - component/glue/workflow
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `glue/workflow`
 
 This component provisions Glue workflows.
@@ -19,6 +26,7 @@ components:
         workflow_description: "Glue workflow example"
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -80,9 +88,11 @@ No resources.
 | <a name="output_workflow_id"></a> [workflow\_id](#output\_workflow\_id) | Glue workflow ID |
 | <a name="output_workflow_name"></a> [workflow\_name](#output\_workflow\_name) | Glue workflow name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/glue/workflow) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/glue/workflow) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

@@ -1,3 +1,11 @@
+---
+tags:
+  - component/argocd-repo
+  - layer/software-delivery
+  - provider/aws
+  - provider/github
+---
+
 # Component: `argocd-repo`
 
 This component is responsible for creating and managing an ArgoCD desired state repository.
@@ -57,9 +65,8 @@ components:
 ```yaml
 # stacks/mgmt-gbl-corp.yaml
 import:
-...
-  - catalog/argocd/repo/non-prod
-...
+---
+- catalog/argocd/repo/non-prod
 ```
 
 If the repository already exists, it will need to be imported (replace names of IAM profile var file accordingly):
@@ -76,6 +83,7 @@ $ cd components/terraform/argocd-repo
 $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="mgmt-gbl-corp-argocd-deploy-non-prod.terraform.tfvars.json" "github_branch_default.default[0]" argocd-deploy-non-prod
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -83,7 +91,7 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
-| <a name="requirement_github"></a> [github](#requirement\_github) | >= 4.0 |
+| <a name="requirement_github"></a> [github](#requirement\_github) | >= 6.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 2.3 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | >= 3.0 |
 
@@ -92,7 +100,7 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
-| <a name="provider_github"></a> [github](#provider\_github) | >= 4.0 |
+| <a name="provider_github"></a> [github](#provider\_github) | >= 6.0 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | >= 3.0 |
 
 ## Modules
@@ -179,10 +187,11 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 | <a name="output_repository_ssh_clone_url"></a> [repository\_ssh\_clone\_url](#output\_repository\_ssh\_clone\_url) | Repository SSH clone URL |
 | <a name="output_repository_url"></a> [repository\_url](#output\_repository\_url) | Repository URL |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/argocd-repo) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/argocd-repo) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

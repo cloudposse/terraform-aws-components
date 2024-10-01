@@ -1,6 +1,16 @@
+---
+tags:
+  - component/eks/external-dns
+  - layer/eks
+  - provider/aws
+  - provider/helm
+---
+
 # Component: `eks/external-dns`
 
-This component creates a Helm deployment for [external-dns](https://github.com/bitnami/bitnami-docker-external-dns) on a Kubernetes cluster. [external-dns](https://github.com/bitnami/bitnami-docker-external-dns) is a Kubernetes addon that configures public DNS servers with information about exposed Kubernetes services to make them discoverable.
+This component creates a Helm deployment for [external-dns](https://github.com/bitnami/bitnami-docker-external-dns) on a
+Kubernetes cluster. [external-dns](https://github.com/bitnami/bitnami-docker-external-dns) is a Kubernetes addon that
+configures public DNS servers with information about exposed Kubernetes services to make them discoverable.
 
 ## Usage
 
@@ -47,8 +57,16 @@ components:
         #   aws:
         #     batchChangeSize: 1000
         chart_values: {}
+        # Extra hosted zones to lookup and support by component name
+        dns_components:
+          - component: dns-primary
+          - component: dns-delegated
+          - component: dns-delegated/abc
+          - component: dns-delegated/123
+            environment: "gbl" # Optional (default "gbl")
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -67,14 +85,15 @@ components:
 
 ## Modules
 
-| Name                                                                                        | Source                                             | Version |
-|---------------------------------------------------------------------------------------------|----------------------------------------------------|---------|
-| <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0   |
-| <a name="module_dns_gbl_primary"></a> [dns\_gbl\_primary](#module\_dns\_gbl\_primary)       | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0   |
-| <a name="module_eks"></a> [eks](#module\_eks)                                               | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0   |
-| <a name="module_external_dns"></a> [external\_dns](#module\_external\_dns)                  | cloudposse/helm-release/aws                        | 0.10.0  |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles)                           | ../../account-map/modules/iam-roles                | n/a     |
-| <a name="module_this"></a> [this](#module\_this)                                            | cloudposse/label/null                              | 0.25.0  |
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_additional_dns_components"></a> [additional\_dns\_components](#module\_additional\_dns\_components) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+| <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+| <a name="module_dns_gbl_primary"></a> [dns\_gbl\_primary](#module\_dns\_gbl\_primary) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+| <a name="module_external_dns"></a> [external\_dns](#module\_external\_dns) | cloudposse/helm-release/aws | 0.10.0 |
+| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
+| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
 
@@ -146,6 +165,7 @@ components:
 |--------------------------------------------------------------|--------------------------------------|
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 

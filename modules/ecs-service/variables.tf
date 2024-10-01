@@ -63,8 +63,10 @@ variable "containers" {
 
     port_mappings = optional(list(object({
       containerPort = number
-      hostPort      = number
-      protocol      = string
+      hostPort      = optional(number)
+      protocol      = optional(string)
+      name          = optional(string)
+      appProtocol   = optional(string)
     })), [])
     command    = optional(list(string), null)
     entrypoint = optional(list(string), null)
@@ -578,4 +580,68 @@ variable "task_exec_policy_arns_map" {
     If you cannot provide unique names known at plan time, use `task_exec_policy_arns` instead.
     EOT
   default     = {}
+}
+
+
+variable "exec_enabled" {
+  type        = bool
+  description = "Specifies whether to enable Amazon ECS Exec for the tasks within the service"
+  default     = false
+}
+
+variable "service_connect_configurations" {
+  type = list(object({
+    enabled   = bool
+    namespace = optional(string, null)
+    log_configuration = optional(object({
+      log_driver = string
+      options    = optional(map(string), null)
+      secret_option = optional(list(object({
+        name       = string
+        value_from = string
+      })), [])
+    }), null)
+    service = optional(list(object({
+      client_alias = list(object({
+        dns_name = string
+        port     = number
+      }))
+      discovery_name        = optional(string, null)
+      ingress_port_override = optional(number, null)
+      port_name             = string
+    })), [])
+  }))
+  description = <<-EOT
+    The list of Service Connect configurations.
+    See `service_connect_configuration` docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#service_connect_configuration
+    EOT
+  default     = []
+}
+
+variable "service_registries" {
+  type = list(object({
+    namespace      = string
+    registry_arn   = optional(string)
+    port           = optional(number)
+    container_name = optional(string)
+    container_port = optional(number)
+  }))
+  description = <<-EOT
+    The list of Service Registries.
+    See `service_registries` docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#service_registries
+    EOT
+  default     = []
+}
+
+variable "custom_security_group_rules" {
+  type = list(object({
+    type        = string
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    cidr_blocks = list(string)
+    description = optional(string)
+  }))
+  description = "The list of custom security group rules to add to the service security group"
+  default     = []
 }
