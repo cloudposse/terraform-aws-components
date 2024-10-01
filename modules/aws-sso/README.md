@@ -179,7 +179,7 @@ components:
             groups: *prod-cloud-engineers
           prod:
             groups:
-              Admininstrators:
+              Administrators:
                 permission_sets:
                   - AdministratorAccess
                   - ReadOnlyAccess
@@ -188,7 +188,7 @@ components:
                   - ReadOnlyAccess
           dev:
             groups:
-              Admininstrators:
+              Administrators:
                 permission_sets:
                   - AdministratorAccess
                   - ReadOnlyAccess
