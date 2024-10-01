@@ -18,7 +18,7 @@ This component is intended to be deployed alongside Grafana. For example, use ou
 
 Here's an example snippet for how to use this component.
 
-We prefer to name the stack component with a simplier name, whereas the Terraform component should remain descriptive.
+We prefer to name the stack component with a simpler name, whereas the Terraform component should remain descriptive.
 
 ```yaml
 components:

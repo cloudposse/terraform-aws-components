@@ -1,5 +1,6 @@
 locals {
-  enabled = module.this.enabled
+  enabled                = module.this.enabled
+  email_provider_enabled = length(var.email_provider_name) > 0 && local.enabled
 
   name        = length(module.this.name) > 0 ? module.this.name : "auth0"
   domain_name = format("%s.%s", local.name, module.dns_gbl_delegated.outputs.default_domain_name)
@@ -86,4 +87,31 @@ resource "auth0_custom_domain_verification" "this" {
   depends_on = [
     aws_route53_record.this,
   ]
+}
+
+resource "auth0_prompt" "this" {
+  count = local.enabled ? 1 : 0
+
+  universal_login_experience = var.auth0_prompt_experience
+}
+
+data "aws_ssm_parameter" "sendgrid_api_key" {
+  count = local.email_provider_enabled ? 1 : 0
+
+  name = var.sendgrid_api_key_ssm_path
+}
+
+resource "auth0_email_provider" "this" {
+  count = local.email_provider_enabled ? 1 : 0
+
+  name                 = var.email_provider_name
+  enabled              = local.email_provider_enabled
+  default_from_address = var.email_provider_default_from_address
+
+  dynamic "credentials" {
+    for_each = var.email_provider_name == "sendgrid" ? ["1"] : []
+    content {
+      api_key = data.aws_ssm_parameter.sendgrid_api_key[0].value
+    }
+  }
 }

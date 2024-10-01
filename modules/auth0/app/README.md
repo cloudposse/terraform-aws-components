@@ -17,6 +17,11 @@ client ID and client secret configured with the `auth0/tenant` component.
 
 Here's an example snippet for how to use this component.
 
+> [!IMPORTANT]
+>
+> Be sure that the context ID does not overlap with the context ID of other Auth0 components, such as `auth0/tenant`. We
+> use this ID to generate the SSM parameter names.
+
 ```yaml
 # stacks/catalog/auth0/app.yaml
 components:
@@ -24,7 +29,7 @@ components:
     auth0/app:
       vars:
         enabled: true
-        name: "auth0"
+        name: "auth0-app"
 
         # We can centralize plat-sandbox, plat-dev, and plat-staging all use a "nonprod" Auth0 tenant, which is deployed in plat-staging.
         auth0_tenant_stage_name: "plat-staging"
@@ -67,6 +72,7 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_auth0_ssm_parameters"></a> [auth0\_ssm\_parameters](#module\_auth0\_ssm\_parameters) | cloudposse/ssm-parameter-store/aws | 0.13.0 |
 | <a name="module_auth0_tenant"></a> [auth0\_tenant](#module\_auth0\_tenant) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_iam_roles_auth0_provider"></a> [iam\_roles\_auth0\_provider](#module\_iam\_roles\_auth0\_provider) | ../../account-map/modules/iam-roles | n/a |
@@ -77,6 +83,7 @@ components:
 | Name | Type |
 |------|------|
 | [auth0_client.this](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/client) | resource |
+| [auth0_client_credentials.this](https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/client_credentials) | resource |
 | [aws_ssm_parameter.auth0_client_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.auth0_client_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.auth0_domain](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
@@ -94,6 +101,7 @@ components:
 | <a name="input_auth0_tenant_environment_name"></a> [auth0\_tenant\_environment\_name](#input\_auth0\_tenant\_environment\_name) | The name of the environment where the Auth0 tenant component is deployed. Defaults to the environment of the current stack. | `string` | `""` | no |
 | <a name="input_auth0_tenant_stage_name"></a> [auth0\_tenant\_stage\_name](#input\_auth0\_tenant\_stage\_name) | The name of the stage where the Auth0 tenant component is deployed. Defaults to the stage of the current stack. | `string` | `""` | no |
 | <a name="input_auth0_tenant_tenant_name"></a> [auth0\_tenant\_tenant\_name](#input\_auth0\_tenant\_tenant\_name) | The name of the tenant where the Auth0 tenant component is deployed. Yes this is a bit redundant, since Auth0 also calls this resource a tenant. Defaults to the tenant of the current stack. | `string` | `""` | no |
+| <a name="input_authentication_method"></a> [authentication\_method](#input\_authentication\_method) | The authentication method for the client credentials | `string` | `"client_secret_post"` | no |
 | <a name="input_callbacks"></a> [callbacks](#input\_callbacks) | Allowed Callback URLs | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
@@ -114,6 +122,7 @@ components:
 | <a name="input_oidc_conformant"></a> [oidc\_conformant](#input\_oidc\_conformant) | OIDC Conformant | `bool` | `true` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
+| <a name="input_ssm_base_path"></a> [ssm\_base\_path](#input\_ssm\_base\_path) | The base path for the SSM parameters. If not defined, this is set to the module context ID. This is also required when `var.enabled` is set to `false` | `string` | `""` | no |
 | <a name="input_sso"></a> [sso](#input\_sso) | Single Sign-On for the Auth0 app | `bool` | `true` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |

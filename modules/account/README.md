@@ -33,7 +33,7 @@ unintended and a security risk.
 
 **IMPORTANT**: Account Name building blocks (such as tenant, stage, environment) must not contain dashes. Doing so will
 lead to unpredictable resource names as a `-` is the default delimiter. Additionally, account names must be lower case
-alpha-numeric with no special characters. For example:
+alphanumeric with no special characters. For example:
 
 | Key              | Value           | Correctness |
 | ---------------- | --------------- | ----------- |
@@ -362,8 +362,8 @@ other steps, for example while waiting for Terraform to create resources.
    save the account number in a separate field.
 
 2. Log in using the new password, choose "My Security Credentials" from the account dropdown menu and set up
-   Multi-Factor Authentication (MFA) to use a Virutal MFA device. Save the MFA TOTP key in 1Password by using
-   1Password's TOTP field and built-in screen scanner. Also, save the Virutal MFA ARN (sometimes shown as "serial
+   Multi-Factor Authentication (MFA) to use a Virtual MFA device. Save the MFA TOTP key in 1Password by using
+   1Password's TOTP field and built-in screen scanner. Also, save the Virtual MFA ARN (sometimes shown as "serial
    number").
 
 3. While logged in, enable optional regions as described in the next step, if needed.
