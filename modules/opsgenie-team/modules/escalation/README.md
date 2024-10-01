@@ -1,11 +1,11 @@
 ## Escalation
 
-Terraform module to configure [Opsgenie Escalation](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/resources/escalation)
-
+Terraform module to configure
+[Opsgenie Escalation](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/resources/escalation)
 
 ## Usage
 
-[Create Opsgenie Escalation example](../../examples/escalation)
+[Create Opsgenie Escalation example](https://github.com/cloudposse/terraform-opsgenie-incident-management/tree/main/examples/escalation)
 
 ```hcl
 module "escalation" {
@@ -27,19 +27,20 @@ module "escalation" {
 }
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
-| <a name="requirement_opsgenie"></a> [opsgenie](#requirement\_opsgenie) | >= 0.4 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
+| <a name="requirement_opsgenie"></a> [opsgenie](#requirement\_opsgenie) | >= 0.6.7 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_opsgenie"></a> [opsgenie](#provider\_opsgenie) | >= 0.4 |
+| <a name="provider_opsgenie"></a> [opsgenie](#provider\_opsgenie) | >= 0.6.7 |
 
 ## Modules
 
@@ -78,6 +79,8 @@ module "escalation" {
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
+| <a name="input_team_name"></a> [team\_name](#input\_team\_name) | Current OpsGenie Team Name | `string` | `null` | no |
+| <a name="input_team_naming_format"></a> [team\_naming\_format](#input\_team\_naming\_format) | OpsGenie Team Naming Format | `string` | `"%s_%s"` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 
 ## Outputs
@@ -87,4 +90,4 @@ module "escalation" {
 | <a name="output_escalation_id"></a> [escalation\_id](#output\_escalation\_id) | The ID of the Opsgenie Escalation |
 | <a name="output_escalation_name"></a> [escalation\_name](#output\_escalation\_name) | Name of the Opsgenie Escalation |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->

@@ -25,6 +25,18 @@ variable "chart_version" {
   default     = null
 }
 
+variable "crd_chart_enabled" {
+  type        = bool
+  description = "`karpenter-crd` can be installed as an independent helm chart to manage the lifecycle of Karpenter CRDs. Set to `true` to install this CRD helm chart before the primary karpenter chart."
+  default     = false
+}
+
+variable "crd_chart" {
+  type        = string
+  description = "The name of the Karpenter CRD chart to be installed, if `var.crd_chart_enabled` is set to `true`."
+  default     = "karpenter-crd"
+}
+
 variable "resources" {
   type = object({
     limits = object({
@@ -37,17 +49,6 @@ variable "resources" {
     })
   })
   description = "The CPU and memory of the deployment's limits and requests"
-}
-
-variable "create_namespace" {
-  type        = bool
-  description = "Create the namespace if it does not yet exist. Defaults to `false`"
-  default     = null
-}
-
-variable "kubernetes_namespace" {
-  type        = string
-  description = "The namespace to install the release into"
 }
 
 variable "timeout" {
@@ -90,4 +91,55 @@ variable "eks_component_name" {
   type        = string
   description = "The name of the eks component"
   default     = "eks/cluster"
+}
+
+variable "interruption_handler_enabled" {
+  type        = bool
+  default     = true
+  description = <<EOD
+  If `true`, deploy a SQS queue and Event Bridge rules to enable interruption handling by Karpenter.
+  https://karpenter.sh/docs/concepts/disruption/#interruption
+  EOD
+}
+
+variable "interruption_queue_message_retention" {
+  type        = number
+  default     = 300
+  description = "The message retention in seconds for the interruption handler SQS queue."
+}
+
+variable "replicas" {
+  type        = number
+  description = "The number of Karpenter controller replicas to run"
+  default     = 2
+}
+
+variable "settings" {
+  type = object({
+    batch_idle_duration = optional(string, "1s")
+    batch_max_duration  = optional(string, "10s")
+  })
+  description = <<-EOT
+  A subset of the settings for the Karpenter controller.
+  Some settings are implicitly set by this component, such as `clusterName` and
+  `interruptionQueue`. All settings can be overridden by providing a `settings`
+  section in the `chart_values` variable. The settings provided here are the ones
+  mostly likely to be set to other than default values, and are provided here for convenience.
+  EOT
+  default     = {}
+  nullable    = false
+}
+
+variable "logging" {
+  type = object({
+    enabled = optional(bool, true)
+    level = optional(object({
+      controller = optional(string, "info")
+      global     = optional(string, "info")
+      webhook    = optional(string, "error")
+    }), {})
+  })
+  description = "A subset of the logging settings for the Karpenter controller"
+  default     = {}
+  nullable    = false
 }

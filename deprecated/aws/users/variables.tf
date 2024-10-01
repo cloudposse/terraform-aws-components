@@ -1,30 +1,30 @@
 variable "aws_assume_role_arn" {}
 
 variable "namespace" {
-  type        = "string"
+  type        = string
   description = "Namespace (e.g. `cp` or `cloudposse`)"
 }
 
 variable "stage" {
-  type        = "string"
+  type        = string
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
 variable "name" {
-  type        = "string"
+  type        = string
   description = "Application or solution name (e.g. `app`)"
   default     = "terraform"
 }
 
 variable "smtp_username" {
   description = "Username to authenticate with the SMTP server"
-  type        = "string"
+  type        = string
   default     = ""
 }
 
 variable "smtp_password" {
   description = "Password to authenticate with the SMTP server"
-  type        = "string"
+  type        = string
   default     = ""
 }
 
@@ -39,7 +39,7 @@ variable "smtp_port" {
 }
 
 variable "accounts_enabled" {
-  type        = "list"
+  type        = list(string)
   description = "Accounts to enable"
   default     = ["dev", "staging", "prod", "testing", "audit"]
 }

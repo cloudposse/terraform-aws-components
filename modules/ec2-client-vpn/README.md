@@ -1,3 +1,10 @@
+---
+tags:
+  - component/ec2-client-vpn
+  - layer/network
+  - provider/aws
+---
+
 # Component: `ec2-client-vpn`
 
 This component is responsible for provisioning VPN Client Endpoints.
@@ -6,7 +13,9 @@ This component is responsible for provisioning VPN Client Endpoints.
 
 **Stack Level**: Regional
 
-Here's an example snippet for how to use this component. This component should only be applied once as the resources it creates are regional. This is typically done via the corp stack (e.g. `uw2-corp.yaml`). This is because a vpc endpoint requires a vpc and the network stack does not have a vpc.
+Here's an example snippet for how to use this component. This component should only be applied once as the resources it
+creates are regional. This is typically done via the corp stack (e.g. `uw2-corp.yaml`). This is because a vpc endpoint
+requires a vpc and the network stack does not have a vpc.
 
 ```yaml
 components:
@@ -23,24 +32,25 @@ components:
         retention_in_days: 7
         organization_name: acme
         split_tunnel: true
-        availability_zones: 
-        - us-west-2a
-        - us-west-2b
-        - us-west-2c
+        availability_zones:
+          - us-west-2a
+          - us-west-2b
+          - us-west-2c
         associated_security_group_ids: []
         additional_routes:
-        - destination_cidr_block: 0.0.0.0/0
-          description: Internet Route
+          - destination_cidr_block: 0.0.0.0/0
+            description: Internet Route
         authorization_rules:
-        - name: Internet Rule
-          authorize_all_groups: true
-          description: Allows routing to the internet"
-          target_network_cidr: 0.0.0.0/0
+          - name: Internet Rule
+            authorize_all_groups: true
+            description: Allows routing to the internet"
+            target_network_cidr: 0.0.0.0/0
 ```
 
 ## Deploying
 
-NOTE: This module uses the `aws_ec2_client_vpn_route` resource which throws an error if too many API calls come from a single host. Ignore this error and repeat the terraform command. It usually takes 3 deploys (or destroys) to complete.
+NOTE: This module uses the `aws_ec2_client_vpn_route` resource which throws an error if too many API calls come from a
+single host. Ignore this error and repeat the terraform command. It usually takes 3 deploys (or destroys) to complete.
 
 Error on create (See issue https://github.com/hashicorp/terraform-provider-aws/issues/19750)
 
@@ -56,9 +66,12 @@ timeout while waiting for resource to be gone (last state: 'deleting', timeout: 
 
 ## Testing
 
-NOTE: The `GoogleIDPMetadata-cloudposse.com.xml` in this repo is equivalent to the one in the `sso` component and is used for testing. This component can only specify a single SAML document. The customer SAML xml should be placed in this directory side-by-side the CloudPosse SAML xml.
+NOTE: The `GoogleIDPMetadata-cloudposse.com.xml` in this repo is equivalent to the one in the `sso` component and is
+used for testing. This component can only specify a single SAML document. The customer SAML xml should be placed in this
+directory side-by-side the CloudPosse SAML xml.
 
-Prior to testing, the component needs to be deployed and the AWS client app needs to be setup by the IdP admin otherwise the following steps will result in an error similar to `app_not_configured_for_user`.
+Prior to testing, the component needs to be deployed and the AWS client app needs to be setup by the IdP admin otherwise
+the following steps will result in an error similar to `app_not_configured_for_user`.
 
 1. Deploy the component in a regional account with a VPC like `ue2-corp`.
 1. Copy the contents of `client_configuration` into a file called `client_configuration.ovpn`
@@ -74,22 +87,26 @@ Prior to testing, the component needs to be deployed and the AWS client app need
 
 A browser will launch and allow you to connect to the VPN.
 
-1. Make a note of where this component is deployed
-1. Ensure that the resource to connect to is in a VPC that is connected by the transit gateway
-1. Ensure that the resource to connect to contains a security group with a rule that allows ingress from where the client vpn is deployed (e.g. `ue2-corp`)
-1. Use `nmap` to test if the port is `open`. If the port is `filtered` then it's not open.
+1.  Make a note of where this component is deployed
+1.  Ensure that the resource to connect to is in a VPC that is connected by the transit gateway
+1.  Ensure that the resource to connect to contains a security group with a rule that allows ingress from where the
+    client vpn is deployed (e.g. `ue2-corp`)
+1.  Use `nmap` to test if the port is `open`. If the port is `filtered` then it's not open.
 
-        nmap -p <PORT> <HOST>
+```console
+nmap -p <PORT> <HOST>
+```
 
 Successful tests have been seen with MSK and RDS.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 | <a name="requirement_awsutils"></a> [awsutils](#requirement\_awsutils) | >= 0.11.0 |
 
 ## Providers
@@ -100,10 +117,10 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ec2_client_vpn"></a> [ec2\_client\_vpn](#module\_ec2\_client\_vpn) | cloudposse/ec2-client-vpn/aws | 0.11.0 |
+| <a name="module_ec2_client_vpn"></a> [ec2\_client\_vpn](#module\_ec2\_client\_vpn) | cloudposse/ec2-client-vpn/aws | 0.14.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.3 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 
 ## Resources
 
@@ -128,8 +145,6 @@ No resources.
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_export_client_certificate"></a> [export\_client\_certificate](#input\_export\_client\_certificate) | Flag to determine whether to export the client certificate with the VPN configuration | `bool` | `true` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
@@ -161,10 +176,12 @@ No resources.
 | <a name="output_vpn_endpoint_dns_name"></a> [vpn\_endpoint\_dns\_name](#output\_vpn\_endpoint\_dns\_name) | The DNS Name of the Client VPN Endpoint Connection. |
 | <a name="output_vpn_endpoint_id"></a> [vpn\_endpoint\_id](#output\_vpn\_endpoint\_id) | The ID of the Client VPN Endpoint Connection. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-ec2-client-vpn](https://github.com/cloudposse/terraform-aws-ec2-client-vpn) - Cloud Posse's upstream component
-* [cloudposse/awsutils](https://github.com/cloudposse/terraform-provider-awsutils) - Cloud Posse's awsutils provider
 
+- [cloudposse/terraform-aws-ec2-client-vpn](https://github.com/cloudposse/terraform-aws-ec2-client-vpn) - Cloud Posse's
+  upstream component
+- [cloudposse/awsutils](https://github.com/cloudposse/terraform-provider-awsutils) - Cloud Posse's awsutils provider
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

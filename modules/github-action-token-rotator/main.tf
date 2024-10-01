@@ -19,4 +19,3 @@ module "github_action_token_rotator" {
 
   context = module.this.context
 }
-

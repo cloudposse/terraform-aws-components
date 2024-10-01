@@ -23,7 +23,7 @@ access to all the cluster's resources through Kubernetes.
 
 ### SSL Server Certificate Validation
 
-To get the Aurora MySQL SSL connection to validate: 
+To get the Aurora MySQL SSL connection to validate:
 1. Get the RDS CA from  https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem (expires Mar  5 09:11:31 2020 GMT)
 or successor (consult current RDS documentation)
 2. Save it in a `ConfigMap`

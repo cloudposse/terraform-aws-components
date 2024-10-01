@@ -3,6 +3,7 @@ build-harness/
 aws-assumed-role/
 .idea/
 *.iml
+docs/terraform.md
 
 vendir.lock.yml
 
@@ -189,3 +190,7 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+*.backup
+
+default.auto.tfvars

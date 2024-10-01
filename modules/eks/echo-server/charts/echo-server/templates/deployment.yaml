@@ -24,7 +24,35 @@ spec:
           args:
           # Disable the feature that turns the echo server into a file browser on the server (security risk)
           - "--enable:file=false"
+          {{- if eq (printf "%v" .Values.livenessProbeLogging) "false" }}
+          - "--logs:ignore:ping=true"
+          {{- end }}
           ports:
             - name: http
               containerPort: 80
               protocol: TCP
+          livenessProbe:
+            httpGet:
+              port: http
+              path: /ping
+              httpHeaders:
+                - name: x-echo-code
+                  value: "200"
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+            successThreshold: 1
+          {{- with index .Values "resources" }}
+          resources:
+            {{- with index . "limits" }}
+            limits:
+              cpu: {{ index . "cpu" | default "50m" }}
+              memory: {{ index . "memory" | default "128Mi" }}
+            {{- end }}
+            {{- with index . "requests" }}
+            requests:
+              cpu: {{ index . "cpu" | default "50m" }}
+              memory: {{ index . "memory" | default "128Mi" }}
+            {{- end }}
+          {{- end }}

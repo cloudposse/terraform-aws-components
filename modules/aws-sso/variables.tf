@@ -3,21 +3,10 @@ variable "region" {
   description = "AWS Region"
 }
 
-variable "global_environment_name" {
-  type        = string
-  description = "Global environment name"
-  default     = "gbl"
-}
-variable "root_account_stage_name" {
-  type        = string
-  description = "The name of the stage where `account_map` is provisioned"
-  default     = "root"
-}
-
 variable "privileged" {
   type        = bool
-  description = "True if the default provider already has access to the backend"
-  default     = true
+  description = "True if the user running the Terraform command already has access to the Terraform backend"
+  default     = false
 }
 
 variable "account_assignments" {
@@ -44,18 +33,22 @@ variable "account_assignments" {
   default     = {}
 }
 
-variable "iam_primary_roles_stage_name" {
-  type        = string
-  description = "The name of the stage where the IAM primary roles are provisioned"
-  default     = "identity"
-}
-
-variable "identity_roles_accessible" {
+variable "aws_teams_accessible" {
   type        = set(string)
   description = <<-EOT
     List of IAM roles (e.g. ["admin", "terraform"]) for which to create permission
     sets that allow the user to assume that role. Named like
-    admin -> IdentityAdminRoleAccess
+    admin -> IdentityAdminTeamAccess
+    EOT
+  default     = []
+}
+
+variable "groups" {
+  type        = list(string)
+  description = <<-EOT
+    List of AWS Identity Center Groups to be created with the AWS API.
+
+    When provisioning the Google Workspace Integration with AWS, Groups need to be created with API in order for automatic provisioning to work as intended.
     EOT
   default     = []
 }

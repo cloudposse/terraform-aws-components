@@ -1,3 +1,3 @@
 FROM scratch
-COPY aws/ /aws
-WORKDIR /aws
+COPY modules/ /modules
+WORKDIR /modules

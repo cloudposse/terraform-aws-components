@@ -37,7 +37,7 @@ module "kms_key_ses" {
 
 module "ssm_parameter_store" {
   source  = "cloudposse/ssm-parameter-store/aws"
-  version = "0.10.0"
+  version = "0.11.0"
 
   count = local.enabled ? 1 : 0
 

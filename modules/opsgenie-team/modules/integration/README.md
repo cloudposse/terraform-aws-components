@@ -1,5 +1,8 @@
 ## Integration
 
+This module creates an OpsGenie integrations for a team. By Default, it creates a Datadog integration.
+
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -20,7 +23,7 @@
 |------|--------|---------|
 | <a name="module_api_integration"></a> [api\_integration](#module\_api\_integration) | cloudposse/incident-management/opsgenie//modules/api_integration | 0.16.0 |
 | <a name="module_integration_name"></a> [integration\_name](#module\_integration\_name) | cloudposse/label/null | 0.25.0 |
-| <a name="module_ssm_parameter_store"></a> [ssm\_parameter\_store](#module\_ssm\_parameter\_store) | cloudposse/ssm-parameter-store/aws | 0.10.0 |
+| <a name="module_ssm_parameter_store"></a> [ssm\_parameter\_store](#module\_ssm\_parameter\_store) | cloudposse/ssm-parameter-store/aws | 0.11.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -65,3 +68,4 @@
 | <a name="output_ssm_path"></a> [ssm\_path](#output\_ssm\_path) | Full SSM path of the team integration key |
 | <a name="output_type"></a> [type](#output\_type) | Type of the team integration |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->

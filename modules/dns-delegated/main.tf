@@ -55,7 +55,7 @@ resource "aws_route53_zone" "private" {
 
 module "utils" {
   source  = "cloudposse/utils/aws"
-  version = "1.1.0"
+  version = "1.3.0"
 }
 
 resource "aws_route53_zone_association" "secondary" {
@@ -76,7 +76,7 @@ resource "aws_shield_protection" "shield_protection" {
   name         = local.aws_route53_zone[each.key].name
   resource_arn = format("arn:%s:route53:::hostedzone/%s", local.aws_partition, local.aws_route53_zone[each.key].id)
 
-  tags = module.this.context
+  tags = module.this.tags
 }
 
 resource "aws_route53_record" "soa" {

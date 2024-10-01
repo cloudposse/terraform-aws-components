@@ -5,19 +5,19 @@ terraform {
 }
 
 variable "aws_assume_role_arn" {
-  type = "string"
+  type = string
 }
 
 variable "namespace" {}
 
 variable "accounts_enabled" {
-  type        = "list"
+  type        = list(string)
   description = "Accounts to enable"
   default     = ["dev", "staging", "prod", "testing", "audit"]
 }
 
 provider "aws" {
   assume_role {
-    role_arn = "${var.aws_assume_role_arn}"
+    role_arn = var.aws_assume_role_arn
   }
 }

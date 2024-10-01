@@ -46,7 +46,8 @@ module "team_routing_rule" {
 
     notify = [{
       type = var.notify.type
-      id   = join("", data.opsgenie_schedule.notification_schedule.*.id)
+      name = try(format(var.team_naming_format, var.team_name, var.notify.name), null)
+      id   = try(join("", data.opsgenie_schedule.notification_schedule.*.id), "")
     }]
 
     criteria = {
@@ -61,11 +62,16 @@ module "team_routing_rule" {
   context = module.this.context
 }
 
+locals {
+  default_service = { for k, v in var.services : k => v if k == "default_service" }
+  services        = { for k, v in var.services : k => v if k != "default_service" }
+}
+
 module "service_incident_rule" {
   source  = "cloudposse/incident-management/opsgenie//modules/service_incident_rule"
   version = "0.16.0"
 
-  for_each = local.service_incident_rule_enabled ? var.services : {}
+  for_each = local.service_incident_rule_enabled ? local.services : {}
 
   service_incident_rule = {
     service_id = data.opsgenie_service.incident_service[each.key].id
@@ -77,6 +83,41 @@ module "service_incident_rule" {
         operation      = "contains"
         expected_value = "service:${each.key}"
       }])
+
+      incident_properties = {
+        message = try(var.incident_properties.message, "{{message}}")
+        tags    = try(var.incident_properties.tags, [])
+        details = try(var.incident_properties.details, {})
+
+        priority = var.priority
+
+        stakeholder_properties = {
+          message     = try(var.incident_properties.message, "{{message}}")
+          description = try(var.incident_properties.description, null)
+          enable      = try(var.incident_properties.update_stakeholders, true)
+        }
+      }
+    }
+  }
+
+  context = module.this.context
+}
+
+
+module "serviceless_incident_rule" {
+  source  = "cloudposse/incident-management/opsgenie//modules/service_incident_rule"
+  version = "0.16.0"
+
+  depends_on = [data.opsgenie_service.incident_service]
+
+  for_each = local.service_incident_rule_enabled ? local.default_service : {}
+
+  service_incident_rule = {
+    service_id = data.opsgenie_service.incident_service[each.key].id
+
+    incident_rule = {
+      condition_match_type = var.criteria.type
+      conditions           = try(var.criteria.conditions, null)
 
       incident_properties = {
         message = try(var.incident_properties.message, "{{message}}")

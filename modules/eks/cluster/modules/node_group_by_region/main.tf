@@ -3,7 +3,6 @@ locals {
   az_list = tolist(local.az_set)
 }
 
-
 module "node_group" {
   for_each = module.this.enabled ? local.az_set : []
 

@@ -3,26 +3,28 @@ variable "region" {
   description = "AWS Region"
 }
 
-variable "accounts_with_vpc" {
-  type        = set(string)
-  description = "Set of account names that have VPC"
-}
-
-variable "accounts_with_eks" {
-  type        = set(string)
-  description = "Set of account names that have EKS"
-}
-
 variable "expose_eks_sg" {
   type        = bool
   description = "Set true to allow EKS clusters to accept traffic from source accounts"
   default     = true
 }
 
-variable "eks_component_names" {
-  type        = set(string)
-  description = "The names of the eks components"
-  default     = ["eks/cluster"]
+variable "connections" {
+  type = list(object({
+    account = object({
+      stage       = string
+      environment = optional(string, "")
+      tenant      = optional(string, "")
+    })
+    vpc_component_names = optional(list(string), ["vpc"])
+    eks_component_names = optional(list(string), [])
+  }))
+  description = <<-EOT
+  A list of objects to define each TGW connections.
+
+  By default, each connection will look for only the default `vpc` component.
+  EOT
+  default     = []
 }
 
 variable "account_map_environment_name" {
@@ -45,4 +47,16 @@ variable "account_map_tenant_name" {
   If the `tenant` label is not used, leave this as `null`.
   EOT
   default     = null
+}
+
+variable "ram_principals" {
+  type        = list(string)
+  description = "A list of AWS account IDs to share the TGW with outside the organization"
+  default     = []
+}
+
+variable "allow_external_principals" {
+  type        = bool
+  description = "Set true to allow the TGW to be RAM shared with external principals specified in ram_principals"
+  default     = false
 }

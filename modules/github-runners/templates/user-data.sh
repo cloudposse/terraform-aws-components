@@ -64,4 +64,4 @@ export USER=root
 ${post_install}
 
 ls -la /tmp
-/tmp/create-latest-svc.sh ${github_scope} "" $NODE_NAME $USER $LABELS
+/tmp/create-latest-svc.sh ${github_scope} "" $NODE_NAME $USER $LABELS ${runner_group}

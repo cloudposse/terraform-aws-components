@@ -1,6 +1,6 @@
 # Bootstrap Process
 
-Perform these steps in each account, the very first time, in order to setup the tfstate bucket. 
+Perform these steps in each account, the very first time, in order to setup the tfstate bucket.
 
 ## Create
 
@@ -19,7 +19,7 @@ ENV TF_DYNAMODB_TABLE="cpco-staging-terraform-state-lock"
 
 ## Destroy
 
-To destroy the state bucket, first make sure all services in the account have already been destroyed. 
+To destroy the state bucket, first make sure all services in the account have already been destroyed.
 
 Then run:
 ```

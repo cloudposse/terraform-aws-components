@@ -73,6 +73,7 @@ data "cloudinit_config" "config" {
       pre_install            = var.userdata_pre_install
       post_install           = var.userdata_post_install
       runner_version         = var.runner_version
+      runner_group           = var.runner_group
     })
   }
 }
@@ -106,7 +107,7 @@ module "sg" {
 
 module "autoscale_group" {
   source  = "cloudposse/ec2-autoscale-group/aws"
-  version = "0.30.1"
+  version = "0.35.1"
 
   image_id                    = join("", data.aws_ami.runner.*.id)
   instance_type               = var.instance_type

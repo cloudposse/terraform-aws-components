@@ -1,55 +1,55 @@
 variable "aws_assume_role_arn" {
-  type = "string"
+  type = string
 }
 
 variable "namespace" {
-  type        = "string"
+  type        = string
   description = "Namespace (e.g. `cp` or `cloudposse`)"
 }
 
 variable "stage" {
-  type        = "string"
+  type        = string
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
 variable "name" {
-  type        = "string"
+  type        = string
   description = "Name  (e.g. `kops`)"
   default     = "kops"
 }
 
 variable "region" {
-  type        = "string"
+  type        = string
   default     = ""
-  description = "AWS region for resources. Can be overriden by `resource_region` and `state_store_region`"
+  description = "AWS region for resources. Can be overridden by `resource_region` and `state_store_region`"
 }
 
 variable "state_store_region" {
-  type        = "string"
+  type        = string
   default     = ""
   description = "Region where to create the S3 bucket for the kops state store. Defaults to `var.region`"
 }
 
 variable "resource_region" {
-  type        = "string"
+  type        = string
   default     = ""
   description = "Region where to create region-specific resources. Defaults to `var.region`"
 }
 
 variable "create_state_store_bucket" {
-  type        = "string"
+  type        = string
   default     = "true"
   description = "Set to `false` to use existing S3 bucket (e.g. from another region)"
 }
 
 variable "cluster_name_prefix" {
-  type        = "string"
+  type        = string
   default     = ""
   description = "Prefix to add before parent DNS zone name to identify this cluster, e.g. `us-east-1`. Defaults to `var.resource_region`"
 }
 
 variable "availability_zones" {
-  type        = "list"
+  type        = list(string)
   description = "List of availability zones in which to provision the cluster (should be an odd number to avoid split-brain)."
   default     = []
 }
@@ -60,48 +60,48 @@ variable "availability_zone_count" {
 }
 
 variable "zone_name" {
-  type        = "string"
+  type        = string
   description = "DNS zone name"
 }
 
 variable "domain_enabled" {
-  type        = "string"
+  type        = string
   description = "Enable DNS Zone creation for kops"
   default     = "true"
 }
 
 variable "force_destroy" {
-  type        = "string"
+  type        = string
   description = "A boolean that indicates all objects should be deleted from the bucket so that the bucket can be destroyed without errors. These objects are not recoverable."
   default     = "false"
 }
 
 variable "ssh_key_algorithm" {
-  type        = "string"
+  type        = string
   default     = "RSA"
   description = "SSH key algorithm to use. Currently-supported values are 'RSA' and 'ECDSA'"
 }
 
 variable "ssh_key_rsa_bits" {
-  type        = "string"
+  type        = string
   description = "When ssh_key_algorithm is 'RSA', the size of the generated RSA key in bits"
   default     = "4096"
 }
 
 variable "ssh_key_ecdsa_curve" {
-  type        = "string"
+  type        = string
   description = "When ssh_key_algorithm is 'ECDSA', the name of the elliptic curve to use. May be any one of 'P256', 'P384' or P521'"
   default     = "P521"
 }
 
 variable "kops_attribute" {
-  type        = "string"
+  type        = string
   description = "Additional attribute to kops state bucket"
   default     = "state"
 }
 
 variable "complete_zone_name" {
-  type        = "string"
+  type        = string
   description = "Region or any classifier prefixed to zone name"
   default     = "$${name}.$${parent_zone_name}"
 }

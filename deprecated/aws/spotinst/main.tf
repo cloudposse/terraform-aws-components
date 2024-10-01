@@ -79,4 +79,3 @@ module "default" {
   template_url = local.template_url
   capabilities = var.capabilities
 }
-

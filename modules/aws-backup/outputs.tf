@@ -8,11 +8,6 @@ output "backup_vault_arn" {
   description = "Backup Vault ARN"
 }
 
-output "backup_vault_recovery_points" {
-  value       = module.backup.backup_vault_recovery_points
-  description = "Backup Vault recovery points"
-}
-
 output "backup_plan_arn" {
   value       = module.backup.backup_plan_arn
   description = "Backup Plan ARN"
@@ -27,4 +22,3 @@ output "backup_selection_id" {
   value       = module.backup.backup_selection_id
   description = "Backup Selection ID"
 }
-

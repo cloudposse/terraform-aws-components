@@ -1,3 +1,10 @@
+---
+tags:
+  - component/dms/endpoint
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `dms/endpoint`
 
 This component provisions DMS endpoints.
@@ -69,17 +76,20 @@ components:
           - target
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.26.0 |
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.26.0 |
 
 ## Modules
 
@@ -91,7 +101,10 @@ No providers.
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [aws_ssm_parameter.password](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+| [aws_ssm_parameter.username](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 
 ## Inputs
 
@@ -111,8 +124,6 @@ No resources.
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_extra_connection_attributes"></a> [extra\_connection\_attributes](#input\_extra\_connection\_attributes) | Additional attributes associated with the connection to the source database | `string` | `""` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_kafka_settings"></a> [kafka\_settings](#input\_kafka\_settings) | Configuration block for Kafka settings | `map(any)` | `null` | no |
 | <a name="input_kinesis_settings"></a> [kinesis\_settings](#input\_kinesis\_settings) | Configuration block for Kinesis settings | `map(any)` | `null` | no |
 | <a name="input_kms_key_arn"></a> [kms\_key\_arn](#input\_kms\_key\_arn) | (Required when engine\_name is `mongodb`, optional otherwise). ARN for the KMS key that will be used to encrypt the connection parameters. If you do not specify a value for `kms_key_arn`, then AWS DMS will use your default encryption key | `string` | `null` | no |
@@ -123,7 +134,8 @@ No resources.
 | <a name="input_mongodb_settings"></a> [mongodb\_settings](#input\_mongodb\_settings) | Configuration block for MongoDB settings | `map(any)` | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_password"></a> [password](#input\_password) | Password to be used to login to the endpoint database | `string` | `null` | no |
+| <a name="input_password"></a> [password](#input\_password) | Password to be used to login to the endpoint database | `string` | `""` | no |
+| <a name="input_password_path"></a> [password\_path](#input\_password\_path) | If set, the path in AWS SSM Parameter Store to fetch the password for the DMS admin user | `string` | `""` | no |
 | <a name="input_port"></a> [port](#input\_port) | Port used by the endpoint database | `number` | `null` | no |
 | <a name="input_redshift_settings"></a> [redshift\_settings](#input\_redshift\_settings) | Configuration block for Redshift settings | `map(any)` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
@@ -137,7 +149,8 @@ No resources.
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_username"></a> [username](#input\_username) | User name to be used to login to the endpoint database | `string` | `null` | no |
+| <a name="input_username"></a> [username](#input\_username) | User name to be used to login to the endpoint database | `string` | `""` | no |
+| <a name="input_username_path"></a> [username\_path](#input\_username\_path) | If set, the path in AWS SSM Parameter Store to fetch the username for the DMS admin user | `string` | `""` | no |
 
 ## Outputs
 
@@ -146,10 +159,11 @@ No resources.
 | <a name="output_dms_endpoint_arn"></a> [dms\_endpoint\_arn](#output\_dms\_endpoint\_arn) | DMS endpoint ARN |
 | <a name="output_dms_endpoint_id"></a> [dms\_endpoint\_id](#output\_dms\_endpoint\_id) | DMS endpoint ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/dms/modules/dms-endpoint) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dms/modules/dms-endpoint) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

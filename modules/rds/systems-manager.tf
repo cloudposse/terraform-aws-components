@@ -48,13 +48,15 @@ variable "ssm_key_port" {
 }
 
 locals {
-  ssm_enabled = local.enabled && var.ssm_enabled
+  ssm_enabled                = local.enabled && var.ssm_enabled
+  ssm_name_path              = join("-", compact(concat([var.name], var.attributes)))
+  rds_database_password_path = format(var.ssm_key_format, var.ssm_key_prefix, local.ssm_name_path, var.ssm_key_password)
 }
 
 resource "aws_ssm_parameter" "rds_database_user" {
   count = local.ssm_enabled ? 1 : 0
 
-  name        = format(var.ssm_key_format, var.ssm_key_prefix, var.name, var.ssm_key_user)
+  name        = format(var.ssm_key_format, var.ssm_key_prefix, local.ssm_name_path, var.ssm_key_user)
   value       = local.database_user
   description = "RDS DB user"
   type        = "String"
@@ -64,7 +66,7 @@ resource "aws_ssm_parameter" "rds_database_user" {
 resource "aws_ssm_parameter" "rds_database_password" {
   count = local.ssm_enabled ? 1 : 0
 
-  name        = format(var.ssm_key_format, var.ssm_key_prefix, var.name, var.ssm_key_password)
+  name        = local.rds_database_password_path
   value       = local.database_password
   description = "RDS DB password"
   type        = "SecureString"
@@ -75,8 +77,8 @@ resource "aws_ssm_parameter" "rds_database_password" {
 resource "aws_ssm_parameter" "rds_database_hostname" {
   count = local.ssm_enabled ? 1 : 0
 
-  name        = format(var.ssm_key_format, var.ssm_key_prefix, var.name, var.ssm_key_hostname)
-  value       = module.rds_instance.hostname
+  name        = format(var.ssm_key_format, var.ssm_key_prefix, local.ssm_name_path, var.ssm_key_hostname)
+  value       = module.rds_instance.hostname == "" ? module.rds_instance.instance_address : module.rds_instance.hostname
   description = "RDS DB hostname"
   type        = "String"
   overwrite   = true
@@ -85,7 +87,7 @@ resource "aws_ssm_parameter" "rds_database_hostname" {
 resource "aws_ssm_parameter" "rds_database_port" {
   count = local.ssm_enabled ? 1 : 0
 
-  name        = format(var.ssm_key_format, var.ssm_key_prefix, var.name, var.ssm_key_port)
+  name        = format(var.ssm_key_format, var.ssm_key_prefix, local.ssm_name_path, var.ssm_key_port)
   value       = var.database_port
   description = "RDS DB port"
   type        = "String"
@@ -93,6 +95,6 @@ resource "aws_ssm_parameter" "rds_database_port" {
 }
 
 output "rds_database_ssm_key_prefix" {
-  value       = local.ssm_enabled ? format(var.ssm_key_format, var.ssm_key_prefix, var.name, "") : null
+  value       = local.ssm_enabled ? format(var.ssm_key_format, var.ssm_key_prefix, local.ssm_name_path, "") : null
   description = "SSM prefix"
 }

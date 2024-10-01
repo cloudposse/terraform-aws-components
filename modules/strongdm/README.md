@@ -1,6 +1,13 @@
+---
+tags:
+  - component/strongdm
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `strongdm`
 
-This component provisions [strongDM](https://www.strongdm.com/) gateway, relay and roles 
+This component provisions [strongDM](https://www.strongdm.com/) gateway, relay and roles
 
 ## Usage
 
@@ -16,6 +23,7 @@ components:
         enabled: true
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -69,12 +77,11 @@ components:
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
 | <a name="input_create_roles"></a> [create\_roles](#input\_create\_roles) | Set `true` to create roles (should only be set in one account) | `bool` | `false` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| <a name="input_dns_zone"></a> [dns\_zone](#input\_dns\_zone) | n/a | `string` | `null` | no |
+| <a name="input_dns_zone"></a> [dns\_zone](#input\_dns\_zone) | DNS zone (e.g. example.com) into which to install the web host. | `string` | `null` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_gateway_count"></a> [gateway\_count](#input\_gateway\_count) | Number of gateways to provision | `number` | `2` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for default, which is `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
 | <a name="input_install_gateway"></a> [install\_gateway](#input\_install\_gateway) | Set `true` to install a pair of gateways | `bool` | `false` | no |
 | <a name="input_install_relay"></a> [install\_relay](#input\_install\_relay) | Set `true` to install a pair of relays | `bool` | `true` | no |
 | <a name="input_kms_alias_name"></a> [kms\_alias\_name](#input\_kms\_alias\_name) | AWS KMS alias used for encryption/decryption default is alias used in SSM | `string` | `"alias/aws/ssm"` | no |
@@ -97,7 +104,9 @@ components:
 
 No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* https://github.com/spotinst/spotinst-kubernetes-helm-charts
-* https://docs.spot.io/ocean/tutorials/spot-kubernetes-controller/
+
+- https://github.com/spotinst/spotinst-kubernetes-helm-charts
+- https://docs.spot.io/ocean/tutorials/spot-kubernetes-controller/

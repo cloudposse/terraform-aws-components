@@ -4,7 +4,7 @@ output "team_members" {
 }
 
 output "team_name" {
-  value       = local.team_name
+  value       = local.enabled ? local.team_name : null
   description = "Team Name"
 }
 
@@ -14,16 +14,16 @@ output "team_id" {
 }
 
 output "integration" {
-  value       = module.integration
+  value       = local.enabled ? module.integration : null
   description = "Integrations created"
 }
 
 output "routing" {
-  value       = module.routing
+  value       = local.enabled ? module.routing : null
   description = "Routing rules created"
 }
 
 output "escalation" {
-  value       = module.escalation
+  value       = local.enabled ? module.escalation : null
   description = "Escalation rules created"
 }
