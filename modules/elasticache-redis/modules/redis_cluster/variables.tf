@@ -5,6 +5,12 @@ variable "cluster_name" {
   description = "Elasticache Cluster name"
 }
 
+variable "create_parameter_group" {
+  type        = bool
+  default     = true
+  description = "Whether new parameter group should be created. Set to false if you want to use existing parameter group"
+}
+
 variable "engine_version" {
   type        = string
   description = "Redis Version"
@@ -49,10 +55,12 @@ variable "cluster_attributes" {
     family                          = string
     port                            = number
     zone_id                         = string
+    multi_az_enabled                = bool
     at_rest_encryption_enabled      = bool
     transit_encryption_enabled      = bool
     apply_immediately               = bool
     automatic_failover_enabled      = bool
+    auto_minor_version_upgrade      = bool
     auth_token_enabled              = bool
   })
   description = "Cluster attributes"
@@ -64,6 +72,12 @@ variable "parameters" {
     value = string
   }))
   description = "Parameters to configure cluster parameter group"
+}
+
+variable "parameter_group_name" {
+  type        = string
+  default     = null
+  description = "Override the default parameter group name"
 }
 
 variable "kms_alias_name_ssm" {

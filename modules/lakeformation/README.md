@@ -1,3 +1,10 @@
+---
+tags:
+  - component/lakeformation
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `lakeformation`
 
 This component is responsible for provisioning Amazon Lake Formation resources.
@@ -8,7 +15,8 @@ This component is responsible for provisioning Amazon Lake Formation resources.
 
 Here are some example snippets for how to use this component:
 
-`stacks/catalog/lakeformation/defaults.yaml` file (base component for all lakeformation deployments with default settings):
+`stacks/catalog/lakeformation/defaults.yaml` file (base component for all lakeformation deployments with default
+settings):
 
 ```yaml
 components:
@@ -28,7 +36,7 @@ components:
 
 ```yaml
 import:
-- catalog/lakeformation/defaults
+  - catalog/lakeformation/defaults
 
 components:
   terraform:
@@ -54,6 +62,7 @@ components:
               left: test1
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -123,8 +132,11 @@ components:
 |------|-------------|
 | <a name="output_lf_tags"></a> [lf\_tags](#output\_lf\_tags) | List of LF tags created. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/lakeformation) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/lakeformation) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

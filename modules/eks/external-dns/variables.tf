@@ -132,6 +132,16 @@ variable "dns_gbl_primary_environment_name" {
   default     = "gbl"
 }
 
+
+variable "dns_components" {
+  type = list(object({
+    component   = string,
+    environment = optional(string)
+  }))
+  description = "A list of additional DNS components to search for ZoneIDs"
+  default     = []
+}
+
 variable "publish_internal_services" {
   type        = bool
   description = "Allow external-dns to publish DNS records for ClusterIP services"

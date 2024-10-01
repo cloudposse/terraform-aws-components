@@ -1,3 +1,10 @@
+---
+tags:
+  - component/athena
+  - layer/data
+  - provider/aws
+---
+
 # Component: `athena`
 
 This component is responsible for provisioning an Amazon Athena workgroup, databases, and related resources.
@@ -34,12 +41,11 @@ components:
         s3_output_path: ""
         workgroup_state: "ENABLED"
         database: []
-
 ```
 
 ```yaml
 import:
-- catalog/athena/defaults
+  - catalog/athena/defaults
 
 components:
   terraform:
@@ -59,15 +65,16 @@ components:
 
 ### CloudTrail Integration
 
-Using Athena with CloudTrail logs is a powerful way to enhance your analysis of AWS service activity. This component supports creating
-a CloudTrail table for each account and setting up queries to read CloudTrail logs from a centralized location.
+Using Athena with CloudTrail logs is a powerful way to enhance your analysis of AWS service activity. This component
+supports creating a CloudTrail table for each account and setting up queries to read CloudTrail logs from a centralized
+location.
 
-To set up the CloudTrail Integration, first create the `create` and `alter` queries in Athena with this component. When `var.cloudtrail_database`
-is defined, this component will create these queries.
+To set up the CloudTrail Integration, first create the `create` and `alter` queries in Athena with this component. When
+`var.cloudtrail_database` is defined, this component will create these queries.
 
 ```yaml
 import:
-- catalog/athena/defaults
+  - catalog/athena/defaults
 
 components:
   terraform:
@@ -80,7 +87,7 @@ components:
         enabled: true
         name: athena-audit
         workgroup_description: "Athena Workgroup for Auditing"
-        cloudtrail_database : audit
+        cloudtrail_database: audit
         databases:
           audit:
             comment: "Auditor database for Athena"
@@ -97,20 +104,20 @@ components:
                eventtime
               FROM %s.platform_dev_cloudtrail_logs
               LIMIT 100;
-
 ```
 
-Once those are created, run the `create` and then the `alter` queries in the AWS Console to create and then fill the tables in Athena.
+Once those are created, run the `create` and then the `alter` queries in the AWS Console to create and then fill the
+tables in Athena.
 
 :::info
 
 Athena runs queries with the permissions of the user executing the query. In order to be able to query CloudTrail logs,
-the `audit` account must have access to the KMS key used to encrypt CloudTrails logs. Set `var.audit_access_enabled` to `true` in the `cloudtrail`
-component
+the `audit` account must have access to the KMS key used to encrypt CloudTrails logs. Set `var.audit_access_enabled` to
+`true` in the `cloudtrail` component
 
 :::
 
-
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -195,9 +202,12 @@ component
 | <a name="output_s3_bucket_id"></a> [s3\_bucket\_id](#output\_s3\_bucket\_id) | ID of S3 bucket used for Athena query results. |
 | <a name="output_workgroup_id"></a> [workgroup\_id](#output\_workgroup\_id) | ID of newly created Athena workgroup. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/athena) - Cloud Posse's upstream component
-* [Querying AWS CloudTrail logs with AWS Athena](https://docs.aws.amazon.com/athena/latest/ug/cloudtrail-logs.html)
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/athena) -
+  Cloud Posse's upstream component
+- [Querying AWS CloudTrail logs with AWS Athena](https://docs.aws.amazon.com/athena/latest/ug/cloudtrail-logs.html)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

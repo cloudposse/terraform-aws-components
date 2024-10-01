@@ -14,7 +14,7 @@ resource "kubernetes_namespace" "default" {
 
 module "redis" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.5.0"
+  version = "0.10.0"
 
   chart                = var.chart
   repository           = var.chart_repository

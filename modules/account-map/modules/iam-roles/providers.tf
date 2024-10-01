@@ -4,7 +4,7 @@ provider "awsutils" {
   alias = "iam-roles"
 
   # If the provider block is empty, Terraform will output a deprecation warning,
-  # because earlier versions of Terraform used empty provider blocks to decalare provider requirements,
+  # because earlier versions of Terraform used empty provider blocks to declare provider requirements,
   # which is now deprecated in favor of the required_providers block.
   # So we add a useless setting to the provider block to avoid the deprecation warning.
   profile = null

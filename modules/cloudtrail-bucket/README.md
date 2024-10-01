@@ -1,12 +1,22 @@
+---
+tags:
+  - component/cloudtrail-bucket
+  - layer/foundation
+  - provider/aws
+---
+
 # Component: `cloudtrail-bucket`
 
-This component is responsible for provisioning a bucket for storing cloudtrail logs for auditing purposes. It's expected to be used alongside [the `cloudtrail` component](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/cloudtrail).
+This component is responsible for provisioning a bucket for storing cloudtrail logs for auditing purposes. It's expected
+to be used alongside
+[the `cloudtrail` component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/cloudtrail).
 
 ## Usage
 
 **Stack Level**: Regional
 
-Here's an example snippet for how to use this component. It's suggested to apply this component to only the centralized `audit` account.
+Here's an example snippet for how to use this component. It's suggested to apply this component to only the centralized
+`audit` account.
 
 ```yaml
 components:
@@ -22,6 +32,7 @@ components:
         expiration_days: 365
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -38,7 +49,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cloudtrail_s3_bucket"></a> [cloudtrail\_s3\_bucket](#module\_cloudtrail\_s3\_bucket) | cloudposse/cloudtrail-s3-bucket/aws | 0.25.0 |
+| <a name="module_cloudtrail_s3_bucket"></a> [cloudtrail\_s3\_bucket](#module\_cloudtrail\_s3\_bucket) | cloudposse/cloudtrail-s3-bucket/aws | 0.26.1 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -87,9 +98,11 @@ No resources.
 | <a name="output_cloudtrail_bucket_domain_name"></a> [cloudtrail\_bucket\_domain\_name](#output\_cloudtrail\_bucket\_domain\_name) | CloudTrail S3 bucket domain name |
 | <a name="output_cloudtrail_bucket_id"></a> [cloudtrail\_bucket\_id](#output\_cloudtrail\_bucket\_id) | CloudTrail S3 bucket ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/cloudtrail-bucket) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/cloudtrail-bucket) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

@@ -192,7 +192,7 @@ variable "runner_configurations" {
     error_message = "Variable runner_configurations can contain only one target key of either `repo` or `org` not both."
   }
 
-  # runner_configuration may only conatain map keys "repo", "org", "runner_type", "autoscale_type"
+  # runner_configuration may only contain map keys "repo", "org", "runner_type", "autoscale_type"
   validation {
     condition     = alltrue([for r in var.runner_configurations : alltrue([for k in keys(r) : contains(["repo", "org", "runner_type", "autoscale_type"], k)])])
     error_message = "Unknown map key, must be one of repo, org, runner_type or autoscale_type."

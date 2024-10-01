@@ -127,7 +127,7 @@ variable "cloudwatch_forwarder_event_patterns" {
     detail      = optional(map(list(string)))
   }))
   description = <<-EOF
-    Map of title => CloudWatch Event patterns to forward to Datadog. Event structure from here: <https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html#CloudWatchEventsPatterns>
+    Map of title to CloudWatch Event patterns to forward to Datadog. Event structure from here: https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html#CloudWatchEventsPatterns
     Example:
     ```hcl
     cloudwatch_forwarder_event_rules = {

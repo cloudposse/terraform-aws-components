@@ -1,3 +1,10 @@
+---
+tags:
+  - component/kinesis-stream
+  - layer/addons
+  - provider/aws
+---
+
 # Component: `kinesis-stream`
 
 This component is responsible for provisioning an Amazon Kinesis data stream.
@@ -24,12 +31,11 @@ components:
         tags:
           Team: sre
           Service: kinesis-stream
-
 ```
 
 ```yaml
 import:
-- catalog/kinesis-stream/defaults
+  - catalog/kinesis-stream/defaults
 
 components:
   terraform:
@@ -45,6 +51,7 @@ components:
         kms_key_id: "alias/aws/kinesis"
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -109,8 +116,11 @@ No resources.
 | <a name="output_shard_count"></a> [shard\_count](#output\_shard\_count) | Number of shards provisioned. |
 | <a name="output_stream_arn"></a> [stream\_arn](#output\_stream\_arn) | ARN of the the Kinesis stream. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/kinesis-stream) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/kinesis-stream) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

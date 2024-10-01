@@ -1,7 +1,7 @@
 ## Escalation
 
-Terraform module to configure [Opsgenie Escalation](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/resources/escalation)
-
+Terraform module to configure
+[Opsgenie Escalation](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/resources/escalation)
 
 ## Usage
 
@@ -27,6 +27,7 @@ module "escalation" {
 }
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -89,3 +90,4 @@ module "escalation" {
 | <a name="output_escalation_id"></a> [escalation\_id](#output\_escalation\_id) | The ID of the Opsgenie Escalation |
 | <a name="output_escalation_name"></a> [escalation\_name](#output\_escalation\_name) | Name of the Opsgenie Escalation |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->

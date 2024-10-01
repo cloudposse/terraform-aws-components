@@ -5,6 +5,7 @@ locals {
 
   datadog_api_key = module.datadog_configuration.datadog_api_key
   datadog_app_key = module.datadog_configuration.datadog_app_key
+  datadog_site    = module.datadog_configuration.datadog_site
 
   # combine context tags with passed in datadog_tags
   # skip name since that won't be relevant for each metric
@@ -86,7 +87,7 @@ module "values_merge" {
 
 module "datadog_agent" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.9.1"
+  version = "0.10.0"
 
   name          = module.this.name
   chart         = var.chart
@@ -119,6 +120,11 @@ module "datadog_agent" {
       name  = "datadog.appKey"
       type  = "string"
       value = local.datadog_app_key
+    },
+    {
+      name  = "datadog.site"
+      type  = "string"
+      value = local.datadog_site
     }
   ]
 

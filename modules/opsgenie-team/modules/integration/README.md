@@ -2,6 +2,7 @@
 
 This module creates an OpsGenie integrations for a team. By Default, it creates a Datadog integration.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -67,3 +68,4 @@ This module creates an OpsGenie integrations for a team. By Default, it creates 
 | <a name="output_ssm_path"></a> [ssm\_path](#output\_ssm\_path) | Full SSM path of the team integration key |
 | <a name="output_type"></a> [type](#output\_type) | Type of the team integration |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->

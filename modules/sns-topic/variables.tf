@@ -61,7 +61,7 @@ variable "sns_topic_policy_json" {
 }
 
 # Enabling sqs_dlq_enabled won't be effective.
-# SNS subscription - redrive policy parameter is not yet avaialable in TF - waiting for PR https://github.com/terraform-providers/terraform-provider-aws/issues/10931
+# SNS subscription - redrive policy parameter is not yet available in TF - waiting for PR https://github.com/terraform-providers/terraform-provider-aws/issues/10931
 variable "sqs_dlq_enabled" {
   type        = bool
   description = "Enable delivery of failed notifications to SQS and monitor messages in queue."

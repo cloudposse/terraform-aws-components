@@ -1,3 +1,11 @@
+---
+tags:
+  - component/s3-bucket
+  - layer/addons
+  - layer/gitops
+  - provider/aws
+---
+
 # Component: `s3-bucket`
 
 This component is responsible for provisioning S3 buckets.
@@ -51,12 +59,11 @@ components:
               days: 90
             expiration:
               days: 120
-
 ```
 
 ```yaml
 import:
-- catalog/s3/defaults
+  - catalog/s3/defaults
 
 components:
   terraform:
@@ -74,6 +81,7 @@ components:
           prefix: logs/
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -182,10 +190,11 @@ components:
 | <a name="output_bucket_region"></a> [bucket\_region](#output\_bucket\_region) | Bucket region |
 | <a name="output_bucket_regional_domain_name"></a> [bucket\_regional\_domain\_name](#output\_bucket\_regional\_domain\_name) | Bucket region-specific domain name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/s3-bucket) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/s3-bucket) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

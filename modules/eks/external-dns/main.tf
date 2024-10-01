@@ -9,7 +9,8 @@ locals {
   txt_prefix      = var.txt_prefix != "" ? format("%s-", local.txt_owner) : ""
   zone_ids = compact(concat(
     values(module.dns_gbl_delegated.outputs.zones)[*].zone_id,
-    values(module.dns_gbl_primary.outputs.zones)[*].zone_id
+    values(module.dns_gbl_primary.outputs.zones)[*].zone_id,
+    flatten([for k, v in module.additional_dns_components : [for i, j in v.outputs.zones : j.zone_id]])
   ))
 }
 
@@ -19,7 +20,7 @@ data "aws_partition" "current" {
 
 module "external_dns" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.7.0"
+  version = "0.10.0"
 
   name            = module.this.name
   chart           = var.chart
@@ -97,7 +98,7 @@ module "external_dns" {
       publishInternalServices = var.publish_internal_services
       txtOwnerId              = local.txt_owner
       txtPrefix               = local.txt_prefix
-      source                  = local.sources
+      sources                 = local.sources
     }),
     # hardcoded values
     file("${path.module}/resources/values.yaml"),
