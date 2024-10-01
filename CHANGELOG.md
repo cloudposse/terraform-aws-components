@@ -1,5 +1,53 @@
 # CHANGELOG
 
+## 1.502.0
+
+
+
+<details>
+  <summary>upstream `tailscale` @Benbentwo (#835)</summary>
+## what
+* Initial Tailscale deployment
+
+## why
+* tailscale operators
+
+## references
+* https://github.com/tailscale/tailscale/tree/main/docs/k8s
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.501.0` @github-actions (#1125)</summary>
+Update Changelog for [`1.501.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.501.0)
+</details>
+
+<details>
+  <summary>docs: improve external-dns snippet in readme @sgtoj (#986)</summary>
+## what
+
+- update the `eks/external-dns` component example in readme
+    - set latest chart version
+    - set the resource configure properly
+    - add `txt_prefix` var to snippet
+
+## why
+
+- help the future engineers deploying or updating external-dns
+
+## references
+
+- n/a
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.500.0` @github-actions (#1124)</summary>
+Update Changelog for [`1.500.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.500.0)
+</details>
+
+
+
 ## 1.501.0
 
 <details>
