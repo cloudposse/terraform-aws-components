@@ -151,6 +151,12 @@ variable "push_restrictions_enabled" {
   default     = true
 }
 
+variable "vulnerability_alerts_enabled" {
+  type        = bool
+  description = "Enable security alerts for vulnerable dependencies"
+  default     = false
+}
+
 variable "slack_notifications_channel" {
   type        = string
   default     = ""
